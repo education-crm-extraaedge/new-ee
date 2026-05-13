@@ -1,377 +1,1128 @@
 <?php
 /**
- * functions.php — ExtraaEdge theme
- * Handles: theme setup, head cleanup, deferred enqueues, dynamic schema
- * generators (Org/WebSite/LocalBusiness/Article/Breadcrumb/FAQ/Speakable/
- * Review/Video/HowTo/SoftwareApplication), sitemap, robots, image alt
- * fallback, last-modified headers, body classes, CPT registration.
+ * ExtraaEdge Theme Functions — PRODUCTION + SEO/CRAWLABILITY READY
+ *
+ * ─── SECTIONS ───
+ *  A. THEME SETUP (title-tag, post-thumbnails, html5, custom-logo, menus)
+ *  B. WIDGET AREAS (sidebar + 3 footer)
+ *  C. ENQUEUE SCRIPTS
+ *  D. CUSTOM POST TYPES (9 CPTs)
+ *  E. FORM EMBED UNFILTERED HTML (admins only)
+ *  F. PRODUCT ADMIN STYLES + JS
+ *  G. PRODUCT META BOX (11 tabs)
+ *  H. SAVE META BOX DATA
+ *  I. FLUSH REWRITES
+ *
+ *  ── SEO / CRAWLABILITY UPGRADES ──
+ *  J. WP HEAD BLOAT CLEANUP (removes RSD, wlwmanifest, generator, shortlink, oembed, emoji)
+ *  K. IMAGE ALT FALLBACK (no empty alt to crawlers)
+ *  L. DEFER / ASYNC SCRIPT LOADER (Core Web Vitals)
+ *  M. LAST-MODIFIED + CACHE HEADERS (TTFB + freshness)
+ *  N. ROBOTS.TXT (with AI crawler allowlist: GPTBot, ClaudeBot, PerplexityBot, Google-Extended)
+ *  O. PROPER HTTP STATUS CODES (200/301/404)
+ *  P. BODY CLASSES (entity signals)
+ *  Q. CLEAN EXCERPT
+ *  R. DISABLE XML-RPC
+ *  S. SCHEMA HELPERS (FAQ / Video / HowTo / Review — for template use)
+ *  T. AUTO PRELOAD HERO IMAGE (LCP)
+ *  U. LAZY LOAD GUARD (never lazy-load above-the-fold)
+ *
+ * @package ExtraaEdge
+ * @version 1.3.0
  */
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
-/* ─────────────────────────────────────────────────────────────
- * 1. THEME SETUP
- * ─────────────────────────────────────────────────────────── */
-add_action( 'after_setup_theme', function () {
-	add_theme_support( 'title-tag' );
-	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'automatic-feed-links' );
-	add_theme_support( 'html5', [ 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'script', 'style' ] );
-	add_theme_support( 'responsive-embeds' );
-	add_theme_support( 'custom-logo' );
-} );
+// ══════════════════════════════════════════════════════════
+// A. THEME SETUP
+// ══════════════════════════════════════════════════════════
+function extraaedge_setup() {
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    add_theme_support('automatic-feed-links');
+    add_theme_support('html5', array('search-form','comment-form','comment-list','gallery','caption','style','script'));
+    add_theme_support('custom-logo', array(
+        'height'      => 100,
+        'width'       => 400,
+        'flex-height' => true,
+        'flex-width'  => true,
+    ));
+    add_theme_support('responsive-embeds');
+    register_nav_menus(array(
+        'primary' => esc_html__('Primary Menu', 'extraaedge'),
+        'footer'  => esc_html__('Footer Menu', 'extraaedge'),
+    ));
+}
+add_action('after_setup_theme', 'extraaedge_setup');
 
-/* ─────────────────────────────────────────────────────────────
- * 2. STRIP WP HEAD BLOAT (cleaner source for crawlers)
- * ─────────────────────────────────────────────────────────── */
-remove_action( 'wp_head', 'rsd_link' );
-remove_action( 'wp_head', 'wlwmanifest_link' );
-remove_action( 'wp_head', 'wp_generator' );
-remove_action( 'wp_head', 'wp_shortlink_wp_head' );
-remove_action( 'wp_head', 'rest_output_link_wp_head' );
-remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
-remove_action( 'wp_head', 'feed_links_extra', 3 );
-remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-remove_action( 'wp_print_styles', 'print_emoji_styles' );
-add_filter( 'the_generator', '__return_empty_string' );
-add_filter( 'emoji_svg_url', '__return_false' );
+// ══════════════════════════════════════════════════════════
+// B. WIDGET AREAS
+// ══════════════════════════════════════════════════════════
+function extraaedge_widgets_init() {
+    register_sidebar(array(
+        'name'          => esc_html__('Sidebar', 'extraaedge'),
+        'id'            => 'sidebar-1',
+        'description'   => esc_html__('Add widgets here.', 'extraaedge'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ));
+    for ($i = 1; $i <= 3; $i++) {
+        register_sidebar(array(
+            'name'          => sprintf(esc_html__('Footer %d', 'extraaedge'), $i),
+            'id'            => 'footer-' . $i,
+            'description'   => sprintf(esc_html__('Footer widget area %d', 'extraaedge'), $i),
+            'before_widget' => '<div id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</div>',
+            'before_title'  => '<h3 class="widget-title">',
+            'after_title'   => '</h3>',
+        ));
+    }
+}
+add_action('widgets_init', 'extraaedge_widgets_init');
 
-/* ─────────────────────────────────────────────────────────────
- * 3. ENQUEUE — external minified, deferred non-critical
- * ─────────────────────────────────────────────────────────── */
-add_action( 'wp_enqueue_scripts', function () {
-	$ver = wp_get_theme()->get( 'Version' ) ?: '1.0.0';
-	wp_enqueue_style( 'ee-main', get_template_directory_uri() . '/assets/css/main.min.css', [], $ver );
-	wp_enqueue_script( 'ee-main', get_template_directory_uri() . '/assets/js/main.min.js', [], $ver, true );
-}, 20 );
+// ══════════════════════════════════════════════════════════
+// C. ENQUEUE SCRIPTS
+// ══════════════════════════════════════════════════════════
+function extraaedge_scripts() {
+    $theme_version = wp_get_theme()->get('Version') ?: '1.3.0';
+    wp_enqueue_style('extraaedge-style', get_stylesheet_uri(), array(), $theme_version);
+    if (is_singular() && comments_open() && get_option('thread_comments')) {
+        wp_enqueue_script('comment-reply');
+    }
+}
+add_action('wp_enqueue_scripts', 'extraaedge_scripts');
 
-add_filter( 'script_loader_tag', function ( $tag, $handle ) {
-	$defer = [ 'ee-main', 'ee-analytics' ];
-	$async = [ 'ee-form-widget' ];
-	if ( in_array( $handle, $defer, true ) ) return str_replace( ' src=', ' defer src=', $tag );
-	if ( in_array( $handle, $async, true ) ) return str_replace( ' src=', ' async src=', $tag );
-	return $tag;
-}, 10, 2 );
+// ══════════════════════════════════════════════════════════
+// D. CUSTOM POST TYPES
+// ══════════════════════════════════════════════════════════
+function extraaedge_register_cpts() {
+    $cpts = array(
+        'product'    => array('Products',     'Product',     'dashicons-products',     'products'),
+        'industry'   => array('Industries',   'Industry',    'dashicons-building',     'industries'),
+        'ebook'      => array('E-books',      'E-book',      'dashicons-book',         'ebooks'),
+        'webinar'    => array('Webinars',     'Webinar',     'dashicons-video-alt3',   'webinars'),
+        'career'     => array('Careers',      'Career',      'dashicons-groups',       'careers'),
+        'news'       => array('News',         'News',        'dashicons-megaphone',    'news'),
+        'testimonial'=> array('Testimonials', 'Testimonial', 'dashicons-star-filled',  'testimonials'),
+        'help'       => array('Help',         'Help',        'dashicons-sos',          'help'),
+        'case_study' => array('Case Studies', 'Case Study',  'dashicons-analytics',    'case-studies'),
+    );
 
-/* ─────────────────────────────────────────────────────────────
- * 4. IMAGE ALT FALLBACK (never serve empty alt to crawlers)
- * ─────────────────────────────────────────────────────────── */
-add_filter( 'wp_get_attachment_image_attributes', function ( $attr, $attachment ) {
-	if ( empty( $attr['alt'] ) ) {
-		$attr['alt'] = trim( wp_strip_all_tags( $attachment->post_title ) );
-	}
-	return $attr;
-}, 10, 2 );
+    foreach ($cpts as $slug => $cfg) {
+        list($plural, $singular, $icon, $rewrite) = $cfg;
+        register_post_type($slug, array(
+            'labels' => array(
+                'name'          => __($plural,   'extraaedge'),
+                'singular_name' => __($singular, 'extraaedge'),
+                'add_new_item'  => sprintf(__('Add New %s', 'extraaedge'), $singular),
+                'edit_item'     => sprintf(__('Edit %s',    'extraaedge'), $singular),
+                'view_item'     => sprintf(__('View %s',    'extraaedge'), $singular),
+                'search_items'  => sprintf(__('Search %s',  'extraaedge'), $plural),
+            ),
+            'public'       => true,
+            'has_archive'  => true,
+            'show_in_rest' => true,
+            'menu_icon'    => $icon,
+            'supports'     => array('title', 'editor', 'thumbnail', 'excerpt'),
+            'rewrite'      => array('slug' => $rewrite),
+        ));
+    }
+}
+add_action('init', 'extraaedge_register_cpts');
 
-/* ─────────────────────────────────────────────────────────────
- * 5. CACHE / LAST-MODIFIED HEADERS (TTFB + freshness)
- * ─────────────────────────────────────────────────────────── */
-add_action( 'template_redirect', function () {
-	if ( is_singular() && ! is_user_logged_in() ) {
-		$ts = get_the_modified_time( 'U' );
-		if ( $ts ) {
-			header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s', $ts ) . ' GMT' );
-			header( 'Cache-Control: public, max-age=3600, must-revalidate' );
-		}
-	}
-} );
-
-/* ─────────────────────────────────────────────────────────────
- * 6. ROBOTS.TXT — point to sitemap + allow CSS/JS
- * ─────────────────────────────────────────────────────────── */
-add_filter( 'robots_txt', function ( $output ) {
-	$site = home_url( '/' );
-	$output  = "User-agent: *\n";
-	$output .= "Allow: /wp-content/uploads/\n";
-	$output .= "Allow: /wp-content/themes/*/assets/\n";
-	$output .= "Allow: /*.css$\n";
-	$output .= "Allow: /*.js$\n";
-	$output .= "Disallow: /wp-admin/\n";
-	$output .= "Disallow: /?s=\n";
-	$output .= "Disallow: /search/\n";
-	$output .= "Allow: /wp-admin/admin-ajax.php\n\n";
-	$output .= "User-agent: GPTBot\nAllow: /\n\n";
-	$output .= "User-agent: ClaudeBot\nAllow: /\n\n";
-	$output .= "User-agent: PerplexityBot\nAllow: /\n\n";
-	$output .= "User-agent: Google-Extended\nAllow: /\n\n";
-	$output .= "Sitemap: {$site}wp-sitemap.xml\n";
-	return $output;
-}, 10, 1 );
-
-/* ─────────────────────────────────────────────────────────────
- * 7. BODY CLASSES (entity signals)
- * ─────────────────────────────────────────────────────────── */
-add_filter( 'body_class', function ( $classes ) {
-	if ( is_singular( 'product' ) ) $classes[] = 'product-page';
-	return $classes;
-} );
-
-/* ─────────────────────────────────────────────────────────────
- * 8. CUSTOM POST TYPE — product (clean slug, indexable)
- * ─────────────────────────────────────────────────────────── */
-add_action( 'init', function () {
-	register_post_type( 'product', [
-		'labels'              => [ 'name' => 'Products', 'singular_name' => 'Product' ],
-		'public'              => true,
-		'has_archive'         => 'products',
-		'show_in_rest'        => true,
-		'menu_icon'           => 'dashicons-products',
-		'supports'            => [ 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ],
-		'rewrite'             => [ 'slug' => 'products', 'with_front' => false ],
-		'capability_type'     => 'page',
-		'hierarchical'        => true,
-	] );
-} );
-
-/* ─────────────────────────────────────────────────────────────
- * 9. GLOBAL SCHEMA — Organization + WebSite (every page)
- * ─────────────────────────────────────────────────────────── */
-add_action( 'wp_head', function () {
-	$site_url = 'https://www.extraaedge.com';
-	$org_id   = $site_url . '/#organization';
-	$site_id  = $site_url . '/#website';
-
-	$graph = [
-		'@context' => 'https://schema.org',
-		'@graph'   => [
-			[
-				'@type'         => 'Organization',
-				'@id'           => $org_id,
-				'name'          => 'ExtraaEdge',
-				'alternateName' => 'ExtraaEdge Education CRM',
-				'url'           => $site_url,
-				'logo'          => [
-					'@type'  => 'ImageObject',
-					'url'    => $site_url . '/wp-content/uploads/2024/12/extraaedge-logo.svg',
-					'width'  => 512,
-					'height' => 128,
-				],
-				'description'   => 'AI-powered Education CRM helping 500+ educational institutions automate admissions, manage leads, and boost enrollments.',
-				'foundingDate'  => '2015',
-				'slogan'        => 'Education CRM That Turns Every Admission Inquiry into an Enrollment',
-				'sameAs'        => [
-					'https://www.linkedin.com/company/extraaedge',
-					'https://twitter.com/ExtraaEdge',
-					'https://www.facebook.com/ExtraaEdge',
-					'https://www.youtube.com/@extraaedge',
-					'https://www.instagram.com/extraaedge/',
-				],
-				'contactPoint'  => [
-					'@type'             => 'ContactPoint',
-					'telephone'         => '+91-9168678888',
-					'contactType'       => 'sales',
-					'areaServed'        => [ 'IN', 'AE', 'GB', 'US' ],
-					'availableLanguage' => [ 'English', 'Hindi' ],
-				],
-				'address'       => [
-					'@type'           => 'PostalAddress',
-					'addressLocality' => 'Pune',
-					'addressRegion'   => 'MH',
-					'postalCode'      => '411014',
-					'addressCountry'  => 'IN',
-				],
-			],
-			[
-				'@type'           => 'WebSite',
-				'@id'             => $site_id,
-				'url'             => $site_url,
-				'name'            => 'ExtraaEdge',
-				'inLanguage'      => 'en-IN',
-				'publisher'       => [ '@id' => $org_id ],
-				'potentialAction' => [
-					'@type'       => 'SearchAction',
-					'target'      => [
-						'@type'       => 'EntryPoint',
-						'urlTemplate' => $site_url . '/?s={search_term_string}',
-					],
-					'query-input' => 'required name=search_term_string',
-				],
-			],
-			[
-				'@type'    => 'LocalBusiness',
-				'@id'      => $site_url . '/#localbusiness',
-				'name'     => 'ExtraaEdge',
-				'image'    => $site_url . '/wp-content/uploads/2024/12/extraaedge-office.jpg',
-				'url'      => $site_url,
-				'telephone'=> '+91-9168678888',
-				'priceRange' => '$$',
-				'address'  => [
-					'@type'           => 'PostalAddress',
-					'streetAddress'   => 'Office No. 401, 4th Floor, Pride Icon, Kharadi',
-					'addressLocality' => 'Pune',
-					'addressRegion'   => 'MH',
-					'postalCode'      => '411014',
-					'addressCountry'  => 'IN',
-				],
-				'geo'      => [
-					'@type'     => 'GeoCoordinates',
-					'latitude'  => 18.5604,
-					'longitude' => 73.9412,
-				],
-				'openingHoursSpecification' => [
-					'@type'     => 'OpeningHoursSpecification',
-					'dayOfWeek' => [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ],
-					'opens'     => '09:30',
-					'closes'    => '18:30',
-				],
-			],
-		],
-	];
-
-	echo "\n<script type=\"application/ld+json\">\n" . wp_json_encode( $graph, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) . "\n</script>\n";
-}, 5 );
-
-/* ─────────────────────────────────────────────────────────────
- * 10. PER-POST SCHEMA — Article + Breadcrumb + Speakable
- * ─────────────────────────────────────────────────────────── */
-add_action( 'wp_head', function () {
-	if ( ! is_singular() ) return;
-	global $post;
-	$site_url = 'https://www.extraaedge.com';
-	$url      = get_permalink( $post->ID );
-	$img      = get_the_post_thumbnail_url( $post->ID, 'full' ) ?: $site_url . '/wp-content/uploads/og/extraaedge-default-og.png';
-
-	$bc_items = [
-		[ '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ],
-	];
-	$pos = 2;
-	foreach ( array_reverse( get_post_ancestors( $post->ID ) ) as $aid ) {
-		$bc_items[] = [ '@type' => 'ListItem', 'position' => $pos++, 'name' => get_the_title( $aid ), 'item' => get_permalink( $aid ) ];
-	}
-	$pt = get_post_type_object( get_post_type( $post->ID ) );
-	if ( $pt && $pt->has_archive ) {
-		$bc_items[] = [ '@type' => 'ListItem', 'position' => $pos++, 'name' => $pt->labels->name, 'item' => get_post_type_archive_link( $pt->name ) ];
-	}
-	$bc_items[] = [ '@type' => 'ListItem', 'position' => $pos, 'name' => get_the_title( $post->ID ), 'item' => $url ];
-
-	$graph = [
-		'@context' => 'https://schema.org',
-		'@graph'   => [
-			[
-				'@type'           => 'BreadcrumbList',
-				'@id'             => $url . '#breadcrumb',
-				'itemListElement' => $bc_items,
-			],
-			[
-				'@type'            => 'Article',
-				'@id'              => $url . '#article',
-				'headline'         => get_the_title( $post->ID ),
-				'description'      => get_post_meta( $post->ID, '_seo_description', true ) ?: wp_trim_words( wp_strip_all_tags( $post->post_content ), 28 ),
-				'image'            => $img,
-				'url'              => $url,
-				'datePublished'    => get_the_date( 'c', $post->ID ),
-				'dateModified'     => get_the_modified_date( 'c', $post->ID ),
-				'inLanguage'       => 'en-IN',
-				'mainEntityOfPage' => $url,
-				'author'           => [ '@type' => 'Organization', 'name' => 'ExtraaEdge', '@id' => $site_url . '/#organization' ],
-				'publisher'        => [ '@id' => $site_url . '/#organization' ],
-				'speakable'        => [
-					'@type'       => 'SpeakableSpecification',
-					'cssSelector' => [ '.hero-h1', '.hero-desc', '.edu-crm-p', '.faq-question', '.faq-answer' ],
-				],
-			],
-		],
-	];
-
-	echo "\n<script type=\"application/ld+json\">\n" . wp_json_encode( $graph, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) . "\n</script>\n";
-}, 6 );
-
-/* ─────────────────────────────────────────────────────────────
- * 11. SCHEMA HELPERS — call from templates as needed
- * ─────────────────────────────────────────────────────────── */
-function ee_emit_jsonld( $data ) {
-	echo "\n<script type=\"application/ld+json\">\n" . wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) . "\n</script>\n";
+// ══════════════════════════════════════════════════════════
+// E. ALLOW UNFILTERED HTML FOR FORM EMBEDS (admins only)
+// ══════════════════════════════════════════════════════════
+function extraaedge_allow_form_tags($allowed, $context) {
+    if ($context === 'post') {
+        $allowed['script'] = array('src'=>true,'type'=>true,'async'=>true,'defer'=>true,'charset'=>true,'id'=>true,'class'=>true);
+        $allowed['iframe'] = array('src'=>true,'width'=>true,'height'=>true,'frameborder'=>true,'style'=>true,'allowfullscreen'=>true,'loading'=>true,'title'=>true);
+        if (isset($allowed['div']))   $allowed['div']['data-*']   = true;
+        if (isset($allowed['input'])) $allowed['input']['data-*'] = true;
+        if (isset($allowed['form']))  $allowed['form']['data-*']  = true;
+    }
+    return $allowed;
+}
+if (current_user_can('administrator')) {
+    add_filter('wp_kses_allowed_html', 'extraaedge_allow_form_tags', 10, 2);
 }
 
-function ee_faq_schema( $faqs ) {
-	if ( empty( $faqs ) ) return;
-	$main = [];
-	foreach ( $faqs as $q => $a ) {
-		$main[] = [
-			'@type'          => 'Question',
-			'name'           => wp_strip_all_tags( $q ),
-			'acceptedAnswer' => [
-				'@type' => 'Answer',
-				'text'  => wp_strip_all_tags( $a ),
-			],
-		];
-	}
-	ee_emit_jsonld( [ '@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $main ] );
+add_action('get_header', function () { remove_action('wp_head', '_admin_bar_bump_cb'); });
+
+// ══════════════════════════════════════════════════════════
+// F. PRODUCT PAGE ADMIN STYLES + JS
+// ══════════════════════════════════════════════════════════
+function product_admin_styles() {
+    global $post_type;
+    if ($post_type !== 'product') return;
+    ?>
+<style>
+.product-tabs-wrapper{margin-top:20px}
+.product-tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid #ccc;margin:0;padding:0;background:#f0f0f0}
+.product-tabs li{list-style:none;margin:0;padding:0}
+.product-tabs a{display:block;padding:12px 20px;text-decoration:none;background:#f0f0f0;color:#333;border-right:1px solid #ccc;font-weight:600}
+.product-tabs a:hover{background:#e0e0e0}
+.product-tabs a.active{background:#fff;color:#0073aa;border-bottom:2px solid #0073aa}
+.product-tab-content{display:none;padding:20px;background:#fff;border:1px solid #ccc;border-top:none}
+.product-tab-content.active{display:block}
+.repeater-item{background:#f9f9f9;border:1px solid #ddd;padding:15px;margin-bottom:15px;position:relative}
+.repeater-item h4{margin-top:0;color:#0073aa;border-bottom:1px solid #ddd;padding-bottom:10px}
+.remove-item{position:absolute;top:10px;right:10px;color:#a00;cursor:pointer;text-decoration:none;font-weight:bold}
+.remove-item:hover{color:#dc3232}
+.add-item-btn{background:#0073aa;color:#fff;border:none;padding:10px 20px;cursor:pointer;border-radius:3px;font-size:14px;margin-top:10px}
+.add-item-btn:hover{background:#005a87}
+.field-group{margin-bottom:15px}
+.field-group label{display:block;font-weight:600;margin-bottom:5px;color:#333}
+.field-group input[type="text"],.field-group input[type="url"],.field-group textarea,.field-group select{width:100%;padding:8px;border:1px solid #ddd;border-radius:3px}
+.field-group textarea{min-height:80px}
+.field-help{font-size:12px;color:#666;font-style:italic;margin-top:5px}
+</style>
+<script>
+jQuery(document).ready(function($){
+    $('.product-tabs a').on('click', function(e){
+        e.preventDefault();
+        var target = $(this).data('tab');
+        $('.product-tabs a').removeClass('active');
+        $(this).addClass('active');
+        $('.product-tab-content').removeClass('active');
+        $('#' + target).addClass('active');
+    });
+});
+</script>
+    <?php
+}
+add_action('admin_head', 'product_admin_styles');
+
+// ══════════════════════════════════════════════════════════
+// G. PRODUCT META BOX
+// ══════════════════════════════════════════════════════════
+function product_add_meta_boxes() {
+    add_meta_box(
+        'product_all_settings',
+        '📋 Product Page Settings (All Content Editable)',
+        'product_all_settings_callback',
+        'product',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'product_add_meta_boxes');
+
+function product_all_settings_callback($post) {
+    wp_nonce_field('product_meta_box', 'product_meta_box_nonce');
+    ?>
+<div class="product-tabs-wrapper">
+    <ul class="product-tabs">
+        <li><a href="#" data-tab="tab-seo" class="active">🔍 SEO</a></li>
+        <li><a href="#" data-tab="tab-hero">🎯 Hero</a></li>
+        <li><a href="#" data-tab="tab-logos">🏢 Logos</a></li>
+        <li><a href="#" data-tab="tab-educrm">📚 Education CRM</a></li>
+        <li><a href="#" data-tab="tab-features">⭐ Features</a></li>
+        <li><a href="#" data-tab="tab-sections">📑 Sections</a></li>
+        <li><a href="#" data-tab="tab-bottom">🎁 Bottom CTA</a></li>
+        <li><a href="#" data-tab="tab-testimonials">💬 Testimonials</a></li>
+        <li><a href="#" data-tab="tab-aidemo">🤖 AI Demo</a></li>
+        <li><a href="#" data-tab="tab-faq">❓ FAQ</a></li>
+        <li><a href="#" data-tab="tab-toc">🗂️ TOC</a></li>
+    </ul>
+
+    <div id="tab-seo"          class="product-tab-content active"><?php product_seo_fields($post); ?></div>
+    <div id="tab-hero"         class="product-tab-content"><?php product_hero_fields($post); ?></div>
+    <div id="tab-logos"        class="product-tab-content"><?php product_logos_fields($post); ?></div>
+    <div id="tab-educrm"       class="product-tab-content"><?php product_educrm_fields($post); ?></div>
+    <div id="tab-features"     class="product-tab-content"><?php product_features_fields($post); ?></div>
+    <div id="tab-sections"     class="product-tab-content"><?php product_sections_fields($post); ?></div>
+    <div id="tab-bottom"       class="product-tab-content"><?php product_bottom_fields($post); ?></div>
+    <div id="tab-testimonials" class="product-tab-content"><?php product_testimonials_fields($post); ?></div>
+    <div id="tab-aidemo"       class="product-tab-content"><?php product_aidemo_fields($post); ?></div>
+    <div id="tab-faq"          class="product-tab-content"><?php product_faq_fields($post); ?></div>
+    <div id="tab-toc"          class="product-tab-content"><?php product_toc_fields($post); ?></div>
+</div>
+    <?php
 }
 
-function ee_software_app_schema( $args ) {
-	$defaults = [
-		'name'        => '',
-		'url'         => '',
-		'description' => '',
-		'image'       => '',
-		'rating'      => 4.9,
-		'review_count'=> 500,
-		'features'    => [],
-	];
-	$a = wp_parse_args( $args, $defaults );
-	ee_emit_jsonld( [
-		'@context'           => 'https://schema.org',
-		'@type'              => 'SoftwareApplication',
-		'name'               => $a['name'],
-		'applicationCategory'=> 'BusinessApplication',
-		'operatingSystem'    => 'Web, Android, iOS',
-		'url'                => $a['url'],
-		'description'        => $a['description'],
-		'image'              => $a['image'],
-		'offers'             => [
-			'@type'         => 'Offer',
-			'priceCurrency' => 'USD',
-			'price'         => '0',
-			'availability'  => 'https://schema.org/InStock',
-		],
-		'aggregateRating'    => [
-			'@type'       => 'AggregateRating',
-			'ratingValue' => (string) $a['rating'],
-			'reviewCount' => (string) $a['review_count'],
-			'bestRating'  => '5',
-			'worstRating' => '1',
-		],
-		'featureList' => $a['features'],
-	] );
+// ─── SEO TAB ───
+function product_seo_fields($post) {
+    $f = function($k) use ($post) { return get_post_meta($post->ID, '_'.$k, true); };
+    $schema_type = $f('schema_type') ?: 'SoftwareApplication';
+    ?>
+<h3>🔍 SEO Meta Tags</h3>
+<div class="field-group"><label>Page Title</label><input type="text" name="seo_title" value="<?php echo esc_attr($f('seo_title')); ?>" placeholder="Education CRM Software | Boost Admissions | ExtraaEdge"><p class="field-help">60 characters max</p></div>
+<div class="field-group"><label>Meta Description</label><textarea name="seo_description" rows="3"><?php echo esc_textarea($f('seo_description')); ?></textarea><p class="field-help">150-160 characters</p></div>
+<div class="field-group"><label>Meta Keywords</label><input type="text" name="seo_keywords" value="<?php echo esc_attr($f('seo_keywords')); ?>"></div>
+<div class="field-group"><label>OG Image URL</label><input type="url" name="og_image" value="<?php echo esc_attr($f('og_image')); ?>" placeholder="https://example.com/og-image.png"><p class="field-help">1200x630px recommended</p></div>
+<div class="field-group"><label>Canonical URL</label><input type="url" name="canonical_url" value="<?php echo esc_attr($f('canonical_url')); ?>"></div>
+<div class="field-group"><label>Schema Type</label>
+<select name="schema_type">
+<option value="SoftwareApplication" <?php selected($schema_type,'SoftwareApplication'); ?>>SoftwareApplication</option>
+<option value="Product" <?php selected($schema_type,'Product'); ?>>Product</option>
+<option value="Service" <?php selected($schema_type,'Service'); ?>>Service</option>
+</select>
+</div>
+<h4>Twitter Card</h4>
+<div class="field-group"><label>Twitter Card Type</label><input type="text" name="twitter_card" value="<?php echo esc_attr($f('twitter_card')); ?>" placeholder="summary_large_image"></div>
+<div class="field-group"><label>Twitter Title</label><input type="text" name="twitter_title" value="<?php echo esc_attr($f('twitter_title')); ?>"></div>
+<div class="field-group"><label>Twitter Description</label><textarea name="twitter_desc" rows="2"><?php echo esc_textarea($f('twitter_desc')); ?></textarea></div>
+    <?php
 }
 
-function ee_video_schema( $args ) {
-	$a = wp_parse_args( $args, [ 'name' => '', 'description' => '', 'thumbnail' => '', 'upload_date' => '', 'content_url' => '', 'embed_url' => '' ] );
-	ee_emit_jsonld( [
-		'@context'     => 'https://schema.org',
-		'@type'        => 'VideoObject',
-		'name'         => $a['name'],
-		'description'  => $a['description'],
-		'thumbnailUrl' => $a['thumbnail'],
-		'uploadDate'   => $a['upload_date'],
-		'contentUrl'   => $a['content_url'],
-		'embedUrl'     => $a['embed_url'],
-	] );
+// ─── HERO TAB ───
+function product_hero_fields($post) {
+    $f = function($k) use ($post) { return get_post_meta($post->ID, '_'.$k, true); };
+    $hero_proofs = $f('hero_proofs') ?: array();
+    $stats       = $f('stats') ?: array(array('number'=>'','label'=>''),array('number'=>'','label'=>''),array('number'=>'','label'=>''));
+    $tags        = $f('tags') ?: array();
+    $compliance  = $f('compliance') ?: array();
+    ?>
+<h3>🎯 Hero Section</h3>
+<div class="field-group"><label>Badge Text</label><input type="text" name="hero_badge" value="<?php echo esc_attr($f('hero_badge')); ?>" placeholder="Join 500+ Educational Institutions..."></div>
+<div class="field-group"><label>H1 - Part 1 (before orange)</label><input type="text" name="hero_h1_before" value="<?php echo esc_attr($f('hero_h1_before')); ?>"></div>
+<div class="field-group"><label>H1 - ORANGE HIGHLIGHT</label><input type="text" name="hero_h1_highlight" value="<?php echo esc_attr($f('hero_h1_highlight')); ?>"></div>
+<div class="field-group"><label>H1 - Part 2 (optional)</label><input type="text" name="hero_h1_after" value="<?php echo esc_attr($f('hero_h1_after')); ?>"></div>
+<div class="field-group"><label>Description</label><textarea name="hero_description" rows="4"><?php echo esc_textarea($f('hero_description')); ?></textarea></div>
+
+<h4>Proof Points</h4>
+<div id="proofs-container">
+<?php if (!empty($hero_proofs)) : foreach ($hero_proofs as $proof) : ?>
+<div class="repeater-item"><span class="remove-item" onclick="jQuery(this).parent().remove();">✕</span><input type="text" name="hero_proofs[]" value="<?php echo esc_attr($proof); ?>" style="width:100%;"></div>
+<?php endforeach; else : ?>
+<div class="repeater-item"><span class="remove-item" onclick="jQuery(this).parent().remove();">✕</span><input type="text" name="hero_proofs[]" style="width:100%;"></div>
+<?php endif; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="jQuery('#proofs-container').append('<div class=\'repeater-item\'><span class=\'remove-item\' onclick=\'jQuery(this).parent().remove();\'>✕</span><input type=\'text\' name=\'hero_proofs[]\' style=\'width:100%;\' /></div>')">+ Add Proof</button>
+
+<h4>Stats Grid (3 Stats)</h4>
+<?php foreach ($stats as $i => $stat) : ?>
+<div class="repeater-item"><h4>Stat <?php echo ($i + 1); ?></h4>
+<div class="field-group"><label>Number</label><input type="text" name="stats[<?php echo $i; ?>][number]" value="<?php echo esc_attr($stat['number']); ?>" placeholder="2X"></div>
+<div class="field-group"><label>Label</label><input type="text" name="stats[<?php echo $i; ?>][label]"  value="<?php echo esc_attr($stat['label']);  ?>" placeholder="Higher Conversion Rates"></div>
+</div>
+<?php endforeach; ?>
+
+<div class="field-group"><label>Result Badge</label><input type="text" name="result_badge" value="<?php echo esc_attr($f('result_badge')); ?>" placeholder="Increase Admissions by 2X..."></div>
+
+<h4>Industry Tags</h4>
+<div id="tags-container">
+<?php if (!empty($tags)) : foreach ($tags as $tag) : ?>
+<div class="repeater-item"><span class="remove-item" onclick="jQuery(this).parent().remove();">✕</span><input type="text" name="tags[]" value="<?php echo esc_attr($tag); ?>" style="width:100%;"></div>
+<?php endforeach; else : ?>
+<div class="repeater-item"><span class="remove-item" onclick="jQuery(this).parent().remove();">✕</span><input type="text" name="tags[]" style="width:100%;"></div>
+<?php endif; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="jQuery('#tags-container').append('<div class=\'repeater-item\'><span class=\'remove-item\' onclick=\'jQuery(this).parent().remove();\'>✕</span><input type=\'text\' name=\'tags[]\' style=\'width:100%;\' /></div>')">+ Add Tag</button>
+
+<div class="field-group"><label>CTA Button 1 Text</label><input type="text" name="hero_cta_text"  value="<?php echo esc_attr($f('hero_cta_text'));  ?>"></div>
+<div class="field-group"><label>CTA Button 1 URL</label> <input type="text" name="hero_cta_url"   value="<?php echo esc_attr($f('hero_cta_url'));   ?>"></div>
+<div class="field-group"><label>CTA Button 2 Text</label><input type="text" name="hero_cta2_text" value="<?php echo esc_attr($f('hero_cta2_text')); ?>"></div>
+<div class="field-group"><label>CTA Button 2 URL</label> <input type="text" name="hero_cta2_url"  value="<?php echo esc_attr($f('hero_cta2_url'));  ?>"></div>
+<div class="field-group"><label>Trust Rating</label>    <input type="text" name="trust_rating"   value="<?php echo esc_attr($f('trust_rating'));   ?>" placeholder="4.9"></div>
+<div class="field-group"><label>Trust Text</label>      <input type="text" name="trust_text"     value="<?php echo esc_attr($f('trust_text'));     ?>"></div>
+
+<h4>Compliance Badges</h4>
+<div id="compliance-container">
+<?php if (!empty($compliance)) : foreach ($compliance as $i => $comp) : ?>
+<div class="repeater-item"><span class="remove-item" onclick="jQuery(this).parent().remove();">✕</span>
+<div class="field-group"><label>Image URL</label><input type="url"  name="compliance[<?php echo $i; ?>][image]" value="<?php echo esc_attr($comp['image']); ?>" style="width:100%;"></div>
+<div class="field-group"><label>Text</label>     <input type="text" name="compliance[<?php echo $i; ?>][text]"  value="<?php echo esc_attr($comp['text']);  ?>" style="width:100%;"></div>
+</div>
+<?php endforeach; else : ?>
+<div class="repeater-item"><span class="remove-item" onclick="jQuery(this).parent().remove();">✕</span>
+<div class="field-group"><label>Image URL</label><input type="url"  name="compliance[0][image]" style="width:100%;"></div>
+<div class="field-group"><label>Text</label>     <input type="text" name="compliance[0][text]"  style="width:100%;"></div>
+</div>
+<?php endif; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#compliance-container .repeater-item').length;jQuery('#compliance-container').append('<div class=\'repeater-item\'><span class=\'remove-item\' onclick=\'jQuery(this).parent().remove();\'>✕</span><div class=\'field-group\'><label>Image URL</label><input type=\'url\' name=\'compliance['+idx+'][image]\' style=\'width:100%;\' /></div><div class=\'field-group\'><label>Text</label><input type=\'text\' name=\'compliance['+idx+'][text]\' style=\'width:100%;\' /></div></div>')">+ Add Compliance Badge</button>
+
+<hr style="margin:30px 0;border:2px solid #0073aa;">
+<h4 style="color:#d63638;">⚠️ FORM EMBED CODE (Paste Complete HTML/Script)</h4>
+<div class="field-group">
+    <label>Form Widget Code (Full HTML + Scripts allowed)</label>
+    <textarea name="form_embed" rows="10" style="font-family:monospace;font-size:12px;background:#f0f0f0;"><?php echo esc_textarea($f('form_embed')); ?></textarea>
+    <p class="field-help"><strong style="color:#0073aa;">✅ Paste your complete form code here including &lt;script&gt; tags</strong></p>
+</div>
+    <?php
 }
 
-function ee_howto_schema( $name, $steps ) {
-	$list = [];
-	$i = 1;
-	foreach ( $steps as $title => $desc ) {
-		$list[] = [ '@type' => 'HowToStep', 'position' => $i++, 'name' => $title, 'text' => $desc ];
-	}
-	ee_emit_jsonld( [ '@context' => 'https://schema.org', '@type' => 'HowTo', 'name' => $name, 'step' => $list ] );
+// ─── LOGOS TAB ───
+function product_logos_fields($post) {
+    $f = function($k) use ($post) { return get_post_meta($post->ID, '_'.$k, true); };
+    $logos = $f('logos') ?: array();
+    ?>
+<h3>🏢 Logo Section</h3>
+<div class="field-group"><label>Badge Text</label>           <input type="text" name="logo_badge"       value="<?php echo esc_attr($f('logo_badge')); ?>"></div>
+<div class="field-group"><label>Title Line 1 (small)</label> <input type="text" name="logo_title_line1" value="<?php echo esc_attr($f('logo_title_line1')); ?>"></div>
+<div class="field-group"><label>Main Title</label>           <input type="text" name="logo_title"       value="<?php echo esc_attr($f('logo_title')); ?>"></div>
+<div class="field-group"><label>Subtitle</label><textarea name="logo_sub" rows="2"><?php echo esc_textarea($f('logo_sub')); ?></textarea></div>
+
+<h4>Logos (will scroll in marquee)</h4>
+<div id="logos-container">
+<?php if (!empty($logos)) : foreach ($logos as $i => $logo) : ?>
+<div class="repeater-item"><span class="remove-item" onclick="jQuery(this).parent().remove();">✕</span>
+<div class="field-group"><label>Logo URL</label><input type="url"  name="logos[<?php echo $i; ?>][image]" value="<?php echo esc_attr($logo['image']); ?>" style="width:100%;"></div>
+<div class="field-group"><label>Alt Text</label><input type="text" name="logos[<?php echo $i; ?>][alt]"   value="<?php echo esc_attr($logo['alt']);   ?>" style="width:100%;"></div>
+</div>
+<?php endforeach; else : ?>
+<div class="repeater-item"><span class="remove-item" onclick="jQuery(this).parent().remove();">✕</span>
+<div class="field-group"><label>Logo URL</label><input type="url"  name="logos[0][image]" style="width:100%;"></div>
+<div class="field-group"><label>Alt Text</label><input type="text" name="logos[0][alt]"   style="width:100%;"></div>
+</div>
+<?php endif; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#logos-container .repeater-item').length;jQuery('#logos-container').append('<div class=\'repeater-item\'><span class=\'remove-item\' onclick=\'jQuery(this).parent().remove();\'>✕</span><div class=\'field-group\'><label>Logo URL</label><input type=\'url\' name=\'logos['+idx+'][image]\' style=\'width:100%;\' /></div><div class=\'field-group\'><label>Alt Text</label><input type=\'text\' name=\'logos['+idx+'][alt]\' style=\'width:100%;\' /></div></div>')">+ Add Logo</button>
+
+<div class="field-group"><label>Footer CTA Text</label>     <input type="text" name="logo_footer_cta"     value="<?php echo esc_attr($f('logo_footer_cta')); ?>"></div>
+<div class="field-group"><label>Footer CTA URL</label>      <input type="text" name="logo_footer_cta_url" value="<?php echo esc_attr($f('logo_footer_cta_url')); ?>" placeholder="https://example.com/get-started"></div>
+<div class="field-group"><label>Live Indicator Text</label> <input type="text" name="logo_live_text"      value="<?php echo esc_attr($f('logo_live_text'));  ?>"></div>
+    <?php
 }
 
-/* ─────────────────────────────────────────────────────────────
- * 12. CUSTOM 404 + STATUS CODES (proper HTTP semantics)
- * ─────────────────────────────────────────────────────────── */
-add_action( 'template_redirect', function () {
-	if ( is_404() ) status_header( 404 );
-} );
+// ─── EDUCATION CRM TAB ───
+function product_educrm_fields($post) {
+    $f = function($k) use ($post) { return get_post_meta($post->ID, '_'.$k, true); };
+    $flow_steps = $f('flow_steps') ?: array();
+    ?>
+<h3>📚 What is Education CRM Section</h3>
+<div class="field-group"><label>Main Heading (H2)</label><input type="text" name="educrm_h2" value="<?php echo esc_attr($f('educrm_h2')); ?>"></div>
+<div class="field-group"><label>Paragraph 1</label><textarea name="educrm_p1" rows="4"><?php echo esc_textarea($f('educrm_p1')); ?></textarea></div>
+<div class="field-group"><label>Paragraph 2</label><textarea name="educrm_p2" rows="4"><?php echo esc_textarea($f('educrm_p2')); ?></textarea></div>
+<div class="field-group"><label>Paragraph 3</label><textarea name="educrm_p3" rows="4"><?php echo esc_textarea($f('educrm_p3')); ?></textarea></div>
+<h4>Growth Card</h4>
+<div class="field-group"><label>Growth Value (e.g., 26.5%)</label><input type="text" name="growth_val" value="<?php echo esc_attr($f('growth_val')); ?>"></div>
+<div class="field-group"><label>Growth Description</label><textarea name="growth_text" rows="3"><?php echo esc_textarea($f('growth_text')); ?></textarea></div>
 
-/* ─────────────────────────────────────────────────────────────
- * 13. CLEAN AUTO-GENERATED EXCERPT (no [...] noise)
- * ─────────────────────────────────────────────────────────── */
-add_filter( 'excerpt_more', fn() => '…' );
+<h4>Flow Steps (Interactive Panel)</h4>
+<div id="flow-steps-container">
+<?php if (!empty($flow_steps)) : foreach ($flow_steps as $i => $step) : ?>
+<div class="repeater-item"><h4>Step <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
+<div class="field-group"><label>Step Label</label><input type="text" name="flow_steps[<?php echo $i; ?>][label]" value="<?php echo esc_attr($step['label']); ?>" style="width:100%;"></div>
+</div>
+<?php endforeach; else : for ($i = 0; $i < 5; $i++) : ?>
+<div class="repeater-item"><h4>Step <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
+<div class="field-group"><label>Step Label</label><input type="text" name="flow_steps[<?php echo $i; ?>][label]" style="width:100%;"></div>
+</div>
+<?php endfor; endif; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#flow-steps-container .repeater-item').length;jQuery('#flow-steps-container').append('<div class=\'repeater-item\'><h4>Step '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Step Label</label><input type=\'text\' name=\'flow_steps['+idx+'][label]\' style=\'width:100%;\' /></div></div>')">+ Add Step</button>
+    <?php
+}
 
-/* ─────────────────────────────────────────────────────────────
- * 14. DISABLE XML-RPC (security + slimmer headers)
- * ─────────────────────────────────────────────────────────── */
-add_filter( 'xmlrpc_enabled', '__return_false' );
-remove_action( 'wp_head', 'rsd_link' );
+// ─── FEATURES TAB ───
+function product_features_fields($post) {
+    $f = function($k) use ($post) { return get_post_meta($post->ID, '_'.$k, true); };
+    $features = $f('features') ?: array();
+    ?>
+<h3>⭐ Features Section</h3>
+<div class="field-group"><label>Section Heading</label><input type="text" name="features_h2" value="<?php echo esc_attr($f('features_h2')); ?>"></div>
+<h4>Feature Cards</h4>
+<div id="features-container">
+<?php if (!empty($features)) : foreach ($features as $i => $feature) : ?>
+<div class="repeater-item"><h4>Feature <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
+<div class="field-group"><label>Image URL</label><input type="url"  name="features[<?php echo $i; ?>][image]" value="<?php echo esc_attr($feature['image']); ?>" style="width:100%;"></div>
+<div class="field-group"><label>Title</label>    <input type="text" name="features[<?php echo $i; ?>][title]" value="<?php echo esc_attr($feature['title']); ?>" style="width:100%;"></div>
+<div class="field-group"><label>Alt Text</label> <input type="text" name="features[<?php echo $i; ?>][alt]"   value="<?php echo esc_attr($feature['alt']);   ?>" style="width:100%;"></div>
+</div>
+<?php endforeach; endif; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#features-container .repeater-item').length;jQuery('#features-container').append('<div class=\'repeater-item\'><h4>Feature '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Image URL</label><input type=\'url\' name=\'features['+idx+'][image]\' style=\'width:100%;\' /></div><div class=\'field-group\'><label>Title</label><input type=\'text\' name=\'features['+idx+'][title]\' style=\'width:100%;\' /></div><div class=\'field-group\'><label>Alt Text</label><input type=\'text\' name=\'features['+idx+'][alt]\' style=\'width:100%;\' /></div></div>')">+ Add Feature</button>
+    <?php
+}
+
+// ─── SECTIONS TAB ───
+function product_sections_fields($post) {
+    $sections = get_post_meta($post->ID, '_content_sections', true) ?: array();
+    ?>
+<h3>📑 Alternating Sections (Unlimited)</h3>
+<p style="color:#0073aa;">Add as many sections as you need. Each becomes an anchor in the TOC automatically.</p>
+<div id="sections-container">
+<?php if (!empty($sections)) : foreach ($sections as $i => $section) : ?>
+<div class="repeater-item section-item"><h4><?php echo esc_html($section['heading']); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
+<div class="field-group"><label>Section ID (slug for TOC anchor)</label><input type="text" name="sections[<?php echo $i; ?>][id]"             value="<?php echo esc_attr($section['id']);             ?>" placeholder="lead-management"></div>
+<div class="field-group"><label>Heading</label>                                     <input type="text" name="sections[<?php echo $i; ?>][heading]"        value="<?php echo esc_attr($section['heading']);        ?>"></div>
+<div class="field-group"><label>Description</label><textarea                                          name="sections[<?php echo $i; ?>][description]"    rows="4"><?php echo esc_textarea($section['description']); ?></textarea></div>
+<div class="field-group"><label>Features (one per line)</label><textarea                              name="sections[<?php echo $i; ?>][features]"       rows="6"><?php echo esc_textarea($section['features']); ?></textarea></div>
+<div class="field-group"><label>Image URL</label>                                   <input type="url"  name="sections[<?php echo $i; ?>][image]"          value="<?php echo esc_attr($section['image']); ?>"></div>
+<div class="field-group"><label>Image Position</label><select                                         name="sections[<?php echo $i; ?>][image_position]"><option value="right" <?php selected($section['image_position'],'right'); ?>>Right</option><option value="left" <?php selected($section['image_position'],'left'); ?>>Left</option></select></div>
+<div class="field-group"><label>CTA Text (optional)</label>                         <input type="text" name="sections[<?php echo $i; ?>][cta_text]"       value="<?php echo esc_attr($section['cta_text']); ?>"></div>
+<div class="field-group"><label>CTA URL (optional)</label>                          <input type="url"  name="sections[<?php echo $i; ?>][cta_url]"        value="<?php echo esc_attr($section['cta_url']);  ?>"></div>
+</div>
+<?php endforeach; endif; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#sections-container .repeater-item').length;jQuery('#sections-container').append('<div class=\'repeater-item section-item\'><h4>Section '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Section ID</label><input type=\'text\' name=\'sections['+idx+'][id]\' placeholder=\'section-id\' /></div><div class=\'field-group\'><label>Heading</label><input type=\'text\' name=\'sections['+idx+'][heading]\' /></div><div class=\'field-group\'><label>Description</label><textarea name=\'sections['+idx+'][description]\' rows=\'4\'></textarea></div><div class=\'field-group\'><label>Features (one per line)</label><textarea name=\'sections['+idx+'][features]\' rows=\'6\'></textarea></div><div class=\'field-group\'><label>Image URL</label><input type=\'url\' name=\'sections['+idx+'][image]\' /></div><div class=\'field-group\'><label>Image Position</label><select name=\'sections['+idx+'][image_position]\'><option value=\'right\'>Right</option><option value=\'left\'>Left</option></select></div><div class=\'field-group\'><label>CTA Text</label><input type=\'text\' name=\'sections['+idx+'][cta_text]\' /></div><div class=\'field-group\'><label>CTA URL</label><input type=\'url\' name=\'sections['+idx+'][cta_url]\' /></div></div>')">+ Add Section</button>
+    <?php
+}
+
+// ─── BOTTOM CTA TAB ───
+function product_bottom_fields($post) {
+    $f = function($k) use ($post) { return get_post_meta($post->ID, '_'.$k, true); };
+    $products = $f('products') ?: array();
+    ?>
+<h3>🎁 Bottom CTA & Products</h3>
+<div class="field-group"><label>Label</label>                <input type="text" name="bottom_label"    value="<?php echo esc_attr($f('bottom_label'));    ?>"></div>
+<div class="field-group"><label>Main Heading (H2)</label>    <input type="text" name="bottom_h2"       value="<?php echo esc_attr($f('bottom_h2'));       ?>"></div>
+<div class="field-group"><label>Subheading (H3)</label><textarea            name="bottom_h3" rows="2"><?php echo esc_textarea($f('bottom_h3')); ?></textarea></div>
+<div class="field-group"><label>CTA Button Text</label>      <input type="text" name="bottom_cta_text" value="<?php echo esc_attr($f('bottom_cta_text')); ?>"></div>
+<div class="field-group"><label>CTA Button URL</label>       <input type="text" name="bottom_cta_url"  value="<?php echo esc_attr($f('bottom_cta_url'));  ?>"></div>
+
+<h4>Product Cards (4 products)</h4>
+<?php for ($i = 0; $i < 4; $i++) : $p = isset($products[$i]) ? $products[$i] : array('logo'=>'','title'=>'','url'=>''); ?>
+<div class="repeater-item"><h4>Product <?php echo ($i + 1); ?></h4>
+<div class="field-group"><label>Logo URL</label>   <input type="url"  name="products[<?php echo $i; ?>][logo]"  value="<?php echo esc_attr($p['logo']);  ?>" style="width:100%;"></div>
+<div class="field-group"><label>Title</label>      <input type="text" name="products[<?php echo $i; ?>][title]" value="<?php echo esc_attr($p['title']); ?>" style="width:100%;"></div>
+<div class="field-group"><label>Product URL</label><input type="url"  name="products[<?php echo $i; ?>][url]"   value="<?php echo esc_attr($p['url']);   ?>" style="width:100%;"></div>
+</div>
+<?php endfor; ?>
+    <?php
+}
+
+// ─── TESTIMONIALS TAB ───
+function product_testimonials_fields($post) {
+    $f = function($k) use ($post) { return get_post_meta($post->ID, '_'.$k, true); };
+    $metrics      = $f('testi_metrics') ?: array();
+    $testimonials = $f('testimonials')  ?: array();
+    ?>
+<h3>💬 Testimonials Section</h3>
+<div class="field-group"><label>Tagline</label> <input type="text" name="testi_tagline" value="<?php echo esc_attr($f('testi_tagline')); ?>"></div>
+<div class="field-group"><label>Title</label>   <input type="text" name="testi_title"   value="<?php echo esc_attr($f('testi_title'));   ?>"></div>
+<div class="field-group"><label>Subtitle</label><textarea            name="testi_sub" rows="2"><?php echo esc_textarea($f('testi_sub')); ?></textarea></div>
+
+<h4>Metrics (4 metric cards)</h4>
+<?php for ($i = 0; $i < 4; $i++) : $m = isset($metrics[$i]) ? $metrics[$i] : array('target'=>'','suffix'=>'','label'=>'','locale'=>''); ?>
+<div class="repeater-item"><h4>Metric <?php echo ($i + 1); ?></h4>
+<div class="field-group"><label>Value (animated target)</label><input type="text" name="metrics[<?php echo $i; ?>][target]" value="<?php echo esc_attr($m['target']); ?>" placeholder="500"></div>
+<div class="field-group"><label>Suffix (e.g., +, X, %)</label> <input type="text" name="metrics[<?php echo $i; ?>][suffix]" value="<?php echo esc_attr($m['suffix']); ?>" placeholder="+"></div>
+<div class="field-group"><label>Label</label>                  <input type="text" name="metrics[<?php echo $i; ?>][label]"  value="<?php echo esc_attr($m['label']);  ?>" placeholder="Happy Customers"></div>
+<div class="field-group"><label><input type="checkbox" name="metrics[<?php echo $i; ?>][locale]" value="true" <?php checked($m['locale'],'true'); ?>> Use locale formatting (commas)</label></div>
+</div>
+<?php endfor; ?>
+
+<h4>Testimonial Cards</h4>
+<div id="testimonials-container">
+<?php if (!empty($testimonials)) : foreach ($testimonials as $i => $test) : ?>
+<div class="repeater-item"><h4>Testimonial <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
+<div class="field-group"><label>YouTube Video ID</label><input type="text" name="testimonials[<?php echo $i; ?>][youtube_id]"  value="<?php echo esc_attr($test['youtube_id']); ?>" placeholder="3SHgLf1GFgk"></div>
+<div class="field-group"><label>Quote</label><textarea                       name="testimonials[<?php echo $i; ?>][quote]" rows="3"><?php echo esc_textarea($test['quote']); ?></textarea></div>
+<div class="field-group"><label>Name</label>           <input type="text" name="testimonials[<?php echo $i; ?>][name]"        value="<?php echo esc_attr($test['name']); ?>"></div>
+<div class="field-group"><label>Role</label>           <input type="text" name="testimonials[<?php echo $i; ?>][role]"        value="<?php echo esc_attr($test['role']); ?>"></div>
+<div class="field-group"><label>Institution</label>    <input type="text" name="testimonials[<?php echo $i; ?>][institution]" value="<?php echo esc_attr($test['institution']); ?>"></div>
+<div class="field-group"><label>Avatar URL</label>     <input type="url"  name="testimonials[<?php echo $i; ?>][avatar]"      value="<?php echo esc_attr($test['avatar']); ?>"></div>
+</div>
+<?php endforeach; endif; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#testimonials-container .repeater-item').length;jQuery('#testimonials-container').append('<div class=\'repeater-item\'><h4>Testimonial '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>YouTube Video ID</label><input type=\'text\' name=\'testimonials['+idx+'][youtube_id]\' placeholder=\'3SHgLf1GFgk\' /></div><div class=\'field-group\'><label>Quote</label><textarea name=\'testimonials['+idx+'][quote]\' rows=\'3\'></textarea></div><div class=\'field-group\'><label>Name</label><input type=\'text\' name=\'testimonials['+idx+'][name]\' /></div><div class=\'field-group\'><label>Role</label><input type=\'text\' name=\'testimonials['+idx+'][role]\' /></div><div class=\'field-group\'><label>Institution</label><input type=\'text\' name=\'testimonials['+idx+'][institution]\' /></div><div class=\'field-group\'><label>Avatar URL</label><input type=\'url\' name=\'testimonials['+idx+'][avatar]\' /></div></div>')">+ Add Testimonial</button>
+    <?php
+}
+
+// ─── AI DEMO TAB ───
+function product_aidemo_fields($post) {
+    $f = function($k) use ($post) { return get_post_meta($post->ID, '_'.$k, true); };
+    $workflow_nodes = $f('workflow_nodes') ?: array();
+    ?>
+<h3>🤖 AI Demo Section</h3>
+<div class="field-group"><label>Main Heading</label>           <input type="text" name="aidemo_h2"         value="<?php echo esc_attr($f('aidemo_h2'));         ?>"></div>
+<div class="field-group"><label>Subtitle</label><textarea                       name="aidemo_sub" rows="2"><?php echo esc_textarea($f('aidemo_sub')); ?></textarea></div>
+<div class="field-group"><label>CTA Button Text</label>        <input type="text" name="aidemo_cta_text"   value="<?php echo esc_attr($f('aidemo_cta_text'));   ?>"></div>
+<div class="field-group"><label>CTA Button URL</label>         <input type="text" name="aidemo_cta_url"    value="<?php echo esc_attr($f('aidemo_cta_url'));    ?>"></div>
+<div class="field-group"><label>Trust Text</label>             <input type="text" name="aidemo_trust"      value="<?php echo esc_attr($f('aidemo_trust'));      ?>"></div>
+<div class="field-group"><label>Expert Center Image URL</label><input type="url"  name="aidemo_expert_img" value="<?php echo esc_attr($f('aidemo_expert_img')); ?>"></div>
+
+<h4>Workflow Nodes (6 nodes)</h4>
+<?php for ($i = 0; $i < 6; $i++) : $n = isset($workflow_nodes[$i]) ? $workflow_nodes[$i] : array('num'=>($i + 1),'title'=>'','sub'=>''); ?>
+<div class="repeater-item"><h4>Node <?php echo ($i + 1); ?></h4>
+<div class="field-group"><label>Number</label>  <input type="text" name="workflow_nodes[<?php echo $i; ?>][num]"   value="<?php echo esc_attr($n['num']);   ?>" style="width:50px;"></div>
+<div class="field-group"><label>Title</label>   <input type="text" name="workflow_nodes[<?php echo $i; ?>][title]" value="<?php echo esc_attr($n['title']); ?>"></div>
+<div class="field-group"><label>Subtitle</label><input type="text" name="workflow_nodes[<?php echo $i; ?>][sub]"   value="<?php echo esc_attr($n['sub']);   ?>"></div>
+</div>
+<?php endfor; ?>
+    <?php
+}
+
+// ─── FAQ TAB ───
+function product_faq_fields($post) {
+    $f = function($k) use ($post) { return get_post_meta($post->ID, '_'.$k, true); };
+    $faqs = $f('faqs') ?: array();
+    ?>
+<h3>❓ FAQ Section</h3>
+<div class="field-group"><label>Badge Text</label><input type="text" name="faq_badge" value="<?php echo esc_attr($f('faq_badge')); ?>"></div>
+<div class="field-group"><label>Title</label>     <input type="text" name="faq_title" value="<?php echo esc_attr($f('faq_title')); ?>"></div>
+<div class="field-group"><label>Subtitle</label><textarea            name="faq_subtitle" rows="2"><?php echo esc_textarea($f('faq_subtitle')); ?></textarea></div>
+
+<h4>FAQ Items</h4>
+<div id="faqs-container">
+<?php if (!empty($faqs)) : foreach ($faqs as $i => $faq) : ?>
+<div class="repeater-item"><h4>FAQ <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
+<div class="field-group"><label>Question</label><input  type="text" name="faqs[<?php echo $i; ?>][question]" value="<?php echo esc_attr($faq['question']); ?>" style="width:100%;"></div>
+<div class="field-group"><label>Answer</label><textarea           name="faqs[<?php echo $i; ?>][answer]"   rows="4" style="width:100%;"><?php echo esc_textarea($faq['answer']); ?></textarea></div>
+</div>
+<?php endforeach; endif; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#faqs-container .repeater-item').length;jQuery('#faqs-container').append('<div class=\'repeater-item\'><h4>FAQ '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Question</label><input type=\'text\' name=\'faqs['+idx+'][question]\' style=\'width:100%;\' /></div><div class=\'field-group\'><label>Answer</label><textarea name=\'faqs['+idx+'][answer]\' rows=\'4\' style=\'width:100%;\'></textarea></div></div>')">+ Add FAQ</button>
+    <?php
+}
+
+// ─── TOC TAB (custom Table of Contents) ───
+function product_toc_fields($post) {
+    $toc_enabled = get_post_meta($post->ID, '_toc_enabled', true);
+    $toc_items   = get_post_meta($post->ID, '_toc_items', true) ?: array();
+    ?>
+<h3>🗂️ Table of Contents (TOC)</h3>
+<div class="field-group">
+    <label><input type="checkbox" name="toc_enabled" value="custom" <?php checked($toc_enabled, 'custom'); ?>> ✅ Use custom TOC items below (uncheck to auto-generate from page sections)</label>
+    <p class="field-help">When checked, only the items below will appear in the TOC sidebar.</p>
+</div>
+
+<h4>TOC Items (label + anchor ID of the section)</h4>
+<div id="toc-items-container">
+<?php if (!empty($toc_items)) : foreach ($toc_items as $i => $item) : ?>
+<div class="repeater-item"><h4>Item <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
+<div class="field-group"><label>Label (shown in TOC)</label><input type="text" name="toc_items[<?php echo $i; ?>][label]"  value="<?php echo esc_attr($item['label']);  ?>" style="width:100%;" placeholder="Education CRM"></div>
+<div class="field-group"><label>Anchor ID (section id, no #)</label><input type="text" name="toc_items[<?php echo $i; ?>][anchor]" value="<?php echo esc_attr($item['anchor']); ?>" style="width:100%;" placeholder="what-is-education-crm"></div>
+</div>
+<?php endforeach; endif; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#toc-items-container .repeater-item').length;jQuery('#toc-items-container').append('<div class=\'repeater-item\'><h4>Item '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Label</label><input type=\'text\' name=\'toc_items['+idx+'][label]\' style=\'width:100%;\' /></div><div class=\'field-group\'><label>Anchor ID</label><input type=\'text\' name=\'toc_items['+idx+'][anchor]\' style=\'width:100%;\' /></div></div>')">+ Add TOC Item</button>
+
+<div style="margin-top:20px;background:#fff3cd;padding:12px;border-left:3px solid #ffc107;font-size:13px;line-height:1.6;">
+<strong>📌 Common Anchor IDs (copy these as needed):</strong><br>
+<code>top</code> · <code>trusted-institutions</code> · <code>what-is-education-crm</code> · <code>features</code> · <code>products</code> · <code>testimonials</code> · <code>demo</code> · <code>faq</code><br>
+For alternating sections, use the <strong>Section ID</strong> you set in the 📑 Sections tab.
+</div>
+    <?php
+}
+
+// ══════════════════════════════════════════════════════════
+// H. SAVE META BOX DATA
+// ══════════════════════════════════════════════════════════
+function product_save_meta_box_data($post_id) {
+    // Standard guards
+    if (!isset($_POST['product_meta_box_nonce']) || !wp_verify_nonce($_POST['product_meta_box_nonce'], 'product_meta_box')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (wp_is_post_revision($post_id)) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+    if (get_post_type($post_id) !== 'product') return;
+
+    // ─── SEO ───
+    $seo_fields = array('seo_title','seo_description','seo_keywords','og_image','canonical_url','schema_type','twitter_card','twitter_title','twitter_desc');
+    foreach ($seo_fields as $field) {
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, '_' . $field, sanitize_text_field(wp_unslash($_POST[$field])));
+        }
+    }
+
+    // ─── Hero text fields ───
+    $hero_text_fields = array('hero_badge','hero_h1_before','hero_h1_highlight','hero_h1_after','hero_description','result_badge','hero_cta_text','hero_cta_url','hero_cta2_text','hero_cta2_url','trust_rating','trust_text');
+    foreach ($hero_text_fields as $field) {
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, '_' . $field, sanitize_textarea_field(wp_unslash($_POST[$field])));
+        }
+    }
+
+    // ─── FORM EMBED ───
+    if (isset($_POST['form_embed'])) {
+        if (current_user_can('unfiltered_html')) {
+            update_post_meta($post_id, '_form_embed', wp_unslash($_POST['form_embed']));
+        } else {
+            $allowed_html = array(
+                'script'   => array('src'=>array(),'async'=>array(),'defer'=>array(),'type'=>array(),'charset'=>array(),'id'=>array()),
+                'div'      => array('id'=>array(),'class'=>array(),'style'=>array(),'data-*'=>true),
+                'form'     => array('action'=>array(),'method'=>array(),'id'=>array(),'class'=>array(),'name'=>array()),
+                'input'    => array('type'=>array(),'name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'required'=>array(),'value'=>array()),
+                'textarea' => array('name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'rows'=>array()),
+                'select'   => array('name'=>array(),'id'=>array(),'class'=>array()),
+                'option'   => array('value'=>array(),'selected'=>array()),
+                'button'   => array('type'=>array(),'id'=>array(),'class'=>array()),
+                'label'    => array('for'=>array(),'class'=>array()),
+                'iframe'   => array('src'=>array(),'width'=>array(),'height'=>array(),'frameborder'=>array(),'style'=>array(),'loading'=>array(),'title'=>array()),
+                'a'        => array('href'=>array(),'target'=>array(),'class'=>array(),'rel'=>array()),
+                'p'        => array('class'=>array()), 'span' => array('class'=>array()), 'br' => array(),
+                'h1' => array('class'=>array()), 'h2' => array('class'=>array()), 'h3' => array('class'=>array()),
+                'strong' => array(), 'em' => array(),
+            );
+            update_post_meta($post_id, '_form_embed', wp_kses(wp_unslash($_POST['form_embed']), $allowed_html));
+        }
+    }
+
+    // ─── Simple repeaters ───
+    if (isset($_POST['hero_proofs']) && is_array($_POST['hero_proofs'])) {
+        update_post_meta($post_id, '_hero_proofs', array_map('sanitize_text_field', wp_unslash($_POST['hero_proofs'])));
+    }
+    if (isset($_POST['tags']) && is_array($_POST['tags'])) {
+        update_post_meta($post_id, '_tags', array_map('sanitize_text_field', wp_unslash($_POST['tags'])));
+    }
+
+    // ─── Stats ───
+    if (isset($_POST['stats']) && is_array($_POST['stats'])) {
+        $stats = array();
+        foreach ($_POST['stats'] as $stat) {
+            $stats[] = array(
+                'number' => sanitize_text_field(wp_unslash($stat['number'] ?? '')),
+                'label'  => sanitize_text_field(wp_unslash($stat['label']  ?? '')),
+            );
+        }
+        update_post_meta($post_id, '_stats', $stats);
+    }
+
+    // ─── Compliance ───
+    if (isset($_POST['compliance']) && is_array($_POST['compliance'])) {
+        $compliance = array();
+        foreach ($_POST['compliance'] as $comp) {
+            if (!empty($comp['image'])) {
+                $compliance[] = array(
+                    'image' => esc_url_raw(wp_unslash($comp['image'])),
+                    'text'  => sanitize_text_field(wp_unslash($comp['text'] ?? '')),
+                );
+            }
+        }
+        update_post_meta($post_id, '_compliance', $compliance);
+    }
+
+    // ─── Logos meta + items ───
+    $logo_fields = array('logo_badge','logo_title_line1','logo_title','logo_sub','logo_footer_cta','logo_footer_cta_url','logo_live_text');
+    foreach ($logo_fields as $field) {
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, '_' . $field, sanitize_textarea_field(wp_unslash($_POST[$field])));
+        }
+    }
+    if (isset($_POST['logos']) && is_array($_POST['logos'])) {
+        $logos = array();
+        foreach ($_POST['logos'] as $logo) {
+            if (!empty($logo['image'])) {
+                $logos[] = array(
+                    'image' => esc_url_raw(wp_unslash($logo['image'])),
+                    'alt'   => sanitize_text_field(wp_unslash($logo['alt'] ?? '')),
+                );
+            }
+        }
+        update_post_meta($post_id, '_logos', $logos);
+    }
+
+    // ─── Education CRM ───
+    $educrm_fields = array('educrm_h2','educrm_p1','educrm_p2','educrm_p3','growth_val','growth_text');
+    foreach ($educrm_fields as $field) {
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, '_' . $field, sanitize_textarea_field(wp_unslash($_POST[$field])));
+        }
+    }
+    if (isset($_POST['flow_steps']) && is_array($_POST['flow_steps'])) {
+        $flow_steps = array();
+        foreach ($_POST['flow_steps'] as $step) {
+            if (!empty($step['label'])) {
+                $flow_steps[] = array('label' => sanitize_text_field(wp_unslash($step['label'])));
+            }
+        }
+        update_post_meta($post_id, '_flow_steps', $flow_steps);
+    }
+
+    // ─── Features ───
+    if (isset($_POST['features_h2'])) {
+        update_post_meta($post_id, '_features_h2', sanitize_text_field(wp_unslash($_POST['features_h2'])));
+    }
+    if (isset($_POST['features']) && is_array($_POST['features'])) {
+        $features = array();
+        foreach ($_POST['features'] as $feature) {
+            if (!empty($feature['image'])) {
+                $features[] = array(
+                    'image' => esc_url_raw(wp_unslash($feature['image'])),
+                    'title' => sanitize_text_field(wp_unslash($feature['title'] ?? '')),
+                    'alt'   => sanitize_text_field(wp_unslash($feature['alt']   ?? '')),
+                );
+            }
+        }
+        update_post_meta($post_id, '_features', $features);
+    }
+
+    // ─── Sections ───
+    if (isset($_POST['sections']) && is_array($_POST['sections'])) {
+        $sections = array();
+        foreach ($_POST['sections'] as $section) {
+            if (!empty($section['heading'])) {
+                $img_pos = $section['image_position'] ?? 'right';
+                $sections[] = array(
+                    'id'             => sanitize_title(wp_unslash($section['id'] ?? '')),
+                    'heading'        => sanitize_text_field(wp_unslash($section['heading'])),
+                    'description'    => sanitize_textarea_field(wp_unslash($section['description'] ?? '')),
+                    'features'       => sanitize_textarea_field(wp_unslash($section['features']    ?? '')),
+                    'image'          => esc_url_raw(wp_unslash($section['image'] ?? '')),
+                    'image_position' => in_array($img_pos, array('left','right'), true) ? $img_pos : 'right',
+                    'cta_text'       => sanitize_text_field(wp_unslash($section['cta_text'] ?? '')),
+                    'cta_url'        => esc_url_raw(wp_unslash($section['cta_url']  ?? '')),
+                );
+            }
+        }
+        update_post_meta($post_id, '_content_sections', $sections);
+    }
+
+    // ─── Bottom CTA ───
+    $bottom_fields = array('bottom_label','bottom_h2','bottom_h3','bottom_cta_text','bottom_cta_url');
+    foreach ($bottom_fields as $field) {
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, '_' . $field, sanitize_textarea_field(wp_unslash($_POST[$field])));
+        }
+    }
+    if (isset($_POST['products']) && is_array($_POST['products'])) {
+        $products = array();
+        foreach ($_POST['products'] as $product) {
+            $products[] = array(
+                'logo'  => esc_url_raw(wp_unslash($product['logo']  ?? '')),
+                'title' => sanitize_text_field(wp_unslash($product['title'] ?? '')),
+                'url'   => esc_url_raw(wp_unslash($product['url']   ?? '')),
+            );
+        }
+        update_post_meta($post_id, '_products', $products);
+    }
+
+    // ─── Testimonials ───
+    $testi_fields = array('testi_tagline','testi_title','testi_sub');
+    foreach ($testi_fields as $field) {
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, '_' . $field, sanitize_textarea_field(wp_unslash($_POST[$field])));
+        }
+    }
+    if (isset($_POST['metrics']) && is_array($_POST['metrics'])) {
+        $metrics = array();
+        foreach ($_POST['metrics'] as $metric) {
+            $metrics[] = array(
+                'target' => sanitize_text_field(wp_unslash($metric['target'] ?? '')),
+                'suffix' => sanitize_text_field(wp_unslash($metric['suffix'] ?? '')),
+                'label'  => sanitize_text_field(wp_unslash($metric['label']  ?? '')),
+                'locale' => isset($metric['locale']) ? 'true' : '',
+            );
+        }
+        update_post_meta($post_id, '_testi_metrics', $metrics);
+    }
+    if (isset($_POST['testimonials']) && is_array($_POST['testimonials'])) {
+        $testimonials = array();
+        foreach ($_POST['testimonials'] as $test) {
+            if (!empty($test['youtube_id'])) {
+                $testimonials[] = array(
+                    'youtube_id'  => sanitize_text_field(wp_unslash($test['youtube_id'])),
+                    'quote'       => sanitize_textarea_field(wp_unslash($test['quote'] ?? '')),
+                    'name'        => sanitize_text_field(wp_unslash($test['name']        ?? '')),
+                    'role'        => sanitize_text_field(wp_unslash($test['role']        ?? '')),
+                    'institution' => sanitize_text_field(wp_unslash($test['institution'] ?? '')),
+                    'avatar'      => esc_url_raw(wp_unslash($test['avatar'] ?? '')),
+                );
+            }
+        }
+        update_post_meta($post_id, '_testimonials', $testimonials);
+    }
+
+    // ─── AI Demo ───
+    $aidemo_fields = array('aidemo_h2','aidemo_sub','aidemo_cta_text','aidemo_cta_url','aidemo_trust','aidemo_expert_img');
+    foreach ($aidemo_fields as $field) {
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, '_' . $field, sanitize_textarea_field(wp_unslash($_POST[$field])));
+        }
+    }
+    if (isset($_POST['workflow_nodes']) && is_array($_POST['workflow_nodes'])) {
+        $workflow_nodes = array();
+        foreach ($_POST['workflow_nodes'] as $node) {
+            $workflow_nodes[] = array(
+                'num'   => sanitize_text_field(wp_unslash($node['num']   ?? '')),
+                'title' => sanitize_text_field(wp_unslash($node['title'] ?? '')),
+                'sub'   => sanitize_text_field(wp_unslash($node['sub']   ?? '')),
+            );
+        }
+        update_post_meta($post_id, '_workflow_nodes', $workflow_nodes);
+    }
+
+    // ─── FAQ ───
+    $faq_fields = array('faq_badge','faq_title','faq_subtitle');
+    foreach ($faq_fields as $field) {
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, '_' . $field, sanitize_textarea_field(wp_unslash($_POST[$field])));
+        }
+    }
+    if (isset($_POST['faqs']) && is_array($_POST['faqs'])) {
+        $faqs = array();
+        foreach ($_POST['faqs'] as $faq) {
+            if (!empty($faq['question'])) {
+                $faqs[] = array(
+                    'question' => sanitize_text_field(wp_unslash($faq['question'])),
+                    'answer'   => wp_kses_post(wp_unslash($faq['answer'] ?? '')),
+                );
+            }
+        }
+        update_post_meta($post_id, '_faqs', $faqs);
+    }
+
+    // ─── TOC ───
+    if (isset($_POST['toc_enabled'])) {
+        update_post_meta($post_id, '_toc_enabled', sanitize_text_field(wp_unslash($_POST['toc_enabled'])));
+    } else {
+        delete_post_meta($post_id, '_toc_enabled');
+    }
+    if (isset($_POST['toc_items']) && is_array($_POST['toc_items'])) {
+        $toc_items = array();
+        foreach ($_POST['toc_items'] as $item) {
+            if (!empty($item['label']) && !empty($item['anchor'])) {
+                $toc_items[] = array(
+                    'label'  => sanitize_text_field(wp_unslash($item['label'])),
+                    'anchor' => sanitize_title(wp_unslash($item['anchor'])),
+                );
+            }
+        }
+        update_post_meta($post_id, '_toc_items', $toc_items);
+    }
+}
+add_action('save_post', 'product_save_meta_box_data');
+
+// ══════════════════════════════════════════════════════════
+// I. FLUSH REWRITE RULES ON THEME ACTIVATION
+// ══════════════════════════════════════════════════════════
+function extraaedge_flush_rewrites() {
+    extraaedge_register_cpts();
+    flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'extraaedge_flush_rewrites');
+
+
+/* ═══════════════════════════════════════════════════════════════════
+ * ─── SEO / CRAWLABILITY UPGRADES ──────────────────────────────────
+ * Sections J–U: pure additions, no existing behaviour changed.
+ * ══════════════════════════════════════════════════════════════════ */
+
+// ══════════════════════════════════════════════════════════
+// J. WP HEAD BLOAT CLEANUP (cleaner source for Google + AI crawlers)
+// ══════════════════════════════════════════════════════════
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'wp_shortlink_wp_head');
+remove_action('wp_head', 'rest_output_link_wp_head');
+remove_action('wp_head', 'wp_oembed_add_discovery_links');
+remove_action('wp_head', 'feed_links_extra', 3);
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
+add_filter('the_generator', '__return_empty_string');
+add_filter('emoji_svg_url', '__return_false');
+
+// ══════════════════════════════════════════════════════════
+// K. IMAGE ALT FALLBACK (never serve empty alt to crawlers)
+// ══════════════════════════════════════════════════════════
+add_filter('wp_get_attachment_image_attributes', function ($attr, $attachment) {
+    if (empty($attr['alt'])) {
+        $title = trim(wp_strip_all_tags($attachment->post_title));
+        $attr['alt'] = $title ?: get_bloginfo('name');
+    }
+    return $attr;
+}, 10, 2);
+
+// Also patch image alt on content output (covers editor-inserted images)
+add_filter('the_content', function ($content) {
+    if (empty($content) || stripos($content, '<img') === false) return $content;
+    return preg_replace_callback('/<img([^>]*)>/i', function ($m) {
+        $tag = $m[0];
+        if (preg_match('/\salt=("|\')(.*?)\1/i', $tag, $alt_match) && trim($alt_match[2]) !== '') {
+            return $tag;
+        }
+        $fallback = esc_attr(get_the_title() ?: get_bloginfo('name'));
+        if (stripos($tag, 'alt=') !== false) {
+            return preg_replace('/\salt=("|\')(.*?)\1/i', ' alt="' . $fallback . '"', $tag);
+        }
+        return '<img alt="' . $fallback . '"' . $m[1] . '>';
+    }, $content);
+}, 20);
+
+// ══════════════════════════════════════════════════════════
+// L. DEFER / ASYNC SCRIPT LOADER (Core Web Vitals)
+// ══════════════════════════════════════════════════════════
+add_filter('script_loader_tag', function ($tag, $handle, $src) {
+    // Never defer admin / comment-reply scripts
+    if (is_admin() || in_array($handle, array('jquery','jquery-core','jquery-migrate','comment-reply'), true)) return $tag;
+    // Defer all theme/plugin scripts (non-blocking)
+    if (strpos($tag, ' defer') === false && strpos($tag, ' async') === false) {
+        $tag = str_replace(' src=', ' defer src=', $tag);
+    }
+    return $tag;
+}, 10, 3);
+
+// ══════════════════════════════════════════════════════════
+// M. LAST-MODIFIED + CACHE HEADERS (TTFB + freshness signals)
+// ══════════════════════════════════════════════════════════
+add_action('template_redirect', function () {
+    if (is_admin() || is_user_logged_in()) return;
+    if (is_singular()) {
+        $ts = get_the_modified_time('U');
+        if ($ts) {
+            header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $ts) . ' GMT');
+            header('Cache-Control: public, max-age=3600, must-revalidate');
+        }
+    } elseif (!is_404()) {
+        header('Cache-Control: public, max-age=600');
+    }
+});
+
+// ══════════════════════════════════════════════════════════
+// N. ROBOTS.TXT (Sitemap pointer + AI crawler allowlist)
+// ══════════════════════════════════════════════════════════
+add_filter('robots_txt', function ($output, $public) {
+    if (!$public) return $output; // honor WP "Discourage search engines"
+    $site = home_url('/');
+    $output  = "# ExtraaEdge robots.txt — optimized for Google + AI crawlers\n\n";
+    $output .= "User-agent: *\n";
+    $output .= "Allow: /wp-content/uploads/\n";
+    $output .= "Allow: /wp-content/themes/*/assets/\n";
+    $output .= "Allow: /*.css$\n";
+    $output .= "Allow: /*.js$\n";
+    $output .= "Allow: /*.webp$\n";
+    $output .= "Allow: /*.svg$\n";
+    $output .= "Disallow: /wp-admin/\n";
+    $output .= "Disallow: /wp-login.php\n";
+    $output .= "Disallow: /xmlrpc.php\n";
+    $output .= "Disallow: /?s=\n";
+    $output .= "Disallow: /search/\n";
+    $output .= "Disallow: /wp-json/\n";
+    $output .= "Allow: /wp-admin/admin-ajax.php\n\n";
+
+    // Major search engines (explicit)
+    $output .= "User-agent: Googlebot\nAllow: /\n\n";
+    $output .= "User-agent: Googlebot-Image\nAllow: /\n\n";
+    $output .= "User-agent: Bingbot\nAllow: /\n\n";
+    $output .= "User-agent: DuckDuckBot\nAllow: /\n\n";
+
+    // AI crawlers (LLM training + AEO/answer engines)
+    $output .= "User-agent: GPTBot\nAllow: /\n\n";              // OpenAI / ChatGPT
+    $output .= "User-agent: ChatGPT-User\nAllow: /\n\n";
+    $output .= "User-agent: OAI-SearchBot\nAllow: /\n\n";
+    $output .= "User-agent: ClaudeBot\nAllow: /\n\n";           // Anthropic / Claude
+    $output .= "User-agent: anthropic-ai\nAllow: /\n\n";
+    $output .= "User-agent: PerplexityBot\nAllow: /\n\n";        // Perplexity
+    $output .= "User-agent: Perplexity-User\nAllow: /\n\n";
+    $output .= "User-agent: Google-Extended\nAllow: /\n\n";      // Bard / Gemini training
+    $output .= "User-agent: Applebot-Extended\nAllow: /\n\n";    // Apple Intelligence
+    $output .= "User-agent: Bytespider\nAllow: /\n\n";           // TikTok / Doubao
+    $output .= "User-agent: cohere-ai\nAllow: /\n\n";
+    $output .= "User-agent: Meta-ExternalAgent\nAllow: /\n\n";   // Meta AI
+    $output .= "User-agent: FacebookBot\nAllow: /\n\n";
+
+    // Sitemap (WordPress auto-generates /wp-sitemap.xml since 5.5)
+    $output .= "Sitemap: " . $site . "wp-sitemap.xml\n";
+    $output .= "Sitemap: " . $site . "sitemap_index.xml\n"; // Yoast/RankMath fallback
+    return $output;
+}, 10, 2);
+
+// ══════════════════════════════════════════════════════════
+// O. PROPER HTTP STATUS CODES (200/301/404)
+// ══════════════════════════════════════════════════════════
+add_action('template_redirect', function () {
+    if (is_404()) status_header(404);
+});
+
+// ══════════════════════════════════════════════════════════
+// P. BODY CLASSES (entity signals for crawlers)
+// ══════════════════════════════════════════════════════════
+add_filter('body_class', function ($classes) {
+    if (is_singular('product'))     $classes[] = 'ee-product-page';
+    if (is_singular('industry'))    $classes[] = 'ee-industry-page';
+    if (is_singular('case_study'))  $classes[] = 'ee-case-study-page';
+    if (is_singular())              $classes[] = 'ee-singular';
+    return $classes;
+});
+
+// ══════════════════════════════════════════════════════════
+// Q. CLEAN EXCERPT (no [...] noise)
+// ══════════════════════════════════════════════════════════
+add_filter('excerpt_more', function () { return '…'; });
+
+// ══════════════════════════════════════════════════════════
+// R. DISABLE XML-RPC (security + slimmer headers)
+// ══════════════════════════════════════════════════════════
+add_filter('xmlrpc_enabled', '__return_false');
+add_filter('wp_headers', function ($headers) { unset($headers['X-Pingback']); return $headers; });
+
+// ══════════════════════════════════════════════════════════
+// S. SCHEMA HELPERS (callable from any template)
+// ══════════════════════════════════════════════════════════
+if (!function_exists('ee_emit_jsonld')) {
+    function ee_emit_jsonld($data) {
+        echo "\n<script type=\"application/ld+json\">\n" . wp_json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n</script>\n";
+    }
+}
+if (!function_exists('ee_faq_schema')) {
+    function ee_faq_schema($faqs) {
+        if (empty($faqs) || !is_array($faqs)) return;
+        $main = array();
+        foreach ($faqs as $row) {
+            $q = is_array($row) ? ($row['question'] ?? $row['q'] ?? '') : '';
+            $a = is_array($row) ? ($row['answer']   ?? $row['a'] ?? '') : '';
+            if (!$q) continue;
+            $main[] = array(
+                '@type'          => 'Question',
+                'name'           => wp_strip_all_tags($q),
+                'acceptedAnswer' => array('@type' => 'Answer', 'text' => wp_strip_all_tags($a)),
+            );
+        }
+        if ($main) ee_emit_jsonld(array('@context'=>'https://schema.org','@type'=>'FAQPage','mainEntity'=>$main));
+    }
+}
+if (!function_exists('ee_video_schema')) {
+    function ee_video_schema($args) {
+        $a = wp_parse_args($args, array(
+            'name'=>'','description'=>'','thumbnail'=>'','upload_date'=>'','content_url'=>'','embed_url'=>'',
+        ));
+        if (!$a['name']) return;
+        ee_emit_jsonld(array(
+            '@context'    => 'https://schema.org',
+            '@type'       => 'VideoObject',
+            'name'        => $a['name'],
+            'description' => $a['description'],
+            'thumbnailUrl'=> $a['thumbnail'],
+            'uploadDate'  => $a['upload_date'],
+            'contentUrl'  => $a['content_url'],
+            'embedUrl'    => $a['embed_url'],
+        ));
+    }
+}
+if (!function_exists('ee_howto_schema')) {
+    function ee_howto_schema($name, $steps) {
+        if (!$name || empty($steps)) return;
+        $list = array(); $i = 1;
+        foreach ($steps as $title => $desc) {
+            $list[] = array('@type'=>'HowToStep','position'=>$i++, 'name'=>$title, 'text'=>$desc);
+        }
+        ee_emit_jsonld(array('@context'=>'https://schema.org','@type'=>'HowTo','name'=>$name,'step'=>$list));
+    }
+}
+if (!function_exists('ee_review_schema')) {
+    function ee_review_schema($testimonials, $item_name = '') {
+        if (empty($testimonials) || !is_array($testimonials)) return;
+        $reviews = array();
+        foreach ($testimonials as $t) {
+            if (empty($t['name']) || empty($t['quote'])) continue;
+            $reviews[] = array(
+                '@type'        => 'Review',
+                'reviewRating' => array('@type'=>'Rating','ratingValue'=>'5','bestRating'=>'5'),
+                'author'       => array('@type'=>'Person','name'=>wp_strip_all_tags($t['name'])),
+                'reviewBody'   => wp_strip_all_tags($t['quote']),
+            );
+        }
+        if (!$reviews) return;
+        ee_emit_jsonld(array(
+            '@context' => 'https://schema.org',
+            '@type'    => 'Product',
+            'name'     => $item_name ?: get_the_title(),
+            'review'   => $reviews,
+        ));
+    }
+}
+
+// ══════════════════════════════════════════════════════════
+// T. AUTO PRELOAD HERO IMAGE (LCP boost — product pages)
+// ══════════════════════════════════════════════════════════
+add_action('wp_head', function () {
+    if (!is_singular('product')) return;
+    $hero = get_post_meta(get_the_ID(), '_og_image', true) ?: get_the_post_thumbnail_url(get_the_ID(), 'full');
+    if ($hero) {
+        echo '<link rel="preload" as="image" href="' . esc_url($hero) . '" fetchpriority="high">' . "\n";
+    }
+}, 1);
+
+// ══════════════════════════════════════════════════════════
+// U. LAZY-LOAD GUARD (skip for first hero/logo images — LCP)
+// ══════════════════════════════════════════════════════════
+add_filter('wp_lazy_loading_enabled', function ($default, $tag_name, $context) {
+    if ($context === 'the_post_thumbnail') return false;
+    return $default;
+}, 10, 3);
