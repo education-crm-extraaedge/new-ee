@@ -1562,3 +1562,8 @@ remove_action('wp_head', 'wp_robots', 1);
 // X. REMOVE DUPLICATE CANONICAL (WP core auto-injects rel_canonical)
 // ══════════════════════════════════════════════════════════
 remove_action('wp_head', 'rel_canonical');
+
+// ══════════════════════════════════════════════════════════
+// Y. HOME PAGE EDITOR — non-coder admin for front-page.php
+// ══════════════════════════════════════════════════════════
+require_once get_template_directory() . '/inc/home-editor.php';
