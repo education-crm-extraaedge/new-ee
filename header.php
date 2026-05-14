@@ -257,12 +257,24 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
         }
         .skip-to-content:focus { top: 0; }
 
+        /* Site Header — STICKY (fallback in case Tailwind classes don't apply) */
+        #site-header {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
         /* Glassmorphism Navigation */
         .glass-nav {
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(25, 51, 93, 0.1);
+            width: 100%;
         }
 
         /* Glass Mega Menu */
@@ -474,9 +486,9 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
     <!-- Scroll Progress Indicator -->
     <div id="progress" role="progressbar" aria-label="Page scroll progress" aria-valuemin="0" aria-valuemax="100"></div>
 
-    <!-- ─── Site Header (semantic + crawlable static nav) ─── -->
-    <header id="site-header" role="banner">
-    <nav class="glass-nav sticky top-0 z-[1000] w-full" role="navigation" aria-label="Primary">
+    <!-- ─── Site Header (semantic + crawlable static nav + STICKY) ─── -->
+    <header id="site-header" role="banner" class="sticky top-0 z-[1000] w-full">
+    <nav class="glass-nav w-full" role="navigation" aria-label="Primary">
         <div class="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-20 md:h-24">
 
             <!-- Logo -->
