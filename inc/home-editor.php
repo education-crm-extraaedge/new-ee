@@ -15,6 +15,7 @@ class EE_Home_Editor {
         add_action('admin_menu', array(__CLASS__, 'add_menu'));
         add_action('admin_init', array(__CLASS__, 'register_settings'));
         add_action('admin_enqueue_scripts', array(__CLASS__, 'enqueue_assets'));
+        add_action('admin_head', array(__CLASS__, 'print_admin_styles'));
     }
 
     public static function add_menu() {
@@ -41,9 +42,13 @@ class EE_Home_Editor {
     public static function enqueue_assets($hook) {
         if ($hook !== 'settings_page_' . self::PAGE_SLUG) return;
         wp_enqueue_media();
-        wp_enqueue_style('ee-home-editor-css', false);
-        wp_add_inline_style('ee-home-editor-css', self::admin_css());
         wp_enqueue_script('jquery');
+    }
+
+    public static function print_admin_styles() {
+        $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+        if (!$screen || $screen->id !== 'settings_page_' . self::PAGE_SLUG) return;
+        echo "\n<style id=\"ee-home-editor-css\">\n" . self::admin_css() . "\n</style>\n";
     }
 
     public static function admin_css() {
