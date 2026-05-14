@@ -66,7 +66,8 @@ get_header();
     .home-page-root {
         font-family: 'Open Sans', sans-serif;
         color: #19335D;
-        overflow-x: hidden;
+        /* overflow-x: clip prevents horizontal scrollbars without breaking position:sticky descendants */
+        overflow-x: clip;
         scroll-behavior: smooth;
     }
     .poppins { font-family: 'Poppins', sans-serif; }
@@ -816,7 +817,8 @@ get_header();
         background-color: #FFFFFF;
         color: #19335D;
         scroll-behavior: smooth;
-        overflow-x: hidden;
+        /* NOTE: overflow-x must NOT be hidden here — it breaks position:sticky on .visual-viewport */
+        overflow-x: clip;
     }
 
     /* Scroll Interaction Classes */
