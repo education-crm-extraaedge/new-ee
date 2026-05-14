@@ -48,20 +48,33 @@ class EE_Home_Editor {
 
     public static function admin_css() {
         return '
-        .home-editor-wrap{max-width:1100px;margin:20px 0}
+        .home-editor-wrap{max-width:100%;margin:20px 20px 20px 0}
         .home-editor-wrap h1.title{font-size:23px;font-weight:600;color:#1d2327;margin:0 0 6px;padding:0;display:flex;align-items:center;gap:8px}
         .home-editor-wrap .subtitle{color:#646970;font-size:13px;margin:0 0 18px}
         .home-editor-wrap .preview-link{margin-left:auto;font-size:13px;text-decoration:none}
 
+        /* Horizontal scroll tab bar — single row, scrolls if too many tabs */
         .home-tabs-wrapper{margin-top:20px}
-        .home-tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid #ccc;margin:0;padding:0;background:#f0f0f0}
-        .home-tabs li{list-style:none;margin:0;padding:0}
-        .home-tabs a{display:block;padding:12px 18px;text-decoration:none;background:#f0f0f0;color:#333;border-right:1px solid #ccc;font-weight:600;font-size:13px;line-height:1}
-        .home-tabs a:hover{background:#e0e0e0}
+        .home-tabs-scroller{position:relative;background:#f0f0f0;border-bottom:1px solid #ccc}
+        .home-tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;margin:0;padding:0;background:#f0f0f0;scrollbar-width:thin;scrollbar-color:#bbb #f0f0f0;scroll-behavior:smooth}
+        .home-tabs::-webkit-scrollbar{height:6px}
+        .home-tabs::-webkit-scrollbar-track{background:#f0f0f0}
+        .home-tabs::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}
+        .home-tabs::-webkit-scrollbar-thumb:hover{background:#999}
+        .home-tabs li{list-style:none;margin:0;padding:0;flex:0 0 auto}
+        .home-tabs a{display:flex;align-items:center;gap:6px;padding:12px 16px;text-decoration:none;background:#f0f0f0;color:#333;border-right:1px solid #ccc;font-weight:600;font-size:13px;line-height:1;white-space:nowrap}
+        .home-tabs a:hover{background:#e0e0e0;color:#0073aa}
         .home-tabs a:focus{box-shadow:none;outline:1px solid #2271b1}
         .home-tabs a.active{background:#fff;color:#0073aa;border-bottom:2px solid #0073aa;margin-bottom:-1px}
-        .home-tabs a .num{display:inline-block;background:rgba(0,0,0,.08);color:#555;font-size:11px;font-weight:700;padding:1px 6px;border-radius:99px;margin-right:6px}
+        .home-tabs a .num{display:inline-flex;align-items:center;justify-content:center;background:rgba(0,0,0,.08);color:#555;font-size:11px;font-weight:700;min-width:20px;height:20px;padding:0 6px;border-radius:99px}
         .home-tabs a.active .num{background:#0073aa;color:#fff}
+
+        /* Optional fade hints at edges to show scrollability */
+        .home-tabs-scroller::before,.home-tabs-scroller::after{content:"";position:absolute;top:0;bottom:0;width:24px;pointer-events:none;z-index:2;opacity:0;transition:opacity .2s}
+        .home-tabs-scroller::before{left:0;background:linear-gradient(90deg,#f0f0f0,transparent)}
+        .home-tabs-scroller::after{right:0;background:linear-gradient(270deg,#f0f0f0,transparent)}
+        .home-tabs-scroller.has-left-scroll::before{opacity:1}
+        .home-tabs-scroller.has-right-scroll::after{opacity:1}
 
         .home-tab-content{display:none;padding:24px;background:#fff;border:1px solid #ccc;border-top:none}
         .home-tab-content.active{display:block}
@@ -216,11 +229,13 @@ class EE_Home_Editor {
                 <?php settings_fields('ee_home_group'); ?>
 
                 <div class="home-tabs-wrapper">
-                    <ul class="home-tabs">
-                        <?php $n = 1; foreach ($tabs as $slug => $info): ?>
-                            <li><a href="#" data-tab="tab-<?php echo esc_attr($slug); ?>" class="<?php echo $slug === $active ? 'active' : ''; ?>"><span class="num"><?php echo $n; ?></span><?php echo esc_html($info[0]); ?> <?php echo esc_html($info[1]); ?></a></li>
-                        <?php $n++; endforeach; ?>
-                    </ul>
+                    <div class="home-tabs-scroller">
+                        <ul class="home-tabs" id="home-tabs">
+                            <?php $n = 1; foreach ($tabs as $slug => $info): ?>
+                                <li><a href="#" data-tab="tab-<?php echo esc_attr($slug); ?>" class="<?php echo $slug === $active ? 'active' : ''; ?>"><span class="num"><?php echo $n; ?></span><?php echo esc_html($info[0]); ?> <?php echo esc_html($info[1]); ?></a></li>
+                            <?php $n++; endforeach; ?>
+                        </ul>
+                    </div>
 
                     <?php foreach ($tabs as $slug => $info):
                         $is_active = $slug === $active;
@@ -242,6 +257,31 @@ class EE_Home_Editor {
 
         <script>
         jQuery(document).ready(function($){
+            var $tabsEl   = $('#home-tabs');
+            var $scroller = $('.home-tabs-scroller');
+
+            function updateEdgeHints(){
+                if (!$tabsEl.length) return;
+                var el = $tabsEl[0];
+                $scroller.toggleClass('has-left-scroll',  el.scrollLeft > 4);
+                $scroller.toggleClass('has-right-scroll', el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+            }
+            $tabsEl.on('scroll', updateEdgeHints);
+            $(window).on('resize', updateEdgeHints);
+            updateEdgeHints();
+
+            // Center active tab in the scroller on load
+            function scrollActiveIntoView(){
+                var $a = $tabsEl.find('a.active');
+                if (!$a.length) return;
+                var el      = $tabsEl[0];
+                var aLeft   = $a[0].offsetLeft;
+                var aWidth  = $a[0].offsetWidth;
+                el.scrollLeft = aLeft - (el.clientWidth - aWidth) / 2;
+                updateEdgeHints();
+            }
+            scrollActiveIntoView();
+
             $('.home-tabs a').on('click', function(e){
                 e.preventDefault();
                 var target = $(this).data('tab');
@@ -251,6 +291,12 @@ class EE_Home_Editor {
                 $('#' + target).addClass('active');
                 var slug = target.replace(/^tab-/, '');
                 history.replaceState(null, '', '?page=<?php echo self::PAGE_SLUG; ?>&tab=' + slug);
+                // Smooth-scroll the clicked tab into view
+                var $a = $(this);
+                var el = $tabsEl[0];
+                var newLeft = $a[0].offsetLeft - (el.clientWidth - $a[0].offsetWidth) / 2;
+                $tabsEl.stop().animate({ scrollLeft: newLeft }, 250, updateEdgeHints);
+                $('html,body').animate({ scrollTop: $('.home-tabs-wrapper').offset().top - 40 }, 220);
             });
 
             $(document).on('click', '.image-field .pick-btn', function(e){
