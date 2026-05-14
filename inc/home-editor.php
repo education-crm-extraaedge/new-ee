@@ -1,6 +1,6 @@
 <?php
 /**
- * Home Page Editor — Visual Non-coder Admin
+ * Home Page Editor — Premium Non-coder Admin UI v3
  * Settings → 🏠 Home Page Editor
  * Storage: ee_home_settings (single array option)
  * @package ExtraaEdge
@@ -44,90 +44,171 @@ class EE_Home_Editor {
         wp_enqueue_style('ee-home-editor-css', false);
         wp_add_inline_style('ee-home-editor-css', self::admin_css());
         wp_enqueue_script('jquery');
+        // Hide WP admin notices and footer for clean look
+        add_action('admin_print_styles', function(){
+            echo '<style>#wpfooter,#screen-meta,#screen-meta-links,.update-nag,.notice:not(.ee-keep){display:none!important}#wpcontent{padding-left:0!important}#wpbody-content{padding-bottom:0!important}.auto-fold #wpcontent{margin-left:36px}html.wp-toolbar{padding-top:32px!important}</style>';
+        });
     }
 
     public static function admin_css() {
         return '
-        body{background:#f0f2f5}
-        .ee-app{max-width:1280px;margin:24px auto;background:#fff;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.08);overflow:hidden;border:1px solid #e2e8f0}
-        .ee-header{background:linear-gradient(135deg,#19335D 0%,#2a4d8f 100%);color:#fff;padding:32px 40px;position:relative;overflow:hidden}
-        .ee-header:before{content:"";position:absolute;top:-50%;right:-10%;width:300px;height:300px;background:rgba(222,110,48,.18);border-radius:50%;filter:blur(60px)}
-        .ee-header h1{color:#fff;margin:0 0 8px;font-size:30px;font-weight:800;position:relative;z-index:1}
-        .ee-header p{color:rgba(255,255,255,.9);margin:0;font-size:15px;position:relative;z-index:1;max-width:700px}
-        .ee-info-bar{background:#FEF7F2;border-left:5px solid #DE6E30;padding:16px 24px;margin:20px 40px 0;border-radius:0 12px 12px 0;display:flex;gap:14px;align-items:flex-start}
-        .ee-info-bar .ico{font-size:24px;line-height:1}
-        .ee-info-bar p{margin:0;color:#19335D;font-size:14px;line-height:1.6}
-        .ee-info-bar p strong{display:block;font-size:15px;margin-bottom:4px}
-        .ee-tabs-wrap{padding:0 40px;background:#f8fafc;border-bottom:1px solid #e2e8f0;margin-top:20px;overflow-x:auto}
-        .ee-tabs{display:flex;gap:4px;min-width:max-content}
-        .ee-tab-btn{background:transparent;border:0;padding:16px 18px;font-size:13px;font-weight:700;color:#64748b;cursor:pointer;border-bottom:3px solid transparent;transition:.2s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
-        .ee-tab-btn:hover{color:#DE6E30;background:rgba(222,110,48,.05)}
-        .ee-tab-btn.active{color:#DE6E30;border-bottom-color:#DE6E30;background:#fff}
-        .ee-tab-btn .num{background:#e2e8f0;color:#64748b;font-size:10px;padding:2px 7px;border-radius:99px;font-weight:800}
-        .ee-tab-btn.active .num{background:#DE6E30;color:#fff}
-        .ee-body{padding:32px 40px 24px}
-        .ee-pane{display:none}
-        .ee-pane.active{display:block}
-        .ee-pane-header{margin-bottom:28px;padding-bottom:20px;border-bottom:2px dashed #e2e8f0}
-        .ee-pane-header h2{font-size:24px;color:#19335D;margin:0 0 8px;font-weight:800;display:flex;align-items:center;gap:10px}
-        .ee-pane-header h2 .pane-ico{font-size:30px}
-        .ee-pane-header .pane-desc{color:#64748b;margin:0;font-size:14px;line-height:1.6;background:#f8fafc;padding:12px 16px;border-radius:8px;border:1px solid #e2e8f0}
-        .ee-pane-header .pane-desc strong{color:#19335D}
-        .ee-group{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin-bottom:20px;position:relative}
-        .ee-group-title{font-size:13px;font-weight:800;color:#19335D;text-transform:uppercase;letter-spacing:1.5px;margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:8px}
-        .ee-group-title .badge{background:#DE6E30;color:#fff;font-size:10px;padding:3px 8px;border-radius:6px;letter-spacing:0;text-transform:none;font-weight:700}
-        .ee-field{margin-bottom:18px;padding:14px;background:#fafbfc;border:1px solid #edf2f7;border-radius:10px;transition:.2s}
-        .ee-field:hover{border-color:#cbd5e1;background:#fff}
+        :root{--ee-blue:#19335D;--ee-blue-2:#2a4d8f;--ee-orange:#DE6E30;--ee-orange-2:#c85d20;--ee-bg:#f5f7fb;--ee-bg-2:#eef2f9;--ee-card:#ffffff;--ee-border:#e2e8f0;--ee-border-2:#cbd5e1;--ee-text:#19335D;--ee-text-2:#475569;--ee-text-3:#94a3b8;--ee-shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.04);--ee-shadow-lg:0 10px 40px rgba(15,23,42,.08);--ee-radius:14px}
+        html, body.wp-admin{background:var(--ee-bg)!important}
+        body.settings_page_ee-home-editor #wpwrap{background:var(--ee-bg)}
+        body.settings_page_ee-home-editor #wpbody-content{padding:0!important;margin-left:0!important}
+        body.settings_page_ee-home-editor .wrap{margin:0!important;padding:0!important;max-width:none!important}
+
+        /* ── Layout ── */
+        .ee-shell{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 32px);background:var(--ee-bg)}
+
+        /* ── Sidebar ── */
+        .ee-sidebar{background:linear-gradient(180deg,#0F1F3A 0%,#19335D 100%);color:#fff;padding:24px 0;position:sticky;top:32px;height:calc(100vh - 32px);overflow-y:auto;box-shadow:4px 0 24px rgba(15,31,58,.08)}
+        .ee-sidebar::-webkit-scrollbar{width:6px}
+        .ee-sidebar::-webkit-scrollbar-track{background:transparent}
+        .ee-sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
+        .ee-brand{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:16px}
+        .ee-brand-icon{width:44px;height:44px;background:linear-gradient(135deg,#DE6E30,#ff9d6c);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:12px;box-shadow:0 6px 20px rgba(222,110,48,.35)}
+        .ee-brand h2{color:#fff;font-size:17px;font-weight:800;margin:0 0 4px;letter-spacing:-.3px}
+        .ee-brand p{color:rgba(255,255,255,.5);font-size:12px;margin:0;line-height:1.4}
+        .ee-search{padding:0 16px 12px;position:relative}
+        .ee-search input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:10px;padding:10px 12px 10px 36px;font-size:13px;font-family:inherit;transition:.2s}
+        .ee-search input::placeholder{color:rgba(255,255,255,.4)}
+        .ee-search input:focus{outline:none;background:rgba(255,255,255,.1);border-color:rgba(222,110,48,.5)}
+        .ee-search::before{content:"🔍";position:absolute;left:28px;top:50%;transform:translateY(-50%);font-size:13px;opacity:.5;pointer-events:none}
+        .ee-nav{padding:0 12px;list-style:none;margin:0}
+        .ee-nav-item{margin-bottom:2px;list-style:none}
+        .ee-nav-btn{width:100%;background:transparent;border:0;color:rgba(255,255,255,.7);text-align:left;padding:11px 14px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:12px;font-size:13.5px;font-weight:500;transition:.2s;font-family:inherit;position:relative}
+        .ee-nav-btn:hover{background:rgba(255,255,255,.06);color:#fff}
+        .ee-nav-btn.active{background:linear-gradient(135deg,rgba(222,110,48,.18),rgba(222,110,48,.08));color:#fff;font-weight:600;box-shadow:inset 3px 0 0 #DE6E30}
+        .ee-nav-btn .icon{font-size:18px;flex-shrink:0;width:24px;text-align:center}
+        .ee-nav-btn .label{flex:1;line-height:1.2}
+        .ee-nav-btn .num{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);font-size:10px;padding:2px 7px;border-radius:99px;font-weight:700;min-width:22px;text-align:center}
+        .ee-nav-btn.active .num{background:#DE6E30;color:#fff}
+        .ee-nav-section-label{padding:14px 14px 6px;font-size:10px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.35);text-transform:uppercase}
+        .ee-sidebar-footer{padding:16px 24px;border-top:1px solid rgba(255,255,255,.08);margin-top:20px}
+        .ee-sidebar-footer a{color:rgba(255,255,255,.5);font-size:12px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:.2s}
+        .ee-sidebar-footer a:hover{color:#fff}
+
+        /* ── Main ── */
+        .ee-main{padding:0;background:var(--ee-bg);min-height:calc(100vh - 32px)}
+        .ee-topbar{background:#fff;border-bottom:1px solid var(--ee-border);padding:18px 36px;display:flex;align-items:center;gap:18px;position:sticky;top:32px;z-index:50;box-shadow:0 1px 0 rgba(15,23,42,.04)}
+        .ee-crumb{font-size:13px;color:var(--ee-text-3);display:flex;align-items:center;gap:8px}
+        .ee-crumb b{color:var(--ee-text);font-weight:700}
+        .ee-topbar-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+        .ee-btn-secondary{background:#fff;border:1.5px solid var(--ee-border-2);color:var(--ee-text);padding:9px 18px;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.2s;text-decoration:none}
+        .ee-btn-secondary:hover{border-color:var(--ee-orange);color:var(--ee-orange)}
+        .ee-btn-primary{background:linear-gradient(135deg,#DE6E30,#c85d20);border:0;color:#fff!important;padding:10px 24px!important;border-radius:9px!important;font-weight:700!important;font-size:13.5px!important;cursor:pointer;display:inline-flex!important;align-items:center;gap:6px;transition:.2s;height:auto!important;line-height:1.4!important;box-shadow:0 6px 18px rgba(222,110,48,.35)!important;text-shadow:none!important}
+        .ee-btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(222,110,48,.45)!important;background:linear-gradient(135deg,#c85d20,#a04915)!important;color:#fff!important}
+
+        /* Pane header (hero) */
+        .ee-pane{display:none;padding:36px}
+        .ee-pane.active{display:block;animation:eeFadeIn .35s ease}
+        @keyframes eeFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        .ee-pane-hero{background:linear-gradient(135deg,#19335D 0%,#2a4d8f 100%);color:#fff;border-radius:18px;padding:32px 36px;margin-bottom:28px;position:relative;overflow:hidden;box-shadow:var(--ee-shadow-lg)}
+        .ee-pane-hero::before{content:"";position:absolute;top:-40%;right:-10%;width:340px;height:340px;background:radial-gradient(circle,rgba(222,110,48,.35) 0%,transparent 65%);filter:blur(20px)}
+        .ee-pane-hero::after{content:"";position:absolute;bottom:-50%;left:30%;width:300px;height:300px;background:radial-gradient(circle,rgba(59,130,246,.18) 0%,transparent 65%);filter:blur(30px)}
+        .ee-pane-hero-inner{position:relative;z-index:2;display:flex;gap:24px;align-items:center}
+        .ee-pane-ico{width:78px;height:78px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:38px;flex-shrink:0}
+        .ee-pane-hero h1{color:#fff;margin:0 0 6px;font-size:26px;font-weight:800;letter-spacing:-.4px}
+        .ee-pane-hero p{color:rgba(255,255,255,.85);margin:0;font-size:14.5px;line-height:1.6;max-width:760px}
+        .ee-pane-hero .pane-meta{display:flex;gap:14px;margin-top:14px}
+        .ee-pane-hero .pane-meta span{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);padding:5px 12px;border-radius:99px;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.95);display:inline-flex;align-items:center;gap:6px}
+
+        /* Group */
+        .ee-group{background:var(--ee-card);border:1px solid var(--ee-border);border-radius:var(--ee-radius);margin-bottom:20px;overflow:hidden;transition:.2s;box-shadow:var(--ee-shadow)}
+        .ee-group:hover{border-color:var(--ee-border-2)}
+        .ee-group-head{padding:18px 24px 14px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(180deg,#fafbfd,#fff)}
+        .ee-group-title{font-size:13px;font-weight:800;color:var(--ee-text);text-transform:uppercase;letter-spacing:1.3px;margin:0;display:flex;align-items:center;gap:10px}
+        .ee-group-title .dot{width:8px;height:8px;background:#DE6E30;border-radius:50%;box-shadow:0 0 0 4px rgba(222,110,48,.18)}
+        .ee-group-badge{background:linear-gradient(135deg,#DE6E30,#c85d20);color:#fff;font-size:10px;padding:3px 10px;border-radius:6px;letter-spacing:.3px;font-weight:700;text-transform:none}
+        .ee-group-body{padding:18px 24px 22px}
+
+        /* Field */
+        .ee-field{margin-bottom:18px;padding:14px;background:#fafbfd;border:1.5px solid #edf2f7;border-radius:10px;transition:.2s;position:relative}
         .ee-field:last-child{margin-bottom:0}
-        .ee-field-label{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-        .ee-field-label .num-tag{background:#19335D;color:#fff;font-size:10px;padding:2px 7px;border-radius:5px;font-weight:800}
-        .ee-field-label label{font-weight:700;color:#19335D;font-size:14px;margin:0}
-        .ee-field-label .where{margin-left:auto;font-size:11px;color:#94a3b8;background:#f1f5f9;padding:3px 9px;border-radius:99px;font-weight:600}
-        .ee-field-help{color:#64748b;font-size:12.5px;line-height:1.5;margin:0 0 10px;padding-left:2px;font-style:italic}
-        .ee-field-help b{color:#DE6E30;font-style:normal}
+        .ee-field:hover{border-color:var(--ee-border-2);background:#fff;transform:translateY(-1px);box-shadow:var(--ee-shadow)}
+        .ee-field:focus-within{border-color:var(--ee-orange);background:#fff;box-shadow:0 0 0 4px rgba(222,110,48,.08),var(--ee-shadow)}
+        .ee-field-label{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+        .ee-field-label .num-tag{background:linear-gradient(135deg,#19335D,#2a4d8f);color:#fff;font-size:10px;padding:3px 9px;border-radius:6px;font-weight:700;min-width:22px;text-align:center;box-shadow:0 2px 6px rgba(25,51,93,.25)}
+        .ee-field-label label{font-weight:700;color:var(--ee-text);font-size:13.5px;margin:0;cursor:pointer;letter-spacing:-.1px}
+        .ee-field-label .where{margin-left:auto;font-size:11px;color:var(--ee-text-3);background:#f1f5f9;padding:3px 10px;border-radius:99px;font-weight:600;letter-spacing:.2px}
+        .ee-field-help{color:var(--ee-text-2);font-size:12.5px;line-height:1.55;margin:0 0 10px;padding-left:2px}
+        .ee-field-help b,.ee-field-help strong{color:var(--ee-orange);font-weight:600}
+        .ee-field-help code{background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px;font-size:11.5px;border:1px solid #fde68a}
         .ee-field input[type=text],.ee-field input[type=url],.ee-field textarea{
-            width:100%;padding:11px 14px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:14px;background:#fff;font-family:inherit;color:#19335D
+            width:100%;padding:11px 14px;border:1.5px solid var(--ee-border-2);border-radius:9px;font-size:14px;background:#fff;font-family:inherit;color:var(--ee-text);transition:.2s
         }
-        .ee-field textarea{min-height:90px;line-height:1.6;resize:vertical}
-        .ee-field input:focus,.ee-field textarea:focus{outline:0;border-color:#DE6E30;box-shadow:0 0 0 3px rgba(222,110,48,.12)}
-        .ee-default{display:flex;gap:6px;align-items:center;margin-top:8px;font-size:11.5px;color:#94a3b8}
-        .ee-default code{background:#fff;border:1px dashed #cbd5e1;padding:3px 8px;border-radius:5px;color:#475569;font-size:11.5px;max-width:100%;overflow-wrap:anywhere}
+        .ee-field textarea{min-height:88px;line-height:1.6;resize:vertical}
+        .ee-field input:focus,.ee-field textarea:focus{outline:0;border-color:var(--ee-orange);box-shadow:0 0 0 4px rgba(222,110,48,.12)}
+        .ee-field input::placeholder,.ee-field textarea::placeholder{color:#cbd5e1}
+        .ee-default{display:flex;gap:8px;align-items:center;margin-top:9px;font-size:11.5px;color:var(--ee-text-3)}
+        .ee-default .pre-tag{background:#fef3c7;color:#92400e;padding:2px 7px;border-radius:5px;font-weight:700;font-size:10px;letter-spacing:.3px}
+        .ee-default code{background:#fff;border:1px dashed var(--ee-border-2);padding:4px 10px;border-radius:6px;color:var(--ee-text-2);font-size:11.5px;max-width:100%;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,monospace}
         .ee-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
         .ee-row .ee-field{margin-bottom:0}
-        .ee-img-row{display:flex;gap:14px;align-items:flex-start;background:#fff;padding:12px;border-radius:8px;border:1.5px solid #cbd5e1}
-        .ee-img-row .ee-thumb{width:100px;height:100px;border-radius:8px;background:#f1f5f9center/contain no-repeat;flex-shrink:0;border:1px solid #e2e8f0;background-size:contain;background-repeat:no-repeat;background-position:center}
-        .ee-img-row .ee-img-controls{flex:1;display:flex;flex-direction:column;gap:8px}
-        .ee-img-row input{padding:9px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:12.5px;color:#475569;background:#f8fafc;width:100%}
-        .ee-img-row button.ee-img-pick{background:linear-gradient(135deg,#19335D,#2a4d8f);color:#fff;border:0;padding:9px 18px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:700;width:fit-content;display:inline-flex;align-items:center;gap:6px}
-        .ee-img-row button.ee-img-pick:hover{background:linear-gradient(135deg,#DE6E30,#c85d20)}
-        .ee-save-bar{padding:24px 40px;background:linear-gradient(to top,#f8fafc,#fff);border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
-        .ee-save-info{font-size:13px;color:#475569}
-        .ee-save-info strong{color:#19335D}
-        .ee-save-bar .button-primary{background:#DE6E30!important;border-color:#DE6E30!important;font-size:15px;padding:10px 32px;height:auto;font-weight:700;box-shadow:0 6px 16px rgba(222,110,48,.3)!important;text-shadow:none!important}
-        .ee-save-bar .button-primary:hover{background:#c85d20!important;border-color:#c85d20!important;transform:translateY(-1px)}
-        .ee-quick-nav{position:sticky;top:32px;z-index:10}
-        @media(max-width:782px){.ee-row{grid-template-columns:1fr}.ee-body,.ee-header,.ee-info-bar,.ee-tabs-wrap,.ee-save-bar{padding-left:20px;padding-right:20px}.ee-info-bar{margin:16px 20px 0}}
+
+        /* Image picker */
+        .ee-img-row{display:flex;gap:14px;align-items:flex-start;background:#fff;padding:14px;border-radius:9px;border:1.5px solid var(--ee-border-2);transition:.2s}
+        .ee-img-row:hover{border-color:var(--ee-orange)}
+        .ee-img-row .ee-thumb{width:110px;height:110px;border-radius:10px;background:#f1f5f9 center/contain no-repeat;flex-shrink:0;border:1px solid var(--ee-border);background-size:contain;background-repeat:no-repeat;background-position:center;position:relative;overflow:hidden}
+        .ee-img-row .ee-thumb:empty::before,.ee-img-row .ee-thumb[style*="background-image:url()"]::before{content:"📷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:32px;opacity:.3}
+        .ee-img-row .ee-img-controls{flex:1;display:flex;flex-direction:column;gap:9px}
+        .ee-img-row input{padding:10px 12px;border:1px solid var(--ee-border);border-radius:7px;font-size:12.5px;color:var(--ee-text-2);background:#fafbfd;width:100%;font-family:inherit}
+        .ee-img-row input:focus{outline:none;border-color:var(--ee-orange);background:#fff}
+        .ee-img-row button.ee-img-pick{background:linear-gradient(135deg,#19335D,#2a4d8f);color:#fff;border:0;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;width:fit-content;display:inline-flex;align-items:center;gap:8px;transition:.2s;font-family:inherit;box-shadow:0 4px 12px rgba(25,51,93,.2)}
+        .ee-img-row button.ee-img-pick:hover{background:linear-gradient(135deg,#DE6E30,#c85d20);transform:translateY(-1px);box-shadow:0 6px 18px rgba(222,110,48,.3)}
+
+        /* Floating save bar */
+        .ee-savebar{position:sticky;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-top:1px solid var(--ee-border);padding:16px 36px;display:flex;align-items:center;justify-content:space-between;gap:14px;z-index:40;box-shadow:0 -8px 24px rgba(15,23,42,.06);margin:0 -36px -36px}
+        .ee-savebar-tip{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ee-text-2)}
+        .ee-savebar-tip .ico{width:32px;height:32px;background:linear-gradient(135deg,#10b981,#059669);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0}
+        .ee-savebar-tip strong{color:var(--ee-text);display:block;font-size:13.5px}
+        .ee-savebar-tip small{font-size:11.5px;color:var(--ee-text-3)}
+
+        /* Toast on save */
+        .ee-toast{position:fixed;top:60px;right:30px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:14px 24px;border-radius:12px;font-weight:600;font-size:14px;box-shadow:0 14px 40px rgba(16,185,129,.4);z-index:9999;display:none;align-items:center;gap:10px;animation:eeToast .4s cubic-bezier(.23,1,.32,1)}
+        @keyframes eeToast{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+        /* Field count badge on nav items */
+        .ee-nav-btn .count{margin-left:auto;background:rgba(34,197,94,.18);color:#86efac;font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:99px}
+
+        /* Responsive */
+        @media(max-width:1080px){
+            .ee-shell{grid-template-columns:240px 1fr}
+            .ee-row{grid-template-columns:1fr}
+            .ee-pane{padding:24px}
+            .ee-topbar{padding:14px 24px}
+            .ee-savebar{padding:14px 24px;margin:0 -24px -24px}
+        }
+        @media(max-width:768px){
+            .ee-shell{grid-template-columns:1fr}
+            .ee-sidebar{position:relative;top:0;height:auto;max-height:auto}
+            .ee-pane-hero-inner{flex-direction:column;align-items:flex-start}
+        }
+
+        /* Search dim non-matches */
+        .ee-nav-btn.dim{opacity:.25;pointer-events:none}
         ';
     }
 
     public static function tabs() {
         return array(
-            'hero'      => array('🎯', 'Hero Section', 'Page cha topmost area'),
-            'logos'     => array('🏛', 'Trusted By Logos', '15 institution logos'),
-            'vidyaai'   => array('🧠', 'VidyaAI Section', 'Intelligence storytelling'),
-            'admcrm'    => array('📊', 'Admission CRM', 'Pipeline visualization'),
-            'marketing' => array('📣', 'Marketing System', 'AI marketing flow'),
-            'chatbot'   => array('💬', 'Chatbot', 'Live chat section'),
-            'appmgmt'   => array('📋', 'Application Mgmt', 'Application system'),
-            'whatsapp'  => array('📱', 'WhatsApp API', 'WhatsApp section'),
-            'mobilecrm' => array('📲', 'Mobile CRM', 'Mobile app section'),
-            'choose'    => array('🏗', 'Why Choose Us', 'Architect section'),
-            'respond'   => array('⚡', 'Respond First', 'Response hero'),
-            'boost'     => array('🚀', 'Boost Conversion', 'AI engagement'),
-            'convert'   => array('🎯', 'Convert More', 'Enquiry-to-enrolment'),
-            'analytics' => array('📈', 'Analytics Engine', 'Intelligence dashboard'),
-            'stories'   => array('⭐', 'Testimonials', '3 video testimonials'),
-            'ctabox'    => array('📞', 'Final CTA', 'Bottom demo CTA'),
+            'hero'      => array('🎯', 'Hero Section', 'Page top — main headline + AI chat simulation'),
+            'logos'     => array('🏛', 'Trusted By Logos', '15 institution logos in scrolling marquee'),
+            'vidyaai'   => array('🧠', 'VidyaAI Section', '5 intelligence stories + sticky CRM dashboard'),
+            'admcrm'    => array('📊', 'Admission CRM', 'Animated pipeline visualization'),
+            'marketing' => array('📣', 'Marketing System', 'AI marketing flow + automation card'),
+            'chatbot'   => array('💬', 'Chatbot', 'Live chat simulation phone'),
+            'appmgmt'   => array('📋', 'Application Mgmt', '4-step animated application flow'),
+            'whatsapp'  => array('📱', 'WhatsApp API', 'WhatsApp business interface mockup'),
+            'mobilecrm' => array('📲', 'Mobile CRM', 'Phone with live GPS map'),
+            'choose'    => array('🏗', 'Why Choose Us', 'Architect 5-step storytelling'),
+            'respond'   => array('⚡', 'Respond First', 'AI hub with orbiting features'),
+            'boost'     => array('🚀', 'Boost Conversion', 'Interactive AI engagement engine'),
+            'convert'   => array('🎯', 'Convert More', 'Enquiry-to-enrolment dashboard'),
+            'analytics' => array('📈', 'Analytics Engine', '3D rotating intelligence dashboard'),
+            'stories'   => array('⭐', 'Testimonials', '3 video testimonials + 4 metric cards'),
+            'ctabox'    => array('📞', 'Final CTA', 'Demo CTA with expert workflow'),
         );
     }
 
@@ -136,19 +217,10 @@ class EE_Home_Editor {
         return isset($opts[$key]) && $opts[$key] !== '' ? $opts[$key] : $default;
     }
 
-    /**
-     * Render a text field with full visual help.
-     * $key      — option key
-     * $num      — numbered label (e.g. "1")
-     * $label    — what is this
-     * $help     — explanation (where it appears)
-     * $default  — default value (shown as preview)
-     * $where    — page area badge
-     */
-    public static function text_field($key, $num, $label, $help, $default = '', $where = '') {
+    public static function text_field($key, $num, $label, $help = '', $default = '', $where = '') {
         $val = self::get($key, '');
         ?>
-        <div class="ee-field">
+        <div class="ee-field" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' ' . $help . ' ' . $default)); ?>">
             <div class="ee-field-label">
                 <?php if ($num !== ''): ?><span class="num-tag"><?php echo esc_html($num); ?></span><?php endif; ?>
                 <label><?php echo esc_html($label); ?></label>
@@ -158,7 +230,7 @@ class EE_Home_Editor {
             <input type="text" name="<?php echo esc_attr(self::OPTION_KEY); ?>[<?php echo esc_attr($key); ?>]" value="<?php echo esc_attr($val); ?>" placeholder="<?php echo esc_attr($default); ?>">
             <?php if ($default): ?>
                 <div class="ee-default">
-                    <span>📝 Default if empty:</span>
+                    <span class="pre-tag">DEFAULT</span>
                     <code><?php echo esc_html(mb_strimwidth($default, 0, 120, '…')); ?></code>
                 </div>
             <?php endif; ?>
@@ -166,10 +238,10 @@ class EE_Home_Editor {
         <?php
     }
 
-    public static function textarea_field($key, $num, $label, $help, $default = '', $where = '') {
+    public static function textarea_field($key, $num, $label, $help = '', $default = '', $where = '') {
         $val = self::get($key, '');
         ?>
-        <div class="ee-field">
+        <div class="ee-field" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' ' . $help . ' ' . $default)); ?>">
             <div class="ee-field-label">
                 <?php if ($num !== ''): ?><span class="num-tag"><?php echo esc_html($num); ?></span><?php endif; ?>
                 <label><?php echo esc_html($label); ?></label>
@@ -179,7 +251,7 @@ class EE_Home_Editor {
             <textarea name="<?php echo esc_attr(self::OPTION_KEY); ?>[<?php echo esc_attr($key); ?>]" placeholder="<?php echo esc_attr($default); ?>"><?php echo esc_textarea($val); ?></textarea>
             <?php if ($default): ?>
                 <div class="ee-default">
-                    <span>📝 Default if empty:</span>
+                    <span class="pre-tag">DEFAULT</span>
                     <code><?php echo esc_html(mb_strimwidth($default, 0, 180, '…')); ?></code>
                 </div>
             <?php endif; ?>
@@ -187,11 +259,11 @@ class EE_Home_Editor {
         <?php
     }
 
-    public static function image_field($key, $num, $label, $help, $default = '') {
+    public static function image_field($key, $num, $label, $help = '', $default = '') {
         $val = self::get($key, '');
         $show = $val ?: $default;
         ?>
-        <div class="ee-field">
+        <div class="ee-field" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' image')); ?>">
             <div class="ee-field-label">
                 <?php if ($num !== ''): ?><span class="num-tag"><?php echo esc_html($num); ?></span><?php endif; ?>
                 <label>🖼 <?php echo esc_html($label); ?></label>
@@ -209,545 +281,119 @@ class EE_Home_Editor {
     }
 
     public static function pair_row($cb) { echo '<div class="ee-row">'; $cb(); echo '</div>'; }
+
     public static function group_start($title, $badge = '') {
-        echo '<div class="ee-group"><h3 class="ee-group-title">' . esc_html($title);
-        if ($badge) echo ' <span class="badge">' . esc_html($badge) . '</span>';
-        echo '</h3>';
+        echo '<div class="ee-group"><div class="ee-group-head"><h3 class="ee-group-title"><span class="dot"></span>' . esc_html($title) . '</h3>';
+        if ($badge) echo '<span class="ee-group-badge">' . esc_html($badge) . '</span>';
+        echo '</div><div class="ee-group-body">';
     }
-    public static function group_end() { echo '</div>'; }
+
+    public static function group_end() { echo '</div></div>'; }
 
     public static function render_page() {
         if (!current_user_can('manage_options')) wp_die('Access denied');
         $tabs = self::tabs();
         $active = isset($_GET['tab']) && isset($tabs[$_GET['tab']]) ? $_GET['tab'] : 'hero';
+        $home_url = home_url('/');
+        $saved = isset($_GET['settings-updated']) && $_GET['settings-updated'];
         ?>
-        <div class="wrap" style="margin-right:20px">
-            <form method="post" action="options.php" class="ee-app">
+        <div class="wrap">
+            <?php if ($saved): ?><div class="ee-toast" id="ee-toast">✓ All changes saved successfully</div><?php endif; ?>
+            <form method="post" action="options.php" class="ee-shell">
                 <?php settings_fields('ee_home_group'); ?>
 
-                <div class="ee-header">
-                    <h1>🏠 Home Page Editor</h1>
-                    <p>Yethe tumhi home page cha har text, heading, button, ani image badlu shakta — code madhe kahi haat lavayachi garaj nahi. Sagle changes save kelyavar 100% automatic update hotil.</p>
-                </div>
+                <!-- ══ Sidebar ══ -->
+                <aside class="ee-sidebar">
+                    <div class="ee-brand">
+                        <div class="ee-brand-icon">🏠</div>
+                        <h2>Home Page Editor</h2>
+                        <p>Non-coder content control</p>
+                    </div>
 
-                <div class="ee-info-bar">
-                    <span class="ico">💡</span>
-                    <p>
-                        <strong>Kasa Vaprayacha?</strong>
-                        <b>16 tabs</b> aahet (Hero, Logos, VidyaAI, vagaire) — har tab cha aat related field aahet. Field madhe text badla kinva "📁 Choose from Media Library" cleek karun image upload kara. Khalti <b>"Save All Changes"</b> button cleek kara. Bas evade!
-                    </p>
-                </div>
+                    <div class="ee-search">
+                        <input type="text" id="ee-search-input" placeholder="Search fields...">
+                    </div>
 
-                <div class="ee-tabs-wrap">
-                    <div class="ee-tabs">
-                        <?php $n=1; foreach ($tabs as $slug => $info): ?>
-                            <button type="button" class="ee-tab-btn <?php echo $slug === $active ? 'active' : ''; ?>" data-pane="<?php echo esc_attr($slug); ?>" title="<?php echo esc_attr($info[2]); ?>">
-                                <span class="num"><?php echo $n; ?></span>
-                                <span><?php echo esc_html($info[0]); ?> <?php echo esc_html($info[1]); ?></span>
-                            </button>
+                    <div class="ee-nav-section-label">Page Sections</div>
+                    <ul class="ee-nav">
+                        <?php $n = 1; foreach ($tabs as $slug => $info): ?>
+                            <li class="ee-nav-item">
+                                <button type="button" class="ee-nav-btn <?php echo $slug === $active ? 'active' : ''; ?>" data-pane="<?php echo esc_attr($slug); ?>" title="<?php echo esc_attr($info[2]); ?>">
+                                    <span class="icon"><?php echo esc_html($info[0]); ?></span>
+                                    <span class="label"><?php echo esc_html($info[1]); ?></span>
+                                    <span class="num"><?php echo $n; ?></span>
+                                </button>
+                            </li>
                         <?php $n++; endforeach; ?>
+                    </ul>
+
+                    <div class="ee-sidebar-footer">
+                        <a href="<?php echo esc_url($home_url); ?>" target="_blank">🔗 View Live Home Page →</a>
                     </div>
-                </div>
+                </aside>
 
-                <div class="ee-body">
-
-                    <!-- ╔══ HERO ══╗ -->
-                    <div class="ee-pane <?php echo $active==='hero'?'active':''; ?>" data-pane="hero">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">🎯</span> Hero Section</h2>
-                            <p class="pane-desc">Ha home page cha <strong>sagle yatla mothi area</strong> aahe — top sun start hoto. Yethe pahili nazar la jato ek mothi heading "Convert More Students. Automatically." Khalti chat simulation animation chalu aste. <strong>Customer la ekach view madhe ka tumcha CRM ghyaava ha message ithun ja-to.</strong></p>
+                <!-- ══ Main ══ -->
+                <main class="ee-main">
+                    <div class="ee-topbar">
+                        <div class="ee-crumb">
+                            <span>Settings</span>
+                            <span>›</span>
+                            <b id="ee-crumb-current"><?php echo esc_html($tabs[$active][1]); ?></b>
                         </div>
-                        <?php self::group_start('🏆 Top Trust Badge'); ?>
-                            <?php self::text_field('hero_badge', '1', 'Trust Badge Text', 'Headline chya VAR ek small chip madhe disel — social proof sathi. Example: "Trusted by 500 institutes" type.', 'Loved by Leading Top 500+ Admission Teams', 'Hero Top'); ?>
-                        <?php self::group_end(); ?>
-
-                        <?php self::group_start('📢 Main Headline (H1)'); ?>
-                            <?php self::text_field('hero_h1_part1', '2', 'Headline Line 1 (BLUE part)', 'Mothi heading cha PAHILA bhag — DARK BLUE rangat disto.', 'Convert More Students.', 'Hero Headline'); ?>
-                            <?php self::text_field('hero_h1_part2', '3', 'Headline Line 2 (ORANGE part)', 'Mothi heading cha DUSRA bhag — ORANGE rangat disto, vegli line var jaato.', 'Automatically.', 'Hero Headline'); ?>
-                        <?php self::group_end(); ?>
-
-                        <?php self::group_start('📝 Description Texts'); ?>
-                            <?php self::text_field('hero_supporting', '4', 'Supporting Heading', 'Headline khalil mothi support line (medium size, bold).', 'Introducing our AI-Powered Admission CRM Built for Modern Education Teams', 'Below Headline'); ?>
-                            <?php self::textarea_field('hero_subtext', '5', 'Sub-text Paragraph', 'Lhan paragraph — yethe 2-3 line madhe tumcha product cha core benefit explain kara.', 'Co-pilots, agents, and intelligence that prioritise leads, guide counsellors, personalise engagement, and convert students faster.', 'Description'); ?>
-                        <?php self::group_end(); ?>
-
-                        <?php self::group_start('🔘 Call To Action Button', 'IMPORTANT'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('hero_cta_text', '6', 'Button Text', '<b>Orange button</b> var disel — primary action.', 'Book Demo', 'CTA Button');
-                                self::text_field('hero_cta_url', '7', 'Button Click URL', 'Button cleek kelyavar kuthe jaayel? Example: <code>/book-demo/</code>', '#demo', 'Button Link');
-                            }); ?>
-                        <?php self::group_end(); ?>
-
-                        <?php self::group_start('🟢 Live Counter (Animated)'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('hero_counter', '8', 'Starting Number', 'Animation suru honyacha number — automatic increment hoto.', '412', 'Live Stats');
-                                self::text_field('hero_counter_label', '9', 'Counter Label', 'Number chya nantar cha text.', 'Students Converted Today', 'Live Stats');
-                            }); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ LOGOS ══╗ -->
-                    <div class="ee-pane <?php echo $active==='logos'?'active':''; ?>" data-pane="logos">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">🏛</span> Trusted By Logos Marquee</h2>
-                            <p class="pane-desc">Hero chya khalti 2 lines madhe institution logos scroll hotat — ek Left la jato, dusra Right la. <strong>15 logos total</strong> (8 + 7). Social proof sathi — visitor la dakhavnyasathi "ya colleges/universities ne aamcha software vaprala aahe".</p>
+                        <div class="ee-topbar-actions">
+                            <a href="<?php echo esc_url($home_url); ?>" target="_blank" class="ee-btn-secondary">👁 Preview Live Site</a>
+                            <?php submit_button('💾 Save All Changes', 'primary ee-btn-primary', 'submit', false); ?>
                         </div>
-                        <?php self::group_start('📌 Section Headings'); ?>
-                            <?php self::text_field('logos_badge', '1', 'Top Badge', 'Section sun var disnari lhan label.', 'Leading Institutions', 'Section Top'); ?>
-                            <?php self::text_field('logos_heading', '2', 'Main Heading (H2)', 'Logos chya var disnari mothi heading.', 'Trusted by 500+ Institutions Growing Faster Than Ever', 'H2 Heading'); ?>
-                            <?php self::text_field('logos_subheading', '3', 'Sub-heading', 'Heading khalil supporting line.', 'AI-powered automation for the next generation of education leaders.', 'Below Heading'); ?>
-                        <?php self::group_end(); ?>
-
-                        <?php self::group_start('🔘 Bottom CTA Button'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('logos_cta_text', '4', 'Button Text', '', 'Start Converting Today', 'Section CTA');
-                                self::text_field('logos_cta_url', '5', 'Button URL', '', '#get-started', 'Section CTA');
-                            }); ?>
-                            <?php self::text_field('logos_live_text', '6', 'Live Indicator Text', 'Green pulse dot chya nantar cha text.', 'Live: +124 Admissions Processed in last 1hr', 'Live Indicator'); ?>
-                        <?php self::group_end(); ?>
-
-                        <?php self::group_start('⬅ Track 1 — 8 Logos (Left moving)', 'Logos go Left'); ?>
-                        <?php
-                        $t1 = array(
-                            array('https://www.extraaedge.com/wp-content/uploads/2024/12/Xiss-3.webp','XISS'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2025/10/OIP-20.jpg','Logo'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2024/10/Anant-National-University.png','Anant National University'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2025/10/sr-university.webp','SR University'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2024/12/hamstek-1.webp','Hamstek'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2025/10/adani.webp','Adani'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2025/10/techno-india-group.webp','Techno India'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2025/10/cropped-final-logo.webp','Final Logo'),
-                        );
-                        for ($i=1;$i<=8;$i++) {
-                            self::image_field("logo_t1_{$i}_url", $i, "Logo {$i} — Image", "Track 1, position {$i}. Recommended: PNG/SVG transparent, 200x100px.", $t1[$i-1][0]);
-                            self::text_field("logo_t1_{$i}_alt", '', 'Alt text', 'Image cha SEO/accessibility text — institution cha naav lihaa.', $t1[$i-1][1], '');
-                        }
-                        ?>
-                        <?php self::group_end(); ?>
-
-                        <?php self::group_start('➡ Track 2 — 7 Logos (Right moving)', 'Logos go Right'); ?>
-                        <?php
-                        $t2 = array(
-                            array('https://www.extraaedge.com/wp-content/uploads/2024/12/JGI-JAIN-2.webp','Jain University'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2025/01/mit-shillong.png','MIT Shillong'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2024/12/isdi.webp','ISDI'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2025/09/jio-v3-3.png','Jio Institute'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2024/12/dpu-3.webp','DPU'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2024/12/Graphic-Era-3.webp','Graphic Era'),
-                            array('https://www.extraaedge.com/wp-content/uploads/2024/12/fostima.webp','Fostima'),
-                        );
-                        for ($i=1;$i<=7;$i++) {
-                            self::image_field("logo_t2_{$i}_url", $i, "Logo {$i} — Image", "Track 2, position {$i}. Recommended: PNG/SVG transparent, 200x100px.", $t2[$i-1][0]);
-                            self::text_field("logo_t2_{$i}_alt", '', 'Alt text', '', $t2[$i-1][1], '');
-                        }
-                        ?>
-                        <?php self::group_end(); ?>
                     </div>
 
-                    <!-- ╔══ VIDYAAI ══╗ -->
-                    <div class="ee-pane <?php echo $active==='vidyaai'?'active':''; ?>" data-pane="vidyaai">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">🧠</span> VidyaAI Admission Intelligence</h2>
-                            <p class="pane-desc">Logos khalil mothi section — scroll karat-karat user la <strong>5 stories</strong> distail (AI Assist, Lead Scoring, Follow-up, Calling, Performance). Right side la fake CRM dashboard sticky raahil ani har section cha veles different view dakhvel.</p>
+                    <?php
+                    // Render each pane
+                    foreach ($tabs as $slug => $info):
+                        echo '<div class="ee-pane ' . ($slug === $active ? 'active' : '') . '" data-pane="' . esc_attr($slug) . '">';
+                        // Hero header
+                        echo '<div class="ee-pane-hero"><div class="ee-pane-hero-inner">';
+                        echo '<div class="ee-pane-ico">' . esc_html($info[0]) . '</div>';
+                        echo '<div><h1>' . esc_html($info[1]) . '</h1><p>';
+                        echo self::pane_description($slug);
+                        echo '</p><div class="pane-meta"><span>✏ ' . self::field_count($slug) . ' editable fields</span><span>📍 ' . esc_html($info[2]) . '</span></div></div>';
+                        echo '</div></div>';
+
+                        // Pane body
+                        self::render_pane_fields($slug);
+                        echo '</div>';
+                    endforeach;
+                    ?>
+
+                    <div class="ee-savebar">
+                        <div class="ee-savebar-tip">
+                            <div class="ico">💡</div>
+                            <div>
+                                <strong>Pro Tip:</strong>
+                                <small>Sagle tabs varti changes kara, mag EKACH veles "Save" button cleek kara — sagle changes ekach veles save hotil</small>
+                            </div>
                         </div>
-                        <?php self::group_start('🏷 Top Badge & Heading'); ?>
-                            <?php self::text_field('vidya_badge', '1', 'Top Badge Text', 'Small blue chip madhe disnara label.', 'VidyaAI Admission Intelligence', 'Badge'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('vidya_h1_part1', '2', 'Heading Line 1', 'Mothi headline cha pahila bhag (dark color).', 'Powerful Admission CRM', 'Main H2');
-                                self::text_field('vidya_h1_part2', '3', 'Heading Line 2 (Gradient)', 'Heading cha gradient (blue→orange) bhag.', 'with simplicity.', 'Main H2');
-                            }); ?>
-                            <?php self::textarea_field('vidya_subtitle', '4', 'Description', 'Heading chya khalil paragraph.', 'A next-gen platform designed to convert inquiries into enrollments using autonomous intelligence and streamlined counselor workflows.', 'Description'); ?>
-                        <?php self::group_end(); ?>
-
-                        <?php self::group_start('🔘 Hero CTAs (2 buttons)'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('vidya_cta1_text', '5', 'Primary Button Text', 'Dark blue button.', 'Book Private Demo', 'Primary CTA');
-                                self::text_field('vidya_cta1_url', '6', 'Primary Button URL', '', '#demo', 'Primary CTA');
-                            }); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('vidya_cta2_text', '7', 'Secondary Button Text', 'White outlined button.', 'Explore Platform', 'Secondary CTA');
-                                self::text_field('vidya_cta2_url', '8', 'Secondary Button URL', '', '#platform', 'Secondary CTA');
-                            }); ?>
-                        <?php self::group_end(); ?>
-
-                        <?php self::group_start('🏁 Final CTA Button'); ?>
-                            <?php self::text_field('vidya_final_cta', '9', 'Bottom Orange Button', 'Section che shevti cha mothi orange button.', 'Get Started with VidyaAI', 'Bottom CTA'); ?>
-                        <?php self::group_end(); ?>
+                        <?php submit_button('💾 Save All Changes', 'primary ee-btn-primary', 'submit2', false); ?>
                     </div>
-
-                    <!-- ╔══ ADMISSION CRM ══╗ -->
-                    <div class="ee-pane <?php echo $active==='admcrm'?'active':''; ?>" data-pane="admcrm">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">📊</span> Admission CRM — Pipeline Visualization</h2>
-                            <p class="pane-desc">Light gray background varti section — pipeline animation chalte (5 stages: Inquiry → Verified → Automation → Counseling → Enrolled). 3 feature cards distat (Funnel Mgmt, Smart Follow-ups, Insights).</p>
-                        </div>
-                        <?php self::group_start('📝 Headings & Subtitle'); ?>
-                            <?php self::text_field('adm_h2', '1', 'Main Heading (H2)', '', 'Every admission. Tracked. Moving forward.', 'H2'); ?>
-                            <?php self::textarea_field('adm_subheadline', '2', 'Sub-heading paragraph', '', 'Centralize your entire admissions process with real-time visibility. From first inquiry to final enrolment, intelligent lead prioritization ensures your team focuses on candidates that convert.', 'Description'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🔘 Bottom CTA'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('adm_cta_text', '3', 'CTA Button Text', '', 'Explore the Flow', 'CTA');
-                                self::text_field('adm_cta_url', '4', 'CTA Button URL', '', '#', 'CTA');
-                            }); ?>
-                            <?php self::text_field('adm_closing', '5', 'Closing Tagline', 'Button khalil all-caps tagline.', 'Full visibility. Zero chaos. More conversions.', 'Closing'); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ MARKETING ══╗ -->
-                    <div class="ee-pane <?php echo $active==='marketing'?'active':''; ?>" data-pane="marketing">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">📣</span> AI Admission Marketing System</h2>
-                            <p class="pane-desc">5-step horizontal flow distoy (Student Inquiry → AI Segmentation → Personalized Message → Auto Follow-ups → Admission Confirmed). Khalti 1 marketing card aahe + 1 big CTA.</p>
-                        </div>
-                        <?php self::group_start('📌 Top Section'); ?>
-                            <?php self::text_field('mkt_status', '1', 'Status Tag (with green pulse dot)', '', 'AI Engine: Live Processing', 'Status Tag'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('mkt_h2_part1', '2', 'Heading Line 1', '', 'Automate Every Inquiry.', 'Main H2');
-                                self::text_field('mkt_h2_part2', '3', 'Heading Line 2 (Orange)', '', 'Convert Every Student.', 'Main H2');
-                            }); ?>
-                            <?php self::textarea_field('mkt_subtext', '4', 'Subtext paragraph', '', 'From the first touchpoint to final enrollment, our AI-driven automation ensures no lead is left behind. Experience precision marketing that scales with your institution.', 'Description'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🃏 Marketing Card'); ?>
-                            <?php self::text_field('mkt_card_title', '5', 'Card Title', '', 'Scale Your Outreach With Precision', 'Card Heading'); ?>
-                            <?php self::textarea_field('mkt_description', '6', 'Card Description', '', 'Marketing automation delivers personalized emails and targeted campaigns to the right prospects at the perfect time.', 'Card Body'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🔘 Bottom CTA'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('mkt_cta_text', '7', 'CTA Button Text', '', 'Activate AI Automation', 'CTA');
-                                self::text_field('mkt_cta_url', '8', 'CTA Button URL', '', '#demo', 'CTA');
-                            }); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ CHATBOT ══╗ -->
-                    <div class="ee-pane <?php echo $active==='chatbot'?'active':''; ?>" data-pane="chatbot">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">💬</span> Chatbot & Live Chat Section</h2>
-                            <p class="pane-desc">Left side text + right side live chat simulation phone. 3 checkmark features list. 1 orange CTA button.</p>
-                        </div>
-                        <?php self::group_start('📝 Heading'); ?>
-                            <?php self::text_field('bot_h2', '1', 'Heading (H2)', '', 'Chatbot & Live Chat for Admissions', 'H2'); ?>
-                            <?php self::textarea_field('bot_description', '2', 'Description', '', 'Integrated with your Admission CRM, the chatbot ensures you never miss an inquiry with 24/7 instant responses. Handle routine queries automatically while counsellors focus on meaningful conversations.', 'Body'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('✓ Feature List (3 items)'); ?>
-                            <?php self::text_field('bot_feat1', '3', 'Feature 1', '', 'Automated Chat Workflow', 'Feature'); ?>
-                            <?php self::text_field('bot_feat2', '4', 'Feature 2', '', 'Live Chat Enablement', 'Feature'); ?>
-                            <?php self::text_field('bot_feat3', '5', 'Feature 3', '', 'Meeting Scheduler', 'Feature'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🔘 CTA Button'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('bot_cta_text', '6', 'Button Text', '', 'See Live Demo', 'CTA');
-                                self::text_field('bot_cta_url', '7', 'Button URL', '', '#', 'CTA');
-                            }); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ APPLICATION MGMT ══╗ -->
-                    <div class="ee-pane <?php echo $active==='appmgmt'?'active':''; ?>" data-pane="appmgmt">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">📋</span> Application Management System</h2>
-                            <p class="pane-desc">Right side 4-step vertical animated flow (Submission → AI Verification → Counseling → Confirmed). Left text + 3 capability cards + stats.</p>
-                        </div>
-                        <?php self::group_start('📌 Top'); ?>
-                            <?php self::text_field('ams_status', '1', 'Status Pill', '', 'SYSTEM STATUS: ACTIVE', 'Status Pill'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('ams_h1_part1', '2', 'Heading Line 1', '', 'Turn Applications into Admissions.', 'H2');
-                                self::text_field('ams_h1_part2', '3', 'Heading Line 2 (Orange)', '', 'On Autopilot.', 'H2');
-                            }); ?>
-                            <?php self::textarea_field('ams_para1', '4', 'Paragraph 1', '', 'Our Application Management System streamlines the entire application process for you and your prospective students.', 'Body'); ?>
-                            <?php self::textarea_field('ams_para2', '5', 'Paragraph 2', '', 'Intelligent status tracking keeps applicants informed while giving you actionable insights at every stage.', 'Body'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🔘 CTA'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('ams_cta_text', '6', 'CTA Text', '', 'Start Automating Now', 'CTA');
-                                self::text_field('ams_cta_url', '7', 'CTA URL', '', '#get-started', 'CTA');
-                            }); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🧑‍💼 Counselor Avatar Image'); ?>
-                            <?php self::image_field('ams_counselor_img', '8', 'Step 3 Counselor Avatar', 'GD-PI counseling step madhe disel small round photo.', 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=80&h=80'); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ WHATSAPP ══╗ -->
-                    <div class="ee-pane <?php echo $active==='whatsapp'?'active':''; ?>" data-pane="whatsapp">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">📱</span> WhatsApp Business API</h2>
-                            <p class="pane-desc">Left text + 3 feature cards. Right side ek WhatsApp-style chat simulation + live analytics floating card.</p>
-                        </div>
-                        <?php self::group_start('📌 Top'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('wa_h2_part1', '1', 'Heading Line 1', '', 'WhatsApp', 'H2');
-                                self::text_field('wa_h2_part2', '2', 'Heading Line 2 (Orange)', '', 'Business API', 'H2');
-                            }); ?>
-                            <?php self::textarea_field('wa_description', '3', 'Description', '', 'WhatsApp Business API connects you with prospects on their preferred platform. Send bulk messages, engage in personalized conversations, and drive conversions, all through your Admission CRM.', 'Body'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🃏 Feature 1'); ?>
-                            <?php self::text_field('wa_feat1_title', '4', 'Title', '', 'Two-way WhatsApp and live chat', 'Card 1'); ?>
-                            <?php self::text_field('wa_feat1_desc', '5', 'Description', '', 'Enable real-time human connection alongside automation.', 'Card 1'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🃏 Feature 2'); ?>
-                            <?php self::text_field('wa_feat2_title', '6', 'Title', '', 'Bulk WhatsApp & automated campaigns', 'Card 2'); ?>
-                            <?php self::text_field('wa_feat2_desc', '7', 'Description', '', 'Scale your outreach without losing the personal touch.', 'Card 2'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🃏 Feature 3'); ?>
-                            <?php self::text_field('wa_feat3_title', '8', 'Title', '', 'Verified business account', 'Card 3'); ?>
-                            <?php self::text_field('wa_feat3_desc', '9', 'Description', '', 'Official green badge to build instant trust with applicants.', 'Card 3'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🔘 CTAs (2 buttons)'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('wa_cta1_text', '10', 'Primary Button', '', 'Start Optimizing Now', 'CTA 1');
-                                self::text_field('wa_cta1_url', '11', 'Primary URL', '', '#', 'CTA 1');
-                            }); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('wa_cta2_text', '12', 'Secondary Button', '', 'View Case Studies', 'CTA 2');
-                                self::text_field('wa_cta2_url', '13', 'Secondary URL', '', '#', 'CTA 2');
-                            }); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ MOBILE CRM ══╗ -->
-                    <div class="ee-pane <?php echo $active==='mobilecrm'?'active':''; ?>" data-pane="mobilecrm">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">📲</span> Mobile CRM Section</h2>
-                            <p class="pane-desc">Phone mockup with live GPS map. 4 floating feature cards around phone. Left text + 3 feature pills.</p>
-                        </div>
-                        <?php self::group_start('🏷 Heading'); ?>
-                            <?php self::text_field('mcrm_badge', '1', 'Top Badge', 'Orange chip top var.', 'Next-Gen Mobility', 'Badge'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('mcrm_h2_p1', '2', 'Heading Part 1', '', 'Mobile CRM: Powering', 'H2');
-                                self::text_field('mcrm_h2_em', '3', 'Heading Highlighted Word', 'Orange underline asnara word.', 'Productivity', 'H2');
-                            }); ?>
-                            <?php self::text_field('mcrm_h2_p2', '4', 'Heading Part 3', '', 'on the Go', 'H2'); ?>
-                            <?php self::textarea_field('mcrm_description', '5', 'Description', '', 'Our Mobile CRM empowers work-from-home and field counselors to stay productive anywhere. Monitor visits, log activities, and complete follow-ups with real-time sync to your Admission CRM for intelligent, unified reporting.', 'Body'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('💊 Feature Pills (3 items)'); ?>
-                            <?php self::text_field('mcrm_feat1', '6', 'Pill 1', '', 'Click-To-Call', 'Pill'); ?>
-                            <?php self::text_field('mcrm_feat2', '7', 'Pill 2', '', 'Field Tracker', 'Pill'); ?>
-                            <?php self::text_field('mcrm_feat3', '8', 'Pill 3', '', 'Missed Call Lead Capture', 'Pill'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('✅ Sync Note (green box)'); ?>
-                            <?php self::textarea_field('mcrm_note', '9', 'Sync Note Text', 'Green left-border box madhe.', 'Real-time sync with your Admission CRM ensures every interaction is captured for intelligent, unified reporting — zero data loss, always.', 'Green Note'); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ CHOOSE ══╗ -->
-                    <div class="ee-pane <?php echo $active==='choose'?'active':''; ?>" data-pane="choose">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">🏗</span> Why Institutes Choose ExtraaEdge</h2>
-                            <p class="pane-desc">5 step storytelling — left side clickable cards, right side rotating dashboard simulation. 4 stat counters animate hota. Bottom social proof.</p>
-                        </div>
-                        <?php self::group_start('🏷 Top Heading'); ?>
-                            <?php self::text_field('arch_eyebrow', '1', 'Eyebrow Text', 'Mothi H2 chya var disel orange caps text.', 'Admission Ecosystem', 'Eyebrow'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('arch_h2_p1', '2', 'Heading Part 1', '', 'Why Institutes Choose ExtraaEdge as the', 'H2');
-                                self::text_field('arch_h2_em', '3', 'Highlighted Word', 'Orange underline word.', 'Architect', 'H2');
-                            }); ?>
-                            <?php self::text_field('arch_h2_p2', '4', 'Heading Part 3', '', 'of Their Admission Process?', 'H2'); ?>
-                            <?php self::textarea_field('arch_subtext', '5', 'Sub-text', '', 'Most Admission CRMs help you manage admissions. ExtraaEdge helps you design how admissions should work—end to end, at scale.', 'Description'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('👥 Social Proof Strip'); ?>
-                            <?php self::text_field('arch_proof_text', '6', 'Social Proof Label', 'Bottom small chip text.', 'Trusted by 500+ Leading Institutes', 'Bottom Strip'); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ RESPOND ══╗ -->
-                    <div class="ee-pane <?php echo $active==='respond'?'active':''; ?>" data-pane="respond">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">⚡</span> Respond First Hero</h2>
-                            <p class="pane-desc">Boxed section — left side bold heading + body + CTA. Right side rotating AI hub with orbiting chips and live toast notification.</p>
-                        </div>
-                        <?php self::group_start('📝 Heading'); ?>
-                            <?php self::text_field('rf_eyebrow', '1', 'Eyebrow', 'Orange caps small text.', 'Admission Response Automation', 'Eyebrow'); ?>
-                            <?php self::text_field('rf_h1_l1', '2', 'Heading Line 1', '', 'Decrease Response Time.', 'H2'); ?>
-                            <?php self::text_field('rf_h1_l2', '3', 'Heading Line 2 (ORANGE)', '', 'Respond First Using AI Agents.', 'H2'); ?>
-                            <?php self::text_field('rf_h1_l3', '4', 'Heading Line 3', '', 'Win Admissions.', 'H2'); ?>
-                            <?php self::textarea_field('rf_copy', '5', 'Body Copy', '', 'Respond to every admission inquiry in minutes, not hours. Because the institute that responds first controls the conversation—and the conversion. ExtraaEdge automatically captures inquiries from every source and initiates AI-powered calls instantly.', 'Body'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🔘 CTA & Microcopy'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('rf_cta_text', '6', 'Button Text', '', 'Book a Demo', 'CTA');
-                                self::text_field('rf_cta_url', '7', 'Button URL', '', '#', 'CTA');
-                            }); ?>
-                            <?php self::text_field('rf_micro', '8', 'Microcopy', 'Button khalil lhan italic text.', 'See how institutes reduce response time by 90%', 'Microcopy'); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ BOOST ══╗ -->
-                    <div class="ee-pane <?php echo $active==='boost'?'active':''; ?>" data-pane="boost">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">🚀</span> Boost Conversion — AI Engagement</h2>
-                            <p class="pane-desc">Interactive 3-stage story (Behaviour → Dynamic Routing → VidyaGPT). Bottom: 4 feature cards grid.</p>
-                        </div>
-                        <?php self::group_start('🏷 Top Heading'); ?>
-                            <?php self::text_field('bc_badge', '1', 'Top Badge', '', 'Boost Conversion Rates', 'Badge'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('bc_h2_p1', '2', 'Heading Line 1', '', 'AI Decides the Right', 'H2');
-                                self::text_field('bc_h2_p2', '3', 'Heading Line 2', '', 'Admission Engagements.', 'H2');
-                            }); ?>
-                            <?php self::textarea_field('bc_subtext', '4', 'Sub-text', '', 'ExtraaEdge uses intelligence across student behaviour, intent, and application stage. It decides who, when, and how to engage. Every interaction is timely, relevant, and context-aware.', 'Body'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🃏 4 Feature Cards'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('bc_f1_title', '5', 'Card 1 Title', '', 'Trigger-Based Email & SMS', 'Card 1');
-                                self::text_field('bc_f1_desc', '6', 'Card 1 Description', '', 'Automated personalized outreach triggered by student behavior thresholds.', 'Card 1');
-                            }); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('bc_f2_title', '7', 'Card 2 Title', '', 'AI Calling & Click-to-Call', 'Card 2');
-                                self::text_field('bc_f2_desc', '8', 'Card 2 Description', '', 'Intelligence-led queues that connect teams to high-intent leads instantly.', 'Card 2');
-                            }); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('bc_f3_title', '9', 'Card 3 Title', '', 'VidyaGPT AI Agents', 'Card 3');
-                                self::text_field('bc_f3_desc', '10', 'Card 3 Description', '', '24x7 admission counselors providing accurate, contextual answers instantly.', 'Card 3');
-                            }); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('bc_f4_title', '11', 'Card 4 Title', '', 'WhatsApp Communication', 'Card 4');
-                                self::text_field('bc_f4_desc', '12', 'Card 4 Description', '', 'Engage students where they are with official WhatsApp business API integration.', 'Card 4');
-                            }); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ CONVERT ══╗ -->
-                    <div class="ee-pane <?php echo $active==='convert'?'active':''; ?>" data-pane="convert">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">🎯</span> Convert More — Enquiry to Enrolment</h2>
-                            <p class="pane-desc">Left content + 5-step animated dashboard (Prospect → AI Scoping → Prediction Score → Next Action → Success).</p>
-                        </div>
-                        <?php self::group_start('📝 Heading & Body'); ?>
-                            <?php self::text_field('cm_eyebrow', '1', 'Eyebrow Text', '', 'Convert More', 'Eyebrow'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('cm_h2_p1', '2', 'Heading Line 1', '', 'Turn Enquiries Into', 'H2');
-                                self::text_field('cm_h2_p2', '3', 'Heading Line 2 (ORANGE)', '', 'Enrollments', 'H2');
-                            }); ?>
-                            <?php self::text_field('cm_subtitle', '4', 'Sub-title (bold)', '', 'Not every enquiry deserves the same attention.', 'Subtitle'); ?>
-                            <?php self::textarea_field('cm_description', '5', 'Description', '', 'ExtraaEdge helps teams focus on prospects most likely to enroll. Intelligent prioritization uses engagement, intent, and application stage. Teams know exactly who to follow up, nurture, or move forward. The result is higher efficiency and stronger enrollment conversions.', 'Body'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🔘 CTA'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('cm_cta_text', '6', 'Button Text', '', 'Book a Demo', 'CTA');
-                                self::text_field('cm_cta_url', '7', 'Button URL', '', '#', 'CTA');
-                            }); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ ANALYTICS ══╗ -->
-                    <div class="ee-pane <?php echo $active==='analytics'?'active':''; ?>" data-pane="analytics">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">📈</span> Analytics / Intelligence Engine</h2>
-                            <p class="pane-desc">Left bullets + 3D rotating dashboard right. Hover trigger karte aatun typing AI terminal + counters.</p>
-                        </div>
-                        <?php self::group_start('📌 Top'); ?>
-                            <?php self::text_field('ie_badge', '1', 'Top Badge', '', 'Measure your efforts', 'Badge'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('ie_h2_p1', '2', 'Heading Line 1', '', "Know What's Working.", 'H2');
-                                self::text_field('ie_h2_p2', '3', 'Heading Line 2 (Gradient)', '', "Fix What's Not.", 'H2');
-                            }); ?>
-                            <?php self::textarea_field('ie_description', '4', 'Description', '', 'Measure what matters across admissions and marketing. ExtraaEdge gives teams clear, actionable visibility into performance.', 'Body'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🔘 CTA'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('ie_cta_text', '5', 'Button Text', '', 'Book a Demo', 'CTA');
-                                self::text_field('ie_cta_url', '6', 'Button URL', '', '#', 'CTA');
-                            }); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                    <!-- ╔══ STORIES ══╗ -->
-                    <div class="ee-pane <?php echo $active==='stories'?'active':''; ?>" data-pane="stories">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">⭐</span> Customer Testimonials</h2>
-                            <p class="pane-desc">4 stat metric cards + 3 video testimonials (YouTube ID, photo, quote, name). Click karayla video play hota place madhech.</p>
-                        </div>
-                        <?php self::group_start('📝 Section Heading'); ?>
-                            <?php self::text_field('st_tagline', '1', 'Tagline', '', 'CRM Impact Stories', 'Tagline'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('st_h2_p1', '2', 'Heading Line 1', '', 'Powering Growth for', 'H2');
-                                self::text_field('st_h2_p2', '3', 'Heading Line 2', '', '500+ Happy Customers', 'H2');
-                            }); ?>
-                            <?php self::textarea_field('st_subtitle', '4', 'Sub-title', '', 'From streamlined counselor workflows to data-driven reporting, see how education leaders are rewriting their success stories with ExtraaEdge.', 'Description'); ?>
-                        <?php self::group_end(); ?>
-
-                        <?php self::group_start('📊 4 Stat Metric Cards', 'Numbers'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('st_m1_num', '5', 'Metric 1 Number', 'Animation cha target number.', '500', 'Stat 1');
-                                self::text_field('st_m1_lab', '6', 'Metric 1 Label', '', 'Happy Customers', 'Stat 1');
-                            }); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('st_m2_num', '7', 'Metric 2 Number', '', '3', 'Stat 2');
-                                self::text_field('st_m2_lab', '8', 'Metric 2 Label', '', 'X Conversion Rate', 'Stat 2');
-                            }); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('st_m3_num', '9', 'Metric 3 Number', '', '15000', 'Stat 3');
-                                self::text_field('st_m3_lab', '10', 'Metric 3 Label', '', 'Daily Power Users', 'Stat 3');
-                            }); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('st_m4_num', '11', 'Metric 4 Number', '', '99', 'Stat 4');
-                                self::text_field('st_m4_lab', '12', 'Metric 4 Label', '', '% Support Rating', 'Stat 4');
-                            }); ?>
-                        <?php self::group_end(); ?>
-
-                        <?php
-                        $t_defaults = array(
-                            1 => array('video'=>'3SHgLf1GFgk','name'=>'Silky Jain Marwah','role'=>'Executive Director','inst'=>"Tula's Institute",'photo'=>'https://www.extraaedge.com/wp-content/uploads/2025/01/Silky-Jain-Marwah.webp'),
-                            2 => array('video'=>'dWLdQ8E3FOU','name'=>'Pranay Rupani','role'=>'Head of Admissions & Marketing','inst'=>'Annapurna College of Film & Media','photo'=>'https://www.extraaedge.com/wp-content/uploads/2025/10/Pranay-sir-02.webp'),
-                            3 => array('video'=>'yfK83D2SKps','name'=>'K. Nirmala Devi','role'=>'Assistant Manager','inst'=>'Indian Academy Group','photo'=>'https://www.extraaedge.com/wp-content/uploads/2025/01/Nirmala-Devi.webp'),
-                        );
-                        foreach ($t_defaults as $i => $d) {
-                            self::group_start("🎬 Testimonial #{$i}", "Card {$i}");
-                            self::text_field("st_t{$i}_video", '', "YouTube Video ID", "Yethe FULL URL nahi, FAKT VIDEO ID lihaa. Example: <code>https://youtu.be/<b>3SHgLf1GFgk</b></code> madhun <b>3SHgLf1GFgk</b> ha part copy kara.", $d['video'], "Video");
-                            self::textarea_field("st_t{$i}_quote", '', "Customer Quote", "Mothi review/quote — italic distoy site varti.", '', "Quote");
-                            self::pair_row(function() use ($i, $d) {
-                                self::text_field("st_t{$i}_name", '', "Customer Name", '', $d['name'], "Name");
-                                self::text_field("st_t{$i}_role", '', "Job Role", '', $d['role'], "Role");
-                            });
-                            self::text_field("st_t{$i}_inst", '', "Institute / Company Name", '', $d['inst'], "Company");
-                            self::image_field("st_t{$i}_photo", '', "Customer Photo", "Profile photo — square 200x200px chi recommended.", $d['photo']);
-                            self::group_end();
-                        }
-                        ?>
-                    </div>
-
-                    <!-- ╔══ FINAL CTA ══╗ -->
-                    <div class="ee-pane <?php echo $active==='ctabox'?'active':''; ?>" data-pane="ctabox">
-                        <div class="ee-pane-header">
-                            <h2><span class="pane-ico">📞</span> Final Demo CTA</h2>
-                            <p class="pane-desc">Page chi shevti chi section — left side mothi heading + book demo button. Right side admission expert cha circular photo + 6 connected workflow nodes animation.</p>
-                        </div>
-                        <?php self::group_start('📝 Heading & CTA'); ?>
-                            <?php self::text_field('ctab_h2', '1', 'Main Heading (H2)', '', 'Ready to Move to an AI-Powered Admission CRM and Marketing Solution?', 'H2'); ?>
-                            <?php self::textarea_field('ctab_subheadline', '2', 'Sub-heading', '', 'Know how you can scale your admission process & achieve your targets. Book a 45-minute free demo.', 'Body'); ?>
-                            <?php self::pair_row(function(){
-                                self::text_field('ctab_cta_text', '3', 'Button Text', '', 'Book a Demo', 'Big Button');
-                                self::text_field('ctab_cta_url', '4', 'Button URL', '', 'https://www.extraaedge.com/', 'Big Button');
-                            }); ?>
-                            <?php self::text_field('ctab_trust', '5', 'Trust Indicator Text', 'Button khalil shield-check icon javal text.', 'Trusted by 250+ Premier Institutions Globally', 'Trust Line'); ?>
-                        <?php self::group_end(); ?>
-                        <?php self::group_start('🧑‍🏫 Expert Centerpiece Image'); ?>
-                            <?php self::image_field('ctab_expert_img', '6', 'Admission Expert Photo', 'Right side cha center circular photo — admission counselor cha photo. 400x400px recommended.', 'https://www.extraaedge.com/wp-content/uploads/2024/08/Charu-400x400-1-300x300-1.webp'); ?>
-                        <?php self::group_end(); ?>
-                    </div>
-
-                </div>
-
-                <div class="ee-save-bar">
-                    <div class="ee-save-info">
-                        💾 <strong>Tip:</strong> Sagle tabs check karun zaalyavar EKACH veles "Save All Changes" cleek kara — sagle changes ekach veles save hotil.
-                    </div>
-                    <?php submit_button('💾 Save All Changes', 'primary large', 'submit', false); ?>
-                </div>
+                </main>
             </form>
         </div>
+
         <script>
         (function($){
-            $('.ee-tab-btn').on('click', function(){
+            // Tab switching
+            $('.ee-nav-btn').on('click', function(){
                 var pane = $(this).data('pane');
-                $('.ee-tab-btn').removeClass('active');
+                var label = $(this).find('.label').text();
+                $('.ee-nav-btn').removeClass('active');
                 $(this).addClass('active');
                 $('.ee-pane').removeClass('active');
                 $('.ee-pane[data-pane="'+pane+'"]').addClass('active');
+                $('#ee-crumb-current').text(label);
                 history.replaceState(null,'','?page=<?php echo self::PAGE_SLUG; ?>&tab='+pane);
-                $('html,body').animate({ scrollTop: $('.ee-tabs-wrap').offset().top - 32 }, 250);
+                $('html,body').animate({ scrollTop: 0 }, 200);
             });
+
+            // Media Library picker
             $(document).on('click', '.ee-img-pick', function(e){
                 e.preventDefault();
                 var btn = $(this);
@@ -765,16 +411,476 @@ class EE_Home_Editor {
                 var url = $(this).val();
                 $(this).closest('.ee-img-row').find('.ee-thumb').css('background-image', url ? 'url('+url+')' : 'none');
             });
+
+            // Search filter
+            $('#ee-search-input').on('input', function(){
+                var q = $(this).val().toLowerCase().trim();
+                if (!q) {
+                    $('.ee-nav-btn').removeClass('dim');
+                    $('.ee-field, .ee-group').show();
+                    return;
+                }
+                // Find which panes have matches
+                var paneMatches = {};
+                $('.ee-pane').each(function(){
+                    var paneSlug = $(this).data('pane');
+                    var hits = $(this).find('.ee-field').filter(function(){
+                        return ($(this).data('search') || '').indexOf(q) !== -1;
+                    });
+                    paneMatches[paneSlug] = hits.length > 0;
+                });
+                $('.ee-nav-btn').each(function(){
+                    var ps = $(this).data('pane');
+                    if (paneMatches[ps]) $(this).removeClass('dim'); else $(this).addClass('dim');
+                });
+                // Show/hide fields in active pane
+                $('.ee-pane.active .ee-field').each(function(){
+                    var hit = ($(this).data('search') || '').indexOf(q) !== -1;
+                    $(this).toggle(hit);
+                });
+                // Hide empty groups
+                $('.ee-pane.active .ee-group').each(function(){
+                    var anyVisible = $(this).find('.ee-field:visible').length > 0;
+                    $(this).toggle(anyVisible);
+                });
+            });
+
+            // Auto-hide success toast
+            var toast = $('#ee-toast');
+            if (toast.length) {
+                toast.css('display','flex');
+                setTimeout(function(){ toast.fadeOut(400); }, 3500);
+            }
+
+            // Keyboard shortcut: Ctrl/Cmd+S to save
+            $(document).on('keydown', function(e){
+                if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+                    e.preventDefault();
+                    $('.ee-btn-primary').first().click();
+                }
+            });
         })(jQuery);
         </script>
         <?php
+    }
+
+    public static function pane_description($slug) {
+        $d = array(
+            'hero'      => 'Tumcha home page cha <b>sagle yatla mothi area</b> — top sun start hoto. Mothi h1 heading "Convert More Students. Automatically." Khalti AI chat simulation animation chalu aste. <b>Customer cha pahila impression yethun ja-to.</b>',
+            'logos'     => 'Hero khalti 2 lines madhe institution logos scroll hotat — ek Left, ek Right. Total <b>15 logos</b>. Social proof sathi.',
+            'vidyaai'   => 'Scroll karat-karat <b>5 stories</b> distail (AI Assist, Lead Scoring, Follow-up, Calling, Performance). Right side la fake CRM dashboard sticky raahil.',
+            'admcrm'    => 'Light gray background — pipeline animation chalte (Inquiry → Verified → Automation → Counseling → Enrolled). 3 feature cards.',
+            'marketing' => '5-step horizontal flow (Student Inquiry → AI Segmentation → ... → Admission Confirmed). Khalti marketing card + CTA.',
+            'chatbot'   => 'Left side text + right side live chat simulation phone. 3 checkmark features.',
+            'appmgmt'   => '4-step vertical animated flow (Submission → AI Verification → Counseling → Confirmed). 3 capability cards + stats.',
+            'whatsapp'  => 'Left text + 3 feature cards. Right side WhatsApp chat simulation + live analytics card.',
+            'mobilecrm' => 'Phone mockup with live GPS map. 4 floating cards around phone. Left text + 3 feature pills.',
+            'choose'    => '5 step storytelling — left clickable cards, right rotating dashboard simulation. 4 stat counters animate hota.',
+            'respond'   => 'Boxed section — left heading + CTA. Right side rotating AI hub with orbiting feature chips and live toast.',
+            'boost'     => 'Interactive 3-stage story (Behaviour → Routing → VidyaGPT). 4 feature cards grid khalti.',
+            'convert'   => 'Left content + 5-step animated dashboard (Prospect → AI Scoping → Score → Action → Success).',
+            'analytics' => 'Left bullets + 3D rotating dashboard right. Hover trigger karte aatun typing AI terminal + counters.',
+            'stories'   => '4 stat metric cards + <b>3 video testimonials</b> (YouTube ID, photo, quote, name). Click karayla video place madhech play hota.',
+            'ctabox'    => 'Page chi shevti chi section — left heading + Book Demo button. Right circular expert photo + 6 connected workflow nodes.',
+        );
+        return $d[$slug] ?? '';
+    }
+
+    public static function field_count($slug) {
+        $c = array('hero'=>9,'logos'=>36,'vidyaai'=>9,'admcrm'=>5,'marketing'=>8,'chatbot'=>7,'appmgmt'=>8,'whatsapp'=>13,'mobilecrm'=>9,'choose'=>6,'respond'=>8,'boost'=>12,'convert'=>7,'analytics'=>6,'stories'=>30,'ctabox'=>6);
+        return $c[$slug] ?? 0;
+    }
+
+    public static function render_pane_fields($slug) {
+        switch ($slug) {
+            case 'hero':
+                self::group_start('🏆 Top Trust Badge');
+                self::text_field('hero_badge', '1', 'Trust Badge Text', 'Headline chya VAR ek small chip madhe disel — social proof sathi.', 'Loved by Leading Top 500+ Admission Teams', 'Hero Top');
+                self::group_end();
+                self::group_start('📢 Main Headline (H1)');
+                self::text_field('hero_h1_part1', '2', 'Headline Line 1 (BLUE)', 'Mothi heading cha PAHILA bhag — DARK BLUE color.', 'Convert More Students.', 'Hero Headline');
+                self::text_field('hero_h1_part2', '3', 'Headline Line 2 (ORANGE)', 'Mothi heading cha DUSRA bhag — ORANGE color, vegli line var jaato.', 'Automatically.', 'Hero Headline');
+                self::group_end();
+                self::group_start('📝 Description Texts');
+                self::text_field('hero_supporting', '4', 'Supporting Heading', 'Headline khalil support line (medium size, bold).', 'Introducing our AI-Powered Admission CRM Built for Modern Education Teams', 'Below Headline');
+                self::textarea_field('hero_subtext', '5', 'Sub-text Paragraph', 'Lhan paragraph — 2-3 line madhe product cha core benefit.', 'Co-pilots, agents, and intelligence that prioritise leads, guide counsellors, personalise engagement, and convert students faster.', 'Description');
+                self::group_end();
+                self::group_start('🔘 Call To Action Button', 'IMPORTANT');
+                self::pair_row(function(){
+                    self::text_field('hero_cta_text', '6', 'Button Text', '<b>Orange button</b> var disel — primary action.', 'Book Demo', 'CTA Button');
+                    self::text_field('hero_cta_url', '7', 'Button Click URL', 'Button cleek kelyavar kuthe jayel? Example: <code>/book-demo/</code>', '#demo', 'Button Link');
+                });
+                self::group_end();
+                self::group_start('🟢 Live Counter (Animated)');
+                self::pair_row(function(){
+                    self::text_field('hero_counter', '8', 'Starting Number', 'Animation suru honyacha number.', '412', 'Live Stats');
+                    self::text_field('hero_counter_label', '9', 'Counter Label', 'Number chya nantar cha text.', 'Students Converted Today', 'Live Stats');
+                });
+                self::group_end();
+                break;
+
+            case 'logos':
+                self::group_start('📌 Section Headings');
+                self::text_field('logos_badge', '1', 'Top Badge', '', 'Leading Institutions', 'Section Top');
+                self::text_field('logos_heading', '2', 'Main Heading (H2)', '', 'Trusted by 500+ Institutions Growing Faster Than Ever', 'H2');
+                self::text_field('logos_subheading', '3', 'Sub-heading', '', 'AI-powered automation for the next generation of education leaders.', 'Below Heading');
+                self::group_end();
+                self::group_start('🔘 Bottom CTA');
+                self::pair_row(function(){
+                    self::text_field('logos_cta_text', '4', 'Button Text', '', 'Start Converting Today', 'CTA');
+                    self::text_field('logos_cta_url', '5', 'Button URL', '', '#get-started', 'CTA');
+                });
+                self::text_field('logos_live_text', '6', 'Live Indicator Text', '', 'Live: +124 Admissions Processed in last 1hr', 'Indicator');
+                self::group_end();
+                self::group_start('⬅ Track 1 — 8 Logos (Left moving)', 'Track 1');
+                $t1_defaults = array(
+                    'https://www.extraaedge.com/wp-content/uploads/2024/12/Xiss-3.webp|XISS',
+                    'https://www.extraaedge.com/wp-content/uploads/2025/10/OIP-20.jpg|Logo',
+                    'https://www.extraaedge.com/wp-content/uploads/2024/10/Anant-National-University.png|Anant National University',
+                    'https://www.extraaedge.com/wp-content/uploads/2025/10/sr-university.webp|SR University',
+                    'https://www.extraaedge.com/wp-content/uploads/2024/12/hamstek-1.webp|Hamstek',
+                    'https://www.extraaedge.com/wp-content/uploads/2025/10/adani.webp|Adani',
+                    'https://www.extraaedge.com/wp-content/uploads/2025/10/techno-india-group.webp|Techno India',
+                    'https://www.extraaedge.com/wp-content/uploads/2025/10/cropped-final-logo.webp|Final Logo',
+                );
+                for ($i = 1; $i <= 8; $i++) {
+                    $parts = explode('|', $t1_defaults[$i-1]);
+                    self::image_field("logo_t1_{$i}_url", $i, "Logo $i", "Recommended: PNG/SVG transparent, ~200x100px.", $parts[0]);
+                    self::text_field("logo_t1_{$i}_alt", '', 'Alt text', 'Image SEO/accessibility text.', $parts[1], '');
+                }
+                self::group_end();
+                self::group_start('➡ Track 2 — 7 Logos (Right moving)', 'Track 2');
+                $t2_defaults = array(
+                    'https://www.extraaedge.com/wp-content/uploads/2024/12/JGI-JAIN-2.webp|Jain University',
+                    'https://www.extraaedge.com/wp-content/uploads/2025/01/mit-shillong.png|MIT Shillong',
+                    'https://www.extraaedge.com/wp-content/uploads/2024/12/isdi.webp|ISDI',
+                    'https://www.extraaedge.com/wp-content/uploads/2025/09/jio-v3-3.png|Jio Institute',
+                    'https://www.extraaedge.com/wp-content/uploads/2024/12/dpu-3.webp|DPU',
+                    'https://www.extraaedge.com/wp-content/uploads/2024/12/Graphic-Era-3.webp|Graphic Era',
+                    'https://www.extraaedge.com/wp-content/uploads/2024/12/fostima.webp|Fostima',
+                );
+                for ($i = 1; $i <= 7; $i++) {
+                    $parts = explode('|', $t2_defaults[$i-1]);
+                    self::image_field("logo_t2_{$i}_url", $i, "Logo $i", "Recommended: PNG/SVG transparent, ~200x100px.", $parts[0]);
+                    self::text_field("logo_t2_{$i}_alt", '', 'Alt text', '', $parts[1], '');
+                }
+                self::group_end();
+                break;
+
+            case 'vidyaai':
+                self::group_start('🏷 Badge & Heading');
+                self::text_field('vidya_badge', '1', 'Top Badge', '', 'VidyaAI Admission Intelligence', 'Badge');
+                self::pair_row(function(){
+                    self::text_field('vidya_h1_part1', '2', 'Heading Line 1', '', 'Powerful Admission CRM', 'H2');
+                    self::text_field('vidya_h1_part2', '3', 'Heading Highlight', '', 'with simplicity.', 'H2');
+                });
+                self::textarea_field('vidya_subtitle', '4', 'Description', '', 'A next-gen platform designed to convert inquiries into enrollments using autonomous intelligence and streamlined counselor workflows.', 'Description');
+                self::group_end();
+                self::group_start('🔘 Hero CTAs (2 buttons)');
+                self::pair_row(function(){
+                    self::text_field('vidya_cta1_text', '5', 'Primary Button', '', 'Book Private Demo', 'Primary CTA');
+                    self::text_field('vidya_cta1_url', '6', 'Primary URL', '', '#demo', 'Primary CTA');
+                });
+                self::pair_row(function(){
+                    self::text_field('vidya_cta2_text', '7', 'Secondary Button', '', 'Explore Platform', 'Secondary CTA');
+                    self::text_field('vidya_cta2_url', '8', 'Secondary URL', '', '#platform', 'Secondary CTA');
+                });
+                self::group_end();
+                self::group_start('🏁 Final CTA');
+                self::text_field('vidya_final_cta', '9', 'Bottom Orange Button', 'Section che shevti cha button.', 'Get Started with VidyaAI', 'Bottom CTA');
+                self::group_end();
+                break;
+
+            case 'admcrm':
+                self::group_start('📝 Heading & Subtitle');
+                self::text_field('adm_h2', '1', 'Main Heading', '', 'Every admission. Tracked. Moving forward.', 'H2');
+                self::textarea_field('adm_subheadline', '2', 'Sub-heading paragraph', '', 'Centralize your entire admissions process with real-time visibility. From first inquiry to final enrolment, intelligent lead prioritization ensures your team focuses on candidates that convert.', 'Description');
+                self::group_end();
+                self::group_start('🔘 Bottom CTA');
+                self::pair_row(function(){
+                    self::text_field('adm_cta_text', '3', 'CTA Text', '', 'Explore the Flow', 'CTA');
+                    self::text_field('adm_cta_url', '4', 'CTA URL', '', '#', 'CTA');
+                });
+                self::text_field('adm_closing', '5', 'Closing Tagline', 'Button khalil all-caps line.', 'Full visibility. Zero chaos. More conversions.', 'Closing');
+                self::group_end();
+                break;
+
+            case 'marketing':
+                self::group_start('📌 Top Section');
+                self::text_field('mkt_status', '1', 'Status Tag (with green pulse dot)', '', 'AI Engine: Live Processing', 'Status Tag');
+                self::pair_row(function(){
+                    self::text_field('mkt_h2_part1', '2', 'Heading Line 1', '', 'Automate Every Inquiry.', 'H2');
+                    self::text_field('mkt_h2_part2', '3', 'Heading Line 2 (Orange)', '', 'Convert Every Student.', 'H2');
+                });
+                self::textarea_field('mkt_subtext', '4', 'Subtext', '', 'From the first touchpoint to final enrollment, our AI-driven automation ensures no lead is left behind. Experience precision marketing that scales with your institution.', 'Description');
+                self::group_end();
+                self::group_start('🃏 Marketing Card');
+                self::text_field('mkt_card_title', '5', 'Card Title', '', 'Scale Your Outreach With Precision', 'Card');
+                self::textarea_field('mkt_description', '6', 'Card Description', '', 'Marketing automation delivers personalized emails and targeted campaigns to the right prospects at the perfect time.', 'Card Body');
+                self::group_end();
+                self::group_start('🔘 CTA');
+                self::pair_row(function(){
+                    self::text_field('mkt_cta_text', '7', 'CTA Text', '', 'Activate AI Automation', 'CTA');
+                    self::text_field('mkt_cta_url', '8', 'CTA URL', '', '#demo', 'CTA');
+                });
+                self::group_end();
+                break;
+
+            case 'chatbot':
+                self::group_start('📝 Heading');
+                self::text_field('bot_h2', '1', 'Heading (H2)', '', 'Chatbot & Live Chat for Admissions', 'H2');
+                self::textarea_field('bot_description', '2', 'Description', '', 'Integrated with your Admission CRM, the chatbot ensures you never miss an inquiry with 24/7 instant responses. Handle routine queries automatically while counsellors focus on meaningful conversations.', 'Body');
+                self::group_end();
+                self::group_start('✓ Feature List');
+                self::text_field('bot_feat1', '3', 'Feature 1', '', 'Automated Chat Workflow', 'Feature');
+                self::text_field('bot_feat2', '4', 'Feature 2', '', 'Live Chat Enablement', 'Feature');
+                self::text_field('bot_feat3', '5', 'Feature 3', '', 'Meeting Scheduler', 'Feature');
+                self::group_end();
+                self::group_start('🔘 CTA');
+                self::pair_row(function(){
+                    self::text_field('bot_cta_text', '6', 'Button Text', '', 'See Live Demo', 'CTA');
+                    self::text_field('bot_cta_url', '7', 'Button URL', '', '#', 'CTA');
+                });
+                self::group_end();
+                break;
+
+            case 'appmgmt':
+                self::group_start('📌 Top');
+                self::text_field('ams_status', '1', 'Status Pill', '', 'SYSTEM STATUS: ACTIVE', 'Status Pill');
+                self::pair_row(function(){
+                    self::text_field('ams_h1_part1', '2', 'Heading Line 1', '', 'Turn Applications into Admissions.', 'H2');
+                    self::text_field('ams_h1_part2', '3', 'Heading Line 2 (Orange)', '', 'On Autopilot.', 'H2');
+                });
+                self::textarea_field('ams_para1', '4', 'Paragraph 1', '', 'Our Application Management System streamlines the entire application process for you and your prospective students. Integrated with your Admission CRM and optimized for mobile, it handles form submissions, document verification, and payments effortlessly.', 'Body');
+                self::textarea_field('ams_para2', '5', 'Paragraph 2', '', 'Intelligent status tracking keeps applicants informed while giving you actionable insights at every stage, turning manual tasks into a hands-free, high-conversion workflow.', 'Body');
+                self::group_end();
+                self::group_start('🔘 CTA');
+                self::pair_row(function(){
+                    self::text_field('ams_cta_text', '6', 'CTA Text', '', 'Start Automating Now', 'CTA');
+                    self::text_field('ams_cta_url', '7', 'CTA URL', '', '#get-started', 'CTA');
+                });
+                self::group_end();
+                self::group_start('🧑‍💼 Counselor Avatar');
+                self::image_field('ams_counselor_img', '8', 'Step 3 Counselor Photo', 'Round avatar in GD-PI counseling step.', 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=80&h=80');
+                self::group_end();
+                break;
+
+            case 'whatsapp':
+                self::group_start('📌 Top');
+                self::pair_row(function(){
+                    self::text_field('wa_h2_part1', '1', 'Heading Line 1', '', 'WhatsApp', 'H2');
+                    self::text_field('wa_h2_part2', '2', 'Heading Line 2 (Orange)', '', 'Business API', 'H2');
+                });
+                self::textarea_field('wa_description', '3', 'Description', '', 'WhatsApp Business API connects you with prospects on their preferred platform. Send bulk messages, engage in personalized conversations, and drive conversions, all through your Admission CRM.', 'Body');
+                self::group_end();
+                self::group_start('🃏 Feature 1');
+                self::text_field('wa_feat1_title', '4', 'Title', '', 'Two-way WhatsApp and live chat', 'Card 1');
+                self::text_field('wa_feat1_desc', '5', 'Description', '', 'Enable real-time human connection alongside automation.', 'Card 1');
+                self::group_end();
+                self::group_start('🃏 Feature 2');
+                self::text_field('wa_feat2_title', '6', 'Title', '', 'Bulk WhatsApp & automated campaigns', 'Card 2');
+                self::text_field('wa_feat2_desc', '7', 'Description', '', 'Scale your outreach without losing the personal touch.', 'Card 2');
+                self::group_end();
+                self::group_start('🃏 Feature 3');
+                self::text_field('wa_feat3_title', '8', 'Title', '', 'Verified business account', 'Card 3');
+                self::text_field('wa_feat3_desc', '9', 'Description', '', 'Official green badge to build instant trust with applicants.', 'Card 3');
+                self::group_end();
+                self::group_start('🔘 CTAs (2 buttons)');
+                self::pair_row(function(){
+                    self::text_field('wa_cta1_text', '10', 'Primary', '', 'Start Optimizing Now', 'CTA 1');
+                    self::text_field('wa_cta1_url', '11', 'URL', '', '#', 'CTA 1');
+                });
+                self::pair_row(function(){
+                    self::text_field('wa_cta2_text', '12', 'Secondary', '', 'View Case Studies', 'CTA 2');
+                    self::text_field('wa_cta2_url', '13', 'URL', '', '#', 'CTA 2');
+                });
+                self::group_end();
+                break;
+
+            case 'mobilecrm':
+                self::group_start('🏷 Heading');
+                self::text_field('mcrm_badge', '1', 'Top Badge', '', 'Next-Gen Mobility', 'Badge');
+                self::pair_row(function(){
+                    self::text_field('mcrm_h2_p1', '2', 'Heading Part 1', '', 'Mobile CRM: Powering', 'H2');
+                    self::text_field('mcrm_h2_em', '3', 'Heading Highlight', '', 'Productivity', 'H2');
+                });
+                self::text_field('mcrm_h2_p2', '4', 'Heading Part 3', '', 'on the Go', 'H2');
+                self::textarea_field('mcrm_description', '5', 'Description', '', 'Our Mobile CRM empowers work-from-home and field counselors to stay productive anywhere. Monitor visits, log activities, and complete follow-ups with real-time sync to your Admission CRM for intelligent, unified reporting.', 'Body');
+                self::group_end();
+                self::group_start('💊 Feature Pills');
+                self::text_field('mcrm_feat1', '6', 'Pill 1', '', 'Click-To-Call', 'Pill');
+                self::text_field('mcrm_feat2', '7', 'Pill 2', '', 'Field Tracker', 'Pill');
+                self::text_field('mcrm_feat3', '8', 'Pill 3', '', 'Missed Call Lead Capture', 'Pill');
+                self::group_end();
+                self::group_start('✅ Sync Note (green box)');
+                self::textarea_field('mcrm_note', '9', 'Sync Note Text', '', 'Real-time sync with your Admission CRM ensures every interaction is captured for intelligent, unified reporting — zero data loss, always.', 'Green Note');
+                self::group_end();
+                break;
+
+            case 'choose':
+                self::group_start('🏷 Top Heading');
+                self::text_field('arch_eyebrow', '1', 'Eyebrow Text', '', 'Admission Ecosystem', 'Eyebrow');
+                self::pair_row(function(){
+                    self::text_field('arch_h2_p1', '2', 'Heading Part 1', '', 'Why Institutes Choose ExtraaEdge as the', 'H2');
+                    self::text_field('arch_h2_em', '3', 'Highlight Word', '', 'Architect', 'H2');
+                });
+                self::text_field('arch_h2_p2', '4', 'Heading Part 3', '', 'of Their Admission Process?', 'H2');
+                self::textarea_field('arch_subtext', '5', 'Sub-text', '', 'Most Admission CRMs help you manage admissions. ExtraaEdge helps you design how admissions should work—end to end, at scale.', 'Description');
+                self::group_end();
+                self::group_start('👥 Social Proof Strip');
+                self::text_field('arch_proof_text', '6', 'Social Proof Label', '', 'Trusted by 500+ Leading Institutes', 'Bottom Strip');
+                self::group_end();
+                break;
+
+            case 'respond':
+                self::group_start('📝 Heading');
+                self::text_field('rf_eyebrow', '1', 'Eyebrow', '', 'Admission Response Automation', 'Eyebrow');
+                self::text_field('rf_h1_l1', '2', 'Heading Line 1', '', 'Decrease Response Time.', 'H2');
+                self::text_field('rf_h1_l2', '3', 'Heading Line 2 (ORANGE)', '', 'Respond First Using AI Agents.', 'H2');
+                self::text_field('rf_h1_l3', '4', 'Heading Line 3', '', 'Win Admissions.', 'H2');
+                self::textarea_field('rf_copy', '5', 'Body Copy', '', 'Respond to every admission inquiry in minutes, not hours. Because the institute that responds first controls the conversation—and the conversion. ExtraaEdge automatically captures inquiries from every source and initiates AI-powered calls instantly.', 'Body');
+                self::group_end();
+                self::group_start('🔘 CTA & Microcopy');
+                self::pair_row(function(){
+                    self::text_field('rf_cta_text', '6', 'Button Text', '', 'Book a Demo', 'CTA');
+                    self::text_field('rf_cta_url', '7', 'Button URL', '', '#', 'CTA');
+                });
+                self::text_field('rf_micro', '8', 'Microcopy', '', 'See how institutes reduce response time by 90%', 'Microcopy');
+                self::group_end();
+                break;
+
+            case 'boost':
+                self::group_start('🏷 Top Heading');
+                self::text_field('bc_badge', '1', 'Top Badge', '', 'Boost Conversion Rates', 'Badge');
+                self::pair_row(function(){
+                    self::text_field('bc_h2_p1', '2', 'Heading Line 1', '', 'AI Decides the Right', 'H2');
+                    self::text_field('bc_h2_p2', '3', 'Heading Line 2', '', 'Admission Engagements.', 'H2');
+                });
+                self::textarea_field('bc_subtext', '4', 'Sub-text', '', 'ExtraaEdge uses intelligence across student behaviour, intent, and application stage. It decides who, when, and how to engage. Every interaction is timely, relevant, and context-aware.', 'Body');
+                self::group_end();
+                self::group_start('🃏 Feature Cards (4 items)');
+                self::pair_row(function(){
+                    self::text_field('bc_f1_title', '5', 'Card 1 Title', '', 'Trigger-Based Email & SMS', 'Card 1');
+                    self::text_field('bc_f1_desc', '6', 'Card 1 Desc', '', 'Automated personalized outreach triggered by student behavior thresholds.', 'Card 1');
+                });
+                self::pair_row(function(){
+                    self::text_field('bc_f2_title', '7', 'Card 2 Title', '', 'AI Calling & Click-to-Call', 'Card 2');
+                    self::text_field('bc_f2_desc', '8', 'Card 2 Desc', '', 'Intelligence-led queues that connect teams to high-intent leads instantly.', 'Card 2');
+                });
+                self::pair_row(function(){
+                    self::text_field('bc_f3_title', '9', 'Card 3 Title', '', 'VidyaGPT AI Agents', 'Card 3');
+                    self::text_field('bc_f3_desc', '10', 'Card 3 Desc', '', '24x7 admission counselors providing accurate, contextual answers instantly.', 'Card 3');
+                });
+                self::pair_row(function(){
+                    self::text_field('bc_f4_title', '11', 'Card 4 Title', '', 'WhatsApp Communication', 'Card 4');
+                    self::text_field('bc_f4_desc', '12', 'Card 4 Desc', '', 'Engage students where they are with official WhatsApp business API integration.', 'Card 4');
+                });
+                self::group_end();
+                break;
+
+            case 'convert':
+                self::group_start('📝 Heading & Body');
+                self::text_field('cm_eyebrow', '1', 'Eyebrow Text', '', 'Convert More', 'Eyebrow');
+                self::pair_row(function(){
+                    self::text_field('cm_h2_p1', '2', 'Heading Line 1', '', 'Turn Enquiries Into', 'H2');
+                    self::text_field('cm_h2_p2', '3', 'Heading Line 2 (ORANGE)', '', 'Enrollments', 'H2');
+                });
+                self::text_field('cm_subtitle', '4', 'Sub-title (bold)', '', 'Not every enquiry deserves the same attention.', 'Subtitle');
+                self::textarea_field('cm_description', '5', 'Description', '', 'ExtraaEdge helps teams focus on prospects most likely to enroll. Intelligent prioritization uses engagement, intent, and application stage. Teams know exactly who to follow up, nurture, or move forward. The result is higher efficiency and stronger enrollment conversions.', 'Body');
+                self::group_end();
+                self::group_start('🔘 CTA');
+                self::pair_row(function(){
+                    self::text_field('cm_cta_text', '6', 'Button Text', '', 'Book a Demo', 'CTA');
+                    self::text_field('cm_cta_url', '7', 'Button URL', '', '#', 'CTA');
+                });
+                self::group_end();
+                break;
+
+            case 'analytics':
+                self::group_start('📌 Top');
+                self::text_field('ie_badge', '1', 'Top Badge', '', 'Measure your efforts', 'Badge');
+                self::pair_row(function(){
+                    self::text_field('ie_h2_p1', '2', 'Heading Line 1', '', "Know What's Working.", 'H2');
+                    self::text_field('ie_h2_p2', '3', 'Heading Line 2 (Gradient)', '', "Fix What's Not.", 'H2');
+                });
+                self::textarea_field('ie_description', '4', 'Description', '', 'Measure what matters across admissions and marketing. ExtraaEdge gives teams clear, actionable visibility into performance.', 'Body');
+                self::group_end();
+                self::group_start('🔘 CTA');
+                self::pair_row(function(){
+                    self::text_field('ie_cta_text', '5', 'Button Text', '', 'Book a Demo', 'CTA');
+                    self::text_field('ie_cta_url', '6', 'Button URL', '', '#', 'CTA');
+                });
+                self::group_end();
+                break;
+
+            case 'stories':
+                self::group_start('📝 Section Heading');
+                self::text_field('st_tagline', '1', 'Tagline', '', 'CRM Impact Stories', 'Tagline');
+                self::pair_row(function(){
+                    self::text_field('st_h2_p1', '2', 'Heading Line 1', '', 'Powering Growth for', 'H2');
+                    self::text_field('st_h2_p2', '3', 'Heading Line 2', '', '500+ Happy Customers', 'H2');
+                });
+                self::textarea_field('st_subtitle', '4', 'Sub-title', '', 'From streamlined counselor workflows to data-driven reporting, see how education leaders are rewriting their success stories with ExtraaEdge.', 'Description');
+                self::group_end();
+                self::group_start('📊 4 Stat Metric Cards', 'Numbers');
+                self::pair_row(function(){
+                    self::text_field('st_m1_num', '5', 'Metric 1 Number', '', '500', 'Stat 1');
+                    self::text_field('st_m1_lab', '6', 'Metric 1 Label', '', 'Happy Customers', 'Stat 1');
+                });
+                self::pair_row(function(){
+                    self::text_field('st_m2_num', '7', 'Metric 2 Number', '', '3', 'Stat 2');
+                    self::text_field('st_m2_lab', '8', 'Metric 2 Label', '', 'X Conversion Rate', 'Stat 2');
+                });
+                self::pair_row(function(){
+                    self::text_field('st_m3_num', '9', 'Metric 3 Number', '', '15000', 'Stat 3');
+                    self::text_field('st_m3_lab', '10', 'Metric 3 Label', '', 'Daily Power Users', 'Stat 3');
+                });
+                self::pair_row(function(){
+                    self::text_field('st_m4_num', '11', 'Metric 4 Number', '', '99', 'Stat 4');
+                    self::text_field('st_m4_lab', '12', 'Metric 4 Label', '', '% Support Rating', 'Stat 4');
+                });
+                self::group_end();
+                $t_defaults = array(
+                    1 => array('video'=>'3SHgLf1GFgk','name'=>'Silky Jain Marwah','role'=>'Executive Director','inst'=>"Tula's Institute",'photo'=>'https://www.extraaedge.com/wp-content/uploads/2025/01/Silky-Jain-Marwah.webp'),
+                    2 => array('video'=>'dWLdQ8E3FOU','name'=>'Pranay Rupani','role'=>'Head of Admissions & Marketing','inst'=>'Annapurna College of Film & Media','photo'=>'https://www.extraaedge.com/wp-content/uploads/2025/10/Pranay-sir-02.webp'),
+                    3 => array('video'=>'yfK83D2SKps','name'=>'K. Nirmala Devi','role'=>'Assistant Manager','inst'=>'Indian Academy Group','photo'=>'https://www.extraaedge.com/wp-content/uploads/2025/01/Nirmala-Devi.webp'),
+                );
+                foreach ($t_defaults as $i => $d) {
+                    self::group_start("🎬 Testimonial #{$i}", "Card {$i}");
+                    self::text_field("st_t{$i}_video", '', "YouTube Video ID", "FULL URL nahi, FAKT VIDEO ID lihaa. Example: <code>https://youtu.be/<b>3SHgLf1GFgk</b></code> madhun <b>3SHgLf1GFgk</b> ha part copy kara.", $d['video'], "Video");
+                    self::textarea_field("st_t{$i}_quote", '', "Customer Quote", "Italic quote — site varti distoy.", '', "Quote");
+                    self::pair_row(function() use ($i, $d) {
+                        self::text_field("st_t{$i}_name", '', "Customer Name", '', $d['name'], "Name");
+                        self::text_field("st_t{$i}_role", '', "Job Role", '', $d['role'], "Role");
+                    });
+                    self::text_field("st_t{$i}_inst", '', "Institute / Company Name", '', $d['inst'], "Company");
+                    self::image_field("st_t{$i}_photo", '', "Customer Photo", "Square 200x200px recommended.", $d['photo']);
+                    self::group_end();
+                }
+                break;
+
+            case 'ctabox':
+                self::group_start('📝 Heading & CTA');
+                self::text_field('ctab_h2', '1', 'Main Heading (H2)', '', 'Ready to Move to an AI-Powered Admission CRM and Marketing Solution?', 'H2');
+                self::textarea_field('ctab_subheadline', '2', 'Sub-heading', '', 'Know how you can scale your admission process & achieve your targets. Book a 45-minute free demo.', 'Body');
+                self::pair_row(function(){
+                    self::text_field('ctab_cta_text', '3', 'Button Text', '', 'Book a Demo', 'Big Button');
+                    self::text_field('ctab_cta_url', '4', 'Button URL', '', 'https://www.extraaedge.com/', 'Big Button');
+                });
+                self::text_field('ctab_trust', '5', 'Trust Indicator Text', '', 'Trusted by 250+ Premier Institutions Globally', 'Trust Line');
+                self::group_end();
+                self::group_start('🧑‍🏫 Expert Centerpiece Image');
+                self::image_field('ctab_expert_img', '6', 'Admission Expert Photo', 'Right side cha center circular photo. 400x400px recommended.', 'https://www.extraaedge.com/wp-content/uploads/2024/08/Charu-400x400-1-300x300-1.webp');
+                self::group_end();
+                break;
+        }
     }
 }
 
 EE_Home_Editor::init();
 
 /**
- * Global helper functions used by front-page.php
+ * Global helper functions for front-page.php
  */
 if (!function_exists('ee_h')) {
     function ee_h($key, $default = '') {
