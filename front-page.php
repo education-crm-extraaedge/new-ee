@@ -975,75 +975,75 @@ get_header();
 
             <!-- 1. AI Admission Assist -->
             <section id="vidya-assist" class="story-section" data-stage="assist">
-                <div class="mb-4 text-blue-600 font-bold tracking-tighter text-2xl">01.</div>
-                <h2 class="text-4xl font-bold mb-6">AI Admission Assist</h2>
+                <div class="mb-4 text-blue-600 font-bold tracking-tighter text-2xl"><?php ee_h('vidya_s1_num'); ?></div>
+                <h2 class="text-4xl font-bold mb-6"><?php ee_h('vidya_s1_title'); ?></h2>
                 <p class="text-slate-600 text-lg leading-relaxed mb-8">
-                    24×7 AI that answers student queries, guides applications, and supports counselors with live context to keep admissions moving without delays.
+                    <?php ee_h('vidya_s1_desc'); ?>
                 </p>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="p-4 bg-slate-50 rounded-2xl">
-                        <div class="text-blue-900 font-bold text-sm mb-1">Instant Guide</div>
-                        <div class="text-xs text-slate-500 leading-snug">Answers eligibility and fee queries instantly.</div>
+                        <div class="text-blue-900 font-bold text-sm mb-1"><?php ee_h('vidya_s1_box1_title'); ?></div>
+                        <div class="text-xs text-slate-500 leading-snug"><?php ee_h('vidya_s1_box1_desc'); ?></div>
                     </div>
                     <div class="p-4 bg-slate-50 rounded-2xl">
-                        <div class="text-blue-900 font-bold text-sm mb-1">Doc Assist</div>
-                        <div class="text-xs text-slate-500 leading-snug">Guides students through complex upload processes.</div>
+                        <div class="text-blue-900 font-bold text-sm mb-1"><?php ee_h('vidya_s1_box2_title'); ?></div>
+                        <div class="text-xs text-slate-500 leading-snug"><?php ee_h('vidya_s1_box2_desc'); ?></div>
                     </div>
                 </div>
             </section>
 
             <!-- 2. AI Lead Intent Scoring -->
             <section id="vidya-scoring" class="story-section" data-stage="scoring">
-                <div class="mb-4 text-orange-600 font-bold tracking-tighter text-2xl">02.</div>
-                <h2 class="text-4xl font-bold mb-6">AI Lead Intent Scoring</h2>
+                <div class="mb-4 text-orange-600 font-bold tracking-tighter text-2xl"><?php ee_h('vidya_s2_num'); ?></div>
+                <h2 class="text-4xl font-bold mb-6"><?php ee_h('vidya_s2_title'); ?></h2>
                 <p class="text-slate-600 text-lg leading-relaxed mb-8">
-                    Automatically prioritizes high-intent leads using behavior and funnel signals so counselors focus only where conversions are most likely.
+                    <?php ee_h('vidya_s2_desc'); ?>
                 </p>
                 <div class="bg-[#19335D] text-white p-6 rounded-3xl">
                     <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs opacity-60 uppercase font-bold tracking-widest">Predictive Lift</span>
-                        <span class="text-orange-400 font-bold">+340%</span>
+                        <span class="text-xs opacity-60 uppercase font-bold tracking-widest"><?php ee_h('vidya_s2_lift_label'); ?></span>
+                        <span class="text-orange-400 font-bold"><?php ee_h('vidya_s2_lift_value'); ?></span>
                     </div>
-                    <p class="text-sm">High-intent leads are flagged in real-time based on session duration, page depth, and interaction frequency.</p>
+                    <p class="text-sm"><?php ee_h('vidya_s2_lift_body'); ?></p>
                 </div>
             </section>
 
             <!-- 3. Smart Follow-up Intelligence -->
             <section id="vidya-followup" class="story-section" data-stage="followup">
-                <div class="mb-4 text-indigo-600 font-bold tracking-tighter text-2xl">03.</div>
-                <h2 class="text-4xl font-bold mb-6">Smart Follow-up Intelligence</h2>
+                <div class="mb-4 text-indigo-600 font-bold tracking-tighter text-2xl"><?php ee_h('vidya_s3_num'); ?></div>
+                <h2 class="text-4xl font-bold mb-6"><?php ee_h('vidya_s3_title'); ?></h2>
                 <p class="text-slate-600 text-lg leading-relaxed mb-8">
-                    AI tells your team who to follow up with, when to act, and what to do next, improving response speed and reducing missed opportunities.
+                    <?php ee_h('vidya_s3_desc'); ?>
                 </p>
                 <div class="space-y-4">
                     <div class="flex items-center gap-4 p-4 border border-slate-100 rounded-2xl">
                         <div class="w-2 h-2 rounded-full bg-green-500"></div>
-                        <span class="text-sm font-semibold text-slate-700">Automated multi-channel sequencing</span>
+                        <span class="text-sm font-semibold text-slate-700"><?php ee_h('vidya_s3_li1'); ?></span>
                     </div>
                     <div class="flex items-center gap-4 p-4 border border-slate-100 rounded-2xl">
                         <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-                        <span class="text-sm font-semibold text-slate-700">Predictive 'Next Best Action' engine</span>
+                        <span class="text-sm font-semibold text-slate-700"><?php ee_h('vidya_s3_li2'); ?></span>
                     </div>
                 </div>
             </section>
 
             <!-- 4. AI Calling for Qualification & Scale -->
             <section id="vidya-calling" class="story-section" data-stage="calling">
-                <div class="mb-4 text-red-600 font-bold tracking-tighter text-2xl">04.</div>
-                <h2 class="text-4xl font-bold mb-6">AI Calling for Qualification & Scale</h2>
+                <div class="mb-4 text-red-600 font-bold tracking-tighter text-2xl"><?php ee_h('vidya_s4_num'); ?></div>
+                <h2 class="text-4xl font-bold mb-6"><?php ee_h('vidya_s4_title'); ?></h2>
                 <p class="text-slate-600 text-lg leading-relaxed mb-8">
-                    AI-powered calling qualifies large volumes of inquiries, captures intent, and passes only serious prospects to counselors at scale.
+                    <?php ee_h('vidya_s4_desc'); ?>
                 </p>
             </section>
 
             <!-- 5. Counselor Performance Intelligence -->
             <section id="vidya-performance" class="story-section" data-stage="performance">
-                <div class="mb-4 text-green-600 font-bold tracking-tighter text-2xl">05.</div>
-                <h2 class="text-4xl font-bold mb-6">Counselor Performance Intelligence</h2>
+                <div class="mb-4 text-green-600 font-bold tracking-tighter text-2xl"><?php ee_h('vidya_s5_num'); ?></div>
+                <h2 class="text-4xl font-bold mb-6"><?php ee_h('vidya_s5_title'); ?></h2>
                 <p class="text-slate-600 text-lg leading-relaxed mb-12">
-                    Clear visibility into response times, follow-ups, and conversion impact by counselor to drive focused coaching and better outcomes.
+                    <?php ee_h('vidya_s5_desc'); ?>
                 </p>
-                <a href="<?php ee_u('vidya_cta1_url', '#demo'); ?>" class="block text-center bg-[#DE6E30] text-white w-full py-5 rounded-2xl font-bold text-lg hover:scale-[1.02] transition-transform"><?php ee_h('vidya_final_cta', 'Get Started with VidyaAI'); ?></a>
+                <a href="<?php ee_u('vidya_cta1_url'); ?>" class="block text-center bg-[#DE6E30] text-white w-full py-5 rounded-2xl font-bold text-lg hover:scale-[1.02] transition-transform"><?php ee_h('vidya_final_cta'); ?></a>
             </section>
         </div>
 

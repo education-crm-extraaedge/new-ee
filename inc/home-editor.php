@@ -426,6 +426,56 @@ class EE_Home_Editor {
                     self::text_field('vidya_cta2_url', '8', 'Secondary URL', '', '#platform', 'Secondary CTA');
                 });
 
+                self::group_heading('1️⃣ Stage 01 — AI Admission Assist', 'Sub-section 1');
+                self::pair_row(function(){
+                    self::text_field('vidya_s1_num', '', 'Step Number', '', '01.', 'Step badge');
+                    self::text_field('vidya_s1_title', '', 'Stage Title', '', 'AI Admission Assist', 'H2');
+                });
+                self::textarea_field('vidya_s1_desc', '', 'Stage Description', '', '24×7 AI that answers student queries, guides applications, and supports counselors with live context to keep admissions moving without delays.', 'Body');
+                self::pair_row(function(){
+                    self::text_field('vidya_s1_box1_title', '', 'Box 1 Title', '', 'Instant Guide', 'Card 1');
+                    self::text_field('vidya_s1_box1_desc',  '', 'Box 1 Description', '', 'Answers eligibility and fee queries instantly.', 'Card 1');
+                });
+                self::pair_row(function(){
+                    self::text_field('vidya_s1_box2_title', '', 'Box 2 Title', '', 'Doc Assist', 'Card 2');
+                    self::text_field('vidya_s1_box2_desc',  '', 'Box 2 Description', '', 'Guides students through complex upload processes.', 'Card 2');
+                });
+
+                self::group_heading('2️⃣ Stage 02 — AI Lead Intent Scoring', 'Sub-section 2');
+                self::pair_row(function(){
+                    self::text_field('vidya_s2_num', '', 'Step Number', '', '02.', 'Step badge');
+                    self::text_field('vidya_s2_title', '', 'Stage Title', '', 'AI Lead Intent Scoring', 'H2');
+                });
+                self::textarea_field('vidya_s2_desc', '', 'Stage Description', '', 'Automatically prioritizes high-intent leads using behavior and funnel signals so counselors focus only where conversions are most likely.', 'Body');
+                self::pair_row(function(){
+                    self::text_field('vidya_s2_lift_label', '', 'Stat Label', 'Small uppercase label on the dark blue card.', 'Predictive Lift', 'Card label');
+                    self::text_field('vidya_s2_lift_value', '', 'Stat Value', 'Large orange number on the right.', '+340%', 'Card value');
+                });
+                self::textarea_field('vidya_s2_lift_body', '', 'Stat Body Copy', '', 'High-intent leads are flagged in real-time based on session duration, page depth, and interaction frequency.', 'Card body');
+
+                self::group_heading('3️⃣ Stage 03 — Smart Follow-up Intelligence', 'Sub-section 3');
+                self::pair_row(function(){
+                    self::text_field('vidya_s3_num', '', 'Step Number', '', '03.', 'Step badge');
+                    self::text_field('vidya_s3_title', '', 'Stage Title', '', 'Smart Follow-up Intelligence', 'H2');
+                });
+                self::textarea_field('vidya_s3_desc', '', 'Stage Description', '', 'AI tells your team who to follow up with, when to act, and what to do next, improving response speed and reducing missed opportunities.', 'Body');
+                self::text_field('vidya_s3_li1', '', 'List item 1 (green dot)', '', 'Automated multi-channel sequencing', 'Bullet');
+                self::text_field('vidya_s3_li2', '', 'List item 2 (blue dot)', '', "Predictive 'Next Best Action' engine", 'Bullet');
+
+                self::group_heading('4️⃣ Stage 04 — AI Calling for Qualification & Scale', 'Sub-section 4');
+                self::pair_row(function(){
+                    self::text_field('vidya_s4_num', '', 'Step Number', '', '04.', 'Step badge');
+                    self::text_field('vidya_s4_title', '', 'Stage Title', '', 'AI Calling for Qualification & Scale', 'H2');
+                });
+                self::textarea_field('vidya_s4_desc', '', 'Stage Description', '', 'AI-powered calling qualifies large volumes of inquiries, captures intent, and passes only serious prospects to counselors at scale.', 'Body');
+
+                self::group_heading('5️⃣ Stage 05 — Counselor Performance Intelligence', 'Sub-section 5');
+                self::pair_row(function(){
+                    self::text_field('vidya_s5_num', '', 'Step Number', '', '05.', 'Step badge');
+                    self::text_field('vidya_s5_title', '', 'Stage Title', '', 'Counselor Performance Intelligence', 'H2');
+                });
+                self::textarea_field('vidya_s5_desc', '', 'Stage Description', '', 'Clear visibility into response times, follow-ups, and conversion impact by counselor to drive focused coaching and better outcomes.', 'Body');
+
                 self::group_heading('🏁 Final CTA');
                 self::text_field('vidya_final_cta', '9', 'Bottom Orange Button', 'Bottom CTA label at the end of the section.', 'Get Started with VidyaAI', 'Bottom CTA');
                 break;
