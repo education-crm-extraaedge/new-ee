@@ -1566,4 +1566,7 @@ remove_action('wp_head', 'rel_canonical');
 // ══════════════════════════════════════════════════════════
 // Y. HOME PAGE EDITOR — non-coder admin for front-page.php
 // ══════════════════════════════════════════════════════════
-require_once get_template_directory() . '/inc/home-editor.php';
+$ee_home_editor = __DIR__ . '/inc/home-editor.php';
+if (file_exists($ee_home_editor)) {
+    require_once $ee_home_editor;
+}
