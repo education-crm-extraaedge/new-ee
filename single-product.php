@@ -182,15 +182,10 @@ function product_seo_meta_tags() {
     );
     if ($og_image)              $sw_schema['image']          = $og_image;
     if (!empty($feature_list))  $sw_schema['featureList']    = $feature_list;
-    if ($trust_rating) {
-        $sw_schema['aggregateRating'] = array(
-            '@type'       => 'AggregateRating',
-            'ratingValue' => (string) $trust_rating,
-            'reviewCount' => '500',
-            'bestRating'  => '5',
-            'worstRating' => '1',
-        );
-    }
+    // NOTE: aggregateRating intentionally omitted from SoftwareApplication —
+    // it lives on the Product schema below (the canonical "rated entity")
+    // to prevent Google from counting the same rating across multiple
+    // schema types as separate Review snippets.
     echo "\n<script type=\"application/ld+json\">" . wp_json_encode($sw_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
 
     // ─── Article schema with Speakable (AEO / voice search) ───
