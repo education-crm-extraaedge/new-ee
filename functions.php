@@ -877,6 +877,400 @@ function extraaedge_flush_rewrites() {
 }
 add_action('after_switch_theme', 'extraaedge_flush_rewrites');
 
+// ══════════════════════════════════════════════════════════════════════════
+//  ╔════════════════════════════════════════════════════════════════════╗
+//  ║   ExtraaEdge SEO & TRACKING ADMIN PAGE (for non-coders)            ║
+//  ║   Settings → ExtraaEdge SEO & Tracking                             ║
+//  ║                                                                    ║
+//  ║   Lets your team paste GTM/GA4/Clarity/FB Pixel/Schema/Verification║
+//  ║   IDs through a simple form — no PHP file edits required.          ║
+//  ║   Stored in wp_options table under 'ee_tracking_settings'.         ║
+//  ╚════════════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════════════════════════════════
+
+// 1. Register the admin menu
+add_action('admin_menu', function () {
+    add_options_page(
+        'ExtraaEdge SEO & Tracking',          // Page title
+        '🌐 SEO & Tracking',                   // Menu label
+        'manage_options',                      // Capability
+        'ee-tracking',                         // Slug
+        'ee_tracking_render_page'              // Callback
+    );
+});
+
+// 2. Register settings + sanitize
+add_action('admin_init', function () {
+    register_setting('ee_tracking_group', 'ee_tracking_settings', [
+        'sanitize_callback' => function ($input) {
+            if (!is_array($input)) return [];
+            // Whitelist only known keys; strip the rest
+            $clean = [];
+            $text_keys = [
+                'gtm_id', 'ga4_id', 'clarity_id', 'fb_pixel_id', 'ads_id', 'ads_label',
+                'linkedin_id', 'hotjar_id', 'tiktok_pixel_id', 'pinterest_tag_id',
+                'verify_google', 'verify_bing', 'verify_yandex', 'verify_pinterest',
+                'verify_facebook', 'verify_norton',
+            ];
+            foreach ($text_keys as $k) {
+                $clean[$k] = isset($input[$k]) ? sanitize_text_field(wp_unslash($input[$k])) : '';
+            }
+            // Code-paste fields keep their tags (admin only — capability checked)
+            $code_keys = [
+                'custom_head', 'custom_body_open', 'custom_footer',
+                'custom_org_schema', 'custom_extra_schema',
+            ];
+            foreach ($code_keys as $k) {
+                $clean[$k] = isset($input[$k]) ? wp_unslash($input[$k]) : '';
+            }
+            return $clean;
+        },
+    ]);
+});
+
+// 3. Render the page
+function ee_tracking_render_page() {
+    if (!current_user_can('manage_options')) return;
+    $o = get_option('ee_tracking_settings', []);
+    $f = function ($k) use ($o) { return isset($o[$k]) ? $o[$k] : ''; };
+    $tab = isset($_GET['tab']) ? sanitize_key($_GET['tab']) : 'tracking';
+    $base = admin_url('options-general.php?page=ee-tracking');
+    ?>
+    <div class="wrap">
+        <h1>🌐 ExtraaEdge SEO &amp; Tracking</h1>
+        <p>Paste your tracking IDs and schema below. Codes will auto-inject into <code>&lt;head&gt;</code>, after <code>&lt;body&gt;</code>, or before <code>&lt;/body&gt;</code> — wherever each tool expects.</p>
+
+        <h2 class="nav-tab-wrapper" style="margin-top:20px">
+            <a href="<?php echo esc_url($base.'&tab=tracking');     ?>" class="nav-tab <?php echo $tab==='tracking'?'nav-tab-active':''; ?>">📊 Analytics &amp; Tracking</a>
+            <a href="<?php echo esc_url($base.'&tab=schema');       ?>" class="nav-tab <?php echo $tab==='schema'?'nav-tab-active':''; ?>">🧩 Custom Schema</a>
+            <a href="<?php echo esc_url($base.'&tab=verification'); ?>" class="nav-tab <?php echo $tab==='verification'?'nav-tab-active':''; ?>">🔍 Verification</a>
+            <a href="<?php echo esc_url($base.'&tab=custom');       ?>" class="nav-tab <?php echo $tab==='custom'?'nav-tab-active':''; ?>">🔧 Custom Code</a>
+            <a href="<?php echo esc_url($base.'&tab=help');         ?>" class="nav-tab <?php echo $tab==='help'?'nav-tab-active':''; ?>">❓ Help</a>
+        </h2>
+
+        <form method="post" action="options.php" style="margin-top:20px">
+            <?php settings_fields('ee_tracking_group'); ?>
+
+            <?php if ($tab === 'tracking') : ?>
+                <h2>📊 Analytics &amp; Tracking IDs</h2>
+                <p>Paste only the <strong>ID</strong>, not the full snippet — code is auto-generated.</p>
+                <table class="form-table">
+                    <tr>
+                        <th><label>Google Tag Manager Container ID</label></th>
+                        <td>
+                            <input type="text" name="ee_tracking_settings[gtm_id]" value="<?php echo esc_attr($f('gtm_id')); ?>" placeholder="GTM-XXXXXXX" class="regular-text">
+                            <p class="description">Find it at tagmanager.google.com → Container → top right. Format: <code>GTM-XXXXXXX</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>Google Analytics 4 (GA4) ID</label></th>
+                        <td>
+                            <input type="text" name="ee_tracking_settings[ga4_id]" value="<?php echo esc_attr($f('ga4_id')); ?>" placeholder="G-XXXXXXXXXX" class="regular-text">
+                            <p class="description">Analytics → Admin → Data Streams → Web. Format: <code>G-XXXXXXXXXX</code>. <em>Skip if using GTM (load GA4 from GTM).</em></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>Microsoft Clarity Project ID</label></th>
+                        <td>
+                            <input type="text" name="ee_tracking_settings[clarity_id]" value="<?php echo esc_attr($f('clarity_id')); ?>" placeholder="abcdef1234" class="regular-text">
+                            <p class="description">clarity.microsoft.com → Project → Settings → Setup. Format: 10-character alphanumeric.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>Facebook (Meta) Pixel ID</label></th>
+                        <td>
+                            <input type="text" name="ee_tracking_settings[fb_pixel_id]" value="<?php echo esc_attr($f('fb_pixel_id')); ?>" placeholder="123456789012345" class="regular-text">
+                            <p class="description">business.facebook.com → Events Manager → Data Sources. 15-digit number.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>Google Ads Conversion ID</label></th>
+                        <td>
+                            <input type="text" name="ee_tracking_settings[ads_id]" value="<?php echo esc_attr($f('ads_id')); ?>" placeholder="AW-1234567890" class="regular-text"><br>
+                            <input type="text" name="ee_tracking_settings[ads_label]" value="<?php echo esc_attr($f('ads_label')); ?>" placeholder="Conversion Label (optional)" class="regular-text" style="margin-top:6px">
+                            <p class="description">ads.google.com → Tools → Conversions. Format: <code>AW-XXXXXXXXXX</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>LinkedIn Insight Tag ID</label></th>
+                        <td>
+                            <input type="text" name="ee_tracking_settings[linkedin_id]" value="<?php echo esc_attr($f('linkedin_id')); ?>" placeholder="1234567" class="regular-text">
+                            <p class="description">campaignmanager.linkedin.com → Insight Tag. 7-digit number.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>Hotjar Site ID</label></th>
+                        <td>
+                            <input type="text" name="ee_tracking_settings[hotjar_id]" value="<?php echo esc_attr($f('hotjar_id')); ?>" placeholder="3456789" class="regular-text">
+                            <p class="description">insights.hotjar.com → Sites &amp; Organizations. 7-digit number.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>TikTok Pixel ID</label></th>
+                        <td>
+                            <input type="text" name="ee_tracking_settings[tiktok_pixel_id]" value="<?php echo esc_attr($f('tiktok_pixel_id')); ?>" placeholder="C4XXXXXXXXXXXXXXXXX" class="regular-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>Pinterest Tag ID</label></th>
+                        <td>
+                            <input type="text" name="ee_tracking_settings[pinterest_tag_id]" value="<?php echo esc_attr($f('pinterest_tag_id')); ?>" placeholder="2612345678901" class="regular-text">
+                        </td>
+                    </tr>
+                </table>
+
+            <?php elseif ($tab === 'schema') : ?>
+                <h2>🧩 Custom Schema (JSON-LD)</h2>
+                <p>Override or add to the auto-generated schema on every page. Paste valid JSON-LD only — validate first at <a href="https://validator.schema.org/" target="_blank">validator.schema.org</a>.</p>
+                <table class="form-table">
+                    <tr>
+                        <th><label>Custom Organization Schema (overrides default)</label></th>
+                        <td>
+                            <textarea name="ee_tracking_settings[custom_org_schema]" rows="14" cols="80" style="width:100%;font-family:monospace;font-size:12px" placeholder='{"@context":"https://schema.org","@type":"Organization","name":"ExtraaEdge",...}'><?php echo esc_textarea($f('custom_org_schema')); ?></textarea>
+                            <p class="description">Leave empty to use the theme's default. Paste a complete <code>{}</code> object (no <code>&lt;script&gt;</code> tags).</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>Additional Schema (any extra type)</label></th>
+                        <td>
+                            <textarea name="ee_tracking_settings[custom_extra_schema]" rows="14" cols="80" style="width:100%;font-family:monospace;font-size:12px" placeholder='{"@context":"https://schema.org","@type":"Course","name":"..."}'><?php echo esc_textarea($f('custom_extra_schema')); ?></textarea>
+                            <p class="description">Use for Course, Event, JobPosting, etc. Output sitewide. Use the per-post meta box for page-specific schema.</p>
+                        </td>
+                    </tr>
+                </table>
+
+            <?php elseif ($tab === 'verification') : ?>
+                <h2>🔍 Search Console &amp; Verification Tags</h2>
+                <p>Paste only the <strong>content value</strong> from each verification meta tag (not the whole <code>&lt;meta&gt;</code> tag).</p>
+                <table class="form-table">
+                    <tr>
+                        <th><label>Google Search Console</label></th>
+                        <td>
+                            <input type="text" name="ee_tracking_settings[verify_google]" value="<?php echo esc_attr($f('verify_google')); ?>" placeholder="abc123xyz..." class="regular-text">
+                            <p class="description">search.google.com/search-console → Add Property → HTML tag → copy <code>content="..."</code> value.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>Bing Webmaster Tools</label></th>
+                        <td><input type="text" name="ee_tracking_settings[verify_bing]" value="<?php echo esc_attr($f('verify_bing')); ?>" placeholder="A1B2C3..." class="regular-text"></td>
+                    </tr>
+                    <tr>
+                        <th><label>Yandex Webmaster</label></th>
+                        <td><input type="text" name="ee_tracking_settings[verify_yandex]" value="<?php echo esc_attr($f('verify_yandex')); ?>" class="regular-text"></td>
+                    </tr>
+                    <tr>
+                        <th><label>Pinterest Domain Verification</label></th>
+                        <td><input type="text" name="ee_tracking_settings[verify_pinterest]" value="<?php echo esc_attr($f('verify_pinterest')); ?>" class="regular-text"></td>
+                    </tr>
+                    <tr>
+                        <th><label>Facebook Domain Verification</label></th>
+                        <td><input type="text" name="ee_tracking_settings[verify_facebook]" value="<?php echo esc_attr($f('verify_facebook')); ?>" class="regular-text"></td>
+                    </tr>
+                    <tr>
+                        <th><label>Norton Safe Web</label></th>
+                        <td><input type="text" name="ee_tracking_settings[verify_norton]" value="<?php echo esc_attr($f('verify_norton')); ?>" class="regular-text"></td>
+                    </tr>
+                </table>
+
+            <?php elseif ($tab === 'custom') : ?>
+                <h2>🔧 Custom Code Injection</h2>
+                <p>For one-off snippets that don't fit the fields above. Paste exactly as the vendor provides — including <code>&lt;script&gt;</code> tags.</p>
+                <table class="form-table">
+                    <tr>
+                        <th><label>Custom <code>&lt;head&gt;</code> Code</label></th>
+                        <td>
+                            <textarea name="ee_tracking_settings[custom_head]" rows="8" cols="80" style="width:100%;font-family:monospace;font-size:12px" placeholder="<!-- Pixel, verification, async libs, etc -->"><?php echo esc_textarea($f('custom_head')); ?></textarea>
+                            <p class="description">Injected inside <code>&lt;head&gt;</code>. Use for SEO plugins, additional pixels, A/B testing libs.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>Code after <code>&lt;body&gt;</code></label></th>
+                        <td>
+                            <textarea name="ee_tracking_settings[custom_body_open]" rows="6" cols="80" style="width:100%;font-family:monospace;font-size:12px" placeholder="<!-- GTM noscript fallback, chat widgets, etc -->"><?php echo esc_textarea($f('custom_body_open')); ?></textarea>
+                            <p class="description">Injected immediately after opening <code>&lt;body&gt;</code>. Best for chat widgets like Drift, Intercom, Tawk.to.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>Code before <code>&lt;/body&gt;</code></label></th>
+                        <td>
+                            <textarea name="ee_tracking_settings[custom_footer]" rows="6" cols="80" style="width:100%;font-family:monospace;font-size:12px" placeholder="<!-- Heatmap, exit-intent, deferred analytics -->"><?php echo esc_textarea($f('custom_footer')); ?></textarea>
+                            <p class="description">Injected before closing <code>&lt;/body&gt;</code>. Best for deferred / non-critical scripts.</p>
+                        </td>
+                    </tr>
+                </table>
+
+            <?php elseif ($tab === 'help') : ?>
+                <h2>❓ How to Use This Page</h2>
+                <div style="background:#fff;border:1px solid #ccd0d4;padding:20px;border-radius:6px;max-width:900px;line-height:1.8">
+                    <h3>📊 Analytics &amp; Tracking Tab</h3>
+                    <ul style="list-style:disc;margin-left:24px">
+                        <li><strong>Best practice:</strong> Install <strong>only GTM</strong>, then load GA4 / FB Pixel / Clarity from inside GTM. That way you can edit tracking without touching this page again.</li>
+                        <li><strong>Direct install:</strong> If you don't use GTM, paste each ID separately and the theme builds the snippet for you.</li>
+                        <li><strong>Test:</strong> After saving, open your site in Incognito, then open DevTools → Network tab → search "google-analytics" or "clarity" — you should see requests fired.</li>
+                    </ul>
+
+                    <h3>🧩 Custom Schema Tab</h3>
+                    <ul style="list-style:disc;margin-left:24px">
+                        <li><strong>Validate first:</strong> Paste JSON into <a href="https://validator.schema.org/" target="_blank">validator.schema.org</a> before saving here.</li>
+                        <li><strong>Per-page schema:</strong> For product-page schema (FAQ, Software, Reviews), use the meta box on Edit Product — this tab is for sitewide additions.</li>
+                    </ul>
+
+                    <h3>🔍 Verification Tab</h3>
+                    <ul style="list-style:disc;margin-left:24px">
+                        <li>Each search engine gives you a meta tag like <code>&lt;meta name="google-site-verification" content="ABC123"&gt;</code>.</li>
+                        <li><strong>Paste only the value between the quotes</strong> — not the whole tag.</li>
+                    </ul>
+
+                    <h3>🔧 Custom Code Tab</h3>
+                    <ul style="list-style:disc;margin-left:24px">
+                        <li>This is the "paste-anything" escape hatch. Use it for tools without a dedicated field above.</li>
+                        <li><strong>Security:</strong> Only Administrators can save here — keep this account restricted.</li>
+                    </ul>
+
+                    <h3>🚫 What NOT to do</h3>
+                    <ul style="list-style:disc;margin-left:24px">
+                        <li>Don't paste the same tracker in both GTM AND the Analytics tab — you'll double-count events.</li>
+                        <li>Don't paste <code>&lt;script&gt;</code> tags in the Schema tab — it expects raw JSON only.</li>
+                        <li>Don't paste full HTML in the ID fields — only the ID string (e.g. <code>GTM-ABC1234</code>).</li>
+                    </ul>
+                </div>
+            <?php endif; ?>
+
+            <?php if (in_array($tab, ['tracking', 'schema', 'verification', 'custom'], true)) submit_button('💾 Save Changes'); ?>
+        </form>
+
+        <?php if ($tab === 'tracking' && ($f('gtm_id') || $f('ga4_id') || $f('clarity_id') || $f('fb_pixel_id'))) : ?>
+        <div style="margin-top:30px;background:#e7f5e7;border-left:4px solid #46b450;padding:14px 18px;border-radius:4px">
+            <strong>✅ Tracking active:</strong>
+            <?php foreach (['gtm_id'=>'GTM','ga4_id'=>'GA4','clarity_id'=>'Clarity','fb_pixel_id'=>'Meta Pixel','ads_id'=>'Google Ads','linkedin_id'=>'LinkedIn','hotjar_id'=>'Hotjar','tiktok_pixel_id'=>'TikTok','pinterest_tag_id'=>'Pinterest'] as $k => $label) {
+                if ($f($k)) echo '<span style="display:inline-block;background:#46b450;color:#fff;padding:3px 10px;border-radius:12px;margin:2px;font-size:12px">'.esc_html($label).'</span>';
+            } ?>
+        </div>
+        <?php endif; ?>
+    </div>
+    <?php
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// 4. INJECTION HOOKS — output the right snippet in the right place
+// ══════════════════════════════════════════════════════════════════════════
+
+// 4a. <head> injection — verification meta + GTM head + GA4 + Clarity + FB + Hotjar + LinkedIn + TikTok + Pinterest + Ads + custom code + extra schema
+add_action('wp_head', function () {
+    $o = get_option('ee_tracking_settings', []);
+    if (empty($o) || is_admin()) return;
+    $g = function ($k) use ($o) { return isset($o[$k]) ? trim($o[$k]) : ''; };
+
+    // Verification meta tags
+    if ($g('verify_google'))    echo '<meta name="google-site-verification" content="' . esc_attr($g('verify_google')) . '">' . "\n";
+    if ($g('verify_bing'))      echo '<meta name="msvalidate.01" content="' . esc_attr($g('verify_bing')) . '">' . "\n";
+    if ($g('verify_yandex'))    echo '<meta name="yandex-verification" content="' . esc_attr($g('verify_yandex')) . '">' . "\n";
+    if ($g('verify_pinterest')) echo '<meta name="p:domain_verify" content="' . esc_attr($g('verify_pinterest')) . '">' . "\n";
+    if ($g('verify_facebook'))  echo '<meta name="facebook-domain-verification" content="' . esc_attr($g('verify_facebook')) . '">' . "\n";
+    if ($g('verify_norton'))    echo '<meta name="norton-safeweb-site-verification" content="' . esc_attr($g('verify_norton')) . '">' . "\n";
+
+    // Google Tag Manager — HEAD snippet
+    if ($gtm = $g('gtm_id')) {
+        echo "<!-- Google Tag Manager -->\n";
+        echo "<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','" . esc_js($gtm) . "');</script>\n";
+        echo "<!-- End Google Tag Manager -->\n";
+    }
+
+    // GA4 (only if GTM is not installed — avoid double counting)
+    if (!$g('gtm_id') && $ga4 = $g('ga4_id')) {
+        echo "<!-- Google tag (gtag.js) -->\n";
+        echo '<script async src="https://www.googletagmanager.com/gtag/js?id=' . esc_attr($ga4) . '"></script>' . "\n";
+        echo "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','" . esc_js($ga4) . "');</script>\n";
+    }
+
+    // Microsoft Clarity
+    if ($cl = $g('clarity_id')) {
+        echo "<!-- Microsoft Clarity -->\n";
+        echo "<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,'clarity','script','" . esc_js($cl) . "');</script>\n";
+    }
+
+    // Facebook Pixel
+    if ($fb = $g('fb_pixel_id')) {
+        echo "<!-- Meta Pixel -->\n";
+        echo "<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','" . esc_js($fb) . "');fbq('track','PageView');</script>\n";
+        echo '<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' . esc_attr($fb) . '&ev=PageView&noscript=1"/></noscript>' . "\n";
+    }
+
+    // Google Ads (gtag conversion tracking)
+    if (!$g('gtm_id') && $ads = $g('ads_id')) {
+        echo "<!-- Google Ads -->\n";
+        echo '<script async src="https://www.googletagmanager.com/gtag/js?id=' . esc_attr($ads) . '"></script>' . "\n";
+        echo "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','" . esc_js($ads) . "');</script>\n";
+    }
+
+    // Hotjar
+    if ($hj = $g('hotjar_id')) {
+        echo "<!-- Hotjar -->\n";
+        echo "<script>(function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:" . (int) $hj . ",hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script>\n";
+    }
+
+    // LinkedIn Insight
+    if ($li = $g('linkedin_id')) {
+        echo "<!-- LinkedIn Insight Tag -->\n";
+        echo "<script>_linkedin_partner_id='" . esc_js($li) . "';window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[];window._linkedin_data_partner_ids.push(_linkedin_partner_id);</script>\n";
+        echo "<script>(function(l){if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[]}var s=document.getElementsByTagName('script')[0];var b=document.createElement('script');b.type='text/javascript';b.async=true;b.src='https://snap.licdn.com/li.lms-analytics/insight.min.js';s.parentNode.insertBefore(b,s);})(window.lintrk);</script>\n";
+    }
+
+    // TikTok Pixel
+    if ($tt = $g('tiktok_pixel_id')) {
+        echo "<!-- TikTok Pixel -->\n";
+        echo "<script>!function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=['page','track','identify','instances','debug','on','off','once','ready','alias','group','enableCookie','disableCookie'],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i='https://analytics.tiktok.com/i18n/pixel/events.js';ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement('script');o.type='text/javascript',o.async=!0,o.src=i+'?sdkid='+e+'&lib='+t;var a=document.getElementsByTagName('script')[0];a.parentNode.insertBefore(o,a)};ttq.load('" . esc_js($tt) . "');ttq.page();}(window,document,'ttq');</script>\n";
+    }
+
+    // Pinterest Tag
+    if ($pin = $g('pinterest_tag_id')) {
+        echo "<!-- Pinterest Tag -->\n";
+        echo "<script>!function(e){if(!window.pintrk){window.pintrk=function(){window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var n=window.pintrk;n.queue=[],n.version='3.0';var t=document.createElement('script');t.async=!0,t.src=e;var r=document.getElementsByTagName('script')[0];r.parentNode.insertBefore(t,r)}}('https://s.pinimg.com/ct/core.js');pintrk('load','" . esc_js($pin) . "');pintrk('page');</script>\n";
+    }
+
+    // Custom <head> code (paste-anything)
+    if ($custom_head = $g('custom_head')) echo "\n<!-- Custom head -->\n" . $custom_head . "\n";
+
+    // Extra Schema JSON-LD
+    if ($extra = $g('custom_extra_schema')) {
+        $extra = trim($extra);
+        if ($extra && $extra[0] === '{') echo "\n<script type=\"application/ld+json\">" . $extra . "</script>\n";
+    }
+}, 1); // Priority 1 — fires FIRST in head for fastest analytics load
+
+// 4b. After <body> — GTM noscript + custom body-open code
+add_action('wp_body_open', function () {
+    $o = get_option('ee_tracking_settings', []);
+    if (empty($o)) return;
+    $g = function ($k) use ($o) { return isset($o[$k]) ? trim($o[$k]) : ''; };
+
+    if ($gtm = $g('gtm_id')) {
+        echo "<!-- Google Tag Manager (noscript) -->\n";
+        echo '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=' . esc_attr($gtm) . '" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>' . "\n";
+    }
+
+    if ($body_open = $g('custom_body_open')) echo "\n<!-- Custom body-open -->\n" . $body_open . "\n";
+});
+
+// 4c. Before </body> — deferred / footer custom code
+add_action('wp_footer', function () {
+    $o = get_option('ee_tracking_settings', []);
+    if (empty($o)) return;
+    $custom = isset($o['custom_footer']) ? trim($o['custom_footer']) : '';
+    if ($custom) echo "\n<!-- Custom footer -->\n" . $custom . "\n";
+}, 99);
+
+// 4d. Override default Organization schema with admin-supplied one (if any)
+add_filter('extraaedge_org_schema_override', function ($default) {
+    $o = get_option('ee_tracking_settings', []);
+    $custom = isset($o['custom_org_schema']) ? trim($o['custom_org_schema']) : '';
+    if ($custom && $custom[0] === '{') {
+        $decoded = json_decode($custom, true);
+        if (is_array($decoded)) return $decoded;
+    }
+    return $default;
+});
+
 
 /* ═══════════════════════════════════════════════════════════════════
  * ─── SEO / CRAWLABILITY UPGRADES ──────────────────────────────────
