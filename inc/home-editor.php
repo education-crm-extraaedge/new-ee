@@ -53,7 +53,7 @@ class EE_Home_Editor {
         .home-editor-wrap .subtitle{color:#646970;font-size:13px;margin:0 0 18px}
         .home-editor-wrap .preview-link{margin-left:auto;font-size:13px;text-decoration:none}
 
-        /* Horizontal scroll tab bar — single row, scrolls if too many tabs */
+        /* Horizontal scroll tab bar — single row exactly like product editor */
         .home-tabs-wrapper{margin-top:20px}
         .home-tabs-scroller{position:relative;background:#f0f0f0;border-bottom:1px solid #ccc}
         .home-tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;margin:0;padding:0;background:#f0f0f0;scrollbar-width:thin;scrollbar-color:#bbb #f0f0f0;scroll-behavior:smooth}
@@ -62,30 +62,24 @@ class EE_Home_Editor {
         .home-tabs::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}
         .home-tabs::-webkit-scrollbar-thumb:hover{background:#999}
         .home-tabs li{list-style:none;margin:0;padding:0;flex:0 0 auto}
-        .home-tabs a{display:flex;align-items:center;gap:6px;padding:12px 16px;text-decoration:none;background:#f0f0f0;color:#333;border-right:1px solid #ccc;font-weight:600;font-size:13px;line-height:1;white-space:nowrap}
+        .home-tabs a{display:block;padding:12px 20px;text-decoration:none;background:#f0f0f0;color:#333;border-right:1px solid #ccc;font-weight:600;font-size:13px;line-height:1;white-space:nowrap}
         .home-tabs a:hover{background:#e0e0e0;color:#0073aa}
         .home-tabs a:focus{box-shadow:none;outline:1px solid #2271b1}
         .home-tabs a.active{background:#fff;color:#0073aa;border-bottom:2px solid #0073aa;margin-bottom:-1px}
-        .home-tabs a .num{display:inline-flex;align-items:center;justify-content:center;background:rgba(0,0,0,.08);color:#555;font-size:11px;font-weight:700;min-width:20px;height:20px;padding:0 6px;border-radius:99px}
-        .home-tabs a.active .num{background:#0073aa;color:#fff}
 
-        /* Optional fade hints at edges to show scrollability */
+        /* Edge fade hints when more tabs exist off-screen */
         .home-tabs-scroller::before,.home-tabs-scroller::after{content:"";position:absolute;top:0;bottom:0;width:24px;pointer-events:none;z-index:2;opacity:0;transition:opacity .2s}
         .home-tabs-scroller::before{left:0;background:linear-gradient(90deg,#f0f0f0,transparent)}
         .home-tabs-scroller::after{right:0;background:linear-gradient(270deg,#f0f0f0,transparent)}
         .home-tabs-scroller.has-left-scroll::before{opacity:1}
         .home-tabs-scroller.has-right-scroll::after{opacity:1}
 
-        .home-tab-content{display:none;padding:24px;background:#fff;border:1px solid #ccc;border-top:none}
+        .home-tab-content{display:none;padding:20px;background:#fff;border:1px solid #ccc;border-top:none}
         .home-tab-content.active{display:block}
-        .home-tab-content h3{margin:0 0 6px;color:#1d2327;font-size:18px;font-weight:600}
-        .home-tab-content .pane-desc{color:#646970;font-size:13px;line-height:1.6;margin:0 0 18px;padding:12px 14px;background:#f6f7f7;border-left:3px solid #0073aa;border-radius:0 4px 4px 0}
-        .home-tab-content .pane-desc b{color:#1d2327}
-        .home-tab-content .pane-desc code{background:#fff;padding:1px 6px;border-radius:3px;font-size:12px}
+        .home-tab-content h3{margin:0 0 18px;color:#1d2327;font-size:18px;font-weight:600;display:flex;align-items:center;gap:6px}
 
         .home-tab-content h4{margin:24px 0 12px;color:#0073aa;border-bottom:1px solid #ddd;padding-bottom:8px;font-size:14px;font-weight:600}
         .home-tab-content h4:first-of-type{margin-top:0}
-        .home-tab-content h4 .badge{float:right;background:#f0f6fc;color:#0073aa;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid #c5d9ed}
 
         .repeater-item{background:#f9f9f9;border:1px solid #ddd;padding:15px;margin-bottom:15px;position:relative;border-radius:4px}
         .repeater-item > h4{margin-top:0;color:#0073aa;border-bottom:1px solid #ddd;padding-bottom:10px}
@@ -94,15 +88,11 @@ class EE_Home_Editor {
 
         .field-group{margin-bottom:15px}
         .field-group label{display:block;font-weight:600;margin-bottom:5px;color:#333;font-size:13px}
-        .field-group label .num-tag{display:inline-block;background:#0073aa;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:99px;margin-right:6px;vertical-align:middle}
-        .field-group label .where{float:right;font-size:11px;color:#646970;font-weight:500;background:#f0f0f1;padding:2px 8px;border-radius:99px}
         .field-group input[type="text"],.field-group input[type="url"],.field-group textarea,.field-group select{width:100%;padding:8px;border:1px solid #ddd;border-radius:3px;box-sizing:border-box;font-size:13px}
         .field-group input[type="text"]:focus,.field-group input[type="url"]:focus,.field-group textarea:focus{outline:none;border-color:#2271b1;box-shadow:0 0 0 1px #2271b1}
         .field-group textarea{min-height:80px;font-family:inherit}
         .field-help{font-size:12px;color:#666;font-style:italic;margin:5px 0 0;line-height:1.5}
         .field-help code{background:#f0f0f1;padding:1px 5px;border-radius:3px;font-style:normal;font-size:12px}
-        .field-default{font-size:11px;color:#888;margin-top:4px;font-family:Consolas,Monaco,monospace;background:#fafafa;padding:4px 8px;border-left:2px solid #ddd;word-break:break-all}
-        .field-default b{color:#0073aa;font-family:inherit}
 
         .field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
         @media(max-width:782px){.field-row{grid-template-columns:1fr}}
@@ -151,14 +141,9 @@ class EE_Home_Editor {
         $val = self::get($key, '');
         ?>
         <div class="field-group">
-            <label>
-                <?php if ($num !== ''): ?><span class="num-tag"><?php echo esc_html($num); ?></span><?php endif; ?>
-                <?php echo esc_html($label); ?>
-                <?php if ($where): ?><span class="where">📍 <?php echo esc_html($where); ?></span><?php endif; ?>
-            </label>
+            <label><?php echo esc_html($label); ?></label>
             <input type="text" name="<?php echo esc_attr(self::OPTION_KEY); ?>[<?php echo esc_attr($key); ?>]" value="<?php echo esc_attr($val); ?>" placeholder="<?php echo esc_attr($default); ?>">
             <?php if ($help): ?><p class="field-help"><?php echo wp_kses_post($help); ?></p><?php endif; ?>
-            <?php if ($default): ?><div class="field-default"><b>DEFAULT:</b> <?php echo esc_html(mb_strimwidth($default, 0, 130, '…')); ?></div><?php endif; ?>
         </div>
         <?php
     }
@@ -167,14 +152,9 @@ class EE_Home_Editor {
         $val = self::get($key, '');
         ?>
         <div class="field-group">
-            <label>
-                <?php if ($num !== ''): ?><span class="num-tag"><?php echo esc_html($num); ?></span><?php endif; ?>
-                <?php echo esc_html($label); ?>
-                <?php if ($where): ?><span class="where">📍 <?php echo esc_html($where); ?></span><?php endif; ?>
-            </label>
+            <label><?php echo esc_html($label); ?></label>
             <textarea name="<?php echo esc_attr(self::OPTION_KEY); ?>[<?php echo esc_attr($key); ?>]" rows="3" placeholder="<?php echo esc_attr($default); ?>"><?php echo esc_textarea($val); ?></textarea>
             <?php if ($help): ?><p class="field-help"><?php echo wp_kses_post($help); ?></p><?php endif; ?>
-            <?php if ($default): ?><div class="field-default"><b>DEFAULT:</b> <?php echo esc_html(mb_strimwidth($default, 0, 200, '…')); ?></div><?php endif; ?>
         </div>
         <?php
     }
@@ -184,10 +164,7 @@ class EE_Home_Editor {
         $show = $val ?: $default;
         ?>
         <div class="field-group image-field">
-            <label>
-                <?php if ($num !== ''): ?><span class="num-tag"><?php echo esc_html($num); ?></span><?php endif; ?>
-                🖼 <?php echo esc_html($label); ?>
-            </label>
+            <label>🖼 <?php echo esc_html($label); ?></label>
             <div class="img-row">
                 <div class="thumb" style="background-image:url(<?php echo esc_url($show); ?>)"></div>
                 <div class="img-controls">
@@ -232,7 +209,7 @@ class EE_Home_Editor {
                     <div class="home-tabs-scroller">
                         <ul class="home-tabs" id="home-tabs">
                             <?php $n = 1; foreach ($tabs as $slug => $info): ?>
-                                <li><a href="#" data-tab="tab-<?php echo esc_attr($slug); ?>" class="<?php echo $slug === $active ? 'active' : ''; ?>"><span class="num"><?php echo $n; ?></span><?php echo esc_html($info[0]); ?> <?php echo esc_html($info[1]); ?></a></li>
+                                <li><a href="#" data-tab="tab-<?php echo esc_attr($slug); ?>" class="<?php echo $slug === $active ? 'active' : ''; ?>"><?php echo esc_html($info[0]); ?> <?php echo esc_html($info[1]); ?></a></li>
                             <?php $n++; endforeach; ?>
                         </ul>
                     </div>
@@ -242,7 +219,6 @@ class EE_Home_Editor {
                         ?>
                         <div id="tab-<?php echo esc_attr($slug); ?>" class="home-tab-content <?php echo $is_active ? 'active' : ''; ?>">
                             <h3><?php echo esc_html($info[0]); ?> <?php echo esc_html($info[1]); ?></h3>
-                            <div class="pane-desc"><?php echo self::pane_description($slug); ?></div>
                             <?php self::render_pane_fields($slug); ?>
                         </div>
                     <?php endforeach; ?>
