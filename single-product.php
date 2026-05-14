@@ -402,6 +402,94 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .hero-form-card::before{content:"Convert more students. Automatically.";position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;padding:6px 20px;border-radius:var(--radius-full);font-family:var(--font-h);font-size:10px;font-weight:800;text-transform:uppercase;white-space:nowrap;letter-spacing:1px;box-shadow:0 8px 16px rgba(222,110,48,.25)}
 .secure-label{text-align:center;margin-top:18px;font-family:var(--font-h);font-size:10px;color:var(--gray-400);font-weight:800;text-transform:uppercase;letter-spacing:2px}
 
+/* ─── Form Widget — Force LIGHT THEME (overrides dark inputs from widget CSS) ─── */
+.hero-form-card label,
+#ee-form-7 label {
+    color: var(--blue) !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    margin-bottom: 6px !important;
+    display: block !important;
+}
+.hero-form-card input[type="text"],
+.hero-form-card input[type="email"],
+.hero-form-card input[type="tel"],
+.hero-form-card input[type="url"],
+.hero-form-card input[type="number"],
+.hero-form-card select,
+.hero-form-card textarea,
+#ee-form-7 input[type="text"],
+#ee-form-7 input[type="email"],
+#ee-form-7 input[type="tel"],
+#ee-form-7 input[type="url"],
+#ee-form-7 input[type="number"],
+#ee-form-7 select,
+#ee-form-7 textarea {
+    background-color: #ffffff !important;
+    color: #19335D !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    padding: 12px 14px !important;
+    font-size: 14px !important;
+    font-family: 'Inter', sans-serif !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    transition: border-color .2s ease, box-shadow .2s ease !important;
+}
+.hero-form-card input:focus,
+.hero-form-card select:focus,
+.hero-form-card textarea:focus,
+#ee-form-7 input:focus,
+#ee-form-7 select:focus,
+#ee-form-7 textarea:focus {
+    outline: none !important;
+    border-color: #DE6E30 !important;
+    box-shadow: 0 0 0 3px rgba(222,110,48,0.12) !important;
+}
+.hero-form-card input::placeholder,
+.hero-form-card textarea::placeholder,
+#ee-form-7 input::placeholder,
+#ee-form-7 textarea::placeholder {
+    color: #94a3b8 !important;
+    opacity: 1 !important;
+}
+.hero-form-card input[type="submit"],
+.hero-form-card button[type="submit"],
+#ee-form-7 input[type="submit"],
+#ee-form-7 button[type="submit"] {
+    background-color: #DE6E30 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 14px 28px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    font-family: 'Inter', sans-serif !important;
+    width: 100% !important;
+    cursor: pointer !important;
+    transition: all .3s ease !important;
+    box-shadow: 0 8px 20px rgba(222,110,48,.25) !important;
+}
+.hero-form-card input[type="submit"]:hover,
+.hero-form-card button[type="submit"]:hover,
+#ee-form-7 input[type="submit"]:hover,
+#ee-form-7 button[type="submit"]:hover {
+    background-color: #c85d20 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 28px rgba(222,110,48,.35) !important;
+}
+.hero-form-card .iti,
+.hero-form-card .iti__country-list,
+#ee-form-7 .iti,
+#ee-form-7 .iti__country-list {
+    background-color: #ffffff !important;
+    color: #19335D !important;
+}
+.hero-form-card form > div,
+#ee-form-7 form > div {
+    margin-bottom: 12px !important;
+}
+
 .logo-section{background:var(--white);padding:40px 20px;overflow:hidden}
 .logo-header{text-align:center;margin-bottom:24px}
 .logo-badge{display:inline-block;background:var(--orange-pale);color:var(--orange);padding:6px 18px;border-radius:var(--radius-full);font-family:var(--font-h);font-size:12px;font-weight:600;margin-bottom:10px;letter-spacing:.5px;text-transform:uppercase}
