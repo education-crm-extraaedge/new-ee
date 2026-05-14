@@ -1,6 +1,6 @@
 <?php
 /**
- * Home Page Editor — Premium Non-coder Admin UI v3
+ * Home Page Editor — Premium Non-coder Admin UI v4 (English)
  * Settings → 🏠 Home Page Editor
  * Storage: ee_home_settings (single array option)
  * @package ExtraaEdge
@@ -48,118 +48,204 @@ class EE_Home_Editor {
 
     public static function admin_css() {
         return '
-        :root{--ee-blue:#19335D;--ee-blue-2:#2a4d8f;--ee-orange:#DE6E30;--ee-orange-2:#c85d20;--ee-bg:#f5f7fb;--ee-bg-2:#eef2f9;--ee-card:#ffffff;--ee-border:#e2e8f0;--ee-border-2:#cbd5e1;--ee-text:#19335D;--ee-text-2:#475569;--ee-text-3:#94a3b8;--ee-shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.04);--ee-shadow-lg:0 10px 40px rgba(15,23,42,.08);--ee-radius:14px}
+        :root{--ee-blue:#19335D;--ee-blue-2:#2a4d8f;--ee-orange:#DE6E30;--ee-orange-2:#c85d20;--ee-bg:#f3f5fb;--ee-card:#ffffff;--ee-border:#e2e8f0;--ee-border-2:#cbd5e1;--ee-text:#19335D;--ee-text-2:#475569;--ee-text-3:#94a3b8;--ee-success:#10b981;--ee-success-bg:#d1fae5;--ee-shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.04);--ee-shadow-lg:0 10px 40px rgba(15,23,42,.08);--ee-radius:14px}
 
-        /* Contained app card — works inside WP admin .wrap */
-        .ee-app{margin:18px 18px 18px 0;background:var(--ee-card);border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,23,42,.06);border:1px solid var(--ee-border);display:grid;grid-template-columns:260px 1fr}
+        /* App container */
+        .ee-app{margin:18px 18px 18px 0;background:var(--ee-card);border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,23,42,.06);border:1px solid var(--ee-border);display:grid;grid-template-columns:280px 1fr;position:relative}
 
-        /* ── Sidebar ── */
-        .ee-sidebar{background:linear-gradient(180deg,#0F1F3A 0%,#19335D 100%);color:#fff;padding:24px 0;overflow-y:auto;max-height:90vh;position:sticky;top:42px;align-self:start}
+        /* Animated mesh background on app */
+        .ee-app::before{content:"";position:absolute;top:-50%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(222,110,48,.04) 0%,transparent 70%);pointer-events:none;animation:eeMesh 14s ease-in-out infinite}
+        @keyframes eeMesh{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-40px,40px) scale(1.1)}}
+
+        /* ═══ SIDEBAR ═══ */
+        .ee-sidebar{background:linear-gradient(180deg,#0F1F3A 0%,#19335D 100%);color:#fff;padding:24px 0 0;overflow-y:auto;max-height:88vh;position:sticky;top:42px;align-self:start;position:relative;z-index:2}
         .ee-sidebar::-webkit-scrollbar{width:6px}
         .ee-sidebar::-webkit-scrollbar-track{background:transparent}
         .ee-sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
-        .ee-brand{padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px}
-        .ee-brand-icon{width:44px;height:44px;background:linear-gradient(135deg,#DE6E30,#ff9d6c);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:12px;box-shadow:0 6px 20px rgba(222,110,48,.35)}
-        .ee-brand h2{color:#fff;font-size:16px;font-weight:800;margin:0 0 4px;letter-spacing:-.3px}
+        .ee-sidebar::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.3)}
+
+        .ee-brand{padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px;position:relative}
+        .ee-brand-icon{width:46px;height:46px;background:linear-gradient(135deg,#DE6E30,#ff9d6c);border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:23px;margin-bottom:12px;box-shadow:0 6px 20px rgba(222,110,48,.4);animation:eeFloat 3s ease-in-out infinite}
+        @keyframes eeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+        .ee-brand h2{color:#fff;font-size:17px;font-weight:800;margin:0 0 4px;letter-spacing:-.3px}
         .ee-brand p{color:rgba(255,255,255,.5);font-size:11.5px;margin:0;line-height:1.4}
+
+        /* Overall progress widget */
+        .ee-progress-widget{margin:0 14px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px}
+        .ee-progress-widget-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+        .ee-progress-widget-top span{font-size:11px;font-weight:600;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.8px}
+        .ee-progress-widget-top b{font-size:14px;font-weight:800;color:#fff}
+        .ee-progress-bar{height:6px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;position:relative}
+        .ee-progress-fill{height:100%;background:linear-gradient(90deg,#DE6E30,#ff9d6c);border-radius:99px;transition:width .6s cubic-bezier(.23,1,.32,1);position:relative}
+        .ee-progress-fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:eeShimmer 2s linear infinite}
+        @keyframes eeShimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+
         .ee-search{padding:0 14px 12px;position:relative}
         .ee-search input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:10px;padding:9px 12px 9px 34px;font-size:12.5px;font-family:inherit;transition:.2s;box-sizing:border-box}
         .ee-search input::placeholder{color:rgba(255,255,255,.4)}
         .ee-search input:focus{outline:none;background:rgba(255,255,255,.1);border-color:rgba(222,110,48,.5)}
         .ee-search::before{content:"🔍";position:absolute;left:24px;top:50%;transform:translateY(-50%);font-size:12px;opacity:.5;pointer-events:none}
+
+        .ee-nav-section-label{padding:12px 14px 6px;font-size:9.5px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.35);text-transform:uppercase;display:flex;align-items:center;gap:8px}
+        .ee-nav-section-label::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.05)}
+
         .ee-nav{padding:0 10px;list-style:none;margin:0}
         .ee-nav-item{margin-bottom:2px;list-style:none}
-        .ee-nav-btn{width:100%;background:transparent;border:0;color:rgba(255,255,255,.7);text-align:left;padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:500;transition:.2s;font-family:inherit;position:relative}
-        .ee-nav-btn:hover{background:rgba(255,255,255,.06);color:#fff}
-        .ee-nav-btn.active{background:linear-gradient(135deg,rgba(222,110,48,.18),rgba(222,110,48,.08));color:#fff;font-weight:600;box-shadow:inset 3px 0 0 #DE6E30}
-        .ee-nav-btn .icon{font-size:17px;flex-shrink:0;width:22px;text-align:center}
-        .ee-nav-btn .label{flex:1;line-height:1.2}
-        .ee-nav-btn .num{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);font-size:10px;padding:2px 6px;border-radius:99px;font-weight:700;min-width:20px;text-align:center}
-        .ee-nav-btn.active .num{background:#DE6E30;color:#fff}
-        .ee-nav-section-label{padding:12px 14px 6px;font-size:9.5px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.35);text-transform:uppercase}
-        .ee-sidebar-footer{padding:14px 20px;border-top:1px solid rgba(255,255,255,.08);margin-top:18px}
-        .ee-sidebar-footer a{color:rgba(255,255,255,.5);font-size:11.5px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:.2s}
-        .ee-sidebar-footer a:hover{color:#fff}
+        .ee-nav-btn{width:100%;background:transparent;border:0;color:rgba(255,255,255,.7);text-align:left;padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:500;transition:all .25s cubic-bezier(.23,1,.32,1);font-family:inherit;position:relative}
+        .ee-nav-btn:hover{background:rgba(255,255,255,.06);color:#fff;transform:translateX(2px)}
+        .ee-nav-btn.active{background:linear-gradient(135deg,rgba(222,110,48,.22),rgba(222,110,48,.08));color:#fff;font-weight:600;box-shadow:inset 3px 0 0 #DE6E30,0 4px 12px rgba(222,110,48,.15)}
+        .ee-nav-btn .icon{font-size:17px;flex-shrink:0;width:22px;text-align:center;transition:transform .25s}
+        .ee-nav-btn.active .icon{transform:scale(1.15)}
+        .ee-nav-btn .label{flex:1;line-height:1.2;display:flex;flex-direction:column;gap:1px}
+        .ee-nav-btn .label small{font-size:9.5px;color:rgba(255,255,255,.4);font-weight:500}
+        .ee-nav-btn.active .label small{color:rgba(255,255,255,.6)}
+        .ee-nav-btn .num{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);font-size:10px;padding:2px 6px;border-radius:99px;font-weight:700;min-width:20px;text-align:center;flex-shrink:0}
+        .ee-nav-btn.active .num{background:#DE6E30;color:#fff;box-shadow:0 2px 8px rgba(222,110,48,.4)}
+        .ee-nav-btn .status-dot{width:7px;height:7px;border-radius:50%;background:#10b981;flex-shrink:0;opacity:0;transition:.2s;box-shadow:0 0 0 2px rgba(16,185,129,.2)}
+        .ee-nav-btn.has-edits .status-dot{opacity:1}
 
-        /* ── Main ── */
-        .ee-main{background:var(--ee-bg);min-width:0}
+        .ee-sidebar-footer{padding:14px 20px;border-top:1px solid rgba(255,255,255,.08);margin-top:18px;background:rgba(0,0,0,.15)}
+        .ee-sidebar-footer a{color:rgba(255,255,255,.6);font-size:11.5px;text-decoration:none;display:flex;align-items:center;gap:8px;transition:.2s;padding:6px 8px;border-radius:6px}
+        .ee-sidebar-footer a:hover{color:#fff;background:rgba(255,255,255,.05);transform:translateX(2px)}
+
+        /* ═══ MAIN ═══ */
+        .ee-main{background:var(--ee-bg);min-width:0;position:relative}
+
+        /* Top bar with section indicator */
         .ee-topbar{background:#fff;border-bottom:1px solid var(--ee-border);padding:14px 28px;display:flex;align-items:center;gap:14px;position:sticky;top:32px;z-index:50;flex-wrap:wrap}
-        .ee-crumb{font-size:13px;color:var(--ee-text-3);display:flex;align-items:center;gap:8px}
-        .ee-crumb b{color:var(--ee-text);font-weight:700}
+        .ee-current-section{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+        .ee-current-ico{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#DE6E30,#ff9d6c);display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 4px 12px rgba(222,110,48,.3);flex-shrink:0;animation:eePulseScale 2.5s ease-in-out infinite}
+        @keyframes eePulseScale{0%,100%{transform:scale(1);box-shadow:0 4px 12px rgba(222,110,48,.3)}50%{transform:scale(1.05);box-shadow:0 6px 18px rgba(222,110,48,.45)}}
+        .ee-current-info{min-width:0;flex:1}
+        .ee-current-info .lbl{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--ee-text-3);margin-bottom:2px}
+        .ee-current-info .name{display:block;font-size:15.5px;font-weight:800;color:var(--ee-text);line-height:1.2}
+        .ee-section-counter{background:#f1f5f9;color:var(--ee-text-2);padding:5px 12px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.3px}
+
         .ee-topbar-actions{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
         .ee-btn-secondary{background:#fff;border:1.5px solid var(--ee-border-2);color:var(--ee-text);padding:8px 16px;border-radius:9px;font-weight:600;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.2s;text-decoration:none}
-        .ee-btn-secondary:hover{border-color:var(--ee-orange);color:var(--ee-orange)}
-        .ee-app .ee-btn-primary{background:linear-gradient(135deg,#DE6E30,#c85d20)!important;border:0!important;color:#fff!important;padding:9px 22px!important;border-radius:9px!important;font-weight:700!important;font-size:13px!important;cursor:pointer;display:inline-flex!important;align-items:center;gap:6px;transition:.2s;height:auto!important;line-height:1.4!important;box-shadow:0 6px 18px rgba(222,110,48,.35)!important;text-shadow:none!important;min-height:0!important}
-        .ee-app .ee-btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(222,110,48,.45)!important;background:linear-gradient(135deg,#c85d20,#a04915)!important;color:#fff!important}
+        .ee-btn-secondary:hover{border-color:var(--ee-orange);color:var(--ee-orange);transform:translateY(-1px)}
+        .ee-app .ee-btn-primary{background:linear-gradient(135deg,#DE6E30,#c85d20)!important;border:0!important;color:#fff!important;padding:9px 22px!important;border-radius:9px!important;font-weight:700!important;font-size:13px!important;cursor:pointer;display:inline-flex!important;align-items:center;gap:6px;transition:.25s;height:auto!important;line-height:1.4!important;box-shadow:0 6px 18px rgba(222,110,48,.35)!important;text-shadow:none!important;min-height:0!important;position:relative;overflow:hidden}
+        .ee-app .ee-btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:translateX(-100%);transition:.5s}
+        .ee-app .ee-btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(222,110,48,.5)!important;background:linear-gradient(135deg,#c85d20,#a04915)!important;color:#fff!important}
+        .ee-app .ee-btn-primary:hover::after{transform:translateX(100%)}
 
-        /* Pane header (hero) */
+        /* Pane — full section editor */
         .ee-pane{display:none;padding:24px 28px}
-        .ee-pane.active{display:block;animation:eeFadeIn .35s ease}
-        @keyframes eeFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-        .ee-pane-hero{background:linear-gradient(135deg,#19335D 0%,#2a4d8f 100%);color:#fff;border-radius:16px;padding:24px 28px;margin-bottom:22px;position:relative;overflow:hidden;box-shadow:var(--ee-shadow-lg)}
-        .ee-pane-hero::before{content:"";position:absolute;top:-40%;right:-10%;width:280px;height:280px;background:radial-gradient(circle,rgba(222,110,48,.35) 0%,transparent 65%);filter:blur(20px)}
-        .ee-pane-hero-inner{position:relative;z-index:2;display:flex;gap:20px;align-items:center}
-        .ee-pane-ico{width:64px;height:64px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0}
-        .ee-pane-hero h1{color:#fff;margin:0 0 4px;font-size:22px;font-weight:800;letter-spacing:-.3px;line-height:1.2}
-        .ee-pane-hero p{color:rgba(255,255,255,.85);margin:0;font-size:13.5px;line-height:1.6;max-width:760px}
+        .ee-pane.active{display:block}
+        .ee-pane.active .ee-pane-hero{animation:eeSlideDown .4s cubic-bezier(.23,1,.32,1)}
+        .ee-pane.active .ee-group{animation:eeSlideUp .45s cubic-bezier(.23,1,.32,1) both}
+        .ee-pane.active .ee-group:nth-child(2){animation-delay:.05s}
+        .ee-pane.active .ee-group:nth-child(3){animation-delay:.1s}
+        .ee-pane.active .ee-group:nth-child(4){animation-delay:.15s}
+        .ee-pane.active .ee-group:nth-child(5){animation-delay:.2s}
+        .ee-pane.active .ee-group:nth-child(6){animation-delay:.25s}
+        @keyframes eeSlideDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes eeSlideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+        /* Pane hero — current section banner */
+        .ee-pane-hero{background:linear-gradient(135deg,#19335D 0%,#2a4d8f 60%,#3858a3 100%);color:#fff;border-radius:18px;padding:26px 30px;margin-bottom:24px;position:relative;overflow:hidden;box-shadow:0 20px 48px -12px rgba(25,51,93,.35)}
+        .ee-pane-hero::before{content:"";position:absolute;top:-60%;right:-15%;width:340px;height:340px;background:radial-gradient(circle,rgba(222,110,48,.4) 0%,transparent 65%);filter:blur(30px);animation:eeMesh 10s ease-in-out infinite}
+        .ee-pane-hero::after{content:"";position:absolute;bottom:-70%;left:20%;width:280px;height:280px;background:radial-gradient(circle,rgba(59,130,246,.22) 0%,transparent 65%);filter:blur(40px);animation:eeMesh 14s ease-in-out infinite reverse}
+        .ee-pane-hero-inner{position:relative;z-index:2;display:flex;gap:22px;align-items:center}
+        .ee-pane-ico{width:74px;height:74px;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,.22);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+        .ee-pane-hero h1{color:#fff;margin:0 0 6px;font-size:24px;font-weight:800;letter-spacing:-.4px;line-height:1.2}
+        .ee-pane-hero p{color:rgba(255,255,255,.88);margin:0;font-size:13.5px;line-height:1.65;max-width:780px}
         .ee-pane-hero p b{color:#ffd9b8;font-weight:700}
-        .ee-pane-hero .pane-meta{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-        .ee-pane-hero .pane-meta span{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);padding:4px 10px;border-radius:99px;font-size:11px;font-weight:600;color:rgba(255,255,255,.95);display:inline-flex;align-items:center;gap:6px}
+        .ee-pane-hero .pane-meta{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+        .ee-pane-hero .pane-meta span{background:rgba(255,255,255,.12);backdrop-filter:blur(10px);padding:5px 11px;border-radius:99px;font-size:11px;font-weight:600;color:#fff;display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(255,255,255,.1)}
+        .ee-pane-hero .pane-meta span.completion{background:rgba(16,185,129,.25);border-color:rgba(16,185,129,.4)}
 
         /* Group */
-        .ee-group{background:var(--ee-card);border:1px solid var(--ee-border);border-radius:var(--ee-radius);margin-bottom:18px;overflow:hidden;transition:.2s;box-shadow:var(--ee-shadow)}
-        .ee-group:hover{border-color:var(--ee-border-2)}
+        .ee-group{background:var(--ee-card);border:1px solid var(--ee-border);border-radius:var(--ee-radius);margin-bottom:18px;overflow:hidden;transition:.25s;box-shadow:var(--ee-shadow);opacity:0}
+        .ee-group:hover{border-color:var(--ee-border-2);transform:translateY(-1px)}
         .ee-group-head{padding:14px 20px 12px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(180deg,#fafbfd,#fff)}
         .ee-group-title{font-size:12.5px;font-weight:800;color:var(--ee-text);text-transform:uppercase;letter-spacing:1.2px;margin:0;display:flex;align-items:center;gap:10px}
-        .ee-group-title .dot{width:8px;height:8px;background:#DE6E30;border-radius:50%;box-shadow:0 0 0 4px rgba(222,110,48,.18)}
+        .ee-group-title .dot{width:8px;height:8px;background:#DE6E30;border-radius:50%;box-shadow:0 0 0 4px rgba(222,110,48,.18);animation:eeDotPulse 2s ease-in-out infinite}
+        @keyframes eeDotPulse{0%,100%{box-shadow:0 0 0 4px rgba(222,110,48,.18)}50%{box-shadow:0 0 0 7px rgba(222,110,48,.08)}}
         .ee-group-badge{background:linear-gradient(135deg,#DE6E30,#c85d20);color:#fff;font-size:10px;padding:3px 9px;border-radius:6px;letter-spacing:.3px;font-weight:700;text-transform:none}
         .ee-group-body{padding:16px 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
         .ee-field--full{grid-column:1 / -1}
 
-        /* Field */
-        .ee-field{margin-bottom:0;padding:12px;background:#fafbfd;border:1.5px solid #edf2f7;border-radius:10px;transition:.2s;position:relative;min-width:0}
-        .ee-field:hover{border-color:var(--ee-border-2);background:#fff;box-shadow:var(--ee-shadow)}
-        .ee-field:focus-within{border-color:var(--ee-orange);background:#fff;box-shadow:0 0 0 4px rgba(222,110,48,.08),var(--ee-shadow)}
+        /* Field card */
+        .ee-field{margin-bottom:0;padding:12px 14px;background:#fafbfd;border:1.5px solid #edf2f7;border-radius:11px;transition:all .25s cubic-bezier(.23,1,.32,1);position:relative;min-width:0}
+        .ee-field::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;border-radius:11px 0 0 11px;transition:.25s}
+        .ee-field:hover{border-color:var(--ee-border-2);background:#fff;box-shadow:0 4px 16px rgba(15,23,42,.06)}
+        .ee-field:hover::before{background:linear-gradient(to bottom,#DE6E30,#ff9d6c)}
+        .ee-field:focus-within{border-color:var(--ee-orange);background:#fff;box-shadow:0 0 0 4px rgba(222,110,48,.08),0 8px 24px rgba(222,110,48,.1)}
+        .ee-field:focus-within::before{background:linear-gradient(to bottom,#DE6E30,#ff9d6c);width:4px}
+        .ee-field.has-value::before{background:linear-gradient(to bottom,#10b981,#34d399)}
+
         .ee-field-label{display:flex;align-items:center;gap:7px;margin-bottom:6px;flex-wrap:wrap}
         .ee-field-label .num-tag{background:linear-gradient(135deg,#19335D,#2a4d8f);color:#fff;font-size:10px;padding:3px 8px;border-radius:6px;font-weight:700;min-width:20px;text-align:center;box-shadow:0 2px 6px rgba(25,51,93,.25);flex-shrink:0}
         .ee-field-label label{font-weight:700;color:var(--ee-text);font-size:13px;margin:0;cursor:pointer;letter-spacing:-.1px}
-        .ee-field-label .where{margin-left:auto;font-size:10.5px;color:var(--ee-text-3);background:#f1f5f9;padding:2px 8px;border-radius:99px;font-weight:600;letter-spacing:.2px}
+        .ee-field-label .where{font-size:10.5px;color:var(--ee-text-3);background:#f1f5f9;padding:2px 8px;border-radius:99px;font-weight:600;letter-spacing:.2px}
+        .ee-field-label .state-pill{margin-left:auto;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:99px;letter-spacing:.3px;text-transform:uppercase}
+        .ee-field.has-value .state-pill{background:var(--ee-success-bg);color:#065f46}
+        .ee-field.has-value .state-pill::before{content:"✓ Custom"}
+        .ee-field:not(.has-value) .state-pill{background:#f1f5f9;color:#64748b}
+        .ee-field:not(.has-value) .state-pill::before{content:"Default"}
+
         .ee-field-help{color:var(--ee-text-2);font-size:12px;line-height:1.5;margin:0 0 8px;padding-left:2px}
         .ee-field-help b,.ee-field-help strong{color:var(--ee-orange);font-weight:600}
         .ee-field-help code{background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px;font-size:11px;border:1px solid #fde68a}
-        .ee-field input[type=text],.ee-field input[type=url],.ee-field textarea{
-            width:100%;padding:10px 12px;border:1.5px solid var(--ee-border-2);border-radius:8px;font-size:13.5px;background:#fff;font-family:inherit;color:var(--ee-text);transition:.2s;box-sizing:border-box
-        }
-        .ee-field textarea{min-height:78px;line-height:1.6;resize:vertical}
+        .ee-field input[type=text],.ee-field input[type=url],.ee-field textarea{width:100%;padding:10px 12px;border:1.5px solid var(--ee-border-2);border-radius:8px;font-size:13.5px;background:#fff;font-family:inherit;color:var(--ee-text);transition:.2s;box-sizing:border-box}
+        .ee-field textarea{min-height:80px;line-height:1.6;resize:vertical}
         .ee-field input:focus,.ee-field textarea:focus{outline:0;border-color:var(--ee-orange);box-shadow:0 0 0 4px rgba(222,110,48,.12)}
         .ee-field input::placeholder,.ee-field textarea::placeholder{color:#cbd5e1}
-        .ee-default{display:flex;gap:7px;align-items:center;margin-top:8px;font-size:11px;color:var(--ee-text-3);flex-wrap:wrap}
-        .ee-default .pre-tag{background:#fef3c7;color:#92400e;padding:2px 7px;border-radius:5px;font-weight:700;font-size:9.5px;letter-spacing:.3px}
-        .ee-default code{background:#fff;border:1px dashed var(--ee-border-2);padding:3px 8px;border-radius:6px;color:var(--ee-text-2);font-size:11px;max-width:100%;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,monospace}
+
+        .ee-field-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+        .ee-char-count{font-size:10.5px;color:var(--ee-text-3);font-weight:600;font-variant-numeric:tabular-nums}
+        .ee-char-count.warn{color:#f59e0b}
+        .ee-char-count.over{color:#ef4444}
+
+        .ee-default{display:flex;gap:7px;align-items:center;font-size:11px;color:var(--ee-text-3);flex-wrap:wrap;flex:1;min-width:0}
+        .ee-default .pre-tag{background:#fef3c7;color:#92400e;padding:2px 7px;border-radius:5px;font-weight:700;font-size:9.5px;letter-spacing:.3px;flex-shrink:0}
+        .ee-default code{background:#fff;border:1px dashed var(--ee-border-2);padding:3px 8px;border-radius:6px;color:var(--ee-text-2);font-size:11px;max-width:100%;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,monospace;flex:1;min-width:0}
+
         .ee-row{display:contents}
 
         /* Image picker */
-        .ee-img-row{display:flex;gap:12px;align-items:flex-start;background:#fff;padding:12px;border-radius:9px;border:1.5px solid var(--ee-border-2);transition:.2s}
-        .ee-img-row:hover{border-color:var(--ee-orange)}
-        .ee-img-row .ee-thumb{width:90px;height:90px;border-radius:10px;background:#f1f5f9 center/contain no-repeat;flex-shrink:0;border:1px solid var(--ee-border);background-size:contain;background-repeat:no-repeat;background-position:center;position:relative;overflow:hidden}
+        .ee-img-row{display:flex;gap:12px;align-items:flex-start;background:#fff;padding:12px;border-radius:10px;border:1.5px solid var(--ee-border-2);transition:.25s}
+        .ee-img-row:hover{border-color:var(--ee-orange);box-shadow:0 4px 16px rgba(222,110,48,.08)}
+        .ee-img-row .ee-thumb{width:96px;height:96px;border-radius:10px;background:#f1f5f9 center/contain no-repeat;flex-shrink:0;border:1px solid var(--ee-border);background-size:contain;background-repeat:no-repeat;background-position:center;position:relative;overflow:hidden;transition:.25s}
+        .ee-img-row:hover .ee-thumb{transform:scale(1.03)}
         .ee-img-row .ee-img-controls{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
         .ee-img-row input{padding:9px 11px;border:1px solid var(--ee-border);border-radius:7px;font-size:12px;color:var(--ee-text-2);background:#fafbfd;width:100%;font-family:inherit;box-sizing:border-box}
         .ee-img-row input:focus{outline:none;border-color:var(--ee-orange);background:#fff}
         .ee-img-row button.ee-img-pick{background:linear-gradient(135deg,#19335D,#2a4d8f);color:#fff;border:0;padding:9px 16px;border-radius:8px;cursor:pointer;font-size:12.5px;font-weight:700;width:fit-content;display:inline-flex;align-items:center;gap:8px;transition:.2s;font-family:inherit;box-shadow:0 4px 12px rgba(25,51,93,.2)}
         .ee-img-row button.ee-img-pick:hover{background:linear-gradient(135deg,#DE6E30,#c85d20);transform:translateY(-1px);box-shadow:0 6px 18px rgba(222,110,48,.3)}
 
-        /* Floating save bar */
-        .ee-savebar{position:sticky;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-top:1px solid var(--ee-border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:14px;z-index:40;flex-wrap:wrap}
+        /* Floating section indicator (bottom right) */
+        .ee-float-counter{position:fixed;bottom:24px;right:24px;background:linear-gradient(135deg,#19335D,#2a4d8f);color:#fff;padding:10px 18px;border-radius:99px;font-size:12px;font-weight:700;box-shadow:0 10px 30px rgba(25,51,93,.4);z-index:60;display:flex;align-items:center;gap:8px;animation:eeFloatIn .5s cubic-bezier(.23,1,.32,1)}
+        @keyframes eeFloatIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .ee-float-counter .ico{font-size:14px}
+
+        /* Save bar */
+        .ee-savebar{position:sticky;bottom:0;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-top:1px solid var(--ee-border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:14px;z-index:40;flex-wrap:wrap}
         .ee-savebar-tip{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--ee-text-2)}
-        .ee-savebar-tip .ico{width:30px;height:30px;background:linear-gradient(135deg,#10b981,#059669);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0}
+        .ee-savebar-tip .ico{width:30px;height:30px;background:linear-gradient(135deg,#10b981,#059669);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;animation:eePulseScale 3s ease-in-out infinite}
         .ee-savebar-tip strong{color:var(--ee-text);display:block;font-size:13px}
         .ee-savebar-tip small{font-size:11px;color:var(--ee-text-3)}
 
         /* Toast */
-        .ee-toast{position:fixed;top:60px;right:30px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:14px 24px;border-radius:12px;font-weight:600;font-size:14px;box-shadow:0 14px 40px rgba(16,185,129,.4);z-index:9999;display:none;align-items:center;gap:10px;animation:eeToast .4s cubic-bezier(.23,1,.32,1)}
-        @keyframes eeToast{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+        .ee-toast{position:fixed;top:60px;right:30px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:14px 26px;border-radius:12px;font-weight:600;font-size:14px;box-shadow:0 14px 40px rgba(16,185,129,.4);z-index:9999;display:none;align-items:center;gap:10px;animation:eeToast .5s cubic-bezier(.23,1,.32,1)}
+        .ee-toast.show{display:flex}
+        @keyframes eeToast{from{opacity:0;transform:translateY(-20px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+        /* Confetti pieces on save */
+        .ee-confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden}
+        .ee-confetti span{position:absolute;width:8px;height:14px;border-radius:2px;animation:eeConfetti 2s ease-out forwards;top:-20px}
+        @keyframes eeConfetti{
+            0%{opacity:1;transform:translateY(0) rotate(0)}
+            100%{opacity:0;transform:translateY(110vh) rotate(720deg)}
+        }
 
         .ee-nav-btn.dim{opacity:.25;pointer-events:none}
+
+        /* Reduce-motion fallback */
+        @media(prefers-reduced-motion:reduce){
+            *{animation:none!important;transition:none!important}
+        }
 
         /* Responsive */
         @media(max-width:1400px){
@@ -167,9 +253,10 @@ class EE_Home_Editor {
             .ee-field--full{grid-column:auto}
         }
         @media(max-width:1100px){
-            .ee-app{grid-template-columns:220px 1fr}
+            .ee-app{grid-template-columns:230px 1fr}
             .ee-pane{padding:18px 20px}
             .ee-topbar,.ee-savebar{padding:12px 20px}
+            .ee-float-counter{display:none}
         }
         @media(max-width:782px){
             .ee-app{grid-template-columns:1fr;margin:12px 0}
@@ -181,16 +268,16 @@ class EE_Home_Editor {
 
     public static function tabs() {
         return array(
-            'hero'      => array('🎯', 'Hero Section', 'Page top — main headline + AI chat simulation'),
+            'hero'      => array('🎯', 'Hero Section', 'Page top — main headline + AI chat animation'),
             'logos'     => array('🏛', 'Trusted By Logos', '15 institution logos in scrolling marquee'),
             'vidyaai'   => array('🧠', 'VidyaAI Section', '5 intelligence stories + sticky CRM dashboard'),
             'admcrm'    => array('📊', 'Admission CRM', 'Animated pipeline visualization'),
             'marketing' => array('📣', 'Marketing System', 'AI marketing flow + automation card'),
-            'chatbot'   => array('💬', 'Chatbot', 'Live chat simulation phone'),
+            'chatbot'   => array('💬', 'Chatbot Section', 'Live chat simulation phone'),
             'appmgmt'   => array('📋', 'Application Mgmt', '4-step animated application flow'),
             'whatsapp'  => array('📱', 'WhatsApp API', 'WhatsApp business interface mockup'),
             'mobilecrm' => array('📲', 'Mobile CRM', 'Phone with live GPS map'),
-            'choose'    => array('🏗', 'Why Choose Us', 'Architect 5-step storytelling'),
+            'choose'    => array('🏗', 'Why Choose Us', '5-step storytelling section'),
             'respond'   => array('⚡', 'Respond First', 'AI hub with orbiting features'),
             'boost'     => array('🚀', 'Boost Conversion', 'Interactive AI engagement engine'),
             'convert'   => array('🎯', 'Convert More', 'Enquiry-to-enrolment dashboard'),
@@ -207,54 +294,68 @@ class EE_Home_Editor {
 
     public static function text_field($key, $num, $label, $help = '', $default = '', $where = '') {
         $val = self::get($key, '');
+        $has_value = ($val !== '');
+        $maxlen = max(strlen($default) + 60, 80);
         ?>
-        <div class="ee-field" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' ' . $help . ' ' . $default)); ?>">
+        <div class="ee-field <?php echo $has_value ? 'has-value' : ''; ?>" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' ' . $help . ' ' . $default)); ?>">
             <div class="ee-field-label">
                 <?php if ($num !== ''): ?><span class="num-tag"><?php echo esc_html($num); ?></span><?php endif; ?>
                 <label><?php echo esc_html($label); ?></label>
                 <?php if ($where): ?><span class="where">📍 <?php echo esc_html($where); ?></span><?php endif; ?>
+                <span class="state-pill"></span>
             </div>
             <?php if ($help): ?><p class="ee-field-help"><?php echo wp_kses_post($help); ?></p><?php endif; ?>
-            <input type="text" name="<?php echo esc_attr(self::OPTION_KEY); ?>[<?php echo esc_attr($key); ?>]" value="<?php echo esc_attr($val); ?>" placeholder="<?php echo esc_attr($default); ?>">
-            <?php if ($default): ?>
-                <div class="ee-default">
-                    <span class="pre-tag">DEFAULT</span>
-                    <code><?php echo esc_html(mb_strimwidth($default, 0, 120, '…')); ?></code>
-                </div>
-            <?php endif; ?>
+            <input type="text" name="<?php echo esc_attr(self::OPTION_KEY); ?>[<?php echo esc_attr($key); ?>]" value="<?php echo esc_attr($val); ?>" placeholder="<?php echo esc_attr($default); ?>" data-charlimit="<?php echo (int) $maxlen; ?>">
+            <div class="ee-field-footer">
+                <?php if ($default): ?>
+                    <div class="ee-default">
+                        <span class="pre-tag">DEFAULT</span>
+                        <code><?php echo esc_html(mb_strimwidth($default, 0, 100, '…')); ?></code>
+                    </div>
+                <?php else: echo '<div></div>'; endif; ?>
+                <span class="ee-char-count" data-counter><?php echo strlen($val); ?></span>
+            </div>
         </div>
         <?php
     }
 
     public static function textarea_field($key, $num, $label, $help = '', $default = '', $where = '') {
         $val = self::get($key, '');
+        $has_value = ($val !== '');
+        $maxlen = max(strlen($default) + 100, 200);
         ?>
-        <div class="ee-field ee-field--full" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' ' . $help . ' ' . $default)); ?>">
+        <div class="ee-field ee-field--full <?php echo $has_value ? 'has-value' : ''; ?>" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' ' . $help . ' ' . $default)); ?>">
             <div class="ee-field-label">
                 <?php if ($num !== ''): ?><span class="num-tag"><?php echo esc_html($num); ?></span><?php endif; ?>
                 <label><?php echo esc_html($label); ?></label>
                 <?php if ($where): ?><span class="where">📍 <?php echo esc_html($where); ?></span><?php endif; ?>
+                <span class="state-pill"></span>
             </div>
             <?php if ($help): ?><p class="ee-field-help"><?php echo wp_kses_post($help); ?></p><?php endif; ?>
-            <textarea name="<?php echo esc_attr(self::OPTION_KEY); ?>[<?php echo esc_attr($key); ?>]" placeholder="<?php echo esc_attr($default); ?>"><?php echo esc_textarea($val); ?></textarea>
-            <?php if ($default): ?>
-                <div class="ee-default">
-                    <span class="pre-tag">DEFAULT</span>
-                    <code><?php echo esc_html(mb_strimwidth($default, 0, 180, '…')); ?></code>
-                </div>
-            <?php endif; ?>
+            <textarea name="<?php echo esc_attr(self::OPTION_KEY); ?>[<?php echo esc_attr($key); ?>]" placeholder="<?php echo esc_attr($default); ?>" data-charlimit="<?php echo (int) $maxlen; ?>"><?php echo esc_textarea($val); ?></textarea>
+            <div class="ee-field-footer">
+                <?php if ($default): ?>
+                    <div class="ee-default">
+                        <span class="pre-tag">DEFAULT</span>
+                        <code><?php echo esc_html(mb_strimwidth($default, 0, 160, '…')); ?></code>
+                    </div>
+                <?php else: echo '<div></div>'; endif; ?>
+                <span class="ee-char-count" data-counter><?php echo strlen($val); ?></span>
+            </div>
         </div>
         <?php
     }
 
     public static function image_field($key, $num, $label, $help = '', $default = '') {
         $val = self::get($key, '');
+        $has_value = ($val !== '');
         $show = $val ?: $default;
         ?>
-        <div class="ee-field ee-field--full" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' image')); ?>">
+        <div class="ee-field ee-field--full <?php echo $has_value ? 'has-value' : ''; ?>" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' image')); ?>">
             <div class="ee-field-label">
                 <?php if ($num !== ''): ?><span class="num-tag"><?php echo esc_html($num); ?></span><?php endif; ?>
                 <label>🖼 <?php echo esc_html($label); ?></label>
+                <span class="state-pill"></span>
             </div>
             <?php if ($help): ?><p class="ee-field-help"><?php echo wp_kses_post($help); ?></p><?php endif; ?>
             <div class="ee-img-row">
@@ -278,37 +379,123 @@ class EE_Home_Editor {
 
     public static function group_end() { echo '</div></div>'; }
 
+    /**
+     * Count how many fields in a section have custom values.
+     * Used for the progress widgets.
+     */
+    public static function section_progress($slug) {
+        $keys = self::section_keys($slug);
+        $total = count($keys);
+        if ($total === 0) return array(0, 0, 0);
+        $opts = get_option(self::OPTION_KEY, array());
+        $filled = 0;
+        foreach ($keys as $k) {
+            if (!empty($opts[$k])) $filled++;
+        }
+        return array($filled, $total, $total ? round(($filled / $total) * 100) : 0);
+    }
+
+    public static function section_keys($slug) {
+        $keys = array(
+            'hero'      => array('hero_badge','hero_h1_part1','hero_h1_part2','hero_supporting','hero_subtext','hero_cta_text','hero_cta_url','hero_counter','hero_counter_label'),
+            'logos'     => array_merge(array('logos_badge','logos_heading','logos_subheading','logos_cta_text','logos_cta_url','logos_live_text'),
+                            array_map(function($i){return "logo_t1_{$i}_url";}, range(1,8)),
+                            array_map(function($i){return "logo_t1_{$i}_alt";}, range(1,8)),
+                            array_map(function($i){return "logo_t2_{$i}_url";}, range(1,7)),
+                            array_map(function($i){return "logo_t2_{$i}_alt";}, range(1,7))),
+            'vidyaai'   => array('vidya_badge','vidya_h1_part1','vidya_h1_part2','vidya_subtitle','vidya_cta1_text','vidya_cta1_url','vidya_cta2_text','vidya_cta2_url','vidya_final_cta'),
+            'admcrm'    => array('adm_h2','adm_subheadline','adm_cta_text','adm_cta_url','adm_closing'),
+            'marketing' => array('mkt_status','mkt_h2_part1','mkt_h2_part2','mkt_subtext','mkt_card_title','mkt_description','mkt_cta_text','mkt_cta_url'),
+            'chatbot'   => array('bot_h2','bot_description','bot_feat1','bot_feat2','bot_feat3','bot_cta_text','bot_cta_url'),
+            'appmgmt'   => array('ams_status','ams_h1_part1','ams_h1_part2','ams_para1','ams_para2','ams_cta_text','ams_cta_url','ams_counselor_img'),
+            'whatsapp'  => array('wa_h2_part1','wa_h2_part2','wa_description','wa_feat1_title','wa_feat1_desc','wa_feat2_title','wa_feat2_desc','wa_feat3_title','wa_feat3_desc','wa_cta1_text','wa_cta1_url','wa_cta2_text','wa_cta2_url'),
+            'mobilecrm' => array('mcrm_badge','mcrm_h2_p1','mcrm_h2_em','mcrm_h2_p2','mcrm_description','mcrm_feat1','mcrm_feat2','mcrm_feat3','mcrm_note'),
+            'choose'    => array('arch_eyebrow','arch_h2_p1','arch_h2_em','arch_h2_p2','arch_subtext','arch_proof_text'),
+            'respond'   => array('rf_eyebrow','rf_h1_l1','rf_h1_l2','rf_h1_l3','rf_copy','rf_cta_text','rf_cta_url','rf_micro'),
+            'boost'     => array('bc_badge','bc_h2_p1','bc_h2_p2','bc_subtext','bc_f1_title','bc_f1_desc','bc_f2_title','bc_f2_desc','bc_f3_title','bc_f3_desc','bc_f4_title','bc_f4_desc'),
+            'convert'   => array('cm_eyebrow','cm_h2_p1','cm_h2_p2','cm_subtitle','cm_description','cm_cta_text','cm_cta_url'),
+            'analytics' => array('ie_badge','ie_h2_p1','ie_h2_p2','ie_description','ie_cta_text','ie_cta_url'),
+            'stories'   => array_merge(array('st_tagline','st_h2_p1','st_h2_p2','st_subtitle','st_m1_num','st_m1_lab','st_m2_num','st_m2_lab','st_m3_num','st_m3_lab','st_m4_num','st_m4_lab'),
+                            array_map(function($i){return "st_t{$i}_video";}, range(1,3)),
+                            array_map(function($i){return "st_t{$i}_quote";}, range(1,3)),
+                            array_map(function($i){return "st_t{$i}_name";}, range(1,3)),
+                            array_map(function($i){return "st_t{$i}_role";}, range(1,3)),
+                            array_map(function($i){return "st_t{$i}_inst";}, range(1,3)),
+                            array_map(function($i){return "st_t{$i}_photo";}, range(1,3))),
+            'ctabox'    => array('ctab_h2','ctab_subheadline','ctab_cta_text','ctab_cta_url','ctab_trust','ctab_expert_img'),
+        );
+        return $keys[$slug] ?? array();
+    }
+
+    public static function overall_progress() {
+        $opts = get_option(self::OPTION_KEY, array());
+        $total = 0; $filled = 0;
+        foreach (array_keys(self::tabs()) as $slug) {
+            $keys = self::section_keys($slug);
+            $total += count($keys);
+            foreach ($keys as $k) if (!empty($opts[$k])) $filled++;
+        }
+        return array($filled, $total, $total ? round(($filled / $total) * 100) : 0);
+    }
+
     public static function render_page() {
         if (!current_user_can('manage_options')) wp_die('Access denied');
         $tabs = self::tabs();
         $active = isset($_GET['tab']) && isset($tabs[$_GET['tab']]) ? $_GET['tab'] : 'hero';
         $home_url = home_url('/');
         $saved = isset($_GET['settings-updated']) && $_GET['settings-updated'];
+        list($overall_filled, $overall_total, $overall_pct) = self::overall_progress();
+        $tab_keys = array_keys($tabs);
+        $active_index = array_search($active, $tab_keys) + 1;
+        $total_tabs = count($tab_keys);
         ?>
         <div class="wrap">
-            <?php if ($saved): ?><div class="ee-toast" id="ee-toast">✓ All changes saved successfully</div><?php endif; ?>
+            <?php if ($saved): ?>
+                <div class="ee-toast show" id="ee-toast">✓ All changes saved successfully</div>
+                <div class="ee-confetti" id="ee-confetti"></div>
+            <?php endif; ?>
+
             <form method="post" action="options.php" class="ee-app">
                 <?php settings_fields('ee_home_group'); ?>
 
-                <!-- ══ Sidebar ══ -->
+                <!-- ════ Sidebar ════ -->
                 <aside class="ee-sidebar">
                     <div class="ee-brand">
                         <div class="ee-brand-icon">🏠</div>
                         <h2>Home Page Editor</h2>
-                        <p>Non-coder content control</p>
+                        <p>Visual content control panel</p>
+                    </div>
+
+                    <div class="ee-progress-widget" title="Overall completion across all sections">
+                        <div class="ee-progress-widget-top">
+                            <span>Overall Progress</span>
+                            <b><?php echo $overall_pct; ?>%</b>
+                        </div>
+                        <div class="ee-progress-bar">
+                            <div class="ee-progress-fill" style="width:<?php echo $overall_pct; ?>%"></div>
+                        </div>
+                        <div style="margin-top:6px;font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600">
+                            <?php echo $overall_filled; ?> of <?php echo $overall_total; ?> fields customized
+                        </div>
                     </div>
 
                     <div class="ee-search">
-                        <input type="text" id="ee-search-input" placeholder="Search fields...">
+                        <input type="text" id="ee-search-input" placeholder="Search any field...">
                     </div>
 
                     <div class="ee-nav-section-label">Page Sections</div>
                     <ul class="ee-nav">
-                        <?php $n = 1; foreach ($tabs as $slug => $info): ?>
+                        <?php $n = 1; foreach ($tabs as $slug => $info):
+                            list($filled, $total, $pct) = self::section_progress($slug);
+                        ?>
                             <li class="ee-nav-item">
-                                <button type="button" class="ee-nav-btn <?php echo $slug === $active ? 'active' : ''; ?>" data-pane="<?php echo esc_attr($slug); ?>" title="<?php echo esc_attr($info[2]); ?>">
+                                <button type="button" class="ee-nav-btn <?php echo $slug === $active ? 'active' : ''; ?> <?php echo $filled > 0 ? 'has-edits' : ''; ?>" data-pane="<?php echo esc_attr($slug); ?>" data-section-name="<?php echo esc_attr($info[1]); ?>" data-section-ico="<?php echo esc_attr($info[0]); ?>" title="<?php echo esc_attr($info[2]); ?>">
+                                    <span class="status-dot"></span>
                                     <span class="icon"><?php echo esc_html($info[0]); ?></span>
-                                    <span class="label"><?php echo esc_html($info[1]); ?></span>
+                                    <span class="label">
+                                        <?php echo esc_html($info[1]); ?>
+                                        <small><?php echo $filled; ?>/<?php echo $total; ?> filled · <?php echo $pct; ?>%</small>
+                                    </span>
                                     <span class="num"><?php echo $n; ?></span>
                                 </button>
                             </li>
@@ -320,13 +507,16 @@ class EE_Home_Editor {
                     </div>
                 </aside>
 
-                <!-- ══ Main ══ -->
+                <!-- ════ Main ════ -->
                 <main class="ee-main">
                     <div class="ee-topbar">
-                        <div class="ee-crumb">
-                            <span>Settings</span>
-                            <span>›</span>
-                            <b id="ee-crumb-current"><?php echo esc_html($tabs[$active][1]); ?></b>
+                        <div class="ee-current-section">
+                            <div class="ee-current-ico" id="ee-current-ico"><?php echo esc_html($tabs[$active][0]); ?></div>
+                            <div class="ee-current-info">
+                                <span class="lbl">Currently Editing</span>
+                                <span class="name" id="ee-current-name"><?php echo esc_html($tabs[$active][1]); ?></span>
+                            </div>
+                            <span class="ee-section-counter" id="ee-section-counter"><?php echo $active_index; ?> of <?php echo $total_tabs; ?></span>
                         </div>
                         <div class="ee-topbar-actions">
                             <a href="<?php echo esc_url($home_url); ?>" target="_blank" class="ee-btn-secondary">👁 Preview Live Site</a>
@@ -335,18 +525,20 @@ class EE_Home_Editor {
                     </div>
 
                     <?php
-                    // Render each pane
                     foreach ($tabs as $slug => $info):
+                        list($filled, $total, $pct) = self::section_progress($slug);
                         echo '<div class="ee-pane ' . ($slug === $active ? 'active' : '') . '" data-pane="' . esc_attr($slug) . '">';
-                        // Hero header
                         echo '<div class="ee-pane-hero"><div class="ee-pane-hero-inner">';
                         echo '<div class="ee-pane-ico">' . esc_html($info[0]) . '</div>';
                         echo '<div><h1>' . esc_html($info[1]) . '</h1><p>';
                         echo self::pane_description($slug);
-                        echo '</p><div class="pane-meta"><span>✏ ' . self::field_count($slug) . ' editable fields</span><span>📍 ' . esc_html($info[2]) . '</span></div></div>';
+                        echo '</p><div class="pane-meta">';
+                        echo '<span>✏ ' . $total . ' editable fields</span>';
+                        echo '<span class="completion">✓ ' . $filled . ' / ' . $total . ' customized (' . $pct . '%)</span>';
+                        echo '<span>📍 ' . esc_html($info[2]) . '</span>';
+                        echo '</div></div>';
                         echo '</div></div>';
 
-                        // Pane body
                         self::render_pane_fields($slug);
                         echo '</div>';
                     endforeach;
@@ -356,29 +548,42 @@ class EE_Home_Editor {
                         <div class="ee-savebar-tip">
                             <div class="ico">💡</div>
                             <div>
-                                <strong>Pro Tip:</strong>
-                                <small>Sagle tabs varti changes kara, mag EKACH veles "Save" button cleek kara — sagle changes ekach veles save hotil</small>
+                                <strong>Tip: Edit any section, save anytime</strong>
+                                <small>Switch between sections freely. Click Save and all your changes across every section are stored at once.</small>
                             </div>
                         </div>
                         <?php submit_button('💾 Save All Changes', 'primary ee-btn-primary', 'submit2', false); ?>
                     </div>
                 </main>
             </form>
+
+            <div class="ee-float-counter" id="ee-float-counter">
+                <span class="ico">📑</span>
+                <span>Section <b><?php echo $active_index; ?></b> of <?php echo $total_tabs; ?></span>
+            </div>
         </div>
 
         <script>
         (function($){
             // Tab switching
             $('.ee-nav-btn').on('click', function(){
-                var pane = $(this).data('pane');
-                var label = $(this).find('.label').text();
+                var $btn = $(this);
+                var pane = $btn.data('pane');
+                var name = $btn.data('section-name');
+                var ico = $btn.data('section-ico');
+                var idx = $btn.closest('.ee-nav-item').index() + 1;
+                var total = $('.ee-nav-item').length;
+
                 $('.ee-nav-btn').removeClass('active');
-                $(this).addClass('active');
+                $btn.addClass('active');
                 $('.ee-pane').removeClass('active');
                 $('.ee-pane[data-pane="'+pane+'"]').addClass('active');
-                $('#ee-crumb-current').text(label);
+                $('#ee-current-name').text(name);
+                $('#ee-current-ico').text(ico);
+                $('#ee-section-counter').text(idx + ' of ' + total);
+                $('#ee-float-counter span:last-child').html('Section <b>'+idx+'</b> of '+total);
                 history.replaceState(null,'','?page=<?php echo self::PAGE_SLUG; ?>&tab='+pane);
-                $('html,body').animate({ scrollTop: 0 }, 200);
+                $('html,body').animate({ scrollTop: 0 }, 220);
             });
 
             // Media Library picker
@@ -387,17 +592,43 @@ class EE_Home_Editor {
                 var btn = $(this);
                 var input = btn.closest('.ee-img-row').find('.ee-img-input');
                 var thumb = btn.closest('.ee-img-row').find('.ee-thumb');
+                var field = btn.closest('.ee-field');
                 var frame = wp.media({ title:'Choose Image', multiple:false, library:{ type:'image' } });
                 frame.on('select', function(){
                     var att = frame.state().get('selection').first().toJSON();
                     input.val(att.url);
                     thumb.css('background-image','url('+att.url+')');
+                    field.addClass('has-value');
                 });
                 frame.open();
             });
             $(document).on('input', '.ee-img-input', function(){
                 var url = $(this).val();
+                var field = $(this).closest('.ee-field');
                 $(this).closest('.ee-img-row').find('.ee-thumb').css('background-image', url ? 'url('+url+')' : 'none');
+                field.toggleClass('has-value', !!url.trim());
+            });
+
+            // Live character count + custom/default state
+            function updateField($input){
+                var $field = $input.closest('.ee-field');
+                var val = ($input.val() || '').toString();
+                var $counter = $field.find('[data-counter]');
+                var limit = parseInt($input.attr('data-charlimit') || 0, 10);
+                if ($counter.length) {
+                    $counter.text(val.length + (limit ? ' / ' + limit : ''));
+                    $counter.removeClass('warn over');
+                    if (limit && val.length > limit) $counter.addClass('over');
+                    else if (limit && val.length > limit * 0.85) $counter.addClass('warn');
+                }
+                $field.toggleClass('has-value', val.trim() !== '');
+            }
+            $(document).on('input', '.ee-field input[type=text], .ee-field input[type=url], .ee-field textarea', function(){
+                updateField($(this));
+            });
+            // Initialise counters on load
+            $('.ee-field input[type=text], .ee-field input[type=url], .ee-field textarea').each(function(){
+                updateField($(this));
             });
 
             // Search filter
@@ -408,7 +639,6 @@ class EE_Home_Editor {
                     $('.ee-field, .ee-group').show();
                     return;
                 }
-                // Find which panes have matches
                 var paneMatches = {};
                 $('.ee-pane').each(function(){
                     var paneSlug = $(this).data('pane');
@@ -421,26 +651,40 @@ class EE_Home_Editor {
                     var ps = $(this).data('pane');
                     if (paneMatches[ps]) $(this).removeClass('dim'); else $(this).addClass('dim');
                 });
-                // Show/hide fields in active pane
                 $('.ee-pane.active .ee-field').each(function(){
                     var hit = ($(this).data('search') || '').indexOf(q) !== -1;
                     $(this).toggle(hit);
                 });
-                // Hide empty groups
                 $('.ee-pane.active .ee-group').each(function(){
                     var anyVisible = $(this).find('.ee-field:visible').length > 0;
                     $(this).toggle(anyVisible);
                 });
             });
 
-            // Auto-hide success toast
+            // Auto-hide toast
             var toast = $('#ee-toast');
-            if (toast.length) {
-                toast.css('display','flex');
+            if (toast.hasClass('show')) {
                 setTimeout(function(){ toast.fadeOut(400); }, 3500);
             }
 
-            // Keyboard shortcut: Ctrl/Cmd+S to save
+            // Confetti on save
+            var confetti = $('#ee-confetti');
+            if (confetti.length) {
+                var colors = ['#DE6E30','#19335D','#10b981','#3b82f6','#f59e0b','#ec4899'];
+                for (var i=0; i<40; i++) {
+                    var s = $('<span></span>');
+                    s.css({
+                        left: Math.random()*100 + '%',
+                        background: colors[Math.floor(Math.random()*colors.length)],
+                        animationDelay: (Math.random()*0.6) + 's',
+                        animationDuration: (1.5 + Math.random()*1.5) + 's'
+                    });
+                    confetti.append(s);
+                }
+                setTimeout(function(){ confetti.remove(); }, 3500);
+            }
+
+            // Ctrl/Cmd+S to save
             $(document).on('keydown', function(e){
                 if ((e.metaKey || e.ctrlKey) && e.key === 's') {
                     e.preventDefault();
@@ -454,71 +698,66 @@ class EE_Home_Editor {
 
     public static function pane_description($slug) {
         $d = array(
-            'hero'      => 'Tumcha home page cha <b>sagle yatla mothi area</b> — top sun start hoto. Mothi h1 heading "Convert More Students. Automatically." Khalti AI chat simulation animation chalu aste. <b>Customer cha pahila impression yethun ja-to.</b>',
-            'logos'     => 'Hero khalti 2 lines madhe institution logos scroll hotat — ek Left, ek Right. Total <b>15 logos</b>. Social proof sathi.',
-            'vidyaai'   => 'Scroll karat-karat <b>5 stories</b> distail (AI Assist, Lead Scoring, Follow-up, Calling, Performance). Right side la fake CRM dashboard sticky raahil.',
-            'admcrm'    => 'Light gray background — pipeline animation chalte (Inquiry → Verified → Automation → Counseling → Enrolled). 3 feature cards.',
-            'marketing' => '5-step horizontal flow (Student Inquiry → AI Segmentation → ... → Admission Confirmed). Khalti marketing card + CTA.',
-            'chatbot'   => 'Left side text + right side live chat simulation phone. 3 checkmark features.',
-            'appmgmt'   => '4-step vertical animated flow (Submission → AI Verification → Counseling → Confirmed). 3 capability cards + stats.',
-            'whatsapp'  => 'Left text + 3 feature cards. Right side WhatsApp chat simulation + live analytics card.',
-            'mobilecrm' => 'Phone mockup with live GPS map. 4 floating cards around phone. Left text + 3 feature pills.',
-            'choose'    => '5 step storytelling — left clickable cards, right rotating dashboard simulation. 4 stat counters animate hota.',
-            'respond'   => 'Boxed section — left heading + CTA. Right side rotating AI hub with orbiting feature chips and live toast.',
-            'boost'     => 'Interactive 3-stage story (Behaviour → Routing → VidyaGPT). 4 feature cards grid khalti.',
-            'convert'   => 'Left content + 5-step animated dashboard (Prospect → AI Scoping → Score → Action → Success).',
-            'analytics' => 'Left bullets + 3D rotating dashboard right. Hover trigger karte aatun typing AI terminal + counters.',
-            'stories'   => '4 stat metric cards + <b>3 video testimonials</b> (YouTube ID, photo, quote, name). Click karayla video place madhech play hota.',
-            'ctabox'    => 'Page chi shevti chi section — left heading + Book Demo button. Right circular expert photo + 6 connected workflow nodes.',
+            'hero'      => 'The <b>largest, top-most area</b> of your home page — the first thing every visitor sees. Big H1 headline "Convert More Students. Automatically." with an animated AI chat simulation on the right. <b>This is where your customer\'s first impression is made.</b>',
+            'logos'     => 'A two-track scrolling marquee of institution logos right below the hero — one row scrolls left, the other right. <b>15 logos total</b>, used as social proof of who already trusts your platform.',
+            'vidyaai'   => 'A scroll-driven storytelling area with <b>5 stages</b> (AI Assist, Lead Scoring, Follow-up, Calling, Performance). A fake CRM dashboard stays sticky on the right and switches views as each stage activates.',
+            'admcrm'    => 'Light-gray background section with a live <b>pipeline animation</b> (Inquiry → Verified → Automation → Counseling → Enrolled) plus three feature cards underneath.',
+            'marketing' => 'A 5-step horizontal flow (Student Inquiry → AI Segmentation → … → Admission Confirmed) followed by a marketing card and a primary CTA.',
+            'chatbot'   => 'Two-column layout — text and three checkmark features on the left, a live chat simulation phone on the right that plays an automated conversation.',
+            'appmgmt'   => 'A 4-step vertical animated flow on the right (Submission → AI Verification → Counseling → Confirmed) with three capability cards and stats on the left.',
+            'whatsapp'  => 'Left text block with three feature cards, right side has a WhatsApp-style chat simulation and a floating live analytics card.',
+            'mobilecrm' => 'A phone mockup containing a live OpenStreetMap GPS map, with four floating cards animated around it. Left side has three feature pills and the description.',
+            'choose'    => 'A 5-step interactive story — clickable step cards on the left and a rotating dashboard simulation on the right. Four animated stat counters at the bottom.',
+            'respond'   => 'A boxed hero card — left has heading + CTA, right contains a rotating AI hub with orbiting feature chips and live toast notifications.',
+            'boost'     => 'An interactive 3-stage story (Behaviour → Routing → VidyaGPT) inside a dark HUD console. Four feature cards in a grid below.',
+            'convert'   => 'Left content + a 5-step animated dashboard on the right (New Prospect → AI Scoping → Prediction Score → Next Action → Success).',
+            'analytics' => 'Left bullets + a 3D-rotating intelligence dashboard on the right. Hover triggers a typing AI terminal and animated counters.',
+            'stories'   => '<b>4 stat metric cards + 3 video testimonials</b> (YouTube video, photo, quote, name, role, institute). Clicking a thumbnail plays the YouTube video inline.',
+            'ctabox'    => 'The final demo section — left has the heading and Book Demo button, right shows a circular expert photo surrounded by 6 connected workflow nodes.',
         );
         return $d[$slug] ?? '';
-    }
-
-    public static function field_count($slug) {
-        $c = array('hero'=>9,'logos'=>36,'vidyaai'=>9,'admcrm'=>5,'marketing'=>8,'chatbot'=>7,'appmgmt'=>8,'whatsapp'=>13,'mobilecrm'=>9,'choose'=>6,'respond'=>8,'boost'=>12,'convert'=>7,'analytics'=>6,'stories'=>30,'ctabox'=>6);
-        return $c[$slug] ?? 0;
     }
 
     public static function render_pane_fields($slug) {
         switch ($slug) {
             case 'hero':
                 self::group_start('🏆 Top Trust Badge');
-                self::text_field('hero_badge', '1', 'Trust Badge Text', 'Headline chya VAR ek small chip madhe disel — social proof sathi.', 'Loved by Leading Top 500+ Admission Teams', 'Hero Top');
+                self::text_field('hero_badge', '1', 'Trust Badge Text', 'Small chip that appears <b>above</b> the headline — perfect for social proof like "Trusted by X institutes".', 'Loved by Leading Top 500+ Admission Teams', 'Hero Top');
                 self::group_end();
                 self::group_start('📢 Main Headline (H1)');
-                self::text_field('hero_h1_part1', '2', 'Headline Line 1 (BLUE)', 'Mothi heading cha PAHILA bhag — DARK BLUE color.', 'Convert More Students.', 'Hero Headline');
-                self::text_field('hero_h1_part2', '3', 'Headline Line 2 (ORANGE)', 'Mothi heading cha DUSRA bhag — ORANGE color, vegli line var jaato.', 'Automatically.', 'Hero Headline');
+                self::text_field('hero_h1_part1', '2', 'Headline Line 1 (DARK BLUE)', 'The first part of the large headline — rendered in dark blue.', 'Convert More Students.', 'Hero Headline');
+                self::text_field('hero_h1_part2', '3', 'Headline Line 2 (ORANGE)', 'The second part — appears on a new line in orange.', 'Automatically.', 'Hero Headline');
                 self::group_end();
                 self::group_start('📝 Description Texts');
-                self::text_field('hero_supporting', '4', 'Supporting Heading', 'Headline khalil support line (medium size, bold).', 'Introducing our AI-Powered Admission CRM Built for Modern Education Teams', 'Below Headline');
-                self::textarea_field('hero_subtext', '5', 'Sub-text Paragraph', 'Lhan paragraph — 2-3 line madhe product cha core benefit.', 'Co-pilots, agents, and intelligence that prioritise leads, guide counsellors, personalise engagement, and convert students faster.', 'Description');
+                self::text_field('hero_supporting', '4', 'Supporting Heading', 'A bold medium-sized line below the headline.', 'Introducing our AI-Powered Admission CRM Built for Modern Education Teams', 'Below Headline');
+                self::textarea_field('hero_subtext', '5', 'Sub-text Paragraph', 'Short paragraph (2-3 lines) explaining the core benefit of your product.', 'Co-pilots, agents, and intelligence that prioritise leads, guide counsellors, personalise engagement, and convert students faster.', 'Description');
                 self::group_end();
                 self::group_start('🔘 Call To Action Button', 'IMPORTANT');
                 self::pair_row(function(){
-                    self::text_field('hero_cta_text', '6', 'Button Text', '<b>Orange button</b> var disel — primary action.', 'Book Demo', 'CTA Button');
-                    self::text_field('hero_cta_url', '7', 'Button Click URL', 'Button cleek kelyavar kuthe jayel? Example: <code>/book-demo/</code>', '#demo', 'Button Link');
+                    self::text_field('hero_cta_text', '6', 'Button Text', 'Label shown on the <b>orange button</b> — the primary action.', 'Book Demo', 'CTA Button');
+                    self::text_field('hero_cta_url', '7', 'Button Click URL', 'Where the button takes the visitor. Example: <code>/book-demo/</code>', '#demo', 'Button Link');
                 });
                 self::group_end();
                 self::group_start('🟢 Live Counter (Animated)');
                 self::pair_row(function(){
-                    self::text_field('hero_counter', '8', 'Starting Number', 'Animation suru honyacha number.', '412', 'Live Stats');
-                    self::text_field('hero_counter_label', '9', 'Counter Label', 'Number chya nantar cha text.', 'Students Converted Today', 'Live Stats');
+                    self::text_field('hero_counter', '8', 'Starting Number', 'The number the counter starts at — it auto-increments on the live page.', '412', 'Live Stats');
+                    self::text_field('hero_counter_label', '9', 'Counter Label', 'Text shown after the number.', 'Students Converted Today', 'Live Stats');
                 });
                 self::group_end();
                 break;
 
             case 'logos':
                 self::group_start('📌 Section Headings');
-                self::text_field('logos_badge', '1', 'Top Badge', '', 'Leading Institutions', 'Section Top');
-                self::text_field('logos_heading', '2', 'Main Heading (H2)', '', 'Trusted by 500+ Institutions Growing Faster Than Ever', 'H2');
-                self::text_field('logos_subheading', '3', 'Sub-heading', '', 'AI-powered automation for the next generation of education leaders.', 'Below Heading');
+                self::text_field('logos_badge', '1', 'Top Badge', 'Small label above the heading.', 'Leading Institutions', 'Section Top');
+                self::text_field('logos_heading', '2', 'Main Heading (H2)', 'Large heading shown above the logos.', 'Trusted by 500+ Institutions Growing Faster Than Ever', 'H2');
+                self::text_field('logos_subheading', '3', 'Sub-heading', 'Supporting line below the heading.', 'AI-powered automation for the next generation of education leaders.', 'Below Heading');
                 self::group_end();
                 self::group_start('🔘 Bottom CTA');
                 self::pair_row(function(){
                     self::text_field('logos_cta_text', '4', 'Button Text', '', 'Start Converting Today', 'CTA');
                     self::text_field('logos_cta_url', '5', 'Button URL', '', '#get-started', 'CTA');
                 });
-                self::text_field('logos_live_text', '6', 'Live Indicator Text', '', 'Live: +124 Admissions Processed in last 1hr', 'Indicator');
+                self::text_field('logos_live_text', '6', 'Live Indicator Text', 'Text shown next to the green pulse dot.', 'Live: +124 Admissions Processed in last 1hr', 'Indicator');
                 self::group_end();
                 self::group_start('⬅ Track 1 — 8 Logos (Left moving)', 'Track 1');
                 $t1_defaults = array(
@@ -533,8 +772,8 @@ class EE_Home_Editor {
                 );
                 for ($i = 1; $i <= 8; $i++) {
                     $parts = explode('|', $t1_defaults[$i-1]);
-                    self::image_field("logo_t1_{$i}_url", $i, "Logo $i", "Recommended: PNG/SVG transparent, ~200x100px.", $parts[0]);
-                    self::text_field("logo_t1_{$i}_alt", '', 'Alt text', 'Image SEO/accessibility text.', $parts[1], '');
+                    self::image_field("logo_t1_{$i}_url", $i, "Logo $i", "Recommended: transparent PNG or SVG, around 200x100px.", $parts[0]);
+                    self::text_field("logo_t1_{$i}_alt", '', 'Alt text', 'Image alt attribute (SEO + accessibility).', $parts[1], '');
                 }
                 self::group_end();
                 self::group_start('➡ Track 2 — 7 Logos (Right moving)', 'Track 2');
@@ -549,7 +788,7 @@ class EE_Home_Editor {
                 );
                 for ($i = 1; $i <= 7; $i++) {
                     $parts = explode('|', $t2_defaults[$i-1]);
-                    self::image_field("logo_t2_{$i}_url", $i, "Logo $i", "Recommended: PNG/SVG transparent, ~200x100px.", $parts[0]);
+                    self::image_field("logo_t2_{$i}_url", $i, "Logo $i", "Recommended: transparent PNG or SVG, around 200x100px.", $parts[0]);
                     self::text_field("logo_t2_{$i}_alt", '', 'Alt text', '', $parts[1], '');
                 }
                 self::group_end();
@@ -560,11 +799,11 @@ class EE_Home_Editor {
                 self::text_field('vidya_badge', '1', 'Top Badge', '', 'VidyaAI Admission Intelligence', 'Badge');
                 self::pair_row(function(){
                     self::text_field('vidya_h1_part1', '2', 'Heading Line 1', '', 'Powerful Admission CRM', 'H2');
-                    self::text_field('vidya_h1_part2', '3', 'Heading Highlight', '', 'with simplicity.', 'H2');
+                    self::text_field('vidya_h1_part2', '3', 'Heading Highlight', 'Second line rendered in a blue-to-orange gradient.', 'with simplicity.', 'H2');
                 });
                 self::textarea_field('vidya_subtitle', '4', 'Description', '', 'A next-gen platform designed to convert inquiries into enrollments using autonomous intelligence and streamlined counselor workflows.', 'Description');
                 self::group_end();
-                self::group_start('🔘 Hero CTAs (2 buttons)');
+                self::group_start('🔘 Hero CTAs (two buttons)');
                 self::pair_row(function(){
                     self::text_field('vidya_cta1_text', '5', 'Primary Button', '', 'Book Private Demo', 'Primary CTA');
                     self::text_field('vidya_cta1_url', '6', 'Primary URL', '', '#demo', 'Primary CTA');
@@ -575,7 +814,7 @@ class EE_Home_Editor {
                 });
                 self::group_end();
                 self::group_start('🏁 Final CTA');
-                self::text_field('vidya_final_cta', '9', 'Bottom Orange Button', 'Section che shevti cha button.', 'Get Started with VidyaAI', 'Bottom CTA');
+                self::text_field('vidya_final_cta', '9', 'Bottom Orange Button', 'Bottom CTA label at the end of the section.', 'Get Started with VidyaAI', 'Bottom CTA');
                 self::group_end();
                 break;
 
@@ -589,7 +828,7 @@ class EE_Home_Editor {
                     self::text_field('adm_cta_text', '3', 'CTA Text', '', 'Explore the Flow', 'CTA');
                     self::text_field('adm_cta_url', '4', 'CTA URL', '', '#', 'CTA');
                 });
-                self::text_field('adm_closing', '5', 'Closing Tagline', 'Button khalil all-caps line.', 'Full visibility. Zero chaos. More conversions.', 'Closing');
+                self::text_field('adm_closing', '5', 'Closing Tagline', 'All-caps tagline below the button.', 'Full visibility. Zero chaos. More conversions.', 'Closing');
                 self::group_end();
                 break;
 
@@ -649,7 +888,7 @@ class EE_Home_Editor {
                 });
                 self::group_end();
                 self::group_start('🧑‍💼 Counselor Avatar');
-                self::image_field('ams_counselor_img', '8', 'Step 3 Counselor Photo', 'Round avatar in GD-PI counseling step.', 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=80&h=80');
+                self::image_field('ams_counselor_img', '8', 'Step 3 Counselor Photo', 'Round avatar shown inside the GD-PI counseling step.', 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=80&h=80');
                 self::group_end();
                 break;
 
@@ -673,7 +912,7 @@ class EE_Home_Editor {
                 self::text_field('wa_feat3_title', '8', 'Title', '', 'Verified business account', 'Card 3');
                 self::text_field('wa_feat3_desc', '9', 'Description', '', 'Official green badge to build instant trust with applicants.', 'Card 3');
                 self::group_end();
-                self::group_start('🔘 CTAs (2 buttons)');
+                self::group_start('🔘 CTAs (two buttons)');
                 self::pair_row(function(){
                     self::text_field('wa_cta1_text', '10', 'Primary', '', 'Start Optimizing Now', 'CTA 1');
                     self::text_field('wa_cta1_url', '11', 'URL', '', '#', 'CTA 1');
@@ -690,7 +929,7 @@ class EE_Home_Editor {
                 self::text_field('mcrm_badge', '1', 'Top Badge', '', 'Next-Gen Mobility', 'Badge');
                 self::pair_row(function(){
                     self::text_field('mcrm_h2_p1', '2', 'Heading Part 1', '', 'Mobile CRM: Powering', 'H2');
-                    self::text_field('mcrm_h2_em', '3', 'Heading Highlight', '', 'Productivity', 'H2');
+                    self::text_field('mcrm_h2_em', '3', 'Heading Highlight', 'Word that gets the orange underline.', 'Productivity', 'H2');
                 });
                 self::text_field('mcrm_h2_p2', '4', 'Heading Part 3', '', 'on the Go', 'H2');
                 self::textarea_field('mcrm_description', '5', 'Description', '', 'Our Mobile CRM empowers work-from-home and field counselors to stay productive anywhere. Monitor visits, log activities, and complete follow-ups with real-time sync to your Admission CRM for intelligent, unified reporting.', 'Body');
@@ -749,19 +988,19 @@ class EE_Home_Editor {
                 self::group_start('🃏 Feature Cards (4 items)');
                 self::pair_row(function(){
                     self::text_field('bc_f1_title', '5', 'Card 1 Title', '', 'Trigger-Based Email & SMS', 'Card 1');
-                    self::text_field('bc_f1_desc', '6', 'Card 1 Desc', '', 'Automated personalized outreach triggered by student behavior thresholds.', 'Card 1');
+                    self::text_field('bc_f1_desc', '6', 'Card 1 Description', '', 'Automated personalized outreach triggered by student behavior thresholds.', 'Card 1');
                 });
                 self::pair_row(function(){
                     self::text_field('bc_f2_title', '7', 'Card 2 Title', '', 'AI Calling & Click-to-Call', 'Card 2');
-                    self::text_field('bc_f2_desc', '8', 'Card 2 Desc', '', 'Intelligence-led queues that connect teams to high-intent leads instantly.', 'Card 2');
+                    self::text_field('bc_f2_desc', '8', 'Card 2 Description', '', 'Intelligence-led queues that connect teams to high-intent leads instantly.', 'Card 2');
                 });
                 self::pair_row(function(){
                     self::text_field('bc_f3_title', '9', 'Card 3 Title', '', 'VidyaGPT AI Agents', 'Card 3');
-                    self::text_field('bc_f3_desc', '10', 'Card 3 Desc', '', '24x7 admission counselors providing accurate, contextual answers instantly.', 'Card 3');
+                    self::text_field('bc_f3_desc', '10', 'Card 3 Description', '', '24x7 admission counselors providing accurate, contextual answers instantly.', 'Card 3');
                 });
                 self::pair_row(function(){
                     self::text_field('bc_f4_title', '11', 'Card 4 Title', '', 'WhatsApp Communication', 'Card 4');
-                    self::text_field('bc_f4_desc', '12', 'Card 4 Desc', '', 'Engage students where they are with official WhatsApp business API integration.', 'Card 4');
+                    self::text_field('bc_f4_desc', '12', 'Card 4 Description', '', 'Engage students where they are with official WhatsApp business API integration.', 'Card 4');
                 });
                 self::group_end();
                 break;
@@ -835,14 +1074,14 @@ class EE_Home_Editor {
                 );
                 foreach ($t_defaults as $i => $d) {
                     self::group_start("🎬 Testimonial #{$i}", "Card {$i}");
-                    self::text_field("st_t{$i}_video", '', "YouTube Video ID", "FULL URL nahi, FAKT VIDEO ID lihaa. Example: <code>https://youtu.be/<b>3SHgLf1GFgk</b></code> madhun <b>3SHgLf1GFgk</b> ha part copy kara.", $d['video'], "Video");
-                    self::textarea_field("st_t{$i}_quote", '', "Customer Quote", "Italic quote — site varti distoy.", '', "Quote");
+                    self::text_field("st_t{$i}_video", '', "YouTube Video ID", "Paste only the <b>video ID</b>, not the full URL. Example: from <code>https://youtu.be/<b>3SHgLf1GFgk</b></code> copy the part in bold.", $d['video'], "Video");
+                    self::textarea_field("st_t{$i}_quote", '', "Customer Quote", "Italic quote displayed on the testimonial card.", '', "Quote");
                     self::pair_row(function() use ($i, $d) {
                         self::text_field("st_t{$i}_name", '', "Customer Name", '', $d['name'], "Name");
                         self::text_field("st_t{$i}_role", '', "Job Role", '', $d['role'], "Role");
                     });
                     self::text_field("st_t{$i}_inst", '', "Institute / Company Name", '', $d['inst'], "Company");
-                    self::image_field("st_t{$i}_photo", '', "Customer Photo", "Square 200x200px recommended.", $d['photo']);
+                    self::image_field("st_t{$i}_photo", '', "Customer Photo", "Square image around 200x200px recommended.", $d['photo']);
                     self::group_end();
                 }
                 break;
@@ -858,7 +1097,7 @@ class EE_Home_Editor {
                 self::text_field('ctab_trust', '5', 'Trust Indicator Text', '', 'Trusted by 250+ Premier Institutions Globally', 'Trust Line');
                 self::group_end();
                 self::group_start('🧑‍🏫 Expert Centerpiece Image');
-                self::image_field('ctab_expert_img', '6', 'Admission Expert Photo', 'Right side cha center circular photo. 400x400px recommended.', 'https://www.extraaedge.com/wp-content/uploads/2024/08/Charu-400x400-1-300x300-1.webp');
+                self::image_field('ctab_expert_img', '6', 'Admission Expert Photo', 'Round centerpiece photo on the right column. 400x400px recommended.', 'https://www.extraaedge.com/wp-content/uploads/2024/08/Charu-400x400-1-300x300-1.webp');
                 self::group_end();
                 break;
         }
@@ -868,7 +1107,7 @@ class EE_Home_Editor {
 EE_Home_Editor::init();
 
 /**
- * Global helper functions for front-page.php
+ * Global helper functions used by front-page.php
  */
 if (!function_exists('ee_h')) {
     function ee_h($key, $default = '') {
