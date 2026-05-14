@@ -177,7 +177,6 @@ function product_seo_meta_tags() {
             'priceCurrency'=> 'USD',
             'price'        => '0',
         ),
-        'brand'              => array('@type'=>'Brand','name'=>'ExtraaEdge'),
         'provider'           => array('@id'=>'https://www.extraaedge.com/#organization'),
         'publisher'          => array('@id'=>'https://www.extraaedge.com/#organization'),
     );
@@ -543,11 +542,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 @media(max-width:480px){.stats-grid{grid-template-columns:1fr}.hero-h1{font-size:30px}.testi-metrics{grid-template-columns:1fr}}
 </style>
 
-<main id="main-content" role="main" itemscope itemtype="https://schema.org/SoftwareApplication">
-
-<meta itemprop="name" content="<?php echo esc_attr(get_the_title()); ?>">
-<meta itemprop="applicationCategory" content="BusinessApplication">
-<meta itemprop="operatingSystem" content="Web, Android, iOS">
+<main id="main-content" role="main">
 
 <section class="hero" id="top" aria-labelledby="hero-heading">
   <div class="hero-bg" aria-hidden="true">
@@ -559,8 +554,8 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     <div class="hero-layout">
       <article>
         <?php if($hero_badge): ?><div class="hero-badge reveal" role="status"><span class="pulse-dot" aria-hidden="true"></span><?php echo esc_html($hero_badge); ?></div><?php endif; ?>
-        <h1 id="hero-heading" class="hero-h1 reveal" itemprop="headline"><?php echo esc_html($hero_h1_before); ?><?php if($hero_h1_highlight): ?> <span><?php echo esc_html($hero_h1_highlight); ?></span> <?php endif; ?><?php echo esc_html($hero_h1_after); ?></h1>
-        <?php if($hero_desc): ?><p class="hero-desc reveal" itemprop="description"><?php echo wp_kses_post($hero_desc); ?></p><?php endif; ?>
+        <h1 id="hero-heading" class="hero-h1 reveal"><?php echo esc_html($hero_h1_before); ?><?php if($hero_h1_highlight): ?> <span><?php echo esc_html($hero_h1_highlight); ?></span> <?php endif; ?><?php echo esc_html($hero_h1_after); ?></h1>
+        <?php if($hero_desc): ?><p class="hero-desc reveal"><?php echo wp_kses_post($hero_desc); ?></p><?php endif; ?>
         <?php if(!empty($hero_proofs)): ?><div class="proof-bar reveal" role="complementary" aria-label="Trust indicators"><?php foreach($hero_proofs as $proof): ?><div class="proof-item"><?php echo esc_html($proof); ?></div><?php endforeach; ?></div><?php endif; ?>
         <?php if(!empty($stats)): ?><div class="stats-grid reveal" role="region" aria-label="Key statistics"><?php foreach($stats as $stat): ?><div class="stat-card"><span class="stat-num"><?php echo esc_html($stat['number']); ?></span><span class="stat-label"><?php echo esc_html($stat['label']); ?></span></div><?php endforeach; ?></div><?php endif; ?>
         <?php if($result_badge): ?><div class="result-badge reveal"><?php echo esc_html($result_badge); ?></div><?php endif; ?>
@@ -571,7 +566,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         </div>
         <?php if($trust_rating || !empty($compliance)): ?>
         <footer class="trust-bar reveal">
-          <?php if($trust_rating): ?><div class="trust-rating" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating"><span aria-hidden="true">&#9733;</span> Rated <span itemprop="ratingValue"><?php echo esc_html($trust_rating); ?></span>/<span itemprop="bestRating">5</span> by Education Leaders <?php if($trust_text): ?><span>(<span itemprop="reviewCount" style="display:inline">500</span>+ <?php echo esc_html($trust_text); ?>)</span><?php endif; ?></div><?php endif; ?>
+          <?php if($trust_rating): ?><div class="trust-rating"><span aria-hidden="true">&#9733;</span> Rated <?php echo esc_html($trust_rating); ?>/5 by Education Leaders <?php if($trust_text): ?><span>(<?php echo esc_html($trust_text); ?>)</span><?php endif; ?></div><?php endif; ?>
           <?php if(!empty($compliance)): ?><div class="compliance-row"><?php foreach($compliance as $comp): ?><div class="compliance-item"><?php if(!empty($comp['image'])): ?><img src="<?php echo esc_url($comp['image']); ?>" alt="<?php echo esc_attr($comp['text'] ?: 'Compliance badge'); ?>" width="28" height="28" loading="lazy" decoding="async"><?php endif; ?><span><?php echo esc_html($comp['text']); ?></span></div><?php endforeach; ?></div><?php endif; ?>
         </footer>
         <?php endif; ?>
@@ -657,7 +652,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     <section class="edu-crm-section" id="what-is-education-crm" aria-labelledby="edu-crm-heading">
       <div class="container">
         <div class="edu-crm-layout">
-          <article itemprop="articleBody">
+          <article>
             <?php if($educrm_h2): ?><h2 id="edu-crm-heading" class="edu-crm-h2 reveal"><?php echo esc_html($educrm_h2); ?></h2><?php endif; ?>
             <?php if($educrm_p1): ?><p class="edu-crm-p reveal"><?php echo wp_kses_post($educrm_p1); ?></p><?php endif; ?>
             <?php if($educrm_p2): ?><p class="edu-crm-p reveal"><?php echo wp_kses_post($educrm_p2); ?></p><?php endif; ?>
@@ -774,19 +769,18 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <?php endif; ?>
         <div class="testi-cards">
           <?php foreach($testimonials as $i => $test): ?>
-          <article class="testi-card" itemscope itemtype="https://schema.org/Review">
-            <meta itemprop="reviewRating" content="5">
-            <div class="vid-wrap" id="vid-<?php echo (int)$i; ?>" data-ytid="<?php echo esc_attr($test['youtube_id']); ?>" role="button" tabindex="0" aria-label="Play video testimonial from <?php echo esc_attr($test['name']); ?>">
+          <article class="testi-card">
+<div class="vid-wrap" id="vid-<?php echo (int)$i; ?>" data-ytid="<?php echo esc_attr($test['youtube_id']); ?>" role="button" tabindex="0" aria-label="Play video testimonial from <?php echo esc_attr($test['name']); ?>">
               <img src="https://img.youtube.com/vi/<?php echo esc_attr($test['youtube_id']); ?>/maxresdefault.jpg" alt="<?php echo esc_attr($test['name']); ?> — video testimonial" loading="lazy" decoding="async" width="640" height="360">
             </div>
             <div class="card-body">
-              <?php if(!empty($test['quote'])): ?><blockquote class="card-quote" itemprop="reviewBody"><?php echo wp_kses_post($test['quote']); ?></blockquote><?php endif; ?>
-              <div class="card-profile" itemprop="author" itemscope itemtype="https://schema.org/Person">
+              <?php if(!empty($test['quote'])): ?><blockquote class="card-quote"><?php echo wp_kses_post($test['quote']); ?></blockquote><?php endif; ?>
+              <div class="card-profile">
                 <?php if(!empty($test['avatar'])): ?><img src="<?php echo esc_url($test['avatar']); ?>" class="card-avatar" alt="<?php echo esc_attr($test['name']); ?>" loading="lazy" decoding="async" width="64" height="64"><?php endif; ?>
                 <div>
-                  <?php if(!empty($test['name'])): ?><p class="card-name" itemprop="name"><?php echo esc_html($test['name']); ?></p><?php endif; ?>
-                  <?php if(!empty($test['role'])): ?><p class="card-role" itemprop="jobTitle"><?php echo esc_html($test['role']); ?></p><?php endif; ?>
-                  <?php if(!empty($test['institution'])): ?><span class="card-inst" itemprop="worksFor"><?php echo esc_html($test['institution']); ?></span><?php endif; ?>
+                  <?php if(!empty($test['name'])): ?><p class="card-name"><?php echo esc_html($test['name']); ?></p><?php endif; ?>
+                  <?php if(!empty($test['role'])): ?><p class="card-role"><?php echo esc_html($test['role']); ?></p><?php endif; ?>
+                  <?php if(!empty($test['institution'])): ?><span class="card-inst"><?php echo esc_html($test['institution']); ?></span><?php endif; ?>
                 </div>
               </div>
             </div>
@@ -829,7 +823,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     <?php endif; ?>
 
     <?php if(!empty($faqs)): ?>
-    <section class="faq-section" id="faq" aria-labelledby="faq-title" itemscope itemtype="https://schema.org/FAQPage">
+    <section class="faq-section" id="faq" aria-labelledby="faq-title">
       <div class="faq-container">
         <header class="faq-header reveal">
           <?php if($faq_badge): ?><div class="faq-outcome-badge"><?php echo esc_html($faq_badge); ?></div><?php endif; ?>
@@ -838,13 +832,13 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         </header>
         <div class="faq-list" id="faq-list">
           <?php foreach($faqs as $i => $faq): ?>
-          <article class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <article class="faq-item">
             <button class="faq-trigger" aria-expanded="false" aria-controls="faq-body-<?php echo (int)$i; ?>" type="button">
-              <span class="faq-q" itemprop="name"><?php echo esc_html($faq['question']); ?></span>
+              <span class="faq-q"><?php echo esc_html($faq['question']); ?></span>
               <span class="faq-icon" aria-hidden="true"></span>
             </button>
-            <div class="faq-body" id="faq-body-<?php echo (int)$i; ?>" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="faq-inner" itemprop="text"><?php echo wp_kses_post(wpautop($faq['answer'])); ?></div>
+            <div class="faq-body" id="faq-body-<?php echo (int)$i; ?>">
+              <div class="faq-inner"><?php echo wp_kses_post(wpautop($faq['answer'])); ?></div>
             </div>
           </article>
           <?php endforeach; ?>
