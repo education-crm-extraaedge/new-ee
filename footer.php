@@ -8,31 +8,8 @@ if (!defined('ABSPATH')) exit;
 
 <!--  Start Footer Section -->
 
-<!-- SEO JSON-LD -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "ExtraaEdge",
-  "url": "https://www.extraaedge.com",
-  "logo": "https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg",
-  "contactPoint": [
-    { "@type": "ContactPoint", "telephone": "+91-9028065511", "contactType": "sales" },
-    { "@type": "ContactPoint", "telephone": "+91-8956755927", "contactType": "HR" }
-  ],
-  "sameAs": [
-    "https://www.facebook.com/extraaedge/",
-    "https://www.instagram.com/extraaedge/",
-    "https://www.linkedin.com/company/extraaedge/",
-    "https://x.com/extraaedge",
-    "https://www.youtube.com/user/theextraaedge"
-  ]
-}
-</script>
-
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Plus Jakarta Sans font (only Inter + Open Sans loaded in header.php — Jakarta Sans is footer-specific) -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -226,7 +203,7 @@ if (!defined('ABSPATH')) exit;
             <h2 class="ee-hero-h2">The Unified Admissions Engine</h2>
             <p class="ee-hero-p">Experience the power of the most advanced Education CRM & Marketing Automation platform today.</p>
             <div class="ee-cta-flex">
-                <a href="tel:918956982897" class="ee-btn ee-btn-call">
+                <a href="tel:+918956982897" class="ee-btn ee-btn-call">
                     <i class="fa-solid fa-phone-volume"></i> Call Sales
                 </a>
                 <a href="https://api.whatsapp.com/send/?phone=918956982897&text=Hi&type=phone_number&app_absent=0" class="ee-btn ee-btn-wa" target="_blank" rel="noopener">
@@ -248,13 +225,13 @@ if (!defined('ABSPATH')) exit;
             <div class="ee-glass-card ee-reveal">
                 <span class="ee-label">Growth</span>
                 <h3 class="ee-card-title">Sales & Partnerships</h3>
-                <div class="ee-link-item"><i class="fa-solid fa-handshake"></i><a href="tel:9028065511">9028065511</a></div>
-                <div class="ee-link-item"><i class="fa-solid fa-headset"></i><a href="tel:918956982897">8956982897</a></div>
+                <div class="ee-link-item"><i class="fa-solid fa-handshake"></i><a href="tel:+919028065511">9028065511</a></div>
+                <div class="ee-link-item"><i class="fa-solid fa-headset"></i><a href="tel:+918956982897">8956982897</a></div>
             </div>
             <div class="ee-glass-card ee-reveal">
                 <span class="ee-label">Talent</span>
                 <h3 class="ee-card-title">Openings & HR</h3>
-                <div class="ee-link-item"><i class="fa-solid fa-user-plus"></i><a href="tel:8956755927">8956755927</a></div>
+                <div class="ee-link-item"><i class="fa-solid fa-user-plus"></i><a href="tel:+918956755927">8956755927</a></div>
                 <div class="ee-link-item"><i class="fa-brands fa-whatsapp"></i><a href="https://api.whatsapp.com/send/?phone=918956982897&text=Hi" target="_blank" rel="noopener">Chat with HR</a></div>
             </div>
         </div>
