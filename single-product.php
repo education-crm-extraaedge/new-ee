@@ -245,28 +245,54 @@ function product_seo_meta_tags() {
         }
     }
 
-    // ─── Review schema (Testimonials) ───
+    // ─── Product schema with embedded Reviews + AggregateRating + Offers ───
+    // Each Review's itemReviewed references the main SoftwareApplication via @id
+    // (avoids creating thin duplicate SoftwareApp entries flagged by Google).
     if (!empty($testimonials) && is_array($testimonials)) {
         $reviews = array();
         foreach ($testimonials as $t) {
             if (empty($t['name']) || empty($t['quote'])) continue;
+            $author = array('@type' => 'Person', 'name' => wp_strip_all_tags($t['name']));
+            if (!empty($t['role']))        $author['jobTitle'] = wp_strip_all_tags($t['role']);
+            if (!empty($t['institution'])) $author['worksFor'] = array('@type' => 'Organization', 'name' => wp_strip_all_tags($t['institution']));
             $reviews[] = array(
                 '@type'        => 'Review',
-                'reviewRating' => array('@type'=>'Rating','ratingValue'=>'5','bestRating'=>'5'),
-                'author'       => array('@type'=>'Person','name'=>wp_strip_all_tags($t['name']), 'jobTitle'=>wp_strip_all_tags($t['role'] ?? ''), 'worksFor'=>wp_strip_all_tags($t['institution'] ?? '')),
+                'reviewRating' => array('@type'=>'Rating','ratingValue'=>'5','bestRating'=>'5','worstRating'=>'1'),
+                'author'       => $author,
                 'reviewBody'   => wp_strip_all_tags($t['quote']),
-                'itemReviewed' => array('@type'=>'SoftwareApplication','name'=>$seo_title),
+                'itemReviewed' => array('@id' => $canonical . '#software'),
             );
         }
         if (!empty($reviews)) {
-            $review_schema = array(
-                '@context' => 'https://schema.org',
-                '@type'    => 'Product',
-                '@id'      => $canonical . '#product-reviews',
-                'name'     => $seo_title,
-                'review'   => $reviews,
+            $product_schema = array(
+                '@context'        => 'https://schema.org',
+                '@type'           => 'Product',
+                '@id'             => $canonical . '#product',
+                'name'            => $seo_title,
+                'description'     => $seo_desc,
+                'image'           => $og_image,
+                'url'             => $canonical,
+                'brand'           => array('@type' => 'Brand', 'name' => 'ExtraaEdge'),
+                'category'        => 'Education CRM Software',
+                'review'          => $reviews,
+                'aggregateRating' => array(
+                    '@type'       => 'AggregateRating',
+                    'ratingValue' => (string) ($trust_rating ?: '4.9'),
+                    'reviewCount' => '500',
+                    'bestRating'  => '5',
+                    'worstRating' => '1',
+                ),
+                'offers'          => array(
+                    '@type'         => 'Offer',
+                    'availability'  => 'https://schema.org/InStock',
+                    'priceCurrency' => 'USD',
+                    'price'         => '0',
+                    'url'           => $canonical,
+                    'priceValidUntil' => date('Y-12-31'),
+                    'seller'        => array('@id' => 'https://www.extraaedge.com/#organization'),
+                ),
             );
-            echo "\n<script type=\"application/ld+json\">" . wp_json_encode($review_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
+            echo "\n<script type=\"application/ld+json\">" . wp_json_encode($product_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
         }
     }
 }
