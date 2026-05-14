@@ -1126,3 +1126,40 @@ add_filter('wp_lazy_loading_enabled', function ($default, $tag_name, $context) {
     if ($context === 'the_post_thumbnail') return false;
     return $default;
 }, 10, 3);
+
+// ══════════════════════════════════════════════════════════
+// V. CUSTOM <title> OVERRIDE (uses _seo_title meta if set)
+// ══════════════════════════════════════════════════════════
+/**
+ * WordPress auto-generates <title> via add_theme_support('title-tag').
+ * Default format: "Post Title – Site Name"
+ * Override: if a post has _seo_title meta set, use that EXACT string
+ * (no site name appended, no separator) so the SEO field controls the title.
+ */
+add_filter('pre_get_document_title', function ($title) {
+    if (is_singular()) {
+        $seo_title = get_post_meta(get_the_ID(), '_seo_title', true);
+        if (!empty($seo_title)) {
+            return $seo_title;
+        }
+    }
+    return $title;
+}, 999);
+
+// Fallback hook for older themes / cached parts
+add_filter('document_title_parts', function ($parts) {
+    if (is_singular()) {
+        $seo_title = get_post_meta(get_the_ID(), '_seo_title', true);
+        if (!empty($seo_title)) {
+            $parts['title'] = $seo_title;
+            unset($parts['site'], $parts['tagline'], $parts['page']);
+        }
+    }
+    return $parts;
+}, 999);
+
+// ══════════════════════════════════════════════════════════
+// W. REMOVE DUPLICATE ROBOTS META (WP auto-injects max-image-preview)
+// ══════════════════════════════════════════════════════════
+remove_filter('wp_robots', 'wp_robots_max_image_preview_large');
+remove_action('wp_head', 'wp_robots', 1);
