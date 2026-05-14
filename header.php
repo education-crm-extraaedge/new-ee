@@ -51,10 +51,8 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!-- ─── 2. PRIMARY SEO META (sitewide fallback — per-post overrides via single-product.php) ─── -->
-    <?php if (!$ee_is_singular || !get_post_meta($ee_post_id, '_seo_description', true)) : ?>
+    <!-- ─── 2. PRIMARY SEO META (single source — works on every page) ─── -->
     <meta name="description" content="<?php echo esc_attr($ee_seo_desc); ?>">
-    <?php endif; ?>
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
     <meta name="bingbot" content="index, follow">
@@ -70,10 +68,8 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
     <meta name="application-name" content="<?php echo esc_attr($ee_site_name); ?>">
     <meta name="msapplication-TileColor" content="#19335D">
 
-    <!-- ─── 4. CANONICAL + HREFLANG (Multi-region) ─── -->
-    <?php if (!$ee_is_singular || !get_post_meta($ee_post_id, '_canonical_url', true)) : ?>
+    <!-- ─── 4. CANONICAL + HREFLANG (single source — works on every page) ─── -->
     <link rel="canonical" href="<?php echo esc_url($ee_canonical); ?>">
-    <?php endif; ?>
     <link rel="alternate" hreflang="en-in"     href="<?php echo esc_url($ee_canonical); ?>">
     <link rel="alternate" hreflang="en"        href="<?php echo esc_url($ee_canonical); ?>">
     <link rel="alternate" hreflang="x-default" href="<?php echo esc_url($ee_canonical); ?>">
@@ -84,9 +80,8 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
     <meta name="geo.position" content="18.5604;73.9412">
     <meta name="ICBM"         content="18.5604, 73.9412">
 
-    <!-- ─── 6. OPEN GRAPH (sitewide fallback — product pages override in single-product.php) ─── -->
-    <?php if (!$ee_is_singular || !get_post_meta($ee_post_id, '_seo_title', true)) : ?>
-    <meta property="og:type"               content="website">
+    <!-- ─── 6. OPEN GRAPH (single source — uses _seo_title via wp_get_document_title filter) ─── -->
+    <meta property="og:type"               content="<?php echo $ee_is_singular ? 'article' : 'website'; ?>">
     <meta property="og:title"              content="<?php echo esc_attr(wp_get_document_title()); ?>">
     <meta property="og:description"        content="<?php echo esc_attr($ee_seo_desc); ?>">
     <meta property="og:url"                content="<?php echo esc_url($ee_canonical); ?>">
@@ -97,6 +92,11 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
     <meta property="og:image:alt"          content="<?php echo esc_attr(wp_get_document_title()); ?>">
     <meta property="og:site_name"          content="<?php echo esc_attr($ee_site_name); ?>">
     <meta property="og:locale"             content="en_IN">
+    <?php if ($ee_is_singular) : ?>
+    <meta property="article:published_time" content="<?php echo esc_attr(get_the_date('c', $ee_post_id)); ?>">
+    <meta property="article:modified_time"  content="<?php echo esc_attr(get_the_modified_date('c', $ee_post_id)); ?>">
+    <meta property="article:author"         content="<?php echo esc_attr($ee_site_name); ?>">
+    <?php endif; ?>
 
     <!-- ─── 7. TWITTER CARD (mirrored — no signal split) ─── -->
     <meta name="twitter:card"        content="summary_large_image">
@@ -106,7 +106,6 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
     <meta name="twitter:description" content="<?php echo esc_attr($ee_seo_desc); ?>">
     <meta name="twitter:image"       content="<?php echo esc_url($ee_og_image); ?>">
     <meta name="twitter:image:alt"   content="<?php echo esc_attr(wp_get_document_title()); ?>">
-    <?php endif; ?>
 
     <!-- ─── 8. ICONS + PWA MANIFEST ─── -->
     <link rel="icon"             href="<?php echo esc_url($ee_home_url); ?>favicon.ico" sizes="any">

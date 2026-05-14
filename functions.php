@@ -1163,3 +1163,8 @@ add_filter('document_title_parts', function ($parts) {
 // ══════════════════════════════════════════════════════════
 remove_filter('wp_robots', 'wp_robots_max_image_preview_large');
 remove_action('wp_head', 'wp_robots', 1);
+
+// ══════════════════════════════════════════════════════════
+// X. REMOVE DUPLICATE CANONICAL (WP core auto-injects rel_canonical)
+// ══════════════════════════════════════════════════════════
+remove_action('wp_head', 'rel_canonical');

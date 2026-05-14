@@ -138,43 +138,20 @@ function product_seo_meta_tags() {
     $features      = get_post_meta($pid, '_features', true) ?: array();
     $trust_rating  = get_post_meta($pid, '_trust_rating', true);
     ?>
-    <?php if($seo_desc): ?><meta name="description" content="<?php echo esc_attr($seo_desc); ?>"><?php endif; ?>
+    <?php
+    /* ─── NOTE ───
+     * description, robots, author, canonical, OG, Twitter, hreflang, geo,
+     * theme-color, fonts, preconnect — ALL handled in header.php (sitewide).
+     * Header.php conditionally skips description/canonical/OG/Twitter when
+     * the corresponding _seo_* meta exists (so no double output).
+     *
+     * Here we ONLY emit per-page JSON-LD schemas that header.php cannot
+     * generate without post context: SoftwareApplication, Article (with
+     * Speakable), BreadcrumbList, FAQPage, Product Reviews.
+     */
+    ?>
+
     <?php if($seo_keywords): ?><meta name="keywords" content="<?php echo esc_attr($seo_keywords); ?>"><?php endif; ?>
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="author" content="ExtraaEdge">
-    <link rel="canonical" href="<?php echo esc_url($canonical); ?>">
-
-    <!-- Open Graph (product page specific) -->
-    <meta property="og:type" content="product">
-    <meta property="og:title" content="<?php echo esc_attr($seo_title); ?>">
-    <?php if($seo_desc): ?><meta property="og:description" content="<?php echo esc_attr($seo_desc); ?>"><?php endif; ?>
-    <meta property="og:url" content="<?php echo esc_url($canonical); ?>">
-    <?php if($og_image): ?>
-    <meta property="og:image" content="<?php echo esc_url($og_image); ?>">
-    <meta property="og:image:secure_url" content="<?php echo esc_url($og_image); ?>">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="<?php echo esc_attr($seo_title); ?>">
-    <?php endif; ?>
-    <meta property="og:site_name" content="ExtraaEdge">
-    <meta property="og:locale" content="en_IN">
-    <meta property="article:published_time" content="<?php echo esc_attr(get_the_date('c', $pid)); ?>">
-    <meta property="article:modified_time"  content="<?php echo esc_attr(get_the_modified_date('c', $pid)); ?>">
-    <meta property="article:author"         content="ExtraaEdge">
-
-    <!-- Twitter Card (mirrored — consistent signals) -->
-    <meta name="twitter:card" content="<?php echo esc_attr($twitter_card); ?>">
-    <meta name="twitter:site" content="@ExtraaEdge">
-    <meta name="twitter:creator" content="@ExtraaEdge">
-    <meta name="twitter:title" content="<?php echo esc_attr($twitter_title); ?>">
-    <?php if($twitter_desc): ?><meta name="twitter:description" content="<?php echo esc_attr($twitter_desc); ?>"><?php endif; ?>
-    <?php if($og_image): ?><meta name="twitter:image" content="<?php echo esc_url($og_image); ?>"><meta name="twitter:image:alt" content="<?php echo esc_attr($seo_title); ?>"><?php endif; ?>
-
-    <!-- Resource hints -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://www.youtube.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <?php
     // ─── SoftwareApplication / Product schema (with image + aggregateRating) ───
@@ -210,7 +187,7 @@ function product_seo_meta_tags() {
         $sw_schema['aggregateRating'] = array(
             '@type'       => 'AggregateRating',
             'ratingValue' => (string) $trust_rating,
-            'reviewCount' => (string) (count($testimonials) ?: 500),
+            'reviewCount' => '500',
             'bestRating'  => '5',
             'worstRating' => '1',
         );
