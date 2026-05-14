@@ -477,7 +477,8 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
     <?php wp_head(); ?>
 
 </head>
-<body <?php body_class('overflow-x-hidden extraaedge-site'); ?>>
+<body <?php body_class('extraaedge-site'); ?> style="overflow-x:clip;">
+<?php /* overflow-x:clip (not hidden) keeps page-level horizontal-scroll suppression without breaking position:sticky on descendants like VidyaAI's right-side CRM dashboard */ ?>
 <?php wp_body_open(); ?>
 
     <!-- Skip to content (accessibility + crawler navigation landmark) -->
