@@ -121,11 +121,11 @@ class EE_Home_Editor {
         .ee-group-title{font-size:13px;font-weight:800;color:var(--ee-text);text-transform:uppercase;letter-spacing:1.3px;margin:0;display:flex;align-items:center;gap:10px}
         .ee-group-title .dot{width:8px;height:8px;background:#DE6E30;border-radius:50%;box-shadow:0 0 0 4px rgba(222,110,48,.18)}
         .ee-group-badge{background:linear-gradient(135deg,#DE6E30,#c85d20);color:#fff;font-size:10px;padding:3px 10px;border-radius:6px;letter-spacing:.3px;font-weight:700;text-transform:none}
-        .ee-group-body{padding:18px 24px 22px}
+        .ee-group-body{padding:18px 24px 22px;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+        .ee-field--full{grid-column:1 / -1}
 
         /* Field */
-        .ee-field{margin-bottom:18px;padding:14px;background:#fafbfd;border:1.5px solid #edf2f7;border-radius:10px;transition:.2s;position:relative}
-        .ee-field:last-child{margin-bottom:0}
+        .ee-field{margin-bottom:0;padding:14px;background:#fafbfd;border:1.5px solid #edf2f7;border-radius:10px;transition:.2s;position:relative}
         .ee-field:hover{border-color:var(--ee-border-2);background:#fff;transform:translateY(-1px);box-shadow:var(--ee-shadow)}
         .ee-field:focus-within{border-color:var(--ee-orange);background:#fff;box-shadow:0 0 0 4px rgba(222,110,48,.08),var(--ee-shadow)}
         .ee-field-label{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
@@ -144,7 +144,7 @@ class EE_Home_Editor {
         .ee-default{display:flex;gap:8px;align-items:center;margin-top:9px;font-size:11.5px;color:var(--ee-text-3)}
         .ee-default .pre-tag{background:#fef3c7;color:#92400e;padding:2px 7px;border-radius:5px;font-weight:700;font-size:10px;letter-spacing:.3px}
         .ee-default code{background:#fff;border:1px dashed var(--ee-border-2);padding:4px 10px;border-radius:6px;color:var(--ee-text-2);font-size:11.5px;max-width:100%;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,monospace}
-        .ee-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+        .ee-row{display:contents}
         .ee-row .ee-field{margin-bottom:0}
 
         /* Image picker */
@@ -173,9 +173,12 @@ class EE_Home_Editor {
         .ee-nav-btn .count{margin-left:auto;background:rgba(34,197,94,.18);color:#86efac;font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:99px}
 
         /* Responsive */
+        @media(max-width:1280px){
+            .ee-group-body{grid-template-columns:1fr}
+            .ee-field--full{grid-column:auto}
+        }
         @media(max-width:1080px){
             .ee-shell{grid-template-columns:240px 1fr}
-            .ee-row{grid-template-columns:1fr}
             .ee-pane{padding:24px}
             .ee-topbar{padding:14px 24px}
             .ee-savebar{padding:14px 24px;margin:0 -24px -24px}
@@ -241,7 +244,7 @@ class EE_Home_Editor {
     public static function textarea_field($key, $num, $label, $help = '', $default = '', $where = '') {
         $val = self::get($key, '');
         ?>
-        <div class="ee-field" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' ' . $help . ' ' . $default)); ?>">
+        <div class="ee-field ee-field--full" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' ' . $help . ' ' . $default)); ?>">
             <div class="ee-field-label">
                 <?php if ($num !== ''): ?><span class="num-tag"><?php echo esc_html($num); ?></span><?php endif; ?>
                 <label><?php echo esc_html($label); ?></label>
@@ -263,7 +266,7 @@ class EE_Home_Editor {
         $val = self::get($key, '');
         $show = $val ?: $default;
         ?>
-        <div class="ee-field" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' image')); ?>">
+        <div class="ee-field ee-field--full" data-key="<?php echo esc_attr($key); ?>" data-search="<?php echo esc_attr(strtolower($label . ' image')); ?>">
             <div class="ee-field-label">
                 <?php if ($num !== ''): ?><span class="num-tag"><?php echo esc_html($num); ?></span><?php endif; ?>
                 <label>🖼 <?php echo esc_html($label); ?></label>
