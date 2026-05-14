@@ -238,7 +238,10 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
     <!-- ─── 13. Critical CSS (EXISTING — preserved fully) ─── -->
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #19335D; }
-        h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        h1, h2, h3, h4, .menu-title { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* Menu title (replaces h4 inside mega menu + mobile menu — preserves visual, fixes SEO heading hierarchy) */
+        .menu-title { display: block; line-height: 1.25; }
 
         /* Skip-to-content link (accessibility + crawlability landmark) */
         .skip-to-content {
@@ -385,7 +388,7 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
         }
         .m-icon-card .m-ico svg { width: 16px; height: 16px; }
         .m-icon-card .m-text { flex: 1; min-width: 0; }
-        .m-icon-card h4 {
+        .m-icon-card .menu-title {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 700;
             font-size: 13px;
@@ -495,27 +498,27 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
                     <div class="mega-menu grid grid-cols-2 gap-2 w-[750px]" role="menu" aria-label="Products submenu">
                         <a href="/products/education-crm/" class="menu-item" role="menuitem" title="Education CRM — Streamline admissions">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="layout-dashboard"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Education CRM</h4><p class="text-xs text-slate-500 mt-1">Streamline your entire admissions process on a single, unified platform.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Education CRM</span><p class="text-xs text-slate-500 mt-1">Streamline your entire admissions process on a single, unified platform.</p></div>
                         </a>
                         <a href="/products/chatbot-for-education/" class="menu-item" role="menuitem" title="Education Chatbot — 24/7 AI admissions">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="bot"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Education Chatbot</h4><p class="text-xs text-slate-500 mt-1">Manage and respond to admissions queries 24/7 with intelligent automation.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Education Chatbot</span><p class="text-xs text-slate-500 mt-1">Manage and respond to admissions queries 24/7 with intelligent automation.</p></div>
                         </a>
                         <a href="/products/application-management-system/" class="menu-item" role="menuitem" title="Application Management System">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="file-check"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Application Management System</h4><p class="text-xs text-slate-500 mt-1">Simplify and scale your application workflows with ease.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Application Management System</span><p class="text-xs text-slate-500 mt-1">Simplify and scale your application workflows with ease.</p></div>
                         </a>
                         <a href="/products/mobile-crm/" class="menu-item" role="menuitem" title="Mobile CRM for admissions teams">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="smartphone"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Mobile CRM</h4><p class="text-xs text-slate-500 mt-1">Boost admissions conversions by identifying and engaging high-intent prospects.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Mobile CRM</span><p class="text-xs text-slate-500 mt-1">Boost admissions conversions by identifying and engaging high-intent prospects.</p></div>
                         </a>
                         <a href="/products/whatsapp-api/" class="menu-item" role="menuitem" title="WhatsApp API and Bot for education">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="message-circle"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">WhatsApp API &amp; Bot</h4><p class="text-xs text-slate-500 mt-1">Engage prospects effectively through personalized, one-on-one WhatsApp communication.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">WhatsApp API &amp; Bot</span><p class="text-xs text-slate-500 mt-1">Engage prospects effectively through personalized, one-on-one WhatsApp communication.</p></div>
                         </a>
                         <a href="/products/ivr/" class="menu-item" role="menuitem" title="IVR Call Routing System">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="phone-call"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">IVR</h4><p class="text-xs text-slate-500 mt-1">Route, record, and track all counselor calls within a centralized system.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">IVR</span><p class="text-xs text-slate-500 mt-1">Route, record, and track all counselor calls within a centralized system.</p></div>
                         </a>
                     </div>
                 </div>
@@ -528,27 +531,27 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
                     <div class="mega-menu grid grid-cols-2 gap-2 w-[700px]" role="menu" aria-label="Industry submenu">
                         <a href="/industries/higher-education/" class="menu-item" role="menuitem" title="Higher Education CRM">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="graduation-cap"></i></div>
-                            <div><h4 class="font-bold text-brandBlue text-sm">Higher Education</h4><p class="text-xs text-slate-500 mt-1">End-to-end admissions solutions tailored for higher education institutions.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue text-sm">Higher Education</span><p class="text-xs text-slate-500 mt-1">End-to-end admissions solutions tailored for higher education institutions.</p></div>
                         </a>
                         <a href="/industries/school/" class="menu-item" role="menuitem" title="School Admission CRM">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="school"></i></div>
-                            <div><h4 class="font-bold text-brandBlue text-sm">School</h4><p class="text-xs text-slate-500 mt-1">A customized CRM to digitize and streamline student admissions processes.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue text-sm">School</span><p class="text-xs text-slate-500 mt-1">A customized CRM to digitize and streamline student admissions processes.</p></div>
                         </a>
                         <a href="/industries/edtech/" class="menu-item" role="menuitem" title="EdTech CRM platform">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="cpu"></i></div>
-                            <div><h4 class="font-bold text-brandBlue text-sm">EdTech</h4><p class="text-xs text-slate-500 mt-1">A comprehensive admissions platform built for tech-driven learning organizations.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue text-sm">EdTech</span><p class="text-xs text-slate-500 mt-1">A comprehensive admissions platform built for tech-driven learning organizations.</p></div>
                         </a>
                         <a href="/industries/vocational/" class="menu-item" role="menuitem" title="Vocational training CRM">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="briefcase"></i></div>
-                            <div><h4 class="font-bold text-brandBlue text-sm">Vocational</h4><p class="text-xs text-slate-500 mt-1">A powerful CRM designed to support vocational training admissions.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue text-sm">Vocational</span><p class="text-xs text-slate-500 mt-1">A powerful CRM designed to support vocational training admissions.</p></div>
                         </a>
                         <a href="/industries/coaching-institute-crm/" class="menu-item" role="menuitem" title="Coaching Institute CRM">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="book-open"></i></div>
-                            <div><h4 class="font-bold text-brandBlue text-sm">Coaching Institute CRM</h4><p class="text-xs text-slate-500 mt-1">An all-in-one CRM solution for test prep and coaching institutes.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue text-sm">Coaching Institute CRM</span><p class="text-xs text-slate-500 mt-1">An all-in-one CRM solution for test prep and coaching institutes.</p></div>
                         </a>
                         <a href="/industries/overseas/" class="menu-item" role="menuitem" title="Overseas Education CRM">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="globe"></i></div>
-                            <div><h4 class="font-bold text-brandBlue text-sm">Overseas</h4><p class="text-xs text-slate-500 mt-1">A complete applications platform for study abroad and international admissions teams.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue text-sm">Overseas</span><p class="text-xs text-slate-500 mt-1">A complete applications platform for study abroad and international admissions teams.</p></div>
                         </a>
                     </div>
                 </div>
@@ -561,15 +564,15 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
                     <div class="mega-menu flex flex-col gap-1 w-[400px]" role="menu" aria-label="Use Cases submenu">
                         <a href="/use-cases/management/" class="menu-item" role="menuitem" title="CRM for Management">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="bar-chart-3"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">For Management</h4><p class="text-xs text-slate-500 mt-1">Make data-driven decisions to improve admissions performance.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">For Management</span><p class="text-xs text-slate-500 mt-1">Make data-driven decisions to improve admissions performance.</p></div>
                         </a>
                         <a href="/use-cases/on-field-agents/" class="menu-item" role="menuitem" title="CRM for On-Field Agents">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="map-pin"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">On-Field Agents</h4><p class="text-xs text-slate-500 mt-1">Automate home demos, events, seminars, and outbound activities.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">On-Field Agents</span><p class="text-xs text-slate-500 mt-1">Automate home demos, events, seminars, and outbound activities.</p></div>
                         </a>
                         <a href="/use-cases/counselors/" class="menu-item" role="menuitem" title="CRM for Counselors">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="user-check"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">For Counselors</h4><p class="text-xs text-slate-500 mt-1">Enhance counselor productivity by mapping the student journey.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">For Counselors</span><p class="text-xs text-slate-500 mt-1">Enhance counselor productivity by mapping the student journey.</p></div>
                         </a>
                     </div>
                 </div>
@@ -582,23 +585,23 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
                     <div class="mega-menu grid grid-cols-2 gap-2 w-[600px]" role="menu" aria-label="Resources submenu">
                         <a href="/blogs/" class="menu-item" role="menuitem" title="ExtraaEdge Blogs">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="file-text"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Blogs</h4><p class="text-xs text-slate-500 mt-1">Latest insights to optimize your admissions.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Blogs</span><p class="text-xs text-slate-500 mt-1">Latest insights to optimize your admissions.</p></div>
                         </a>
                         <a href="/ebooks/" class="menu-item" role="menuitem" title="Free Education Ebooks">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="book"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Ebooks</h4><p class="text-xs text-slate-500 mt-1">In-depth industry-relevant guides.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Ebooks</span><p class="text-xs text-slate-500 mt-1">In-depth industry-relevant guides.</p></div>
                         </a>
                         <a href="/webinars/" class="menu-item" role="menuitem" title="Education Webinars">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="monitor"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Webinars</h4><p class="text-xs text-slate-500 mt-1">Live sessions with emerging trends.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Webinars</span><p class="text-xs text-slate-500 mt-1">Live sessions with emerging trends.</p></div>
                         </a>
                         <a href="/case-studies/" class="menu-item" role="menuitem" title="Customer Case Studies">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="award"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Case Studies</h4><p class="text-xs text-slate-500 mt-1">Discover how leading institutions grow.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Case Studies</span><p class="text-xs text-slate-500 mt-1">Discover how leading institutions grow.</p></div>
                         </a>
                         <a href="/news/" class="menu-item col-span-2" role="menuitem" title="News and Media">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="newspaper"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">News &amp; Media</h4><p class="text-xs text-slate-500 mt-1">Keep up with the latest updates from ExtraaEdge.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">News &amp; Media</span><p class="text-xs text-slate-500 mt-1">Keep up with the latest updates from ExtraaEdge.</p></div>
                         </a>
                     </div>
                 </div>
@@ -611,27 +614,27 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
                     <div class="mega-menu grid grid-cols-2 gap-2 w-[650px]" role="menu" aria-label="Company submenu">
                         <a href="/about/" class="menu-item" role="menuitem" title="About ExtraaEdge">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="info"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">About</h4><p class="text-xs text-slate-500 mt-1">Learn more about our story and mission.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">About</span><p class="text-xs text-slate-500 mt-1">Learn more about our story and mission.</p></div>
                         </a>
                         <a href="/customers/" class="menu-item" role="menuitem" title="Our Customers">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="users"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Customers</h4><p class="text-xs text-slate-500 mt-1">Explore success stories in your segment.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Customers</span><p class="text-xs text-slate-500 mt-1">Explore success stories in your segment.</p></div>
                         </a>
                         <a href="/careers/" class="menu-item" role="menuitem" title="Careers at ExtraaEdge">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="sparkles"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Careers</h4><p class="text-xs text-slate-500 mt-1">Join our team&mdash;explore opportunities.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Careers</span><p class="text-xs text-slate-500 mt-1">Join our team&mdash;explore opportunities.</p></div>
                         </a>
                         <a href="/investors/" class="menu-item" role="menuitem" title="Investors and Advisors">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="landmark"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Investors &amp; Advisors</h4><p class="text-xs text-slate-500 mt-1">Meet our visionary supporters.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Investors &amp; Advisors</span><p class="text-xs text-slate-500 mt-1">Meet our visionary supporters.</p></div>
                         </a>
                         <a href="/team/" class="menu-item" role="menuitem" title="ExtraaEdge Team">
                             <div class="icon-box" aria-hidden="true"><i data-lucide="smile"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Team</h4><p class="text-xs text-slate-500 mt-1">The people driving your success.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Team</span><p class="text-xs text-slate-500 mt-1">The people driving your success.</p></div>
                         </a>
                         <a href="/partners/" class="menu-item bg-brandOrange/5" role="menuitem" title="Become an ExtraaEdge Partner">
                             <div class="icon-box bg-brandOrange text-white" aria-hidden="true"><i data-lucide="handshake"></i></div>
-                            <div><h4 class="font-bold text-brandBlue">Become a Partner</h4><p class="text-xs text-slate-500 mt-1">Partner with us&mdash;get in touch.</p></div>
+                            <div><span class="menu-title font-bold text-brandBlue">Become a Partner</span><p class="text-xs text-slate-500 mt-1">Partner with us&mdash;get in touch.</p></div>
                         </a>
                     </div>
                 </div>
@@ -665,27 +668,27 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
                     <div class="p-4 space-y-2">
                         <a href="/products/education-crm/" class="m-icon-card" title="Education CRM">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="layout-dashboard"></i></div>
-                            <div class="m-text"><h4>Education CRM</h4><p>Streamline your entire admissions process.</p></div>
+                            <div class="m-text"><span class="menu-title">Education CRM</span><p>Streamline your entire admissions process.</p></div>
                         </a>
                         <a href="/products/chatbot-for-education/" class="m-icon-card" title="Education Chatbot">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="bot"></i></div>
-                            <div class="m-text"><h4>Education Chatbot</h4><p>24/7 admissions queries with AI.</p></div>
+                            <div class="m-text"><span class="menu-title">Education Chatbot</span><p>24/7 admissions queries with AI.</p></div>
                         </a>
                         <a href="/products/application-management-system/" class="m-icon-card" title="Application Management">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="file-check"></i></div>
-                            <div class="m-text"><h4>Application Management</h4><p>Scale application workflows easily.</p></div>
+                            <div class="m-text"><span class="menu-title">Application Management</span><p>Scale application workflows easily.</p></div>
                         </a>
                         <a href="/products/mobile-crm/" class="m-icon-card" title="Mobile CRM">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="smartphone"></i></div>
-                            <div class="m-text"><h4>Mobile CRM</h4><p>Engage high-intent prospects on the go.</p></div>
+                            <div class="m-text"><span class="menu-title">Mobile CRM</span><p>Engage high-intent prospects on the go.</p></div>
                         </a>
                         <a href="/products/whatsapp-api/" class="m-icon-card" title="WhatsApp API and Bot">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="message-circle"></i></div>
-                            <div class="m-text"><h4>WhatsApp API &amp; Bot</h4><p>Personalized WhatsApp communication.</p></div>
+                            <div class="m-text"><span class="menu-title">WhatsApp API &amp; Bot</span><p>Personalized WhatsApp communication.</p></div>
                         </a>
                         <a href="/products/ivr/" class="m-icon-card" title="IVR">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="phone-call"></i></div>
-                            <div class="m-text"><h4>IVR</h4><p>Track and record counselor calls.</p></div>
+                            <div class="m-text"><span class="menu-title">IVR</span><p>Track and record counselor calls.</p></div>
                         </a>
                     </div>
                 </div>
@@ -701,27 +704,27 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
                     <div class="p-4 space-y-2">
                         <a href="/industries/higher-education/" class="m-icon-card" title="Higher Education">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="graduation-cap"></i></div>
-                            <div class="m-text"><h4>Higher Education</h4><p>For higher ed institutions.</p></div>
+                            <div class="m-text"><span class="menu-title">Higher Education</span><p>For higher ed institutions.</p></div>
                         </a>
                         <a href="/industries/school/" class="m-icon-card" title="School">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="school"></i></div>
-                            <div class="m-text"><h4>School</h4><p>Digitize student admissions.</p></div>
+                            <div class="m-text"><span class="menu-title">School</span><p>Digitize student admissions.</p></div>
                         </a>
                         <a href="/industries/edtech/" class="m-icon-card" title="EdTech">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="cpu"></i></div>
-                            <div class="m-text"><h4>EdTech</h4><p>For tech-driven learning.</p></div>
+                            <div class="m-text"><span class="menu-title">EdTech</span><p>For tech-driven learning.</p></div>
                         </a>
                         <a href="/industries/vocational/" class="m-icon-card" title="Vocational">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="briefcase"></i></div>
-                            <div class="m-text"><h4>Vocational</h4><p>Vocational training admissions.</p></div>
+                            <div class="m-text"><span class="menu-title">Vocational</span><p>Vocational training admissions.</p></div>
                         </a>
                         <a href="/industries/coaching-institute-crm/" class="m-icon-card" title="Coaching Institute">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="book-open"></i></div>
-                            <div class="m-text"><h4>Coaching Institute</h4><p>All-in-one CRM for test prep.</p></div>
+                            <div class="m-text"><span class="menu-title">Coaching Institute</span><p>All-in-one CRM for test prep.</p></div>
                         </a>
                         <a href="/industries/overseas/" class="m-icon-card" title="Overseas">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="globe"></i></div>
-                            <div class="m-text"><h4>Overseas</h4><p>Study abroad admissions.</p></div>
+                            <div class="m-text"><span class="menu-title">Overseas</span><p>Study abroad admissions.</p></div>
                         </a>
                     </div>
                 </div>
@@ -737,15 +740,15 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
                     <div class="p-4 space-y-2">
                         <a href="/use-cases/management/" class="m-icon-card" title="For Management">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="bar-chart-3"></i></div>
-                            <div class="m-text"><h4>For Management</h4><p>Data-driven decisions.</p></div>
+                            <div class="m-text"><span class="menu-title">For Management</span><p>Data-driven decisions.</p></div>
                         </a>
                         <a href="/use-cases/on-field-agents/" class="m-icon-card" title="On-Field Agents">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="map-pin"></i></div>
-                            <div class="m-text"><h4>On-Field Agents</h4><p>Automate demos, events, seminars.</p></div>
+                            <div class="m-text"><span class="menu-title">On-Field Agents</span><p>Automate demos, events, seminars.</p></div>
                         </a>
                         <a href="/use-cases/counselors/" class="m-icon-card" title="For Counselors">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="user-check"></i></div>
-                            <div class="m-text"><h4>For Counselors</h4><p>Map the student journey.</p></div>
+                            <div class="m-text"><span class="menu-title">For Counselors</span><p>Map the student journey.</p></div>
                         </a>
                     </div>
                 </div>
@@ -761,23 +764,23 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
                     <div class="p-4 space-y-2">
                         <a href="/blogs/" class="m-icon-card" title="Blogs">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="file-text"></i></div>
-                            <div class="m-text"><h4>Blogs</h4><p>Latest admissions insights.</p></div>
+                            <div class="m-text"><span class="menu-title">Blogs</span><p>Latest admissions insights.</p></div>
                         </a>
                         <a href="/ebooks/" class="m-icon-card" title="Ebooks">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="book"></i></div>
-                            <div class="m-text"><h4>Ebooks</h4><p>Industry-relevant guides.</p></div>
+                            <div class="m-text"><span class="menu-title">Ebooks</span><p>Industry-relevant guides.</p></div>
                         </a>
                         <a href="/webinars/" class="m-icon-card" title="Webinars">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="monitor"></i></div>
-                            <div class="m-text"><h4>Webinars</h4><p>Live sessions on trends.</p></div>
+                            <div class="m-text"><span class="menu-title">Webinars</span><p>Live sessions on trends.</p></div>
                         </a>
                         <a href="/case-studies/" class="m-icon-card" title="Case Studies">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="award"></i></div>
-                            <div class="m-text"><h4>Case Studies</h4><p>How institutions grow.</p></div>
+                            <div class="m-text"><span class="menu-title">Case Studies</span><p>How institutions grow.</p></div>
                         </a>
                         <a href="/news/" class="m-icon-card" title="News and Media">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="newspaper"></i></div>
-                            <div class="m-text"><h4>News &amp; Media</h4><p>Latest updates from ExtraaEdge.</p></div>
+                            <div class="m-text"><span class="menu-title">News &amp; Media</span><p>Latest updates from ExtraaEdge.</p></div>
                         </a>
                     </div>
                 </div>
@@ -793,27 +796,27 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
                     <div class="p-4 space-y-2">
                         <a href="/about/" class="m-icon-card" title="About Us">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="info"></i></div>
-                            <div class="m-text"><h4>About Us</h4><p>Our story and mission.</p></div>
+                            <div class="m-text"><span class="menu-title">About Us</span><p>Our story and mission.</p></div>
                         </a>
                         <a href="/customers/" class="m-icon-card" title="Customers">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="users"></i></div>
-                            <div class="m-text"><h4>Customers</h4><p>Success stories.</p></div>
+                            <div class="m-text"><span class="menu-title">Customers</span><p>Success stories.</p></div>
                         </a>
                         <a href="/careers/" class="m-icon-card" title="Careers">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="sparkles"></i></div>
-                            <div class="m-text"><h4>Careers</h4><p>Join our team.</p></div>
+                            <div class="m-text"><span class="menu-title">Careers</span><p>Join our team.</p></div>
                         </a>
                         <a href="/investors/" class="m-icon-card" title="Investors and Advisors">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="landmark"></i></div>
-                            <div class="m-text"><h4>Investors &amp; Advisors</h4><p>Our supporters.</p></div>
+                            <div class="m-text"><span class="menu-title">Investors &amp; Advisors</span><p>Our supporters.</p></div>
                         </a>
                         <a href="/team/" class="m-icon-card" title="Team">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="smile"></i></div>
-                            <div class="m-text"><h4>Team</h4><p>People driving your success.</p></div>
+                            <div class="m-text"><span class="menu-title">Team</span><p>People driving your success.</p></div>
                         </a>
                         <a href="/partners/" class="m-icon-card" title="Become a Partner">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="handshake"></i></div>
-                            <div class="m-text"><h4>Become a Partner</h4><p>Partner with us.</p></div>
+                            <div class="m-text"><span class="menu-title">Become a Partner</span><p>Partner with us.</p></div>
                         </a>
                     </div>
                 </div>
