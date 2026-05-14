@@ -708,28 +708,36 @@ EE_Home_Editor::init();
 
 /**
  * Global helper functions used by front-page.php
+ *
+ * Behaviour: the $default argument is intentionally IGNORED. If the editor
+ * field is empty, nothing is output. The default values that appear as input
+ * placeholders inside the admin Home Page Editor are illustrative only and
+ * do not appear on the live home page.
  */
 if (!function_exists('ee_h')) {
     function ee_h($key, $default = '') {
         $opts = get_option('ee_home_settings', array());
-        echo esc_html(isset($opts[$key]) && $opts[$key] !== '' ? $opts[$key] : $default);
+        $val  = isset($opts[$key]) ? $opts[$key] : '';
+        echo esc_html($val);
     }
 }
 if (!function_exists('ee_u')) {
     function ee_u($key, $default = '') {
         $opts = get_option('ee_home_settings', array());
-        echo esc_url(isset($opts[$key]) && $opts[$key] !== '' ? $opts[$key] : $default);
+        $val  = isset($opts[$key]) ? $opts[$key] : '';
+        echo esc_url($val);
     }
 }
 if (!function_exists('ee_a')) {
     function ee_a($key, $default = '') {
         $opts = get_option('ee_home_settings', array());
-        echo esc_attr(isset($opts[$key]) && $opts[$key] !== '' ? $opts[$key] : $default);
+        $val  = isset($opts[$key]) ? $opts[$key] : '';
+        echo esc_attr($val);
     }
 }
 if (!function_exists('ee_raw')) {
     function ee_raw($key, $default = '') {
         $opts = get_option('ee_home_settings', array());
-        return isset($opts[$key]) && $opts[$key] !== '' ? $opts[$key] : $default;
+        return isset($opts[$key]) ? $opts[$key] : '';
     }
 }

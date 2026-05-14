@@ -9,28 +9,32 @@
 if (!defined('ABSPATH')) exit;
 
 // ── Safety net: inline helpers in case inc/home-editor.php is missing ──
+// Behaviour: $default is intentionally IGNORED. Empty field = empty output.
 if (!function_exists('ee_h')) {
     function ee_h($key, $default = '') {
         $opts = get_option('ee_home_settings', array());
-        echo esc_html(isset($opts[$key]) && $opts[$key] !== '' ? $opts[$key] : $default);
+        $val  = isset($opts[$key]) ? $opts[$key] : '';
+        echo esc_html($val);
     }
 }
 if (!function_exists('ee_u')) {
     function ee_u($key, $default = '') {
         $opts = get_option('ee_home_settings', array());
-        echo esc_url(isset($opts[$key]) && $opts[$key] !== '' ? $opts[$key] : $default);
+        $val  = isset($opts[$key]) ? $opts[$key] : '';
+        echo esc_url($val);
     }
 }
 if (!function_exists('ee_a')) {
     function ee_a($key, $default = '') {
         $opts = get_option('ee_home_settings', array());
-        echo esc_attr(isset($opts[$key]) && $opts[$key] !== '' ? $opts[$key] : $default);
+        $val  = isset($opts[$key]) ? $opts[$key] : '';
+        echo esc_attr($val);
     }
 }
 if (!function_exists('ee_raw')) {
     function ee_raw($key, $default = '') {
         $opts = get_option('ee_home_settings', array());
-        return isset($opts[$key]) && $opts[$key] !== '' ? $opts[$key] : $default;
+        return isset($opts[$key]) ? $opts[$key] : '';
     }
 }
 
