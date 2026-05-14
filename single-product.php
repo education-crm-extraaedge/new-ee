@@ -246,8 +246,9 @@ function product_seo_meta_tags() {
     }
 
     // ─── Product schema with embedded Reviews + AggregateRating + Offers ───
-    // Each Review's itemReviewed references the main SoftwareApplication via @id
-    // (avoids creating thin duplicate SoftwareApp entries flagged by Google).
+    // Reviews are nested inside Product.review[] so itemReviewed is implicit
+    // (the parent Product) — omitting itemReviewed prevents Google from
+    // duplicating each Review as a standalone entity.
     if (!empty($testimonials) && is_array($testimonials)) {
         $reviews = array();
         foreach ($testimonials as $t) {
@@ -260,7 +261,7 @@ function product_seo_meta_tags() {
                 'reviewRating' => array('@type'=>'Rating','ratingValue'=>'5','bestRating'=>'5','worstRating'=>'1'),
                 'author'       => $author,
                 'reviewBody'   => wp_strip_all_tags($t['quote']),
-                'itemReviewed' => array('@id' => $canonical . '#software'),
+                'datePublished'=> get_the_date('Y-m-d', $pid),
             );
         }
         if (!empty($reviews)) {
