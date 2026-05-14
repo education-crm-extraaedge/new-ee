@@ -197,6 +197,9 @@ class EE_Home_Editor {
         $home_url = home_url('/');
         $saved    = isset($_GET['settings-updated']) && $_GET['settings-updated'];
         ?>
+        <style id="ee-home-editor-inline-css">
+        <?php echo self::admin_css(); ?>
+        </style>
         <div class="wrap home-editor-wrap">
             <h1 class="title">🏠 Home Page Editor
                 <a href="<?php echo esc_url($home_url); ?>" target="_blank" class="preview-link">👁 View Live Home Page →</a>
