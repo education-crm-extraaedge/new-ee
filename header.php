@@ -42,6 +42,29 @@ $ee_canonical   = $ee_is_singular ? (get_post_meta($ee_post_id, '_canonical_url'
 $ee_seo_desc    = $ee_is_singular ? (get_post_meta($ee_post_id, '_seo_description', true) ?: $ee_site_tag) : $ee_site_tag;
 $ee_og_image    = $ee_is_singular ? (get_post_meta($ee_post_id, '_og_image', true) ?: get_the_post_thumbnail_url($ee_post_id, 'full')) : '';
 if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads/2024/12/extraaedge-og-default.png';
+
+/* ── Home-page-only SEO overrides (editable in WP Admin → Home Page Editor → 🔍 SEO & Meta) ── */
+$ee_is_home  = is_front_page() || is_home();
+$ee_home_seo = $ee_is_home ? get_option('ee_home_settings', array()) : array();
+$ee_h_get    = function($k, $fallback = '') use ($ee_home_seo) {
+    return (isset($ee_home_seo[$k]) && $ee_home_seo[$k] !== '') ? $ee_home_seo[$k] : $fallback;
+};
+if ($ee_is_home) {
+    $ee_seo_desc      = $ee_h_get('seo_meta_description', $ee_seo_desc);
+    $ee_og_image      = $ee_h_get('seo_og_image',         $ee_og_image);
+    $ee_og_title      = $ee_h_get('seo_og_title',         '');
+    $ee_og_desc       = $ee_h_get('seo_og_description',   $ee_seo_desc);
+    $ee_tw_title      = $ee_h_get('seo_twitter_title',    $ee_og_title);
+    $ee_tw_desc       = $ee_h_get('seo_twitter_description', $ee_og_desc);
+    $ee_tw_image      = $ee_h_get('seo_twitter_image',    $ee_og_image);
+    $ee_meta_keywords = $ee_h_get('seo_meta_keywords',    '');
+    $ee_home_title    = $ee_h_get('seo_page_title',       '');
+    if ($ee_home_title) {
+        add_filter('pre_get_document_title', function() use ($ee_home_title) { return $ee_home_title; }, 99);
+    }
+} else {
+    $ee_og_title = $ee_og_desc = $ee_tw_title = $ee_tw_desc = $ee_tw_image = $ee_meta_keywords = '';
+}
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> prefix="og: https://ogp.me/ns# product: https://ogp.me/ns/product#">
 <head>
@@ -53,6 +76,9 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
 
     <!-- ─── 2. PRIMARY SEO META (single source — works on every page) ─── -->
     <meta name="description" content="<?php echo esc_attr($ee_seo_desc); ?>">
+    <?php if ($ee_is_home && $ee_meta_keywords) : ?>
+    <meta name="keywords" content="<?php echo esc_attr($ee_meta_keywords); ?>">
+    <?php endif; ?>
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
     <meta name="bingbot" content="index, follow">
@@ -82,8 +108,8 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
 
     <!-- ─── 6. OPEN GRAPH (single source — uses _seo_title via wp_get_document_title filter) ─── -->
     <meta property="og:type"               content="<?php echo $ee_is_singular ? 'article' : 'website'; ?>">
-    <meta property="og:title"              content="<?php echo esc_attr(wp_get_document_title()); ?>">
-    <meta property="og:description"        content="<?php echo esc_attr($ee_seo_desc); ?>">
+    <meta property="og:title"              content="<?php echo esc_attr($ee_is_home && $ee_og_title ? $ee_og_title : wp_get_document_title()); ?>">
+    <meta property="og:description"        content="<?php echo esc_attr($ee_is_home ? $ee_og_desc : $ee_seo_desc); ?>">
     <meta property="og:url"                content="<?php echo esc_url($ee_canonical); ?>">
     <meta property="og:image"              content="<?php echo esc_url($ee_og_image); ?>">
     <meta property="og:image:secure_url"   content="<?php echo esc_url($ee_og_image); ?>">
@@ -102,10 +128,10 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
     <meta name="twitter:card"        content="summary_large_image">
     <meta name="twitter:site"        content="@ExtraaEdge">
     <meta name="twitter:creator"     content="@ExtraaEdge">
-    <meta name="twitter:title"       content="<?php echo esc_attr(wp_get_document_title()); ?>">
-    <meta name="twitter:description" content="<?php echo esc_attr($ee_seo_desc); ?>">
-    <meta name="twitter:image"       content="<?php echo esc_url($ee_og_image); ?>">
-    <meta name="twitter:image:alt"   content="<?php echo esc_attr(wp_get_document_title()); ?>">
+    <meta name="twitter:title"       content="<?php echo esc_attr($ee_is_home && $ee_tw_title ? $ee_tw_title : wp_get_document_title()); ?>">
+    <meta name="twitter:description" content="<?php echo esc_attr($ee_is_home ? $ee_tw_desc : $ee_seo_desc); ?>">
+    <meta name="twitter:image"       content="<?php echo esc_url($ee_is_home && $ee_tw_image ? $ee_tw_image : $ee_og_image); ?>">
+    <meta name="twitter:image:alt"   content="<?php echo esc_attr($ee_is_home && $ee_tw_title ? $ee_tw_title : wp_get_document_title()); ?>">
 
     <!-- ─── 8. ICONS + PWA MANIFEST ─── -->
     <link rel="icon"             href="<?php echo esc_url($ee_home_url); ?>favicon.ico" sizes="any">

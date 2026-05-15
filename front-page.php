@@ -842,13 +842,19 @@ get_header();
 
     .vidya-wrap .visual-viewport {
         position: sticky;
-        /* Offset for the global sticky #site-header (h-20 mobile / h-24 desktop) so the CRM mock isn't hidden under the nav */
-        top: 96px;
-        height: calc(100vh - 96px);
+        /* Sticky header is h-20 (80px) on mobile, h-24 (96px) on desktop — match the offset to avoid the CRM mock disappearing behind the nav */
+        top: 80px;
+        height: calc(100vh - 80px);
         display: flex;
         align-items: center;
         justify-content: center;
         perspective: 2000px;
+    }
+    @media (min-width: 768px) {
+        .vidya-wrap .visual-viewport {
+            top: 96px;
+            height: calc(100vh - 96px);
+        }
     }
 
     /* Real CRM Mockup Styling */

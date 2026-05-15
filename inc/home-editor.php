@@ -118,6 +118,7 @@ class EE_Home_Editor {
 
     public static function tabs() {
         return array(
+            'seo'       => array('🔍', 'SEO & Meta', 'Page title, meta description, OG image, Twitter card — controls how the home page appears in Google, social shares, and browser tabs'),
             'hero'      => array('🎯', 'Hero Section', 'Page top — main headline + AI chat animation'),
             'logos'     => array('🏛', 'Trusted By Logos', '15 institution logos in scrolling marquee'),
             'vidyaai'   => array('🧠', 'VidyaAI Section', '5 intelligence stories + sticky CRM dashboard'),
@@ -331,6 +332,23 @@ class EE_Home_Editor {
 
     public static function render_pane_fields($slug) {
         switch ($slug) {
+            case 'seo':
+                self::group_heading('🌐 Page Title & Description', 'Browser + Google');
+                self::text_field('seo_page_title', '1', 'Page Title (browser tab + Google result)', 'Shown in browser tab and as the blue link in Google search. Best length: 50–60 characters.', 'ExtraaEdge — Powering Smarter Admissions with AI', 'Browser Title');
+                self::textarea_field('seo_meta_description', '2', 'Meta Description', 'Grey snippet shown under the title in Google search results. Best length: 150–160 characters.', 'ExtraaEdge is India\'s #1 AI-powered Admission CRM trusted by 500+ institutes. Automate inquiries, score leads, boost enrolments. Book a free demo.', 'Google Snippet');
+                self::text_field('seo_meta_keywords', '3', 'Meta Keywords (optional)', 'Comma-separated keywords. Most search engines ignore this today, but kept for legacy crawlers.', 'admission CRM, education CRM, AI admission software, lead scoring, ExtraaEdge', 'Keywords');
+
+                self::group_heading('📘 Open Graph (Facebook / WhatsApp / LinkedIn share preview)', 'Social');
+                self::text_field('seo_og_title', '4', 'OG Title', 'Shown when the URL is shared on Facebook, WhatsApp, LinkedIn. Falls back to Page Title if blank.', 'ExtraaEdge — #1 Admission CRM | AI-Powered Enrolments', 'Share Title');
+                self::textarea_field('seo_og_description', '5', 'OG Description', 'Description in social share preview. Falls back to Meta Description if blank.', '500+ institutes trust ExtraaEdge for AI admissions CRM, lead scoring, smart follow-ups & counselor intelligence. Start your free demo.', 'Share Description');
+                self::image_field('seo_og_image', '6', 'OG Image (1200×630px)', 'Picture shown in the share card. <b>1200×630px PNG/JPG recommended</b>. Less than 8 MB. If blank, uses default <code>extraaedge-og-default.png</code>.', 'https://www.extraaedge.com/wp-content/uploads/2024/12/extraaedge-og-default.png');
+
+                self::group_heading('🐦 Twitter / X Card', 'Social');
+                self::text_field('seo_twitter_title', '7', 'Twitter Title', 'Falls back to OG Title if blank.', 'ExtraaEdge — #1 Admission CRM | AI-Powered Enrolments', 'Tweet Title');
+                self::textarea_field('seo_twitter_description', '8', 'Twitter Description', 'Falls back to OG Description if blank.', '500+ institutes trust ExtraaEdge for AI admissions CRM, lead scoring & counselor intelligence. Book a free demo.', 'Tweet Description');
+                self::image_field('seo_twitter_image', '9', 'Twitter Image', 'Same dimensions as OG Image (1200×630px). Falls back to OG Image if blank.', 'https://www.extraaedge.com/wp-content/uploads/2024/12/extraaedge-og-default.png');
+                break;
+
             case 'hero':
                 self::group_heading('🏆 Top Trust Badge');
                 self::text_field('hero_badge', '1', 'Trust Badge Text', 'Small chip that appears <b>above</b> the headline — perfect for social proof like "Trusted by X institutes".', 'Loved by Leading Top 500+ Admission Teams', 'Hero Top');
