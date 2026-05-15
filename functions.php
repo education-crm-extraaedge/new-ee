@@ -1434,19 +1434,23 @@ add_action('template_redirect', function () {
  */
 add_action('template_redirect', function () {
     $ee_custom_routes = array(
-        'industries' => 'page-industries.php',
-        'industry'   => 'page-industry.php',
-        'company'    => 'page-company.php',
+        'industries' => array('file' => 'page-industries.php', 'title' => 'Industries'),
+        'industry'   => array('file' => 'page-industry.php',   'title' => 'Industry'),
+        'company'    => array('file' => 'page-company.php',    'title' => 'Company'),
     );
 
     $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
     if (!isset($ee_custom_routes[$path])) return;
 
-    $template = get_stylesheet_directory() . '/' . $ee_custom_routes[$path];
+    $route = $ee_custom_routes[$path];
+    $template = get_stylesheet_directory() . '/' . $route['file'];
     if (!file_exists($template)) {
-        $template = get_template_directory() . '/' . $ee_custom_routes[$path];
+        $template = get_template_directory() . '/' . $route['file'];
         if (!file_exists($template)) return;
     }
+
+    // Expose the friendly title so header.php breadcrumb + <title> can use it.
+    $GLOBALS['ee_custom_route_title'] = $route['title'];
 
     // Convince WordPress this is a successful page render, not a 404.
     global $wp_query;
@@ -1464,6 +1468,11 @@ add_action('template_redirect', function () {
     }
     status_header(200);
     nocache_headers();
+
+    // Filter the document title so the browser tab + OG title reflect this page.
+    add_filter('pre_get_document_title', function() use ($route) {
+        return $route['title'] . ' — ' . get_bloginfo('name');
+    }, 99);
 
     include $template;
     exit;

@@ -872,10 +872,12 @@ if ($ee_is_home) {
     /* ─── Visible Breadcrumb Navigation (crawler-friendly, microdata) ───
      * Renders only on inner pages — improves crawl architecture and shows
      * hierarchy in source serial order before <main> opens. */
-    if ($ee_is_singular && !is_front_page()) :
-        $bc_post   = get_queried_object();
-        $bc_pt     = get_post_type_object(get_post_type($bc_post));
-        $bc_anc    = array_reverse(get_post_ancestors($bc_post->ID));
+    $ee_custom_route_title = isset($GLOBALS['ee_custom_route_title']) ? $GLOBALS['ee_custom_route_title'] : '';
+    if (($ee_is_singular || $ee_custom_route_title) && !is_front_page()) :
+        $bc_post   = $ee_custom_route_title ? null : get_queried_object();
+        $bc_pt     = ($bc_post && isset($bc_post->ID)) ? get_post_type_object(get_post_type($bc_post)) : null;
+        $bc_anc    = ($bc_post && isset($bc_post->ID)) ? array_reverse(get_post_ancestors($bc_post->ID)) : array();
+        $bc_title  = $ee_custom_route_title ?: (($bc_post && isset($bc_post->ID)) ? get_the_title($bc_post->ID) : '');
         $bc_pos    = 1;
     ?>
     <nav class="ee-breadcrumb" aria-label="Breadcrumb">
@@ -898,7 +900,7 @@ if ($ee_is_home) {
                 </li>
                 <?php endif; ?>
                 <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
-                    <span class="ee-bc-current" itemprop="name"><?php echo esc_html(get_the_title($bc_post->ID)); ?></span>
+                    <span class="ee-bc-current" itemprop="name"><?php echo esc_html($bc_title); ?></span>
                     <meta itemprop="position" content="<?php echo (int) $bc_pos; ?>">
                 </li>
             </ol>
