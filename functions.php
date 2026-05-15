@@ -1391,6 +1391,20 @@ add_filter('robots_txt', function ($output, $public) {
     $output .= "User-agent: Meta-ExternalAgent\nAllow: /\n\n";   // Meta AI
     $output .= "User-agent: FacebookBot\nAllow: /\n\n";
 
+    // Social-media link-preview crawlers (CRITICAL — without these, share cards on FB/WhatsApp/Twitter/LinkedIn break)
+    $output .= "User-agent: facebookexternalhit\nAllow: /\n\n";  // Facebook + WhatsApp share preview
+    $output .= "User-agent: Facebot\nAllow: /\n\n";              // Facebook secondary crawler
+    $output .= "User-agent: Twitterbot\nAllow: /\n\n";           // Twitter / X card preview
+    $output .= "User-agent: LinkedInBot\nAllow: /\n\n";          // LinkedIn share preview
+    $output .= "User-agent: Slackbot\nAllow: /\n\n";             // Slack unfurl
+    $output .= "User-agent: Slackbot-LinkExpanding\nAllow: /\n\n";
+    $output .= "User-agent: WhatsApp\nAllow: /\n\n";             // WhatsApp direct fetch
+    $output .= "User-agent: Pinterestbot\nAllow: /\n\n";         // Pinterest rich pin
+    $output .= "User-agent: TelegramBot\nAllow: /\n\n";          // Telegram link preview
+    $output .= "User-agent: Discordbot\nAllow: /\n\n";           // Discord embed
+    $output .= "User-agent: redditbot\nAllow: /\n\n";            // Reddit link preview
+    $output .= "User-agent: SkypeUriPreview\nAllow: /\n\n";      // Skype preview
+
     // Sitemap (WordPress auto-generates /wp-sitemap.xml since 5.5)
     $output .= "Sitemap: " . $site . "wp-sitemap.xml\n";
     $output .= "Sitemap: " . $site . "sitemap_index.xml\n"; // Yoast/RankMath fallback
