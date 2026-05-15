@@ -670,12 +670,15 @@ function ee_get_industry_menu_items($limit = 0) {
     if ($q->have_posts()) {
         while ($q->have_posts()) {
             $q->the_post();
-            $pid  = get_the_ID();
-            $desc = get_the_excerpt() ?: wp_trim_words(get_the_content(), 24, '…');
+            $pid       = get_the_ID();
+            $meta_desc = get_post_meta($pid, '_industry_description', true);
+            $meta_sdesc= get_post_meta($pid, '_industry_short_desc', true);
+            $desc      = $meta_desc ?: (get_the_excerpt() ?: wp_trim_words(get_the_content(), 24, '…'));
+            $short     = $meta_sdesc ?: wp_trim_words($desc, 9, '…');
             $items[] = array(
                 'title'      => get_the_title(),
                 'desc'       => $desc,
-                'short_desc' => wp_trim_words($desc, 9, '…'),
+                'short_desc' => $short,
                 'icon'       => get_post_meta($pid, '_industry_icon_url', true),
                 'url'        => get_post_meta($pid, '_industry_link_url', true) ?: get_permalink($pid),
                 'tags'       => array_values(array_filter(array(
@@ -720,6 +723,8 @@ add_action('add_meta_boxes', function () {
             wp_nonce_field('industry_card_meta', 'industry_card_meta_nonce');
             $icon = get_post_meta($post->ID, '_industry_icon_url', true);
             $url  = get_post_meta($post->ID, '_industry_link_url', true);
+            $desc = get_post_meta($post->ID, '_industry_description', true);
+            $sdesc= get_post_meta($post->ID, '_industry_short_desc', true);
             $t1   = get_post_meta($post->ID, '_industry_tag_1',   true);
             $t2   = get_post_meta($post->ID, '_industry_tag_2',   true);
             $t3   = get_post_meta($post->ID, '_industry_tag_3',   true);
@@ -727,7 +732,8 @@ add_action('add_meta_boxes', function () {
             <style>
                 .ind-row { margin-bottom: 18px; }
                 .ind-row label { display:block; font-weight:600; margin-bottom:5px; color:#1d2327; font-size:13px; }
-                .ind-row input { width:100%; padding:8px; border:1px solid #ddd; border-radius:4px; font-size:13px; }
+                .ind-row input, .ind-row textarea { width:100%; padding:8px; border:1px solid #ddd; border-radius:4px; font-size:13px; font-family:inherit; }
+                .ind-row textarea { resize:vertical; min-height:70px; }
                 .ind-row .hint { color:#646970; font-size:12px; margin-top:4px; font-style:italic; }
                 .ind-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
             </style>
@@ -740,6 +746,16 @@ add_action('add_meta_boxes', function () {
                 <label>External Link URL (where the card opens) <span style="color:#DE6E30">★</span></label>
                 <input type="url" name="industry_link_url" value="<?php echo esc_attr($url); ?>" placeholder="https://www.extraaedge.com/industries/higher-education-crm/">
                 <p class="hint">Full URL the visitor goes to when clicking the card.</p>
+            </div>
+            <div class="ind-row">
+                <label>Card Description (shown on the /industries/ card) <span style="color:#DE6E30">★</span></label>
+                <textarea name="industry_description" rows="3" placeholder="End-to-end admissions solutions tailored for higher education institutions."><?php echo esc_textarea($desc); ?></textarea>
+                <p class="hint">1–2 sentences (max ~25 words). Falls back to the post Excerpt when blank.</p>
+            </div>
+            <div class="ind-row">
+                <label>Short Description (shown in the header mega-menu)</label>
+                <input type="text" name="industry_short_desc" value="<?php echo esc_attr($sdesc); ?>" placeholder="For higher ed institutions.">
+                <p class="hint">Very short (≤ 9 words). Falls back to a trimmed version of the description above.</p>
             </div>
             <div class="ind-row">
                 <label>Tag pills (3 short labels shown on the card)</label>
@@ -764,11 +780,14 @@ add_action('save_post_industry', function ($post_id) {
     if (!isset($_POST['industry_card_meta_nonce']) || !wp_verify_nonce($_POST['industry_card_meta_nonce'], 'industry_card_meta')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (!current_user_can('edit_post', $post_id)) return;
-    $fields = array('industry_icon_url', 'industry_link_url', 'industry_tag_1', 'industry_tag_2', 'industry_tag_3');
+    $fields = array('industry_icon_url', 'industry_link_url', 'industry_tag_1', 'industry_tag_2', 'industry_tag_3', 'industry_short_desc');
     foreach ($fields as $f) {
         if (isset($_POST[$f])) {
             update_post_meta($post_id, '_' . $f, sanitize_text_field(wp_unslash($_POST[$f])));
         }
+    }
+    if (isset($_POST['industry_description'])) {
+        update_post_meta($post_id, '_industry_description', sanitize_textarea_field(wp_unslash($_POST['industry_description'])));
     }
 });
 
