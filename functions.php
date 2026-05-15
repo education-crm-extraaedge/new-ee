@@ -592,6 +592,75 @@ For alternating sections, use the <strong>Section ID</strong> you set in the �
 }
 
 // ══════════════════════════════════════════════════════════
+// G2. INDUSTRY CPT META BOX — 4 card-render fields
+// ══════════════════════════════════════════════════════════
+/**
+ * Each "Industry" post becomes one card on /industries/.
+ * Title         → card heading (use post title)
+ * Excerpt       → card description (use post excerpt, fallback to content trim)
+ * Meta fields below → icon image, external URL, tag pills
+ */
+add_action('add_meta_boxes', function () {
+    add_meta_box(
+        'industry_card_settings',
+        '🏷 Industry Card Settings (icon, link, tags)',
+        function ($post) {
+            wp_nonce_field('industry_card_meta', 'industry_card_meta_nonce');
+            $icon = get_post_meta($post->ID, '_industry_icon_url', true);
+            $url  = get_post_meta($post->ID, '_industry_link_url', true);
+            $t1   = get_post_meta($post->ID, '_industry_tag_1',   true);
+            $t2   = get_post_meta($post->ID, '_industry_tag_2',   true);
+            $t3   = get_post_meta($post->ID, '_industry_tag_3',   true);
+            ?>
+            <style>
+                .ind-row { margin-bottom: 18px; }
+                .ind-row label { display:block; font-weight:600; margin-bottom:5px; color:#1d2327; font-size:13px; }
+                .ind-row input { width:100%; padding:8px; border:1px solid #ddd; border-radius:4px; font-size:13px; }
+                .ind-row .hint { color:#646970; font-size:12px; margin-top:4px; font-style:italic; }
+                .ind-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+            </style>
+            <div class="ind-row">
+                <label>Card Icon URL <span style="color:#DE6E30">★</span></label>
+                <input type="url" name="industry_icon_url" value="<?php echo esc_attr($icon); ?>" placeholder="https://www.extraaedge.com/wp-content/uploads/2022/06/enterprise.png">
+                <p class="hint">Square 30×30 to 60×60 px PNG/SVG. Browse <strong>Media Library</strong> → click image → copy "File URL" → paste here.</p>
+            </div>
+            <div class="ind-row">
+                <label>External Link URL (where the card opens) <span style="color:#DE6E30">★</span></label>
+                <input type="url" name="industry_link_url" value="<?php echo esc_attr($url); ?>" placeholder="https://www.extraaedge.com/industries/higher-education-crm/">
+                <p class="hint">Full URL the visitor goes to when clicking the card.</p>
+            </div>
+            <div class="ind-row">
+                <label>Tag pills (3 short labels shown on the card)</label>
+                <div class="ind-grid">
+                    <input type="text" name="industry_tag_1" value="<?php echo esc_attr($t1); ?>" placeholder="Lead Automation">
+                    <input type="text" name="industry_tag_2" value="<?php echo esc_attr($t2); ?>" placeholder="Multi-Campus">
+                    <input type="text" name="industry_tag_3" value="<?php echo esc_attr($t3); ?>" placeholder="Analytics">
+                </div>
+                <p class="hint">Keep each tag under 2 words. Leave blank to skip a pill.</p>
+            </div>
+            <div style="background:#f0f6fc; border-left:3px solid #0073aa; padding:12px 14px; margin-top:18px; font-size:12px;">
+                <strong>💡 Tip:</strong> The card heading comes from the post <strong>Title</strong> above. The card description comes from the <strong>Excerpt</strong> field (Document panel → Excerpt). Keep the excerpt under 25 words for best layout.
+            </div>
+            <?php
+        },
+        'industry',
+        'normal',
+        'high'
+    );
+});
+add_action('save_post_industry', function ($post_id) {
+    if (!isset($_POST['industry_card_meta_nonce']) || !wp_verify_nonce($_POST['industry_card_meta_nonce'], 'industry_card_meta')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+    $fields = array('industry_icon_url', 'industry_link_url', 'industry_tag_1', 'industry_tag_2', 'industry_tag_3');
+    foreach ($fields as $f) {
+        if (isset($_POST[$f])) {
+            update_post_meta($post_id, '_' . $f, sanitize_text_field(wp_unslash($_POST[$f])));
+        }
+    }
+});
+
+// ══════════════════════════════════════════════════════════
 // H. SAVE META BOX DATA
 // ══════════════════════════════════════════════════════════
 function product_save_meta_box_data($post_id) {
