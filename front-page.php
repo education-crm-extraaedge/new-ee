@@ -649,6 +649,11 @@ get_header();
       transform: translateY(-5px);
     }
 
+    /* Hide alt-text fallback rendering when an image fails — paired with
+       the onerror handler that removes the whole card. font-size:0 keeps
+       the alt text invisible in the brief window before JS fires. */
+    .sp-logo-card img { font-size: 0; color: transparent; }
+
     .sp-img {
       max-width: 100%;
       max-height: 100%;
@@ -792,7 +797,7 @@ get_header();
         <?php /* render twice for a seamless loop */
         for ($pass = 0; $pass < 2; $pass++):
           foreach ($row_t1 as $logo): ?>
-        <div class="sp-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" class="sp-img"></div>
+        <div class="sp-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" class="sp-img" onerror="this.closest('.sp-logo-card').remove()"></div>
         <?php endforeach;
         endfor; ?>
       </div>
@@ -803,12 +808,37 @@ get_header();
       <div class="sp-marquee-track sp-track-2">
         <?php for ($pass = 0; $pass < 2; $pass++):
           foreach ($row_t2 as $logo): ?>
-        <div class="sp-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" class="sp-img"></div>
+        <div class="sp-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" class="sp-img" onerror="this.closest('.sp-logo-card').remove()"></div>
         <?php endforeach;
         endfor; ?>
       </div>
       <?php endif; ?>
     </div>
+
+    <script>
+    /* Safety net: catch images that already failed before the inline onerror
+       attached (e.g. cached HTML, page-loaders that defer JS). Removes their
+       card and hides the parent track if the row ends up empty. */
+    (function(){
+        function cleanupBroken() {
+            document.querySelectorAll('.sp-logo-card img').forEach(function(img){
+                if (!img.complete || img.naturalWidth === 0) {
+                    var card = img.closest('.sp-logo-card');
+                    if (card) card.remove();
+                }
+            });
+            document.querySelectorAll('.sp-marquee-track').forEach(function(t){
+                if (!t.querySelector('.sp-logo-card')) t.style.display = 'none';
+            });
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', cleanupBroken);
+        } else {
+            cleanupBroken();
+        }
+        window.addEventListener('load', cleanupBroken);
+    })();
+    </script>
 
     <!-- Footer Action Section -->
     <footer class="sp-footer">

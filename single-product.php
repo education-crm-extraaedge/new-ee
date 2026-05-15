@@ -510,7 +510,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .marquee-wrap:hover .marquee-left{animation-play-state:paused}
 .logo-card{width:180px;height:90px;background:var(--off-white);border:1px solid var(--gray-200);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;padding:18px;transition:var(--transition);flex-shrink:0}
 .logo-card:hover{border-color:var(--orange);transform:translateY(-5px);box-shadow:var(--shadow-md)}
-.logo-card img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(100%);opacity:.65;transition:var(--transition)}
+.logo-card img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(100%);opacity:.65;transition:var(--transition);font-size:0;color:transparent}
 .logo-card:hover img{filter:grayscale(0);opacity:1}
 .logo-footer{margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .live-indicator{display:flex;align-items:center;gap:10px;font-family:var(--font-h);font-size:13px;font-weight:600;color:var(--blue)}
@@ -731,13 +731,34 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     ?>
     <div class="marquee-stack">
       <div class="marquee-track marquee-left">
-        <?php for($i = 0; $i < 2; $i++): foreach($row_a as $logo): ?><div class="logo-card"><img src="<?php echo esc_url($logo['image']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>" loading="lazy" decoding="async" width="180" height="90"></div><?php endforeach; endfor; ?>
+        <?php for($i = 0; $i < 2; $i++): foreach($row_a as $logo): ?><div class="logo-card"><img src="<?php echo esc_url($logo['image']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>" loading="lazy" decoding="async" width="180" height="90" onerror="this.closest(&apos;.logo-card&apos;).remove()"></div><?php endforeach; endfor; ?>
       </div>
       <div class="marquee-track marquee-right">
-        <?php for($i = 0; $i < 2; $i++): foreach($row_b as $logo): ?><div class="logo-card"><img src="<?php echo esc_url($logo['image']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>" loading="lazy" decoding="async" width="180" height="90"></div><?php endforeach; endfor; ?>
+        <?php for($i = 0; $i < 2; $i++): foreach($row_b as $logo): ?><div class="logo-card"><img src="<?php echo esc_url($logo['image']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>" loading="lazy" decoding="async" width="180" height="90" onerror="this.closest(&apos;.logo-card&apos;).remove()"></div><?php endforeach; endfor; ?>
       </div>
     </div>
   </div>
+  <script>
+  /* Drops any logo card whose image fails to load. Catches both runtime
+     failures (inline onerror) and images that finished failing before JS
+     attached (page caches, slow JS). Hides the track wrapper if all cards
+     in that row are gone. */
+  (function(){
+      function cleanup(){
+          document.querySelectorAll('.logo-card img').forEach(function(img){
+              if (!img.complete || img.naturalWidth === 0) {
+                  var c = img.closest('.logo-card'); if (c) c.remove();
+              }
+          });
+          document.querySelectorAll('.marquee-track').forEach(function(t){
+              if (!t.querySelector('.logo-card')) t.style.display = 'none';
+          });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', cleanup);
+      else cleanup();
+      window.addEventListener('load', cleanup);
+  })();
+  </script>
   <div class="logo-footer reveal">
     <?php if($logo_footer_cta): ?><a href="<?php echo esc_url($logo_footer_cta_url ?: '#admission-form'); ?>" class="btn-primary" aria-label="<?php echo esc_attr($logo_footer_cta); ?>"><?php echo esc_html($logo_footer_cta); ?></a><?php endif; ?>
     <?php if($logo_live_text): ?><div class="live-indicator"><span class="green-dot" aria-hidden="true"></span><span><?php echo esc_html($logo_live_text); ?></span></div><?php endif; ?>
