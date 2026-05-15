@@ -181,6 +181,23 @@ add_action('admin_post_ee_save_client_logos', function () {
         if ($image !== '') $clean[] = array('image' => $image, 'alt' => $alt);
     }
     update_option('ee_client_logos', $clean);
+
+    /* Belt-and-suspenders — bust common page caches so the change is
+       visible immediately without requiring the editor to manually
+       purge their cache plugin. */
+    wp_cache_delete('ee_client_logos', 'options');
+    wp_cache_delete('alloptions', 'options');
+    if (function_exists('wp_cache_flush_group')) {
+        wp_cache_flush_group('options');
+    }
+    /* Triggers most page-cache plugins (WP Rocket, LiteSpeed, W3TC,
+       WP Super Cache, Cache Enabler) to invalidate the cached pages. */
+    do_action('ee_logos_master_updated', $clean);
+    if (function_exists('rocket_clean_domain'))         { rocket_clean_domain(); }
+    if (function_exists('w3tc_pgcache_flush'))          { w3tc_pgcache_flush(); }
+    if (class_exists('LiteSpeed\Purge'))                { do_action('litespeed_purge_all'); }
+    if (function_exists('wp_cache_clean_cache'))        { @wp_cache_clean_cache($GLOBALS['cache_path'] ?? ''); }
+
     wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-client-logos')));
     exit;
 });
@@ -193,7 +210,10 @@ function ee_client_logos_page() {
         <h1>🏢 Client Logos <span style="font-size:13px;color:#646970;font-weight:400;">— the master list used on every page</span></h1>
 
         <?php if (!empty($_GET['updated'])) : ?>
-            <div class="notice notice-success is-dismissible"><p><strong>Saved.</strong> Your updated logos are now live on every page that uses the master list.</p></div>
+            <div class="notice notice-success is-dismissible">
+                <p><strong>Saved.</strong> Your updated logos are now live on every page that uses the master list (<strong><?php echo count($logos); ?> logo<?php echo count($logos) === 1 ? '' : 's'; ?></strong> total).</p>
+                <p style="margin:6px 0 0;color:#475569;">If the old logo still appears on the live site, your <strong>page cache or CDN</strong> is serving a cached copy — go to your cache plugin (WP Rocket / LiteSpeed / W3 Total Cache / Cloudflare) and click <em>"Purge all"</em>, then hard-refresh the page (Ctrl + Shift + R).</p>
+            </div>
         <?php endif; ?>
 
         <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #DE6E30;padding:14px 18px;border-radius:6px;margin:14px 0;max-width:880px;">
@@ -670,11 +690,22 @@ function product_logos_fields($post) {
     $use_global_raw = get_post_meta($post->ID, '_logos_use_global', true);
     /* Default for new and old posts: use the master list. Only the explicit
        string '0' means "use the per-post list below". */
-    $use_global = ($use_global_raw !== '0');
+    $use_global   = ($use_global_raw !== '0');
     $master_count = count(get_option('ee_client_logos', array()) ?: array());
+    $per_count    = is_array($logos) ? count($logos) : 0;
+    $effective    = function_exists('ee_get_client_logos') ? count(ee_get_client_logos($post->ID)) : ($use_global ? $master_count : $per_count);
+    $source       = $use_global ? '🌐 Master list' : '📄 Per-post list';
     $logos_admin  = admin_url('admin.php?page=ee-client-logos');
     ?>
 <h3>🏢 Logo Section</h3>
+
+<div style="background:#ecfdf5;border:1px solid #a7f3d0;border-left:4px solid #10b981;padding:10px 14px;border-radius:5px;margin:0 0 12px;font-size:13px;line-height:1.55;">
+    <strong>This page will display <?php echo (int) $effective; ?> logo<?php echo $effective === 1 ? '' : 's'; ?></strong>
+    — pulled from <strong><?php echo esc_html($source); ?></strong>.
+    <?php if ($use_global) : ?>
+        Manage them in <a href="<?php echo esc_url($logos_admin); ?>" target="_blank">🏢 Client Logos</a>.
+    <?php endif; ?>
+</div>
 
 <div style="background:#fff8f1;border:1px solid #fde7d3;border-left:4px solid #DE6E30;padding:12px 14px;border-radius:5px;margin:0 0 18px;">
     <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">

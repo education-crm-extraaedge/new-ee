@@ -500,6 +500,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 }
 
 .logo-section{background:var(--white);padding:40px 20px;overflow:hidden}
+.logo-section--no-header{padding-top:16px;padding-bottom:24px}
 .logo-header{text-align:center;margin-bottom:24px}
 .logo-badge{display:inline-block;background:var(--orange-pale);color:var(--orange);padding:6px 18px;border-radius:var(--radius-full);font-family:var(--font-h);font-size:12px;font-weight:600;margin-bottom:10px;letter-spacing:.5px;text-transform:uppercase}
 .logo-title{font-family:var(--font-h);color:var(--blue);font-size:clamp(1.5rem,3.5vw,2.4rem);line-height:1.2;margin-bottom:10px;font-weight:700}
@@ -715,16 +716,16 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
   </div>
 </section>
 
-<div class="section-divider" role="separator" aria-hidden="true"></div>
-
 <?php if(!empty($logos)): ?>
-<section class="logo-section" id="trusted-institutions" aria-labelledby="logo-title">
+<section class="logo-section<?php echo (!$logo_badge && !$logo_title_line1 && !$logo_title && !$logo_sub) ? ' logo-section--no-header' : ''; ?>" id="trusted-institutions" aria-labelledby="logo-title">
+  <?php if($logo_badge || $logo_title_line1 || $logo_title || $logo_sub): ?>
   <header class="logo-header reveal">
     <?php if($logo_badge): ?><div class="logo-badge"><?php echo esc_html($logo_badge); ?></div><?php endif; ?>
     <?php if($logo_title_line1): ?><p style="font-family:var(--font-h);font-weight:700;font-size:1rem;color:var(--blue);margin-bottom:10px"><?php echo esc_html($logo_title_line1); ?></p><?php endif; ?>
     <?php if($logo_title): ?><h2 id="logo-title" class="logo-title"><?php echo esc_html($logo_title); ?></h2><?php endif; ?>
     <?php if($logo_sub): ?><p class="logo-sub"><?php echo ee_inline_links($logo_sub); ?></p><?php endif; ?>
   </header>
+  <?php endif; ?>
   <div class="marquee-wrap" role="region" aria-label="Trusted institutions carousel">
     <?php
     /* Two-row stack — same look as the home-page logo wall. Auto-splits
@@ -750,7 +751,6 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     <?php if($logo_live_text): ?><div class="live-indicator"><span class="green-dot" aria-hidden="true"></span><span><?php echo esc_html($logo_live_text); ?></span></div><?php endif; ?>
   </div>
 </section>
-<div class="section-divider" role="separator" aria-hidden="true"></div>
 <?php endif; ?>
 
 <div class="toc-zone-wrapper" id="toc-zone-wrapper">
