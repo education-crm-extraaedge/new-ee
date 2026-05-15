@@ -592,6 +592,68 @@ For alternating sections, use the <strong>Section ID</strong> you set in the �
 }
 
 // ══════════════════════════════════════════════════════════
+// G1. INDUSTRY MENU HELPER — shared by header.php (desktop + mobile) AND /industries/ page
+// ══════════════════════════════════════════════════════════
+/**
+ * Return the list of Industry items to render in nav menus + landing cards.
+ * Pulls from the Industry CPT first; falls back to a seeded set when empty
+ * so the header never renders with zero items on a fresh install.
+ *
+ * @param int $limit  Maximum items to return (0 = no limit).
+ * @return array<array{title:string,desc:string,short_desc:string,icon:string,url:string,tags:array}>
+ */
+function ee_get_industry_menu_items($limit = 0) {
+    static $cache = null;
+    if ($cache !== null) {
+        return $limit > 0 ? array_slice($cache, 0, $limit) : $cache;
+    }
+
+    $items = array();
+    $q = new WP_Query(array(
+        'post_type'      => 'industry',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'orderby'        => 'menu_order date',
+        'order'          => 'ASC',
+        'no_found_rows'  => true,
+    ));
+    if ($q->have_posts()) {
+        while ($q->have_posts()) {
+            $q->the_post();
+            $pid  = get_the_ID();
+            $desc = get_the_excerpt() ?: wp_trim_words(get_the_content(), 24, '…');
+            $items[] = array(
+                'title'      => get_the_title(),
+                'desc'       => $desc,
+                'short_desc' => wp_trim_words($desc, 9, '…'),
+                'icon'       => get_post_meta($pid, '_industry_icon_url', true),
+                'url'        => get_post_meta($pid, '_industry_link_url', true) ?: get_permalink($pid),
+                'tags'       => array_values(array_filter(array(
+                    get_post_meta($pid, '_industry_tag_1', true),
+                    get_post_meta($pid, '_industry_tag_2', true),
+                    get_post_meta($pid, '_industry_tag_3', true),
+                ))),
+            );
+        }
+        wp_reset_postdata();
+    }
+
+    if (empty($items)) {
+        $items = array(
+            array('title' => 'Higher Education',       'desc' => 'End-to-end admissions solutions tailored for higher education institutions.', 'short_desc' => 'For higher ed institutions.',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/enterprise.png',       'url' => '/industries/higher-education-crm/',   'tags' => array('Lead Automation','Multi-Campus','Analytics')),
+            array('title' => 'School',                 'desc' => 'A customized CRM to digitize and streamline student admissions processes.',    'short_desc' => 'Digitize student admissions.',    'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/classroom.png',        'url' => '/industries/school-crm/',             'tags' => array('Parent Engagement','Digital Forms','Workflows')),
+            array('title' => 'EdTech',                 'desc' => 'A comprehensive admissions platform built for tech-driven learning organizations.', 'short_desc' => 'For tech-driven learning.',  'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/online-learning-1.png', 'url' => '/industries/edtech-crm/',             'tags' => array('API Integrations','Funnel Tracking','Retargeting')),
+            array('title' => 'Vocational',             'desc' => 'A powerful CRM designed to support vocational training admissions.',           'short_desc' => 'Vocational training.',            'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/vocational-1.png',     'url' => '/industries/vocational-crm/',         'tags' => array('Batch Management','Fee Tracking','Counselling')),
+            array('title' => 'Coaching Institute CRM', 'desc' => 'An all-in-one CRM solution for test prep and coaching institutes.',           'short_desc' => 'All-in-one for test prep.',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/class-1.png',          'url' => '/industries/coaching-institute-crm/', 'tags' => array('Demo Tracking','WhatsApp CRM','Reports')),
+            array('title' => 'Overseas',               'desc' => 'A complete applications platform for study abroad and international admissions teams.', 'short_desc' => 'Study abroad admissions.', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/departure-1.png',      'url' => '/industries/overseas-crm/',           'tags' => array('Visa Pipeline','Doc Collection','Multi-Country')),
+        );
+    }
+
+    $cache = $items;
+    return $limit > 0 ? array_slice($items, 0, $limit) : $items;
+}
+
+// ══════════════════════════════════════════════════════════
 // G2. INDUSTRY CPT META BOX — 4 card-render fields
 // ══════════════════════════════════════════════════════════
 /**

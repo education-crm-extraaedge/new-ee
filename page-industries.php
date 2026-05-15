@@ -778,57 +778,18 @@ get_header();
             </div>
 
             <?php
-            /* ─── Cards: query published Industry CPT posts first; fall back to the seeded 6 if none exist ─── */
-            $ee_industry_q = new WP_Query(array(
-                'post_type'      => 'industry',
-                'post_status'    => 'publish',
-                'posts_per_page' => -1,
-                'orderby'        => 'menu_order date',
-                'order'          => 'ASC',
-                'no_found_rows'  => true,
-            ));
-
-            $ee_industry_cards = array();
-            if ($ee_industry_q->have_posts()) {
-                while ($ee_industry_q->have_posts()) {
-                    $ee_industry_q->the_post();
-                    $pid    = get_the_ID();
-                    $tags   = array_filter(array(
-                        get_post_meta($pid, '_industry_tag_1', true),
-                        get_post_meta($pid, '_industry_tag_2', true),
-                        get_post_meta($pid, '_industry_tag_3', true),
-                    ));
-                    $ee_industry_cards[] = array(
-                        'title' => get_the_title(),
-                        'desc'  => get_the_excerpt() ?: wp_trim_words(get_the_content(), 24, '…'),
-                        'icon'  => get_post_meta($pid, '_industry_icon_url', true) ?: 'https://www.extraaedge.com/wp-content/uploads/2022/06/enterprise.png',
-                        'url'   => get_post_meta($pid, '_industry_link_url', true) ?: get_permalink(),
-                        'tags'  => $tags,
-                        'aria'  => get_the_title() . ' solution — explore',
-                    );
-                }
-                wp_reset_postdata();
-            } else {
-                /* Seeded fallback so /industries/ never looks empty before any CPT post is published */
-                $ee_industry_cards = array(
-                    array('title' => 'Higher Education',         'desc' => 'End-to-end admissions solution purpose-built for universities and colleges managing complex, high-volume enrollment journeys.', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/enterprise.png',      'url' => 'https://www.extraaedge.com/industries/higher-education-crm/',   'tags' => array('Lead Automation', 'Multi-Campus', 'Analytics'),       'aria' => 'Higher Education CRM solution — explore'),
-                    array('title' => 'School',                   'desc' => 'A custom education CRM built to fully digitize your school\'s student admissions process from first inquiry to confirmed enrollment.',     'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/classroom.png',       'url' => 'https://www.extraaedge.com/industries/school-crm/',             'tags' => array('Parent Engagement', 'Digital Forms', 'Workflows'),    'aria' => 'School CRM solution — explore'),
-                    array('title' => 'Edtech',                   'desc' => 'A holistic admissions solution engineered for tech-first learning businesses that need speed, scale, and seamless integrations.',          'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/online-learning-1.png','url' => 'https://www.extraaedge.com/industries/edtech-crm/',             'tags' => array('API Integrations', 'Funnel Tracking', 'Retargeting'), 'aria' => 'Edtech CRM solution — explore'),
-                    array('title' => 'Vocational',               'desc' => 'A powerful CRM platform that handles every step of your vocational training institute\'s admissions pipeline with precision.',           'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/vocational-1.png',    'url' => 'https://www.extraaedge.com/industries/vocational-crm/',         'tags' => array('Batch Management', 'Fee Tracking', 'Counselling'),    'aria' => 'Vocational CRM solution — explore'),
-                    array('title' => 'Coaching Institute CRM',   'desc' => 'An all-in-one CRM built for test prep and coaching institutes — manage leads, demos, follow-ups and fee collection in one place.',         'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/class-1.png',         'url' => 'https://www.extraaedge.com/industries/coaching-institute-crm/', 'tags' => array('Demo Tracking', 'WhatsApp CRM', 'Reports'),           'aria' => 'Coaching Institute CRM solution — explore'),
-                    array('title' => 'Overseas',                 'desc' => 'A complete applications platform created for study abroad and overseas admission teams managing complex multi-country pipelines.',         'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/departure-1.png',     'url' => 'https://www.extraaedge.com/industries/overseas-crm/',           'tags' => array('Visa Pipeline', 'Doc Collection', 'Multi-Country'),   'aria' => 'Overseas Education CRM solution — explore'),
-                );
-            }
+            /* Single source of truth — same helper that drives the header desktop + mobile menus */
+            $ee_industry_cards = function_exists('ee_get_industry_menu_items') ? ee_get_industry_menu_items() : array();
             ?>
             <div class="ee-grid" id="ee-solution-grid" role="list" aria-label="Education CRM solutions">
                 <?php $ee_card_pos = 0; foreach ($ee_industry_cards as $card) : $ee_card_pos++; ?>
-                <a href="<?php echo esc_url($card['url']); ?>" class="ee-card" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="<?php echo esc_attr($card['aria']); ?>" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a href="<?php echo esc_url($card['url']); ?>" class="ee-card" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="<?php echo esc_attr($card['title'] . ' solution — explore'); ?>" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <meta itemprop="position" content="<?php echo (int) $ee_card_pos; ?>">
                     <meta itemprop="url" content="<?php echo esc_url($card['url']); ?>">
                     <div class="ee-card-bar" aria-hidden="true"></div>
                     <div class="ee-card-corner" aria-hidden="true"></div>
                     <div class="ee-icon-wrap">
-                        <img src="<?php echo esc_url($card['icon']); ?>" alt="" loading="lazy" width="30" height="30">
+                        <img src="<?php echo esc_url($card['icon'] ?: 'https://www.extraaedge.com/wp-content/uploads/2022/06/enterprise.png'); ?>" alt="" loading="lazy" width="30" height="30">
                         <span class="ee-card-number" aria-hidden="true"><?php echo esc_html(str_pad($ee_card_pos, 2, '0', STR_PAD_LEFT)); ?></span>
                     </div>
                     <h2 class="ee-card-title" itemprop="name"><?php echo esc_html($card['title']); ?></h2>

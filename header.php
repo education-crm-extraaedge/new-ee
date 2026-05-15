@@ -567,30 +567,23 @@ if ($ee_is_home) {
                         Industry <i data-lucide="chevron-down" class="w-4 h-4" aria-hidden="true"></i>
                     </button>
                     <div class="mega-menu grid grid-cols-2 gap-2 w-[700px]" role="menu" aria-label="Industry submenu">
-                        <a href="/industries/higher-education/" class="menu-item" role="menuitem" title="Higher Education CRM">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="graduation-cap"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue text-sm">Higher Education</span><p class="text-xs text-slate-500 mt-1">End-to-end admissions solutions tailored for higher education institutions.</p></div>
+                        <?php
+                        /* Industries menu items — pulled from the Industry CPT so adding a new Industry post
+                           automatically appears here. Falls back to a hardcoded list when the CPT is empty. */
+                        $ee_industry_menu = ee_get_industry_menu_items();
+                        foreach ($ee_industry_menu as $ind) :
+                        ?>
+                        <a href="<?php echo esc_url($ind['url']); ?>" class="menu-item" role="menuitem" title="<?php echo esc_attr($ind['title']); ?>">
+                            <div class="icon-box" aria-hidden="true">
+                                <?php if (!empty($ind['icon'])) : ?>
+                                    <img src="<?php echo esc_url($ind['icon']); ?>" alt="" style="width:22px;height:22px;object-fit:contain" loading="lazy">
+                                <?php else : ?>
+                                    <i data-lucide="building"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div><span class="menu-title font-bold text-brandBlue text-sm"><?php echo esc_html($ind['title']); ?></span><p class="text-xs text-slate-500 mt-1"><?php echo esc_html($ind['desc']); ?></p></div>
                         </a>
-                        <a href="/industries/school/" class="menu-item" role="menuitem" title="School Admission CRM">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="school"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue text-sm">School</span><p class="text-xs text-slate-500 mt-1">A customized CRM to digitize and streamline student admissions processes.</p></div>
-                        </a>
-                        <a href="/industries/edtech/" class="menu-item" role="menuitem" title="EdTech CRM platform">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="cpu"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue text-sm">EdTech</span><p class="text-xs text-slate-500 mt-1">A comprehensive admissions platform built for tech-driven learning organizations.</p></div>
-                        </a>
-                        <a href="/industries/vocational/" class="menu-item" role="menuitem" title="Vocational training CRM">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="briefcase"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue text-sm">Vocational</span><p class="text-xs text-slate-500 mt-1">A powerful CRM designed to support vocational training admissions.</p></div>
-                        </a>
-                        <a href="/industries/coaching-institute-crm/" class="menu-item" role="menuitem" title="Coaching Institute CRM">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="book-open"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue text-sm">Coaching Institute CRM</span><p class="text-xs text-slate-500 mt-1">An all-in-one CRM solution for test prep and coaching institutes.</p></div>
-                        </a>
-                        <a href="/industries/overseas/" class="menu-item" role="menuitem" title="Overseas Education CRM">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="globe"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue text-sm">Overseas</span><p class="text-xs text-slate-500 mt-1">A complete applications platform for study abroad and international admissions teams.</p></div>
-                        </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 
@@ -740,30 +733,18 @@ if ($ee_is_home) {
                 </button>
                 <div class="mobile-accordion-content">
                     <div class="p-4 space-y-2">
-                        <a href="/industries/higher-education/" class="m-icon-card" title="Higher Education">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="graduation-cap"></i></div>
-                            <div class="m-text"><span class="menu-title">Higher Education</span><p>For higher ed institutions.</p></div>
+                        <?php foreach (ee_get_industry_menu_items() as $ind) : ?>
+                        <a href="<?php echo esc_url($ind['url']); ?>" class="m-icon-card" title="<?php echo esc_attr($ind['title']); ?>">
+                            <div class="m-ico" aria-hidden="true">
+                                <?php if (!empty($ind['icon'])) : ?>
+                                    <img src="<?php echo esc_url($ind['icon']); ?>" alt="" style="width:18px;height:18px;object-fit:contain" loading="lazy">
+                                <?php else : ?>
+                                    <i data-lucide="building"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div class="m-text"><span class="menu-title"><?php echo esc_html($ind['title']); ?></span><p><?php echo esc_html($ind['short_desc']); ?></p></div>
                         </a>
-                        <a href="/industries/school/" class="m-icon-card" title="School">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="school"></i></div>
-                            <div class="m-text"><span class="menu-title">School</span><p>Digitize student admissions.</p></div>
-                        </a>
-                        <a href="/industries/edtech/" class="m-icon-card" title="EdTech">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="cpu"></i></div>
-                            <div class="m-text"><span class="menu-title">EdTech</span><p>For tech-driven learning.</p></div>
-                        </a>
-                        <a href="/industries/vocational/" class="m-icon-card" title="Vocational">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="briefcase"></i></div>
-                            <div class="m-text"><span class="menu-title">Vocational</span><p>Vocational training admissions.</p></div>
-                        </a>
-                        <a href="/industries/coaching-institute-crm/" class="m-icon-card" title="Coaching Institute">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="book-open"></i></div>
-                            <div class="m-text"><span class="menu-title">Coaching Institute</span><p>All-in-one CRM for test prep.</p></div>
-                        </a>
-                        <a href="/industries/overseas/" class="m-icon-card" title="Overseas">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="globe"></i></div>
-                            <div class="m-text"><span class="menu-title">Overseas</span><p>Study abroad admissions.</p></div>
-                        </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
