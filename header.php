@@ -368,6 +368,18 @@ if ($ee_is_home) {
             box-shadow: 0 8px 16px rgba(222, 110, 48, 0.3);
         }
 
+        /* When the icon-box contains a real PNG/SVG logo, the dark-orange
+           hover bg overpowers the artwork — keep a light bg with an
+           orange ring + glow so the logo stays clearly visible. */
+        .icon-box--image { background: #ffffff; border: 1px solid rgba(15, 23, 42, 0.06); }
+        .icon-box--image img { transition: transform 0.3s ease; }
+        .menu-item:hover .icon-box--image {
+            background: #fff7f0;
+            border-color: rgba(222, 110, 48, 0.35);
+            box-shadow: 0 8px 16px rgba(222, 110, 48, 0.18);
+        }
+        .menu-item:hover .icon-box--image img { transform: scale(1.08); }
+
         /* Mobile Side Menu Glass */
         #mobileMenu {
             background: rgba(255, 255, 255, 0.98);
@@ -422,6 +434,13 @@ if ($ee_is_home) {
             background: #DE6E30;
             color: #fff;
             border-color: #DE6E30;
+        }
+        /* Keep light bg on icon boxes that contain a logo image */
+        .m-icon-card .m-ico:has(img) { background: #fff; }
+        .m-icon-card:hover .m-ico:has(img),
+        .m-icon-card:active .m-ico:has(img) {
+            background: #fff7f0;
+            border-color: rgba(222, 110, 48, 0.35);
         }
         .m-icon-card .m-ico svg { width: 16px; height: 16px; }
         .m-icon-card .m-text { flex: 1; min-width: 0; }
@@ -574,9 +593,9 @@ if ($ee_is_home) {
                         foreach ($ee_industry_menu as $ind) :
                         ?>
                         <a href="<?php echo esc_url($ind['url']); ?>" class="menu-item" role="menuitem" title="<?php echo esc_attr($ind['title']); ?>">
-                            <div class="icon-box" aria-hidden="true">
+                            <div class="icon-box<?php echo !empty($ind['icon']) ? ' icon-box--image' : ''; ?>" aria-hidden="true">
                                 <?php if (!empty($ind['icon'])) : ?>
-                                    <img src="<?php echo esc_url($ind['icon']); ?>" alt="" style="width:22px;height:22px;object-fit:contain" loading="lazy">
+                                    <img src="<?php echo esc_url($ind['icon']); ?>" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy">
                                 <?php else : ?>
                                     <i data-lucide="building"></i>
                                 <?php endif; ?>
