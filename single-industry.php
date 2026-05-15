@@ -510,8 +510,11 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .marquee-wrap::after{right:0;background:linear-gradient(to left,var(--white),transparent)}
 .marquee-track{display:flex;gap:24px;width:max-content;padding-bottom:14px}
 .marquee-left{animation:scroll-left 40s linear infinite}
+.marquee-right{animation:scroll-right 40s linear infinite}
 @keyframes scroll-left{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 12px))}}
-.marquee-wrap:hover .marquee-left{animation-play-state:paused}
+@keyframes scroll-right{from{transform:translateX(calc(-50% - 12px))}to{transform:translateX(0)}}
+.marquee-stack{display:flex;flex-direction:column;gap:14px}
+.marquee-wrap:hover .marquee-left,.marquee-wrap:hover .marquee-right{animation-play-state:paused}
 .logo-card{width:180px;height:90px;background:var(--off-white);border:1px solid var(--gray-200);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;padding:18px;transition:var(--transition);flex-shrink:0}
 .logo-card:hover{border-color:var(--orange);transform:translateY(-5px);box-shadow:var(--shadow-md)}
 .logo-card img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(100%);opacity:.65;transition:var(--transition)}
@@ -723,8 +726,23 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     <?php if($logo_sub): ?><p class="logo-sub"><?php echo ee_inline_links($logo_sub); ?></p><?php endif; ?>
   </header>
   <div class="marquee-wrap" role="region" aria-label="Trusted institutions carousel">
-    <div class="marquee-track marquee-left">
-      <?php for($i = 0; $i < 2; $i++): foreach($logos as $logo): ?><div class="logo-card"><img src="<?php echo esc_url($logo['image']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>" loading="lazy" decoding="async" width="180" height="90"></div><?php endforeach; endfor; ?>
+    <?php
+    /* Two-row stack — same look as the home-page logo wall. Auto-splits
+       the master logo list in half so each row scrolls in the opposite
+       direction; each row is duplicated for a seamless loop. */
+    $logo_count = count($logos);
+    $split      = (int) ceil($logo_count / 2);
+    $row_a      = array_slice($logos, 0, $split);
+    $row_b      = array_slice($logos, $split);
+    if (empty($row_b)) { $row_b = $row_a; }
+    ?>
+    <div class="marquee-stack">
+      <div class="marquee-track marquee-left">
+        <?php for($i = 0; $i < 2; $i++): foreach($row_a as $logo): ?><div class="logo-card"><img src="<?php echo esc_url($logo['image']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>" loading="lazy" decoding="async" width="180" height="90"></div><?php endforeach; endfor; ?>
+      </div>
+      <div class="marquee-track marquee-right">
+        <?php for($i = 0; $i < 2; $i++): foreach($row_b as $logo): ?><div class="logo-card"><img src="<?php echo esc_url($logo['image']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>" loading="lazy" decoding="async" width="180" height="90"></div><?php endforeach; endfor; ?>
+      </div>
     </div>
   </div>
   <div class="logo-footer reveal">
