@@ -132,6 +132,138 @@ function extraaedge_register_cpts() {
 add_action('init', 'extraaedge_register_cpts');
 
 // ══════════════════════════════════════════════════════════
+// D2. GLOBAL CLIENT LOGOS — managed once, used on every page
+// ══════════════════════════════════════════════════════════
+/**
+ * Return the list of client logos for a given post.
+ * - If the post has explicitly opted out of the master list
+ *   (_logos_use_global === '0') and has its own _logos, use those.
+ * - Otherwise use the master list saved in the 'ee_client_logos' option.
+ *
+ * @return array<array{image:string,alt:string}>
+ */
+function ee_get_client_logos($post_id = 0) {
+    $use_global = '1';
+    if ($post_id) {
+        $opt = get_post_meta($post_id, '_logos_use_global', true);
+        if ($opt === '0') $use_global = '0';
+    }
+    if ($use_global === '0') {
+        $per_post = get_post_meta($post_id, '_logos', true);
+        if (is_array($per_post) && !empty($per_post)) return $per_post;
+    }
+    $global = get_option('ee_client_logos', array());
+    return is_array($global) ? $global : array();
+}
+
+/* Top-level admin menu: 🏢 Client Logos — one place to manage the master list. */
+add_action('admin_menu', function () {
+    add_menu_page(
+        'Client Logos',
+        '🏢 Client Logos',
+        'manage_options',
+        'ee-client-logos',
+        'ee_client_logos_page',
+        'dashicons-format-gallery',
+        59
+    );
+});
+
+/* Save handler for the master list. */
+add_action('admin_post_ee_save_client_logos', function () {
+    if (!current_user_can('manage_options')) wp_die('Forbidden');
+    check_admin_referer('ee_client_logos_save');
+    $rows = isset($_POST['logos']) && is_array($_POST['logos']) ? $_POST['logos'] : array();
+    $clean = array();
+    foreach ($rows as $r) {
+        $image = isset($r['image']) ? esc_url_raw(wp_unslash($r['image'])) : '';
+        $alt   = isset($r['alt'])   ? sanitize_text_field(wp_unslash($r['alt'])) : '';
+        if ($image !== '') $clean[] = array('image' => $image, 'alt' => $alt);
+    }
+    update_option('ee_client_logos', $clean);
+    wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-client-logos')));
+    exit;
+});
+
+function ee_client_logos_page() {
+    $logos = get_option('ee_client_logos', array());
+    if (!is_array($logos)) $logos = array();
+    ?>
+    <div class="wrap">
+        <h1>🏢 Client Logos <span style="font-size:13px;color:#646970;font-weight:400;">— the master list used on every page</span></h1>
+
+        <?php if (!empty($_GET['updated'])) : ?>
+            <div class="notice notice-success is-dismissible"><p><strong>Saved.</strong> Your updated logos are now live on every page that uses the master list.</p></div>
+        <?php endif; ?>
+
+        <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #DE6E30;padding:14px 18px;border-radius:6px;margin:14px 0;max-width:880px;">
+            <strong>How it works</strong>
+            <p style="margin:8px 0 0;color:#475569;line-height:1.55;font-size:13px;">
+                Add or remove client logos here once. Every Product page, Industry page and any template that calls the "Trusted Institutions" section will read this list automatically.
+                If you ever need a different list on a specific page, open that post → <strong>🏢 Logos</strong> tab → untick <em>"Use the master client logo list"</em>.
+            </p>
+        </div>
+
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="max-width:880px;">
+            <input type="hidden" name="action" value="ee_save_client_logos">
+            <?php wp_nonce_field('ee_client_logos_save'); ?>
+
+            <style>
+                .ee-logo-grid { display:grid; gap:8px; margin-bottom:16px; }
+                .ee-logo-row { display:grid; grid-template-columns:60px 1fr 1fr 28px; gap:10px; align-items:center; background:#fff; padding:10px; border:1px solid #e2e8f0; border-radius:6px; }
+                .ee-logo-row img { width:60px;height:36px;object-fit:contain;background:#f8fafc;border-radius:4px; }
+                .ee-logo-row input[type=text], .ee-logo-row input[type=url] { width:100%; padding:7px 9px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px; }
+                .ee-logo-row .remove { background:transparent;border:none;cursor:pointer;color:#94a3b8;font-size:18px; }
+                .ee-logo-row .remove:hover { color:#dc2626; }
+                .ee-add { background:#19335D;color:#fff;border:none;padding:9px 16px;border-radius:5px;cursor:pointer;font-size:13px;font-weight:600; }
+                .ee-add:hover { background:#DE6E30; }
+                .ee-save-bar { position:sticky;bottom:0;background:#fff;padding:12px 0;border-top:1px solid #e2e8f0;display:flex;gap:10px;align-items:center; }
+            </style>
+
+            <div class="ee-logo-grid" id="ee-logo-grid">
+                <?php if (empty($logos)) : ?>
+                    <div class="ee-logo-row">
+                        <img src="" alt="" data-preview>
+                        <input type="url"  name="logos[0][image]" placeholder="https://yoursite.com/wp-content/uploads/client-logo.png" oninput="this.closest('.ee-logo-row').querySelector('[data-preview]').src=this.value">
+                        <input type="text" name="logos[0][alt]"   placeholder="Client name (alt text)">
+                        <button type="button" class="remove" onclick="this.closest('.ee-logo-row').remove()" title="Remove">✕</button>
+                    </div>
+                <?php else : foreach ($logos as $i => $logo) : ?>
+                    <div class="ee-logo-row">
+                        <img src="<?php echo esc_url($logo['image']); ?>" alt="" data-preview>
+                        <input type="url"  name="logos[<?php echo (int)$i; ?>][image]" value="<?php echo esc_attr($logo['image']); ?>" placeholder="https://…/logo.png" oninput="this.closest('.ee-logo-row').querySelector('[data-preview]').src=this.value">
+                        <input type="text" name="logos[<?php echo (int)$i; ?>][alt]"   value="<?php echo esc_attr($logo['alt']); ?>" placeholder="Client name">
+                        <button type="button" class="remove" onclick="if(confirm('Remove this logo from all pages?')) this.closest('.ee-logo-row').remove()" title="Remove">✕</button>
+                    </div>
+                <?php endforeach; endif; ?>
+            </div>
+
+            <button type="button" class="ee-add" onclick="eeAddLogoRow()">+ Add Logo</button>
+
+            <div class="ee-save-bar">
+                <?php submit_button('💾 Save Master Logo List', 'primary large', 'submit', false); ?>
+                <span style="color:#646970;font-size:12px;">Changes apply instantly to every page using the master list.</span>
+            </div>
+        </form>
+
+        <script>
+            function eeAddLogoRow() {
+                var grid = document.getElementById('ee-logo-grid');
+                var idx = grid.children.length;
+                var row = document.createElement('div');
+                row.className = 'ee-logo-row';
+                row.innerHTML = '<img src="" alt="" data-preview>' +
+                    '<input type="url" name="logos['+idx+'][image]" placeholder="https://…/logo.png" oninput="this.closest(\'.ee-logo-row\').querySelector(\'[data-preview]\').src=this.value">' +
+                    '<input type="text" name="logos['+idx+'][alt]" placeholder="Client name">' +
+                    '<button type="button" class="remove" onclick="this.closest(\'.ee-logo-row\').remove()" title="Remove">✕</button>';
+                grid.appendChild(row);
+            }
+        </script>
+    </div>
+    <?php
+}
+
+// ══════════════════════════════════════════════════════════
 // E. ALLOW UNFILTERED HTML FOR FORM EMBEDS (admins only)
 // ══════════════════════════════════════════════════════════
 function extraaedge_allow_form_tags($allowed, $context) {
@@ -535,8 +667,30 @@ function product_hero_fields($post) {
 function product_logos_fields($post) {
     $f = function($k) use ($post) { return get_post_meta($post->ID, '_'.$k, true); };
     $logos = $f('logos') ?: array();
+    $use_global_raw = get_post_meta($post->ID, '_logos_use_global', true);
+    /* Default for new and old posts: use the master list. Only the explicit
+       string '0' means "use the per-post list below". */
+    $use_global = ($use_global_raw !== '0');
+    $master_count = count(get_option('ee_client_logos', array()) ?: array());
+    $logos_admin  = admin_url('admin.php?page=ee-client-logos');
     ?>
 <h3>🏢 Logo Section</h3>
+
+<div style="background:#fff8f1;border:1px solid #fde7d3;border-left:4px solid #DE6E30;padding:12px 14px;border-radius:5px;margin:0 0 18px;">
+    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
+        <input type="hidden" name="logos_use_global" value="0">
+        <input type="checkbox" name="logos_use_global" value="1" <?php checked($use_global, true); ?> style="margin-top:3px;">
+        <span style="line-height:1.5;">
+            <strong>🌐 Use the master client logo list</strong>
+            <span style="display:block;font-size:12px;color:#646970;margin-top:3px;">
+                Recommended. Add/remove logos once in <a href="<?php echo esc_url($logos_admin); ?>" target="_blank"><strong>🏢 Client Logos</strong></a> and every page updates automatically.
+                Currently <strong><?php echo (int) $master_count; ?> logo<?php echo $master_count === 1 ? '' : 's'; ?></strong> in the master list.
+                <br>Uncheck to use the per-post list below on this page only.
+            </span>
+        </span>
+    </label>
+</div>
+
 <div class="field-group"><label>Badge Text</label>           <input type="text" name="logo_badge"       value="<?php echo esc_attr($f('logo_badge')); ?>"></div>
 <div class="field-group"><label>Title Line 1 (small)</label> <input type="text" name="logo_title_line1" value="<?php echo esc_attr($f('logo_title_line1')); ?>"></div>
 <div class="field-group"><label>Main Title</label>           <input type="text" name="logo_title"       value="<?php echo esc_attr($f('logo_title')); ?>"></div>
@@ -1328,6 +1482,13 @@ function product_save_meta_box_data($post_id) {
             }
         }
         update_post_meta($post_id, '_logos', $logos);
+    }
+    /* Master-list toggle. The hidden "0" + checkbox "1" pair makes the
+       posted value reliable whether the box is ticked or not. The last
+       value posted wins, so unticked = '0', ticked = '1'. */
+    if (isset($_POST['logos_use_global'])) {
+        $val = is_array($_POST['logos_use_global']) ? end($_POST['logos_use_global']) : $_POST['logos_use_global'];
+        update_post_meta($post_id, '_logos_use_global', $val === '1' ? '1' : '0');
     }
 
     // ─── Education CRM ───
