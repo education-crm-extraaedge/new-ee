@@ -553,6 +553,9 @@ function product_faq_fields($post) {
 <div class="field-group"><label>Subtitle</label><textarea            name="faq_subtitle" rows="2"><?php echo esc_textarea($f('faq_subtitle')); ?></textarea></div>
 
 <h4>FAQ Items</h4>
+<p style="margin:6px 0 12px;padding:10px 12px;background:#fff8f1;border-left:3px solid #de6e30;border-radius:4px;font-size:12px;color:#555;line-height:1.6;">
+<strong>Tip — use bullets in answers:</strong> Start a line with <code>-&nbsp;</code> or <code>*&nbsp;</code> for a bulleted list. Start with <code>1.&nbsp;</code> <code>2.&nbsp;</code> for a numbered list. Leave a blank line between paragraphs and lists. You can also paste raw HTML like <code>&lt;ul&gt;&lt;li&gt;…&lt;/li&gt;&lt;/ul&gt;</code>.
+</p>
 <div id="faqs-container">
 <?php if (!empty($faqs)) : foreach ($faqs as $i => $faq) : ?>
 <div class="repeater-item"><h4>FAQ <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
@@ -606,6 +609,49 @@ For alternating sections, use the <strong>Section ID</strong> you set in the �
  * @param int $limit  Maximum items to return (0 = no limit).
  * @return array<array{title:string,desc:string,short_desc:string,icon:string,url:string,tags:array}>
  */
+if (!function_exists('ee_format_rich_text')) {
+    /**
+     * Converts admin textarea input to safe HTML with bullet/number lists.
+     * - Lines starting with "- ", "* ", or "• " become <ul><li>
+     * - Lines starting with "1. ", "2. " ... become <ol><li>
+     * - Blank-line-separated blocks become <p>
+     * - Raw HTML the editor types (e.g. <ul><li>) is preserved.
+     */
+    function ee_format_rich_text($text) {
+        if ($text === null || $text === '') return '';
+        $text = (string) $text;
+        $text = str_replace(array("\r\n", "\r"), "\n", $text);
+
+        $blocks = preg_split("/\n{2,}/", trim($text));
+        $out = array();
+
+        foreach ($blocks as $block) {
+            $lines = explode("\n", $block);
+            $first = ltrim($lines[0]);
+
+            $is_ul = (bool) preg_match('/^(\-|\*|•)\s+/', $first);
+            $is_ol = (bool) preg_match('/^\d+[\.\)]\s+/', $first);
+
+            if ($is_ul || $is_ol) {
+                $tag = $is_ul ? 'ul' : 'ol';
+                $items = array();
+                foreach ($lines as $ln) {
+                    $ln = ltrim($ln);
+                    if ($ln === '') continue;
+                    $ln = preg_replace('/^(\-|\*|•)\s+/', '', $ln);
+                    $ln = preg_replace('/^\d+[\.\)]\s+/', '', $ln);
+                    $items[] = '<li>' . $ln . '</li>';
+                }
+                $out[] = '<' . $tag . '>' . implode('', $items) . '</' . $tag . '>';
+            } else {
+                $out[] = wpautop($block);
+            }
+        }
+
+        return wp_kses_post(implode("\n", $out));
+    }
+}
+
 function ee_get_industry_menu_items($limit = 0) {
     static $cache = null;
     if ($cache !== null) {

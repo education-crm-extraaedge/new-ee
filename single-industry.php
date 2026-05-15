@@ -653,6 +653,14 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .faq-inner{padding:0 24px 22px}
 .faq-inner p{font-size:15px;color:var(--gray-600);line-height:1.75;margin-bottom:10px}
 .faq-inner p:last-child{margin-bottom:0}
+.faq-inner ul,.faq-inner ol{font-size:15px;color:var(--gray-600);line-height:1.75;margin:0 0 12px;padding-left:22px}
+.faq-inner ul{list-style:disc}
+.faq-inner ol{list-style:decimal}
+.faq-inner li{margin:4px 0;padding-left:4px}
+.faq-inner li::marker{color:var(--orange)}
+.faq-inner ul:last-child,.faq-inner ol:last-child{margin-bottom:0}
+.faq-inner a{color:var(--orange);text-decoration:underline}
+.faq-inner strong{color:var(--blue);font-weight:700}
 
 @media(max-width:1200px){.toc-zone-wrapper{display:block}.toc-column{display:none}.toc-content-column{width:100%}}
 @media(max-width:1150px){.hero-layout{grid-template-columns:1fr;text-align:center;gap:30px}.hero-desc,.hero-badge{margin-left:auto;margin-right:auto}.proof-bar{border-left:0;border-top:5px solid var(--orange);border-radius:var(--radius-md);text-align:left}.cta-row,.tag-row,.compliance-row{justify-content:center}.hero-form-card{max-width:520px;margin:0 auto}.edu-crm-layout{grid-template-columns:1fr;padding:20px 20px;gap:30px}.flow-panel{position:relative;top:0}}
@@ -957,7 +965,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
               <span class="faq-icon" aria-hidden="true"></span>
             </button>
             <div class="faq-body" id="faq-body-<?php echo (int)$i; ?>">
-              <div class="faq-inner"><?php echo wp_kses_post(wpautop($faq['answer'])); ?></div>
+              <div class="faq-inner"><?php echo function_exists('ee_format_rich_text') ? ee_format_rich_text($faq['answer']) : wp_kses_post(wpautop($faq['answer'])); ?></div>
             </div>
           </article>
           <?php endforeach; ?>
