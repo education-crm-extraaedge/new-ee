@@ -682,7 +682,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
       <article>
         <?php if($hero_badge): ?><div class="hero-badge reveal" role="status"><span class="pulse-dot" aria-hidden="true"></span><?php echo esc_html($hero_badge); ?></div><?php endif; ?>
         <h1 id="hero-heading" class="hero-h1 reveal"><?php echo esc_html($hero_h1_before); ?><?php if($hero_h1_highlight): ?> <span><?php echo esc_html($hero_h1_highlight); ?></span> <?php endif; ?><?php echo esc_html($hero_h1_after); ?></h1>
-        <?php if($hero_desc): ?><p class="hero-desc reveal"><?php echo wp_kses_post($hero_desc); ?></p><?php endif; ?>
+        <?php if($hero_desc): ?><p class="hero-desc reveal"><?php echo ee_inline_links($hero_desc); ?></p><?php endif; ?>
         <?php if(!empty($hero_proofs)): ?><div class="proof-bar reveal" role="complementary" aria-label="Trust indicators"><?php foreach($hero_proofs as $proof): ?><div class="proof-item"><?php echo esc_html($proof); ?></div><?php endforeach; ?></div><?php endif; ?>
         <?php if(!empty($stats)): ?><div class="stats-grid reveal" role="region" aria-label="Key statistics"><?php foreach($stats as $stat): ?><div class="stat-card"><span class="stat-num"><?php echo esc_html($stat['number']); ?></span><span class="stat-label"><?php echo esc_html($stat['label']); ?></span></div><?php endforeach; ?></div><?php endif; ?>
         <?php if($result_badge): ?><div class="result-badge reveal"><?php echo esc_html($result_badge); ?></div><?php endif; ?>
@@ -720,7 +720,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     <?php if($logo_badge): ?><div class="logo-badge"><?php echo esc_html($logo_badge); ?></div><?php endif; ?>
     <?php if($logo_title_line1): ?><p style="font-family:var(--font-h);font-weight:700;font-size:1rem;color:var(--blue);margin-bottom:10px"><?php echo esc_html($logo_title_line1); ?></p><?php endif; ?>
     <?php if($logo_title): ?><h2 id="logo-title" class="logo-title"><?php echo esc_html($logo_title); ?></h2><?php endif; ?>
-    <?php if($logo_sub): ?><p class="logo-sub"><?php echo wp_kses_post($logo_sub); ?></p><?php endif; ?>
+    <?php if($logo_sub): ?><p class="logo-sub"><?php echo ee_inline_links($logo_sub); ?></p><?php endif; ?>
   </header>
   <div class="marquee-wrap" role="region" aria-label="Trusted institutions carousel">
     <div class="marquee-track marquee-left">
@@ -783,10 +783,10 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <div class="edu-crm-layout">
           <article>
             <?php if($educrm_h2): ?><h2 id="edu-crm-heading" class="edu-crm-h2 reveal"><?php echo esc_html($educrm_h2); ?></h2><?php endif; ?>
-            <?php if($educrm_p1): ?><p class="edu-crm-p reveal"><?php echo wp_kses_post($educrm_p1); ?></p><?php endif; ?>
-            <?php if($educrm_p2): ?><p class="edu-crm-p reveal"><?php echo wp_kses_post($educrm_p2); ?></p><?php endif; ?>
-            <?php if($educrm_p3): ?><p class="edu-crm-p reveal"><?php echo wp_kses_post($educrm_p3); ?></p><?php endif; ?>
-            <?php if($growth_val || $growth_text): ?><aside class="growth-card reveal" role="complementary"><?php if($growth_val): ?><div class="growth-val"><?php echo esc_html($growth_val); ?></div><?php endif; ?><?php if($growth_text): ?><div class="growth-text"><?php echo wp_kses_post($growth_text); ?></div><?php endif; ?></aside><?php endif; ?>
+            <?php if($educrm_p1): ?><p class="edu-crm-p reveal"><?php echo ee_inline_links($educrm_p1); ?></p><?php endif; ?>
+            <?php if($educrm_p2): ?><p class="edu-crm-p reveal"><?php echo ee_inline_links($educrm_p2); ?></p><?php endif; ?>
+            <?php if($educrm_p3): ?><p class="edu-crm-p reveal"><?php echo ee_inline_links($educrm_p3); ?></p><?php endif; ?>
+            <?php if($growth_val || $growth_text): ?><aside class="growth-card reveal" role="complementary"><?php if($growth_val): ?><div class="growth-val"><?php echo esc_html($growth_val); ?></div><?php endif; ?><?php if($growth_text): ?><div class="growth-text"><?php echo ee_inline_links($growth_text); ?></div><?php endif; ?></aside><?php endif; ?>
           </article>
           <?php if(!empty($flow_steps)): ?>
           <aside class="flow-panel reveal" id="flow-zone" role="complementary" aria-label="Admission processing flow">
@@ -833,7 +833,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
       <div class="alt-layout">
         <article class="alt-content reveal" style="order:<?php echo ($section['image_position'] === 'left') ? '2' : '1'; ?>">
           <h2 id="sec-<?php echo esc_attr($section['id']); ?>-heading" class="alt-h2"><?php echo esc_html($section['heading']); ?></h2>
-          <?php if(!empty($section['description'])): ?><p class="alt-desc"><?php echo wp_kses_post($section['description']); ?></p><?php endif; ?>
+          <?php if(!empty($section['description'])): ?><p class="alt-desc"><?php echo ee_inline_links($section['description']); ?></p><?php endif; ?>
           <?php if(!empty($section['features'])): ?>
           <h3 class="alt-h3"><?php echo esc_html(!empty($section['features_heading']) ? $section['features_heading'] : 'Key Features'); ?></h3>
           <ul class="feature-list">
@@ -856,7 +856,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <div class="cta-content reveal">
           <?php if($bottom_label): ?><div class="cta-label-wrap"><span class="pulse-dot" aria-hidden="true"></span><?php echo esc_html($bottom_label); ?></div><?php endif; ?>
           <?php if($bottom_h2): ?><h2 id="bottom-cta-heading" class="cta-h2"><?php echo esc_html($bottom_h2); ?></h2><?php endif; ?>
-          <?php if($bottom_h3): ?><p class="cta-h3"><?php echo wp_kses_post($bottom_h3); ?></p><?php endif; ?>
+          <?php if($bottom_h3): ?><p class="cta-h3"><?php echo ee_inline_links($bottom_h3); ?></p><?php endif; ?>
           <?php if($bottom_cta_text): ?><a href="<?php echo esc_url($bottom_cta_url ?: '#admission-form'); ?>" class="btn-primary" style="font-size:17px;padding:18px 40px" aria-label="<?php echo esc_attr($bottom_cta_text); ?>"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg><?php echo esc_html($bottom_cta_text); ?></a><?php endif; ?>
         </div>
         <?php if(!empty($products)): ?>
@@ -884,7 +884,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <header class="testi-header">
           <?php if($testi_tagline): ?><span class="testi-tagline"><?php echo esc_html($testi_tagline); ?></span><?php endif; ?>
           <?php if($testi_title): ?><h2 id="testi-title" class="testi-title"><?php echo wp_kses_post($testi_title); ?></h2><?php endif; ?>
-          <?php if($testi_sub): ?><p class="testi-sub"><?php echo wp_kses_post($testi_sub); ?></p><?php endif; ?>
+          <?php if($testi_sub): ?><p class="testi-sub"><?php echo ee_inline_links($testi_sub); ?></p><?php endif; ?>
         </header>
         <?php if(!empty($metrics)): ?>
         <div class="testi-metrics" role="region" aria-label="Customer impact metrics">
@@ -903,7 +903,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
               <img src="https://img.youtube.com/vi/<?php echo esc_attr($test['youtube_id']); ?>/maxresdefault.jpg" alt="<?php echo esc_attr($test['name']); ?> — video testimonial" loading="lazy" decoding="async" width="640" height="360">
             </div>
             <div class="card-body">
-              <?php if(!empty($test['quote'])): ?><blockquote class="card-quote"><?php echo wp_kses_post($test['quote']); ?></blockquote><?php endif; ?>
+              <?php if(!empty($test['quote'])): ?><blockquote class="card-quote"><?php echo ee_inline_links($test['quote']); ?></blockquote><?php endif; ?>
               <div class="card-profile">
                 <?php if(!empty($test['avatar'])): ?><img src="<?php echo esc_url($test['avatar']); ?>" class="card-avatar" alt="<?php echo esc_attr($test['name']); ?>" loading="lazy" decoding="async" width="64" height="64"><?php endif; ?>
                 <div>
@@ -926,7 +926,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
       <div class="ai-demo-inner">
         <div class="ai-cta-content reveal">
           <h2 id="ai-cta-heading" class="ai-cta-h2"><?php echo esc_html($aidemo_h2); ?></h2>
-          <?php if($aidemo_sub): ?><p class="ai-cta-sub"><?php echo wp_kses_post($aidemo_sub); ?></p><?php endif; ?>
+          <?php if($aidemo_sub): ?><p class="ai-cta-sub"><?php echo ee_inline_links($aidemo_sub); ?></p><?php endif; ?>
           <div class="ai-cta-actions">
             <?php if($aidemo_cta_text): ?><a href="<?php echo esc_url($aidemo_cta_url ?: '#admission-form'); ?>" class="btn-cta-rounded" aria-label="<?php echo esc_attr($aidemo_cta_text); ?>"><?php echo esc_html($aidemo_cta_text); ?></a><?php endif; ?>
             <?php if($aidemo_trust): ?><div class="ai-trust"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DE6E30" stroke-width="3" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><?php echo esc_html($aidemo_trust); ?></div><?php endif; ?>
@@ -957,7 +957,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <header class="faq-header reveal">
           <?php if($faq_badge): ?><div class="faq-outcome-badge"><?php echo esc_html($faq_badge); ?></div><?php endif; ?>
           <?php if($faq_title): ?><h2 id="faq-title" class="faq-title"><?php echo esc_html($faq_title); ?></h2><?php endif; ?>
-          <?php if($faq_subtitle): ?><p class="faq-subtitle"><?php echo wp_kses_post($faq_subtitle); ?></p><?php endif; ?>
+          <?php if($faq_subtitle): ?><p class="faq-subtitle"><?php echo ee_inline_links($faq_subtitle); ?></p><?php endif; ?>
         </header>
         <div class="faq-list" id="faq-list">
           <?php foreach($faqs as $i => $faq): ?>

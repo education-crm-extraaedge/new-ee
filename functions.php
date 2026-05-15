@@ -209,8 +209,191 @@ function product_add_meta_boxes() {
         'normal',
         'high'
     );
+
+    /* Right-hand sidebar: searchable list of internal pages with one-click copy buttons.
+       Lets a non-coder insert links into any text field without writing HTML. */
+    add_meta_box(
+        'ee_link_picker',
+        '🔗 Internal Link Picker',
+        'ee_link_picker_render',
+        array('product', 'industry', 'page', 'post'),
+        'side',
+        'low'
+    );
 }
 add_action('add_meta_boxes', 'product_add_meta_boxes');
+
+// ══════════════════════════════════════════════════════════
+// LINK PICKER — sidebar widget for inserting internal links
+// ══════════════════════════════════════════════════════════
+function ee_link_picker_render($post) {
+    /* Build a flat list of internal targets:
+       - Static section anchors on the current post (TOC anchors)
+       - All published Pages, Products, Industries (titles + URLs) */
+    $current_id = $post->ID;
+    $targets = array();
+
+    /* In-page anchors (only for product/industry CPTs that have the auto-anchor helper) */
+    if (function_exists('ee_get_available_toc_anchors') && in_array($post->post_type, array('product','industry'), true)) {
+        foreach (ee_get_available_toc_anchors($current_id) as $a) {
+            $targets[] = array(
+                'group' => 'On this page',
+                'label' => $a['label'],
+                'url'   => '#' . $a['anchor'],
+            );
+        }
+    }
+
+    /* All published Pages, Products, Industries */
+    $groups = array(
+        'page'     => 'Pages',
+        'product'  => 'Products',
+        'industry' => 'Industries',
+    );
+    foreach ($groups as $pt => $group_label) {
+        $q = new WP_Query(array(
+            'post_type'      => $pt,
+            'post_status'    => 'publish',
+            'posts_per_page' => -1,
+            'orderby'        => 'title',
+            'order'          => 'ASC',
+            'no_found_rows'  => true,
+            'fields'         => 'ids',
+        ));
+        foreach ($q->posts as $pid) {
+            if ((int)$pid === (int)$current_id) continue;
+            $targets[] = array(
+                'group' => $group_label,
+                'label' => get_the_title($pid),
+                'url'   => str_replace(home_url(), '', get_permalink($pid)) ?: '/',
+            );
+        }
+    }
+    ?>
+    <style>
+        .ee-lp-tip   { background:#eff6ff; border-left:3px solid #2563eb; padding:8px 10px; font-size:12px; line-height:1.55; color:#1e3a8a; border-radius:0 4px 4px 0; margin-bottom:10px; }
+        .ee-lp-tip code { background:#fff; padding:1px 5px; border-radius:3px; font-size:11.5px; }
+        .ee-lp-search { width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px; margin-bottom:8px; box-sizing:border-box; }
+        .ee-lp-list   { max-height:340px; overflow-y:auto; border:1px solid #e2e8f0; border-radius:5px; background:#fff; }
+        .ee-lp-group  { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:#94a3b8; padding:8px 10px 4px; background:#f8fafc; border-bottom:1px solid #e2e8f0; }
+        .ee-lp-item   { display:grid; grid-template-columns:1fr auto; gap:6px; align-items:center; padding:7px 10px; border-bottom:1px solid #f1f5f9; font-size:12.5px; }
+        .ee-lp-item:hover { background:#fff8f1; }
+        .ee-lp-title  { color:#19335D; font-weight:600; word-break:break-word; line-height:1.35; }
+        .ee-lp-url    { color:#64748b; font-size:11px; font-family:ui-monospace,Menlo,monospace; word-break:break-all; }
+        .ee-lp-copy   { background:#19335D; color:#fff; border:none; padding:5px 9px; font-size:11px; border-radius:3px; cursor:pointer; flex-shrink:0; }
+        .ee-lp-copy:hover { background:#DE6E30; }
+        .ee-lp-copy.copied { background:#16a34a; }
+        .ee-lp-hidden { display:none !important; }
+        .ee-lp-builder { background:#fff8f1; border:1px solid #fde7d3; padding:10px; border-radius:5px; margin-top:10px; }
+        .ee-lp-builder label { display:block; font-size:11.5px; font-weight:600; margin-bottom:3px; color:#1d2327; }
+        .ee-lp-builder input { width:100%; padding:6px 8px; border:1px solid #cbd5e1; border-radius:3px; font-size:12px; margin-bottom:6px; box-sizing:border-box; }
+        .ee-lp-builder .ee-lp-preview { background:#fff; padding:6px 8px; border:1px dashed #cbd5e1; border-radius:3px; font-family:ui-monospace,Menlo,monospace; font-size:11.5px; word-break:break-all; min-height:18px; color:#0f172a; }
+    </style>
+
+    <div class="ee-lp-tip">
+        <strong>How to insert a link anywhere:</strong><br>
+        Type <code>[click here](/url/)</code> in any text field. It will render as a clickable link.<br>
+        Or use the buttons below to <strong>copy a ready-made link</strong> and paste it into your text.
+    </div>
+
+    <input type="search" id="ee-lp-search" class="ee-lp-search" placeholder="🔎 Search pages, products, industries…" autocomplete="off">
+
+    <div class="ee-lp-list" id="ee-lp-list">
+        <?php
+        $last_group = '';
+        foreach ($targets as $t) :
+            if ($t['group'] !== $last_group) :
+                if ($last_group !== '') echo '';
+                ?><div class="ee-lp-group"><?php echo esc_html($t['group']); ?></div><?php
+                $last_group = $t['group'];
+            endif;
+            $markdown = '[' . $t['label'] . '](' . $t['url'] . ')';
+            ?>
+            <div class="ee-lp-item" data-search="<?php echo esc_attr(strtolower($t['label'] . ' ' . $t['url'])); ?>">
+                <div>
+                    <div class="ee-lp-title"><?php echo esc_html($t['label']); ?></div>
+                    <div class="ee-lp-url"><?php echo esc_html($t['url']); ?></div>
+                </div>
+                <button type="button" class="ee-lp-copy" data-copy="<?php echo esc_attr($markdown); ?>" title="Copy this link tag">Copy</button>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="ee-lp-builder">
+        <label>Build a custom link</label>
+        <input type="text" id="ee-lp-text" placeholder="Visible text (e.g. Read more)">
+        <input type="text" id="ee-lp-href" placeholder="URL or #anchor (e.g. /pricing/ or #faq)">
+        <div class="ee-lp-preview" id="ee-lp-preview" aria-live="polite">[Read more](/pricing/)</div>
+        <button type="button" class="ee-lp-copy" id="ee-lp-build-copy" style="margin-top:6px;width:100%;padding:7px;">Copy custom link</button>
+    </div>
+
+    <script>
+    (function(){
+        var search = document.getElementById('ee-lp-search');
+        var items  = document.querySelectorAll('#ee-lp-list .ee-lp-item');
+        var groups = document.querySelectorAll('#ee-lp-list .ee-lp-group');
+
+        function filter() {
+            var q = (search.value || '').trim().toLowerCase();
+            items.forEach(function(it){
+                var match = !q || it.dataset.search.indexOf(q) !== -1;
+                it.classList.toggle('ee-lp-hidden', !match);
+            });
+            // Hide group headers whose visible items are all hidden
+            groups.forEach(function(g){
+                var visible = false, n = g.nextElementSibling;
+                while (n && !n.classList.contains('ee-lp-group')) {
+                    if (n.classList.contains('ee-lp-item') && !n.classList.contains('ee-lp-hidden')) { visible = true; break; }
+                    n = n.nextElementSibling;
+                }
+                g.classList.toggle('ee-lp-hidden', !visible);
+            });
+        }
+        search.addEventListener('input', filter);
+
+        function copyText(t) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                return navigator.clipboard.writeText(t);
+            }
+            var ta = document.createElement('textarea');
+            ta.value = t; document.body.appendChild(ta);
+            ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+            return Promise.resolve();
+        }
+        document.querySelectorAll('.ee-lp-copy[data-copy]').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                copyText(btn.dataset.copy).then(function(){
+                    var orig = btn.textContent;
+                    btn.textContent = '✓ Copied';
+                    btn.classList.add('copied');
+                    setTimeout(function(){ btn.textContent = orig; btn.classList.remove('copied'); }, 1300);
+                });
+            });
+        });
+
+        // Custom builder
+        var bt = document.getElementById('ee-lp-text');
+        var bh = document.getElementById('ee-lp-href');
+        var bp = document.getElementById('ee-lp-preview');
+        var bc = document.getElementById('ee-lp-build-copy');
+        function updateBuilder() {
+            var t = bt.value || 'link text';
+            var h = bh.value || '/your-url/';
+            bp.textContent = '[' + t + '](' + h + ')';
+        }
+        bt.addEventListener('input', updateBuilder);
+        bh.addEventListener('input', updateBuilder);
+        bc.addEventListener('click', function(){
+            copyText(bp.textContent).then(function(){
+                bc.textContent = '✓ Copied';
+                bc.classList.add('copied');
+                setTimeout(function(){ bc.textContent = 'Copy custom link'; bc.classList.remove('copied'); }, 1300);
+            });
+        });
+    })();
+    </script>
+    <?php
+}
 
 function product_all_settings_callback($post) {
     wp_nonce_field('product_meta_box', 'product_meta_box_nonce');
@@ -812,6 +995,33 @@ function product_toc_fields($post) {
  * @param int $limit  Maximum items to return (0 = no limit).
  * @return array<array{title:string,desc:string,short_desc:string,icon:string,url:string,tags:array}>
  */
+if (!function_exists('ee_inline_links')) {
+    /**
+     * Inline-safe link converter for short fields (hero desc, paragraphs,
+     * subtitles). Converts [label](url) and [label](#anchor) to <a> tags.
+     * External http(s) URLs open in a new tab. Returns HTML-safe output.
+     */
+    function ee_inline_links($text) {
+        if ($text === null || $text === '') return '';
+        $text = (string) $text;
+        $text = preg_replace_callback(
+            '/\[([^\]]+)\]\(([^)\s]+)\)/u',
+            function ($m) {
+                $label = $m[1];
+                $url   = trim($m[2]);
+                $is_anchor   = strpos($url, '#') === 0;
+                $is_internal = $is_anchor || strpos($url, '/') === 0 || strpos($url, site_url()) === 0;
+                $attrs = $is_internal
+                    ? 'href="' . esc_url($url) . '"'
+                    : 'href="' . esc_url($url) . '" target="_blank" rel="noopener noreferrer"';
+                return '<a ' . $attrs . '>' . esc_html($label) . '</a>';
+            },
+            $text
+        );
+        return wp_kses_post($text);
+    }
+}
+
 if (!function_exists('ee_format_rich_text')) {
     /**
      * Converts admin textarea input to safe HTML with bullet/number lists.
@@ -824,6 +1034,26 @@ if (!function_exists('ee_format_rich_text')) {
         if ($text === null || $text === '') return '';
         $text = (string) $text;
         $text = str_replace(array("\r\n", "\r"), "\n", $text);
+
+        /* Markdown-style links: [label](url)  →  <a href="url">label</a>
+           - URLs starting with "#"          → in-page anchor (same tab)
+           - Relative URLs starting with "/" → internal (same tab)
+           - Absolute http(s) URLs           → new tab, rel noopener
+           Runs BEFORE block parsing so links inside list items work too. */
+        $text = preg_replace_callback(
+            '/\[([^\]]+)\]\(([^)\s]+)\)/u',
+            function ($m) {
+                $label = $m[1];
+                $url   = trim($m[2]);
+                $is_anchor   = strpos($url, '#') === 0;
+                $is_internal = $is_anchor || strpos($url, '/') === 0 || strpos($url, site_url()) === 0;
+                $attrs = $is_internal
+                    ? 'href="' . esc_url($url) . '"'
+                    : 'href="' . esc_url($url) . '" target="_blank" rel="noopener noreferrer"';
+                return '<a ' . $attrs . '>' . esc_html($label) . '</a>';
+            },
+            $text
+        );
 
         $blocks = preg_split("/\n{2,}/", trim($text));
         $out = array();
