@@ -1419,6 +1419,57 @@ add_action('template_redirect', function () {
 });
 
 // ══════════════════════════════════════════════════════════
+// O2. CUSTOM URL ROUTE OVERRIDES
+// ══════════════════════════════════════════════════════════
+/**
+ * Force specific URL paths to render a theme template file directly,
+ * regardless of whether a Page / Category / Tag with that slug exists.
+ *
+ * Useful when a slug is already taken by a category (e.g. "industries"
+ * in the nav menu) and we still want a marketing landing on that URL
+ * without renaming the category or fighting WordPress's template
+ * hierarchy.
+ *
+ * Add new routes by appending to $ee_custom_routes below.
+ */
+add_action('template_redirect', function () {
+    $ee_custom_routes = array(
+        'industries' => 'page-industries.php',
+        'industry'   => 'page-industry.php',
+        'company'    => 'page-company.php',
+    );
+
+    $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
+    if (!isset($ee_custom_routes[$path])) return;
+
+    $template = get_stylesheet_directory() . '/' . $ee_custom_routes[$path];
+    if (!file_exists($template)) {
+        $template = get_template_directory() . '/' . $ee_custom_routes[$path];
+        if (!file_exists($template)) return;
+    }
+
+    // Convince WordPress this is a successful page render, not a 404.
+    global $wp_query;
+    if ($wp_query) {
+        $wp_query->is_404      = false;
+        $wp_query->is_home     = false;
+        $wp_query->is_archive  = false;
+        $wp_query->is_category = false;
+        $wp_query->is_tag      = false;
+        $wp_query->is_tax      = false;
+        $wp_query->is_search   = false;
+        $wp_query->is_single   = false;
+        $wp_query->is_page     = true;
+        $wp_query->is_singular = true;
+    }
+    status_header(200);
+    nocache_headers();
+
+    include $template;
+    exit;
+}, 0); // priority 0 — run before the is_404 status_header above
+
+// ══════════════════════════════════════════════════════════
 // P. BODY CLASSES (entity signals for crawlers)
 // ══════════════════════════════════════════════════════════
 add_filter('body_class', function ($classes) {
