@@ -770,35 +770,44 @@ get_header();
         array('https://www.extraaedge.com/wp-content/uploads/2024/12/fostima.webp', 'Fostima'),
       );
       ?>
+      <?php
+      /* Build clean lists first — skip any slot whose URL the editor cleared
+         in the home editor so empty cards do not render. */
+      $row_t1 = array();
+      for ($i = 1; $i <= 8; $i++) {
+          $u = trim((string) ee_raw("logo_t1_{$i}_url"));
+          if ($u === '') continue;
+          $row_t1[] = array('u' => $u, 'a' => ee_raw("logo_t1_{$i}_alt"));
+      }
+      $row_t2 = array();
+      for ($i = 1; $i <= 7; $i++) {
+          $u = trim((string) ee_raw("logo_t2_{$i}_url"));
+          if ($u === '') continue;
+          $row_t2[] = array('u' => $u, 'a' => ee_raw("logo_t2_{$i}_alt"));
+      }
+      ?>
       <!-- Track 1: Moving Left -->
+      <?php if (!empty($row_t1)): ?>
       <div class="sp-marquee-track sp-track-1">
-        <?php for ($i = 1; $i <= 8; $i++):
-            $u = ee_raw("logo_t1_{$i}_url", $t1[$i-1][0]);
-            $a = ee_raw("logo_t1_{$i}_alt", $t1[$i-1][1]); ?>
-        <div class="sp-logo-card"><img src="<?php echo esc_url($u); ?>" alt="<?php echo esc_attr($a); ?>" class="sp-img"></div>
-        <?php endfor; ?>
-        <!-- Duplicates for seamless loop -->
-        <?php for ($i = 1; $i <= 4; $i++):
-            $u = ee_raw("logo_t1_{$i}_url", $t1[$i-1][0]);
-            $a = ee_raw("logo_t1_{$i}_alt", $t1[$i-1][1]); ?>
-        <div class="sp-logo-card"><img src="<?php echo esc_url($u); ?>" alt="<?php echo esc_attr($a); ?>" class="sp-img"></div>
-        <?php endfor; ?>
+        <?php /* render twice for a seamless loop */
+        for ($pass = 0; $pass < 2; $pass++):
+          foreach ($row_t1 as $logo): ?>
+        <div class="sp-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" class="sp-img"></div>
+        <?php endforeach;
+        endfor; ?>
       </div>
+      <?php endif; ?>
 
       <!-- Track 2: Moving Right -->
+      <?php if (!empty($row_t2)): ?>
       <div class="sp-marquee-track sp-track-2">
-        <?php for ($i = 1; $i <= 7; $i++):
-            $u = ee_raw("logo_t2_{$i}_url", $t2[$i-1][0]);
-            $a = ee_raw("logo_t2_{$i}_alt", $t2[$i-1][1]); ?>
-        <div class="sp-logo-card"><img src="<?php echo esc_url($u); ?>" alt="<?php echo esc_attr($a); ?>" class="sp-img"></div>
-        <?php endfor; ?>
-        <!-- Duplicates for seamless loop -->
-        <?php for ($i = 1; $i <= 5; $i++):
-            $u = ee_raw("logo_t2_{$i}_url", $t2[$i-1][0]);
-            $a = ee_raw("logo_t2_{$i}_alt", $t2[$i-1][1]); ?>
-        <div class="sp-logo-card"><img src="<?php echo esc_url($u); ?>" alt="<?php echo esc_attr($a); ?>" class="sp-img"></div>
-        <?php endfor; ?>
+        <?php for ($pass = 0; $pass < 2; $pass++):
+          foreach ($row_t2 as $logo): ?>
+        <div class="sp-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" class="sp-img"></div>
+        <?php endforeach;
+        endfor; ?>
       </div>
+      <?php endif; ?>
     </div>
 
     <!-- Footer Action Section -->
