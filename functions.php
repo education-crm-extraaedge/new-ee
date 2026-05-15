@@ -155,7 +155,7 @@ add_action('get_header', function () { remove_action('wp_head', '_admin_bar_bump
 // ══════════════════════════════════════════════════════════
 function product_admin_styles() {
     global $post_type;
-    if ($post_type !== 'product') return;
+    if (!in_array($post_type, array('product', 'industry'), true)) return;
     ?>
 <style>
 .product-tabs-wrapper{margin-top:20px}
@@ -198,11 +198,14 @@ add_action('admin_head', 'product_admin_styles');
 // G. PRODUCT META BOX
 // ══════════════════════════════════════════════════════════
 function product_add_meta_boxes() {
+    /* Same tabbed editor renders for both 'product' and 'industry' CPTs so single-product
+       and single-industry templates share the same 200+ editable fields without duplicating
+       400+ lines of meta-box markup. */
     add_meta_box(
         'product_all_settings',
-        '📋 Product Page Settings (All Content Editable)',
+        '📋 Page Settings (All Content Editable)',
         'product_all_settings_callback',
-        'product',
+        array('product', 'industry'),
         'normal',
         'high'
     );
@@ -731,7 +734,7 @@ function product_save_meta_box_data($post_id) {
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (wp_is_post_revision($post_id)) return;
     if (!current_user_can('edit_post', $post_id)) return;
-    if (get_post_type($post_id) !== 'product') return;
+    if (!in_array(get_post_type($post_id), array('product', 'industry'), true)) return;
 
     // ─── SEO ───
     $seo_fields = array('seo_title','seo_description','seo_keywords','og_image','canonical_url','schema_type','twitter_card','twitter_title','twitter_desc');
