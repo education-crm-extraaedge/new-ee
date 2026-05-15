@@ -41,12 +41,10 @@ if (!function_exists('ee_raw')) {
 get_header();
 ?>
 
-<!-- ─── Global libs loaded by sections (Tailwind + Lucide + Alpine + fonts) ─── -->
+<!-- ─── Global libs needed by sections (Alpine + extra fonts only — Tailwind & Lucide already loaded by header.php) ─── -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 <script>
     if (window.tailwind) {
@@ -844,8 +842,9 @@ get_header();
 
     .vidya-wrap .visual-viewport {
         position: sticky;
-        top: 0;
-        height: 100vh;
+        /* Offset for the global sticky #site-header (h-20 mobile / h-24 desktop) so the CRM mock isn't hidden under the nav */
+        top: 96px;
+        height: calc(100vh - 96px);
         display: flex;
         align-items: center;
         justify-content: center;

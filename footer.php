@@ -6,6 +6,8 @@
 if (!defined('ABSPATH')) exit;
 ?>
 
+</main><!-- /#main-content (opened in header.php) -->
+
 <!--  Start Footer Section -->
 
 <!-- Plus Jakarta Sans font (only Inter + Open Sans loaded in header.php — Jakarta Sans is footer-specific) -->
@@ -14,7 +16,9 @@ if (!defined('ABSPATH')) exit;
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-    :root {
+    /* RESET & BASE — variables scoped here (NOT to global :root) so they don't bleed into other sections */
+    #extraaedge-footer-engine {
+        all: unset;
         --ee-orange: #DE6E30;
         --ee-blue-brand: #19335D;
         --ee-slate-900: #0F172A;
@@ -24,11 +28,6 @@ if (!defined('ABSPATH')) exit;
         --ee-radius-lg: 24px;
         --ee-radius-sm: 12px;
         --ee-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* RESET & BASE */
-    #extraaedge-footer-engine {
-        all: unset;
         display: block;
         background: var(--ee-white);
         font-family: 'Inter', sans-serif;

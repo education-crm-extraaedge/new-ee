@@ -941,3 +941,6 @@ if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads
             }
         });
     </script>
+
+<!-- Main content landmark — required so the skip-to-content link has a target and screen readers/SEO recognise the primary content area. Closed in footer.php. -->
+<main id="main-content" role="main">
