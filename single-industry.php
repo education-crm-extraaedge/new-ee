@@ -825,7 +825,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
           <h2 id="sec-<?php echo esc_attr($section['id']); ?>-heading" class="alt-h2"><?php echo esc_html($section['heading']); ?></h2>
           <?php if(!empty($section['description'])): ?><p class="alt-desc"><?php echo wp_kses_post($section['description']); ?></p><?php endif; ?>
           <?php if(!empty($section['features'])): ?>
-          <h3 class="alt-h3">Key Features</h3>
+          <h3 class="alt-h3"><?php echo esc_html(!empty($section['features_heading']) ? $section['features_heading'] : 'Key Features'); ?></h3>
           <ul class="feature-list">
             <?php foreach(explode("\n", trim($section['features'])) as $line): $line = trim($line); if($line): ?>
             <li class="feature-item"><span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text"><?php echo esc_html($line); ?></span></li>

@@ -444,6 +444,7 @@ function product_sections_fields($post) {
 <div class="field-group"><label>Section ID (slug for TOC anchor)</label><input type="text" name="sections[<?php echo $i; ?>][id]"             value="<?php echo esc_attr($section['id']);             ?>" placeholder="lead-management"></div>
 <div class="field-group"><label>Heading</label>                                     <input type="text" name="sections[<?php echo $i; ?>][heading]"        value="<?php echo esc_attr($section['heading']);        ?>"></div>
 <div class="field-group"><label>Description</label><textarea                                          name="sections[<?php echo $i; ?>][description]"    rows="4"><?php echo esc_textarea($section['description']); ?></textarea></div>
+<div class="field-group"><label>Features Heading (small label above the bullet list)</label><input type="text" name="sections[<?php echo $i; ?>][features_heading]" value="<?php echo esc_attr(isset($section['features_heading']) ? $section['features_heading'] : ''); ?>" placeholder="Key Features"><p class="field-help">Defaults to <strong>“Key Features”</strong> when blank. Leave blank to hide if there are no bullet points.</p></div>
 <div class="field-group"><label>Features (one per line)</label><textarea                              name="sections[<?php echo $i; ?>][features]"       rows="6"><?php echo esc_textarea($section['features']); ?></textarea></div>
 <div class="field-group"><label>Image URL</label>                                   <input type="url"  name="sections[<?php echo $i; ?>][image]"          value="<?php echo esc_attr($section['image']); ?>"></div>
 <div class="field-group"><label>Image Position</label><select                                         name="sections[<?php echo $i; ?>][image_position]"><option value="right" <?php selected($section['image_position'],'right'); ?>>Right</option><option value="left" <?php selected($section['image_position'],'left'); ?>>Left</option></select></div>
@@ -452,7 +453,7 @@ function product_sections_fields($post) {
 </div>
 <?php endforeach; endif; ?>
 </div>
-<button type="button" class="add-item-btn" onclick="var idx=jQuery('#sections-container .repeater-item').length;jQuery('#sections-container').append('<div class=\'repeater-item section-item\'><h4>Section '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Section ID</label><input type=\'text\' name=\'sections['+idx+'][id]\' placeholder=\'section-id\' /></div><div class=\'field-group\'><label>Heading</label><input type=\'text\' name=\'sections['+idx+'][heading]\' /></div><div class=\'field-group\'><label>Description</label><textarea name=\'sections['+idx+'][description]\' rows=\'4\'></textarea></div><div class=\'field-group\'><label>Features (one per line)</label><textarea name=\'sections['+idx+'][features]\' rows=\'6\'></textarea></div><div class=\'field-group\'><label>Image URL</label><input type=\'url\' name=\'sections['+idx+'][image]\' /></div><div class=\'field-group\'><label>Image Position</label><select name=\'sections['+idx+'][image_position]\'><option value=\'right\'>Right</option><option value=\'left\'>Left</option></select></div><div class=\'field-group\'><label>CTA Text</label><input type=\'text\' name=\'sections['+idx+'][cta_text]\' /></div><div class=\'field-group\'><label>CTA URL</label><input type=\'url\' name=\'sections['+idx+'][cta_url]\' /></div></div>')">+ Add Section</button>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#sections-container .repeater-item').length;jQuery('#sections-container').append('<div class=\'repeater-item section-item\'><h4>Section '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Section ID</label><input type=\'text\' name=\'sections['+idx+'][id]\' placeholder=\'section-id\' /></div><div class=\'field-group\'><label>Heading</label><input type=\'text\' name=\'sections['+idx+'][heading]\' /></div><div class=\'field-group\'><label>Description</label><textarea name=\'sections['+idx+'][description]\' rows=\'4\'></textarea></div><div class=\'field-group\'><label>Features Heading</label><input type=\'text\' name=\'sections['+idx+'][features_heading]\' placeholder=\'Key Features\' /></div><div class=\'field-group\'><label>Features (one per line)</label><textarea name=\'sections['+idx+'][features]\' rows=\'6\'></textarea></div><div class=\'field-group\'><label>Image URL</label><input type=\'url\' name=\'sections['+idx+'][image]\' /></div><div class=\'field-group\'><label>Image Position</label><select name=\'sections['+idx+'][image_position]\'><option value=\'right\'>Right</option><option value=\'left\'>Left</option></select></div><div class=\'field-group\'><label>CTA Text</label><input type=\'text\' name=\'sections['+idx+'][cta_text]\' /></div><div class=\'field-group\'><label>CTA URL</label><input type=\'url\' name=\'sections['+idx+'][cta_url]\' /></div></div>')">+ Add Section</button>
     <?php
 }
 
@@ -873,14 +874,15 @@ function product_save_meta_box_data($post_id) {
             if (!empty($section['heading'])) {
                 $img_pos = $section['image_position'] ?? 'right';
                 $sections[] = array(
-                    'id'             => sanitize_title(wp_unslash($section['id'] ?? '')),
-                    'heading'        => sanitize_text_field(wp_unslash($section['heading'])),
-                    'description'    => sanitize_textarea_field(wp_unslash($section['description'] ?? '')),
-                    'features'       => sanitize_textarea_field(wp_unslash($section['features']    ?? '')),
-                    'image'          => esc_url_raw(wp_unslash($section['image'] ?? '')),
-                    'image_position' => in_array($img_pos, array('left','right'), true) ? $img_pos : 'right',
-                    'cta_text'       => sanitize_text_field(wp_unslash($section['cta_text'] ?? '')),
-                    'cta_url'        => esc_url_raw(wp_unslash($section['cta_url']  ?? '')),
+                    'id'               => sanitize_title(wp_unslash($section['id'] ?? '')),
+                    'heading'          => sanitize_text_field(wp_unslash($section['heading'])),
+                    'description'      => sanitize_textarea_field(wp_unslash($section['description'] ?? '')),
+                    'features_heading' => sanitize_text_field(wp_unslash($section['features_heading'] ?? '')),
+                    'features'         => sanitize_textarea_field(wp_unslash($section['features']    ?? '')),
+                    'image'            => esc_url_raw(wp_unslash($section['image'] ?? '')),
+                    'image_position'   => in_array($img_pos, array('left','right'), true) ? $img_pos : 'right',
+                    'cta_text'         => sanitize_text_field(wp_unslash($section['cta_text'] ?? '')),
+                    'cta_url'          => esc_url_raw(wp_unslash($section['cta_url']  ?? '')),
                 );
             }
         }
