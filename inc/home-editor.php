@@ -103,10 +103,21 @@ class EE_Home_Editor {
         @media(max-width:782px){.field-row{grid-template-columns:1fr}}
 
         .image-field .img-row{display:flex;gap:14px;align-items:flex-start}
-        .image-field .thumb{width:120px;height:80px;background:#f0f0f1 50%/contain no-repeat;border:1px solid #ddd;border-radius:4px;flex-shrink:0}
+        .image-field .thumb{width:120px;height:80px;background:#f0f0f1 50%/contain no-repeat;border:1px solid #ddd;border-radius:4px;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center}
+        .image-field .thumb--empty{background:repeating-linear-gradient(45deg,#fafafa,#fafafa 6px,#f0f0f0 6px,#f0f0f0 12px);border-style:dashed;border-color:#cbd5e1}
+        .image-field .thumb-empty-label{color:#94a3b8;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
         .image-field .img-controls{flex:1;display:flex;flex-direction:column;gap:6px}
+        .image-field .img-btn-row{display:flex;gap:6px;flex-wrap:wrap}
         .image-field .pick-btn{background:#f6f7f7;border:1px solid #c5d9ed;color:#0073aa;padding:6px 12px;cursor:pointer;border-radius:3px;font-size:12px;font-weight:600;width:fit-content}
         .image-field .pick-btn:hover{background:#f0f6fc}
+        .image-field .remove-img-btn{background:#fff;border:1px solid #f5c6cb;color:#b91c1c;padding:6px 12px;cursor:pointer;border-radius:3px;font-size:12px;font-weight:600;width:fit-content}
+        .image-field .remove-img-btn:hover{background:#fee2e2;border-color:#dc2626}
+
+        .repeater-item.logo-slot > h4{display:flex;align-items:center;justify-content:space-between;gap:10px}
+        .repeater-item .logo-clear-btn{background:#fff;border:1px solid #fecaca;color:#b91c1c;padding:5px 12px;cursor:pointer;border-radius:4px;font-size:12px;font-weight:600;flex-shrink:0}
+        .repeater-item .logo-clear-btn:hover{background:#fee2e2;border-color:#dc2626}
+        .repeater-item.logo-slot--empty{opacity:.55;border-style:dashed}
+        .repeater-item.logo-slot--empty > h4::after{content:"EMPTY — hidden from every page";color:#94a3b8;font-size:10px;font-weight:600;letter-spacing:.5px;margin-left:auto;margin-right:8px}
 
         .save-bar{position:sticky;bottom:0;background:#fff;border:1px solid #ccc;border-top:2px solid #0073aa;padding:14px 24px;margin-top:0;display:flex;align-items:center;justify-content:space-between;border-radius:0 0 4px 4px;box-shadow:0 -4px 12px rgba(0,0,0,.05)}
         .save-bar .tip{color:#646970;font-size:12px}
@@ -166,16 +177,26 @@ class EE_Home_Editor {
     }
 
     public static function image_field($key, $num, $label, $help = '', $default = '') {
-        $val  = self::get($key, '');
-        $show = $val ?: $default;
+        $val      = self::get($key, '');
+        $is_empty = ($val === '' || $val === null);
         ?>
-        <div class="field-group image-field">
+        <div class="field-group image-field" data-field-key="<?php echo esc_attr($key); ?>">
             <label>🖼 <?php echo esc_html($label); ?></label>
             <div class="img-row">
-                <div class="thumb" style="background-image:url(<?php echo esc_url($show); ?>)"></div>
+                <div class="thumb<?php echo $is_empty ? ' thumb--empty' : ''; ?>" style="<?php echo $is_empty ? '' : 'background-image:url(' . esc_url($val) . ')'; ?>" data-thumb>
+                    <?php if ($is_empty): ?><span class="thumb-empty-label">empty</span><?php endif; ?>
+                </div>
                 <div class="img-controls">
-                    <input type="url" name="<?php echo esc_attr(self::OPTION_KEY); ?>[<?php echo esc_attr($key); ?>]" value="<?php echo esc_attr($val); ?>" placeholder="<?php echo esc_attr($default); ?>" class="img-input">
-                    <button type="button" class="pick-btn">📁 Choose from Media Library</button>
+                    <input type="url"
+                           name="<?php echo esc_attr(self::OPTION_KEY); ?>[<?php echo esc_attr($key); ?>]"
+                           value="<?php echo esc_attr($val); ?>"
+                           placeholder="<?php echo esc_attr($default); ?>"
+                           class="img-input"
+                           data-img-input>
+                    <div class="img-btn-row">
+                        <button type="button" class="pick-btn">📁 Choose from Media Library</button>
+                        <button type="button" class="remove-img-btn" data-remove-img title="Clear this image">✕ Remove</button>
+                    </div>
                 </div>
             </div>
             <?php if ($help): ?><p class="field-help"><?php echo wp_kses_post($help); ?></p><?php endif; ?>
@@ -293,15 +314,58 @@ class EE_Home_Editor {
                 var frame = wp.media({ title:'Choose Image', multiple:false, library:{ type:'image' } });
                 frame.on('select', function(){
                     var att = frame.state().get('selection').first().toJSON();
-                    input.val(att.url);
-                    thumb.css('background-image', 'url(' + att.url + ')');
+                    input.val(att.url).trigger('input');
+                    thumb.css('background-image', 'url(' + att.url + ')')
+                         .removeClass('thumb--empty')
+                         .find('.thumb-empty-label').remove();
                 });
                 frame.open();
             });
 
+            // ✕ Remove on a single image field — clears that one input + thumbnail
+            $(document).on('click', '.image-field [data-remove-img]', function(e){
+                e.preventDefault();
+                var row   = $(this).closest('.img-row');
+                var input = row.find('[data-img-input]');
+                var thumb = row.find('[data-thumb]');
+                input.val('').trigger('input');
+                thumb.css('background-image', '').addClass('thumb--empty');
+                if (!thumb.find('.thumb-empty-label').length) {
+                    thumb.append('<span class="thumb-empty-label">empty</span>');
+                }
+            });
+
+            // ✕ Remove logo on a logo slot — clears URL + Alt for that logo pair
+            // and visually marks the whole slot as empty.
+            $(document).on('click', '.logo-slot [data-clear-logo]', function(e){
+                e.preventDefault();
+                if (!confirm('Remove this logo from the home page AND every Product / Industry page?')) return;
+                var slot = $(this).closest('.logo-slot');
+                slot.find('[data-img-input]').val('').trigger('input');
+                slot.find('input[type=text]').val('');
+                var thumb = slot.find('[data-thumb]');
+                thumb.css('background-image', '').addClass('thumb--empty');
+                if (!thumb.find('.thumb-empty-label').length) {
+                    thumb.append('<span class="thumb-empty-label">empty</span>');
+                }
+                slot.addClass('logo-slot--empty');
+            });
+
+            // Re-style the slot when URL input changes
             $(document).on('input', '.image-field .img-input', function(){
-                var url = $(this).val();
-                $(this).closest('.img-row').find('.thumb').css('background-image', url ? 'url(' + url + ')' : 'none');
+                var url   = $(this).val();
+                var thumb = $(this).closest('.img-row').find('.thumb');
+                if (url) {
+                    thumb.css('background-image', 'url(' + url + ')').removeClass('thumb--empty');
+                    thumb.find('.thumb-empty-label').remove();
+                    $(this).closest('.logo-slot').removeClass('logo-slot--empty');
+                } else {
+                    thumb.css('background-image', 'none').addClass('thumb--empty');
+                    if (!thumb.find('.thumb-empty-label').length) {
+                        thumb.append('<span class="thumb-empty-label">empty</span>');
+                    }
+                    $(this).closest('.logo-slot').addClass('logo-slot--empty');
+                }
             });
         });
         </script>
@@ -399,8 +463,12 @@ class EE_Home_Editor {
                     'https://www.extraaedge.com/wp-content/uploads/2025/10/cropped-final-logo.webp|Final Logo',
                 );
                 for ($i = 1; $i <= 8; $i++) {
-                    $parts = explode('|', $t1_defaults[$i-1]);
-                    echo '<div class="repeater-item"><h4>Logo ' . $i . '</h4>';
+                    $parts    = explode('|', $t1_defaults[$i-1]);
+                    $is_empty = (self::get("logo_t1_{$i}_url", '') === '');
+                    echo '<div class="repeater-item logo-slot' . ($is_empty ? ' logo-slot--empty' : '') . '" data-logo-pair="logo_t1_' . $i . '">'
+                       . '<h4>Logo ' . $i . ' '
+                       . '<button type="button" class="logo-clear-btn" data-clear-logo title="Remove this logo from every page">✕ Remove logo</button>'
+                       . '</h4>';
                     self::image_field("logo_t1_{$i}_url", $i, "Logo $i", "Recommended: transparent PNG or SVG, around 200x100px.", $parts[0]);
                     self::text_field("logo_t1_{$i}_alt", '', 'Alt text', 'Image alt attribute (SEO + accessibility).', $parts[1], '');
                     echo '</div>';
@@ -417,8 +485,12 @@ class EE_Home_Editor {
                     'https://www.extraaedge.com/wp-content/uploads/2024/12/fostima.webp|Fostima',
                 );
                 for ($i = 1; $i <= 7; $i++) {
-                    $parts = explode('|', $t2_defaults[$i-1]);
-                    echo '<div class="repeater-item"><h4>Logo ' . $i . '</h4>';
+                    $parts    = explode('|', $t2_defaults[$i-1]);
+                    $is_empty = (self::get("logo_t2_{$i}_url", '') === '');
+                    echo '<div class="repeater-item logo-slot' . ($is_empty ? ' logo-slot--empty' : '') . '" data-logo-pair="logo_t2_' . $i . '">'
+                       . '<h4>Logo ' . $i . ' '
+                       . '<button type="button" class="logo-clear-btn" data-clear-logo title="Remove this logo from every page">✕ Remove logo</button>'
+                       . '</h4>';
                     self::image_field("logo_t2_{$i}_url", $i, "Logo $i", "Recommended: transparent PNG or SVG, around 200x100px.", $parts[0]);
                     self::text_field("logo_t2_{$i}_alt", '', 'Alt text', '', $parts[1], '');
                     echo '</div>';
