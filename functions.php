@@ -569,32 +569,235 @@ function product_faq_fields($post) {
 }
 
 // ─── TOC TAB (custom Table of Contents) ───
+
+/**
+ * Auto-detect the anchor IDs that exist on this post based on which
+ * sections are actually populated. Returns the same order as the page
+ * renders top-to-bottom. The non-coder NEVER has to type an anchor ID.
+ *
+ * @return array<array{anchor:string,label:string,source:string}>
+ */
+function ee_get_available_toc_anchors($post_id) {
+    $f = function ($k) use ($post_id) { return get_post_meta($post_id, '_' . $k, true); };
+    $list = array();
+
+    $list[] = array('anchor' => 'top', 'label' => 'Home', 'source' => 'hero');
+
+    if ($f('logos'))             $list[] = array('anchor' => 'trusted-institutions', 'label' => 'Trusted Institutions', 'source' => 'logos');
+    if ($f('educrm_h2'))         $list[] = array('anchor' => 'what-is-education-crm', 'label' => 'Education CRM', 'source' => 'educrm');
+    if ($f('features'))          $list[] = array('anchor' => 'features', 'label' => 'Features', 'source' => 'features');
+
+    $sections = $f('content_sections');
+    if (is_array($sections)) {
+        foreach ($sections as $s) {
+            if (!empty($s['heading']) && !empty($s['id'])) {
+                $list[] = array('anchor' => $s['id'], 'label' => $s['heading'], 'source' => 'section');
+            }
+        }
+    }
+
+    if ($f('bottom_h2'))         $list[] = array('anchor' => 'products', 'label' => 'Products', 'source' => 'bottom');
+    if ($f('testimonials'))      $list[] = array('anchor' => 'testimonials', 'label' => 'Testimonials', 'source' => 'testimonials');
+    if ($f('aidemo_h2'))         $list[] = array('anchor' => 'demo', 'label' => 'Book Demo', 'source' => 'aidemo');
+    if ($f('faqs'))              $list[] = array('anchor' => 'faq', 'label' => 'FAQ', 'source' => 'faq');
+
+    return $list;
+}
+
 function product_toc_fields($post) {
     $toc_enabled = get_post_meta($post->ID, '_toc_enabled', true);
-    $toc_items   = get_post_meta($post->ID, '_toc_items', true) ?: array();
+    $saved       = get_post_meta($post->ID, '_toc_items', true) ?: array();
+    $available   = ee_get_available_toc_anchors($post->ID);
+
+    /* Build the merged working list:
+       - Start with each available anchor in page order
+       - If there is a saved entry for that anchor, prefer its label + show flag + original order
+       - Saved custom anchors (source = 'custom') stay too
+       - New anchors that weren't saved yet appear as show=1 with the auto label */
+    $by_anchor = array();
+    foreach ($saved as $i => $s) {
+        if (empty($s['anchor'])) continue;
+        $by_anchor[$s['anchor']] = array(
+            'anchor' => $s['anchor'],
+            'label'  => isset($s['label']) ? $s['label'] : '',
+            'show'   => isset($s['show']) ? (string)$s['show'] : '1',
+            'custom' => isset($s['custom']) ? (string)$s['custom'] : '0',
+            '_pos'   => $i,
+        );
+    }
+
+    $ordered = array();
+    $seen    = array();
+
+    /* Preserve any saved order first */
+    foreach ($saved as $s) {
+        if (empty($s['anchor'])) continue;
+        $a = $s['anchor'];
+        if (isset($seen[$a])) continue;
+        // Match to an available row to attach the default label
+        $auto_label = '';
+        foreach ($available as $av) { if ($av['anchor'] === $a) { $auto_label = $av['label']; break; } }
+        $ordered[] = array(
+            'anchor'      => $a,
+            'label'       => $by_anchor[$a]['label'] !== '' ? $by_anchor[$a]['label'] : $auto_label,
+            'show'        => $by_anchor[$a]['show'],
+            'custom'      => $by_anchor[$a]['custom'],
+            'auto_label'  => $auto_label,
+            'still_avail' => (bool) $auto_label || $by_anchor[$a]['custom'] === '1',
+        );
+        $seen[$a] = true;
+    }
+    /* Append any newly-available anchor that wasn't in the saved list */
+    foreach ($available as $av) {
+        if (isset($seen[$av['anchor']])) continue;
+        $ordered[] = array(
+            'anchor'      => $av['anchor'],
+            'label'       => $av['label'],
+            'show'        => '1',
+            'custom'      => '0',
+            'auto_label'  => $av['label'],
+            'still_avail' => true,
+        );
+    }
     ?>
+<style>
+    .toc-builder { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:14px; }
+    .toc-builder .toc-row { display:grid; grid-template-columns: 28px 28px 1fr 220px 28px; gap:10px; align-items:center; padding:10px; border:1px solid #e2e8f0; border-radius:6px; margin-bottom:8px; background:#fafbfc; }
+    .toc-builder .toc-row.is-hidden { opacity: .55; background: #f1f5f9; }
+    .toc-builder .toc-row.is-missing { border-left: 3px solid #f59e0b; }
+    .toc-builder .toc-reorder { display:flex; flex-direction:column; gap:2px; }
+    .toc-builder .toc-reorder button { width:24px; height:18px; padding:0; line-height:1; border:1px solid #cbd5e1; background:#fff; border-radius:3px; cursor:pointer; font-size:11px; color:#475569; }
+    .toc-builder .toc-reorder button:hover { background:#e0e7ff; border-color:#6366f1; color:#1e3a8a; }
+    .toc-builder input[type=checkbox] { width:18px; height:18px; }
+    .toc-builder input[type=text] { width:100%; padding:7px 9px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px; }
+    .toc-builder .toc-anchor { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; color:#475569; background:#fff; border:1px dashed #cbd5e1; padding:6px 8px; border-radius:4px; text-align:center; user-select:all; }
+    .toc-builder .toc-remove { background:transparent; border:none; cursor:pointer; color:#94a3b8; font-size:18px; line-height:1; padding:0; }
+    .toc-builder .toc-remove:hover { color:#dc2626; }
+    .toc-builder .toc-row.is-auto .toc-remove { visibility:hidden; }
+    .toc-builder .toc-head { display:grid; grid-template-columns: 28px 28px 1fr 220px 28px; gap:10px; padding:4px 10px; font-size:11px; font-weight:600; color:#64748b; text-transform:uppercase; letter-spacing:.5px; }
+    .toc-builder .toc-actions { display:flex; gap:8px; margin-top:12px; }
+    .toc-builder .toc-actions button { padding:8px 14px; border-radius:5px; border:1px solid #cbd5e1; background:#fff; cursor:pointer; font-size:13px; }
+    .toc-builder .toc-actions .btn-primary { background:#19335D; color:#fff; border-color:#19335D; }
+    .toc-builder .toc-actions .btn-reset { color:#dc2626; border-color:#fecaca; }
+    .toc-tip { background:#eff6ff; border-left:3px solid #2563eb; padding:10px 12px; margin:12px 0; font-size:12px; color:#1e3a8a; border-radius:0 4px 4px 0; line-height:1.6; }
+</style>
+
 <h3>🗂️ Table of Contents (TOC)</h3>
-<div class="field-group">
-    <label><input type="checkbox" name="toc_enabled" value="custom" <?php checked($toc_enabled, 'custom'); ?>> ✅ Use custom TOC items below (uncheck to auto-generate from page sections)</label>
-    <p class="field-help">When checked, only the items below will appear in the TOC sidebar.</p>
+
+<div class="toc-tip">
+    👋 <strong>How it works:</strong> Every section you fill in (Hero, Logos, Features, Sections, Testimonials, Demo, FAQ…) is auto-listed below in page order.
+    Only edit the <strong>Label</strong> column — the anchor IDs are detected automatically and wired up for you.<br>
+    Use <strong>↑ ↓</strong> to reorder, untick <strong>Show</strong> to hide an item, or click <strong>+ Add custom item</strong> to point to a custom anchor on the page.
 </div>
 
-<h4>TOC Items (label + anchor ID of the section)</h4>
-<div id="toc-items-container">
-<?php if (!empty($toc_items)) : foreach ($toc_items as $i => $item) : ?>
-<div class="repeater-item"><h4>Item <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
-<div class="field-group"><label>Label (shown in TOC)</label><input type="text" name="toc_items[<?php echo $i; ?>][label]"  value="<?php echo esc_attr($item['label']);  ?>" style="width:100%;" placeholder="Education CRM"></div>
-<div class="field-group"><label>Anchor ID (section id, no #)</label><input type="text" name="toc_items[<?php echo $i; ?>][anchor]" value="<?php echo esc_attr($item['anchor']); ?>" style="width:100%;" placeholder="what-is-education-crm"></div>
+<div class="field-group" style="margin-bottom:10px;">
+    <label><input type="checkbox" name="toc_enabled" value="custom" <?php checked($toc_enabled, 'custom'); ?>>
+        <strong>Use my labels &amp; order below</strong> (uncheck to auto-build the TOC from defaults)
+    </label>
 </div>
-<?php endforeach; endif; ?>
-</div>
-<button type="button" class="add-item-btn" onclick="var idx=jQuery('#toc-items-container .repeater-item').length;jQuery('#toc-items-container').append('<div class=\'repeater-item\'><h4>Item '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Label</label><input type=\'text\' name=\'toc_items['+idx+'][label]\' style=\'width:100%;\' /></div><div class=\'field-group\'><label>Anchor ID</label><input type=\'text\' name=\'toc_items['+idx+'][anchor]\' style=\'width:100%;\' /></div></div>')">+ Add TOC Item</button>
 
-<div style="margin-top:20px;background:#fff3cd;padding:12px;border-left:3px solid #ffc107;font-size:13px;line-height:1.6;">
-<strong>📌 Common Anchor IDs (copy these as needed):</strong><br>
-<code>top</code> · <code>trusted-institutions</code> · <code>what-is-education-crm</code> · <code>features</code> · <code>products</code> · <code>testimonials</code> · <code>demo</code> · <code>faq</code><br>
-For alternating sections, use the <strong>Section ID</strong> you set in the 📑 Sections tab.
+<div class="toc-builder" id="toc-builder">
+    <div class="toc-head">
+        <span>↕</span>
+        <span title="Show">👁</span>
+        <span>Label (what the visitor sees)</span>
+        <span>Anchor ID (auto)</span>
+        <span></span>
+    </div>
+    <div id="toc-items-container">
+    <?php foreach ($ordered as $i => $row) :
+        $is_auto = ($row['custom'] !== '1');
+        $is_missing = !$row['still_avail']; // saved label points to a section that no longer exists
+    ?>
+        <div class="toc-row<?php echo $row['show'] === '0' ? ' is-hidden' : ''; ?><?php echo $is_missing ? ' is-missing' : ''; ?><?php echo $is_auto ? ' is-auto' : ''; ?>" data-anchor="<?php echo esc_attr($row['anchor']); ?>">
+            <div class="toc-reorder">
+                <button type="button" title="Move up"   onclick="eeTocMove(this,-1)">▲</button>
+                <button type="button" title="Move down" onclick="eeTocMove(this, 1)">▼</button>
+            </div>
+            <label style="margin:0; display:flex; align-items:center; justify-content:center;">
+                <input type="checkbox" name="toc_items[<?php echo $i; ?>][show]" value="1" <?php checked($row['show'], '1'); ?>
+                       onchange="this.closest('.toc-row').classList.toggle('is-hidden', !this.checked)">
+            </label>
+            <input type="text" name="toc_items[<?php echo $i; ?>][label]" value="<?php echo esc_attr($row['label']); ?>"
+                   placeholder="<?php echo esc_attr($row['auto_label'] ?: 'Section name'); ?>">
+            <code class="toc-anchor" title="Click to copy">#<?php echo esc_html($row['anchor']); ?><input type="hidden" name="toc_items[<?php echo $i; ?>][anchor]" value="<?php echo esc_attr($row['anchor']); ?>"><input type="hidden" name="toc_items[<?php echo $i; ?>][custom]" value="<?php echo esc_attr($row['custom']); ?>"></code>
+            <button type="button" class="toc-remove" title="Remove this custom item"
+                    onclick="if(confirm('Remove this TOC item?')) this.closest('.toc-row').remove();">✕</button>
+        </div>
+    <?php endforeach; ?>
+    </div>
+
+    <div class="toc-actions">
+        <button type="button" class="add-item-btn" onclick="eeTocAddCustom()">+ Add custom item</button>
+        <button type="button" class="btn-reset" onclick="eeTocReset()">↺ Reset to defaults</button>
+        <button type="button" class="btn-primary" onclick="eeTocShowAll(true)">Show all</button>
+        <button type="button" onclick="eeTocShowAll(false)">Hide all</button>
+    </div>
 </div>
+
+<script>
+(function(){
+    window.eeTocMove = function(btn, dir) {
+        var row = btn.closest('.toc-row');
+        var sibling = dir < 0 ? row.previousElementSibling : row.nextElementSibling;
+        if (sibling) row.parentNode.insertBefore(dir < 0 ? row : sibling, dir < 0 ? sibling : row);
+        eeTocReindex();
+    };
+    window.eeTocShowAll = function(show) {
+        document.querySelectorAll('#toc-items-container .toc-row input[type=checkbox]').forEach(function(cb){
+            cb.checked = !!show;
+            cb.closest('.toc-row').classList.toggle('is-hidden', !show);
+        });
+    };
+    window.eeTocAddCustom = function() {
+        var label = prompt('Label to show in TOC?', '');
+        if (!label) return;
+        var anchor = prompt('Anchor ID on the page (no #)? e.g. my-section', '');
+        if (!anchor) return;
+        anchor = anchor.replace(/[^a-z0-9\-_]/gi, '-').toLowerCase();
+        var container = document.getElementById('toc-items-container');
+        var idx = container.children.length;
+        var row = document.createElement('div');
+        row.className = 'toc-row';
+        row.dataset.anchor = anchor;
+        row.innerHTML = '<div class="toc-reorder">' +
+            '<button type="button" title="Move up" onclick="eeTocMove(this,-1)">▲</button>' +
+            '<button type="button" title="Move down" onclick="eeTocMove(this,1)">▼</button>' +
+            '</div>' +
+            '<label style="margin:0;display:flex;align-items:center;justify-content:center;">' +
+            '<input type="checkbox" name="toc_items['+idx+'][show]" value="1" checked onchange="this.closest(\'.toc-row\').classList.toggle(\'is-hidden\', !this.checked)">' +
+            '</label>' +
+            '<input type="text" name="toc_items['+idx+'][label]" value="'+label.replace(/"/g,'&quot;')+'">' +
+            '<code class="toc-anchor">#'+anchor+
+            '<input type="hidden" name="toc_items['+idx+'][anchor]" value="'+anchor+'">' +
+            '<input type="hidden" name="toc_items['+idx+'][custom]" value="1">' +
+            '</code>' +
+            '<button type="button" class="toc-remove" onclick="if(confirm(\'Remove this TOC item?\')) this.closest(\'.toc-row\').remove();">✕</button>';
+        container.appendChild(row);
+    };
+    window.eeTocReset = function() {
+        if (!confirm('Reset all labels, order and visibility to defaults? Your customizations will be lost.')) return;
+        var cb = document.querySelector('input[name="toc_enabled"]');
+        if (cb) cb.checked = false;
+        document.querySelectorAll('#toc-items-container input[type=text]').forEach(function(input){
+            var ph = input.getAttribute('placeholder') || '';
+            input.value = ph;
+        });
+        eeTocShowAll(true);
+    };
+    function eeTocReindex(){
+        document.querySelectorAll('#toc-items-container .toc-row').forEach(function(row, idx){
+            row.querySelectorAll('input, select, textarea').forEach(function(el){
+                if (!el.name) return;
+                el.name = el.name.replace(/toc_items\[\d+\]/, 'toc_items['+idx+']');
+            });
+        });
+    }
+    /* Re-index after any drag/remove. Bind to mutation as a safety net. */
+    var observer = new MutationObserver(eeTocReindex);
+    observer.observe(document.getElementById('toc-items-container'), { childList: true });
+})();
+</script>
     <?php
 }
 
@@ -1057,12 +1260,13 @@ function product_save_meta_box_data($post_id) {
     if (isset($_POST['toc_items']) && is_array($_POST['toc_items'])) {
         $toc_items = array();
         foreach ($_POST['toc_items'] as $item) {
-            if (!empty($item['label']) && !empty($item['anchor'])) {
-                $toc_items[] = array(
-                    'label'  => sanitize_text_field(wp_unslash($item['label'])),
-                    'anchor' => sanitize_title(wp_unslash($item['anchor'])),
-                );
-            }
+            if (empty($item['anchor'])) continue;
+            $toc_items[] = array(
+                'label'  => isset($item['label'])  ? sanitize_text_field(wp_unslash($item['label']))   : '',
+                'anchor' => sanitize_title(wp_unslash($item['anchor'])),
+                'show'   => !empty($item['show']) ? '1' : '0',
+                'custom' => !empty($item['custom']) ? '1' : '0',
+            );
         }
         update_post_meta($post_id, '_toc_items', $toc_items);
     }

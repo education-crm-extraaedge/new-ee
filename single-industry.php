@@ -749,7 +749,9 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         if ($toc_enabled === 'custom' && !empty($toc_items)) {
             $tn = 1;
             foreach ($toc_items as $item) {
-                if (empty($item['label']) || empty($item['anchor'])) continue;
+                if (empty($item['anchor'])) continue;
+                if (isset($item['show']) && $item['show'] === '0') continue;
+                if (empty($item['label'])) continue;
                 echo '<li class="toc-item"><a href="#' . esc_attr($item['anchor']) . '" class="toc-link"><span class="toc-num">' . $tn++ . '</span>' . esc_html($item['label']) . '</a></li>';
             }
         } else {
