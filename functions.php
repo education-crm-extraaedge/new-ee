@@ -1611,6 +1611,22 @@ add_action('admin_init', function () {
     ]);
 });
 
+/* Bust page caches whenever the tracking settings change so the new
+   GTM / GA4 / Pixel / custom code reaches the public pages immediately
+   even when a cache plugin or CDN is in front of WordPress. */
+add_action('update_option_ee_tracking_settings', function () {
+    wp_cache_delete('ee_tracking_settings', 'options');
+    wp_cache_delete('alloptions', 'options');
+    if (function_exists('rocket_clean_domain'))   { rocket_clean_domain(); }
+    if (function_exists('w3tc_pgcache_flush'))    { w3tc_pgcache_flush(); }
+    if (class_exists('LiteSpeed\\Purge'))         { do_action('litespeed_purge_all'); }
+    if (function_exists('wp_cache_clean_cache'))  { @wp_cache_clean_cache($GLOBALS['cache_path'] ?? ''); }
+    do_action('ee_tracking_updated');
+}, 10, 0);
+add_action('add_option_ee_tracking_settings', function () {
+    do_action('update_option_ee_tracking_settings');
+});
+
 // 3. Render the page
 function ee_tracking_render_page() {
     if (!current_user_can('manage_options')) return;
@@ -1622,6 +1638,55 @@ function ee_tracking_render_page() {
     <div class="wrap">
         <h1>🌐 ExtraaEdge SEO &amp; Tracking</h1>
         <p>Paste your tracking IDs and schema below. Codes will auto-inject into <code>&lt;head&gt;</code>, after <code>&lt;body&gt;</code>, or before <code>&lt;/body&gt;</code> — wherever each tool expects.</p>
+
+        <?php
+        /* Live verification banner — shows what's saved + how to confirm on the live site.
+           Helps the non-coder verify that codes are reaching the front-end, and gives
+           concrete next steps when the live site still shows the old HTML (cache). */
+        $detected = [];
+        foreach ([
+            'gtm_id'          => ['label' => 'Google Tag Manager', 'find' => 'GTM-'],
+            'ga4_id'          => ['label' => 'GA4',                'find' => 'G-'],
+            'clarity_id'      => ['label' => 'Microsoft Clarity',  'find' => 'clarity.ms'],
+            'fb_pixel_id'     => ['label' => 'Meta Pixel',         'find' => 'fbq'],
+            'ads_id'          => ['label' => 'Google Ads',         'find' => 'AW-'],
+            'linkedin_id'     => ['label' => 'LinkedIn Insight',   'find' => '_linkedin_partner_id'],
+            'hotjar_id'       => ['label' => 'Hotjar',             'find' => 'hotjar-'],
+            'tiktok_pixel_id' => ['label' => 'TikTok Pixel',       'find' => 'TiktokAnalyticsObject'],
+            'pinterest_tag_id'=> ['label' => 'Pinterest Tag',      'find' => 'pintrk'],
+        ] as $k => $meta) {
+            $val = trim((string) $f($k));
+            if ($val !== '') $detected[$k] = ['label' => $meta['label'], 'value' => $val, 'find' => $meta['find']];
+        }
+        $custom_filled = [];
+        foreach (['custom_head' => 'Custom &lt;head&gt;', 'custom_body_open' => 'Custom &lt;body&gt;', 'custom_footer' => 'Custom &lt;/body&gt;'] as $k => $lbl) {
+            if (trim((string) $f($k)) !== '') $custom_filled[$lbl] = strlen($f($k));
+        }
+        $home_url             = home_url('/');
+        $first_detected_find  = !empty($detected) ? reset($detected)['find'] : 'GTM-';
+        ?>
+        <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid <?php echo (empty($detected) && empty($custom_filled)) ? '#dc2626' : '#10b981'; ?>;padding:14px 18px;border-radius:6px;margin:14px 0;">
+            <strong style="font-size:14px;">
+                <?php if (!empty($detected) || !empty($custom_filled)) : ?>
+                    ✅ Tracking is active —
+                    <?php
+                    $parts = [];
+                    foreach ($detected as $d) $parts[] = $d['label'] . ' (<code>' . esc_html($d['value']) . '</code>)';
+                    foreach ($custom_filled as $lbl => $len) $parts[] = $lbl . ' (' . (int) $len . ' chars)';
+                    echo wp_kses_post(implode(' · ', $parts));
+                    ?>
+                <?php else : ?>
+                    ⚠️ No tracking codes saved yet. Paste your IDs below and click <em>Save Changes</em>.
+                <?php endif; ?>
+            </strong>
+            <?php if (!empty($detected) || !empty($custom_filled)) : ?>
+                <p style="margin:8px 0 0;color:#475569;line-height:1.6;font-size:13px;">
+                    <strong>To verify on the live site:</strong>
+                    Open <a href="<?php echo esc_url($home_url); ?>" target="_blank"><code><?php echo esc_html($home_url); ?></code></a> in a new tab → right-click → <em>View Page Source</em> → press <kbd>Ctrl+F</kbd> and search for <code><?php echo esc_html($first_detected_find); ?></code>.
+                    If you do not see it, your <strong>page cache or CDN (Cloudflare, WP Rocket, LiteSpeed, W3TC)</strong> is serving an old copy — purge it once and refresh.
+                </p>
+            <?php endif; ?>
+        </div>
 
         <h2 class="nav-tab-wrapper" style="margin-top:20px">
             <a href="<?php echo esc_url($base.'&tab=tracking');     ?>" class="nav-tab <?php echo $tab==='tracking'?'nav-tab-active':''; ?>">📊 Analytics &amp; Tracking</a>
