@@ -294,6 +294,17 @@ if ($ee_is_home) {
             z-index: 1000;
         }
 
+        /* Sticky-safe overflow on body — overflow:hidden / auto here would
+           silently kill position:sticky on any descendant (including the
+           header itself). Use overflow-x:clip which suppresses horizontal
+           overflow without creating a scroll container. */
+        html, body {
+            overflow-x: clip;
+        }
+        body {
+            overflow-y: visible;
+        }
+
         /* Glassmorphism Navigation */
         .glass-nav {
             background: rgba(255, 255, 255, 0.8);

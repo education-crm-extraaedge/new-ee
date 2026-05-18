@@ -320,7 +320,7 @@ body.single-product { max-width: none !important; width: 100%; margin: 0; paddin
   --toc-width:220px;
 }
 html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{font-family:var(--font-b);background:var(--white);color:var(--text-dark);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+body{font-family:var(--font-b);background:var(--white);color:var(--text-dark);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
 img{max-width:100%;height:auto;display:block}
 a{text-decoration:none;color:inherit;transition:var(--transition)}
 button{font-family:inherit;border:none;cursor:pointer;background:none}
