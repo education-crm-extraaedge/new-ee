@@ -294,6 +294,55 @@ if ($ee_is_home) {
             z-index: 1000;
         }
 
+        /* ───────── Tailwind shim ─────────
+           If the Tailwind CDN is blocked, slow, or cached as 404 on a CDN
+           between us and the visitor, the `hidden`, `lg:flex`, `lg:hidden`
+           utility classes do nothing — which collapses the navigation. These
+           plain CSS rules guarantee a usable header even with Tailwind down. */
+        #site-header .hidden { display: none; }
+        @media (min-width: 1024px) {
+            #site-header .lg\:flex   { display: flex; }
+            #site-header .lg\:hidden { display: none; }
+        }
+        @media (max-width: 1023.98px) {
+            #site-header .lg\:hidden { display: inline-flex; align-items: center; }
+        }
+        /* Logo / Book Demo / mobile button sizing fallback */
+        #site-header .glass-nav > div { display: flex; align-items: center; justify-content: space-between; max-width: 1280px; margin: 0 auto; padding: 0 16px; height: 80px; }
+        @media (min-width: 768px) {
+            #site-header .glass-nav > div { padding: 0 32px; height: 96px; }
+        }
+        #site-header nav.glass-nav .nav-group { position: relative; }
+        #site-header nav.glass-nav .nav-group > button {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 10px 16px;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            font-weight: 600; color: #19335D; background: transparent; border: 0; cursor: pointer;
+            transition: color .2s ease;
+        }
+        #site-header nav.glass-nav .nav-group > button:hover { color: #DE6E30; }
+        #site-header .hidden.lg\:flex {
+            /* Override Tailwind's `hidden` whenever the `lg:flex` flag is also
+               set AND we're at lg breakpoint — guarantees the desktop nav shows. */
+        }
+        @media (min-width: 1024px) {
+            #site-header .hidden.lg\:flex { display: flex !important; align-items: center; gap: 8px; }
+        }
+        /* Book Demo button fallback if Tailwind utilities (bg-brandBlue etc.) don't apply */
+        #site-header a[href="/book-demo/"] {
+            display: inline-block;
+            background: #19335D;
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(25,51,93,0.18);
+            transition: background .2s ease;
+        }
+        #site-header a[href="/book-demo/"]:hover { background: #DE6E30; }
+
         /* Sticky-safe overflow on body — overflow:hidden / auto here would
            silently kill position:sticky on any descendant (including the
            header itself). Use overflow-x:clip which suppresses horizontal
