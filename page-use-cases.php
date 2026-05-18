@@ -144,34 +144,42 @@ get_header();
 }
 
 #ee-usecase-section .icon-box {
-    width: 72px; height: 72px;
-    background: #f1f5f9;
-    border-radius: 16px;
+    width: 110px; height: 110px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 32px;
     transition: all 0.4s ease;
+    padding: 14px;
 }
 
 #ee-usecase-section .icon-box img,
 #ee-usecase-section .icon-box svg {
-    width: 40px; height: 40px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     transition: transform 0.4s ease;
 }
 
+@media (max-width: 640px) {
+    #ee-usecase-section .icon-box { width: 88px; height: 88px; }
+}
+
 #ee-usecase-section .uc-card:hover .icon-box {
-    background: var(--ee-blue);
+    background: #fff7f0;
+    border-color: rgba(222, 110, 48, 0.35);
+    box-shadow: 0 12px 28px rgba(222, 110, 48, 0.18);
 }
 
 #ee-usecase-section .uc-card:hover .icon-box img {
-    filter: brightness(0) invert(1);
-    transform: scale(1.15) rotate(-5deg);
+    transform: scale(1.06);
 }
 #ee-usecase-section .uc-card:hover .icon-box svg {
-    color: #fff;
-    transform: scale(1.15) rotate(-5deg);
+    color: var(--ee-orange);
+    transform: scale(1.06);
 }
 
 #ee-usecase-section .uc-title {

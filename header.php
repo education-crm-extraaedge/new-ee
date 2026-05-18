@@ -455,15 +455,28 @@ if ($ee_is_home) {
 
         /* When the icon-box contains a real PNG/SVG logo, the dark-orange
            hover bg overpowers the artwork — keep a light bg with an
-           orange ring + glow so the logo stays clearly visible. */
-        .icon-box--image { background: #ffffff; border: 1px solid rgba(15, 23, 42, 0.06); }
-        .icon-box--image img { transition: transform 0.3s ease; }
+           orange ring + glow so the logo stays clearly visible. Bigger
+           than line-icon boxes (48 vs 36) so the brand logos read clearly. */
+        .icon-box--image {
+            width: 48px;
+            height: 48px;
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            border-radius: 11px;
+            padding: 6px;
+        }
+        .icon-box--image img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
         .menu-item:hover .icon-box--image {
             background: #fff7f0;
             border-color: rgba(222, 110, 48, 0.35);
             box-shadow: 0 8px 16px rgba(222, 110, 48, 0.18);
         }
-        .menu-item:hover .icon-box--image img { transform: scale(1.08); }
+        .menu-item:hover .icon-box--image img { transform: scale(1.10); }
 
         /* Mobile Side Menu Glass */
         #mobileMenu {
@@ -725,23 +738,23 @@ if ($ee_is_home) {
                     </button>
                     <div class="mega-menu grid grid-cols-2 gap-2 w-[600px]" role="menu" aria-label="Resources submenu">
                         <a href="/blogs/" class="menu-item" role="menuitem" title="ExtraaEdge Blogs">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="file-text"></i></div>
+                            <div class="icon-box icon-box--image" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Blogs_icon.png" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy"></div>
                             <div><span class="menu-title font-bold text-brandBlue">Blogs</span><p class="text-xs text-slate-500 mt-1">Latest insights to optimize your admissions.</p></div>
                         </a>
                         <a href="/ebooks/" class="menu-item" role="menuitem" title="Free Education Ebooks">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="book"></i></div>
+                            <div class="icon-box icon-box--image" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/e-books_icon.png" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy"></div>
                             <div><span class="menu-title font-bold text-brandBlue">Ebooks</span><p class="text-xs text-slate-500 mt-1">In-depth industry-relevant guides.</p></div>
                         </a>
                         <a href="/webinars/" class="menu-item" role="menuitem" title="Education Webinars">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="monitor"></i></div>
+                            <div class="icon-box icon-box--image" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Webinars-icon.png" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy"></div>
                             <div><span class="menu-title font-bold text-brandBlue">Webinars</span><p class="text-xs text-slate-500 mt-1">Live sessions with emerging trends.</p></div>
                         </a>
                         <a href="/case-studies/" class="menu-item" role="menuitem" title="Customer Case Studies">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="award"></i></div>
+                            <div class="icon-box icon-box--image" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Case-studies_icons.png" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy"></div>
                             <div><span class="menu-title font-bold text-brandBlue">Case Studies</span><p class="text-xs text-slate-500 mt-1">Discover how leading institutions grow.</p></div>
                         </a>
                         <a href="/news/" class="menu-item col-span-2" role="menuitem" title="News and Media">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="newspaper"></i></div>
+                            <div class="icon-box icon-box--image" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/News_And_Media_icons.png" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy"></div>
                             <div><span class="menu-title font-bold text-brandBlue">News &amp; Media</span><p class="text-xs text-slate-500 mt-1">Keep up with the latest updates from ExtraaEdge.</p></div>
                         </a>
                     </div>
@@ -754,27 +767,27 @@ if ($ee_is_home) {
                     </button>
                     <div class="mega-menu grid grid-cols-2 gap-2 w-[650px]" role="menu" aria-label="Company submenu">
                         <a href="/about/" class="menu-item" role="menuitem" title="About ExtraaEdge">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="info"></i></div>
+                            <div class="icon-box icon-box--image" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/about-us_-icon.png" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy"></div>
                             <div><span class="menu-title font-bold text-brandBlue">About</span><p class="text-xs text-slate-500 mt-1">Learn more about our story and mission.</p></div>
                         </a>
                         <a href="/customers/" class="menu-item" role="menuitem" title="Our Customers">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="users"></i></div>
+                            <div class="icon-box icon-box--image" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/costomers-icon.png" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy"></div>
                             <div><span class="menu-title font-bold text-brandBlue">Customers</span><p class="text-xs text-slate-500 mt-1">Explore success stories in your segment.</p></div>
                         </a>
                         <a href="/careers/" class="menu-item" role="menuitem" title="Careers at ExtraaEdge">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="sparkles"></i></div>
+                            <div class="icon-box icon-box--image" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/careers-icon.png" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy"></div>
                             <div><span class="menu-title font-bold text-brandBlue">Careers</span><p class="text-xs text-slate-500 mt-1">Join our team&mdash;explore opportunities.</p></div>
                         </a>
                         <a href="/investors/" class="menu-item" role="menuitem" title="Investors and Advisors">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="landmark"></i></div>
+                            <div class="icon-box icon-box--image" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/investors_and_advisers_icons.png" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy"></div>
                             <div><span class="menu-title font-bold text-brandBlue">Investors &amp; Advisors</span><p class="text-xs text-slate-500 mt-1">Meet our visionary supporters.</p></div>
                         </a>
                         <a href="/team/" class="menu-item" role="menuitem" title="ExtraaEdge Team">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="smile"></i></div>
+                            <div class="icon-box icon-box--image" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/team-icons.png" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy"></div>
                             <div><span class="menu-title font-bold text-brandBlue">Team</span><p class="text-xs text-slate-500 mt-1">The people driving your success.</p></div>
                         </a>
                         <a href="/partners/" class="menu-item bg-brandOrange/5" role="menuitem" title="Become an ExtraaEdge Partner">
-                            <div class="icon-box bg-brandOrange text-white" aria-hidden="true"><i data-lucide="handshake"></i></div>
+                            <div class="icon-box icon-box--image" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/become_a_partner_icon.png" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy"></div>
                             <div><span class="menu-title font-bold text-brandBlue">Become a Partner</span><p class="text-xs text-slate-500 mt-1">Partner with us&mdash;get in touch.</p></div>
                         </a>
                     </div>

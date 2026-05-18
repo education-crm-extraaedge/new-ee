@@ -1192,12 +1192,12 @@ function ee_get_industry_menu_items($limit = 0) {
 
     if (empty($items)) {
         $items = array(
-            array('title' => 'Higher Education',       'desc' => 'End-to-end admissions solutions tailored for higher education institutions.', 'short_desc' => 'For higher ed institutions.',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/enterprise.png',       'url' => '/industries/higher-education-crm/',   'tags' => array('Lead Automation','Multi-Campus','Analytics')),
-            array('title' => 'School',                 'desc' => 'A customized CRM to digitize and streamline student admissions processes.',    'short_desc' => 'Digitize student admissions.',    'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/classroom.png',        'url' => '/industries/school-crm/',             'tags' => array('Parent Engagement','Digital Forms','Workflows')),
-            array('title' => 'EdTech',                 'desc' => 'A comprehensive admissions platform built for tech-driven learning organizations.', 'short_desc' => 'For tech-driven learning.',  'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/online-learning-1.png', 'url' => '/industries/edtech-crm/',             'tags' => array('API Integrations','Funnel Tracking','Retargeting')),
-            array('title' => 'Vocational',             'desc' => 'A powerful CRM designed to support vocational training admissions.',           'short_desc' => 'Vocational training.',            'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/vocational-1.png',     'url' => '/industries/vocational-crm/',         'tags' => array('Batch Management','Fee Tracking','Counselling')),
-            array('title' => 'Coaching Institute CRM', 'desc' => 'An all-in-one CRM solution for test prep and coaching institutes.',           'short_desc' => 'All-in-one for test prep.',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/class-1.png',          'url' => '/industries/coaching-institute-crm/', 'tags' => array('Demo Tracking','WhatsApp CRM','Reports')),
-            array('title' => 'Overseas',               'desc' => 'A complete applications platform for study abroad and international admissions teams.', 'short_desc' => 'Study abroad admissions.', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/departure-1.png',      'url' => '/industries/overseas-crm/',           'tags' => array('Visa Pipeline','Doc Collection','Multi-Country')),
+            array('title' => 'Higher Education',       'desc' => 'End-to-end admissions solutions tailored for higher education institutions.', 'short_desc' => 'For higher ed institutions.',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Higher_Education_CRM_crm_icon.png',       'url' => '/industries/higher-education-crm/',   'tags' => array('Lead Automation','Multi-Campus','Analytics')),
+            array('title' => 'School',                 'desc' => 'A customized CRM to digitize and streamline student admissions processes.',    'short_desc' => 'Digitize student admissions.',    'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/School-focused_CRM_Icons.png',        'url' => '/industries/school-crm/',             'tags' => array('Parent Engagement','Digital Forms','Workflows')),
+            array('title' => 'EdTech',                 'desc' => 'A comprehensive admissions platform built for tech-driven learning organizations.', 'short_desc' => 'For tech-driven learning.',  'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Edtech_CRM_Icon.png', 'url' => '/industries/edtech-crm/',             'tags' => array('API Integrations','Funnel Tracking','Retargeting')),
+            array('title' => 'Vocational',             'desc' => 'A powerful CRM designed to support vocational training admissions.',           'short_desc' => 'Vocational training.',            'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Vocational_CRM_Icon.png',     'url' => '/industries/vocational-crm/',         'tags' => array('Batch Management','Fee Tracking','Counselling')),
+            array('title' => 'Coaching Institute CRM', 'desc' => 'An all-in-one CRM solution for test prep and coaching institutes.',           'short_desc' => 'All-in-one for test prep.',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Coaching_Admissions_Management_CRM.png',          'url' => '/industries/coaching-institute-crm/', 'tags' => array('Demo Tracking','WhatsApp CRM','Reports')),
+            array('title' => 'Overseas',               'desc' => 'A complete applications platform for study abroad and international admissions teams.', 'short_desc' => 'Study abroad admissions.', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Overseas_Education_CRM_icon.png',      'url' => '/industries/overseas-crm/',           'tags' => array('Visa Pipeline','Doc Collection','Multi-Country')),
         );
     }
 
@@ -1238,7 +1238,7 @@ add_action('add_meta_boxes', function () {
             </style>
             <div class="ind-row">
                 <label>Card Icon URL <span style="color:#DE6E30">★</span></label>
-                <input type="url" name="industry_icon_url" value="<?php echo esc_attr($icon); ?>" placeholder="https://www.extraaedge.com/wp-content/uploads/2022/06/enterprise.png">
+                <input type="url" name="industry_icon_url" value="<?php echo esc_attr($icon); ?>" placeholder="https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Higher_Education_CRM_crm_icon.png">
                 <p class="hint">Square 30×30 to 60×60 px PNG/SVG. Browse <strong>Media Library</strong> → click image → copy "File URL" → paste here.</p>
             </div>
             <div class="ind-row">
@@ -1334,12 +1334,12 @@ function ee_get_product_menu_items($limit = 0) {
 
     if (empty($items)) {
         $items = array(
-            array('title' => 'Education CRM',         'desc' => 'Streamline your entire admissions process on a single, unified platform — from inquiry to enrollment.', 'url' => '/products/education-crm/',              'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/class-1.png'),
-            array('title' => 'Education Chatbot',     'desc' => 'Manage and respond to admissions queries 24/7 with intelligent AI-powered automation.',                  'url' => '/products/chatbot-for-education/',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/chatbot-2-e1654579573780.png'),
-            array('title' => 'Application Management','desc' => 'Simplify and scale your application workflows with a fully digital, paperless experience.',              'url' => '/products/application-management-system/', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/list.png'),
-            array('title' => 'Mobile CRM',            'desc' => 'Boost admissions conversions by identifying and engaging high-intent prospects on the go.',              'url' => '/products/mobile-crm/',                  'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/app-development-1.png'),
-            array('title' => 'WhatsApp API & Bot',    'desc' => 'Engage prospects through personalized, one-on-one WhatsApp conversations at scale.',                     'url' => '/products/whatsapp-api/',                'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/whatsapp-3.png'),
-            array('title' => 'IVR System',            'desc' => 'Route, record, and track all counselor calls within a centralized, analytics-ready system.',             'url' => '/products/ivr/',                         'icon' => 'https://www.extraaedge.com/wp-content/uploads/2023/11/interactive-voice-response.png'),
+            array('title' => 'Education CRM',         'desc' => 'Streamline your entire admissions process on a single, unified platform — from inquiry to enrollment.', 'url' => '/products/education-crm/',              'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/education-crm-icon.png'),
+            array('title' => 'Education Chatbot',     'desc' => 'Manage and respond to admissions queries 24/7 with intelligent AI-powered automation.',                  'url' => '/products/chatbot-for-education/',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/education-chatbot-icon.png'),
+            array('title' => 'Application Management','desc' => 'Simplify and scale your application workflows with a fully digital, paperless experience.',              'url' => '/products/application-management-system/', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Application_Management_System_Icon.png'),
+            array('title' => 'Mobile CRM',            'desc' => 'Boost admissions conversions by identifying and engaging high-intent prospects on the go.',              'url' => '/products/mobile-crm/',                  'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Mobile_CRM_Icon.png'),
+            array('title' => 'WhatsApp API & Bot',    'desc' => 'Engage prospects through personalized, one-on-one WhatsApp conversations at scale.',                     'url' => '/products/whatsapp-api/',                'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/WhatsApp_API_icon.png'),
+            array('title' => 'IVR System',            'desc' => 'Route, record, and track all counselor calls within a centralized, analytics-ready system.',             'url' => '/products/ivr/',                         'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/IVR_SYSTEM_icon.png'),
         );
     }
 
@@ -1435,9 +1435,9 @@ function ee_get_usecase_items($limit = 0) {
     }
     if (empty($items)) {
         $items = array(
-            array('title' => 'For Management',    'desc' => 'Take data-driven decisions on increasing admissions, counselor &amp; channel performance.',                    'url' => '/use-cases/management/',            'icon' => 'https://www.extraaedge.com/wp-content/uploads/2023/01/management-2.png', 'lucide' => 'bar-chart-3'),
-            array('title' => 'On Field Agents',   'desc' => 'Automate your home demos, events, seminars, and outbound sales processes.',                                  'url' => '/use-cases/on-field-agents/',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2023/01/conference.png',    'lucide' => 'map-pin'),
-            array('title' => 'For Counselors',    'desc' => 'Increase your counselors efficiency by mapping the entire student journey with timely follow-ups.',        'url' => '/use-cases/admission-counselors/', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2023/01/call.png',          'lucide' => 'user-check'),
+            array('title' => 'For Management',    'desc' => 'Take data-driven decisions on increasing admissions, counselor &amp; channel performance.',                    'url' => '/use-cases/management/',            'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/for_management_crm_icon.png', 'lucide' => 'bar-chart-3'),
+            array('title' => 'On Field Agents',   'desc' => 'Automate your home demos, events, seminars, and outbound sales processes.',                                  'url' => '/use-cases/on-field-agents/',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/on_filed_agent_crm.png',    'lucide' => 'map-pin'),
+            array('title' => 'For Counselors',    'desc' => 'Increase your counselors efficiency by mapping the entire student journey with timely follow-ups.',        'url' => '/use-cases/admission-counselors/', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/For_consolers_crm_icon.png',          'lucide' => 'user-check'),
         );
     }
     $cache = $items;
