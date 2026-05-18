@@ -285,20 +285,45 @@ if ($ee_is_home) {
 
         /* Site Header — STICKY (fallback in case Tailwind classes don't apply) */
         #site-header {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 0;
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top: 0 !important;
             left: 0;
             right: 0;
             width: 100%;
-            z-index: 1000;
+            z-index: 9999 !important;       /* float above any reveal animations / sticky CRM widgets */
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transform: none !important;     /* defeats parents that animate transform and could displace sticky */
         }
+        /* If the header somehow loses sticky-ness (rare browser bug), fall back
+           to fixed positioning so it stays on screen. Triggered via JS below. */
+        #site-header.ee-force-fixed {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0;
+            right: 0;
+        }
+        body.ee-header-fixed { padding-top: var(--ee-header-h, 96px); }
 
         /* ───────── Tailwind shim ─────────
            If the Tailwind CDN is blocked, slow, or cached as 404 on a CDN
            between us and the visitor, the `hidden`, `lg:flex`, `lg:hidden`
            utility classes do nothing — which collapses the navigation. These
-           plain CSS rules guarantee a usable header even with Tailwind down. */
+           plain CSS rules guarantee a usable header even with Tailwind down.
+
+           Uses semantic class names (.ee-desktop-nav / .ee-mobile-btn) so the
+           selectors do not contain the `:` character — some CSS minifiers and
+           CDNs (Cloudflare Auto-Minify, Litespeed CSS Combine, Rocket Loader)
+           mangle Tailwind's "\:" escape sequence and silently break them. */
+        #site-header .ee-desktop-nav { display: none; }
+        #site-header .ee-mobile-btn  { display: inline-flex; align-items: center; }
+        @media (min-width: 1024px) {
+            #site-header .ee-desktop-nav { display: flex !important; align-items: center; gap: 8px; }
+            #site-header .ee-mobile-btn  { display: none !important; }
+        }
+        /* Also try to recover Tailwind utility classes if they happen to load */
         #site-header .hidden { display: none; }
         @media (min-width: 1024px) {
             #site-header .lg\:flex   { display: flex; }
@@ -605,7 +630,7 @@ if ($ee_is_home) {
             </a>
 
             <!-- Desktop Links -->
-            <div class="hidden lg:flex items-center gap-2">
+            <div class="hidden lg:flex items-center gap-2 ee-desktop-nav">
 
                 <!-- Products -->
                 <div class="nav-group relative">
@@ -753,7 +778,7 @@ if ($ee_is_home) {
             <!-- Action Buttons -->
             <div class="flex items-center gap-4">
                 <a href="/book-demo/" class="bg-brandBlue text-white font-bold px-6 py-3 rounded-xl hover:bg-brandOrange transition shadow-lg shadow-brandBlue/20" title="Book a free demo" aria-label="Book a free demo">Book Demo</a>
-                <button id="openMobileBtn" class="lg:hidden p-2 text-brandBlue" aria-label="Open mobile menu" aria-controls="mobileMenu" aria-expanded="false"><i data-lucide="menu" aria-hidden="true"></i></button>
+                <button id="openMobileBtn" class="lg:hidden p-2 text-brandBlue ee-mobile-btn" aria-label="Open mobile menu" aria-controls="mobileMenu" aria-expanded="false"><i data-lucide="menu" aria-hidden="true"></i></button>
             </div>
         </div>
     </nav>
@@ -1028,6 +1053,39 @@ if ($ee_is_home) {
                 progressEl.setAttribute('aria-valuenow', Math.round(scrolled));
             }
         });
+
+        // ───────── Sticky-fail guard ─────────
+        // If some page-level CSS (typically `overflow:hidden` on an ancestor or
+        // a transform on <body>) silently kills position:sticky, the header
+        // visually disappears after the first scroll. We detect that and
+        // promote the header to position:fixed so it stays usable.
+        (function(){
+            const header = document.getElementById('site-header');
+            if (!header) return;
+
+            // Measure once so the body padding shim fills the gap when fixed
+            function setHeaderHeightVar() {
+                document.documentElement.style.setProperty('--ee-header-h', header.offsetHeight + 'px');
+            }
+            setHeaderHeightVar();
+            window.addEventListener('resize', setHeaderHeightVar);
+
+            let lastTop = null;
+            function check() {
+                const rect = header.getBoundingClientRect();
+                // Sticky behaviour means top stays at 0 when scrolled. If we
+                // see top < 0 the header has scrolled away — sticky is broken.
+                if (rect.top < -2 && !header.classList.contains('ee-force-fixed')) {
+                    header.classList.add('ee-force-fixed');
+                    document.body.classList.add('ee-header-fixed');
+                    setHeaderHeightVar();
+                }
+                lastTop = rect.top;
+            }
+            // Initial check after layout settles
+            requestAnimationFrame(check);
+            window.addEventListener('scroll', check, { passive: true });
+        })();
     </script>
 
 <!-- Main content landmark — required so the skip-to-content link has a target and screen readers/SEO recognise the primary content area. Closed in footer.php. -->
