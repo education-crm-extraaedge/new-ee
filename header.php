@@ -638,30 +638,27 @@ if ($ee_is_home) {
                         Products <i data-lucide="chevron-down" class="w-4 h-4" aria-hidden="true"></i>
                     </button>
                     <div class="mega-menu grid grid-cols-2 gap-2 w-[750px]" role="menu" aria-label="Products submenu">
-                        <a href="/products/education-crm/" class="menu-item" role="menuitem" title="Education CRM — Streamline admissions">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="layout-dashboard"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue">Education CRM</span><p class="text-xs text-slate-500 mt-1">Streamline your entire admissions process on a single, unified platform.</p></div>
+                        <?php
+                        /* Products menu items — pulled from the Product CPT so adding a new
+                           Product post automatically appears here. Falls back to a seeded
+                           list when the CPT is empty. Short description uses the same
+                           _product_card_desc meta as the /products/ landing page so a
+                           single edit updates both places. */
+                        $ee_product_menu = function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items() : array();
+                        foreach ($ee_product_menu as $p) :
+                            $short = wp_trim_words(wp_strip_all_tags((string) $p['desc']), 14, '…');
+                        ?>
+                        <a href="<?php echo esc_url($p['url']); ?>" class="menu-item" role="menuitem" title="<?php echo esc_attr($p['title']); ?>">
+                            <div class="icon-box<?php echo !empty($p['icon']) ? ' icon-box--image' : ''; ?>" aria-hidden="true">
+                                <?php if (!empty($p['icon'])) : ?>
+                                    <img src="<?php echo esc_url($p['icon']); ?>" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy">
+                                <?php else : ?>
+                                    <i data-lucide="layout-dashboard"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div><span class="menu-title font-bold text-brandBlue text-sm"><?php echo esc_html($p['title']); ?></span><p class="text-xs text-slate-500 mt-1"><?php echo esc_html($short); ?></p></div>
                         </a>
-                        <a href="/products/chatbot-for-education/" class="menu-item" role="menuitem" title="Education Chatbot — 24/7 AI admissions">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="bot"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue">Education Chatbot</span><p class="text-xs text-slate-500 mt-1">Manage and respond to admissions queries 24/7 with intelligent automation.</p></div>
-                        </a>
-                        <a href="/products/application-management-system/" class="menu-item" role="menuitem" title="Application Management System">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="file-check"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue">Application Management System</span><p class="text-xs text-slate-500 mt-1">Simplify and scale your application workflows with ease.</p></div>
-                        </a>
-                        <a href="/products/mobile-crm/" class="menu-item" role="menuitem" title="Mobile CRM for admissions teams">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="smartphone"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue">Mobile CRM</span><p class="text-xs text-slate-500 mt-1">Boost admissions conversions by identifying and engaging high-intent prospects.</p></div>
-                        </a>
-                        <a href="/products/whatsapp-api/" class="menu-item" role="menuitem" title="WhatsApp API and Bot for education">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="message-circle"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue">WhatsApp API &amp; Bot</span><p class="text-xs text-slate-500 mt-1">Engage prospects effectively through personalized, one-on-one WhatsApp communication.</p></div>
-                        </a>
-                        <a href="/products/ivr/" class="menu-item" role="menuitem" title="IVR Call Routing System">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="phone-call"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue">IVR</span><p class="text-xs text-slate-500 mt-1">Route, record, and track all counselor calls within a centralized system.</p></div>
-                        </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 
@@ -801,30 +798,20 @@ if ($ee_is_home) {
                 </button>
                 <div class="mobile-accordion-content">
                     <div class="p-4 space-y-2">
-                        <a href="/products/education-crm/" class="m-icon-card" title="Education CRM">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="layout-dashboard"></i></div>
-                            <div class="m-text"><span class="menu-title">Education CRM</span><p>Streamline your entire admissions process.</p></div>
+                        <?php foreach ((function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items() : array()) as $p) :
+                            $short = wp_trim_words(wp_strip_all_tags((string) $p['desc']), 10, '…');
+                        ?>
+                        <a href="<?php echo esc_url($p['url']); ?>" class="m-icon-card" title="<?php echo esc_attr($p['title']); ?>">
+                            <div class="m-ico" aria-hidden="true">
+                                <?php if (!empty($p['icon'])) : ?>
+                                    <img src="<?php echo esc_url($p['icon']); ?>" alt="" style="width:18px;height:18px;object-fit:contain" loading="lazy">
+                                <?php else : ?>
+                                    <i data-lucide="layout-dashboard"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div class="m-text"><span class="menu-title"><?php echo esc_html($p['title']); ?></span><p><?php echo esc_html($short); ?></p></div>
                         </a>
-                        <a href="/products/chatbot-for-education/" class="m-icon-card" title="Education Chatbot">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="bot"></i></div>
-                            <div class="m-text"><span class="menu-title">Education Chatbot</span><p>24/7 admissions queries with AI.</p></div>
-                        </a>
-                        <a href="/products/application-management-system/" class="m-icon-card" title="Application Management">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="file-check"></i></div>
-                            <div class="m-text"><span class="menu-title">Application Management</span><p>Scale application workflows easily.</p></div>
-                        </a>
-                        <a href="/products/mobile-crm/" class="m-icon-card" title="Mobile CRM">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="smartphone"></i></div>
-                            <div class="m-text"><span class="menu-title">Mobile CRM</span><p>Engage high-intent prospects on the go.</p></div>
-                        </a>
-                        <a href="/products/whatsapp-api/" class="m-icon-card" title="WhatsApp API and Bot">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="message-circle"></i></div>
-                            <div class="m-text"><span class="menu-title">WhatsApp API &amp; Bot</span><p>Personalized WhatsApp communication.</p></div>
-                        </a>
-                        <a href="/products/ivr/" class="m-icon-card" title="IVR">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="phone-call"></i></div>
-                            <div class="m-text"><span class="menu-title">IVR</span><p>Track and record counselor calls.</p></div>
-                        </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
