@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Primary SEO -->
+  <title>Resources & Company | ExtraaEdge – Admissions CRM & Automation</title>
+  <meta name="description" content="Explore ExtraaEdge's full library of admissions resources — blogs, ebooks, webinars, case studies, news, and company information. Convert more students with automation.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://www.extraaedge.com/resources/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Resources & Company | ExtraaEdge">
+  <meta property="og:description" content="Explore blogs, ebooks, webinars, case studies, news, and more from ExtraaEdge — the leading admissions CRM for education institutions.">
+  <meta property="og:url" content="https://www.extraaedge.com/resources/">
+  <meta property="og:site_name" content="ExtraaEdge">
+  <meta property="og:image" content="https://www.extraaedge.com/wp-content/uploads/2022/06/enterprise.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Resources & Company | ExtraaEdge">
+  <meta name="twitter:description" content="Convert more students with ExtraaEdge's admissions automation resources.">
+  <meta name="twitter:image" content="https://www.extraaedge.com/wp-content/uploads/2022/06/enterprise.png">
+
+  <!-- Performance: Font Preloading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.extraaedge.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       EXTRAAEDGE RESOURCES v6 — WordPress Production Architecture
+       Namespace: .eerc (ee-resources-company)
+       All selectors scoped to prevent theme style leakage.
+    ============================================================ */
+
+    /* --- Reset & CSS Custom Properties --- */
+    .eerc *,
+    .eerc *::before,
+    .eerc *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    .eerc {
+      /* Brand tokens */
+      --eerc-blue:        #19335D;
+      --eerc-blue-dark:   #0f2040;
+      --eerc-blue-light:  #e8eef7;
+      --eerc-orange:      #DE6E30;
+      --eerc-orange-light:#fdf0e8;
+      --eerc-text:        #1e293b;
+      --eerc-muted:       #64748b;
+      --eerc-border:      #e2e8f0;
+      --eerc-bg:          #ffffff;
+      --eerc-surface:     #f8fafc;
+
+      /* Spacing scale */
+      --eerc-sp-xs:  8px;
+      --eerc-sp-sm:  16px;
+      --eerc-sp-md:  24px;
+      --eerc-sp-lg:  40px;
+      --eerc-sp-xl:  64px;
+
+      /* Typography */
+      --eerc-font:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --eerc-radius: 20px;
+
+      /* Animation */
+      --eerc-ease:   cubic-bezier(0.16, 1, 0.3, 1);
+
+      /* Apply base styles */
+      font-family: var(--eerc-font);
+      color: var(--eerc-text);
+      background: var(--eerc-bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
+      overflow: hidden;
+
+      /* WordPress spacing constraints */
+      margin: 10px 0 !important;
+      padding: 10px 0 !important;
+    }
+
+    /* --- Decorative Background Canvas --- */
+    .eerc__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .eerc__bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.06;
+      will-change: transform;
+    }
+
+    .eerc__bg-blob--1 {
+      width: 600px;
+      height: 600px;
+      background: var(--eerc-blue);
+      top: -200px;
+      right: -100px;
+      animation: eerc-float 20s ease-in-out infinite;
+    }
+
+    .eerc__bg-blob--2 {
+      width: 400px;
+      height: 400px;
+      background: var(--eerc-orange);
+      bottom: -100px;
+      left: -80px;
+      animation: eerc-float 16s ease-in-out infinite reverse;
+    }
+
+    .eerc__bg-blob--3 {
+      width: 300px;
+      height: 300px;
+      background: var(--eerc-blue);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: eerc-float 24s ease-in-out infinite 3s;
+    }
+
+    /* Animated data-flow lines */
+    .eerc__bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(25,51,93,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(25,51,93,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .eerc__flow-line {
+      position: absolute;
+      width: 2px;
+      height: 80px;
+      border-radius: 2px;
+      background: linear-gradient(180deg, transparent, rgba(222,110,48,0.25), transparent);
+      animation: eerc-flow-down 8s infinite linear;
+    }
+
+    .eerc__flow-line:nth-child(1) { left: 15%;  animation-delay: 0s;   animation-duration: 9s; }
+    .eerc__flow-line:nth-child(2) { left: 35%;  animation-delay: -3s;  animation-duration: 7s; }
+    .eerc__flow-line:nth-child(3) { left: 55%;  animation-delay: -6s;  animation-duration: 10s; }
+    .eerc__flow-line:nth-child(4) { left: 75%;  animation-delay: -1.5s; animation-duration: 8s; }
+    .eerc__flow-line:nth-child(5) { left: 90%;  animation-delay: -4.5s; animation-duration: 6s; }
+
+    @keyframes eerc-flow-down {
+      0%   { top: -80px; opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { top: 110%; opacity: 0; }
+    }
+
+    @keyframes eerc-float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%       { transform: translateY(-30px) scale(1.05); }
+    }
+
+    /* --- Main Container --- */
+    .eerc__container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: var(--eerc-sp-lg) var(--eerc-sp-sm);
+      position: relative;
+      z-index: 10;
+    }
+
+    /* --- Section Header --- */
+    .eerc__header {
+      text-align: center;
+      margin-bottom: var(--eerc-sp-xl);
+    }
+
+    .eerc__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--eerc-orange);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: var(--eerc-orange-light);
+      border: 1px solid rgba(222,110,48,0.2);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .eerc__eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--eerc-orange);
+      border-radius: 50%;
+      animation: eerc-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes eerc-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .eerc__headline {
+      font-size: clamp(30px, 4.5vw, 52px);
+      font-weight: 800;
+      color: var(--eerc-blue);
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .eerc__headline mark {
+      background: none;
+      color: var(--eerc-orange);
+      position: relative;
+    }
+
+    .eerc__subheadline {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--eerc-muted);
+      max-width: 560px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+
+    /* --- Tab Navigation (Category Filter) --- */
+    .eerc__tabs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .eerc__tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid var(--eerc-border);
+      background: transparent;
+      color: var(--eerc-muted);
+      transition: all 0.25s var(--eerc-ease);
+      font-family: var(--eerc-font);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .eerc__tab:hover,
+    .eerc__tab:focus-visible {
+      border-color: var(--eerc-blue);
+      color: var(--eerc-blue);
+      background: var(--eerc-blue-light);
+      outline: none;
+    }
+
+    .eerc__tab.is-active {
+      background: var(--eerc-blue);
+      border-color: var(--eerc-blue);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(25,51,93,0.25);
+    }
+
+    .eerc__tab-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.25);
+      color: inherit;
+    }
+
+    .eerc__tab.is-active .eerc__tab-count {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* --- Section Labels --- */
+    .eerc__section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .eerc__section-label-text {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--eerc-muted);
+      white-space: nowrap;
+    }
+
+    .eerc__section-label-line {
+      flex: 1;
+      height: 1px;
+      background: var(--eerc-border);
+    }
+
+    /* --- Card Grid --- */
+    .eerc__grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(1, 1fr);
+      list-style: none;
+    }
+
+    @media (min-width: 580px) {
+      .eerc__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 900px) {
+      .eerc__grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (min-width: 1200px) {
+      .eerc__grid { gap: 24px; }
+    }
+
+    /* --- Filter Hidden State --- */
+    .eerc__grid-item {
+      display: flex;
+    }
+
+    .eerc__grid-item[aria-hidden="true"] {
+      display: none;
+    }
+
+    /* --- Card Component --- */
+    .eerc__card {
+      background: #fff;
+      border: 1px solid var(--eerc-border);
+      border-radius: var(--eerc-radius);
+      padding: 32px 28px 28px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: transform 0.5s var(--eerc-ease),
+                  box-shadow 0.5s var(--eerc-ease),
+                  border-color 0.5s var(--eerc-ease);
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Shimmer gradient on hover */
+    .eerc__card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+        transparent 40%,
+        rgba(222,110,48,0.04) 60%,
+        rgba(25,51,93,0.03) 80%,
+        transparent 100%
+      );
+      opacity: 0;
+      transition: opacity 0.5s var(--eerc-ease);
+      pointer-events: none;
+    }
+
+    /* Left accent bar */
+    .eerc__card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 24px;
+      bottom: 24px;
+      width: 0;
+      background: linear-gradient(180deg, var(--eerc-orange), var(--eerc-blue));
+      border-radius: 0 3px 3px 0;
+      transition: width 0.4s var(--eerc-ease);
+    }
+
+    .eerc__card:hover,
+    .eerc__card:focus-visible {
+      transform: translateY(-8px);
+      border-color: rgba(222,110,48,0.25);
+      box-shadow:
+        0 4px 6px -1px rgba(0,0,0,0.04),
+        0 20px 40px -8px rgba(25,51,93,0.12),
+        0 0 0 1px rgba(222,110,48,0.08);
+      outline: none;
+    }
+
+    .eerc__card:hover::before {
+      width: 4px;
+    }
+
+    .eerc__card:hover::after {
+      opacity: 1;
+    }
+
+    .eerc__card:focus-visible {
+      outline: 3px solid var(--eerc-orange);
+      outline-offset: 2px;
+    }
+
+    /* Card Tag (category badge) */
+    .eerc__card-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+      width: fit-content;
+      transition: all 0.3s var(--eerc-ease);
+    }
+
+    .eerc__card-tag--resources {
+      background: var(--eerc-orange-light);
+      color: var(--eerc-orange);
+    }
+
+    .eerc__card-tag--company {
+      background: var(--eerc-blue-light);
+      color: var(--eerc-blue);
+    }
+
+    /* Icon */
+    .eerc__card-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--eerc-surface);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: all 0.5s var(--eerc-ease);
+      flex-shrink: 0;
+      border: 1px solid var(--eerc-border);
+    }
+
+    .eerc__card-icon img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+      transition: filter 0.3s ease;
+    }
+
+    .eerc__card:hover .eerc__card-icon {
+      background: var(--eerc-blue);
+      border-color: var(--eerc-blue);
+      transform: rotate(-6deg) scale(1.08);
+      box-shadow: 0 8px 20px rgba(25,51,93,0.25);
+    }
+
+    .eerc__card:hover .eerc__card-icon img {
+      filter: brightness(0) invert(1);
+    }
+
+    /* Card Content */
+    .eerc__card-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--eerc-blue);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      line-height: 1.3;
+      transition: color 0.3s ease;
+    }
+
+    .eerc__card:hover .eerc__card-title {
+      color: var(--eerc-blue-dark);
+    }
+
+    .eerc__card-desc {
+      font-size: 14.5px;
+      color: var(--eerc-muted);
+      line-height: 1.65;
+      flex-grow: 1;
+      margin-bottom: 22px;
+    }
+
+    .eerc__card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--eerc-orange);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      transition: gap 0.3s var(--eerc-ease);
+      margin-top: auto;
+    }
+
+    .eerc__card-cta svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      transition: transform 0.3s var(--eerc-ease);
+    }
+
+    .eerc__card:hover .eerc__card-cta {
+      gap: 10px;
+    }
+
+    .eerc__card:hover .eerc__card-cta svg {
+      transform: translateX(4px);
+    }
+
+    /* --- Stats Bar --- */
+    .eerc__stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      margin-top: 56px;
+      border: 1px solid var(--eerc-border);
+      border-radius: var(--eerc-radius);
+      overflow: hidden;
+      background: var(--eerc-surface);
+    }
+
+    .eerc__stat {
+      flex: 1;
+      min-width: 140px;
+      padding: 28px 24px;
+      text-align: center;
+      border-right: 1px solid var(--eerc-border);
+      transition: background 0.3s ease;
+    }
+
+    .eerc__stat:last-child {
+      border-right: none;
+    }
+
+    .eerc__stat:hover {
+      background: #fff;
+    }
+
+    .eerc__stat-number {
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 800;
+      color: var(--eerc-blue);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .eerc__stat-label {
+      font-size: 13px;
+      color: var(--eerc-muted);
+      font-weight: 500;
+    }
+
+    /* --- Scroll Reveal Animations --- */
+    .eerc-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--eerc-ease),
+                  transform 0.75s var(--eerc-ease);
+    }
+
+    .eerc-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- Accessibility: Focus Visible --- */
+    .eerc__tab:focus-visible {
+      outline: 3px solid var(--eerc-orange);
+      outline-offset: 2px;
+    }
+
+    /* --- Skip Link for Accessibility --- */
+    .eerc__skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      background: var(--eerc-blue);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 1000;
+      text-decoration: none;
+      transition: top 0.2s;
+    }
+
+    .eerc__skip-link:focus {
+      top: 12px;
+    }
+
+    /* --- Reduced Motion --- */
+    @media (prefers-reduced-motion: reduce) {
+      .eerc-reveal {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+      .eerc__bg-blob,
+      .eerc__flow-line {
+        display: none;
+      }
+      .eerc__card {
+        transition: none;
+      }
+      .eerc__eyebrow-dot {
+        animation: none;
+      }
+    }
+
+    /* --- Dark Mode Support --- */
+    @media (prefers-color-scheme: dark) {
+      .eerc {
+        --eerc-bg:      #0f172a;
+        --eerc-surface: #1e293b;
+        --eerc-text:    #f1f5f9;
+        --eerc-muted:   #94a3b8;
+        --eerc-border:  #334155;
+        --eerc-blue-light: #1e2d44;
+        --eerc-orange-light: #2a1a0e;
+      }
+      .eerc__card {
+        background: #1e293b;
+      }
+      .eerc__card:hover {
+        background: #253348;
+      }
+    }
+
+    /* --- Print Styles --- */
+    @media print {
+      .eerc__bg,
+      .eerc__tabs,
+      .eerc__stats { display: none; }
+      .eerc__card {
+        break-inside: avoid;
+        border: 1px solid #ccc;
+        box-shadow: none;
+      }
+      .eerc-reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* --- Mobile Refinements --- */
+    @media (max-width: 639px) {
+      .eerc__container {
+        padding: 32px 16px;
+      }
+      .eerc__stats {
+        flex-direction: column;
+      }
+      .eerc__stat {
+        border-right: none;
+        border-bottom: 1px solid var(--eerc-border);
+        width: 100%;
+      }
+      .eerc__stat:last-child {
+        border-bottom: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+    ============================================================
+    EXTRAAEDGE — Resources & Company Section
+    WordPress-compatible: works in Custom HTML block, Elementor
+    HTML Widget, WPBakery Raw HTML, or any page builder.
+    ============================================================
+  -->
+
+  <!-- Skip to main content (accessibility) -->
+  <a href="#eerc-main" class="eerc__skip-link">Skip to resources</a>
+
+  <div class="eerc" role="region" aria-label="Resources and Company">
+
+    <!-- Decorative background (aria-hidden: purely visual) -->
+    <div class="eerc__bg" aria-hidden="true">
+      <div class="eerc__bg-grid"></div>
+      <div class="eerc__bg-blob eerc__bg-blob--1"></div>
+      <div class="eerc__bg-blob eerc__bg-blob--2"></div>
+      <div class="eerc__bg-blob eerc__bg-blob--3"></div>
+      <div class="eerc__flow-line"></div>
+      <div class="eerc__flow-line"></div>
+      <div class="eerc__flow-line"></div>
+      <div class="eerc__flow-line"></div>
+      <div class="eerc__flow-line"></div>
+    </div>
+
+    <div class="eerc__container" id="eerc-main">
+
+      <!-- ── Section Header ── -->
+      <header class="eerc__header eerc-reveal" role="banner">
+        <div class="eerc__eyebrow" aria-label="Category: Resources & Company">
+          <span class="eerc__eyebrow-dot" aria-hidden="true"></span>
+          Resources &amp; Company
+        </div>
+        <h2 class="eerc__headline">
+          Convert more students.<br><mark>Automatically.</mark>
+        </h2>
+        <p class="eerc__subheadline">
+          Everything you need to master admissions — from in-depth guides to
+          expert webinars, case studies, and the team behind the platform.
+        </p>
+      </header>
+
+      <!-- ── Tab Filter Navigation ── -->
+      <nav class="eerc__tabs eerc-reveal" aria-label="Filter resources by category" role="navigation">
+        <button
+          class="eerc__tab is-active"
+          data-filter="all"
+          aria-pressed="true"
+          aria-controls="eerc-grid"
+          type="button"
+        >
+          All <span class="eerc__tab-count" aria-label="11 items">11</span>
+        </button>
+        <button
+          class="eerc__tab"
+          data-filter="resources"
+          aria-pressed="false"
+          aria-controls="eerc-grid"
+          type="button"
+        >
+          Resources <span class="eerc__tab-count" aria-label="5 items">5</span>
+        </button>
+        <button
+          class="eerc__tab"
+          data-filter="company"
+          aria-pressed="false"
+          aria-controls="eerc-grid"
+          type="button"
+        >
+          Company <span class="eerc__tab-count" aria-label="6 items">6</span>
+        </button>
+      </nav>
+
+      <!-- ── Resource Grid ── -->
+      <ul
+        class="eerc__grid"
+        id="eerc-grid"
+        aria-label="Resource and company links"
+        aria-live="polite"
+        aria-atomic="false"
+      >
+
+        <!-- ─ Blogs ─ -->
+        <li class="eerc__grid-item eerc-reveal" data-category="resources">
+          <a
+            href="https://www.extraaedge.com/blogs/"
+            class="eerc__card"
+            aria-label="Blogs – Discover the latest admissions insights"
+            rel="noopener"
+          >
+            <span class="eerc__card-tag eerc__card-tag--resources" aria-hidden="true">Resources</span>
+            <div class="eerc__card-icon" aria-hidden="true">
+              <img
+                src="https://www.extraaedge.com/wp-content/uploads/2022/06/blogging.png"
+                alt=""
+                width="26"
+                height="26"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="eerc__card-title">Blogs</h3>
+            <p class="eerc__card-desc">Discover the latest admissions insights to sharpen your process and boost enrolment efficiency.</p>
+            <span class="eerc__card-cta" aria-hidden="true">
+              Explore
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <!-- ─ Ebooks ─ -->
+        <li class="eerc__grid-item eerc-reveal" data-category="resources">
+          <a
+            href="https://www.extraaedge.com/ebooks/"
+            class="eerc__card"
+            aria-label="Ebooks – Industry-relevant guides for admissions scaling"
+            rel="noopener"
+          >
+            <span class="eerc__card-tag eerc__card-tag--resources" aria-hidden="true">Resources</span>
+            <div class="eerc__card-icon" aria-hidden="true">
+              <img
+                src="https://www.extraaedge.com/wp-content/uploads/2022/06/ebook.png"
+                alt=""
+                width="26"
+                height="26"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="eerc__card-title">Ebooks</h3>
+            <p class="eerc__card-desc">Get industry-relevant guides crafted to help you scale your admissions strategy with data-backed frameworks.</p>
+            <span class="eerc__card-cta" aria-hidden="true">
+              Explore
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <!-- ─ Webinars ─ -->
+        <li class="eerc__grid-item eerc-reveal" data-category="resources">
+          <a
+            href="https://www.extraaedge.com/webinars/"
+            class="eerc__card"
+            aria-label="Webinars – Live sessions with admissions experts"
+            rel="noopener"
+          >
+            <span class="eerc__card-tag eerc__card-tag--resources" aria-hidden="true">Resources</span>
+            <div class="eerc__card-icon" aria-hidden="true">
+              <img
+                src="https://www.extraaedge.com/wp-content/uploads/2022/06/webinar.png"
+                alt=""
+                width="26"
+                height="26"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="eerc__card-title">Webinars</h3>
+            <p class="eerc__card-desc">Join live expert-led sessions covering the latest trends in admissions automation and enrolment growth.</p>
+            <span class="eerc__card-cta" aria-hidden="true">
+              Explore
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <!-- ─ Case Studies ─ -->
+        <li class="eerc__grid-item eerc-reveal" data-category="resources">
+          <a
+            href="https://www.extraaedge.com/testimonials-and-case-studies/"
+            class="eerc__card"
+            aria-label="Case Studies – See how customers grow with ExtraaEdge"
+            rel="noopener"
+          >
+            <span class="eerc__card-tag eerc__card-tag--resources" aria-hidden="true">Resources</span>
+            <div class="eerc__card-icon" aria-hidden="true">
+              <img
+                src="https://www.extraaedge.com/wp-content/uploads/2022/06/case-study.png"
+                alt=""
+                width="26"
+                height="26"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="eerc__card-title">Case Studies</h3>
+            <p class="eerc__card-desc">Discover how top institutions grew their enrolments using ExtraaEdge's admissions platform — with real metrics.</p>
+            <span class="eerc__card-cta" aria-hidden="true">
+              Explore
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <!-- ─ News & Media ─ -->
+        <li class="eerc__grid-item eerc-reveal" data-category="resources">
+          <a
+            href="https://www.extraaedge.com/news/"
+            class="eerc__card"
+            aria-label="News and Media – Latest ExtraaEdge announcements"
+            rel="noopener"
+          >
+            <span class="eerc__card-tag eerc__card-tag--resources" aria-hidden="true">Resources</span>
+            <div class="eerc__card-icon" aria-hidden="true">
+              <img
+                src="https://www.extraaedge.com/wp-content/uploads/2022/06/promotion-3.png"
+                alt=""
+                width="26"
+                height="26"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="eerc__card-title">News &amp; Media</h3>
+            <p class="eerc__card-desc">Stay up to speed with the latest product launches, partnerships, and press coverage about ExtraaEdge.</p>
+            <span class="eerc__card-cta" aria-hidden="true">
+              Explore
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <!-- ─ About ─ -->
+        <li class="eerc__grid-item eerc-reveal" data-category="company">
+          <a
+            href="https://www.extraaedge.com/about-us/"
+            class="eerc__card"
+            aria-label="About – ExtraaEdge's story and mission"
+            rel="noopener"
+          >
+            <span class="eerc__card-tag eerc__card-tag--company" aria-hidden="true">Company</span>
+            <div class="eerc__card-icon" aria-hidden="true">
+              <img
+                src="https://www.extraaedge.com/wp-content/uploads/2022/06/enterprise.png"
+                alt=""
+                width="26"
+                height="26"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="eerc__card-title">About</h3>
+            <p class="eerc__card-desc">Get to know us better — our founding story, mission to transform admissions, and the milestones along the way.</p>
+            <span class="eerc__card-cta" aria-hidden="true">
+              Explore
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <!-- ─ Customers ─ -->
+        <li class="eerc__grid-item eerc-reveal" data-category="company">
+          <a
+            href="https://www.extraaedge.com/customers/"
+            class="eerc__card"
+            aria-label="Customers – Happy institutions using ExtraaEdge"
+            rel="noopener"
+          >
+            <span class="eerc__card-tag eerc__card-tag--company" aria-hidden="true">Company</span>
+            <div class="eerc__card-icon" aria-hidden="true">
+              <img
+                src="https://www.extraaedge.com/wp-content/uploads/2022/06/value.png"
+                alt=""
+                width="26"
+                height="26"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="eerc__card-title">Customers</h3>
+            <p class="eerc__card-desc">Explore how institutions just like yours — from universities to coaching centres — are winning with ExtraaEdge.</p>
+            <span class="eerc__card-cta" aria-hidden="true">
+              Explore
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <!-- ─ Careers ─ -->
+        <li class="eerc__grid-item eerc-reveal" data-category="company">
+          <a
+            href="https://www.extraaedge.com/careers/"
+            class="eerc__card"
+            aria-label="Careers – Open positions at ExtraaEdge"
+            rel="noopener"
+          >
+            <span class="eerc__card-tag eerc__card-tag--company" aria-hidden="true">Company</span>
+            <div class="eerc__card-icon" aria-hidden="true">
+              <img
+                src="https://www.extraaedge.com/wp-content/uploads/2022/06/search.png"
+                alt=""
+                width="26"
+                height="26"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="eerc__card-title">Careers</h3>
+            <p class="eerc__card-desc">Interested in shaping the future of education technology? Browse our open roles and join the ExtraaEdge team.</p>
+            <span class="eerc__card-cta" aria-hidden="true">
+              Explore
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <!-- ─ Investors & Advisors ─ -->
+        <li class="eerc__grid-item eerc-reveal" data-category="company">
+          <a
+            href="https://www.extraaedge.com/investors-and-advisors/"
+            class="eerc__card"
+            aria-label="Investors and Advisors – People aligned with our mission"
+            rel="noopener"
+          >
+            <span class="eerc__card-tag eerc__card-tag--company" aria-hidden="true">Company</span>
+            <div class="eerc__card-icon" aria-hidden="true">
+              <img
+                src="https://www.extraaedge.com/wp-content/uploads/2022/06/investor.png"
+                alt=""
+                width="26"
+                height="26"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="eerc__card-title">Investors &amp; Advisors</h3>
+            <p class="eerc__card-desc">Learn about the organisations and individuals deeply aligned with our mission to modernise education admissions.</p>
+            <span class="eerc__card-cta" aria-hidden="true">
+              Explore
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <!-- ─ Team ─ -->
+        <li class="eerc__grid-item eerc-reveal" data-category="company">
+          <a
+            href="https://www.extraaedge.com/team/"
+            class="eerc__card"
+            aria-label="Team – The people behind ExtraaEdge"
+            rel="noopener"
+          >
+            <span class="eerc__card-tag eerc__card-tag--company" aria-hidden="true">Company</span>
+            <div class="eerc__card-icon" aria-hidden="true">
+              <img
+                src="https://www.extraaedge.com/wp-content/uploads/2022/06/management.png"
+                alt=""
+                width="26"
+                height="26"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="eerc__card-title">Team</h3>
+            <p class="eerc__card-desc">Meet the passionate team building tools that help admissions teams hit their targets every single cycle.</p>
+            <span class="eerc__card-cta" aria-hidden="true">
+              Explore
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+        <!-- ─ Become a Partner ─ -->
+        <li class="eerc__grid-item eerc-reveal" data-category="company">
+          <a
+            href="https://partners.extraaedge.com/"
+            class="eerc__card"
+            aria-label="Become a partner – Join the ExtraaEdge partner network"
+            rel="noopener"
+            target="_blank"
+          >
+            <span class="eerc__card-tag eerc__card-tag--company" aria-hidden="true">Company</span>
+            <div class="eerc__card-icon" aria-hidden="true">
+              <img
+                src="https://www.extraaedge.com/wp-content/uploads/2024/03/partners-ee-1.png"
+                alt=""
+                width="26"
+                height="26"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="eerc__card-title">Become a Partner</h3>
+            <p class="eerc__card-desc">Interested in partnering with ExtraaEdge? Share your details and let's explore how we grow together.</p>
+            <span class="eerc__card-cta" aria-hidden="true">
+              Explore
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+
+      </ul>
+
+      <!-- ── Trust Stats Bar ── -->
+      <div class="eerc__stats eerc-reveal" role="list" aria-label="ExtraaEdge platform statistics">
+        <div class="eerc__stat" role="listitem">
+          <div class="eerc__stat-number" aria-label="500 plus institutions">500+</div>
+          <div class="eerc__stat-label">Institutions</div>
+        </div>
+        <div class="eerc__stat" role="listitem">
+          <div class="eerc__stat-number" aria-label="10 million plus leads managed">10M+</div>
+          <div class="eerc__stat-label">Leads Managed</div>
+        </div>
+        <div class="eerc__stat" role="listitem">
+          <div class="eerc__stat-number" aria-label="40 percent average conversion lift">40%</div>
+          <div class="eerc__stat-label">Avg. Conversion Lift</div>
+        </div>
+        <div class="eerc__stat" role="listitem">
+          <div class="eerc__stat-number" aria-label="8 years building admissions CRM">8 Yrs</div>
+          <div class="eerc__stat-label">Building for Admissions</div>
+        </div>
+      </div>
+
+    </div><!-- /.eerc__container -->
+  </div><!-- /.eerc -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       SEO: Structured Data (JSON-LD)
+       Organization + ItemList for all resource/page links
+  ══════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.extraaedge.com/#organization",
+        "name": "ExtraaEdge",
+        "url": "https://www.extraaedge.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.extraaedge.com/wp-content/uploads/2022/06/enterprise.png",
+          "width": 200,
+          "height": 60
+        },
+        "description": "ExtraaEdge is an AI-powered admissions CRM that helps education institutions automate and scale student enrolment.",
+        "foundingYear": "2016",
+        "numberOfEmployees": { "@type": "QuantitativeValue", "minValue": 50, "maxValue": 200 },
+        "areaServed": "IN",
+        "knowsAbout": ["Admissions CRM", "Education Technology", "Student Enrolment Automation"],
+        "sameAs": [
+          "https://www.linkedin.com/company/extraaedge",
+          "https://twitter.com/extraaedge",
+          "https://www.facebook.com/extraaedge"
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://www.extraaedge.com/resources/#itemlist",
+        "name": "ExtraaEdge Resources & Company",
+        "description": "Explore all resources and company information from ExtraaEdge.",
+        "numberOfItems": 11,
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1,  "name": "Blogs",                "url": "https://www.extraaedge.com/blogs/" },
+          { "@type": "ListItem", "position": 2,  "name": "Ebooks",               "url": "https://www.extraaedge.com/ebooks/" },
+          { "@type": "ListItem", "position": 3,  "name": "Webinars",             "url": "https://www.extraaedge.com/webinars/" },
+          { "@type": "ListItem", "position": 4,  "name": "Case Studies",         "url": "https://www.extraaedge.com/testimonials-and-case-studies/" },
+          { "@type": "ListItem", "position": 5,  "name": "News & Media",         "url": "https://www.extraaedge.com/news/" },
+          { "@type": "ListItem", "position": 6,  "name": "About",                "url": "https://www.extraaedge.com/about-us/" },
+          { "@type": "ListItem", "position": 7,  "name": "Customers",            "url": "https://www.extraaedge.com/customers/" },
+          { "@type": "ListItem", "position": 8,  "name": "Careers",              "url": "https://www.extraaedge.com/careers/" },
+          { "@type": "ListItem", "position": 9,  "name": "Investors & Advisors", "url": "https://www.extraaedge.com/investors-and-advisors/" },
+          { "@type": "ListItem", "position": 10, "name": "Team",                 "url": "https://www.extraaedge.com/team/" },
+          { "@type": "ListItem", "position": 11, "name": "Become a Partner",     "url": "https://partners.extraaedge.com/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- ══════════════════════════════════════════════════════════
+       JavaScript: Intersection Observer (Scroll Reveal)
+                 + Tab Filter with ARIA state management
+                 + Keyboard Navigation Support
+  ══════════════════════════════════════════════════════════ -->
+  <script>
+  (function () {
+    'use strict';
+
+    /* ── Scroll Reveal ── */
+    function initReveal() {
+      var items = document.querySelectorAll('.eerc-reveal');
+      if (!items.length) return;
+
+      /* Instant reveal for prefers-reduced-motion */
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        items.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          var siblings = Array.from(el.parentElement.querySelectorAll('.eerc-reveal:not(.is-visible)'));
+          var delay = siblings.indexOf(el);
+          /* Stagger: max 3 columns, cap at 300ms */
+          setTimeout(function () {
+            el.classList.add('is-visible');
+          }, Math.min(delay % 3, 2) * 80);
+          io.unobserve(el);
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+      items.forEach(function (el) { io.observe(el); });
+    }
+
+    /* ── Tab Filter ── */
+    function initTabs() {
+      var tabs = document.querySelectorAll('.eerc__tab');
+      var items = document.querySelectorAll('.eerc__grid-item');
+      if (!tabs.length || !items.length) return;
+
+      function filter(category) {
+        items.forEach(function (item) {
+          var cat = item.getAttribute('data-category');
+          var show = category === 'all' || cat === category;
+          item.setAttribute('aria-hidden', show ? 'false' : 'true');
+          /* Re-trigger reveal on shown items */
+          if (show) {
+            var card = item.querySelector('.eerc-reveal');
+            if (card && !card.classList.contains('is-visible')) {
+              card.classList.add('is-visible');
+            }
+          }
+        });
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var category = tab.getAttribute('data-filter');
+
+          /* Update ARIA pressed states */
+          tabs.forEach(function (t) {
+            t.classList.remove('is-active');
+            t.setAttribute('aria-pressed', 'false');
+          });
+          tab.classList.add('is-active');
+          tab.setAttribute('aria-pressed', 'true');
+
+          filter(category);
+        });
+
+        /* Keyboard: arrow key navigation between tabs */
+        tab.addEventListener('keydown', function (e) {
+          var tabArr = Array.from(tabs);
+          var idx = tabArr.indexOf(tab);
+          if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            tabArr[(idx + 1) % tabArr.length].focus();
+          } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            tabArr[(idx - 1 + tabArr.length) % tabArr.length].focus();
+          }
+        });
+      });
+    }
+
+    /* ── Init on DOM ready ── */
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        initReveal();
+        initTabs();
+      });
+    } else {
+      initReveal();
+      initTabs();
+    }
+  }());
+  </script>
+
+</body>
+</html>
