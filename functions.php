@@ -1385,6 +1385,133 @@ add_action('save_post_product', function ($post_id) {
 });
 
 // ══════════════════════════════════════════════════════════
+// G4. USE-CASE MENU HELPER — shared by header.php + /use-cases/ page
+// ══════════════════════════════════════════════════════════
+/**
+ * Returns the use-case modules used on /use-cases/ and the header mega-menu.
+ * Use cases are a fixed set (3 stakeholder roles) so they live in code, not
+ * a CPT. Each item editable site-wide via the 'ee_usecase_items' option —
+ * editors can swap the icon / title / desc / url in WP Admin → Appearance →
+ * Use Cases without touching code. Falls back to a seeded list when the
+ * option is empty.
+ */
+function ee_get_usecase_items() {
+    static $cache = null;
+    if ($cache !== null) return $cache;
+
+    $saved = get_option('ee_usecase_items', array());
+    if (is_array($saved) && !empty($saved)) {
+        $cache = $saved;
+        return $cache;
+    }
+
+    $cache = array(
+        array(
+            'title' => 'For Management',
+            'desc'  => 'Take data-driven decisions on increasing admissions, counselor &amp; channel performance.',
+            'url'   => '/use-cases/management/',
+            'icon'  => 'https://www.extraaedge.com/wp-content/uploads/2023/01/management-2.png',
+            'lucide'=> 'bar-chart-3',
+        ),
+        array(
+            'title' => 'On Field Agents',
+            'desc'  => 'Automate your home demos, events, seminars, and outbound sales processes.',
+            'url'   => '/use-cases/on-field-agents/',
+            'icon'  => 'https://www.extraaedge.com/wp-content/uploads/2023/01/conference.png',
+            'lucide'=> 'map-pin',
+        ),
+        array(
+            'title' => 'For Counselors',
+            'desc'  => 'Increase your counselors efficiency by mapping the entire student journey with timely follow-ups.',
+            'url'   => '/use-cases/admission-counselors/',
+            'icon'  => 'https://www.extraaedge.com/wp-content/uploads/2023/01/call.png',
+            'lucide'=> 'user-check',
+        ),
+    );
+    return $cache;
+}
+
+/* Top-level admin menu: 🎯 Use Cases — single place to edit the 3 cards. */
+add_action('admin_menu', function () {
+    add_menu_page(
+        'Use Cases',
+        '🎯 Use Cases',
+        'manage_options',
+        'ee-use-cases',
+        'ee_usecase_render_admin',
+        'dashicons-groups',
+        60
+    );
+});
+add_action('admin_post_ee_save_usecase_items', function () {
+    if (!current_user_can('manage_options')) wp_die('Forbidden');
+    check_admin_referer('ee_usecase_save');
+    $rows  = isset($_POST['uc']) && is_array($_POST['uc']) ? $_POST['uc'] : array();
+    $clean = array();
+    foreach ($rows as $r) {
+        $title = isset($r['title']) ? sanitize_text_field(wp_unslash($r['title'])) : '';
+        if ($title === '') continue;
+        $clean[] = array(
+            'title' => $title,
+            'desc'  => isset($r['desc'])  ? sanitize_textarea_field(wp_unslash($r['desc']))  : '',
+            'url'   => isset($r['url'])   ? esc_url_raw(wp_unslash($r['url']))               : '',
+            'icon'  => isset($r['icon'])  ? esc_url_raw(wp_unslash($r['icon']))              : '',
+            'lucide'=> isset($r['lucide'])? sanitize_text_field(wp_unslash($r['lucide']))    : '',
+        );
+    }
+    update_option('ee_usecase_items', $clean);
+    wp_cache_delete('ee_usecase_items', 'options');
+    if (function_exists('rocket_clean_domain'))  { rocket_clean_domain(); }
+    if (function_exists('w3tc_pgcache_flush'))   { w3tc_pgcache_flush(); }
+    if (class_exists('LiteSpeed\\Purge'))        { do_action('litespeed_purge_all'); }
+    wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-use-cases')));
+    exit;
+});
+function ee_usecase_render_admin() {
+    $items = ee_get_usecase_items();
+    ?>
+    <div class="wrap">
+        <h1>🎯 Use Cases <span style="font-size:13px;color:#646970;font-weight:400;">— the 3 stakeholder cards used on /use-cases/ and in the header menu</span></h1>
+        <?php if (!empty($_GET['updated'])) : ?>
+            <div class="notice notice-success is-dismissible"><p><strong>Saved.</strong> The /use-cases/ page and the Use Cases mega-menu have been updated.</p></div>
+        <?php endif; ?>
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="max-width:1000px;">
+            <input type="hidden" name="action" value="ee_save_usecase_items">
+            <?php wp_nonce_field('ee_usecase_save'); ?>
+            <style>
+                .uc-row{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;margin-bottom:14px;display:grid;grid-template-columns:80px 1fr 1fr;gap:14px;align-items:start;}
+                .uc-row img{width:80px;height:80px;object-fit:contain;background:#f8fafc;border-radius:6px;border:1px solid #e2e8f0;padding:8px;}
+                .uc-row label{display:block;font-size:12px;font-weight:600;color:#1d2327;margin:8px 0 4px;}
+                .uc-row input[type=text],.uc-row input[type=url],.uc-row textarea{width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;font-family:inherit;box-sizing:border-box;}
+                .uc-row textarea{min-height:60px;resize:vertical;}
+            </style>
+            <?php foreach ($items as $i => $r) : ?>
+            <div class="uc-row">
+                <img src="<?php echo esc_url($r['icon'] ?? ''); ?>" alt="">
+                <div>
+                    <label>Title <span style="color:#DE6E30">★</span></label>
+                    <input type="text" name="uc[<?php echo $i; ?>][title]" value="<?php echo esc_attr($r['title'] ?? ''); ?>">
+                    <label>Link URL <span style="color:#DE6E30">★</span></label>
+                    <input type="url"  name="uc[<?php echo $i; ?>][url]"   value="<?php echo esc_attr($r['url']   ?? ''); ?>" placeholder="/use-cases/...">
+                    <label>Lucide icon name (used when no Icon URL)</label>
+                    <input type="text" name="uc[<?php echo $i; ?>][lucide]" value="<?php echo esc_attr($r['lucide'] ?? ''); ?>" placeholder="bar-chart-3 / map-pin / user-check">
+                </div>
+                <div>
+                    <label>Icon Image URL</label>
+                    <input type="url" name="uc[<?php echo $i; ?>][icon]" value="<?php echo esc_attr($r['icon'] ?? ''); ?>" placeholder="https://yoursite.com/wp-content/uploads/icon.png">
+                    <label>Description</label>
+                    <textarea name="uc[<?php echo $i; ?>][desc]"><?php echo esc_textarea($r['desc'] ?? ''); ?></textarea>
+                </div>
+            </div>
+            <?php endforeach; ?>
+            <?php submit_button('💾 Save Use Cases', 'primary large'); ?>
+            <p style="color:#646970;font-size:12px;">Use Cases are fixed to 3 stakeholder roles to match the design — to add a fourth role, edit functions.php.</p>
+        </form>
+    </div>
+    <?php
+}
+
+// ══════════════════════════════════════════════════════════
 // H. SAVE META BOX DATA
 // ══════════════════════════════════════════════════════════
 function product_save_meta_box_data($post_id) {
@@ -2287,6 +2414,7 @@ add_action('template_redirect', function () {
 add_action('template_redirect', function () {
     $ee_custom_routes = array(
         'products'   => array('file' => 'page-products.php',   'title' => 'Products'),
+        'use-cases'  => array('file' => 'page-use-cases.php',  'title' => 'Use Cases'),
         'industries' => array('file' => 'page-industries.php', 'title' => 'Industries'),
         'industry'   => array('file' => 'page-industry.php',   'title' => 'Industry'),
         'company'    => array('file' => 'page-company.php',    'title' => 'Company'),

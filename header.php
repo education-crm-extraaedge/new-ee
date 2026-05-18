@@ -694,18 +694,27 @@ if ($ee_is_home) {
                         Use Cases <i data-lucide="chevron-down" class="w-4 h-4" aria-hidden="true"></i>
                     </button>
                     <div class="mega-menu flex flex-col gap-1 w-[400px]" role="menu" aria-label="Use Cases submenu">
-                        <a href="/use-cases/management/" class="menu-item" role="menuitem" title="CRM for Management">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="bar-chart-3"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue">For Management</span><p class="text-xs text-slate-500 mt-1">Make data-driven decisions to improve admissions performance.</p></div>
+                        <?php
+                        /* Use Cases — single source of truth via ee_get_usecase_items().
+                           Editable in WP Admin → 🎯 Use Cases. Edit once → updates here
+                           and on the /use-cases/ landing page in one shot. */
+                        $ee_usecase_menu = function_exists('ee_get_usecase_items') ? ee_get_usecase_items() : array();
+                        foreach ($ee_usecase_menu as $uc) :
+                            $short = wp_trim_words(wp_strip_all_tags((string) $uc['desc']), 14, '…');
+                        ?>
+                        <a href="<?php echo esc_url($uc['url']); ?>" class="menu-item" role="menuitem" title="<?php echo esc_attr($uc['title']); ?>">
+                            <div class="icon-box<?php echo !empty($uc['icon']) ? ' icon-box--image' : ''; ?>" aria-hidden="true">
+                                <?php if (!empty($uc['icon'])) : ?>
+                                    <img src="<?php echo esc_url($uc['icon']); ?>" alt="" style="width:24px;height:24px;object-fit:contain" loading="lazy">
+                                <?php elseif (!empty($uc['lucide'])) : ?>
+                                    <i data-lucide="<?php echo esc_attr($uc['lucide']); ?>"></i>
+                                <?php else : ?>
+                                    <i data-lucide="users"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div><span class="menu-title font-bold text-brandBlue"><?php echo esc_html($uc['title']); ?></span><p class="text-xs text-slate-500 mt-1"><?php echo esc_html($short); ?></p></div>
                         </a>
-                        <a href="/use-cases/on-field-agents/" class="menu-item" role="menuitem" title="CRM for On-Field Agents">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="map-pin"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue">On-Field Agents</span><p class="text-xs text-slate-500 mt-1">Automate home demos, events, seminars, and outbound activities.</p></div>
-                        </a>
-                        <a href="/use-cases/counselors/" class="menu-item" role="menuitem" title="CRM for Counselors">
-                            <div class="icon-box" aria-hidden="true"><i data-lucide="user-check"></i></div>
-                            <div><span class="menu-title font-bold text-brandBlue">For Counselors</span><p class="text-xs text-slate-500 mt-1">Enhance counselor productivity by mapping the student journey.</p></div>
-                        </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 
@@ -848,18 +857,22 @@ if ($ee_is_home) {
                 </button>
                 <div class="mobile-accordion-content">
                     <div class="p-4 space-y-2">
-                        <a href="/use-cases/management/" class="m-icon-card" title="For Management">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="bar-chart-3"></i></div>
-                            <div class="m-text"><span class="menu-title">For Management</span><p>Data-driven decisions.</p></div>
+                        <?php foreach ((function_exists('ee_get_usecase_items') ? ee_get_usecase_items() : array()) as $uc) :
+                            $short = wp_trim_words(wp_strip_all_tags((string) $uc['desc']), 10, '…');
+                        ?>
+                        <a href="<?php echo esc_url($uc['url']); ?>" class="m-icon-card" title="<?php echo esc_attr($uc['title']); ?>">
+                            <div class="m-ico" aria-hidden="true">
+                                <?php if (!empty($uc['icon'])) : ?>
+                                    <img src="<?php echo esc_url($uc['icon']); ?>" alt="" style="width:18px;height:18px;object-fit:contain" loading="lazy">
+                                <?php elseif (!empty($uc['lucide'])) : ?>
+                                    <i data-lucide="<?php echo esc_attr($uc['lucide']); ?>"></i>
+                                <?php else : ?>
+                                    <i data-lucide="users"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div class="m-text"><span class="menu-title"><?php echo esc_html($uc['title']); ?></span><p><?php echo esc_html($short); ?></p></div>
                         </a>
-                        <a href="/use-cases/on-field-agents/" class="m-icon-card" title="On-Field Agents">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="map-pin"></i></div>
-                            <div class="m-text"><span class="menu-title">On-Field Agents</span><p>Automate demos, events, seminars.</p></div>
-                        </a>
-                        <a href="/use-cases/counselors/" class="m-icon-card" title="For Counselors">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="user-check"></i></div>
-                            <div class="m-text"><span class="menu-title">For Counselors</span><p>Map the student journey.</p></div>
-                        </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
