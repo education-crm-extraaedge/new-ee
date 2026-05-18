@@ -112,6 +112,15 @@ function extraaedge_register_cpts() {
 
     foreach ($cpts as $slug => $cfg) {
         list($plural, $singular, $icon, $rewrite) = $cfg;
+        /* Disable the WP-generated archive index for CPTs whose listing
+           page is rendered by our custom template_redirect override
+           (page-products.php / page-use-cases.php / page-industries.php).
+           Without this, WP also tries to claim the same URL via its own
+           archive rule and the resulting rewrite-rules order is brittle
+           — one update_option call away from 404ing the singles. */
+        $custom_listed_cpts = array('product', 'industry', 'use_case');
+        $has_archive        = !in_array($slug, $custom_listed_cpts, true);
+
         register_post_type($slug, array(
             'labels' => array(
                 'name'          => __($plural,   'extraaedge'),
@@ -122,11 +131,11 @@ function extraaedge_register_cpts() {
                 'search_items'  => sprintf(__('Search %s',  'extraaedge'), $plural),
             ),
             'public'       => true,
-            'has_archive'  => true,
+            'has_archive'  => $has_archive,
             'show_in_rest' => true,
             'menu_icon'    => $icon,
             'supports'     => array('title', 'editor', 'thumbnail', 'excerpt'),
-            'rewrite'      => array('slug' => $rewrite),
+            'rewrite'      => array('slug' => $rewrite, 'with_front' => false),
         ));
     }
 }
@@ -1765,6 +1774,21 @@ function extraaedge_flush_rewrites() {
     flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'extraaedge_flush_rewrites');
+
+/* AUTO-FLUSH on CPT changes — no need for the editor to ever click
+   Settings → Permalinks → Save. Bump EE_CPT_VERSION whenever a CPT is
+   added, removed, or its rewrite slug changes. When the version stored
+   in wp_options differs from this constant the rules are flushed on
+   the next page load, then the new version is saved.
+
+   This kills the most common "404 on a new CPT URL" foot-gun. */
+define('EE_CPT_VERSION', '2024-05-19-use_case');
+add_action('init', function () {
+    if (get_option('ee_cpt_version') !== EE_CPT_VERSION) {
+        flush_rewrite_rules(false);
+        update_option('ee_cpt_version', EE_CPT_VERSION);
+    }
+}, 999);
 
 // ══════════════════════════════════════════════════════════════════════════
 //  ╔════════════════════════════════════════════════════════════════════╗
