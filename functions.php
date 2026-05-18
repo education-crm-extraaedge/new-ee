@@ -1281,6 +1281,110 @@ add_action('save_post_industry', function ($post_id) {
 });
 
 // ══════════════════════════════════════════════════════════
+// G3. PRODUCT MENU HELPER — shared by header.php + /products/ page
+// ══════════════════════════════════════════════════════════
+/**
+ * Returns the product modules used on /products/ and the header mega-menu.
+ * Pulls from the Product CPT first so the editor can add or rename a
+ * product post and it shows up automatically. Falls back to a seeded set
+ * of 6 modules when the CPT has no published posts.
+ *
+ * Each item: { title, desc, url, icon }
+ */
+function ee_get_product_menu_items($limit = 0) {
+    static $cache = null;
+    if ($cache !== null) {
+        return $limit > 0 ? array_slice($cache, 0, $limit) : $cache;
+    }
+
+    $items = array();
+    $q = new WP_Query(array(
+        'post_type'      => 'product',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'orderby'        => 'menu_order date',
+        'order'          => 'ASC',
+        'no_found_rows'  => true,
+    ));
+    if ($q->have_posts()) {
+        while ($q->have_posts()) {
+            $q->the_post();
+            $pid       = get_the_ID();
+            $meta_desc = get_post_meta($pid, '_product_card_desc', true);
+            $desc      = $meta_desc ?: (get_the_excerpt() ?: wp_trim_words(get_the_content(), 24, '…'));
+            $items[]   = array(
+                'title' => get_the_title(),
+                'desc'  => $desc,
+                'url'   => str_replace(home_url(), '', get_permalink($pid)) ?: get_permalink($pid),
+                'icon'  => get_post_meta($pid, '_product_card_icon', true),
+            );
+        }
+        wp_reset_postdata();
+    }
+
+    if (empty($items)) {
+        $items = array(
+            array('title' => 'Education CRM',         'desc' => 'Streamline your entire admissions process on a single, unified platform — from inquiry to enrollment.', 'url' => '/products/education-crm/',              'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/class-1.png'),
+            array('title' => 'Education Chatbot',     'desc' => 'Manage and respond to admissions queries 24/7 with intelligent AI-powered automation.',                  'url' => '/products/chatbot-for-education/',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/chatbot-2-e1654579573780.png'),
+            array('title' => 'Application Management','desc' => 'Simplify and scale your application workflows with a fully digital, paperless experience.',              'url' => '/products/application-management-system/', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/list.png'),
+            array('title' => 'Mobile CRM',            'desc' => 'Boost admissions conversions by identifying and engaging high-intent prospects on the go.',              'url' => '/products/mobile-crm/',                  'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/app-development-1.png'),
+            array('title' => 'WhatsApp API & Bot',    'desc' => 'Engage prospects through personalized, one-on-one WhatsApp conversations at scale.',                     'url' => '/products/whatsapp-api/',                'icon' => 'https://www.extraaedge.com/wp-content/uploads/2022/06/whatsapp-3.png'),
+            array('title' => 'IVR System',            'desc' => 'Route, record, and track all counselor calls within a centralized, analytics-ready system.',             'url' => '/products/ivr/',                         'icon' => 'https://www.extraaedge.com/wp-content/uploads/2023/11/interactive-voice-response.png'),
+        );
+    }
+
+    $cache = $items;
+    return $limit > 0 ? array_slice($items, 0, $limit) : $items;
+}
+
+/* Product CPT meta box — same idea as the Industry card settings.
+   Lets the non-coder set per-product card icon + short description shown on /products/. */
+add_action('add_meta_boxes', function () {
+    add_meta_box(
+        'product_card_settings',
+        '🏷 Product Card Settings (icon + short description)',
+        function ($post) {
+            wp_nonce_field('product_card_meta', 'product_card_meta_nonce');
+            $icon = get_post_meta($post->ID, '_product_card_icon', true);
+            $desc = get_post_meta($post->ID, '_product_card_desc', true);
+            ?>
+            <style>
+                .pcd-row { margin-bottom: 16px; }
+                .pcd-row label { display:block; font-weight:600; margin-bottom:5px; color:#1d2327; font-size:13px; }
+                .pcd-row input, .pcd-row textarea { width:100%; padding:8px; border:1px solid #ddd; border-radius:4px; font-size:13px; font-family:inherit; }
+                .pcd-row textarea { resize:vertical; min-height:70px; }
+                .pcd-row .hint { color:#646970; font-size:12px; margin-top:4px; font-style:italic; }
+            </style>
+            <div class="pcd-row">
+                <label>Card Icon URL</label>
+                <input type="url" name="product_card_icon" value="<?php echo esc_attr($icon); ?>" placeholder="https://yoursite.com/wp-content/uploads/icon.png">
+                <p class="hint">32×32 to 64×64 px PNG/SVG. Used on the /products/ landing page card.</p>
+            </div>
+            <div class="pcd-row">
+                <label>Short Description (shown on the /products/ card)</label>
+                <textarea name="product_card_desc" rows="3" placeholder="One-line summary of the product — 1 to 2 sentences."><?php echo esc_textarea($desc); ?></textarea>
+                <p class="hint">Falls back to the post Excerpt when blank.</p>
+            </div>
+            <?php
+        },
+        'product',
+        'normal',
+        'high'
+    );
+});
+add_action('save_post_product', function ($post_id) {
+    if (!isset($_POST['product_card_meta_nonce']) || !wp_verify_nonce($_POST['product_card_meta_nonce'], 'product_card_meta')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+    if (isset($_POST['product_card_icon'])) {
+        update_post_meta($post_id, '_product_card_icon', esc_url_raw(wp_unslash($_POST['product_card_icon'])));
+    }
+    if (isset($_POST['product_card_desc'])) {
+        update_post_meta($post_id, '_product_card_desc', sanitize_textarea_field(wp_unslash($_POST['product_card_desc'])));
+    }
+});
+
+// ══════════════════════════════════════════════════════════
 // H. SAVE META BOX DATA
 // ══════════════════════════════════════════════════════════
 function product_save_meta_box_data($post_id) {
@@ -2182,6 +2286,7 @@ add_action('template_redirect', function () {
  */
 add_action('template_redirect', function () {
     $ee_custom_routes = array(
+        'products'   => array('file' => 'page-products.php',   'title' => 'Products'),
         'industries' => array('file' => 'page-industries.php', 'title' => 'Industries'),
         'industry'   => array('file' => 'page-industry.php',   'title' => 'Industry'),
         'company'    => array('file' => 'page-company.php',    'title' => 'Company'),
