@@ -369,7 +369,7 @@ get_header();
       }
       .crm-hero__content { align-items: center; }
       .crm-hero__subtext { max-width: 100%; }
-      .crm-hero__visual { min-height: 400px; padding: 40px 0; }
+      .crm-hero__visual { min-height: 400px; padding: 0; }
       .flow-card { margin: 0 auto; }
     }
     @media (max-width: 768px) {
@@ -591,7 +591,7 @@ get_header();
     /* Marquee Styles */
     .sp-marquee-container {
       position: relative;
-      padding: 20px 0;
+      padding: 0;
     }
 
     .sp-marquee-container::before,
@@ -871,7 +871,7 @@ get_header();
         opacity: 0.1;
         transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         transform: translateY(40px);
-        padding: 4rem 0;
+        padding: 0;
     }
 
     .vidya-wrap .story-section.active {
@@ -919,7 +919,7 @@ get_header();
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 20px 0;
+        padding: 0;
         gap: 24px;
     }
 
@@ -964,8 +964,8 @@ get_header();
     /* Mobile Responsive */
     @media (max-width: 1024px) {
         .vidya-wrap .main-grid { display: block; }
-        .vidya-wrap .visual-viewport { position: relative; height: auto; padding: 2rem 0; }
-        .vidya-wrap .story-section { min-height: auto; opacity: 1; transform: none; padding: 3rem 0; }
+        .vidya-wrap .visual-viewport { position: relative; height: auto; padding: 0; }
+        .vidya-wrap .story-section { min-height: auto; opacity: 1; transform: none; padding: 0; }
         .vidya-wrap .crm-interface { height: 500px; }
     }
 
@@ -1365,7 +1365,7 @@ get_header();
     background-color: var(--bg-light);
     font-family: 'Open Sans', sans-serif;
     color: var(--dark-base);
-    padding: 36px 20px;
+    padding: 0 20px;
     overflow: hidden;
     line-height: 1.6;
   }
@@ -1407,8 +1407,8 @@ get_header();
   #wp-admission-crm .funnel-system {
     width: 100%;
     position: relative;
-    padding: 30px 0 20px 0;
-    margin: 20px 0;
+    padding: 0;
+    margin: 0;
   }
 
   #wp-admission-crm .funnel-track {
@@ -1607,7 +1607,7 @@ get_header();
 
     /* Convert Funnel to Vertical Flow on Mobile */
     #wp-admission-crm .funnel-system {
-      padding: 20px 0;
+      padding: 0;
       margin: 40px 0;
       max-width: 320px;
     }
@@ -2254,7 +2254,7 @@ get_header();
       --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
       background: var(--bg-light);
-      padding: 36px 20px;
+      padding: 0 20px;
       font-family: 'Open Sans', sans-serif;
       color: var(--text-main);
       line-height: 1.6;
@@ -2486,7 +2486,7 @@ get_header();
     }
 
     #wp-chatbot-system .benefit-list {
-      margin: 10px 0;
+      margin: 0;
       padding-left: 18px;
       font-size: 12.5px;
       color: var(--text-main);
@@ -2664,7 +2664,7 @@ get_header();
         --glass: rgba(255, 255, 255, 0.9);
         --transition-speed: 0.5s;
 
-        padding: 40px 5%;
+        padding: 0 5%;
         background: radial-gradient(circle at 10% 20%, #fdfdfd 0%, #f3f4f6 100%);
         font-family: 'Open Sans', sans-serif;
         color: var(--secondary);
@@ -2983,7 +2983,7 @@ get_header();
                           radial-gradient(at 100% 100%, hsla(217, 58%, 95%, 1) 0, transparent 50%);
         overflow: hidden;
         position: relative;
-        padding: 40px 0;
+        padding: 0;
     }
 
     .wa-story-section h2 {
@@ -3120,7 +3120,7 @@ get_header();
     @media (max-width: 1024px) {
         .wa-story-section .analytics-card { left: 20px; bottom: 120px; width: 220px; }
         .wa-story-section .product-canvas { height: 600px; }
-        .wa-story-section { padding: 30px 0; }
+        .wa-story-section { padding: 0; }
     }
 </style>
 
@@ -4154,7 +4154,7 @@ document.addEventListener('DOMContentLoaded', function() {
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
     class="relative overflow-hidden bg-white selection:bg-accent/20"
-    style="margin-top: 10px; margin-bottom: 10px; padding: 30px 0;"
+    style="margin-top: 10px; margin-bottom: 10px; padding: 0;"
 >
 
     <!-- Background Decor -->
@@ -4354,7 +4354,7 @@ document.addEventListener('DOMContentLoaded', function() {
     --glass-light: rgba(25, 51, 93, 0.05);
     --border-light: rgba(25, 51, 93, 0.1);
     background-color: var(--bg-white);
-    padding: 10px 0;
+    padding: 0;
     width: 100%;
     min-height: auto;
     display: flex;
@@ -4585,7 +4585,7 @@ document.addEventListener('DOMContentLoaded', function() {
   .ee-step-label { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-top: 5px; }
 
   @media (max-width: 1100px) {
-    .ee-hero-outer { padding: 10px 0; height: auto; }
+    .ee-hero-outer { padding: 0; height: auto; }
     .ee-hero-section { width: 98%; padding: 40px 20px; min-height: auto; }
     .ee-hero-container { grid-template-columns: 1fr; text-align: center; gap: 40px; }
     .ee-content { display: flex; flex-direction: column; align-items: center; }
@@ -5419,7 +5419,7 @@ document.addEventListener('DOMContentLoaded', function() {
         background: #ffffff;
         margin-top: 10px;
         margin-bottom: 10px;
-        padding: 40px 0;
+        padding: 0;
         position: relative;
         transition: background 0.5s ease;
     }
@@ -5777,8 +5777,8 @@ document.addEventListener('DOMContentLoaded', function() {
         --slate-600: #475569;
         --shadow-xl: 0 20px 25px -5px rgba(25, 51, 93, 0.1), 0 10px 10px -5px rgba(25, 51, 93, 0.04);
         --transition-premium: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        margin: 10px 0 !important;
-        padding: 40px 0;
+        margin: 0 !important;
+        padding: 0;
         background: var(--slate-50);
         font-family: 'Open Sans', sans-serif;
         color: var(--deep-blue);
@@ -6057,7 +6057,7 @@ document.addEventListener('DOMContentLoaded', function() {
         #extraaedge-success-story-engine .ee-metrics-grid { grid-template-columns: 1fr; }
         #extraaedge-success-story-engine .ee-cards-layout { grid-template-columns: 1fr; }
         #extraaedge-success-story-engine .ee-title-main { font-size: 32px; }
-        #extraaedge-success-story-engine { padding: 30px 0; }
+        #extraaedge-success-story-engine { padding: 0; }
     }
 </style>
 
@@ -6220,8 +6220,8 @@ document.addEventListener('DOMContentLoaded', function() {
         --card-shadow: 0 20px 40px rgba(25, 51, 93, 0.08);
         --transition-main: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 
-        margin: 10px 0;
-        padding: 36px 5%;
+        margin: 0;
+        padding: 0 5%;
         background: var(--bg-white);
         font-family: 'Open Sans', sans-serif;
         color: var(--premium-blue);
