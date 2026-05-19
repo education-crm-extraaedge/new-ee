@@ -968,6 +968,12 @@ get_header();
         .vidya-wrap .story-section { min-height: auto; opacity: 1; transform: none; padding: 0; }
         .vidya-wrap .crm-interface { height: 500px; }
     }
+    /* On phones, hide the sticky right-hand CRM dashboard mock — it
+       does not add value next to the story copy at small widths and
+       eats most of the viewport. Story sections stack on their own. */
+    @media (max-width: 767px) {
+        .vidya-wrap .visual-viewport { display: none !important; }
+    }
 
     .vidya-wrap .text-gradient {
         background: linear-gradient(135deg, #19335D 0%, #DE6E30 100%);
