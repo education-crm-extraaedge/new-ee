@@ -144,7 +144,7 @@ get_header();
 }
 
 #ee-usecase-section .icon-box {
-    width: 110px; height: 110px;
+    width: 130px; height: 130px;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 22px;
@@ -153,19 +153,21 @@ get_header();
     justify-content: center;
     margin-bottom: 32px;
     transition: all 0.4s ease;
-    padding: 14px;
+    padding: 8px;
 }
 
 #ee-usecase-section .icon-box img,
 #ee-usecase-section .icon-box svg {
     width: 100%;
     height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
     transition: transform 0.4s ease;
 }
 
 @media (max-width: 640px) {
-    #ee-usecase-section .icon-box { width: 88px; height: 88px; }
+    #ee-usecase-section .icon-box { width: 96px; height: 96px; padding: 6px; }
 }
 
 #ee-usecase-section .uc-card:hover .icon-box {
