@@ -5802,8 +5802,8 @@ document.addEventListener('DOMContentLoaded', function() {
         --slate-600: #475569;
         --shadow-xl: 0 20px 25px -5px rgba(25, 51, 93, 0.1), 0 10px 10px -5px rgba(25, 51, 93, 0.04);
         --transition-premium: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        margin: 0 !important;
-        padding: 0;
+        margin: 10px 0 !important;
+        padding: 100px 0;
         background: var(--slate-50);
         font-family: 'Open Sans', sans-serif;
         color: var(--deep-blue);
@@ -5836,10 +5836,8 @@ document.addEventListener('DOMContentLoaded', function() {
         to { transform: translateX(100%); }
     }
 
-    /* Sizing aligned with single-product.php .testimonials-section so
-       both templates render the Impact Stories at the same scale. */
     #extraaedge-success-story-engine .ee-container {
-        max-width: 1280px;
+        max-width: 1320px;
         margin: 0 auto;
         padding: 0 24px;
         position: relative;
@@ -5848,7 +5846,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     #extraaedge-success-story-engine .ee-header-group {
         text-align: center;
-        margin-bottom: 28px;
+        margin-bottom: 70px;
         opacity: 0;
         transform: translateY(30px);
         transition: var(--transition-premium);
@@ -5865,30 +5863,30 @@ document.addEventListener('DOMContentLoaded', function() {
         font-weight: 700;
         letter-spacing: 2px;
         text-transform: uppercase;
-        font-size: 13px;
-        margin-bottom: 10px;
+        font-size: 14px;
+        margin-bottom: 15px;
         display: inline-block;
     }
 
     #extraaedge-success-story-engine .ee-title-main {
         font-family: 'Poppins', sans-serif;
-        font-size: clamp(30px, 5vw, 48px);
+        font-size: clamp(32px, 5vw, 50px);
         font-weight: 700;
         line-height: 1.15;
-        margin-bottom: 14px;
+        margin-bottom: 25px;
     }
 
     #extraaedge-success-story-engine .ee-metrics-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 16px;
-        margin-bottom: 28px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 24px;
+        margin-bottom: 80px;
     }
 
     #extraaedge-success-story-engine .ee-metric-card {
         background: var(--white);
-        padding: 24px 20px;
-        border-radius: 18px;
+        padding: 35px 20px;
+        border-radius: 24px;
         text-align: center;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         border: 1px solid rgba(25, 51, 93, 0.05);
@@ -5909,16 +5907,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     #extraaedge-success-story-engine .ee-val {
         display: block;
-        font-size: 38px;
-        font-weight: 900;
+        font-size: 42px;
+        font-weight: 700;
         color: var(--primary-orange);
         font-family: 'Poppins', sans-serif;
-        margin-bottom: 4px;
+        margin-bottom: 5px;
     }
 
     #extraaedge-success-story-engine .ee-lab {
-        font-size: 11px;
-        font-weight: 700;
+        font-size: 13px;
+        font-weight: 600;
         color: var(--slate-600);
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -5926,13 +5924,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     #extraaedge-success-story-engine .ee-cards-layout {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+        gap: 35px;
     }
 
     #extraaedge-success-story-engine .ee-story-card {
         background: var(--white);
-        border-radius: 24px;
+        border-radius: 35px;
         overflow: hidden;
         border: 1px solid rgba(25, 51, 93, 0.04);
         box-shadow: var(--shadow-xl);
@@ -6247,8 +6245,8 @@ document.addEventListener('DOMContentLoaded', function() {
         --card-shadow: 0 20px 40px rgba(25, 51, 93, 0.08);
         --transition-main: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 
-        margin-top: 10px;
-        padding: 0 5%;
+        margin: 10px 0;
+        padding: 80px 5%;
         background: var(--bg-white);
         font-family: 'Open Sans', sans-serif;
         color: var(--premium-blue);
@@ -6260,14 +6258,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     #wp-ai-demo-cta * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
-    /* Aligned with single-product.php .bottom-cta + .cta-h2 / .cta-h3 so
-       the headline + subheadline match the proportions on product pages. */
     #wp-ai-demo-cta .cta-max-width {
-        max-width: 1240px;
+        max-width: 1200px;
         width: 100%;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 48px;
+        gap: 60px;
         align-items: center;
     }
 
@@ -6278,20 +6274,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     #wp-ai-demo-cta .cta-headline {
         font-family: 'Poppins', sans-serif;
-        font-size: clamp(30px, 4vw, 48px);
-        font-weight: 800;
-        line-height: 1.1;
-        margin-bottom: 16px;
+        font-size: clamp(34px, 4.5vw, 52px);
+        font-weight: 700;
+        line-height: 1.15;
+        margin-bottom: 20px;
         color: var(--premium-blue);
     }
 
     #wp-ai-demo-cta .cta-subheadline {
-        font-size: clamp(16px, 1.8vw, 19px);
+        font-size: clamp(17px, 2vw, 20px);
         line-height: 1.7;
-        font-weight: 400;
-        margin-bottom: 28px;
+        margin-bottom: 40px;
         opacity: 0.95;
-        max-width: 560px;
+        max-width: 580px;
     }
 
     #wp-ai-demo-cta .cta-action-area {
@@ -6300,33 +6295,27 @@ document.addEventListener('DOMContentLoaded', function() {
         gap: 20px;
     }
 
-    /* Button sized to match .btn-primary in single-product.php so the
-       CTA on the home page reads at the same scale as the CTA on every
-       Product/Industry/Use Case page. */
     #wp-ai-demo-cta .btn-premium {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+        display: inline-block;
         background: var(--primary-orange);
         color: #FFFFFF;
-        padding: 16px 36px;
+        padding: 22px 50px;
         font-family: 'Poppins', sans-serif;
-        font-size: 15px;
-        font-weight: 700;
+        font-size: 18px;
+        font-weight: 600;
         text-decoration: none;
-        border-radius: 12px;
+        border-radius: 60px;
         width: fit-content;
         transition: var(--transition-main);
-        box-shadow: 0 8px 24px rgba(222, 110, 48, 0.30);
+        box-shadow: 0 12px 30px rgba(222, 110, 48, 0.3);
         border: 2px solid transparent;
         text-align: center;
     }
 
     #wp-ai-demo-cta .btn-premium:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 16px 36px rgba(222, 110, 48, 0.40);
-        background: #c85d20;
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(222, 110, 48, 0.45);
+        background: #c75c24;
     }
 
     #wp-ai-demo-cta .trust-indicator {
