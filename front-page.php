@@ -5792,7 +5792,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <!-- Intelligence Engine / Analytics END -->
 
-<!-- CRM Impact Stories Section -->
+<!-- CRM Impact Stories Section — v.2026-05-19 (sized to match single-product.php) -->
 <style>
     #extraaedge-success-story-engine {
         --primary-orange: #DE6E30;
@@ -6300,27 +6300,33 @@ document.addEventListener('DOMContentLoaded', function() {
         gap: 20px;
     }
 
+    /* Button sized to match .btn-primary in single-product.php so the
+       CTA on the home page reads at the same scale as the CTA on every
+       Product/Industry/Use Case page. */
     #wp-ai-demo-cta .btn-premium {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         background: var(--primary-orange);
         color: #FFFFFF;
-        padding: 22px 50px;
+        padding: 16px 36px;
         font-family: 'Poppins', sans-serif;
-        font-size: 18px;
-        font-weight: 600;
+        font-size: 15px;
+        font-weight: 700;
         text-decoration: none;
-        border-radius: 60px;
+        border-radius: 12px;
         width: fit-content;
         transition: var(--transition-main);
-        box-shadow: 0 12px 30px rgba(222, 110, 48, 0.3);
+        box-shadow: 0 8px 24px rgba(222, 110, 48, 0.30);
         border: 2px solid transparent;
         text-align: center;
     }
 
     #wp-ai-demo-cta .btn-premium:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(222, 110, 48, 0.45);
-        background: #c75c24;
+        transform: translateY(-3px);
+        box-shadow: 0 16px 36px rgba(222, 110, 48, 0.40);
+        background: #c85d20;
     }
 
     #wp-ai-demo-cta .trust-indicator {
