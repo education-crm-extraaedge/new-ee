@@ -200,20 +200,23 @@ get_header();
 .ecrm-card:focus-visible{outline:2px solid var(--clr-orange);outline-offset:3px}
 
 .ecrm-card-icon{
-    position:relative;z-index:1;width:3.25rem;height:3.25rem;border-radius:var(--radius-lg);
+    position:relative;z-index:1;width:5rem;height:5rem;border-radius:var(--radius-xl);
     background:var(--clr-orange-ultra);border:1px solid var(--clr-orange-light);
     display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;
     transition:var(--transition-base);flex-shrink:0;overflow:hidden;
 }
 .ecrm-card:hover .ecrm-card-icon,.ecrm-card:focus-visible .ecrm-card-icon{
-    background:var(--clr-orange);border-color:var(--clr-orange);box-shadow:var(--shadow-orange);
+    background:#fff7f0;border-color:rgba(222,110,48,.35);box-shadow:0 12px 28px rgba(222,110,48,.18);
 }
-.ecrm-card-logo{width:2rem;height:2rem;object-fit:contain;transition:var(--transition-base)}
-.ecrm-card:hover .ecrm-card-logo,.ecrm-card:focus-visible .ecrm-card-logo{filter:brightness(0) invert(1)}
+/* Logo image oversized to 135% so PNGs with thick transparent canvas
+   padding still fill the tile — overflow:hidden on the icon clips
+   the transparent margins. Matches the normalisation used elsewhere. */
+.ecrm-card-logo{width:135%;height:135%;max-width:135%;max-height:135%;object-fit:contain;transition:var(--transition-base)}
+.ecrm-card:hover .ecrm-card-logo,.ecrm-card:focus-visible .ecrm-card-logo{transform:scale(1.06)}
 .ecrm-card-logo-fallback{
-    width:2rem;height:2rem;
-    background:linear-gradient(135deg,var(--clr-orange),var(--clr-navy));border-radius:6px;
-    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.875rem;
+    width:3rem;height:3rem;
+    background:linear-gradient(135deg,var(--clr-orange),var(--clr-navy));border-radius:8px;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.1rem;
 }
 .ecrm-card-body{position:relative;z-index:1;flex:1;display:flex;flex-direction:column}
 .ecrm-card-title{font-size:1.0625rem;font-weight:700;color:var(--clr-navy);margin-bottom:.5rem;line-height:1.35;letter-spacing:-.01em}
