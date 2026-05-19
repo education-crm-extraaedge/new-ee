@@ -1365,7 +1365,7 @@ get_header();
     background-color: var(--bg-light);
     font-family: 'Open Sans', sans-serif;
     color: var(--dark-base);
-    padding: 80px 20px;
+    padding: 36px 20px;
     overflow: hidden;
     line-height: 1.6;
   }
@@ -1407,7 +1407,7 @@ get_header();
   #wp-admission-crm .funnel-system {
     width: 100%;
     position: relative;
-    padding: 100px 0 40px 0;
+    padding: 30px 0 20px 0;
     margin: 20px 0;
   }
 
@@ -2254,7 +2254,7 @@ get_header();
       --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
       background: var(--bg-light);
-      padding: 100px 20px;
+      padding: 36px 20px;
       font-family: 'Open Sans', sans-serif;
       color: var(--text-main);
       line-height: 1.6;
@@ -2664,7 +2664,7 @@ get_header();
         --glass: rgba(255, 255, 255, 0.9);
         --transition-speed: 0.5s;
 
-        padding: 120px 5%;
+        padding: 40px 5%;
         background: radial-gradient(circle at 10% 20%, #fdfdfd 0%, #f3f4f6 100%);
         font-family: 'Open Sans', sans-serif;
         color: var(--secondary);
@@ -2983,7 +2983,7 @@ get_header();
                           radial-gradient(at 100% 100%, hsla(217, 58%, 95%, 1) 0, transparent 50%);
         overflow: hidden;
         position: relative;
-        padding: 120px 0;
+        padding: 40px 0;
     }
 
     .wa-story-section h2 {
@@ -3120,7 +3120,7 @@ get_header();
     @media (max-width: 1024px) {
         .wa-story-section .analytics-card { left: 20px; bottom: 120px; width: 220px; }
         .wa-story-section .product-canvas { height: 600px; }
-        .wa-story-section { padding: 60px 0; }
+        .wa-story-section { padding: 30px 0; }
     }
 </style>
 
@@ -4154,7 +4154,7 @@ document.addEventListener('DOMContentLoaded', function() {
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
     class="relative overflow-hidden bg-white selection:bg-accent/20"
-    style="margin-top: 10px; margin-bottom: 10px; padding: 60px 0;"
+    style="margin-top: 10px; margin-bottom: 10px; padding: 30px 0;"
 >
 
     <!-- Background Decor -->
@@ -5419,7 +5419,7 @@ document.addEventListener('DOMContentLoaded', function() {
         background: #ffffff;
         margin-top: 10px;
         margin-bottom: 10px;
-        padding: 100px 0;
+        padding: 40px 0;
         position: relative;
         transition: background 0.5s ease;
     }
@@ -5778,7 +5778,7 @@ document.addEventListener('DOMContentLoaded', function() {
         --shadow-xl: 0 20px 25px -5px rgba(25, 51, 93, 0.1), 0 10px 10px -5px rgba(25, 51, 93, 0.04);
         --transition-premium: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         margin: 10px 0 !important;
-        padding: 100px 0;
+        padding: 40px 0;
         background: var(--slate-50);
         font-family: 'Open Sans', sans-serif;
         color: var(--deep-blue);
@@ -5855,7 +5855,7 @@ document.addEventListener('DOMContentLoaded', function() {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 24px;
-        margin-bottom: 80px;
+        margin-bottom: 32px;
     }
 
     #extraaedge-success-story-engine .ee-metric-card {
@@ -6057,7 +6057,7 @@ document.addEventListener('DOMContentLoaded', function() {
         #extraaedge-success-story-engine .ee-metrics-grid { grid-template-columns: 1fr; }
         #extraaedge-success-story-engine .ee-cards-layout { grid-template-columns: 1fr; }
         #extraaedge-success-story-engine .ee-title-main { font-size: 32px; }
-        #extraaedge-success-story-engine { padding: 60px 0; }
+        #extraaedge-success-story-engine { padding: 30px 0; }
     }
 </style>
 
@@ -6221,7 +6221,7 @@ document.addEventListener('DOMContentLoaded', function() {
         --transition-main: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 
         margin: 10px 0;
-        padding: 80px 5%;
+        padding: 36px 5%;
         background: var(--bg-white);
         font-family: 'Open Sans', sans-serif;
         color: var(--premium-blue);
