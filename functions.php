@@ -142,6 +142,229 @@ function extraaedge_register_cpts() {
 add_action('init', 'extraaedge_register_cpts');
 
 // ══════════════════════════════════════════════════════════
+// D3. RENAME "POSTS" → "BLOG" SITE-WIDE (admin labels)
+// ══════════════════════════════════════════════════════════
+add_filter('register_post_type_args', function ($args, $post_type) {
+    if ($post_type !== 'post') return $args;
+    $labels = isset($args['labels']) ? (array) $args['labels'] : array();
+    $labels = array_merge($labels, array(
+        'name'                  => 'Blog',
+        'singular_name'         => 'Blog Post',
+        'menu_name'             => 'Blog',
+        'name_admin_bar'        => 'Blog Post',
+        'add_new'               => 'Add New Blog Post',
+        'add_new_item'          => 'Add New Blog Post',
+        'edit_item'             => 'Edit Blog Post',
+        'new_item'              => 'New Blog Post',
+        'view_item'             => 'View Blog Post',
+        'view_items'            => 'View Blogs',
+        'search_items'          => 'Search Blog',
+        'not_found'             => 'No blog posts found.',
+        'not_found_in_trash'    => 'No blog posts found in Trash.',
+        'all_items'             => 'All Blog Posts',
+        'archives'              => 'Blog Archives',
+        'attributes'            => 'Blog Attributes',
+        'insert_into_item'      => 'Insert into blog post',
+        'uploaded_to_this_item' => 'Uploaded to this blog post',
+        'featured_image'        => 'Featured Image',
+        'set_featured_image'    => 'Set featured image',
+        'remove_featured_image' => 'Remove featured image',
+        'use_featured_image'    => 'Use as featured image',
+        'filter_items_list'     => 'Filter blog list',
+        'items_list_navigation' => 'Blog list navigation',
+        'items_list'            => 'Blog list',
+    ));
+    $args['labels'] = $labels;
+    if (empty($args['menu_icon']) || $args['menu_icon'] === 'dashicons-admin-post') {
+        $args['menu_icon'] = 'dashicons-edit';
+    }
+    return $args;
+}, 10, 2);
+
+// ══════════════════════════════════════════════════════════
+// D4. BLOG POST META BOX — single source for the design fields
+// ══════════════════════════════════════════════════════════
+add_action('add_meta_boxes', function () {
+    add_meta_box(
+        'ee_blog_settings',
+        '📰 Blog Page Settings',
+        'ee_blog_meta_box_render',
+        'post',
+        'normal',
+        'high'
+    );
+});
+
+function ee_blog_meta_box_render($post) {
+    wp_nonce_field('ee_blog_meta_save', 'ee_blog_meta_nonce');
+    $f = function ($k, $default = '') use ($post) {
+        $v = get_post_meta($post->ID, '_ee_blog_' . $k, true);
+        return $v !== '' ? $v : $default;
+    };
+    $faqs = get_post_meta($post->ID, '_ee_blog_faqs', true);
+    if (!is_array($faqs)) $faqs = array();
+    ?>
+    <style>
+        .eebm-grid    { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+        .eebm-grid-3  { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+        .eebm-row     { margin-bottom:14px; }
+        .eebm-row label { display:block; font-weight:600; margin-bottom:5px; color:#1d2327; font-size:13px; }
+        .eebm-row input, .eebm-row textarea, .eebm-row select { width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px; font-family:inherit; box-sizing:border-box; }
+        .eebm-row textarea { resize:vertical; min-height:70px; }
+        .eebm-row .hint   { color:#646970; font-size:12px; margin-top:4px; font-style:italic; }
+        .eebm-section    { background:#f8fafc; border:1px solid #e2e8f0; border-left:4px solid #DE6E30; border-radius:6px; padding:14px 16px; margin-bottom:18px; }
+        .eebm-section h3 { margin:0 0 12px; font-size:14px; color:#19335D; }
+        .eebm-faq        { background:#fff; border:1px solid #e2e8f0; border-radius:6px; padding:12px 14px; margin-bottom:10px; position:relative; }
+        .eebm-faq .rm    { position:absolute; right:8px; top:8px; background:transparent; border:1px solid #fecaca; color:#b91c1c; padding:3px 9px; border-radius:4px; cursor:pointer; font-size:11px; }
+        .eebm-add        { background:#19335D; color:#fff; border:none; padding:8px 16px; border-radius:5px; cursor:pointer; font-size:12px; font-weight:600; }
+    </style>
+
+    <div class="eebm-section">
+        <h3>🎯 Hero (top of the blog page)</h3>
+        <div class="eebm-grid">
+            <div class="eebm-row">
+                <label>Category tag</label>
+                <input type="text" name="ee_blog[category_tag]" value="<?php echo esc_attr($f('category_tag')); ?>" placeholder="SMS Marketing">
+                <p class="hint">Small pill above the H1 title.</p>
+            </div>
+            <div class="eebm-row">
+                <label>Read time</label>
+                <input type="text" name="ee_blog[read_time]" value="<?php echo esc_attr($f('read_time')); ?>" placeholder="8 min read">
+            </div>
+        </div>
+        <div class="eebm-row">
+            <label>Subtitle (under H1)</label>
+            <textarea name="ee_blog[subtitle]" rows="2" placeholder="A practical playbook covering segmentation, automation, personalisation…"><?php echo esc_textarea($f('subtitle')); ?></textarea>
+            <p class="hint">1–2 sentence dek under the title.</p>
+        </div>
+        <div class="eebm-grid">
+            <div class="eebm-row">
+                <label>Hero icon (Tabler name)</label>
+                <input type="text" name="ee_blog[hero_icon]" value="<?php echo esc_attr($f('hero_icon')); ?>" placeholder="ti-messages">
+                <p class="hint">Browse names at <a href="https://tabler.io/icons" target="_blank">tabler.io/icons</a>.</p>
+            </div>
+            <div class="eebm-row">
+                <label>Hero caption</label>
+                <input type="text" name="ee_blog[hero_caption]" value="<?php echo esc_attr($f('hero_caption')); ?>" placeholder="98% Open Rate · Instant Reach">
+            </div>
+        </div>
+    </div>
+
+    <div class="eebm-section">
+        <h3>🔢 Stat cards (3 across)</h3>
+        <div class="eebm-grid-3">
+            <?php for ($i = 1; $i <= 3; $i++): ?>
+                <div class="eebm-row">
+                    <label>Stat <?php echo $i; ?> number</label>
+                    <input type="text" name="ee_blog[stat<?php echo $i; ?>_num]" value="<?php echo esc_attr($f("stat{$i}_num")); ?>" placeholder="<?php echo $i === 1 ? '98%' : ($i === 2 ? '3 min' : '7.5x'); ?>">
+                    <label style="margin-top:8px;">Stat <?php echo $i; ?> label</label>
+                    <input type="text" name="ee_blog[stat<?php echo $i; ?>_lab]" value="<?php echo esc_attr($f("stat{$i}_lab")); ?>" placeholder="<?php echo $i === 1 ? 'SMS Open Rate' : ($i === 2 ? 'Avg. Read Time' : 'Higher Response vs Email'); ?>">
+                </div>
+            <?php endfor; ?>
+        </div>
+        <p class="hint">Leave a number blank to hide that whole card.</p>
+    </div>
+
+    <div class="eebm-section">
+        <h3>💡 Quick-stat callout (optional)</h3>
+        <div class="eebm-row">
+            <label>Callout text (supports &lt;strong&gt; and &lt;em&gt;)</label>
+            <textarea name="ee_blog[callout]" rows="2" placeholder="<strong>Quick stat:</strong> Educational institutions saw a 34% increase in conversions…"><?php echo esc_textarea($f('callout')); ?></textarea>
+            <p class="hint">Leave blank to hide the blue callout box.</p>
+        </div>
+    </div>
+
+    <div class="eebm-section">
+        <h3>🚀 CRM banner (near the end of the post)</h3>
+        <div class="eebm-grid">
+            <div class="eebm-row">
+                <label>Badge</label>
+                <input type="text" name="ee_blog[banner_badge]" value="<?php echo esc_attr($f('banner_badge', 'ExtraaEdge')); ?>">
+            </div>
+            <div class="eebm-row">
+                <label>Title</label>
+                <input type="text" name="ee_blog[banner_title]" value="<?php echo esc_attr($f('banner_title', 'All-in-One CRM for Education')); ?>">
+            </div>
+        </div>
+        <div class="eebm-row">
+            <label>Description</label>
+            <textarea name="ee_blog[banner_desc]" rows="2"><?php echo esc_textarea($f('banner_desc', 'Unify SMS, WhatsApp, email, and calls. Convert more leads with intelligent automation built for admissions teams.')); ?></textarea>
+        </div>
+        <div class="eebm-grid">
+            <div class="eebm-row">
+                <label>CTA text</label>
+                <input type="text" name="ee_blog[banner_cta_text]" value="<?php echo esc_attr($f('banner_cta_text', 'Book a Free Demo')); ?>">
+            </div>
+            <div class="eebm-row">
+                <label>CTA URL</label>
+                <input type="text" name="ee_blog[banner_cta_url]" value="<?php echo esc_attr($f('banner_cta_url', '/book-demo/')); ?>">
+            </div>
+        </div>
+    </div>
+
+    <div class="eebm-section">
+        <h3>❓ FAQ items</h3>
+        <div id="eebm-faqs">
+            <?php if (!empty($faqs)) : foreach ($faqs as $i => $faq) : ?>
+                <div class="eebm-faq">
+                    <button type="button" class="rm" onclick="this.closest('.eebm-faq').remove();">✕ Remove</button>
+                    <div class="eebm-row" style="margin-top:0;">
+                        <label>Question</label>
+                        <input type="text" name="ee_blog_faqs[<?php echo $i; ?>][q]" value="<?php echo esc_attr($faq['q'] ?? ''); ?>">
+                    </div>
+                    <div class="eebm-row" style="margin-bottom:0;">
+                        <label>Answer</label>
+                        <textarea name="ee_blog_faqs[<?php echo $i; ?>][a]" rows="2"><?php echo esc_textarea($faq['a'] ?? ''); ?></textarea>
+                    </div>
+                </div>
+            <?php endforeach; endif; ?>
+        </div>
+        <button type="button" class="eebm-add" onclick="eebmAddFaq()">+ Add FAQ</button>
+        <p class="hint">Each FAQ gets its own collapsible row on the blog page (and is emitted as FAQPage JSON-LD for Google).</p>
+    </div>
+
+    <script>
+    function eebmAddFaq() {
+        var box  = document.getElementById('eebm-faqs');
+        var idx  = box.children.length;
+        var node = document.createElement('div');
+        node.className = 'eebm-faq';
+        node.innerHTML = ''
+            + '<button type="button" class="rm" onclick="this.closest(\'.eebm-faq\').remove();">✕ Remove</button>'
+            + '<div class="eebm-row" style="margin-top:0;"><label>Question</label><input type="text" name="ee_blog_faqs['+idx+'][q]"></div>'
+            + '<div class="eebm-row" style="margin-bottom:0;"><label>Answer</label><textarea name="ee_blog_faqs['+idx+'][a]" rows="2"></textarea></div>';
+        box.appendChild(node);
+    }
+    </script>
+    <?php
+}
+
+add_action('save_post_post', function ($post_id) {
+    if (!isset($_POST['ee_blog_meta_nonce']) || !wp_verify_nonce($_POST['ee_blog_meta_nonce'], 'ee_blog_meta_save')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    $fields = isset($_POST['ee_blog']) && is_array($_POST['ee_blog']) ? $_POST['ee_blog'] : array();
+    foreach ($fields as $k => $v) {
+        $key = '_ee_blog_' . preg_replace('/[^a-z0-9_]/', '', strtolower($k));
+        if ($k === 'callout' || $k === 'subtitle' || $k === 'banner_desc') {
+            update_post_meta($post_id, $key, wp_kses_post(wp_unslash($v)));
+        } else {
+            update_post_meta($post_id, $key, sanitize_text_field(wp_unslash($v)));
+        }
+    }
+
+    $faqs = isset($_POST['ee_blog_faqs']) && is_array($_POST['ee_blog_faqs']) ? $_POST['ee_blog_faqs'] : array();
+    $clean_faqs = array();
+    foreach ($faqs as $row) {
+        $q = isset($row['q']) ? sanitize_text_field(wp_unslash($row['q'])) : '';
+        $a = isset($row['a']) ? wp_kses_post(wp_unslash($row['a'])) : '';
+        if ($q !== '') $clean_faqs[] = array('q' => $q, 'a' => $a);
+    }
+    update_post_meta($post_id, '_ee_blog_faqs', $clean_faqs);
+});
+
+// ══════════════════════════════════════════════════════════
 // D2. CLIENT LOGOS — single source of truth = Home Page Editor
 // ══════════════════════════════════════════════════════════
 /**
