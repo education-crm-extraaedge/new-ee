@@ -614,6 +614,33 @@ if ($ee_is_home) {
         }
         .ee-breadcrumb a:hover { color: #DE6E30; }
         .ee-breadcrumb .ee-bc-current { color: #DE6E30; font-weight: 700; }
+
+        /* ───────── Custom landing pages — global polish ─────────
+           Used by /products/, /industries/, /use-cases/, /company/.
+           - Reset oversized line-heights on body copy (some sections
+             inherit 1.7 which looks loose at 16px).
+           - Pull the first section flush against the breadcrumb so
+             there is no visible gap between the two. */
+        body.ee-custom-landing .ee-breadcrumb { margin-bottom: 0; padding: 10px 0; }
+        body.ee-custom-landing #main-content > section:first-of-type,
+        body.ee-custom-landing #main-content > div:first-of-type > section:first-of-type {
+            padding-top: 24px !important;
+            margin-top: 0 !important;
+        }
+        body.ee-custom-landing .ee-subheadline,
+        body.ee-custom-landing .ecrm-subheadline,
+        body.ee-custom-landing .uc-body,
+        body.ee-custom-landing .ee-card-body,
+        body.ee-custom-landing .ee-card-blurb,
+        body.ee-custom-landing .ee-card-text,
+        body.ee-custom-landing .ee-card-desc {
+            line-height: 1.55 !important;
+        }
+        body.ee-custom-landing h1,
+        body.ee-custom-landing h2,
+        body.ee-custom-landing h3 {
+            line-height: 1.18 !important;
+        }
     </style>
 
     <!-- ─── 14. WordPress hook (plugins + per-post extras inject here) ─── -->
@@ -991,6 +1018,31 @@ if ($ee_is_home) {
                     <meta itemprop="position" content="<?php echo (int) $bc_pos++; ?>">
                 </li>
                 <?php endforeach; ?>
+                <?php
+                /* Inject the landing-page hop for our 3 custom-listed CPTs.
+                   has_archive is intentionally off for product / industry /
+                   use_case (the landing pages are served by page-*.php), so
+                   the default $bc_pt->has_archive branch below skips them.
+                   Manual hop keeps "Home > Products > Education CRM",
+                   "Home > Industries > Higher Education", "Home > Use Cases > Foo". */
+                if ($bc_post && isset($bc_post->ID)) :
+                    $cpt_landing = array(
+                        'product'  => array('label' => 'Products',   'url' => '/products/'),
+                        'industry' => array('label' => 'Industries', 'url' => '/industries/'),
+                        'use_case' => array('label' => 'Use Cases',  'url' => '/use-cases/'),
+                    );
+                    $pt = get_post_type($bc_post);
+                    if (isset($cpt_landing[$pt])) :
+                        $land = $cpt_landing[$pt];
+                ?>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a itemprop="item" href="<?php echo esc_url(home_url($land['url'])); ?>"><span itemprop="name"><?php echo esc_html($land['label']); ?></span></a>
+                    <meta itemprop="position" content="<?php echo (int) $bc_pos++; ?>">
+                </li>
+                <?php
+                    endif;
+                endif;
+                ?>
                 <?php if ($bc_pt && $bc_pt->has_archive) : ?>
                 <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <a itemprop="item" href="<?php echo esc_url(get_post_type_archive_link($bc_pt->name)); ?>"><span itemprop="name"><?php echo esc_html($bc_pt->labels->name); ?></span></a>

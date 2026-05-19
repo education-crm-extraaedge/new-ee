@@ -2419,6 +2419,14 @@ add_action('template_redirect', function () {
         'company'    => array('file' => 'page-company.php',    'title' => 'Company'),
     );
 
+    /* Add a body class on any custom-routed landing page so the global
+       CSS in header.php can tighten line-heights and remove the gap
+       between the breadcrumb and the first section. */
+    add_filter('body_class', function ($classes) {
+        $classes[] = 'ee-custom-landing';
+        return $classes;
+    });
+
     $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
     if (!isset($ee_custom_routes[$path])) return;
 

@@ -158,7 +158,7 @@ get_header();
 }
 
 .ee-crm-module .ee-section {
-    padding: var(--space-xl) 0 var(--space-2xl);
+    padding: var(--space-sm) 0 var(--space-2xl);
 }
 
 .ee-crm-module .ee-header {
@@ -239,7 +239,7 @@ get_header();
     font-size: clamp(.95rem, 1.8vw, 1.1rem);
     font-weight: 400;
     color: var(--c-muted);
-    line-height: 1.7;
+    line-height: 1.5;
     max-width: 560px;
     margin: 0 auto;
 }
@@ -455,7 +455,7 @@ get_header();
 
 .ee-crm-module .ee-card-desc {
     font-size: .9rem;
-    line-height: 1.65;
+    line-height: 1.45;
     color: var(--c-muted);
     margin: 0 0 24px;
     flex-grow: 1;
@@ -576,7 +576,7 @@ get_header();
 .ee-crm-module .ee-bottom-cta p {
     font-size: .95rem;
     color: rgba(255,255,255,.6);
-    line-height: 1.6;
+    line-height: 1.45;
 }
 
 .ee-crm-module .ee-bottom-cta-actions {
