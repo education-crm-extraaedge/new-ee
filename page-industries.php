@@ -396,34 +396,43 @@ get_header();
 }
 
 .ee-crm-module .ee-icon-wrap {
-    width: 60px;
-    height: 60px;
+    width: 72px;
+    height: 72px;
     border-radius: var(--radius-md);
-    background: var(--c-bg);
+    background: #ffffff;
     border: 1.5px solid var(--c-border);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 22px;
+    overflow: hidden;
+    isolation: isolate;
     transition:
         background var(--t-med),
         border-color var(--t-med),
-        transform var(--t-med);
+        box-shadow var(--t-med);
     position: relative;
+    z-index: 2;
     flex-shrink: 0;
 }
 
 .ee-crm-module .ee-card:hover .ee-icon-wrap {
-    background: var(--c-orange-soft);
-    border-color: var(--c-orange-mid);
-    transform: scale(1.08) rotate(-4deg);
+    background: #fff7f0;
+    border-color: rgba(222, 110, 48, 0.50);
+    box-shadow: 0 12px 28px rgba(222, 110, 48, 0.18);
 }
 
 .ee-crm-module .ee-icon-wrap img {
-    width: 30px;
-    height: 30px;
+    width: 95%;
+    height: 95%;
+    max-width: 95%;
+    max-height: 95%;
     object-fit: contain;
     display: block;
+    transition: transform var(--t-med);
+}
+.ee-crm-module .ee-card:hover .ee-icon-wrap img {
+    transform: scale(1.08);
 }
 
 .ee-crm-module .ee-card-number {
