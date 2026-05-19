@@ -970,9 +970,28 @@ get_header();
     }
     /* On phones, hide the sticky right-hand CRM dashboard mock — it
        does not add value next to the story copy at small widths and
-       eats most of the viewport. Story sections stack on their own. */
+       eats most of the viewport. Belt-and-braces: hide the wrapper,
+       the inner interface, AND collapse the right grid column so the
+       layout does not leave an empty slot. */
     @media (max-width: 767px) {
-        .vidya-wrap .visual-viewport { display: none !important; }
+        .vidya-wrap .visual-viewport,
+        .vidya-wrap #crmWindow,
+        .vidya-wrap .crm-interface,
+        .vidya-wrap .crm-sidebar,
+        .vidya-wrap .crm-main {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+            max-height: 0 !important;
+            min-height: 0 !important;
+            opacity: 0 !important;
+            overflow: hidden !important;
+            pointer-events: none !important;
+        }
+        .vidya-wrap .main-grid {
+            grid-template-columns: 1fr !important;
+            display: block !important;
+        }
     }
 
     .vidya-wrap .text-gradient {
