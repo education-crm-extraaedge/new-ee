@@ -494,6 +494,42 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     background-color: #ffffff !important;
     color: #19335D !important;
 }
+/* intl-tel-input phone field — make the flag dropdown sit cleanly on
+   the left and push the input text 78px right so the placeholder /
+   typed number never overlaps with the +91 prefix. */
+.hero-form-card .iti,
+#ee-form-7 .iti { width: 100% !important; display: block !important; position: relative; }
+.hero-form-card .iti input[type="tel"],
+#ee-form-7 .iti input[type="tel"] {
+    padding-left: 78px !important;
+    width: 100% !important;
+}
+.hero-form-card .iti__flag-container,
+#ee-form-7 .iti__flag-container {
+    position: absolute !important;
+    top: 0; bottom: 0; left: 0;
+    z-index: 2;
+    display: flex !important;
+    align-items: center;
+}
+.hero-form-card .iti__selected-flag,
+#ee-form-7 .iti__selected-flag {
+    height: 100% !important;
+    padding: 0 8px 0 14px !important;
+    background: transparent !important;
+    border-right: 1px solid rgba(25,51,93,0.10) !important;
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+}
+.hero-form-card .iti__selected-dial-code,
+#ee-form-7 .iti__selected-dial-code {
+    color: #19335D !important;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+.hero-form-card .iti__arrow,
+#ee-form-7 .iti__arrow { margin-left: 4px !important; }
 .hero-form-card form > div,
 #ee-form-7 form > div {
     margin-bottom: 12px !important;

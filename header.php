@@ -628,6 +628,49 @@ if ($ee_is_home) {
         .ee-breadcrumb a:hover { color: #DE6E30; }
         .ee-breadcrumb .ee-bc-current { color: #DE6E30; font-weight: 700; }
 
+        /* ───── intl-tel-input phone field — site-wide fix ─────
+           The Contact Form 7 demo form uses the intl-tel-input library to
+           render a country flag + dial code on the left of the phone input.
+           Without enough left padding the "+91" overlays the placeholder
+           and any typed number. Applies anywhere the .iti wrapper appears
+           on the site (CF7 forms in posts, pages, sidebar, popups, etc.). */
+        .iti { width: 100% !important; display: block !important; position: relative; }
+        .iti input[type="tel"] {
+            padding-left: 78px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        .iti__flag-container {
+            position: absolute !important;
+            top: 0; bottom: 0; left: 0;
+            z-index: 2;
+            display: flex !important;
+            align-items: center;
+        }
+        .iti__selected-flag {
+            height: 100% !important;
+            padding: 0 8px 0 14px !important;
+            background: transparent !important;
+            border-right: 1px solid rgba(25,51,93,0.10) !important;
+            display: flex !important;
+            align-items: center;
+            gap: 6px;
+        }
+        .iti__selected-dial-code {
+            color: #19335D !important;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .iti__arrow { margin-left: 4px !important; }
+        .iti__country-list {
+            background: #ffffff !important;
+            color: #19335D !important;
+            max-width: 320px;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.16);
+            border-radius: 10px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
         /* ───────── Custom landing pages — global polish ─────────
            Used by /products/, /industries/, /use-cases/, /company/.
            - Reset oversized line-heights on body copy (some sections
