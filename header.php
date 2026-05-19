@@ -455,22 +455,32 @@ if ($ee_is_home) {
 
         /* When the icon-box contains a real PNG/SVG logo, the dark-orange
            hover bg overpowers the artwork — keep a light bg with an
-           orange ring + glow so the logo stays clearly visible. Bigger
-           than line-icon boxes (56 vs 36) and minimal padding so wide
-           rectangular logos still look prominent. */
+           orange ring + glow so the logo stays clearly visible.
+
+           Normalisation trick: PNGs uploaded by the editor have varying
+           amounts of transparent padding around their content, which
+           makes equally-sized boxes look uneven. We oversize the inner
+           image to 140% and let overflow:hidden clip the transparent
+           edges — square logos, wide rectangles, and logos with thick
+           transparent margins all end up looking approximately the
+           same size. */
         .icon-box--image {
-            width: 56px;
-            height: 56px;
+            width: 60px;
+            height: 60px;
             background: #ffffff;
             border: 1px solid rgba(15, 23, 42, 0.06);
             border-radius: 12px;
-            padding: 4px;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .icon-box--image img {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: 100%;
-            max-height: 100%;
+            width: 140% !important;
+            height: 140% !important;
+            max-width: 140%;
+            max-height: 140%;
             object-fit: contain;
             transition: transform 0.3s ease;
         }
@@ -479,7 +489,7 @@ if ($ee_is_home) {
             border-color: rgba(222, 110, 48, 0.35);
             box-shadow: 0 8px 16px rgba(222, 110, 48, 0.18);
         }
-        .menu-item:hover .icon-box--image img { transform: scale(1.10); }
+        .menu-item:hover .icon-box--image img { transform: scale(1.06); }
 
         /* Mobile Side Menu Glass */
         #mobileMenu {

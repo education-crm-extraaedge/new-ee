@@ -153,21 +153,25 @@ get_header();
     justify-content: center;
     margin-bottom: 32px;
     transition: all 0.4s ease;
-    padding: 8px;
+    padding: 0;
+    overflow: hidden;
 }
 
+/* Oversize the inner image and clip the transparent edges so logos
+   with different amounts of canvas padding all read at a similar
+   visual size. */
 #ee-usecase-section .icon-box img,
 #ee-usecase-section .icon-box svg {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
+    width: 135%;
+    height: 135%;
+    max-width: 135%;
+    max-height: 135%;
     object-fit: contain;
     transition: transform 0.4s ease;
 }
 
 @media (max-width: 640px) {
-    #ee-usecase-section .icon-box { width: 96px; height: 96px; padding: 6px; }
+    #ee-usecase-section .icon-box { width: 96px; height: 96px; }
 }
 
 #ee-usecase-section .uc-card:hover .icon-box {
