@@ -183,12 +183,12 @@ get_header();
 }
 @media (min-width:640px){.ecrm-card{padding:2rem}}
 .ecrm-card::before{
-    content:'';position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;
+    content:'';position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;z-index:0;
     background:linear-gradient(90deg,transparent,var(--clr-orange),transparent);
     border-radius:0 0 2px 2px;opacity:0;transition:var(--transition-base);
 }
 .ecrm-card::after{
-    content:'';position:absolute;inset:0;pointer-events:none;opacity:0;
+    content:'';position:absolute;inset:0;pointer-events:none;opacity:0;z-index:0;
     transition:var(--transition-slow);
     background:linear-gradient(135deg,var(--clr-orange-ultra) 0%,transparent 60%);
 }
@@ -200,19 +200,26 @@ get_header();
 .ecrm-card:focus-visible{outline:2px solid var(--clr-orange);outline-offset:3px}
 
 .ecrm-card-icon{
-    position:relative;z-index:1;width:5rem;height:5rem;border-radius:var(--radius-xl);
-    background:var(--clr-orange-ultra);border:1px solid var(--clr-orange-light);
+    position:relative;z-index:3;width:5rem;height:5rem;border-radius:var(--radius-xl);
+    background:#ffffff;border:1px solid var(--clr-orange-light);
     display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;
     transition:var(--transition-base);flex-shrink:0;overflow:hidden;
+    isolation:isolate; /* contains the inner scaled <img> reliably above the
+                          card's ::after shimmer overlay */
 }
 .ecrm-card:hover .ecrm-card-icon,.ecrm-card:focus-visible .ecrm-card-icon{
-    background:#fff7f0;border-color:rgba(222,110,48,.35);box-shadow:0 12px 28px rgba(222,110,48,.18);
+    background:#fff7f0;border-color:rgba(222,110,48,.50);box-shadow:0 12px 28px rgba(222,110,48,.18);
 }
-/* Logo image oversized to 135% so PNGs with thick transparent canvas
-   padding still fill the tile — overflow:hidden on the icon clips
-   the transparent margins. Matches the normalisation used elsewhere. */
-.ecrm-card-logo{width:135%;height:135%;max-width:135%;max-height:135%;object-fit:contain;transition:var(--transition-base)}
-.ecrm-card:hover .ecrm-card-logo,.ecrm-card:focus-visible .ecrm-card-logo{transform:scale(1.06)}
+/* Logo image — fill the tile (95% so it never crops to the edge) and
+   keep the colorful brand artwork visible on hover. No inversion, no
+   filter changes, only a subtle scale-up for delight. */
+.ecrm-card-logo{
+    position:relative;z-index:1;
+    width:95%;height:95%;max-width:95%;max-height:95%;
+    object-fit:contain;
+    transition:transform var(--transition-base);
+}
+.ecrm-card:hover .ecrm-card-logo,.ecrm-card:focus-visible .ecrm-card-logo{transform:scale(1.08)}
 .ecrm-card-logo-fallback{
     width:3rem;height:3rem;
     background:linear-gradient(135deg,var(--clr-orange),var(--clr-navy));border-radius:8px;
