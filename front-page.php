@@ -5836,8 +5836,10 @@ document.addEventListener('DOMContentLoaded', function() {
         to { transform: translateX(100%); }
     }
 
+    /* Sizing aligned with single-product.php .testimonials-section so
+       both templates render the Impact Stories at the same scale. */
     #extraaedge-success-story-engine .ee-container {
-        max-width: 1320px;
+        max-width: 1280px;
         margin: 0 auto;
         padding: 0 24px;
         position: relative;
@@ -5846,7 +5848,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     #extraaedge-success-story-engine .ee-header-group {
         text-align: center;
-        margin-bottom: 70px;
+        margin-bottom: 28px;
         opacity: 0;
         transform: translateY(30px);
         transition: var(--transition-premium);
@@ -5863,30 +5865,30 @@ document.addEventListener('DOMContentLoaded', function() {
         font-weight: 700;
         letter-spacing: 2px;
         text-transform: uppercase;
-        font-size: 14px;
-        margin-bottom: 15px;
+        font-size: 13px;
+        margin-bottom: 10px;
         display: inline-block;
     }
 
     #extraaedge-success-story-engine .ee-title-main {
         font-family: 'Poppins', sans-serif;
-        font-size: clamp(32px, 5vw, 50px);
+        font-size: clamp(30px, 5vw, 48px);
         font-weight: 700;
         line-height: 1.15;
-        margin-bottom: 25px;
+        margin-bottom: 14px;
     }
 
     #extraaedge-success-story-engine .ee-metrics-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 24px;
-        margin-bottom: 32px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 28px;
     }
 
     #extraaedge-success-story-engine .ee-metric-card {
         background: var(--white);
-        padding: 35px 20px;
-        border-radius: 24px;
+        padding: 24px 20px;
+        border-radius: 18px;
         text-align: center;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         border: 1px solid rgba(25, 51, 93, 0.05);
@@ -5907,16 +5909,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     #extraaedge-success-story-engine .ee-val {
         display: block;
-        font-size: 42px;
-        font-weight: 700;
+        font-size: 38px;
+        font-weight: 900;
         color: var(--primary-orange);
         font-family: 'Poppins', sans-serif;
-        margin-bottom: 5px;
+        margin-bottom: 4px;
     }
 
     #extraaedge-success-story-engine .ee-lab {
-        font-size: 13px;
-        font-weight: 600;
+        font-size: 11px;
+        font-weight: 700;
         color: var(--slate-600);
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -5924,13 +5926,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     #extraaedge-success-story-engine .ee-cards-layout {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
-        gap: 35px;
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        gap: 24px;
     }
 
     #extraaedge-success-story-engine .ee-story-card {
         background: var(--white);
-        border-radius: 35px;
+        border-radius: 24px;
         overflow: hidden;
         border: 1px solid rgba(25, 51, 93, 0.04);
         box-shadow: var(--shadow-xl);
@@ -6258,12 +6260,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     #wp-ai-demo-cta * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
+    /* Aligned with single-product.php .bottom-cta + .cta-h2 / .cta-h3 so
+       the headline + subheadline match the proportions on product pages. */
     #wp-ai-demo-cta .cta-max-width {
-        max-width: 1200px;
+        max-width: 1240px;
         width: 100%;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 60px;
+        gap: 48px;
         align-items: center;
     }
 
@@ -6274,19 +6278,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     #wp-ai-demo-cta .cta-headline {
         font-family: 'Poppins', sans-serif;
-        font-size: clamp(34px, 4.5vw, 52px);
-        font-weight: 700;
-        line-height: 1.15;
-        margin-bottom: 20px;
+        font-size: clamp(30px, 4vw, 48px);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 16px;
         color: var(--premium-blue);
     }
 
     #wp-ai-demo-cta .cta-subheadline {
-        font-size: clamp(17px, 2vw, 20px);
+        font-size: clamp(16px, 1.8vw, 19px);
         line-height: 1.7;
-        margin-bottom: 40px;
+        font-weight: 400;
+        margin-bottom: 28px;
         opacity: 0.95;
-        max-width: 580px;
+        max-width: 560px;
     }
 
     #wp-ai-demo-cta .cta-action-area {
