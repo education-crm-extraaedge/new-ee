@@ -4174,7 +4174,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if(!isHovered) {
                 activeStep = (activeStep + 1) % steps.length;
             }
-        }, 5000);
+        }, 7000);
     "
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
@@ -4722,7 +4722,7 @@ document.addEventListener('DOMContentLoaded', function() {
     leadContainer.appendChild(lead);
 
     setTimeout(() => {
-      lead.style.transition = 'all 2.2s cubic-bezier(0.4, 0, 0.2, 1)';
+      lead.style.transition = 'all 3s cubic-bezier(0.4, 0, 0.2, 1)';
       lead.style.opacity = '1';
       lead.style.left = 'calc(50% - 40px)';
       lead.style.top = 'calc(50% - 15px)';
@@ -4733,7 +4733,7 @@ document.addEventListener('DOMContentLoaded', function() {
       lead.style.opacity = '0';
       processLead();
       setTimeout(() => lead.remove(), 600);
-    }, 2300);
+    }, 3500);
   }
 
   let stepIdx = 0;
@@ -4746,7 +4746,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300);
 
     liveToast.classList.add('active');
-    setTimeout(() => liveToast.classList.remove('active'), 2800);
+    setTimeout(() => liveToast.classList.remove('active'), 4000);
 
     steps.forEach(s => s.classList.remove('active'));
     stepIdx = (stepIdx + 1) % steps.length;
@@ -4756,7 +4756,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let interval;
   const obs = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
-      interval = setInterval(createLead, 4800);
+      interval = setInterval(createLead, 7000);
       createLead();
     } else {
       clearInterval(interval);
@@ -6245,7 +6245,7 @@ document.addEventListener('DOMContentLoaded', function() {
         --card-shadow: 0 20px 40px rgba(25, 51, 93, 0.08);
         --transition-main: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 
-        margin: 0;
+        margin-top: 10px;
         padding: 0 5%;
         background: var(--bg-white);
         font-family: 'Open Sans', sans-serif;
