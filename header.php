@@ -433,6 +433,58 @@ if ($ee_is_home) {
         #site-header .eh-dl:nth-child(4) { animation-delay:.20s; }
         #site-header .eh-dl:nth-child(5) { animation-delay:.25s; }
         #site-header .eh-dl:nth-child(6) { animation-delay:.30s; }
+
+        /* ═════════════ Breadcrumb (single posts + custom landings) ═════════════ */
+        .ee-breadcrumb {
+            background: #f8fafc;
+            padding: 10px 0;
+            font-family: 'DM Sans', 'Inter', sans-serif;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(25, 51, 93, 0.06);
+        }
+        .ee-breadcrumb .ee-bc-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .ee-breadcrumb ol {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 8px;
+            align-items: center;
+        }
+        .ee-breadcrumb li {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .ee-breadcrumb li + li::before {
+            content: "›";
+            color: #94a3b8;
+            margin-right: 2px;
+            font-size: 15px;
+            line-height: 1;
+        }
+        .ee-breadcrumb a {
+            color: #19335D;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color .2s ease;
+        }
+        .ee-breadcrumb a:hover { color: #DE6E30; }
+        .ee-breadcrumb .ee-bc-current {
+            color: #DE6E30;
+            font-weight: 700;
+        }
+        @media (max-width: 768px) {
+            .ee-breadcrumb { padding: 8px 0; font-size: 12px; }
+            .ee-breadcrumb .ee-bc-inner { padding: 0 1rem; }
+        }
     </style>
     <!-- ─── Site Header (advanced multi-level nav, sticky) ─── -->
     <header id="site-header" role="banner" class="sticky top-0 z-[1000] w-full">
