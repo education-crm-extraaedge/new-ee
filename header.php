@@ -389,14 +389,46 @@ if ($ee_is_home) {
         /* Divider */
         #site-header .eh-divider { height:1px; background:var(--eh-border); margin:.75rem 0; }
 
-        /* Quick links */
+        /* Quick links — high-contrast hover that never goes invisible:
+           rest = white tile + dark text, hover = cream tile + orange text
+           with an orange ring. Text colour stays readable, icon keeps its
+           native colours, no opacity / no large transform so the link
+           cannot be clipped by any ancestor overflow. */
         #site-header .eh-quick { background:var(--eh-bg-subtle); border-radius:10px; padding:1rem; margin-top:.75rem; }
         #site-header .eh-quick-title { font-size:.75rem; font-weight:700; color:var(--eh-text-light); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.75rem; }
         #site-header .eh-quick-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:.5rem; }
-        #site-header .eh-quick-link { display:flex; align-items:center; gap:.5rem; padding:.6rem; background:#fff; border-radius:8px; text-decoration:none; color:var(--eh-text-dark); font-size:.85rem; font-weight:500; transition:all .2s ease; }
-        #site-header .eh-quick-link .eh-svg { width:1rem; height:1rem; color:var(--eh-primary); }
-        #site-header .eh-quick-link:hover { background:var(--eh-primary); color:#fff; transform:translateY(-2px); }
-        #site-header .eh-quick-link:hover .eh-svg { filter:brightness(0) invert(1); }
+        #site-header .eh-quick-link {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .65rem .8rem;
+            background: #fff;
+            border: 1px solid var(--eh-border-light);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--eh-text-dark) !important;
+            font-size: .85rem;
+            font-weight: 600;
+            transition: background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease;
+        }
+        #site-header .eh-quick-link .eh-svg {
+            width: 1.05rem;
+            height: 1.05rem;
+            flex-shrink: 0;
+            opacity: 1 !important;
+        }
+        #site-header .eh-quick-link:hover,
+        #site-header .eh-quick-link:focus-visible {
+            background: #fff7f0;
+            border-color: rgba(222, 110, 48, 0.45);
+            color: var(--eh-accent) !important;
+            box-shadow: 0 4px 12px rgba(222, 110, 48, 0.18);
+        }
+        #site-header .eh-quick-link:hover .eh-svg,
+        #site-header .eh-quick-link:focus-visible .eh-svg {
+            filter: none;
+            transform: scale(1.06);
+        }
 
         /* CTA button */
         #site-header .eh-cta { background:linear-gradient(135deg,var(--eh-accent),#FF8A5C); color:#fff; padding:.8rem 1.85rem; border-radius:11px; text-decoration:none; font-weight:600; font-size:.95rem; display:inline-flex; align-items:center; gap:.6rem; transition:all .3s ease; box-shadow:0 4px 14px rgba(222,110,48,.25); border:none; cursor:pointer; flex-shrink:0; }
