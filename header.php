@@ -485,6 +485,167 @@ if ($ee_is_home) {
             .ee-breadcrumb { padding: 8px 0; font-size: 12px; }
             .ee-breadcrumb .ee-bc-inner { padding: 0 1rem; }
         }
+
+        /* ═════════════ Mobile slide-in menu (restored) ═════════════
+           This is the existing slide-in panel preserved 1:1 from the
+           old design. The desktop rewrite stripped these rules — the
+           HTML is still in place below, just needs its styling back. */
+        .menu-title { display: block; line-height: 1.25; font-family: 'Plus Jakarta Sans', 'DM Sans', sans-serif; }
+
+        #mobileMenu {
+            background: rgba(255, 255, 255, 0.98);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mobileMenu.active { transform: translateX(0); }
+
+        .mobile-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        .mobile-accordion-item.active .mobile-accordion-content {
+            max-height: 2500px;
+        }
+        .mobile-accordion-item.active .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        .m-icon-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        .m-icon-card:hover, .m-icon-card:active {
+            background: rgba(222, 110, 48, 0.06);
+            border-color: rgba(222, 110, 48, 0.18);
+        }
+        .m-icon-card .m-ico {
+            width: 32px;
+            height: 32px;
+            background: #ffffff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #19335D;
+            flex-shrink: 0;
+            border: 1px solid #e2e8f0;
+        }
+        .m-icon-card:hover .m-ico, .m-icon-card:active .m-ico {
+            background: #DE6E30;
+            color: #fff;
+            border-color: #DE6E30;
+        }
+        .m-icon-card .m-ico:has(img) { background: #fff; }
+        .m-icon-card:hover .m-ico:has(img),
+        .m-icon-card:active .m-ico:has(img) {
+            background: #fff7f0;
+            border-color: rgba(222, 110, 48, 0.35);
+        }
+        .m-icon-card .m-ico svg { width: 16px; height: 16px; }
+        .m-icon-card .m-text { flex: 1; min-width: 0; }
+        .m-icon-card .menu-title {
+            font-family: 'Plus Jakarta Sans', 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: #19335D;
+            margin: 0;
+            line-height: 1;
+        }
+        .m-icon-card p {
+            font-size: 11px;
+            color: #64748b;
+            margin: 2px 0 0 0;
+            line-height: 1.35;
+        }
+
+        /* Mobile hamburger button — visible on <1024 only */
+        @media (max-width: 1023.98px) {
+            #site-header .ee-mobile-btn {
+                display: inline-flex !important;
+                align-items: center;
+                justify-content: center;
+                padding: 10px;
+                background: transparent;
+                border: 0;
+                color: #19335D;
+                cursor: pointer;
+                border-radius: 8px;
+                margin-left: auto;
+            }
+            #site-header .ee-mobile-btn:hover { background: #F3F4F6; }
+            #site-header .ee-mobile-btn svg,
+            #site-header .ee-mobile-btn i[data-lucide] { width: 24px; height: 24px; color: #19335D; }
+        }
+
+        /* Tailwind utility shims used inside the mobile menu HTML
+           (these are real Tailwind classes — fallback values in case the
+           Tailwind CDN script is blocked or slow). */
+        .lg\:hidden { display: inline-flex; }
+        @media (min-width: 1024px) { .lg\:hidden { display: none; } }
+        .lg\:flex   { display: none; }
+        @media (min-width: 1024px) { .lg\:flex   { display: flex; } }
+        #mobileMenu.fixed { position: fixed; }
+        #mobileMenu.top-0 { top: 0; }
+        #mobileMenu.right-0 { right: 0; }
+        #mobileMenu.h-full { height: 100vh; }
+        #mobileMenu.shadow-2xl { box-shadow: -20px 0 40px rgba(0,0,0,.15); }
+        #mobileMenu.flex { display: flex; }
+        #mobileMenu.flex-col { flex-direction: column; }
+        #mobileMenu .w-\[85\%\] { width: 85%; }
+        #mobileMenu .max-w-\[360px\] { max-width: 360px; }
+        #mobileMenu.z-\[1100\] { z-index: 1100; }
+        /* Common Tailwind layout utilities inside the mobile menu */
+        #mobileMenu .p-6 { padding: 1.5rem; }
+        #mobileMenu .p-5 { padding: 1.25rem; }
+        #mobileMenu .p-4 { padding: 1rem; }
+        #mobileMenu .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        #mobileMenu .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        #mobileMenu .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        #mobileMenu .gap-2 { gap: 0.5rem; }
+        #mobileMenu .space-y-4 > * + * { margin-top: 1rem; }
+        #mobileMenu .space-y-2 > * + * { margin-top: 0.5rem; }
+        #mobileMenu .flex-1 { flex: 1; }
+        #mobileMenu .overflow-y-auto { overflow-y: auto; }
+        #mobileMenu .bg-white { background: #fff; }
+        #mobileMenu .bg-slate-50 { background: #f8fafc; }
+        #mobileMenu .bg-brandBlue { background: #19335D; }
+        #mobileMenu .text-white { color: #fff; }
+        #mobileMenu .text-brandBlue { color: #19335D; }
+        #mobileMenu .text-brandOrange { color: #DE6E30; }
+        #mobileMenu .font-bold { font-weight: 700; }
+        #mobileMenu .rounded-2xl { border-radius: 16px; }
+        #mobileMenu .rounded-xl { border-radius: 12px; }
+        #mobileMenu .rounded-full { border-radius: 9999px; }
+        #mobileMenu .border { border: 1px solid; }
+        #mobileMenu .border-b { border-bottom: 1px solid; }
+        #mobileMenu .border-t { border-top: 1px solid; }
+        #mobileMenu .border-slate-100 { border-color: #f1f5f9; }
+        #mobileMenu .border-slate-200 { border-color: #e2e8f0; }
+        #mobileMenu .bg-slate-100 { background: #f1f5f9; }
+        #mobileMenu .w-full { width: 100%; }
+        #mobileMenu .w-4 { width: 16px; }
+        #mobileMenu .h-4 { height: 16px; }
+        #mobileMenu .w-5 { width: 20px; }
+        #mobileMenu .h-5 { height: 20px; }
+        #mobileMenu .h-8 { height: 32px; }
+        #mobileMenu .flex { display: flex; }
+        #mobileMenu .items-center { align-items: center; }
+        #mobileMenu .justify-between { justify-content: space-between; }
+        #mobileMenu .text-center { text-align: center; }
+        #mobileMenu .overflow-hidden { overflow: hidden; }
+        #mobileMenu .shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+        #mobileMenu .shadow-lg { box-shadow: 0 10px 15px -3px rgba(25,51,93,.20); }
+        #mobileMenu .transition-transform { transition: transform .25s ease; }
     </style>
     <!-- ─── Site Header (advanced multi-level nav, sticky) ─── -->
     <header id="site-header" role="banner" class="sticky top-0 z-[1000] w-full">
