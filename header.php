@@ -309,26 +309,6 @@ if ($ee_is_home) {
         /* SVG icon wrapper — replaces FontAwesome <i> tags */
         #site-header .eh-svg { width:1em; height:1em; display:inline-block; vertical-align:-.125em; object-fit:contain; }
 
-        /* Search bar */
-        #site-header .eh-search { flex:1; max-width:500px; margin:0 2rem; position:relative; }
-        #site-header .eh-search-wrap { position:relative; }
-        #site-header .eh-search-input { width:100%; padding:.75rem 3rem .75rem 3rem; border:2px solid var(--eh-border-light); border-radius:12px; font-size:.95rem; font-family:inherit; background:var(--eh-bg-subtle); color:var(--eh-text-dark); transition:all .3s ease; }
-        #site-header .eh-search-input:focus { outline:none; border-color:var(--eh-primary); background:#fff; box-shadow:0 0 0 3px rgba(25,51,93,.10); }
-        #site-header .eh-search-svg { position:absolute; left:1rem; top:50%; transform:translateY(-50%); color:var(--eh-text-light); pointer-events:none; width:20px; height:20px; }
-        #site-header .eh-search-clear { position:absolute; right:1rem; top:50%; transform:translateY(-50%); color:var(--eh-text-light); cursor:pointer; display:none; padding:.25rem; border-radius:4px; transition:all .2s ease; width:20px; height:20px; }
-        #site-header .eh-search-clear:hover { background:var(--eh-bg-subtle); color:var(--eh-text-dark); }
-        #site-header .eh-search-input:not(:placeholder-shown) ~ .eh-search-clear { display:block; }
-        #site-header .eh-search-results { position:absolute; top:calc(100% + .75rem); left:0; right:0; background:#fff; border:1px solid var(--eh-border); border-radius:14px; box-shadow:var(--eh-shadow-lg); max-height:500px; overflow-y:auto; opacity:0; visibility:hidden; transform:translateY(-10px); transition:all .3s ease; padding:.75rem; z-index:100; }
-        #site-header .eh-search-results.active { opacity:1; visibility:visible; transform:translateY(0); }
-        #site-header .eh-search-section-title { font-size:.75rem; font-weight:700; color:var(--eh-text-light); text-transform:uppercase; letter-spacing:.05em; padding:.5rem .75rem; margin-bottom:.25rem; }
-        #site-header .eh-result-item { display:flex; align-items:center; gap:.75rem; padding:.75rem; border-radius:10px; text-decoration:none; color:var(--eh-text-dark); transition:all .2s ease; }
-        #site-header .eh-result-item:hover { background:var(--eh-bg-subtle); }
-        #site-header .eh-result-icon { width:36px; height:36px; background:var(--eh-bg-subtle); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; color:var(--eh-primary); padding:6px; }
-        #site-header .eh-result-icon .eh-svg { width:100%; height:100%; }
-        #site-header .eh-result-title { font-weight:600; font-size:.9rem; margin-bottom:.15rem; }
-        #site-header .eh-result-desc { font-size:.8rem; color:var(--eh-text-light); }
-        #site-header .eh-search-shortcut { font-size:.75rem; color:var(--eh-text-light); background:var(--eh-bg-subtle); padding:.25rem .5rem; border-radius:4px; }
-
         /* Navigation */
         #site-header .eh-nav { display:flex; align-items:center; gap:.35rem; }
         #site-header .eh-nav-item { position:relative; }
@@ -441,13 +421,12 @@ if ($ee_is_home) {
             #site-header .eh-featured { grid-column:span 3; }
         }
         @media (max-width:1024px){
-            #site-header .eh-search { max-width:300px; }
             #site-header .eh-mega { width:700px; }
             #site-header .eh-mega-grid { grid-template-columns:repeat(2,1fr); }
             #site-header .eh-featured { grid-column:span 2; }
         }
         @media (max-width:1023.98px){
-            #site-header .eh-search, #site-header .eh-nav, #site-header .eh-cta { display:none; }
+            #site-header .eh-nav, #site-header .eh-cta { display:none; }
         }
         @media (min-width:1024px){
             #site-header .ee-mobile-btn { display:none !important; }
@@ -689,24 +668,6 @@ if ($ee_is_home) {
                      alt="<?php echo esc_attr($ee_site_name); ?>"
                      width="160" height="48" fetchpriority="high" decoding="async">
             </a>
-
-            <!-- Search Bar -->
-            <div class="eh-search">
-                <div class="eh-search-wrap">
-                    <svg class="eh-search-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    <input type="text" class="eh-search-input" id="ehSearchInput" placeholder="Search products, features, solutions..." aria-label="Search">
-                    <svg class="eh-search-clear" id="ehSearchClear" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </div>
-                <div class="eh-search-results" id="ehSearchResults" role="listbox">
-                    <div class="eh-search-section-title">Popular Searches</div>
-                    <a class="eh-result-item" href="<?php echo esc_url(home_url('/products/education-crm/')); ?>"><div class="eh-result-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/fire.svg" alt="" loading="lazy"></div><div><div class="eh-result-title">Education CRM</div><div class="eh-result-desc">Complete CRM solution</div></div></a>
-                    <a class="eh-result-item" href="<?php echo esc_url(home_url('/products/chatbot-for-education/')); ?>"><div class="eh-result-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/robot.svg" alt="" loading="lazy"></div><div><div class="eh-result-title">AI Chatbot</div><div class="eh-result-desc">24/7 student engagement</div></div></a>
-                    <a class="eh-result-item" href="<?php echo esc_url(home_url('/products/')); ?>"><div class="eh-result-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg" alt="" loading="lazy"></div><div><div class="eh-result-title">Analytics Dashboard</div><div class="eh-result-desc">Real-time insights</div></div></a>
-                    <div class="eh-search-section-title">Quick Links</div>
-                    <a class="eh-result-item" href="<?php echo esc_url(home_url('/help/')); ?>"><div class="eh-result-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/book-open.svg" alt="" loading="lazy"></div><div><div class="eh-result-title">Documentation</div></div><span class="eh-search-shortcut">⌘K</span></a>
-                    <a class="eh-result-item" href="<?php echo esc_url(home_url('/book-demo/')); ?>"><div class="eh-result-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/film.svg" alt="" loading="lazy"></div><div><div class="eh-result-title">Schedule Demo</div></div></a>
-                </div>
-            </div>
 
             <nav class="eh-nav ee-desktop-nav" role="navigation" aria-label="Primary">
 
@@ -1242,32 +1203,13 @@ if ($ee_is_home) {
         }
         renderIcons();
 
-        /* ── Header scroll-shadow + search bar wiring (advanced nav) ── */
+        /* ── Header scroll-shadow effect (advanced nav) ── */
         (function(){
             var hdr  = document.getElementById('site-header');
-            var inp  = document.getElementById('ehSearchInput');
-            var clr  = document.getElementById('ehSearchClear');
-            var res  = document.getElementById('ehSearchResults');
             if (hdr) {
                 window.addEventListener('scroll', function () {
                     hdr.classList.toggle('scrolled', window.scrollY > 50);
                 }, { passive: true });
-            }
-            if (inp && res) {
-                inp.addEventListener('focus', function () { res.classList.add('active'); });
-                inp.addEventListener('blur',  function () { setTimeout(function () { res.classList.remove('active'); }, 200); });
-                inp.addEventListener('input', function () {
-                    var q = inp.value.trim().toLowerCase();
-                    var items = res.querySelectorAll('.eh-result-item');
-                    items.forEach(function (a) {
-                        a.style.display = (!q || a.textContent.toLowerCase().indexOf(q) !== -1) ? '' : 'none';
-                    });
-                    res.classList.add('active');
-                });
-                inp.addEventListener('keydown', function (e) { if (e.key === 'Escape') { inp.blur(); res.classList.remove('active'); } });
-            }
-            if (clr && inp) {
-                clr.addEventListener('click', function () { inp.value = ''; inp.focus(); });
             }
         })();
 
