@@ -710,12 +710,24 @@ if ($ee_is_home) {
 
             <nav class="eh-nav ee-desktop-nav" role="navigation" aria-label="Primary">
 
-                <!-- Products Mega Menu -->
+                <!-- Products Mega Menu — all 4 columns auto-fill from Product CPT -->
                 <div class="eh-nav-item">
-                    <a href="#" class="eh-nav-link" role="button" aria-haspopup="true">Products
+                    <a href="<?php echo esc_url(home_url('/products/')); ?>" class="eh-nav-link" role="button" aria-haspopup="true">Products
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <div class="eh-mega">
+                        <?php
+                        /* Pull every published Product post. Helper returns
+                           {title, desc, url, icon}. Adding a new Product post
+                           in WP Admin makes it appear here automatically.
+                           We split them across 4 visual columns. */
+                        $eh_products_all = function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items() : array();
+                        $eh_col_titles   = array('Featured', 'Core CRM', 'Communication', 'Automation');
+                        $eh_col_icons    = array('star', 'bullseye', 'comments', 'bolt');
+                        $eh_col_count    = max(1, count($eh_products_all));
+                        $eh_per_col      = (int) ceil($eh_col_count / 4);
+                        $eh_chunks       = $eh_per_col > 0 ? array_chunk($eh_products_all, $eh_per_col) : array();
+                        ?>
                         <div class="eh-mega-grid">
                             <div class="eh-featured">
                                 <div>
@@ -729,105 +741,31 @@ if ($ee_is_home) {
                                 <div class="eh-featured-visual"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/robot.svg" alt="" loading="lazy"></div>
                             </div>
 
+                            <?php for ($eh_ci = 0; $eh_ci < 4; $eh_ci++) :
+                                $eh_col_items = isset($eh_chunks[$eh_ci]) ? $eh_chunks[$eh_ci] : array();
+                                if (empty($eh_col_items)) continue;
+                            ?>
                             <div class="eh-mega-col">
-                                <h4><span class="eh-col-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/star.svg" alt="" loading="lazy"></span> Featured - NEW</h4>
-                                <a href="https://getvidya.ai/" class="eh-dl" target="_blank" rel="noopener">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/robot.svg" alt="" loading="lazy"></div>
+                                <h4><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_icons[$eh_ci] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo esc_html($eh_col_titles[$eh_ci]); ?></h4>
+                                <?php foreach ($eh_col_items as $eh_p) :
+                                    $eh_short = wp_trim_words(wp_strip_all_tags((string) $eh_p['desc']), 9, '…');
+                                ?>
+                                <a href="<?php echo esc_url($eh_p['url']); ?>" class="eh-dl">
+                                    <div class="eh-dl-icon">
+                                        <?php if (!empty($eh_p['icon'])) : ?>
+                                            <img class="eh-svg" src="<?php echo esc_url($eh_p['icon']); ?>" alt="" loading="lazy">
+                                        <?php else : ?>
+                                            <img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg" alt="" loading="lazy">
+                                        <?php endif; ?>
+                                    </div>
                                     <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Vidya.ai <span class="eh-badge new">New</span></div>
-                                        <div class="eh-dl-desc">AI-powered education platform with intelligent automation</div>
+                                        <div class="eh-dl-title"><?php echo esc_html($eh_p['title']); ?></div>
+                                        <div class="eh-dl-desc"><?php echo esc_html($eh_short); ?></div>
                                     </div>
                                 </a>
-                                <a href="<?php echo esc_url(home_url('/products/education-crm/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Education CRM <span class="eh-badge popular">Popular</span></div>
-                                        <div class="eh-dl-desc">Complete CRM solution for educational institutions</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/products/mobile-crm/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/mobile.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Mobile CRM</div>
-                                        <div class="eh-dl-desc">Manage admissions on the go</div>
-                                    </div>
-                                </a>
+                                <?php endforeach; ?>
                             </div>
-
-                            <div class="eh-mega-col">
-                                <h4><span class="eh-col-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/bullseye.svg" alt="" loading="lazy"></span> Core CRM</h4>
-                                <a href="<?php echo esc_url(home_url('/products/application-management-system/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/file.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Application Management</div>
-                                        <div class="eh-dl-desc">Streamline application processing</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/admission-management-software/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/check-circle.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Admission Management</div>
-                                        <div class="eh-dl-desc">End-to-end admission workflow</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/online-admission-software/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/globe.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Online Admissions</div>
-                                        <div class="eh-dl-desc">Digital application portal</div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="eh-mega-col">
-                                <h4><span class="eh-col-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/comments.svg" alt="" loading="lazy"></span> Communication</h4>
-                                <a href="<?php echo esc_url(home_url('/products/chatbot-for-education/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/robot.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">AI Chatbot <span class="eh-badge trending">Trending</span></div>
-                                        <div class="eh-dl-desc">24/7 student engagement</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/products/whatsapp-api/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/whatsapp.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">WhatsApp Business</div>
-                                        <div class="eh-dl-desc">Connect via WhatsApp</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/products/ivr/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/phone.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">IVR System</div>
-                                        <div class="eh-dl-desc">Intelligent call routing</div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="eh-mega-col">
-                                <h4><span class="eh-col-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/bolt.svg" alt="" loading="lazy"></span> Automation</h4>
-                                <a href="<?php echo esc_url(home_url('/advanced-marketing-automation/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/rocket.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Marketing Automation</div>
-                                        <div class="eh-dl-desc">AI-powered campaigns</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/lead-nurturing/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/bullseye.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Lead Nurturing</div>
-                                        <div class="eh-dl-desc">Strategic engagement</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/inbuilt-reporting-and-analytics/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Analytics Dashboard</div>
-                                        <div class="eh-dl-desc">Real-time insights</div>
-                                    </div>
-                                </a>
-                            </div>
+                            <?php endfor; ?>
                         </div>
 
                         <div class="eh-quick">
@@ -835,232 +773,88 @@ if ($ee_is_home) {
                             <div class="eh-quick-grid">
                                 <a href="https://getvidya.ai/" class="eh-quick-link" target="_blank" rel="noopener"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/robot.svg" alt="" loading="lazy"> Vidya.ai - NEW</a>
                                 <a href="<?php echo esc_url(home_url('/products/')); ?>" class="eh-quick-link"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/box.svg" alt="" loading="lazy"> All Products</a>
-                                <a href="<?php echo esc_url(home_url('/seamless-integration/')); ?>" class="eh-quick-link"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/link.svg" alt="" loading="lazy"> Integrations</a>
+                                <a href="<?php echo esc_url(home_url('/use-cases/')); ?>" class="eh-quick-link"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/bullseye.svg" alt="" loading="lazy"> Use Cases</a>
                                 <a href="<?php echo esc_url(home_url('/book-demo/')); ?>" class="eh-quick-link"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/film.svg" alt="" loading="lazy"> Schedule Demo</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Solutions Mega Menu -->
+                <!-- Solutions Mega Menu — auto-fills from the 'ee_solution_items' option -->
                 <div class="eh-nav-item">
                     <a href="#" class="eh-nav-link" role="button" aria-haspopup="true">Solutions
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <div class="eh-mega">
+                        <?php
+                        /* Solutions are managed in WP Admin -> 🧩 Solutions.
+                           Three columns: Admission / Study Abroad / Recruitment.
+                           Editor can add / edit / remove rows without touching code. */
+                        $eh_sol     = function_exists('ee_get_solution_items') ? ee_get_solution_items() : array('admission'=>array(),'study_abroad'=>array(),'recruitment'=>array());
+                        $eh_sol_cols = array(
+                            'admission'    => array('label' => 'Admission Solutions',                  'icon' => 'graduation-cap'),
+                            'study_abroad' => array('label' => 'Study Abroad',                         'icon' => 'globe-americas'),
+                            'recruitment'  => array('label' => 'Recruitment &amp; Lead Management',    'icon' => 'bullseye'),
+                        );
+                        ?>
                         <div class="eh-mega-grid three-col">
+                            <?php foreach ($eh_sol_cols as $eh_col_key => $eh_col_meta) :
+                                $eh_col_items = isset($eh_sol[$eh_col_key]) ? $eh_sol[$eh_col_key] : array();
+                            ?>
                             <div class="eh-mega-col">
-                                <h4><span class="eh-col-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/graduation-cap.svg" alt="" loading="lazy"></span> Admission Solutions</h4>
-                                <a href="<?php echo esc_url(home_url('/admission-management-software/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/file.svg" alt="" loading="lazy"></div>
+                                <h4><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_meta['icon'] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo wp_kses_post($eh_col_meta['label']); ?></h4>
+                                <?php foreach ($eh_col_items as $eh_s) :
+                                    $eh_url  = !empty($eh_s['url'])  ? $eh_s['url']  : '#';
+                                    if (strpos($eh_url, 'http') !== 0 && strpos($eh_url, '//') !== 0) {
+                                        $eh_url = home_url($eh_url);
+                                    }
+                                    $eh_icon = !empty($eh_s['icon']) ? $eh_s['icon'] : 'star';
+                                ?>
+                                <a href="<?php echo esc_url($eh_url); ?>" class="eh-dl">
+                                    <div class="eh-dl-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_icon . '.svg'); ?>" alt="" loading="lazy"></div>
                                     <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Admission Management</div>
-                                        <div class="eh-dl-desc">Complete admission lifecycle</div>
-                                    </div>
-                                    <svg class="eh-nested-indicator" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                                    <div class="eh-nested">
-                                        <a href="<?php echo esc_url(home_url('/student-admission-software/')); ?>" class="eh-dl">
-                                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/users.svg" alt="" loading="lazy"></div>
-                                            <div class="eh-dl-content">
-                                                <div class="eh-dl-title">Student Admission</div>
-                                                <div class="eh-dl-desc">Manage applications</div>
-                                            </div>
-                                        </a>
-                                        <a href="<?php echo esc_url(home_url('/online-admission-management-system/')); ?>" class="eh-dl">
-                                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/globe.svg" alt="" loading="lazy"></div>
-                                            <div class="eh-dl-content">
-                                                <div class="eh-dl-title">Online System</div>
-                                                <div class="eh-dl-desc">Digital admissions</div>
-                                            </div>
-                                        </a>
-                                        <a href="<?php echo esc_url(home_url('/university-admission-software/')); ?>" class="eh-dl">
-                                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/landmark.svg" alt="" loading="lazy"></div>
-                                            <div class="eh-dl-content">
-                                                <div class="eh-dl-title">University Software</div>
-                                                <div class="eh-dl-desc">For universities</div>
-                                            </div>
-                                        </a>
+                                        <div class="eh-dl-title"><?php echo esc_html($eh_s['title']); ?></div>
+                                        <?php if (!empty($eh_s['desc'])) : ?>
+                                            <div class="eh-dl-desc"><?php echo esc_html($eh_s['desc']); ?></div>
+                                        <?php endif; ?>
                                     </div>
                                 </a>
-                                <a href="<?php echo esc_url(home_url('/enrollment-management-software/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Enrollment Management</div>
-                                        <div class="eh-dl-desc">Track student enrollment</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/walk-in-management-system/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/users.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Walk-in Management</div>
-                                        <div class="eh-dl-desc">Track campus visits</div>
-                                    </div>
-                                </a>
+                                <?php endforeach; ?>
                             </div>
-
-                            <div class="eh-mega-col">
-                                <h4><span class="eh-col-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/globe-americas.svg" alt="" loading="lazy"></span> Study Abroad</h4>
-                                <a href="<?php echo esc_url(home_url('/study-abroad-software/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/plane.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Study Abroad CRM</div>
-                                        <div class="eh-dl-desc">International students</div>
-                                    </div>
-                                    <svg class="eh-nested-indicator" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                                    <div class="eh-nested">
-                                        <a href="<?php echo esc_url(home_url('/overseas-education-crm/')); ?>" class="eh-dl">
-                                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/map.svg" alt="" loading="lazy"></div>
-                                            <div class="eh-dl-content">
-                                                <div class="eh-dl-title">Overseas Education</div>
-                                                <div class="eh-dl-desc">Global programs</div>
-                                            </div>
-                                        </a>
-                                        <a href="<?php echo esc_url(home_url('/crm-for-overseas-education-consultant/')); ?>" class="eh-dl">
-                                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/user-tie.svg" alt="" loading="lazy"></div>
-                                            <div class="eh-dl-content">
-                                                <div class="eh-dl-title">For Consultants</div>
-                                                <div class="eh-dl-desc">Consultant software</div>
-                                            </div>
-                                        </a>
-                                        <a href="<?php echo esc_url(home_url('/study-abroad-management-software/')); ?>" class="eh-dl">
-                                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/clipboard.svg" alt="" loading="lazy"></div>
-                                            <div class="eh-dl-content">
-                                                <div class="eh-dl-title">Management Suite</div>
-                                                <div class="eh-dl-desc">Complete solution</div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/crm-for-education-agent/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Education Agents</div>
-                                        <div class="eh-dl-desc">For recruitment agents</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/crm-for-education-consultant/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/briefcase.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Education Consultants</div>
-                                        <div class="eh-dl-desc">Consulting business tools</div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="eh-mega-col">
-                                <h4><span class="eh-col-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/bullseye.svg" alt="" loading="lazy"></span> Recruitment &amp; Lead Management</h4>
-                                <a href="<?php echo esc_url(home_url('/student-recruitment-software/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/users.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Student Recruitment</div>
-                                        <div class="eh-dl-desc">Attract top students</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/centralised-lead-management/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/bullseye.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Lead Management</div>
-                                        <div class="eh-dl-desc">Centralized tracking</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/strategic-lead-nurturing/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/seedling.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Lead Nurturing</div>
-                                        <div class="eh-dl-desc">Convert more leads</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/crm-enrollment-management/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/chart-line.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Enrollment CRM</div>
-                                        <div class="eh-dl-desc">Boost enrollment</div>
-                                    </div>
-                                </a>
-                            </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
 
-                <!-- Industries -->
+                <!-- Industries — auto-fills from Industry CPT -->
                 <div class="eh-nav-item">
                     <a href="<?php echo esc_url(home_url('/industries/')); ?>" class="eh-nav-link">Industries
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <div class="eh-dropdown">
-                        <a href="<?php echo esc_url(home_url('/industries/higher-education-crm/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/graduation-cap.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Higher Education</div>
-                                <div class="eh-dl-desc">Universities &amp; colleges</div>
+                        <?php
+                        /* Every published Industry CPT post is listed here.
+                           Add a new Industry in WP Admin -> it appears in
+                           this dropdown, in the mobile menu, and on /industries/
+                           automatically (all three share the same helper). */
+                        $eh_industries = function_exists('ee_get_industry_menu_items') ? ee_get_industry_menu_items() : array();
+                        foreach ($eh_industries as $eh_ind) :
+                            $eh_short = wp_trim_words(wp_strip_all_tags((string) ($eh_ind['short_desc'] ?: $eh_ind['desc'])), 8, '…');
+                        ?>
+                        <a href="<?php echo esc_url($eh_ind['url']); ?>" class="eh-dl">
+                            <div class="eh-dl-icon">
+                                <?php if (!empty($eh_ind['icon'])) : ?>
+                                    <img class="eh-svg" src="<?php echo esc_url($eh_ind['icon']); ?>" alt="" loading="lazy">
+                                <?php else : ?>
+                                    <img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/landmark.svg" alt="" loading="lazy">
+                                <?php endif; ?>
                             </div>
-                            <svg class="eh-nested-indicator" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                            <div class="eh-nested">
-                                <a href="<?php echo esc_url(home_url('/university-crm/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/landmark.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">University CRM</div>
-                                        <div class="eh-dl-desc">For universities</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/crm-for-higher-educational-institutions/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/book.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Higher Ed Institutions</div>
-                                        <div class="eh-dl-desc">Comprehensive solution</div>
-                                    </div>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/higher-ed-crm/')); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/bullseye.svg" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title">Higher Ed CRM</div>
-                                        <div class="eh-dl-desc">Complete platform</div>
-                                    </div>
-                                </a>
+                            <div class="eh-dl-content">
+                                <div class="eh-dl-title"><?php echo esc_html($eh_ind['title']); ?></div>
+                                <div class="eh-dl-desc"><?php echo esc_html($eh_short); ?></div>
                             </div>
                         </a>
-                        <a href="<?php echo esc_url(home_url('/industries/school-crm/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/school.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">K-12 Schools</div>
-                                <div class="eh-dl-desc">Primary &amp; secondary education</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/industries/coaching-institute-crm/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/book.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Coaching Institutes</div>
-                                <div class="eh-dl-desc">Training &amp; coaching centers</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/industries/edtech-crm/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/laptop.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">EdTech Companies</div>
-                                <div class="eh-dl-desc">Online learning platforms</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/industries/overseas-crm/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/globe-americas.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Overseas Education</div>
-                                <div class="eh-dl-desc">Study abroad consultants</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/industries/vocational-crm/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/tools.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Vocational Training</div>
-                                <div class="eh-dl-desc">Skills &amp; certifications</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/crm-for-training-providers/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/book-open.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Training Providers</div>
-                                <div class="eh-dl-desc">Professional training</div>
-                            </div>
-                        </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 

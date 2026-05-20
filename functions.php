@@ -1721,6 +1721,155 @@ add_action('save_post_use_case', function ($post_id) {
     if (isset($_POST['usecase_lucide']))     update_post_meta($post_id, '_usecase_lucide',     sanitize_text_field(wp_unslash($_POST['usecase_lucide'])));
     if (isset($_POST['usecase_short_desc'])) update_post_meta($post_id, '_usecase_short_desc', sanitize_textarea_field(wp_unslash($_POST['usecase_short_desc'])));
 });
+
+// ══════════════════════════════════════════════════════════
+// G5. SOLUTIONS MENU HELPER — admin-editable list (no CPT needed)
+// ══════════════════════════════════════════════════════════
+/**
+ * Solutions are vendor-style landing pages, not posts, so they live in
+ * a single 'ee_solution_items' option that's editable on a dedicated
+ * admin page. Each solution belongs to one of three columns:
+ *   admission  | study_abroad | recruitment
+ * Falls back to a seeded list when the option is empty so the header
+ * never renders without items on a fresh deploy.
+ *
+ * @return array<string, array<array{title:string, desc:string, url:string, icon:string}>>
+ */
+function ee_get_solution_items() {
+    static $cache = null;
+    if ($cache !== null) return $cache;
+
+    $saved = get_option('ee_solution_items', array());
+    if (is_array($saved) && (!empty($saved['admission']) || !empty($saved['study_abroad']) || !empty($saved['recruitment']))) {
+        $cache = array_merge(array('admission' => array(), 'study_abroad' => array(), 'recruitment' => array()), $saved);
+        return $cache;
+    }
+
+    $cache = array(
+        'admission' => array(
+            array('title' => 'Admission Management',   'desc' => 'Complete admission lifecycle',     'url' => '/admission-management-software/',         'icon' => 'file'),
+            array('title' => 'Enrollment Management',  'desc' => 'Track student enrollment',         'url' => '/enrollment-management-software/',        'icon' => 'chart-bar'),
+            array('title' => 'Walk-in Management',     'desc' => 'Track campus visits',              'url' => '/walk-in-management-system/',             'icon' => 'users'),
+        ),
+        'study_abroad' => array(
+            array('title' => 'Study Abroad CRM',       'desc' => 'International students',           'url' => '/study-abroad-software/',                 'icon' => 'plane'),
+            array('title' => 'Education Agents',       'desc' => 'For recruitment agents',           'url' => '/crm-for-education-agent/',               'icon' => 'handshake'),
+            array('title' => 'Education Consultants',  'desc' => 'Consulting business tools',        'url' => '/crm-for-education-consultant/',          'icon' => 'briefcase'),
+        ),
+        'recruitment' => array(
+            array('title' => 'Student Recruitment',    'desc' => 'Attract top students',             'url' => '/student-recruitment-software/',          'icon' => 'users'),
+            array('title' => 'Lead Management',        'desc' => 'Centralized tracking',             'url' => '/centralised-lead-management/',           'icon' => 'bullseye'),
+            array('title' => 'Lead Nurturing',         'desc' => 'Convert more leads',               'url' => '/strategic-lead-nurturing/',              'icon' => 'seedling'),
+            array('title' => 'Enrollment CRM',         'desc' => 'Boost enrollment',                 'url' => '/crm-enrollment-management/',             'icon' => 'chart-line'),
+        ),
+    );
+    return $cache;
+}
+
+/* Top-level admin menu — "🧩 Solutions" — lets the non-coder add / edit
+   rows in any of the three columns without touching code. */
+add_action('admin_menu', function () {
+    add_menu_page('Solutions', '🧩 Solutions', 'manage_options', 'ee-solutions', 'ee_solutions_render_admin', 'dashicons-grid-view', 61);
+});
+add_action('admin_post_ee_save_solution_items', function () {
+    if (!current_user_can('manage_options')) wp_die('Forbidden');
+    check_admin_referer('ee_solutions_save');
+    $clean = array('admission' => array(), 'study_abroad' => array(), 'recruitment' => array());
+    foreach (array_keys($clean) as $col) {
+        $rows = isset($_POST['sol'][$col]) && is_array($_POST['sol'][$col]) ? $_POST['sol'][$col] : array();
+        foreach ($rows as $r) {
+            $title = isset($r['title']) ? sanitize_text_field(wp_unslash($r['title'])) : '';
+            if ($title === '') continue;
+            $clean[$col][] = array(
+                'title' => $title,
+                'desc'  => isset($r['desc']) ? sanitize_text_field(wp_unslash($r['desc'])) : '',
+                'url'   => isset($r['url'])  ? esc_url_raw(wp_unslash($r['url']))         : '',
+                'icon'  => isset($r['icon']) ? sanitize_text_field(wp_unslash($r['icon'])): 'star',
+            );
+        }
+    }
+    update_option('ee_solution_items', $clean);
+    wp_cache_delete('ee_solution_items', 'options');
+    if (function_exists('rocket_clean_domain'))  { rocket_clean_domain(); }
+    if (function_exists('w3tc_pgcache_flush'))   { w3tc_pgcache_flush(); }
+    if (class_exists('LiteSpeed\\Purge'))        { do_action('litespeed_purge_all'); }
+    wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-solutions')));
+    exit;
+});
+function ee_solutions_render_admin() {
+    $sol = ee_get_solution_items();
+    $col_labels = array(
+        'admission'    => 'Admission Solutions',
+        'study_abroad' => 'Study Abroad',
+        'recruitment'  => 'Recruitment &amp; Lead Management',
+    );
+    ?>
+    <div class="wrap">
+        <h1>🧩 Solutions <span style="font-size:13px;color:#646970;font-weight:400;">— the items in the header Solutions mega-menu</span></h1>
+        <?php if (!empty($_GET['updated'])) : ?>
+            <div class="notice notice-success is-dismissible"><p><strong>Saved.</strong> The Solutions mega-menu has been updated.</p></div>
+        <?php endif; ?>
+        <p>Edit any column below. Each row becomes one link in the corresponding column of the header Solutions mega-menu. Leave a Title blank to remove that row.</p>
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="max-width:1100px;">
+            <input type="hidden" name="action" value="ee_save_solution_items">
+            <?php wp_nonce_field('ee_solutions_save'); ?>
+            <style>
+                .ee-sol-col   { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:14px; margin-bottom:18px; }
+                .ee-sol-col h2{ margin:0 0 12px; font-size:15px; color:#19335D; display:flex; align-items:center; gap:8px; }
+                .ee-sol-row   { display:grid; grid-template-columns:1.2fr 1.5fr 1.2fr .7fr 28px; gap:10px; padding:10px; background:#f8fafc; border-radius:5px; margin-bottom:8px; align-items:center; }
+                .ee-sol-row input { width:100%; padding:7px 9px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px; box-sizing:border-box; }
+                .ee-sol-row .rm   { background:transparent; border:1px solid #fecaca; color:#b91c1c; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:12px; }
+                .ee-sol-add  { background:#19335D; color:#fff; border:none; padding:6px 14px; border-radius:4px; cursor:pointer; font-size:12px; font-weight:600; }
+                .ee-sol-head { display:grid; grid-template-columns:1.2fr 1.5fr 1.2fr .7fr 28px; gap:10px; padding:0 10px; font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+            </style>
+            <?php foreach ($col_labels as $col_key => $col_label) :
+                $rows = isset($sol[$col_key]) ? $sol[$col_key] : array();
+            ?>
+            <div class="ee-sol-col">
+                <h2><?php echo wp_kses_post($col_label); ?></h2>
+                <div class="ee-sol-head"><span>Title</span><span>Description</span><span>Link URL</span><span>Icon name</span><span></span></div>
+                <div class="ee-sol-list" data-col="<?php echo esc_attr($col_key); ?>">
+                    <?php foreach ($rows as $i => $r) : ?>
+                    <div class="ee-sol-row">
+                        <input type="text" name="sol[<?php echo esc_attr($col_key); ?>][<?php echo (int)$i; ?>][title]" value="<?php echo esc_attr($r['title']); ?>" placeholder="Solution title">
+                        <input type="text" name="sol[<?php echo esc_attr($col_key); ?>][<?php echo (int)$i; ?>][desc]"  value="<?php echo esc_attr($r['desc']); ?>"  placeholder="Short description">
+                        <input type="text" name="sol[<?php echo esc_attr($col_key); ?>][<?php echo (int)$i; ?>][url]"   value="<?php echo esc_attr($r['url']); ?>"   placeholder="/your-page/ or full URL">
+                        <input type="text" name="sol[<?php echo esc_attr($col_key); ?>][<?php echo (int)$i; ?>][icon]"  value="<?php echo esc_attr($r['icon'] ?? 'star'); ?>" placeholder="star / file / users">
+                        <button type="button" class="rm" onclick="this.closest('.ee-sol-row').remove()">✕</button>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <button type="button" class="ee-sol-add" onclick="eeSolAdd('<?php echo esc_js($col_key); ?>', this)">+ Add row</button>
+            </div>
+            <?php endforeach; ?>
+            <?php submit_button('💾 Save Solutions', 'primary large'); ?>
+            <p style="color:#646970;font-size:12px;">Icon name = filename (without .svg) from <code>/wp-content/uploads/icons/</code>. Examples: <code>star · file · users · bullseye · chart-line · seedling · plane · handshake · briefcase</code>.</p>
+        </form>
+        <script>
+        function eeSolAdd(col, btn) {
+            var list = btn.parentElement.querySelector('.ee-sol-list');
+            var idx  = list.children.length;
+            var row  = document.createElement('div');
+            row.className = 'ee-sol-row';
+            row.innerHTML =
+                '<input type="text" name="sol['+col+']['+idx+'][title]" placeholder="Solution title">' +
+                '<input type="text" name="sol['+col+']['+idx+'][desc]"  placeholder="Short description">' +
+                '<input type="text" name="sol['+col+']['+idx+'][url]"   placeholder="/your-page/ or full URL">' +
+                '<input type="text" name="sol['+col+']['+idx+'][icon]"  placeholder="star / file / users" value="star">' +
+                '<button type="button" class="rm">✕</button>';
+            list.appendChild(row);
+        }
+        /* Event delegation — handles ✕ click for both existing rows
+           rendered by PHP and any dynamically-added rows. */
+        document.addEventListener('click', function (e) {
+            if (e.target && e.target.classList && e.target.classList.contains('rm') && e.target.closest('.ee-sol-row')) {
+                e.target.closest('.ee-sol-row').remove();
+            }
+        });
+        </script>
+    </div>
+    <?php
+}
 // G4. USE-CASE MENU HELPER — shared by header.php + /use-cases/ page
 // ══════════════════════════════════════════════════════════
 
