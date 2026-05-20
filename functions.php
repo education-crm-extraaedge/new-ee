@@ -141,6 +141,12 @@ function extraaedge_register_cpts() {
 }
 add_action('init', 'extraaedge_register_cpts');
 
+/* Hide the WordPress admin toolbar on the public front-end for logged-in
+   users so the bar (or its raw HTML when admin-bar.css fails) does not
+   visually clutter the new advanced header. The full toolbar is still
+   available inside /wp-admin/. */
+add_filter('show_admin_bar', '__return_false');
+
 // ══════════════════════════════════════════════════════════
 // D3. RENAME "POSTS" → "BLOG" SITE-WIDE (admin labels)
 // ══════════════════════════════════════════════════════════
