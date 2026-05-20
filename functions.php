@@ -1552,10 +1552,13 @@ function ee_get_product_menu_items($limit = 0) {
             $meta_desc = get_post_meta($pid, '_product_card_desc', true);
             $desc      = $meta_desc ?: (get_the_excerpt() ?: wp_trim_words(get_the_content(), 24, '…'));
             $items[]   = array(
-                'title' => get_the_title(),
-                'desc'  => $desc,
-                'url'   => str_replace(home_url(), '', get_permalink($pid)) ?: get_permalink($pid),
-                'icon'  => get_post_meta($pid, '_product_card_icon', true),
+                'title'  => get_the_title(),
+                'desc'   => $desc,
+                'url'    => str_replace(home_url(), '', get_permalink($pid)) ?: get_permalink($pid),
+                'icon'   => get_post_meta($pid, '_product_card_icon',   true),
+                'column' => get_post_meta($pid, '_product_card_column', true) ?: 'featured',
+                'badge'  => get_post_meta($pid, '_product_card_badge',  true) ?: 'none',
+                'order'  => (int) get_post_meta($pid, '_product_card_order', true),
             );
         }
         wp_reset_postdata();
@@ -1563,14 +1566,22 @@ function ee_get_product_menu_items($limit = 0) {
 
     if (empty($items)) {
         $items = array(
-            array('title' => 'Education CRM',         'desc' => 'Streamline your entire admissions process on a single, unified platform — from inquiry to enrollment.', 'url' => '/products/education-crm/',              'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/education-crm-icon.png'),
-            array('title' => 'Education Chatbot',     'desc' => 'Manage and respond to admissions queries 24/7 with intelligent AI-powered automation.',                  'url' => '/products/chatbot-for-education/',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/education-chatbot-icon.png'),
-            array('title' => 'Application Management','desc' => 'Simplify and scale your application workflows with a fully digital, paperless experience.',              'url' => '/products/application-management-system/', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Application_Management_System_Icon.png'),
-            array('title' => 'Mobile CRM',            'desc' => 'Boost admissions conversions by identifying and engaging high-intent prospects on the go.',              'url' => '/products/mobile-crm/',                  'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Mobile_CRM_Icon.png'),
-            array('title' => 'WhatsApp API & Bot',    'desc' => 'Engage prospects through personalized, one-on-one WhatsApp conversations at scale.',                     'url' => '/products/whatsapp-api/',                'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/WhatsApp_API_icon.png'),
-            array('title' => 'IVR System',            'desc' => 'Route, record, and track all counselor calls within a centralized, analytics-ready system.',             'url' => '/products/ivr/',                         'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/IVR_SYSTEM_icon.png'),
+            array('title' => 'Education CRM',         'desc' => 'Streamline your entire admissions process on a single, unified platform — from inquiry to enrollment.', 'url' => '/products/education-crm/',                 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/education-crm-icon.png',         'column' => 'featured',      'badge' => 'popular', 'order' => 0),
+            array('title' => 'Education Chatbot',     'desc' => 'Manage and respond to admissions queries 24/7 with intelligent AI-powered automation.',                  'url' => '/products/chatbot-for-education/',         'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/education-chatbot-icon.png',     'column' => 'communication', 'badge' => 'trending', 'order' => 0),
+            array('title' => 'Application Management','desc' => 'Simplify and scale your application workflows with a fully digital, paperless experience.',              'url' => '/products/application-management-system/', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Application_Management_System_Icon.png', 'column' => 'core',          'badge' => 'none',    'order' => 0),
+            array('title' => 'Mobile CRM',            'desc' => 'Boost admissions conversions by identifying and engaging high-intent prospects on the go.',              'url' => '/products/mobile-crm/',                    'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/Mobile_CRM_Icon.png',            'column' => 'featured',      'badge' => 'none',    'order' => 1),
+            array('title' => 'WhatsApp API & Bot',    'desc' => 'Engage prospects through personalized, one-on-one WhatsApp conversations at scale.',                     'url' => '/products/whatsapp-api/',                  'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/WhatsApp_API_icon.png',          'column' => 'communication', 'badge' => 'none',    'order' => 1),
+            array('title' => 'IVR System',            'desc' => 'Route, record, and track all counselor calls within a centralized, analytics-ready system.',             'url' => '/products/ivr/',                           'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/IVR_SYSTEM_icon.png',            'column' => 'communication', 'badge' => 'none',    'order' => 2),
         );
     }
+
+    /* Sort each item by its in-column "order" field (then by name) so the
+       editor can fine-tune the row order inside a single column. */
+    usort($items, function ($a, $b) {
+        $cmp = ($a['order'] ?? 0) - ($b['order'] ?? 0);
+        if ($cmp !== 0) return $cmp;
+        return strcasecmp($a['title'], $b['title']);
+    });
 
     $cache = $items;
     return $limit > 0 ? array_slice($items, 0, $limit) : $items;
@@ -1581,26 +1592,76 @@ function ee_get_product_menu_items($limit = 0) {
 add_action('add_meta_boxes', function () {
     add_meta_box(
         'product_card_settings',
-        '🏷 Product Card Settings (icon + short description)',
+        '🏷 Product Card Settings (icon, column, badge, description)',
         function ($post) {
             wp_nonce_field('product_card_meta', 'product_card_meta_nonce');
-            $icon = get_post_meta($post->ID, '_product_card_icon', true);
-            $desc = get_post_meta($post->ID, '_product_card_desc', true);
+            $icon   = get_post_meta($post->ID, '_product_card_icon', true);
+            $desc   = get_post_meta($post->ID, '_product_card_desc', true);
+            $column = get_post_meta($post->ID, '_product_card_column', true) ?: 'featured';
+            $badge  = get_post_meta($post->ID, '_product_card_badge',  true) ?: 'none';
+            $order  = get_post_meta($post->ID, '_product_card_order',  true);
             ?>
             <style>
                 .pcd-row { margin-bottom: 16px; }
                 .pcd-row label { display:block; font-weight:600; margin-bottom:5px; color:#1d2327; font-size:13px; }
-                .pcd-row input, .pcd-row textarea { width:100%; padding:8px; border:1px solid #ddd; border-radius:4px; font-size:13px; font-family:inherit; }
+                .pcd-row input, .pcd-row textarea, .pcd-row select { width:100%; padding:8px; border:1px solid #ddd; border-radius:4px; font-size:13px; font-family:inherit; box-sizing:border-box; }
                 .pcd-row textarea { resize:vertical; min-height:70px; }
                 .pcd-row .hint { color:#646970; font-size:12px; margin-top:4px; font-style:italic; }
+                .pcd-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+                .pcd-pill-preview { display:inline-block; font-size:.65rem; font-weight:700; padding:.15rem .45rem; border-radius:4px; text-transform:uppercase; letter-spacing:.02em; margin-left:6px; color:#fff; vertical-align:middle; }
+                .pcd-pill-preview.new      { background:#10B981; }
+                .pcd-pill-preview.popular  { background:#DE6E30; }
+                .pcd-pill-preview.trending { background:#F59E0B; }
+                .pcd-pill-preview.hot      { background:#DE6E30; }
             </style>
+
+            <div style="background:#ecfdf5;border:1px solid #a7f3d0;border-left:4px solid #10b981;padding:10px 14px;border-radius:5px;margin-bottom:14px;font-size:12.5px;line-height:1.55;color:#065F46;">
+                <strong>📍 Header placement:</strong> Pick which column of the <em>Products</em> mega-menu this product appears in, and optionally a badge. The /products/ landing page lists every product regardless of column.
+            </div>
+
+            <div class="pcd-grid">
+                <div class="pcd-row">
+                    <label>Menu Column <span style="color:#DE6E30">★</span></label>
+                    <select name="product_card_column">
+                        <option value="featured"     <?php selected($column, 'featured');     ?>>⭐ Featured</option>
+                        <option value="core"         <?php selected($column, 'core');         ?>>🎯 Core CRM</option>
+                        <option value="communication"<?php selected($column, 'communication');?>>💬 Communication</option>
+                        <option value="automation"   <?php selected($column, 'automation');   ?>>⚡ Automation</option>
+                        <option value="hidden"       <?php selected($column, 'hidden');       ?>>🚫 Hide from menu</option>
+                    </select>
+                    <p class="hint">Where it shows in the Products mega-menu.</p>
+                </div>
+                <div class="pcd-row">
+                    <label>Badge</label>
+                    <select name="product_card_badge">
+                        <option value="none"     <?php selected($badge, 'none');     ?>>— None —</option>
+                        <option value="new"      <?php selected($badge, 'new');      ?>>NEW (green)</option>
+                        <option value="popular"  <?php selected($badge, 'popular');  ?>>POPULAR (orange)</option>
+                        <option value="trending" <?php selected($badge, 'trending'); ?>>TRENDING (amber)</option>
+                        <option value="hot"      <?php selected($badge, 'hot');      ?>>HOT (pulsing orange)</option>
+                    </select>
+                    <p class="hint">Live preview:
+                        <?php if ($badge && $badge !== 'none') : ?>
+                            <span class="pcd-pill-preview <?php echo esc_attr($badge); ?>"><?php echo esc_html(strtoupper($badge)); ?></span>
+                        <?php else : ?>
+                            <em style="color:#94a3b8;">no badge</em>
+                        <?php endif; ?>
+                    </p>
+                </div>
+                <div class="pcd-row">
+                    <label>Order in column</label>
+                    <input type="number" name="product_card_order" value="<?php echo esc_attr($order); ?>" placeholder="0" min="-99" max="99">
+                    <p class="hint">Lower numbers show first. Leave blank for default.</p>
+                </div>
+            </div>
+
             <div class="pcd-row">
                 <label>Card Icon URL</label>
-                <input type="url" name="product_card_icon" value="<?php echo esc_attr($icon); ?>" placeholder="https://yoursite.com/wp-content/uploads/icon.png">
-                <p class="hint">32×32 to 64×64 px PNG/SVG. Used on the /products/ landing page card.</p>
+                <input type="url" name="product_card_icon" value="<?php echo esc_attr($icon); ?>" placeholder="https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg">
+                <p class="hint">Use any SVG from <code>/wp-content/uploads/icons/</code>. Examples: <code>chart-bar.svg</code> · <code>robot.svg</code> · <code>mobile.svg</code> · <code>whatsapp.svg</code> · <code>phone.svg</code>.</p>
             </div>
             <div class="pcd-row">
-                <label>Short Description (shown on the /products/ card)</label>
+                <label>Short Description (shown in mega-menu + on /products/ card)</label>
                 <textarea name="product_card_desc" rows="3" placeholder="One-line summary of the product — 1 to 2 sentences."><?php echo esc_textarea($desc); ?></textarea>
                 <p class="hint">Falls back to the post Excerpt when blank.</p>
             </div>
@@ -1620,6 +1681,20 @@ add_action('save_post_product', function ($post_id) {
     }
     if (isset($_POST['product_card_desc'])) {
         update_post_meta($post_id, '_product_card_desc', sanitize_textarea_field(wp_unslash($_POST['product_card_desc'])));
+    }
+    $valid_cols  = array('featured', 'core', 'communication', 'automation', 'hidden');
+    $valid_badge = array('none', 'new', 'popular', 'trending', 'hot');
+    if (isset($_POST['product_card_column'])) {
+        $val = sanitize_key(wp_unslash($_POST['product_card_column']));
+        update_post_meta($post_id, '_product_card_column', in_array($val, $valid_cols, true) ? $val : 'featured');
+    }
+    if (isset($_POST['product_card_badge'])) {
+        $val = sanitize_key(wp_unslash($_POST['product_card_badge']));
+        update_post_meta($post_id, '_product_card_badge', in_array($val, $valid_badge, true) ? $val : 'none');
+    }
+    if (isset($_POST['product_card_order'])) {
+        $val = is_numeric($_POST['product_card_order']) ? (int) $_POST['product_card_order'] : '';
+        update_post_meta($post_id, '_product_card_order', $val);
     }
 });
 

@@ -710,23 +710,32 @@ if ($ee_is_home) {
 
             <nav class="eh-nav ee-desktop-nav" role="navigation" aria-label="Primary">
 
-                <!-- Products Mega Menu — all 4 columns auto-fill from Product CPT -->
+                <!-- Products Mega Menu — columns + badges set per-post in WP Admin -->
                 <div class="eh-nav-item">
                     <a href="<?php echo esc_url(home_url('/products/')); ?>" class="eh-nav-link" role="button" aria-haspopup="true">Products
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <div class="eh-mega">
                         <?php
-                        /* Pull every published Product post. Helper returns
-                           {title, desc, url, icon}. Adding a new Product post
-                           in WP Admin makes it appear here automatically.
-                           We split them across 4 visual columns. */
+                        /* Group every Product CPT post into one of four
+                           columns based on its "Menu Column" meta value.
+                           The non-coder picks the column from the dropdown
+                           in WP Admin → Products → edit any post → 🏷 Product
+                           Card Settings. Posts with column = "hidden" are
+                           skipped here but still show on /products/. */
                         $eh_products_all = function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items() : array();
-                        $eh_col_titles   = array('Featured', 'Core CRM', 'Communication', 'Automation');
-                        $eh_col_icons    = array('star', 'bullseye', 'comments', 'bolt');
-                        $eh_col_count    = max(1, count($eh_products_all));
-                        $eh_per_col      = (int) ceil($eh_col_count / 4);
-                        $eh_chunks       = $eh_per_col > 0 ? array_chunk($eh_products_all, $eh_per_col) : array();
+                        $eh_cols = array(
+                            'featured'      => array('label' => 'Featured',      'icon' => 'star'),
+                            'core'          => array('label' => 'Core CRM',      'icon' => 'bullseye'),
+                            'communication' => array('label' => 'Communication', 'icon' => 'comments'),
+                            'automation'    => array('label' => 'Automation',    'icon' => 'bolt'),
+                        );
+                        $eh_groups = array('featured'=>array(),'core'=>array(),'communication'=>array(),'automation'=>array());
+                        foreach ($eh_products_all as $eh_p) {
+                            $col = isset($eh_p['column']) ? $eh_p['column'] : 'featured';
+                            if ($col === 'hidden' || !isset($eh_groups[$col])) continue;
+                            $eh_groups[$col][] = $eh_p;
+                        }
                         ?>
                         <div class="eh-mega-grid">
                             <div class="eh-featured">
@@ -741,14 +750,15 @@ if ($ee_is_home) {
                                 <div class="eh-featured-visual"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/robot.svg" alt="" loading="lazy"></div>
                             </div>
 
-                            <?php for ($eh_ci = 0; $eh_ci < 4; $eh_ci++) :
-                                $eh_col_items = isset($eh_chunks[$eh_ci]) ? $eh_chunks[$eh_ci] : array();
-                                if (empty($eh_col_items)) continue;
+                            <?php foreach ($eh_cols as $eh_col_key => $eh_col_meta) :
+                                $eh_col_items = $eh_groups[$eh_col_key];
+                                if (empty($eh_col_items)) continue; /* skip column if no products assigned */
                             ?>
                             <div class="eh-mega-col">
-                                <h4><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_icons[$eh_ci] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo esc_html($eh_col_titles[$eh_ci]); ?></h4>
+                                <h4><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_meta['icon'] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo esc_html($eh_col_meta['label']); ?></h4>
                                 <?php foreach ($eh_col_items as $eh_p) :
                                     $eh_short = wp_trim_words(wp_strip_all_tags((string) $eh_p['desc']), 9, '…');
+                                    $eh_badge = isset($eh_p['badge']) ? $eh_p['badge'] : 'none';
                                 ?>
                                 <a href="<?php echo esc_url($eh_p['url']); ?>" class="eh-dl">
                                     <div class="eh-dl-icon">
@@ -759,13 +769,18 @@ if ($ee_is_home) {
                                         <?php endif; ?>
                                     </div>
                                     <div class="eh-dl-content">
-                                        <div class="eh-dl-title"><?php echo esc_html($eh_p['title']); ?></div>
+                                        <div class="eh-dl-title">
+                                            <?php echo esc_html($eh_p['title']); ?>
+                                            <?php if ($eh_badge && $eh_badge !== 'none') : ?>
+                                                <span class="eh-badge <?php echo esc_attr($eh_badge); ?>"><?php echo esc_html(ucfirst($eh_badge)); ?></span>
+                                            <?php endif; ?>
+                                        </div>
                                         <div class="eh-dl-desc"><?php echo esc_html($eh_short); ?></div>
                                     </div>
                                 </a>
                                 <?php endforeach; ?>
                             </div>
-                            <?php endfor; ?>
+                            <?php endforeach; ?>
                         </div>
 
                         <div class="eh-quick">
