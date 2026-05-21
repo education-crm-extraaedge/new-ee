@@ -371,6 +371,209 @@ add_action('save_post_post', function ($post_id) {
 });
 
 // ══════════════════════════════════════════════════════════
+// D4b. BLOG POST SEO + SOCIAL META BOX
+// ══════════════════════════════════════════════════════════
+/**
+ * "🔍 Blog SEO & Social Meta" — exposes every meta tag header.php
+ * emits as an editable field on the post edit screen, so a
+ * non-coder can override:
+ *
+ *   • <title>                       _seo_title
+ *   • <meta name="description">     _seo_description
+ *   • <meta name="keywords">        _seo_keywords
+ *   • <link rel="canonical">        _canonical_url
+ *   • <meta name="robots">          _robots
+ *   • og:title / og:description / og:image
+ *   • twitter:card / twitter:title / twitter:description / twitter:image
+ *
+ * Any field left blank falls back to sensible auto-defaults
+ * (post title, excerpt, featured image, site defaults).
+ */
+add_action('add_meta_boxes', function () {
+    add_meta_box(
+        'ee_blog_seo_meta',
+        '🔍 Blog SEO & Social Meta',
+        'ee_blog_seo_meta_render',
+        'post',
+        'normal',
+        'high'
+    );
+});
+
+function ee_blog_seo_meta_render($post) {
+    wp_nonce_field('ee_blog_seo_save', 'ee_blog_seo_nonce');
+    $m = function ($k) use ($post) {
+        return get_post_meta($post->ID, '_' . $k, true);
+    };
+    $robots = $m('robots') ?: 'index,follow';
+    $tw_card = $m('twitter_card') ?: 'summary_large_image';
+    ?>
+    <style>
+        .eeseo-card  { background:#fff; border:1px solid #e2e8f0; border-radius:6px; padding:14px 16px; margin-bottom:14px; }
+        .eeseo-card h3 { margin:0 0 12px; font-size:13px; color:#19335D; display:flex; align-items:center; gap:6px; text-transform:uppercase; letter-spacing:.04em; }
+        .eeseo-grid  { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .eeseo-row   { margin-bottom:12px; }
+        .eeseo-row label { display:block; font-weight:600; margin-bottom:5px; color:#1d2327; font-size:12.5px; }
+        .eeseo-row input, .eeseo-row textarea, .eeseo-row select {
+            width:100%; padding:7px 9px; border:1px solid #cbd5e1; border-radius:4px;
+            font-size:13px; font-family:inherit; box-sizing:border-box;
+        }
+        .eeseo-row textarea { resize:vertical; min-height:70px; line-height:1.5; }
+        .eeseo-row .hint { color:#646970; font-size:11px; margin-top:4px; font-style:italic; line-height:1.4; }
+        .eeseo-count { font-size:11px; color:#64748b; float:right; }
+        .eeseo-count.over { color:#dc2626; font-weight:600; }
+    </style>
+
+    <p style="background:#fff8f1;border:1px solid #fde7d3;padding:10px 14px;border-radius:5px;font-size:12.5px;color:#7c2d12;margin:0 0 14px;">
+        ℹ️ <strong>Tip:</strong> Leave any field blank to use the auto-fallback (post title, excerpt, featured image). Each row tells you the fallback in italics.
+    </p>
+
+    <!-- ─── Search engine basics ─── -->
+    <div class="eeseo-card">
+        <h3>🔎 Search snippet</h3>
+
+        <div class="eeseo-row">
+            <label>SEO Title <span class="eeseo-count" id="ct-seo-title">0 / 60</span></label>
+            <input type="text" name="ee_seo[seo_title]" id="ee-seo-title" value="<?php echo esc_attr($m('seo_title')); ?>" placeholder="Why CRM implementation fails in higher education — and how to fix it">
+            <p class="hint">The browser-tab title and Google headline. <em>Fallback: the post title.</em></p>
+        </div>
+
+        <div class="eeseo-row">
+            <label>Meta Description <span class="eeseo-count" id="ct-seo-desc">0 / 160</span></label>
+            <textarea name="ee_seo[seo_description]" id="ee-seo-desc" rows="3" placeholder="A practical guide on avoiding common CRM pitfalls in higher education — data migration, team adoption, integration, and budget."><?php echo esc_textarea($m('seo_description')); ?></textarea>
+            <p class="hint">150-160 characters works best for SERP previews. <em>Fallback: the post excerpt.</em></p>
+        </div>
+
+        <div class="eeseo-grid">
+            <div class="eeseo-row">
+                <label>Focus Keywords</label>
+                <input type="text" name="ee_seo[seo_keywords]" value="<?php echo esc_attr($m('seo_keywords')); ?>" placeholder="crm implementation, higher education crm, admissions crm">
+                <p class="hint">Comma-separated. Modern crawlers mostly ignore this; useful for internal search.</p>
+            </div>
+            <div class="eeseo-row">
+                <label>Canonical URL</label>
+                <input type="url" name="ee_seo[canonical_url]" value="<?php echo esc_attr($m('canonical_url')); ?>" placeholder="<?php echo esc_attr(get_permalink($post->ID) ?: 'https://...'); ?>">
+                <p class="hint"><em>Fallback: this post's permalink.</em> Set only when duplicating content from another URL.</p>
+            </div>
+        </div>
+
+        <div class="eeseo-row">
+            <label>Robots directive</label>
+            <select name="ee_seo[robots]">
+                <option value="index,follow"     <?php selected($robots, 'index,follow');     ?>>index, follow (default — show in Google)</option>
+                <option value="noindex,follow"   <?php selected($robots, 'noindex,follow');   ?>>noindex, follow (hide from Google but pass link equity)</option>
+                <option value="index,nofollow"   <?php selected($robots, 'index,nofollow');   ?>>index, nofollow (rare)</option>
+                <option value="noindex,nofollow" <?php selected($robots, 'noindex,nofollow'); ?>>noindex, nofollow (fully hidden)</option>
+            </select>
+            <p class="hint">Use <strong>noindex</strong> for drafts, gated content, or duplicate landing pages.</p>
+        </div>
+    </div>
+
+    <!-- ─── Open Graph (Facebook / LinkedIn / WhatsApp preview) ─── -->
+    <div class="eeseo-card">
+        <h3>📘 Open Graph <em style="font-weight:400;color:#64748b;text-transform:none;letter-spacing:0;">— Facebook, LinkedIn, WhatsApp link preview</em></h3>
+
+        <div class="eeseo-grid">
+            <div class="eeseo-row">
+                <label>OG Title</label>
+                <input type="text" name="ee_seo[og_title]" value="<?php echo esc_attr($m('og_title')); ?>" placeholder="Same as SEO Title">
+                <p class="hint"><em>Fallback: SEO Title.</em> Override if the social headline should differ.</p>
+            </div>
+            <div class="eeseo-row">
+                <label>OG Description</label>
+                <input type="text" name="ee_seo[og_description]" value="<?php echo esc_attr($m('og_description')); ?>" placeholder="Same as Meta Description">
+                <p class="hint"><em>Fallback: Meta Description.</em></p>
+            </div>
+        </div>
+
+        <div class="eeseo-row">
+            <label>OG Image URL</label>
+            <input type="url" name="ee_seo[og_image]" value="<?php echo esc_attr($m('og_image')); ?>" placeholder="https://www.extraaedge.com/.../og-image.png">
+            <p class="hint">Recommended <strong>1200 × 630</strong>, under 1 MB. <em>Fallback: the post's Featured Image, else the site default OG image.</em></p>
+        </div>
+    </div>
+
+    <!-- ─── Twitter / X ─── -->
+    <div class="eeseo-card">
+        <h3>🐦 Twitter / X Card</h3>
+
+        <div class="eeseo-grid">
+            <div class="eeseo-row">
+                <label>Card type</label>
+                <select name="ee_seo[twitter_card]">
+                    <option value="summary_large_image" <?php selected($tw_card, 'summary_large_image'); ?>>Summary with large image (recommended)</option>
+                    <option value="summary"             <?php selected($tw_card, 'summary');             ?>>Summary (small square thumbnail)</option>
+                </select>
+            </div>
+            <div class="eeseo-row">
+                <label>Twitter Title</label>
+                <input type="text" name="ee_seo[twitter_title]" value="<?php echo esc_attr($m('twitter_title')); ?>" placeholder="Same as OG Title">
+                <p class="hint"><em>Fallback: OG Title.</em></p>
+            </div>
+        </div>
+
+        <div class="eeseo-row">
+            <label>Twitter Description</label>
+            <input type="text" name="ee_seo[twitter_description]" value="<?php echo esc_attr($m('twitter_description')); ?>" placeholder="Same as OG Description">
+            <p class="hint"><em>Fallback: OG Description.</em></p>
+        </div>
+
+        <div class="eeseo-row">
+            <label>Twitter Image URL</label>
+            <input type="url" name="ee_seo[twitter_image]" value="<?php echo esc_attr($m('twitter_image')); ?>" placeholder="Same as OG Image">
+            <p class="hint"><em>Fallback: OG Image.</em> Override only when you want a Twitter-specific creative.</p>
+        </div>
+    </div>
+
+    <script>
+    (function(){
+        function counter(inputId, labelId, max){
+            var i = document.getElementById(inputId);
+            var l = document.getElementById(labelId);
+            if (!i || !l) return;
+            function tick(){
+                var n = (i.value || '').length;
+                l.textContent = n + ' / ' + max;
+                l.classList.toggle('over', n > max);
+            }
+            i.addEventListener('input', tick);
+            tick();
+        }
+        counter('ee-seo-title', 'ct-seo-title', 60);
+        counter('ee-seo-desc',  'ct-seo-desc',  160);
+    })();
+    </script>
+    <?php
+}
+
+add_action('save_post_post', function ($post_id) {
+    if (!isset($_POST['ee_blog_seo_nonce']) || !wp_verify_nonce($_POST['ee_blog_seo_nonce'], 'ee_blog_seo_save')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    $in = isset($_POST['ee_seo']) && is_array($_POST['ee_seo']) ? $_POST['ee_seo'] : array();
+
+    $text_fields = array('seo_title', 'seo_keywords', 'og_title', 'og_description', 'twitter_title', 'twitter_description');
+    foreach ($text_fields as $k) {
+        update_post_meta($post_id, '_' . $k, sanitize_text_field(wp_unslash($in[$k] ?? '')));
+    }
+    update_post_meta($post_id, '_seo_description', sanitize_textarea_field(wp_unslash($in['seo_description'] ?? '')));
+
+    $url_fields = array('canonical_url', 'og_image', 'twitter_image');
+    foreach ($url_fields as $k) {
+        update_post_meta($post_id, '_' . $k, esc_url_raw(wp_unslash($in[$k] ?? '')));
+    }
+
+    $robots_in   = sanitize_text_field(wp_unslash($in['robots'] ?? 'index,follow'));
+    $allowed_rob = array('index,follow', 'noindex,follow', 'index,nofollow', 'noindex,nofollow');
+    update_post_meta($post_id, '_robots', in_array($robots_in, $allowed_rob, true) ? $robots_in : 'index,follow');
+
+    $tw_card_in   = sanitize_text_field(wp_unslash($in['twitter_card'] ?? 'summary_large_image'));
+    $allowed_card = array('summary', 'summary_large_image');
+    update_post_meta($post_id, '_twitter_card', in_array($tw_card_in, $allowed_card, true) ? $tw_card_in : 'summary_large_image');
+}, 11);
+
+// ══════════════════════════════════════════════════════════
 // D2. CLIENT LOGOS — single source of truth = Home Page Editor
 // ══════════════════════════════════════════════════════════
 /**

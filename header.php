@@ -59,11 +59,36 @@ if ($ee_is_home) {
     $ee_tw_image      = $ee_h_get('seo_twitter_image',    $ee_og_image);
     $ee_meta_keywords = $ee_h_get('seo_meta_keywords',    '');
     $ee_home_title    = $ee_h_get('seo_page_title',       '');
+    $ee_robots_meta   = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+    $ee_tw_card_type  = 'summary_large_image';
     if ($ee_home_title) {
         add_filter('pre_get_document_title', function() use ($ee_home_title) { return $ee_home_title; }, 99);
     }
 } else {
     $ee_og_title = $ee_og_desc = $ee_tw_title = $ee_tw_desc = $ee_tw_image = $ee_meta_keywords = '';
+    $ee_robots_meta  = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+    $ee_tw_card_type = 'summary_large_image';
+    /* Single-post overrides set in the "🔍 Blog SEO & Social Meta"
+       meta box on the post edit screen. Every field falls back to
+       the sensible auto-default so leaving a blank is harmless. */
+    if ($ee_is_singular) {
+        $pm_og_title  = get_post_meta($ee_post_id, '_og_title',           true);
+        $pm_og_desc   = get_post_meta($ee_post_id, '_og_description',     true);
+        $pm_tw_title  = get_post_meta($ee_post_id, '_twitter_title',      true);
+        $pm_tw_desc   = get_post_meta($ee_post_id, '_twitter_description',true);
+        $pm_tw_image  = get_post_meta($ee_post_id, '_twitter_image',      true);
+        $pm_keywords  = get_post_meta($ee_post_id, '_seo_keywords',       true);
+        $pm_robots    = get_post_meta($ee_post_id, '_robots',             true);
+        $pm_tw_card   = get_post_meta($ee_post_id, '_twitter_card',       true);
+        if ($pm_og_title)  $ee_og_title      = $pm_og_title;
+        if ($pm_og_desc)   $ee_og_desc       = $pm_og_desc;
+        if ($pm_tw_title)  $ee_tw_title      = $pm_tw_title;
+        if ($pm_tw_desc)   $ee_tw_desc       = $pm_tw_desc;
+        if ($pm_tw_image)  $ee_tw_image      = $pm_tw_image;
+        if ($pm_keywords)  $ee_meta_keywords = $pm_keywords;
+        if ($pm_robots)    $ee_robots_meta   = $pm_robots . ', max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+        if ($pm_tw_card)   $ee_tw_card_type  = $pm_tw_card;
+    }
 }
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> prefix="og: https://ogp.me/ns# product: https://ogp.me/ns/product#">
@@ -76,10 +101,10 @@ if ($ee_is_home) {
 
     <!-- ─── 2. PRIMARY SEO META (single source — works on every page) ─── -->
     <meta name="description" content="<?php echo esc_attr($ee_seo_desc); ?>">
-    <?php if ($ee_is_home && $ee_meta_keywords) : ?>
+    <?php if ($ee_meta_keywords) : ?>
     <meta name="keywords" content="<?php echo esc_attr($ee_meta_keywords); ?>">
     <?php endif; ?>
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="robots" content="<?php echo esc_attr($ee_robots_meta); ?>">
     <meta name="googlebot" content="index, follow">
     <meta name="bingbot" content="index, follow">
     <meta name="author" content="<?php echo esc_attr($ee_site_name); ?>">
@@ -108,8 +133,8 @@ if ($ee_is_home) {
 
     <!-- ─── 6. OPEN GRAPH (single source — uses _seo_title via wp_get_document_title filter) ─── -->
     <meta property="og:type"               content="<?php echo $ee_is_singular ? 'article' : 'website'; ?>">
-    <meta property="og:title"              content="<?php echo esc_attr($ee_is_home && $ee_og_title ? $ee_og_title : wp_get_document_title()); ?>">
-    <meta property="og:description"        content="<?php echo esc_attr($ee_is_home ? $ee_og_desc : $ee_seo_desc); ?>">
+    <meta property="og:title"              content="<?php echo esc_attr($ee_og_title ?: wp_get_document_title()); ?>">
+    <meta property="og:description"        content="<?php echo esc_attr($ee_og_desc ?: $ee_seo_desc); ?>">
     <meta property="og:url"                content="<?php echo esc_url($ee_canonical); ?>">
     <meta property="og:image"              content="<?php echo esc_url($ee_og_image); ?>">
     <meta property="og:image:secure_url"   content="<?php echo esc_url($ee_og_image); ?>">
@@ -125,13 +150,13 @@ if ($ee_is_home) {
     <?php endif; ?>
 
     <!-- ─── 7. TWITTER CARD (mirrored — no signal split) ─── -->
-    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:card"        content="<?php echo esc_attr($ee_tw_card_type); ?>">
     <meta name="twitter:site"        content="@ExtraaEdge">
     <meta name="twitter:creator"     content="@ExtraaEdge">
-    <meta name="twitter:title"       content="<?php echo esc_attr($ee_is_home && $ee_tw_title ? $ee_tw_title : wp_get_document_title()); ?>">
-    <meta name="twitter:description" content="<?php echo esc_attr($ee_is_home ? $ee_tw_desc : $ee_seo_desc); ?>">
-    <meta name="twitter:image"       content="<?php echo esc_url($ee_is_home && $ee_tw_image ? $ee_tw_image : $ee_og_image); ?>">
-    <meta name="twitter:image:alt"   content="<?php echo esc_attr($ee_is_home && $ee_tw_title ? $ee_tw_title : wp_get_document_title()); ?>">
+    <meta name="twitter:title"       content="<?php echo esc_attr($ee_tw_title ?: wp_get_document_title()); ?>">
+    <meta name="twitter:description" content="<?php echo esc_attr($ee_tw_desc ?: $ee_seo_desc); ?>">
+    <meta name="twitter:image"       content="<?php echo esc_url($ee_tw_image ?: $ee_og_image); ?>">
+    <meta name="twitter:image:alt"   content="<?php echo esc_attr($ee_tw_title ?: wp_get_document_title()); ?>">
 
     <!-- ─── 8. ICONS + PWA MANIFEST ─── -->
     <link rel="icon"             href="<?php echo esc_url($ee_home_url); ?>favicon.ico" sizes="any">
