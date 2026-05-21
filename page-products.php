@@ -169,7 +169,62 @@ get_header();
 }
 
 /* Grid */
-.ecrm-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-bottom:5rem}
+/* Category section (Featured / Core CRM / Communication / Automation) */
+.ecrm-cat{margin-bottom:3.5rem}
+.ecrm-cat:last-of-type{margin-bottom:5rem}
+.ecrm-cat-head{
+    display:flex;align-items:center;gap:18px;
+    padding:18px 22px;
+    background:linear-gradient(135deg, var(--clr-orange-ultra) 0%, #FFFCF8 100%);
+    border:1px solid var(--clr-orange-light);
+    border-left:4px solid var(--clr-orange);
+    border-radius:var(--radius-lg);
+    margin-bottom:1.5rem;
+}
+.ecrm-cat-icon{
+    width:54px;height:54px;flex-shrink:0;
+    background:#fff;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;padding:11px;
+    box-shadow:0 6px 14px rgba(222,110,48,.14);
+}
+.ecrm-cat-icon img{width:100%;height:100%;object-fit:contain}
+.ecrm-cat-title{
+    font-size:1.45rem;font-weight:800;color:var(--clr-navy);
+    margin:0 0 4px;letter-spacing:-.01em;line-height:1.2;
+}
+.ecrm-cat-desc{
+    font-size:.92rem;color:var(--clr-gray-500);margin:0;line-height:1.45;
+}
+.ecrm-cat-count{
+    margin-left:auto;
+    background:#fff;color:var(--clr-orange);
+    font-family:var(--font-base);font-size:.75rem;font-weight:700;
+    padding:.4rem .85rem;border-radius:99px;
+    border:1px solid var(--clr-orange-light);
+    text-transform:uppercase;letter-spacing:.04em;
+    white-space:nowrap;
+}
+@media (max-width:640px){
+    .ecrm-cat-head{flex-wrap:wrap;padding:14px 16px}
+    .ecrm-cat-icon{width:44px;height:44px;padding:8px}
+    .ecrm-cat-title{font-size:1.2rem}
+    .ecrm-cat-count{width:100%;text-align:center;margin-left:0}
+}
+
+/* Per-card badge pill (top-right) */
+.ecrm-card-badge{
+    position:absolute;top:1rem;right:1rem;z-index:2;
+    font-family:var(--font-base);font-size:.6rem;font-weight:700;
+    padding:.22rem .55rem;border-radius:4px;
+    text-transform:uppercase;letter-spacing:.05em;color:#fff;
+    line-height:1.2;
+}
+.ecrm-card-badge--new      { background:#10B981; }
+.ecrm-card-badge--popular  { background:#DE6E30; }
+.ecrm-card-badge--trending { background:#F59E0B; }
+.ecrm-card-badge--hot      { background:#DE6E30; animation:ecrm-pulse 1.8s infinite; }
+
+.ecrm-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-bottom:0}
 @media (min-width:480px){.ecrm-grid{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:1024px){.ecrm-grid{grid-template-columns:repeat(3,1fr);gap:1.5rem}}
 
@@ -356,44 +411,84 @@ get_header();
             <?php endforeach; ?>
         </div>
 
-        <div class="ecrm-grid" role="list" aria-label="Education CRM product modules">
-            <?php foreach ($ee_products as $i => $p) :
-                $position    = $i + 1;
-                $delay_class = 'ecrm-d' . min($position + 2, 7);
-                $initial     = strtoupper(mb_substr($p['title'], 0, 1));
-            ?>
-                <div role="listitem" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                    <a href="<?php echo esc_url($p['url']); ?>"
-                       class="ecrm-card ecrm-anim <?php echo esc_attr($delay_class); ?>"
-                       aria-label="<?php echo esc_attr($p['title'] . ' — ' . $p['desc']); ?>"
-                       itemprop="url">
-                        <meta itemprop="position" content="<?php echo (int) $position; ?>">
-                        <span class="ecrm-card-num" aria-hidden="true"><?php echo sprintf('%02d', $position); ?></span>
-                        <div class="ecrm-card-icon" aria-hidden="true">
-                            <?php if (!empty($p['icon'])) : ?>
-                                <img src="<?php echo esc_url($p['icon']); ?>"
-                                     alt="<?php echo esc_attr($p['title']); ?> product icon"
-                                     class="ecrm-card-logo"
-                                     width="32" height="32" loading="lazy" decoding="async"
-                                     onerror="this.outerHTML='<div class=\'ecrm-card-logo-fallback\'><?php echo esc_js($initial); ?></div>'">
-                            <?php else : ?>
-                                <div class="ecrm-card-logo-fallback"><?php echo esc_html($initial); ?></div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="ecrm-card-body">
-                            <h3 class="ecrm-card-title" itemprop="name"><?php echo esc_html($p['title']); ?></h3>
-                            <p class="ecrm-card-desc"><?php echo esc_html($p['desc']); ?></p>
-                            <span class="ecrm-card-link" aria-hidden="true">
-                                Explore module
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                    <path d="M2 7H12M8 3L12 7L8 11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-                        </div>
-                    </a>
+        <?php
+        /* Group products by their _product_card_column meta value so the
+           landing page mirrors the header mega-menu structure: Featured,
+           Core CRM, Communication, Automation. Editors assign each
+           Product to a column in WP Admin → 🏷 Product Card Settings. */
+        $ee_pcols = array(
+            'featured'      => array('label' => 'Featured',      'icon' => 'star',     'desc' => 'Our most popular admissions tools, used by 500+ institutions.'),
+            'core'          => array('label' => 'Core CRM',      'icon' => 'bullseye', 'desc' => 'Manage the entire admissions lifecycle end-to-end.'),
+            'communication' => array('label' => 'Communication', 'icon' => 'comments', 'desc' => 'Reach every prospect on the channel they prefer.'),
+            'automation'    => array('label' => 'Automation',    'icon' => 'bolt',     'desc' => 'Smart workflows that work while you sleep.'),
+        );
+        $ee_grouped = array('featured'=>array(),'core'=>array(),'communication'=>array(),'automation'=>array());
+        foreach ($ee_products as $p) {
+            $col = isset($p['column']) ? $p['column'] : 'featured';
+            if ($col === 'hidden' || !isset($ee_grouped[$col])) $col = 'featured';
+            $ee_grouped[$col][] = $p;
+        }
+        $ee_card_pos = 1;
+        ?>
+
+        <?php foreach ($ee_pcols as $ee_col_key => $ee_col_meta) :
+            $ee_col_items = $ee_grouped[$ee_col_key];
+            if (empty($ee_col_items)) continue;
+        ?>
+        <section class="ecrm-cat ecrm-anim ecrm-anim-fade" aria-labelledby="ecrm-cat-<?php echo esc_attr($ee_col_key); ?>">
+            <header class="ecrm-cat-head">
+                <div class="ecrm-cat-icon"><img src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $ee_col_meta['icon'] . '.svg'); ?>" alt=""></div>
+                <div>
+                    <h2 id="ecrm-cat-<?php echo esc_attr($ee_col_key); ?>" class="ecrm-cat-title"><?php echo esc_html($ee_col_meta['label']); ?></h2>
+                    <p class="ecrm-cat-desc"><?php echo esc_html($ee_col_meta['desc']); ?></p>
                 </div>
-            <?php endforeach; ?>
-        </div>
+                <span class="ecrm-cat-count"><?php echo count($ee_col_items); ?> <?php echo count($ee_col_items) === 1 ? 'product' : 'products'; ?></span>
+            </header>
+
+            <div class="ecrm-grid" role="list" aria-label="<?php echo esc_attr($ee_col_meta['label']); ?> products">
+                <?php foreach ($ee_col_items as $p) :
+                    $position    = $ee_card_pos++;
+                    $delay_class = 'ecrm-d' . min((($position - 1) % 6) + 1, 7);
+                    $initial     = strtoupper(mb_substr($p['title'], 0, 1));
+                    $badge       = isset($p['badge']) ? $p['badge'] : 'none';
+                ?>
+                    <div role="listitem" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="<?php echo esc_url($p['url']); ?>"
+                           class="ecrm-card ecrm-anim <?php echo esc_attr($delay_class); ?>"
+                           aria-label="<?php echo esc_attr($p['title'] . ' — ' . $p['desc']); ?>"
+                           itemprop="url">
+                            <meta itemprop="position" content="<?php echo (int) $position; ?>">
+                            <span class="ecrm-card-num" aria-hidden="true"><?php echo sprintf('%02d', $position); ?></span>
+                            <?php if ($badge && $badge !== 'none') : ?>
+                                <span class="ecrm-card-badge ecrm-card-badge--<?php echo esc_attr($badge); ?>"><?php echo esc_html(strtoupper($badge)); ?></span>
+                            <?php endif; ?>
+                            <div class="ecrm-card-icon" aria-hidden="true">
+                                <?php if (!empty($p['icon'])) : ?>
+                                    <img src="<?php echo esc_url($p['icon']); ?>"
+                                         alt="<?php echo esc_attr($p['title']); ?> product icon"
+                                         class="ecrm-card-logo"
+                                         width="32" height="32" loading="lazy" decoding="async"
+                                         onerror="this.outerHTML='<div class=\'ecrm-card-logo-fallback\'><?php echo esc_js($initial); ?></div>'">
+                                <?php else : ?>
+                                    <div class="ecrm-card-logo-fallback"><?php echo esc_html($initial); ?></div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="ecrm-card-body">
+                                <h3 class="ecrm-card-title" itemprop="name"><?php echo esc_html($p['title']); ?></h3>
+                                <p class="ecrm-card-desc"><?php echo esc_html($p['desc']); ?></p>
+                                <span class="ecrm-card-link" aria-hidden="true">
+                                    Explore module
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                        <path d="M2 7H12M8 3L12 7L8 11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </section>
+        <?php endforeach; ?>
 
         <div class="ecrm-cta-outer ecrm-anim ecrm-anim-fade ecrm-d7">
             <div class="ecrm-cta-box" role="region" aria-labelledby="ecrm-cta-title">
