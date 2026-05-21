@@ -703,17 +703,31 @@ if ($ee_is_home) {
                         }
                         ?>
                         <div class="eh-mega-grid">
+                            <?php
+                            /* Featured promo strip — content editable from
+                               WP Admin → 🛍 Products Menu. Skipped entirely
+                               when the "Show this promo" checkbox is off. */
+                            $eh_promo = function_exists('ee_get_products_promo') ? ee_get_products_promo() : array('enabled' => '1');
+                            if (!empty($eh_promo['enabled']) && $eh_promo['enabled'] !== '0') :
+                                $eh_promo_btn_external = ($eh_promo['btn_url'] && (strpos($eh_promo['btn_url'], 'http') === 0) && strpos($eh_promo['btn_url'], home_url()) !== 0);
+                            ?>
                             <div class="eh-featured">
                                 <div>
-                                    <h3><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/rocket.svg" alt="" loading="lazy"> NEW: Vidya.ai - AI-Powered Education Platform</h3>
-                                    <p>Transform your educational institution with cutting-edge AI technology. Intelligent automation, personalized learning, and advanced analytics in one powerful platform.</p>
-                                    <a href="https://getvidya.ai/" class="eh-featured-btn" target="_blank" rel="noopener">
-                                        Explore Vidya.ai
+                                    <h3>
+                                        <img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/rocket.svg'); ?>" alt="" loading="lazy">
+                                        <?php if (!empty($eh_promo['badge'])) : ?><?php echo esc_html($eh_promo['badge']); ?>: <?php endif; ?><?php echo esc_html($eh_promo['title']); ?>
+                                    </h3>
+                                    <?php if (!empty($eh_promo['desc'])) : ?><p><?php echo esc_html($eh_promo['desc']); ?></p><?php endif; ?>
+                                    <?php if (!empty($eh_promo['btn_text']) && !empty($eh_promo['btn_url'])) : ?>
+                                    <a href="<?php echo esc_url($eh_promo['btn_url']); ?>" class="eh-featured-btn"<?php echo $eh_promo_btn_external ? ' target="_blank" rel="noopener"' : ''; ?>>
+                                        <?php echo esc_html($eh_promo['btn_text']); ?>
                                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                                     </a>
+                                    <?php endif; ?>
                                 </div>
-                                <div class="eh-featured-visual"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/robot.svg" alt="" loading="lazy"></div>
+                                <div class="eh-featured-visual"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . ($eh_promo['visual_icon'] ?: 'robot') . '.svg'); ?>" alt="" loading="lazy"></div>
                             </div>
+                            <?php endif; ?>
 
                             <?php foreach ($eh_cols as $eh_col_key => $eh_col_meta) :
                                 $eh_col_items = $eh_groups[$eh_col_key];
@@ -748,15 +762,32 @@ if ($ee_is_home) {
                             <?php endforeach; ?>
                         </div>
 
+                        <?php
+                        /* Quick Access chips — all rows editable from WP
+                           Admin → 🛍 Products Menu. Skipped entirely when
+                           the editor removes every row. */
+                        $eh_qlinks = function_exists('ee_get_products_quick_links') ? ee_get_products_quick_links() : array();
+                        if (!empty($eh_qlinks)) :
+                        ?>
                         <div class="eh-quick">
                             <div class="eh-quick-title">⚡ Quick Access</div>
                             <div class="eh-quick-grid">
-                                <a href="https://getvidya.ai/" class="eh-quick-link" target="_blank" rel="noopener"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/robot.svg" alt="" loading="lazy"> Vidya.ai - NEW</a>
-                                <a href="<?php echo esc_url(home_url('/products/')); ?>" class="eh-quick-link"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/box.svg" alt="" loading="lazy"> All Products</a>
-                                <a href="<?php echo esc_url(home_url('/use-cases/')); ?>" class="eh-quick-link"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/bullseye.svg" alt="" loading="lazy"> Use Cases</a>
-                                <a href="<?php echo esc_url(home_url('/book-demo/')); ?>" class="eh-quick-link"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/film.svg" alt="" loading="lazy"> Schedule Demo</a>
+                                <?php foreach ($eh_qlinks as $eh_ql) :
+                                    $eh_qurl = !empty($eh_ql['url']) ? $eh_ql['url'] : '#';
+                                    if (strpos($eh_qurl, 'http') !== 0 && strpos($eh_qurl, '//') !== 0 && strpos($eh_qurl, '#') !== 0) {
+                                        $eh_qurl = home_url($eh_qurl);
+                                    }
+                                    $eh_qicon   = !empty($eh_ql['icon']) ? $eh_ql['icon'] : 'star';
+                                    $eh_qext    = isset($eh_ql['target']) && $eh_ql['target'] === '_blank';
+                                ?>
+                                <a href="<?php echo esc_url($eh_qurl); ?>" class="eh-quick-link"<?php echo $eh_qext ? ' target="_blank" rel="noopener"' : ''; ?>>
+                                    <img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_qicon . '.svg'); ?>" alt="" loading="lazy">
+                                    <?php echo esc_html($eh_ql['label']); ?>
+                                </a>
+                                <?php endforeach; ?>
                             </div>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
 

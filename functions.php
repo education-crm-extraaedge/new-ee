@@ -1945,6 +1945,226 @@ function ee_solutions_render_admin() {
     </div>
     <?php
 }
+
+// ══════════════════════════════════════════════════════════
+// G6. PRODUCTS MEGA-MENU BANNERS — Vidya.ai promo + Quick Access
+// ══════════════════════════════════════════════════════════
+/**
+ * Featured promo strip at the top of the Products mega-menu.
+ * Stored in 'ee_products_promo' option as { badge, title, desc,
+ * btn_text, btn_url, visual_icon }. Falls back to the original
+ * Vidya.ai promo when the option is empty.
+ */
+function ee_get_products_promo() {
+    static $cache = null;
+    if ($cache !== null) return $cache;
+    $saved = get_option('ee_products_promo', array());
+    $defaults = array(
+        'badge'        => 'NEW',
+        'title'        => 'Vidya.ai - AI-Powered Education Platform',
+        'desc'         => 'Transform your educational institution with cutting-edge AI technology. Intelligent automation, personalized learning, and advanced analytics in one powerful platform.',
+        'btn_text'     => 'Explore Vidya.ai',
+        'btn_url'      => 'https://getvidya.ai/',
+        'visual_icon'  => 'robot',
+        'enabled'      => '1',
+    );
+    $cache = array_merge($defaults, is_array($saved) ? $saved : array());
+    return $cache;
+}
+
+/**
+ * Quick Access rows below the Products mega-menu (default 4 chips:
+ * Vidya.ai - NEW / All Products / Use Cases / Schedule Demo).
+ * Stored in 'ee_products_quick_links' as a list of { label, url,
+ * icon, target }. Falls back to the original 4-row layout.
+ */
+function ee_get_products_quick_links() {
+    static $cache = null;
+    if ($cache !== null) return $cache;
+    $saved = get_option('ee_products_quick_links', array());
+    if (is_array($saved) && !empty($saved)) {
+        $cache = $saved;
+        return $cache;
+    }
+    $cache = array(
+        array('label' => 'Vidya.ai - NEW',  'url' => 'https://getvidya.ai/',     'icon' => 'robot',    'target' => '_blank'),
+        array('label' => 'All Products',    'url' => '/products/',               'icon' => 'box',      'target' => '_self'),
+        array('label' => 'Use Cases',       'url' => '/use-cases/',              'icon' => 'bullseye', 'target' => '_self'),
+        array('label' => 'Schedule Demo',   'url' => '/book-demo/',              'icon' => 'film',     'target' => '_self'),
+    );
+    return $cache;
+}
+
+/* Top-level admin menu — 🛍 Products Menu Banners */
+add_action('admin_menu', function () {
+    add_menu_page(
+        'Products Menu Banners', '🛍 Products Menu', 'manage_options',
+        'ee-products-menu', 'ee_products_menu_render_admin',
+        'dashicons-cart', 62
+    );
+});
+add_action('admin_post_ee_save_products_menu', function () {
+    if (!current_user_can('manage_options')) wp_die('Forbidden');
+    check_admin_referer('ee_products_menu_save');
+
+    /* Promo strip */
+    $p = isset($_POST['promo']) && is_array($_POST['promo']) ? $_POST['promo'] : array();
+    $clean_promo = array(
+        'badge'       => sanitize_text_field(wp_unslash($p['badge']        ?? 'NEW')),
+        'title'       => sanitize_text_field(wp_unslash($p['title']        ?? '')),
+        'desc'        => sanitize_textarea_field(wp_unslash($p['desc']     ?? '')),
+        'btn_text'    => sanitize_text_field(wp_unslash($p['btn_text']     ?? '')),
+        'btn_url'     => esc_url_raw(wp_unslash($p['btn_url']              ?? '')),
+        'visual_icon' => sanitize_text_field(wp_unslash($p['visual_icon']  ?? 'robot')),
+        'enabled'     => !empty($p['enabled']) ? '1' : '0',
+    );
+    update_option('ee_products_promo', $clean_promo);
+
+    /* Quick links */
+    $rows  = isset($_POST['qlink']) && is_array($_POST['qlink']) ? $_POST['qlink'] : array();
+    $clean = array();
+    foreach ($rows as $r) {
+        $label = isset($r['label']) ? sanitize_text_field(wp_unslash($r['label'])) : '';
+        if ($label === '') continue;
+        $clean[] = array(
+            'label'  => $label,
+            'url'    => isset($r['url'])    ? esc_url_raw(wp_unslash($r['url']))             : '',
+            'icon'   => isset($r['icon'])   ? sanitize_text_field(wp_unslash($r['icon']))    : 'star',
+            'target' => isset($r['target']) && $r['target'] === '_blank' ? '_blank' : '_self',
+        );
+    }
+    update_option('ee_products_quick_links', $clean);
+
+    /* Cache bust */
+    wp_cache_delete('ee_products_promo', 'options');
+    wp_cache_delete('ee_products_quick_links', 'options');
+    if (function_exists('rocket_clean_domain')) { rocket_clean_domain(); }
+    if (function_exists('w3tc_pgcache_flush'))  { w3tc_pgcache_flush(); }
+    if (class_exists('LiteSpeed\\Purge'))       { do_action('litespeed_purge_all'); }
+
+    wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-products-menu')));
+    exit;
+});
+function ee_products_menu_render_admin() {
+    $promo = ee_get_products_promo();
+    $links = ee_get_products_quick_links();
+    ?>
+    <div class="wrap">
+        <h1>🛍 Products Menu Banners <span style="font-size:13px;color:#646970;font-weight:400;">— the featured promo + Quick Access strip in the Products mega-menu</span></h1>
+        <?php if (!empty($_GET['updated'])) : ?>
+            <div class="notice notice-success is-dismissible"><p><strong>Saved.</strong> The Products mega-menu has been updated.</p></div>
+        <?php endif; ?>
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="max-width:1000px;">
+            <input type="hidden" name="action" value="ee_save_products_menu">
+            <?php wp_nonce_field('ee_products_menu_save'); ?>
+
+            <style>
+                .epm-card { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:18px 20px; margin-bottom:20px; }
+                .epm-card h2 { margin:0 0 14px; font-size:15px; color:#19335D; display:flex; align-items:center; gap:8px; }
+                .epm-row { margin-bottom:14px; }
+                .epm-row label { display:block; font-weight:600; margin-bottom:5px; color:#1d2327; font-size:13px; }
+                .epm-row input, .epm-row textarea, .epm-row select { width:100%; padding:7px 9px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px; font-family:inherit; box-sizing:border-box; }
+                .epm-row textarea { resize:vertical; min-height:60px; }
+                .epm-row .hint { color:#646970; font-size:12px; margin-top:4px; font-style:italic; }
+                .epm-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+                .epm-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+                .epm-qrow { display:grid; grid-template-columns:1fr 1.5fr 1fr .8fr 28px; gap:10px; padding:10px; background:#f8fafc; border-radius:5px; margin-bottom:8px; align-items:center; }
+                .epm-qrow input, .epm-qrow select { width:100%; padding:7px 9px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px; box-sizing:border-box; }
+                .epm-qrow .rm   { background:transparent; border:1px solid #fecaca; color:#b91c1c; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:12px; }
+                .epm-qhead { display:grid; grid-template-columns:1fr 1.5fr 1fr .8fr 28px; gap:10px; padding:0 10px; font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+                .epm-add  { background:#19335D; color:#fff; border:none; padding:7px 14px; border-radius:5px; cursor:pointer; font-size:12px; font-weight:600; }
+            </style>
+
+            <!-- ─── Featured Promo Strip ─── -->
+            <div class="epm-card">
+                <h2>🚀 Featured Promo Strip <em style="color:#646970;font-size:12px;font-weight:400;margin-left:6px;">— navy banner at the top of the Products mega-menu</em></h2>
+
+                <label style="display:flex;align-items:center;gap:10px;background:#fff8f1;border:1px solid #fde7d3;padding:10px 14px;border-radius:5px;margin-bottom:14px;">
+                    <input type="hidden" name="promo[enabled]" value="0">
+                    <input type="checkbox" name="promo[enabled]" value="1" <?php checked($promo['enabled'], '1'); ?>>
+                    <span><strong>Show this promo</strong> in the Products mega-menu. Uncheck to hide it without losing the content.</span>
+                </label>
+
+                <div class="epm-grid-2">
+                    <div class="epm-row">
+                        <label>Badge text</label>
+                        <input type="text" name="promo[badge]" value="<?php echo esc_attr($promo['badge']); ?>" placeholder="NEW">
+                        <p class="hint">Short uppercase tag at the start of the title. Leave blank to skip.</p>
+                    </div>
+                    <div class="epm-row">
+                        <label>Visual icon name</label>
+                        <input type="text" name="promo[visual_icon]" value="<?php echo esc_attr($promo['visual_icon']); ?>" placeholder="robot">
+                        <p class="hint">Filename from <code>/wp-content/uploads/icons/</code> (without .svg).</p>
+                    </div>
+                </div>
+                <div class="epm-row">
+                    <label>Title</label>
+                    <input type="text" name="promo[title]" value="<?php echo esc_attr($promo['title']); ?>" placeholder="Vidya.ai - AI-Powered Education Platform">
+                </div>
+                <div class="epm-row">
+                    <label>Description</label>
+                    <textarea name="promo[desc]" rows="3" placeholder="Transform your educational institution with cutting-edge AI technology…"><?php echo esc_textarea($promo['desc']); ?></textarea>
+                </div>
+                <div class="epm-grid-2">
+                    <div class="epm-row">
+                        <label>Button text</label>
+                        <input type="text" name="promo[btn_text]" value="<?php echo esc_attr($promo['btn_text']); ?>" placeholder="Explore Vidya.ai">
+                    </div>
+                    <div class="epm-row">
+                        <label>Button URL</label>
+                        <input type="url" name="promo[btn_url]" value="<?php echo esc_attr($promo['btn_url']); ?>" placeholder="https://getvidya.ai/">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─── Quick Access Strip ─── -->
+            <div class="epm-card">
+                <h2>⚡ Quick Access Strip <em style="color:#646970;font-size:12px;font-weight:400;margin-left:6px;">— small chips below the mega-menu (4 columns)</em></h2>
+                <div class="epm-qhead"><span>Label</span><span>URL</span><span>Icon name</span><span>Open in</span><span></span></div>
+                <div id="epm-qlist">
+                    <?php foreach ($links as $i => $r) : ?>
+                    <div class="epm-qrow">
+                        <input type="text" name="qlink[<?php echo (int) $i; ?>][label]" value="<?php echo esc_attr($r['label']); ?>" placeholder="Label">
+                        <input type="text" name="qlink[<?php echo (int) $i; ?>][url]"   value="<?php echo esc_attr($r['url']);   ?>" placeholder="/your-page/ or full URL">
+                        <input type="text" name="qlink[<?php echo (int) $i; ?>][icon]"  value="<?php echo esc_attr($r['icon']);  ?>" placeholder="robot / box / bullseye">
+                        <select name="qlink[<?php echo (int) $i; ?>][target]">
+                            <option value="_self"  <?php selected($r['target'], '_self');  ?>>Same tab</option>
+                            <option value="_blank" <?php selected($r['target'], '_blank'); ?>>New tab</option>
+                        </select>
+                        <button type="button" class="rm" onclick="this.closest('.epm-qrow').remove()">✕</button>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <button type="button" class="epm-add" onclick="eePmAdd()">+ Add row</button>
+                <p class="hint" style="color:#646970;font-size:12px;margin-top:8px;font-style:italic;">Icon name = filename from <code>/wp-content/uploads/icons/</code>. Try <code>robot</code> · <code>box</code> · <code>bullseye</code> · <code>film</code> · <code>rocket</code> · <code>chart-bar</code> · <code>link</code>.</p>
+            </div>
+
+            <?php submit_button('💾 Save Products Menu', 'primary large'); ?>
+        </form>
+        <script>
+        function eePmAdd() {
+            var list = document.getElementById('epm-qlist');
+            var idx  = list.children.length;
+            var row  = document.createElement('div');
+            row.className = 'epm-qrow';
+            row.innerHTML =
+                '<input type="text" name="qlink['+idx+'][label]" placeholder="Label">' +
+                '<input type="text" name="qlink['+idx+'][url]"   placeholder="/your-page/ or full URL">' +
+                '<input type="text" name="qlink['+idx+'][icon]"  placeholder="robot / box / bullseye" value="star">' +
+                '<select name="qlink['+idx+'][target]"><option value="_self">Same tab</option><option value="_blank">New tab</option></select>' +
+                '<button type="button" class="rm">✕</button>';
+            list.appendChild(row);
+        }
+        document.addEventListener('click', function (e) {
+            if (e.target && e.target.classList && e.target.classList.contains('rm') && e.target.closest('.epm-qrow')) {
+                e.target.closest('.epm-qrow').remove();
+            }
+        });
+        </script>
+    </div>
+    <?php
+}
+
 // G4. USE-CASE MENU HELPER — shared by header.php + /use-cases/ page
 // ══════════════════════════════════════════════════════════
 
