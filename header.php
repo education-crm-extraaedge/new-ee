@@ -1209,9 +1209,12 @@ if ($ee_is_home) {
                    use_case (the landing pages are served by page-*.php), so
                    the default $bc_pt->has_archive branch below skips them.
                    Manual hop keeps "Home > Products > Education CRM",
-                   "Home > Industries > Higher Education", "Home > Use Cases > Foo". */
+                   "Home > Industries > Higher Education", "Home > Use Cases > Foo".
+                   Standard WordPress posts also land on /blog/, so we treat
+                   them the same way → "Home > Blog > [Post Title]". */
                 if ($bc_post && isset($bc_post->ID)) :
                     $cpt_landing = array(
+                        'post'     => array('label' => 'Blog',       'url' => '/blog/'),
                         'product'  => array('label' => 'Products',   'url' => '/products/'),
                         'industry' => array('label' => 'Industries', 'url' => '/industries/'),
                         'use_case' => array('label' => 'Use Cases',  'url' => '/use-cases/'),
@@ -1227,7 +1230,18 @@ if ($ee_is_home) {
                 <?php
                     endif;
                 endif;
+
+                /* Category archive (/category/{slug}/) → inject the Blog hop
+                   so the trail reads "Home > Blog > [Category Name]". The
+                   category.php template sets $GLOBALS['ee_blog_active_cat']
+                   which is our signal that we're on a blog category page. */
+                if (!empty($GLOBALS['ee_blog_active_cat'])) :
                 ?>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a itemprop="item" href="<?php echo esc_url(home_url('/blog/')); ?>"><span itemprop="name">Blog</span></a>
+                    <meta itemprop="position" content="<?php echo (int) $bc_pos++; ?>">
+                </li>
+                <?php endif; ?>
                 <?php if ($bc_pt && $bc_pt->has_archive) : ?>
                 <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <a itemprop="item" href="<?php echo esc_url(get_post_type_archive_link($bc_pt->name)); ?>"><span itemprop="name"><?php echo esc_html($bc_pt->labels->name); ?></span></a>

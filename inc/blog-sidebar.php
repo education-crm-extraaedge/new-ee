@@ -247,9 +247,13 @@ $ee_current_cat = (isset($GLOBALS['ee_blog_active_cat']) && $GLOBALS['ee_blog_ac
                 <span class="ee-blog-side-count"><?php echo (int) wp_count_posts()->publish; ?></span>
             </a>
         </li>
-        <?php foreach ($ee_blog_cats as $cat) : ?>
+        <?php foreach ($ee_blog_cats as $cat) :
+            /* Stay on /blog/ and pass the slug as ?cat= so the same
+               template handles both "all posts" and "posts in category X". */
+            $cat_link = esc_url(add_query_arg('bcat', $cat->slug, home_url('/blog/')));
+        ?>
         <li>
-            <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>" class="<?php echo ($ee_current_cat && $ee_current_cat->term_id === $cat->term_id) ? 'active' : ''; ?>">
+            <a href="<?php echo $cat_link; ?>" class="<?php echo ($ee_current_cat && $ee_current_cat->term_id === $cat->term_id) ? 'active' : ''; ?>">
                 <span><?php echo esc_html($cat->name); ?></span>
                 <span class="ee-blog-side-count"><?php echo (int) $cat->count; ?></span>
             </a>

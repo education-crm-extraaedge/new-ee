@@ -9,9 +9,23 @@
  */
 if (!defined('ABSPATH')) exit;
 
+/* Look up the optional ?cat= filter. When present we narrow the
+   listing to posts in that one category and switch the breadcrumb /
+   <title> to the category name, all without leaving /blog/. */
+/* Use ?bcat= (not ?cat=) — WordPress reserves "cat" as a numeric
+   category-ID query var and would mishandle our slug value. */
+$ee_cat_slug   = isset($_GET['bcat']) ? sanitize_title(wp_unslash($_GET['bcat'])) : '';
+$ee_active_cat = $ee_cat_slug ? get_category_by_slug($ee_cat_slug) : null;
+if ($ee_active_cat) {
+    $GLOBALS['ee_blog_active_cat'] = $ee_active_cat;
+}
+
 /* SEO + Article schema is handled by wp_head in header.php — we
    just override the document title here. */
-add_filter('pre_get_document_title', function () {
+add_filter('pre_get_document_title', function () use ($ee_active_cat) {
+    if ($ee_active_cat) {
+        return $ee_active_cat->name . ' — Blog | ExtraaEdge';
+    }
     return 'Blog — Insights & Resources from ExtraaEdge';
 }, 99);
 
@@ -49,13 +63,14 @@ get_header();
 
         <main class="ee-blog-main">
             <header class="ee-blog-heading">
-                <h1>Latest from the Blog</h1>
+                <h1><?php echo $ee_active_cat ? esc_html($ee_active_cat->name) : 'Latest from the Blog'; ?></h1>
             </header>
 
             <?php
             /* Pull every published post once — even if the post sits in
-               multiple categories WP returns it a single time. */
-            $ee_blog_query = new WP_Query(array(
+               multiple categories WP returns it a single time. When the
+               sidebar filter is on, narrow by that category. */
+            $ee_query_args = array(
                 'post_type'      => 'post',
                 'post_status'    => 'publish',
                 'posts_per_page' => 12,
@@ -63,11 +78,19 @@ get_header();
                 'orderby'        => 'date',
                 'order'          => 'DESC',
                 'ignore_sticky_posts' => true,
-            ));
+            );
+            if ($ee_active_cat) {
+                $ee_query_args['cat'] = $ee_active_cat->term_id;
+            }
+            $ee_blog_query = new WP_Query($ee_query_args);
             ?>
 
             <div class="ee-blog-intro">
-                <p>Showing <span><?php echo (int) $ee_blog_query->found_posts; ?> articles</span> across <strong><?php echo (int) count($ee_blog_cats); ?> categories</strong>. Click any title to read the full post.</p>
+                <?php if ($ee_active_cat) : ?>
+                    <p>Showing <span><?php echo (int) $ee_blog_query->found_posts; ?> articles</span> in <strong><?php echo esc_html($ee_active_cat->name); ?></strong>. <a href="<?php echo esc_url(home_url('/blog/')); ?>" style="color:var(--b-orange);font-weight:600;">← Back to all articles</a></p>
+                <?php else : ?>
+                    <p>Showing <span><?php echo (int) $ee_blog_query->found_posts; ?> articles</span> across <strong><?php echo (int) count($ee_blog_cats); ?> categories</strong>. Click any title to read the full post.</p>
+                <?php endif; ?>
             </div>
 
             <?php if ($ee_blog_query->have_posts()) : ?>
@@ -101,6 +124,7 @@ get_header();
                     'type'    => 'array',
                     'base'    => trailingslashit(home_url('/blog/')) . '%_%',
                     'format'  => 'page/%#%/',
+                    'add_args' => $ee_active_cat ? array('bcat' => $ee_active_cat->slug) : array(),
                 ));
                 if ($pagi) : ?>
                 <nav class="ee-blog-pagi" aria-label="Pagination">
