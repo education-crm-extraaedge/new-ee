@@ -3471,24 +3471,30 @@ add_action('template_redirect', function () {
 
     $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
 
-    /* /blog/{category-slug}/  and  /blog/{category-slug}/page/N/
-       route to page-blog.php with the slug exposed as $_GET['bcat']
-       so the template can filter without us needing per-category
-       templates. WP's reserved "cat" query var is avoided. */
+    /* Extended /blog/ routing — three URL shapes all route to page-blog.php:
+         /blog/page/N/                       → paginated landing
+         /blog/{slug}/                       → category filter
+         /blog/{slug}/page/N/                → paginated category filter
+       Slug is exposed via $_GET['bcat']; page number via WP's 'paged'
+       query var. No per-category templates needed. */
     if (!isset($ee_custom_routes[$path])) {
         $parts = explode('/', $path);
-        if (in_array($parts[0] ?? '', array('blog', 'blogs'), true) && !empty($parts[1]) && $parts[1] !== 'page') {
-            $slug = sanitize_title($parts[1]);
-            $cat  = $slug ? get_category_by_slug($slug) : null;
-            if ($cat) {
-                $_GET['bcat'] = $slug;
-                /* /blog/{slug}/page/N/ — let WP_Query see the page number. */
-                if (isset($parts[2], $parts[3]) && $parts[2] === 'page' && ctype_digit($parts[3])) {
-                    set_query_var('paged', (int) $parts[3]);
+        if (in_array($parts[0] ?? '', array('blog', 'blogs'), true) && !empty($parts[1])) {
+            if ($parts[1] === 'page' && !empty($parts[2]) && ctype_digit($parts[2])) {
+                /* /blog/page/N/ */
+                set_query_var('paged', (int) $parts[2]);
+                $ee_custom_routes[$path] = array('file' => 'page-blog.php', 'title' => 'Blog');
+            } else {
+                /* /blog/{slug}/  or  /blog/{slug}/page/N/ */
+                $slug = sanitize_title($parts[1]);
+                $cat  = $slug ? get_category_by_slug($slug) : null;
+                if ($cat) {
+                    $_GET['bcat'] = $slug;
+                    if (isset($parts[2], $parts[3]) && $parts[2] === 'page' && ctype_digit($parts[3])) {
+                        set_query_var('paged', (int) $parts[3]);
+                    }
+                    $ee_custom_routes[$path] = array('file' => 'page-blog.php', 'title' => $cat->name);
                 }
-                /* Inject the synthetic route so the rest of the closure
-                   below picks it up with the right title (category name). */
-                $ee_custom_routes[$path] = array('file' => 'page-blog.php', 'title' => $cat->name);
             }
         }
     }
