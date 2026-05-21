@@ -17,12 +17,20 @@ add_filter('pre_get_document_title', function () {
 
 /* Define $ee_blog_cats up front so the page renders even if the
    sidebar partial is missing on disk. The partial overwrites this
-   with the same value when it loads, so behaviour is identical. */
+   with the same value when it loads, so behaviour is identical.
+   hide_empty=false so editors see every category they've created,
+   even before they've published a post into it. */
 $ee_blog_cats = get_categories(array(
-    'hide_empty' => true,
+    'hide_empty' => false,
     'orderby'    => 'count',
     'order'      => 'DESC',
 ));
+
+/* Drop the WordPress default "Uncategorized" bucket — most editors
+   never use it and it clutters the public landing. */
+$ee_blog_cats = array_filter($ee_blog_cats, function ($c) {
+    return $c->slug !== 'uncategorized';
+});
 
 get_header();
 ?>

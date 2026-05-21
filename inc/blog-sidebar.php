@@ -12,13 +12,19 @@
  */
 if (!defined('ABSPATH')) exit;
 
-/* All categories with at least 1 published post. WP groups multi-
-   category posts under every assigned category automatically. */
+/* Every category — including empty ones — so editors immediately see
+   what they've created. WP groups multi-category posts under every
+   assigned category automatically. */
 $ee_blog_cats = get_categories(array(
-    'hide_empty' => true,
+    'hide_empty' => false,
     'orderby'    => 'count',
     'order'      => 'DESC',
 ));
+
+/* Hide WordPress's default "Uncategorized" bucket — clutter. */
+$ee_blog_cats = array_filter($ee_blog_cats, function ($c) {
+    return $c->slug !== 'uncategorized';
+});
 
 /* Current category context (null on the /blog/ landing). */
 $ee_current_cat = (isset($GLOBALS['ee_blog_active_cat']) && $GLOBALS['ee_blog_active_cat']) ? $GLOBALS['ee_blog_active_cat'] : null;
