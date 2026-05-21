@@ -317,9 +317,18 @@ if ($ee_is_home) {
         /* Navigation */
         #site-header .eh-nav { display:flex; align-items:center; gap:.15rem; }
         #site-header .eh-nav-item { position:relative; }
-        #site-header .eh-nav-link { display:flex; align-items:center; gap:.3rem; padding:.5rem .75rem; color:#475569; text-decoration:none; font-weight:500; font-size:.85rem; letter-spacing:.005em; border-radius:8px; transition:color .18s ease, background .18s ease; cursor:pointer; background:transparent; border:none; font-family:inherit; position:relative; }
-        #site-header .eh-nav-link:hover { background:#F8FAFC; color:#19335D; }
-        #site-header .eh-nav-link.active { background:#F8FAFC; color:#19335D; }
+        #site-header .eh-nav-link { display:flex; align-items:center; gap:.35rem; padding:.55rem .85rem; color:#19335D; text-decoration:none; font-weight:600; font-size:.9rem; letter-spacing:.005em; border-radius:8px; transition:color .18s ease, background .18s ease; cursor:pointer; background:transparent; border:none; font-family:inherit; position:relative; }
+        #site-header .eh-nav-link:hover { background:#FFF3EC; color:#DE6E30; }
+        #site-header .eh-nav-link.active { background:#FFF3EC; color:#DE6E30; }
+        #site-header .eh-nav-link.active::after,
+        #site-header .eh-nav-item:hover > .eh-nav-link::after {
+            content: "";
+            position: absolute;
+            left: 14px; right: 14px; bottom: -6px;
+            height: 2px;
+            background: #DE6E30;
+            border-radius: 2px;
+        }
         #site-header .eh-nav-link .eh-chev { width:12px; height:12px; transition:transform .25s ease; }
         #site-header .eh-nav-item:hover .eh-nav-link .eh-chev { transform:rotate(180deg); }
 
