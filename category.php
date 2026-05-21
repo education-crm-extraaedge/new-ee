@@ -11,6 +11,7 @@
 if (!defined('ABSPATH')) exit;
 
 $GLOBALS['ee_blog_active_cat'] = get_queried_object();
+$ee_current_cat = $GLOBALS['ee_blog_active_cat']; // also expose locally for the right-sidebar share links
 
 add_filter('pre_get_document_title', function () {
     return single_cat_title('', false) . ' — Blog | ExtraaEdge';
@@ -25,7 +26,12 @@ get_header();
 <div class="ee-blog-page">
     <div class="ee-blog-wrap">
 
-        <?php include get_stylesheet_directory() . '/inc/blog-sidebar.php'; ?>
+        <?php
+        $ee_sidebar_path = get_stylesheet_directory() . '/inc/blog-sidebar.php';
+        if (file_exists($ee_sidebar_path)) {
+            include $ee_sidebar_path;
+        }
+        ?>
 
         <main class="ee-blog-main">
             <header class="ee-blog-heading">

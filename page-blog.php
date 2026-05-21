@@ -15,6 +15,15 @@ add_filter('pre_get_document_title', function () {
     return 'Blog — Insights & Resources from ExtraaEdge';
 }, 99);
 
+/* Define $ee_blog_cats up front so the page renders even if the
+   sidebar partial is missing on disk. The partial overwrites this
+   with the same value when it loads, so behaviour is identical. */
+$ee_blog_cats = get_categories(array(
+    'hide_empty' => true,
+    'orderby'    => 'count',
+    'order'      => 'DESC',
+));
+
 get_header();
 ?>
 
@@ -24,7 +33,10 @@ get_header();
         <?php
         /* No $GLOBALS['ee_blog_active_cat'] set on the landing page,
            so the sidebar's "All Categories" row gets the active state. */
-        include get_stylesheet_directory() . '/inc/blog-sidebar.php';
+        $ee_sidebar_path = get_stylesheet_directory() . '/inc/blog-sidebar.php';
+        if (file_exists($ee_sidebar_path)) {
+            include $ee_sidebar_path;
+        }
         ?>
 
         <main class="ee-blog-main">
