@@ -101,13 +101,13 @@ get_header();
     background:var(--clr-white);
     position:relative;
     overflow:clip; /* clip suppresses overflow without breaking position:sticky descendants like the .ecrm-sidebar */
-    padding:5rem 1.25rem;
+    padding:1.75rem 1.25rem 5rem;
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
     color:var(--clr-gray-700);
     line-height:1.6;
 }
-@media (min-width:640px){.ecrm-section{padding:6rem 2.5rem}}
-@media (min-width:1024px){.ecrm-section{padding:7rem 4rem}}
+@media (min-width:640px){.ecrm-section{padding:2.25rem 2.5rem 6rem}}
+@media (min-width:1024px){.ecrm-section{padding:2.5rem 4rem 7rem}}
 
 .ecrm-section::before{
     content:'';position:absolute;inset:0;pointer-events:none;
@@ -117,58 +117,10 @@ get_header();
 }
 .ecrm-container{max-width:76rem;margin:0 auto;position:relative;z-index:1}
 
-/* Header */
-.ecrm-header{text-align:center;margin-bottom:4.5rem}
-@media (min-width:640px){.ecrm-header{margin-bottom:5.5rem}}
-.ecrm-eyebrow{
-    display:inline-flex;align-items:center;gap:.5rem;
-    background:linear-gradient(135deg,var(--clr-orange-ultra),#FEE8D6);
-    border:1px solid var(--clr-orange-light);color:var(--clr-orange);
-    font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-    padding:.45rem 1rem;border-radius:100px;margin-bottom:1.25rem;
-}
-.ecrm-eyebrow-dot{width:6px;height:6px;background:var(--clr-orange);border-radius:50%;animation:ecrm-pulse 2s ease-in-out infinite}
+/* Hero/eyebrow/stats/trust-bar removed per request. Pulse keyframe
+   kept because .ecrm-card-badge--hot still references it. */
 @keyframes ecrm-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.75)}}
-.ecrm-headline{
-    font-size:clamp(1.875rem,5vw,3.25rem);font-weight:900;color:var(--clr-navy);
-    line-height:1.12;letter-spacing:-.03em;margin-bottom:1.25rem;
-    max-width:46rem;margin-left:auto;margin-right:auto;
-}
-.ecrm-headline mark{background:none;color:var(--clr-orange);position:relative}
-.ecrm-headline mark::after{
-    content:'';position:absolute;left:0;right:0;bottom:2px;height:3px;
-    background:linear-gradient(90deg,var(--clr-orange),transparent);border-radius:2px;
-}
-.ecrm-subheadline{
-    font-size:clamp(1rem,2vw,1.125rem);color:var(--clr-gray-500);line-height:1.7;
-    max-width:42rem;margin:0 auto;font-weight:400;
-}
 
-/* Stats */
-.ecrm-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem 2.5rem;margin-top:2.5rem}
-.ecrm-stat-item{display:flex;align-items:center;gap:.5rem;font-size:.875rem;color:var(--clr-gray-500)}
-.ecrm-stat-num{font-weight:800;color:var(--clr-navy);font-size:1rem}
-.ecrm-stat-icon{width:16px;height:16px;color:var(--clr-orange);flex-shrink:0}
-
-/* Trust bar */
-.ecrm-trust-bar{
-    display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.75rem 2rem;
-    margin-bottom:4.5rem;padding:1.5rem 2rem;
-    background:var(--clr-gray-50);border:1px solid var(--clr-gray-100);border-radius:var(--radius-2xl);
-}
-.ecrm-trust-label{
-    font-size:.75rem;font-weight:700;color:var(--clr-gray-400);
-    text-transform:uppercase;letter-spacing:.12em;width:100%;text-align:center;margin-bottom:.25rem;
-}
-@media (min-width:640px){.ecrm-trust-label{width:auto;margin-bottom:0}}
-.ecrm-trust-item{display:flex;align-items:center;gap:.4rem;font-size:.8125rem;font-weight:600;color:var(--clr-gray-500)}
-.ecrm-trust-check{
-    width:14px;height:14px;
-    background:linear-gradient(135deg,var(--clr-orange),var(--clr-orange-dark));
-    border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-
-/* Grid */
 /* ═════════════ Docs-style left sidebar + content area ═════════════ */
 .ecrm-shell {
     display: grid;
@@ -552,49 +504,6 @@ get_header();
     <meta itemprop="description" content="Complete suite of admissions automation tools for educational institutions">
 
     <div class="ecrm-container">
-
-        <header class="ecrm-header ecrm-anim ecrm-anim-fade ecrm-d1">
-            <p class="ecrm-eyebrow">
-                <span class="ecrm-eyebrow-dot" aria-hidden="true"></span>
-                Built for Modern Institutions
-            </p>
-            <h1 id="ecrm-heading" class="ecrm-headline">
-                Convert more students.<br><mark>Automatically.</mark>
-            </h1>
-            <p class="ecrm-subheadline">
-                One unified platform to automate admissions, engage prospects instantly, and scale your institution — without the chaos.
-            </p>
-            <div class="ecrm-stats" aria-label="Platform highlights">
-                <div class="ecrm-stat-item">
-                    <svg class="ecrm-stat-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1L10.5 6H15L11.5 9.5L13 14L8 11L3 14L4.5 9.5L1 6H5.5L8 1Z" fill="currentColor"/></svg>
-                    <span class="ecrm-stat-num">550+</span><span>Institutions</span>
-                </div>
-                <div class="ecrm-stat-item">
-                    <svg class="ecrm-stat-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 4.5V8.5L10.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                    <span class="ecrm-stat-num">24/7</span><span>Automation</span>
-                </div>
-                <div class="ecrm-stat-item">
-                    <svg class="ecrm-stat-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 10L6 6L9 9L14 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="ecrm-stat-num">2×</span><span>More Conversions</span>
-                </div>
-                <div class="ecrm-stat-item">
-                    <svg class="ecrm-stat-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2C4.686 2 2 4.686 2 8C2 11.314 4.686 14 8 14C11.314 14 14 11.314 14 8C14 4.686 11.314 2 8 2Z" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 8.5L7 10L10.5 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="ecrm-stat-num">99.9%</span><span>Uptime SLA</span>
-                </div>
-            </div>
-        </header>
-
-        <div class="ecrm-trust-bar ecrm-anim ecrm-d2" role="list" aria-label="Platform trust signals">
-            <span class="ecrm-trust-label">Why leading institutions choose us</span>
-            <?php foreach (array('No code setup','Go live in 48 hours','GDPR compliant','Dedicated onboarding','API-first platform') as $tb) : ?>
-                <div class="ecrm-trust-item" role="listitem">
-                    <span class="ecrm-trust-check" aria-hidden="true">
-                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </span>
-                    <span><?php echo esc_html($tb); ?></span>
-                </div>
-            <?php endforeach; ?>
-        </div>
 
         <?php
         /* Group products by their _product_card_column meta value so the
