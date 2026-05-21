@@ -12,12 +12,15 @@ if (!defined('ABSPATH')) exit;
 /* Look up the optional ?cat= filter. When present we narrow the
    listing to posts in that one category and switch the breadcrumb /
    <title> to the category name, all without leaving /blog/. */
-/* Use ?bcat= (not ?cat=) — WordPress reserves "cat" as a numeric
-   category-ID query var and would mishandle our slug value. */
+/* Active category comes from $_GET['bcat'], which the template_redirect
+   router in functions.php populates when the URL is /blog/{slug}/.
+   ?bcat= is also still honoured as a fallback if a deploy hasn't had
+   permalinks flushed yet (Settings → Permalinks → Save). */
 $ee_cat_slug   = isset($_GET['bcat']) ? sanitize_title(wp_unslash($_GET['bcat'])) : '';
 $ee_active_cat = $ee_cat_slug ? get_category_by_slug($ee_cat_slug) : null;
 if ($ee_active_cat) {
-    $GLOBALS['ee_blog_active_cat'] = $ee_active_cat;
+    $GLOBALS['ee_blog_active_cat']    = $ee_active_cat;
+    $GLOBALS['ee_custom_route_title'] = $ee_active_cat->name; // breadcrumb tail
 }
 
 /* SEO + Article schema is handled by wp_head in header.php — we
@@ -118,13 +121,18 @@ get_header();
                 <?php endwhile; wp_reset_postdata(); ?>
 
                 <?php
+                /* Pagination base: when filtered, anchor under
+                   /blog/{slug}/ so links read /blog/{slug}/page/N/.
+                   Otherwise plain /blog/page/N/. */
+                $pagi_base = $ee_active_cat
+                    ? trailingslashit(home_url('/blog/' . $ee_active_cat->slug)) . '%_%'
+                    : trailingslashit(home_url('/blog/')) . '%_%';
                 $pagi = paginate_links(array(
                     'total'   => $ee_blog_query->max_num_pages,
                     'current' => max(1, get_query_var('paged') ?: get_query_var('page')),
                     'type'    => 'array',
-                    'base'    => trailingslashit(home_url('/blog/')) . '%_%',
+                    'base'    => $pagi_base,
                     'format'  => 'page/%#%/',
-                    'add_args' => $ee_active_cat ? array('bcat' => $ee_active_cat->slug) : array(),
                 ));
                 if ($pagi) : ?>
                 <nav class="ee-blog-pagi" aria-label="Pagination">

@@ -3470,6 +3470,29 @@ add_action('template_redirect', function () {
     });
 
     $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
+
+    /* /blog/{category-slug}/  and  /blog/{category-slug}/page/N/
+       route to page-blog.php with the slug exposed as $_GET['bcat']
+       so the template can filter without us needing per-category
+       templates. WP's reserved "cat" query var is avoided. */
+    if (!isset($ee_custom_routes[$path])) {
+        $parts = explode('/', $path);
+        if (in_array($parts[0] ?? '', array('blog', 'blogs'), true) && !empty($parts[1]) && $parts[1] !== 'page') {
+            $slug = sanitize_title($parts[1]);
+            $cat  = $slug ? get_category_by_slug($slug) : null;
+            if ($cat) {
+                $_GET['bcat'] = $slug;
+                /* /blog/{slug}/page/N/ — let WP_Query see the page number. */
+                if (isset($parts[2], $parts[3]) && $parts[2] === 'page' && ctype_digit($parts[3])) {
+                    set_query_var('paged', (int) $parts[3]);
+                }
+                /* Inject the synthetic route so the rest of the closure
+                   below picks it up with the right title (category name). */
+                $ee_custom_routes[$path] = array('file' => 'page-blog.php', 'title' => $cat->name);
+            }
+        }
+    }
+
     if (!isset($ee_custom_routes[$path])) return;
 
     $route = $ee_custom_routes[$path];

@@ -248,9 +248,11 @@ $ee_current_cat = (isset($GLOBALS['ee_blog_active_cat']) && $GLOBALS['ee_blog_ac
             </a>
         </li>
         <?php foreach ($ee_blog_cats as $cat) :
-            /* Stay on /blog/ and pass the slug as ?cat= so the same
-               template handles both "all posts" and "posts in category X". */
-            $cat_link = esc_url(add_query_arg('bcat', $cat->slug, home_url('/blog/')));
+            /* Clean URL: /blog/{slug}/ — handled by the extended
+               template_redirect router in functions.php. Falls back
+               to the ?bcat= query string if a host's rewrite rules
+               aren't refreshed (Settings → Permalinks → Save). */
+            $cat_link = esc_url(trailingslashit(home_url('/blog/' . $cat->slug)));
         ?>
         <li>
             <a href="<?php echo $cat_link; ?>" class="<?php echo ($ee_current_cat && $ee_current_cat->term_id === $cat->term_id) ? 'active' : ''; ?>">
