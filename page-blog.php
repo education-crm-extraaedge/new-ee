@@ -49,63 +49,71 @@ get_header();
 
         <main class="ee-blog-main">
             <header class="ee-blog-heading">
-                <h1>Explore by Category</h1>
+                <h1>Latest from the Blog</h1>
             </header>
 
+            <?php
+            /* Pull every published post once — even if the post sits in
+               multiple categories WP returns it a single time. */
+            $ee_blog_query = new WP_Query(array(
+                'post_type'      => 'post',
+                'post_status'    => 'publish',
+                'posts_per_page' => 12,
+                'paged'          => max(1, get_query_var('paged') ?: get_query_var('page')),
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+                'ignore_sticky_posts' => true,
+            ));
+            ?>
+
             <div class="ee-blog-intro">
-                <p>Dive into our curated collection of insights across <span><?php echo (int) count($ee_blog_cats); ?> specialised topics</span>. Click a category to see every article in that bucket.</p>
+                <p>Showing <span><?php echo (int) $ee_blog_query->found_posts; ?> articles</span> across <strong><?php echo (int) count($ee_blog_cats); ?> categories</strong>. Click any title to read the full post.</p>
             </div>
 
-            <?php
-            /* One card per WP category */
-            if (empty($ee_blog_cats)) :
-            ?>
-                <div class="ee-blog-empty">
-                    <p>No blog categories yet. Add some categories under <strong>Posts → Categories</strong> and publish a few posts to populate this page.</p>
-                </div>
-            <?php else :
-                /* Try to pick a sensible icon per category from a small map */
-                $ee_cat_icons = array(
-                    'crm'         => 'fa-database',
-                    'admission'   => 'fa-graduation-cap',
-                    'marketing'   => 'fa-line-chart',
-                    'lead'        => 'fa-bullseye',
-                    'strategy'    => 'fa-bullseye',
-                    'ai'          => 'fa-bar-chart',
-                    'analytics'   => 'fa-bar-chart',
-                    'team'        => 'fa-users',
-                    'industry'    => 'fa-lightbulb-o',
-                    'sms'         => 'fa-comment',
-                    'whatsapp'    => 'fa-whatsapp',
-                    'higher'      => 'fa-university',
-                );
-                foreach ($ee_blog_cats as $cat) :
-                    $slug = strtolower($cat->slug);
-                    $icon = 'fa-folder';
-                    foreach ($ee_cat_icons as $needle => $ico) {
-                        if (strpos($slug, $needle) !== false) { $icon = $ico; break; }
-                    }
-                    $desc = $cat->description ?: 'Browse every published article in the ' . $cat->name . ' category.';
-            ?>
+            <?php if ($ee_blog_query->have_posts()) : ?>
+                <?php while ($ee_blog_query->have_posts()) : $ee_blog_query->the_post();
+                    $cats = get_the_category();
+                    $primary = !empty($cats) ? $cats[0] : null;
+                ?>
                 <article class="ee-blog-card">
                     <h3 class="ee-blog-card-title">
-                        <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>"><?php echo esc_html($cat->name); ?></a>
+                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                     </h3>
-                    <div class="ee-blog-card-meta">
-                        <div class="ee-blog-card-badge">
-                            <i class="fa <?php echo esc_attr($icon); ?>"></i>
-                            <span><?php echo esc_html($cat->name); ?></span>
-                        </div>
-                        <div class="ee-blog-card-count">
-                            <strong><?php echo (int) $cat->count; ?></strong> <?php echo $cat->count === 1 ? 'article' : 'articles'; ?>
-                        </div>
+                    <div class="ee-blog-card-date">
+                        Posted On <span><?php echo esc_html(get_the_date()); ?></span>
+                        <?php if ($primary) : ?>
+                            · <a href="<?php echo esc_url(get_category_link($primary->term_id)); ?>" style="color:var(--b-blue);text-decoration:none;font-weight:600;"><?php echo esc_html($primary->name); ?></a>
+                        <?php endif; ?>
                     </div>
-                    <p class="ee-blog-card-excerpt"><?php echo esc_html($desc); ?></p>
-                    <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>" class="ee-blog-explore">
-                        Explore Category <i class="fa fa-arrow-right"></i>
+                    <p class="ee-blog-card-excerpt">
+                        <?php echo esc_html(get_the_excerpt() ?: wp_trim_words(strip_shortcodes(get_the_content()), 30, '…')); ?>
+                    </p>
+                    <a href="<?php the_permalink(); ?>" class="ee-blog-explore">
+                        Read More <i class="fa fa-arrow-right"></i>
                     </a>
                 </article>
-            <?php endforeach; endif; ?>
+                <?php endwhile; wp_reset_postdata(); ?>
+
+                <?php
+                $pagi = paginate_links(array(
+                    'total'   => $ee_blog_query->max_num_pages,
+                    'current' => max(1, get_query_var('paged') ?: get_query_var('page')),
+                    'type'    => 'array',
+                    'base'    => trailingslashit(home_url('/blog/')) . '%_%',
+                    'format'  => 'page/%#%/',
+                ));
+                if ($pagi) : ?>
+                <nav class="ee-blog-pagi" aria-label="Pagination">
+                    <p>Page <?php echo max(1, get_query_var('paged') ?: get_query_var('page')); ?> of <?php echo (int) $ee_blog_query->max_num_pages; ?>, showing <?php echo (int) $ee_blog_query->post_count; ?> of <?php echo (int) $ee_blog_query->found_posts; ?> articles</p>
+                    <?php foreach ($pagi as $link) echo $link; ?>
+                </nav>
+                <?php endif; ?>
+
+            <?php else : ?>
+                <div class="ee-blog-empty">
+                    <p>No posts published yet. Head to <strong>Blog → Add New</strong> in your admin, assign a category, and your first article will land here automatically.</p>
+                </div>
+            <?php endif; ?>
         </main>
 
         <aside class="ee-blog-side-r" aria-label="Sidebar">
