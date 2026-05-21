@@ -281,10 +281,15 @@ if ($ee_is_home) {
             --eh-success: #10B981;
             --eh-warning: #F59E0B;
             --eh-danger: #EF4444;
-            --eh-text-dark: #1A1A1A;
-            --eh-text-light: #6B7280;
+            /* Softer typography palette — nav text no longer reads as harsh black.
+               --eh-text-dark   #475569 = slate-600  (nav links + titles at rest)
+               --eh-text-strong #1E293B = slate-800  (high-emphasis hover states)
+               --eh-text-light  #94A3B8 = slate-400  (descriptions, captions) */
+            --eh-text-dark:   #475569;
+            --eh-text-strong: #1E293B;
+            --eh-text-light:  #94A3B8;
             --eh-bg-light: #FFFFFF;
-            --eh-bg-subtle: #F9FAFB;
+            --eh-bg-subtle: #F8FAFC;
             --eh-border: #E5E7EB;
             --eh-border-light: #F3F4F6;
             --eh-shadow-sm: 0 2px 8px rgba(25,51,93,.06);
@@ -312,9 +317,9 @@ if ($ee_is_home) {
         /* Navigation */
         #site-header .eh-nav { display:flex; align-items:center; gap:.15rem; }
         #site-header .eh-nav-item { position:relative; }
-        #site-header .eh-nav-link { display:flex; align-items:center; gap:.3rem; padding:.5rem .75rem; color:var(--eh-text-dark); text-decoration:none; font-weight:500; font-size:.85rem; border-radius:8px; transition:all .2s ease; cursor:pointer; background:transparent; border:none; font-family:inherit; position:relative; }
-        #site-header .eh-nav-link:hover { background:var(--eh-bg-subtle); color:var(--eh-primary); }
-        #site-header .eh-nav-link.active { background:var(--eh-bg-subtle); color:var(--eh-primary); }
+        #site-header .eh-nav-link { display:flex; align-items:center; gap:.3rem; padding:.5rem .75rem; color:#475569; text-decoration:none; font-weight:500; font-size:.85rem; letter-spacing:.005em; border-radius:8px; transition:color .18s ease, background .18s ease; cursor:pointer; background:transparent; border:none; font-family:inherit; position:relative; }
+        #site-header .eh-nav-link:hover { background:#F8FAFC; color:#19335D; }
+        #site-header .eh-nav-link.active { background:#F8FAFC; color:#19335D; }
         #site-header .eh-nav-link .eh-chev { width:12px; height:12px; transition:transform .25s ease; }
         #site-header .eh-nav-item:hover .eh-nav-link .eh-chev { transform:rotate(180deg); }
 
@@ -327,7 +332,7 @@ if ($ee_is_home) {
         #site-header .eh-nav-item:hover .eh-mega { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
         #site-header .eh-mega-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; }
         #site-header .eh-mega-grid.three-col { grid-template-columns:repeat(3,1fr); }
-        #site-header .eh-mega-col h4 { font-family:'Archivo',sans-serif; font-size:.65rem; font-weight:700; color:var(--eh-text-light); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.55rem; display:flex; align-items:center; gap:.4rem; }
+        #site-header .eh-mega-col h4 { font-family:'Archivo',sans-serif; font-size:.65rem; font-weight:600; color:#94A3B8; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.55rem; display:flex; align-items:center; gap:.4rem; }
         #site-header .eh-col-icon { width:16px; height:16px; background:linear-gradient(135deg,var(--eh-primary-light),var(--eh-accent)); border-radius:5px; display:inline-flex; align-items:center; justify-content:center; padding:3px; color:#fff; }
         #site-header .eh-col-icon .eh-svg { width:100%; height:100%; filter:brightness(0) invert(1); }
 
@@ -344,14 +349,16 @@ if ($ee_is_home) {
 
         /* Dropdown link rows */
         #site-header .eh-dl { display:flex; align-items:flex-start; gap:.55rem; padding:.42rem .5rem; color:var(--eh-text-dark); text-decoration:none; border-radius:7px; transition:all .15s ease; margin-bottom:.1rem; position:relative; }
-        #site-header .eh-dl:hover { background:var(--eh-bg-subtle); color:var(--eh-primary); transform:translateX(2px); }
+        #site-header .eh-dl:hover { background:#F8FAFC; transform:translateX(2px); }
+        #site-header .eh-dl:hover .eh-dl-title { color:#19335D; }
+        #site-header .eh-dl:hover .eh-dl-desc  { color:#64748B; }
         #site-header .eh-dl-icon { width:28px; height:28px; background:linear-gradient(135deg,var(--eh-bg-subtle),#E8EEF3); border-radius:7px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:.9rem; padding:4px; transition:all .2s ease; color:var(--eh-primary); overflow:hidden; }
         #site-header .eh-dl-icon .eh-svg { width:100%; height:100%; }
         #site-header .eh-dl:hover .eh-dl-icon { background:linear-gradient(135deg,var(--eh-primary),var(--eh-accent)); transform:scale(1.05); }
         #site-header .eh-dl:hover .eh-dl-icon .eh-svg { filter:brightness(0) invert(1); }
         #site-header .eh-dl-content { flex:1; }
-        #site-header .eh-dl-title { font-weight:600; font-size:.8rem; margin-bottom:.1rem; display:flex; align-items:center; gap:.3rem; line-height:1.25; }
-        #site-header .eh-dl-desc { font-size:.7rem; color:var(--eh-text-light); line-height:1.35; }
+        #site-header .eh-dl-title { font-weight:600; font-size:.8rem; color:#334155; margin-bottom:.1rem; display:flex; align-items:center; gap:.3rem; line-height:1.25; }
+        #site-header .eh-dl-desc { font-size:.7rem; color:#94A3B8; line-height:1.4; }
 
         /* Badges */
         #site-header .eh-badge { font-size:.65rem; font-weight:700; padding:.15rem .45rem; border-radius:4px; text-transform:uppercase; letter-spacing:.02em; line-height:1.2; }
@@ -475,20 +482,20 @@ if ($ee_is_home) {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: #64748b;
+            color: #94a3b8;
             font-weight: 500;
         }
         .ee-breadcrumb li + li::before {
             content: "›";
-            color: #94a3b8;
+            color: #cbd5e1;
             margin-right: 2px;
             font-size: 15px;
             line-height: 1;
         }
         .ee-breadcrumb a {
-            color: #19335D;
+            color: #64748b;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
             transition: color .2s ease;
         }
         .ee-breadcrumb a:hover { color: #DE6E30; }
