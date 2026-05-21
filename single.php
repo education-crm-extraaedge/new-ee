@@ -3,13 +3,13 @@
  * Single Blog Post Template — premium reading layout
  *
  * - get_header() / get_footer() provide the site chrome (no DOCTYPE/html
- *   wrappers here).
+ *   wrappers here — the standalone <html> in any prototype is replaced
+ *   by header.php / footer.php).
  * - All editable fields come from the "📰 Blog Page Settings" meta box on
  *   the post edit screen, plus the standard WP post editor for the body.
  * - Left TOC auto-builds from the H2/H3 headings in the_content().
- * - Right sidebar: follow + lead form + product list + featured posts +
- *   newsletter subscribe. Featured posts auto-load the 3 most recent
- *   published posts.
+ * - Right sidebar: follow icons, configurable lead form (📥 Blog Form
+ *   admin page), product list, featured posts, newsletter subscribe.
  * - JSON-LD Article + FAQPage schema emitted to wp_head.
  */
 if (!defined('ABSPATH')) exit;
@@ -66,8 +66,7 @@ add_action('wp_head', function () use ($pid, $f, $faqs) {
     }
 }, 1);
 
-/* Pull tabler-icons CDN — used inside the layout. Lazy-print to avoid
-   double-loading. */
+/* Pull tabler-icons CDN + Inter/Lora fonts used inside the layout. */
 add_action('wp_head', function () {
     if (!is_singular('post')) return;
     echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">' . "\n";
@@ -80,11 +79,18 @@ get_header();
 while (have_posts()) : the_post();
     $author_id      = get_post_field('post_author', $pid);
     $author_name    = get_the_author_meta('display_name', $author_id);
-    $author_title   = get_the_author_meta('description', $author_id) ?: 'Contributor · ExtraaEdge';
-    $author_short   = get_user_meta($author_id, 'description', true);
+    $author_title   = get_the_author_meta('description', $author_id) ?: ($f('author_title') ?: 'Contributor · ExtraaEdge');
     $author_initials = strtoupper(mb_substr($author_name, 0, 1) . (preg_match('/\s(\S)/u', $author_name, $m) ? $m[1] : ''));
 
-    $category    = $f('category_tag', '');
+    /* Category tag → prefer first non-Uncategorized WP category for
+       the orange pill above the title. Falls back to the meta field if
+       the editor wants to override. */
+    $primary_cat = null;
+    foreach ((array) get_the_category() as $c) {
+        if ($c->slug !== 'uncategorized') { $primary_cat = $c; break; }
+    }
+    $category = $f('category_tag', $primary_cat ? $primary_cat->name : '');
+
     $subtitle    = $f('subtitle', '');
     $read_time   = $f('read_time', '6 min read');
     $hero_icon   = $f('hero_icon', 'ti-messages');
@@ -110,6 +116,7 @@ while (have_posts()) : the_post();
     --b-blue:#19335D;--b-blue-dark:#0F2040;--b-blue-light:#EEF2F8;
     --b-bg:#F8F9FB;--b-border:#E5E7EB;--b-border-dark:#D1D5DB;
     --b-text:#1F2937;--b-text-soft:#374151;--b-muted:#6B7280;--b-muted-soft:#9CA3AF;
+    --b-green:#25D366;--b-green-dark:#1DA851;
     --b-shadow-sm:0 1px 2px rgba(15,32,64,.06);
     --b-shadow-md:0 4px 12px rgba(15,32,64,.08);
     --b-shadow-lg:0 12px 32px rgba(15,32,64,.12);
@@ -119,22 +126,16 @@ while (have_posts()) : the_post();
     background:#fff;color:var(--b-text);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;
 }
 .ee-blog-page a{color:var(--b-blue);text-decoration:none;transition:color var(--b-transition);}
-/* Belt-and-braces — ensure no thin black divider lines anywhere
-   along the bottom of the blog wrap. Some host environments add a
-   default <hr> or a border-bottom on <main> that surfaces as a
-   horizontal line right before the footer CTA. */
+.ee-blog-page a:hover{color:var(--b-orange);}
 .ee-blog-page { border:0 !important; }
 .ee-blog-page hr { display:none !important; }
 .ee-blog-page + * { border-top:0 !important; }
 body > main { border:0 !important; box-shadow:none !important; }
-/* Hide the page-level vertical scrollbar visual while keeping the
-   page scrollable. Same trick as Stripe / Linear / Notion sites. */
 html.ee-thin-scroll, html.ee-thin-scroll body { scrollbar-width: thin; scrollbar-color: rgba(25,51,93,.18) transparent; }
 html.ee-thin-scroll body::-webkit-scrollbar { width:8px; }
 html.ee-thin-scroll body::-webkit-scrollbar-track { background:transparent; }
 html.ee-thin-scroll body::-webkit-scrollbar-thumb { background:rgba(25,51,93,.18); border-radius:8px; }
 html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,93,.32); }
-.ee-blog-page a:hover{color:var(--b-orange);}
 
 .ee-blog-page .ee-progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--b-orange),var(--b-blue));width:0%;z-index:9990;transition:width .1s linear;}
 
@@ -162,10 +163,16 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-btn-outline:hover{background:var(--b-blue);color:#fff;}
 
 .ee-meta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:18px 0;border-top:1px solid var(--b-border);border-bottom:1px solid var(--b-border);margin-bottom:32px;}
-.ee-author-chip{display:flex;align-items:center;gap:10px;position:relative;}
+.ee-author-chip{display:flex;align-items:center;gap:10px;position:relative;cursor:pointer;}
 .ee-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--b-blue),var(--b-blue-dark));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;letter-spacing:.02em;}
 .ee-author-name{font-size:13.5px;font-weight:600;color:var(--b-blue);line-height:1.2;}
 .ee-author-title{font-size:11.5px;color:var(--b-muted);margin-top:2px;}
+.ee-author-popup{display:none;position:absolute;top:52px;left:0;background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:18px;width:280px;z-index:100;box-shadow:var(--b-shadow-lg);}
+.ee-author-popup.ee-show{display:block;animation:ee-popIn .18s ease;}
+@keyframes ee-popIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
+.ee-author-popup h5{font-size:14px;font-weight:700;color:var(--b-blue);margin:0 0 4px;}
+.ee-author-popup p{font-size:12px;color:var(--b-muted);line-height:1.55;margin:0;}
+.ee-author-popup .ee-ap-role{font-size:11px;color:var(--b-orange);font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em;}
 .ee-meta-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--b-muted);}
 .ee-meta-item i{font-size:15px;color:var(--b-muted-soft);}
 .ee-top-actions{display:flex;align-items:center;gap:8px;margin-left:auto;}
@@ -209,6 +216,16 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-soc-fb{background:#1877F2;}.ee-soc-tw{background:#000;}.ee-soc-li{background:#0A66C2;}
 .ee-soc-wa{background:#25D366;}.ee-soc-em{background:var(--b-blue);}.ee-soc-cp{background:#6B7280;}
 
+.ee-send-article{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:22px;margin:24px 0;}
+.ee-send-article h4{font-size:14px;font-weight:700;color:var(--b-blue);margin:0 0 4px;display:flex;align-items:center;gap:8px;}
+.ee-send-article p{font-size:12.5px;color:var(--b-muted);margin:0 0 14px;}
+.ee-send-row{display:flex;gap:8px;}
+.ee-send-row input{flex:1;border:1px solid var(--b-border);border-radius:var(--b-radius-sm);padding:10px 14px;font-size:13.5px;font-family:inherit;outline:none;transition:border var(--b-transition);}
+.ee-send-row input:focus{border-color:var(--b-orange);box-shadow:0 0 0 3px rgba(222,110,48,.12);}
+.ee-send-row input.ee-invalid{border-color:#DC2626;}
+.ee-send-row button{background:var(--b-orange);color:#fff;border:none;padding:10px 18px;border-radius:var(--b-radius-sm);font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:background var(--b-transition);}
+.ee-send-row button:hover{background:var(--b-orange-dark);}
+
 .ee-faq-section{margin:40px 0;}
 .ee-faq-section h2{font-size:24px;font-weight:700;color:var(--b-blue);margin-bottom:18px;}
 .ee-faq-item{border:1px solid var(--b-border);border-radius:var(--b-radius-md);margin-bottom:10px;overflow:hidden;background:#fff;transition:border var(--b-transition);}
@@ -240,6 +257,19 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-f-ig{background:linear-gradient(45deg,#F09433,#E6683C,#DC2743,#CC2366,#BC1888);}
 .ee-f-yt{background:#FF0000;}
 
+/* Lead form in sidebar — wraps the configurable form rendered by
+   ee_render_blog_form() so the embed code or the built-in form
+   inherits the right look. */
+.ee-right-sidebar .ee-blog-lead{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:20px;box-shadow:var(--b-shadow-sm);}
+.ee-right-sidebar .ee-blog-lead h2{font-size:15px;font-weight:700;color:var(--b-blue);margin:0 0 4px;text-transform:none;letter-spacing:0;line-height:1.35;}
+.ee-right-sidebar .ee-blog-form input,
+.ee-right-sidebar .ee-blog-form textarea{width:100%;border:1px solid var(--b-border);border-radius:var(--b-radius-sm);padding:9px 11px;font-size:13.5px;font-family:inherit;outline:none;transition:all var(--b-transition);margin-bottom:10px;background:#fff;color:var(--b-text);box-sizing:border-box;}
+.ee-right-sidebar .ee-blog-form textarea{resize:vertical;min-height:80px;}
+.ee-right-sidebar .ee-blog-form input:focus,
+.ee-right-sidebar .ee-blog-form textarea:focus{border-color:var(--b-orange);box-shadow:0 0 0 3px rgba(222,110,48,.12);}
+.ee-right-sidebar .ee-blog-form button{width:100%;background:var(--b-orange);color:#fff;border:none;padding:11px;border-radius:var(--b-radius-sm);font-size:13.5px;font-weight:700;cursor:pointer;transition:background var(--b-transition);display:inline-flex;align-items:center;justify-content:center;gap:6px;}
+.ee-right-sidebar .ee-blog-form button:hover{background:var(--b-orange-dark);}
+
 .ee-product-list{display:flex;flex-direction:column;gap:8px;}
 .ee-product-pill{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-sm);padding:11px 14px;display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:500;color:var(--b-blue);cursor:pointer;transition:all var(--b-transition);text-decoration:none;}
 .ee-product-pill:hover{border-color:var(--b-orange);background:var(--b-orange-light);color:var(--b-orange);transform:translateX(2px);}
@@ -263,6 +293,10 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-sub-input:focus{border-color:var(--b-orange);background:rgba(255,255,255,.12);}
 .ee-sub-btn{width:100%;background:var(--b-orange);color:#fff;border:none;padding:10px;border-radius:var(--b-radius-sm);font-size:12.5px;font-weight:700;cursor:pointer;transition:background var(--b-transition);}
 .ee-sub-btn:hover{background:var(--b-orange-dark);}
+.ee-sub-legal{font-size:10.5px;opacity:.7;margin-top:10px;line-height:1.5;color:#fff;}
+.ee-sub-legal a{color:var(--b-orange);}
+
+.ee-last-updated{font-size:11.5px;color:var(--b-muted);padding-top:16px;border-top:1px solid var(--b-border);margin-top:18px;display:flex;align-items:center;gap:6px;}
 
 .ee-floating-contact{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:1000;}
 .ee-float-btn{display:flex;align-items:center;gap:10px;padding:12px 16px 12px 14px;border-radius:50px;color:#fff;font-weight:600;font-size:13.5px;text-decoration:none;box-shadow:0 6px 20px rgba(15,32,64,.18);transition:all .25s ease;cursor:pointer;border:none;font-family:inherit;}
@@ -272,11 +306,19 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-float-btn .ee-float-label small{font-size:10px;opacity:.9;font-weight:500;letter-spacing:.04em;text-transform:uppercase;}
 .ee-float-btn .ee-float-label strong{font-size:13px;font-weight:700;letter-spacing:.01em;}
 .ee-float-whatsapp{background:linear-gradient(135deg,#25D366,#1DA851);}
+.ee-float-whatsapp .ee-float-icon-wrap{animation:ee-wa-pulse 2.4s infinite;}
+@keyframes ee-wa-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.4);}50%{box-shadow:0 0 0 8px rgba(255,255,255,0);}}
 .ee-float-call{background:linear-gradient(135deg,var(--b-orange),#C55E24);}
+.ee-float-call .ee-float-icon-wrap i{animation:ee-phone-shake 1.6s infinite;}
+@keyframes ee-phone-shake{0%,60%,100%{transform:rotate(0);}10%,30%,50%{transform:rotate(-12deg);}20%,40%{transform:rotate(12deg);}}
 
 .ee-scroll-top{position:fixed;left:20px;bottom:20px;width:42px;height:42px;border-radius:50%;background:var(--b-blue);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--b-shadow-md);transition:all var(--b-transition);z-index:999;}
 .ee-scroll-top.ee-show{display:flex;}
 .ee-scroll-top:hover{background:var(--b-blue-dark);transform:translateY(-2px);}
+
+.ee-copy-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--b-blue);color:#fff;padding:12px 22px;border-radius:var(--b-radius-md);font-size:13.5px;z-index:1200;display:flex;align-items:center;gap:8px;opacity:0;pointer-events:none;transition:all .25s;box-shadow:var(--b-shadow-lg);}
+.ee-copy-toast.ee-show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
+.ee-copy-toast i{color:#10B981;font-size:18px;}
 
 @media (max-width:1100px){
     .ee-blog-wrap{grid-template-columns:220px minmax(0,1fr);}
@@ -328,25 +370,29 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             </div>
 
             <div class="ee-meta-row">
-                <div class="ee-author-chip">
+                <div class="ee-author-chip" id="ee-author-chip" tabindex="0" role="button" aria-haspopup="true">
                     <div class="ee-avatar"><?php echo esc_html($author_initials); ?></div>
                     <div>
                         <div class="ee-author-name"><?php echo esc_html($author_name); ?></div>
                         <div class="ee-author-title"><?php echo esc_html($author_title); ?></div>
                     </div>
+                    <div class="ee-author-popup" id="ee-author-popup" role="dialog">
+                        <div class="ee-avatar" style="width:48px;height:48px;font-size:16px;margin-bottom:10px;"><?php echo esc_html($author_initials); ?></div>
+                        <h5><?php echo esc_html($author_name); ?></h5>
+                        <div class="ee-ap-role"><?php echo esc_html($author_title); ?></div>
+                        <p><?php echo esc_html(get_the_author_meta('description', $author_id) ?: 'Contributor sharing field-tested insights for admissions and EdTech teams.'); ?></p>
+                    </div>
                 </div>
                 <span class="ee-meta-item"><i class="ti ti-clock"></i> <?php echo esc_html($read_time); ?></span>
                 <span class="ee-meta-item"><i class="ti ti-calendar"></i> <?php echo esc_html(get_the_date()); ?></span>
                 <div class="ee-top-actions">
-                    <button class="ee-icon-btn" onclick="navigator.clipboard.writeText(location.href);this.innerHTML='<i class=&quot;ti ti-check&quot;></i> Copied';" title="Copy link"><i class="ti ti-link"></i> Copy</button>
-                    <button class="ee-icon-btn" onclick="if(navigator.share){navigator.share({title:document.title,url:location.href})}" title="Share"><i class="ti ti-share-3"></i> Share</button>
+                    <button class="ee-icon-btn" id="ee-btn-copy-md" title="Copy article as Markdown"><i class="ti ti-markdown"></i> Copy MD</button>
+                    <button class="ee-icon-btn" id="ee-btn-share" title="Share this page"><i class="ti ti-share-3"></i> Share</button>
                     <button class="ee-icon-btn" onclick="window.print()" title="Print"><i class="ti ti-printer"></i> Print</button>
                 </div>
             </div>
 
-            <?php
-            $featured = get_the_post_thumbnail($pid, 'full', array('alt' => esc_attr(get_the_title())));
-            ?>
+            <?php $featured = get_the_post_thumbnail($pid, 'full', array('alt' => esc_attr(get_the_title()))); ?>
             <div class="ee-hero-img<?php echo $featured ? ' has-featured' : ''; ?>" aria-hidden="true">
                 <?php if ($featured) : ?>
                     <?php echo $featured; ?>
@@ -385,10 +431,20 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 <div class="ee-social-icons">
                     <?php $u = urlencode(get_permalink()); $t = urlencode(get_the_title()); ?>
                     <a class="ee-soc-btn ee-soc-fb" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $u; ?>" target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> Facebook</a>
-                    <a class="ee-soc-btn ee-soc-tw" href="https://twitter.com/intent/tweet?url=<?php echo $u; ?>&text=<?php echo $t; ?>" target="_blank" rel="noopener"><i class="ti ti-brand-x"></i> Twitter</a>
+                    <a class="ee-soc-btn ee-soc-tw" href="https://twitter.com/intent/tweet?url=<?php echo $u; ?>&text=<?php echo $t; ?>" target="_blank" rel="noopener"><i class="ti ti-brand-x"></i> Twitter/X</a>
                     <a class="ee-soc-btn ee-soc-li" href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo $u; ?>" target="_blank" rel="noopener"><i class="ti ti-brand-linkedin"></i> LinkedIn</a>
                     <a class="ee-soc-btn ee-soc-wa" href="https://api.whatsapp.com/send?text=<?php echo $t; ?>%20<?php echo $u; ?>" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
                     <a class="ee-soc-btn ee-soc-em" href="mailto:?subject=<?php echo $t; ?>&body=<?php echo $u; ?>"><i class="ti ti-mail"></i> Email</a>
+                    <button class="ee-soc-btn ee-soc-cp" id="ee-btn-copy-link" type="button"><i class="ti ti-link"></i> Copy Link</button>
+                </div>
+            </div>
+
+            <div class="ee-send-article">
+                <h4><i class="ti ti-send"></i> Send this article to someone who'd like it</h4>
+                <p>Share this guide with a colleague or friend in education marketing.</p>
+                <div class="ee-send-row">
+                    <input type="email" id="ee-send-email" placeholder="Enter their email address..." aria-label="Recipient email">
+                    <button type="button" id="ee-btn-send-article">Send <i class="ti ti-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -418,8 +474,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
             <div class="ee-meta-bottom">
                 <span><strong>Last Updated:</strong> <?php echo esc_html(get_the_modified_date()); ?></span>
-                <?php $cats = get_the_category(); if (!empty($cats)) : ?>
-                    <span><strong>Category:</strong> <?php echo esc_html($cats[0]->name); ?></span>
+                <?php if ($primary_cat) : ?>
+                    <span><strong>Category:</strong> <a href="<?php echo esc_url(trailingslashit(home_url('/blog/' . $primary_cat->slug))); ?>" style="color:var(--b-orange);"><?php echo esc_html($primary_cat->name); ?></a></span>
                 <?php endif; ?>
                 <span><strong>Author:</strong> <?php echo esc_html($author_name); ?></span>
             </div>
@@ -437,6 +493,12 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                     <a class="ee-follow-btn ee-f-yt" href="https://www.youtube.com/@ExtraaEdge" target="_blank" rel="noopener" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
                 </div>
             </div>
+
+            <?php if (function_exists('ee_render_blog_form')) : ?>
+            <div class="ee-sidebar-section">
+                <?php ee_render_blog_form(); ?>
+            </div>
+            <?php endif; ?>
 
             <?php
             /* Products list — pulls from the Product CPT helper if available. */
@@ -494,6 +556,11 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 <p>Get better business insights &amp; strategies weekly from ExtraaEdge.</p>
                 <input class="ee-sub-input" type="email" placeholder="Your email address" aria-label="Subscribe email" id="ee-sub-email">
                 <button class="ee-sub-btn" onclick="var v=document.getElementById('ee-sub-email').value.trim();if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){this.innerText='Subscribed!';this.disabled=true;document.getElementById('ee-sub-email').value='';}">Subscribe</button>
+                <div class="ee-sub-legal">By subscribing, you consent to receive marketing communications from ExtraaEdge. You can unsubscribe anytime. See our <a href="/privacy-policy/">Privacy Policy</a>.</div>
+            </div>
+
+            <div class="ee-last-updated">
+                <i class="ti ti-calendar-check"></i> Last Updated: <strong style="margin-left:4px;"><?php echo esc_html(get_the_modified_date()); ?></strong>
             </div>
 
         </aside>
@@ -511,11 +578,102 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     </div>
 
     <button class="ee-scroll-top" id="ee-scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"><i class="ti ti-arrow-up"></i></button>
+
+    <div class="ee-copy-toast" id="ee-copy-toast"><i class="ti ti-circle-check"></i> <span id="ee-toast-msg">Copied!</span></div>
 </div>
 
 <script>
 (function(){
-    /* Build TOC from H2/H3 inside .ee-blog-body */
+    /* ── Toast ── */
+    var toast = document.getElementById('ee-copy-toast');
+    var toastMsg = document.getElementById('ee-toast-msg');
+    var toastTimer;
+    function showToast(msg){
+        if (!toast) return;
+        toastMsg.textContent = msg;
+        toast.classList.add('ee-show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function(){ toast.classList.remove('ee-show'); }, 2400);
+    }
+
+    /* ── Author popup ── */
+    var chip = document.getElementById('ee-author-chip');
+    var popup = document.getElementById('ee-author-popup');
+    if (chip && popup) {
+        chip.addEventListener('click', function(e){
+            e.stopPropagation();
+            popup.classList.toggle('ee-show');
+        });
+        document.addEventListener('click', function(e){
+            if (!chip.contains(e.target)) popup.classList.remove('ee-show');
+        });
+    }
+
+    /* ── Copy as Markdown ── */
+    var btnCopyMd = document.getElementById('ee-btn-copy-md');
+    if (btnCopyMd) {
+        btnCopyMd.addEventListener('click', function(){
+            var title = document.querySelector('.ee-blog-title');
+            var body  = document.getElementById('ee-blog-body');
+            if (!title || !body) return;
+            var md = '# ' + title.textContent.trim() + '\n\n';
+            md += 'Source: ' + location.href + '\n\n---\n\n';
+            body.querySelectorAll('h2, h3, p, li').forEach(function(el){
+                var t = el.textContent.trim();
+                if (!t) return;
+                if (el.tagName === 'H2') md += '\n## ' + t + '\n\n';
+                else if (el.tagName === 'H3') md += '\n### ' + t + '\n\n';
+                else if (el.tagName === 'LI') md += '- ' + t + '\n';
+                else md += t + '\n\n';
+            });
+            navigator.clipboard.writeText(md)
+                .then(function(){ showToast('Copied as Markdown!'); })
+                .catch(function(){ showToast('Unable to copy.'); });
+        });
+    }
+
+    /* ── Share button (native share if available, else copy link) ── */
+    var btnShare = document.getElementById('ee-btn-share');
+    if (btnShare) {
+        btnShare.addEventListener('click', function(){
+            if (navigator.share) {
+                navigator.share({ title: document.title, url: location.href }).catch(function(){});
+            } else {
+                navigator.clipboard.writeText(location.href).then(function(){ showToast('Link copied!'); });
+            }
+        });
+    }
+
+    /* ── Copy link inside share section ── */
+    var btnCopyLink = document.getElementById('ee-btn-copy-link');
+    if (btnCopyLink) {
+        btnCopyLink.addEventListener('click', function(){
+            navigator.clipboard.writeText(location.href).then(function(){ showToast('Link copied!'); });
+        });
+    }
+
+    /* ── Send article via email ── */
+    var btnSend = document.getElementById('ee-btn-send-article');
+    var inpSend = document.getElementById('ee-send-email');
+    if (btnSend && inpSend) {
+        btnSend.addEventListener('click', function(){
+            var v = inpSend.value.trim();
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+                inpSend.classList.add('ee-invalid');
+                inpSend.focus();
+                showToast('Enter a valid email.');
+                return;
+            }
+            inpSend.classList.remove('ee-invalid');
+            var subject = encodeURIComponent(document.title);
+            var bodyTxt = encodeURIComponent("Thought you'd like this read:\n\n" + document.title + '\n' + location.href);
+            window.location.href = 'mailto:' + encodeURIComponent(v) + '?subject=' + subject + '&body=' + bodyTxt;
+            inpSend.value = '';
+            showToast('Opening your mail app…');
+        });
+    }
+
+    /* ── TOC build + scrollspy + progress ── */
     var body = document.getElementById('ee-blog-body');
     var toc  = document.getElementById('ee-toc');
     if (body && toc) {
@@ -531,15 +689,14 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             toc.appendChild(li);
         });
     }
-    /* Reading progress + scroll-top + TOC active state */
-    var bar = document.getElementById('ee-progress-bar');
-    var sTop = document.getElementById('ee-scroll-top');
+    var bar      = document.getElementById('ee-progress-bar');
+    var sTop     = document.getElementById('ee-scroll-top');
     var tocLinks = toc ? toc.querySelectorAll('a') : [];
     var sections = body ? body.querySelectorAll('h2[id], h3[id]') : [];
     function onScroll(){
         var h = document.documentElement;
         var max = h.scrollHeight - h.clientHeight;
-        bar.style.width = max > 0 ? (h.scrollTop / max * 100) + '%' : '0%';
+        if (bar) bar.style.width = max > 0 ? (h.scrollTop / max * 100) + '%' : '0%';
         if (sTop) sTop.classList.toggle('ee-show', h.scrollTop > 400);
         var cur = 'ee-intro';
         sections.forEach(function(s){ if (s.getBoundingClientRect().top < 220) cur = s.id; });
@@ -548,7 +705,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     window.addEventListener('scroll', onScroll, { passive:true });
     onScroll();
 
-    /* Smooth-scroll TOC */
+    /* ── Smooth-scroll TOC ── */
     tocLinks.forEach(function(l){
         l.addEventListener('click', function(e){
             var t = document.querySelector(l.getAttribute('href'));
@@ -557,8 +714,6 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     });
 })();
 
-/* Add the thin-scrollbar class only on blog post pages so the
-   subtle scrollbar style is scoped to /blog/*. */
 document.documentElement.classList.add('ee-thin-scroll');
 </script>
 
