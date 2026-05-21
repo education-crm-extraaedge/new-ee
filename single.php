@@ -119,13 +119,29 @@ while (have_posts()) : the_post();
     background:#fff;color:var(--b-text);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;
 }
 .ee-blog-page a{color:var(--b-blue);text-decoration:none;transition:color var(--b-transition);}
+/* Belt-and-braces — ensure no thin black divider lines anywhere
+   along the bottom of the blog wrap. Some host environments add a
+   default <hr> or a border-bottom on <main> that surfaces as a
+   horizontal line right before the footer CTA. */
+.ee-blog-page { border:0 !important; }
+.ee-blog-page hr { display:none !important; }
+.ee-blog-page + * { border-top:0 !important; }
+body > main { border:0 !important; box-shadow:none !important; }
+/* Hide the page-level vertical scrollbar visual while keeping the
+   page scrollable. Same trick as Stripe / Linear / Notion sites. */
+html.ee-thin-scroll, html.ee-thin-scroll body { scrollbar-width: thin; scrollbar-color: rgba(25,51,93,.18) transparent; }
+html.ee-thin-scroll body::-webkit-scrollbar { width:8px; }
+html.ee-thin-scroll body::-webkit-scrollbar-track { background:transparent; }
+html.ee-thin-scroll body::-webkit-scrollbar-thumb { background:rgba(25,51,93,.18); border-radius:8px; }
+html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,93,.32); }
 .ee-blog-page a:hover{color:var(--b-orange);}
 
 .ee-blog-page .ee-progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--b-orange),var(--b-blue));width:0%;z-index:9990;transition:width .1s linear;}
 
 .ee-blog-wrap{display:grid;grid-template-columns:240px minmax(0,1fr) 300px;max-width:1280px;margin:0 auto;}
 
-.ee-toc-sidebar{padding:32px 20px;border-right:1px solid var(--b-border);position:sticky;top:96px;height:calc(100vh - 96px);overflow-y:auto;}
+.ee-toc-sidebar{padding:32px 20px;border-right:1px solid var(--b-border);position:sticky;top:96px;height:calc(100vh - 96px);overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;}
+.ee-toc-sidebar::-webkit-scrollbar{display:none;width:0;height:0;}
 .ee-toc-sidebar h3{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--b-muted);text-transform:uppercase;margin-bottom:16px;}
 .ee-toc-list{list-style:none;margin:0;padding:0;}
 .ee-toc-list li{margin-bottom:2px;}
@@ -540,6 +556,10 @@ while (have_posts()) : the_post();
         });
     });
 })();
+
+/* Add the thin-scrollbar class only on blog post pages so the
+   subtle scrollbar style is scoped to /blog/*. */
+document.documentElement.classList.add('ee-thin-scroll');
 </script>
 
 <?php
