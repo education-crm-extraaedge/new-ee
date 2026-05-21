@@ -77,9 +77,14 @@ add_action('wp_head', function () {
 get_header();
 
 while (have_posts()) : the_post();
-    $author_id      = get_post_field('post_author', $pid);
-    $author_name    = get_the_author_meta('display_name', $author_id);
-    $author_title   = get_the_author_meta('description', $author_id) ?: ($f('author_title') ?: 'Contributor · ExtraaEdge');
+    $author_id       = get_post_field('post_author', $pid);
+    /* Author display: SEO meta box override → WP user display_name. */
+    $override_name   = get_post_meta($pid, '_author_display', true);
+    $override_role   = get_post_meta($pid, '_author_role',    true);
+    $override_bio    = get_post_meta($pid, '_author_bio',     true);
+    $author_name     = $override_name ?: get_the_author_meta('display_name', $author_id);
+    $author_title    = $override_role ?: (get_the_author_meta('description', $author_id) ?: 'Contributor · ExtraaEdge');
+    $author_bio_text = $override_bio  ?: (get_the_author_meta('description', $author_id) ?: 'Contributor sharing field-tested insights for admissions and EdTech teams.');
     $author_initials = strtoupper(mb_substr($author_name, 0, 1) . (preg_match('/\s(\S)/u', $author_name, $m) ? $m[1] : ''));
 
     /* Category tag → prefer first non-Uncategorized WP category for
@@ -143,7 +148,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
 .ee-toc-sidebar{padding:32px 20px;border-right:1px solid var(--b-border);position:sticky;top:96px;height:calc(100vh - 96px);overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;}
 .ee-toc-sidebar::-webkit-scrollbar{display:none;width:0;height:0;}
-.ee-toc-sidebar h3{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--b-muted);text-transform:uppercase;margin-bottom:16px;}
+.ee-toc-sidebar h3,
+.ee-toc-sidebar .ee-toc-heading{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--b-muted);text-transform:uppercase;margin-bottom:16px;}
 .ee-toc-list{list-style:none;margin:0;padding:0;}
 .ee-toc-list li{margin-bottom:2px;}
 .ee-toc-list a{font-size:13px;color:var(--b-muted);display:block;padding:7px 12px;border-left:2px solid transparent;border-radius:0 6px 6px 0;transition:all var(--b-transition);line-height:1.4;}
@@ -170,7 +176,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-author-popup{display:none;position:absolute;top:52px;left:0;background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:18px;width:280px;z-index:100;box-shadow:var(--b-shadow-lg);}
 .ee-author-popup.ee-show{display:block;animation:ee-popIn .18s ease;}
 @keyframes ee-popIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
-.ee-author-popup h5{font-size:14px;font-weight:700;color:var(--b-blue);margin:0 0 4px;}
+.ee-author-popup h5,
+.ee-author-popup .ee-ap-name{font-size:14px;font-weight:700;color:var(--b-blue);margin:0 0 4px;}
 .ee-author-popup p{font-size:12px;color:var(--b-muted);line-height:1.55;margin:0;}
 .ee-author-popup .ee-ap-role{font-size:11px;color:var(--b-orange);font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em;}
 .ee-meta-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--b-muted);}
@@ -209,7 +216,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-stat-label{font-size:12px;color:var(--b-muted);margin-top:6px;font-weight:500;}
 
 .ee-share-section{margin:36px 0;padding:22px;background:var(--b-bg);border-radius:var(--b-radius-md);}
-.ee-share-section h4{font-size:14px;font-weight:700;color:var(--b-blue);margin:0 0 14px;display:flex;align-items:center;gap:8px;}
+.ee-share-section h4,
+.ee-share-section .ee-section-label{font-size:14px;font-weight:700;color:var(--b-blue);margin:0 0 14px;display:flex;align-items:center;gap:8px;}
 .ee-social-icons{display:flex;gap:8px;flex-wrap:wrap;}
 .ee-soc-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:var(--b-radius-sm);font-size:12.5px;font-weight:600;cursor:pointer;border:none;transition:all var(--b-transition);color:#fff;text-decoration:none;}
 .ee-soc-btn:hover{transform:translateY(-1px);box-shadow:var(--b-shadow-md);color:#fff;}
@@ -217,7 +225,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-soc-wa{background:#25D366;}.ee-soc-em{background:var(--b-blue);}.ee-soc-cp{background:#6B7280;}
 
 .ee-send-article{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:22px;margin:24px 0;}
-.ee-send-article h4{font-size:14px;font-weight:700;color:var(--b-blue);margin:0 0 4px;display:flex;align-items:center;gap:8px;}
+.ee-send-article h4,
+.ee-send-article .ee-section-label{font-size:14px;font-weight:700;color:var(--b-blue);margin:0 0 4px;display:flex;align-items:center;gap:8px;}
 .ee-send-article p{font-size:12.5px;color:var(--b-muted);margin:0 0 14px;}
 .ee-send-row{display:flex;gap:8px;}
 .ee-send-row input{flex:1;border:1px solid var(--b-border);border-radius:var(--b-radius-sm);padding:10px 14px;font-size:13.5px;font-family:inherit;outline:none;transition:border var(--b-transition);}
@@ -240,7 +249,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-crm-banner{background:linear-gradient(135deg,var(--b-blue) 0%,var(--b-blue-dark) 100%);border-radius:var(--b-radius-lg);padding:32px 36px;margin:36px 0;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;overflow:hidden;}
 .ee-crm-banner::after{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(222,110,48,.25),transparent 70%);}
 .ee-crm-banner > div{position:relative;z-index:2;flex:1;min-width:220px;}
-.ee-crm-banner h3{font-size:22px;font-weight:700;margin:0 0 8px;letter-spacing:-.01em;color:#fff;}
+.ee-crm-banner h3,
+.ee-crm-banner .ee-crm-banner-title{font-size:22px;font-weight:700;margin:0 0 8px;letter-spacing:-.01em;color:#fff;}
 .ee-crm-banner p{font-size:13.5px;opacity:.88;margin:0;max-width:520px;color:#fff;}
 .ee-crm-badge{background:var(--b-orange);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:10px;letter-spacing:.08em;text-transform:uppercase;}
 .ee-meta-bottom{padding:22px 0;border-top:1px solid var(--b-border);margin-top:36px;font-size:12.5px;color:var(--b-muted);display:flex;flex-wrap:wrap;gap:18px;}
@@ -248,7 +258,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
 .ee-right-sidebar{padding:32px 22px;border-left:1px solid var(--b-border);background:var(--b-bg);}
 .ee-sidebar-section{margin-bottom:30px;}
-.ee-sidebar-section h4{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--b-muted);text-transform:uppercase;margin:0 0 14px;display:flex;align-items:center;gap:6px;}
+.ee-sidebar-section h4,
+.ee-sidebar-section .ee-section-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--b-muted);text-transform:uppercase;margin:0 0 14px;display:flex;align-items:center;gap:6px;}
 
 .ee-follow-icons{display:flex;gap:8px;flex-wrap:wrap;}
 .ee-follow-btn{width:38px;height:38px;border-radius:var(--b-radius-sm);display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;font-size:17px;transition:all var(--b-transition);color:#fff;text-decoration:none;}
@@ -286,7 +297,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-feat-date{font-size:11px;color:var(--b-muted);margin-top:5px;}
 
 .ee-subscribe-box{background:linear-gradient(135deg,var(--b-blue),var(--b-blue-dark));border-radius:var(--b-radius-md);padding:22px;margin-top:30px;color:#fff;}
-.ee-subscribe-box h4{font-size:14px;font-weight:700;margin:0 0 4px;text-transform:none;letter-spacing:0;color:#fff;}
+.ee-subscribe-box h4,
+.ee-subscribe-box .ee-subscribe-title{font-size:14px;font-weight:700;margin:0 0 4px;text-transform:none;letter-spacing:0;color:#fff;}
 .ee-subscribe-box p{font-size:12px;opacity:.85;margin:0 0 14px;line-height:1.55;color:#fff;}
 .ee-sub-input{width:100%;border:1px solid rgba(255,255,255,.25);border-radius:var(--b-radius-sm);padding:10px 12px;font-size:12.5px;font-family:inherit;background:rgba(255,255,255,.08);color:#fff;outline:none;margin-bottom:8px;box-sizing:border-box;}
 .ee-sub-input::placeholder{color:rgba(255,255,255,.55);}
@@ -345,7 +357,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     <div class="ee-blog-wrap">
 
         <aside class="ee-toc-sidebar" aria-label="Table of Contents">
-            <h3>On this page</h3>
+            <div class="ee-toc-heading">On this page</div>
             <ul class="ee-toc-list" id="ee-toc">
                 <li><a href="#ee-intro" class="ee-active">Introduction</a></li>
                 <!-- Auto-built from content H2/H3 by JS -->
@@ -378,9 +390,9 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                     </div>
                     <div class="ee-author-popup" id="ee-author-popup" role="dialog">
                         <div class="ee-avatar" style="width:48px;height:48px;font-size:16px;margin-bottom:10px;"><?php echo esc_html($author_initials); ?></div>
-                        <h5><?php echo esc_html($author_name); ?></h5>
+                        <div class="ee-ap-name"><?php echo esc_html($author_name); ?></div>
                         <div class="ee-ap-role"><?php echo esc_html($author_title); ?></div>
-                        <p><?php echo esc_html(get_the_author_meta('description', $author_id) ?: 'Contributor sharing field-tested insights for admissions and EdTech teams.'); ?></p>
+                        <p><?php echo esc_html($author_bio_text); ?></p>
                     </div>
                 </div>
                 <span class="ee-meta-item"><i class="ti ti-clock"></i> <?php echo esc_html($read_time); ?></span>
@@ -427,7 +439,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             </div>
 
             <div class="ee-share-section">
-                <h4><i class="ti ti-share-3"></i> Share this article</h4>
+                <div class="ee-section-label"><i class="ti ti-share-3"></i> Share this article</div>
                 <div class="ee-social-icons">
                     <?php $u = urlencode(get_permalink()); $t = urlencode(get_the_title()); ?>
                     <a class="ee-soc-btn ee-soc-fb" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $u; ?>" target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> Facebook</a>
@@ -440,7 +452,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             </div>
 
             <div class="ee-send-article">
-                <h4><i class="ti ti-send"></i> Send this article to someone who'd like it</h4>
+                <div class="ee-section-label"><i class="ti ti-send"></i> Send this article to someone who'd like it</div>
                 <p>Share this guide with a colleague or friend in education marketing.</p>
                 <div class="ee-send-row">
                     <input type="email" id="ee-send-email" placeholder="Enter their email address..." aria-label="Recipient email">
@@ -453,9 +465,9 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                     <h2>Frequently Asked Questions</h2>
                     <?php foreach ($faqs as $faq) : ?>
                         <div class="ee-faq-item">
-                            <button class="ee-faq-q" onclick="this.parentElement.classList.toggle('ee-open')">
-                                <?php echo esc_html($faq['q']); ?>
-                                <i class="ti ti-chevron-down ee-faq-icon"></i>
+                            <button class="ee-faq-q" type="button" aria-expanded="false">
+                                <span><?php echo esc_html($faq['q']); ?></span>
+                                <i class="ti ti-chevron-down ee-faq-icon" aria-hidden="true"></i>
                             </button>
                             <div class="ee-faq-a"><?php echo wp_kses_post($faq['a']); ?></div>
                         </div>
@@ -466,7 +478,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             <div class="ee-crm-banner">
                 <div>
                     <div class="ee-crm-badge"><?php echo esc_html($banner_badge); ?></div>
-                    <h3><?php echo esc_html($banner_title); ?></h3>
+                    <div class="ee-crm-banner-title"><?php echo esc_html($banner_title); ?></div>
                     <p><?php echo wp_kses_post($banner_desc); ?></p>
                 </div>
                 <a href="<?php echo esc_url($banner_cta_url); ?>" class="ee-btn-primary" style="white-space:nowrap;flex-shrink:0;"><i class="ti ti-rocket"></i> <?php echo esc_html($banner_cta_text); ?></a>
@@ -484,7 +496,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
         <aside class="ee-right-sidebar" aria-label="Sidebar">
 
             <div class="ee-sidebar-section">
-                <h4><i class="ti ti-heart"></i> Follow Us</h4>
+                <div class="ee-section-label"><i class="ti ti-heart"></i> Follow Us</div>
                 <div class="ee-follow-icons">
                     <a class="ee-follow-btn ee-f-li" href="https://www.linkedin.com/company/extraaedge/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
                     <a class="ee-follow-btn ee-f-tw" href="https://twitter.com/extraaedge" target="_blank" rel="noopener" aria-label="Twitter"><i class="ti ti-brand-x"></i></a>
@@ -506,7 +518,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             if (!empty($sidebar_products)) :
             ?>
             <div class="ee-sidebar-section">
-                <h4><i class="ti ti-package"></i> View Products</h4>
+                <div class="ee-section-label"><i class="ti ti-package"></i> View Products</div>
                 <div class="ee-product-list">
                     <?php foreach ($sidebar_products as $p) : ?>
                         <a class="ee-product-pill" href="<?php echo esc_url($p['url']); ?>"><?php echo esc_html($p['title']); ?> <i class="ti ti-chevron-right"></i></a>
@@ -526,7 +538,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             if ($featured_q->have_posts()) :
             ?>
             <div class="ee-sidebar-section">
-                <h4><i class="ti ti-star"></i> Featured Blogs</h4>
+                <div class="ee-section-label"><i class="ti ti-star"></i> Featured Blogs</div>
                 <div class="ee-featured-grid">
                     <?php while ($featured_q->have_posts()) : $featured_q->the_post();
                         $thumb = get_the_post_thumbnail_url(get_the_ID(), 'medium');
@@ -552,7 +564,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             <?php endif; ?>
 
             <div class="ee-subscribe-box">
-                <h4>Join 20K+ Education Professionals</h4>
+                <div class="ee-subscribe-title">Join 20K+ Education Professionals</div>
                 <p>Get better business insights &amp; strategies weekly from ExtraaEdge.</p>
                 <input class="ee-sub-input" type="email" placeholder="Your email address" aria-label="Subscribe email" id="ee-sub-email">
                 <button class="ee-sub-btn" onclick="var v=document.getElementById('ee-sub-email').value.trim();if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){this.innerText='Subscribed!';this.disabled=true;document.getElementById('ee-sub-email').value='';}">Subscribe</button>
@@ -595,6 +607,26 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
         clearTimeout(toastTimer);
         toastTimer = setTimeout(function(){ toast.classList.remove('ee-show'); }, 2400);
     }
+
+    /* ── FAQ accordion ── click question to open; clicking the same
+       question again closes it; opening one auto-closes the others. */
+    document.querySelectorAll('.ee-faq-q').forEach(function(btn){
+        btn.addEventListener('click', function(e){
+            e.preventDefault();
+            var item = btn.closest('.ee-faq-item');
+            if (!item) return;
+            var willOpen = !item.classList.contains('ee-open');
+            document.querySelectorAll('.ee-faq-item.ee-open').forEach(function(o){
+                o.classList.remove('ee-open');
+                var qb = o.querySelector('.ee-faq-q');
+                if (qb) qb.setAttribute('aria-expanded', 'false');
+            });
+            if (willOpen) {
+                item.classList.add('ee-open');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
 
     /* ── Author popup ── */
     var chip = document.getElementById('ee-author-chip');

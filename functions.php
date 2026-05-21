@@ -428,6 +428,28 @@ function ee_blog_seo_meta_render($post) {
         ℹ️ <strong>Tip:</strong> Leave any field blank to use the auto-fallback (post title, excerpt, featured image). Each row tells you the fallback in italics.
     </p>
 
+    <!-- ─── Author display ─── -->
+    <div class="eeseo-card">
+        <h3>👤 Author display</h3>
+        <div class="eeseo-grid">
+            <div class="eeseo-row">
+                <label>Display Author Name (override)</label>
+                <input type="text" name="ee_seo[author_display]" value="<?php echo esc_attr($m('author_display')); ?>" placeholder="<?php echo esc_attr(get_the_author_meta('display_name', $post->post_author)); ?>">
+                <p class="hint">Shown on the post page in the author chip. <em>Fallback: the WordPress user's display name (currently <strong><?php echo esc_html(get_the_author_meta('display_name', $post->post_author)); ?></strong>).</em></p>
+            </div>
+            <div class="eeseo-row">
+                <label>Author Role / Subtitle</label>
+                <input type="text" name="ee_seo[author_role]" value="<?php echo esc_attr($m('author_role')); ?>" placeholder="Senior Content Strategist · ExtraaEdge">
+                <p class="hint">Small line under the author name in the chip and popup. <em>Fallback: the WP user's "Biographical Info" first line, else "Contributor · ExtraaEdge".</em></p>
+            </div>
+        </div>
+        <div class="eeseo-row">
+            <label>Author Bio (popup paragraph)</label>
+            <textarea name="ee_seo[author_bio]" rows="2" placeholder="8+ years helping EdTech and higher-ed institutions grow enrollment through data-driven marketing."><?php echo esc_textarea($m('author_bio')); ?></textarea>
+            <p class="hint">Shown only when the visitor clicks the author chip. <em>Fallback: the WP user's "Biographical Info".</em></p>
+        </div>
+    </div>
+
     <!-- ─── Search engine basics ─── -->
     <div class="eeseo-card">
         <h3>🔎 Search snippet</h3>
@@ -553,11 +575,12 @@ add_action('save_post_post', function ($post_id) {
 
     $in = isset($_POST['ee_seo']) && is_array($_POST['ee_seo']) ? $_POST['ee_seo'] : array();
 
-    $text_fields = array('seo_title', 'seo_keywords', 'og_title', 'og_description', 'twitter_title', 'twitter_description');
+    $text_fields = array('seo_title', 'seo_keywords', 'og_title', 'og_description', 'twitter_title', 'twitter_description', 'author_display', 'author_role');
     foreach ($text_fields as $k) {
         update_post_meta($post_id, '_' . $k, sanitize_text_field(wp_unslash($in[$k] ?? '')));
     }
     update_post_meta($post_id, '_seo_description', sanitize_textarea_field(wp_unslash($in['seo_description'] ?? '')));
+    update_post_meta($post_id, '_author_bio',     sanitize_textarea_field(wp_unslash($in['author_bio'] ?? '')));
 
     $url_fields = array('canonical_url', 'og_image', 'twitter_image');
     foreach ($url_fields as $k) {
@@ -3868,9 +3891,19 @@ add_filter('wp_lazy_loading_enabled', function ($default, $tag_name, $context) {
  */
 add_filter('pre_get_document_title', function ($title) {
     if (is_singular()) {
-        $seo_title = get_post_meta(get_the_ID(), '_seo_title', true);
+        $pid = get_the_ID();
+        $seo_title = get_post_meta($pid, '_seo_title', true);
         if (!empty($seo_title)) {
             return $seo_title;
+        }
+        /* Guarantee non-empty <title> for crawlers — if the filter
+           chain produced an empty string somewhere, fall back to the
+           raw post title appended with the site name. */
+        if (empty($title)) {
+            $post_title = get_the_title($pid);
+            if (!empty($post_title)) {
+                return $post_title . ' | ' . get_bloginfo('name');
+            }
         }
     }
     return $title;

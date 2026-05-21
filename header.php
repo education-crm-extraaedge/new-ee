@@ -366,15 +366,18 @@ if ($ee_is_home) {
         #site-header .eh-nav-item:hover .eh-mega { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
         #site-header .eh-mega-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; }
         #site-header .eh-mega-grid.three-col { grid-template-columns:repeat(3,1fr); }
-        #site-header .eh-mega-col h4 { font-family:'Archivo',sans-serif; font-size:.65rem; font-weight:600; color:#94A3B8; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.55rem; display:flex; align-items:center; gap:.4rem; }
+        #site-header .eh-mega-col h4,
+        #site-header .eh-mega-col .eh-col-title { font-family:'Archivo',sans-serif; font-size:.65rem; font-weight:600; color:#94A3B8; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.55rem; display:flex; align-items:center; gap:.4rem; }
         #site-header .eh-col-icon { width:16px; height:16px; background:linear-gradient(135deg,var(--eh-primary-light),var(--eh-accent)); border-radius:5px; display:inline-flex; align-items:center; justify-content:center; padding:3px; color:#fff; }
         #site-header .eh-col-icon .eh-svg { width:100%; height:100%; filter:brightness(0) invert(1); }
 
         /* Featured promo strip */
         #site-header .eh-featured { grid-column:span 4; background:linear-gradient(135deg,var(--eh-primary),var(--eh-primary-light)); border-radius:10px; padding:.85rem 1.1rem; color:#fff; margin-bottom:.65rem; display:flex; align-items:center; justify-content:space-between; gap:.85rem; flex-wrap:wrap; }
         #site-header .eh-featured.three-col { grid-column:span 3; }
-        #site-header .eh-featured h3 { font-family:'Archivo',sans-serif; font-size:.92rem; font-weight:800; margin-bottom:.15rem; color:#fff; display:flex; align-items:center; gap:.4rem; line-height:1.3; }
-        #site-header .eh-featured h3 .eh-svg { width:.95rem; height:.95rem; filter:brightness(0) invert(1); }
+        #site-header .eh-featured h3,
+        #site-header .eh-featured .eh-featured-title { font-family:'Archivo',sans-serif; font-size:.92rem; font-weight:800; margin-bottom:.15rem; color:#fff; display:flex; align-items:center; gap:.4rem; line-height:1.3; }
+        #site-header .eh-featured h3 .eh-svg,
+        #site-header .eh-featured .eh-featured-title .eh-svg { width:.95rem; height:.95rem; filter:brightness(0) invert(1); }
         #site-header .eh-featured p { opacity:.9; font-size:.75rem; margin-bottom:.5rem; max-width:520px; color:#fff; line-height:1.45; }
         #site-header .eh-featured-btn { background:#fff; color:var(--eh-primary); padding:.4rem .9rem; border-radius:7px; text-decoration:none; font-weight:600; font-size:.78rem; display:inline-flex; align-items:center; gap:.35rem; transition:all .2s ease; }
         #site-header .eh-featured-btn:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(255,255,255,.3); color:var(--eh-primary); }
@@ -754,10 +757,10 @@ if ($ee_is_home) {
                             ?>
                             <div class="eh-featured">
                                 <div>
-                                    <h3>
+                                    <div class="eh-featured-title">
                                         <img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/rocket.svg'); ?>" alt="" loading="lazy">
                                         <?php if (!empty($eh_promo['badge'])) : ?><?php echo esc_html($eh_promo['badge']); ?>: <?php endif; ?><?php echo esc_html($eh_promo['title']); ?>
-                                    </h3>
+                                    </div>
                                     <?php if (!empty($eh_promo['desc'])) : ?><p><?php echo esc_html($eh_promo['desc']); ?></p><?php endif; ?>
                                     <?php if (!empty($eh_promo['btn_text']) && !empty($eh_promo['btn_url'])) : ?>
                                     <a href="<?php echo esc_url($eh_promo['btn_url']); ?>" class="eh-featured-btn"<?php echo $eh_promo_btn_external ? ' target="_blank" rel="noopener"' : ''; ?>>
@@ -775,7 +778,7 @@ if ($ee_is_home) {
                                 if (empty($eh_col_items)) continue; /* skip column if no products assigned */
                             ?>
                             <div class="eh-mega-col">
-                                <h4><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_meta['icon'] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo esc_html($eh_col_meta['label']); ?></h4>
+                                <div class="eh-col-title"><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_meta['icon'] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo esc_html($eh_col_meta['label']); ?></div>
                                 <?php foreach ($eh_col_items as $eh_p) :
                                     $eh_short = wp_trim_words(wp_strip_all_tags((string) $eh_p['desc']), 9, '…');
                                     $eh_badge = isset($eh_p['badge']) ? $eh_p['badge'] : 'none';
@@ -854,7 +857,7 @@ if ($ee_is_home) {
                                 $eh_col_items = isset($eh_sol[$eh_col_key]) ? $eh_sol[$eh_col_key] : array();
                             ?>
                             <div class="eh-mega-col">
-                                <h4><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_meta['icon'] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo wp_kses_post($eh_col_meta['label']); ?></h4>
+                                <div class="eh-col-title"><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_meta['icon'] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo wp_kses_post($eh_col_meta['label']); ?></div>
                                 <?php foreach ($eh_col_items as $eh_s) :
                                     $eh_url  = !empty($eh_s['url'])  ? $eh_s['url']  : '#';
                                     if (strpos($eh_url, 'http') !== 0 && strpos($eh_url, '//') !== 0) {
