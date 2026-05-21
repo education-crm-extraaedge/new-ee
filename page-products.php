@@ -100,7 +100,7 @@ get_header();
     width:100%;
     background:var(--clr-white);
     position:relative;
-    overflow:hidden;
+    overflow:clip; /* clip suppresses overflow without breaking position:sticky descendants like the .ecrm-sidebar */
     padding:5rem 1.25rem;
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
     color:var(--clr-gray-700);
@@ -181,8 +181,13 @@ get_header();
     .ecrm-shell { grid-template-columns: 1fr; gap: 24px; }
 }
 
-/* Left sticky sidebar */
+/* Left sticky sidebar — stays in view as the visitor scrolls through
+   all the category sections on the right. The 110px offset clears the
+   sticky #site-header (~85-100px tall). max-height + overflow-y on the
+   sidebar means it scrolls inside itself if the visitor's viewport is
+   shorter than the sidebar content. */
 .ecrm-sidebar {
+    position: -webkit-sticky;
     position: sticky;
     top: 110px;
     align-self: start;
@@ -191,7 +196,14 @@ get_header();
     border-radius: 18px;
     padding: 22px 18px;
     box-shadow: 0 8px 28px rgba(25, 51, 93, 0.06);
+    max-height: calc(100vh - 130px);
+    overflow-y: auto;
+    z-index: 5;
 }
+/* Pretty thin scrollbar inside the sticky sidebar */
+.ecrm-sidebar { scrollbar-width: thin; scrollbar-color: var(--clr-orange-light) transparent; }
+.ecrm-sidebar::-webkit-scrollbar { width: 6px; }
+.ecrm-sidebar::-webkit-scrollbar-thumb { background: var(--clr-orange-light); border-radius: 99px; }
 .ecrm-sidebar-eyebrow {
     display: flex; align-items: center; gap: 8px;
     font-family: var(--font-base);
