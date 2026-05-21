@@ -130,18 +130,23 @@ if (!defined('ABSPATH')) exit;
     }
     #extraaedge-footer-engine .ee-cert-item p { font-size: 11px; font-weight: 800; opacity: 0.8; text-transform: uppercase; margin: 0; letter-spacing: 1px; }
 
-    /* 4. APP-STYLE NAV MENU */
+    /* 4. APP-STYLE NAV MENU — 6-column grid that mirrors the header.
+       Desktop: 6 cols, tablet: 3 cols, mobile: collapsible accordions. */
     #extraaedge-footer-engine .ee-nav-matrix {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 30px;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 28px;
         padding: 40px 0;
         border-bottom: 1px solid var(--ee-slate-100);
     }
-    #extraaedge-footer-engine .ee-nav-title { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--ee-slate-900); font-weight: 800; margin-bottom: 20px; display: block; }
-    #extraaedge-footer-engine .ee-nav-matrix li { margin-bottom: 10px; }
-    #extraaedge-footer-engine .ee-nav-matrix a { color: var(--ee-slate-600); font-size: 14px; font-weight: 500; }
-    #extraaedge-footer-engine .ee-nav-matrix a:hover { color: var(--ee-orange); transform: translateX(6px); }
+    @media (max-width: 1200px) {
+        #extraaedge-footer-engine .ee-nav-matrix { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+    }
+    #extraaedge-footer-engine .ee-nav-title { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--ee-slate-900); font-weight: 800; margin-bottom: 18px; display: block; }
+    #extraaedge-footer-engine .ee-nav-matrix ul { list-style: none; margin: 0; padding: 0; }
+    #extraaedge-footer-engine .ee-nav-matrix li { margin-bottom: 9px; line-height: 1.35; }
+    #extraaedge-footer-engine .ee-nav-matrix a { color: var(--ee-slate-600); font-size: 13.5px; font-weight: 500; display: inline-block; transition: color .2s ease, transform .2s ease; }
+    #extraaedge-footer-engine .ee-nav-matrix a:hover { color: var(--ee-orange); transform: translateX(4px); }
 
     /* 5. ECOSYSTEM & SOCIAL */
     #extraaedge-footer-engine .ee-ecosystem-bar {
@@ -260,68 +265,98 @@ if (!defined('ABSPATH')) exit;
 
     <!-- Nav Matrix -->
     <section class="ee-container ee-section-block">
-        <nav class="ee-nav-matrix ee-reveal">
+        <?php
+        /* Footer nav mirrors the header mega-menu structure so the
+           editor only manages content in ONE place — the same
+           helpers feed the header dropdowns and these footer cols. */
+        $ft_products   = function_exists('ee_get_product_menu_items')  ? ee_get_product_menu_items()  : array();
+        $ft_industries = function_exists('ee_get_industry_menu_items') ? ee_get_industry_menu_items() : array();
+        $ft_usecases   = function_exists('ee_get_usecase_items')       ? ee_get_usecase_items()       : array();
+        $ft_solutions  = function_exists('ee_get_solution_items')      ? ee_get_solution_items()      : array('admission'=>array(),'study_abroad'=>array(),'recruitment'=>array());
+
+        /* Hide products marked "Hide from menu" in admin */
+        $ft_products = array_filter($ft_products, function ($p) {
+            return !isset($p['column']) || $p['column'] !== 'hidden';
+        });
+
+        /* Flatten all 3 Solutions columns into one list for the footer column */
+        $ft_solutions_flat = array();
+        foreach (array('admission','study_abroad','recruitment') as $sc) {
+            if (!empty($ft_solutions[$sc]) && is_array($ft_solutions[$sc])) {
+                foreach ($ft_solutions[$sc] as $row) $ft_solutions_flat[] = $row;
+            }
+        }
+        ?>
+        <nav class="ee-nav-matrix ee-reveal" aria-label="Footer navigation">
+            <!-- Products -->
             <div class="ee-nav-col">
                 <span class="ee-nav-title">Products</span>
                 <ul>
-                    <li><a href="/products/education-crm/">Education CRM</a></li>
-                    <li><a href="/products/chatbot-for-education/">Education Chatbot</a></li>
-                    <li><a href="/products/application-management-system/">Application Management</a></li>
-                    <li><a href="/products/mobile-crm/">Mobile CRM</a></li>
-                    <li><a href="/products/whatsapp-api/">WhatsApp Bot</a></li>
-                    <li><a href="/products/ivr/">IVR</a></li>
+                    <?php foreach ($ft_products as $p) : ?>
+                        <li><a href="<?php echo esc_url($p['url']); ?>"><?php echo esc_html($p['title']); ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
+
+            <!-- Solutions -->
             <div class="ee-nav-col">
-                <span class="ee-nav-title">Use Cases</span>
+                <span class="ee-nav-title">Solutions</span>
                 <ul>
-                    <li><a href="/use-cases/counselors/">Counsellors</a></li>
-                    <li><a href="/use-cases/on-field-agents/">Field Agents</a></li>
-                    <li><a href="/use-cases/management/">Management</a></li>
-                </ul>
-                <span class="ee-nav-title" style="margin-top:20px;">Help</span>
-                <ul>
-                    <li><a href="/help-center/">Help Center</a></li>
-                    <li><a href="/help-docs/">Help Docs</a></li>
-                </ul>
-            </div>
-            <div class="ee-nav-col">
-                <span class="ee-nav-title">Company</span>
-                <ul>
-                    <li><a href="/about/">About Us</a></li>
-                    <li><a href="/partners/">Become a Partner</a></li>
-                    <li><a href="/customers/">Our Customers</a></li>
-                    <li><a href="/investors/">Investor & Advisors</a></li>
-                    <li><a href="/careers/">Careers</a></li>
-                    <li><a href="/team/">Team</a></li>
+                    <?php foreach ($ft_solutions_flat as $s) :
+                        $url = !empty($s['url']) ? $s['url'] : '#';
+                        if (strpos($url, 'http') !== 0 && strpos($url, '//') !== 0) {
+                            $url = home_url($url);
+                        }
+                    ?>
+                        <li><a href="<?php echo esc_url($url); ?>"><?php echo esc_html($s['title']); ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
-            <div class="ee-nav-col">
-                <span class="ee-nav-title">Comparison</span>
-                <ul>
-                    <li><a href="/comparison/ee-vs-meritto/">EE vs Meritto</a></li>
-                    <li><a href="/comparison/ee-vs-ls/">EE vs LS</a></li>
-                    <li><a href="/comparison/ee-vs-zoho/">EE vs Zoho</a></li>
-                </ul>
-            </div>
+
+            <!-- Industries -->
             <div class="ee-nav-col">
                 <span class="ee-nav-title">Industries</span>
                 <ul>
-                    <li><a href="/industries/overseas/">Overseas CRM</a></li>
-                    <li><a href="/industries/school/">School</a></li>
-                    <li><a href="/industries/edtech/">EdTech</a></li>
-                    <li><a href="/industries/vocational/">Vocational</a></li>
-                    <li><a href="/industries/coaching-institute-crm/">Coaching</a></li>
-                    <li><a href="/industries/higher-education/">Higher Education</a></li>
+                    <?php foreach ($ft_industries as $ind) : ?>
+                        <li><a href="<?php echo esc_url($ind['url']); ?>"><?php echo esc_html($ind['title']); ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
+
+            <!-- Use Cases -->
+            <div class="ee-nav-col">
+                <span class="ee-nav-title">Use Cases</span>
+                <ul>
+                    <?php foreach ($ft_usecases as $uc) : ?>
+                        <li><a href="<?php echo esc_url($uc['url']); ?>"><?php echo esc_html($uc['title']); ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+            <!-- Resources (matches header Resources dropdown) -->
             <div class="ee-nav-col">
                 <span class="ee-nav-title">Resources</span>
                 <ul>
-                    <li><a href="/blogs/">Blogs</a></li>
-                    <li><a href="/ebooks/">Ebooks</a></li>
-                    <li><a href="/webinars/">Webinars</a></li>
-                    <li><a href="/case-studies/">Case Studies</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/blog/')); ?>">Blogs</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/ebooks/')); ?>">Ebooks</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/webinars/')); ?>">Webinars</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/case-studies/')); ?>">Case Studies</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/news/')); ?>">News &amp; Media</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/help/')); ?>">Help Center</a></li>
+                </ul>
+            </div>
+
+            <!-- Company (matches header Company dropdown) -->
+            <div class="ee-nav-col">
+                <span class="ee-nav-title">Company</span>
+                <ul>
+                    <li><a href="<?php echo esc_url(home_url('/about-us/')); ?>">About</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/team/')); ?>">Team</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/careers/')); ?>">Careers</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/investors-and-advisors/')); ?>">Investors &amp; Advisors</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/customers/')); ?>">Customers</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/become-a-partner/')); ?>">Become a Partner</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/get-in-touch/')); ?>">Contact Us</a></li>
                 </ul>
             </div>
         </nav>
