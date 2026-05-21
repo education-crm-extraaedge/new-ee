@@ -3085,6 +3085,8 @@ add_action('template_redirect', function () {
  */
 add_action('template_redirect', function () {
     $ee_custom_routes = array(
+        'blog'       => array('file' => 'page-blog.php',       'title' => 'Blog'),
+        'blogs'      => array('file' => 'page-blog.php',       'title' => 'Blog'),
         'products'   => array('file' => 'page-products.php',   'title' => 'Products'),
         'use-cases'  => array('file' => 'page-use-cases.php',  'title' => 'Use Cases'),
         'industries' => array('file' => 'page-industries.php', 'title' => 'Industries'),
