@@ -169,11 +169,192 @@ get_header();
 }
 
 /* Grid */
+/* ═════════════ Docs-style left sidebar + content area ═════════════ */
+.ecrm-shell {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+    margin-bottom: 4rem;
+}
+@media (max-width: 960px) {
+    .ecrm-shell { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* Left sticky sidebar */
+.ecrm-sidebar {
+    position: sticky;
+    top: 110px;
+    align-self: start;
+    background: linear-gradient(180deg, #fff 0%, #FFFCF8 100%);
+    border: 1px solid var(--clr-orange-light);
+    border-radius: 18px;
+    padding: 22px 18px;
+    box-shadow: 0 8px 28px rgba(25, 51, 93, 0.06);
+}
+.ecrm-sidebar-eyebrow {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--font-base);
+    font-size: .68rem;
+    font-weight: 700;
+    color: var(--clr-orange);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+.ecrm-sidebar-eyebrow::before {
+    content: "";
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--clr-orange);
+    box-shadow: 0 0 0 4px var(--clr-orange-ultra);
+}
+.ecrm-sidebar-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--clr-navy);
+    margin: 0 0 18px;
+    letter-spacing: -.01em;
+    line-height: 1.3;
+}
+.ecrm-sidebar-nav {
+    display: flex; flex-direction: column;
+    gap: 6px;
+    margin: 0 0 18px; padding: 0; list-style: none;
+}
+.ecrm-sidebar-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 12px;
+    border-radius: 11px;
+    text-decoration: none;
+    color: var(--clr-gray-700);
+    font-size: .92rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: all .22s ease;
+    position: relative;
+}
+.ecrm-sidebar-link:hover {
+    background: #fff;
+    border-color: var(--clr-orange-light);
+    color: var(--clr-orange);
+    transform: translateX(2px);
+}
+.ecrm-sidebar-link.is-active {
+    background: #fff;
+    border-color: var(--clr-orange);
+    color: var(--clr-orange);
+    box-shadow: 0 4px 14px rgba(222, 110, 48, 0.14);
+}
+.ecrm-sidebar-link.is-active::before {
+    content: "";
+    position: absolute;
+    left: -19px; top: 50%; transform: translateY(-50%);
+    width: 3px; height: 20px;
+    background: var(--clr-orange);
+    border-radius: 0 3px 3px 0;
+}
+.ecrm-sidebar-ico {
+    width: 32px; height: 32px;
+    flex-shrink: 0;
+    background: var(--clr-orange-ultra);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 6px;
+    transition: all .22s ease;
+}
+.ecrm-sidebar-link.is-active .ecrm-sidebar-ico,
+.ecrm-sidebar-link:hover .ecrm-sidebar-ico {
+    background: var(--clr-orange);
+    box-shadow: 0 4px 10px rgba(222, 110, 48, 0.30);
+}
+.ecrm-sidebar-link .ecrm-sidebar-ico img {
+    width: 100%; height: 100%; object-fit: contain;
+    transition: filter .22s ease;
+}
+.ecrm-sidebar-link.is-active .ecrm-sidebar-ico img,
+.ecrm-sidebar-link:hover .ecrm-sidebar-ico img {
+    filter: brightness(0) invert(1);
+}
+.ecrm-sidebar-label { flex: 1; min-width: 0; }
+.ecrm-sidebar-count {
+    background: var(--clr-orange-ultra);
+    color: var(--clr-orange);
+    font-size: .68rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 99px;
+    line-height: 1.4;
+    border: 1px solid var(--clr-orange-light);
+}
+.ecrm-sidebar-link.is-active .ecrm-sidebar-count,
+.ecrm-sidebar-link:hover .ecrm-sidebar-count {
+    background: var(--clr-orange);
+    color: #fff;
+    border-color: var(--clr-orange);
+}
+
+/* Sidebar mini CTA at the bottom */
+.ecrm-sidebar-cta {
+    background: linear-gradient(135deg, var(--clr-navy-dark), var(--clr-navy));
+    color: #fff;
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-align: center;
+}
+.ecrm-sidebar-cta strong {
+    display: block;
+    font-size: .85rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #fff;
+}
+.ecrm-sidebar-cta p {
+    font-size: .72rem;
+    opacity: .85;
+    margin: 0 0 10px;
+    line-height: 1.45;
+}
+.ecrm-sidebar-cta-btn {
+    display: inline-block;
+    background: var(--clr-orange);
+    color: #fff !important;
+    font-size: .75rem;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 7px;
+    text-decoration: none;
+    transition: background .2s ease;
+}
+.ecrm-sidebar-cta-btn:hover { background: var(--clr-orange-dark); }
+
+/* On tablet/mobile turn the sidebar into a horizontal chip strip */
+@media (max-width: 960px) {
+    .ecrm-sidebar { position: static; padding: 16px; }
+    .ecrm-sidebar-title { margin-bottom: 12px; font-size: .95rem; }
+    .ecrm-sidebar-nav {
+        display: flex; flex-direction: row; flex-wrap: nowrap;
+        gap: 8px; overflow-x: auto;
+        margin-bottom: 12px;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+    }
+    .ecrm-sidebar-link {
+        flex: 0 0 auto;
+        padding: 8px 12px;
+        font-size: .85rem;
+        white-space: nowrap;
+    }
+    .ecrm-sidebar-link.is-active::before { display: none; }
+    .ecrm-sidebar-ico { width: 24px; height: 24px; padding: 4px; }
+    .ecrm-sidebar-cta { display: none; }
+}
+
 /* Category section (Featured / Core CRM / Communication / Automation)
    Sections stack vertically — each one is full-width with its header
    pinned above its product grid. Empty categories show a "Coming soon"
    placeholder so the user always sees all four categories. */
-.ecrm-cat{display:block;margin-bottom:2.5rem;width:100%}
+.ecrm-cat{display:block;margin-bottom:2.5rem;width:100%;scroll-margin-top:120px}
 .ecrm-cat:last-of-type{margin-bottom:4rem}
 .ecrm-cat--empty .ecrm-cat-head{opacity:.7}
 .ecrm-cat-empty{
@@ -449,13 +630,38 @@ get_header();
         $ee_card_pos = 1;
         ?>
 
+        <div class="ecrm-shell">
+
+            <aside class="ecrm-sidebar" aria-label="Product categories">
+                <span class="ecrm-sidebar-eyebrow">Browse</span>
+                <h2 class="ecrm-sidebar-title">Product categories</h2>
+                <nav class="ecrm-sidebar-nav" id="ecrm-sidebar-nav">
+                    <?php foreach ($ee_pcols as $ee_sk => $ee_sm) :
+                        $eh_count = count($ee_grouped[$ee_sk]);
+                    ?>
+                    <a href="#ecrm-section-<?php echo esc_attr($ee_sk); ?>" class="ecrm-sidebar-link" data-target="ecrm-section-<?php echo esc_attr($ee_sk); ?>">
+                        <span class="ecrm-sidebar-ico"><img src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $ee_sm['icon'] . '.svg'); ?>" alt=""></span>
+                        <span class="ecrm-sidebar-label"><?php echo esc_html($ee_sm['label']); ?></span>
+                        <span class="ecrm-sidebar-count"><?php echo (int) $eh_count; ?></span>
+                    </a>
+                    <?php endforeach; ?>
+                </nav>
+                <div class="ecrm-sidebar-cta">
+                    <strong>Talk to an expert</strong>
+                    <p>Pick the right modules for your admissions team.</p>
+                    <a href="/book-demo/" class="ecrm-sidebar-cta-btn">Book a Demo →</a>
+                </div>
+            </aside>
+
+            <div class="ecrm-content">
+
         <?php foreach ($ee_pcols as $ee_col_key => $ee_col_meta) :
             $ee_col_items = $ee_grouped[$ee_col_key];
             /* Render every category section — even empty ones — so users
                always see the four-category structure. Empty categories
                get a friendly "coming soon" placeholder. */
         ?>
-        <section class="ecrm-cat ecrm-anim ecrm-anim-fade<?php echo empty($ee_col_items) ? ' ecrm-cat--empty' : ''; ?>" aria-labelledby="ecrm-cat-<?php echo esc_attr($ee_col_key); ?>">
+        <section id="ecrm-section-<?php echo esc_attr($ee_col_key); ?>" class="ecrm-cat ecrm-anim ecrm-anim-fade<?php echo empty($ee_col_items) ? ' ecrm-cat--empty' : ''; ?>" aria-labelledby="ecrm-cat-<?php echo esc_attr($ee_col_key); ?>">
             <header class="ecrm-cat-head">
                 <div class="ecrm-cat-icon"><img src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $ee_col_meta['icon'] . '.svg'); ?>" alt=""></div>
                 <div>
@@ -517,6 +723,9 @@ get_header();
         </section>
         <?php endforeach; ?>
 
+            </div><!-- /.ecrm-content -->
+        </div><!-- /.ecrm-shell -->
+
         <div class="ecrm-cta-outer ecrm-anim ecrm-anim-fade ecrm-d7">
             <div class="ecrm-cta-box" role="region" aria-labelledby="ecrm-cta-title">
                 <div class="ecrm-cta-inner">
@@ -564,6 +773,51 @@ get_header();
         });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.ecrm-section .ecrm-anim').forEach(function(el){ io.observe(el); });
+})();
+
+/* ── Sidebar smooth-scroll + scrollspy ── */
+(function(){
+    var nav = document.getElementById('ecrm-sidebar-nav');
+    if (!nav) return;
+    var links = Array.prototype.slice.call(nav.querySelectorAll('.ecrm-sidebar-link'));
+    if (!links.length) return;
+
+    /* Smooth-scroll on click */
+    links.forEach(function(a){
+        a.addEventListener('click', function(e){
+            var id = a.getAttribute('data-target');
+            var t  = id ? document.getElementById(id) : null;
+            if (!t) return;
+            e.preventDefault();
+            var y = t.getBoundingClientRect().top + window.scrollY - 110;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+            history.replaceState(null, '', '#' + id);
+        });
+    });
+
+    /* Scrollspy — highlight active category as the visitor scrolls */
+    var sections = links.map(function(a){ return document.getElementById(a.getAttribute('data-target')); }).filter(Boolean);
+    function setActive(idx){
+        links.forEach(function(a, i){ a.classList.toggle('is-active', i === idx); });
+    }
+    function onScroll(){
+        var probe = window.scrollY + 200;
+        var cur = 0;
+        for (var i = 0; i < sections.length; i++) {
+            if (sections[i].offsetTop <= probe) cur = i;
+        }
+        setActive(cur);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* If URL has a hash, scroll to it on load */
+    if (location.hash) {
+        var idx = links.findIndex(function(a){ return '#' + a.getAttribute('data-target') === location.hash; });
+        if (idx > -1) {
+            setTimeout(function(){ links[idx].click(); }, 100);
+        }
+    }
 })();
 </script>
 
