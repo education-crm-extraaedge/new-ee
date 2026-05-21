@@ -2477,6 +2477,7 @@ add_action('init', function () {
 
 function ee_get_blog_form() {
     $defaults = array(
+        'embed_code'      => '',
         'heading'         => 'Get weekly admissions insights — straight to your inbox',
         'button_text'     => 'Subscribe',
         'success_msg'     => "Thanks! We've added you to the list.",
@@ -2510,6 +2511,16 @@ function ee_render_blog_form() {
     $f      = ee_get_blog_form();
     $fields = $f['fields'];
     $nonce  = wp_create_nonce('ee_blog_form_submit');
+
+    /* If the admin pasted an embed code (e.g. ExtraaEdge form widget,
+       HubSpot, Marketo), render that raw and skip the built-in form
+       entirely. We intentionally don't sanitise here because the value
+       is set by an admin (manage_options) who is trusted to paste
+       <script> tags from approved vendors. */
+    if (!empty($f['embed_code'])) {
+        echo '<div class="ee-blog-lead ee-blog-embed">' . $f['embed_code'] . '</div>';
+        return;
+    }
     ?>
     <div class="ee-blog-lead">
         <h2><?php echo esc_html($f['heading']); ?></h2>
@@ -2650,7 +2661,11 @@ add_action('admin_post_ee_save_blog_form', function () {
     if (!current_user_can('manage_options')) wp_die('Forbidden');
     check_admin_referer('ee_blog_form_save');
 
+    /* Embed code is saved raw — manage_options users are trusted to
+       paste vendor <script>/<iframe> tags. wp_unslash to strip the
+       backslashes WP adds to POST data, then trim. */
     $clean = array(
+        'embed_code'      => trim(wp_unslash($_POST['embed_code']                     ?? '')),
         'heading'         => sanitize_text_field(wp_unslash($_POST['heading']         ?? '')),
         'button_text'     => sanitize_text_field(wp_unslash($_POST['button_text']     ?? 'Subscribe')),
         'success_msg'     => sanitize_text_field(wp_unslash($_POST['success_msg']     ?? '')),
@@ -2715,9 +2730,19 @@ function ee_blog_form_render_admin() {
                 .ebf-leads td.ebf-data { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#334155; white-space:pre-wrap; }
             </style>
 
+            <!-- ── Custom embed code (overrides everything below) ── -->
+            <div class="ebf-card" style="background:#fff8f1;border-color:#fde7d3;">
+                <h2>🔌 Custom form embed <em style="color:#646970;font-size:12px;font-weight:400;margin-left:6px;">— optional, overrides the built-in form below</em></h2>
+                <div class="ebf-row">
+                    <label>Embed code (HTML / JS)</label>
+                    <textarea name="embed_code" rows="6" style="width:100%;padding:9px 11px;border:1px solid #cbd5e1;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:12px;box-sizing:border-box;" placeholder="<script async src=&quot;https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js&quot;></script>&#10;<div id=&quot;ee-form-7&quot;></div>"><?php echo esc_textarea($f['embed_code']); ?></textarea>
+                    <p class="hint" style="margin-top:8px;">Paste the full embed snippet from your form vendor (ExtraaEdge form widget, HubSpot, Marketo, Calendly, etc.). When this field has content, the entire built-in form below is replaced by this embed on the blog sidebar.<br><strong>Leave this blank to use the built-in form instead.</strong></p>
+                </div>
+            </div>
+
             <!-- ── Top copy ── -->
             <div class="ebf-card">
-                <h2>✍️ Form headings + copy</h2>
+                <h2>✍️ Form headings + copy <em style="color:#646970;font-size:12px;font-weight:400;margin-left:6px;">— ignored when an embed code is set above</em></h2>
                 <div class="ebf-row">
                     <label>Heading <span style="color:#dc2626;">*</span></label>
                     <input type="text" name="heading" value="<?php echo esc_attr($f['heading']); ?>" placeholder="Get weekly admissions insights — straight to your inbox">
