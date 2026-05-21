@@ -169,9 +169,24 @@ get_header();
 }
 
 /* Grid */
-/* Category section (Featured / Core CRM / Communication / Automation) */
-.ecrm-cat{margin-bottom:3.5rem}
-.ecrm-cat:last-of-type{margin-bottom:5rem}
+/* Category section (Featured / Core CRM / Communication / Automation)
+   Sections stack vertically — each one is full-width with its header
+   pinned above its product grid. Empty categories show a "Coming soon"
+   placeholder so the user always sees all four categories. */
+.ecrm-cat{display:block;margin-bottom:2.5rem;width:100%}
+.ecrm-cat:last-of-type{margin-bottom:4rem}
+.ecrm-cat--empty .ecrm-cat-head{opacity:.7}
+.ecrm-cat-empty{
+    background:#fff;border:1px dashed var(--clr-gray-200);border-radius:var(--radius-lg);
+    padding:1.5rem 1.75rem;text-align:center;color:var(--clr-gray-500);
+}
+.ecrm-cat-empty-tag{
+    display:inline-block;background:var(--clr-orange-ultra);color:var(--clr-orange);
+    font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    padding:.25rem .65rem;border-radius:99px;border:1px solid var(--clr-orange-light);
+    margin-bottom:.45rem;
+}
+.ecrm-cat-empty p{margin:0;font-size:.9rem;line-height:1.5}
 .ecrm-cat-head{
     display:flex;align-items:center;gap:18px;
     padding:18px 22px;
@@ -182,10 +197,10 @@ get_header();
     margin-bottom:1.5rem;
 }
 .ecrm-cat-icon{
-    width:54px;height:54px;flex-shrink:0;
-    background:#fff;border-radius:14px;
-    display:flex;align-items:center;justify-content:center;padding:11px;
-    box-shadow:0 6px 14px rgba(222,110,48,.14);
+    width:44px;height:44px;flex-shrink:0;
+    background:#fff;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;padding:8px;
+    box-shadow:0 4px 10px rgba(222,110,48,.12);
 }
 .ecrm-cat-icon img{width:100%;height:100%;object-fit:contain}
 .ecrm-cat-title{
@@ -206,7 +221,7 @@ get_header();
 }
 @media (max-width:640px){
     .ecrm-cat-head{flex-wrap:wrap;padding:14px 16px}
-    .ecrm-cat-icon{width:44px;height:44px;padding:8px}
+    .ecrm-cat-icon{width:38px;height:38px;padding:6px}
     .ecrm-cat-title{font-size:1.2rem}
     .ecrm-cat-count{width:100%;text-align:center;margin-left:0}
 }
@@ -254,10 +269,13 @@ get_header();
 .ecrm-card:hover::after,.ecrm-card:focus-visible::after{opacity:1}
 .ecrm-card:focus-visible{outline:2px solid var(--clr-orange);outline-offset:3px}
 
+/* Standard tile — used for every product card icon. 56x56 keeps logos
+   readable but doesn't dominate the card. Same dimensions everywhere
+   (header mega-menu / use-cases / products) for visual consistency. */
 .ecrm-card-icon{
-    position:relative;z-index:3;width:5rem;height:5rem;border-radius:var(--radius-xl);
+    position:relative;z-index:3;width:56px;height:56px;border-radius:14px;
     background:#ffffff;border:1px solid var(--clr-orange-light);
-    display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;
+    display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem;
     transition:var(--transition-base);flex-shrink:0;overflow:hidden;
     isolation:isolate; /* contains the inner scaled <img> reliably above the
                           card's ::after shimmer overlay */
@@ -433,9 +451,11 @@ get_header();
 
         <?php foreach ($ee_pcols as $ee_col_key => $ee_col_meta) :
             $ee_col_items = $ee_grouped[$ee_col_key];
-            if (empty($ee_col_items)) continue;
+            /* Render every category section — even empty ones — so users
+               always see the four-category structure. Empty categories
+               get a friendly "coming soon" placeholder. */
         ?>
-        <section class="ecrm-cat ecrm-anim ecrm-anim-fade" aria-labelledby="ecrm-cat-<?php echo esc_attr($ee_col_key); ?>">
+        <section class="ecrm-cat ecrm-anim ecrm-anim-fade<?php echo empty($ee_col_items) ? ' ecrm-cat--empty' : ''; ?>" aria-labelledby="ecrm-cat-<?php echo esc_attr($ee_col_key); ?>">
             <header class="ecrm-cat-head">
                 <div class="ecrm-cat-icon"><img src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $ee_col_meta['icon'] . '.svg'); ?>" alt=""></div>
                 <div>
@@ -445,6 +465,12 @@ get_header();
                 <span class="ecrm-cat-count"><?php echo count($ee_col_items); ?> <?php echo count($ee_col_items) === 1 ? 'product' : 'products'; ?></span>
             </header>
 
+            <?php if (empty($ee_col_items)) : ?>
+                <div class="ecrm-cat-empty">
+                    <span class="ecrm-cat-empty-tag">Coming soon</span>
+                    <p>New <strong><?php echo esc_html($ee_col_meta['label']); ?></strong> products will appear here as they launch.</p>
+                </div>
+            <?php else : ?>
             <div class="ecrm-grid" role="list" aria-label="<?php echo esc_attr($ee_col_meta['label']); ?> products">
                 <?php foreach ($ee_col_items as $p) :
                     $position    = $ee_card_pos++;
@@ -487,6 +513,7 @@ get_header();
                     </div>
                 <?php endforeach; ?>
             </div>
+            <?php endif; ?>
         </section>
         <?php endforeach; ?>
 
