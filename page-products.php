@@ -277,22 +277,6 @@ get_header();
     filter: brightness(0) invert(1);
 }
 .ecrm-sidebar-label { flex: 1; min-width: 0; }
-.ecrm-sidebar-count {
-    background: var(--clr-orange-ultra);
-    color: var(--clr-orange);
-    font-size: .68rem;
-    font-weight: 800;
-    padding: 2px 8px;
-    border-radius: 99px;
-    line-height: 1.4;
-    border: 1px solid var(--clr-orange-light);
-}
-.ecrm-sidebar-link.is-active .ecrm-sidebar-count,
-.ecrm-sidebar-link:hover .ecrm-sidebar-count {
-    background: var(--clr-orange);
-    color: #fff;
-    border-color: var(--clr-orange);
-}
 
 /* Sidebar mini CTA at the bottom */
 .ecrm-sidebar-cta {
@@ -391,20 +375,10 @@ get_header();
 .ecrm-cat-desc{
     font-size:.92rem;color:var(--clr-gray-500);margin:0;line-height:1.45;
 }
-.ecrm-cat-count{
-    margin-left:auto;
-    background:#fff;color:var(--clr-orange);
-    font-family:var(--font-base);font-size:.75rem;font-weight:700;
-    padding:.4rem .85rem;border-radius:99px;
-    border:1px solid var(--clr-orange-light);
-    text-transform:uppercase;letter-spacing:.04em;
-    white-space:nowrap;
-}
 @media (max-width:640px){
     .ecrm-cat-head{flex-wrap:wrap;padding:14px 16px}
     .ecrm-cat-icon{width:38px;height:38px;padding:6px}
     .ecrm-cat-title{font-size:1.2rem}
-    .ecrm-cat-count{width:100%;text-align:center;margin-left:0}
 }
 
 /* Per-card badge pill (top-right) */
@@ -636,13 +610,10 @@ get_header();
                 <span class="ecrm-sidebar-eyebrow">Browse</span>
                 <h2 class="ecrm-sidebar-title">Product categories</h2>
                 <nav class="ecrm-sidebar-nav" id="ecrm-sidebar-nav">
-                    <?php foreach ($ee_pcols as $ee_sk => $ee_sm) :
-                        $eh_count = count($ee_grouped[$ee_sk]);
-                    ?>
+                    <?php foreach ($ee_pcols as $ee_sk => $ee_sm) : ?>
                     <a href="#ecrm-section-<?php echo esc_attr($ee_sk); ?>" class="ecrm-sidebar-link" data-target="ecrm-section-<?php echo esc_attr($ee_sk); ?>">
                         <span class="ecrm-sidebar-ico"><img src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $ee_sm['icon'] . '.svg'); ?>" alt=""></span>
                         <span class="ecrm-sidebar-label"><?php echo esc_html($ee_sm['label']); ?></span>
-                        <span class="ecrm-sidebar-count"><?php echo (int) $eh_count; ?></span>
                     </a>
                     <?php endforeach; ?>
                 </nav>
@@ -668,7 +639,6 @@ get_header();
                     <h2 id="ecrm-cat-<?php echo esc_attr($ee_col_key); ?>" class="ecrm-cat-title"><?php echo esc_html($ee_col_meta['label']); ?></h2>
                     <p class="ecrm-cat-desc"><?php echo esc_html($ee_col_meta['desc']); ?></p>
                 </div>
-                <span class="ecrm-cat-count"><?php echo count($ee_col_items); ?> <?php echo count($ee_col_items) === 1 ? 'product' : 'products'; ?></span>
             </header>
 
             <?php if (empty($ee_col_items)) : ?>
