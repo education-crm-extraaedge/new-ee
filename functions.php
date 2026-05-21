@@ -2465,6 +2465,348 @@ add_action('init', function () {
 
 // ══════════════════════════════════════════════════════════════════════════
 //  ╔════════════════════════════════════════════════════════════════════╗
+//  ║   BLOG LEAD FORM (Subscribe sidebar form on /blog/ + categories)   ║
+//  ║   Admin: 📥 Blog Form                                              ║
+//  ║                                                                    ║
+//  ║   Non-coder can edit the heading, button text, field labels,       ║
+//  ║   turn fields on/off, set who receives the emails, and customise   ║
+//  ║   the success message — no template edits required.                ║
+//  ║   Stored under 'ee_blog_form_settings'.                            ║
+//  ╚════════════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════════════════════════════════
+
+function ee_get_blog_form() {
+    $defaults = array(
+        'heading'         => 'Get weekly admissions insights — straight to your inbox',
+        'button_text'     => 'Subscribe',
+        'success_msg'     => "Thanks! We've added you to the list.",
+        'recipient_email' => get_option('admin_email'),
+        'subject'         => 'New blog signup from ExtraaEdge',
+        'fields'          => array(
+            'first_name' => array('label' => 'First Name',                   'type' => 'text',     'required' => '1', 'enabled' => '1'),
+            'last_name'  => array('label' => 'Last Name',                    'type' => 'text',     'required' => '1', 'enabled' => '1'),
+            'email'      => array('label' => 'Business Email',               'type' => 'email',    'required' => '1', 'enabled' => '1'),
+            'phone'      => array('label' => 'Phone (with country code)',    'type' => 'tel',      'required' => '1', 'enabled' => '1'),
+            'message'    => array('label' => 'Topics you want to read about','type' => 'textarea', 'required' => '1', 'enabled' => '1'),
+        ),
+    );
+    $saved = get_option('ee_blog_form_settings', array());
+    if (!is_array($saved)) $saved = array();
+    $merged = array_merge($defaults, $saved);
+    /* Field-level merge so a partial save (e.g. only first_name changed)
+       doesn't wipe out the other defaults. */
+    $merged['fields'] = isset($saved['fields']) && is_array($saved['fields']) ? $saved['fields'] : array();
+    foreach ($defaults['fields'] as $key => $def) {
+        if (!isset($merged['fields'][$key])) {
+            $merged['fields'][$key] = $def;
+        } else {
+            $merged['fields'][$key] = array_merge($def, $merged['fields'][$key]);
+        }
+    }
+    return $merged;
+}
+
+function ee_render_blog_form() {
+    $f      = ee_get_blog_form();
+    $fields = $f['fields'];
+    $nonce  = wp_create_nonce('ee_blog_form_submit');
+    ?>
+    <div class="ee-blog-lead">
+        <h2><?php echo esc_html($f['heading']); ?></h2>
+        <form class="ee-blog-form" method="post" novalidate>
+            <input type="hidden" name="ee_blog_form_nonce" value="<?php echo esc_attr($nonce); ?>">
+            <input type="hidden" name="ee_blog_form_source" value="<?php echo esc_url(home_url(add_query_arg(null, null))); ?>">
+
+            <?php foreach ($fields as $key => $fld) :
+                if (empty($fld['enabled'])) continue;
+                $label = $fld['label'] . ($fld['required'] === '1' ? ' *' : '');
+                $req   = $fld['required'] === '1' ? 'required' : '';
+                $type  = $fld['type'];
+                $name  = 'ee_bf_' . $key;
+            ?>
+                <?php if ($type === 'textarea') : ?>
+                    <textarea name="<?php echo esc_attr($name); ?>" placeholder="<?php echo esc_attr($label); ?>" <?php echo $req; ?>></textarea>
+                <?php else : ?>
+                    <input type="<?php echo esc_attr($type); ?>" name="<?php echo esc_attr($name); ?>" placeholder="<?php echo esc_attr($label); ?>" <?php echo $req; ?>>
+                <?php endif; ?>
+            <?php endforeach; ?>
+
+            <button type="submit"><?php echo esc_html($f['button_text']); ?> <i class="fa fa-paper-plane"></i></button>
+            <div class="ee-blog-form-msg" role="status" aria-live="polite" style="display:none;margin-top:10px;font-size:13px;"></div>
+        </form>
+    </div>
+    <script>
+    (function(){
+        var forms = document.querySelectorAll('.ee-blog-form');
+        forms.forEach(function(form){
+            form.addEventListener('submit', function(e){
+                e.preventDefault();
+                var btn = form.querySelector('button[type=submit]');
+                var msg = form.querySelector('.ee-blog-form-msg');
+                btn.disabled = true;
+                btn.dataset.orig = btn.dataset.orig || btn.innerHTML;
+                btn.innerHTML = 'Sending…';
+                msg.style.display = 'none';
+
+                var fd = new FormData(form);
+                fd.append('action', 'ee_blog_form_submit');
+
+                fetch('<?php echo esc_url(admin_url('admin-ajax.php')); ?>', { method:'POST', body:fd, credentials:'same-origin' })
+                    .then(function(r){ return r.json(); })
+                    .then(function(j){
+                        if (j && j.success) {
+                            form.reset();
+                            msg.style.color = '#16a34a';
+                            msg.textContent = j.data && j.data.message ? j.data.message : '<?php echo esc_js($f['success_msg']); ?>';
+                            btn.innerHTML = 'Sent ✓';
+                        } else {
+                            msg.style.color = '#dc2626';
+                            msg.textContent = (j && j.data && j.data.message) ? j.data.message : 'Something went wrong. Please try again.';
+                            btn.disabled = false;
+                            btn.innerHTML = btn.dataset.orig;
+                        }
+                        msg.style.display = 'block';
+                    })
+                    .catch(function(){
+                        msg.style.color = '#dc2626';
+                        msg.textContent = 'Network error. Please try again.';
+                        msg.style.display = 'block';
+                        btn.disabled = false;
+                        btn.innerHTML = btn.dataset.orig;
+                    });
+            });
+        });
+    })();
+    </script>
+    <?php
+}
+
+/* AJAX endpoint — logged-in + logged-out. Validates nonce, sanitises
+   every field, builds an email to the recipient, and stores the lead
+   under 'ee_blog_form_leads' (last 200) for in-admin viewing. */
+add_action('wp_ajax_ee_blog_form_submit',        'ee_blog_form_submit');
+add_action('wp_ajax_nopriv_ee_blog_form_submit', 'ee_blog_form_submit');
+function ee_blog_form_submit() {
+    if (!isset($_POST['ee_blog_form_nonce']) || !wp_verify_nonce($_POST['ee_blog_form_nonce'], 'ee_blog_form_submit')) {
+        wp_send_json_error(array('message' => 'Security check failed. Please refresh the page and try again.'), 403);
+    }
+    $f      = ee_get_blog_form();
+    $fields = $f['fields'];
+    $data   = array();
+    foreach ($fields as $key => $fld) {
+        if (empty($fld['enabled'])) continue;
+        $raw   = isset($_POST['ee_bf_' . $key]) ? wp_unslash($_POST['ee_bf_' . $key]) : '';
+        $clean = $fld['type'] === 'textarea' ? sanitize_textarea_field($raw) :
+                ($fld['type'] === 'email'   ? sanitize_email($raw) :
+                 sanitize_text_field($raw));
+        if ($fld['required'] === '1' && $clean === '') {
+            wp_send_json_error(array('message' => 'Please fill in: ' . $fld['label']), 422);
+        }
+        if ($fld['type'] === 'email' && $clean !== '' && !is_email($clean)) {
+            wp_send_json_error(array('message' => 'Please enter a valid email address.'), 422);
+        }
+        $data[$key] = array('label' => $fld['label'], 'value' => $clean);
+    }
+
+    $body  = "New blog form submission\n\n";
+    $body .= "Source: " . (isset($_POST['ee_blog_form_source']) ? esc_url_raw(wp_unslash($_POST['ee_blog_form_source'])) : '') . "\n";
+    $body .= "Time:   " . current_time('mysql') . "\n";
+    $body .= "IP:     " . ($_SERVER['REMOTE_ADDR'] ?? '') . "\n\n";
+    foreach ($data as $key => $row) {
+        $body .= $row['label'] . ":\n" . $row['value'] . "\n\n";
+    }
+
+    $to      = is_email($f['recipient_email']) ? $f['recipient_email'] : get_option('admin_email');
+    $subject = $f['subject'] ?: 'New blog signup from ExtraaEdge';
+    $reply   = isset($data['email']['value']) && is_email($data['email']['value']) ? $data['email']['value'] : '';
+    $headers = array('Content-Type: text/plain; charset=UTF-8');
+    if ($reply) $headers[] = 'Reply-To: ' . $reply;
+
+    wp_mail($to, $subject, $body, $headers);
+
+    /* Store the last 200 leads in wp_options for an admin glance. */
+    $leads   = get_option('ee_blog_form_leads', array());
+    if (!is_array($leads)) $leads = array();
+    array_unshift($leads, array(
+        'time'   => current_time('mysql'),
+        'source' => isset($_POST['ee_blog_form_source']) ? esc_url_raw(wp_unslash($_POST['ee_blog_form_source'])) : '',
+        'data'   => $data,
+    ));
+    $leads = array_slice($leads, 0, 200);
+    update_option('ee_blog_form_leads', $leads, false);
+
+    wp_send_json_success(array('message' => $f['success_msg']));
+}
+
+/* Admin menu */
+add_action('admin_menu', function () {
+    add_menu_page(
+        'Blog Form', '📥 Blog Form', 'manage_options',
+        'ee-blog-form', 'ee_blog_form_render_admin',
+        'dashicons-email-alt', 63
+    );
+});
+add_action('admin_post_ee_save_blog_form', function () {
+    if (!current_user_can('manage_options')) wp_die('Forbidden');
+    check_admin_referer('ee_blog_form_save');
+
+    $clean = array(
+        'heading'         => sanitize_text_field(wp_unslash($_POST['heading']         ?? '')),
+        'button_text'     => sanitize_text_field(wp_unslash($_POST['button_text']     ?? 'Subscribe')),
+        'success_msg'     => sanitize_text_field(wp_unslash($_POST['success_msg']     ?? '')),
+        'recipient_email' => sanitize_email(wp_unslash($_POST['recipient_email']      ?? '')),
+        'subject'         => sanitize_text_field(wp_unslash($_POST['subject']         ?? '')),
+        'fields'          => array(),
+    );
+    $field_keys = array('first_name', 'last_name', 'email', 'phone', 'message');
+    $types_map  = array('first_name' => 'text', 'last_name' => 'text', 'email' => 'email', 'phone' => 'tel', 'message' => 'textarea');
+    $rows = isset($_POST['fields']) && is_array($_POST['fields']) ? $_POST['fields'] : array();
+    foreach ($field_keys as $key) {
+        $r = isset($rows[$key]) && is_array($rows[$key]) ? $rows[$key] : array();
+        $clean['fields'][$key] = array(
+            'label'    => sanitize_text_field(wp_unslash($r['label'] ?? '')),
+            'type'     => $types_map[$key],
+            'required' => !empty($r['required']) ? '1' : '0',
+            'enabled'  => !empty($r['enabled'])  ? '1' : '0',
+        );
+    }
+    update_option('ee_blog_form_settings', $clean);
+
+    wp_cache_delete('ee_blog_form_settings', 'options');
+    if (function_exists('rocket_clean_domain')) { rocket_clean_domain(); }
+    if (function_exists('w3tc_pgcache_flush'))  { w3tc_pgcache_flush(); }
+    if (class_exists('LiteSpeed\\Purge'))       { do_action('litespeed_purge_all'); }
+
+    wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-blog-form')));
+    exit;
+});
+
+function ee_blog_form_render_admin() {
+    $f      = ee_get_blog_form();
+    $fields = $f['fields'];
+    $leads  = get_option('ee_blog_form_leads', array());
+    if (!is_array($leads)) $leads = array();
+    ?>
+    <div class="wrap">
+        <h1>📥 Blog Form <span style="font-size:13px;color:#646970;font-weight:400;">— Subscribe form on /blog/ and category pages</span></h1>
+        <?php if (!empty($_GET['updated'])) : ?>
+            <div class="notice notice-success is-dismissible"><p><strong>Saved.</strong> The blog form has been updated.</p></div>
+        <?php endif; ?>
+
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="max-width:1000px;">
+            <input type="hidden" name="action" value="ee_save_blog_form">
+            <?php wp_nonce_field('ee_blog_form_save'); ?>
+
+            <style>
+                .ebf-card { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:18px 20px; margin-bottom:20px; }
+                .ebf-card h2 { margin:0 0 14px; font-size:15px; color:#19335D; display:flex; align-items:center; gap:8px; }
+                .ebf-row { margin-bottom:14px; }
+                .ebf-row label { display:block; font-weight:600; margin-bottom:5px; color:#1d2327; font-size:13px; }
+                .ebf-row input[type=text], .ebf-row input[type=email], .ebf-row textarea { width:100%; padding:7px 9px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px; box-sizing:border-box; }
+                .ebf-row .hint { color:#646970; font-size:12px; margin-top:4px; font-style:italic; }
+                .ebf-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+                .ebf-field-row { display:grid; grid-template-columns:1.6fr 70px 90px; gap:10px; padding:10px; background:#f8fafc; border-radius:5px; margin-bottom:8px; align-items:center; }
+                .ebf-field-row input[type=text] { padding:6px 9px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px; box-sizing:border-box; width:100%; }
+                .ebf-field-row .ebf-toggle { display:flex; align-items:center; justify-content:center; gap:5px; font-size:12px; color:#475569; }
+                .ebf-fhead { display:grid; grid-template-columns:1.6fr 70px 90px; gap:10px; padding:0 10px; font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+                .ebf-leads { width:100%; border-collapse:collapse; font-size:12px; }
+                .ebf-leads th { background:#f1f5f9; padding:8px 10px; text-align:left; border-bottom:1px solid #e2e8f0; }
+                .ebf-leads td { padding:8px 10px; border-bottom:1px solid #f1f5f9; vertical-align:top; }
+                .ebf-leads td.ebf-data { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#334155; white-space:pre-wrap; }
+            </style>
+
+            <!-- ── Top copy ── -->
+            <div class="ebf-card">
+                <h2>✍️ Form headings + copy</h2>
+                <div class="ebf-row">
+                    <label>Heading <span style="color:#dc2626;">*</span></label>
+                    <input type="text" name="heading" value="<?php echo esc_attr($f['heading']); ?>" placeholder="Get weekly admissions insights — straight to your inbox">
+                    <p class="hint">The bold heading shown above the form in the sidebar.</p>
+                </div>
+                <div class="ebf-grid-2">
+                    <div class="ebf-row">
+                        <label>Button text</label>
+                        <input type="text" name="button_text" value="<?php echo esc_attr($f['button_text']); ?>" placeholder="Subscribe">
+                    </div>
+                    <div class="ebf-row">
+                        <label>Success message</label>
+                        <input type="text" name="success_msg" value="<?php echo esc_attr($f['success_msg']); ?>" placeholder="Thanks! We've added you to the list.">
+                        <p class="hint">Shown to the visitor after a successful submit.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Where the leads go ── -->
+            <div class="ebf-card">
+                <h2>📨 Where submissions go</h2>
+                <div class="ebf-grid-2">
+                    <div class="ebf-row">
+                        <label>Recipient email <span style="color:#dc2626;">*</span></label>
+                        <input type="email" name="recipient_email" value="<?php echo esc_attr($f['recipient_email']); ?>" placeholder="hello@extraaedge.com">
+                        <p class="hint">Every submission lands in this inbox.</p>
+                    </div>
+                    <div class="ebf-row">
+                        <label>Email subject</label>
+                        <input type="text" name="subject" value="<?php echo esc_attr($f['subject']); ?>" placeholder="New blog signup from ExtraaEdge">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Field controls ── -->
+            <div class="ebf-card">
+                <h2>📝 Fields shown in the form</h2>
+                <p style="color:#475569;font-size:13px;margin:0 0 14px;">Edit each field's <strong>label</strong> (also shown as the placeholder), tick <strong>Required</strong> to force a value, untick <strong>Shown</strong> to hide a field from the form without losing the settings.</p>
+
+                <div class="ebf-fhead"><div>Label / placeholder</div><div>Required</div><div>Shown</div></div>
+                <?php foreach ($fields as $key => $fld) : ?>
+                <div class="ebf-field-row">
+                    <input type="text" name="fields[<?php echo esc_attr($key); ?>][label]" value="<?php echo esc_attr($fld['label']); ?>">
+                    <label class="ebf-toggle">
+                        <input type="hidden" name="fields[<?php echo esc_attr($key); ?>][required]" value="0">
+                        <input type="checkbox" name="fields[<?php echo esc_attr($key); ?>][required]" value="1" <?php checked($fld['required'], '1'); ?>>
+                    </label>
+                    <label class="ebf-toggle">
+                        <input type="hidden" name="fields[<?php echo esc_attr($key); ?>][enabled]" value="0">
+                        <input type="checkbox" name="fields[<?php echo esc_attr($key); ?>][enabled]" value="1" <?php checked($fld['enabled'], '1'); ?>>
+                    </label>
+                </div>
+                <?php endforeach; ?>
+            </div>
+
+            <p style="margin-top:18px;"><button type="submit" class="button button-primary button-large">Save changes</button></p>
+        </form>
+
+        <!-- ── Recent leads ── -->
+        <div class="ebf-card" style="max-width:1000px;">
+            <h2>📥 Recent submissions <span style="color:#646970;font-size:12px;font-weight:400;margin-left:6px;">— last <?php echo (int) count($leads); ?> stored on this site (max 200)</span></h2>
+            <?php if (empty($leads)) : ?>
+                <p style="color:#646970;font-style:italic;margin:0;">No submissions yet. Once a visitor fills the form on /blog/, it'll show up here.</p>
+            <?php else : ?>
+                <table class="ebf-leads">
+                    <thead><tr><th style="width:140px;">When</th><th>Submission</th><th style="width:160px;">Source URL</th></tr></thead>
+                    <tbody>
+                    <?php foreach (array_slice($leads, 0, 25) as $lead) :
+                        $lines = array();
+                        foreach ($lead['data'] as $row) {
+                            $lines[] = $row['label'] . ': ' . $row['value'];
+                        }
+                    ?>
+                    <tr>
+                        <td><?php echo esc_html($lead['time']); ?></td>
+                        <td class="ebf-data"><?php echo esc_html(implode("\n", $lines)); ?></td>
+                        <td><a href="<?php echo esc_url($lead['source']); ?>" target="_blank" rel="noopener" style="word-break:break-all;font-size:11px;"><?php echo esc_html($lead['source']); ?></a></td>
+                    </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  ╔════════════════════════════════════════════════════════════════════╗
 //  ║   ExtraaEdge SEO & TRACKING ADMIN PAGE (for non-coders)            ║
 //  ║   Settings → ExtraaEdge SEO & Tracking                             ║
 //  ║                                                                    ║

@@ -149,17 +149,7 @@ get_header();
                     <li><a href="<?php echo esc_url(home_url('/blog/feed/')); ?>"><i class="fa fa-rss" style="color:#F26522"></i> RSS</a></li>
                 </ul>
             </div>
-            <div class="ee-blog-lead">
-                <h2>Get weekly admissions insights — straight to your inbox</h2>
-                <form onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed!'; this.querySelector('button').disabled=true;">
-                    <input type="text"  placeholder="First Name*"   required>
-                    <input type="text"  placeholder="Last Name*"    required>
-                    <input type="email" placeholder="Business Email*" required>
-                    <input type="tel"   placeholder="Phone (with country code)*" required>
-                    <textarea placeholder="Topics you want to read about *" required></textarea>
-                    <button type="submit">Subscribe <i class="fa fa-paper-plane"></i></button>
-                </form>
-            </div>
+            <?php ee_render_blog_form(); ?>
         </aside>
 
     </div>
