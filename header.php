@@ -1231,6 +1231,45 @@ if ($ee_is_home) {
                     endif;
                 endif;
 
+                /* Single-blog-post category hop. Inserted after the
+                   Blog landing hop so the trail reads
+                   "Home > Blog > [Category] > [Post Title]".
+                   Honours Yoast Primary Category and RankMath
+                   Primary Category if either plugin is in use,
+                   otherwise falls back to the first assigned
+                   category (skipping the default Uncategorized). */
+                if ($bc_post && isset($bc_post->ID) && get_post_type($bc_post) === 'post') :
+                    $primary_cat = null;
+                    $y_id = (int) get_post_meta($bc_post->ID, '_yoast_wpseo_primary_category', true);
+                    if ($y_id) {
+                        $t = get_term($y_id, 'category');
+                        if ($t && !is_wp_error($t)) $primary_cat = $t;
+                    }
+                    if (!$primary_cat) {
+                        $r_id = (int) get_post_meta($bc_post->ID, 'rank_math_primary_category', true);
+                        if ($r_id) {
+                            $t = get_term($r_id, 'category');
+                            if ($t && !is_wp_error($t)) $primary_cat = $t;
+                        }
+                    }
+                    if (!$primary_cat) {
+                        foreach ((array) get_the_category($bc_post->ID) as $c) {
+                            if ($c->slug !== 'uncategorized') { $primary_cat = $c; break; }
+                        }
+                    }
+                    if ($primary_cat) :
+                        /* Pretty URL — matches the /blog/{slug}/ router
+                           in functions.php. */
+                        $cat_url = trailingslashit(home_url('/blog/' . $primary_cat->slug));
+                ?>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a itemprop="item" href="<?php echo esc_url($cat_url); ?>"><span itemprop="name"><?php echo esc_html($primary_cat->name); ?></span></a>
+                    <meta itemprop="position" content="<?php echo (int) $bc_pos++; ?>">
+                </li>
+                <?php
+                    endif;
+                endif;
+
                 /* Category archive (/category/{slug}/) → inject the Blog hop
                    so the trail reads "Home > Blog > [Category Name]". The
                    category.php template sets $GLOBALS['ee_blog_active_cat']
