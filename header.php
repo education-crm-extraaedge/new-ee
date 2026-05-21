@@ -1234,28 +1234,16 @@ if ($ee_is_home) {
                 /* Single-blog-post category hop. Inserted after the
                    Blog landing hop so the trail reads
                    "Home > Blog > [Category] > [Post Title]".
-                   Honours Yoast Primary Category and RankMath
-                   Primary Category if either plugin is in use,
-                   otherwise falls back to the first assigned
-                   category (skipping the default Uncategorized). */
+                   Uses the first assigned category (skipping the
+                   default "Uncategorized" bucket). To control which
+                   category wins on a multi-category post, just drag
+                   it to the top of the Categories list in the post
+                   editor — WordPress orders by term ID and we pick
+                   the first one returned. */
                 if ($bc_post && isset($bc_post->ID) && get_post_type($bc_post) === 'post') :
                     $primary_cat = null;
-                    $y_id = (int) get_post_meta($bc_post->ID, '_yoast_wpseo_primary_category', true);
-                    if ($y_id) {
-                        $t = get_term($y_id, 'category');
-                        if ($t && !is_wp_error($t)) $primary_cat = $t;
-                    }
-                    if (!$primary_cat) {
-                        $r_id = (int) get_post_meta($bc_post->ID, 'rank_math_primary_category', true);
-                        if ($r_id) {
-                            $t = get_term($r_id, 'category');
-                            if ($t && !is_wp_error($t)) $primary_cat = $t;
-                        }
-                    }
-                    if (!$primary_cat) {
-                        foreach ((array) get_the_category($bc_post->ID) as $c) {
-                            if ($c->slug !== 'uncategorized') { $primary_cat = $c; break; }
-                        }
+                    foreach ((array) get_the_category($bc_post->ID) as $c) {
+                        if ($c->slug !== 'uncategorized') { $primary_cat = $c; break; }
                     }
                     if ($primary_cat) :
                         /* Pretty URL — matches the /blog/{slug}/ router
