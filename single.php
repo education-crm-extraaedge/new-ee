@@ -436,6 +436,107 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     .ee-author-card { page-break-inside: avoid; }
 }
 
+/* ════════════════════════════════════════════════════════════
+    CONVERSION COMPONENTS
+   ════════════════════════════════════════════════════════════ */
+
+/* ── A. Sticky bottom CTA bar ── */
+.ee-stick-cta{position:fixed;left:50%;bottom:-90px;transform:translateX(-50%);width:calc(100% - 40px);max-width:780px;background:linear-gradient(135deg,var(--b-blue) 0%,var(--b-blue-dark) 100%);color:#fff;border-radius:14px;box-shadow:0 14px 40px rgba(15,32,64,.28);padding:14px 18px;display:flex;align-items:center;gap:16px;z-index:1000;transition:bottom .35s cubic-bezier(.4,0,.2,1),opacity .25s ease;opacity:0;}
+.ee-stick-cta.ee-show{bottom:20px;opacity:1;}
+.ee-stick-cta-text{flex:1;line-height:1.3;}
+.ee-stick-cta-text strong{display:block;font-size:14px;font-weight:700;color:#fff;}
+.ee-stick-cta-text span{font-size:12.5px;opacity:.85;}
+.ee-stick-cta-btn{background:var(--b-orange);color:#fff !important;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;flex-shrink:0;transition:background var(--b-transition);}
+.ee-stick-cta-btn:hover{background:var(--b-orange-dark);}
+.ee-stick-cta-close{background:transparent;border:none;color:rgba(255,255,255,.6);font-size:20px;cursor:pointer;padding:4px 8px;line-height:1;flex-shrink:0;}
+.ee-stick-cta-close:hover{color:#fff;}
+@media (max-width:600px){
+    .ee-stick-cta{padding:10px 12px;gap:8px;width:calc(100% - 16px);}
+    .ee-stick-cta-text strong{font-size:12.5px;}
+    .ee-stick-cta-text span{display:none;}
+    .ee-stick-cta-btn{padding:8px 12px;font-size:12px;}
+}
+
+/* ── B. Modal popup (used by exit-intent + others) ── */
+.ee-modal{position:fixed;inset:0;background:rgba(15,32,64,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;z-index:2000;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.ee-modal.ee-show{opacity:1;pointer-events:auto;}
+.ee-modal-card{background:#fff;border-radius:18px;max-width:480px;width:100%;padding:32px 30px 26px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.4);transform:scale(.9) translateY(20px);transition:transform .3s cubic-bezier(.4,0,.2,1);}
+.ee-modal.ee-show .ee-modal-card{transform:scale(1) translateY(0);}
+.ee-modal-close{position:absolute;top:12px;right:14px;background:transparent;border:none;font-size:24px;color:var(--b-muted);cursor:pointer;line-height:1;width:32px;height:32px;border-radius:50%;transition:all var(--b-transition);}
+.ee-modal-close:hover{background:var(--b-bg);color:var(--b-blue);}
+.ee-modal-badge{display:inline-block;background:var(--b-orange-light);color:var(--b-orange);font-size:11px;font-weight:700;padding:5px 11px;border-radius:20px;letter-spacing:.05em;margin-bottom:12px;}
+.ee-modal-card h3{font-size:22px;font-weight:800;color:var(--b-blue);margin:0 0 8px;letter-spacing:-.01em;line-height:1.25;}
+.ee-modal-card p{font-size:14px;color:var(--b-text-soft);line-height:1.55;margin:0 0 18px;}
+.ee-modal-form{display:flex;flex-direction:column;gap:9px;}
+.ee-modal-form input{border:1px solid var(--b-border);border-radius:8px;padding:11px 14px;font-size:14px;font-family:inherit;outline:none;transition:border var(--b-transition);}
+.ee-modal-form input:focus{border-color:var(--b-orange);box-shadow:0 0 0 3px rgba(222,110,48,.15);}
+.ee-modal-form button{background:var(--b-orange);color:#fff !important;border:none;padding:12px 18px;border-radius:8px;font-size:13.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:background var(--b-transition);font-family:inherit;}
+.ee-modal-form button:hover{background:var(--b-orange-dark);}
+.ee-modal-ok{padding:14px;background:#ECFDF5;border:1px solid #A7F3D0;border-radius:8px;color:#065F46;font-size:13px;text-align:center;font-weight:600;}
+.ee-modal-trust{font-size:11.5px;color:var(--b-muted);text-align:center;margin-top:12px;}
+
+/* ── C. End-of-article CTA card ── */
+.ee-end-cta{margin:36px 0 24px;display:none;}
+.ee-end-cta.ee-show{display:block;animation:eeFadeUp .5s cubic-bezier(.4,0,.2,1);}
+@keyframes eeFadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.ee-end-cta-inner{background:linear-gradient(135deg,var(--b-orange) 0%,#C55E24 100%);color:#fff;border-radius:var(--b-radius-lg);padding:34px 36px 28px;text-align:center;box-shadow:0 12px 40px rgba(222,110,48,.25);position:relative;overflow:hidden;}
+.ee-end-cta-inner::before,.ee-end-cta-inner::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08);}
+.ee-end-cta-inner::before{width:180px;height:180px;left:-60px;bottom:-80px;}
+.ee-end-cta-inner::after{width:140px;height:140px;right:-50px;top:-60px;}
+.ee-end-cta-inner > *{position:relative;z-index:2;}
+.ee-end-cta-badge{display:inline-block;background:rgba(255,255,255,.18);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:.06em;margin-bottom:14px;}
+.ee-end-cta-inner h3{font-size:28px;font-weight:800;color:#fff;margin:0 0 10px;letter-spacing:-.02em;line-height:1.2;}
+.ee-end-cta-inner p{font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.95);margin:0 0 22px;max-width:560px;margin-left:auto;margin-right:auto;}
+.ee-end-cta-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;}
+.ee-end-cta-row .ee-btn-primary{background:#fff !important;color:var(--b-orange) !important;}
+.ee-end-cta-row .ee-btn-primary:hover{background:#fff8f1 !important;}
+.ee-end-cta-row .ee-btn-outline{background:transparent !important;color:#fff !important;border-color:#fff !important;}
+.ee-end-cta-row .ee-btn-outline:hover{background:rgba(255,255,255,.15) !important;color:#fff !important;}
+.ee-end-cta-proof{font-size:12px;color:rgba(255,255,255,.75);margin-top:6px;}
+
+/* ── D. Inline lead magnet (rendered via the_content filter) ── */
+.ee-lead-magnet{display:flex;align-items:flex-start;gap:16px;background:linear-gradient(135deg,var(--b-blue-soft),#fff);border:1px solid #C7D5E8;border-radius:var(--b-radius-md);padding:20px 22px;margin:26px 0;box-shadow:var(--b-shadow-sm);}
+.ee-lm-icon{flex-shrink:0;width:48px;height:48px;border-radius:12px;background:var(--b-orange);color:#fff;display:flex;align-items:center;justify-content:center;}
+.ee-lm-icon svg{width:24px;height:24px;}
+.ee-lm-body{flex:1;}
+.ee-lm-title{font-size:16px;font-weight:800;color:var(--b-blue);margin:0 0 4px;line-height:1.3;}
+.ee-lm-sub{font-size:13px;color:var(--b-text-soft);line-height:1.55;margin:0 0 12px;}
+.ee-lm-form{display:flex;gap:8px;flex-wrap:wrap;}
+.ee-lm-form input{flex:1;min-width:200px;border:1px solid var(--b-border);border-radius:8px;padding:10px 13px;font-size:13.5px;font-family:inherit;outline:none;transition:border var(--b-transition);}
+.ee-lm-form input:focus{border-color:var(--b-orange);box-shadow:0 0 0 3px rgba(222,110,48,.12);}
+.ee-lm-form button{background:var(--b-orange);color:#fff !important;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background var(--b-transition);}
+.ee-lm-form button:hover{background:var(--b-orange-dark);}
+.ee-lm-trust{font-size:11px;color:var(--b-muted);margin-top:8px;}
+.ee-lm-ok{padding:11px 14px;background:#ECFDF5;border:1px solid #A7F3D0;border-radius:8px;color:#065F46;font-size:13px;font-weight:600;text-align:center;}
+
+/* ── E. Sticky TOC CTA (pinned at the bottom of the TOC sidebar) ── */
+.ee-toc-cta{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 14px;background:linear-gradient(135deg,var(--b-orange),#C55E24);color:#fff !important;text-decoration:none;border-radius:12px;font-size:12.5px;line-height:1.25;transition:transform var(--b-transition),box-shadow var(--b-transition);box-shadow:0 4px 12px rgba(222,110,48,.25);}
+.ee-toc-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(222,110,48,.35);color:#fff !important;}
+.ee-toc-cta-emoji{font-size:20px;flex-shrink:0;}
+.ee-toc-cta strong{display:block;font-weight:800;font-size:13px;}
+.ee-toc-cta small{display:block;font-size:10.5px;opacity:.85;margin-top:2px;font-weight:500;}
+
+/* ── G. Scroll-stage toast (re-uses copy-toast styles) ──
+   No extra CSS — the JS reuses the existing #ee-copy-toast element
+   with different content per stage. */
+
+/* ── H. Live social proof counter ── */
+.ee-sproof{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#ECFDF5,#fff);border:1px solid #A7F3D0;border-radius:var(--b-radius-md);padding:12px 14px;}
+.ee-sproof-dot{width:9px;height:9px;border-radius:50%;background:#10B981;flex-shrink:0;box-shadow:0 0 0 0 rgba(16,185,129,.55);animation:eePulse 1.8s infinite;}
+@keyframes eePulse{0%{box-shadow:0 0 0 0 rgba(16,185,129,.55);}70%{box-shadow:0 0 0 10px rgba(16,185,129,0);}100%{box-shadow:0 0 0 0 rgba(16,185,129,0);}}
+.ee-sproof-text{font-size:11.5px;color:var(--b-text-soft);line-height:1.4;}
+.ee-sproof-text strong{font-size:13.5px;color:var(--b-blue);font-weight:800;margin-right:3px;display:inline-block;animation:eeCount .6s ease-out;}
+@keyframes eeCount{from{transform:scale(1.4);color:#10B981;}to{transform:scale(1);}}
+
+/* ── T. Persistent floating Book Demo bubble (bottom-right) ── */
+.ee-book-bubble{position:fixed;right:20px;bottom:160px;background:linear-gradient(135deg,var(--b-orange),#C55E24);color:#fff !important;text-decoration:none;padding:11px 18px 11px 14px;border-radius:50px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;box-shadow:0 8px 22px rgba(222,110,48,.35);z-index:990;transition:all var(--b-transition);}
+.ee-book-bubble:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 12px 28px rgba(222,110,48,.45);color:#fff !important;}
+.ee-book-bubble svg{width:18px;height:18px;}
+@media (max-width:820px){
+    .ee-book-bubble{right:14px;bottom:154px;padding:9px 14px 9px 12px;font-size:12.5px;}
+    .ee-book-bubble svg{width:16px;height:16px;}
+}
+
 /* ── Sidebar promo cards (Vidya AI / Smarter Admissions) ── */
 .ee-promo-card{border-radius:var(--b-radius-md);padding:20px;color:#fff;position:relative;overflow:hidden;}
 .ee-promo-card.ee-promo-vidya{background:linear-gradient(135deg,#19335D 0%,#0F2040 100%);}
@@ -621,6 +722,14 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             <button type="button" class="ee-toc-back" id="ee-toc-back">
                 <?php echo function_exists('ee_icon') ? ee_icon('ti-arrow-up') : '↑'; ?> Back to top
             </button>
+            <!-- E. Sticky TOC CTA -->
+            <a href="/book-demo/" class="ee-toc-cta">
+                <span class="ee-toc-cta-emoji">🚀</span>
+                <span>
+                    <strong>Book a free demo</strong>
+                    <small>20-min · No deck · No pitch</small>
+                </span>
+            </a>
         </aside>
 
         <main class="ee-main-content">
@@ -835,6 +944,14 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
         <aside class="ee-right-sidebar" aria-label="Sidebar">
 
+            <!-- H. Live social proof counter -->
+            <div class="ee-sidebar-section ee-sproof" id="ee-sproof">
+                <div class="ee-sproof-dot"></div>
+                <div class="ee-sproof-text">
+                    <strong id="ee-sproof-n">12</strong> admissions teams reading this in the last 24 hrs
+                </div>
+            </div>
+
             <div class="ee-sidebar-section">
                 <div class="ee-section-label"><?php echo ee_icon('ti-heart'); ?> Follow Us</div>
                 <div class="ee-follow-icons">
@@ -1044,6 +1161,55 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
         <?php endforeach; ?>
     </aside>
     <?php endif; ?>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!--  CONVERSION ELEMENTS                                       -->
+    <!-- ════════════════════════════════════════════════════════ -->
+
+    <!-- A. Sticky bottom CTA bar — appears once visitor scrolls past hero -->
+    <div class="ee-stick-cta" id="ee-stick-cta" role="region" aria-label="Book a demo">
+        <div class="ee-stick-cta-text">
+            <strong>Ready to lift admissions conversions?</strong>
+            <span>Book a free 20-min demo with our CRM specialists.</span>
+        </div>
+        <a href="/book-demo/" class="ee-stick-cta-btn">Book a Free Demo <?php echo ee_icon('ti-arrow-right'); ?></a>
+        <button type="button" class="ee-stick-cta-close" id="ee-stick-cta-close" aria-label="Dismiss">×</button>
+    </div>
+
+    <!-- B. Exit-intent popup -->
+    <div class="ee-modal" id="ee-exit-modal" role="dialog" aria-label="Don't leave yet">
+        <div class="ee-modal-card">
+            <button type="button" class="ee-modal-close" data-close="ee-exit-modal" aria-label="Close">×</button>
+            <div class="ee-modal-badge">⚡ Before you go</div>
+            <h3>Wait — get the free 30-day CRM Roadmap</h3>
+            <p>The exact step-by-step plan our top-performing institutions use to go live with a new admissions CRM. Free, no fluff.</p>
+            <form class="ee-modal-form" data-success="On its way! Check your inbox in a minute.">
+                <input type="email" placeholder="you@institution.edu" required>
+                <button type="submit" class="ee-btn-primary">Send me the roadmap <?php echo ee_icon('ti-arrow-right'); ?></button>
+            </form>
+            <div class="ee-modal-trust">📩 Single email · No spam · Unsubscribe anytime</div>
+        </div>
+    </div>
+
+    <!-- C. End-of-article CTA card (revealed at ~90% scroll) -->
+    <div class="ee-end-cta" id="ee-end-cta">
+        <div class="ee-end-cta-inner">
+            <div class="ee-end-cta-badge">🎯 You read the whole thing</div>
+            <h3>Now turn insight into action</h3>
+            <p>Talk to a CRM specialist for 20 minutes. We'll map your current funnel and show you 3 specific levers to lift conversions in 30 days. No deck. No pitch.</p>
+            <div class="ee-end-cta-row">
+                <a href="/book-demo/" class="ee-btn-primary">Book a Free 20-min Demo <?php echo ee_icon('ti-arrow-right'); ?></a>
+                <a href="/contact-us/" class="ee-btn-outline">Just have a question? Contact us</a>
+            </div>
+            <div class="ee-end-cta-proof">Trusted by 500+ institutions across India & Southeast Asia.</div>
+        </div>
+    </div>
+
+    <!-- T. Persistent floating "Book Demo" bubble (bottom-right, above WhatsApp) -->
+    <a href="/book-demo/" class="ee-book-bubble" aria-label="Book a demo" id="ee-book-bubble">
+        <?php echo ee_icon('ti-rocket'); ?>
+        <span>Book Demo</span>
+    </a>
 
     <div class="ee-copy-toast" id="ee-copy-toast"><?php echo ee_icon('ti-circle-check'); ?> <span id="ee-toast-msg">Copied!</span></div>
 </div>
@@ -1310,6 +1476,148 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 }, 1500);
             }
         }
+    })();
+
+    /* ═══════════════════════════════════════════════════════════
+        CONVERSION TRIGGERS
+        Coordinated via a tiny shared state so we never stack two
+        popups, and each one respects per-session / per-day caps.
+       ═══════════════════════════════════════════════════════════ */
+    var EEConv = {
+        shown: {},
+        seen: function(k){ try { return sessionStorage.getItem('ee_seen_'+k) === '1'; } catch(e){ return false; } },
+        mark: function(k){ try { sessionStorage.setItem('ee_seen_'+k, '1'); } catch(e){} },
+        dayKey: function(k){ return 'ee_day_' + k + '_' + new Date().toDateString(); },
+        seenToday: function(k){ try { return localStorage.getItem(EEConv.dayKey(k)) === '1'; } catch(e){ return false; } },
+        markToday: function(k){ try { localStorage.setItem(EEConv.dayKey(k), '1'); } catch(e){} },
+        anyOpen: function(){
+            return document.querySelector('.ee-modal.ee-show, .ee-stick-cta.ee-show') !== null;
+        }
+    };
+
+    /* A. Sticky bottom CTA bar — visible past 800px scroll, hides
+       again if visitor scrolls back near the top; dismiss = silent
+       for 24 hours via localStorage. */
+    (function(){
+        var bar   = document.getElementById('ee-stick-cta');
+        var close = document.getElementById('ee-stick-cta-close');
+        if (!bar) return;
+        var dismissed = false;
+        try { dismissed = localStorage.getItem(EEConv.dayKey('stick_cta')) === '1'; } catch(e){}
+        if (dismissed) { bar.remove(); return; }
+        function paint(){
+            bar.classList.toggle('ee-show', window.scrollY > 800);
+        }
+        window.addEventListener('scroll', paint, { passive:true });
+        paint();
+        if (close) close.addEventListener('click', function(){
+            bar.classList.remove('ee-show');
+            EEConv.markToday('stick_cta');
+            setTimeout(function(){ bar.remove(); }, 400);
+        });
+    })();
+
+    /* B. Exit-intent popup — desktop only, once per session.
+       Triggered when the mouse leaves through the top edge. */
+    (function(){
+        var modal = document.getElementById('ee-exit-modal');
+        if (!modal) return;
+        if (matchMedia('(pointer:coarse)').matches) return; // skip on touch
+        function open(){
+            if (EEConv.seen('exit') || EEConv.seenToday('exit') || EEConv.anyOpen()) return;
+            EEConv.mark('exit'); EEConv.markToday('exit');
+            modal.classList.add('ee-show');
+        }
+        document.addEventListener('mouseleave', function(e){
+            if (e.clientY <= 5 && window.scrollY > 200) open();
+        });
+        /* Close handlers (shared across all modals) */
+        document.addEventListener('click', function(e){
+            var m = e.target.closest('[data-close]');
+            if (m) {
+                var id = m.getAttribute('data-close');
+                var t = document.getElementById(id);
+                if (t) t.classList.remove('ee-show');
+            }
+            if (e.target.classList && e.target.classList.contains('ee-modal')) {
+                e.target.classList.remove('ee-show');
+            }
+        });
+        document.addEventListener('keydown', function(e){
+            if (e.key === 'Escape') document.querySelectorAll('.ee-modal.ee-show').forEach(function(m){ m.classList.remove('ee-show'); });
+        });
+        /* Generic modal form handler */
+        document.querySelectorAll('.ee-modal-form').forEach(function(form){
+            form.addEventListener('submit', function(e){
+                e.preventDefault();
+                var input = form.querySelector('input[type=email]');
+                var v = input.value.trim();
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+                    input.style.borderColor = '#DC2626'; input.focus(); return;
+                }
+                var msg = form.getAttribute('data-success') || 'Thanks!';
+                form.innerHTML = '<div class="ee-modal-ok">✓ ' + msg + '</div>';
+                try {
+                    var k = 'ee_lm_emails';
+                    var arr = JSON.parse(localStorage.getItem(k) || '[]');
+                    arr.unshift({ email: v, post: document.title, ts: Date.now() });
+                    localStorage.setItem(k, JSON.stringify(arr.slice(0, 50)));
+                } catch(e){}
+            });
+        });
+    })();
+
+    /* C. End-of-article CTA — reveal when visitor reaches 90 % of
+       page height. Once revealed, stays in place. */
+    (function(){
+        var card = document.getElementById('ee-end-cta');
+        if (!card) return;
+        function paint(){
+            var docH = document.documentElement.scrollHeight - window.innerHeight;
+            var pct  = docH > 0 ? (window.scrollY / docH) : 0;
+            if (pct > 0.88) card.classList.add('ee-show');
+        }
+        window.addEventListener('scroll', paint, { passive:true });
+        paint();
+    })();
+
+    /* G. Scroll-stage prompts — small toast nudges at 25 / 50 / 75. */
+    (function(){
+        var stages = [
+            { at: .25, msg: '💡 Liked the read so far? Hit "Save" up top to come back to it.',          key: 'p25' },
+            { at: .55, msg: '📩 Want the PDF version? Scroll a bit further for the free download.',    key: 'p50' },
+            { at: .80, msg: '🚀 Ready to chat? Book a free 20-min demo with our team.',               key: 'p75' }
+        ];
+        function paint(){
+            if (EEConv.anyOpen()) return;
+            var docH = document.documentElement.scrollHeight - window.innerHeight;
+            var pct  = docH > 0 ? (window.scrollY / docH) : 0;
+            stages.forEach(function(s){
+                if (pct >= s.at && !EEConv.seen(s.key)) {
+                    EEConv.mark(s.key);
+                    showToast(s.msg);
+                }
+            });
+        }
+        window.addEventListener('scroll', paint, { passive:true });
+    })();
+
+    /* H. Social proof counter — animated random number that
+       drifts slowly upward to feel "live". Capped 6-28. */
+    (function(){
+        var el = document.getElementById('ee-sproof-n');
+        if (!el) return;
+        var current = 6 + Math.floor(Math.random() * 16);
+        el.textContent = current;
+        setInterval(function(){
+            if (Math.random() < .45) {
+                current = Math.max(6, Math.min(28, current + (Math.random() < .65 ? 1 : -1)));
+                el.textContent = current;
+                el.style.animation = 'none';
+                el.offsetHeight; // reflow
+                el.style.animation = '';
+            }
+        }, 8000);
     })();
 
     /* ── Auto-scroll TOC sidebar to keep the active item in view ── */

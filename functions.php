@@ -546,6 +546,50 @@ add_filter('the_content', function ($content) {
     $offset       = $m[0][$target_index][1] + strlen($m[0][$target_index][0]);
     return substr($content, 0, $offset) . $banner_html . substr($content, $offset);
 }, 20);
+
+// ══════════════════════════════════════════════════════════
+// D4c. INLINE LEAD MAGNET — drops a content-upgrade card into the
+// post body after the 6th </h2> (or the last H2 if fewer exist).
+// Editor can override the heading + button text per post via the
+// 📰 Blog Page Settings meta box; otherwise sensible defaults
+// pulled from the post title appear.
+// ══════════════════════════════════════════════════════════
+add_filter('the_content', function ($content) {
+    if (!is_singular('post') || !in_the_loop() || !is_main_query()) return $content;
+    $pid = get_the_ID();
+    /* Per-post opt-out: editor can hide the magnet by setting the
+       meta field to "0" / "off". Default = on. */
+    $enabled = get_post_meta($pid, '_ee_blog_magnet_enabled', true);
+    if ($enabled === '0' || $enabled === 'off') return $content;
+
+    $title  = get_post_meta($pid, '_ee_blog_magnet_title', true)
+            ?: 'Get this guide as a free PDF';
+    $sub    = get_post_meta($pid, '_ee_blog_magnet_sub', true)
+            ?: 'No fluff. A 1-page summary of every actionable insight from this post — straight to your inbox.';
+    $btn    = get_post_meta($pid, '_ee_blog_magnet_btn', true) ?: 'Email me the PDF';
+
+    $html = "\n<aside class=\"ee-lead-magnet\" aria-label=\"Free download\">"
+          . '<div class="ee-lm-icon">' . (function_exists('ee_icon') ? ee_icon('ti-file-text', 26) : '📄') . '</div>'
+          . '<div class="ee-lm-body">'
+          . '<div class="ee-lm-title">' . esc_html($title) . '</div>'
+          . '<div class="ee-lm-sub">' . esc_html($sub) . '</div>'
+          . '<form class="ee-lm-form" onsubmit="event.preventDefault();var v=this.querySelector(\'input\').value.trim();if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){this.innerHTML=\'<div class=&quot;ee-lm-ok&quot;>\xe2\x9c\x93 On its way to your inbox \xe2\x80\x94 check spam too.</div>\';try{var k=\'ee_lm_emails\';var a=JSON.parse(localStorage.getItem(k)||\'[]\');a.unshift({email:v,post:document.title,ts:Date.now()});localStorage.setItem(k,JSON.stringify(a.slice(0,50)));}catch(e){}}else{this.querySelector(\'input\').style.borderColor=\'#dc2626\';this.querySelector(\'input\').focus();}">'
+          . '<input type="email" placeholder="you@institution.edu" required>'
+          . '<button type="submit">' . esc_html($btn) . ' &rarr;</button>'
+          . '</form>'
+          . '<div class="ee-lm-trust">No spam. Unsubscribe anytime.</div>'
+          . '</div>'
+          . "</aside>\n";
+
+    /* Inject after 6th </h2>; if fewer than 6 H2s, append at end. */
+    if (!preg_match_all('#</h2>#i', $content, $m, PREG_OFFSET_CAPTURE)) return $content . $html;
+    $total = count($m[0]);
+    if ($total === 0) return $content . $html;
+    $idx = min(6, $total) - 1;
+    $offset = $m[0][$idx][1] + strlen($m[0][$idx][0]);
+    return substr($content, 0, $offset) . $html . substr($content, $offset);
+}, 22);
+
 /**
  * "🔍 Blog SEO & Social Meta" — exposes every meta tag header.php
  * emits as an editable field on the post edit screen, so a
