@@ -409,9 +409,31 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     width:44px;height:44px;border-radius:13px;
     background:var(--tile-bg);color:var(--tile-fg);
     display:flex;align-items:center;justify-content:center;
-    font-size:21px;
+    font-size:22px;line-height:1;
     transition:all .25s cubic-bezier(.4,0,.2,1);
     box-shadow:inset 0 -2px 0 rgba(0,0,0,.04);
+    flex-shrink:0;
+}
+/* Make absolutely sure the Tabler glyph inherits size + colour and
+   doesn't get squashed by a global `i { font-style:italic }` reset
+   or by Tabler's own default sizing. Explicit font-family covers
+   the case where a theme reset overrides `.ti`'s declaration. */
+.ee-float-nav a .ee-fn-ico i,
+.ee-float-nav a .ee-fn-ico i.ti{
+    font-family:'tabler-icons' !important;
+    font-style:normal !important;
+    font-weight:normal !important;
+    font-variant:normal !important;
+    text-transform:none !important;
+    speak:none;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    font-size:inherit !important;
+    color:inherit !important;
+    line-height:1 !important;
+    display:inline-block;
+    width:auto;height:auto;
+    vertical-align:middle;
 }
 .ee-float-nav a:hover{color:var(--tile-fg);transform:translateY(-2px);}
 .ee-float-nav a:hover .ee-fn-ico{transform:scale(1.06);box-shadow:0 6px 14px rgba(15,32,64,.14);}
