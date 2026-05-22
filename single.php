@@ -1021,31 +1021,35 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     if (actPrint) actPrint.addEventListener('click', function(){ window.print(); });
 
     /* ── Floating Quick Nav visibility ──
-       Reveal once the FAQ section enters the viewport (typically
-       near the bottom of the article). Hide again when the site
-       footer enters the viewport so the dashboard doesn't overlap
-       the footer content. If the post has no FAQ section, fall
-       back to "scrolled past 60% of page height". */
-    var fnav       = document.getElementById('ee-float-nav');
-    var faqSection = document.getElementById('ee-faq-section');
-    var siteFooter = document.querySelector('footer.site-footer, footer#colophon, footer, .ee-blog-page + footer');
+       Visible window:
+         START — the sidebar "Last Updated" chip has entered the
+                 viewport (i.e. its top has crossed the viewport
+                 bottom). The visitor can now see it on screen.
+         END   — the FAQ section's BOTTOM has scrolled past the
+                 viewport top, meaning the visitor has finished
+                 reading the FAQs.
+       Outside that range the dashboard is hidden. Posts that lack
+       either anchor fall back to a 50–90 % page-scroll window so
+       the dashboard still appears on every article. */
+    var fnav        = document.getElementById('ee-float-nav');
+    var lastUpdated = document.getElementById('ee-last-updated');
+    var faqSection  = document.getElementById('ee-faq-section');
     if (fnav) {
         function toggleFnav(){
-            var faqInView;
+            var started, ended;
+            if (lastUpdated) {
+                started = lastUpdated.getBoundingClientRect().top < window.innerHeight;
+            }
             if (faqSection) {
-                var fqRect = faqSection.getBoundingClientRect();
-                /* "Reached" = FAQ section's top is at or above 70% of viewport. */
-                faqInView = (fqRect.top < window.innerHeight * 0.7);
-            } else {
+                ended = faqSection.getBoundingClientRect().bottom < 0;
+            }
+            if (started === undefined || ended === undefined) {
                 var docH = document.documentElement.scrollHeight - window.innerHeight;
-                faqInView = (window.scrollY / Math.max(docH, 1)) > 0.55;
+                var pct  = docH > 0 ? (window.scrollY / docH) : 0;
+                if (started === undefined) started = (pct > 0.50);
+                if (ended   === undefined) ended   = (pct > 0.90);
             }
-            var footerInView = false;
-            if (siteFooter) {
-                var ftRect = siteFooter.getBoundingClientRect();
-                footerInView = (ftRect.top < window.innerHeight - 60);
-            }
-            fnav.classList.toggle('ee-visible', faqInView && !footerInView);
+            fnav.classList.toggle('ee-visible', started && !ended);
         }
         window.addEventListener('scroll', toggleFnav, { passive:true });
         window.addEventListener('resize', toggleFnav);
