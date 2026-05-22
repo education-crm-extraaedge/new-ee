@@ -97,7 +97,16 @@ while (have_posts()) : the_post();
     $category = $f('category_tag', $primary_cat ? $primary_cat->name : '');
 
     $subtitle    = $f('subtitle', '');
-    $read_time   = $f('read_time', '6 min read');
+    /* Read-time: prefer the editor-set value; otherwise auto-calc from
+       the post body (≈ 220 words per minute, rounded up to 1 min min). */
+    $read_time_meta = $f('read_time', '');
+    if ($read_time_meta) {
+        $read_time = $read_time_meta;
+    } else {
+        $words = str_word_count(wp_strip_all_tags(get_post_field('post_content', $pid)));
+        $mins  = max(1, (int) ceil($words / 220));
+        $read_time = $mins . ' min read';
+    }
     $hero_icon   = $f('hero_icon', 'ti-messages');
     $hero_caption = $f('hero_caption', '');
     $callout     = $f('callout', '');
@@ -361,6 +370,72 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-related-date{font-size:11.5px;color:var(--b-muted);margin-top:auto;}
 @media (max-width:820px){ .ee-related-grid{ grid-template-columns:1fr; } }
 
+/* ── Author bio card (after article) ── */
+.ee-author-card{display:flex;align-items:flex-start;gap:18px;background:linear-gradient(135deg,#fff,#fafbfc);border:1px solid var(--b-border);border-radius:var(--b-radius-lg);padding:24px 26px;margin:32px 0;box-shadow:var(--b-shadow-sm);}
+.ee-author-card-avatar{flex-shrink:0;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--b-blue),var(--b-blue-dark));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;letter-spacing:.02em;}
+.ee-author-card-body{flex:1;}
+.ee-author-card-name{display:flex;flex-direction:column;gap:2px;margin-bottom:6px;}
+.ee-author-card-name > span:first-child{font-size:16px;font-weight:700;color:var(--b-blue);}
+.ee-author-card-role{font-size:12px;color:var(--b-orange);font-weight:600;letter-spacing:.04em;text-transform:uppercase;}
+.ee-author-card p{font-size:13.5px;color:var(--b-text-soft);line-height:1.65;margin:0 0 10px;}
+.ee-author-card-link{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--b-orange);text-decoration:none;}
+.ee-author-card-link:hover{color:var(--b-orange-dark);gap:8px;}
+
+/* ── Prev / Next post navigation ── */
+.ee-pn-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:32px 0;}
+.ee-pn-card{display:flex;flex-direction:column;gap:5px;padding:18px 20px;background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);text-decoration:none;color:inherit;transition:all var(--b-transition);min-height:80px;}
+.ee-pn-card:hover{border-color:var(--b-orange);box-shadow:var(--b-shadow-md);transform:translateY(-2px);color:inherit;}
+.ee-pn-next{align-items:flex-end;text-align:right;}
+.ee-pn-label{font-size:10.5px;font-weight:700;color:var(--b-orange);text-transform:uppercase;letter-spacing:.1em;}
+.ee-pn-title{font-size:14.5px;font-weight:600;color:var(--b-blue);line-height:1.4;}
+.ee-pn-empty{visibility:hidden;border:0;background:transparent;}
+@media (max-width:600px){ .ee-pn-nav{grid-template-columns:1fr;} .ee-pn-next{align-items:flex-start;text-align:left;} }
+
+/* ── Bookmark button state ── */
+.ee-icon-btn .ee-bm-ico svg{transition:transform .2s ease;}
+.ee-icon-btn.ee-saved{border-color:var(--b-orange);color:var(--b-orange);background:var(--b-orange-light);}
+.ee-icon-btn.ee-saved .ee-bm-ico svg{transform:scale(1.15);}
+
+/* ── Article body polish ── */
+.ee-blog-body blockquote{position:relative;}
+.ee-blog-body blockquote::before{content:"❝";position:absolute;left:14px;top:8px;font-size:34px;color:var(--b-orange);opacity:.4;font-family:Georgia,serif;line-height:1;}
+.ee-blog-body blockquote p{padding-left:24px;}
+.ee-blog-body table{width:100%;border-collapse:collapse;margin:22px 0;font-size:14px;border:1px solid var(--b-border);border-radius:var(--b-radius-md);overflow:hidden;background:#fff;}
+.ee-blog-body table thead{background:var(--b-blue-light);}
+.ee-blog-body table th{font-size:12px;font-weight:700;color:var(--b-blue);text-align:left;padding:12px 14px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--b-border-dark);}
+.ee-blog-body table td{padding:11px 14px;border-bottom:1px solid var(--b-border);color:var(--b-text-soft);}
+.ee-blog-body table tr:last-child td{border-bottom:0;}
+.ee-blog-body table tr:hover td{background:#fafbfc;}
+.ee-blog-body code{background:var(--b-blue-light);color:var(--b-blue);padding:2px 7px;border-radius:5px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.9em;}
+.ee-blog-body pre{background:#0F2040;color:#E5E7EB;padding:16px 18px;border-radius:var(--b-radius-md);overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.55;margin:18px 0;}
+.ee-blog-body pre code{background:transparent;color:inherit;padding:0;}
+.ee-blog-body figure{margin:20px 0;}
+.ee-blog-body figcaption{font-size:12.5px;color:var(--b-muted);text-align:center;margin-top:8px;font-style:italic;}
+.ee-blog-body hr{border:0;height:1px;background:linear-gradient(90deg,transparent,var(--b-border),transparent);margin:32px 0;}
+.ee-blog-body a:not(.ee-ad-banner){color:var(--b-orange);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px;text-decoration-color:rgba(222,110,48,.4);transition:all var(--b-transition);}
+.ee-blog-body a:not(.ee-ad-banner):hover{text-decoration-color:var(--b-orange);color:var(--b-orange-dark);}
+
+/* ── Print stylesheet — strip everything that doesn't print well ── */
+@media print {
+    .ee-toc-sidebar, .ee-right-sidebar, .ee-floating-contact, .ee-scroll-top,
+    .ee-float-nav, .ee-copy-toast, .ee-progress-bar, .ee-cta-row,
+    .ee-top-actions, #site-header, footer, .ee-share-section,
+    .ee-send-article, .ee-crm-banner, .ee-pn-nav, .ee-related,
+    .ee-ad-banner, .ee-bottom-nav { display: none !important; }
+    .ee-blog-page { background: #fff !important; padding: 0 !important; }
+    .ee-blog-wrap { grid-template-columns: 1fr !important; max-width: 760px !important; margin: 0 auto !important; }
+    .ee-main-content { padding: 0 !important; }
+    .ee-blog-title { font-size: 26px !important; color: #000 !important; }
+    .ee-blog-body { font-size: 13px !important; line-height: 1.6 !important; color: #000 !important; }
+    .ee-blog-body h2 { font-size: 18px !important; color: #000 !important; page-break-after: avoid; }
+    .ee-blog-body h3 { font-size: 15px !important; color: #000 !important; page-break-after: avoid; }
+    .ee-blog-body p, .ee-blog-body li { color: #1f2937 !important; orphans: 3; widows: 3; }
+    .ee-blog-body a { color: #19335D !important; text-decoration: underline !important; }
+    .ee-blog-body a[href]::after { content: " (" attr(href) ")"; font-size: .85em; color: #6B7280; }
+    .ee-faq-item, .ee-faq-a { max-height: none !important; padding: 8px 12px !important; }
+    .ee-author-card { page-break-inside: avoid; }
+}
+
 /* ── Sidebar promo cards (Vidya AI / Smarter Admissions) ── */
 .ee-promo-card{border-radius:var(--b-radius-md);padding:20px;color:#fff;position:relative;overflow:hidden;}
 .ee-promo-card.ee-promo-vidya{background:linear-gradient(135deg,#19335D 0%,#0F2040 100%);}
@@ -582,6 +657,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 <span class="ee-meta-item"><?php echo ee_icon('ti-clock'); ?> <?php echo esc_html($read_time); ?></span>
                 <span class="ee-meta-item"><?php echo ee_icon('ti-calendar'); ?> <?php echo esc_html(get_the_date()); ?></span>
                 <div class="ee-top-actions">
+                    <button class="ee-icon-btn" id="ee-btn-bookmark" title="Save for later"><span class="ee-bm-ico"><?php echo function_exists('ee_icon') ? ee_icon('ti-circle-check') : ''; ?></span> <span class="ee-bm-label">Save</span></button>
                     <button class="ee-icon-btn" id="ee-btn-copy-md" title="Copy article as Markdown"><?php echo ee_icon('ti-markdown'); ?> Copy MD</button>
                     <button class="ee-icon-btn" id="ee-btn-share" title="Share this page"><?php echo ee_icon('ti-share-3'); ?> Share</button>
                     <button class="ee-icon-btn" onclick="window.print()" title="Print"><?php echo ee_icon('ti-printer'); ?> Print</button>
@@ -711,6 +787,49 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                     <?php endwhile; wp_reset_postdata(); ?>
                 </div>
             </section>
+            <?php endif; ?>
+
+            <!-- ── Author bio card ── -->
+            <section class="ee-author-card" aria-label="About the author">
+                <div class="ee-author-card-avatar"><?php echo esc_html($author_initials); ?></div>
+                <div class="ee-author-card-body">
+                    <div class="ee-author-card-name">
+                        <span>About <?php echo esc_html($author_name); ?></span>
+                        <span class="ee-author-card-role"><?php echo esc_html($author_title); ?></span>
+                    </div>
+                    <p><?php echo esc_html($author_bio_text); ?></p>
+                    <?php
+                    $a_url = get_author_posts_url($author_id);
+                    if ($a_url) : ?>
+                        <a class="ee-author-card-link" href="<?php echo esc_url($a_url); ?>">More articles by <?php echo esc_html($author_name); ?> <?php echo ee_icon('ti-arrow-right'); ?></a>
+                    <?php endif; ?>
+                </div>
+            </section>
+
+            <!-- ── Prev / Next post navigation ── -->
+            <?php
+            $prev_p = get_previous_post(true); // same category
+            $next_p = get_next_post(true);
+            if ($prev_p || $next_p) : ?>
+            <nav class="ee-pn-nav" aria-label="Continue reading">
+                <?php if ($prev_p) : $prev_thumb = get_the_post_thumbnail_url($prev_p->ID, 'medium'); ?>
+                    <a class="ee-pn-card ee-pn-prev" href="<?php echo esc_url(get_permalink($prev_p->ID)); ?>">
+                        <div class="ee-pn-label">← Previous</div>
+                        <div class="ee-pn-title"><?php echo esc_html(get_the_title($prev_p->ID)); ?></div>
+                    </a>
+                <?php else : ?>
+                    <span class="ee-pn-card ee-pn-empty"></span>
+                <?php endif; ?>
+
+                <?php if ($next_p) : ?>
+                    <a class="ee-pn-card ee-pn-next" href="<?php echo esc_url(get_permalink($next_p->ID)); ?>">
+                        <div class="ee-pn-label">Next →</div>
+                        <div class="ee-pn-title"><?php echo esc_html(get_the_title($next_p->ID)); ?></div>
+                    </a>
+                <?php else : ?>
+                    <span class="ee-pn-card ee-pn-empty"></span>
+                <?php endif; ?>
+            </nav>
             <?php endif; ?>
         </main>
 
@@ -1116,6 +1235,82 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
+
+    /* ── Bookmark (localStorage) ──
+       Stores the article URL + title + timestamp under
+       "ee_bookmarks". The button toggles state on click and
+       reflects the saved state on subsequent visits. */
+    var bmBtn = document.getElementById('ee-btn-bookmark');
+    if (bmBtn) {
+        function readBookmarks(){
+            try { return JSON.parse(localStorage.getItem('ee_bookmarks') || '[]'); }
+            catch(e){ return []; }
+        }
+        function writeBookmarks(arr){
+            try { localStorage.setItem('ee_bookmarks', JSON.stringify(arr.slice(0, 50))); } catch(e){}
+        }
+        function isSaved(){
+            return readBookmarks().some(function(b){ return b.url === location.href; });
+        }
+        function paint(){
+            var saved = isSaved();
+            bmBtn.classList.toggle('ee-saved', saved);
+            var lbl = bmBtn.querySelector('.ee-bm-label');
+            if (lbl) lbl.textContent = saved ? 'Saved' : 'Save';
+            bmBtn.setAttribute('title', saved ? 'Remove from saved' : 'Save for later');
+        }
+        bmBtn.addEventListener('click', function(){
+            var list = readBookmarks();
+            var here = list.findIndex(function(b){ return b.url === location.href; });
+            if (here >= 0) {
+                list.splice(here, 1);
+                showToast('Removed from saved');
+            } else {
+                list.unshift({ url: location.href, title: document.title, ts: Date.now() });
+                showToast('Saved for later');
+            }
+            writeBookmarks(list);
+            paint();
+        });
+        paint();
+    }
+
+    /* ── Reading-position memory ──
+       Saves the visitor's scroll position per URL every 2s. On the
+       next visit we offer to "resume reading" (only if they were
+       past 15% and under 90%) so we don't pester for fresh opens. */
+    (function(){
+        var KEY = 'ee_read_pos_' + location.pathname;
+        var saveTimer;
+        window.addEventListener('scroll', function(){
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(function(){
+                try { localStorage.setItem(KEY, String(window.scrollY)); } catch(e){}
+            }, 500);
+        }, { passive:true });
+        var saved = 0;
+        try { saved = parseInt(localStorage.getItem(KEY) || '0', 10) || 0; } catch(e){}
+        if (saved > 400) {
+            var docH = document.documentElement.scrollHeight - window.innerHeight;
+            var pct  = docH > 0 ? saved / docH : 0;
+            if (pct > 0.15 && pct < 0.9) {
+                /* Soft resume toast — visitor can ignore or click. */
+                setTimeout(function(){
+                    var t = document.getElementById('ee-copy-toast');
+                    var m = document.getElementById('ee-toast-msg');
+                    if (!t || !m) return;
+                    t.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/><path d="M12 8v4l3 2"/></svg> <span>Resume reading where you left off?</span> <button id="ee-resume-yes" style="margin-left:8px;background:#DE6E30;color:#fff;border:0;padding:5px 10px;border-radius:5px;font-weight:600;cursor:pointer;font-size:12px;">Resume</button>';
+                    t.classList.add('ee-show');
+                    setTimeout(function(){ t.classList.remove('ee-show'); }, 8000);
+                    var resume = document.getElementById('ee-resume-yes');
+                    if (resume) resume.addEventListener('click', function(){
+                        window.scrollTo({ top: saved, behavior: 'smooth' });
+                        t.classList.remove('ee-show');
+                    });
+                }, 1500);
+            }
+        }
+    })();
 
     /* ── Auto-scroll TOC sidebar to keep the active item in view ── */
     var lastActiveId = '';
