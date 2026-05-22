@@ -1390,7 +1390,7 @@ get_header();
     background-color: var(--bg-light);
     font-family: 'Open Sans', sans-serif;
     color: var(--dark-base);
-    padding: 0 20px;
+    padding: 80px 20px 70px;
     overflow: hidden;
     line-height: 1.6;
   }
