@@ -373,13 +373,21 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-action-btn:hover{border-color:var(--b-orange);color:var(--b-orange);background:var(--b-orange-light);}
 .ee-action-btn i{font-size:14px;}
 
-/* ── Sidebar Quick Navigation (sits under Last Updated) ── */
-.ee-side-nav-section{margin-top:18px;}
-.ee-side-nav{display:flex;flex-direction:column;gap:2px;}
-.ee-side-nav a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--b-radius-sm);font-size:13px;font-weight:500;color:var(--b-blue);text-decoration:none;transition:all var(--b-transition);}
-.ee-side-nav a:hover{background:var(--b-orange-light);color:var(--b-orange);transform:translateX(2px);}
-.ee-side-nav a i{font-size:15px;color:var(--b-muted);transition:color var(--b-transition);width:18px;text-align:center;}
-.ee-side-nav a:hover i{color:var(--b-orange);}
+/* ── Floating vertical Quick-Navigation (right edge) ──
+   Icon-on-top, label-below stack like the reference design. Lives
+   between the article right-sidebar and the viewport edge on wide
+   screens. Hidden on narrow viewports where there's no room. */
+.ee-float-nav{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:990;padding:14px 8px;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(8px);border:1px solid var(--b-border);border-radius:18px;box-shadow:var(--b-shadow-md);}
+.ee-float-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:9px 6px;width:64px;border-radius:12px;font-size:10.5px;font-weight:600;color:var(--b-text-soft);text-decoration:none;transition:all var(--b-transition);text-align:center;line-height:1.15;}
+.ee-float-nav a i{font-size:20px;color:var(--b-blue);transition:color var(--b-transition);}
+.ee-float-nav a:hover{background:var(--b-orange-light);color:var(--b-orange);}
+.ee-float-nav a:hover i{color:var(--b-orange);}
+.ee-float-nav a span{display:block;white-space:nowrap;}
+
+/* Hide on narrow screens — no room next to the article. */
+@media (max-width:1300px){
+    .ee-float-nav{display:none;}
+}
 
 .ee-floating-contact{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:1000;}
 .ee-float-btn{display:flex;align-items:center;gap:10px;padding:12px 16px 12px 14px;border-radius:50px;color:#fff;font-weight:600;font-size:13.5px;text-decoration:none;box-shadow:0 6px 20px rgba(15,32,64,.18);transition:all .25s ease;cursor:pointer;border:none;font-family:inherit;}
@@ -739,20 +747,6 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 <i class="ti ti-calendar-check"></i> Last Updated: <strong style="margin-left:4px;"><?php echo esc_html(get_the_modified_date()); ?></strong>
             </div>
 
-            <!-- ── Quick navigation (sidebar) ── -->
-            <div class="ee-sidebar-section ee-side-nav-section">
-                <div class="ee-section-label"><i class="ti ti-compass"></i> Quick Navigation</div>
-                <nav class="ee-side-nav" aria-label="Quick navigation">
-                    <a href="<?php echo esc_url(home_url('/')); ?>"><i class="ti ti-home"></i> Home</a>
-                    <a href="<?php echo esc_url(home_url('/products/')); ?>"><i class="ti ti-package"></i> Products</a>
-                    <a href="<?php echo esc_url(home_url('/industries/')); ?>"><i class="ti ti-building"></i> Industries</a>
-                    <a href="<?php echo esc_url(home_url('/solutions/')); ?>"><i class="ti ti-bulb"></i> Solutions</a>
-                    <a href="<?php echo esc_url(home_url('/case-studies/')); ?>"><i class="ti ti-quote"></i> Testimonials</a>
-                    <a href="<?php echo esc_url(home_url('/resources/')); ?>"><i class="ti ti-book"></i> Resources</a>
-                    <a href="<?php echo esc_url(home_url('/contact-us/')); ?>"><i class="ti ti-message-2"></i> Contact</a>
-                </nav>
-            </div>
-
         </aside>
     </div>
 
@@ -768,6 +762,17 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     </div>
 
     <button class="ee-scroll-top" id="ee-scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"><i class="ti ti-arrow-up"></i></button>
+
+    <!-- ── Floating vertical quick-nav (right edge, vertically centred) ── -->
+    <aside class="ee-float-nav" aria-label="Quick navigation">
+        <a href="<?php echo esc_url(home_url('/')); ?>"><i class="ti ti-home"></i><span>Home</span></a>
+        <a href="<?php echo esc_url(home_url('/products/')); ?>"><i class="ti ti-package"></i><span>Products</span></a>
+        <a href="<?php echo esc_url(home_url('/industries/')); ?>"><i class="ti ti-building"></i><span>Industries</span></a>
+        <a href="<?php echo esc_url(home_url('/solutions/')); ?>"><i class="ti ti-bulb"></i><span>Solutions</span></a>
+        <a href="<?php echo esc_url(home_url('/case-studies/')); ?>"><i class="ti ti-quote"></i><span>Testimonials</span></a>
+        <a href="<?php echo esc_url(home_url('/resources/')); ?>"><i class="ti ti-book"></i><span>Resources</span></a>
+        <a href="<?php echo esc_url(home_url('/contact-us/')); ?>"><i class="ti ti-mail"></i><span>Contact&nbsp;Us</span></a>
+    </aside>
 
     <div class="ee-copy-toast" id="ee-copy-toast"><i class="ti ti-circle-check"></i> <span id="ee-toast-msg">Copied!</span></div>
 </div>
