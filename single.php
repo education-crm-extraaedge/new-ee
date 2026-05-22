@@ -163,41 +163,102 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-blog-wrap{display:grid;grid-template-columns:240px minmax(0,1fr) 300px;max-width:1280px;margin:0 auto;}
 
 /* ── Premium TOC sidebar ─────────────────────────────────── */
-.ee-toc-sidebar{padding:24px 18px;position:sticky;top:96px;height:calc(100vh - 110px);overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);margin-right:6px;}
-.ee-toc-sidebar::-webkit-scrollbar{display:none;width:0;height:0;}
+.ee-toc-sidebar{padding:20px 16px;position:sticky;top:96px;height:calc(100vh - 110px);overflow:hidden;display:flex;flex-direction:column;background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);margin-right:6px;}
 
-.ee-toc-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:14px;border-bottom:1px solid var(--b-border);margin-bottom:14px;}
+.ee-toc-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:12px;border-bottom:1px solid var(--b-border);margin-bottom:10px;flex-shrink:0;}
 .ee-toc-sidebar h3,
 .ee-toc-sidebar .ee-toc-heading{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--b-blue);text-transform:uppercase;margin:0;display:flex;align-items:center;gap:6px;}
 .ee-toc-heading::before{content:"";display:inline-block;width:14px;height:2px;background:var(--b-orange);border-radius:2px;}
-.ee-toc-time{font-size:10.5px;font-weight:600;color:var(--b-muted);background:var(--b-blue-light);padding:3px 7px;border-radius:20px;letter-spacing:.04em;}
+.ee-toc-time{font-size:10.5px;font-weight:700;color:var(--b-orange);background:var(--b-orange-light);padding:3px 8px;border-radius:20px;letter-spacing:.04em;white-space:nowrap;}
 
-/* Per-section reading progress rail on the LEFT of the list. */
-.ee-toc-rail{position:relative;}
-.ee-toc-rail::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--b-border);border-radius:2px;}
-.ee-toc-progress{position:absolute;left:6px;top:6px;width:2px;background:linear-gradient(180deg,var(--b-orange),var(--b-orange-dark));border-radius:2px;height:0;transition:height .25s cubic-bezier(.4,0,.2,1);}
+/* Overall page progress bar at the top of the TOC. */
+.ee-toc-bar{height:3px;background:var(--b-bg);border-radius:2px;overflow:hidden;margin-bottom:12px;flex-shrink:0;}
+.ee-toc-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--b-orange),#C55E24);border-radius:2px;transition:width .25s ease;}
 
-.ee-toc-list{list-style:none;margin:0;padding:0 0 0 16px;position:relative;counter-reset:ee-toc;}
-.ee-toc-list li{margin-bottom:2px;position:relative;}
-.ee-toc-list > li > a{counter-increment:ee-toc;}
-.ee-toc-list > li > a::before{content:counter(ee-toc, decimal-leading-zero);font-size:10px;font-weight:700;color:var(--b-muted-soft);margin-right:8px;letter-spacing:.04em;transition:color var(--b-transition);}
-.ee-toc-list a{position:relative;font-size:13px;color:var(--b-text-soft);display:flex;align-items:flex-start;padding:7px 10px 7px 8px;border-radius:6px;transition:all var(--b-transition);line-height:1.4;font-weight:500;text-decoration:none;}
-.ee-toc-list a:hover{color:var(--b-orange);background:var(--b-orange-light);}
-.ee-toc-list a:hover::before{color:var(--b-orange);}
-.ee-toc-list a.ee-active{color:var(--b-orange);background:var(--b-orange-light);font-weight:700;}
-.ee-toc-list a.ee-active::before{color:var(--b-orange);}
-.ee-toc-list a.ee-active::after{
-    content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);
+/* Section search filter */
+.ee-toc-filter{position:relative;margin-bottom:8px;flex-shrink:0;}
+.ee-toc-filter input{width:100%;font-family:inherit;font-size:12px;padding:7px 10px 7px 28px;border:1px solid var(--b-border);border-radius:6px;background:#fafbfc;outline:none;transition:border var(--b-transition);}
+.ee-toc-filter input:focus{border-color:var(--b-orange);background:#fff;}
+.ee-toc-filter svg{position:absolute;left:8px;top:50%;transform:translateY(-50%);color:var(--b-muted-soft);pointer-events:none;}
+
+/* Scrollable list area (the only scrolling part of the TOC). */
+.ee-toc-scroll{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(25,51,93,.2) transparent;padding-right:4px;margin-right:-4px;}
+.ee-toc-scroll::-webkit-scrollbar{width:5px;}
+.ee-toc-scroll::-webkit-scrollbar-thumb{background:rgba(25,51,93,.2);border-radius:5px;}
+
+/* Per-section progress rail on the LEFT of the list. */
+.ee-toc-rail{position:relative;padding-left:14px;}
+.ee-toc-rail::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--b-border);border-radius:2px;}
+.ee-toc-progress{position:absolute;left:5px;top:6px;width:2px;background:linear-gradient(180deg,var(--b-orange),var(--b-orange-dark));border-radius:2px;height:0;transition:height .25s cubic-bezier(.4,0,.2,1);}
+
+.ee-toc-list{list-style:none;margin:0;padding:0;counter-reset:ee-toc;}
+.ee-toc-list ul{list-style:none;margin:2px 0 6px;padding:0 0 0 14px;max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(.4,0,.2,1);}
+.ee-toc-list li.ee-has-children.ee-expanded > ul{max-height:600px;}
+.ee-toc-list li{margin-bottom:1px;position:relative;}
+
+.ee-toc-link{position:relative;display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;transition:all var(--b-transition);font-size:12.5px;font-weight:500;color:var(--b-text-soft);text-decoration:none;line-height:1.4;cursor:pointer;}
+.ee-toc-link:hover{color:var(--b-orange);background:var(--b-orange-light);}
+.ee-toc-link.ee-active{color:var(--b-orange);background:var(--b-orange-light);font-weight:700;}
+.ee-toc-link.ee-active::after{
+    content:"";position:absolute;left:-14px;top:50%;transform:translateY(-50%);
     width:6px;height:6px;border-radius:50%;background:var(--b-orange);
     box-shadow:0 0 0 3px var(--b-orange-light);
 }
-.ee-toc-list .ee-toc-h3{padding-left:28px;font-size:12px;font-weight:500;color:var(--b-muted);}
-.ee-toc-list .ee-toc-h3::before{display:none;}
-.ee-toc-list .ee-toc-h3.ee-active{color:var(--b-orange);font-weight:600;}
 
-.ee-toc-back{display:flex;align-items:center;gap:6px;justify-content:center;margin-top:14px;padding:9px 10px;background:transparent;border:1px dashed var(--b-border);border-radius:8px;font-size:11.5px;font-weight:600;color:var(--b-muted);cursor:pointer;width:100%;transition:all var(--b-transition);}
-.ee-toc-back:hover{border-color:var(--b-orange);color:var(--b-orange);background:var(--b-orange-light);}
-.ee-toc-back svg{width:13px;height:13px;}
+/* Number prefix only on top-level H2 items */
+.ee-toc-list > li > .ee-toc-link{counter-increment:ee-toc;}
+.ee-toc-list > li > .ee-toc-link .ee-toc-num{font-size:10px;font-weight:700;color:var(--b-muted-soft);letter-spacing:.04em;flex-shrink:0;width:18px;transition:color var(--b-transition);}
+.ee-toc-list > li > .ee-toc-link .ee-toc-num::before{content:counter(ee-toc, decimal-leading-zero);}
+.ee-toc-link:hover .ee-toc-num, .ee-toc-link.ee-active .ee-toc-num{color:var(--b-orange);}
+
+/* "Completed" check pill on sections scrolled past */
+.ee-toc-link .ee-toc-check{flex-shrink:0;width:14px;height:14px;display:none;color:#10B981;}
+.ee-toc-list li.ee-completed > .ee-toc-link .ee-toc-check{display:block;}
+.ee-toc-list li.ee-completed > .ee-toc-link .ee-toc-num{color:#10B981;}
+
+.ee-toc-text{flex:1;min-width:0;}
+.ee-toc-time-mini{font-size:9.5px;color:var(--b-muted);font-weight:600;flex-shrink:0;letter-spacing:.03em;text-transform:uppercase;}
+.ee-toc-link:hover .ee-toc-time-mini{color:var(--b-orange);}
+
+/* H3 sub-items — indented + smaller */
+.ee-toc-list ul .ee-toc-link{font-size:11.5px;font-weight:500;color:var(--b-muted);padding:5px 8px;}
+.ee-toc-list ul .ee-toc-link::after{display:none;}
+.ee-toc-list ul .ee-toc-link.ee-active{color:var(--b-orange);font-weight:600;background:transparent;}
+
+/* H2 with H3 children — chevron */
+.ee-toc-list li.ee-has-children > .ee-toc-link .ee-toc-chev{flex-shrink:0;color:var(--b-muted-soft);transition:transform .2s ease;}
+.ee-toc-list li.ee-has-children.ee-expanded > .ee-toc-link .ee-toc-chev{transform:rotate(90deg);color:var(--b-orange);}
+
+/* Section action buttons (Back to top + Print) */
+.ee-toc-actions{display:flex;gap:6px;margin-top:10px;flex-shrink:0;}
+.ee-toc-actions button{flex:1;display:flex;align-items:center;gap:5px;justify-content:center;padding:8px 8px;background:transparent;border:1px dashed var(--b-border);border-radius:7px;font-size:11px;font-weight:600;color:var(--b-muted);cursor:pointer;font-family:inherit;transition:all var(--b-transition);}
+.ee-toc-actions button:hover{border-color:var(--b-orange);color:var(--b-orange);background:var(--b-orange-light);border-style:solid;}
+.ee-toc-actions svg{width:13px;height:13px;}
+
+.ee-toc-back, .ee-toc-print { /* deprecated, kept for backward compat */ }
+
+/* ── Mobile TOC drawer + FAB ── */
+.ee-toc-fab{display:none;position:fixed;bottom:90px;left:14px;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--b-blue),var(--b-blue-dark));color:#fff;border:none;cursor:pointer;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(15,32,64,.3);z-index:996;transition:all var(--b-transition);}
+.ee-toc-fab svg{width:22px;height:22px;}
+.ee-toc-fab:hover{transform:scale(1.06);box-shadow:0 12px 28px rgba(15,32,64,.4);}
+.ee-toc-fab-pct{position:absolute;top:-4px;right:-4px;background:var(--b-orange);color:#fff;font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:20px;box-shadow:0 2px 6px rgba(0,0,0,.2);}
+
+@media (max-width:820px){
+    .ee-toc-fab{display:flex;}
+    .ee-toc-sidebar{
+        position:fixed;left:-100%;top:0;bottom:0;
+        width:88%;max-width:340px;height:100vh;
+        z-index:2050;border-radius:0;border-right:1px solid var(--b-border);
+        transition:left .35s cubic-bezier(.4,0,.2,1);
+        box-shadow:0 0 60px rgba(0,0,0,.3);
+        display:flex !important;
+    }
+    .ee-toc-sidebar.ee-drawer-open{left:0;}
+    .ee-toc-sidebar .ee-toc-mobile-close{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--b-bg);border:none;font-size:18px;color:var(--b-blue);cursor:pointer;margin-left:auto;}
+}
+.ee-toc-mobile-close{display:none;}
+.ee-toc-backdrop{display:none;position:fixed;inset:0;background:rgba(15,32,64,.5);backdrop-filter:blur(2px);z-index:2040;opacity:0;transition:opacity .3s ease;}
+.ee-toc-backdrop.ee-show{display:block;opacity:1;}
 
 .ee-main-content{padding:36px 44px;min-width:0;}
 .ee-category-tag{display:inline-flex;align-items:center;gap:6px;background:var(--b-orange-light);color:var(--b-orange);font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
@@ -707,22 +768,37 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
     <div class="ee-blog-wrap">
 
-        <aside class="ee-toc-sidebar" aria-label="Table of Contents">
+        <aside class="ee-toc-sidebar" id="ee-toc-sidebar" aria-label="Table of Contents">
             <div class="ee-toc-head">
                 <div class="ee-toc-heading">On this page</div>
-                <span class="ee-toc-time"><?php echo esc_html($read_time); ?></span>
+                <span class="ee-toc-time" id="ee-toc-time"><?php echo esc_html($read_time); ?></span>
+                <button type="button" class="ee-toc-mobile-close" id="ee-toc-mobile-close" aria-label="Close TOC">×</button>
             </div>
-            <div class="ee-toc-rail">
-                <span class="ee-toc-progress" id="ee-toc-progress"></span>
-                <ul class="ee-toc-list" id="ee-toc">
-                    <li><a href="#ee-intro" class="ee-active">Introduction</a></li>
-                    <!-- Auto-built from content H2/H3 by JS -->
-                </ul>
+
+            <div class="ee-toc-bar"><span class="ee-toc-bar-fill" id="ee-toc-bar-fill"></span></div>
+
+            <div class="ee-toc-filter">
+                <?php echo ee_icon('ti-search', 14); ?>
+                <input type="search" id="ee-toc-search" placeholder="Filter sections…" aria-label="Filter table of contents">
             </div>
-            <button type="button" class="ee-toc-back" id="ee-toc-back">
-                <?php echo function_exists('ee_icon') ? ee_icon('ti-arrow-up') : '↑'; ?> Back to top
-            </button>
-            <!-- E. Sticky TOC CTA -->
+
+            <div class="ee-toc-scroll">
+                <div class="ee-toc-rail">
+                    <span class="ee-toc-progress" id="ee-toc-progress"></span>
+                    <ul class="ee-toc-list" id="ee-toc">
+                        <li><a class="ee-toc-link ee-active" href="#ee-intro"><span class="ee-toc-num"></span><span class="ee-toc-text">Introduction</span></a></li>
+                        <!-- Auto-built from content H2/H3 by JS -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="ee-toc-actions">
+                <button type="button" id="ee-toc-back"><?php echo ee_icon('ti-arrow-up', 13); ?> Top</button>
+                <button type="button" id="ee-toc-print"><?php echo ee_icon('ti-printer', 13); ?> Print</button>
+                <button type="button" id="ee-toc-copy"><?php echo ee_icon('ti-link', 13); ?> Copy</button>
+            </div>
+
+            <!-- Sticky TOC CTA -->
             <a href="/book-demo/" class="ee-toc-cta">
                 <span class="ee-toc-cta-emoji">🚀</span>
                 <span>
@@ -731,6 +807,13 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 </span>
             </a>
         </aside>
+
+        <!-- Mobile TOC FAB + Backdrop -->
+        <button type="button" class="ee-toc-fab" id="ee-toc-fab" aria-label="Open table of contents">
+            <?php echo ee_icon('ti-news', 22); ?>
+            <span class="ee-toc-fab-pct" id="ee-toc-fab-pct">0%</span>
+        </button>
+        <div class="ee-toc-backdrop" id="ee-toc-backdrop"></div>
 
         <main class="ee-main-content">
 
@@ -1325,53 +1408,216 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
         });
     }
 
-    /* ── TOC build + scrollspy + progress ── */
+    /* ── TOC build (nested H3 under H2 with per-section reading time) ── */
     var body = document.getElementById('ee-blog-body');
     var toc  = document.getElementById('ee-toc');
+    var tocTime  = document.getElementById('ee-toc-time');
+    var tocBar   = document.getElementById('ee-toc-bar-fill');
+    var tocFab   = document.getElementById('ee-toc-fab');
+    var tocFabPct= document.getElementById('ee-toc-fab-pct');
+    var sectionItems = []; // [{ id, link, li, words, isH3, parentLi }]
+
+    function wordsBetween(a, b){
+        var n = 0; var cur = a.nextSibling;
+        while (cur && cur !== b) {
+            if (cur.nodeType === 1) {
+                n += (cur.textContent || '').trim().split(/\s+/).filter(Boolean).length;
+            }
+            cur = cur.nextSibling;
+        }
+        return n;
+    }
+    function fmtTime(words){
+        var m = Math.max(1, Math.ceil(words / 220));
+        return m + ' min';
+    }
+
     if (body && toc) {
-        var nodes = body.querySelectorAll('h2, h3');
+        var nodes = Array.prototype.slice.call(body.querySelectorAll('h2, h3'));
+        toc.innerHTML = ''; // wipe any placeholder
+        var currentH2Li = null;
+        var currentChildren = null;
+
         nodes.forEach(function(h, i){
             if (!h.id) h.id = 'ee-h-' + i + '-' + (h.textContent || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40);
+            var next = nodes[i + 1] || null;
+            var words = wordsBetween(h, next);
+            var time  = fmtTime(words);
+
             var li = document.createElement('li');
             var a  = document.createElement('a');
             a.href = '#' + h.id;
-            a.textContent = h.textContent;
-            if (h.tagName === 'H3') a.className = 'ee-toc-h3';
-            li.appendChild(a);
-            toc.appendChild(li);
+            a.className = 'ee-toc-link';
+            a.dataset.label = (h.textContent || '').toLowerCase();
+
+            if (h.tagName === 'H2') {
+                a.innerHTML =
+                    '<span class="ee-toc-num"></span>' +
+                    '<span class="ee-toc-text">' + h.textContent + '</span>' +
+                    '<svg class="ee-toc-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l9-9"/></svg>' +
+                    '<span class="ee-toc-time-mini">' + time + '</span>' +
+                    '<svg class="ee-toc-chev" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6l-6 6"/></svg>';
+                li.appendChild(a);
+                currentH2Li = li;
+                currentChildren = null;
+                toc.appendChild(li);
+                sectionItems.push({ id: h.id, link: a, li: li, isH3: false, parentLi: null });
+            } else {
+                // H3 — nest under last H2
+                a.innerHTML =
+                    '<span class="ee-toc-text">' + h.textContent + '</span>' +
+                    '<span class="ee-toc-time-mini">' + time + '</span>';
+                li.appendChild(a);
+                if (currentH2Li) {
+                    if (!currentChildren) {
+                        currentChildren = document.createElement('ul');
+                        currentH2Li.appendChild(currentChildren);
+                        currentH2Li.classList.add('ee-has-children');
+                    }
+                    currentChildren.appendChild(li);
+                    sectionItems.push({ id: h.id, link: a, li: li, isH3: true, parentLi: currentH2Li });
+                } else {
+                    toc.appendChild(li);
+                    sectionItems.push({ id: h.id, link: a, li: li, isH3: false, parentLi: null });
+                }
+            }
+        });
+
+        // Chevron click on H2 with children → toggle expand
+        toc.addEventListener('click', function(e){
+            var chev = e.target.closest('.ee-toc-chev');
+            if (!chev) return;
+            var li = chev.closest('li.ee-has-children');
+            if (li) { e.preventDefault(); li.classList.toggle('ee-expanded'); }
+        });
+
+        /* Update header read-time tag with total. */
+        if (tocTime) {
+            var totalWords = 0;
+            body.querySelectorAll('h2, h3, p, li').forEach(function(el){
+                totalWords += (el.textContent || '').trim().split(/\s+/).filter(Boolean).length;
+            });
+            tocTime.textContent = Math.max(1, Math.ceil(totalWords / 220)) + ' min total';
+        }
+    }
+
+    /* TOC search filter */
+    var tocSearch = document.getElementById('ee-toc-search');
+    if (tocSearch && toc) {
+        tocSearch.addEventListener('input', function(){
+            var q = tocSearch.value.trim().toLowerCase();
+            toc.querySelectorAll('li').forEach(function(li){
+                var link = li.querySelector('.ee-toc-link');
+                if (!link) return;
+                var hit = !q || (link.dataset.label && link.dataset.label.indexOf(q) >= 0);
+                li.style.display = hit ? '' : 'none';
+            });
         });
     }
+
+    /* TOC Print + Copy section link buttons */
+    var tocPrint = document.getElementById('ee-toc-print');
+    if (tocPrint) tocPrint.addEventListener('click', function(){ window.print(); });
+    var tocCopy = document.getElementById('ee-toc-copy');
+    if (tocCopy) tocCopy.addEventListener('click', function(){
+        var active = toc && toc.querySelector('.ee-toc-link.ee-active');
+        var url = location.origin + location.pathname + (active ? active.getAttribute('href') : '');
+        navigator.clipboard.writeText(url).then(function(){ showToast('Section link copied!'); });
+    });
+
+    /* Mobile drawer */
+    var fab        = document.getElementById('ee-toc-fab');
+    var sidebar    = document.getElementById('ee-toc-sidebar');
+    var backdrop   = document.getElementById('ee-toc-backdrop');
+    var mobClose   = document.getElementById('ee-toc-mobile-close');
+    function openDrawer(){
+        if (sidebar) sidebar.classList.add('ee-drawer-open');
+        if (backdrop) backdrop.classList.add('ee-show');
+    }
+    function closeDrawer(){
+        if (sidebar) sidebar.classList.remove('ee-drawer-open');
+        if (backdrop) backdrop.classList.remove('ee-show');
+    }
+    if (fab)      fab.addEventListener('click', openDrawer);
+    if (backdrop) backdrop.addEventListener('click', closeDrawer);
+    if (mobClose) mobClose.addEventListener('click', closeDrawer);
+    if (toc) toc.addEventListener('click', function(e){
+        if (e.target.closest('.ee-toc-link')) closeDrawer();
+    });
+
+    /* Keyboard navigation — J/K to jump between H2 sections */
+    document.addEventListener('keydown', function(e){
+        if (e.target.matches('input, textarea, [contenteditable]')) return;
+        if (e.key !== 'j' && e.key !== 'k') return;
+        var h2s = body ? body.querySelectorAll('h2[id]') : [];
+        if (!h2s.length) return;
+        var y = window.scrollY;
+        var idx = -1;
+        h2s.forEach(function(h, i){
+            if (h.getBoundingClientRect().top + window.scrollY <= y + 100) idx = i;
+        });
+        var target = (e.key === 'j') ? Math.min(idx + 1, h2s.length - 1) : Math.max(0, idx - 1);
+        var t = h2s[target];
+        if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+    });
+
     var bar       = document.getElementById('ee-progress-bar');
     var sTop      = document.getElementById('ee-scroll-top');
     var tocProg   = document.getElementById('ee-toc-progress');
     var tocBack   = document.getElementById('ee-toc-back');
-    var tocLinks  = toc ? toc.querySelectorAll('a') : [];
+    var tocLinks  = toc ? toc.querySelectorAll('.ee-toc-link') : [];
     var sections  = body ? body.querySelectorAll('h2[id], h3[id]') : [];
 
     function onScroll(){
         var h = document.documentElement;
         var max = h.scrollHeight - h.clientHeight;
         var pct = max > 0 ? (h.scrollTop / max) : 0;
-        if (bar)  bar.style.width = (pct * 100) + '%';
-        if (sTop) sTop.classList.toggle('ee-show', h.scrollTop > 400);
+        if (bar)    bar.style.width = (pct * 100) + '%';
+        if (tocBar) tocBar.style.width = (pct * 100) + '%';
+        if (tocFabPct) tocFabPct.textContent = Math.round(pct * 100) + '%';
+        if (sTop)   sTop.classList.toggle('ee-show', h.scrollTop > 400);
 
-        /* Highlight the section currently being read. */
+        /* Highlight the section currently being read + mark earlier
+           sections "completed" + auto-expand the active H2's children. */
         var cur = 'ee-intro';
         sections.forEach(function(s){ if (s.getBoundingClientRect().top < 220) cur = s.id; });
         var activeLink = null;
-        tocLinks.forEach(function(l){
-            var on = (l.getAttribute('href') === '#' + cur);
-            l.classList.toggle('ee-active', on);
-            if (on) activeLink = l;
+        var passedActive = false;
+        sectionItems.slice().reverse(); // no-op, keeps lint happy
+        sectionItems.forEach(function(item){
+            var on = (item.id === cur);
+            item.link.classList.toggle('ee-active', on);
+            if (on) activeLink = item.link;
         });
+        /* Completed = appears before the active section in document
+           order. Mark the parent H2 li with .ee-completed once we've
+           passed all its H3 children too. */
+        for (var i = 0; i < sectionItems.length; i++) {
+            var it = sectionItems[i];
+            if (it.id === cur) { passedActive = true; }
+            if (!it.isH3) it.li.classList.toggle('ee-completed', !passedActive || (passedActive && it.id !== cur && it.id < cur));
+            // Simpler check: any item whose heading is above the
+            // current viewport top is completed.
+            var headEl = document.getElementById(it.id);
+            if (headEl) {
+                var done = headEl.getBoundingClientRect().bottom < 60;
+                if (!it.isH3) it.li.classList.toggle('ee-completed', done);
+            }
+        }
+        /* Auto-expand active H2's children; collapse the rest. */
+        if (toc) {
+            toc.querySelectorAll('li.ee-has-children').forEach(function(li){
+                var holds = li.contains(activeLink) || li.querySelector('.ee-toc-link.ee-active');
+                li.classList.toggle('ee-expanded', !!holds);
+            });
+        }
 
-        /* Per-section reading progress rail on the TOC. The rail fills
-           down to the active link's centre so the visitor sees exactly
-           how far through the outline they've read. */
+        /* Per-section progress rail on the TOC. Fills down to active. */
         if (tocProg && activeLink && toc) {
-            var tocRect = toc.getBoundingClientRect();
-            var linkRect = activeLink.getBoundingClientRect();
-            var fillTop = (linkRect.top - tocRect.top) + (linkRect.height / 2);
+            var rail    = toc.parentElement; // .ee-toc-rail
+            var rRect   = rail.getBoundingClientRect();
+            var linkRect= activeLink.getBoundingClientRect();
+            var fillTop = (linkRect.top - rRect.top) + (linkRect.height / 2);
             tocProg.style.height = Math.max(0, fillTop) + 'px';
         } else if (tocProg) {
             tocProg.style.height = '0px';
