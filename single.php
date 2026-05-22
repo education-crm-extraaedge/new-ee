@@ -373,18 +373,13 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-action-btn:hover{border-color:var(--b-orange);color:var(--b-orange);background:var(--b-orange-light);}
 .ee-action-btn i{font-size:14px;}
 
-/* ── Sticky bottom nav (appears on scroll) ── */
-.ee-bottom-nav{position:fixed;left:50%;bottom:20px;transform:translate(-50%,80px);background:#fff;border:1px solid var(--b-border);border-radius:50px;padding:6px;box-shadow:var(--b-shadow-lg);z-index:998;display:flex;gap:2px;opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.4,0,.2,1);max-width:calc(100% - 40px);overflow:hidden;}
-.ee-bottom-nav.ee-visible{transform:translate(-50%,0);opacity:1;pointer-events:auto;}
-.ee-bottom-nav a{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:50px;font-size:12.5px;font-weight:600;color:var(--b-blue);text-decoration:none;transition:all var(--b-transition);white-space:nowrap;}
-.ee-bottom-nav a:hover{background:var(--b-orange-light);color:var(--b-orange);}
-.ee-bottom-nav a i{font-size:14px;color:var(--b-muted);}
-.ee-bottom-nav a:hover i{color:var(--b-orange);}
-@media (max-width:820px){
-    .ee-bottom-nav{bottom:90px;padding:4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
-    .ee-bottom-nav::-webkit-scrollbar{display:none;}
-    .ee-bottom-nav a{padding:7px 11px;font-size:11.5px;}
-}
+/* ── Sidebar Quick Navigation (sits under Last Updated) ── */
+.ee-side-nav-section{margin-top:18px;}
+.ee-side-nav{display:flex;flex-direction:column;gap:2px;}
+.ee-side-nav a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--b-radius-sm);font-size:13px;font-weight:500;color:var(--b-blue);text-decoration:none;transition:all var(--b-transition);}
+.ee-side-nav a:hover{background:var(--b-orange-light);color:var(--b-orange);transform:translateX(2px);}
+.ee-side-nav a i{font-size:15px;color:var(--b-muted);transition:color var(--b-transition);width:18px;text-align:center;}
+.ee-side-nav a:hover i{color:var(--b-orange);}
 
 .ee-floating-contact{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:1000;}
 .ee-float-btn{display:flex;align-items:center;gap:10px;padding:12px 16px 12px 14px;border-radius:50px;color:#fff;font-weight:600;font-size:13.5px;text-decoration:none;box-shadow:0 6px 20px rgba(15,32,64,.18);transition:all .25s ease;cursor:pointer;border:none;font-family:inherit;}
@@ -619,12 +614,6 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 </div>
             </div>
 
-            <?php if (function_exists('ee_render_blog_form')) : ?>
-            <div class="ee-sidebar-section">
-                <?php ee_render_blog_form(); ?>
-            </div>
-            <?php endif; ?>
-
             <?php
             /* Products list — pulls from the Product CPT helper if available. */
             $sidebar_products = function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items(5) : array();
@@ -750,6 +739,20 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 <i class="ti ti-calendar-check"></i> Last Updated: <strong style="margin-left:4px;"><?php echo esc_html(get_the_modified_date()); ?></strong>
             </div>
 
+            <!-- ── Quick navigation (sidebar) ── -->
+            <div class="ee-sidebar-section ee-side-nav-section">
+                <div class="ee-section-label"><i class="ti ti-compass"></i> Quick Navigation</div>
+                <nav class="ee-side-nav" aria-label="Quick navigation">
+                    <a href="<?php echo esc_url(home_url('/')); ?>"><i class="ti ti-home"></i> Home</a>
+                    <a href="<?php echo esc_url(home_url('/products/')); ?>"><i class="ti ti-package"></i> Products</a>
+                    <a href="<?php echo esc_url(home_url('/industries/')); ?>"><i class="ti ti-building"></i> Industries</a>
+                    <a href="<?php echo esc_url(home_url('/solutions/')); ?>"><i class="ti ti-bulb"></i> Solutions</a>
+                    <a href="<?php echo esc_url(home_url('/case-studies/')); ?>"><i class="ti ti-quote"></i> Testimonials</a>
+                    <a href="<?php echo esc_url(home_url('/resources/')); ?>"><i class="ti ti-book"></i> Resources</a>
+                    <a href="<?php echo esc_url(home_url('/contact-us/')); ?>"><i class="ti ti-message-2"></i> Contact</a>
+                </nav>
+            </div>
+
         </aside>
     </div>
 
@@ -765,17 +768,6 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     </div>
 
     <button class="ee-scroll-top" id="ee-scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"><i class="ti ti-arrow-up"></i></button>
-
-    <!-- ── Sticky bottom nav (revealed after the visitor scrolls past the hero) ── -->
-    <nav class="ee-bottom-nav" id="ee-bottom-nav" aria-label="Quick navigation">
-        <a href="<?php echo esc_url(home_url('/')); ?>"><i class="ti ti-home"></i> Home</a>
-        <a href="<?php echo esc_url(home_url('/products/')); ?>"><i class="ti ti-package"></i> Products</a>
-        <a href="<?php echo esc_url(home_url('/industries/')); ?>"><i class="ti ti-building"></i> Industries</a>
-        <a href="<?php echo esc_url(home_url('/solutions/')); ?>"><i class="ti ti-bulb"></i> Solutions</a>
-        <a href="<?php echo esc_url(home_url('/case-studies/')); ?>"><i class="ti ti-quote"></i> Testimonials</a>
-        <a href="<?php echo esc_url(home_url('/resources/')); ?>"><i class="ti ti-book"></i> Resources</a>
-        <a href="<?php echo esc_url(home_url('/contact-us/')); ?>"><i class="ti ti-message-2"></i> Contact</a>
-    </nav>
 
     <div class="ee-copy-toast" id="ee-copy-toast"><i class="ti ti-circle-check"></i> <span id="ee-toast-msg">Copied!</span></div>
 </div>
@@ -948,17 +940,6 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     var actPrint = document.getElementById('ee-act-print');
     if (actPrint) actPrint.addEventListener('click', function(){ window.print(); });
 
-    /* ── Sticky bottom nav — reveal after the visitor scrolls past
-       the hero (~600px). Hide again when they return near the top. */
-    var bnav = document.getElementById('ee-bottom-nav');
-    if (bnav) {
-        function toggleBnav(){
-            var y = window.scrollY || document.documentElement.scrollTop;
-            bnav.classList.toggle('ee-visible', y > 600);
-        }
-        window.addEventListener('scroll', toggleBnav, { passive:true });
-        toggleBnav();
-    }
 })();
 
 document.documentElement.classList.add('ee-thin-scroll');
