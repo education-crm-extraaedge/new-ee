@@ -3151,6 +3151,65 @@ function ee_get_quick_nav_items() {
     );
 }
 
+/**
+ * Inline-SVG icon library for the Quick Nav dashboard.
+ * Maps Tabler icon names (e.g. "ti-home") to the inner SVG markup
+ * so the dashboard renders without relying on the Tabler webfont
+ * (which some host CSS resets break). Pre-bundled icons cover the
+ * 30 most-used names; unknown names fall back to a generic circle.
+ */
+function ee_quick_nav_svg_paths() {
+    return array(
+        'ti-home'            => '<path d="M5 12H3l9-9 9 9h-2"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M9 21v-6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6"/>',
+        'ti-package'         => '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5"/><path d="M12 12v9"/><path d="M12 12L4 7.5"/>',
+        'ti-building'        => '<path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M19 21V11a2 2 0 0 0-2-2h-3"/><path d="M9 9h1"/><path d="M9 13h1"/><path d="M9 17h1"/>',
+        'ti-bulb'            => '<path d="M3 12h1m8-9v1m8 8h1m-15.4-6.4l.7.7m12.1-.7l-.7.7"/><path d="M9 16a5 5 0 1 1 6 0 3.5 3.5 0 0 0-1 3 2 2 0 0 1-4 0 3.5 3.5 0 0 0-1-3"/><path d="M9.7 17h4.6"/>',
+        'ti-quote'           => '<path d="M10 11H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v6c0 2.667-1.333 4.333-4 5"/><path d="M19 11h-4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v6c0 2.667-1.333 4.333-4 5"/>',
+        'ti-book'            => '<path d="M3 19a9 9 0 0 1 9 0 9 9 0 0 1 9 0"/><path d="M3 6a9 9 0 0 1 9 0 9 9 0 0 1 9 0"/><path d="M3 6v13"/><path d="M12 6v13"/><path d="M21 6v13"/>',
+        'ti-mail'            => '<path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M3 7l9 6 9-6"/>',
+        'ti-phone'           => '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+        'ti-message-2'       => '<path d="M12 3c5.5 0 10 3.58 10 8s-4.5 8-10 8a13.6 13.6 0 0 1-3-.33l-3.5 1.83 1-3.34c-3-1.48-4.5-3.6-4.5-6.16 0-4.42 4.5-8 10-8z"/>',
+        'ti-message-circle'  => '<path d="M3 20l1.3-3.9a9 8 0 1 1 3.4 2.9z"/>',
+        'ti-calendar'        => '<path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7z"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/>',
+        'ti-users'           => '<circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/>',
+        'ti-school'          => '<path d="M22 9l-10-4-10 4 10 4 10-4v6"/><path d="M6 10.6V16a6 3 0 0 0 12 0v-5.4"/>',
+        'ti-rocket'          => '<path d="M4 13a8 8 0 0 1 7 7 6 6 0 0 0 3-5 9 9 0 0 0 6-8 3 3 0 0 0-3-3 9 9 0 0 0-8 6 6 6 0 0 0-5 3"/><path d="M7 14a6 6 0 0 0-3 6 6 6 0 0 0 6-3"/><circle cx="15" cy="9" r="1"/>',
+        'ti-trending-up'     => '<path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/>',
+        'ti-chart-bar'       => '<rect x="3" y="12" width="6" height="8" rx="1"/><rect x="9" y="8" width="6" height="12" rx="1"/><rect x="15" y="4" width="6" height="16" rx="1"/>',
+        'ti-globe'           => '<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8"/><path d="M3.6 15h16.8"/><path d="M11.5 3a17 17 0 0 0 0 18"/><path d="M12.5 3a17 17 0 0 1 0 18"/>',
+        'ti-shield'          => '<path d="M12 3a12 12 0 0 0 8.5 3 12 12 0 0 1-8.5 15 12 12 0 0 1-8.5-15A12 12 0 0 0 12 3"/>',
+        'ti-flag'            => '<path d="M5 5a5 5 0 0 1 7 0 5 5 0 0 0 7 0v9a5 5 0 0 1-7 0 5 5 0 0 0-7 0V5z"/><path d="M5 21v-7"/>',
+        'ti-target'          => '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+        'ti-star'            => '<path d="M12 17.75l-6.17 3.25 1.18-6.87L2 9.27l6.9-1 3.1-6.27 3.09 6.27 6.9 1-4.99 4.86 1.18 6.87z"/>',
+        'ti-heart'           => '<path d="M19.5 12.57l-7.5 7.43-7.5-7.43a5 5 0 1 1 7.5-6.57 5 5 0 1 1 7.5 6.57"/>',
+        'ti-tag'             => '<path d="M11.17 5a2 2 0 0 0-1.41.59L3.17 12.17a2 2 0 0 0 0 2.83l6.41 6.41a2 2 0 0 0 2.83 0l6.58-6.58a2 2 0 0 0 .59-1.41V7a2 2 0 0 0-2-2h-6.42z"/><circle cx="7" cy="7" r=".5" fill="currentColor"/>',
+        'ti-search'          => '<circle cx="10" cy="10" r="7"/><path d="M21 21l-6-6"/>',
+        'ti-info-circle'     => '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="9" r=".5" fill="currentColor"/><path d="M11 12h1v4h1"/>',
+        'ti-settings'        => '<path d="M10.32 4.32a1.72 1.72 0 0 1 3.36 0 1.72 1.72 0 0 0 2.57 1.06 1.72 1.72 0 0 1 2.37 2.37 1.72 1.72 0 0 0 1.07 2.57 1.72 1.72 0 0 1 0 3.36 1.72 1.72 0 0 0-1.07 2.57 1.72 1.72 0 0 1-2.37 2.37 1.72 1.72 0 0 0-2.57 1.07 1.72 1.72 0 0 1-3.36 0 1.72 1.72 0 0 0-2.57-1.07 1.72 1.72 0 0 1-2.37-2.37 1.72 1.72 0 0 0-1.07-2.57 1.72 1.72 0 0 1 0-3.36 1.72 1.72 0 0 0 1.07-2.57 1.72 1.72 0 0 1 2.37-2.37 1.72 1.72 0 0 0 2.57-1.07z"/><circle cx="12" cy="12" r="3"/>',
+        'ti-user'            => '<circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>',
+        'ti-briefcase'       => '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13a20 20 0 0 0 18 0"/>',
+        'ti-news'            => '<path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1-4 0V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a3 3 0 0 0 3 3h12"/><path d="M8 8h4"/><path d="M8 12h4"/><path d="M8 16h4"/>',
+        'ti-file-text'       => '<path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6"/><path d="M9 17h6"/>',
+        'ti-link'            => '<path d="M9 15l6-6"/><path d="M11 6l.46-.54a5 5 0 0 1 7.07 7.07l-.53.47"/><path d="M13 18l-.4.53a5.07 5.07 0 0 1-7.13 0 4.97 4.97 0 0 1 0-7.07l.52-.46"/>',
+        'ti-compass'         => '<circle cx="12" cy="12" r="9"/><path d="M8 16l2-6 6-2-2 6-6 2"/>',
+        'ti-brand-whatsapp'  => '<path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9z"/><path d="M9 10c0 .55.45 1 1 1s1-.45 1-1V9c0-.55-.45-1-1-1s-1 .45-1 1c0 2.76 2.24 5 5 5 .55 0 1-.45 1-1s-.45-1-1-1"/>',
+        'ti-brand-linkedin'  => '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 11v5"/><circle cx="8" cy="8" r=".5" fill="currentColor"/><path d="M12 16v-5"/><path d="M16 16v-3a2 2 0 0 0-4 0"/>',
+        'ti-brand-facebook'  => '<path d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7z"/>',
+        'ti-brand-twitter'   => '<path d="M4 4l11.73 16H20L8.27 4z"/><path d="M4 20l6.77-6.77M13.23 10.77L20 4"/>',
+    );
+}
+
+function ee_quick_nav_render_icon($name, $size = 22) {
+    $paths = ee_quick_nav_svg_paths();
+    $name  = trim((string) $name);
+    if (strpos($name, 'ti-') !== 0) $name = 'ti-' . ltrim($name, '- ');
+    $body  = isset($paths[$name]) ? $paths[$name] : '<circle cx="12" cy="12" r="9"/>';
+    $s     = (int) $size;
+    return '<svg class="ee-qn-svg" viewBox="0 0 24 24" width="' . $s . '" height="' . $s . '" '
+         . 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" '
+         . 'aria-hidden="true">' . $body . '</svg>';
+}
+
 function ee_quick_nav_colors() {
     return array(
         'navy'    => array('bg' => '#EEF2F8', 'fg' => '#19335D', 'label' => 'Navy'),

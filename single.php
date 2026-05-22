@@ -414,27 +414,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     box-shadow:inset 0 -2px 0 rgba(0,0,0,.04);
     flex-shrink:0;
 }
-/* Make absolutely sure the Tabler glyph inherits size + colour and
-   doesn't get squashed by a global `i { font-style:italic }` reset
-   or by Tabler's own default sizing. Explicit font-family covers
-   the case where a theme reset overrides `.ti`'s declaration. */
-.ee-float-nav a .ee-fn-ico i,
-.ee-float-nav a .ee-fn-ico i.ti{
-    font-family:'tabler-icons' !important;
-    font-style:normal !important;
-    font-weight:normal !important;
-    font-variant:normal !important;
-    text-transform:none !important;
-    speak:none;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    font-size:inherit !important;
-    color:inherit !important;
-    line-height:1 !important;
-    display:inline-block;
-    width:auto;height:auto;
-    vertical-align:middle;
-}
+/* Inline-SVG icons inherit the tile colour via stroke="currentColor". */
+.ee-float-nav a .ee-fn-ico .ee-qn-svg{display:block;color:inherit;}
 .ee-float-nav a:hover{color:var(--tile-fg);transform:translateY(-2px);}
 .ee-float-nav a:hover .ee-fn-ico{transform:scale(1.06);box-shadow:0 6px 14px rgba(15,32,64,.14);}
 .ee-float-nav a span{display:block;white-space:nowrap;}
@@ -842,7 +823,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
         ?>
             <a href="<?php echo esc_url($it['url']); ?>"
                style="--tile-bg:<?php echo esc_attr($c['bg']); ?>;--tile-fg:<?php echo esc_attr($c['fg']); ?>;">
-                <span class="ee-fn-ico"><i class="ti <?php echo esc_attr($icon); ?>"></i></span>
+                <span class="ee-fn-ico"><?php echo function_exists('ee_quick_nav_render_icon') ? ee_quick_nav_render_icon($icon, 22) : '<i class="ti ' . esc_attr($icon) . '"></i>'; ?></span>
                 <span><?php echo esc_html($it['label']); ?></span>
             </a>
         <?php endforeach; ?>
