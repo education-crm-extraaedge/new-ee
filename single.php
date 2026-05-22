@@ -764,9 +764,10 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 /* On narrow viewports the WhatsApp + Call float lives bottom-right;
    shrink the dashboard so it doesn't collide. */
 @media (max-width:820px){
-    .ee-float-nav{left:10px;padding:10px 8px;gap:8px;}
-    .ee-float-nav a{width:62px;font-size:10px;padding:6px 4px 5px;gap:5px;}
-    .ee-float-nav a .ee-fn-ico{width:38px;height:38px;font-size:18px;border-radius:11px;}
+    /* Floating dashboard hidden on mobile — too big, and the TOC
+       FAB + sticky bottom CTA bar already cover navigation +
+       primary CTA. Saves a lot of screen real estate. */
+    .ee-float-nav{display:none !important;}
 }
 
 .ee-floating-contact{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:1000;}
@@ -868,6 +869,81 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     .ee-soc-btn, .ee-follow-btn, .ee-action-btn,
     .ee-promo-btn, .ee-stick-cta-btn, .ee-book-bubble,
     .ee-toc-link, .ee-product-pill, .ee-sub-btn { min-height:44px; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   MOBILE DECLUTTER (≤820 px)
+   On phones we strip every floating element that duplicates the
+   sticky bottom CTA bar, keep only the essentials, and stack the
+   remaining ones so they never overlap.
+   ────────────────────────────────────────────────────────────── */
+@media (max-width:820px){
+    /* Hide redundancies — Book Demo bubble (same CTA in sticky bar),
+       Floating dashboard nav (already hidden above), Live counter
+       row (sidebar already hidden on mobile). */
+    .ee-book-bubble { display:none !important; }
+
+    /* Stack the remaining floating chrome ABOVE the sticky bottom
+       CTA bar so nothing collides. The sticky bar sits at bottom:20
+       and is roughly 64 px tall on mobile. */
+    .ee-floating-contact{
+        right: 12px;
+        bottom: 110px;           /* clears the sticky CTA */
+        gap: 8px;
+        z-index: 999;
+    }
+    .ee-floating-contact .ee-float-btn{
+        padding: 8px 14px 8px 10px;
+        font-size: 12px;
+    }
+    .ee-floating-contact .ee-float-icon-wrap{ width:30px; height:30px; }
+    .ee-floating-contact .ee-float-icon-wrap svg{ width:16px; height:16px; }
+
+    .ee-scroll-top{
+        left: 12px;
+        bottom: 110px;
+        width: 38px; height: 38px;
+        z-index: 999;
+    }
+    .ee-toc-fab{
+        left: 12px;
+        bottom: 156px;           /* above scroll-top + sticky CTA */
+        width: 48px; height: 48px;
+        z-index: 999;
+    }
+    .ee-toc-fab svg{ width:20px; height:20px; }
+
+    /* Sticky CTA: tighten so it doesn't dominate the viewport. */
+    .ee-stick-cta{
+        padding: 10px 12px;
+        gap: 10px;
+        border-radius: 12px;
+        width: calc(100% - 16px);
+        bottom: -100px;
+    }
+    .ee-stick-cta.ee-show{ bottom: 12px; }
+    .ee-stick-cta-text strong{ font-size: 12.5px; }
+    .ee-stick-cta-text span{ display:none; }
+    .ee-stick-cta-btn{ padding: 8px 14px; font-size: 12px; }
+    .ee-stick-cta-close{ font-size: 18px; padding: 2px 6px; }
+}
+
+/* ≤480 px — even tighter. The WhatsApp pill collapses to an
+   icon-only chip to reclaim horizontal room. */
+@media (max-width:480px){
+    .ee-floating-contact .ee-float-btn .ee-float-label{ display:none; }
+    .ee-floating-contact .ee-float-btn{
+        padding: 8px;
+        border-radius: 50%;
+        width: 44px; height: 44px;
+        justify-content: center;
+    }
+    .ee-floating-contact .ee-float-icon-wrap{
+        width: 24px; height: 24px;
+        background: transparent !important;
+    }
+    .ee-stick-cta{ bottom:-100px; }
+    .ee-stick-cta.ee-show{ bottom: 10px; }
 }
 </style>
 
