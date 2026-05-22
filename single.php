@@ -382,8 +382,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
    badge on top, label below. Hidden until the visitor scrolls past
    Last Updated; hides again when the footer enters the viewport. */
 .ee-float-nav{
-    position:fixed;right:20px;top:50%;
-    transform:translate(24px,-50%);
+    position:fixed;left:18px;top:50%;
+    transform:translate(-24px,-50%);
     display:flex;flex-direction:column;gap:10px;
     padding:14px 10px;
     background:#fff;
@@ -454,7 +454,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 /* On narrow viewports the WhatsApp + Call float lives bottom-right;
    shrink the dashboard so it doesn't collide. */
 @media (max-width:820px){
-    .ee-float-nav{right:10px;padding:10px 8px;gap:8px;}
+    .ee-float-nav{left:10px;padding:10px 8px;gap:8px;}
     .ee-float-nav a{width:62px;font-size:10px;padding:6px 4px 5px;gap:5px;}
     .ee-float-nav a .ee-fn-ico{width:38px;height:38px;font-size:18px;border-radius:11px;}
 }
