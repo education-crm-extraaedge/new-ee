@@ -373,16 +373,48 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-action-btn:hover{border-color:var(--b-orange);color:var(--b-orange);background:var(--b-orange-light);}
 .ee-action-btn i{font-size:14px;}
 
-/* ── Quick Navigation inside the right sidebar ──
-   Icon-on-top + label-below tiles in a 3-column grid so all 7 links
-   stay scannable inside the 280px-wide sidebar. */
-.ee-side-nav-section{margin-top:18px;}
-.ee-side-nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
-.ee-side-nav-grid a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px 6px;background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-sm);text-decoration:none;color:var(--b-text-soft);font-size:11px;font-weight:600;text-align:center;line-height:1.2;transition:all var(--b-transition);}
-.ee-side-nav-grid a i{font-size:20px;color:var(--b-blue);transition:color var(--b-transition);}
-.ee-side-nav-grid a:hover{border-color:var(--b-orange);background:var(--b-orange-light);color:var(--b-orange);transform:translateY(-1px);box-shadow:var(--b-shadow-sm);}
-.ee-side-nav-grid a:hover i{color:var(--b-orange);}
-.ee-side-nav-grid a span{display:block;white-space:nowrap;}
+/* ── Floating Quick Navigation (single column, scroll-triggered) ──
+   Hidden by default; .ee-visible (toggled by JS once the visitor
+   scrolls past Last Updated) reveals it. Hidden again when the
+   footer comes into view. */
+.ee-float-nav{
+    position:fixed;right:18px;top:50%;
+    transform:translate(20px,-50%);
+    display:flex;flex-direction:column;gap:6px;
+    padding:12px 8px;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:saturate(180%) blur(8px);
+    border:1px solid var(--b-border);
+    border-radius:16px;
+    box-shadow:var(--b-shadow-md);
+    z-index:990;
+    opacity:0;pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease;
+}
+.ee-float-nav.ee-visible{
+    opacity:1;pointer-events:auto;
+    transform:translate(0,-50%);
+}
+.ee-float-nav a{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:4px;padding:9px 6px;width:62px;
+    border-radius:10px;
+    font-size:10.5px;font-weight:600;
+    color:var(--b-text-soft);text-decoration:none;text-align:center;line-height:1.15;
+    transition:all var(--b-transition);
+}
+.ee-float-nav a i{font-size:20px;color:var(--b-blue);transition:color var(--b-transition);}
+.ee-float-nav a:hover{background:var(--b-orange-light);color:var(--b-orange);}
+.ee-float-nav a:hover i{color:var(--b-orange);}
+.ee-float-nav a span{display:block;white-space:nowrap;}
+
+/* On narrow viewports the WhatsApp + Call float lives bottom-right;
+   nudge the nav further up so it doesn't collide. */
+@media (max-width:820px){
+    .ee-float-nav{right:10px;}
+    .ee-float-nav a{width:56px;font-size:10px;padding:7px 4px;}
+    .ee-float-nav a i{font-size:18px;}
+}
 
 .ee-floating-contact{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:1000;}
 .ee-float-btn{display:flex;align-items:center;gap:10px;padding:12px 16px 12px 14px;border-radius:50px;color:#fff;font-weight:600;font-size:13.5px;text-decoration:none;box-shadow:0 6px 20px rgba(15,32,64,.18);transition:all .25s ease;cursor:pointer;border:none;font-family:inherit;}
@@ -738,22 +770,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 </div>
             </div>
 
-            <div class="ee-last-updated">
+            <div class="ee-last-updated" id="ee-last-updated">
                 <i class="ti ti-calendar-check"></i> Last Updated: <strong style="margin-left:4px;"><?php echo esc_html(get_the_modified_date()); ?></strong>
-            </div>
-
-            <!-- ── Quick navigation (inside the right sidebar, icon-grid style) ── -->
-            <div class="ee-sidebar-section ee-side-nav-section">
-                <div class="ee-section-label"><i class="ti ti-compass"></i> Quick Navigation</div>
-                <nav class="ee-side-nav-grid" aria-label="Quick navigation">
-                    <a href="<?php echo esc_url(home_url('/')); ?>"><i class="ti ti-home"></i><span>Home</span></a>
-                    <a href="<?php echo esc_url(home_url('/products/')); ?>"><i class="ti ti-package"></i><span>Products</span></a>
-                    <a href="<?php echo esc_url(home_url('/industries/')); ?>"><i class="ti ti-building"></i><span>Industries</span></a>
-                    <a href="<?php echo esc_url(home_url('/solutions/')); ?>"><i class="ti ti-bulb"></i><span>Solutions</span></a>
-                    <a href="<?php echo esc_url(home_url('/case-studies/')); ?>"><i class="ti ti-quote"></i><span>Testimonials</span></a>
-                    <a href="<?php echo esc_url(home_url('/resources/')); ?>"><i class="ti ti-book"></i><span>Resources</span></a>
-                    <a href="<?php echo esc_url(home_url('/contact-us/')); ?>"><i class="ti ti-mail"></i><span>Contact&nbsp;Us</span></a>
-                </nav>
             </div>
 
         </aside>
@@ -771,6 +789,19 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     </div>
 
     <button class="ee-scroll-top" id="ee-scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"><i class="ti ti-arrow-up"></i></button>
+
+    <!-- ── Floating Quick Nav — single column. Reveal once the visitor
+         scrolls past "Last Updated", hide again when the footer is in
+         view. JS at the bottom of single.php drives the visibility. -->
+    <aside class="ee-float-nav" id="ee-float-nav" aria-label="Quick navigation">
+        <a href="<?php echo esc_url(home_url('/')); ?>"><i class="ti ti-home"></i><span>Home</span></a>
+        <a href="<?php echo esc_url(home_url('/products/')); ?>"><i class="ti ti-package"></i><span>Products</span></a>
+        <a href="<?php echo esc_url(home_url('/industries/')); ?>"><i class="ti ti-building"></i><span>Industries</span></a>
+        <a href="<?php echo esc_url(home_url('/solutions/')); ?>"><i class="ti ti-bulb"></i><span>Solutions</span></a>
+        <a href="<?php echo esc_url(home_url('/case-studies/')); ?>"><i class="ti ti-quote"></i><span>Testimonials</span></a>
+        <a href="<?php echo esc_url(home_url('/resources/')); ?>"><i class="ti ti-book"></i><span>Resources</span></a>
+        <a href="<?php echo esc_url(home_url('/contact-us/')); ?>"><i class="ti ti-mail"></i><span>Contact</span></a>
+    </aside>
 
     <div class="ee-copy-toast" id="ee-copy-toast"><i class="ti ti-circle-check"></i> <span id="ee-toast-msg">Copied!</span></div>
 </div>
@@ -942,6 +973,36 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     });
     var actPrint = document.getElementById('ee-act-print');
     if (actPrint) actPrint.addEventListener('click', function(){ window.print(); });
+
+    /* ── Floating Quick Nav visibility ──
+       Show once the "Last Updated" chip's BOTTOM has scrolled out of
+       view (i.e. visitor scrolled past it). Hide again when the site
+       footer enters the viewport so the nav doesn't overlap the
+       footer content. */
+    var fnav        = document.getElementById('ee-float-nav');
+    var lastUpdated = document.getElementById('ee-last-updated');
+    var siteFooter  = document.querySelector('footer.site-footer, footer#colophon, footer, .ee-blog-page + footer');
+    if (fnav) {
+        function toggleFnav(){
+            var luVisible = false;
+            if (lastUpdated) {
+                var luRect = lastUpdated.getBoundingClientRect();
+                /* "Past" = the chip's bottom is above the viewport top. */
+                luVisible = (luRect.bottom < 0);
+            } else {
+                luVisible = (window.scrollY > 600);
+            }
+            var footerInView = false;
+            if (siteFooter) {
+                var fRect = siteFooter.getBoundingClientRect();
+                footerInView = (fRect.top < window.innerHeight - 60);
+            }
+            fnav.classList.toggle('ee-visible', luVisible && !footerInView);
+        }
+        window.addEventListener('scroll', toggleFnav, { passive:true });
+        window.addEventListener('resize', toggleFnav);
+        toggleFnav();
+    }
 
 })();
 
