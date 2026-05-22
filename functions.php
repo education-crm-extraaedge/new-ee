@@ -127,39 +127,267 @@ add_action('wp_head', function () {
         }
     }
 
-    /* ── Safe-hover guard ────────────────────────────────────────
-       Prevent button labels from becoming invisible on hover by
-       locking text-colour to a known-good contrast on every named
-       brand button class we use. */
-    .btn:hover, .button:hover, button:hover, input[type="submit"]:hover{ color:inherit; }
-    a:hover{ text-decoration:none; }
+    /* ── Universal inline-SVG icon defaults ──
+       Inherit colour & vertical-align so icons never look "off"
+       inside flex buttons or chips. Size flows from font-size or
+       the per-context override CSS in single.php. */
+    svg.ee-qn-svg, button svg, a svg, .btn svg, .ee-btn svg, .ee-btn-primary svg, .ee-btn-outline svg {
+        fill: none;
+        stroke: currentColor;
+        vertical-align: middle;
+        flex-shrink: 0;
+    }
 
-    .ee-btn-primary, .ee-btn-primary:link, .ee-btn-primary:visited,
-    .ee-btn-primary:hover, .ee-btn-primary:focus, .ee-btn-primary:active{ color:#fff !important; }
-    .ee-btn-outline:hover, .ee-btn-outline:focus{ background:var(--ee-blue) !important; color:#fff !important; }
+    /* ── Premium button system ──
+       Universal contract: any element with a brand button class
+       gets a consistent height, padding, border-radius, font-
+       weight, focus ring, and active lift. */
+    .ee-btn,
+    .ee-btn-primary,
+    .ee-btn-outline,
+    .ee-btn-ghost,
+    .ee-cta-btn,
+    .ee-stick-cta-btn,
+    .ee-promo-btn,
+    .ee-sub-btn,
+    .ee-blog-explore,
+    .ee-modal-form button,
+    .ee-lm-form button,
+    .ee-send-row button,
+    .ee-action-btn,
+    .ee-icon-btn,
+    .ee-toc-actions button {
+        font-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI',Roboto,sans-serif !important;
+        font-weight: 700;
+        letter-spacing: .01em;
+        cursor: pointer;
+        text-decoration: none !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        transition: transform .18s cubic-bezier(.4,0,.2,1),
+                    background .2s ease,
+                    color .2s ease,
+                    box-shadow .2s ease,
+                    border-color .2s ease;
+        will-change: transform;
+    }
+    .ee-btn:active,
+    .ee-btn-primary:active,
+    .ee-btn-outline:active,
+    .ee-cta-btn:active,
+    .ee-stick-cta-btn:active,
+    .ee-promo-btn:active,
+    .ee-modal-form button:active,
+    .ee-lm-form button:active { transform: translateY(1px) scale(.99); }
 
-    .ee-soc-btn, .ee-soc-btn:hover, .ee-soc-btn:focus{ color:#fff !important; }
-    .ee-follow-btn, .ee-follow-btn:hover, .ee-follow-btn:focus{ color:#fff !important; }
-    .ee-promo-btn, .ee-promo-btn:hover, .ee-promo-btn:focus{ color:inherit; }
-    .ee-promo-card .ee-promo-btn{ color:#fff !important; }
-    .ee-promo-card .ee-promo-btn:hover{ color:#fff !important; }
-    .ee-promo-card.ee-promo-orange .ee-promo-btn,
-    .ee-promo-card.ee-promo-orange .ee-promo-btn:hover{ color:var(--ee-orange) !important; }
+    /* ── Primary (filled orange) ─────────────────────────────── */
+    .ee-btn-primary,
+    .ee-cta-btn,
+    .ee-stick-cta-btn,
+    .ee-modal-form button,
+    .ee-lm-form button,
+    .ee-send-row button,
+    .ee-sub-btn,
+    .ee-blog-explore {
+        background: var(--ee-orange) !important;
+        color: #fff !important;
+        border: none !important;
+        padding: 11px 22px;
+        border-radius: 8px;
+        font-size: 13.5px;
+        box-shadow: 0 2px 8px rgba(222,110,48,.18);
+    }
+    .ee-btn-primary:hover, .ee-btn-primary:focus,
+    .ee-cta-btn:hover, .ee-cta-btn:focus,
+    .ee-stick-cta-btn:hover, .ee-stick-cta-btn:focus,
+    .ee-modal-form button:hover, .ee-modal-form button:focus,
+    .ee-lm-form button:hover, .ee-lm-form button:focus,
+    .ee-send-row button:hover, .ee-send-row button:focus,
+    .ee-sub-btn:hover, .ee-sub-btn:focus,
+    .ee-blog-explore:hover, .ee-blog-explore:focus {
+        background: var(--ee-orange-dark) !important;
+        color: #fff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(222,110,48,.32);
+    }
 
-    .ee-action-btn:hover{ background:var(--ee-orange-soft); color:var(--ee-orange) !important; }
-    .ee-icon-btn:hover  { background:var(--ee-orange-soft); color:var(--ee-orange) !important; }
+    /* ── Outline (navy) ──────────────────────────────────────── */
+    .ee-btn-outline {
+        background: #fff !important;
+        color: var(--ee-blue) !important;
+        border: 2px solid var(--ee-blue) !important;
+        padding: 9px 20px;
+        border-radius: 8px;
+        font-size: 13.5px;
+    }
+    .ee-btn-outline:hover, .ee-btn-outline:focus {
+        background: var(--ee-blue) !important;
+        color: #fff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(25,51,93,.28);
+    }
 
-    .ee-product-pill:hover{ color:var(--ee-orange) !important; }
-    .ee-side-nav-grid a:hover{ color:var(--ee-orange) !important; }
-    .ee-float-btn,    .ee-float-btn:hover,    .ee-float-btn:focus{ color:#fff !important; }
-    .ee-sub-btn,      .ee-sub-btn:hover{ color:#fff !important; }
-    .ee-blog-explore, .ee-blog-explore:hover{ color:#fff !important; }
-    .ee-cta-btn,      .ee-cta-btn:hover{ color:#fff !important; }
+    /* ── Ghost / icon buttons ────────────────────────────────── */
+    .ee-action-btn, .ee-icon-btn, .ee-toc-actions button {
+        background: #fff;
+        border: 1px solid var(--ee-border);
+        color: var(--ee-text-soft);
+        padding: 7px 12px;
+        border-radius: 6px;
+        font-size: 11.5px;
+        font-weight: 600;
+    }
+    .ee-action-btn:hover, .ee-icon-btn:hover, .ee-toc-actions button:hover {
+        border-color: var(--ee-orange);
+        color: var(--ee-orange) !important;
+        background: var(--ee-orange-soft) !important;
+        transform: translateY(-1px);
+    }
 
-    /* Header / footer nav fallback — keep link text dark on light bg
-       and orange on hover; never white-on-white. */
-    #site-header a:hover{ color:var(--ee-orange) !important; }
-    .footer-col a:hover, footer a:hover{ color:var(--ee-orange) !important; }
+    /* ── Promo card buttons (Vidya / Smarter Admissions) ─────── */
+    .ee-promo-card .ee-promo-btn {
+        background: var(--ee-orange) !important;
+        color: #fff !important;
+        border: none;
+        padding: 9px 16px;
+        border-radius: 8px;
+        font-size: 12.5px;
+        box-shadow: 0 2px 8px rgba(222,110,48,.2);
+    }
+    .ee-promo-card .ee-promo-btn:hover {
+        background: var(--ee-orange-dark) !important;
+        color: #fff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(222,110,48,.32);
+    }
+    /* Orange variant flips the colours so the button reads on the orange tile */
+    .ee-promo-card.ee-promo-orange .ee-promo-btn {
+        background: #fff !important;
+        color: var(--ee-orange) !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    }
+    .ee-promo-card.ee-promo-orange .ee-promo-btn:hover {
+        background: #fff8f1 !important;
+        color: var(--ee-orange) !important;
+    }
+
+    /* ── Social share row ────────────────────────────────────── */
+    .ee-soc-btn, .ee-soc-btn:link, .ee-soc-btn:visited,
+    .ee-soc-btn:hover, .ee-soc-btn:focus, .ee-soc-btn:active {
+        color: #fff !important;
+        padding: 9px 16px;
+        border-radius: 6px;
+        font-size: 12.5px;
+        font-weight: 700;
+    }
+    .ee-soc-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.18); }
+
+    /* ── Follow Us icon buttons ──────────────────────────────── */
+    .ee-follow-btn, .ee-follow-btn:hover, .ee-follow-btn:focus { color: #fff !important; }
+    .ee-follow-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.16); }
+
+    /* ── Product / Solution / Side-nav pills ─────────────────── */
+    .ee-product-pill, .ee-product-pill:link, .ee-product-pill:visited {
+        background: #fff;
+        color: var(--ee-blue);
+        border: 1px solid var(--ee-border);
+        padding: 11px 14px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none !important;
+    }
+    .ee-product-pill:hover, .ee-product-pill:focus {
+        background: var(--ee-orange-soft) !important;
+        border-color: var(--ee-orange) !important;
+        color: var(--ee-orange) !important;
+        transform: translateX(2px);
+    }
+
+    /* ── Side-nav grid (Quick Nav tiles in sidebar) ──────────── */
+    .ee-side-nav-grid a, .ee-side-nav-grid a:link, .ee-side-nav-grid a:visited {
+        color: var(--ee-text-soft) !important;
+        background: #fff;
+        border: 1px solid var(--ee-border);
+    }
+    .ee-side-nav-grid a:hover, .ee-side-nav-grid a:focus {
+        background: var(--ee-orange-soft) !important;
+        border-color: var(--ee-orange) !important;
+        color: var(--ee-orange) !important;
+        transform: translateY(-1px);
+    }
+
+    /* ── Floating contact buttons (WhatsApp / Call / Book Demo) ── */
+    .ee-float-btn, .ee-float-btn:link, .ee-float-btn:visited,
+    .ee-float-btn:hover, .ee-float-btn:focus { color: #fff !important; }
+    .ee-book-bubble, .ee-book-bubble:link, .ee-book-bubble:visited,
+    .ee-book-bubble:hover, .ee-book-bubble:focus { color: #fff !important; }
+
+    /* ── Form fields (consistent across the site) ────────────── */
+    .ee-modal-form input,
+    .ee-lm-form input,
+    .ee-send-row input,
+    .ee-blog-form input,
+    .ee-blog-form textarea,
+    .ee-blog-lead input,
+    .ee-blog-lead textarea {
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        padding: 11px 14px;
+        border: 1px solid var(--ee-border);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ee-text);
+        outline: none;
+        transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .ee-modal-form input:focus,
+    .ee-lm-form input:focus,
+    .ee-send-row input:focus,
+    .ee-blog-form input:focus,
+    .ee-blog-form textarea:focus,
+    .ee-blog-lead input:focus,
+    .ee-blog-lead textarea:focus {
+        border-color: var(--ee-orange);
+        box-shadow: 0 0 0 3px rgba(222,110,48,.15);
+    }
+
+    /* ── Accessibility focus ring (keyboard users) ───────────── */
+    button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
+        outline: 2px solid var(--ee-orange);
+        outline-offset: 2px;
+        border-radius: 6px;
+    }
+
+    /* ── Defensive: header + footer link hover (legacy) ──────── */
+    a:hover { text-decoration: none; }
+    #site-header a:hover { color: var(--ee-orange) !important; }
+    .footer-col a:hover, footer a:hover { color: var(--ee-orange) !important; }
+
+    /* ── Defensive: any unstyled button on the page gets brand
+         font + brand colour fallback so plugins / forms don't
+         render gray-on-gray. */
+    body button:not([class]),
+    body input[type="submit"]:not([class]),
+    body input[type="button"]:not([class]) {
+        font-family: 'Inter', sans-serif;
+        background: var(--ee-orange);
+        color: #fff;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-size: 13.5px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background .2s ease, transform .15s ease;
+    }
+    body button:not([class]):hover,
+    body input[type="submit"]:not([class]):hover,
+    body input[type="button"]:not([class]):hover {
+        background: var(--ee-orange-dark);
+        transform: translateY(-1px);
+    }
     </style>
     <?php
 }, 999);
