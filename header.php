@@ -90,9 +90,46 @@ if ($ee_is_home) {
         if ($pm_tw_card)   $ee_tw_card_type  = $pm_tw_card;
     }
 }
+
+/* ── Bullet-proof page title ──
+   Resolve the <title> string ourselves so the page always has a
+   non-empty title regardless of filter-chain quirks or third-party
+   plugins. Order of precedence:
+     1. Singular post: _seo_title meta if set
+     2. Singular post: WP-default document title (post title + sep + site)
+     3. Singular post: raw post_title | site_name as a last resort
+     4. Non-singular: wp_get_document_title()
+   We then also strip the auto title-tag from wp_head so we don't end
+   up with two <title> elements in the source. */
+$ee_page_title = '';
+if ($ee_is_singular) {
+    $ee_page_title = (string) get_post_meta($ee_post_id, '_seo_title', true);
+    if ($ee_page_title === '') {
+        $ee_page_title = wp_get_document_title();
+    }
+    if ($ee_page_title === '') {
+        $ee_raw_title = get_the_title($ee_post_id);
+        if ($ee_raw_title !== '') {
+            $ee_page_title = $ee_raw_title . ' | ' . $ee_site_name;
+        }
+    }
+} elseif (!empty($ee_home_title)) {
+    $ee_page_title = $ee_home_title;
+} else {
+    $ee_page_title = wp_get_document_title();
+}
+if ($ee_page_title === '') {
+    $ee_page_title = $ee_site_name;
+}
+/* Avoid WordPress also emitting its own <title> tag. */
+remove_action('wp_head', '_wp_render_title_tag', 1);
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> prefix="og: https://ogp.me/ns# product: https://ogp.me/ns/product#">
 <head>
+
+    <!-- ─── 0. PAGE TITLE (manual — guaranteed non-empty) ─── -->
+    <title><?php echo esc_html($ee_page_title); ?></title>
+    <meta name="title" content="<?php echo esc_attr($ee_page_title); ?>">
 
     <!-- ─── 1. BASE ─── -->
     <meta charset="<?php bloginfo('charset'); ?>">
@@ -133,14 +170,14 @@ if ($ee_is_home) {
 
     <!-- ─── 6. OPEN GRAPH (single source — uses _seo_title via wp_get_document_title filter) ─── -->
     <meta property="og:type"               content="<?php echo $ee_is_singular ? 'article' : 'website'; ?>">
-    <meta property="og:title"              content="<?php echo esc_attr($ee_og_title ?: wp_get_document_title()); ?>">
+    <meta property="og:title"              content="<?php echo esc_attr($ee_og_title ?: $ee_page_title); ?>">
     <meta property="og:description"        content="<?php echo esc_attr($ee_og_desc ?: $ee_seo_desc); ?>">
     <meta property="og:url"                content="<?php echo esc_url($ee_canonical); ?>">
     <meta property="og:image"              content="<?php echo esc_url($ee_og_image); ?>">
     <meta property="og:image:secure_url"   content="<?php echo esc_url($ee_og_image); ?>">
     <meta property="og:image:width"        content="1200">
     <meta property="og:image:height"       content="630">
-    <meta property="og:image:alt"          content="<?php echo esc_attr(wp_get_document_title()); ?>">
+    <meta property="og:image:alt"          content="<?php echo esc_attr($ee_page_title); ?>">
     <meta property="og:site_name"          content="<?php echo esc_attr($ee_site_name); ?>">
     <meta property="og:locale"             content="en_IN">
     <?php if ($ee_is_singular) : ?>
@@ -153,10 +190,10 @@ if ($ee_is_home) {
     <meta name="twitter:card"        content="<?php echo esc_attr($ee_tw_card_type); ?>">
     <meta name="twitter:site"        content="@ExtraaEdge">
     <meta name="twitter:creator"     content="@ExtraaEdge">
-    <meta name="twitter:title"       content="<?php echo esc_attr($ee_tw_title ?: wp_get_document_title()); ?>">
+    <meta name="twitter:title"       content="<?php echo esc_attr($ee_tw_title ?: $ee_page_title); ?>">
     <meta name="twitter:description" content="<?php echo esc_attr($ee_tw_desc ?: $ee_seo_desc); ?>">
     <meta name="twitter:image"       content="<?php echo esc_url($ee_tw_image ?: $ee_og_image); ?>">
-    <meta name="twitter:image:alt"   content="<?php echo esc_attr($ee_tw_title ?: wp_get_document_title()); ?>">
+    <meta name="twitter:image:alt"   content="<?php echo esc_attr($ee_tw_title ?: $ee_page_title); ?>">
 
     <!-- ─── 8. ICONS + PWA MANIFEST ─── -->
     <link rel="icon"             href="<?php echo esc_url($ee_home_url); ?>favicon.ico" sizes="any">
