@@ -365,6 +365,8 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
             transition: all .3s cubic-bezier(.4,0,.2,1);
         }
         #site-header.scrolled { box-shadow: var(--eh-shadow-md); }
+        #site-header { transition: transform .3s cubic-bezier(.4,0,.2,1), box-shadow .25s ease, background .25s ease; will-change: transform; }
+        #site-header.eh-hidden { transform: translateY(-110%); box-shadow: none; }
 
         #site-header .eh-content { max-width:1280px; margin:0 auto; padding:0 1.25rem; display:flex; align-items:center; justify-content:space-between; gap:.75rem; height:72px; }
 
@@ -1360,14 +1362,40 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         }
         renderIcons();
 
-        /* ── Header scroll-shadow effect (advanced nav) ── */
+        /* ── Header scroll-shadow effect + auto-hide on scroll down ──
+           On single blog posts the visitor wants maximum reading room,
+           so the header slides up when scrolling DOWN past the hero
+           and slides back into view the moment they scroll UP. Other
+           page types keep the header sticky (just adds the scroll
+           shadow). */
         (function(){
-            var hdr  = document.getElementById('site-header');
-            if (hdr) {
-                window.addEventListener('scroll', function () {
-                    hdr.classList.toggle('scrolled', window.scrollY > 50);
-                }, { passive: true });
+            var hdr = document.getElementById('site-header');
+            if (!hdr) return;
+            var isPost   = document.body.classList.contains('single-post') ||
+                           document.body.classList.contains('ee-singular') &&
+                           document.body.classList.contains('single');
+            var lastY    = window.scrollY || 0;
+            var ticking  = false;
+            function onScroll(){
+                var y = window.scrollY || 0;
+                hdr.classList.toggle('scrolled', y > 50);
+                /* Auto-hide only on long-form post pages where the
+                   reader actively wants more room. */
+                if (isPost) {
+                    var goingDown = y > lastY;
+                    var pastHero  = y > 240;
+                    if (goingDown && pastHero) {
+                        hdr.classList.add('eh-hidden');
+                    } else {
+                        hdr.classList.remove('eh-hidden');
+                    }
+                }
+                lastY = y;
+                ticking = false;
             }
+            window.addEventListener('scroll', function(){
+                if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+            }, { passive: true });
         })();
 
         // Mobile Menu Toggle

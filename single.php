@@ -153,16 +153,42 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
 .ee-blog-wrap{display:grid;grid-template-columns:240px minmax(0,1fr) 300px;max-width:1280px;margin:0 auto;}
 
-.ee-toc-sidebar{padding:32px 20px;border-right:1px solid var(--b-border);position:sticky;top:96px;height:calc(100vh - 96px);overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;}
+/* ── Premium TOC sidebar ─────────────────────────────────── */
+.ee-toc-sidebar{padding:24px 18px;position:sticky;top:96px;height:calc(100vh - 110px);overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);margin-right:6px;}
 .ee-toc-sidebar::-webkit-scrollbar{display:none;width:0;height:0;}
+
+.ee-toc-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:14px;border-bottom:1px solid var(--b-border);margin-bottom:14px;}
 .ee-toc-sidebar h3,
-.ee-toc-sidebar .ee-toc-heading{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--b-muted);text-transform:uppercase;margin-bottom:16px;}
-.ee-toc-list{list-style:none;margin:0;padding:0;}
-.ee-toc-list li{margin-bottom:2px;}
-.ee-toc-list a{font-size:13px;color:var(--b-muted);display:block;padding:7px 12px;border-left:2px solid transparent;border-radius:0 6px 6px 0;transition:all var(--b-transition);line-height:1.4;}
+.ee-toc-sidebar .ee-toc-heading{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--b-blue);text-transform:uppercase;margin:0;display:flex;align-items:center;gap:6px;}
+.ee-toc-heading::before{content:"";display:inline-block;width:14px;height:2px;background:var(--b-orange);border-radius:2px;}
+.ee-toc-time{font-size:10.5px;font-weight:600;color:var(--b-muted);background:var(--b-blue-light);padding:3px 7px;border-radius:20px;letter-spacing:.04em;}
+
+/* Per-section reading progress rail on the LEFT of the list. */
+.ee-toc-rail{position:relative;}
+.ee-toc-rail::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--b-border);border-radius:2px;}
+.ee-toc-progress{position:absolute;left:6px;top:6px;width:2px;background:linear-gradient(180deg,var(--b-orange),var(--b-orange-dark));border-radius:2px;height:0;transition:height .25s cubic-bezier(.4,0,.2,1);}
+
+.ee-toc-list{list-style:none;margin:0;padding:0 0 0 16px;position:relative;counter-reset:ee-toc;}
+.ee-toc-list li{margin-bottom:2px;position:relative;}
+.ee-toc-list > li > a{counter-increment:ee-toc;}
+.ee-toc-list > li > a::before{content:counter(ee-toc, decimal-leading-zero);font-size:10px;font-weight:700;color:var(--b-muted-soft);margin-right:8px;letter-spacing:.04em;transition:color var(--b-transition);}
+.ee-toc-list a{position:relative;font-size:13px;color:var(--b-text-soft);display:flex;align-items:flex-start;padding:7px 10px 7px 8px;border-radius:6px;transition:all var(--b-transition);line-height:1.4;font-weight:500;text-decoration:none;}
 .ee-toc-list a:hover{color:var(--b-orange);background:var(--b-orange-light);}
-.ee-toc-list a.ee-active{color:var(--b-orange);border-left-color:var(--b-orange);background:var(--b-orange-light);font-weight:600;}
-.ee-toc-list .ee-toc-h3{padding-left:24px;font-size:12.5px;}
+.ee-toc-list a:hover::before{color:var(--b-orange);}
+.ee-toc-list a.ee-active{color:var(--b-orange);background:var(--b-orange-light);font-weight:700;}
+.ee-toc-list a.ee-active::before{color:var(--b-orange);}
+.ee-toc-list a.ee-active::after{
+    content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);
+    width:6px;height:6px;border-radius:50%;background:var(--b-orange);
+    box-shadow:0 0 0 3px var(--b-orange-light);
+}
+.ee-toc-list .ee-toc-h3{padding-left:28px;font-size:12px;font-weight:500;color:var(--b-muted);}
+.ee-toc-list .ee-toc-h3::before{display:none;}
+.ee-toc-list .ee-toc-h3.ee-active{color:var(--b-orange);font-weight:600;}
+
+.ee-toc-back{display:flex;align-items:center;gap:6px;justify-content:center;margin-top:14px;padding:9px 10px;background:transparent;border:1px dashed var(--b-border);border-radius:8px;font-size:11.5px;font-weight:600;color:var(--b-muted);cursor:pointer;width:100%;transition:all var(--b-transition);}
+.ee-toc-back:hover{border-color:var(--b-orange);color:var(--b-orange);background:var(--b-orange-light);}
+.ee-toc-back svg{width:13px;height:13px;}
 
 .ee-main-content{padding:36px 44px;min-width:0;}
 .ee-category-tag{display:inline-flex;align-items:center;gap:6px;background:var(--b-orange-light);color:var(--b-orange);font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
@@ -506,11 +532,20 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     <div class="ee-blog-wrap">
 
         <aside class="ee-toc-sidebar" aria-label="Table of Contents">
-            <div class="ee-toc-heading">On this page</div>
-            <ul class="ee-toc-list" id="ee-toc">
-                <li><a href="#ee-intro" class="ee-active">Introduction</a></li>
-                <!-- Auto-built from content H2/H3 by JS -->
-            </ul>
+            <div class="ee-toc-head">
+                <div class="ee-toc-heading">On this page</div>
+                <span class="ee-toc-time"><?php echo esc_html($read_time); ?></span>
+            </div>
+            <div class="ee-toc-rail">
+                <span class="ee-toc-progress" id="ee-toc-progress"></span>
+                <ul class="ee-toc-list" id="ee-toc">
+                    <li><a href="#ee-intro" class="ee-active">Introduction</a></li>
+                    <!-- Auto-built from content H2/H3 by JS -->
+                </ul>
+            </div>
+            <button type="button" class="ee-toc-back" id="ee-toc-back">
+                <?php echo function_exists('ee_icon') ? ee_icon('ti-arrow-up') : '↑'; ?> Back to top
+            </button>
         </aside>
 
         <main class="ee-main-content">
@@ -1021,29 +1056,84 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             toc.appendChild(li);
         });
     }
-    var bar      = document.getElementById('ee-progress-bar');
-    var sTop     = document.getElementById('ee-scroll-top');
-    var tocLinks = toc ? toc.querySelectorAll('a') : [];
-    var sections = body ? body.querySelectorAll('h2[id], h3[id]') : [];
+    var bar       = document.getElementById('ee-progress-bar');
+    var sTop      = document.getElementById('ee-scroll-top');
+    var tocProg   = document.getElementById('ee-toc-progress');
+    var tocBack   = document.getElementById('ee-toc-back');
+    var tocLinks  = toc ? toc.querySelectorAll('a') : [];
+    var sections  = body ? body.querySelectorAll('h2[id], h3[id]') : [];
+
     function onScroll(){
         var h = document.documentElement;
         var max = h.scrollHeight - h.clientHeight;
-        if (bar) bar.style.width = max > 0 ? (h.scrollTop / max * 100) + '%' : '0%';
+        var pct = max > 0 ? (h.scrollTop / max) : 0;
+        if (bar)  bar.style.width = (pct * 100) + '%';
         if (sTop) sTop.classList.toggle('ee-show', h.scrollTop > 400);
+
+        /* Highlight the section currently being read. */
         var cur = 'ee-intro';
         sections.forEach(function(s){ if (s.getBoundingClientRect().top < 220) cur = s.id; });
-        tocLinks.forEach(function(l){ l.classList.toggle('ee-active', l.getAttribute('href') === '#' + cur); });
+        var activeLink = null;
+        tocLinks.forEach(function(l){
+            var on = (l.getAttribute('href') === '#' + cur);
+            l.classList.toggle('ee-active', on);
+            if (on) activeLink = l;
+        });
+
+        /* Per-section reading progress rail on the TOC. The rail fills
+           down to the active link's centre so the visitor sees exactly
+           how far through the outline they've read. */
+        if (tocProg && activeLink && toc) {
+            var tocRect = toc.getBoundingClientRect();
+            var linkRect = activeLink.getBoundingClientRect();
+            var fillTop = (linkRect.top - tocRect.top) + (linkRect.height / 2);
+            tocProg.style.height = Math.max(0, fillTop) + 'px';
+        } else if (tocProg) {
+            tocProg.style.height = '0px';
+        }
     }
     window.addEventListener('scroll', onScroll, { passive:true });
+    window.addEventListener('resize', onScroll);
     onScroll();
 
     /* ── Smooth-scroll TOC ── */
     tocLinks.forEach(function(l){
         l.addEventListener('click', function(e){
             var t = document.querySelector(l.getAttribute('href'));
-            if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth', block:'start' }); }
+            if (t) {
+                e.preventDefault();
+                /* Offset for the sticky header height so the heading
+                   isn't hidden behind the navbar after scrolling. */
+                var top = t.getBoundingClientRect().top + window.scrollY - 90;
+                window.scrollTo({ top: top, behavior: 'smooth' });
+            }
         });
     });
+
+    /* ── Back-to-top TOC button ── */
+    if (tocBack) {
+        tocBack.addEventListener('click', function(){
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    /* ── Auto-scroll TOC sidebar to keep the active item in view ── */
+    var lastActiveId = '';
+    function syncTocScroll(){
+        var act = toc && toc.querySelector('a.ee-active');
+        if (!act) return;
+        var id = act.getAttribute('href');
+        if (id === lastActiveId) return;
+        lastActiveId = id;
+        var aside = document.querySelector('.ee-toc-sidebar');
+        if (!aside) return;
+        var aRect = aside.getBoundingClientRect();
+        var lRect = act.getBoundingClientRect();
+        if (lRect.top < aRect.top + 40 || lRect.bottom > aRect.bottom - 40) {
+            act.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+    }
+    setInterval(syncTocScroll, 300);
 
     /* ── Sidebar action buttons (Share / E-mail / PDF / Print) ── */
     var actShare = document.getElementById('ee-act-share');
