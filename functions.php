@@ -257,7 +257,28 @@ function ee_blog_meta_box_render($post) {
     </div>
 
     <div class="eebm-section">
-        <h3>🔢 Stat cards (3 across)</h3>
+        <h3>🖼 Ad banner (replaces the stat cards)</h3>
+        <p class="hint" style="margin-top:-4px;margin-bottom:10px;">A clickable promo image shown above the article body. Drop in a Google-Ads-style creative; when set, it replaces the three stat cards below. Leave the image URL blank to fall back to the stat cards.</p>
+        <div class="eebm-row">
+            <label>Banner image URL</label>
+            <input type="url" name="ee_blog[ad_image]" value="<?php echo esc_attr($f('ad_image')); ?>" placeholder="https://www.extraaedge.com/wp-content/uploads/2026/05/banner.png">
+            <p class="hint">Recommended <strong>728 × 90</strong> (leaderboard) or <strong>970 × 250</strong> (billboard). Upload via Media Library and paste the URL here.</p>
+        </div>
+        <div class="eebm-grid">
+            <div class="eebm-row">
+                <label>Click-through URL</label>
+                <input type="url" name="ee_blog[ad_url]" value="<?php echo esc_attr($f('ad_url')); ?>" placeholder="https://dailyheading.com/products/education-crm/">
+                <p class="hint">Visitor clicks the banner → lands here. Usually the related product page.</p>
+            </div>
+            <div class="eebm-row">
+                <label>Alt text (accessibility + SEO)</label>
+                <input type="text" name="ee_blog[ad_alt]" value="<?php echo esc_attr($f('ad_alt')); ?>" placeholder="Try ExtraaEdge Admission CRM — free demo">
+            </div>
+        </div>
+    </div>
+
+    <div class="eebm-section">
+        <h3>🔢 Stat cards (3 across) <em style="font-weight:400;color:#646970;font-size:12px;">— used only when the Ad banner above is empty</em></h3>
         <div class="eebm-grid-3">
             <?php for ($i = 1; $i <= 3; $i++): ?>
                 <div class="eebm-row">
@@ -351,10 +372,13 @@ add_action('save_post_post', function ($post_id) {
     if (!current_user_can('edit_post', $post_id)) return;
 
     $fields = isset($_POST['ee_blog']) && is_array($_POST['ee_blog']) ? $_POST['ee_blog'] : array();
+    $url_keys = array('ad_image', 'ad_url', 'banner_cta_url');
     foreach ($fields as $k => $v) {
         $key = '_ee_blog_' . preg_replace('/[^a-z0-9_]/', '', strtolower($k));
         if ($k === 'callout' || $k === 'subtitle' || $k === 'banner_desc') {
             update_post_meta($post_id, $key, wp_kses_post(wp_unslash($v)));
+        } elseif (in_array($k, $url_keys, true)) {
+            update_post_meta($post_id, $key, esc_url_raw(wp_unslash($v)));
         } else {
             update_post_meta($post_id, $key, sanitize_text_field(wp_unslash($v)));
         }

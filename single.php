@@ -108,10 +108,17 @@ while (have_posts()) : the_post();
     $banner_cta_text = $f('banner_cta_text', 'Book a Free Demo');
     $banner_cta_url  = $f('banner_cta_url', '/book-demo/');
 
+    /* Ad banner — when image URL is set it replaces the stat cards. */
+    $ad_image = $f('ad_image', '');
+    $ad_url   = $f('ad_url',   '');
+    $ad_alt   = $f('ad_alt',   '');
+
     $stats = array();
-    for ($i = 1; $i <= 3; $i++) {
-        $n = $f("stat{$i}_num");
-        if ($n !== '') $stats[] = array('num' => $n, 'lab' => $f("stat{$i}_lab"));
+    if ($ad_image === '') {
+        for ($i = 1; $i <= 3; $i++) {
+            $n = $f("stat{$i}_num");
+            if ($n !== '') $stats[] = array('num' => $n, 'lab' => $f("stat{$i}_lab"));
+        }
     }
 ?>
 
@@ -209,6 +216,9 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-callout i{color:var(--b-blue);font-size:22px;flex-shrink:0;margin-top:1px;}
 .ee-callout p{margin:0;color:var(--b-text-soft);font-size:14.5px;}
 
+.ee-ad-banner{display:block;margin:24px 0;border-radius:var(--b-radius-md);overflow:hidden;box-shadow:var(--b-shadow-sm);transition:all var(--b-transition);position:relative;line-height:0;}
+.ee-ad-banner:hover{box-shadow:var(--b-shadow-md);transform:translateY(-2px);}
+.ee-ad-banner img{width:100%;height:auto;display:block;border-radius:var(--b-radius-md);}
 .ee-stat-row{display:grid;grid-template-columns:repeat(<?php echo max(1, count($stats)); ?>,1fr);gap:14px;margin:24px 0;}
 .ee-stat-card{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:18px;text-align:center;transition:all var(--b-transition);}
 .ee-stat-card:hover{border-color:var(--b-orange);box-shadow:var(--b-shadow-md);transform:translateY(-2px);}
@@ -423,7 +433,23 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 </div>
             <?php endif; ?>
 
-            <?php if (!empty($stats)) : ?>
+            <?php if ($ad_image) :
+                $ad_target = $ad_url ?: '#';
+                $ad_alt_t  = $ad_alt ?: get_the_title();
+                /* External URL? Open in new tab. Same-origin links stay
+                   in the current tab so the visitor doesn't lose the
+                   article. */
+                $ad_host   = parse_url($ad_target, PHP_URL_HOST);
+                $site_host = parse_url(home_url(), PHP_URL_HOST);
+                $ad_external = ($ad_host && $ad_host !== $site_host);
+            ?>
+                <a class="ee-ad-banner"
+                   href="<?php echo esc_url($ad_target); ?>"
+                   <?php if ($ad_external) : ?>target="_blank" rel="noopener sponsored"<?php endif; ?>
+                   aria-label="<?php echo esc_attr($ad_alt_t); ?>">
+                    <img src="<?php echo esc_url($ad_image); ?>" alt="<?php echo esc_attr($ad_alt_t); ?>" loading="lazy">
+                </a>
+            <?php elseif (!empty($stats)) : ?>
                 <div class="ee-stat-row">
                     <?php foreach ($stats as $s) : ?>
                         <div class="ee-stat-card">
