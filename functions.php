@@ -182,7 +182,10 @@ add_action('wp_head', function () {
     .ee-modal-form button:active,
     .ee-lm-form button:active { transform: translateY(1px) scale(.99); }
 
-    /* ── Primary (filled orange) ─────────────────────────────── */
+    /* ── Primary (white card, orange ink) ─────────────────────
+       Per brand contract, every "filled" button now renders as a
+       white card with orange text + a 2px orange border. Hover
+       inverts to a soft-orange tint with slight lift. */
     .ee-btn-primary,
     .ee-cta-btn,
     .ee-stick-cta-btn,
@@ -191,13 +194,13 @@ add_action('wp_head', function () {
     .ee-send-row button,
     .ee-sub-btn,
     .ee-blog-explore {
-        background: var(--ee-orange) !important;
-        color: #fff !important;
-        border: none !important;
-        padding: 11px 22px;
+        background: #fff !important;
+        color: var(--ee-orange) !important;
+        border: 2px solid var(--ee-orange) !important;
+        padding: 9px 22px;
         border-radius: 8px;
         font-size: 13.5px;
-        box-shadow: 0 2px 8px rgba(222,110,48,.18);
+        box-shadow: 0 2px 8px rgba(222,110,48,.12);
     }
     .ee-btn-primary:hover, .ee-btn-primary:focus,
     .ee-cta-btn:hover, .ee-cta-btn:focus,
@@ -207,13 +210,19 @@ add_action('wp_head', function () {
     .ee-send-row button:hover, .ee-send-row button:focus,
     .ee-sub-btn:hover, .ee-sub-btn:focus,
     .ee-blog-explore:hover, .ee-blog-explore:focus {
-        background: var(--ee-orange-dark) !important;
-        color: #fff !important;
+        background: var(--ee-orange-soft) !important;
+        color: var(--ee-orange-dark) !important;
+        border-color: var(--ee-orange-dark) !important;
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(222,110,48,.32);
+        box-shadow: 0 8px 20px rgba(222,110,48,.22);
+    }
+    .ee-btn-primary svg, .ee-cta-btn svg, .ee-stick-cta-btn svg,
+    .ee-modal-form button svg, .ee-lm-form button svg,
+    .ee-send-row button svg, .ee-sub-btn svg, .ee-blog-explore svg {
+        color: var(--ee-orange);
     }
 
-    /* ── Outline (navy) ──────────────────────────────────────── */
+    /* ── Outline (white card, navy ink) — unchanged ──────────── */
     .ee-btn-outline {
         background: #fff !important;
         color: var(--ee-blue) !important;
@@ -223,17 +232,18 @@ add_action('wp_head', function () {
         font-size: 13.5px;
     }
     .ee-btn-outline:hover, .ee-btn-outline:focus {
-        background: var(--ee-blue) !important;
-        color: #fff !important;
+        background: var(--ee-blue-soft) !important;
+        color: var(--ee-blue-dark) !important;
+        border-color: var(--ee-blue-dark) !important;
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(25,51,93,.28);
+        box-shadow: 0 8px 20px rgba(25,51,93,.18);
     }
 
-    /* ── Ghost / icon buttons ────────────────────────────────── */
+    /* ── Ghost / icon buttons — already white, polish only ───── */
     .ee-action-btn, .ee-icon-btn, .ee-toc-actions button {
-        background: #fff;
+        background: #fff !important;
         border: 1px solid var(--ee-border);
-        color: var(--ee-text-soft);
+        color: var(--ee-blue);
         padding: 7px 12px;
         border-radius: 6px;
         font-size: 11.5px;
@@ -245,52 +255,73 @@ add_action('wp_head', function () {
         background: var(--ee-orange-soft) !important;
         transform: translateY(-1px);
     }
+    .ee-action-btn svg, .ee-icon-btn svg, .ee-toc-actions button svg {
+        color: var(--ee-blue);
+    }
+    .ee-action-btn:hover svg, .ee-icon-btn:hover svg, .ee-toc-actions button:hover svg {
+        color: var(--ee-orange);
+    }
 
     /* ── Promo card buttons (Vidya / Smarter Admissions) ─────── */
-    .ee-promo-card .ee-promo-btn {
-        background: var(--ee-orange) !important;
-        color: #fff !important;
-        border: none;
-        padding: 9px 16px;
-        border-radius: 8px;
-        font-size: 12.5px;
-        box-shadow: 0 2px 8px rgba(222,110,48,.2);
-    }
-    .ee-promo-card .ee-promo-btn:hover {
-        background: var(--ee-orange-dark) !important;
-        color: #fff !important;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(222,110,48,.32);
-    }
-    /* Orange variant flips the colours so the button reads on the orange tile */
+    .ee-promo-card .ee-promo-btn,
     .ee-promo-card.ee-promo-orange .ee-promo-btn {
         background: #fff !important;
         color: var(--ee-orange) !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,.12);
+        border: 2px solid #fff !important;
+        padding: 9px 16px;
+        border-radius: 8px;
+        font-size: 12.5px;
     }
+    .ee-promo-card .ee-promo-btn:hover,
     .ee-promo-card.ee-promo-orange .ee-promo-btn:hover {
-        background: #fff8f1 !important;
-        color: var(--ee-orange) !important;
+        background: var(--ee-orange-soft) !important;
+        color: var(--ee-orange-dark) !important;
+        transform: translateY(-2px);
     }
+    .ee-promo-card .ee-promo-btn svg { color: var(--ee-orange); }
 
-    /* ── Social share row ────────────────────────────────────── */
-    .ee-soc-btn, .ee-soc-btn:link, .ee-soc-btn:visited,
-    .ee-soc-btn:hover, .ee-soc-btn:focus, .ee-soc-btn:active {
-        color: #fff !important;
+    /* ── Social share row — white card with brand-coloured ink ── */
+    .ee-soc-btn, .ee-soc-btn:link, .ee-soc-btn:visited {
+        background: #fff !important;
+        border: 1px solid var(--ee-border);
         padding: 9px 16px;
         border-radius: 6px;
         font-size: 12.5px;
         font-weight: 700;
     }
-    .ee-soc-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.18); }
+    .ee-soc-btn.ee-soc-fb { color: #1877F2 !important; border-color: #1877F2; }
+    .ee-soc-btn.ee-soc-tw { color: #111   !important; border-color: #111;     }
+    .ee-soc-btn.ee-soc-li { color: #0A66C2 !important; border-color: #0A66C2; }
+    .ee-soc-btn.ee-soc-wa { color: #1DA851 !important; border-color: #25D366; }
+    .ee-soc-btn.ee-soc-em { color: var(--ee-blue) !important; border-color: var(--ee-blue); }
+    .ee-soc-btn.ee-soc-cp { color: var(--ee-blue) !important; border-color: var(--ee-blue); }
+    .ee-soc-btn:hover {
+        background: #fafbfc !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(0,0,0,.10);
+    }
+    .ee-soc-btn svg { color: inherit; }
 
-    /* ── Follow Us icon buttons ──────────────────────────────── */
-    .ee-follow-btn, .ee-follow-btn:hover, .ee-follow-btn:focus { color: #fff !important; }
-    .ee-follow-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.16); }
+    /* ── Follow Us icon buttons — white card, brand colour ink ── */
+    .ee-follow-btn, .ee-follow-btn:link, .ee-follow-btn:visited {
+        background: #fff !important;
+        border: 1px solid var(--ee-border);
+    }
+    .ee-follow-btn.ee-f-li { color: #0A66C2 !important; }
+    .ee-follow-btn.ee-f-tw { color: #111    !important; }
+    .ee-follow-btn.ee-f-fb { color: #1877F2 !important; }
+    .ee-follow-btn.ee-f-ig { color: #BC1888 !important; background-image: none; }
+    .ee-follow-btn.ee-f-yt { color: #FF0000 !important; }
+    .ee-follow-btn:hover {
+        background: var(--ee-orange-soft) !important;
+        border-color: var(--ee-orange);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(222,110,48,.18);
+    }
 
-    /* ── Product / Solution / Side-nav pills ─────────────────── */
+    /* ── Product / Solution / Side-nav pills — already white ── */
     .ee-product-pill, .ee-product-pill:link, .ee-product-pill:visited {
-        background: #fff;
+        background: #fff !important;
         color: var(--ee-blue);
         border: 1px solid var(--ee-border);
         padding: 11px 14px;
@@ -305,10 +336,9 @@ add_action('wp_head', function () {
         transform: translateX(2px);
     }
 
-    /* ── Side-nav grid (Quick Nav tiles in sidebar) ──────────── */
     .ee-side-nav-grid a, .ee-side-nav-grid a:link, .ee-side-nav-grid a:visited {
-        color: var(--ee-text-soft) !important;
-        background: #fff;
+        background: #fff !important;
+        color: var(--ee-blue) !important;
         border: 1px solid var(--ee-border);
     }
     .ee-side-nav-grid a:hover, .ee-side-nav-grid a:focus {
@@ -318,11 +348,74 @@ add_action('wp_head', function () {
         transform: translateY(-1px);
     }
 
-    /* ── Floating contact buttons (WhatsApp / Call / Book Demo) ── */
-    .ee-float-btn, .ee-float-btn:link, .ee-float-btn:visited,
-    .ee-float-btn:hover, .ee-float-btn:focus { color: #fff !important; }
-    .ee-book-bubble, .ee-book-bubble:link, .ee-book-bubble:visited,
-    .ee-book-bubble:hover, .ee-book-bubble:focus { color: #fff !important; }
+    /* ── Floating contact buttons (WhatsApp / Call) ──────────── */
+    .ee-float-btn, .ee-float-btn:link, .ee-float-btn:visited {
+        background: #fff !important;
+        border: 1px solid var(--ee-border);
+        box-shadow: 0 6px 20px rgba(15,32,64,.15) !important;
+    }
+    .ee-float-whatsapp { color: #1DA851 !important; }
+    .ee-float-call     { color: var(--ee-orange) !important; }
+    .ee-float-btn:hover {
+        background: #fafbfc !important;
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 10px 28px rgba(15,32,64,.20) !important;
+    }
+    .ee-float-btn .ee-float-icon-wrap { background: var(--ee-orange-soft); }
+    .ee-float-whatsapp .ee-float-icon-wrap { background: rgba(37,211,102,.12); }
+    .ee-float-btn .ee-float-label small { color: var(--ee-muted); }
+    .ee-float-btn .ee-float-label strong { color: var(--ee-blue); }
+
+    /* ── Persistent Book Demo bubble ─────────────────────────── */
+    .ee-book-bubble, .ee-book-bubble:link, .ee-book-bubble:visited {
+        background: #fff !important;
+        color: var(--ee-orange) !important;
+        border: 2px solid var(--ee-orange) !important;
+        box-shadow: 0 8px 22px rgba(222,110,48,.18) !important;
+    }
+    .ee-book-bubble:hover {
+        background: var(--ee-orange-soft) !important;
+        color: var(--ee-orange-dark) !important;
+        border-color: var(--ee-orange-dark) !important;
+        box-shadow: 0 12px 28px rgba(222,110,48,.25) !important;
+    }
+
+    /* ── Floating Quick Nav dashboard ── tile bg always white ── */
+    .ee-float-nav a .ee-fn-ico { background: #fff !important; border: 1px solid var(--ee-border); }
+    .ee-float-nav a:hover .ee-fn-ico { background: var(--ee-orange-soft) !important; border-color: var(--ee-orange); }
+    .ee-float-nav a:hover .ee-fn-ico svg { color: var(--ee-orange) !important; }
+
+    /* ── Sticky bottom CTA bar — keep card, white inner CTA ──── */
+    .ee-stick-cta-btn, .ee-stick-cta-btn:hover {
+        background: #fff !important;
+        color: var(--ee-orange) !important;
+        border: 2px solid #fff !important;
+    }
+    .ee-stick-cta-btn:hover {
+        background: var(--ee-orange-soft) !important;
+        color: var(--ee-orange-dark) !important;
+    }
+
+    /* ── End-of-article CTA card — keep orange tile, white CTA ── */
+    .ee-end-cta-row .ee-btn-primary {
+        background: #fff !important;
+        color: var(--ee-orange) !important;
+        border: 2px solid #fff !important;
+    }
+    .ee-end-cta-row .ee-btn-primary:hover {
+        background: var(--ee-orange-soft) !important;
+        color: var(--ee-orange-dark) !important;
+    }
+    .ee-end-cta-row .ee-btn-outline {
+        background: rgba(255,255,255,.1) !important;
+        color: #fff !important;
+        border-color: #fff !important;
+    }
+    .ee-end-cta-row .ee-btn-outline:hover {
+        background: #fff !important;
+        color: var(--ee-orange) !important;
+        border-color: #fff !important;
+    }
 
     /* ── Form fields (consistent across the site) ────────────── */
     .ee-modal-form input,
