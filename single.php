@@ -586,20 +586,20 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-end-cta{margin:36px 0 24px;display:none;}
 .ee-end-cta.ee-show{display:block;animation:eeFadeUp .5s cubic-bezier(.4,0,.2,1);}
 @keyframes eeFadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-.ee-end-cta-inner{background:linear-gradient(135deg,var(--b-orange) 0%,#C55E24 100%);color:#fff;border-radius:var(--b-radius-lg);padding:34px 36px 28px;text-align:center;box-shadow:0 12px 40px rgba(222,110,48,.25);position:relative;overflow:hidden;}
-.ee-end-cta-inner::before,.ee-end-cta-inner::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08);}
+.ee-end-cta-inner{background:linear-gradient(180deg,#fff 0%,#FFF8F3 100%);color:var(--b-text);border:2px solid var(--b-orange);border-radius:var(--b-radius-lg);padding:34px 36px 28px;text-align:center;box-shadow:0 12px 40px rgba(222,110,48,.16);position:relative;overflow:hidden;}
+.ee-end-cta-inner::before,.ee-end-cta-inner::after{content:"";position:absolute;border-radius:50%;background:rgba(222,110,48,.06);}
 .ee-end-cta-inner::before{width:180px;height:180px;left:-60px;bottom:-80px;}
-.ee-end-cta-inner::after{width:140px;height:140px;right:-50px;top:-60px;}
+.ee-end-cta-inner::after{width:140px;height:140px;right:-50px;top:-60px;background:rgba(25,51,93,.05);}
 .ee-end-cta-inner > *{position:relative;z-index:2;}
-.ee-end-cta-badge{display:inline-block;background:rgba(255,255,255,.18);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:.06em;margin-bottom:14px;}
-.ee-end-cta-inner h3{font-size:28px;font-weight:800;color:#fff;margin:0 0 10px;letter-spacing:-.02em;line-height:1.2;}
-.ee-end-cta-inner p{font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.95);margin:0 0 22px;max-width:560px;margin-left:auto;margin-right:auto;}
+.ee-end-cta-badge{display:inline-block;background:var(--b-orange-light);color:var(--b-orange);font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;letter-spacing:.06em;margin-bottom:14px;border:1px solid rgba(222,110,48,.25);}
+.ee-end-cta-inner h3{font-size:28px;font-weight:800;color:var(--b-blue);margin:0 0 10px;letter-spacing:-.02em;line-height:1.2;}
+.ee-end-cta-inner p{font-size:14.5px;line-height:1.6;color:var(--b-text-soft);margin:0 0 22px;max-width:560px;margin-left:auto;margin-right:auto;}
 .ee-end-cta-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;}
-.ee-end-cta-row .ee-btn-primary{background:#fff !important;color:var(--b-orange) !important;border:2px solid #fff !important;}
-.ee-end-cta-row .ee-btn-primary:hover{background:#fff8f1 !important;color:var(--b-orange-dark) !important;}
-.ee-end-cta-row .ee-btn-outline{background:#fff !important;color:var(--b-orange) !important;border-color:#fff !important;}
-.ee-end-cta-row .ee-btn-outline:hover{background:#fff8f1 !important;color:var(--b-orange-dark) !important;}
-.ee-end-cta-proof{font-size:12px;color:rgba(255,255,255,.75);margin-top:6px;}
+.ee-end-cta-row .ee-btn-primary{background:#fff !important;color:var(--b-orange) !important;border:2px solid var(--b-orange) !important;}
+.ee-end-cta-row .ee-btn-primary:hover{background:var(--b-orange-light) !important;color:var(--b-orange-dark) !important;border-color:var(--b-orange-dark) !important;}
+.ee-end-cta-row .ee-btn-outline{background:#fff !important;color:var(--b-blue) !important;border-color:var(--b-blue) !important;}
+.ee-end-cta-row .ee-btn-outline:hover{background:var(--b-blue-light) !important;color:var(--b-blue-dark) !important;border-color:var(--b-blue-dark) !important;}
+.ee-end-cta-proof{font-size:12px;color:var(--b-muted);margin-top:8px;font-weight:600;}
 
 /* ── D. Inline lead magnet (rendered via the_content filter) ── */
 .ee-lead-magnet{display:flex;align-items:flex-start;gap:16px;background:linear-gradient(135deg,var(--b-blue-soft),#fff);border:1px solid #C7D5E8;border-radius:var(--b-radius-md);padding:20px 22px;margin:26px 0;box-shadow:var(--b-shadow-sm);}
