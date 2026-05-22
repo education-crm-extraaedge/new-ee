@@ -439,15 +439,9 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-float-nav a:hover .ee-fn-ico{transform:scale(1.06);box-shadow:0 6px 14px rgba(15,32,64,.14);}
 .ee-float-nav a span{display:block;white-space:nowrap;}
 
-/* Per-tile colour tokens — each item gets a distinct soft tint
-   so the column reads like an app dashboard at a glance. */
-.ee-float-nav a[data-tile="home"]      { --tile-bg:#EEF2F8; --tile-fg:#19335D; }
-.ee-float-nav a[data-tile="products"]  { --tile-bg:#FFF3EC; --tile-fg:#DE6E30; }
-.ee-float-nav a[data-tile="industries"]{ --tile-bg:#ECFDF5; --tile-fg:#0E9F6E; }
-.ee-float-nav a[data-tile="solutions"] { --tile-bg:#FEF9C3; --tile-fg:#A16207; }
-.ee-float-nav a[data-tile="testimonials"]{ --tile-bg:#EDE9FE; --tile-fg:#7C3AED; }
-.ee-float-nav a[data-tile="resources"] { --tile-bg:#DBEAFE; --tile-fg:#1D4ED8; }
-.ee-float-nav a[data-tile="contact"]   { --tile-bg:#FCE7F3; --tile-fg:#BE185D; }
+/* Per-tile colour tokens live as inline styles emitted from the
+   admin's colour preset. The default `a { --tile-bg ... }`
+   declaration above is the fallback when no colour is set. */
 
 /* On narrow viewports the WhatsApp + Call float lives bottom-right;
    shrink the dashboard so it doesn't collide. */
@@ -831,18 +825,29 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
     <button class="ee-scroll-top" id="ee-scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"><i class="ti ti-arrow-up"></i></button>
 
-    <!-- ── Floating Quick Nav — single column. Reveal once the visitor
-         scrolls past "Last Updated", hide again when the footer is in
-         view. JS at the bottom of single.php drives the visibility. -->
+    <!-- ── Floating Quick Nav — items come from the 🧭 Blog Quick Nav
+         admin page so a non-coder can edit labels, URLs, icons, and
+         colour tints. Hidden until the visitor reaches the FAQ
+         section; auto-hides again when the footer enters the
+         viewport. JS at the bottom of single.php drives visibility. -->
+    <?php
+    $eqn_items  = function_exists('ee_get_quick_nav_items') ? ee_get_quick_nav_items() : array();
+    $eqn_colors = function_exists('ee_quick_nav_colors')    ? ee_quick_nav_colors()    : array();
+    ?>
+    <?php if (!empty($eqn_items)) : ?>
     <aside class="ee-float-nav" id="ee-float-nav" aria-label="Quick navigation">
-        <a href="<?php echo esc_url(home_url('/')); ?>"            data-tile="home">        <span class="ee-fn-ico"><i class="ti ti-home"></i></span>        <span>Home</span></a>
-        <a href="<?php echo esc_url(home_url('/products/')); ?>"    data-tile="products">    <span class="ee-fn-ico"><i class="ti ti-package"></i></span>     <span>Products</span></a>
-        <a href="<?php echo esc_url(home_url('/industries/')); ?>"  data-tile="industries">  <span class="ee-fn-ico"><i class="ti ti-building"></i></span>    <span>Industries</span></a>
-        <a href="<?php echo esc_url(home_url('/solutions/')); ?>"   data-tile="solutions">   <span class="ee-fn-ico"><i class="ti ti-bulb"></i></span>        <span>Solutions</span></a>
-        <a href="<?php echo esc_url(home_url('/case-studies/')); ?>"data-tile="testimonials"><span class="ee-fn-ico"><i class="ti ti-quote"></i></span>      <span>Testimonials</span></a>
-        <a href="<?php echo esc_url(home_url('/resources/')); ?>"   data-tile="resources">   <span class="ee-fn-ico"><i class="ti ti-book"></i></span>        <span>Resources</span></a>
-        <a href="<?php echo esc_url(home_url('/contact-us/')); ?>"  data-tile="contact">     <span class="ee-fn-ico"><i class="ti ti-mail"></i></span>        <span>Contact</span></a>
+        <?php foreach ($eqn_items as $idx => $it) :
+            $c = isset($eqn_colors[$it['color']]) ? $eqn_colors[$it['color']] : array('bg' => '#EEF2F8', 'fg' => '#19335D');
+            $icon = $it['icon'] ?: 'ti-circle';
+        ?>
+            <a href="<?php echo esc_url($it['url']); ?>"
+               style="--tile-bg:<?php echo esc_attr($c['bg']); ?>;--tile-fg:<?php echo esc_attr($c['fg']); ?>;">
+                <span class="ee-fn-ico"><i class="ti <?php echo esc_attr($icon); ?>"></i></span>
+                <span><?php echo esc_html($it['label']); ?></span>
+            </a>
+        <?php endforeach; ?>
     </aside>
+    <?php endif; ?>
 
     <div class="ee-copy-toast" id="ee-copy-toast"><i class="ti ti-circle-check"></i> <span id="ee-toast-msg">Copied!</span></div>
 </div>
@@ -1016,29 +1021,31 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     if (actPrint) actPrint.addEventListener('click', function(){ window.print(); });
 
     /* ── Floating Quick Nav visibility ──
-       Show once the "Last Updated" chip's BOTTOM has scrolled out of
-       view (i.e. visitor scrolled past it). Hide again when the site
-       footer enters the viewport so the nav doesn't overlap the
-       footer content. */
-    var fnav        = document.getElementById('ee-float-nav');
-    var lastUpdated = document.getElementById('ee-last-updated');
-    var siteFooter  = document.querySelector('footer.site-footer, footer#colophon, footer, .ee-blog-page + footer');
+       Reveal once the FAQ section enters the viewport (typically
+       near the bottom of the article). Hide again when the site
+       footer enters the viewport so the dashboard doesn't overlap
+       the footer content. If the post has no FAQ section, fall
+       back to "scrolled past 60% of page height". */
+    var fnav       = document.getElementById('ee-float-nav');
+    var faqSection = document.getElementById('ee-faq-section');
+    var siteFooter = document.querySelector('footer.site-footer, footer#colophon, footer, .ee-blog-page + footer');
     if (fnav) {
         function toggleFnav(){
-            var luVisible = false;
-            if (lastUpdated) {
-                var luRect = lastUpdated.getBoundingClientRect();
-                /* "Past" = the chip's bottom is above the viewport top. */
-                luVisible = (luRect.bottom < 0);
+            var faqInView;
+            if (faqSection) {
+                var fqRect = faqSection.getBoundingClientRect();
+                /* "Reached" = FAQ section's top is at or above 70% of viewport. */
+                faqInView = (fqRect.top < window.innerHeight * 0.7);
             } else {
-                luVisible = (window.scrollY > 600);
+                var docH = document.documentElement.scrollHeight - window.innerHeight;
+                faqInView = (window.scrollY / Math.max(docH, 1)) > 0.55;
             }
             var footerInView = false;
             if (siteFooter) {
-                var fRect = siteFooter.getBoundingClientRect();
-                footerInView = (fRect.top < window.innerHeight - 60);
+                var ftRect = siteFooter.getBoundingClientRect();
+                footerInView = (ftRect.top < window.innerHeight - 60);
             }
-            fnav.classList.toggle('ee-visible', luVisible && !footerInView);
+            fnav.classList.toggle('ee-visible', faqInView && !footerInView);
         }
         window.addEventListener('scroll', toggleFnav, { passive:true });
         window.addEventListener('resize', toggleFnav);

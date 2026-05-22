@@ -3120,6 +3120,173 @@ function ee_blog_form_render_admin() {
 
 // ══════════════════════════════════════════════════════════════════════════
 //  ╔════════════════════════════════════════════════════════════════════╗
+//  ║   BLOG QUICK NAVIGATION (floating dashboard on single posts)       ║
+//  ║   Admin: 🧭 Blog Quick Nav                                          ║
+//  ║                                                                    ║
+//  ║   The floating right-edge dashboard shown on single blog posts     ║
+//  ║   (revealed once the visitor reaches the FAQ section). Editors     ║
+//  ║   manage label, URL, Tabler icon, and colour-tile preset per row   ║
+//  ║   without touching code.                                           ║
+//  ╚════════════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════════════════════════════════
+
+function ee_get_quick_nav_items() {
+    $saved = get_option('ee_quick_nav_items', null);
+    if (is_array($saved) && !empty($saved)) {
+        /* Strip any blank rows the editor saved by accident. */
+        $clean = array();
+        foreach ($saved as $row) {
+            if (!empty($row['label']) && !empty($row['url'])) $clean[] = $row;
+        }
+        if (!empty($clean)) return $clean;
+    }
+    return array(
+        array('label' => 'Home',         'url' => home_url('/'),              'icon' => 'ti-home',     'color' => 'navy'),
+        array('label' => 'Products',     'url' => home_url('/products/'),     'icon' => 'ti-package',  'color' => 'orange'),
+        array('label' => 'Industries',   'url' => home_url('/industries/'),   'icon' => 'ti-building', 'color' => 'green'),
+        array('label' => 'Solutions',    'url' => home_url('/solutions/'),    'icon' => 'ti-bulb',     'color' => 'amber'),
+        array('label' => 'Testimonials', 'url' => home_url('/case-studies/'), 'icon' => 'ti-quote',    'color' => 'violet'),
+        array('label' => 'Resources',    'url' => home_url('/resources/'),    'icon' => 'ti-book',     'color' => 'blue'),
+        array('label' => 'Contact',      'url' => home_url('/contact-us/'),   'icon' => 'ti-mail',     'color' => 'magenta'),
+    );
+}
+
+function ee_quick_nav_colors() {
+    return array(
+        'navy'    => array('bg' => '#EEF2F8', 'fg' => '#19335D', 'label' => 'Navy'),
+        'orange'  => array('bg' => '#FFF3EC', 'fg' => '#DE6E30', 'label' => 'Orange'),
+        'green'   => array('bg' => '#ECFDF5', 'fg' => '#0E9F6E', 'label' => 'Green'),
+        'amber'   => array('bg' => '#FEF9C3', 'fg' => '#A16207', 'label' => 'Amber'),
+        'violet'  => array('bg' => '#EDE9FE', 'fg' => '#7C3AED', 'label' => 'Violet'),
+        'blue'    => array('bg' => '#DBEAFE', 'fg' => '#1D4ED8', 'label' => 'Blue'),
+        'magenta' => array('bg' => '#FCE7F3', 'fg' => '#BE185D', 'label' => 'Magenta'),
+        'red'     => array('bg' => '#FEE2E2', 'fg' => '#DC2626', 'label' => 'Red'),
+        'teal'    => array('bg' => '#CCFBF1', 'fg' => '#0F766E', 'label' => 'Teal'),
+        'slate'   => array('bg' => '#F1F5F9', 'fg' => '#475569', 'label' => 'Slate'),
+    );
+}
+
+add_action('admin_menu', function () {
+    add_menu_page(
+        'Blog Quick Nav', '🧭 Blog Quick Nav', 'manage_options',
+        'ee-quick-nav', 'ee_quick_nav_render_admin',
+        'dashicons-screenoptions', 64
+    );
+});
+
+add_action('admin_post_ee_save_quick_nav', function () {
+    if (!current_user_can('manage_options')) wp_die('Forbidden');
+    check_admin_referer('ee_quick_nav_save');
+
+    $rows  = isset($_POST['nav']) && is_array($_POST['nav']) ? $_POST['nav'] : array();
+    $colors = ee_quick_nav_colors();
+    $clean = array();
+    foreach ($rows as $r) {
+        $label = isset($r['label']) ? sanitize_text_field(wp_unslash($r['label'])) : '';
+        $url   = isset($r['url'])   ? esc_url_raw(wp_unslash($r['url']))           : '';
+        if ($label === '' || $url === '') continue;
+        $icon  = isset($r['icon'])  ? sanitize_text_field(wp_unslash($r['icon']))  : 'ti-circle';
+        if (strpos($icon, 'ti-') !== 0) $icon = 'ti-' . ltrim($icon, '- ');
+        $color = isset($r['color']) ? sanitize_text_field(wp_unslash($r['color'])) : 'navy';
+        if (!isset($colors[$color])) $color = 'navy';
+        $clean[] = array('label' => $label, 'url' => $url, 'icon' => $icon, 'color' => $color);
+    }
+    update_option('ee_quick_nav_items', $clean);
+
+    wp_cache_delete('ee_quick_nav_items', 'options');
+    if (function_exists('rocket_clean_domain')) { rocket_clean_domain(); }
+    if (function_exists('w3tc_pgcache_flush'))  { w3tc_pgcache_flush(); }
+    if (class_exists('LiteSpeed\\Purge'))       { do_action('litespeed_purge_all'); }
+
+    wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-quick-nav')));
+    exit;
+});
+
+function ee_quick_nav_render_admin() {
+    $items  = ee_get_quick_nav_items();
+    $colors = ee_quick_nav_colors();
+    ?>
+    <div class="wrap">
+        <h1>🧭 Blog Quick Nav <span style="font-size:13px;color:#646970;font-weight:400;">— floating dashboard shown on single blog posts (revealed near the FAQ)</span></h1>
+        <?php if (!empty($_GET['updated'])) : ?>
+            <div class="notice notice-success is-dismissible"><p><strong>Saved.</strong> The Quick Nav dashboard has been updated.</p></div>
+        <?php endif; ?>
+
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="max-width:1080px;">
+            <input type="hidden" name="action" value="ee_save_quick_nav">
+            <?php wp_nonce_field('ee_quick_nav_save'); ?>
+
+            <style>
+                .eqn-card { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:18px 20px; margin-bottom:20px; }
+                .eqn-head { display:grid; grid-template-columns:1.2fr 2fr 1.2fr 1fr 28px; gap:10px; padding:0 10px; font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+                .eqn-row  { display:grid; grid-template-columns:1.2fr 2fr 1.2fr 1fr 28px; gap:10px; padding:10px; background:#f8fafc; border-radius:5px; margin-bottom:8px; align-items:center; }
+                .eqn-row input, .eqn-row select { width:100%; padding:7px 9px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px; box-sizing:border-box; font-family:inherit; }
+                .eqn-row .rm { background:transparent; border:1px solid #fecaca; color:#b91c1c; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px; }
+                .eqn-row .rm:hover { background:#fee2e2; }
+                .eqn-add  { background:#19335D; color:#fff; border:none; padding:8px 16px; border-radius:5px; cursor:pointer; font-size:12.5px; font-weight:600; margin-top:6px; }
+                .eqn-add:hover { background:#0F2040; }
+                .eqn-preview { width:32px; height:32px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; font-size:16px; vertical-align:middle; margin-right:6px; }
+            </style>
+
+            <div class="eqn-card">
+                <h2 style="margin:0 0 6px;font-size:15px;color:#19335D;">Dashboard tiles</h2>
+                <p style="color:#475569;font-size:13px;margin:0 0 14px;">Each row becomes one tile on the floating dashboard. Drag-type-go: <strong>Label</strong> is the visible text under the icon, <strong>URL</strong> is where clicking the tile goes, <strong>Tabler icon</strong> is the icon name (browse at <a href="https://tabler.io/icons" target="_blank" rel="noopener">tabler.io/icons</a>, then prefix with <code>ti-</code>, e.g. <code>ti-home</code>), <strong>Color</strong> picks the tile's tint.</p>
+
+                <div class="eqn-head">
+                    <div>Label</div><div>URL</div><div>Tabler icon</div><div>Colour</div><div>&nbsp;</div>
+                </div>
+
+                <div id="eqn-rows">
+                    <?php foreach ($items as $i => $it) : ?>
+                    <div class="eqn-row">
+                        <input type="text" name="nav[<?php echo (int) $i; ?>][label]" value="<?php echo esc_attr($it['label']); ?>" placeholder="Home">
+                        <input type="url"  name="nav[<?php echo (int) $i; ?>][url]"   value="<?php echo esc_attr($it['url']); ?>"   placeholder="https://...">
+                        <input type="text" name="nav[<?php echo (int) $i; ?>][icon]"  value="<?php echo esc_attr($it['icon']); ?>"  placeholder="ti-home">
+                        <select name="nav[<?php echo (int) $i; ?>][color]">
+                            <?php foreach ($colors as $key => $c) : ?>
+                                <option value="<?php echo esc_attr($key); ?>" <?php selected($it['color'], $key); ?>><?php echo esc_html($c['label']); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <button type="button" class="rm" onclick="this.parentElement.remove();">✕</button>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <button type="button" class="eqn-add" id="eqn-add-row">+ Add tile</button>
+                <p style="color:#646970;font-size:12px;font-style:italic;margin-top:14px;">Leave both Label + URL blank on a row to remove that tile when you save.</p>
+            </div>
+
+            <p><button type="submit" class="button button-primary button-large">Save changes</button></p>
+        </form>
+
+        <script>
+        (function(){
+            var add = document.getElementById('eqn-add-row');
+            if (!add) return;
+            add.addEventListener('click', function(){
+                var rows = document.getElementById('eqn-rows');
+                var i = rows.children.length;
+                var node = document.createElement('div');
+                node.className = 'eqn-row';
+                node.innerHTML =
+                    '<input type="text" name="nav['+i+'][label]" placeholder="Label">'
+                  + '<input type="url"  name="nav['+i+'][url]"   placeholder="https://...">'
+                  + '<input type="text" name="nav['+i+'][icon]"  placeholder="ti-home">'
+                  + '<select name="nav['+i+'][color]">'
+                  +   '<?php foreach ($colors as $key => $c) : ?>'
+                  +   '<option value="<?php echo esc_attr($key); ?>"><?php echo esc_html($c['label']); ?></option>'
+                  +   '<?php endforeach; ?>'
+                  + '</select>'
+                  + '<button type="button" class="rm" onclick="this.parentElement.remove();">✕</button>';
+                rows.appendChild(node);
+            });
+        })();
+        </script>
+    </div>
+    <?php
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  ╔════════════════════════════════════════════════════════════════════╗
 //  ║   ExtraaEdge SEO & TRACKING ADMIN PAGE (for non-coders)            ║
 //  ║   Settings → ExtraaEdge SEO & Tracking                             ║
 //  ║                                                                    ║
