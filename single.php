@@ -402,6 +402,41 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-product-pill:hover{border-color:var(--b-orange);background:var(--b-orange-light);color:var(--b-orange);transform:translateX(2px);}
 .ee-product-pill i{font-size:15px;}
 
+/* ── All Product Updates hero button ── */
+.ee-side-cta{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border:2px solid var(--b-orange);border-radius:var(--b-radius-md);text-decoration:none;color:var(--b-orange);box-shadow:0 4px 14px rgba(222,110,48,.14);transition:all var(--b-transition);}
+.ee-side-cta:hover{background:var(--b-orange-light);color:var(--b-orange-dark);border-color:var(--b-orange-dark);transform:translateY(-2px);box-shadow:0 10px 22px rgba(222,110,48,.2);}
+.ee-side-cta-icon{flex-shrink:0;width:38px;height:38px;border-radius:10px;background:var(--b-orange-light);color:var(--b-orange);display:flex;align-items:center;justify-content:center;}
+.ee-side-cta-icon svg{width:20px;height:20px;}
+.ee-side-cta-body{flex:1;line-height:1.25;}
+.ee-side-cta-body strong{display:block;font-size:13.5px;font-weight:800;color:var(--b-blue);letter-spacing:-.005em;}
+.ee-side-cta-body small{display:block;font-size:11px;color:var(--b-muted);font-weight:600;margin-top:2px;}
+.ee-side-cta > svg{width:16px;height:16px;color:var(--b-orange);flex-shrink:0;}
+.ee-side-cta:hover > svg{color:var(--b-orange-dark);}
+
+/* ── Categories pill cloud ── */
+.ee-cat-cloud{display:flex;flex-wrap:wrap;gap:6px;}
+.ee-cat-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;background:#fff;border:1px solid var(--b-border);border-radius:30px;font-size:11.5px;font-weight:600;color:var(--b-blue);text-decoration:none;transition:all var(--b-transition);line-height:1.2;}
+.ee-cat-pill:hover{background:var(--b-orange-light);border-color:var(--b-orange);color:var(--b-orange);transform:translateY(-1px);}
+.ee-cat-pill.ee-cat-current{background:var(--b-orange-light);border-color:var(--b-orange);color:var(--b-orange);}
+.ee-cat-count{font-size:10px;font-weight:700;color:var(--b-muted);background:var(--b-bg);padding:2px 6px;border-radius:20px;min-width:18px;text-align:center;transition:all var(--b-transition);}
+.ee-cat-pill:hover .ee-cat-count,
+.ee-cat-pill.ee-cat-current .ee-cat-count{background:#fff;color:var(--b-orange);}
+
+/* ── Latest Insights list ── */
+.ee-latest-list{display:flex;flex-direction:column;gap:10px;}
+.ee-latest-card{display:flex;gap:10px;padding:8px;background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-sm);text-decoration:none;color:inherit;transition:all var(--b-transition);}
+.ee-latest-card:hover{border-color:var(--b-orange);background:#fff8f3;transform:translateY(-1px);box-shadow:var(--b-shadow-sm);color:inherit;}
+.ee-latest-thumb{flex-shrink:0;width:68px;height:68px;border-radius:6px;overflow:hidden;background:linear-gradient(135deg,var(--b-blue),var(--b-blue-dark));display:flex;align-items:center;justify-content:center;color:#fff;}
+.ee-latest-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.ee-latest-thumb svg{width:22px;height:22px;}
+.ee-latest-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;line-height:1.25;}
+.ee-latest-tag{display:inline-block;background:var(--b-orange);color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;width:fit-content;margin-bottom:2px;}
+.ee-latest-cat{font-size:9.5px;font-weight:700;color:var(--b-orange);text-transform:uppercase;letter-spacing:.06em;}
+.ee-latest-title{font-size:12.5px;font-weight:600;color:var(--b-blue);line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.ee-latest-date{font-size:10.5px;color:var(--b-muted);margin-top:auto;font-weight:500;}
+.ee-latest-more{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-size:12px;font-weight:700;color:var(--b-orange);text-decoration:none;transition:gap var(--b-transition);}
+.ee-latest-more:hover{gap:8px;color:var(--b-orange-dark);}
+
 .ee-featured-grid{display:flex;flex-direction:column;gap:14px;}
 .ee-feat-card{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);overflow:hidden;cursor:pointer;transition:all var(--b-transition);text-decoration:none;color:inherit;display:block;}
 .ee-feat-card:hover{box-shadow:var(--b-shadow-md);transform:translateY(-2px);color:inherit;}
@@ -1119,82 +1154,91 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 </div>
             </div>
 
+            <!-- ── All Product Updates — single hero button ── -->
             <?php
-            /* Products list — pulls from the Product CPT helper if available. */
-            $sidebar_products = function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items(5) : array();
-            if (!empty($sidebar_products)) :
+            /* Use the "Product Updates" category if it exists; fall back
+               to the blog landing page so the button always lands the
+               visitor on something meaningful. */
+            $pu_cat = get_category_by_slug('product-updates');
+            $pu_url = $pu_cat ? trailingslashit(home_url('/blog/' . $pu_cat->slug)) : home_url('/blog/');
+            $pu_count = $pu_cat ? (int) $pu_cat->count : 0;
             ?>
             <div class="ee-sidebar-section">
-                <div class="ee-section-label"><?php echo ee_icon('ti-package'); ?> View All Products</div>
-                <div class="ee-product-list">
-                    <?php foreach ($sidebar_products as $p) : ?>
-                        <a class="ee-product-pill" href="<?php echo esc_url($p['url']); ?>"><?php echo esc_html($p['title']); ?> <?php echo ee_icon('ti-chevron-right'); ?></a>
+                <a class="ee-side-cta" href="<?php echo esc_url($pu_url); ?>">
+                    <div class="ee-side-cta-icon"><?php echo ee_icon('ti-rocket'); ?></div>
+                    <div class="ee-side-cta-body">
+                        <strong>All Product Updates</strong>
+                        <small><?php echo $pu_count ? esc_html($pu_count . ' updates') : 'Browse latest releases'; ?></small>
+                    </div>
+                    <?php echo ee_icon('ti-arrow-right'); ?>
+                </a>
+            </div>
+
+            <!-- ── Categories — every blog category as a clickable pill ── -->
+            <?php
+            $cats_all = get_categories(array(
+                'hide_empty' => false,
+                'orderby'    => 'count',
+                'order'      => 'DESC',
+                'number'     => 12,
+            ));
+            $cats_all = array_filter($cats_all, function ($c) { return $c->slug !== 'uncategorized'; });
+            if (!empty($cats_all)) :
+            ?>
+            <div class="ee-sidebar-section">
+                <div class="ee-section-label"><?php echo ee_icon('ti-tag'); ?> Categories</div>
+                <div class="ee-cat-cloud">
+                    <?php foreach ($cats_all as $c) :
+                        $is_current = ($primary_cat && $primary_cat->term_id === $c->term_id);
+                    ?>
+                        <a class="ee-cat-pill<?php echo $is_current ? ' ee-cat-current' : ''; ?>"
+                           href="<?php echo esc_url(trailingslashit(home_url('/blog/' . $c->slug))); ?>">
+                            <span><?php echo esc_html($c->name); ?></span>
+                            <span class="ee-cat-count"><?php echo (int) $c->count; ?></span>
+                        </a>
                     <?php endforeach; ?>
                 </div>
             </div>
             <?php endif; ?>
 
+            <!-- ── Latest Insights — 4 newest posts with thumbnails ── -->
             <?php
-            /* ── New Update — single most recent post (excluding current)
-               highlighted with a "NEW" badge so visitors always see the
-               freshest piece of content on every article. */
-            $new_q = new WP_Query(array(
+            $latest_q = new WP_Query(array(
                 'post_type'      => 'post',
-                'posts_per_page' => 1,
+                'posts_per_page' => 4,
                 'post__not_in'   => array($pid),
                 'no_found_rows'  => true,
                 'orderby'        => 'date',
                 'order'          => 'DESC',
             ));
-            if ($new_q->have_posts()) : $new_q->the_post();
-                $new_thumb = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+            if ($latest_q->have_posts()) :
             ?>
             <div class="ee-sidebar-section">
-                <div class="ee-section-label"><?php echo ee_icon('ti-flame'); ?> New Update</div>
-                <a class="ee-new-update" href="<?php the_permalink(); ?>">
-                    <div class="ee-new-update-thumb">
-                        <?php if ($new_thumb) : ?>
-                            <img src="<?php echo esc_url($new_thumb); ?>" alt="">
-                        <?php else : ?>
-                            <?php echo ee_icon('ti-news'); ?>
-                        <?php endif; ?>
-                    </div>
-                    <div>
-                        <span class="ee-new-update-tag">New</span>
-                        <div class="ee-new-update-title"><?php echo esc_html(get_the_title()); ?></div>
-                        <div class="ee-new-update-date"><?php echo esc_html(get_the_date()); ?></div>
-                    </div>
-                </a>
-            </div>
-            <?php wp_reset_postdata(); endif; ?>
-
-            <?php
-            /* ── Solutions list — pulled from the same admin source as
-               the header mega-menu so editors don't repeat themselves. */
-            $sidebar_solutions = function_exists('ee_get_solution_items') ? ee_get_solution_items() : array();
-            if (!empty($sidebar_solutions)) :
-                /* Flatten in case helper returns grouped/category data. */
-                $flat_solutions = array();
-                foreach ($sidebar_solutions as $row) {
-                    if (isset($row['items']) && is_array($row['items'])) {
-                        foreach ($row['items'] as $it) $flat_solutions[] = $it;
-                    } else {
-                        $flat_solutions[] = $row;
-                    }
-                }
-                $flat_solutions = array_slice($flat_solutions, 0, 5);
-            ?>
-            <div class="ee-sidebar-section">
-                <div class="ee-section-label"><?php echo ee_icon('ti-bulb'); ?> Solutions</div>
-                <div class="ee-product-list">
-                    <?php foreach ($flat_solutions as $s) :
-                        $s_url   = $s['url']   ?? $s['link']  ?? '#';
-                        $s_label = $s['title'] ?? $s['label'] ?? $s['name'] ?? '';
-                        if (!$s_label) continue;
+                <div class="ee-section-label"><?php echo ee_icon('ti-flame'); ?> Latest Insights</div>
+                <div class="ee-latest-list">
+                    <?php $first = true; while ($latest_q->have_posts()) : $latest_q->the_post();
+                        $li_thumb = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                        $li_cats  = get_the_category();
+                        $li_cat   = !empty($li_cats) ? $li_cats[0] : null;
                     ?>
-                        <a class="ee-product-pill" href="<?php echo esc_url($s_url); ?>"><?php echo esc_html($s_label); ?> <?php echo ee_icon('ti-chevron-right'); ?></a>
-                    <?php endforeach; ?>
+                        <a class="ee-latest-card<?php echo $first ? ' ee-latest-new' : ''; ?>" href="<?php the_permalink(); ?>">
+                            <div class="ee-latest-thumb">
+                                <?php if ($li_thumb) : ?>
+                                    <img src="<?php echo esc_url($li_thumb); ?>" alt="">
+                                <?php else : ?>
+                                    <?php echo ee_icon('ti-news'); ?>
+                                <?php endif; ?>
+                            </div>
+                            <div class="ee-latest-body">
+                                <?php if ($first) : ?><span class="ee-latest-tag">New</span><?php endif; ?>
+                                <?php if ($li_cat) : ?><span class="ee-latest-cat"><?php echo esc_html($li_cat->name); ?></span><?php endif; ?>
+                                <div class="ee-latest-title"><?php echo esc_html(get_the_title()); ?></div>
+                                <div class="ee-latest-date"><?php echo esc_html(get_the_date()); ?></div>
+                            </div>
+                        </a>
+                    <?php $first = false; endwhile; wp_reset_postdata(); ?>
                 </div>
+                <a class="ee-latest-more" href="<?php echo esc_url(home_url('/blog/')); ?>">View all articles <?php echo ee_icon('ti-arrow-right'); ?></a>
             </div>
             <?php endif; ?>
 
