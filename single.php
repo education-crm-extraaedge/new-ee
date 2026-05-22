@@ -418,6 +418,29 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     box-shadow:inset 0 -2px 0 rgba(0,0,0,.04);
     flex-shrink:0;
 }
+/* ── Inline-SVG icon sizing per button class ──
+   ee_icon() emits SVGs at width="1em" so they pick up the surrounding
+   font-size. Some hosts compute font-size as 0 on flex children with
+   explicit height, which collapses the SVG to invisible. Lock each
+   context to an explicit pixel size so icons are always rendered. */
+.ee-follow-btn svg     { width:20px; height:20px; }
+.ee-soc-btn    svg     { width:16px; height:16px; }
+.ee-action-btn svg     { width:14px; height:14px; }
+.ee-icon-btn   svg     { width:14px; height:14px; }
+.ee-product-pill svg   { width:15px; height:15px; flex-shrink:0; }
+.ee-promo-btn  svg     { width:14px; height:14px; }
+.ee-btn-primary svg, .ee-btn-outline svg { width:16px; height:16px; }
+.ee-section-label svg  { width:14px; height:14px; }
+.ee-meta-item svg      { width:15px; height:15px; color:var(--b-muted-soft); }
+.ee-faq-q svg          { width:18px; height:18px; }
+.ee-feat-img svg       { width:32px; height:32px; }
+.ee-related-img svg    { width:36px; height:36px; }
+.ee-new-update-thumb svg { width:22px; height:22px; }
+.ee-float-btn .ee-float-icon-wrap svg { width:18px; height:18px; }
+.ee-scroll-top svg     { width:18px; height:18px; }
+.ee-last-updated svg   { width:14px; height:14px; flex-shrink:0; }
+.ee-copy-toast svg     { width:18px; height:18px; color:#10B981; }
+
 /* Inline-SVG icons inherit the tile colour via stroke="currentColor". */
 .ee-float-nav a .ee-fn-ico .ee-qn-svg{display:block;color:inherit;}
 .ee-float-nav a:hover{color:var(--tile-fg);transform:translateY(-2px);}
