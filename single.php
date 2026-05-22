@@ -373,47 +373,66 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-action-btn:hover{border-color:var(--b-orange);color:var(--b-orange);background:var(--b-orange-light);}
 .ee-action-btn i{font-size:14px;}
 
-/* ── Floating Quick Navigation (single column, scroll-triggered) ──
-   Hidden by default; .ee-visible (toggled by JS once the visitor
-   scrolls past Last Updated) reveals it. Hidden again when the
-   footer comes into view. */
+/* ── Floating Quick Navigation — dashboard tile style ──
+   Each link is a self-contained dashboard tile: colour-tinted icon
+   badge on top, label below. Hidden until the visitor scrolls past
+   Last Updated; hides again when the footer enters the viewport. */
 .ee-float-nav{
-    position:fixed;right:18px;top:50%;
-    transform:translate(20px,-50%);
-    display:flex;flex-direction:column;gap:6px;
-    padding:12px 8px;
-    background:rgba(255,255,255,.92);
-    backdrop-filter:saturate(180%) blur(8px);
+    position:fixed;right:20px;top:50%;
+    transform:translate(24px,-50%);
+    display:flex;flex-direction:column;gap:10px;
+    padding:14px 10px;
+    background:#fff;
     border:1px solid var(--b-border);
-    border-radius:16px;
-    box-shadow:var(--b-shadow-md);
+    border-radius:20px;
+    box-shadow:0 10px 40px rgba(15,32,64,.10),0 2px 6px rgba(15,32,64,.04);
     z-index:990;
     opacity:0;pointer-events:none;
-    transition:opacity .3s ease, transform .3s ease;
+    transition:opacity .35s cubic-bezier(.4,0,.2,1), transform .35s cubic-bezier(.4,0,.2,1);
 }
 .ee-float-nav.ee-visible{
     opacity:1;pointer-events:auto;
     transform:translate(0,-50%);
 }
 .ee-float-nav a{
+    --tile-bg:#EEF2F8;
+    --tile-fg:#19335D;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:4px;padding:9px 6px;width:62px;
-    border-radius:10px;
-    font-size:10.5px;font-weight:600;
+    gap:7px;padding:8px 4px 6px;width:72px;
+    border-radius:14px;
+    font-size:10.5px;font-weight:700;
     color:var(--b-text-soft);text-decoration:none;text-align:center;line-height:1.15;
-    transition:all var(--b-transition);
+    transition:all .25s cubic-bezier(.4,0,.2,1);
+    position:relative;
 }
-.ee-float-nav a i{font-size:20px;color:var(--b-blue);transition:color var(--b-transition);}
-.ee-float-nav a:hover{background:var(--b-orange-light);color:var(--b-orange);}
-.ee-float-nav a:hover i{color:var(--b-orange);}
+.ee-float-nav a .ee-fn-ico{
+    width:44px;height:44px;border-radius:13px;
+    background:var(--tile-bg);color:var(--tile-fg);
+    display:flex;align-items:center;justify-content:center;
+    font-size:21px;
+    transition:all .25s cubic-bezier(.4,0,.2,1);
+    box-shadow:inset 0 -2px 0 rgba(0,0,0,.04);
+}
+.ee-float-nav a:hover{color:var(--tile-fg);transform:translateY(-2px);}
+.ee-float-nav a:hover .ee-fn-ico{transform:scale(1.06);box-shadow:0 6px 14px rgba(15,32,64,.14);}
 .ee-float-nav a span{display:block;white-space:nowrap;}
 
+/* Per-tile colour tokens — each item gets a distinct soft tint
+   so the column reads like an app dashboard at a glance. */
+.ee-float-nav a[data-tile="home"]      { --tile-bg:#EEF2F8; --tile-fg:#19335D; }
+.ee-float-nav a[data-tile="products"]  { --tile-bg:#FFF3EC; --tile-fg:#DE6E30; }
+.ee-float-nav a[data-tile="industries"]{ --tile-bg:#ECFDF5; --tile-fg:#0E9F6E; }
+.ee-float-nav a[data-tile="solutions"] { --tile-bg:#FEF9C3; --tile-fg:#A16207; }
+.ee-float-nav a[data-tile="testimonials"]{ --tile-bg:#EDE9FE; --tile-fg:#7C3AED; }
+.ee-float-nav a[data-tile="resources"] { --tile-bg:#DBEAFE; --tile-fg:#1D4ED8; }
+.ee-float-nav a[data-tile="contact"]   { --tile-bg:#FCE7F3; --tile-fg:#BE185D; }
+
 /* On narrow viewports the WhatsApp + Call float lives bottom-right;
-   nudge the nav further up so it doesn't collide. */
+   shrink the dashboard so it doesn't collide. */
 @media (max-width:820px){
-    .ee-float-nav{right:10px;}
-    .ee-float-nav a{width:56px;font-size:10px;padding:7px 4px;}
-    .ee-float-nav a i{font-size:18px;}
+    .ee-float-nav{right:10px;padding:10px 8px;gap:8px;}
+    .ee-float-nav a{width:62px;font-size:10px;padding:6px 4px 5px;gap:5px;}
+    .ee-float-nav a .ee-fn-ico{width:38px;height:38px;font-size:18px;border-radius:11px;}
 }
 
 .ee-floating-contact{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:1000;}
@@ -794,13 +813,13 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
          scrolls past "Last Updated", hide again when the footer is in
          view. JS at the bottom of single.php drives the visibility. -->
     <aside class="ee-float-nav" id="ee-float-nav" aria-label="Quick navigation">
-        <a href="<?php echo esc_url(home_url('/')); ?>"><i class="ti ti-home"></i><span>Home</span></a>
-        <a href="<?php echo esc_url(home_url('/products/')); ?>"><i class="ti ti-package"></i><span>Products</span></a>
-        <a href="<?php echo esc_url(home_url('/industries/')); ?>"><i class="ti ti-building"></i><span>Industries</span></a>
-        <a href="<?php echo esc_url(home_url('/solutions/')); ?>"><i class="ti ti-bulb"></i><span>Solutions</span></a>
-        <a href="<?php echo esc_url(home_url('/case-studies/')); ?>"><i class="ti ti-quote"></i><span>Testimonials</span></a>
-        <a href="<?php echo esc_url(home_url('/resources/')); ?>"><i class="ti ti-book"></i><span>Resources</span></a>
-        <a href="<?php echo esc_url(home_url('/contact-us/')); ?>"><i class="ti ti-mail"></i><span>Contact</span></a>
+        <a href="<?php echo esc_url(home_url('/')); ?>"            data-tile="home">        <span class="ee-fn-ico"><i class="ti ti-home"></i></span>        <span>Home</span></a>
+        <a href="<?php echo esc_url(home_url('/products/')); ?>"    data-tile="products">    <span class="ee-fn-ico"><i class="ti ti-package"></i></span>     <span>Products</span></a>
+        <a href="<?php echo esc_url(home_url('/industries/')); ?>"  data-tile="industries">  <span class="ee-fn-ico"><i class="ti ti-building"></i></span>    <span>Industries</span></a>
+        <a href="<?php echo esc_url(home_url('/solutions/')); ?>"   data-tile="solutions">   <span class="ee-fn-ico"><i class="ti ti-bulb"></i></span>        <span>Solutions</span></a>
+        <a href="<?php echo esc_url(home_url('/case-studies/')); ?>"data-tile="testimonials"><span class="ee-fn-ico"><i class="ti ti-quote"></i></span>      <span>Testimonials</span></a>
+        <a href="<?php echo esc_url(home_url('/resources/')); ?>"   data-tile="resources">   <span class="ee-fn-ico"><i class="ti ti-book"></i></span>        <span>Resources</span></a>
+        <a href="<?php echo esc_url(home_url('/contact-us/')); ?>"  data-tile="contact">     <span class="ee-fn-ico"><i class="ti ti-mail"></i></span>        <span>Contact</span></a>
     </aside>
 
     <div class="ee-copy-toast" id="ee-copy-toast"><i class="ti ti-circle-check"></i> <span id="ee-toast-msg">Copied!</span></div>
