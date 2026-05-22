@@ -493,7 +493,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
         <main class="ee-main-content">
 
             <?php if ($category) : ?>
-                <div class="ee-category-tag"><i class="ti ti-tag"></i> <?php echo esc_html($category); ?></div>
+                <div class="ee-category-tag"><?php echo ee_icon('ti-tag'); ?> <?php echo esc_html($category); ?></div>
             <?php endif; ?>
 
             <h1 class="ee-blog-title" id="ee-intro"><?php the_title(); ?></h1>
@@ -503,8 +503,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             <?php endif; ?>
 
             <div class="ee-cta-row">
-                <a href="/book-demo/" class="ee-btn-primary"><i class="ti ti-presentation"></i> Take a Tour / Book a Demo</a>
-                <a href="/contact-us/" class="ee-btn-outline"><i class="ti ti-phone"></i> Contact Us</a>
+                <a href="/book-demo/" class="ee-btn-primary"><?php echo ee_icon('ti-presentation'); ?> Take a Tour / Book a Demo</a>
+                <a href="/contact-us/" class="ee-btn-outline"><?php echo ee_icon('ti-phone'); ?> Contact Us</a>
             </div>
 
             <div class="ee-meta-row">
@@ -521,12 +521,12 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                         <p><?php echo esc_html($author_bio_text); ?></p>
                     </div>
                 </div>
-                <span class="ee-meta-item"><i class="ti ti-clock"></i> <?php echo esc_html($read_time); ?></span>
-                <span class="ee-meta-item"><i class="ti ti-calendar"></i> <?php echo esc_html(get_the_date()); ?></span>
+                <span class="ee-meta-item"><?php echo ee_icon('ti-clock'); ?> <?php echo esc_html($read_time); ?></span>
+                <span class="ee-meta-item"><?php echo ee_icon('ti-calendar'); ?> <?php echo esc_html(get_the_date()); ?></span>
                 <div class="ee-top-actions">
-                    <button class="ee-icon-btn" id="ee-btn-copy-md" title="Copy article as Markdown"><i class="ti ti-markdown"></i> Copy MD</button>
-                    <button class="ee-icon-btn" id="ee-btn-share" title="Share this page"><i class="ti ti-share-3"></i> Share</button>
-                    <button class="ee-icon-btn" onclick="window.print()" title="Print"><i class="ti ti-printer"></i> Print</button>
+                    <button class="ee-icon-btn" id="ee-btn-copy-md" title="Copy article as Markdown"><?php echo ee_icon('ti-markdown'); ?> Copy MD</button>
+                    <button class="ee-icon-btn" id="ee-btn-share" title="Share this page"><?php echo ee_icon('ti-share-3'); ?> Share</button>
+                    <button class="ee-icon-btn" onclick="window.print()" title="Print"><?php echo ee_icon('ti-printer'); ?> Print</button>
                 </div>
             </div>
 
@@ -554,24 +554,24 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             </div>
 
             <div class="ee-share-section">
-                <div class="ee-section-label"><i class="ti ti-share-3"></i> Share this article</div>
+                <div class="ee-section-label"><?php echo ee_icon('ti-share-3'); ?> Share this article</div>
                 <div class="ee-social-icons">
                     <?php $u = urlencode(get_permalink()); $t = urlencode(get_the_title()); ?>
-                    <a class="ee-soc-btn ee-soc-fb" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $u; ?>" target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> Facebook</a>
-                    <a class="ee-soc-btn ee-soc-tw" href="https://twitter.com/intent/tweet?url=<?php echo $u; ?>&text=<?php echo $t; ?>" target="_blank" rel="noopener"><i class="ti ti-brand-x"></i> Twitter/X</a>
-                    <a class="ee-soc-btn ee-soc-li" href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo $u; ?>" target="_blank" rel="noopener"><i class="ti ti-brand-linkedin"></i> LinkedIn</a>
-                    <a class="ee-soc-btn ee-soc-wa" href="https://api.whatsapp.com/send?text=<?php echo $t; ?>%20<?php echo $u; ?>" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
-                    <a class="ee-soc-btn ee-soc-em" href="mailto:?subject=<?php echo $t; ?>&body=<?php echo $u; ?>"><i class="ti ti-mail"></i> Email</a>
-                    <button class="ee-soc-btn ee-soc-cp" id="ee-btn-copy-link" type="button"><i class="ti ti-link"></i> Copy Link</button>
+                    <a class="ee-soc-btn ee-soc-fb" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $u; ?>" target="_blank" rel="noopener"><?php echo ee_icon('ti-brand-facebook'); ?> Facebook</a>
+                    <a class="ee-soc-btn ee-soc-tw" href="https://twitter.com/intent/tweet?url=<?php echo $u; ?>&text=<?php echo $t; ?>" target="_blank" rel="noopener"><?php echo ee_icon('ti-brand-x'); ?> Twitter/X</a>
+                    <a class="ee-soc-btn ee-soc-li" href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo $u; ?>" target="_blank" rel="noopener"><?php echo ee_icon('ti-brand-linkedin'); ?> LinkedIn</a>
+                    <a class="ee-soc-btn ee-soc-wa" href="https://api.whatsapp.com/send?text=<?php echo $t; ?>%20<?php echo $u; ?>" target="_blank" rel="noopener"><?php echo ee_icon('ti-brand-whatsapp'); ?> WhatsApp</a>
+                    <a class="ee-soc-btn ee-soc-em" href="mailto:?subject=<?php echo $t; ?>&body=<?php echo $u; ?>"><?php echo ee_icon('ti-mail'); ?> Email</a>
+                    <button class="ee-soc-btn ee-soc-cp" id="ee-btn-copy-link" type="button"><?php echo ee_icon('ti-link'); ?> Copy Link</button>
                 </div>
             </div>
 
             <div class="ee-send-article">
-                <div class="ee-section-label"><i class="ti ti-send"></i> Send this article to someone who'd like it</div>
+                <div class="ee-section-label"><?php echo ee_icon('ti-send'); ?> Send this article to someone who'd like it</div>
                 <p>Share this guide with a colleague or friend in education marketing.</p>
                 <div class="ee-send-row">
                     <input type="email" id="ee-send-email" placeholder="Enter their email address..." aria-label="Recipient email">
-                    <button type="button" id="ee-btn-send-article">Send <i class="ti ti-arrow-right"></i></button>
+                    <button type="button" id="ee-btn-send-article">Send <?php echo ee_icon('ti-arrow-right'); ?></button>
                 </div>
             </div>
 
@@ -582,7 +582,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                         <div class="ee-faq-item">
                             <button class="ee-faq-q" type="button" aria-expanded="false">
                                 <span><?php echo esc_html($faq['q']); ?></span>
-                                <i class="ti ti-chevron-down ee-faq-icon" aria-hidden="true"></i>
+                                <span class="ee-faq-icon"><?php echo ee_icon('ti-chevron-down'); ?></span>
                             </button>
                             <div class="ee-faq-a"><?php echo wp_kses_post($faq['a']); ?></div>
                         </div>
@@ -596,7 +596,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                     <div class="ee-crm-banner-title"><?php echo esc_html($banner_title); ?></div>
                     <p><?php echo wp_kses_post($banner_desc); ?></p>
                 </div>
-                <a href="<?php echo esc_url($banner_cta_url); ?>" class="ee-btn-primary" style="white-space:nowrap;flex-shrink:0;"><i class="ti ti-rocket"></i> <?php echo esc_html($banner_cta_text); ?></a>
+                <a href="<?php echo esc_url($banner_cta_url); ?>" class="ee-btn-primary" style="white-space:nowrap;flex-shrink:0;"><?php echo ee_icon('ti-rocket'); ?> <?php echo esc_html($banner_cta_text); ?></a>
             </div>
 
             <div class="ee-meta-bottom">
@@ -641,7 +641,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                                 <?php if ($r_thumb) : ?>
                                     <img src="<?php echo esc_url($r_thumb); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
                                 <?php else : ?>
-                                    <i class="ti ti-news"></i>
+                                    <?php echo ee_icon('ti-news'); ?>
                                 <?php endif; ?>
                             </div>
                             <div class="ee-related-body">
@@ -659,13 +659,13 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
         <aside class="ee-right-sidebar" aria-label="Sidebar">
 
             <div class="ee-sidebar-section">
-                <div class="ee-section-label"><i class="ti ti-heart"></i> Follow Us</div>
+                <div class="ee-section-label"><?php echo ee_icon('ti-heart'); ?> Follow Us</div>
                 <div class="ee-follow-icons">
-                    <a class="ee-follow-btn ee-f-li" href="https://www.linkedin.com/company/extraaedge/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
-                    <a class="ee-follow-btn ee-f-tw" href="https://twitter.com/extraaedge" target="_blank" rel="noopener" aria-label="Twitter"><i class="ti ti-brand-x"></i></a>
-                    <a class="ee-follow-btn ee-f-fb" href="https://www.facebook.com/extraaedge/" target="_blank" rel="noopener" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
-                    <a class="ee-follow-btn ee-f-ig" href="https://www.instagram.com/extraaedge/" target="_blank" rel="noopener" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
-                    <a class="ee-follow-btn ee-f-yt" href="https://www.youtube.com/@ExtraaEdge" target="_blank" rel="noopener" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
+                    <a class="ee-follow-btn ee-f-li" href="https://www.linkedin.com/company/extraaedge/" target="_blank" rel="noopener" aria-label="LinkedIn"><?php echo ee_icon('ti-brand-linkedin'); ?></a>
+                    <a class="ee-follow-btn ee-f-tw" href="https://twitter.com/extraaedge" target="_blank" rel="noopener" aria-label="Twitter"><?php echo ee_icon('ti-brand-x'); ?></a>
+                    <a class="ee-follow-btn ee-f-fb" href="https://www.facebook.com/extraaedge/" target="_blank" rel="noopener" aria-label="Facebook"><?php echo ee_icon('ti-brand-facebook'); ?></a>
+                    <a class="ee-follow-btn ee-f-ig" href="https://www.instagram.com/extraaedge/" target="_blank" rel="noopener" aria-label="Instagram"><?php echo ee_icon('ti-brand-instagram'); ?></a>
+                    <a class="ee-follow-btn ee-f-yt" href="https://www.youtube.com/@ExtraaEdge" target="_blank" rel="noopener" aria-label="YouTube"><?php echo ee_icon('ti-brand-youtube'); ?></a>
                 </div>
             </div>
 
@@ -675,10 +675,10 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             if (!empty($sidebar_products)) :
             ?>
             <div class="ee-sidebar-section">
-                <div class="ee-section-label"><i class="ti ti-package"></i> View All Products</div>
+                <div class="ee-section-label"><?php echo ee_icon('ti-package'); ?> View All Products</div>
                 <div class="ee-product-list">
                     <?php foreach ($sidebar_products as $p) : ?>
-                        <a class="ee-product-pill" href="<?php echo esc_url($p['url']); ?>"><?php echo esc_html($p['title']); ?> <i class="ti ti-chevron-right"></i></a>
+                        <a class="ee-product-pill" href="<?php echo esc_url($p['url']); ?>"><?php echo esc_html($p['title']); ?> <?php echo ee_icon('ti-chevron-right'); ?></a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -700,13 +700,13 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 $new_thumb = get_the_post_thumbnail_url(get_the_ID(), 'medium');
             ?>
             <div class="ee-sidebar-section">
-                <div class="ee-section-label"><i class="ti ti-flame"></i> New Update</div>
+                <div class="ee-section-label"><?php echo ee_icon('ti-flame'); ?> New Update</div>
                 <a class="ee-new-update" href="<?php the_permalink(); ?>">
                     <div class="ee-new-update-thumb">
                         <?php if ($new_thumb) : ?>
                             <img src="<?php echo esc_url($new_thumb); ?>" alt="">
                         <?php else : ?>
-                            <i class="ti ti-news"></i>
+                            <?php echo ee_icon('ti-news'); ?>
                         <?php endif; ?>
                     </div>
                     <div>
@@ -735,14 +735,14 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 $flat_solutions = array_slice($flat_solutions, 0, 5);
             ?>
             <div class="ee-sidebar-section">
-                <div class="ee-section-label"><i class="ti ti-bulb"></i> Solutions</div>
+                <div class="ee-section-label"><?php echo ee_icon('ti-bulb'); ?> Solutions</div>
                 <div class="ee-product-list">
                     <?php foreach ($flat_solutions as $s) :
                         $s_url   = $s['url']   ?? $s['link']  ?? '#';
                         $s_label = $s['title'] ?? $s['label'] ?? $s['name'] ?? '';
                         if (!$s_label) continue;
                     ?>
-                        <a class="ee-product-pill" href="<?php echo esc_url($s_url); ?>"><?php echo esc_html($s_label); ?> <i class="ti ti-chevron-right"></i></a>
+                        <a class="ee-product-pill" href="<?php echo esc_url($s_url); ?>"><?php echo esc_html($s_label); ?> <?php echo ee_icon('ti-chevron-right'); ?></a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -759,7 +759,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                         <li>One intelligent platform</li>
                         <li>Convert more enrollments with AI</li>
                     </ul>
-                    <a class="ee-promo-btn" href="https://getvidya.ai/" target="_blank" rel="noopener">Explore Vidya AI <i class="ti ti-arrow-right"></i></a>
+                    <a class="ee-promo-btn" href="https://getvidya.ai/" target="_blank" rel="noopener">Explore Vidya AI <?php echo ee_icon('ti-arrow-right'); ?></a>
                 </div>
             </div>
 
@@ -768,7 +768,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 <div class="ee-promo-card ee-promo-orange">
                     <h3>Need a Smarter Admissions Process?</h3>
                     <p>Customise your entire admission workflow — funnels, reports, automations &amp; AI journeys built for your institution.</p>
-                    <a class="ee-promo-btn" href="/book-demo/">Book a Free Demo <i class="ti ti-arrow-right"></i></a>
+                    <a class="ee-promo-btn" href="/book-demo/">Book a Free Demo <?php echo ee_icon('ti-arrow-right'); ?></a>
                 </div>
             </div>
 
@@ -816,16 +816,16 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                     </div>
                     <p>We are <strong>GDPR and CCPA compliant</strong>! Your transaction &amp; personal information is safe and secure. For more details, please read our <a href="/privacy-policy/">privacy policy</a>.</p>
                     <div class="ee-action-row">
-                        <button type="button" class="ee-action-btn" id="ee-act-share"><i class="ti ti-share-3"></i> Share</button>
-                        <a class="ee-action-btn" id="ee-act-email" href="mailto:?subject=<?php echo urlencode(get_the_title()); ?>&body=<?php echo urlencode(get_permalink()); ?>"><i class="ti ti-mail"></i> E-mail</a>
-                        <button type="button" class="ee-action-btn" id="ee-act-pdf"><i class="ti ti-file-text"></i> Save PDF</button>
-                        <button type="button" class="ee-action-btn" id="ee-act-print"><i class="ti ti-printer"></i> Print</button>
+                        <button type="button" class="ee-action-btn" id="ee-act-share"><?php echo ee_icon('ti-share-3'); ?> Share</button>
+                        <a class="ee-action-btn" id="ee-act-email" href="mailto:?subject=<?php echo urlencode(get_the_title()); ?>&body=<?php echo urlencode(get_permalink()); ?>"><?php echo ee_icon('ti-mail'); ?> E-mail</a>
+                        <button type="button" class="ee-action-btn" id="ee-act-pdf"><?php echo ee_icon('ti-file-text'); ?> Save PDF</button>
+                        <button type="button" class="ee-action-btn" id="ee-act-print"><?php echo ee_icon('ti-printer'); ?> Print</button>
                     </div>
                 </div>
             </div>
 
             <div class="ee-last-updated" id="ee-last-updated">
-                <i class="ti ti-calendar-check"></i> Last Updated: <strong style="margin-left:4px;"><?php echo esc_html(get_the_modified_date()); ?></strong>
+                <?php echo ee_icon('ti-calendar-check'); ?> Last Updated: <strong style="margin-left:4px;"><?php echo esc_html(get_the_modified_date()); ?></strong>
             </div>
 
         </aside>
@@ -833,16 +833,16 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
     <div class="ee-floating-contact" role="region" aria-label="Quick contact">
         <a class="ee-float-btn ee-float-whatsapp" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="WhatsApp">
-            <span class="ee-float-icon-wrap"><i class="ti ti-brand-whatsapp"></i></span>
+            <span class="ee-float-icon-wrap"><?php echo ee_icon('ti-brand-whatsapp'); ?></span>
             <span class="ee-float-label"><small>Chat on</small><strong>WhatsApp</strong></span>
         </a>
         <a class="ee-float-btn ee-float-call" href="tel:+918956982897" aria-label="Call us">
-            <span class="ee-float-icon-wrap"><i class="ti ti-phone-call"></i></span>
+            <span class="ee-float-icon-wrap"><?php echo ee_icon('ti-phone-call'); ?></span>
             <span class="ee-float-label"><small>Call us</small><strong>+91 89569 82897</strong></span>
         </a>
     </div>
 
-    <button class="ee-scroll-top" id="ee-scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"><i class="ti ti-arrow-up"></i></button>
+    <button class="ee-scroll-top" id="ee-scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"><?php echo ee_icon('ti-arrow-up'); ?></button>
 
     <!-- ── Floating Quick Nav — items come from the 🧭 Blog Quick Nav
          admin page so a non-coder can edit labels, URLs, icons, and
@@ -868,7 +868,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     </aside>
     <?php endif; ?>
 
-    <div class="ee-copy-toast" id="ee-copy-toast"><i class="ti ti-circle-check"></i> <span id="ee-toast-msg">Copied!</span></div>
+    <div class="ee-copy-toast" id="ee-copy-toast"><?php echo ee_icon('ti-circle-check'); ?> <span id="ee-toast-msg">Copied!</span></div>
 </div>
 
 <script>

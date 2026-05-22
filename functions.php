@@ -3196,18 +3196,41 @@ function ee_quick_nav_svg_paths() {
         'ti-brand-linkedin'  => '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 11v5"/><circle cx="8" cy="8" r=".5" fill="currentColor"/><path d="M12 16v-5"/><path d="M16 16v-3a2 2 0 0 0-4 0"/>',
         'ti-brand-facebook'  => '<path d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2H7z"/>',
         'ti-brand-twitter'   => '<path d="M4 4l11.73 16H20L8.27 4z"/><path d="M4 20l6.77-6.77M13.23 10.77L20 4"/>',
+        'ti-brand-x'         => '<path d="M4 4l11.73 16H20L8.27 4z"/><path d="M4 20l6.77-6.77M13.23 10.77L20 4"/>',
+        'ti-brand-instagram' => '<rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3"/><circle cx="16.5" cy="7.5" r=".75" fill="currentColor" stroke="none"/>',
+        'ti-brand-youtube'   => '<rect x="3" y="6" width="18" height="12" rx="3"/><path d="M10 9l5 3l-5 3z" fill="currentColor"/>',
+        'ti-arrow-up'        => '<path d="M12 5v14"/><path d="M16 9l-4-4"/><path d="M8 9l4-4"/>',
+        'ti-calendar-check'  => '<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/><path d="M9 15l2 2l4-4"/>',
+        'ti-chevron-down'    => '<path d="M6 9l6 6l6-6"/>',
+        'ti-chevron-right'   => '<path d="M9 6l6 6l-6 6"/>',
+        'ti-circle-check'    => '<circle cx="12" cy="12" r="9"/><path d="M9 12l2 2l4-4"/>',
+        'ti-clock'           => '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
+        'ti-flame'           => '<path d="M12 12c2-2.96 0-7-1-8c0 3.038-1.773 4.741-3 6c-1.226 1.26-2 3.24-2 5a5 5 0 0 0 10 0c0-1.532-1.056-3.94-2-5c-1.786 3-2.791 3-2 2z"/>',
+        'ti-markdown'        => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15v-6l2 2l2-2v6"/><path d="M14 13l2 2l2-2"/><path d="M16 9v6"/>',
+        'ti-phone-call'      => '<path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/><path d="M15 7a2 2 0 0 1 2 2"/><path d="M15 3a6 6 0 0 1 6 6"/>',
+        'ti-presentation'    => '<path d="M3 4h18"/><path d="M4 4v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-10"/><path d="M12 16v4"/><path d="M9 20h6"/>',
+        'ti-printer'         => '<path d="M17 17h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2"/><path d="M17 9V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v4"/><rect x="7" y="13" width="10" height="8" rx="2"/>',
+        'ti-send'            => '<path d="M10 14l11-11"/><path d="M21 3l-6.5 18a.55.55 0 0 1-1 0L10 14l-7-3.5a.55.55 0 0 1 0-1L21 3"/>',
+        'ti-share-3'         => '<path d="M13 4v4c-6.5 1-9.5 5.5-11 10c4.5-4 6-4 11-4v4l8-7z"/>',
     );
 }
 
-function ee_quick_nav_render_icon($name, $size = 22) {
+function ee_quick_nav_render_icon($name, $size = '1em') {
     $paths = ee_quick_nav_svg_paths();
     $name  = trim((string) $name);
     if (strpos($name, 'ti-') !== 0) $name = 'ti-' . ltrim($name, '- ');
     $body  = isset($paths[$name]) ? $paths[$name] : '<circle cx="12" cy="12" r="9"/>';
-    $s     = (int) $size;
-    return '<svg class="ee-qn-svg" viewBox="0 0 24 24" width="' . $s . '" height="' . $s . '" '
+    /* "1em" lets the icon size with the surrounding text. Numeric
+       values fall back to "Npx". */
+    $s = is_numeric($size) ? ((int) $size) . 'px' : (string) $size;
+    return '<svg class="ee-qn-svg" viewBox="0 0 24 24" width="' . esc_attr($s) . '" height="' . esc_attr($s) . '" '
          . 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" '
-         . 'aria-hidden="true">' . $body . '</svg>';
+         . 'aria-hidden="true" style="vertical-align:middle;flex-shrink:0;">' . $body . '</svg>';
+}
+
+/* Short alias used liberally in templates. */
+if (!function_exists('ee_icon')) {
+    function ee_icon($name, $size = '1em') { return ee_quick_nav_render_icon($name, $size); }
 }
 
 function ee_quick_nav_colors() {
