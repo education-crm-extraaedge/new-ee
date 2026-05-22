@@ -55,6 +55,117 @@ function extraaedge_setup() {
 add_action('after_setup_theme', 'extraaedge_setup');
 
 // ══════════════════════════════════════════════════════════
+// A2. GLOBAL BRAND TOKENS — colours, font, heading sizes
+// ══════════════════════════════════════════════════════════
+/**
+ * Single source of truth for the brand. Injected on every front-end
+ * page at very high priority so it overrides plugin / template
+ * inline styles without us having to chase down individual rules.
+ *
+ *   Colours      —  Orange #DE6E30  +  Blue #19335D  (white bg)
+ *   Font         —  Inter
+ *   Heading map  —  H1 40 · H2 32 · H3 24 · H4 20 · H5 18 · H6 16
+ *
+ * Also ships a "safe-hover" rule set that guarantees button text
+ * stays legible when the cursor enters — fixes the cases where a
+ * hover background swap was making the label disappear.
+ */
+add_action('wp_head', function () {
+    if (is_admin()) return;
+    ?>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+    <style id="ee-brand-tokens">
+    :root{
+        /* ── Brand palette ───────────────────────────────────── */
+        --ee-orange:      #DE6E30;
+        --ee-orange-dark: #B85920;
+        --ee-orange-soft: #FFF3EC;
+        --ee-blue:        #19335D;
+        --ee-blue-dark:   #0F2040;
+        --ee-blue-soft:   #EEF2F8;
+        --ee-white:       #FFFFFF;
+        --ee-bg:          #FFFFFF;
+        --ee-text:        #1F2937;
+        --ee-text-soft:   #374151;
+        --ee-muted:       #6B7280;
+        --ee-border:      #E5E7EB;
+
+        /* ── Heading scale (consistent site-wide) ─────────────── */
+        --ee-h1: 40px;
+        --ee-h2: 32px;
+        --ee-h3: 24px;
+        --ee-h4: 20px;
+        --ee-h5: 18px;
+        --ee-h6: 16px;
+    }
+
+    /* ── Base typography ─────────────────────────────────────── */
+    html, body{
+        font-family:'Inter','-apple-system','BlinkMacSystemFont','Segoe UI',Roboto,Helvetica,Arial,sans-serif !important;
+        background:var(--ee-bg);
+        color:var(--ee-text);
+        -webkit-font-smoothing:antialiased;
+    }
+    body, p, li, td, th, input, textarea, select, button{
+        font-family:'Inter','-apple-system','BlinkMacSystemFont','Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    }
+
+    /* ── Headings (site-wide defaults; specific templates can
+         still tighten line-heights / margins as needed) ──────── */
+    h1, .h1 { font-size:var(--ee-h1); font-weight:800; line-height:1.18; letter-spacing:-.02em; color:var(--ee-blue); }
+    h2, .h2 { font-size:var(--ee-h2); font-weight:700; line-height:1.22; letter-spacing:-.015em; color:var(--ee-blue); }
+    h3, .h3 { font-size:var(--ee-h3); font-weight:700; line-height:1.3;  letter-spacing:-.01em;  color:var(--ee-blue); }
+    h4, .h4 { font-size:var(--ee-h4); font-weight:600; line-height:1.35; color:var(--ee-blue); }
+    h5, .h5 { font-size:var(--ee-h5); font-weight:600; line-height:1.4;  color:var(--ee-blue); }
+    h6, .h6 { font-size:var(--ee-h6); font-weight:600; line-height:1.4;  color:var(--ee-blue); }
+    @media (max-width:820px){
+        :root{
+            --ee-h1:30px; --ee-h2:24px; --ee-h3:20px;
+            --ee-h4:18px; --ee-h5:16px; --ee-h6:14px;
+        }
+    }
+
+    /* ── Safe-hover guard ────────────────────────────────────────
+       Prevent button labels from becoming invisible on hover by
+       locking text-colour to a known-good contrast on every named
+       brand button class we use. */
+    .btn:hover, .button:hover, button:hover, input[type="submit"]:hover{ color:inherit; }
+    a:hover{ text-decoration:none; }
+
+    .ee-btn-primary, .ee-btn-primary:link, .ee-btn-primary:visited,
+    .ee-btn-primary:hover, .ee-btn-primary:focus, .ee-btn-primary:active{ color:#fff !important; }
+    .ee-btn-outline:hover, .ee-btn-outline:focus{ background:var(--ee-blue) !important; color:#fff !important; }
+
+    .ee-soc-btn, .ee-soc-btn:hover, .ee-soc-btn:focus{ color:#fff !important; }
+    .ee-follow-btn, .ee-follow-btn:hover, .ee-follow-btn:focus{ color:#fff !important; }
+    .ee-promo-btn, .ee-promo-btn:hover, .ee-promo-btn:focus{ color:inherit; }
+    .ee-promo-card .ee-promo-btn{ color:#fff !important; }
+    .ee-promo-card .ee-promo-btn:hover{ color:#fff !important; }
+    .ee-promo-card.ee-promo-orange .ee-promo-btn,
+    .ee-promo-card.ee-promo-orange .ee-promo-btn:hover{ color:var(--ee-orange) !important; }
+
+    .ee-action-btn:hover{ background:var(--ee-orange-soft); color:var(--ee-orange) !important; }
+    .ee-icon-btn:hover  { background:var(--ee-orange-soft); color:var(--ee-orange) !important; }
+
+    .ee-product-pill:hover{ color:var(--ee-orange) !important; }
+    .ee-side-nav-grid a:hover{ color:var(--ee-orange) !important; }
+    .ee-float-btn,    .ee-float-btn:hover,    .ee-float-btn:focus{ color:#fff !important; }
+    .ee-sub-btn,      .ee-sub-btn:hover{ color:#fff !important; }
+    .ee-blog-explore, .ee-blog-explore:hover{ color:#fff !important; }
+    .ee-cta-btn,      .ee-cta-btn:hover{ color:#fff !important; }
+
+    /* Header / footer nav fallback — keep link text dark on light bg
+       and orange on hover; never white-on-white. */
+    #site-header a:hover{ color:var(--ee-orange) !important; }
+    .footer-col a:hover, footer a:hover{ color:var(--ee-orange) !important; }
+    </style>
+    <?php
+}, 999);
+
+
+// ══════════════════════════════════════════════════════════
 // B. WIDGET AREAS
 // ══════════════════════════════════════════════════════════
 function extraaedge_widgets_init() {
