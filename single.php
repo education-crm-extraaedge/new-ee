@@ -364,8 +364,12 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
 /* ── Compliance + action buttons ── */
 .ee-compliance{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:16px;}
-.ee-compliance-logos{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
-.ee-compliance-logo{font-size:9px;font-weight:800;letter-spacing:.06em;background:var(--b-blue-light);color:var(--b-blue);padding:5px 8px;border-radius:4px;border:1px solid #C7D5E8;}
+.ee-compliance-logos{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center;}
+.ee-cert-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px 6px 6px;background:#fff;border:1px solid var(--b-border);border-radius:10px;transition:all var(--b-transition);cursor:help;}
+.ee-cert-badge:hover{border-color:var(--b-orange);box-shadow:var(--b-shadow-sm);transform:translateY(-1px);}
+.ee-cert-badge svg{flex-shrink:0;display:block;}
+.ee-cert-label{display:flex;flex-direction:column;line-height:1.1;font-size:11px;font-weight:700;color:var(--b-blue);letter-spacing:.02em;}
+.ee-cert-label small{font-size:9.5px;font-weight:500;color:var(--b-muted);letter-spacing:.04em;text-transform:uppercase;margin-top:2px;}
 .ee-compliance p{font-size:11.5px;color:var(--b-muted);line-height:1.55;margin:0 0 10px;}
 .ee-compliance a{color:var(--b-orange);font-weight:600;}
 .ee-action-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
@@ -772,9 +776,43 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             <div class="ee-sidebar-section">
                 <div class="ee-compliance">
                     <div class="ee-compliance-logos">
-                        <span class="ee-compliance-logo">GDPR</span>
-                        <span class="ee-compliance-logo">CCPA</span>
-                        <span class="ee-compliance-logo">ISO 27001</span>
+                        <!-- GDPR — EU-blue circular badge with yellow ring of stars + yellow "GDPR" -->
+                        <span class="ee-cert-badge ee-cert-gdpr" aria-label="GDPR compliant">
+                            <svg viewBox="0 0 80 80" width="48" height="48" aria-hidden="true">
+                                <circle cx="40" cy="40" r="38" fill="#003399"/>
+                                <g fill="#FFCC00">
+                                    <circle cx="40" cy="9"  r="2"/><circle cx="56" cy="13" r="2"/>
+                                    <circle cx="67" cy="24" r="2"/><circle cx="71" cy="40" r="2"/>
+                                    <circle cx="67" cy="56" r="2"/><circle cx="56" cy="67" r="2"/>
+                                    <circle cx="40" cy="71" r="2"/><circle cx="24" cy="67" r="2"/>
+                                    <circle cx="13" cy="56" r="2"/><circle cx="9"  cy="40" r="2"/>
+                                    <circle cx="13" cy="24" r="2"/><circle cx="24" cy="13" r="2"/>
+                                </g>
+                                <text x="40" y="46" text-anchor="middle" fill="#FFCC00" font-family="Arial Black, Arial, sans-serif" font-size="16" font-weight="900">GDPR</text>
+                            </svg>
+                            <span class="ee-cert-label">GDPR<small>Compliant</small></span>
+                        </span>
+
+                        <!-- CCPA — California-blue shield with bold white "CCPA" -->
+                        <span class="ee-cert-badge ee-cert-ccpa" aria-label="CCPA compliant">
+                            <svg viewBox="0 0 80 80" width="48" height="48" aria-hidden="true">
+                                <path d="M40 4 L72 17 V44 C72 60 58 72 40 76 C22 72 8 60 8 44 V17 Z" fill="#005EB8"/>
+                                <path d="M40 4 L72 17 V44 C72 60 58 72 40 76 C22 72 8 60 8 44 V17 Z" fill="none" stroke="#fff" stroke-width="1.5" stroke-opacity=".5"/>
+                                <text x="40" y="48" text-anchor="middle" fill="#fff" font-family="Arial Black, Arial, sans-serif" font-size="15" font-weight="900">CCPA</text>
+                            </svg>
+                            <span class="ee-cert-label">CCPA<small>Compliant</small></span>
+                        </span>
+
+                        <!-- ISO 27001 — Navy circular medallion with orange ring -->
+                        <span class="ee-cert-badge ee-cert-iso" aria-label="ISO 27001 certified">
+                            <svg viewBox="0 0 80 80" width="48" height="48" aria-hidden="true">
+                                <circle cx="40" cy="40" r="38" fill="#19335D"/>
+                                <circle cx="40" cy="40" r="32" fill="none" stroke="#DE6E30" stroke-width="2"/>
+                                <text x="40" y="36" text-anchor="middle" fill="#fff" font-family="Arial Black, Arial, sans-serif" font-size="13" font-weight="900">ISO</text>
+                                <text x="40" y="54" text-anchor="middle" fill="#DE6E30" font-family="Arial Black, Arial, sans-serif" font-size="11" font-weight="900">27001</text>
+                            </svg>
+                            <span class="ee-cert-label">ISO 27001<small>Certified</small></span>
+                        </span>
                     </div>
                     <p>We are <strong>GDPR and CCPA compliant</strong>! Your transaction &amp; personal information is safe and secure. For more details, please read our <a href="/privacy-policy/">privacy policy</a>.</p>
                     <div class="ee-action-row">
