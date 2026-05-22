@@ -320,6 +320,72 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
 .ee-last-updated{font-size:11.5px;color:var(--b-muted);padding-top:16px;border-top:1px solid var(--b-border);margin-top:18px;display:flex;align-items:center;gap:6px;}
 
+/* ── Related from same category (bottom of main content) ── */
+.ee-related{margin:40px 0 0;padding-top:32px;border-top:1px solid var(--b-border);}
+.ee-related h2{font-size:22px;font-weight:700;color:var(--b-blue);margin:0 0 6px;letter-spacing:-.01em;}
+.ee-related-sub{font-size:13px;color:var(--b-muted);margin:0 0 18px;}
+.ee-related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.ee-related-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);overflow:hidden;text-decoration:none;color:inherit;transition:all var(--b-transition);}
+.ee-related-card:hover{box-shadow:var(--b-shadow-md);transform:translateY(-3px);color:inherit;border-color:var(--b-border-dark);}
+.ee-related-img{height:150px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--b-blue),var(--b-blue-dark));color:#fff;font-size:36px;overflow:hidden;}
+.ee-related-img img{width:100%;height:100%;object-fit:cover;}
+.ee-related-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.ee-related-tag{font-size:10px;font-weight:700;color:var(--b-orange);text-transform:uppercase;letter-spacing:.08em;}
+.ee-related-title{font-size:14.5px;font-weight:600;color:var(--b-blue);line-height:1.4;}
+.ee-related-date{font-size:11.5px;color:var(--b-muted);margin-top:auto;}
+@media (max-width:820px){ .ee-related-grid{ grid-template-columns:1fr; } }
+
+/* ── Sidebar promo cards (Vidya AI / Smarter Admissions) ── */
+.ee-promo-card{border-radius:var(--b-radius-md);padding:20px;color:#fff;position:relative;overflow:hidden;}
+.ee-promo-card.ee-promo-vidya{background:linear-gradient(135deg,#19335D 0%,#0F2040 100%);}
+.ee-promo-card.ee-promo-vidya::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;background:radial-gradient(circle,rgba(222,110,48,.3),transparent 65%);}
+.ee-promo-card.ee-promo-orange{background:linear-gradient(135deg,var(--b-orange) 0%,#C55E24 100%);}
+.ee-promo-card > *{position:relative;z-index:2;}
+.ee-promo-badge{display:inline-block;background:rgba(255,255,255,.18);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
+.ee-promo-card h3{font-size:18px;font-weight:800;margin:0 0 8px;color:#fff;letter-spacing:-.01em;line-height:1.2;}
+.ee-promo-card ul{margin:0 0 12px;padding:0;list-style:none;}
+.ee-promo-card ul li{font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.92);padding-left:18px;position:relative;margin-bottom:5px;}
+.ee-promo-card ul li::before{content:"✓";position:absolute;left:0;color:var(--b-orange);font-weight:700;}
+.ee-promo-card.ee-promo-orange ul li::before{color:#fff;}
+.ee-promo-card p{font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.9);margin:0 0 12px;}
+.ee-promo-card .ee-promo-btn{display:inline-flex;align-items:center;gap:6px;background:var(--b-orange);color:#fff;border:none;padding:9px 16px;border-radius:var(--b-radius-sm);font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;transition:background var(--b-transition);}
+.ee-promo-card .ee-promo-btn:hover{background:var(--b-orange-dark);color:#fff;}
+.ee-promo-card.ee-promo-orange .ee-promo-btn{background:#fff;color:var(--b-orange);}
+.ee-promo-card.ee-promo-orange .ee-promo-btn:hover{background:#fff8f1;}
+
+/* ── New Update card ── */
+.ee-new-update{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:14px;display:flex;gap:12px;align-items:flex-start;text-decoration:none;color:inherit;transition:all var(--b-transition);}
+.ee-new-update:hover{border-color:var(--b-orange);box-shadow:var(--b-shadow-md);transform:translateY(-2px);color:inherit;}
+.ee-new-update-tag{display:inline-block;background:var(--b-orange);color:#fff;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.ee-new-update-thumb{flex:0 0 64px;height:64px;border-radius:var(--b-radius-sm);overflow:hidden;background:linear-gradient(135deg,var(--b-blue),var(--b-orange));display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;}
+.ee-new-update-thumb img{width:100%;height:100%;object-fit:cover;}
+.ee-new-update-title{font-size:13px;font-weight:600;color:var(--b-blue);line-height:1.4;margin:0;}
+.ee-new-update-date{font-size:11px;color:var(--b-muted);margin-top:4px;}
+
+/* ── Compliance + action buttons ── */
+.ee-compliance{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:16px;}
+.ee-compliance-logos{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.ee-compliance-logo{font-size:9px;font-weight:800;letter-spacing:.06em;background:var(--b-blue-light);color:var(--b-blue);padding:5px 8px;border-radius:4px;border:1px solid #C7D5E8;}
+.ee-compliance p{font-size:11.5px;color:var(--b-muted);line-height:1.55;margin:0 0 10px;}
+.ee-compliance a{color:var(--b-orange);font-weight:600;}
+.ee-action-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.ee-action-btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-sm);padding:8px 6px;font-size:11.5px;font-weight:600;color:var(--b-blue);cursor:pointer;transition:all var(--b-transition);text-decoration:none;}
+.ee-action-btn:hover{border-color:var(--b-orange);color:var(--b-orange);background:var(--b-orange-light);}
+.ee-action-btn i{font-size:14px;}
+
+/* ── Sticky bottom nav (appears on scroll) ── */
+.ee-bottom-nav{position:fixed;left:50%;bottom:20px;transform:translate(-50%,80px);background:#fff;border:1px solid var(--b-border);border-radius:50px;padding:6px;box-shadow:var(--b-shadow-lg);z-index:998;display:flex;gap:2px;opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.4,0,.2,1);max-width:calc(100% - 40px);overflow:hidden;}
+.ee-bottom-nav.ee-visible{transform:translate(-50%,0);opacity:1;pointer-events:auto;}
+.ee-bottom-nav a{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:50px;font-size:12.5px;font-weight:600;color:var(--b-blue);text-decoration:none;transition:all var(--b-transition);white-space:nowrap;}
+.ee-bottom-nav a:hover{background:var(--b-orange-light);color:var(--b-orange);}
+.ee-bottom-nav a i{font-size:14px;color:var(--b-muted);}
+.ee-bottom-nav a:hover i{color:var(--b-orange);}
+@media (max-width:820px){
+    .ee-bottom-nav{bottom:90px;padding:4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+    .ee-bottom-nav::-webkit-scrollbar{display:none;}
+    .ee-bottom-nav a{padding:7px 11px;font-size:11.5px;}
+}
+
 .ee-floating-contact{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:1000;}
 .ee-float-btn{display:flex;align-items:center;gap:10px;padding:12px 16px 12px 14px;border-radius:50px;color:#fff;font-weight:600;font-size:13.5px;text-decoration:none;box-shadow:0 6px 20px rgba(15,32,64,.18);transition:all .25s ease;cursor:pointer;border:none;font-family:inherit;}
 .ee-float-btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 10px 28px rgba(15,32,64,.25);color:#fff;}
@@ -490,6 +556,54 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 <?php endif; ?>
                 <span><strong>Author:</strong> <?php echo esc_html($author_name); ?></span>
             </div>
+
+            <?php
+            /* ── Related from this category ── Pull the 3 newest posts
+               that share the current post's primary category. Falls
+               back to "latest in any category" if the current post has
+               no usable category. */
+            $related_args = array(
+                'post_type'           => 'post',
+                'posts_per_page'      => 3,
+                'post__not_in'        => array($pid),
+                'no_found_rows'       => true,
+                'ignore_sticky_posts' => true,
+                'orderby'             => 'date',
+                'order'               => 'DESC',
+            );
+            if ($primary_cat) {
+                $related_args['cat'] = $primary_cat->term_id;
+            }
+            $related_q = new WP_Query($related_args);
+            if ($related_q->have_posts()) :
+            ?>
+            <section class="ee-related" aria-label="More from this category">
+                <h2>More from <?php echo $primary_cat ? esc_html($primary_cat->name) : 'the Blog'; ?></h2>
+                <p class="ee-related-sub">Fresh reads in this category — the newest articles appear here automatically as you publish them.</p>
+                <div class="ee-related-grid">
+                    <?php while ($related_q->have_posts()) : $related_q->the_post();
+                        $r_thumb = get_the_post_thumbnail_url(get_the_ID(), 'medium_large');
+                        $r_cats  = get_the_category();
+                        $r_cat   = $r_cats ? $r_cats[0]->name : 'Blog';
+                    ?>
+                        <a class="ee-related-card" href="<?php the_permalink(); ?>">
+                            <div class="ee-related-img">
+                                <?php if ($r_thumb) : ?>
+                                    <img src="<?php echo esc_url($r_thumb); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
+                                <?php else : ?>
+                                    <i class="ti ti-news"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div class="ee-related-body">
+                                <div class="ee-related-tag"><?php echo esc_html($r_cat); ?></div>
+                                <div class="ee-related-title"><?php echo esc_html(get_the_title()); ?></div>
+                                <div class="ee-related-date"><?php echo esc_html(get_the_date()); ?></div>
+                            </div>
+                        </a>
+                    <?php endwhile; wp_reset_postdata(); ?>
+                </div>
+            </section>
+            <?php endif; ?>
         </main>
 
         <aside class="ee-right-sidebar" aria-label="Sidebar">
@@ -517,7 +631,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             if (!empty($sidebar_products)) :
             ?>
             <div class="ee-sidebar-section">
-                <div class="ee-section-label"><i class="ti ti-package"></i> View Products</div>
+                <div class="ee-section-label"><i class="ti ti-package"></i> View All Products</div>
                 <div class="ee-product-list">
                     <?php foreach ($sidebar_products as $p) : ?>
                         <a class="ee-product-pill" href="<?php echo esc_url($p['url']); ?>"><?php echo esc_html($p['title']); ?> <i class="ti ti-chevron-right"></i></a>
@@ -527,47 +641,109 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             <?php endif; ?>
 
             <?php
-            /* Featured Blogs — 3 most recent posts excluding the current. */
-            $featured_q = new WP_Query(array(
+            /* ── New Update — single most recent post (excluding current)
+               highlighted with a "NEW" badge so visitors always see the
+               freshest piece of content on every article. */
+            $new_q = new WP_Query(array(
                 'post_type'      => 'post',
-                'posts_per_page' => 3,
+                'posts_per_page' => 1,
                 'post__not_in'   => array($pid),
                 'no_found_rows'  => true,
+                'orderby'        => 'date',
+                'order'          => 'DESC',
             ));
-            if ($featured_q->have_posts()) :
+            if ($new_q->have_posts()) : $new_q->the_post();
+                $new_thumb = get_the_post_thumbnail_url(get_the_ID(), 'medium');
             ?>
             <div class="ee-sidebar-section">
-                <div class="ee-section-label"><i class="ti ti-star"></i> Featured Blogs</div>
-                <div class="ee-featured-grid">
-                    <?php while ($featured_q->have_posts()) : $featured_q->the_post();
-                        $thumb = get_the_post_thumbnail_url(get_the_ID(), 'medium');
-                        $cat   = get_the_category(); $cat_name = $cat ? $cat[0]->name : 'Blog';
+                <div class="ee-section-label"><i class="ti ti-flame"></i> New Update</div>
+                <a class="ee-new-update" href="<?php the_permalink(); ?>">
+                    <div class="ee-new-update-thumb">
+                        <?php if ($new_thumb) : ?>
+                            <img src="<?php echo esc_url($new_thumb); ?>" alt="">
+                        <?php else : ?>
+                            <i class="ti ti-news"></i>
+                        <?php endif; ?>
+                    </div>
+                    <div>
+                        <span class="ee-new-update-tag">New</span>
+                        <div class="ee-new-update-title"><?php echo esc_html(get_the_title()); ?></div>
+                        <div class="ee-new-update-date"><?php echo esc_html(get_the_date()); ?></div>
+                    </div>
+                </a>
+            </div>
+            <?php wp_reset_postdata(); endif; ?>
+
+            <?php
+            /* ── Solutions list — pulled from the same admin source as
+               the header mega-menu so editors don't repeat themselves. */
+            $sidebar_solutions = function_exists('ee_get_solution_items') ? ee_get_solution_items() : array();
+            if (!empty($sidebar_solutions)) :
+                /* Flatten in case helper returns grouped/category data. */
+                $flat_solutions = array();
+                foreach ($sidebar_solutions as $row) {
+                    if (isset($row['items']) && is_array($row['items'])) {
+                        foreach ($row['items'] as $it) $flat_solutions[] = $it;
+                    } else {
+                        $flat_solutions[] = $row;
+                    }
+                }
+                $flat_solutions = array_slice($flat_solutions, 0, 5);
+            ?>
+            <div class="ee-sidebar-section">
+                <div class="ee-section-label"><i class="ti ti-bulb"></i> Solutions</div>
+                <div class="ee-product-list">
+                    <?php foreach ($flat_solutions as $s) :
+                        $s_url   = $s['url']   ?? $s['link']  ?? '#';
+                        $s_label = $s['title'] ?? $s['label'] ?? $s['name'] ?? '';
+                        if (!$s_label) continue;
                     ?>
-                        <a class="ee-feat-card" href="<?php the_permalink(); ?>">
-                            <div class="ee-feat-img">
-                                <?php if ($thumb) : ?>
-                                    <img src="<?php echo esc_url($thumb); ?>" alt="">
-                                <?php else : ?>
-                                    <i class="ti ti-news"></i>
-                                <?php endif; ?>
-                            </div>
-                            <div class="ee-feat-body">
-                                <div class="ee-feat-tag"><?php echo esc_html($cat_name); ?></div>
-                                <div class="ee-feat-title"><?php echo esc_html(get_the_title()); ?></div>
-                                <div class="ee-feat-date"><?php echo esc_html(get_the_date()); ?></div>
-                            </div>
-                        </a>
-                    <?php endwhile; wp_reset_postdata(); ?>
+                        <a class="ee-product-pill" href="<?php echo esc_url($s_url); ?>"><?php echo esc_html($s_label); ?> <i class="ti ti-chevron-right"></i></a>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <?php endif; ?>
 
-            <div class="ee-subscribe-box">
-                <div class="ee-subscribe-title">Join 20K+ Education Professionals</div>
-                <p>Get better business insights &amp; strategies weekly from ExtraaEdge.</p>
-                <input class="ee-sub-input" type="email" placeholder="Your email address" aria-label="Subscribe email" id="ee-sub-email">
-                <button class="ee-sub-btn" onclick="var v=document.getElementById('ee-sub-email').value.trim();if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){this.innerText='Subscribed!';this.disabled=true;document.getElementById('ee-sub-email').value='';}">Subscribe</button>
-                <div class="ee-sub-legal">By subscribing, you consent to receive marketing communications from ExtraaEdge. You can unsubscribe anytime. See our <a href="/privacy-policy/">Privacy Policy</a>.</div>
+            <!-- ── Vidya AI promo banner ── -->
+            <div class="ee-sidebar-section">
+                <div class="ee-promo-card ee-promo-vidya">
+                    <span class="ee-promo-badge">✦ Vidya AI</span>
+                    <h3>Vidya AI</h3>
+                    <ul>
+                        <li>24/7 AI counselors</li>
+                        <li>Millions of student interactions</li>
+                        <li>One intelligent platform</li>
+                        <li>Convert more enrollments with AI</li>
+                    </ul>
+                    <a class="ee-promo-btn" href="https://getvidya.ai/" target="_blank" rel="noopener">Explore Vidya AI <i class="ti ti-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- ── Smarter Admissions CTA banner ── -->
+            <div class="ee-sidebar-section">
+                <div class="ee-promo-card ee-promo-orange">
+                    <h3>Need a Smarter Admissions Process?</h3>
+                    <p>Customise your entire admission workflow — funnels, reports, automations &amp; AI journeys built for your institution.</p>
+                    <a class="ee-promo-btn" href="/book-demo/">Book a Free Demo <i class="ti ti-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- ── Compliance + action buttons ── -->
+            <div class="ee-sidebar-section">
+                <div class="ee-compliance">
+                    <div class="ee-compliance-logos">
+                        <span class="ee-compliance-logo">GDPR</span>
+                        <span class="ee-compliance-logo">CCPA</span>
+                        <span class="ee-compliance-logo">ISO 27001</span>
+                    </div>
+                    <p>We are <strong>GDPR and CCPA compliant</strong>! Your transaction &amp; personal information is safe and secure. For more details, please read our <a href="/privacy-policy/">privacy policy</a>.</p>
+                    <div class="ee-action-row">
+                        <button type="button" class="ee-action-btn" id="ee-act-share"><i class="ti ti-share-3"></i> Share</button>
+                        <a class="ee-action-btn" id="ee-act-email" href="mailto:?subject=<?php echo urlencode(get_the_title()); ?>&body=<?php echo urlencode(get_permalink()); ?>"><i class="ti ti-mail"></i> E-mail</a>
+                        <button type="button" class="ee-action-btn" id="ee-act-pdf"><i class="ti ti-file-text"></i> Save PDF</button>
+                        <button type="button" class="ee-action-btn" id="ee-act-print"><i class="ti ti-printer"></i> Print</button>
+                    </div>
+                </div>
             </div>
 
             <div class="ee-last-updated">
@@ -589,6 +765,17 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     </div>
 
     <button class="ee-scroll-top" id="ee-scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"><i class="ti ti-arrow-up"></i></button>
+
+    <!-- ── Sticky bottom nav (revealed after the visitor scrolls past the hero) ── -->
+    <nav class="ee-bottom-nav" id="ee-bottom-nav" aria-label="Quick navigation">
+        <a href="<?php echo esc_url(home_url('/')); ?>"><i class="ti ti-home"></i> Home</a>
+        <a href="<?php echo esc_url(home_url('/products/')); ?>"><i class="ti ti-package"></i> Products</a>
+        <a href="<?php echo esc_url(home_url('/industries/')); ?>"><i class="ti ti-building"></i> Industries</a>
+        <a href="<?php echo esc_url(home_url('/solutions/')); ?>"><i class="ti ti-bulb"></i> Solutions</a>
+        <a href="<?php echo esc_url(home_url('/case-studies/')); ?>"><i class="ti ti-quote"></i> Testimonials</a>
+        <a href="<?php echo esc_url(home_url('/resources/')); ?>"><i class="ti ti-book"></i> Resources</a>
+        <a href="<?php echo esc_url(home_url('/contact-us/')); ?>"><i class="ti ti-message-2"></i> Contact</a>
+    </nav>
 
     <div class="ee-copy-toast" id="ee-copy-toast"><i class="ti ti-circle-check"></i> <span id="ee-toast-msg">Copied!</span></div>
 </div>
@@ -743,6 +930,35 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth', block:'start' }); }
         });
     });
+
+    /* ── Sidebar action buttons (Share / E-mail / PDF / Print) ── */
+    var actShare = document.getElementById('ee-act-share');
+    if (actShare) actShare.addEventListener('click', function(){
+        if (navigator.share) {
+            navigator.share({ title: document.title, url: location.href }).catch(function(){});
+        } else {
+            navigator.clipboard.writeText(location.href).then(function(){ showToast('Link copied!'); });
+        }
+    });
+    var actPdf = document.getElementById('ee-act-pdf');
+    if (actPdf) actPdf.addEventListener('click', function(){
+        showToast('Choose "Save as PDF" in the print dialog');
+        window.print();
+    });
+    var actPrint = document.getElementById('ee-act-print');
+    if (actPrint) actPrint.addEventListener('click', function(){ window.print(); });
+
+    /* ── Sticky bottom nav — reveal after the visitor scrolls past
+       the hero (~600px). Hide again when they return near the top. */
+    var bnav = document.getElementById('ee-bottom-nav');
+    if (bnav) {
+        function toggleBnav(){
+            var y = window.scrollY || document.documentElement.scrollTop;
+            bnav.classList.toggle('ee-visible', y > 600);
+        }
+        window.addEventListener('scroll', toggleBnav, { passive:true });
+        toggleBnav();
+    }
 })();
 
 document.documentElement.classList.add('ee-thin-scroll');
