@@ -395,8 +395,46 @@ add_action('save_post_post', function ($post_id) {
 });
 
 // ══════════════════════════════════════════════════════════
-// D4b. BLOG POST SEO + SOCIAL META BOX
+// D4a. AD BANNER INJECTOR — drops the banner into the post body
+// after the 4th H2 (or the last H2 if the post has fewer).
 // ══════════════════════════════════════════════════════════
+add_filter('the_content', function ($content) {
+    if (!is_singular('post') || !in_the_loop() || !is_main_query()) {
+        return $content;
+    }
+    $pid      = get_the_ID();
+    $ad_image = get_post_meta($pid, '_ee_blog_ad_image', true);
+    if (!$ad_image) {
+        return $content;
+    }
+    $ad_url   = get_post_meta($pid, '_ee_blog_ad_url',   true);
+    $ad_alt   = get_post_meta($pid, '_ee_blog_ad_alt',   true) ?: get_the_title($pid);
+    $ad_target = $ad_url ?: '#';
+
+    $ad_host   = parse_url($ad_target, PHP_URL_HOST);
+    $site_host = parse_url(home_url(), PHP_URL_HOST);
+    $is_external = ($ad_host && $ad_host !== $site_host);
+    $attrs = 'aria-label="' . esc_attr($ad_alt) . '"';
+    if ($is_external) $attrs .= ' target="_blank" rel="noopener sponsored"';
+
+    $banner_html = "\n<a class=\"ee-ad-banner\" href=\"" . esc_url($ad_target) . "\" $attrs>"
+                 . '<img src="' . esc_url($ad_image) . '" alt="' . esc_attr($ad_alt) . '" loading="lazy">'
+                 . "</a>\n";
+
+    /* Count H2s. Inject after the 4th. If fewer than 4 H2s exist,
+       append after the LAST one so the banner still lives inside
+       the content flow. */
+    if (!preg_match_all('#</h2>#i', $content, $m, PREG_OFFSET_CAPTURE)) {
+        return $content . $banner_html;
+    }
+    $total = count($m[0]);
+    if ($total === 0) {
+        return $content . $banner_html;
+    }
+    $target_index = min(4, $total) - 1; // 0-based
+    $offset       = $m[0][$target_index][1] + strlen($m[0][$target_index][0]);
+    return substr($content, 0, $offset) . $banner_html . substr($content, $offset);
+}, 20);
 /**
  * "🔍 Blog SEO & Social Meta" — exposes every meta tag header.php
  * emits as an editable field on the post edit screen, so a

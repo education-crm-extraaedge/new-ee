@@ -415,41 +415,14 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             </div>
 
             <?php $featured = get_the_post_thumbnail($pid, 'full', array('alt' => esc_attr(get_the_title()))); ?>
-            <div class="ee-hero-img<?php echo $featured ? ' has-featured' : ''; ?>" aria-hidden="true">
-                <?php if ($featured) : ?>
+            <?php if ($featured) : ?>
+                <div class="ee-hero-img has-featured" aria-hidden="true">
                     <?php echo $featured; ?>
-                <?php else : ?>
-                    <div class="ee-hero-img-content">
-                        <i class="ti <?php echo esc_attr($hero_icon); ?>"></i>
-                        <?php if ($hero_caption) : ?><div><?php echo esc_html($hero_caption); ?></div><?php endif; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-
-            <?php if ($callout) : ?>
-                <div class="ee-callout">
-                    <i class="ti ti-bulb"></i>
-                    <p><?php echo wp_kses_post($callout); ?></p>
                 </div>
             <?php endif; ?>
 
-            <?php if ($ad_image) :
-                $ad_target = $ad_url ?: '#';
-                $ad_alt_t  = $ad_alt ?: get_the_title();
-                /* External URL? Open in new tab. Same-origin links stay
-                   in the current tab so the visitor doesn't lose the
-                   article. */
-                $ad_host   = parse_url($ad_target, PHP_URL_HOST);
-                $site_host = parse_url(home_url(), PHP_URL_HOST);
-                $ad_external = ($ad_host && $ad_host !== $site_host);
-            ?>
-                <a class="ee-ad-banner"
-                   href="<?php echo esc_url($ad_target); ?>"
-                   <?php if ($ad_external) : ?>target="_blank" rel="noopener sponsored"<?php endif; ?>
-                   aria-label="<?php echo esc_attr($ad_alt_t); ?>">
-                    <img src="<?php echo esc_url($ad_image); ?>" alt="<?php echo esc_attr($ad_alt_t); ?>" loading="lazy">
-                </a>
-            <?php elseif (!empty($stats)) : ?>
+            <?php /* Stat cards still available — used only when no ad banner is set. */ ?>
+            <?php if (!empty($stats)) : ?>
                 <div class="ee-stat-row">
                     <?php foreach ($stats as $s) : ?>
                         <div class="ee-stat-card">
