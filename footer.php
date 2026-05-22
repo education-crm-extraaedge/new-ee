@@ -201,21 +201,6 @@ if (!defined('ABSPATH')) exit;
 
 <div id="extraaedge-footer-engine">
 
-    <!-- Hero CTA -->
-    <section class="ee-container ee-section-block">
-        <div class="ee-hero-card ee-reveal">
-            <h2 class="ee-hero-h2">The Unified Admissions Engine</h2>
-            <p class="ee-hero-p">Experience the power of the most advanced Education CRM & Marketing Automation platform today.</p>
-            <div class="ee-cta-flex">
-                <a href="tel:+918956982897" class="ee-btn ee-btn-call">
-                    <i class="fa-solid fa-phone-volume"></i> Call Sales
-                </a>
-                <a href="https://api.whatsapp.com/send/?phone=918956982897&text=Hi&type=phone_number&app_absent=0" class="ee-btn ee-btn-wa" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-whatsapp"></i> WhatsApp "Hi"
-                </a>
-            </div>
-        </div>
-    </section>
 
     <!-- Contact Grid -->
     <section class="ee-container ee-section-block">
