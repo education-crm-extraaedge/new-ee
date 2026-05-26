@@ -5533,6 +5533,32 @@ document.addEventListener('DOMContentLoaded', function() {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+
+    /* ── Stabilise the VidyaGPT v2.5 terminal ──
+       The #aiTerm types AND deletes text on a loop. Without a locked
+       height the slate box grows/shrinks every keystroke, which on
+       mobile shoved every section below it up and down. Lock a fixed
+       height with hidden overflow so the box never resizes. */
+    #analyticsModule #aiTerm {
+        height: 96px;
+        min-height: 96px;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    @media (max-width: 768px) {
+        /* Taller on mobile where the text wraps to more lines. */
+        #analyticsModule #aiTerm { height: 120px; min-height: 120px; }
+        /* Kill the free-floating decorative motion that made the
+           section feel like it was scrolling on its own. */
+        #analyticsModule .data-particle,
+        #analyticsModule.is-active .data-particle { display: none !important; animation: none !important; }
+        #analyticsModule .float-anim { animation: none !important; transform: none !important; }
+    }
+    /* Respect users who prefer no motion. */
+    @media (prefers-reduced-motion: reduce) {
+        #analyticsModule .data-particle,
+        #analyticsModule .float-anim { animation: none !important; }
+    }
 </style>
 
 <section id="analyticsModule" class="group/section">
