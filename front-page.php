@@ -2612,7 +2612,7 @@ get_header();
         thinkingDiv.className = 'thinking';
         thinkingDiv.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
         chatEngine.appendChild(thinkingDiv);
-        chatEngine.scrollTo({ top: chatEngine.scrollHeight, behavior: 'smooth' });
+        chatEngine.scrollTop = chatEngine.scrollHeight;
 
         setTimeout(function() {
           thinkingDiv.remove();
@@ -2636,7 +2636,7 @@ get_header();
           bubble.classList.add('show');
         }, 10);
 
-        chatEngine.scrollTo({ top: chatEngine.scrollHeight, behavior: 'smooth' });
+        chatEngine.scrollTop = chatEngine.scrollHeight;
       }
 
       function playSimulation() {
