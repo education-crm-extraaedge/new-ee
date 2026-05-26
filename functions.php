@@ -1112,8 +1112,10 @@ function ee_get_client_logos($post_id = 0) {
     if (!is_array($home)) $home = array();
 
     $out = array();
-    /* Track 1 (left-moving on home page) — up to 8 logos */
-    for ($i = 1; $i <= 8; $i++) {
+    /* Track 1 (left-moving on home page) — unlimited logos.
+       Loop a generous ceiling and skip gaps so removed slots
+       don't break the sequence. */
+    for ($i = 1; $i <= 100; $i++) {
         $url = isset($home["logo_t1_{$i}_url"]) ? trim((string) $home["logo_t1_{$i}_url"]) : '';
         if ($url === '') continue;
         $out[] = array(
@@ -1121,8 +1123,8 @@ function ee_get_client_logos($post_id = 0) {
             'alt'   => isset($home["logo_t1_{$i}_alt"]) ? (string) $home["logo_t1_{$i}_alt"] : '',
         );
     }
-    /* Track 2 (right-moving on home page) — up to 7 logos */
-    for ($i = 1; $i <= 7; $i++) {
+    /* Track 2 (right-moving on home page) — unlimited logos. */
+    for ($i = 1; $i <= 100; $i++) {
         $url = isset($home["logo_t2_{$i}_url"]) ? trim((string) $home["logo_t2_{$i}_url"]) : '';
         if ($url === '') continue;
         $out[] = array(

@@ -212,6 +212,44 @@ class EE_Home_Editor {
         echo '</h4>';
     }
 
+    /**
+     * Unlimited-logo repeater for a marquee track (logo_t1 / logo_t2).
+     * Renders one .logo-slot per existing logo, plus an "Add logo"
+     * button. JS clones a blank slot with the next index. The reader
+     * (ee_get_client_logos + front-page) loops to 100 and skips gaps,
+     * so any number of logos works without a stored count.
+     *
+     * @param string $prefix  e.g. "logo_t1"
+     */
+    public static function logo_repeater($prefix) {
+        /* Find how many logos currently exist (highest filled index). */
+        $max = 0;
+        for ($i = 1; $i <= 100; $i++) {
+            if (self::get("{$prefix}_{$i}_url", '') !== '') $max = $i;
+        }
+        if ($max < 3) $max = 3; // always show at least 3 slots to start
+
+        echo '<div class="logo-repeater" data-logo-prefix="' . esc_attr($prefix) . '">';
+        for ($i = 1; $i <= $max; $i++) {
+            self::logo_slot($prefix, $i);
+        }
+        echo '</div>';
+        echo '<button type="button" class="button button-secondary ee-add-logo" data-add-logo="' . esc_attr($prefix) . '" style="margin-top:6px;">＋ Add logo</button>';
+    }
+
+    /** Render a single logo slot (image + alt). */
+    public static function logo_slot($prefix, $i) {
+        $url      = self::get("{$prefix}_{$i}_url", '');
+        $alt      = self::get("{$prefix}_{$i}_alt", '');
+        $is_empty = ($url === '');
+        echo '<div class="repeater-item logo-slot' . ($is_empty ? ' logo-slot--empty' : '') . '" data-logo-pair="' . esc_attr($prefix . '_' . $i) . '">';
+        echo '<h4>Logo ' . (int) $i
+           . ' <button type="button" class="logo-clear-btn" data-clear-logo title="Clear this logo">✕ Remove logo</button></h4>';
+        self::image_field("{$prefix}_{$i}_url", $i, "Logo $i", "Recommended: transparent PNG or SVG, around 200x100px.", '');
+        self::text_field("{$prefix}_{$i}_alt", '', 'Alt text', 'Image alt attribute (SEO + accessibility).', '', '');
+        echo '</div>';
+    }
+
     public static function render_page() {
         if (!current_user_can('manage_options')) wp_die('Access denied');
         $tabs     = self::tabs();
@@ -351,6 +389,48 @@ class EE_Home_Editor {
                 slot.addClass('logo-slot--empty');
             });
 
+            // ＋ Add logo — clone a blank slot with the next index for
+            // this track. Field name pattern: {prefix}_{N}_url / _alt.
+            $(document).on('click', '.ee-add-logo', function(e){
+                e.preventDefault();
+                var prefix = $(this).data('add-logo');
+                var rep    = $('.logo-repeater[data-logo-prefix="' + prefix + '"]');
+                // Highest index currently in the DOM for this track.
+                var max = 0;
+                rep.find('.logo-slot').each(function(){
+                    var pair = $(this).data('logo-pair') || '';
+                    var n = parseInt(pair.replace(prefix + '_', ''), 10);
+                    if (!isNaN(n) && n > max) max = n;
+                });
+                var next = max + 1;
+                var optKey = '<?php echo esc_js(self::OPTION_KEY); ?>';
+                var html =
+                    '<div class="repeater-item logo-slot logo-slot--empty" data-logo-pair="' + prefix + '_' + next + '">' +
+                      '<h4>Logo ' + next + ' <button type="button" class="logo-clear-btn" data-clear-logo title="Clear this logo">✕ Remove logo</button></h4>' +
+                      '<div class="field-group image-field" data-field-key="' + prefix + '_' + next + '_url">' +
+                        '<label>🖼 Logo ' + next + '</label>' +
+                        '<div class="img-row">' +
+                          '<div class="thumb thumb--empty" data-thumb><span class="thumb-empty-label">empty</span></div>' +
+                          '<div class="img-controls">' +
+                            '<input type="url" name="' + optKey + '[' + prefix + '_' + next + '_url]" value="" placeholder="https://…/logo.png" class="img-input" data-img-input>' +
+                            '<div class="img-btn-row">' +
+                              '<button type="button" class="pick-btn">📁 Choose from Media Library</button>' +
+                              '<button type="button" class="remove-img-btn" data-remove-img title="Clear this image">✕ Remove</button>' +
+                            '</div>' +
+                          '</div>' +
+                        '</div>' +
+                        '<p class="field-help">Recommended: transparent PNG or SVG, around 200x100px.</p>' +
+                      '</div>' +
+                      '<div class="field-group">' +
+                        '<label>Alt text</label>' +
+                        '<input type="text" name="' + optKey + '[' + prefix + '_' + next + '_alt]" value="" placeholder="">' +
+                        '<p class="field-help">Image alt attribute (SEO + accessibility).</p>' +
+                      '</div>' +
+                    '</div>';
+                rep.append(html);
+                rep.find('.logo-slot').last()[0].scrollIntoView({behavior:'smooth', block:'center'});
+            });
+
             // Re-style the slot when URL input changes
             $(document).on('input', '.image-field .img-input', function(){
                 var url   = $(this).val();
@@ -451,50 +531,11 @@ class EE_Home_Editor {
                 });
                 self::text_field('logos_live_text', '6', 'Live Indicator Text', 'Text shown next to the green pulse dot.', 'Live: +124 Admissions Processed in last 1hr', 'Indicator');
 
-                self::group_heading('⬅ Track 1 — 8 Logos (Left moving)', 'Track 1');
-                $t1_defaults = array(
-                    'https://www.extraaedge.com/wp-content/uploads/2024/12/Xiss-3.webp|XISS',
-                    'https://www.extraaedge.com/wp-content/uploads/2025/10/OIP-20.jpg|Logo',
-                    'https://www.extraaedge.com/wp-content/uploads/2024/10/Anant-National-University.png|Anant National University',
-                    'https://www.extraaedge.com/wp-content/uploads/2025/10/sr-university.webp|SR University',
-                    'https://www.extraaedge.com/wp-content/uploads/2024/12/hamstek-1.webp|Hamstek',
-                    'https://www.extraaedge.com/wp-content/uploads/2025/10/adani.webp|Adani',
-                    'https://www.extraaedge.com/wp-content/uploads/2025/10/techno-india-group.webp|Techno India',
-                    'https://www.extraaedge.com/wp-content/uploads/2025/10/cropped-final-logo.webp|Final Logo',
-                );
-                for ($i = 1; $i <= 8; $i++) {
-                    $parts    = explode('|', $t1_defaults[$i-1]);
-                    $is_empty = (self::get("logo_t1_{$i}_url", '') === '');
-                    echo '<div class="repeater-item logo-slot' . ($is_empty ? ' logo-slot--empty' : '') . '" data-logo-pair="logo_t1_' . $i . '">'
-                       . '<h4>Logo ' . $i . ' '
-                       . '<button type="button" class="logo-clear-btn" data-clear-logo title="Remove this logo from every page">✕ Remove logo</button>'
-                       . '</h4>';
-                    self::image_field("logo_t1_{$i}_url", $i, "Logo $i", "Recommended: transparent PNG or SVG, around 200x100px.", $parts[0]);
-                    self::text_field("logo_t1_{$i}_alt", '', 'Alt text', 'Image alt attribute (SEO + accessibility).', $parts[1], '');
-                    echo '</div>';
-                }
+                self::group_heading('⬅ Track 1 — Left moving (unlimited logos)', 'Track 1');
+                self::logo_repeater('logo_t1');
 
-                self::group_heading('➡ Track 2 — 7 Logos (Right moving)', 'Track 2');
-                $t2_defaults = array(
-                    'https://www.extraaedge.com/wp-content/uploads/2024/12/JGI-JAIN-2.webp|Jain University',
-                    'https://www.extraaedge.com/wp-content/uploads/2025/01/mit-shillong.png|MIT Shillong',
-                    'https://www.extraaedge.com/wp-content/uploads/2024/12/isdi.webp|ISDI',
-                    'https://www.extraaedge.com/wp-content/uploads/2025/09/jio-v3-3.png|Jio Institute',
-                    'https://www.extraaedge.com/wp-content/uploads/2024/12/dpu-3.webp|DPU',
-                    'https://www.extraaedge.com/wp-content/uploads/2024/12/Graphic-Era-3.webp|Graphic Era',
-                    'https://www.extraaedge.com/wp-content/uploads/2024/12/fostima.webp|Fostima',
-                );
-                for ($i = 1; $i <= 7; $i++) {
-                    $parts    = explode('|', $t2_defaults[$i-1]);
-                    $is_empty = (self::get("logo_t2_{$i}_url", '') === '');
-                    echo '<div class="repeater-item logo-slot' . ($is_empty ? ' logo-slot--empty' : '') . '" data-logo-pair="logo_t2_' . $i . '">'
-                       . '<h4>Logo ' . $i . ' '
-                       . '<button type="button" class="logo-clear-btn" data-clear-logo title="Remove this logo from every page">✕ Remove logo</button>'
-                       . '</h4>';
-                    self::image_field("logo_t2_{$i}_url", $i, "Logo $i", "Recommended: transparent PNG or SVG, around 200x100px.", $parts[0]);
-                    self::text_field("logo_t2_{$i}_alt", '', 'Alt text', '', $parts[1], '');
-                    echo '</div>';
-                }
+                self::group_heading('➡ Track 2 — Right moving (unlimited logos)', 'Track 2');
+                self::logo_repeater('logo_t2');
                 break;
 
             case 'vidyaai':

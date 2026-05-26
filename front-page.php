@@ -779,13 +779,13 @@ get_header();
       /* Build clean lists first — skip any slot whose URL the editor cleared
          in the home editor so empty cards do not render. */
       $row_t1 = array();
-      for ($i = 1; $i <= 8; $i++) {
+      for ($i = 1; $i <= 100; $i++) {
           $u = trim((string) ee_raw("logo_t1_{$i}_url"));
           if ($u === '') continue;
           $row_t1[] = array('u' => $u, 'a' => ee_raw("logo_t1_{$i}_alt"));
       }
       $row_t2 = array();
-      for ($i = 1; $i <= 7; $i++) {
+      for ($i = 1; $i <= 100; $i++) {
           $u = trim((string) ee_raw("logo_t2_{$i}_url"));
           if ($u === '') continue;
           $row_t2[] = array('u' => $u, 'a' => ee_raw("logo_t2_{$i}_alt"));
