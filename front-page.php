@@ -110,6 +110,7 @@ get_header();
       position: relative;
       width: 100%;
       min-height: 70vh;
+      min-height: 70svh;
       display: flex;
       align-items: center;
       justify-content: space-evenly;
@@ -865,6 +866,7 @@ get_header();
     /* Scroll Interaction Classes */
     .vidya-wrap .story-section {
         min-height: 100vh;
+        min-height: 100svh;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -884,6 +886,7 @@ get_header();
         /* Sticky header is h-20 (80px) on mobile, h-24 (96px) on desktop — match the offset to avoid the CRM mock disappearing behind the nav */
         top: 80px;
         height: calc(100vh - 80px);
+        height: calc(100svh - 80px);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -893,13 +896,14 @@ get_header();
         .vidya-wrap .visual-viewport {
             top: 96px;
             height: calc(100vh - 96px);
+            height: calc(100svh - 96px);
         }
     }
 
     /* Real CRM Mockup Styling */
     .vidya-wrap .crm-interface {
         width: 100%;
-        height: 85vh;
+        height: 660px;
         max-height: 700px;
         background: #ffffff;
         border-radius: 24px;
@@ -908,7 +912,6 @@ get_header();
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     /* CRM Components */
@@ -4394,6 +4397,7 @@ document.addEventListener('DOMContentLoaded', function() {
     max-width: 1400px;
     margin: 0 auto;
     min-height: 80vh;
+    min-height: 80svh;
     background-color: #fff;
     font-family: 'Open Sans', sans-serif;
     color: #19335D;
