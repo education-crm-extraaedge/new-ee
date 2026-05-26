@@ -1393,7 +1393,7 @@ get_header();
     background-color: var(--bg-light);
     font-family: 'Open Sans', sans-serif;
     color: var(--dark-base);
-    padding: 80px 20px 70px;
+    padding: 80px 20px 40px;
     overflow: hidden;
     line-height: 1.6;
   }
@@ -1851,7 +1851,7 @@ get_header();
       --text-muted: #64748B;
       --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
-      padding: clamp(60px, 10vw, 120px) 20px;
+      padding: clamp(36px, 5vw, 56px) 20px clamp(60px, 10vw, 120px);
       font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
