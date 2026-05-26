@@ -446,6 +446,28 @@ add_action('wp_head', function () {
         box-shadow: 0 0 0 3px rgba(222,110,48,.15);
     }
 
+    /* ── Layout-shift (CLS) prevention for live home-page widgets ──
+       The animated demo + live counters change content over time;
+       without reserved space the page jumps under the reader. Lock
+       their dimensions so updates repaint in place. */
+    #live-counter, #liveScore, #lead-status, #lead-name {
+        display: inline-block;
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: "tnum";
+    }
+    #live-counter { min-width: 2.5em; text-align: left; }
+    #liveScore    { min-width: 3em; text-align: center; }
+    /* The AI-counselor typing bubble fills text char-by-char — reserve
+       its height so the chat card (and everything below it) holds. */
+    #typewriter { display: block; min-height: 120px; margin: 0; }
+    @media (max-width:480px){ #typewriter { min-height: 150px; } }
+    /* Voice-wave + pipeline demo keep a fixed footprint. */
+    #waves { min-height: 40px; }
+    /* Any element flagged as a live region repaints in place. */
+    [aria-live], .ee-live, .crm-hero__live-stats, .sp-live-indicator {
+        overflow-anchor: none;
+    }
+
     /* ── Accessibility focus ring (keyboard users) ───────────── */
     button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
         outline: 2px solid var(--ee-orange);
