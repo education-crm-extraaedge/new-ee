@@ -58,21 +58,21 @@ $icons_by_fmt = array(
 $site_name = get_bloginfo('name');
 $page_title = 'Resource Library — ' . $site_name;
 $page_desc  = 'Free, research-backed e-books, guides, reports & tools for admissions, SEO, marketing and enrolment teams.';
-?><!doctype html>
-<html <?php language_attributes(); ?>>
-<head>
-<meta charset="<?php bloginfo('charset'); ?>">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<title><?php echo esc_html($page_title); ?></title>
-<meta name="description" content="<?php echo esc_attr($page_desc); ?>">
-<link rel="canonical" href="<?php echo esc_url(get_post_type_archive_link('ebook')); ?>">
-<meta property="og:type" content="website">
-<meta property="og:title" content="<?php echo esc_attr($page_title); ?>">
-<meta property="og:description" content="<?php echo esc_attr($page_desc); ?>">
-<meta property="og:url" content="<?php echo esc_url(get_post_type_archive_link('ebook')); ?>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+add_action('wp_head', function () use ($page_title, $page_desc) {
+    if (!is_post_type_archive('ebook')) return;
+    echo '<meta name="description" content="' . esc_attr($page_desc) . '">' . "\n";
+    echo '<link rel="canonical" href="' . esc_url(get_post_type_archive_link('ebook')) . '">' . "\n";
+    echo '<meta property="og:type" content="website">' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr($page_title) . '">' . "\n";
+    echo '<meta property="og:description" content="' . esc_attr($page_desc) . '">' . "\n";
+    echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
+    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+    echo '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">' . "\n";
+}, 5);
+
+get_header();
+?>
 <style>
   :root{
     --orange:#DE6E30; --orange-700:#C25A22; --orange-100:#FBE6D6; --orange-50:#FDF3EC;
@@ -90,14 +90,6 @@ $page_desc  = 'Free, research-backed e-books, guides, reports & tools for admiss
   button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .tnum{font-variant-numeric:tabular-nums}
   .wrap{max-width:1200px;margin:0 auto;padding:0 40px;position:relative}
-
-  /* Minimal page-local navbar (no site header) */
-  .eb-topbar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-  .eb-topbar-in{max-width:1200px;margin:0 auto;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-  .eb-brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink);font-size:16px;letter-spacing:-.01em}
-  .eb-brand-dot{width:28px;height:28px;border-radius:7px;background:var(--orange);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
-  .eb-back{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
-  .eb-back:hover{color:var(--orange)}
 
   .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   .dotgrid{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle at 1px 1px, rgba(25,51,93,.07) 1px, transparent 0);background-size:26px 26px;mask-image:linear-gradient(180deg,#000,transparent 22%);-webkit-mask-image:linear-gradient(180deg,#000,transparent 22%)}
@@ -172,15 +164,12 @@ $page_desc  = 'Free, research-backed e-books, guides, reports & tools for admiss
   .toast.visible{transform:translateX(-50%) translateY(0)}
   .toast .tk{color:var(--orange)}
 
-  .eb-footer{padding:30px 40px;text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--muted-2);letter-spacing:.06em;text-transform:uppercase;border-top:1px solid var(--line)}
-  .eb-footer a{color:var(--ink)}
-
   @media (max-width:1080px){
     .ed-head{grid-template-columns:1fr;gap:22px;align-items:start}
     .eb-grid{grid-template-columns:repeat(2,1fr)}
   }
   @media (max-width:720px){
-    .wrap, .eb-topbar-in{padding-left:22px;padding-right:22px}
+    .wrap{padding-left:22px;padding-right:22px}
     .section{padding:36px 0 72px}
     .eb-grid{grid-template-columns:1fr}
     .tabs{overflow-x:auto;flex-wrap:nowrap;width:100%;scrollbar-width:none}
@@ -188,19 +177,8 @@ $page_desc  = 'Free, research-backed e-books, guides, reports & tools for admiss
     .filterbar{flex-direction:column;align-items:stretch}
   }
 </style>
-<?php wp_head(); ?>
-</head>
-<body <?php body_class('ee-ebook-archive'); ?>>
-<div class="grain"></div>
 
-<header class="eb-topbar">
-  <div class="eb-topbar-in">
-    <a href="<?php echo esc_url(home_url('/')); ?>" class="eb-brand">
-      <span class="eb-brand-dot">E</span> ExtraaEdge
-    </a>
-    <a href="<?php echo esc_url(home_url('/')); ?>" class="eb-back">← Back to site</a>
-  </div>
-</header>
+<div class="grain"></div>
 
 <section class="section" id="ebooks">
   <div class="dotgrid"></div>
@@ -260,10 +238,6 @@ $page_desc  = 'Free, research-backed e-books, guides, reports & tools for admiss
   </div>
 </section>
 
-<footer class="eb-footer">
-  © <?php echo (int) date('Y'); ?> <a href="<?php echo esc_url(home_url('/')); ?>"><?php echo esc_html($site_name); ?></a> · All resources free for educational use
-</footer>
-
 <div class="toast" id="toast"><span class="tk">→</span><span id="toastMsg">Ready</span></div>
 
 <script>
@@ -300,6 +274,4 @@ $page_desc  = 'Free, research-backed e-books, guides, reports & tools for admiss
   }));
 })();
 </script>
-<?php wp_footer(); ?>
-</body>
-</html>
+<?php get_footer(); ?>
