@@ -688,12 +688,15 @@ function ee_ebook_meta_render($post) {
     </style>
 
     <p class="eeeb-tip">
-        ✦ <strong>Tip:</strong> Write the main chapters / sections in the normal post editor above. To add design elements inside the body, use these shortcodes:
+        ✦ <strong>Tip:</strong> Wrap each chapter in <code>[ee_chapter id="ch1" num="Chapter 01" h="Chapter title"]…[/ee_chapter]</code>. Inside, use these design blocks:<br>
         <code>[ee_takeaway]Key takeaway text[/ee_takeaway]</code>,
         <code>[ee_pull]Pull-quote sentence[/ee_pull]</code>,
-        <code>[ee_callout title="Example"]Body text[/ee_callout]</code>,
-        <code>[ee_stat big="98%"]Open rate[/ee_stat]</code>,
-        <code>[ee_note title="Bottom line"]Body text[/ee_note]</code>.
+        <code>[ee_callout title="Example"]Body[/ee_callout]</code>,
+        <code>[ee_stat big="31.1%"]Of queries arrive at night[/ee_stat]</code>,
+        <code>[ee_note title="Bottom line"]Body[/ee_note]</code>,
+        <code>[ee_persona letter="A" title="For the student"]Body[/ee_persona]</code>,
+        <code>[ee_stack][ee_card n="1" h="Marketing"]Body[/ee_card]…[/ee_stack]</code>,
+        <code>[ee_scorecard]</code>.
     </p>
 
     <!-- ── ARCHIVE CARD ── -->
@@ -864,24 +867,131 @@ add_action('save_post_ebook', function ($post_id) {
     }
 });
 
-/* ── Design shortcodes (usable inside the_content for ebooks) ── */
+/* ── Design shortcodes (usable inside the_content for ebooks) ──
+ * Class names align with the premium white-paper template scoped under .ee-ebook-body
+ */
 add_shortcode('ee_takeaway', function ($atts, $content = '') {
-    return '<div class="ee-takeaway"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><div class="tx"><b>Key takeaway</b>' . do_shortcode($content) . '</div></div>';
+    return '<div class="takeaway"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><div class="tx"><b>Key takeaway</b>' . do_shortcode($content) . '</div></div>';
 });
 add_shortcode('ee_pull', function ($atts, $content = '') {
-    return '<div class="ee-pull"><p>' . do_shortcode($content) . '</p></div>';
+    return '<div class="pull"><p>' . do_shortcode($content) . '</p></div>';
 });
 add_shortcode('ee_callout', function ($atts, $content = '') {
     $a = shortcode_atts(array('title' => 'Example'), $atts);
-    return '<div class="ee-callout-box"><div class="ch"><span class="pp"></span>' . esc_html($a['title']) . '</div><div class="cbody">' . do_shortcode($content) . '</div></div>';
+    return '<div class="callout"><div class="ch"><span class="pp"></span>' . esc_html($a['title']) . '</div><div class="cbody">' . do_shortcode($content) . '</div></div>';
 });
 add_shortcode('ee_stat', function ($atts, $content = '') {
     $a = shortcode_atts(array('big' => '0%'), $atts);
-    return '<div class="ee-statbox"><div class="big">' . esc_html($a['big']) . '</div><div class="lab">' . do_shortcode($content) . '</div></div>';
+    return '<div class="statbox"><div class="big">' . esc_html($a['big']) . '</div><div class="lab">' . do_shortcode($content) . '</div></div>';
 });
 add_shortcode('ee_note', function ($atts, $content = '') {
     $a = shortcode_atts(array('title' => 'Note'), $atts);
-    return '<div class="ee-note-box"><span class="nt">' . esc_html($a['title']) . '</span><p>' . do_shortcode($content) . '</p></div>';
+    return '<div class="note"><span class="nt">' . esc_html($a['title']) . '</span><p>' . do_shortcode($content) . '</p></div>';
+});
+
+/* Chapter wrapper. Editor writes:
+ *   [ee_chapter id="ch1" num="Chapter 01" h="Why growth stalls"]
+ *     <p>body…</p>
+ *   [/ee_chapter]
+ * It outputs a section.chapter with chap-num + h2 and gets picked up by the TOC builder. */
+add_shortcode('ee_chapter', function ($atts, $content = '') {
+    $a = shortcode_atts(array('id' => '', 'num' => '', 'h' => ''), $atts);
+    $id = $a['id'] ? ' id="' . esc_attr($a['id']) . '"' : '';
+    $head = '<div class="chap-head"><div class="chap-num">' . esc_html($a['num']) . ' <span class="rt" data-rt></span></div>' . ($a['h'] ? '<h2>' . esc_html($a['h']) . '</h2>' : '') . '</div>';
+    return '<section class="chapter reveal"' . $id . '>' . $head . do_shortcode(wpautop(trim($content))) . '</section><div class="divider-d"></div>';
+});
+
+/* Persona card */
+add_shortcode('ee_persona', function ($atts, $content = '') {
+    $a = shortcode_atts(array('letter' => 'A', 'title' => ''), $atts);
+    return '<div class="persona"><div class="pt"><span class="pk">' . esc_html($a['letter']) . '</span> ' . esc_html($a['title']) . '</div>' . do_shortcode(wpautop(trim($content))) . '</div>';
+});
+
+/* Stack grid (4 cards). Use with nested [ee_card] blocks */
+add_shortcode('ee_stack', function ($atts, $content = '') {
+    return '<div class="stack">' . do_shortcode(trim($content)) . '</div>';
+});
+add_shortcode('ee_card', function ($atts, $content = '') {
+    $a = shortcode_atts(array('n' => '', 'h' => ''), $atts);
+    $n = $a['n'] ? '<span>' . esc_html($a['n']) . '.</span> ' : '';
+    return '<div class="scard"><div class="si"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/></svg></div><h5>' . $n . esc_html($a['h']) . '</h5><p>' . do_shortcode(trim($content)) . '</p></div>';
+});
+
+/* 18-point Operational Fit Scorecard widget */
+add_shortcode('ee_scorecard', function () {
+    ob_start(); ?>
+    <div class="scorecard" id="scorecard">
+      <div class="sc-head">
+        <h4>The Operational Fit Scorecard</h4>
+        <p>Rate your institution's current reality for each statement. Be honest — a "3" is not a "5." Your results update live below.</p>
+        <div class="sc-legend"><span>1 — We do not do this</span><span>3 — We do this inconsistently</span><span>5 — We do this consistently</span></div>
+      </div>
+      <?php
+      $cats = array(
+          'proc'   => array('Scalable Processes (SOPs)', 10, array(
+              'We use a documented, multi-channel (call/email/SMS) contact cadence for all new leads that all advisors must follow.',
+              'We have a strictly enforced "speed-to-lead" rule (e.g., &lt; 5 minutes) for all new inquiries, and we measure it.',
+          )),
+          'org'    => array('Optimized Org Structure', 20, array(
+              'Our operational "handoffs" (e.g., Enrollment → Financial Aid, or CRM → SIS) are seamless, automated, and clearly defined.',
+              'Our enrollment advisors are specialists whose primary job is consulting with qualified students ("closing"), not prospecting or paperwork.',
+              'We have a dedicated operations team that handles admin work (document collection, transcript verification) so advisors don\'t have to.',
+              'We have a dedicated middle-management layer (Team Leads/Associate Directors) whose primary job is coaching, not just selling.',
+          )),
+          'talent' => array('Talent & Performance', 15, array(
+              'We have a clear, defined competency profile for hiring "sales-driven" enrollment talent, and we test for it in interviews.',
+              'We have a repeatable, scalable training "bootcamp" for all new hires covering systems, compliance, and our sales methodology.',
+              'Our compensation plan directly incentivizes high-quality enrollments (variable pay tied to "starts" or "persistence"), not just applications.',
+          )),
+          'tech'   => array('Integrated Technology', 15, array(
+              'Our communication tools (phone/SMS) are fully integrated with our CRM for click-to-call, call recording, and automatic activity logging.',
+              'Our systems are integrated to eliminate manual data re-entry (marketing platform, CRM, and SIS pass data automatically).',
+              'Our technology stack automates long-term nurture for "not-yet-ready" leads, so advisors can focus on "sales-ready" leads.',
+          )),
+          'data'   => array('Data, Analytics & Reporting', 15, array(
+              'We track and obsess over leading indicators (advisor activity, speed-to-lead) and lagging indicators (conversion rates by program).',
+              'Our managers and reps have real-time dashboards that clearly show their performance against their goals.',
+              'Our "Single Source of Truth" policy ("If it\'s not in the CRM, it didn\'t happen") is 100% enforced for all calls, emails, and notes.',
+          )),
+          'qa'     => array('Compliance & Quality Assurance', 15, array(
+              'We track student persistence (first-term retention) and tie this "right-fit" quality metric back to the advisor and marketing source.',
+              'All enrollment staff receive mandatory, recurring training on regulatory compliance (e.g., TCPA, misrepresentation rules).',
+              'We have a formal, non-negotiable process for reviewing call recordings and emails for both quality and regulatory compliance.',
+          )),
+      );
+      foreach ($cats as $k => $c) :
+          list($lab, $mx, $qs) = $c; ?>
+          <div class="sc-cat" data-cat="<?php echo esc_attr($k); ?>"><?php echo esc_html($lab); ?><span class="cscore" data-catscore="<?php echo esc_attr($k); ?>">0 / <?php echo (int) $mx; ?></span></div>
+          <?php foreach ($qs as $q) : ?>
+            <div class="sc-row" data-q data-cat="<?php echo esc_attr($k); ?>"><div class="q"><?php echo wp_kses_post($q); ?></div><div class="sc-opts"></div></div>
+          <?php endforeach;
+      endforeach; ?>
+      <div class="sc-result">
+        <div class="sc-result-grid">
+          <div>
+            <div class="sc-total tnum"><b id="scScore">0</b><small> / 90</small></div>
+            <div class="sc-answered" id="scAnswered">0 of 18 statements rated</div>
+            <div class="sc-band-name" id="scBand">Rate the statements to see your band</div>
+            <div class="sc-band-desc" id="scDesc">Your score is your symptom — the "what." The next step is to understand the "why" and build the "how."</div>
+            <div class="sc-meter"><i id="scMeter"></i></div>
+            <button class="sc-reset" id="scReset" type="button">↺ Reset</button>
+          </div>
+          <div class="sc-cats">
+            <?php foreach (array('proc'=>array('Processes',10),'org'=>array('Org Structure',20),'talent'=>array('Talent',15),'tech'=>array('Technology',15),'data'=>array('Data',15),'qa'=>array('Compliance',15)) as $k=>$lab): ?>
+              <div class="sc-catbar"><span class="cl"><?php echo esc_html($lab[0]); ?></span><div class="ct"><i data-bar="<?php echo esc_attr($k); ?>"></i></div><span class="cv" data-cv="<?php echo esc_attr($k); ?>">0/<?php echo (int) $lab[1]; ?></span></div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h4>What your score means</h4>
+    <div class="bands">
+      <div class="bandc b1"><div class="br">75–90 · Optimization Mode</div><p>A strong, scalable foundation: documented processes, a specialized team, and data-driven management.</p></div>
+      <div class="bandc b2"><div class="br">50–74 · The Scaling Risk</div><p>Built on "heroic efforts" — the most common and dangerous category. One departure from chaos.</p></div>
+      <div class="bandc b3"><div class="br">Below 50 · Operational Crisis</div><p>STOP. Your foundation is broken. Re-engineer the core foundation first.</p></div>
+    </div>
+    <?php
+    return ob_get_clean();
 });
 
 // ══════════════════════════════════════════════════════════
