@@ -820,6 +820,97 @@ function ee_ebook_meta_render($post) {
         <div class="eeeb-row"><label>Body paragraphs (separate paragraphs by a blank line)</label><textarea name="ee_ebook[intro_body]" rows="6" placeholder="Paragraph 1.&#10;&#10;Paragraph 2.&#10;&#10;Paragraph 3."><?php echo esc_textarea($g('intro_body')); ?></textarea></div>
     </div>
 
+    <!-- ── CHAPTERS ── -->
+    <?php
+    $chapters = get_post_meta($post->ID, '_ee_ebook_chapters', true);
+    if (!is_array($chapters)) $chapters = array();
+    if (empty($chapters)) $chapters = array(array('id' => 'summary', 'num' => 'Executive Summary', 'h' => '', 'body' => '', 'scorecard' => 0));
+    ?>
+    <div class="eeeb-card">
+        <h2>📚 Chapters <em style="font-size:11px;color:#64748b;font-weight:400;">— add as many chapters as you need</em></h2>
+        <p class="eeeb-tip" style="margin-bottom:14px;">
+            ✦ <strong>Body shortcodes</strong> (paste inside any chapter body):<br>
+            <code>[ee_takeaway]Key insight[/ee_takeaway]</code> ·
+            <code>[ee_pull]Pull quote[/ee_pull]</code> ·
+            <code>[ee_callout title="Example"]Body[/ee_callout]</code> ·
+            <code>[ee_stat big="31.1%"]Of queries arrive at night[/ee_stat]</code> ·
+            <code>[ee_note title="Bottom line"]Body[/ee_note]</code> ·
+            <code>[ee_persona letter="A" title="For the student"]Body[/ee_persona]</code> ·
+            <code>[ee_stack][ee_card n="1" h="Marketing"]Body[/ee_card][ee_card …][/ee_stack]</code>
+        </p>
+        <div id="eeeb-chapters-list">
+            <?php foreach ($chapters as $i => $ch):
+                $cid   = isset($ch['id'])    ? $ch['id']    : '';
+                $cnum  = isset($ch['num'])   ? $ch['num']   : '';
+                $cha   = isset($ch['h'])     ? $ch['h']     : '';
+                $cbody = isset($ch['body'])  ? $ch['body']  : '';
+                $cscor = !empty($ch['scorecard']); ?>
+                <div class="eeeb-chapter" data-i="<?php echo (int) $i; ?>" style="background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #DE6E30;border-radius:6px;padding:14px 16px;margin-bottom:12px;position:relative;">
+                    <button type="button" class="eeeb-rm-ch" style="position:absolute;right:10px;top:10px;background:transparent;border:1px solid #fecaca;color:#b91c1c;padding:3px 9px;border-radius:4px;cursor:pointer;font-size:11px;">Remove</button>
+                    <strong style="display:block;font-size:12px;letter-spacing:.04em;color:#64748b;margin-bottom:8px;">CHAPTER <span class="eeeb-ch-idx"><?php echo $i + 1; ?></span></strong>
+                    <div class="eeeb-grid3">
+                        <div class="eeeb-row"><label>Anchor ID</label><input type="text" name="ee_ebook_chapters[<?php echo $i; ?>][id]" value="<?php echo esc_attr($cid); ?>" placeholder="ch1, summary, scorecard"><p class="hint">Short, no spaces. Used in URL anchor (e.g. #ch1).</p></div>
+                        <div class="eeeb-row"><label>Number / Label</label><input type="text" name="ee_ebook_chapters[<?php echo $i; ?>][num]" value="<?php echo esc_attr($cnum); ?>" placeholder="Chapter 01"><p class="hint">Small label shown above the heading.</p></div>
+                        <div class="eeeb-row"><label>Heading</label><input type="text" name="ee_ebook_chapters[<?php echo $i; ?>][h]" value="<?php echo esc_attr($cha); ?>" placeholder="When growth stalls"><p class="hint">Big chapter heading (also shown in the Contents nav).</p></div>
+                    </div>
+                    <div class="eeeb-row"><label>Body (paragraphs, sub-headings, design shortcodes)</label><textarea name="ee_ebook_chapters[<?php echo $i; ?>][body]" rows="10" placeholder="First paragraph.&#10;&#10;<h3>1.1 Sub-section</h3>&#10;Body paragraph.&#10;&#10;[ee_takeaway]Key takeaway[/ee_takeaway]&#10;&#10;<ul><li>Point one</li><li>Point two</li></ul>"><?php echo esc_textarea($cbody); ?></textarea></div>
+                    <div class="eeeb-row" style="margin-bottom:0;"><label style="display:inline-flex;align-items:center;gap:7px;font-weight:500;"><input type="checkbox" name="ee_ebook_chapters[<?php echo $i; ?>][scorecard]" value="1" <?php checked($cscor); ?>> Append the interactive <strong>Operational Fit Scorecard</strong> widget after this chapter's body</label></div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <button type="button" id="eeeb-add-ch" class="button button-primary" style="background:#19335D;border-color:#19335D;">+ Add chapter</button>
+
+        <template id="eeeb-ch-tpl">
+            <div class="eeeb-chapter" style="background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #DE6E30;border-radius:6px;padding:14px 16px;margin-bottom:12px;position:relative;">
+                <button type="button" class="eeeb-rm-ch" style="position:absolute;right:10px;top:10px;background:transparent;border:1px solid #fecaca;color:#b91c1c;padding:3px 9px;border-radius:4px;cursor:pointer;font-size:11px;">Remove</button>
+                <strong style="display:block;font-size:12px;letter-spacing:.04em;color:#64748b;margin-bottom:8px;">CHAPTER <span class="eeeb-ch-idx">_idx_</span></strong>
+                <div class="eeeb-grid3">
+                    <div class="eeeb-row"><label>Anchor ID</label><input type="text" name="ee_ebook_chapters[__i__][id]" value="" placeholder="ch1, summary, scorecard"><p class="hint">Short, no spaces.</p></div>
+                    <div class="eeeb-row"><label>Number / Label</label><input type="text" name="ee_ebook_chapters[__i__][num]" value="" placeholder="Chapter 01"><p class="hint">Small label above the heading.</p></div>
+                    <div class="eeeb-row"><label>Heading</label><input type="text" name="ee_ebook_chapters[__i__][h]" value="" placeholder="When growth stalls"><p class="hint">Big chapter heading.</p></div>
+                </div>
+                <div class="eeeb-row"><label>Body (paragraphs, sub-headings, design shortcodes)</label><textarea name="ee_ebook_chapters[__i__][body]" rows="10" placeholder="First paragraph.&#10;&#10;<h3>Sub-section</h3>&#10;Body."></textarea></div>
+                <div class="eeeb-row" style="margin-bottom:0;"><label style="display:inline-flex;align-items:center;gap:7px;font-weight:500;"><input type="checkbox" name="ee_ebook_chapters[__i__][scorecard]" value="1"> Append the Operational Fit Scorecard widget</label></div>
+            </div>
+        </template>
+
+        <script>
+        (function(){
+            var list = document.getElementById('eeeb-chapters-list');
+            var tpl  = document.getElementById('eeeb-ch-tpl');
+            function next(){
+                var rows = list.querySelectorAll('.eeeb-chapter');
+                var max = 0;
+                rows.forEach(function(r){
+                    var m = (r.querySelector('input[name*="[id]"]') || {}).name || '';
+                    var idx = parseInt((m.match(/\[(\d+)\]/) || [0,0])[1], 10);
+                    if (idx > max) max = idx;
+                });
+                return max + 1;
+            }
+            document.getElementById('eeeb-add-ch').addEventListener('click', function(){
+                var i = next();
+                var html = tpl.innerHTML.replace(/__i__/g, i).replace(/_idx_/g, list.querySelectorAll('.eeeb-chapter').length + 1);
+                var wrap = document.createElement('div'); wrap.innerHTML = html;
+                list.appendChild(wrap.firstElementChild);
+                renumber();
+            });
+            list.addEventListener('click', function(e){
+                if (e.target.classList.contains('eeeb-rm-ch')) {
+                    if (list.querySelectorAll('.eeeb-chapter').length <= 1) { alert('Keep at least one chapter.'); return; }
+                    e.target.closest('.eeeb-chapter').remove();
+                    renumber();
+                }
+            });
+            function renumber(){
+                list.querySelectorAll('.eeeb-chapter').forEach(function(r, i){
+                    var span = r.querySelector('.eeeb-ch-idx'); if (span) span.textContent = i + 1;
+                });
+            }
+        })();
+        </script>
+    </div>
+
     <!-- ── FINAL CTA ── -->
     <div class="eeeb-card">
         <h2>🚀 Final CTA <em style="font-size:11px;color:#64748b;font-weight:400;">— bottom of the page</em></h2>
@@ -865,6 +956,22 @@ add_action('save_post_ebook', function ($post_id) {
             update_post_meta($post_id, $key, sanitize_text_field(wp_unslash($v)));
         }
     }
+
+    /* Chapters repeater */
+    $raw_chapters = isset($_POST['ee_ebook_chapters']) && is_array($_POST['ee_ebook_chapters']) ? $_POST['ee_ebook_chapters'] : array();
+    $clean = array();
+    foreach ($raw_chapters as $row) {
+        if (!is_array($row)) continue;
+        $id   = isset($row['id'])   ? sanitize_title(wp_unslash($row['id']))                                   : '';
+        $num  = isset($row['num'])  ? sanitize_text_field(wp_unslash($row['num']))                              : '';
+        $h    = isset($row['h'])    ? sanitize_text_field(wp_unslash($row['h']))                                : '';
+        $body = isset($row['body']) ? wp_kses_post(wp_unslash($row['body']))                                    : '';
+        $sc   = !empty($row['scorecard']) ? 1 : 0;
+        if ($id === '' && $num === '' && $h === '' && trim($body) === '') continue;
+        if ($id === '') $id = sanitize_title($h ?: $num ?: ('ch' . (count($clean) + 1)));
+        $clean[] = array('id' => $id, 'num' => $num, 'h' => $h, 'body' => $body, 'scorecard' => $sc);
+    }
+    update_post_meta($post_id, '_ee_ebook_chapters', $clean);
 });
 
 /* ── Design shortcodes (usable inside the_content for ebooks) ──

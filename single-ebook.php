@@ -74,16 +74,44 @@ $pdf_url     = $g('pdf_url');
 $form_title  = $g('form_title', 'Download the PDF');
 $form_btn    = $g('form_btn', 'Download the Ebook');
 
-/* Build TOC from H2 headings inside post content */
-$body_html = apply_filters('the_content', get_the_content());
-$body_html = str_replace(']]>', ']]&gt;', $body_html);
+/* Chapters come from the repeater meta field. Fallback: the_content(). */
+$chapters = get_post_meta($pid, '_ee_ebook_chapters', true);
+if (!is_array($chapters)) $chapters = array();
+
 $toc = array();
-if (preg_match_all('/<section[^>]*class="[^"]*chapter[^"]*"[^>]*(?:id="([^"]+)")?[^>]*>.*?<div\s+class="chap-num">([^<]+)<.*?<h2[^>]*>(.*?)<\/h2>/is', $body_html, $m, PREG_SET_ORDER)) {
-    foreach ($m as $hit) {
-        $id  = $hit[1] ? $hit[1] : sanitize_title($hit[3]);
-        $num = trim(wp_strip_all_tags($hit[2]));
-        $h   = trim(wp_strip_all_tags($hit[3]));
-        $toc[] = array('id' => $id, 'num' => $num, 'h' => $h);
+$body_html = '';
+if ($chapters) {
+    $last = count($chapters) - 1;
+    foreach ($chapters as $i => $ch) {
+        $cid   = !empty($ch['id'])  ? $ch['id']  : ('ch' . ($i + 1));
+        $cnum  = isset($ch['num'])  ? $ch['num'] : '';
+        $cha   = isset($ch['h'])    ? $ch['h']   : '';
+        $cbody = isset($ch['body']) ? $ch['body'] : '';
+        $cscor = !empty($ch['scorecard']);
+
+        $toc[] = array('id' => $cid, 'num' => $cnum, 'h' => $cha);
+
+        $body_html .= '<section class="chapter reveal" id="' . esc_attr($cid) . '">';
+        $body_html .= '<div class="chap-head">';
+        if ($cnum !== '') $body_html .= '<div class="chap-num">' . esc_html($cnum) . ' <span class="rt" data-rt></span></div>';
+        if ($cha  !== '') $body_html .= '<h2>' . esc_html($cha) . '</h2>';
+        $body_html .= '</div>';
+        $body_html .= do_shortcode(wpautop(trim($cbody)));
+        if ($cscor) $body_html .= do_shortcode('[ee_scorecard]');
+        $body_html .= '</section>';
+        if ($i < $last) $body_html .= '<div class="divider-d"></div>';
+    }
+} else {
+    /* Legacy fallback: render the WordPress editor content. */
+    $body_html = apply_filters('the_content', get_the_content());
+    $body_html = str_replace(']]>', ']]&gt;', $body_html);
+    if (preg_match_all('/<section[^>]*class="[^"]*chapter[^"]*"[^>]*(?:id="([^"]+)")?[^>]*>.*?<div\s+class="chap-num">([^<]+)<.*?<h2[^>]*>(.*?)<\/h2>/is', $body_html, $m, PREG_SET_ORDER)) {
+        foreach ($m as $hit) {
+            $id  = $hit[1] ? $hit[1] : sanitize_title($hit[3]);
+            $num = trim(wp_strip_all_tags($hit[2]));
+            $h   = trim(wp_strip_all_tags($hit[3]));
+            $toc[] = array('id' => $id, 'num' => $num, 'h' => $h);
+        }
     }
 }
 ?><!doctype html>
