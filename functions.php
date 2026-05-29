@@ -642,6 +642,174 @@ add_filter('register_post_type_args', function ($args, $post_type) {
 }, 10, 2);
 
 // ══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
+// D3. EBOOK CPT — meta box + shortcodes + helpers
+// ══════════════════════════════════════════════════════════
+/**
+ * "📚 Ebook Settings" — every editable field on the standalone
+ * single-ebook.php template. The body chapters live in WP's normal
+ * content editor (the_content) so editors can use blocks, paste
+ * HTML, and use the design shortcodes below. Hero, authors, intro,
+ * final CTA, PDF download, and the 4 hero meta stats are exposed
+ * here so non-coders can build any of the 12 books from one form.
+ */
+add_action('add_meta_boxes', function () {
+    add_meta_box('ee_ebook_settings', '📚 Ebook Settings', 'ee_ebook_meta_render', 'ebook', 'normal', 'high');
+});
+
+function ee_ebook_get_meta($post_id, $key, $default = '') {
+    $v = get_post_meta($post_id, '_ee_ebook_' . $key, true);
+    return $v !== '' ? $v : $default;
+}
+
+function ee_ebook_meta_render($post) {
+    wp_nonce_field('ee_ebook_meta_save', 'ee_ebook_meta_nonce');
+    $g = function ($k, $d = '') use ($post) { return ee_ebook_get_meta($post->ID, $k, $d); };
+    ?>
+    <style>
+        .eeeb-card{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px 18px;margin-bottom:14px;}
+        .eeeb-card h2{margin:0 0 12px;font-size:14px;color:#19335D;display:flex;align-items:center;gap:7px;}
+        .eeeb-row{margin-bottom:11px;}
+        .eeeb-row label{display:block;font-weight:600;font-size:12.5px;color:#1d2327;margin-bottom:5px;}
+        .eeeb-row input,.eeeb-row textarea{width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;font-family:inherit;box-sizing:border-box;}
+        .eeeb-row textarea{resize:vertical;min-height:70px;line-height:1.55;}
+        .eeeb-row .hint{font-size:11px;color:#646970;margin-top:3px;font-style:italic;}
+        .eeeb-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+        .eeeb-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+        .eeeb-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+        .eeeb-tip{background:#fff8f1;border:1px solid #fde7d3;color:#7c2d12;padding:10px 13px;border-radius:5px;font-size:12.5px;line-height:1.55;margin:0 0 14px;}
+        .eeeb-tip code{background:#fff;border:1px solid #e9d5b8;padding:1px 5px;border-radius:3px;font-size:11.5px;}
+    </style>
+
+    <p class="eeeb-tip">
+        ✦ <strong>Tip:</strong> Write the main chapters / sections in the normal post editor above. To add design elements inside the body, use these shortcodes:
+        <code>[ee_takeaway]Key takeaway text[/ee_takeaway]</code>,
+        <code>[ee_pull]Pull-quote sentence[/ee_pull]</code>,
+        <code>[ee_callout title="Example"]Body text[/ee_callout]</code>,
+        <code>[ee_stat big="98%"]Open rate[/ee_stat]</code>,
+        <code>[ee_note title="Bottom line"]Body text[/ee_note]</code>.
+    </p>
+
+    <!-- ── HERO ── -->
+    <div class="eeeb-card">
+        <h2>🎯 Hero <em style="font-size:11px;color:#64748b;font-weight:400;">— top of the page</em></h2>
+        <div class="eeeb-grid2">
+            <div class="eeeb-row"><label>Edition badge</label><input type="text" name="ee_ebook[edition]" value="<?php echo esc_attr($g('edition', 'Edition 2024')); ?>" placeholder="White Paper · Edition 2024"></div>
+            <div class="eeeb-row"><label>Read-time override</label><input type="text" name="ee_ebook[read_time]" value="<?php echo esc_attr($g('read_time')); ?>" placeholder="(blank = auto-calc from word count)"></div>
+        </div>
+        <div class="eeeb-row"><label>Subtitle (under the title)</label><textarea name="ee_ebook[subtitle]" rows="2" placeholder="A leader's guide to designing a scalable enrolment system for the AI era…"><?php echo esc_textarea($g('subtitle')); ?></textarea></div>
+        <div class="eeeb-grid2">
+            <div class="eeeb-row"><label>Primary CTA — text</label><input type="text" name="ee_ebook[cta1_text]" value="<?php echo esc_attr($g('cta1_text', 'Take the operational fit assessment')); ?>"></div>
+            <div class="eeeb-row"><label>Primary CTA — link / anchor</label><input type="text" name="ee_ebook[cta1_url]" value="<?php echo esc_attr($g('cta1_url', '#scorecard')); ?>" placeholder="#scorecard or https://..."></div>
+        </div>
+        <div class="eeeb-grid2">
+            <div class="eeeb-row"><label>Secondary CTA — text</label><input type="text" name="ee_ebook[cta2_text]" value="<?php echo esc_attr($g('cta2_text', 'Start reading')); ?>"></div>
+            <div class="eeeb-row"><label>Secondary CTA — link / anchor</label><input type="text" name="ee_ebook[cta2_url]" value="<?php echo esc_attr($g('cta2_url', '#summary')); ?>"></div>
+        </div>
+
+        <label style="margin-top:6px;display:block;font-weight:600;font-size:12.5px;color:#1d2327;">Hero meta stats (4 pairs — label/value)</label>
+        <div class="eeeb-grid4">
+            <?php for ($i = 1; $i <= 4; $i++) :
+                $defaults_v = array('—','6','500+','18-pt');
+                $defaults_l = array('Read time','Chapters','Institutions','Scorecard');
+            ?>
+                <div class="eeeb-row" style="margin-bottom:6px;"><input type="text" name="ee_ebook[stat<?php echo $i; ?>_v]" value="<?php echo esc_attr($g("stat{$i}_v", $defaults_v[$i-1])); ?>" placeholder="Value"></div>
+                <div class="eeeb-row" style="margin-bottom:6px;"><input type="text" name="ee_ebook[stat<?php echo $i; ?>_l]" value="<?php echo esc_attr($g("stat{$i}_l", $defaults_l[$i-1])); ?>" placeholder="Label"></div>
+            <?php endfor; ?>
+        </div>
+    </div>
+
+    <!-- ── AUTHORS ── -->
+    <div class="eeeb-card">
+        <h2>👥 Authors <em style="font-size:11px;color:#64748b;font-weight:400;">— up to 2; leave blank to hide</em></h2>
+        <?php for ($i = 1; $i <= 2; $i++) : ?>
+            <div style="background:#f8fafc;border-radius:6px;padding:12px 14px;margin-bottom:10px;">
+                <strong style="font-size:12px;letter-spacing:.04em;color:#64748b;">AUTHOR <?php echo $i; ?></strong>
+                <div class="eeeb-grid2" style="margin-top:8px;">
+                    <div class="eeeb-row"><label>Name</label><input type="text" name="ee_ebook[a<?php echo $i; ?>_name]" value="<?php echo esc_attr($g("a{$i}_name")); ?>" placeholder="Full name"></div>
+                    <div class="eeeb-row"><label>Role / Title</label><input type="text" name="ee_ebook[a<?php echo $i; ?>_role]" value="<?php echo esc_attr($g("a{$i}_role")); ?>" placeholder="CEO, ExtraaEdge"></div>
+                </div>
+                <div class="eeeb-row"><label>Credentials (comma-separated)</label><input type="text" name="ee_ebook[a<?php echo $i; ?>_creds]" value="<?php echo esc_attr($g("a{$i}_creds")); ?>" placeholder="Ex-HSBC UK, 40 Under 40 (×2), …"></div>
+                <div class="eeeb-row"><label>Bio (one or two paragraphs)</label><textarea name="ee_ebook[a<?php echo $i; ?>_bio]" rows="3"><?php echo esc_textarea($g("a{$i}_bio")); ?></textarea></div>
+            </div>
+        <?php endfor; ?>
+    </div>
+
+    <!-- ── INTRO ── -->
+    <div class="eeeb-card">
+        <h2>📖 Intro section <em style="font-size:11px;color:#64748b;font-weight:400;">— above the chapters</em></h2>
+        <div class="eeeb-row"><label>Lead paragraph (large serif)</label><textarea name="ee_ebook[intro_lead]" rows="2" placeholder="Every education leader operates with a clear ambition…"><?php echo esc_textarea($g('intro_lead')); ?></textarea></div>
+        <div class="eeeb-row"><label>Body paragraphs (separate paragraphs by a blank line)</label><textarea name="ee_ebook[intro_body]" rows="6" placeholder="Paragraph 1.&#10;&#10;Paragraph 2.&#10;&#10;Paragraph 3."><?php echo esc_textarea($g('intro_body')); ?></textarea></div>
+    </div>
+
+    <!-- ── FINAL CTA ── -->
+    <div class="eeeb-card">
+        <h2>🚀 Final CTA <em style="font-size:11px;color:#64748b;font-weight:400;">— bottom of the page</em></h2>
+        <div class="eeeb-grid2">
+            <div class="eeeb-row"><label>Kicker</label><input type="text" name="ee_ebook[fcta_kicker]" value="<?php echo esc_attr($g('fcta_kicker', 'Your First Step — From Blueprint to Reality')); ?>"></div>
+            <div class="eeeb-row"><label>Headline</label><input type="text" name="ee_ebook[fcta_h]" value="<?php echo esc_attr($g('fcta_h', 'Join the Admissions Transformation Masterclass')); ?>"></div>
+        </div>
+        <div class="eeeb-row"><label>Lead paragraph</label><textarea name="ee_ebook[fcta_lead]" rows="2" placeholder="An exclusive workshop series…"><?php echo esc_textarea($g('fcta_lead')); ?></textarea></div>
+        <div class="eeeb-row"><label>Step lines (one per line, max 3)</label><textarea name="ee_ebook[fcta_steps]" rows="4" placeholder="Deep-dive into your score — analyse your fit score.&#10;Map your process — design SOPs for your size.&#10;Build your business case — data-backed roadmap."><?php echo esc_textarea($g('fcta_steps')); ?></textarea></div>
+        <div class="eeeb-grid2">
+            <div class="eeeb-row"><label>Button text</label><input type="text" name="ee_ebook[fcta_btn]" value="<?php echo esc_attr($g('fcta_btn', 'Request an invitation')); ?>"></div>
+            <div class="eeeb-row"><label>Button URL</label><input type="url" name="ee_ebook[fcta_url]" value="<?php echo esc_attr($g('fcta_url', '/book-demo/')); ?>"></div>
+        </div>
+    </div>
+
+    <!-- ── DOWNLOAD ── -->
+    <div class="eeeb-card">
+        <h2>⬇ PDF download <em style="font-size:11px;color:#64748b;font-weight:400;">— the file the form delivers</em></h2>
+        <div class="eeeb-row"><label>PDF file URL</label><input type="url" name="ee_ebook[pdf_url]" value="<?php echo esc_attr($g('pdf_url')); ?>" placeholder="https://www.extraaedge.com/wp-content/uploads/.../book.pdf"><p class="hint">Upload the PDF via <strong>Media → Add New</strong>, copy the file URL, and paste it here.</p></div>
+        <div class="eeeb-grid2">
+            <div class="eeeb-row"><label>Form heading (above email field)</label><input type="text" name="ee_ebook[form_title]" value="<?php echo esc_attr($g('form_title', 'Download the PDF')); ?>"></div>
+            <div class="eeeb-row"><label>Form button text</label><input type="text" name="ee_ebook[form_btn]" value="<?php echo esc_attr($g('form_btn', 'Download the Ebook')); ?>"></div>
+        </div>
+    </div>
+    <?php
+}
+
+add_action('save_post_ebook', function ($post_id) {
+    if (!isset($_POST['ee_ebook_meta_nonce']) || !wp_verify_nonce($_POST['ee_ebook_meta_nonce'], 'ee_ebook_meta_save')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    $in = isset($_POST['ee_ebook']) && is_array($_POST['ee_ebook']) ? $_POST['ee_ebook'] : array();
+    $url_keys  = array('cta1_url', 'cta2_url', 'fcta_url', 'pdf_url');
+    $rich_keys = array('subtitle', 'a1_bio', 'a2_bio', 'intro_lead', 'intro_body', 'fcta_lead', 'fcta_steps');
+    foreach ($in as $k => $v) {
+        $key = '_ee_ebook_' . preg_replace('/[^a-z0-9_]/', '', strtolower($k));
+        if (in_array($k, $url_keys, true)) {
+            update_post_meta($post_id, $key, esc_url_raw(wp_unslash($v)));
+        } elseif (in_array($k, $rich_keys, true)) {
+            update_post_meta($post_id, $key, wp_kses_post(wp_unslash($v)));
+        } else {
+            update_post_meta($post_id, $key, sanitize_text_field(wp_unslash($v)));
+        }
+    }
+});
+
+/* ── Design shortcodes (usable inside the_content for ebooks) ── */
+add_shortcode('ee_takeaway', function ($atts, $content = '') {
+    return '<div class="ee-takeaway"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><div class="tx"><b>Key takeaway</b>' . do_shortcode($content) . '</div></div>';
+});
+add_shortcode('ee_pull', function ($atts, $content = '') {
+    return '<div class="ee-pull"><p>' . do_shortcode($content) . '</p></div>';
+});
+add_shortcode('ee_callout', function ($atts, $content = '') {
+    $a = shortcode_atts(array('title' => 'Example'), $atts);
+    return '<div class="ee-callout-box"><div class="ch"><span class="pp"></span>' . esc_html($a['title']) . '</div><div class="cbody">' . do_shortcode($content) . '</div></div>';
+});
+add_shortcode('ee_stat', function ($atts, $content = '') {
+    $a = shortcode_atts(array('big' => '0%'), $atts);
+    return '<div class="ee-statbox"><div class="big">' . esc_html($a['big']) . '</div><div class="lab">' . do_shortcode($content) . '</div></div>';
+});
+add_shortcode('ee_note', function ($atts, $content = '') {
+    $a = shortcode_atts(array('title' => 'Note'), $atts);
+    return '<div class="ee-note-box"><span class="nt">' . esc_html($a['title']) . '</span><p>' . do_shortcode($content) . '</p></div>';
+});
+
+// ══════════════════════════════════════════════════════════
 // D4. BLOG POST META BOX — single source for the design fields
 // ══════════════════════════════════════════════════════════
 add_action('add_meta_boxes', function () {
