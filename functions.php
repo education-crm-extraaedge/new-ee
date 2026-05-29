@@ -657,6 +657,12 @@ add_action('add_meta_boxes', function () {
     add_meta_box('ee_ebook_settings', '📚 Ebook Settings', 'ee_ebook_meta_render', 'ebook', 'normal', 'high');
 });
 
+add_action('admin_enqueue_scripts', function ($hook) {
+    if (!in_array($hook, array('post.php', 'post-new.php'), true)) return;
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if ($screen && $screen->post_type === 'ebook') wp_enqueue_media();
+});
+
 function ee_ebook_get_meta($post_id, $key, $default = '') {
     $v = get_post_meta($post_id, '_ee_ebook_' . $key, true);
     return $v !== '' ? $v : $default;
@@ -756,17 +762,52 @@ function ee_ebook_meta_render($post) {
     <!-- ── AUTHORS ── -->
     <div class="eeeb-card">
         <h2>👥 Authors <em style="font-size:11px;color:#64748b;font-weight:400;">— up to 2; leave blank to hide</em></h2>
-        <?php for ($i = 1; $i <= 2; $i++) : ?>
+        <?php for ($i = 1; $i <= 2; $i++) :
+            $img_val = $g("a{$i}_img"); ?>
             <div style="background:#f8fafc;border-radius:6px;padding:12px 14px;margin-bottom:10px;">
                 <strong style="font-size:12px;letter-spacing:.04em;color:#64748b;">AUTHOR <?php echo $i; ?></strong>
                 <div class="eeeb-grid2" style="margin-top:8px;">
                     <div class="eeeb-row"><label>Name</label><input type="text" name="ee_ebook[a<?php echo $i; ?>_name]" value="<?php echo esc_attr($g("a{$i}_name")); ?>" placeholder="Full name"></div>
                     <div class="eeeb-row"><label>Role / Title</label><input type="text" name="ee_ebook[a<?php echo $i; ?>_role]" value="<?php echo esc_attr($g("a{$i}_role")); ?>" placeholder="CEO, ExtraaEdge"></div>
                 </div>
+                <div class="eeeb-row">
+                    <label>Photo (square, 200×200 minimum — leave blank to use initials)</label>
+                    <div class="eeeb-img-pick" style="display:flex;align-items:center;gap:12px;">
+                        <div class="eeeb-img-preview" style="width:60px;height:60px;border-radius:50%;background:#e2e8f0 <?php echo $img_val ? 'url(' . esc_url($img_val) . ') center/cover no-repeat' : ''; ?>;border:1px solid #cbd5e1;flex-shrink:0;"></div>
+                        <input type="url" class="eeeb-img-url" name="ee_ebook[a<?php echo $i; ?>_img]" value="<?php echo esc_attr($img_val); ?>" placeholder="https://… (Media URL)" style="flex:1;">
+                        <button type="button" class="button eeeb-img-upload">Choose image</button>
+                        <button type="button" class="button eeeb-img-clear" style="color:#b91c1c;">Remove</button>
+                    </div>
+                    <p class="hint">Click <strong>Choose image</strong> to pick from Media Library, or paste a direct image URL.</p>
+                </div>
                 <div class="eeeb-row"><label>Credentials (comma-separated)</label><input type="text" name="ee_ebook[a<?php echo $i; ?>_creds]" value="<?php echo esc_attr($g("a{$i}_creds")); ?>" placeholder="Ex-HSBC UK, 40 Under 40 (×2), …"></div>
                 <div class="eeeb-row"><label>Bio (one or two paragraphs)</label><textarea name="ee_ebook[a<?php echo $i; ?>_bio]" rows="3"><?php echo esc_textarea($g("a{$i}_bio")); ?></textarea></div>
             </div>
         <?php endfor; ?>
+        <script>
+        (function($){
+            if (typeof wp === 'undefined' || !wp.media) return;
+            $(document).on('click', '.eeeb-img-upload', function(e){
+                e.preventDefault();
+                var row = $(this).closest('.eeeb-img-pick');
+                var input = row.find('.eeeb-img-url');
+                var prev  = row.find('.eeeb-img-preview');
+                var frame = wp.media({ title: 'Select author photo', button: { text: 'Use this photo' }, multiple: false });
+                frame.on('select', function(){
+                    var att = frame.state().get('selection').first().toJSON();
+                    input.val(att.url);
+                    prev.css('background', '#e2e8f0 url(' + att.url + ') center/cover no-repeat');
+                });
+                frame.open();
+            });
+            $(document).on('click', '.eeeb-img-clear', function(e){
+                e.preventDefault();
+                var row = $(this).closest('.eeeb-img-pick');
+                row.find('.eeeb-img-url').val('');
+                row.find('.eeeb-img-preview').css('background', '#e2e8f0');
+            });
+        })(jQuery);
+        </script>
     </div>
 
     <!-- ── INTRO ── -->
@@ -809,7 +850,7 @@ add_action('save_post_ebook', function ($post_id) {
     if (!current_user_can('edit_post', $post_id)) return;
 
     $in = isset($_POST['ee_ebook']) && is_array($_POST['ee_ebook']) ? $_POST['ee_ebook'] : array();
-    $url_keys  = array('cta1_url', 'cta2_url', 'fcta_url', 'pdf_url');
+    $url_keys  = array('cta1_url', 'cta2_url', 'fcta_url', 'pdf_url', 'a1_img', 'a2_img');
     $rich_keys = array('subtitle', 'a1_bio', 'a2_bio', 'intro_lead', 'intro_body', 'fcta_lead', 'fcta_steps');
     foreach ($in as $k => $v) {
         $key = '_ee_ebook_' . preg_replace('/[^a-z0-9_]/', '', strtolower($k));

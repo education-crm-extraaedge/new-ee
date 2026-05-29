@@ -55,6 +55,7 @@ for ($i = 1; $i <= 2; $i++) {
         'role'  => $g("a{$i}_role"),
         'creds' => $g("a{$i}_creds"),
         'bio'   => $g("a{$i}_bio"),
+        'img'   => $g("a{$i}_img"),
     );
 }
 
@@ -171,7 +172,8 @@ body.ee-ebook-body a:hover{text-decoration:underline}
 .ee-ebook .eeb-authors{max-width:980px;margin:0 auto;padding:40px 32px 30px}
 .ee-ebook .eeb-authors-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px}
 .ee-ebook .eeb-author{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
-.ee-ebook .eeb-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--navy) 0%,#2a4a7d 100%);color:#fff;display:grid;place-items:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:21px}
+.ee-ebook .eeb-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--navy) 0%,#2a4a7d 100%);color:#fff;display:grid;place-items:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:21px;overflow:hidden;flex-shrink:0}
+.ee-ebook .eeb-avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .ee-ebook .eeb-author h4{margin:0 0 3px;font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:800;color:var(--navy)}
 .ee-ebook .eeb-author .role{font-size:13px;color:var(--orange);font-weight:600;margin:0 0 8px}
 .ee-ebook .eeb-author .creds{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
@@ -353,7 +355,13 @@ body.ee-ebook-body a:hover{text-decoration:underline}
     <div class="eeb-authors-grid">
       <?php foreach ($authors as $a): ?>
         <article class="eeb-author">
-          <div class="eeb-avatar"><?php echo esc_html($initials($a['name'])); ?></div>
+          <div class="eeb-avatar">
+            <?php if (!empty($a['img'])): ?>
+              <img src="<?php echo esc_url($a['img']); ?>" alt="<?php echo esc_attr($a['name']); ?>" loading="lazy" width="64" height="64">
+            <?php else: ?>
+              <?php echo esc_html($initials($a['name'])); ?>
+            <?php endif; ?>
+          </div>
           <div>
             <h4><?php echo esc_html($a['name']); ?></h4>
             <?php if ($a['role']): ?><p class="role"><?php echo esc_html($a['role']); ?></p><?php endif; ?>
