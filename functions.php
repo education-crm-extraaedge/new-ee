@@ -690,6 +690,40 @@ function ee_ebook_meta_render($post) {
         <code>[ee_note title="Bottom line"]Body text[/ee_note]</code>.
     </p>
 
+    <!-- ── ARCHIVE CARD ── -->
+    <div class="eeeb-card">
+        <h2>🗂️ Archive card <em style="font-size:11px;color:#64748b;font-weight:400;">— how this e-book shows up on /ebooks/</em></h2>
+        <div class="eeeb-grid3">
+            <div class="eeeb-row">
+                <label>Format type (filter tab)</label>
+                <select name="ee_ebook[format]" style="width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;">
+                    <?php $cur_f = $g('format', 'ebook');
+                        foreach (array('ebook'=>'Ebook','guide'=>'Guide','report'=>'Report','tool'=>'Tool','toolkit'=>'Toolkit','checklist'=>'Checklist') as $k => $lab): ?>
+                        <option value="<?php echo esc_attr($k); ?>"<?php selected($cur_f, $k); ?>><?php echo esc_html($lab); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="eeeb-row">
+                <label>Topic / Category</label>
+                <input type="text" name="ee_ebook[topic]" value="<?php echo esc_attr($g('topic', 'Admissions')); ?>" placeholder="SEO, Admissions, Marketing, Funnel…">
+            </div>
+            <div class="eeeb-row">
+                <label>Cover colour</label>
+                <select name="ee_ebook[cover_color]" style="width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;">
+                    <?php $cur_c = $g('cover_color', 'blue');
+                        foreach (array('blue'=>'Navy blue','orange'=>'Orange','light'=>'Light / white') as $k => $lab): ?>
+                        <option value="<?php echo esc_attr($k); ?>"<?php selected($cur_c, $k); ?>><?php echo esc_html($lab); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="eeeb-row">
+            <label>Short description (2 lines, shown on the archive card)</label>
+            <textarea name="ee_ebook[short_desc]" rows="2" placeholder="A one-sentence pitch — what readers will learn or get."><?php echo esc_textarea($g('short_desc')); ?></textarea>
+            <p class="hint">If blank, the post excerpt is used.</p>
+        </div>
+    </div>
+
     <!-- ── HERO ── -->
     <div class="eeeb-card">
         <h2>🎯 Hero <em style="font-size:11px;color:#64748b;font-weight:400;">— top of the page</em></h2>
