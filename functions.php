@@ -3464,129 +3464,52 @@ function ee_resources_menu_render_admin() {
     <?php
 }
 
+
 /* ═════════════════════════════════════════════
  * 👥 CUSTOMER STORIES — page settings + stories repeater
  * Powers /customers/ via page-customers.php.
  * ═════════════════════════════════════════════ */
 function ee_customers_categories() {
     return array(
-        'university' => 'University',
-        'bschool'    => 'Business School',
-        'design'     => 'Design & Creative',
-        'coaching'   => 'Coaching & Test Prep',
-        'skilling'   => 'Skilling & EdTech',
+        'engineering' => 'Engineering',
+        'business'    => 'Business',
+        'skilling'    => 'Skilling',
+        'creative'    => 'Creative & Media',
+        'fitness'     => 'Fitness',
+        'testimonial' => 'Testimonials',
     );
 }
 
 function ee_get_customers_settings() {
     $defaults = array(
-        'eyebrow'   => 'Customer Stories',
-        'hero_h1'   => '500+ institutions.<br>One <em>admission engine.</em>',
-        'hero_p'    => 'Universities, B-schools, design academies and coaching centres tell you — in their own words — how they rebuilt their admissions journey with ExtraaEdge.',
-        'stats'     => array(
-            array('num' => '500', 'suffix' => '+',    'lbl' => 'Institutes onboarded'),
-            array('num' => '10',  'suffix' => '×',    'lbl' => 'More applications at Bharati Vidyapeeth'),
-            array('num' => '10',  'suffix' => '-day', 'lbl' => 'CRM adoption at Admit Abroad'),
-            array('num' => '4',   'suffix' => ' yrs', 'lbl' => 'Partnership with ICA Edu Skills'),
-        ),
-        'cta_title' => 'Your story could be next.',
-        'cta_text'  => 'See how ExtraaEdge can turn your admissions team into a conversion machine — in a 30-minute walkthrough.',
-        'cta_btn'   => 'Book a demo',
+        'sec_title' => 'Customer Success stories',
+        'sec_sub'   => 'Filter by the kind of institute you run.',
+        'cta_title' => 'Ready to write <em>your</em> success story?',
+        'cta_text'  => 'Join the institutes turning more enquiries into enrolments with the CRM built for education.',
+        'cta_btn'   => 'Book a personalised demo',
         'cta_url'   => home_url('/book-demo/'),
     );
     $s = get_option('ee_customers_settings', array());
-    $merged = wp_parse_args(is_array($s) ? $s : array(), $defaults);
-    if (!is_array($merged['stats']) || count($merged['stats']) < 4) {
-        $merged['stats'] = $defaults['stats'];
-    }
-    return $merged;
+    return wp_parse_args(is_array($s) ? $s : array(), $defaults);
 }
 
 function ee_get_customers_stories() {
     $items = get_option('ee_customers_stories', null);
     if (is_array($items) && !empty($items)) return $items;
-    /* Default seed — 73 customer stories from the new design */
-    $seed = array(
-        array('Uttaranchal University','Saurabh Rajvanshi','Admissions Team','university','On transforming their admission journey end to end.'),
-        array('IBSC','Jaspal Singh','Founder, Institute of Banking Skills & Careers','skilling','Banking skills & careers, powered by ExtraaEdge.'),
-        array('Karma Education','Charmi Dhakkan','former Sr. Manager','skilling','Streamlining the admissions journey at scale.'),
-        array('Institute of Professional Studies','Dr. Snehi Choudhury','Director, Meerut','university','On modernising admissions with ExtraaEdge.'),
-        array('Mangalayatan University','Manoj Chandra','Higher-Ed Admissions','university','On running higher-ed admissions on ExtraaEdge.'),
-        array('Vishram International Services','Darshan Patel','Senior Relationship Manager','skilling','On managing student relationships better.'),
-        array('Raja Rani Coaching','Nimisha','Admissions Manager','coaching','On a smoother coaching-centre admissions journey.'),
-        array('Cosmopolitan Education Society','Bharat Valia','President & Trustee','university','On a society-wide admissions overhaul.'),
-        array('Scholars Academy','Sudhanshu Bajaj','Founder','coaching','On building a digital admissions journey.'),
-        array('Whistling Woods International','Jubin Chacko','Senior Executive','design','How a leading film school runs admissions.'),
-        array('Apar India Group of Institutions','Apar Jain','Director','university','On group-wide admissions on one platform.'),
-        array('Construction Management Training Institute','Er. Ashok Kumar','Founder & CEO, CMTI Bangalore','skilling','On admissions for specialised skilling programmes.'),
-        array('Admit Abroad','Ameya Gharpure','Director','skilling','On their study-abroad admissions journey.'),
-        array('CliniLaunch Research Institute','Gaurav Chikara','Manager, Sales','skilling','On clinical-research admissions made simple.'),
-        array('Dayananda Sagar Business School','Dr. B. S. Patil','Professor & Director','bschool',"On DSBS's admissions transformation."),
-        array('NG Networks','Nitin Goswami','Founder','skilling','On admissions for IT & networking courses.'),
-        array('JIMS Noida','Monika Sehgal','Admissions Head','bschool','On leading B-school admissions with ExtraaEdge.'),
-        array('Rai University','Vanrajsinh Parmar','Sr. Manager, Admission Outreach, Ahmedabad','university','On scaling admission outreach.'),
-        array('Graphic Era University','Prashant Kulkarni','Head of Contact Center','university','On running a high-volume admissions contact centre.'),
-        array('Uttaranchal University','Dhruv Sharma','HOD, CRM','university',"A CRM head's view of life on ExtraaEdge."),
-        array('IFM Fincoach','Manoj Sehgal','Director','coaching','On admissions for finance coaching.'),
-        array('Asian Institute of Design','Sudheer','Performance Marketing Manager (formerly AIGA)','design','On connecting marketing to admissions.'),
-        array('NSB Bangalore','Maheshwari S.','Chief Admission Officer','bschool','On owning the full admissions funnel.'),
-        array('Academy of Applied Arts','Sudiksha Kaur','Admissions Head','design','On admissions for an applied-arts academy.'),
-        array('Yeshas Academy','Nilesh Sharma','Director','coaching',"On digitising a coaching academy's intake."),
-        array('Mumbai Educational Trust','Ashish Shrivastava','Dy. Director, Communications, MET League of Colleges','university',"On admissions across MET's colleges."),
-        array('FOSTIIMA Business School','Anil Somani','Founder & Director','bschool','On a founder-led admissions rebuild.'),
-        array('XISS Ranchi','Dr. Joseph Marianus Kujur SJ','Director, Xavier Institute of Social Service','bschool',"On modernising a legacy institute's admissions."),
-        array('Gatik Junior College','Naveen Reddy','Admission Manager','university','On junior-college admissions on ExtraaEdge.'),
-        array('ARCH College of Design & Business','Megha Jain','Head of Admissions','design','On design-school admissions made smoother.'),
-        array('DesignBoat UX/UI School','Naveen Gunashekaran','Head of Business Development','design',"On growing a UX/UI school's enrolments."),
-        array('Hamstech College of Creative Education','Syed Lal Ahmed','Team Lead, Data & Analytics','design','On data-driven creative-school admissions.'),
-        array('Indian Academy Group','K. Nirmala Devi','Assistant Manager','university','On group-wide admissions coordination.'),
-        array("Tula's Institute",'Silky Jain Marwah','Executive Director','university','On an executive view of admissions on ExtraaEdge.'),
-        array('Mahendra','Shashank Vikram Singh & team','CEO, Head of Sales & CPO','coaching','On why a leading coaching brand switched to ExtraaEdge.'),
-        array('MIT ADT University','Dr. Sunita Karad & Dr. Reena Pagare','Executive Director & Admission Coordinator','university','On why the university switched to ExtraaEdge.'),
-        array('Career Buddy Club','Saithjeet Arora','Founder & CEO','skilling','On a career-guidance admissions journey.'),
-        array('UniHawk','Rashmi Menon','Director of Admissions','skilling','On smarter lead management with ExtraaEdge.'),
-        array('Career Mudhra','Dr. Sushil Agarwal & Dr. Pooja Kalita','CEO & Business Development Officer','skilling','On a genuinely user-friendly platform.'),
-        array('MiVirtue','Vishal Kumar','Founder & CEO','skilling','On choosing ExtraaEdge as their preferred CRM.'),
-        array('IFLAC','Umita Melwani','Founder & Director, Institute of Foreign Language & Culture','skilling','A true game-changer for everyday operations.'),
-        array('DPU (GBSRC)','Dr. Santosh Mahajan','Admissions Head','university','Hit two-thirds of targets soon after going live.'),
-        array('KIM','Anil Kumar','Head, Admissions & Marketing','bschool','On choosing ExtraaEdge again, as a partner.'),
-        array('Asian Institute of Design','Shradha Singh','Admissions Manager','design','On the features her team loves most.'),
-        array('Roots Collegium','Vivekanand Chittampally','Head, Operations','university','On streamlining operations and admissions.'),
-        array('MIT AOE','Sarvesh Shinde','Digital Marketing Manager','university','On streamlining admission processes with ExtraaEdge.'),
-        array('O2IAS','Santokh Brar','Co-founder, O2IAS Academy','coaching','On customisation and exceptional support.'),
-        array('Admit Abroad','Ameya Gharpure','Co-Founder','skilling','Full CRM adoption in just 10 days.'),
-        array('Walnut School','Nikhil Karkare','Co-Founder & CTO','university','On a guided CRM adoption and the support that followed.'),
-        array('IIFT','Admissions Team','Indian Institute of Fashion Technology','design','On improving the admissions process with ExtraaEdge.'),
-        array('Filo','Ankur Sharma','Sr. Manager, Sales','skilling','On choosing ExtraaEdge as their admissions solution.'),
-        array('Amrapali Group of Institutes','Dr. S. K. Singh','COO','university','On selecting ExtraaEdge for the whole group.'),
-        array('Uttaranchal University','Prof. Dharam Buddhi','Vice Chancellor','university','A Vice Chancellor on choosing ExtraaEdge.'),
-        array('SumedhaIT','Kothapalli Yashwanth','Marketing Manager','skilling','A game-changer for the counselling team.'),
-        array('ICA Edu Skills','Ankit Shyamsukha','CEO','skilling','Four years and counting on ExtraaEdge.'),
-        array('Vishwakarma University','Dr. Umesh Patwardhan','Director of Admissions','university','On ExtraaEdge as a complete package.'),
-        array('ASM Group of Institutes','Dr. Roopa Praveen','Director of Admissions','university','On choosing ExtraaEdge for the group.'),
-        array('Ajeenkya DY Patil University','Kedar Ayachit & Priti Lambat','Business Intelligence & Admissions','university','On data-led admissions decisions.'),
-        array('P P Savani University','Sneh Savani','Director','university','Automated their entire marketing & admissions.'),
-        array('Tedco Education','Admissions Team','Tedco Education','skilling','On streamlining admissions with ExtraaEdge CRM.'),
-        array('Study Smart','Chetan Jain','Managing Director','coaching','Digitised admissions and enabled work-from-home.'),
-        array('Bharati Vidyapeeth University, CoE','Dr. Anand Bhalerao','Principal','university','Grew applications 10× with ExtraaEdge.'),
-        array('K11 School of Fitness Sciences','Kalyani Kapadia','CEO','skilling','On CRM & marketing automation for fitness skilling.'),
-        array('Red & White Multimedia Education','Hitesh Desai','Founder','design','Hit admission goals through Covid-19.'),
-        array('MIT Academy of Engineering','Amogh Balakrishnan','Head of Marketing','university','Scaled admissions through the pandemic.'),
-        array('Yangpoo Executive Education','Dr. Samir Karkhanis','CEO','skilling','On streamlining the admission process.'),
-        array('Brindavan Group of Institutions','Peu Dutta','Admission In-charge','university','On switching CRM vendors to ExtraaEdge.'),
-        array('NSHM Knowledge Campus','Jayanta Bagchi','AVP, Branding & Communications','university',"Solved admission challenges their old CRM couldn't."),
-        array('ISDI School of Design & Innovation','Imran Kapadia','Chief Digital Officer','design','On team productivity and remote admissions.'),
-        array('ImaginXP','Nitesh Rohatgi','Chief Operating Officer','design','On managing admissions on ExtraaEdge.'),
-        array("Nilaya's Group of Educational Institutes",'Nillaya Mehta','Chairman & Founder','university','On admissions before and during Covid-19.'),
-        array('Manchester Metropolitan University','Prachi Hajela','India Head','university','From Excel sheets to a fully automated CRM.'),
-        array('Ambitions Commerce Institute','Kaustubh Atre','Founder & Director','coaching','From a manual approach to a remote-first team.'),
-        array('BITS Pilani, Dubai','Nahid Afshan','Head of Marketing','university','From an in-house system to a robust CRM.'),
+    return array(
+        array('cat'=>'creative',    'tag'=>'Film & Media',            'title'=>'Annapurna College of Film & Media',                  'est'=>'Founded 2011 · Hyderabad',          'body_type'=>'excerpt','excerpt'=>'Established by Sri Akkineni Nageswara Rao and the Akkineni family, ACFM brings cinematic craft and modern admissions together.','loves'=>'','metric_v'=>'','metric_l'=>'','video'=>'','thumb'=>'','color_a'=>'#7C3AED','color_b'=>'#C084FC','url'=>'#'),
+        array('cat'=>'engineering', 'tag'=>'Engineering',             'title'=>'Budge Budge Institute of Technology (BBIT)',         'est'=>'Established 2009 · Kolkata',        'body_type'=>'excerpt','excerpt'=>'A leading private engineering & management institute affiliated with MAKAUT, managing high enquiry volumes with ease.','loves'=>'','metric_v'=>'','metric_l'=>'','video'=>'','thumb'=>'','color_a'=>'#19335D','color_b'=>'#3E6BB0','url'=>'#'),
+        array('cat'=>'business',    'tag'=>'Business School',         'title'=>'NSB Bangalore — National School of Business',        'est'=>'Established 2004 · Bangalore',      'body_type'=>'excerpt','excerpt'=>'A recognised private business school streamlining its admissions funnel from first enquiry to final offer.','loves'=>'','metric_v'=>'','metric_l'=>'','video'=>'','thumb'=>'','color_a'=>'#0E9F6E','color_b'=>'#6EE7B7','url'=>'#'),
+        array('cat'=>'skilling',    'tag'=>'Student Success',         'title'=>'Career Buddy Club (CBC)',                            'est'=>'Dehradun · Tier 2 & 3 focus',       'body_type'=>'excerpt','excerpt'=>'A student success partner bridging the gap for underrepresented students across India’s Tier 2 and Tier 3 towns.','loves'=>'','metric_v'=>'','metric_l'=>'','video'=>'','thumb'=>'','color_a'=>'#DE6E30','color_b'=>'#F7B267','url'=>'#'),
+        array('cat'=>'skilling',    'tag'=>'BFSI Skilling',           'title'=>'IFM FinCoach',                                       'est'=>'Chandigarh · Finance',              'body_type'=>'excerpt','excerpt'=>'Chandigarh’s BFSI skilling leader partners with top banks to bridge training and real jobs in finance.','loves'=>'','metric_v'=>'','metric_l'=>'','video'=>'','thumb'=>'','color_a'=>'#0891B2','color_b'=>'#67E8F9','url'=>'#'),
+        array('cat'=>'business',    'tag'=>'Business School',         'title'=>'FOSTIIMA Business School',                           'est'=>'New Delhi · PGDM',                  'body_type'=>'excerpt','excerpt'=>'Replaced a manual admissions process with a streamlined digital system using ExtraaEdge’s tailored CRM.','loves'=>'','metric_v'=>'','metric_l'=>'','video'=>'','thumb'=>'','color_a'=>'#19335D','color_b'=>'#1E3F73','url'=>'#'),
+        array('cat'=>'engineering', 'tag'=>'Engineering',             'title'=>'Bharati Vidyapeeth University, College of Engineering','est'=>'Pune',                            'body_type'=>'excerpt','excerpt'=>'Used the ExtraaEdge CRM & marketing automation suite to grow applications tenfold and skyrocket admissions.','loves'=>'','metric_v'=>'10×','metric_l'=>'Applications','video'=>'','thumb'=>'','color_a'=>'#0E9F6E','color_b'=>'#34D399','url'=>'#'),
+        array('cat'=>'creative',    'tag'=>'Media & Design',          'title'=>'Seamedu School of Pro-Expressionism',                'est'=>'Media & design education',          'body_type'=>'loves','excerpt'=>'','loves'=>"Scalable, reliable CRM\n100% automation of admissions\nSeamless lead prioritization & predictive analytics",'metric_v'=>'100%','metric_l'=>'Automated','video'=>'','thumb'=>'','color_a'=>'#6B2E63','color_b'=>'#A78BFA','url'=>'#'),
+        array('cat'=>'fitness',     'tag'=>'Fitness',                 'title'=>'K11 Academy of Fitness Sciences',                    'est'=>'Fitness education',                 'body_type'=>'loves','excerpt'=>'','loves'=>"Cost-effectiveness\nFast, seamless adoption\nIntegration with social platforms & publishers\nGreat customer service",'metric_v'=>'','metric_l'=>'','video'=>'','thumb'=>'','color_a'=>'#1B5A6B','color_b'=>'#5EC2D6','url'=>'#'),
+        array('cat'=>'testimonial', 'tag'=>'Testimonial · Data',      'title'=>'Better insights with customised reports',            'est'=>'',                                  'body_type'=>'loves','excerpt'=>'','loves'=>"Customised reports for data-driven decisions\nMarketing automation that generates new enquiries\nGreat customer service & product innovation",'metric_v'=>'','metric_l'=>'','video'=>'','thumb'=>'','color_a'=>'#DE6E30','color_b'=>'#C25A22','url'=>'#'),
+        array('cat'=>'testimonial', 'tag'=>'Testimonial · Support',   'title'=>'Impeccable support, effortless nurturing',           'est'=>'',                                  'body_type'=>'loves','excerpt'=>'','loves'=>"Impeccable customer support\nSeamless integration of lead sources\nOpenness to customisation & innovation\nEasy lead nurturing across channels",'metric_v'=>'','metric_l'=>'','video'=>'','thumb'=>'','color_a'=>'#19335D','color_b'=>'#3E6BB0','url'=>'#'),
+        array('cat'=>'testimonial', 'tag'=>'Testimonial · Custom CRM','title'=>'A CRM shaped to their exact needs',                  'est'=>'',                                  'body_type'=>'loves','excerpt'=>'','loves'=>"CRM customised to their exact needs\nComplete automation of marketing & admissions\nSeamless integration with their channels",'metric_v'=>'','metric_l'=>'','video'=>'','thumb'=>'','color_a'=>'#DE6E30','color_b'=>'#F7B267','url'=>'#'),
     );
-    $out = array();
-    foreach ($seed as $r) {
-        $out[] = array('name' => $r[0], 'person' => $r[1], 'role' => $r[2], 'cat' => $r[3], 'note' => $r[4], 'video' => '', 'url' => '#');
-    }
-    return $out;
 }
 
 add_action('admin_menu', function () {
@@ -3598,43 +3521,38 @@ add_action('admin_post_ee_save_customers', function () {
     check_admin_referer('ee_customers_save');
 
     $s = isset($_POST['sec']) && is_array($_POST['sec']) ? $_POST['sec'] : array();
-    $stats_in = isset($s['stats']) && is_array($s['stats']) ? $s['stats'] : array();
-    $stats_clean = array();
-    foreach ($stats_in as $st) {
-        $stats_clean[] = array(
-            'num'    => isset($st['num'])    ? sanitize_text_field(wp_unslash($st['num']))    : '',
-            'suffix' => isset($st['suffix']) ? sanitize_text_field(wp_unslash($st['suffix'])) : '',
-            'lbl'    => isset($st['lbl'])    ? sanitize_text_field(wp_unslash($st['lbl']))    : '',
-        );
-    }
     update_option('ee_customers_settings', array(
-        'eyebrow'   => sanitize_text_field(wp_unslash($s['eyebrow']   ?? '')),
-        'hero_h1'   => wp_kses_post(wp_unslash($s['hero_h1']          ?? '')),
-        'hero_p'    => sanitize_textarea_field(wp_unslash($s['hero_p'] ?? '')),
-        'stats'     => $stats_clean,
-        'cta_title' => sanitize_text_field(wp_unslash($s['cta_title'] ?? '')),
+        'sec_title' => sanitize_text_field(wp_unslash($s['sec_title']  ?? '')),
+        'sec_sub'   => sanitize_text_field(wp_unslash($s['sec_sub']    ?? '')),
+        'cta_title' => wp_kses_post(wp_unslash($s['cta_title']         ?? '')),
         'cta_text'  => sanitize_textarea_field(wp_unslash($s['cta_text'] ?? '')),
-        'cta_btn'   => sanitize_text_field(wp_unslash($s['cta_btn']   ?? '')),
-        'cta_url'   => esc_url_raw(wp_unslash($s['cta_url']           ?? '')),
+        'cta_btn'   => sanitize_text_field(wp_unslash($s['cta_btn']    ?? '')),
+        'cta_url'   => esc_url_raw(wp_unslash($s['cta_url']            ?? '')),
     ));
 
     $cats  = ee_customers_categories();
     $rows  = isset($_POST['story']) && is_array($_POST['story']) ? $_POST['story'] : array();
     $clean = array();
     foreach ($rows as $r) {
-        $name = isset($r['name']) ? sanitize_text_field(wp_unslash($r['name'])) : '';
-        if ($name === '') continue;
-        $cat = isset($r['cat']) ? sanitize_key(wp_unslash($r['cat'])) : 'university';
-        if (!isset($cats[$cat])) $cat = 'university';
+        $title = isset($r['title']) ? sanitize_text_field(wp_unslash($r['title'])) : '';
+        if ($title === '') continue;
+        $cat = isset($r['cat']) ? sanitize_key(wp_unslash($r['cat'])) : 'engineering';
+        if (!isset($cats[$cat])) $cat = 'engineering';
         $clean[] = array(
-            'name'   => $name,
-            'person' => isset($r['person']) ? sanitize_text_field(wp_unslash($r['person']))     : '',
-            'role'   => isset($r['role'])   ? sanitize_text_field(wp_unslash($r['role']))       : '',
-            'cat'    => $cat,
-            'note'   => isset($r['note'])   ? sanitize_textarea_field(wp_unslash($r['note']))   : '',
-            'video'  => isset($r['video'])  ? esc_url_raw(wp_unslash($r['video']))              : '',
-            'thumb'  => isset($r['thumb'])  ? esc_url_raw(wp_unslash($r['thumb']))              : '',
-            'url'    => isset($r['url'])    ? esc_url_raw(wp_unslash($r['url']))                : '#',
+            'cat'       => $cat,
+            'tag'       => isset($r['tag'])       ? sanitize_text_field(wp_unslash($r['tag']))      : '',
+            'title'     => $title,
+            'est'       => isset($r['est'])       ? sanitize_text_field(wp_unslash($r['est']))      : '',
+            'body_type' => (isset($r['body_type']) && $r['body_type'] === 'loves') ? 'loves' : 'excerpt',
+            'excerpt'   => isset($r['excerpt'])   ? sanitize_textarea_field(wp_unslash($r['excerpt'])) : '',
+            'loves'     => isset($r['loves'])     ? sanitize_textarea_field(wp_unslash($r['loves']))   : '',
+            'metric_v'  => isset($r['metric_v'])  ? sanitize_text_field(wp_unslash($r['metric_v']))  : '',
+            'metric_l'  => isset($r['metric_l'])  ? sanitize_text_field(wp_unslash($r['metric_l']))  : '',
+            'video'     => isset($r['video'])     ? esc_url_raw(wp_unslash($r['video']))             : '',
+            'thumb'     => isset($r['thumb'])     ? esc_url_raw(wp_unslash($r['thumb']))             : '',
+            'color_a'   => isset($r['color_a'])   ? sanitize_hex_color(wp_unslash($r['color_a']))    : '#DE6E30',
+            'color_b'   => isset($r['color_b'])   ? sanitize_hex_color(wp_unslash($r['color_b']))    : '#F7B267',
+            'url'       => isset($r['url'])       ? esc_url_raw(wp_unslash($r['url']))               : '#',
         );
     }
     update_option('ee_customers_stories', $clean);
@@ -3651,13 +3569,11 @@ function ee_customers_render_admin() {
     $set  = ee_get_customers_settings();
     $rows = ee_get_customers_stories();
     $cats = ee_customers_categories();
-    $stats = $set['stats'];
-    while (count($stats) < 4) $stats[] = array('num' => '', 'suffix' => '', 'lbl' => '');
     ?>
     <div class="wrap">
-        <h1 style="display:flex;align-items:center;gap:10px;"><span style="font-size:26px">👥</span> Customer Stories</h1>
+        <h1 style="display:flex;align-items:center;gap:10px;"><span style="font-size:26px">👥</span> Customer Success Stories</h1>
         <p class="description" style="max-width:780px;font-size:13.5px;line-height:1.6;">
-            Manage every block shown on <code><?php echo esc_url(home_url('/customers/')); ?></code> — hero, outcomes strip, story cards, and the bottom CTA. Filter chips auto-show only categories with stories.
+            Manage every story shown on <code><?php echo esc_url(home_url('/customers/')); ?></code>.
         </p>
         <?php if (!empty($_GET['updated'])): ?>
             <div class="notice notice-success is-dismissible"><p>Customer Stories saved.</p></div>
@@ -3669,12 +3585,11 @@ function ee_customers_render_admin() {
 
             <style>
                 .eecu-card{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px 18px;margin-bottom:14px;}
-                .eecu-card h2{margin:0 0 12px;font-size:14px;color:#19335D;display:flex;align-items:center;gap:7px;}
+                .eecu-card h2{margin:0 0 12px;font-size:14px;color:#19335D;}
                 .eecu-row{margin-bottom:11px;}
                 .eecu-row label{display:block;font-weight:600;font-size:12.5px;color:#1d2327;margin-bottom:5px;}
                 .eecu-row input,.eecu-row textarea,.eecu-row select{width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;font-family:inherit;box-sizing:border-box;}
                 .eecu-row textarea{resize:vertical;min-height:54px;line-height:1.55;}
-                .eecu-row .hint{font-size:11px;color:#646970;margin-top:3px;font-style:italic;}
                 .eecu-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
                 .eecu-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
                 .eecu-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
@@ -3684,100 +3599,107 @@ function ee_customers_render_admin() {
                 .eecu-add{background:#19335D;color:#fff;border:none;padding:9px 18px;border-radius:5px;cursor:pointer;font-size:13px;font-weight:600;margin-top:6px;}
                 .eecu-tip{background:#fff8f1;border:1px solid #fde7d3;color:#7c2d12;padding:10px 13px;border-radius:5px;font-size:12.5px;line-height:1.55;margin-bottom:14px;}
                 .eecu-pick{display:flex;align-items:center;gap:10px;}
-                .eecu-pick .button{flex-shrink:0;}
-                .eecu-stat{background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px 12px;}
             </style>
 
-            <!-- ── HERO ── -->
             <div class="eecu-card">
-                <h2>🎯 Hero header</h2>
-                <div class="eecu-row"><label>Eyebrow (small label above the headline)</label><input type="text" name="sec[eyebrow]" value="<?php echo esc_attr($set['eyebrow']); ?>" placeholder="Customer Stories"></div>
-                <div class="eecu-row"><label>Headline (HTML allowed — use &lt;em&gt; for orange italic, &lt;br&gt; for a line break)</label><input type="text" name="sec[hero_h1]" value="<?php echo esc_attr($set['hero_h1']); ?>" placeholder="500+ institutions.&lt;br&gt;One &lt;em&gt;admission engine.&lt;/em&gt;"></div>
-                <div class="eecu-row"><label>Sub-paragraph</label><textarea name="sec[hero_p]" rows="3"><?php echo esc_textarea($set['hero_p']); ?></textarea></div>
-            </div>
-
-            <!-- ── OUTCOMES STRIP ── -->
-            <div class="eecu-card">
-                <h2>📊 Outcomes strip <em style="font-size:11px;color:#64748b;font-weight:400;">— 4 boxes below the hero</em></h2>
-                <p class="eecu-tip">Each box has a <strong>Number</strong>, an optional <strong>Suffix</strong> (the orange "+", "×", "-day", etc.), and a one-line <strong>Label</strong> below.</p>
-                <div class="eecu-grid4">
-                    <?php foreach (array_slice($stats, 0, 4) as $i => $st): ?>
-                        <div class="eecu-stat">
-                            <div class="eecu-row"><label>Box <?php echo $i + 1; ?> — Number</label><input type="text" name="sec[stats][<?php echo $i; ?>][num]" value="<?php echo esc_attr($st['num']); ?>" placeholder="500"></div>
-                            <div class="eecu-row"><label>Suffix (orange)</label><input type="text" name="sec[stats][<?php echo $i; ?>][suffix]" value="<?php echo esc_attr($st['suffix']); ?>" placeholder="+ / × / -day"></div>
-                            <div class="eecu-row" style="margin-bottom:0;"><label>Label</label><input type="text" name="sec[stats][<?php echo $i; ?>][lbl]" value="<?php echo esc_attr($st['lbl']); ?>" placeholder="Institutes onboarded"></div>
-                        </div>
-                    <?php endforeach; ?>
+                <h2>🏷 Section header</h2>
+                <div class="eecu-grid2">
+                    <div class="eecu-row"><label>Section title</label><input type="text" name="sec[sec_title]" value="<?php echo esc_attr($set['sec_title']); ?>"></div>
+                    <div class="eecu-row"><label>Section sub-line</label><input type="text" name="sec[sec_sub]" value="<?php echo esc_attr($set['sec_sub']); ?>"></div>
                 </div>
             </div>
 
-            <!-- ── CTA ── -->
             <div class="eecu-card">
                 <h2>🚀 Bottom CTA</h2>
-                <div class="eecu-row"><label>CTA headline</label><input type="text" name="sec[cta_title]" value="<?php echo esc_attr($set['cta_title']); ?>" placeholder="Your story could be next."></div>
+                <div class="eecu-row"><label>CTA headline (HTML allowed — &lt;em&gt; for orange)</label><input type="text" name="sec[cta_title]" value="<?php echo esc_attr($set['cta_title']); ?>"></div>
                 <div class="eecu-row"><label>CTA paragraph</label><textarea name="sec[cta_text]" rows="2"><?php echo esc_textarea($set['cta_text']); ?></textarea></div>
                 <div class="eecu-grid2">
-                    <div class="eecu-row"><label>Button text</label><input type="text" name="sec[cta_btn]" value="<?php echo esc_attr($set['cta_btn']); ?>" placeholder="Book a demo"></div>
+                    <div class="eecu-row"><label>Button text</label><input type="text" name="sec[cta_btn]" value="<?php echo esc_attr($set['cta_btn']); ?>"></div>
                     <div class="eecu-row"><label>Button URL</label><input type="url" name="sec[cta_url]" value="<?php echo esc_attr($set['cta_url']); ?>"></div>
                 </div>
             </div>
 
-            <!-- ── STORIES ── -->
             <div class="eecu-card">
-                <h2>📚 Stories <em style="font-size:11px;color:#64748b;font-weight:400;">— add as many as you want</em></h2>
-                <p class="eecu-tip">✦ <strong>Tip:</strong> Filter chips at the top of <code>/customers/</code> only show categories that have at least one story. Paste a <strong>YouTube / Vimeo / MP4 URL</strong> in the Video field — clicking "Watch the story" takes the visitor to that link (or to the Read-story URL if both are set).</p>
+                <h2>📚 Stories</h2>
+                <p class="eecu-tip">✦ Each story is one card on <code>/customers/</code>. Pick a category — chips auto-show only categories with stories. Choose <strong>Excerpt</strong> for a paragraph card or <strong>"Loves ExtraaEdge for"</strong> for a bullet list.</p>
 
                 <div id="eecu-stories">
                     <?php foreach ($rows as $i => $r):
-                        /* Back-compat fallbacks for older saved rows */
-                        $name   = $r['name']   ?? ($r['title'] ?? '');
-                        $person = $r['person'] ?? '';
-                        $role   = $r['role']   ?? ($r['est'] ?? '');
-                        $cat    = $r['cat']    ?? 'university';
-                        if (!isset($cats[$cat])) $cat = 'university';
-                        $note   = $r['note']   ?? ($r['excerpt'] ?? '');
-                        $video  = $r['video']  ?? '';
-                        $thumb  = $r['thumb']  ?? '';
-                        $url    = $r['url']    ?? '#'; ?>
+                        $title = $r['title'] ?? ($r['name'] ?? '');
+                        $cat = $r['cat'] ?? 'engineering';
+                        if (!isset($cats[$cat])) $cat = 'engineering';
+                        $tag = $r['tag'] ?? '';
+                        $est = $r['est'] ?? ($r['role'] ?? '');
+                        $bt = ($r['body_type'] ?? 'excerpt') === 'loves' ? 'loves' : 'excerpt';
+                        $excerpt = $r['excerpt'] ?? ($r['note'] ?? '');
+                        $loves = $r['loves'] ?? '';
+                        $mv = $r['metric_v'] ?? '';
+                        $ml = $r['metric_l'] ?? '';
+                        $video = $r['video'] ?? '';
+                        $thumb = $r['thumb'] ?? '';
+                        $cA = $r['color_a'] ?? '#DE6E30';
+                        $cB = $r['color_b'] ?? '#F7B267';
+                        $url = $r['url'] ?? '#'; ?>
                         <div class="eecu-story">
                             <button type="button" class="rm">Remove</button>
                             <strong class="idx">STORY <span class="eecu-idx"><?php echo $i + 1; ?></span></strong>
 
-                            <div class="eecu-grid2">
-                                <div class="eecu-row"><label>Institute name</label><input type="text" name="story[<?php echo $i; ?>][name]" value="<?php echo esc_attr($name); ?>" placeholder="Uttaranchal University"></div>
-                                <div class="eecu-row">
-                                    <label>Category</label>
+                            <div class="eecu-grid3">
+                                <div class="eecu-row"><label>Title</label><input type="text" name="story[<?php echo $i; ?>][title]" value="<?php echo esc_attr($title); ?>"></div>
+                                <div class="eecu-row"><label>Category</label>
                                     <select name="story[<?php echo $i; ?>][cat]">
                                         <?php foreach ($cats as $k => $lab): ?>
                                             <option value="<?php echo esc_attr($k); ?>"<?php selected($cat, $k); ?>><?php echo esc_html($lab); ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
+                                <div class="eecu-row"><label>Tag label (banner)</label><input type="text" name="story[<?php echo $i; ?>][tag]" value="<?php echo esc_attr($tag); ?>"></div>
                             </div>
-                            <div class="eecu-grid2">
-                                <div class="eecu-row"><label>Person name</label><input type="text" name="story[<?php echo $i; ?>][person]" value="<?php echo esc_attr($person); ?>" placeholder="Saurabh Rajvanshi"></div>
-                                <div class="eecu-row"><label>Person role / title</label><input type="text" name="story[<?php echo $i; ?>][role]" value="<?php echo esc_attr($role); ?>" placeholder="Admissions Team"></div>
+
+                            <div class="eecu-row"><label>Established / location line</label><input type="text" name="story[<?php echo $i; ?>][est]" value="<?php echo esc_attr($est); ?>"></div>
+
+                            <div class="eecu-row"><label>Card body type</label>
+                                <select class="eecu-bt" name="story[<?php echo $i; ?>][body_type]" data-target="<?php echo $i; ?>">
+                                    <option value="excerpt"<?php selected($bt, 'excerpt'); ?>>Excerpt paragraph</option>
+                                    <option value="loves"<?php selected($bt, 'loves'); ?>>"Loves ExtraaEdge for" bullet list</option>
+                                </select>
                             </div>
-                            <div class="eecu-row"><label>One-line note</label><textarea name="story[<?php echo $i; ?>][note]" rows="2" placeholder="On transforming their admission journey end to end."><?php echo esc_textarea($note); ?></textarea></div>
+
+                            <div class="eecu-row eecu-excerpt" data-i="<?php echo $i; ?>" <?php echo $bt === 'excerpt' ? '' : 'style="display:none;"'; ?>>
+                                <label>Excerpt paragraph</label>
+                                <textarea name="story[<?php echo $i; ?>][excerpt]" rows="3"><?php echo esc_textarea($excerpt); ?></textarea>
+                            </div>
+
+                            <div class="eecu-row eecu-loves" data-i="<?php echo $i; ?>" <?php echo $bt === 'loves' ? '' : 'style="display:none;"'; ?>>
+                                <label>"Loves ExtraaEdge for" bullets — one per line</label>
+                                <textarea name="story[<?php echo $i; ?>][loves]" rows="4"><?php echo esc_textarea($loves); ?></textarea>
+                            </div>
+
+                            <div class="eecu-grid4">
+                                <div class="eecu-row"><label>Metric value</label><input type="text" name="story[<?php echo $i; ?>][metric_v]" value="<?php echo esc_attr($mv); ?>" placeholder="10×"></div>
+                                <div class="eecu-row"><label>Metric label</label><input type="text" name="story[<?php echo $i; ?>][metric_l]" value="<?php echo esc_attr($ml); ?>" placeholder="Applications"></div>
+                                <div class="eecu-row"><label>Card colour A</label><input type="text" name="story[<?php echo $i; ?>][color_a]" value="<?php echo esc_attr($cA); ?>"></div>
+                                <div class="eecu-row"><label>Card colour B</label><input type="text" name="story[<?php echo $i; ?>][color_b]" value="<?php echo esc_attr($cB); ?>"></div>
+                            </div>
+
                             <div class="eecu-grid2">
-                                <div class="eecu-row">
-                                    <label>Video URL (YouTube / Vimeo / MP4 — opens inline in a lightbox)</label>
+                                <div class="eecu-row"><label>Video URL (YouTube / Vimeo / MP4)</label>
                                     <div class="eecu-pick">
                                         <input type="url" class="eecu-vid" name="story[<?php echo $i; ?>][video]" value="<?php echo esc_attr($video); ?>" placeholder="https://www.youtube.com/watch?v=…">
                                         <button type="button" class="button eecu-vid-pick">Choose…</button>
                                     </div>
                                 </div>
-                                <div class="eecu-row">
-                                    <label>Custom thumbnail image (optional — falls back to YouTube cover, then to initials)</label>
+                                <div class="eecu-row"><label>Custom thumbnail (optional)</label>
                                     <div class="eecu-pick">
-                                        <span class="eecu-thumb-prev" style="width:50px;height:32px;border-radius:4px;background:#1c1a16 <?php echo $thumb ? 'url('.esc_url($thumb).') center/cover no-repeat' : ''; ?>;border:1px solid #cbd5e1;flex-shrink:0;display:inline-block;"></span>
-                                        <input type="url" class="eecu-thumb" name="story[<?php echo $i; ?>][thumb]" value="<?php echo esc_attr($thumb); ?>" placeholder="https://…/cover.jpg" style="flex:1;">
+                                        <span class="eecu-thumb-prev" style="width:50px;height:32px;border-radius:4px;background:#211D17 <?php echo $thumb ? 'url('.esc_url($thumb).') center/cover no-repeat' : ''; ?>;border:1px solid #cbd5e1;flex-shrink:0;display:inline-block;"></span>
+                                        <input type="url" class="eecu-thumb" name="story[<?php echo $i; ?>][thumb]" value="<?php echo esc_attr($thumb); ?>" style="flex:1;">
                                         <button type="button" class="button eecu-thumb-pick">Choose…</button>
                                         <button type="button" class="button eecu-thumb-clear" style="color:#b91c1c;">×</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="eecu-row" style="margin-bottom:0;"><label>"Watch the story" external link <span style="font-weight:400;color:#64748b;">(optional — only used as a fallback when no video URL is set)</span></label><input type="url" name="story[<?php echo $i; ?>][url]" value="<?php echo esc_attr($url); ?>" placeholder="https://…/customer-story/"></div>
+
+                            <div class="eecu-row" style="margin-bottom:0;"><label>"Read story" link URL</label><input type="url" name="story[<?php echo $i; ?>][url]" value="<?php echo esc_attr($url); ?>" placeholder="https://…/case-study/"></div>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -3788,27 +3710,37 @@ function ee_customers_render_admin() {
                     <div class="eecu-story">
                         <button type="button" class="rm">Remove</button>
                         <strong class="idx">STORY <span class="eecu-idx">_n_</span></strong>
-                        <div class="eecu-grid2">
-                            <div class="eecu-row"><label>Institute name</label><input type="text" name="story[__i__][name]" value=""></div>
-                            <div class="eecu-row">
-                                <label>Category</label>
+                        <div class="eecu-grid3">
+                            <div class="eecu-row"><label>Title</label><input type="text" name="story[__i__][title]" value=""></div>
+                            <div class="eecu-row"><label>Category</label>
                                 <select name="story[__i__][cat]">
                                     <?php foreach ($cats as $k => $lab): ?>
                                         <option value="<?php echo esc_attr($k); ?>"><?php echo esc_html($lab); ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
+                            <div class="eecu-row"><label>Tag label</label><input type="text" name="story[__i__][tag]" value=""></div>
                         </div>
-                        <div class="eecu-grid2">
-                            <div class="eecu-row"><label>Person name</label><input type="text" name="story[__i__][person]" value=""></div>
-                            <div class="eecu-row"><label>Person role / title</label><input type="text" name="story[__i__][role]" value=""></div>
+                        <div class="eecu-row"><label>Established / location line</label><input type="text" name="story[__i__][est]" value=""></div>
+                        <div class="eecu-row"><label>Card body type</label>
+                            <select class="eecu-bt" name="story[__i__][body_type]" data-target="__i__">
+                                <option value="excerpt" selected>Excerpt paragraph</option>
+                                <option value="loves">"Loves ExtraaEdge for" bullet list</option>
+                            </select>
                         </div>
-                        <div class="eecu-row"><label>One-line note</label><textarea name="story[__i__][note]" rows="2"></textarea></div>
+                        <div class="eecu-row eecu-excerpt" data-i="__i__"><label>Excerpt paragraph</label><textarea name="story[__i__][excerpt]" rows="3"></textarea></div>
+                        <div class="eecu-row eecu-loves" data-i="__i__" style="display:none;"><label>"Loves ExtraaEdge for" bullets — one per line</label><textarea name="story[__i__][loves]" rows="4"></textarea></div>
+                        <div class="eecu-grid4">
+                            <div class="eecu-row"><label>Metric value</label><input type="text" name="story[__i__][metric_v]" value=""></div>
+                            <div class="eecu-row"><label>Metric label</label><input type="text" name="story[__i__][metric_l]" value=""></div>
+                            <div class="eecu-row"><label>Card colour A</label><input type="text" name="story[__i__][color_a]" value="#DE6E30"></div>
+                            <div class="eecu-row"><label>Card colour B</label><input type="text" name="story[__i__][color_b]" value="#F7B267"></div>
+                        </div>
                         <div class="eecu-grid2">
                             <div class="eecu-row"><label>Video URL</label><div class="eecu-pick"><input type="url" class="eecu-vid" name="story[__i__][video]" value=""><button type="button" class="button eecu-vid-pick">Choose…</button></div></div>
-                            <div class="eecu-row"><label>Custom thumbnail image (optional)</label><div class="eecu-pick"><span class="eecu-thumb-prev" style="width:50px;height:32px;border-radius:4px;background:#1c1a16;border:1px solid #cbd5e1;flex-shrink:0;display:inline-block;"></span><input type="url" class="eecu-thumb" name="story[__i__][thumb]" value="" placeholder="https://…/cover.jpg" style="flex:1;"><button type="button" class="button eecu-thumb-pick">Choose…</button><button type="button" class="button eecu-thumb-clear" style="color:#b91c1c;">×</button></div></div>
+                            <div class="eecu-row"><label>Custom thumbnail</label><div class="eecu-pick"><span class="eecu-thumb-prev" style="width:50px;height:32px;border-radius:4px;background:#211D17;border:1px solid #cbd5e1;flex-shrink:0;display:inline-block;"></span><input type="url" class="eecu-thumb" name="story[__i__][thumb]" value="" style="flex:1;"><button type="button" class="button eecu-thumb-pick">Choose…</button><button type="button" class="button eecu-thumb-clear" style="color:#b91c1c;">×</button></div></div>
                         </div>
-                        <div class="eecu-row" style="margin-bottom:0;"><label>"Watch the story" external link (optional fallback)</label><input type="url" name="story[__i__][url]" value="#"></div>
+                        <div class="eecu-row" style="margin-bottom:0;"><label>"Read story" link URL</label><input type="url" name="story[__i__][url]" value="#"></div>
                     </div>
                 </template>
             </div>
@@ -3821,7 +3753,7 @@ function ee_customers_render_admin() {
                 var tpl  = document.getElementById('eecu-tpl');
                 function nextIdx(){
                     var max = -1;
-                    list.querySelectorAll('input[name*="[name]"]').forEach(function(el){
+                    list.querySelectorAll('input[name*="[title]"]').forEach(function(el){
                         var m = el.name.match(/\[(\d+)\]/); if (m){ var i = parseInt(m[1],10); if (i > max) max = i; }
                     });
                     return max + 1;
@@ -3858,14 +3790,22 @@ function ee_customers_render_admin() {
                         frame.on('select', function(){
                             var url = frame.state().get('selection').first().toJSON().url;
                             input.value = url;
-                            prev.style.background = '#1c1a16 url(' + url + ') center/cover no-repeat';
+                            prev.style.background = '#211D17 url(' + url + ') center/cover no-repeat';
                         });
                         frame.open();
                     } else if (e.target.classList.contains('eecu-thumb-clear')){
                         e.preventDefault();
                         var row = e.target.closest('.eecu-pick');
                         row.querySelector('.eecu-thumb').value = '';
-                        row.querySelector('.eecu-thumb-prev').style.background = '#1c1a16';
+                        row.querySelector('.eecu-thumb-prev').style.background = '#211D17';
+                    }
+                });
+                list.addEventListener('change', function(e){
+                    if (e.target.classList.contains('eecu-bt')){
+                        var i = e.target.dataset.target;
+                        var story = e.target.closest('.eecu-story');
+                        story.querySelector('.eecu-excerpt[data-i="'+i+'"]').style.display = (e.target.value === 'excerpt') ? '' : 'none';
+                        story.querySelector('.eecu-loves[data-i="'+i+'"]').style.display   = (e.target.value === 'loves')   ? '' : 'none';
                     }
                 });
             })();
