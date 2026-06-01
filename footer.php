@@ -322,12 +322,10 @@ if (!defined('ABSPATH')) exit;
             <div class="ee-nav-col">
                 <span class="ee-nav-title">Resources</span>
                 <ul>
-                    <li><a href="<?php echo esc_url(home_url('/blog/')); ?>">Blogs</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/ebooks/')); ?>">Ebooks</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/webinars/')); ?>">Webinars</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/case-studies/')); ?>">Case Studies</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/news/')); ?>">News &amp; Media</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/help/')); ?>">Help Center</a></li>
+                    <?php $ef_res = function_exists('ee_get_resources_menu_items') ? ee_get_resources_menu_items() : array();
+                    foreach ($ef_res as $ef_r): ?>
+                        <li><a href="<?php echo esc_url($ef_r['url'] ?? '#'); ?>"><?php echo esc_html($ef_r['title'] ?? ''); ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
 
@@ -335,24 +333,30 @@ if (!defined('ABSPATH')) exit;
             <div class="ee-nav-col">
                 <span class="ee-nav-title">Company</span>
                 <ul>
-                    <li><a href="<?php echo esc_url(home_url('/about-us/')); ?>">About</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/team/')); ?>">Team</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/careers/')); ?>">Careers</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/investors-and-advisors/')); ?>">Investors &amp; Advisors</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/customers/')); ?>">Customers</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/become-a-partner/')); ?>">Become a Partner</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/get-in-touch/')); ?>">Contact Us</a></li>
+                    <?php $ef_co = function_exists('ee_get_company_menu_items') ? ee_get_company_menu_items() : array();
+                    foreach ($ef_co as $ef_c): ?>
+                        <li><a href="<?php echo esc_url($ef_c['url'] ?? '#'); ?>"><?php echo esc_html($ef_c['title'] ?? ''); ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </nav>
 
         <div class="ee-ecosystem-bar ee-reveal">
             <div class="ee-social-cluster">
-                <a href="https://www.facebook.com/extraaedge/" class="ee-social-icon" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/extraaedge/" class="ee-social-icon" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://www.youtube.com/user/theextraaedge" class="ee-social-icon" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://x.com/extraaedge" class="ee-social-icon" target="_blank" rel="noopener" aria-label="Twitter X"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="https://www.linkedin.com/company/extraaedge/" class="ee-social-icon" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <?php
+                $ef_soc = function_exists('ee_get_social_links') ? ee_get_social_links() : array();
+                $ef_soc_icons = array(
+                    'facebook'  => array('fa-facebook-f', 'Facebook'),
+                    'instagram' => array('fa-instagram',  'Instagram'),
+                    'youtube'   => array('fa-youtube',    'YouTube'),
+                    'twitter'   => array('fa-x-twitter',  'Twitter X'),
+                    'linkedin'  => array('fa-linkedin-in','LinkedIn'),
+                );
+                foreach ($ef_soc_icons as $ef_key => $ef_meta):
+                    $ef_url = $ef_soc[$ef_key] ?? '';
+                    if (!$ef_url) continue; ?>
+                    <a href="<?php echo esc_url($ef_url); ?>" class="ee-social-icon" target="_blank" rel="noopener" aria-label="<?php echo esc_attr($ef_meta[1]); ?>"><i class="fa-brands <?php echo esc_attr($ef_meta[0]); ?>"></i></a>
+                <?php endforeach; ?>
             </div>
             <div class="ee-store-cluster">
                 <a href="https://play.google.com/store/apps/details?id=com.extraaedge.android&hl=en_in" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" loading="lazy"></a>
@@ -362,14 +366,15 @@ if (!defined('ABSPATH')) exit;
     </section>
 
     <!-- Legal Footer -->
+    <?php $ef_set = function_exists('ee_get_footer_settings') ? ee_get_footer_settings() : array('copyright' => '', 'legal_links' => array()); ?>
     <section class="ee-container ee-section-block">
         <div class="ee-legal-footer">
-            <span class="ee-copy-text">&copy; <?php echo date('Y'); ?>, ExtraaEdge Technology Solutions Pvt. Ltd</span>
+            <span class="ee-copy-text"><?php echo esc_html($ef_set['copyright']); ?></span>
             <div class="ee-legal-links">
-                <a href="https://www.extraaedge.com/privacy-policy/">Privacy & Terms</a>
-                <a href="https://www.extraaedge.com/gdpr/">GDPR</a>
-                <a href="https://www.extraaedge.com/cookies-policy/">Cookies</a>
-                <a href="https://www.truday.io/extraaedge" target="_blank" rel="noopener">Security & Compliance</a>
+                <?php foreach ((array) ($ef_set['legal_links'] ?? array()) as $ef_l):
+                    $ef_ext = !empty($ef_l['url']) && strpos($ef_l['url'], home_url()) !== 0; ?>
+                    <a href="<?php echo esc_url($ef_l['url'] ?? '#'); ?>"<?php echo $ef_ext ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html($ef_l['title'] ?? ''); ?></a>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>

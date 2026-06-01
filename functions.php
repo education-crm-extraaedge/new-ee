@@ -3067,6 +3067,7 @@ add_action('admin_menu', function () {
 function ee_site_editor_welcome() {
     $cards = array(
         array('home',      '🏠', 'Home Page',          'Hero copy, logos, sections, CTAs',                        admin_url('admin.php?page=ee-home-editor')),
+        array('hf',        '🧱', 'Header &amp; Footer','Book Demo, Company menu, social, copyright',              admin_url('admin.php?page=ee-header-footer')),
         array('blog-nav',  '🧭', 'Blog · Quick Nav',   'Floating side-nav on every blog post',                    admin_url('admin.php?page=ee-quick-nav')),
         array('blog-form', '📥', 'Blog · Lead Form',   'Inline lead form shown inside blog posts',                admin_url('admin.php?page=ee-blog-form')),
         array('sol',       '🧩', 'Solutions Page',     'Cards across Admission / Study Abroad / Recruitment',     admin_url('admin.php?page=ee-solutions')),
@@ -3584,6 +3585,328 @@ function ee_get_customers_stories() {
 add_action('admin_menu', function () {
     add_submenu_page('ee-site', 'Customer Stories', '👥 Customer Stories', 'manage_options', 'ee-customers', 'ee_customers_render_admin');
 });
+
+/* ═════════════════════════════════════════════════════════════
+ * 🧱 HEADER & FOOTER MENUS — non-coder admin for the site nav,
+ *    Book-Demo CTA, Company dropdown, social links, footer legal,
+ *    and the copyright line. Header + footer both read from these.
+ * ═════════════════════════════════════════════════════════════ */
+function ee_get_book_demo_cta() {
+    $s = get_option('ee_book_demo_cta', array());
+    return wp_parse_args(is_array($s) ? $s : array(), array(
+        'text' => 'Book Demo',
+        'url'  => home_url('/book-demo/'),
+    ));
+}
+
+function ee_get_company_menu_items() {
+    $items = get_option('ee_company_menu_items', null);
+    if (is_array($items) && !empty($items)) return $items;
+    return array(
+        array('title' => 'About ExtraaEdge',      'url' => home_url('/about-us/'),               'desc' => 'Our story & mission',                                              'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/info-circle.svg'),
+        array('title' => 'Team',                  'url' => home_url('/team/'),                   'desc' => 'Find out more about the people helping your admissions teams win', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/users.svg'),
+        array('title' => 'Careers',               'url' => home_url('/careers/'),                'desc' => 'Interested in working with us? Check out our open positions',      'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/briefcase.svg'),
+        array('title' => 'Investors & Advisors',  'url' => home_url('/investors-and-advisors/'), 'desc' => 'People and organisations deeply aligned with our mission',         'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/dollar-sign.svg'),
+        array('title' => 'Customers',             'url' => home_url('/customers/'),              'desc' => 'Learn more about our happy customers from your segment',           'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg'),
+        array('title' => 'Become a Partner',      'url' => home_url('/become-a-partner/'),       'desc' => 'Interested in partnering with us? Fill your details',              'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg'),
+        array('title' => 'Contact Us',            'url' => home_url('/get-in-touch/'),           'desc' => 'Get in touch',                                                     'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/envelope.svg'),
+        array('title' => 'Privacy & Legal',       'url' => home_url('/privacy-policy/'),         'desc' => 'Policies & terms',                                                 'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/lock.svg'),
+    );
+}
+
+function ee_get_social_links() {
+    $s = get_option('ee_social_links', array());
+    return wp_parse_args(is_array($s) ? $s : array(), array(
+        'facebook'  => 'https://www.facebook.com/extraaedge/',
+        'instagram' => 'https://www.instagram.com/extraaedge/',
+        'youtube'   => 'https://www.youtube.com/user/theextraaedge',
+        'twitter'   => 'https://x.com/extraaedge',
+        'linkedin'  => 'https://www.linkedin.com/company/extraaedge/',
+    ));
+}
+
+function ee_get_footer_settings() {
+    $s = get_option('ee_footer_settings', array());
+    return wp_parse_args(is_array($s) ? $s : array(), array(
+        'copyright'   => '© ' . date('Y') . ', ExtraaEdge Technology Solutions Pvt. Ltd',
+        'legal_links' => array(
+            array('title' => 'Privacy & Terms',       'url' => home_url('/privacy-policy/')),
+            array('title' => 'GDPR',                  'url' => home_url('/gdpr/')),
+            array('title' => 'Cookies',               'url' => home_url('/cookies-policy/')),
+            array('title' => 'Security & Compliance', 'url' => 'https://www.truday.io/extraaedge'),
+        ),
+    ));
+}
+
+add_action('admin_menu', function () {
+    add_submenu_page('ee-site', 'Header & Footer', '🧱 Header & Footer', 'manage_options', 'ee-header-footer', 'ee_header_footer_render_admin');
+});
+
+add_action('admin_enqueue_scripts', function ($hook) {
+    if ($hook === 'site-editor_page_ee-header-footer' || $hook === 'toplevel_page_ee-header-footer') wp_enqueue_media();
+});
+
+add_action('admin_post_ee_save_header_footer', function () {
+    if (!current_user_can('manage_options')) wp_die('Forbidden');
+    check_admin_referer('ee_header_footer_save');
+
+    /* Book Demo CTA */
+    $cta = isset($_POST['cta']) && is_array($_POST['cta']) ? $_POST['cta'] : array();
+    update_option('ee_book_demo_cta', array(
+        'text' => sanitize_text_field(wp_unslash($cta['text'] ?? 'Book Demo')),
+        'url'  => esc_url_raw(wp_unslash($cta['url'] ?? '')),
+    ));
+
+    /* Company mega-menu items */
+    $rows = isset($_POST['company']) && is_array($_POST['company']) ? $_POST['company'] : array();
+    $clean = array();
+    foreach ($rows as $r) {
+        $title = isset($r['title']) ? sanitize_text_field(wp_unslash($r['title'])) : '';
+        if ($title === '') continue;
+        $clean[] = array(
+            'title' => $title,
+            'url'   => isset($r['url'])  ? esc_url_raw(wp_unslash($r['url']))                : '',
+            'desc'  => isset($r['desc']) ? sanitize_text_field(wp_unslash($r['desc']))       : '',
+            'icon'  => isset($r['icon']) ? esc_url_raw(wp_unslash($r['icon']))               : '',
+        );
+    }
+    update_option('ee_company_menu_items', $clean);
+
+    /* Social links */
+    $soc = isset($_POST['soc']) && is_array($_POST['soc']) ? $_POST['soc'] : array();
+    update_option('ee_social_links', array(
+        'facebook'  => esc_url_raw(wp_unslash($soc['facebook']  ?? '')),
+        'instagram' => esc_url_raw(wp_unslash($soc['instagram'] ?? '')),
+        'youtube'   => esc_url_raw(wp_unslash($soc['youtube']   ?? '')),
+        'twitter'   => esc_url_raw(wp_unslash($soc['twitter']   ?? '')),
+        'linkedin'  => esc_url_raw(wp_unslash($soc['linkedin']  ?? '')),
+    ));
+
+    /* Footer: copyright + legal links */
+    $f = isset($_POST['foot']) && is_array($_POST['foot']) ? $_POST['foot'] : array();
+    $legal_in = isset($_POST['legal']) && is_array($_POST['legal']) ? $_POST['legal'] : array();
+    $legal_clean = array();
+    foreach ($legal_in as $l) {
+        $title = isset($l['title']) ? sanitize_text_field(wp_unslash($l['title'])) : '';
+        if ($title === '') continue;
+        $legal_clean[] = array('title' => $title, 'url' => isset($l['url']) ? esc_url_raw(wp_unslash($l['url'])) : '');
+    }
+    update_option('ee_footer_settings', array(
+        'copyright'   => sanitize_text_field(wp_unslash($f['copyright'] ?? '')),
+        'legal_links' => $legal_clean,
+    ));
+
+    wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-header-footer')));
+    exit;
+});
+
+function ee_header_footer_render_admin() {
+    $cta     = ee_get_book_demo_cta();
+    $company = ee_get_company_menu_items();
+    $soc     = ee_get_social_links();
+    $foot    = ee_get_footer_settings();
+    $legal   = is_array($foot['legal_links']) ? $foot['legal_links'] : array();
+    ?>
+    <div class="wrap">
+        <h1 style="display:flex;align-items:center;gap:10px;"><span style="font-size:26px;">🧱</span> Header &amp; Footer</h1>
+        <p class="description" style="max-width:780px;font-size:13.5px;line-height:1.6;">
+            Edit the site's <strong>Book Demo button</strong>, the <strong>Company</strong> dropdown
+            (used in both header and footer), <strong>social links</strong>, <strong>footer legal links</strong>
+            and the <strong>copyright</strong> line — all without touching code. The other dropdowns are managed
+            elsewhere: <em>Products</em> auto-fills from the Products CPT, <em>Industries</em> from the Industry
+            CPT, <em>Solutions</em> from 🧩 Solutions Page, and <em>Resources</em> from 🧰 Resources Page.
+        </p>
+        <?php if (!empty($_GET['updated'])): ?>
+            <div class="notice notice-success is-dismissible"><p>Header &amp; Footer saved.</p></div>
+        <?php endif; ?>
+
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+            <input type="hidden" name="action" value="ee_save_header_footer">
+            <?php wp_nonce_field('ee_header_footer_save'); ?>
+
+            <style>
+                .eehf-card{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px 18px;margin-bottom:14px;}
+                .eehf-card h2{margin:0 0 12px;font-size:14px;color:#19335D;display:flex;align-items:center;gap:7px;}
+                .eehf-row{margin-bottom:11px;}
+                .eehf-row label{display:block;font-weight:600;font-size:12.5px;color:#1d2327;margin-bottom:5px;}
+                .eehf-row input,.eehf-row textarea{width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;font-family:inherit;box-sizing:border-box;}
+                .eehf-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+                .eehf-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+                .eehf-item{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #DE6E30;border-radius:6px;padding:12px 14px;margin-bottom:10px;position:relative;}
+                .eehf-item .rm{position:absolute;right:10px;top:10px;background:transparent;border:1px solid #fecaca;color:#b91c1c;padding:3px 9px;border-radius:4px;cursor:pointer;font-size:11px;}
+                .eehf-idx{display:block;font-size:11px;letter-spacing:.04em;color:#64748b;margin-bottom:6px;text-transform:uppercase;}
+                .eehf-add{background:#19335D;color:#fff;border:none;padding:8px 16px;border-radius:5px;cursor:pointer;font-size:12.5px;font-weight:600;margin-top:4px;}
+                .eehf-pick{display:flex;align-items:center;gap:8px;}
+                .eehf-pick .prev{width:36px;height:36px;border-radius:6px;background:#f1f5f9;border:1px solid #cbd5e1;display:grid;place-items:center;flex-shrink:0;overflow:hidden;}
+                .eehf-pick .prev img{max-width:100%;max-height:100%;}
+            </style>
+
+            <!-- ── BOOK DEMO CTA ── -->
+            <div class="eehf-card">
+                <h2>🚀 Header &amp; mobile "Book Demo" button</h2>
+                <div class="eehf-grid2">
+                    <div class="eehf-row"><label>Button text</label><input type="text" name="cta[text]" value="<?php echo esc_attr($cta['text']); ?>" placeholder="Book Demo"></div>
+                    <div class="eehf-row"><label>Button URL</label><input type="url" name="cta[url]" value="<?php echo esc_attr($cta['url']); ?>" placeholder="https://…/book-demo/"></div>
+                </div>
+            </div>
+
+            <!-- ── COMPANY MENU ── -->
+            <div class="eehf-card">
+                <h2>🏢 Company dropdown <em style="font-size:11px;color:#64748b;font-weight:400;">— used in both the header dropdown and the footer Company column</em></h2>
+                <p style="font-size:12.5px;color:#64748b;margin:0 0 12px;">
+                    Each row appears in the header's <strong>Company</strong> mega-menu (with description + icon) <em>and</em> as a link in the footer's <strong>Company</strong> column (title only).
+                </p>
+                <div id="eehf-company">
+                    <?php foreach ($company as $i => $c): ?>
+                        <div class="eehf-item">
+                            <button type="button" class="rm">Remove</button>
+                            <span class="eehf-idx">ITEM <span class="eehf-n"><?php echo $i + 1; ?></span></span>
+                            <div class="eehf-grid2">
+                                <div class="eehf-row"><label>Title</label><input type="text" name="company[<?php echo $i; ?>][title]" value="<?php echo esc_attr($c['title']); ?>" placeholder="About ExtraaEdge"></div>
+                                <div class="eehf-row"><label>Link URL</label><input type="url" name="company[<?php echo $i; ?>][url]" value="<?php echo esc_attr($c['url']); ?>" placeholder="https://…/about/"></div>
+                            </div>
+                            <div class="eehf-row"><label>Description (header dropdown only)</label><input type="text" name="company[<?php echo $i; ?>][desc]" value="<?php echo esc_attr($c['desc']); ?>" placeholder="Our story &amp; mission"></div>
+                            <div class="eehf-row" style="margin-bottom:0;">
+                                <label>Icon image (SVG / PNG URL — header dropdown only)</label>
+                                <div class="eehf-pick">
+                                    <span class="prev"><?php if (!empty($c['icon'])): ?><img src="<?php echo esc_url($c['icon']); ?>" alt=""><?php endif; ?></span>
+                                    <input type="url" class="eehf-icon-url" name="company[<?php echo $i; ?>][icon]" value="<?php echo esc_attr($c['icon']); ?>" placeholder="https://…/icon.svg" style="flex:1;">
+                                    <button type="button" class="button eehf-icon-pick">Choose…</button>
+                                    <button type="button" class="button eehf-icon-clear" style="color:#b91c1c;">×</button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <button type="button" id="eehf-company-add" class="eehf-add">+ Add Company link</button>
+
+                <template id="eehf-company-tpl">
+                    <div class="eehf-item">
+                        <button type="button" class="rm">Remove</button>
+                        <span class="eehf-idx">ITEM <span class="eehf-n">_n_</span></span>
+                        <div class="eehf-grid2">
+                            <div class="eehf-row"><label>Title</label><input type="text" name="company[__i__][title]" value=""></div>
+                            <div class="eehf-row"><label>Link URL</label><input type="url" name="company[__i__][url]" value=""></div>
+                        </div>
+                        <div class="eehf-row"><label>Description (header only)</label><input type="text" name="company[__i__][desc]" value=""></div>
+                        <div class="eehf-row" style="margin-bottom:0;">
+                            <label>Icon image</label>
+                            <div class="eehf-pick">
+                                <span class="prev"></span>
+                                <input type="url" class="eehf-icon-url" name="company[__i__][icon]" value="" placeholder="https://…/icon.svg" style="flex:1;">
+                                <button type="button" class="button eehf-icon-pick">Choose…</button>
+                                <button type="button" class="button eehf-icon-clear" style="color:#b91c1c;">×</button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- ── SOCIAL LINKS ── -->
+            <div class="eehf-card">
+                <h2>🔗 Social media links <em style="font-size:11px;color:#64748b;font-weight:400;">— icons shown in the footer; leave a field blank to hide that icon</em></h2>
+                <div class="eehf-grid3">
+                    <div class="eehf-row"><label>Facebook URL</label><input type="url" name="soc[facebook]" value="<?php echo esc_attr($soc['facebook']); ?>"></div>
+                    <div class="eehf-row"><label>Instagram URL</label><input type="url" name="soc[instagram]" value="<?php echo esc_attr($soc['instagram']); ?>"></div>
+                    <div class="eehf-row"><label>YouTube URL</label><input type="url" name="soc[youtube]" value="<?php echo esc_attr($soc['youtube']); ?>"></div>
+                    <div class="eehf-row"><label>Twitter / X URL</label><input type="url" name="soc[twitter]" value="<?php echo esc_attr($soc['twitter']); ?>"></div>
+                    <div class="eehf-row"><label>LinkedIn URL</label><input type="url" name="soc[linkedin]" value="<?php echo esc_attr($soc['linkedin']); ?>"></div>
+                </div>
+            </div>
+
+            <!-- ── LEGAL LINKS + COPYRIGHT ── -->
+            <div class="eehf-card">
+                <h2>📜 Footer legal &amp; copyright</h2>
+                <div class="eehf-row"><label>Copyright line</label><input type="text" name="foot[copyright]" value="<?php echo esc_attr($foot['copyright']); ?>" placeholder="© 2026, Your Company Pvt. Ltd."></div>
+                <p style="font-size:12.5px;color:#64748b;margin:14px 0 8px;font-weight:600;">Bottom legal links (Privacy, GDPR, Terms, etc.)</p>
+                <div id="eehf-legal">
+                    <?php foreach ($legal as $i => $l): ?>
+                        <div class="eehf-item">
+                            <button type="button" class="rm">Remove</button>
+                            <span class="eehf-idx">LINK <span class="eehf-n"><?php echo $i + 1; ?></span></span>
+                            <div class="eehf-grid2">
+                                <div class="eehf-row"><label>Title</label><input type="text" name="legal[<?php echo $i; ?>][title]" value="<?php echo esc_attr($l['title']); ?>" placeholder="Privacy &amp; Terms"></div>
+                                <div class="eehf-row"><label>URL</label><input type="url" name="legal[<?php echo $i; ?>][url]" value="<?php echo esc_attr($l['url']); ?>"></div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <button type="button" id="eehf-legal-add" class="eehf-add">+ Add legal link</button>
+
+                <template id="eehf-legal-tpl">
+                    <div class="eehf-item">
+                        <button type="button" class="rm">Remove</button>
+                        <span class="eehf-idx">LINK <span class="eehf-n">_n_</span></span>
+                        <div class="eehf-grid2">
+                            <div class="eehf-row"><label>Title</label><input type="text" name="legal[__i__][title]" value=""></div>
+                            <div class="eehf-row"><label>URL</label><input type="url" name="legal[__i__][url]" value=""></div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <p><?php submit_button('Save Header &amp; Footer'); ?></p>
+
+            <script>
+            (function(){
+                function makeRepeater(listId, addId, tplId){
+                    var list = document.getElementById(listId);
+                    var btn  = document.getElementById(addId);
+                    var tpl  = document.getElementById(tplId);
+                    function nextIdx(){
+                        var max = -1;
+                        list.querySelectorAll('input[name*="[title]"]').forEach(function(el){
+                            var m = el.name.match(/\[(\d+)\]/); if (m){ var i = parseInt(m[1],10); if (i > max) max = i; }
+                        });
+                        return max + 1;
+                    }
+                    function renumber(){ list.querySelectorAll('.eehf-n').forEach(function(s, i){ s.textContent = i + 1; }); }
+                    btn.addEventListener('click', function(){
+                        var i = nextIdx();
+                        var html = tpl.innerHTML.replace(/__i__/g, i).replace(/_n_/g, list.querySelectorAll('.eehf-item').length + 1);
+                        var wrap = document.createElement('div'); wrap.innerHTML = html;
+                        list.appendChild(wrap.firstElementChild);
+                        renumber();
+                    });
+                    list.addEventListener('click', function(e){
+                        if (e.target.classList.contains('rm')){
+                            if (list.querySelectorAll('.eehf-item').length <= 1){ alert('Keep at least one row.'); return; }
+                            e.target.closest('.eehf-item').remove();
+                            renumber();
+                        }
+                    });
+                }
+                makeRepeater('eehf-company', 'eehf-company-add', 'eehf-company-tpl');
+                makeRepeater('eehf-legal',   'eehf-legal-add',   'eehf-legal-tpl');
+
+                /* Icon Media picker shared across all rows */
+                document.addEventListener('click', function(e){
+                    if (e.target.classList.contains('eehf-icon-pick')){
+                        e.preventDefault();
+                        if (typeof wp === 'undefined' || !wp.media) return;
+                        var row = e.target.closest('.eehf-pick');
+                        var input = row.querySelector('.eehf-icon-url');
+                        var prev  = row.querySelector('.prev');
+                        var frame = wp.media({ title:'Select icon', library:{ type:'image' }, button:{ text:'Use this icon' }, multiple:false });
+                        frame.on('select', function(){
+                            var url = frame.state().get('selection').first().toJSON().url;
+                            input.value = url;
+                            prev.innerHTML = '<img src="' + url + '" alt="">';
+                        });
+                        frame.open();
+                    } else if (e.target.classList.contains('eehf-icon-clear')){
+                        e.preventDefault();
+                        var row = e.target.closest('.eehf-pick');
+                        row.querySelector('.eehf-icon-url').value = '';
+                        row.querySelector('.prev').innerHTML = '';
+                    }
+                });
+            })();
+            </script>
+        </form>
+    </div>
+    <?php
+}
 
 add_action('admin_post_ee_save_customers', function () {
     if (!current_user_can('manage_options')) wp_die('Forbidden');

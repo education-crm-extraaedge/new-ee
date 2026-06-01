@@ -989,69 +989,35 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <div class="eh-dropdown">
-                        <a href="<?php echo esc_url(home_url('/about-us/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/info-circle.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">About ExtraaEdge</div>
-                                <div class="eh-dl-desc">Our story &amp; mission</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/team/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/users.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Team</div>
-                                <div class="eh-dl-desc">Find out more about the people helping your admissions teams win</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/careers/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/briefcase.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Careers <span class="eh-badge new">Hiring</span></div>
-                                <div class="eh-dl-desc">Interested in working with us? Check out our open positions</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/investors-and-advisors/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/dollar-sign.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Investors &amp; Advisors</div>
-                                <div class="eh-dl-desc">Learn more about people and organisations deeply aligned with our mission</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/customers/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Customers</div>
-                                <div class="eh-dl-desc">Learn more about our happy customers from your segment</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/become-a-partner/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Become a Partner</div>
-                                <div class="eh-dl-desc">Interested in partnering with us? Fill your details and we will get back</div>
-                            </div>
-                        </a>
-                        <div class="eh-divider"></div>
-                        <a href="<?php echo esc_url(home_url('/get-in-touch/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/envelope.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Contact Us</div>
-                                <div class="eh-dl-desc">Get in touch</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/lock.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Privacy &amp; Legal</div>
-                                <div class="eh-dl-desc">Policies &amp; terms</div>
-                            </div>
-                        </a>
+                        <?php
+                        $eh_company = function_exists('ee_get_company_menu_items') ? ee_get_company_menu_items() : array();
+                        $eh_last_c  = count($eh_company) - 1;
+                        foreach ($eh_company as $eh_ci => $eh_c):
+                            /* Show a divider just before the very last item (usually Contact / Privacy) */
+                            if ($eh_ci === $eh_last_c && $eh_last_c > 0): ?>
+                                <div class="eh-divider"></div>
+                            <?php endif; ?>
+                            <a href="<?php echo esc_url($eh_c['url'] ?? '#'); ?>" class="eh-dl">
+                                <div class="eh-dl-icon">
+                                    <?php if (!empty($eh_c['icon'])): ?>
+                                        <img class="eh-svg" src="<?php echo esc_url($eh_c['icon']); ?>" alt="" loading="lazy">
+                                    <?php endif; ?>
+                                </div>
+                                <div class="eh-dl-content">
+                                    <div class="eh-dl-title"><?php echo esc_html($eh_c['title'] ?? ''); ?></div>
+                                    <?php if (!empty($eh_c['desc'])): ?>
+                                        <div class="eh-dl-desc"><?php echo esc_html($eh_c['desc']); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </nav>
 
             <!-- CTA -->
-            <a href="<?php echo esc_url(home_url('/book-demo/')); ?>" class="eh-cta">Book Demo
+            <?php $eh_cta = function_exists('ee_get_book_demo_cta') ? ee_get_book_demo_cta() : array('text' => 'Book Demo', 'url' => home_url('/book-demo/')); ?>
+            <a href="<?php echo esc_url($eh_cta['url']); ?>" class="eh-cta"><?php echo esc_html($eh_cta['text']); ?>
                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
             </a>
 
