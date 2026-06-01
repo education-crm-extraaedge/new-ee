@@ -3591,6 +3591,61 @@ add_action('admin_menu', function () {
  *    Book-Demo CTA, Company dropdown, social links, footer legal,
  *    and the copyright line. Header + footer both read from these.
  * ═════════════════════════════════════════════════════════════ */
+/* ─────────────────────────────────────────────
+ * Per-page Hide-header / Hide-footer toggles
+ *   • <Site>→<Page> edit screen → side meta box (one checkbox each)
+ *   • Plus a global URL pattern list under 🧱 Header & Footer admin
+ *     (covers landing pages that don't have a WP Post).
+ * ───────────────────────────────────────────── */
+function ee_should_hide_part($part) {
+    $part = ($part === 'footer') ? 'footer' : 'header';
+    $id   = get_queried_object_id();
+    if ($id && get_post_meta($id, '_ee_hide_' . $part, true) === '1') return true;
+
+    $patterns = (string) get_option('ee_hide_layout_patterns_' . $part, '');
+    if (trim($patterns) === '') return false;
+
+    $req = '/' . ltrim(strtok((string) ($_SERVER['REQUEST_URI'] ?? '/'), '?'), '/');
+    $req = '/' . trim($req, '/') . '/';
+    foreach (preg_split('/\r?\n/', $patterns) as $p) {
+        $p = trim($p);
+        if ($p === '') continue;
+        $wild = (substr($p, -1) === '*');
+        $p    = '/' . trim(rtrim($p, '*'), '/') . '/';
+        if ($wild) {
+            if (strpos($req, $p) === 0) return true;
+        } else {
+            if ($req === $p) return true;
+        }
+    }
+    return false;
+}
+
+add_action('add_meta_boxes', function () {
+    foreach (get_post_types(array('public' => true), 'names') as $t) {
+        add_meta_box('ee_layout_toggles', '🧱 Site header & footer', 'ee_layout_toggles_render', $t, 'side', 'default');
+    }
+});
+
+function ee_layout_toggles_render($post) {
+    wp_nonce_field('ee_layout_toggles', 'ee_layout_toggles_nonce');
+    $h = get_post_meta($post->ID, '_ee_hide_header', true) === '1';
+    $f = get_post_meta($post->ID, '_ee_hide_footer', true) === '1';
+    ?>
+    <p style="margin:0 0 10px;font-size:12.5px;color:#1d2327;line-height:1.55;">Hide the global site chrome on <em>this page only</em> — useful for landing pages, thank-you screens, gated forms, etc.</p>
+    <label style="display:block;margin-bottom:8px;font-size:13px;"><input type="checkbox" name="ee_hide_header" value="1" <?php checked($h); ?>> Hide the site <strong>header</strong></label>
+    <label style="display:block;font-size:13px;"><input type="checkbox" name="ee_hide_footer" value="1" <?php checked($f); ?>> Hide the site <strong>footer</strong></label>
+    <?php
+}
+
+add_action('save_post', function ($post_id) {
+    if (!isset($_POST['ee_layout_toggles_nonce']) || !wp_verify_nonce($_POST['ee_layout_toggles_nonce'], 'ee_layout_toggles')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+    update_post_meta($post_id, '_ee_hide_header', !empty($_POST['ee_hide_header']) ? '1' : '');
+    update_post_meta($post_id, '_ee_hide_footer', !empty($_POST['ee_hide_footer']) ? '1' : '');
+});
+
 function ee_get_book_demo_cta() {
     $s = get_option('ee_book_demo_cta', array());
     return wp_parse_args(is_array($s) ? $s : array(), array(
@@ -3723,6 +3778,10 @@ add_action('admin_post_ee_save_header_footer', function () {
         'copyright'   => sanitize_text_field(wp_unslash($f['copyright'] ?? '')),
         'legal_links' => $legal_clean,
     ));
+
+    /* Global "hide on these URLs" patterns */
+    update_option('ee_hide_layout_patterns_header', sanitize_textarea_field(wp_unslash($_POST['hide_header'] ?? '')));
+    update_option('ee_hide_layout_patterns_footer', sanitize_textarea_field(wp_unslash($_POST['hide_footer'] ?? '')));
 
     wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-header-footer')));
     exit;
@@ -3960,6 +4019,31 @@ function ee_header_footer_render_admin() {
                         </div>
                     </div>
                 </template>
+            </div>
+
+            <!-- ── HIDE HEADER / FOOTER ON SPECIFIC URLS ── -->
+            <?php
+            $hp_h = (string) get_option('ee_hide_layout_patterns_header', '');
+            $hp_f = (string) get_option('ee_hide_layout_patterns_footer', '');
+            ?>
+            <div class="eehf-card">
+                <h2>🙈 Hide header / footer on specific pages</h2>
+                <p style="font-size:12.5px;color:#64748b;margin:0 0 12px;">
+                    <strong>Two ways to hide the site chrome on a page:</strong><br>
+                    ① <strong>Per-page checkbox</strong> — open the page in WP Admin (any Page, Post, or custom CPT). On the right side-bar you'll see <em>🧱 Site header &amp; footer</em> — tick the boxes there.<br>
+                    ② <strong>URL pattern list</strong> — paste page slugs below (one per line) for landing pages that don't have a real WP Post (e.g. the templates wired through code). Use <code>slug*</code> as a trailing wildcard to match anything starting with that path.
+                </p>
+                <div class="eehf-grid2">
+                    <div class="eehf-row">
+                        <label>Hide the <strong>header</strong> on these URLs</label>
+                        <textarea name="hide_header" rows="5" placeholder="thank-you&#10;landing/*&#10;welcome-back&#10;ebooks/*" style="font-family:Menlo,Consolas,monospace;font-size:12.5px;line-height:1.55;"><?php echo esc_textarea($hp_h); ?></textarea>
+                    </div>
+                    <div class="eehf-row">
+                        <label>Hide the <strong>footer</strong> on these URLs</label>
+                        <textarea name="hide_footer" rows="5" placeholder="thank-you&#10;landing/*" style="font-family:Menlo,Consolas,monospace;font-size:12.5px;line-height:1.55;"><?php echo esc_textarea($hp_f); ?></textarea>
+                    </div>
+                </div>
+                <p style="font-size:11.5px;color:#64748b;margin-top:6px;font-style:italic;">Examples: <code>thank-you</code> hides on <code>/thank-you/</code> only. <code>ebooks/*</code> hides on every URL that starts with <code>/ebooks/</code> (the index plus every individual e-book).</p>
             </div>
 
             <p><?php submit_button('Save Header &amp; Footer'); ?></p>

@@ -199,6 +199,7 @@ if (!defined('ABSPATH')) exit;
     }
 </style>
 
+<?php if (!function_exists('ee_should_hide_part') || !ee_should_hide_part('footer')): ?>
 <div id="extraaedge-footer-engine">
 
 
@@ -379,6 +380,7 @@ if (!defined('ABSPATH')) exit;
         </div>
     </section>
 </div>
+<?php endif; ?>
 
 <script>
 (function() {

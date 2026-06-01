@@ -746,6 +746,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         #mobileMenu .transition-transform { transition: transform .25s ease; }
     </style>
     <!-- ─── Site Header (advanced multi-level nav, sticky) ─── -->
+    <?php if (!function_exists('ee_should_hide_part') || !ee_should_hide_part('header')): ?>
     <header id="site-header" role="banner" class="sticky top-0 z-[1000] w-full">
         <div class="eh-content">
 
@@ -1027,6 +1028,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
         </div>
     </header>
+    <?php endif; ?>
 
     <!-- ─── Full Mobile Sidebar Menu (EXISTING — preserved fully) ─── -->
     <div id="mobileMenu" class="fixed top-0 right-0 h-full w-[85%] max-w-[360px] z-[1100] lg:hidden flex flex-col shadow-2xl" role="dialog" aria-label="Mobile navigation menu" aria-modal="true">
