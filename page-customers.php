@@ -30,6 +30,25 @@ $cu_cats    = function_exists('ee_customers_categories')   ? ee_customers_catego
 $stats = isset($cu_set['stats']) && is_array($cu_set['stats']) ? $cu_set['stats'] : array();
 while (count($stats) < 4) $stats[] = array('num' => '', 'suffix' => '', 'lbl' => '');
 
+/* Classify a video URL — returns array(type, embed_url, thumb_url)
+ *   type = 'youtube' | 'vimeo' | 'mp4' | '' */
+$ee_classify_video = function ($u) {
+    $u = trim((string) $u);
+    if ($u === '') return array('', '', '');
+    if (preg_match('~(?:youtube\.com/(?:watch\?v=|embed/|v/|shorts/)|youtu\.be/)([A-Za-z0-9_\-]{6,})~i', $u, $m)) {
+        $id = $m[1];
+        return array(
+            'youtube',
+            'https://www.youtube.com/embed/' . $id . '?autoplay=1&rel=0&modestbranding=1&playsinline=1',
+            'https://i.ytimg.com/vi/' . $id . '/hqdefault.jpg',
+        );
+    }
+    if (preg_match('~vimeo\.com/(?:video/)?(\d+)~i', $u, $m)) {
+        return array('vimeo', 'https://player.vimeo.com/video/' . $m[1] . '?autoplay=1&title=0&byline=0&portrait=0', '');
+    }
+    return array('mp4', $u, '');
+};
+
 /* Normalise rows (back-compat with the old schema) */
 $rows = array();
 foreach ($cu_stories as $r) {
@@ -42,6 +61,7 @@ foreach ($cu_stories as $r) {
         'cat'    => $cat,
         'note'   => $r['note']   ?? ($r['excerpt'] ?? ''),
         'video'  => $r['video']  ?? '',
+        'thumb'  => $r['thumb']  ?? '',
         'url'    => $r['url']    ?? '#',
     );
 }
@@ -123,7 +143,11 @@ $ee_initials = function ($name) {
 .ee-cu .card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift);border-color:rgba(28,26,22,.2)}
 .ee-cu .card.hide{display:none}
 .ee-cu .media{position:relative;aspect-ratio:16/10;background:#211D17;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.ee-cu .media.has-thumb{background-size:cover;background-position:center}
+.ee-cu .media.has-thumb::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,26,22,.05) 0%,rgba(28,26,22,.55) 100%);z-index:0}
+.ee-cu .media.has-thumb .mono{display:none}
 .ee-cu .media .glow{position:absolute;inset:0;background:radial-gradient(circle at 70% 25%,rgba(226,83,42,.32),transparent 60%)}
+.ee-cu .media.has-thumb .glow{opacity:.35}
 .ee-cu .mono{font-family:'Fraunces',serif;font-weight:600;font-size:46px;color:rgba(255,253,248,.16);letter-spacing:-.02em;user-select:none}
 .ee-cu .chip{position:absolute;top:13px;left:13px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:rgba(255,253,248,.92);padding:5px 10px;border-radius:100px}
 .ee-cu .play{position:absolute;width:48px;height:48px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(226,83,42,.5);transition:transform .3s}
@@ -149,6 +173,17 @@ $ee_initials = function ($name) {
 .ee-cu .cta a:hover{background:var(--paper);color:var(--ink);transform:translateY(-2px)}
 
 @media (prefers-reduced-motion:reduce){.ee-cu *,.ee-cu *::before,.ee-cu *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.ee-cu .card{opacity:1;transform:none}}
+
+/* LIGHTBOX */
+.ee-cu .lbx{position:fixed;inset:0;z-index:9998;background:rgba(28,26,22,.86);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .28s ease}
+.ee-cu .lbx.open{opacity:1;pointer-events:auto}
+.ee-cu .lbx-stage{position:relative;width:min(1100px,100%);max-width:100%}
+.ee-cu .lbx-frame{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.7);transform:scale(.96);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.ee-cu .lbx.open .lbx-frame{transform:scale(1)}
+.ee-cu .lbx-frame iframe,.ee-cu .lbx-frame video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.ee-cu .lbx-close{position:absolute;top:-14px;right:-14px;width:42px;height:42px;border-radius:50%;background:var(--paper);color:var(--ink);border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.3);z-index:5;font-size:18px;font-weight:700}
+.ee-cu .lbx-close:hover{background:var(--accent);color:#fff}
+@media (max-width:640px){.ee-cu .lbx-close{top:-46px;right:6px}}
 </style>
 
 <div class="ee-cu" id="ee-customers">
@@ -196,26 +231,45 @@ $ee_initials = function ($name) {
         $cat   = $r['cat'];
         $label = $cu_cats[$cat] ?? $cat;
         $hue   = ((ord(substr($name, 0, 1)) * 7) % 30) - 15;
-        $link  = !empty($r['video']) ? $r['video'] : ($r['url'] ?: '#');
+        list($vtype, $vembed, $vyt_thumb) = $ee_classify_video($r['video']);
+
+        /* Thumbnail priority: custom upload → YouTube cover → none (initials fallback) */
+        $thumb = $r['thumb'] ?: $vyt_thumb;
+        $has_video = ($vtype !== '');
+        /* Card behaviour: if video → open lightbox; else if external link → open it; else dead `<button>` */
+        $has_link  = $has_video || (!empty($r['url']) && $r['url'] !== '#');
+        $tag       = $has_link ? 'a' : 'div';
+        $href      = $has_video ? '#'              : ($r['url'] ?: '#');
+        $target    = ($has_video || empty($r['url'])) ? '' : ' target="_blank" rel="noopener"';
+
         $haystack = strtolower($name . ' ' . $r['person'] . ' ' . $r['role']);
       ?>
-        <a class="card" href="<?php echo esc_url($link); ?>" target="_blank" rel="noopener" data-cat="<?php echo esc_attr($cat); ?>" data-q="<?php echo esc_attr($haystack); ?>" data-i="<?php echo (int) $idx; ?>">
-          <div class="media">
+        <<?php echo $tag; ?> class="card"<?php echo $tag === 'a' ? ' href="' . esc_url($href) . '"' . $target : ''; ?>
+           data-cat="<?php echo esc_attr($cat); ?>" data-q="<?php echo esc_attr($haystack); ?>" data-i="<?php echo (int) $idx; ?>"
+           <?php if ($has_video): ?>data-vtype="<?php echo esc_attr($vtype); ?>" data-vsrc="<?php echo esc_attr($vembed); ?>" data-vtitle="<?php echo esc_attr($name); ?>"<?php endif; ?>>
+          <div class="media<?php echo $thumb ? ' has-thumb' : ''; ?>"<?php echo $thumb ? ' style="background-image:url(\'' . esc_url($thumb) . '\')"' : ''; ?>>
             <div class="glow" style="filter:hue-rotate(<?php echo (int) $hue; ?>deg)"></div>
             <span class="chip"><?php echo esc_html($label); ?></span>
             <span class="mono"><?php echo esc_html($ee_initials($name)); ?></span>
-            <span class="play" aria-hidden="true"></span>
-            <span class="tag-watch">Video</span>
+            <?php if ($has_video): ?><span class="play" aria-hidden="true"></span><span class="tag-watch">Play video</span><?php endif; ?>
           </div>
           <div class="body">
             <h3><?php echo esc_html($name); ?></h3>
             <?php if (!empty($r['person'])): ?><div class="person"><?php echo esc_html($r['person']); ?></div><?php endif; ?>
             <?php if (!empty($r['role'])):   ?><div class="role"><?php echo esc_html($r['role']); ?></div><?php endif; ?>
             <?php if (!empty($r['note'])):   ?><p class="note"><?php echo esc_html($r['note']); ?></p><?php endif; ?>
-            <span class="watch">Watch the story <span class="arr">→</span></span>
+            <?php if ($has_link): ?><span class="watch"><?php echo $has_video ? 'Watch the story' : 'Read the story'; ?> <span class="arr">→</span></span><?php endif; ?>
           </div>
-        </a>
+        </<?php echo $tag; ?>>
       <?php endforeach; ?>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lbx" id="ee-cu-lbx" aria-hidden="true" role="dialog">
+    <div class="lbx-stage">
+      <button type="button" class="lbx-close" id="ee-cu-lbx-close" aria-label="Close video">✕</button>
+      <div class="lbx-frame" id="ee-cu-lbx-frame"></div>
     </div>
   </div>
 
@@ -268,6 +322,47 @@ $ee_initials = function ($name) {
   if (search){
     search.addEventListener('input', function(e){ state.q = e.target.value.trim().toLowerCase(); visibleStories(); });
   }
+
+  /* Lightbox ----------------------------------------------- */
+  var lbx = document.getElementById('ee-cu-lbx');
+  var lbxFrame = document.getElementById('ee-cu-lbx-frame');
+  function openVideo(type, src, title){
+    if (!lbx || !lbxFrame || !src) return;
+    lbxFrame.innerHTML = '';
+    var el;
+    if (type === 'mp4'){
+      el = document.createElement('video');
+      el.src = src; el.controls = true; el.autoplay = true; el.playsInline = true;
+    } else {
+      el = document.createElement('iframe');
+      el.src = src; el.title = title || ''; el.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      el.setAttribute('allowfullscreen','');
+    }
+    lbxFrame.appendChild(el);
+    lbx.classList.add('open'); lbx.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeVideo(){
+    if (!lbx) return;
+    lbx.classList.remove('open'); lbx.setAttribute('aria-hidden','true');
+    lbxFrame.innerHTML = '';
+    document.body.style.overflow = '';
+  }
+  if (lbx){
+    lbx.addEventListener('click', function(e){ if (e.target === lbx) closeVideo(); });
+    var closeBtn = document.getElementById('ee-cu-lbx-close');
+    if (closeBtn) closeBtn.addEventListener('click', closeVideo);
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && lbx.classList.contains('open')) closeVideo(); });
+  }
+
+  /* Intercept any card with a video → open in lightbox instead of navigating */
+  cards.forEach(function(c){
+    if (!c.dataset.vsrc) return;
+    c.addEventListener('click', function(e){
+      e.preventDefault();
+      openVideo(c.dataset.vtype, c.dataset.vsrc, c.dataset.vtitle || '');
+    });
+  });
 
   if ('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){

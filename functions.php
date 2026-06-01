@@ -3633,6 +3633,7 @@ add_action('admin_post_ee_save_customers', function () {
             'cat'    => $cat,
             'note'   => isset($r['note'])   ? sanitize_textarea_field(wp_unslash($r['note']))   : '',
             'video'  => isset($r['video'])  ? esc_url_raw(wp_unslash($r['video']))              : '',
+            'thumb'  => isset($r['thumb'])  ? esc_url_raw(wp_unslash($r['thumb']))              : '',
             'url'    => isset($r['url'])    ? esc_url_raw(wp_unslash($r['url']))                : '#',
         );
     }
@@ -3736,6 +3737,7 @@ function ee_customers_render_admin() {
                         if (!isset($cats[$cat])) $cat = 'university';
                         $note   = $r['note']   ?? ($r['excerpt'] ?? '');
                         $video  = $r['video']  ?? '';
+                        $thumb  = $r['thumb']  ?? '';
                         $url    = $r['url']    ?? '#'; ?>
                         <div class="eecu-story">
                             <button type="button" class="rm">Remove</button>
@@ -3759,14 +3761,23 @@ function ee_customers_render_admin() {
                             <div class="eecu-row"><label>One-line note</label><textarea name="story[<?php echo $i; ?>][note]" rows="2" placeholder="On transforming their admission journey end to end."><?php echo esc_textarea($note); ?></textarea></div>
                             <div class="eecu-grid2">
                                 <div class="eecu-row">
-                                    <label>Video URL (YouTube / Vimeo / MP4 — optional)</label>
+                                    <label>Video URL (YouTube / Vimeo / MP4 — opens inline in a lightbox)</label>
                                     <div class="eecu-pick">
                                         <input type="url" class="eecu-vid" name="story[<?php echo $i; ?>][video]" value="<?php echo esc_attr($video); ?>" placeholder="https://www.youtube.com/watch?v=…">
                                         <button type="button" class="button eecu-vid-pick">Choose…</button>
                                     </div>
                                 </div>
-                                <div class="eecu-row"><label>"Watch the story" link <span style="font-weight:400;color:#64748b;">(case-study page or video URL)</span></label><input type="url" name="story[<?php echo $i; ?>][url]" value="<?php echo esc_attr($url); ?>" placeholder="https://…/customer-story/"></div>
+                                <div class="eecu-row">
+                                    <label>Custom thumbnail image (optional — falls back to YouTube cover, then to initials)</label>
+                                    <div class="eecu-pick">
+                                        <span class="eecu-thumb-prev" style="width:50px;height:32px;border-radius:4px;background:#1c1a16 <?php echo $thumb ? 'url('.esc_url($thumb).') center/cover no-repeat' : ''; ?>;border:1px solid #cbd5e1;flex-shrink:0;display:inline-block;"></span>
+                                        <input type="url" class="eecu-thumb" name="story[<?php echo $i; ?>][thumb]" value="<?php echo esc_attr($thumb); ?>" placeholder="https://…/cover.jpg" style="flex:1;">
+                                        <button type="button" class="button eecu-thumb-pick">Choose…</button>
+                                        <button type="button" class="button eecu-thumb-clear" style="color:#b91c1c;">×</button>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="eecu-row" style="margin-bottom:0;"><label>"Watch the story" external link <span style="font-weight:400;color:#64748b;">(optional — only used as a fallback when no video URL is set)</span></label><input type="url" name="story[<?php echo $i; ?>][url]" value="<?php echo esc_attr($url); ?>" placeholder="https://…/customer-story/"></div>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -3795,8 +3806,9 @@ function ee_customers_render_admin() {
                         <div class="eecu-row"><label>One-line note</label><textarea name="story[__i__][note]" rows="2"></textarea></div>
                         <div class="eecu-grid2">
                             <div class="eecu-row"><label>Video URL</label><div class="eecu-pick"><input type="url" class="eecu-vid" name="story[__i__][video]" value=""><button type="button" class="button eecu-vid-pick">Choose…</button></div></div>
-                            <div class="eecu-row"><label>"Watch the story" link</label><input type="url" name="story[__i__][url]" value="#"></div>
+                            <div class="eecu-row"><label>Custom thumbnail image (optional)</label><div class="eecu-pick"><span class="eecu-thumb-prev" style="width:50px;height:32px;border-radius:4px;background:#1c1a16;border:1px solid #cbd5e1;flex-shrink:0;display:inline-block;"></span><input type="url" class="eecu-thumb" name="story[__i__][thumb]" value="" placeholder="https://…/cover.jpg" style="flex:1;"><button type="button" class="button eecu-thumb-pick">Choose…</button><button type="button" class="button eecu-thumb-clear" style="color:#b91c1c;">×</button></div></div>
                         </div>
+                        <div class="eecu-row" style="margin-bottom:0;"><label>"Watch the story" external link (optional fallback)</label><input type="url" name="story[__i__][url]" value="#"></div>
                     </div>
                 </template>
             </div>
@@ -3836,6 +3848,24 @@ function ee_customers_render_admin() {
                         var frame = wp.media({ title:'Select story video', library:{ type:'video' }, button:{ text:'Use this video' }, multiple:false });
                         frame.on('select', function(){ input.value = frame.state().get('selection').first().toJSON().url; });
                         frame.open();
+                    } else if (e.target.classList.contains('eecu-thumb-pick')){
+                        e.preventDefault();
+                        if (typeof wp === 'undefined' || !wp.media) return;
+                        var row = e.target.closest('.eecu-pick');
+                        var input = row.querySelector('.eecu-thumb');
+                        var prev  = row.querySelector('.eecu-thumb-prev');
+                        var frame = wp.media({ title:'Select thumbnail', library:{ type:'image' }, button:{ text:'Use this image' }, multiple:false });
+                        frame.on('select', function(){
+                            var url = frame.state().get('selection').first().toJSON().url;
+                            input.value = url;
+                            prev.style.background = '#1c1a16 url(' + url + ') center/cover no-repeat';
+                        });
+                        frame.open();
+                    } else if (e.target.classList.contains('eecu-thumb-clear')){
+                        e.preventDefault();
+                        var row = e.target.closest('.eecu-pick');
+                        row.querySelector('.eecu-thumb').value = '';
+                        row.querySelector('.eecu-thumb-prev').style.background = '#1c1a16';
                     }
                 });
             })();
