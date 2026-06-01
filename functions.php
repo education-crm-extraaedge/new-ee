@@ -3599,6 +3599,23 @@ function ee_get_book_demo_cta() {
     ));
 }
 
+function ee_get_header_top_labels() {
+    $defaults = array(
+        'products'   => array('label' => 'Products',   'url' => home_url('/products/')),
+        'industries' => array('label' => 'Industries', 'url' => home_url('/industries/')),
+        'solutions'  => array('label' => 'Solutions',  'url' => home_url('/solution/')),
+        'resources'  => array('label' => 'Resources',  'url' => '#'),
+        'company'    => array('label' => 'Company',    'url' => '#'),
+    );
+    $s = get_option('ee_header_top_labels', array());
+    if (!is_array($s)) $s = array();
+    foreach ($defaults as $k => $v) {
+        if (!isset($s[$k]) || !is_array($s[$k])) $s[$k] = $v;
+        else $s[$k] = wp_parse_args($s[$k], $v);
+    }
+    return $s;
+}
+
 function ee_get_company_menu_items() {
     $items = get_option('ee_company_menu_items', null);
     if (is_array($items) && !empty($items)) return $items;
@@ -3656,6 +3673,17 @@ add_action('admin_post_ee_save_header_footer', function () {
         'text' => sanitize_text_field(wp_unslash($cta['text'] ?? 'Book Demo')),
         'url'  => esc_url_raw(wp_unslash($cta['url'] ?? '')),
     ));
+
+    /* Header top-level menu labels + URLs */
+    $tops = isset($_POST['top']) && is_array($_POST['top']) ? $_POST['top'] : array();
+    $top_clean = array();
+    foreach (array('products','industries','solutions','resources','company') as $k) {
+        $top_clean[$k] = array(
+            'label' => isset($tops[$k]['label']) ? sanitize_text_field(wp_unslash($tops[$k]['label'])) : '',
+            'url'   => isset($tops[$k]['url'])   ? esc_url_raw(wp_unslash($tops[$k]['url']))           : '#',
+        );
+    }
+    update_option('ee_header_top_labels', $top_clean);
 
     /* Company mega-menu items */
     $rows = isset($_POST['company']) && is_array($_POST['company']) ? $_POST['company'] : array();
@@ -3749,6 +3777,95 @@ function ee_header_footer_render_admin() {
                     <div class="eehf-row"><label>Button URL</label><input type="url" name="cta[url]" value="<?php echo esc_attr($cta['url']); ?>" placeholder="https://…/book-demo/"></div>
                 </div>
             </div>
+
+            <!-- ── TOP-LEVEL MENU LABELS ── -->
+            <?php $top = ee_get_header_top_labels(); ?>
+            <div class="eehf-card">
+                <h2>🧭 Header — top-level menu labels &amp; URLs <em style="font-size:11px;color:#64748b;font-weight:400;">— the 5 dropdown labels that visitors see in the navigation</em></h2>
+                <p style="font-size:12.5px;color:#64748b;margin:0 0 12px;">Change the label visitors see, and where each top-level item links when clicked directly (separate from the dropdown items below).</p>
+                <?php foreach (array(
+                    'products'   => '🛍 Products',
+                    'industries' => '🏛 Industries',
+                    'solutions'  => '🧩 Solutions',
+                    'resources'  => '🧰 Resources',
+                    'company'    => '🏢 Company',
+                ) as $k => $lab): ?>
+                    <div class="eehf-item">
+                        <span class="eehf-idx"><?php echo esc_html($lab); ?></span>
+                        <div class="eehf-grid2">
+                            <div class="eehf-row" style="margin-bottom:0;"><label>Label shown in nav</label><input type="text" name="top[<?php echo esc_attr($k); ?>][label]" value="<?php echo esc_attr($top[$k]['label']); ?>"></div>
+                            <div class="eehf-row" style="margin-bottom:0;"><label>Link URL <span style="font-weight:400;color:#64748b;">(use # if the label should only open the dropdown)</span></label><input type="url" name="top[<?php echo esc_attr($k); ?>][url]" value="<?php echo esc_attr($top[$k]['url']); ?>"></div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <!-- ── DROPDOWN PREVIEWS / DEEP LINKS ── -->
+            <?php
+            $eehf_pages = array(
+                array(
+                    'h2'   => '🛍 Products dropdown <em style="font-size:11px;color:#64748b;font-weight:400;">— auto-fills from the Products CPT</em>',
+                    'desc' => 'Each item is a real <strong>Product page</strong> in WordPress. Add, edit, or reorder items in the Products admin.',
+                    'edit' => admin_url('edit.php?post_type=product'),
+                    'edit_label' => 'Edit Products →',
+                    'fn'   => 'ee_get_product_menu_items',
+                ),
+                array(
+                    'h2'   => '🏛 Industries dropdown <em style="font-size:11px;color:#64748b;font-weight:400;">— auto-fills from the Industry CPT</em>',
+                    'desc' => 'Each item is a real <strong>Industry page</strong>. Add, edit, or reorder items in the Industries admin.',
+                    'edit' => admin_url('edit.php?post_type=industry'),
+                    'edit_label' => 'Edit Industries →',
+                    'fn'   => 'ee_get_industry_menu_items',
+                ),
+                array(
+                    'h2'   => '🧩 Solutions dropdown <em style="font-size:11px;color:#64748b;font-weight:400;">— managed on the Solutions Page admin</em>',
+                    'desc' => 'Solutions items live in the dedicated <strong>🧩 Solutions Page</strong> editor. Use it to edit titles, URLs, and the three columns.',
+                    'edit' => admin_url('admin.php?page=ee-solutions'),
+                    'edit_label' => 'Open 🧩 Solutions Page →',
+                    'fn'   => 'ee_get_solution_items',
+                ),
+                array(
+                    'h2'   => '🧰 Resources dropdown <em style="font-size:11px;color:#64748b;font-weight:400;">— managed on the Resources Page admin</em>',
+                    'desc' => 'Resources items live in the dedicated <strong>🧰 Resources Page</strong> editor — same source feeds the header dropdown and the footer Resources column.',
+                    'edit' => admin_url('admin.php?page=ee-resources-menu'),
+                    'edit_label' => 'Open 🧰 Resources Page →',
+                    'fn'   => 'ee_get_resources_menu_items',
+                ),
+            );
+            foreach ($eehf_pages as $eehf_p):
+                $items = function_exists($eehf_p['fn']) ? call_user_func($eehf_p['fn']) : array();
+                /* Solutions returns a nested {admission,study_abroad,recruitment} shape — flatten it for preview */
+                if ($eehf_p['fn'] === 'ee_get_solution_items' && is_array($items)) {
+                    $flat = array();
+                    foreach ($items as $col_rows) {
+                        if (!is_array($col_rows)) continue;
+                        foreach ($col_rows as $row) $flat[] = $row;
+                    }
+                    $items = $flat;
+                }
+                ?>
+                <div class="eehf-card">
+                    <h2><?php echo $eehf_p['h2']; ?></h2>
+                    <p style="font-size:12.5px;color:#64748b;margin:0 0 10px;"><?php echo wp_kses_post($eehf_p['desc']); ?></p>
+                    <?php if ($items): ?>
+                        <ol style="margin:0 0 12px 18px;padding:0;font-size:13px;color:#1d2327;line-height:1.85;">
+                            <?php foreach ($items as $it):
+                                $t = $it['title'] ?? '';
+                                $u = $it['url']   ?? ''; ?>
+                                <li>
+                                    <strong><?php echo esc_html($t); ?></strong>
+                                    <?php if ($u): ?>
+                                        <span style="color:#64748b;font-size:11.5px;font-family:Menlo,Consolas,monospace;">→ <?php echo esc_html($u); ?></span>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ol>
+                    <?php else: ?>
+                        <p style="font-size:12.5px;color:#b91c1c;margin:0 0 12px;">No items yet — add some from the editor below.</p>
+                    <?php endif; ?>
+                    <a href="<?php echo esc_url($eehf_p['edit']); ?>" class="button button-primary" style="background:#19335D;border-color:#19335D;"><?php echo esc_html($eehf_p['edit_label']); ?></a>
+                </div>
+            <?php endforeach; ?>
 
             <!-- ── COMPANY MENU ── -->
             <div class="eehf-card">

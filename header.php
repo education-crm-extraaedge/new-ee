@@ -758,9 +758,10 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
             <nav class="eh-nav ee-desktop-nav" role="navigation" aria-label="Primary">
 
+                <?php $eh_top = function_exists('ee_get_header_top_labels') ? ee_get_header_top_labels() : array(); ?>
                 <!-- Products Mega Menu — columns + badges set per-post in WP Admin -->
                 <div class="eh-nav-item">
-                    <a href="<?php echo esc_url(home_url('/products/')); ?>" class="eh-nav-link" role="button" aria-haspopup="true">Products
+                    <a href="<?php echo esc_url($eh_top['products']['url'] ?? home_url('/products/')); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['products']['label'] ?? 'Products'); ?>
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <div class="eh-mega">
@@ -876,7 +877,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
                 <!-- Solutions Mega Menu — auto-fills from the 'ee_solution_items' option -->
                 <div class="eh-nav-item">
-                    <a href="#" class="eh-nav-link" role="button" aria-haspopup="true">Solutions
+                    <a href="<?php echo esc_url($eh_top['solutions']['url'] ?? '#'); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['solutions']['label'] ?? 'Solutions'); ?>
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <div class="eh-mega">
@@ -922,7 +923,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
                 <!-- Industries — auto-fills from Industry CPT -->
                 <div class="eh-nav-item">
-                    <a href="<?php echo esc_url(home_url('/industries/')); ?>" class="eh-nav-link">Industries
+                    <a href="<?php echo esc_url($eh_top['industries']['url'] ?? home_url('/industries/')); ?>" class="eh-nav-link"><?php echo esc_html($eh_top['industries']['label'] ?? 'Industries'); ?>
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <div class="eh-dropdown">
@@ -954,7 +955,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
                 <!-- Resources -->
                 <div class="eh-nav-item">
-                    <a href="#" class="eh-nav-link" role="button" aria-haspopup="true">Resources
+                    <a href="<?php echo esc_url($eh_top['resources']['url'] ?? '#'); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['resources']['label'] ?? 'Resources'); ?>
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <div class="eh-dropdown">
@@ -985,7 +986,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
                 <!-- Company -->
                 <div class="eh-nav-item">
-                    <a href="#" class="eh-nav-link" role="button" aria-haspopup="true">Company
+                    <a href="<?php echo esc_url($eh_top['company']['url'] ?? '#'); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['company']['label'] ?? 'Company'); ?>
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <div class="eh-dropdown">
