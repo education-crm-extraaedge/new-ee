@@ -174,16 +174,11 @@ $ee_initials = function ($name) {
 
 @media (prefers-reduced-motion:reduce){.ee-cu *,.ee-cu *::before,.ee-cu *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.ee-cu .card{opacity:1;transform:none}}
 
-/* LIGHTBOX */
-.ee-cu .lbx{position:fixed;inset:0;z-index:9998;background:rgba(28,26,22,.86);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .28s ease}
-.ee-cu .lbx.open{opacity:1;pointer-events:auto}
-.ee-cu .lbx-stage{position:relative;width:min(1100px,100%);max-width:100%}
-.ee-cu .lbx-frame{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.7);transform:scale(.96);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
-.ee-cu .lbx.open .lbx-frame{transform:scale(1)}
-.ee-cu .lbx-frame iframe,.ee-cu .lbx-frame video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
-.ee-cu .lbx-close{position:absolute;top:-14px;right:-14px;width:42px;height:42px;border-radius:50%;background:var(--paper);color:var(--ink);border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.3);z-index:5;font-size:18px;font-weight:700}
-.ee-cu .lbx-close:hover{background:var(--accent);color:#fff}
-@media (max-width:640px){.ee-cu .lbx-close{top:-46px;right:6px}}
+/* Inline video player swap — lives inside .media */
+.ee-cu .media iframe,.ee-cu .media > video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;z-index:5}
+.ee-cu .media.playing .glow,.ee-cu .media.playing .chip,.ee-cu .media.playing .mono,.ee-cu .media.playing .play,.ee-cu .media.playing .tag-watch{display:none}
+.ee-cu .media.playing::before{display:none}
+.ee-cu .card.playing{cursor:default}
 </style>
 
 <div class="ee-cu" id="ee-customers">
@@ -265,14 +260,6 @@ $ee_initials = function ($name) {
     </div>
   </div>
 
-  <!-- Lightbox -->
-  <div class="lbx" id="ee-cu-lbx" aria-hidden="true" role="dialog">
-    <div class="lbx-stage">
-      <button type="button" class="lbx-close" id="ee-cu-lbx-close" aria-label="Close video">✕</button>
-      <div class="lbx-frame" id="ee-cu-lbx-frame"></div>
-    </div>
-  </div>
-
   <div class="wrap">
     <div class="cta">
       <h2><?php echo esc_html($cu_set['cta_title']); ?></h2>
@@ -323,44 +310,50 @@ $ee_initials = function ($name) {
     search.addEventListener('input', function(e){ state.q = e.target.value.trim().toLowerCase(); visibleStories(); });
   }
 
-  /* Lightbox ----------------------------------------------- */
-  var lbx = document.getElementById('ee-cu-lbx');
-  var lbxFrame = document.getElementById('ee-cu-lbx-frame');
-  function openVideo(type, src, title){
-    if (!lbx || !lbxFrame || !src) return;
-    lbxFrame.innerHTML = '';
+  /* In-card video swap — clicking the play button replaces the
+     thumbnail with an iframe/video right inside the same .media box. */
+  function stopOthers(except){
+    cards.forEach(function(c){
+      if (c === except) return;
+      var media = c.querySelector('.media');
+      if (!media || !media.classList.contains('playing')) return;
+      var el = media.querySelector('iframe,video');
+      if (el) el.parentNode.removeChild(el);
+      media.classList.remove('playing');
+      c.classList.remove('playing');
+    });
+  }
+  function playInCard(card){
+    var type = card.dataset.vtype;
+    var src  = card.dataset.vsrc;
+    var title = card.dataset.vtitle || '';
+    if (!src) return;
+    stopOthers(card);
+    var media = card.querySelector('.media');
+    if (!media || media.classList.contains('playing')) return;
     var el;
     if (type === 'mp4'){
       el = document.createElement('video');
       el.src = src; el.controls = true; el.autoplay = true; el.playsInline = true;
     } else {
       el = document.createElement('iframe');
-      el.src = src; el.title = title || ''; el.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      el.src = src; el.title = title;
+      el.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
       el.setAttribute('allowfullscreen','');
+      el.setAttribute('loading','lazy');
     }
-    lbxFrame.appendChild(el);
-    lbx.classList.add('open'); lbx.setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeVideo(){
-    if (!lbx) return;
-    lbx.classList.remove('open'); lbx.setAttribute('aria-hidden','true');
-    lbxFrame.innerHTML = '';
-    document.body.style.overflow = '';
-  }
-  if (lbx){
-    lbx.addEventListener('click', function(e){ if (e.target === lbx) closeVideo(); });
-    var closeBtn = document.getElementById('ee-cu-lbx-close');
-    if (closeBtn) closeBtn.addEventListener('click', closeVideo);
-    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && lbx.classList.contains('open')) closeVideo(); });
+    media.appendChild(el);
+    media.classList.add('playing');
+    card.classList.add('playing');
   }
 
-  /* Intercept any card with a video → open in lightbox instead of navigating */
   cards.forEach(function(c){
     if (!c.dataset.vsrc) return;
     c.addEventListener('click', function(e){
+      /* Allow native link behaviour to bubble for keyboard-Enter on
+         the underlying <a>, but for normal clicks we play inline. */
       e.preventDefault();
-      openVideo(c.dataset.vtype, c.dataset.vsrc, c.dataset.vtitle || '');
+      playInCard(c);
     });
   });
 
