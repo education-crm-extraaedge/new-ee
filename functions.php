@@ -4913,6 +4913,8 @@ add_action('template_redirect', function () {
         'industries' => array('file' => 'page-industries.php', 'title' => 'Industries'),
         'industry'   => array('file' => 'page-industry.php',   'title' => 'Industry'),
         'company'    => array('file' => 'page-company.php',    'title' => 'Company'),
+        'solution'   => array('file' => 'page-solution.php',   'title' => 'Solutions'),
+        'solutions'  => array('file' => 'page-solution.php',   'title' => 'Solutions'),
     );
 
     /* Add a body class on any custom-routed landing page so the global
