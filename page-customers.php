@@ -54,18 +54,15 @@ $rows = array();
 foreach ($cu_stories as $r) {
     $cat = $r['cat'] ?? 'university';
     if (!isset($cu_cats[$cat])) $cat = 'university';
-    $name = $r['name'] ?? ($r['title'] ?? '');
     $rows[] = array(
-        'name'      => $name,
-        'person'    => $r['person'] ?? '',
-        'role'      => $r['role']   ?? ($r['est']     ?? ''),
-        'cat'       => $cat,
-        'note'      => $r['note']   ?? ($r['excerpt'] ?? ''),
-        'video'     => $r['video']  ?? '',
-        'thumb'     => $r['thumb']  ?? '',
-        'url'       => $r['url']    ?? '#',
-        'slug'      => $r['slug']   ?? sanitize_title($name),
-        'cs_on'     => !empty($r['cs']['enabled']),
+        'name'   => $r['name']   ?? ($r['title']   ?? ''),
+        'person' => $r['person'] ?? '',
+        'role'   => $r['role']   ?? ($r['est']     ?? ''),
+        'cat'    => $cat,
+        'note'   => $r['note']   ?? ($r['excerpt'] ?? ''),
+        'video'  => $r['video']  ?? '',
+        'thumb'  => $r['thumb']  ?? '',
+        'url'    => $r['url']    ?? '#',
     );
 }
 
@@ -233,26 +230,18 @@ $ee_initials = function ($name) {
 
         /* Thumbnail priority: custom upload → YouTube cover → none (initials fallback) */
         $thumb = $r['thumb'] ?: $vyt_thumb;
-        $has_video    = ($vtype !== '');
-        $has_cs_page  = !empty($r['cs_on']) && !empty($r['slug']);
-        $cs_page_url  = $has_cs_page ? home_url('/customers/' . $r['slug'] . '/') : '';
-        /* Card behaviour:
-           1. Case-study toggle ON → link goes to /customers/{slug}/
-           2. Else video → open inline in same card
-           3. Else external URL → open it
-           4. Else non-clickable card */
-        $has_link  = $has_cs_page || $has_video || (!empty($r['url']) && $r['url'] !== '#');
+        $has_video = ($vtype !== '');
+        /* Card behaviour: if video → open lightbox; else if external link → open it; else dead `<button>` */
+        $has_link  = $has_video || (!empty($r['url']) && $r['url'] !== '#');
         $tag       = $has_link ? 'a' : 'div';
-        if ($has_cs_page)      { $href = $cs_page_url; $target = ''; }
-        elseif ($has_video)    { $href = '#';          $target = ''; }
-        else                   { $href = $r['url'] ?: '#'; $target = empty($r['url']) ? '' : ' target="_blank" rel="noopener"'; }
+        $href      = $has_video ? '#'              : ($r['url'] ?: '#');
+        $target    = ($has_video || empty($r['url'])) ? '' : ' target="_blank" rel="noopener"';
 
         $haystack = strtolower($name . ' ' . $r['person'] . ' ' . $r['role']);
       ?>
         <<?php echo $tag; ?> class="card"<?php echo $tag === 'a' ? ' href="' . esc_url($href) . '"' . $target : ''; ?>
            data-cat="<?php echo esc_attr($cat); ?>" data-q="<?php echo esc_attr($haystack); ?>" data-i="<?php echo (int) $idx; ?>"
-           <?php if ($has_cs_page): ?>data-cs="1"<?php endif; ?>
-           <?php if ($has_video && !$has_cs_page): ?>data-vtype="<?php echo esc_attr($vtype); ?>" data-vsrc="<?php echo esc_attr($vembed); ?>" data-vtitle="<?php echo esc_attr($name); ?>"<?php endif; ?>>
+           <?php if ($has_video): ?>data-vtype="<?php echo esc_attr($vtype); ?>" data-vsrc="<?php echo esc_attr($vembed); ?>" data-vtitle="<?php echo esc_attr($name); ?>"<?php endif; ?>>
           <div class="media<?php echo $thumb ? ' has-thumb' : ''; ?>"<?php echo $thumb ? ' style="background-image:url(\'' . esc_url($thumb) . '\')"' : ''; ?>>
             <div class="glow" style="filter:hue-rotate(<?php echo (int) $hue; ?>deg)"></div>
             <span class="chip"><?php echo esc_html($label); ?></span>
@@ -359,9 +348,10 @@ $ee_initials = function ($name) {
   }
 
   cards.forEach(function(c){
-    if (c.dataset.cs) return;           /* let the link navigate to /customers/{slug}/ */
     if (!c.dataset.vsrc) return;
     c.addEventListener('click', function(e){
+      /* Allow native link behaviour to bubble for keyboard-Enter on
+         the underlying <a>, but for normal clicks we play inline. */
       e.preventDefault();
       playInCard(c);
     });
