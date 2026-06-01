@@ -40,9 +40,30 @@ add_action('wp_head', function () {
 
 get_header();
 
-/* Single source of truth: items live in WP Admin → 🧰 Resources.
-   Same list also feeds the header's Resources mega-menu. */
+/* Single source of truth: items + header copy live in
+   WP Admin → 🧰 Resources. The mega-menu in header.php uses the same items. */
 $resources = function_exists('ee_get_resources_menu_items') ? ee_get_resources_menu_items() : array();
+$ee_res    = function_exists('ee_get_resources_page_settings') ? ee_get_resources_page_settings() : array(
+    'eyebrow' => 'The Resource Library',
+    'headline' => 'Everything you need to grow enrollment.',
+    'highlight' => 'grow enrollment.',
+    'subheadline' => 'Blogs, ebooks, webinars, case studies, news, and support — all the insights and tools to master modern admissions, in one place.',
+    'trust_label' => "What you'll find inside",
+    'trust_items' => array('Expert-written insights','Updated weekly','Free downloads','Real success stories','24/7 self-serve support'),
+);
+
+/* Render the headline, auto-wrapping the highlight phrase in <mark> */
+$ee_headline_html = esc_html($ee_res['headline']);
+if (!empty($ee_res['highlight'])) {
+    $needle = $ee_res['highlight'];
+    $pos = stripos($ee_res['headline'], $needle);
+    if ($pos !== false) {
+        $ee_headline_html =
+            esc_html(substr($ee_res['headline'], 0, $pos)) .
+            '<mark>' . esc_html(substr($ee_res['headline'], $pos, strlen($needle))) . '</mark>' .
+            esc_html(substr($ee_res['headline'], $pos + strlen($needle)));
+    }
+}
 ?>
 <style>
 .ee-res{
@@ -142,20 +163,29 @@ $resources = function_exists('ee_get_resources_menu_items') ? ee_get_resources_m
   <div class="ecrm-container">
 
     <header class="ecrm-header ecrm-anim ecrm-anim-fade ecrm-d1">
-      <p class="ecrm-eyebrow"><span class="ecrm-eyebrow-dot" aria-hidden="true"></span> The Resource Library</p>
-      <h1 id="ecrm-heading" class="ecrm-headline">Everything you need to <mark>grow enrollment.</mark></h1>
-      <p class="ecrm-subheadline">Blogs, ebooks, webinars, case studies, news, and support — all the insights and tools to master modern admissions, in one place.</p>
+      <?php if (!empty($ee_res['eyebrow'])): ?>
+        <p class="ecrm-eyebrow"><span class="ecrm-eyebrow-dot" aria-hidden="true"></span> <?php echo esc_html($ee_res['eyebrow']); ?></p>
+      <?php endif; ?>
+      <h1 id="ecrm-heading" class="ecrm-headline"><?php echo $ee_headline_html; ?></h1>
+      <?php if (!empty($ee_res['subheadline'])): ?>
+        <p class="ecrm-subheadline"><?php echo esc_html($ee_res['subheadline']); ?></p>
+      <?php endif; ?>
     </header>
 
+    <?php $ee_trust = isset($ee_res['trust_items']) && is_array($ee_res['trust_items']) ? array_values(array_filter($ee_res['trust_items'])) : array();
+    if (!empty($ee_res['trust_label']) || $ee_trust): ?>
     <div class="ecrm-trust-bar ecrm-anim ecrm-d2" role="list" aria-label="Resource library highlights">
-      <span class="ecrm-trust-label">What you'll find inside</span>
-      <?php foreach (array('Expert-written insights','Updated weekly','Free downloads','Real success stories','24/7 self-serve support') as $t): ?>
+      <?php if (!empty($ee_res['trust_label'])): ?>
+        <span class="ecrm-trust-label"><?php echo esc_html($ee_res['trust_label']); ?></span>
+      <?php endif; ?>
+      <?php foreach ($ee_trust as $t): ?>
         <div class="ecrm-trust-item" role="listitem">
           <span class="ecrm-trust-check" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           <span><?php echo esc_html($t); ?></span>
         </div>
       <?php endforeach; ?>
     </div>
+    <?php endif; ?>
 
     <div id="edu-resources-grid" class="ecrm-grid" role="list" aria-label="Resource categories">
       <?php foreach ($resources as $i => $r):

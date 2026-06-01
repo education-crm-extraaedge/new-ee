@@ -3214,6 +3214,20 @@ function ee_get_resources_menu_items() {
     );
 }
 
+/* Header + trust-bar copy shown on /resources/ — same admin page edits it. */
+function ee_get_resources_page_settings() {
+    $s = get_option('ee_resources_page_settings', array());
+    $d = array(
+        'eyebrow'      => 'The Resource Library',
+        'headline'     => 'Everything you need to grow enrollment.',
+        'highlight'    => 'grow enrollment.',
+        'subheadline'  => 'Blogs, ebooks, webinars, case studies, news, and support — all the insights and tools to master modern admissions, in one place.',
+        'trust_label'  => "What you'll find inside",
+        'trust_items'  => array('Expert-written insights', 'Updated weekly', 'Free downloads', 'Real success stories', '24/7 self-serve support'),
+    );
+    return wp_parse_args(is_array($s) ? $s : array(), $d);
+}
+
 add_action('admin_menu', function () {
     add_menu_page('Resources Menu', '🧰 Resources', 'manage_options', 'ee-resources-menu', 'ee_resources_menu_render_admin', 'dashicons-book-alt', 63);
 });
@@ -3222,6 +3236,24 @@ add_action('admin_post_ee_save_resources_menu', function () {
     if (!current_user_can('manage_options')) wp_die('Forbidden');
     check_admin_referer('ee_resources_menu_save');
 
+    /* Page header + trust bar */
+    $h = isset($_POST['hdr']) && is_array($_POST['hdr']) ? $_POST['hdr'] : array();
+    $trust_in = isset($h['trust_items']) && is_array($h['trust_items']) ? $h['trust_items'] : array();
+    $trust_clean = array();
+    foreach ($trust_in as $t) {
+        $t = sanitize_text_field(wp_unslash($t));
+        if ($t !== '') $trust_clean[] = $t;
+    }
+    update_option('ee_resources_page_settings', array(
+        'eyebrow'     => sanitize_text_field(wp_unslash($h['eyebrow']     ?? '')),
+        'headline'    => sanitize_text_field(wp_unslash($h['headline']    ?? '')),
+        'highlight'   => sanitize_text_field(wp_unslash($h['highlight']   ?? '')),
+        'subheadline' => sanitize_textarea_field(wp_unslash($h['subheadline'] ?? '')),
+        'trust_label' => sanitize_text_field(wp_unslash($h['trust_label'] ?? '')),
+        'trust_items' => $trust_clean,
+    ));
+
+    /* Card items */
     $rows  = isset($_POST['res']) && is_array($_POST['res']) ? $_POST['res'] : array();
     $clean = array();
     foreach ($rows as $r) {
@@ -3248,19 +3280,61 @@ add_action('admin_enqueue_scripts', function ($hook) {
 
 function ee_resources_menu_render_admin() {
     $items = ee_get_resources_menu_items();
+    $hdr   = ee_get_resources_page_settings();
+    $trust = is_array($hdr['trust_items']) ? $hdr['trust_items'] : array();
+    while (count($trust) < 5) $trust[] = '';
     ?>
     <div class="wrap">
-        <h1 style="display:flex;align-items:center;gap:10px;"><span style="font-size:26px">🧰</span> Resources Menu</h1>
+        <h1 style="display:flex;align-items:center;gap:10px;"><span style="font-size:26px">🧰</span> Resources</h1>
         <p class="description" style="max-width:780px;font-size:13.5px;line-height:1.6;">
-            Edit the items that appear in the <strong>Resources</strong> dropdown of the site header <em>and</em> as cards on the <code><?php echo esc_url(home_url('/resources/')); ?></code> page. Same source — change once, updates both.
+            Edit the <strong>header + trust bar</strong> shown at the top of <code><?php echo esc_url(home_url('/resources/')); ?></code>, and the <strong>cards</strong> that appear both there <em>and</em> in the site header's Resources dropdown. Same source — change once, updates both.
         </p>
         <?php if (!empty($_GET['updated'])): ?>
-            <div class="notice notice-success is-dismissible"><p>Resources menu saved.</p></div>
+            <div class="notice notice-success is-dismissible"><p>Resources page saved.</p></div>
         <?php endif; ?>
 
         <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
             <input type="hidden" name="action" value="ee_save_resources_menu">
             <?php wp_nonce_field('ee_resources_menu_save'); ?>
+
+            <h2 style="margin:24px 0 10px;">🎯 Page header</h2>
+            <div style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:16px 18px;">
+                <div class="eerm-grid">
+                    <div class="eerm-field">
+                        <label style="display:block;font-weight:600;font-size:12.5px;color:#1d2327;margin-bottom:5px;">Eyebrow (small label above the headline)</label>
+                        <input type="text" name="hdr[eyebrow]" value="<?php echo esc_attr($hdr['eyebrow']); ?>" placeholder="The Resource Library" style="width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;">
+                    </div>
+                    <div class="eerm-field">
+                        <label style="display:block;font-weight:600;font-size:12.5px;color:#1d2327;margin-bottom:5px;">Highlight phrase <span style="font-weight:400;color:#64748b;">(the orange-coloured part of the headline)</span></label>
+                        <input type="text" name="hdr[highlight]" value="<?php echo esc_attr($hdr['highlight']); ?>" placeholder="grow enrollment." style="width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;">
+                    </div>
+                </div>
+                <div class="eerm-field" style="margin-top:11px;">
+                    <label style="display:block;font-weight:600;font-size:12.5px;color:#1d2327;margin-bottom:5px;">Headline <span style="font-weight:400;color:#64748b;">(include the highlight phrase verbatim — it'll be auto-coloured)</span></label>
+                    <input type="text" name="hdr[headline]" value="<?php echo esc_attr($hdr['headline']); ?>" placeholder="Everything you need to grow enrollment." style="width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;">
+                </div>
+                <div class="eerm-field" style="margin-top:11px;">
+                    <label style="display:block;font-weight:600;font-size:12.5px;color:#1d2327;margin-bottom:5px;">Subheadline</label>
+                    <textarea name="hdr[subheadline]" rows="2" placeholder="Blogs, ebooks, webinars…" style="width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;resize:vertical;"><?php echo esc_textarea($hdr['subheadline']); ?></textarea>
+                </div>
+            </div>
+
+            <h2 style="margin:28px 0 10px;">✅ Trust bar <span style="font-size:13px;font-weight:400;color:#64748b;">— the strip with checkmarked highlights</span></h2>
+            <div style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:16px 18px;">
+                <div class="eerm-field">
+                    <label style="display:block;font-weight:600;font-size:12.5px;color:#1d2327;margin-bottom:5px;">Trust bar label</label>
+                    <input type="text" name="hdr[trust_label]" value="<?php echo esc_attr($hdr['trust_label']); ?>" placeholder="What you'll find inside" style="width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;">
+                </div>
+                <p style="margin:10px 0 6px;font-size:12.5px;color:#1d2327;font-weight:600;">Trust items <span style="font-weight:400;color:#64748b;">(leave blank to hide; you can have up to 8)</span></p>
+                <div id="eerm-trust" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                    <?php foreach (array_slice(array_pad($trust, 8, ''), 0, 8) as $i => $t): ?>
+                        <input type="text" name="hdr[trust_items][]" value="<?php echo esc_attr($t); ?>" placeholder="Trust item <?php echo $i + 1; ?>" style="padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;">
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <h2 style="margin:32px 0 10px;">📚 Resource cards</h2>
+            <p class="description" style="margin-bottom:10px;">Each row appears in the header's Resources dropdown <em>and</em> as a card on <code>/resources/</code>.</p>
 
             <style>
                 .eerm-row{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #DE6E30;border-radius:6px;padding:14px 16px;margin:10px 0;position:relative}
