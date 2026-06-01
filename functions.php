@@ -3478,6 +3478,25 @@ function ee_customers_categories() {
     );
 }
 
+function ee_get_case_study_globals() {
+    $defaults = array(
+        /* Shared sections — used as default + can be overridden per story */
+        'challenges'  => "ti-message-x|Inefficient WhatsApp Communication|Every message, brochure, and follow-up was sent manually. Counselors spent hours copy-pasting content — leading to delays, errors, and missed prospects at critical decision moments.\nti-database-off|Manual Lead Management|Lead data lived in Excel sheets and a generic CRM that lacked education-specific workflows. No automation meant no drip sequences, no lead scoring, and no way to prioritize high-intent applicants.\nti-trending-down|Low Lead-to-Conversion (~2%)|Despite a healthy volume of inquiries from passionate aspirants, conversion hovered at a dismal 2%. Slow response times, inconsistent nurturing, and a lack of personalization were the root causes.\nti-layout-sidebar-inactive|Siloed Data & Zero Visibility|Leads arrived from multiple sources — website, ads, events — but there was no unified view. Leadership had no real-time insight into pipeline health, campaign ROI, or counselor performance.",
+        'solutions'   => "ti-brand-whatsapp|Integrated WhatsApp for Business|Brochures, program highlights, campus event invites, and follow-up campaigns now go out in seconds — directly from the CRM, fully tracked, with no manual copy-pasting ever again.\nti-robot|Chatbot & Drip Automation|An always-on chatbot captures inquiries 24/7. Automated drip sequences keep prospective students engaged across email and WhatsApp — nurturing leads even when counselors are offline.\nti-funnel|End-to-End Lead Tracking|Every lead — from every source — flows into a single, unified funnel. Admissions and marketing teams get a shared view of pipeline stages, drop-offs, and conversion rates in real time.\nti-chart-bar|Analytics & Campaign ROI|Leadership gains confidence with dashboards showing which campaigns bring the highest-quality leads, how counselors are performing, and where budget is being best spent.\nti-users|Counselor-Friendly Interface|Designed for quick adoption — spreadsheet-like list views, smart filters, and saved segments mean counselors ramp up in days, not weeks. No steep learning curve, no resistance to change.\nti-plug|Seamless Integrations|ExtraaEdge plugs into existing ad platforms, landing pages, and communication channels — ensuring zero lead leakage from the first click to final enrolment.",
+        'journey'     => "Week 1–2|Discovery & Setup|The ExtraaEdge team conducted a deep-dive audit of existing workflows, mapped lead sources, and configured the CRM to your unique admissions structure — including program-level pipelines and counselor roles.\nWeek 3–4|WhatsApp & Automation Go-Live|WhatsApp for Business integration activated. Automated drip sequences, brochure triggers, and chatbot flows configured and tested. Counselors trained on the new system with role-specific walkthroughs.\nMonth 2|Full Pipeline Visibility|All lead sources — organic, paid, referral — unified into a single funnel view. Leadership dashboard activated. Early data showed a marked improvement in response times and follow-up consistency.\nMonth 3 onwards|Conversion Growth & Optimization|Conversion rates began climbing fast. Ad-to-conversion improved meaningfully. Ongoing monthly reviews with the ExtraaEdge CSM team ensured continuous refinement and scaling.",
+        'why_cards'   => "Admissions-First Design|Every workflow, dashboard, and automation in ExtraaEdge maps to the real cycle of education admissions — from inquiry to enrolment — not adapted from sales software.\nWhatsApp Native Integration|Not a plugin — a core feature. Send brochures, schedule reminders, run broadcast campaigns, and track responses directly inside the CRM, fully compliant with WhatsApp Business API.\nRapid Counselor Adoption|Designed to feel familiar to anyone who's used a spreadsheet. Counselors get productive in days, not months — maximising your investment from day one.\nDedicated Customer Success|Every client gets a dedicated CSM and Technical Account Manager. Not a ticket queue — real people who know your institution, proactively driving your success.\nProven Across 250+ Institutes|From niche creative schools to large universities, ExtraaEdge is trusted across India's education landscape — delivering measurable ROI across every segment.\nReal-Time Intelligence|Live dashboards give leadership instant visibility into campaign performance, counselor productivity, and conversion funnels — enabling faster, smarter decisions.",
+        'csm_quote'   => 'If I had to pick the top reasons for staying with ExtraaEdge, it would be people, people, and people. Our CSM team has gone above and beyond in making sure we succeed.',
+        'csm_quote_by'=> 'A customer of ExtraaEdge',
+        'csm_team'    => "Abhijeeth Raj|AVP – Growth, ExtraaEdge|Growth Strategy|https://ui-avatars.com/api/?name=Abhijeeth+Raj&background=19335D&color=ffffff&size=192&bold=true\nSaloni Soni|Technical Account Manager, ExtraaEdge|Technical Support|https://ui-avatars.com/api/?name=Saloni+Soni&background=19335D&color=ffffff&size=192&bold=true\nArjun Chakraborty|Sr. Manager – Customer Success, ExtraaEdge|Customer Success|https://ui-avatars.com/api/?name=Arjun+Chakraborty&background=19335D&color=ffffff&size=192&bold=true",
+        'gated_eyebrow' => 'Free Download · Full Case Study',
+        'gated_title'   => 'Get the complete story',
+        'gated_sub'     => 'Download the full PDF case study with detailed implementation insights, metrics breakdown, and expert commentary — completely free.',
+        'gated_form_html' => '<script async src="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js"></script><div id="ee-form-7"></div>',
+    );
+    $s = get_option('ee_case_study_globals', array());
+    return wp_parse_args(is_array($s) ? $s : array(), $defaults);
+}
+
 function ee_get_customers_settings() {
     $defaults = array(
         'eyebrow'   => 'Customer Stories',
@@ -3635,9 +3654,36 @@ add_action('admin_post_ee_save_customers', function () {
             'video'  => isset($r['video'])  ? esc_url_raw(wp_unslash($r['video']))              : '',
             'thumb'  => isset($r['thumb'])  ? esc_url_raw(wp_unslash($r['thumb']))              : '',
             'url'    => isset($r['url'])    ? esc_url_raw(wp_unslash($r['url']))                : '#',
+            'slug'   => isset($r['slug']) && $r['slug'] !== '' ? sanitize_title(wp_unslash($r['slug'])) : sanitize_title($name),
+            'cs'     => array(
+                'industry'  => isset($r['cs']['industry'])  ? sanitize_text_field(wp_unslash($r['cs']['industry']))  : '',
+                'location'  => isset($r['cs']['location'])  ? sanitize_text_field(wp_unslash($r['cs']['location']))  : '',
+                'year'      => isset($r['cs']['year'])      ? sanitize_text_field(wp_unslash($r['cs']['year']))      : '',
+                'read_time' => isset($r['cs']['read_time']) ? sanitize_text_field(wp_unslash($r['cs']['read_time'])) : '',
+                'headline'  => isset($r['cs']['headline'])  ? wp_kses_post(wp_unslash($r['cs']['headline']))         : '',
+                'sub'       => isset($r['cs']['sub'])       ? sanitize_textarea_field(wp_unslash($r['cs']['sub']))   : '',
+                'stats'     => isset($r['cs']['stats'])     ? sanitize_textarea_field(wp_unslash($r['cs']['stats'])) : '',
+                'about'     => isset($r['cs']['about'])     ? wp_kses_post(wp_unslash($r['cs']['about']))            : '',
+                'facts'     => isset($r['cs']['facts'])     ? sanitize_textarea_field(wp_unslash($r['cs']['facts'])) : '',
+                'quote'     => isset($r['cs']['quote'])     ? sanitize_textarea_field(wp_unslash($r['cs']['quote'])) : '',
+                'results'   => isset($r['cs']['results'])   ? sanitize_textarea_field(wp_unslash($r['cs']['results'])) : '',
+                'impact'    => isset($r['cs']['impact'])    ? sanitize_textarea_field(wp_unslash($r['cs']['impact']))  : '',
+                'compare'   => isset($r['cs']['compare'])   ? sanitize_textarea_field(wp_unslash($r['cs']['compare']))  : '',
+                'enabled'   => !empty($r['cs']['enabled']) ? 1 : 0,
+            ),
         );
     }
     update_option('ee_customers_stories', $clean);
+
+    /* Global case-study template settings */
+    $cs = isset($_POST['cs_globals']) && is_array($_POST['cs_globals']) ? $_POST['cs_globals'] : array();
+    $text_keys = array('challenges','solutions','journey','why_cards','csm_team','csm_quote','csm_quote_by','gated_eyebrow','gated_title','gated_sub');
+    $clean_cs = array();
+    foreach ($text_keys as $k) {
+        $clean_cs[$k] = isset($cs[$k]) ? sanitize_textarea_field(wp_unslash($cs[$k])) : '';
+    }
+    $clean_cs['gated_form_html'] = isset($cs['gated_form_html']) ? wp_kses_post(wp_unslash($cs['gated_form_html'])) : '';
+    update_option('ee_case_study_globals', $clean_cs);
 
     wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-customers')));
     exit;
@@ -3777,7 +3823,40 @@ function ee_customers_render_admin() {
                                     </div>
                                 </div>
                             </div>
-                            <div class="eecu-row" style="margin-bottom:0;"><label>"Watch the story" external link <span style="font-weight:400;color:#64748b;">(optional — only used as a fallback when no video URL is set)</span></label><input type="url" name="story[<?php echo $i; ?>][url]" value="<?php echo esc_attr($url); ?>" placeholder="https://…/customer-story/"></div>
+                            <div class="eecu-row"><label>"Watch the story" external link <span style="font-weight:400;color:#64748b;">(optional — used only when no Case Study + no video are set)</span></label><input type="url" name="story[<?php echo $i; ?>][url]" value="<?php echo esc_attr($url); ?>" placeholder="https://…/customer-story/"></div>
+
+                            <?php
+                            $slug = $r['slug'] ?? sanitize_title($name);
+                            $cs   = isset($r['cs']) && is_array($r['cs']) ? $r['cs'] : array();
+                            $cs_enabled = !empty($cs['enabled']);
+                            ?>
+                            <div class="eecu-row" style="margin-top:6px;border-top:1px dashed #d1d5db;padding-top:14px;">
+                                <label style="display:inline-flex;align-items:center;gap:7px;font-weight:500;">
+                                    <input type="checkbox" name="story[<?php echo $i; ?>][cs][enabled]" value="1" <?php checked($cs_enabled); ?> class="eecu-cs-toggle">
+                                    <strong style="font-weight:700;color:#19335D;">📄 Show a full Case Study page at <code style="background:#fff;border:1px solid #e2e8f0;padding:1px 5px;border-radius:3px;font-size:11.5px;"><?php echo esc_html(home_url('/customers/' . $slug . '/')); ?></code></strong>
+                                </label>
+                                <p class="hint" style="margin-top:4px;">When enabled, the "Watch the story" button on the customers grid links to that page (instead of playing the video inline). Fill the fields below — anything left blank falls back to the global template under <em>📐 Case Study Template</em>.</p>
+                            </div>
+                            <div class="eecu-cs-panel" <?php echo $cs_enabled ? '' : 'style="display:none;"'; ?>>
+                                <div class="eecu-grid2">
+                                    <div class="eecu-row"><label>Page slug</label><input type="text" name="story[<?php echo $i; ?>][slug]" value="<?php echo esc_attr($slug); ?>" placeholder="annapurna-college"></div>
+                                    <div class="eecu-row"><label>Hero headline (HTML allowed — use &lt;em&gt; for orange)</label><input type="text" name="story[<?php echo $i; ?>][cs][headline]" value="<?php echo esc_attr($cs['headline'] ?? ''); ?>" placeholder="How <?php echo esc_attr($name); ?> achieved &lt;em&gt;4× higher conversions&lt;/em&gt;"></div>
+                                </div>
+                                <div class="eecu-row"><label>Hero sub-line</label><textarea name="story[<?php echo $i; ?>][cs][sub]" rows="2" placeholder="From scattered Excel sheets to an automated, insight-driven admissions engine."><?php echo esc_textarea($cs['sub'] ?? ''); ?></textarea></div>
+                                <div class="eecu-grid4">
+                                    <div class="eecu-row"><label>Industry</label><input type="text" name="story[<?php echo $i; ?>][cs][industry]" value="<?php echo esc_attr($cs['industry'] ?? ''); ?>" placeholder="Film & Media"></div>
+                                    <div class="eecu-row"><label>Location</label><input type="text" name="story[<?php echo $i; ?>][cs][location]" value="<?php echo esc_attr($cs['location'] ?? ''); ?>" placeholder="Hyderabad, India"></div>
+                                    <div class="eecu-row"><label>Year</label><input type="text" name="story[<?php echo $i; ?>][cs][year]" value="<?php echo esc_attr($cs['year'] ?? ''); ?>" placeholder="2023"></div>
+                                    <div class="eecu-row"><label>Read-time</label><input type="text" name="story[<?php echo $i; ?>][cs][read_time]" value="<?php echo esc_attr($cs['read_time'] ?? ''); ?>" placeholder="8-min read"></div>
+                                </div>
+                                <div class="eecu-row"><label>Hero stat band — 4 lines · format <code>value|suffix|label</code></label><textarea name="story[<?php echo $i; ?>][cs][stats]" rows="4" placeholder="3500|+|Active Users&#10;250|+|Institutes Served&#10;20K|+|Applications Processed&#10;10K|+|Admissions Done"><?php echo esc_textarea($cs['stats'] ?? ''); ?></textarea></div>
+                                <div class="eecu-row"><label>About — paragraphs (HTML allowed; blank line between paragraphs)</label><textarea name="story[<?php echo $i; ?>][cs][about]" rows="6" placeholder="Founded in 2011 by …&#10;&#10;The college holds full affiliation with …"><?php echo esc_textarea($cs['about'] ?? ''); ?></textarea></div>
+                                <div class="eecu-row"><label>Quick facts — one per line · icon and text · format <code>ti-icon|text</code></label><textarea name="story[<?php echo $i; ?>][cs][facts]" rows="5" placeholder="ti-calendar-event|Established in 2011&#10;ti-certificate|JNAFAU affiliated"><?php echo esc_textarea($cs['facts'] ?? ''); ?></textarea></div>
+                                <div class="eecu-row"><label>Results — up to 3 lines · format <code>big|suffix|label|before|after</code></label><textarea name="story[<?php echo $i; ?>][cs][results]" rows="3" placeholder="4|×|Lead-to-Conversion|~2%|8–10%&#10;3|×|Ad-to-Conversion|10%|30%&#10;↑||Faster Response|Hours|Seconds"><?php echo esc_textarea($cs['results'] ?? ''); ?></textarea></div>
+                                <div class="eecu-row"><label>Impact bullets — 4 lines · format <code>ti-icon|HTML</code></label><textarea name="story[<?php echo $i; ?>][cs][impact]" rows="4" placeholder="ti-clock|<strong>Counselors saved hours daily</strong> — automated follow-ups replaced manual tasks."><?php echo esc_textarea($cs['impact'] ?? ''); ?></textarea></div>
+                                <div class="eecu-row"><label>Pull-quote testimonial (long quote, with the orange border)</label><textarea name="story[<?php echo $i; ?>][cs][quote]" rows="3" placeholder="With ExtraaEdge, our lead-to-conversion jumped from 2% to nearly 10%…"><?php echo esc_textarea($cs['quote'] ?? ''); ?></textarea></div>
+                                <div class="eecu-row" style="margin-bottom:0;"><label>Before-vs-After table — one row per line · format <code>metric|before|after</code></label><textarea name="story[<?php echo $i; ?>][cs][compare]" rows="6" placeholder="Lead-to-Conversion Rate|~2%|8–10%&#10;Ad-to-Conversion Rate|~10%|~30%&#10;WhatsApp Communication|Manual, slow|Automated & instant"><?php echo esc_textarea($cs['compare'] ?? ''); ?></textarea></div>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -3868,8 +3947,35 @@ function ee_customers_render_admin() {
                         row.querySelector('.eecu-thumb-prev').style.background = '#1c1a16';
                     }
                 });
+                list.addEventListener('change', function(e){
+                    if (e.target.classList.contains('eecu-cs-toggle')){
+                        var panel = e.target.closest('.eecu-story').querySelector('.eecu-cs-panel');
+                        if (panel) panel.style.display = e.target.checked ? '' : 'none';
+                    }
+                });
             })();
             </script>
+
+            <!-- ── GLOBAL CASE STUDY TEMPLATE ── -->
+            <?php $g = ee_get_case_study_globals(); ?>
+            <div class="eecu-card">
+                <h2>📐 Case Study Template <em style="font-size:11px;color:#64748b;font-weight:400;">— shared across every customer's full case-study page (used as fallback when a story leaves the corresponding field blank)</em></h2>
+                <div class="eecu-row"><label>Challenges (4 lines) · format <code>ti-icon|title|description</code></label><textarea name="cs_globals[challenges]" rows="6"><?php echo esc_textarea($g['challenges']); ?></textarea></div>
+                <div class="eecu-row"><label>Solution features (6 lines) · format <code>ti-icon|title|description</code></label><textarea name="cs_globals[solutions]" rows="7"><?php echo esc_textarea($g['solutions']); ?></textarea></div>
+                <div class="eecu-row"><label>Implementation journey (4 lines) · format <code>phase|title|description</code></label><textarea name="cs_globals[journey]" rows="6"><?php echo esc_textarea($g['journey']); ?></textarea></div>
+                <div class="eecu-row"><label>Why ExtraaEdge cards (6 lines) · format <code>title|description</code></label><textarea name="cs_globals[why_cards]" rows="7"><?php echo esc_textarea($g['why_cards']); ?></textarea></div>
+                <div class="eecu-grid2">
+                    <div class="eecu-row"><label>CSM section · pull-quote</label><textarea name="cs_globals[csm_quote]" rows="3"><?php echo esc_textarea($g['csm_quote']); ?></textarea></div>
+                    <div class="eecu-row"><label>CSM section · quote attribution</label><input type="text" name="cs_globals[csm_quote_by]" value="<?php echo esc_attr($g['csm_quote_by']); ?>"></div>
+                </div>
+                <div class="eecu-row"><label>CSM team (3 lines) · format <code>name|role|badge|photo URL</code></label><textarea name="cs_globals[csm_team]" rows="3"><?php echo esc_textarea($g['csm_team']); ?></textarea></div>
+                <div class="eecu-grid3">
+                    <div class="eecu-row"><label>Gated form · eyebrow</label><input type="text" name="cs_globals[gated_eyebrow]" value="<?php echo esc_attr($g['gated_eyebrow']); ?>"></div>
+                    <div class="eecu-row"><label>Gated form · headline</label><input type="text" name="cs_globals[gated_title]" value="<?php echo esc_attr($g['gated_title']); ?>"></div>
+                    <div class="eecu-row"><label>Gated form · sub-line</label><input type="text" name="cs_globals[gated_sub]" value="<?php echo esc_attr($g['gated_sub']); ?>"></div>
+                </div>
+                <div class="eecu-row" style="margin-bottom:0;"><label>Gated form embed HTML <span style="font-weight:400;color:#64748b;">(paste the &lt;script&gt; + &lt;div&gt; widget from ExtraaEdge form builder)</span></label><textarea name="cs_globals[gated_form_html]" rows="3"><?php echo esc_textarea($g['gated_form_html']); ?></textarea></div>
+            </div>
         </form>
     </div>
     <?php
@@ -5596,6 +5702,24 @@ add_action('template_redirect', function () {
         'customers'  => array('file' => 'page-customers.php',  'title' => 'Customer Success Stories'),
         'customer'   => array('file' => 'page-customers.php',  'title' => 'Customer Success Stories'),
     );
+
+    /* Per-customer case-study page at /customers/{slug}/ */
+    $path = trim(parse_url(($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH), '/');
+    if (preg_match('~^customers?/([a-z0-9\-]+)/?$~i', $path, $cs_m)) {
+        $cs_slug = $cs_m[1];
+        if ($cs_slug !== 'customers' && function_exists('ee_get_customers_stories')) {
+            foreach (ee_get_customers_stories() as $cs_story) {
+                $story_slug = $cs_story['slug'] ?? sanitize_title($cs_story['name'] ?? '');
+                if ($story_slug === $cs_slug && !empty($cs_story['cs']['enabled'])) {
+                    $GLOBALS['ee_cs_story']         = $cs_story;
+                    $GLOBALS['ee_custom_route_title'] = ($cs_story['name'] ?? 'Customer') . ' — Case Study';
+                    status_header(200); nocache_headers();
+                    $tpl = get_stylesheet_directory() . '/page-customer-story.php';
+                    if (file_exists($tpl)) { include $tpl; exit; }
+                }
+            }
+        }
+    }
 
     /* Add a body class on any custom-routed landing page so the global
        CSS in header.php can tighten line-heights and remove the gap
