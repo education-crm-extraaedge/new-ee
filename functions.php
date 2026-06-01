@@ -3046,10 +3046,79 @@ function ee_get_solution_items() {
     return $cache;
 }
 
+/* ═════════════════════════════════════════════════════════════
+ * 🎨 SITE EDITOR — single parent menu for every non-coder page
+ * Adds one top-level item (priority 1, so it runs first) under which
+ * all of our custom admin pages register themselves as submenus.
+ * ═════════════════════════════════════════════════════════════ */
+add_action('admin_menu', function () {
+    add_menu_page(
+        'ExtraaEdge Site Editor',          // page title
+        '🎨 Site Editor',                  // sidebar label
+        'manage_options',
+        'ee-site',
+        'ee_site_editor_welcome',
+        'dashicons-art',
+        3                                  // sit just under "Dashboard"
+    );
+    add_submenu_page('ee-site', 'Welcome', '👋 Welcome / Quick start', 'manage_options', 'ee-site', 'ee_site_editor_welcome');
+}, 1);
+
+function ee_site_editor_welcome() {
+    $cards = array(
+        array('home',      '🏠', 'Home Page',          'Hero copy, logos, sections, CTAs',                        admin_url('admin.php?page=ee-home-editor')),
+        array('blog-nav',  '🧭', 'Blog · Quick Nav',   'Floating side-nav on every blog post',                    admin_url('admin.php?page=ee-quick-nav')),
+        array('blog-form', '📥', 'Blog · Lead Form',   'Inline lead form shown inside blog posts',                admin_url('admin.php?page=ee-blog-form')),
+        array('sol',       '🧩', 'Solutions Page',     'Cards across Admission / Study Abroad / Recruitment',     admin_url('admin.php?page=ee-solutions')),
+        array('res',       '🧰', 'Resources Page',     'Header dropdown + /resources/ cards',                     admin_url('admin.php?page=ee-resources-menu')),
+        array('cust',      '👥', 'Customer Stories',   'Cards on /customers/, video + thumbnails',                admin_url('admin.php?page=ee-customers')),
+        array('prod',      '🛍', 'Products Menu',      'Header → Products dropdown banners',                      admin_url('admin.php?page=ee-products-menu')),
+        array('seo',       '🌐', 'SEO & Tracking',     'GA4, Tag Manager, sitewide tracking scripts',             admin_url('options-general.php?page=ee-tracking')),
+        array('ebook',     '📚', 'E-books',            'Manage every white-paper / e-book page',                  admin_url('edit.php?post_type=ebook')),
+        array('blog',      '📝', 'Blog Posts',         'Write, edit, schedule articles',                          admin_url('edit.php')),
+    );
+    ?>
+    <div class="wrap">
+        <h1 style="display:flex;align-items:center;gap:12px;font-size:26px;margin:14px 0 4px;">
+            <span style="font-size:32px;">🎨</span> Site Editor
+        </h1>
+        <p class="description" style="font-size:14px;max-width:780px;line-height:1.6;margin:0 0 26px;">
+            Every page on the site that you can edit without touching code. Click a card to jump to its editor.
+        </p>
+        <style>
+            .ee-site-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:8px;max-width:1100px;}
+            .ee-site-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;text-decoration:none;color:#1d2327;transition:transform .2s,box-shadow .2s,border-color .2s;display:flex;gap:14px;align-items:flex-start;}
+            .ee-site-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(25,51,93,.1);border-color:#DE6E30;color:#1d2327;}
+            .ee-site-card .ico{font-size:28px;line-height:1;flex-shrink:0;background:#fff8f1;border:1px solid #fde7d3;width:52px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+            .ee-site-card h3{margin:0 0 4px;font-size:14.5px;font-weight:700;color:#19335D;}
+            .ee-site-card p{margin:0;font-size:12.5px;color:#5b6678;line-height:1.5;}
+            .ee-site-help{background:#fff8f1;border:1px solid #fde7d3;border-radius:8px;padding:14px 18px;margin:24px 0 0;max-width:1100px;color:#7c2d12;font-size:13px;line-height:1.6;}
+            .ee-site-help strong{color:#19335D;}
+        </style>
+        <div class="ee-site-grid">
+            <?php foreach ($cards as $c): ?>
+                <a class="ee-site-card" href="<?php echo esc_url($c[4]); ?>">
+                    <span class="ico"><?php echo esc_html($c[1]); ?></span>
+                    <span>
+                        <h3><?php echo esc_html($c[2]); ?></h3>
+                        <p><?php echo esc_html($c[3]); ?></p>
+                    </span>
+                </a>
+            <?php endforeach; ?>
+        </div>
+        <div class="ee-site-help">
+            <strong>💡 Tip:</strong> Each of these editors lives as a sub-menu under <strong>🎨 Site Editor</strong> on the left.
+            You can also reach <strong>🌐 SEO &amp; Tracking</strong> from <strong>Settings</strong>, and the
+            <strong>🏠 Home Page</strong> editor from there too — but everything is one click away from this welcome screen.
+        </div>
+    </div>
+    <?php
+}
+
 /* Top-level admin menu — "🧩 Solutions" — lets the non-coder add / edit
    rows in any of the three columns without touching code. */
 add_action('admin_menu', function () {
-    add_menu_page('Solutions', '🧩 Solutions', 'manage_options', 'ee-solutions', 'ee_solutions_render_admin', 'dashicons-grid-view', 61);
+    add_submenu_page('ee-site', 'Solutions', '🧩 Solutions Page', 'manage_options', 'ee-solutions', 'ee_solutions_render_admin');
 });
 add_action('admin_post_ee_save_solution_items', function () {
     if (!current_user_can('manage_options')) wp_die('Forbidden');
@@ -3229,7 +3298,7 @@ function ee_get_resources_page_settings() {
 }
 
 add_action('admin_menu', function () {
-    add_menu_page('Resources Menu', '🧰 Resources', 'manage_options', 'ee-resources-menu', 'ee_resources_menu_render_admin', 'dashicons-book-alt', 63);
+    add_submenu_page('ee-site', 'Resources', '🧰 Resources Page', 'manage_options', 'ee-resources-menu', 'ee_resources_menu_render_admin');
 });
 
 add_action('admin_post_ee_save_resources_menu', function () {
@@ -3513,7 +3582,7 @@ function ee_get_customers_stories() {
 }
 
 add_action('admin_menu', function () {
-    add_menu_page('Customer Stories', '👥 Customers', 'manage_options', 'ee-customers', 'ee_customers_render_admin', 'dashicons-format-quote', 64);
+    add_submenu_page('ee-site', 'Customer Stories', '👥 Customer Stories', 'manage_options', 'ee-customers', 'ee_customers_render_admin');
 });
 
 add_action('admin_post_ee_save_customers', function () {
@@ -3816,13 +3885,9 @@ function ee_customers_render_admin() {
 }
 
 
-/* Top-level admin menu — 🛍 Products Menu Banners */
+/* Submenu — 🛍 Products Menu Banners (header dropdown) */
 add_action('admin_menu', function () {
-    add_menu_page(
-        'Products Menu Banners', '🛍 Products Menu', 'manage_options',
-        'ee-products-menu', 'ee_products_menu_render_admin',
-        'dashicons-cart', 62
-    );
+    add_submenu_page('ee-site', 'Products Menu Banners', '🛍 Products Menu', 'manage_options', 'ee-products-menu', 'ee_products_menu_render_admin');
 });
 add_action('admin_post_ee_save_products_menu', function () {
     if (!current_user_can('manage_options')) wp_die('Forbidden');
@@ -4472,11 +4537,7 @@ function ee_blog_form_submit() {
 
 /* Admin menu */
 add_action('admin_menu', function () {
-    add_menu_page(
-        'Blog Form', '📥 Blog Form', 'manage_options',
-        'ee-blog-form', 'ee_blog_form_render_admin',
-        'dashicons-email-alt', 63
-    );
+    add_submenu_page('ee-site', 'Blog Lead Form', '📥 Blog · Lead Form', 'manage_options', 'ee-blog-form', 'ee_blog_form_render_admin');
 });
 add_action('admin_post_ee_save_blog_form', function () {
     if (!current_user_can('manage_options')) wp_die('Forbidden');
@@ -4782,11 +4843,7 @@ function ee_quick_nav_colors() {
 }
 
 add_action('admin_menu', function () {
-    add_menu_page(
-        'Blog Quick Nav', '🧭 Blog Quick Nav', 'manage_options',
-        'ee-quick-nav', 'ee_quick_nav_render_admin',
-        'dashicons-screenoptions', 64
-    );
+    add_submenu_page('ee-site', 'Blog Quick Nav', '🧭 Blog · Quick Nav', 'manage_options', 'ee-quick-nav', 'ee_quick_nav_render_admin');
 });
 
 add_action('admin_post_ee_save_quick_nav', function () {
