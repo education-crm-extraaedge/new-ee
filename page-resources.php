@@ -25,20 +25,13 @@ add_action('wp_head', function () {
     echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
     echo '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">' . "\n";
 
-    /* JSON-LD CollectionPage + ItemList */
-    $items = array(
-        array('Blogs',        '/blog/',                'Latest insights, trends, and best practices for student admissions and enrollment.'),
-        array('Ebooks',       '/ebooks/',              'In-depth guides and playbooks to master education marketing and admissions.'),
-        array('Webinars',     '/webinars/',            'Live and on-demand sessions with industry experts and product walkthroughs.'),
-        array('Case Studies', '/case-studies/',        'Real success stories from institutions scaling enrollment with our platform.'),
-        array('News & Media', '/news/',                'Press coverage, announcements, and the latest from our newsroom.'),
-        array('Help Center',  '/help/',                'Step-by-step guides, FAQs, and documentation to get the most out of the platform.'),
-    );
-    $list = array('@context' => 'https://schema.org', '@type' => 'ItemList', 'name' => 'Resource Categories', 'numberOfItems' => count($items), 'itemListElement' => array());
+    /* JSON-LD CollectionPage + ItemList — same source as the admin */
+    $items = function_exists('ee_get_resources_menu_items') ? ee_get_resources_menu_items() : array();
+    $list  = array('@context' => 'https://schema.org', '@type' => 'ItemList', 'name' => 'Resource Categories', 'numberOfItems' => count($items), 'itemListElement' => array());
     foreach ($items as $i => $row) {
         $list['itemListElement'][] = array(
             '@type' => 'ListItem', 'position' => $i + 1,
-            'name' => $row[0], 'url' => home_url($row[1]), 'description' => $row[2],
+            'name' => $row['title'] ?? '', 'url' => $row['url'] ?? '', 'description' => $row['desc'] ?? '',
         );
     }
     echo "\n<script type=\"application/ld+json\">" . wp_json_encode(array('@context'=>'https://schema.org','@type'=>'CollectionPage','name'=>'ExtraaEdge Resources','description'=>$desc,'url'=>$url,'provider'=>array('@type'=>'Organization','name'=>'ExtraaEdge','url'=>home_url('/')))) . "</script>\n";
@@ -47,23 +40,9 @@ add_action('wp_head', function () {
 
 get_header();
 
-$resources = array(
-    array('id'=>'blogs',        'title'=>'Blogs',        'url'=>home_url('/blog/'),         'desc'=>'Latest insights, trends, and best practices for student admissions and enrollment.',                 'colors'=>array('#DE6E30','#F7B267')),
-    array('id'=>'ebooks',       'title'=>'Ebooks',       'url'=>home_url('/ebooks/'),       'desc'=>'In-depth guides and playbooks to master education marketing and admissions.',                          'colors'=>array('#19335D','#3E6BB0')),
-    array('id'=>'webinars',     'title'=>'Webinars',     'url'=>home_url('/webinars/'),     'desc'=>'Live and on-demand sessions with industry experts and product walkthroughs.',                          'colors'=>array('#7C3AED','#C084FC')),
-    array('id'=>'case-studies', 'title'=>'Case Studies', 'url'=>home_url('/case-studies/'), 'desc'=>'Real success stories from institutions scaling enrollment with our platform.',                         'colors'=>array('#0E9F6E','#6EE7B7')),
-    array('id'=>'news-media',   'title'=>'News & Media', 'url'=>home_url('/news/'),         'desc'=>'Press coverage, announcements, and the latest from our newsroom.',                                     'colors'=>array('#DC2626','#FB7185')),
-    array('id'=>'help-center',  'title'=>'Help Center',  'url'=>home_url('/help/'),         'desc'=>'Step-by-step guides, FAQs, and documentation to get the most out of the platform.',                   'colors'=>array('#0891B2','#67E8F9')),
-);
-
-$icons = array(
-    'blogs'        => '<path d="M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/><path d="M8 9h8M8 13h8M8 17h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>',
-    'ebooks'       => '<path d="M4 5a2 2 0 0 1 2-2h6v18H6a2 2 0 0 1-2-2V5Z" stroke="currentColor" stroke-width="1.7"/><path d="M20 5a2 2 0 0 0-2-2h-6v18h6a2 2 0 0 0 2-2V5Z" stroke="currentColor" stroke-width="1.7"/>',
-    'webinars'     => '<rect x="3" y="5" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M10 9.5l4 2.5-4 2.5v-5Z" fill="currentColor"/><path d="M8 20h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>',
-    'case-studies' => '<path d="M5 21V9l7-5 7 5v12" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 21v-6h8v6" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M10.5 11.5l1.5 1.5 2.5-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
-    'news-media'   => '<path d="M4 5h13v14H6a2 2 0 0 1-2-2V5Z" stroke="currentColor" stroke-width="1.7"/><path d="M17 9h2a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2" stroke="currentColor" stroke-width="1.7"/><path d="M7 9h6M7 12h6M7 15h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
-    'help-center'  => '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M9.5 9.2a2.5 2.5 0 0 1 4.5 1.5c0 1.7-2.5 2-2.5 3.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="17" r="1" fill="currentColor"/>',
-);
+/* Single source of truth: items live in WP Admin → 🧰 Resources.
+   Same list also feeds the header's Resources mega-menu. */
+$resources = function_exists('ee_get_resources_menu_items') ? ee_get_resources_menu_items() : array();
 ?>
 <style>
 .ee-res{
@@ -125,7 +104,9 @@ $icons = array(
 .ee-res .ecrm-card-icon{position:relative;z-index:1;width:3.25rem;height:3.25rem;border-radius:var(--radius-lg);background:var(--clr-orange-ultra);border:1px solid var(--clr-orange-light);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;transition:var(--transition-base);flex-shrink:0;overflow:hidden}
 .ee-res .ecrm-card:hover .ecrm-card-icon,.ee-res .ecrm-card:focus-visible .ecrm-card-icon{background:var(--clr-orange);border-color:var(--clr-orange);box-shadow:var(--shadow-orange)}
 .ee-res .ecrm-card-icon svg{width:1.625rem;height:1.625rem;color:var(--clr-orange);transition:var(--transition-base)}
+.ee-res .ecrm-card-icon img{transition:filter .28s cubic-bezier(.4,0,.2,1)}
 .ee-res .ecrm-card:hover .ecrm-card-icon svg,.ee-res .ecrm-card:focus-visible .ecrm-card-icon svg{color:var(--clr-white)}
+.ee-res .ecrm-card:hover .ecrm-card-icon img,.ee-res .ecrm-card:focus-visible .ecrm-card-icon img{filter:brightness(0) invert(1)}
 .ee-res .ecrm-card-body{position:relative;z-index:1;flex:1;display:flex;flex-direction:column}
 .ee-res .ecrm-card-title{font-size:1.0625rem;font-weight:700;color:var(--clr-navy);margin-bottom:.5rem;line-height:1.35;letter-spacing:-.01em}
 .ee-res .ecrm-card-desc{font-size:.875rem;color:var(--clr-gray-500);line-height:1.65;flex:1}
@@ -178,27 +159,39 @@ $icons = array(
 
     <div id="edu-resources-grid" class="ecrm-grid" role="list" aria-label="Resource categories">
       <?php foreach ($resources as $i => $r):
-        $pos = $i + 1;
-        $delay = 'ecrm-d' . min($pos + 2, 7);
-        $svg = isset($icons[$r['id']]) ? $icons[$r['id']] : $icons['blogs'];
-        /* Inline SVG gradient as data-URL — exact PHP analog of makeDummyImage() */
+        $pos    = $i + 1;
+        $delay  = 'ecrm-d' . min($pos + 2, 7);
+        $title  = $r['title']   ?? '';
+        $url    = $r['url']     ?? '#';
+        $desc   = $r['desc']    ?? '';
+        $icon   = $r['icon']    ?? '';
+        $cA     = !empty($r['color_a']) ? $r['color_a'] : '#DE6E30';
+        $cB     = !empty($r['color_b']) ? $r['color_b'] : '#F7B267';
+
+        /* SVG gradient background — uses the admin's two colours */
         $bg_svg  = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">';
-        $bg_svg .= '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="' . $r['colors'][0] . '"/><stop offset="100%" stop-color="' . $r['colors'][1] . '"/></linearGradient></defs>';
+        $bg_svg .= '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="' . $cA . '"/><stop offset="100%" stop-color="' . $cB . '"/></linearGradient></defs>';
         $bg_svg .= '<rect width="600" height="400" fill="url(#g)"/>';
         $bg_svg .= '<circle cx="480" cy="90"  r="150" fill="#ffffff" opacity="0.12"/>';
         $bg_svg .= '<circle cx="120" cy="330" r="110" fill="#ffffff" opacity="0.10"/>';
         $bg_svg .= '<circle cx="300" cy="200" r="60"  fill="#ffffff" opacity="0.08"/></svg>';
-        $bg_url = 'data:image/svg+xml;charset=utf-8,' . rawurlencode($bg_svg);
+        $bg_url  = 'data:image/svg+xml;charset=utf-8,' . rawurlencode($bg_svg);
       ?>
         <div role="listitem">
-          <a href="<?php echo esc_url($r['url']); ?>" class="ecrm-card ecrm-anim <?php echo esc_attr($delay); ?>" style="--card-bg:url('<?php echo esc_attr($bg_url); ?>')" aria-label="<?php echo esc_attr($r['title'] . ' — ' . $r['desc']); ?>" data-resource-id="<?php echo esc_attr($r['id']); ?>">
+          <a href="<?php echo esc_url($url); ?>" class="ecrm-card ecrm-anim <?php echo esc_attr($delay); ?>" style="--card-bg:url('<?php echo esc_attr($bg_url); ?>')" aria-label="<?php echo esc_attr($title . ' — ' . $desc); ?>">
             <span class="ecrm-card-bg" aria-hidden="true"></span>
-            <span class="ecrm-card-num" aria-hidden="true">0<?php echo $pos; ?></span>
-            <div class="ecrm-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><?php echo $svg; ?></svg></div>
+            <span class="ecrm-card-num" aria-hidden="true"><?php echo $pos < 10 ? '0' . $pos : (int) $pos; ?></span>
+            <div class="ecrm-card-icon" aria-hidden="true">
+              <?php if ($icon): ?>
+                <img src="<?php echo esc_url($icon); ?>" alt="" style="width:1.625rem;height:1.625rem;object-fit:contain;" loading="lazy">
+              <?php else: ?>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:1.625rem;height:1.625rem;color:var(--clr-orange);"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/></svg>
+              <?php endif; ?>
+            </div>
             <div class="ecrm-card-body">
-              <h3 class="ecrm-card-title"><?php echo esc_html($r['title']); ?></h3>
-              <p class="ecrm-card-desc"><?php echo esc_html($r['desc']); ?></p>
-              <span class="ecrm-card-link" aria-hidden="true">Browse <?php echo esc_html($r['title']); ?> <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7H12M8 3L12 7L8 11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <h3 class="ecrm-card-title"><?php echo esc_html($title); ?></h3>
+              <p class="ecrm-card-desc"><?php echo esc_html($desc); ?></p>
+              <span class="ecrm-card-link" aria-hidden="true">Browse <?php echo esc_html($title); ?> <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7H12M8 3L12 7L8 11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </a>
         </div>

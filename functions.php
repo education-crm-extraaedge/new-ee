@@ -3200,6 +3200,196 @@ function ee_get_products_quick_links() {
     return $cache;
 }
 
+/* Top-level admin menu — 🧰 Resources Menu */
+function ee_get_resources_menu_items() {
+    $items = get_option('ee_resources_menu_items', null);
+    if (is_array($items) && !empty($items)) return $items;
+    return array(
+        array('title' => 'Blogs',        'url' => home_url('/blog/'),                          'desc' => 'Discover the latest admissions nuggets to improve your admissions process efficiency.',  'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/newspaper.svg',        'color_a' => '#DE6E30', 'color_b' => '#F7B267'),
+        array('title' => 'Ebooks',       'url' => home_url('/ebooks/'),                        'desc' => 'Get the industry-relevant guides that will help you scale your admissions.',              'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/book-open.svg',        'color_a' => '#19335D', 'color_b' => '#3E6BB0'),
+        array('title' => 'Webinars',     'url' => home_url('/webinars/'),                      'desc' => 'Join our live sessions and learn the latest admissions trends from leading experts.',     'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/video.svg',            'color_a' => '#7C3AED', 'color_b' => '#C084FC'),
+        array('title' => 'Case Studies', 'url' => home_url('/testimonials-and-case-studies/'), 'desc' => 'Find out how our top customers grow using our admissions platform.',                     'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/star.svg',             'color_a' => '#0E9F6E', 'color_b' => '#6EE7B7'),
+        array('title' => 'News & Media', 'url' => home_url('/news/'),                          'desc' => 'Get up to speed with the latest news about ExtraaEdge.',                                  'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/bullhorn.svg',         'color_a' => '#DC2626', 'color_b' => '#FB7185'),
+        array('title' => 'Help Center',  'url' => home_url('/help/'),                          'desc' => 'Documentation, step-by-step guides, and FAQs to get the most out of the platform.',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/question-circle.svg',  'color_a' => '#0891B2', 'color_b' => '#67E8F9'),
+    );
+}
+
+add_action('admin_menu', function () {
+    add_menu_page('Resources Menu', '🧰 Resources', 'manage_options', 'ee-resources-menu', 'ee_resources_menu_render_admin', 'dashicons-book-alt', 63);
+});
+
+add_action('admin_post_ee_save_resources_menu', function () {
+    if (!current_user_can('manage_options')) wp_die('Forbidden');
+    check_admin_referer('ee_resources_menu_save');
+
+    $rows  = isset($_POST['res']) && is_array($_POST['res']) ? $_POST['res'] : array();
+    $clean = array();
+    foreach ($rows as $r) {
+        $title = isset($r['title']) ? sanitize_text_field(wp_unslash($r['title'])) : '';
+        if ($title === '') continue;
+        $clean[] = array(
+            'title'   => $title,
+            'url'     => isset($r['url'])     ? esc_url_raw(wp_unslash($r['url']))                : '',
+            'desc'    => isset($r['desc'])    ? sanitize_textarea_field(wp_unslash($r['desc']))   : '',
+            'icon'    => isset($r['icon'])    ? esc_url_raw(wp_unslash($r['icon']))               : '',
+            'color_a' => isset($r['color_a']) ? sanitize_hex_color(wp_unslash($r['color_a']))     : '#DE6E30',
+            'color_b' => isset($r['color_b']) ? sanitize_hex_color(wp_unslash($r['color_b']))     : '#F7B267',
+        );
+    }
+    update_option('ee_resources_menu_items', $clean);
+
+    wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-resources-menu')));
+    exit;
+});
+
+add_action('admin_enqueue_scripts', function ($hook) {
+    if ($hook === 'toplevel_page_ee-resources-menu') wp_enqueue_media();
+});
+
+function ee_resources_menu_render_admin() {
+    $items = ee_get_resources_menu_items();
+    ?>
+    <div class="wrap">
+        <h1 style="display:flex;align-items:center;gap:10px;"><span style="font-size:26px">🧰</span> Resources Menu</h1>
+        <p class="description" style="max-width:780px;font-size:13.5px;line-height:1.6;">
+            Edit the items that appear in the <strong>Resources</strong> dropdown of the site header <em>and</em> as cards on the <code><?php echo esc_url(home_url('/resources/')); ?></code> page. Same source — change once, updates both.
+        </p>
+        <?php if (!empty($_GET['updated'])): ?>
+            <div class="notice notice-success is-dismissible"><p>Resources menu saved.</p></div>
+        <?php endif; ?>
+
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+            <input type="hidden" name="action" value="ee_save_resources_menu">
+            <?php wp_nonce_field('ee_resources_menu_save'); ?>
+
+            <style>
+                .eerm-row{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #DE6E30;border-radius:6px;padding:14px 16px;margin:10px 0;position:relative}
+                .eerm-row .rm{position:absolute;right:10px;top:10px;background:transparent;border:1px solid #fecaca;color:#b91c1c;padding:3px 9px;border-radius:4px;cursor:pointer;font-size:11px}
+                .eerm-row .idx{display:block;font-size:12px;letter-spacing:.04em;color:#64748b;margin-bottom:8px}
+                .eerm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+                .eerm-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+                .eerm-field{margin-bottom:11px}
+                .eerm-field label{display:block;font-weight:600;font-size:12.5px;color:#1d2327;margin-bottom:5px}
+                .eerm-field input[type=text],.eerm-field input[type=url],.eerm-field textarea{width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:4px;font-size:13px;box-sizing:border-box}
+                .eerm-field textarea{resize:vertical;min-height:54px;line-height:1.55}
+                .eerm-pick{display:flex;align-items:center;gap:10px}
+                .eerm-pick .prev{width:42px;height:42px;border-radius:9px;background:#f1f5f9;border:1px solid #cbd5e1;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
+                .eerm-pick .prev img{max-width:100%;max-height:100%}
+                .eerm-add{background:#19335D;color:#fff;border:none;padding:9px 18px;border-radius:5px;cursor:pointer;font-size:13px;font-weight:600;margin-top:6px}
+                .eerm-tip{background:#fff8f1;border:1px solid #fde7d3;color:#7c2d12;padding:10px 13px;border-radius:5px;font-size:12.5px;line-height:1.55;margin:14px 0}
+                .eerm-tip code{background:#fff;border:1px solid #e9d5b8;padding:1px 5px;border-radius:3px;font-size:11.5px}
+            </style>
+
+            <p class="eerm-tip">✦ <strong>Tip:</strong> Each row appears <strong>both</strong> in the header's Resources dropdown AND as a card on <code>/resources/</code>. Add as many as you want, in the order you want them shown. The two colour pickers control the gradient background of each card on <code>/resources/</code>.</p>
+
+            <div id="eerm-rows">
+                <?php foreach ($items as $i => $r):
+                    $title = $r['title']   ?? '';
+                    $url   = $r['url']     ?? '';
+                    $desc  = $r['desc']    ?? '';
+                    $icon  = $r['icon']    ?? '';
+                    $cA    = $r['color_a'] ?? '#DE6E30';
+                    $cB    = $r['color_b'] ?? '#F7B267'; ?>
+                    <div class="eerm-row">
+                        <button type="button" class="rm">Remove</button>
+                        <strong class="idx">ITEM <span class="eerm-idx"><?php echo $i + 1; ?></span></strong>
+                        <div class="eerm-grid">
+                            <div class="eerm-field"><label>Title</label><input type="text" name="res[<?php echo $i; ?>][title]" value="<?php echo esc_attr($title); ?>" placeholder="Blogs"></div>
+                            <div class="eerm-field"><label>Link URL</label><input type="url" name="res[<?php echo $i; ?>][url]" value="<?php echo esc_attr($url); ?>" placeholder="https://…"></div>
+                        </div>
+                        <div class="eerm-field"><label>Short description</label><textarea name="res[<?php echo $i; ?>][desc]" rows="2" placeholder="One-line description shown in the dropdown and on the card."><?php echo esc_textarea($desc); ?></textarea></div>
+                        <div class="eerm-grid-4">
+                            <div class="eerm-field" style="grid-column:span 2;">
+                                <label>Icon image (SVG / PNG URL)</label>
+                                <div class="eerm-pick">
+                                    <div class="prev"><?php if ($icon): ?><img src="<?php echo esc_url($icon); ?>" alt=""><?php endif; ?></div>
+                                    <input type="url" class="eerm-icon-url" name="res[<?php echo $i; ?>][icon]" value="<?php echo esc_attr($icon); ?>" placeholder="https://…/icon.svg">
+                                    <button type="button" class="button eerm-icon-pick">Choose…</button>
+                                </div>
+                            </div>
+                            <div class="eerm-field"><label>Card colour A</label><input type="text" name="res[<?php echo $i; ?>][color_a]" value="<?php echo esc_attr($cA); ?>" placeholder="#DE6E30"></div>
+                            <div class="eerm-field"><label>Card colour B</label><input type="text" name="res[<?php echo $i; ?>][color_b]" value="<?php echo esc_attr($cB); ?>" placeholder="#F7B267"></div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <button type="button" id="eerm-add" class="eerm-add">+ Add resource item</button>
+
+            <template id="eerm-tpl">
+                <div class="eerm-row">
+                    <button type="button" class="rm">Remove</button>
+                    <strong class="idx">ITEM <span class="eerm-idx">_n_</span></strong>
+                    <div class="eerm-grid">
+                        <div class="eerm-field"><label>Title</label><input type="text" name="res[__i__][title]" value="" placeholder="Title"></div>
+                        <div class="eerm-field"><label>Link URL</label><input type="url" name="res[__i__][url]" value="" placeholder="https://…"></div>
+                    </div>
+                    <div class="eerm-field"><label>Short description</label><textarea name="res[__i__][desc]" rows="2" placeholder="One-line description."></textarea></div>
+                    <div class="eerm-grid-4">
+                        <div class="eerm-field" style="grid-column:span 2;">
+                            <label>Icon image (SVG / PNG URL)</label>
+                            <div class="eerm-pick">
+                                <div class="prev"></div>
+                                <input type="url" class="eerm-icon-url" name="res[__i__][icon]" value="" placeholder="https://…/icon.svg">
+                                <button type="button" class="button eerm-icon-pick">Choose…</button>
+                            </div>
+                        </div>
+                        <div class="eerm-field"><label>Card colour A</label><input type="text" name="res[__i__][color_a]" value="#DE6E30" placeholder="#DE6E30"></div>
+                        <div class="eerm-field"><label>Card colour B</label><input type="text" name="res[__i__][color_b]" value="#F7B267" placeholder="#F7B267"></div>
+                    </div>
+                </div>
+            </template>
+
+            <p><?php submit_button('Save Resources Menu'); ?></p>
+
+            <script>
+            (function($){
+                var list = document.getElementById('eerm-rows');
+                var tpl  = document.getElementById('eerm-tpl');
+                function nextIdx(){
+                    var max = -1;
+                    list.querySelectorAll('input[name*="[title]"]').forEach(function(el){
+                        var m = el.name.match(/\[(\d+)\]/); if (m){ var i = parseInt(m[1],10); if (i > max) max = i; }
+                    });
+                    return max + 1;
+                }
+                function renumber(){
+                    list.querySelectorAll('.eerm-idx').forEach(function(s, i){ s.textContent = i + 1; });
+                }
+                document.getElementById('eerm-add').addEventListener('click', function(){
+                    var i = nextIdx();
+                    var html = tpl.innerHTML.replace(/__i__/g, i).replace(/_n_/g, list.querySelectorAll('.eerm-row').length + 1);
+                    var wrap = document.createElement('div'); wrap.innerHTML = html;
+                    list.appendChild(wrap.firstElementChild);
+                    renumber();
+                });
+                list.addEventListener('click', function(e){
+                    if (e.target.classList.contains('rm')){
+                        if (list.querySelectorAll('.eerm-row').length <= 1){ alert('Keep at least one item.'); return; }
+                        e.target.closest('.eerm-row').remove();
+                        renumber();
+                    } else if (e.target.classList.contains('eerm-icon-pick')){
+                        e.preventDefault();
+                        if (typeof wp === 'undefined' || !wp.media) return;
+                        var row = e.target.closest('.eerm-pick');
+                        var input = row.querySelector('.eerm-icon-url');
+                        var prev  = row.querySelector('.prev');
+                        var frame = wp.media({ title:'Select icon', button:{ text:'Use this icon' }, multiple:false });
+                        frame.on('select', function(){
+                            var att = frame.state().get('selection').first().toJSON();
+                            input.value = att.url;
+                            prev.innerHTML = '<img src="' + att.url + '" alt="">';
+                        });
+                        frame.open();
+                    }
+                });
+            })(jQuery);
+            </script>
+        </form>
+    </div>
+    <?php
+}
+
 /* Top-level admin menu — 🛍 Products Menu Banners */
 add_action('admin_menu', function () {
     add_menu_page(

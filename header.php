@@ -958,49 +958,28 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <div class="eh-dropdown">
-                        <a href="<?php echo esc_url(home_url('/blog/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/newspaper.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Blogs</div>
-                                <div class="eh-dl-desc">Discover the latest admissions nuggets to improve your admissions process efficiency</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/ebooks/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/book-open.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Ebooks</div>
-                                <div class="eh-dl-desc">Get the industry-relevant guides that will help you scale your admissions</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/webinars/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/video.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Webinars</div>
-                                <div class="eh-dl-desc">Join our live sessions and learn the latest admissions trends from leading experts</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/testimonials-and-case-studies/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/star.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Case Studies</div>
-                                <div class="eh-dl-desc">Find out how our top customers growing using our admissions platform</div>
-                            </div>
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/news/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/bullhorn.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">News &amp; Media</div>
-                                <div class="eh-dl-desc">Get up to speed with the latest news about ExtraaEdge</div>
-                            </div>
-                        </a>
-                        <div class="eh-divider"></div>
-                        <a href="<?php echo esc_url(home_url('/help/')); ?>" class="eh-dl">
-                            <div class="eh-dl-icon"><img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/question-circle.svg" alt="" loading="lazy"></div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title">Help Center</div>
-                                <div class="eh-dl-desc">Documentation &amp; FAQs</div>
-                            </div>
-                        </a>
+                        <?php
+                        $ee_resources_items = function_exists('ee_get_resources_menu_items') ? ee_get_resources_menu_items() : array();
+                        $ee_last = count($ee_resources_items) - 1;
+                        foreach ($ee_resources_items as $ee_idx => $ee_it):
+                            /* Show a thin divider before the last item (typically "Help Center") */
+                            if ($ee_idx === $ee_last && $ee_last > 0): ?>
+                                <div class="eh-divider"></div>
+                            <?php endif; ?>
+                            <a href="<?php echo esc_url($ee_it['url'] ?? '#'); ?>" class="eh-dl">
+                                <div class="eh-dl-icon">
+                                    <?php if (!empty($ee_it['icon'])): ?>
+                                        <img class="eh-svg" src="<?php echo esc_url($ee_it['icon']); ?>" alt="" loading="lazy">
+                                    <?php endif; ?>
+                                </div>
+                                <div class="eh-dl-content">
+                                    <div class="eh-dl-title"><?php echo esc_html($ee_it['title'] ?? ''); ?></div>
+                                    <?php if (!empty($ee_it['desc'])): ?>
+                                        <div class="eh-dl-desc"><?php echo esc_html($ee_it['desc']); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 
