@@ -47,6 +47,22 @@ $ee_poster = function ($a, $b) {
     $svg .= '<path d="M309 162 L335 180 L309 198 Z" fill="' . $a . '"/></svg>';
     return 'data:image/svg+xml;charset=utf-8,' . rawurlencode($svg);
 };
+
+/* Classify a video URL — returns array(type, embed_url) where
+ *   type = 'youtube' | 'vimeo' | 'mp4' | ''
+ *   embed_url = ready-to-use iframe src OR direct file URL */
+$ee_classify_video = function ($u) {
+    $u = trim((string) $u);
+    if ($u === '') return array('', '');
+    if (preg_match('~(?:youtube\.com/(?:watch\?v=|embed/|v/|shorts/)|youtu\.be/)([A-Za-z0-9_\-]{6,})~i', $u, $m)) {
+        $id = $m[1];
+        return array('youtube', 'https://www.youtube.com/embed/' . $id . '?rel=0&modestbranding=1&playsinline=1');
+    }
+    if (preg_match('~vimeo\.com/(?:video/)?(\d+)~i', $u, $m)) {
+        return array('vimeo', 'https://player.vimeo.com/video/' . $m[1] . '?title=0&byline=0&portrait=0');
+    }
+    return array('mp4', $u);
+};
 ?>
 <style>
 .ee-cu{
@@ -86,7 +102,7 @@ $ee_poster = function ($a, $b) {
 .ee-cu .card.hide{display:none}
 
 .ee-cu .banner{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;flex-shrink:0;background:var(--card-grad,linear-gradient(135deg,var(--orange),var(--navy)))}
-.ee-cu .banner video,.ee-cu .banner .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;background:var(--card-grad);display:block}
+.ee-cu .banner video,.ee-cu .banner iframe,.ee-cu .banner .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;background:var(--card-grad);display:block;border:0}
 .ee-cu .banner .poster{background-size:cover;background-position:center}
 .ee-cu .scrim{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(17,34,64,.30) 0%,transparent 40%,rgba(17,34,64,.10) 100%)}
 .ee-cu .b-tag{position:absolute;top:.9rem;left:.9rem;z-index:3;background:rgba(252,249,243,.94);color:var(--navy);font-size:.66rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.32rem .7rem;border-radius:100px;backdrop-filter:blur(4px)}
@@ -157,15 +173,18 @@ $ee_poster = function ($a, $b) {
       $url   = $s['url']     ?? '#';
       $grad  = "linear-gradient(135deg, $cA, $cB)";
       $poster = $ee_poster($cA, $cB);
+      list($vid_type, $vid_src) = $ee_classify_video($vid);
     ?>
       <div class="card" role="listitem" data-cat="<?php echo esc_attr($cat); ?>">
         <div class="banner" style="--card-grad:<?php echo esc_attr($grad); ?>">
-          <?php if ($vid): ?>
-            <video controls playsinline preload="metadata" poster="<?php echo esc_attr($poster); ?>"><source src="<?php echo esc_url($vid); ?>" type="video/mp4">Your browser does not support video.</video>
+          <?php if ($vid_type === 'mp4'): ?>
+            <video controls playsinline preload="metadata" poster="<?php echo esc_attr($poster); ?>"><source src="<?php echo esc_url($vid_src); ?>" type="video/mp4">Your browser does not support video.</video>
+          <?php elseif ($vid_type === 'youtube' || $vid_type === 'vimeo'): ?>
+            <iframe src="<?php echo esc_url($vid_src); ?>" title="<?php echo esc_attr($title); ?>" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
           <?php else: ?>
             <div class="poster" style="background-image:url('<?php echo esc_attr($poster); ?>')" aria-hidden="true"></div>
           <?php endif; ?>
-          <span class="scrim"></span>
+          <span class="scrim" style="<?php echo ($vid_type === 'youtube' || $vid_type === 'vimeo') ? 'pointer-events:none' : ''; ?>"></span>
           <?php if ($tag): ?><span class="b-tag"><?php echo esc_html($tag); ?></span><?php endif; ?>
           <?php if ($mv): ?><span class="b-metric"><b><?php echo esc_html($mv); ?></b> <?php echo esc_html($ml); ?></span><?php endif; ?>
         </div>

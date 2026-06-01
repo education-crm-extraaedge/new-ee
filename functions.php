@@ -3689,7 +3689,7 @@ function ee_customers_render_admin() {
 
                             <div class="eecu-grid2">
                                 <div class="eecu-row">
-                                    <label>Video URL (MP4 — leave blank for branded poster only)</label>
+                                    <label>Video URL (YouTube / Vimeo / MP4 — blank shows branded poster)</label>
                                     <div class="eecu-pick">
                                         <input type="url" class="eecu-vid" name="story[<?php echo $i; ?>][video]" value="<?php echo esc_attr($video); ?>" placeholder="https://…/story.mp4">
                                         <button type="button" class="button eecu-vid-pick">Choose…</button>
