@@ -4915,6 +4915,8 @@ add_action('template_redirect', function () {
         'company'    => array('file' => 'page-company.php',    'title' => 'Company'),
         'solution'   => array('file' => 'page-solution.php',   'title' => 'Solutions'),
         'solutions'  => array('file' => 'page-solution.php',   'title' => 'Solutions'),
+        'resources'  => array('file' => 'page-resources.php',  'title' => 'Resources'),
+        'resource'   => array('file' => 'page-resources.php',  'title' => 'Resources'),
     );
 
     /* Add a body class on any custom-routed landing page so the global
