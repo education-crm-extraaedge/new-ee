@@ -113,7 +113,10 @@ if ($toc_enabled === 'custom' && !empty($toc_items)) {
     }
 } else {
     $toc_final[] = array('anchor' => 'top', 'label' => 'Home');
-    if (!empty($logos))                  $toc_final[] = array('anchor' => 'trusted-institutions',  'label' => 'Trusted Institutions');
+    /* Global logo strip (ee_render_logo_marquee) renders unless hidden
+       per-page; mirror that check so the TOC entry matches what's on screen. */
+    $logos_visible = !function_exists('ee_should_hide_logos') || !ee_should_hide_logos();
+    if ($logos_visible)                  $toc_final[] = array('anchor' => 'trusted-institutions',  'label' => 'Trusted Institutions');
     if ($educrm_h2)                      $toc_final[] = array('anchor' => 'what-is-education-crm', 'label' => 'Overview');
     if (!empty($features))               $toc_final[] = array('anchor' => 'features',              'label' => 'Features');
     if (!empty($sections)) {
@@ -291,7 +294,7 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .toc-link:hover .toc-num{color:var(--orange)}
 .toc-link.active{color:var(--orange-deep);background:var(--orange-50);font-weight:800}
 .toc-link.active .toc-num{color:var(--orange)}
-.toc-mobile-toggle{display:none;position:fixed;bottom:96px;right:24px;width:54px;height:54px;background:var(--grad-o);border-radius:50%;border:none;cursor:pointer;box-shadow:var(--sh-o);z-index:1000;transition:var(--t);align-items:center;justify-content:center}
+.toc-mobile-toggle{display:none;position:fixed;bottom:96px;left:18px;width:54px;height:54px;background:var(--grad-o);border-radius:50%;border:none;cursor:pointer;box-shadow:var(--sh-o);z-index:1000;transition:var(--t);align-items:center;justify-content:center}
 .toc-mobile-toggle:hover{transform:scale(1.08)}
 .toc-mobile-toggle svg{width:23px;height:23px;fill:#fff}
 .toc-mobile-overlay{display:none;position:fixed;inset:0;background:rgba(14,31,57,.5);backdrop-filter:blur(4px);z-index:999;opacity:0;transition:opacity .3s ease}
@@ -481,7 +484,7 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 @media(max-width:1080px){.hero-layout{grid-template-columns:1fr;gap:48px;padding:60px 0 78px}.hero-right{justify-content:center}.hero-form-aside{max-width:540px;margin:0 auto}.hero-badge{align-self:center}.what-layout{grid-template-columns:1fr;gap:38px}.flow-panel{position:relative;top:0}.features-grid{grid-template-columns:repeat(3,1fr)}.ai-demo-inner{grid-template-columns:1fr;gap:38px}.ai-story-engine{transform:scale(.86)}.ai-cta-content{text-align:center}.ai-cta-content .kicker,.ai-cta-actions{justify-content:center;align-items:center}.ai-cta-sub{margin-left:auto;margin-right:auto}.testi-metrics{grid-template-columns:repeat(2,1fr)}.cbar-rating{display:none}}
 @media(max-width:980px){.hero-left{align-items:center;text-align:center}.hero-desc,.proof,.cta-row{margin-left:auto;margin-right:auto}.proof{display:inline-grid;text-align:left}.tag-row,.compliance-row{justify-content:center}}
 @media(max-width:880px){.alt-layout{flex-direction:column;gap:34px}.alt-visual{order:-1!important;width:100%}.testi-cards{grid-template-columns:1fr;max-width:480px;margin-left:auto;margin-right:auto}.products-inner{flex-direction:column}.products-card{min-width:0;width:100%}.ai-story-engine{display:flex;flex-direction:column;align-items:center;gap:12px;height:auto;transform:none;width:100%}.workflow-svg{display:none}.expert-center{width:120px;height:120px;margin-bottom:6px}.expert-ring{display:none}.workflow-node{position:static!important;transform:none!important;opacity:1!important;width:100%;max-width:420px;top:auto;right:auto;bottom:auto;left:auto}}
-@media(max-width:680px){body.ee-product-page{font-size:15.5px}.wrap,.faq-container{padding-left:18px;padding-right:18px}.section{padding:clamp(48px,11vw,72px) 0}.alt-section{padding:48px 0}.stat-strip{grid-template-columns:repeat(3,1fr);gap:8px}.stat-cell{padding:16px 8px}.features-grid{grid-template-columns:1fr 1fr}.btn{width:100%}.cta-row{flex-direction:column}.cta-row .btn{width:100%}.product-grid{grid-template-columns:1fr}.growth-card{flex-direction:column;text-align:center;gap:14px;padding:24px}.testi-metrics{grid-template-columns:1fr 1fr}.toc-mobile-toggle{bottom:auto;top:14px;right:14px;width:46px;height:46px}.toc-mobile-panel{width:100%;max-width:none}.faq-trigger{padding:18px 18px}.faq-q{font-size:15px;gap:10px}.faq-inner{padding:0 18px 20px 32px}.card-body{padding:24px}.cbar{padding:0 10px calc(10px + env(safe-area-inset-bottom,0px))}.cbar-inner{padding:11px 11px 11px 14px;gap:11px;border-radius:var(--r)}.cbar-tag{display:none}.cbar-txt b{font-size:13px;line-height:1.25}.cbar-txt span{display:none}.cbar .btn{width:auto;padding:12px 18px;font-size:13.5px}}
+@media(max-width:680px){body.ee-product-page{font-size:15.5px}.wrap,.faq-container{padding-left:18px;padding-right:18px}.section{padding:clamp(48px,11vw,72px) 0}.alt-section{padding:48px 0}.stat-strip{grid-template-columns:repeat(3,1fr);gap:8px}.stat-cell{padding:16px 8px}.features-grid{grid-template-columns:1fr 1fr}.btn{width:100%}.cta-row{flex-direction:column}.cta-row .btn{width:100%}.product-grid{grid-template-columns:1fr}.growth-card{flex-direction:column;text-align:center;gap:14px;padding:24px}.testi-metrics{grid-template-columns:1fr 1fr}.toc-mobile-toggle{bottom:90px;left:14px;right:auto;top:auto;width:46px;height:46px}.toc-mobile-panel{width:100%;max-width:none}.faq-trigger{padding:18px 18px}.faq-q{font-size:15px;gap:10px}.faq-inner{padding:0 18px 20px 32px}.card-body{padding:24px}.cbar{padding:0 10px calc(10px + env(safe-area-inset-bottom,0px))}.cbar-inner{padding:11px 11px 11px 14px;gap:11px;border-radius:var(--r)}.cbar-tag{display:none}.cbar-txt b{font-size:13px;line-height:1.25}.cbar-txt span{display:none}.cbar .btn{width:auto;padding:12px 18px;font-size:13.5px}}
 @media(max-width:480px){.stat-strip{grid-template-columns:1fr}.features-grid{grid-template-columns:1fr;max-width:360px;margin-left:auto;margin-right:auto}.testi-metrics{grid-template-columns:1fr}.hero-form-card{padding:24px 20px}.compliance-row{gap:14px}}
 @media(max-width:380px){.hero-h1{font-size:31px}.cbar-txt b{font-size:12px}.cbar .btn{padding:11px 14px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}.reveal{opacity:1!important;transform:none!important}}
@@ -587,42 +590,14 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
     </div>
 </main>
 
-<?php if (!empty($logos)): ?>
-<section class="logos" id="trusted-institutions" aria-label="Trusted Institutions">
-    <?php if ($logo_badge || $logo_title_line1 || $logo_title || $logo_sub): ?>
-    <div class="logos-head reveal">
-        <?php if ($logo_badge): ?><div class="kicker center"><span class="lbl"><?php echo esc_html($logo_badge); ?></span></div><?php endif; ?>
-        <?php if ($logo_title_line1): ?><p class="logos-kicker"><?php echo esc_html($logo_title_line1); ?></p><?php endif; ?>
-        <?php if ($logo_title): ?><h2 class="logos-title"><?php echo wp_kses_post($logo_title); ?></h2><?php endif; ?>
-        <?php if ($logo_sub): ?><p class="logos-sub"><?php echo function_exists('ee_inline_links') ? ee_inline_links($logo_sub) : wp_kses_post($logo_sub); ?></p><?php endif; ?>
-    </div>
-    <?php endif; ?>
-    <?php
-    $split = (int) ceil(count($logos) / 2);
-    $row_a = array_slice($logos, 0, $split);
-    $row_b = array_slice($logos, $split);
-    if (empty($row_b)) $row_b = $row_a;
-    ?>
-    <div class="marquee-wrap">
-        <div class="marquee-track marquee-left">
-            <?php for ($pass = 0; $pass < 2; $pass++): foreach ($row_a as $l): ?>
-            <div class="logo-card"><img src="<?php echo esc_url($l['image']); ?>" alt="<?php echo esc_attr($l['alt'] ?? ''); ?>" loading="lazy" onerror="this.closest('.logo-card').remove()"></div>
-            <?php endforeach; endfor; ?>
-        </div>
-        <div class="marquee-track marquee-right" style="margin-top:14px">
-            <?php for ($pass = 0; $pass < 2; $pass++): foreach ($row_b as $l): ?>
-            <div class="logo-card"><img src="<?php echo esc_url($l['image']); ?>" alt="<?php echo esc_attr($l['alt'] ?? ''); ?>" loading="lazy" onerror="this.closest('.logo-card').remove()"></div>
-            <?php endforeach; endfor; ?>
-        </div>
-    </div>
-    <?php if ($logo_footer_cta || $logo_live_text): ?>
-    <div class="logos-foot reveal">
-        <?php if ($logo_footer_cta): ?><a href="<?php echo esc_url($logo_footer_cta_url ?: '#admission-form'); ?>" class="btn btn-primary"><?php echo esc_html($logo_footer_cta); ?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a><?php endif; ?>
-        <?php if ($logo_live_text): ?><div class="live-indicator"><span class="green-dot"></span><span><?php echo esc_html($logo_live_text); ?></span></div><?php endif; ?>
-    </div>
-    <?php endif; ?>
-</section>
-<?php endif; ?>
+<?php
+/* Logo strip — render the SAME global strip the home page uses so the
+   editor only manages logos in one place (Home Editor → logos). Reading
+   the per-post _logos meta has been retired here. */
+if (function_exists('ee_render_logo_marquee')) {
+    ee_render_logo_marquee();
+}
+?>
 
 <div class="toc-zone-wrapper" id="toc-zone-wrapper">
     <div class="toc-column" id="toc-column">
