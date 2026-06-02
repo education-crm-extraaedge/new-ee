@@ -3784,7 +3784,9 @@ function ee_render_logo_marquee($args = array()) {
 /* Break the scrolling strip out of the 1200px container so logos clip
    exactly at the viewport edges — no leftover white blocks on the sides
    where cards would otherwise disappear into the inner container. */
-.ee-marquee-container{position:relative;overflow:hidden;width:100vw;margin-left:calc(-50vw + 50%);max-width:100vw}
+/* padding-top + padding-bottom give every card 12-14px of room to lift on hover
+   so the translateY(-5px) effect isn't clipped at the container edges. */
+.ee-marquee-container{position:relative;overflow:hidden;width:100vw;margin-left:calc(-50vw + 50%);max-width:100vw;padding:14px 0 6px}
 /* Hard-kill any side-fade / vignette pseudo-elements inherited from
    sibling templates (older marquee styles still in the cascade). */
 .ee-marquee-container::before,.ee-marquee-container::after,
