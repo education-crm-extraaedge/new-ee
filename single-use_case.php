@@ -786,7 +786,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
   (function(){
       function cleanup(){
           document.querySelectorAll('.logo-card img').forEach(function(img){
-              if (!img.complete || img.naturalWidth === 0) {
+              if (img.complete && img.naturalWidth === 0) {
                   var c = img.closest('.logo-card'); if (c) c.remove();
               }
           });

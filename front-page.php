@@ -806,7 +806,7 @@ get_header();
     (function(){
         function cleanupBroken() {
             document.querySelectorAll('.sp-logo-card img').forEach(function(img){
-                if (!img.complete || img.naturalWidth === 0) {
+                if (img.complete && img.naturalWidth === 0) {
                     var card = img.closest('.sp-logo-card');
                     if (card) card.remove();
                 }
