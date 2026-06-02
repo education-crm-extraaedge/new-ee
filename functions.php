@@ -596,6 +596,19 @@ function extraaedge_register_cpts() {
 }
 add_action('init', 'extraaedge_register_cpts');
 
+/* One-shot rewrite-rules flush — runs only when this version flag
+   changes. Whenever we add or rename a CPT (e.g. 'solution') the
+   editor would otherwise have to remember to visit Settings →
+   Permalinks → Save to make /solutions/<slug>/ URLs resolve. Bump
+   EE_CPT_REWRITE_VER below any time a CPT slug changes and the flush
+   will fire once after the deploy reaches the site. */
+define('EE_CPT_REWRITE_VER', '2026-06-02-1');
+add_action('init', function () {
+    if (get_option('ee_cpt_rewrite_ver') === EE_CPT_REWRITE_VER) return;
+    flush_rewrite_rules(false);
+    update_option('ee_cpt_rewrite_ver', EE_CPT_REWRITE_VER);
+}, 99);
+
 /* Hide the WordPress admin toolbar on the public front-end for logged-in
    users so the bar (or its raw HTML when admin-bar.css fails) does not
    visually clutter the new advanced header. The full toolbar is still

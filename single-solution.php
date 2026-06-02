@@ -118,26 +118,6 @@ add_action('wp_head', function () use ($pid, $seo_title, $seo_desc, $seo_keyword
 });
 
 get_header();
-
-/* ─── DIAGNOSTIC (visible only in View-Source) ─────────────────
-   Lets us see exactly which meta fields the editor has saved for this
-   Solution post. Read the HTML source of the page to confirm whether
-   admin fills are reaching the template. Remove this block once the
-   issue is sorted. */
-echo "\n<!-- EE-SOLUTION DIAG · post_id={$pid} · type=" . esc_html(get_post_type($pid)) . " · title=" . esc_html(get_the_title($pid)) . "\n";
-echo "  hero_badge=["          . esc_html($hero_badge)        . "]\n";
-echo "  hero_h1_before=["      . esc_html($hero_h1_before)    . "]\n";
-echo "  hero_h1_highlight=["   . esc_html($hero_h1_highlight) . "]\n";
-echo "  hero_h1_after=["       . esc_html($hero_h1_after)     . "]\n";
-echo "  hero_description=["   . esc_html(wp_strip_all_tags($hero_desc)) . "]\n";
-echo "  hero_proofs=" . count((array)$hero_proofs) . " item(s)\n";
-echo "  hero_cta_text=["       . esc_html($hero_cta_text)     . "]\n";
-echo "  form_embed_length="    . strlen((string) $form_embed) . "\n";
-echo "  content_sections=" . count((array)$sections)       . " section(s)\n";
-echo "  addon_features="   . count((array)$addon_features) . " card(s)\n";
-echo "  comp_items="       . count((array)$comp_items)     . " card(s)\n";
-echo "  faqs="             . count((array)$faqs)           . " item(s)\n";
-echo "-->\n";
 ?>
 
 <style>
@@ -368,7 +348,25 @@ body.ee-solution-page strong{font-weight:700;color:var(--ink)}
 if (function_exists('ee_render_logo_marquee')) {
     ee_render_logo_marquee();
 }
+
+/* Post-content fallback — if the editor only filled the main WordPress
+   content box (no custom content sections), show that copy so the page
+   isn't blank. Skips silently when both meta sections AND the content
+   editor are empty. */
+$has_post_body = trim(strip_tags(get_post_field('post_content', $pid))) !== '';
+if (empty($sections) && $has_post_body):
 ?>
+<section class="section" id="overview">
+    <div class="wrap" style="max-width:900px">
+        <article class="reveal" style="font-size:16.5px;line-height:1.8;color:var(--ink-soft)">
+            <?php
+            $body = apply_filters('the_content', get_post_field('post_content', $pid));
+            echo $body;
+            ?>
+        </article>
+    </div>
+</section>
+<?php endif; ?>
 
 <?php if (!empty($sections)): foreach ($sections as $sec):
     $sid = $sec['id']      ?? '';
