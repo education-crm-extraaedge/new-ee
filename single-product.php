@@ -1,63 +1,182 @@
 <?php
 /**
- * Single Product Template — Higher Education CRM redesign
+ * Single Product Template — Higher Education CRM redesign (DYNAMIC)
  *
- * Full design supplied by the editor (Higher Education CRM landing
- * page) ported into the WordPress theme:
- *   • <!doctype>, <html>, <head> and <body> shells come from
- *     header.php / footer.php as usual.
- *   • The design's own SEO + Open Graph + Twitter + JSON-LD schema
- *     blocks are injected into <head> via the wp_head action so the
- *     theme can still serve other CPTs from header.php unchanged.
- *   • Inline <style> stays in-page so its rules don't leak into other
- *     templates; same for the page's <script> at the end.
- *   • Layout / copy is rendered as static HTML — to edit content,
- *     edit this template directly (no post-meta wiring on this
- *     redesign by request).
+ * The redesigned look + feel is kept verbatim from the supplied brief
+ * (hero, logos marquee, sticky TOC + content sections, testimonials,
+ * AI demo, FAQ, sticky conversion bar). All copy / images / lists are
+ * now sourced from the post's tabbed admin editor (post meta) so each
+ * Product renders its own content. Sections whose meta is empty are
+ * skipped entirely — no leftover "Higher Education CRM" defaults bleed
+ * onto unrelated Product posts.
  *
  * Template Name: Product Landing Page
  * @package ExtraaEdge
  */
 if (!defined('ABSPATH')) exit;
 
-/* ─────────────────────────────────────────────────────────────────
- * SEO / Open Graph / Twitter / JSON-LD — injected into the document
- * <head> only when WordPress is rendering a 'product' singular page.
- * Title comes from WP's title-tag theme support so it stays in sync
- * with the actual post title; everything else is verbatim from the
- * supplied redesign brief.
- * ──────────────────────────────────────────────────────────────── */
-add_action('wp_head', function () {
+$pid = get_the_ID();
+
+/* SEO */
+$seo_title     = get_post_meta($pid, '_seo_title',       true) ?: get_the_title();
+$seo_desc      = get_post_meta($pid, '_seo_description', true);
+$seo_keywords  = get_post_meta($pid, '_seo_keywords',    true);
+$og_image      = get_post_meta($pid, '_og_image',        true) ?: get_the_post_thumbnail_url($pid, 'full');
+$canonical     = get_post_meta($pid, '_canonical_url',   true) ?: get_permalink();
+$twitter_title = get_post_meta($pid, '_twitter_title',   true) ?: $seo_title;
+$twitter_desc  = get_post_meta($pid, '_twitter_desc',    true) ?: $seo_desc;
+
+/* Hero */
+$hero_badge        = get_post_meta($pid, '_hero_badge',        true);
+$hero_h1_before    = get_post_meta($pid, '_hero_h1_before',    true);
+$hero_h1_highlight = get_post_meta($pid, '_hero_h1_highlight', true);
+$hero_h1_after     = get_post_meta($pid, '_hero_h1_after',     true);
+$hero_desc         = get_post_meta($pid, '_hero_description',  true);
+$hero_proofs       = get_post_meta($pid, '_hero_proofs',       true) ?: array();
+$stats             = get_post_meta($pid, '_stats',             true) ?: array();
+$result_badge      = get_post_meta($pid, '_result_badge',      true);
+$tags              = get_post_meta($pid, '_tags',              true) ?: array();
+$hero_cta_text     = get_post_meta($pid, '_hero_cta_text',     true);
+$hero_cta_url      = get_post_meta($pid, '_hero_cta_url',      true);
+$hero_cta2_text    = get_post_meta($pid, '_hero_cta2_text',    true);
+$hero_cta2_url     = get_post_meta($pid, '_hero_cta2_url',     true);
+$trust_rating      = get_post_meta($pid, '_trust_rating',      true);
+$trust_text        = get_post_meta($pid, '_trust_text',        true);
+$compliance        = get_post_meta($pid, '_compliance',        true) ?: array();
+$form_embed        = get_post_meta($pid, '_form_embed',        true);
+
+/* Logos */
+$logo_badge          = get_post_meta($pid, '_logo_badge',          true);
+$logo_title_line1    = get_post_meta($pid, '_logo_title_line1',    true);
+$logo_title          = get_post_meta($pid, '_logo_title',          true);
+$logo_sub            = get_post_meta($pid, '_logo_sub',            true);
+$logos               = function_exists('ee_get_client_logos') ? ee_get_client_logos($pid) : (get_post_meta($pid, '_logos', true) ?: array());
+$logo_footer_cta     = get_post_meta($pid, '_logo_footer_cta',     true);
+$logo_footer_cta_url = get_post_meta($pid, '_logo_footer_cta_url', true);
+$logo_live_text      = get_post_meta($pid, '_logo_live_text',      true);
+
+/* Overview section + sidebar flow */
+$educrm_h2   = get_post_meta($pid, '_educrm_h2',   true);
+$educrm_p1   = get_post_meta($pid, '_educrm_p1',   true);
+$educrm_p2   = get_post_meta($pid, '_educrm_p2',   true);
+$educrm_p3   = get_post_meta($pid, '_educrm_p3',   true);
+$growth_val  = get_post_meta($pid, '_growth_val',  true);
+$growth_text = get_post_meta($pid, '_growth_text', true);
+$flow_steps  = get_post_meta($pid, '_flow_steps',  true) ?: array();
+
+/* Features */
+$features_h2 = get_post_meta($pid, '_features_h2', true);
+$features    = get_post_meta($pid, '_features',    true) ?: array();
+
+/* Alt-section repeater */
+$sections = get_post_meta($pid, '_content_sections', true) ?: array();
+
+/* Bottom CTA + products */
+$bottom_label    = get_post_meta($pid, '_bottom_label',    true);
+$bottom_h2       = get_post_meta($pid, '_bottom_h2',       true);
+$bottom_h3       = get_post_meta($pid, '_bottom_h3',       true);
+$bottom_cta_text = get_post_meta($pid, '_bottom_cta_text', true);
+$bottom_cta_url  = get_post_meta($pid, '_bottom_cta_url',  true);
+$products        = get_post_meta($pid, '_products',        true) ?: array();
+
+/* Testimonials */
+$testi_tagline = get_post_meta($pid, '_testi_tagline', true);
+$testi_title   = get_post_meta($pid, '_testi_title',   true);
+$testi_sub     = get_post_meta($pid, '_testi_sub',     true);
+$metrics       = get_post_meta($pid, '_testi_metrics', true) ?: array();
+$testimonials  = get_post_meta($pid, '_testimonials',  true) ?: array();
+
+/* AI demo */
+$aidemo_h2         = get_post_meta($pid, '_aidemo_h2',         true);
+$aidemo_sub        = get_post_meta($pid, '_aidemo_sub',        true);
+$aidemo_cta_text   = get_post_meta($pid, '_aidemo_cta_text',   true);
+$aidemo_cta_url    = get_post_meta($pid, '_aidemo_cta_url',    true);
+$aidemo_trust      = get_post_meta($pid, '_aidemo_trust',      true);
+$aidemo_expert_img = get_post_meta($pid, '_aidemo_expert_img', true);
+$workflow_nodes    = get_post_meta($pid, '_workflow_nodes',    true) ?: array();
+
+/* FAQ */
+$faq_badge    = get_post_meta($pid, '_faq_badge',    true);
+$faq_title    = get_post_meta($pid, '_faq_title',    true);
+$faq_subtitle = get_post_meta($pid, '_faq_subtitle', true);
+$faqs         = get_post_meta($pid, '_faqs',         true) ?: array();
+
+/* TOC — custom items or auto-derived from filled sections */
+$toc_enabled = get_post_meta($pid, '_toc_enabled', true);
+$toc_items   = get_post_meta($pid, '_toc_items',   true) ?: array();
+$toc_final   = array();
+if ($toc_enabled === 'custom' && !empty($toc_items)) {
+    foreach ($toc_items as $item) {
+        if (empty($item['anchor']) || empty($item['label']))     continue;
+        if (isset($item['show']) && $item['show'] === '0')       continue;
+        $toc_final[] = array('anchor' => $item['anchor'], 'label' => $item['label']);
+    }
+} else {
+    $toc_final[] = array('anchor' => 'top', 'label' => 'Home');
+    if (!empty($logos))                  $toc_final[] = array('anchor' => 'trusted-institutions',  'label' => 'Trusted Institutions');
+    if ($educrm_h2)                      $toc_final[] = array('anchor' => 'what-is-education-crm', 'label' => 'Overview');
+    if (!empty($features))               $toc_final[] = array('anchor' => 'features',              'label' => 'Features');
+    if (!empty($sections)) {
+        foreach ($sections as $s) {
+            if (!empty($s['heading']) && !empty($s['id'])) {
+                $toc_final[] = array('anchor' => $s['id'], 'label' => $s['heading']);
+            }
+        }
+    }
+    if ($bottom_h2 || !empty($products)) $toc_final[] = array('anchor' => 'products',     'label' => 'Products');
+    if (!empty($testimonials))           $toc_final[] = array('anchor' => 'testimonials', 'label' => 'Testimonials');
+    if ($aidemo_h2)                      $toc_final[] = array('anchor' => 'demo',         'label' => 'Book Demo');
+    if (!empty($faqs))                   $toc_final[] = array('anchor' => 'faq',          'label' => 'FAQ');
+}
+
+/* SEO injection */
+add_action('wp_head', function () use ($pid, $seo_title, $seo_desc, $seo_keywords, $og_image, $canonical, $twitter_title, $twitter_desc, $faqs) {
     if (!is_singular('product')) return;
     ?>
-    <meta name="description" content="ExtraaEdge Higher Education CRM helps universities and standalone institutes automate admissions, manage leads, and boost enrollment by 2X. Book a free demo today." />
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="ExtraaEdge" />
-    <link rel="canonical" href="<?php echo esc_url(get_permalink()); ?>" />
-    <meta property="og:type" content="product" />
-    <meta property="og:title" content="Higher Education CRM Software | ExtraaEdge – Automate Admissions" />
-    <meta property="og:description" content="Manage leads, automate communication, and increase student enrollments with ExtraaEdge Higher Education CRM. Trusted by 500+ educational institutions." />
-    <meta property="og:url" content="<?php echo esc_url(get_permalink()); ?>" />
-    <meta property="og:image" content="https://www.extraaedge.com/assets/og/higher-education-crm-og.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="ExtraaEdge" />
-    <meta property="og:locale" content="en_IN" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Higher Education CRM Software | Automate Admissions | ExtraaEdge" />
-    <meta name="twitter:description" content="Boost enrollments with AI-driven lead management, multi-channel communication &amp; real-time analytics. Try ExtraaEdge Higher Education CRM." />
-    <meta name="twitter:image" content="https://www.extraaedge.com/assets/og/higher-education-crm-og.png" />
-    <meta name="twitter:site" content="@ExtraaEdge" />
-    <meta name="twitter:creator" content="@ExtraaEdge" />
-    <script type="application/ld+json">{
-    "@context": "https://schema.org","@type": "SoftwareApplication",
-    "name": "ExtraaEdge Higher Education CRM","applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web, Android, iOS","url": "<?php echo esc_url(get_permalink()); ?>",
-    "description": "ExtraaEdge Higher Education CRM is an AI-powered admissions and lead management platform built for universities and standalone institutes to automate enrollment funnels, manage communications, and boost student admissions.",
-    "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "Contact for pricing", "availability": "https://schema.org/InStock" },
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": "350" },
-    "provider": { "@type": "Organization", "name": "ExtraaEdge", "url": "https://www.extraaedge.com" }
-    }</script>
+    <?php if ($seo_desc):     ?><meta name="description"      content="<?php echo esc_attr($seo_desc); ?>"><?php endif; ?>
+    <?php if ($seo_keywords): ?><meta name="keywords"         content="<?php echo esc_attr($seo_keywords); ?>"><?php endif; ?>
+    <link rel="canonical" href="<?php echo esc_url($canonical); ?>">
+    <meta property="og:type"      content="product">
+    <meta property="og:title"     content="<?php echo esc_attr($seo_title); ?>">
+    <?php if ($seo_desc): ?><meta property="og:description" content="<?php echo esc_attr($seo_desc); ?>"><?php endif; ?>
+    <meta property="og:url"       content="<?php echo esc_url($canonical); ?>">
+    <?php if ($og_image): ?><meta property="og:image" content="<?php echo esc_url($og_image); ?>"><?php endif; ?>
+    <meta property="og:site_name" content="ExtraaEdge">
+    <meta property="og:locale"    content="en_IN">
+    <meta name="twitter:card"     content="summary_large_image">
+    <meta name="twitter:title"    content="<?php echo esc_attr($twitter_title); ?>">
+    <?php if ($twitter_desc): ?><meta name="twitter:description" content="<?php echo esc_attr($twitter_desc); ?>"><?php endif; ?>
+    <?php if ($og_image): ?><meta name="twitter:image" content="<?php echo esc_url($og_image); ?>"><?php endif; ?>
+    <?php
+    $sw = array(
+        '@context'           => 'https://schema.org',
+        '@type'              => 'SoftwareApplication',
+        'name'               => $seo_title,
+        'url'                => $canonical,
+        'applicationCategory'=> 'BusinessApplication',
+        'operatingSystem'    => 'Web, Android, iOS',
+    );
+    if ($seo_desc) $sw['description'] = $seo_desc;
+    if ($og_image) $sw['image']       = $og_image;
+    $sw['provider'] = array('@type' => 'Organization', 'name' => 'ExtraaEdge', 'url' => 'https://www.extraaedge.com');
+    echo "\n<script type=\"application/ld+json\">" . wp_json_encode($sw, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
+
+    if (!empty($faqs)) {
+        $faq_items = array();
+        foreach ($faqs as $f) {
+            if (empty($f['question']) || empty($f['answer'])) continue;
+            $faq_items[] = array(
+                '@type'          => 'Question',
+                'name'           => wp_strip_all_tags($f['question']),
+                'acceptedAnswer' => array('@type' => 'Answer', 'text' => wp_strip_all_tags($f['answer'])),
+            );
+        }
+        if (!empty($faq_items)) {
+            $faq_schema = array('@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $faq_items);
+            echo "<script type=\"application/ld+json\">" . wp_json_encode($faq_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
+        }
+    }
+    ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -78,7 +197,6 @@ body.ee-product-page ::selection{background:var(--orange);color:#fff}
 body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
 .kicker{display:inline-flex;align-items:center;gap:11px;margin-bottom:22px;padding:7px 15px 7px 12px;background:var(--orange-50);border:1px solid var(--orange-100);border-radius:var(--r-pill)}
-.kicker .num{font-weight:800;font-size:11.5px;color:var(--orange-deep);letter-spacing:.02em}
 .kicker .lbl{font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-deep)}
 .kicker .ln{display:none}
 .kicker.center{margin-left:auto;margin-right:auto}
@@ -90,7 +208,6 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .btn-primary:hover svg{transform:translateX(3px)}
 .btn-outline{background:#fff;color:var(--blue);border-color:var(--line-2);box-shadow:var(--sh-1)}
 .btn-outline:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:var(--sh-2)}
-.btn-onnavy{background:#fff;color:var(--blue)}
 .btn-lg{padding:18px 38px;font-size:16px}
 .pulse-dot{width:8px;height:8px;background:var(--orange);position:relative;flex-shrink:0;border-radius:50%}
 .pulse-dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--orange);animation:ring 2.4s var(--ease) infinite}
@@ -141,9 +258,7 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .logos-title{font-weight:800;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.04em;line-height:1.08;margin-bottom:14px;color:var(--blue)}
 .logos-sub{color:var(--ink-soft);font-size:16px}
 .marquee-wrap{position:relative;padding:8px 0}
-.marquee-wrap::before,.marquee-wrap::after{content:"";position:absolute;top:0;width:150px;height:100%;z-index:2;pointer-events:none}
-.marquee-wrap::before{left:0;background:linear-gradient(90deg,#fff,transparent)}
-.marquee-wrap::after{right:0;background:linear-gradient(270deg,#fff,transparent)}
+.marquee-wrap::before,.marquee-wrap::after{display:none}
 .marquee-track{display:flex;gap:20px;width:max-content;padding:10px 0}
 .marquee-left{animation:scrollL 48s linear infinite}
 .marquee-right{animation:scrollR 48s linear infinite}
@@ -237,10 +352,8 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .feature-text{font-size:14.5px;font-weight:500;color:var(--ink-soft);line-height:1.55}
 .alt-img{width:100%;height:auto;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-3)}
 .alt-frame{position:relative}
-.alt-frame::before{display:none}
-.float-badge{position:absolute;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);padding:10px 16px;border:1px solid var(--line);border-radius:var(--r-pill);display:flex;align-items:center;gap:9px;font-weight:700;font-size:11.5px;color:var(--blue);z-index:4;white-space:nowrap;box-shadow:var(--sh-2)}
+.float-anim{position:relative;animation:floatUD 6.5s ease-in-out infinite}
 @keyframes floatUD{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-.float-anim{animation:floatUD 6.5s ease-in-out infinite}
 .products-inner{display:flex;align-items:center;gap:58px;flex-wrap:wrap}
 .products-content{flex:1;min-width:300px}
 .products-h2{font-weight:800;font-size:clamp(28px,3.7vw,46px);letter-spacing:-.04em;line-height:1.08;margin-bottom:18px;color:var(--blue)}
@@ -254,15 +367,6 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .product-logo img{width:100%;height:100%;object-fit:contain}
 .product-item h4{font-weight:800;font-size:14px;color:var(--blue);margin-bottom:6px}
 .product-view-link{font-size:12px;color:var(--orange-deep);font-weight:700}
-.automation-track{margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
-.auto-track-label{font-size:10px;font-weight:800;color:var(--ink-mute);margin-bottom:15px;text-align:center;text-transform:uppercase;letter-spacing:.12em}
-.flow-viz{display:flex;align-items:center;justify-content:space-between}
-.flow-node{font-size:10px;font-weight:800;text-transform:uppercase;color:var(--ink-soft);background:var(--panel);border:1px solid var(--line);padding:9px 13px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:5px;letter-spacing:.03em}
-.flow-node-icon{font-size:15px}
-.flow-node-ai{background:var(--grad-b);color:#fff;border-color:transparent}
-.flow-line{flex:1;height:3px;background:var(--line-2);margin:0 10px;position:relative;overflow:hidden;border-radius:9px}
-.flow-shimmer{position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,var(--orange),transparent);animation:shimmer 2.6s infinite linear}
-@keyframes shimmer{from{left:-100%}to{left:100%}}
 .testimonials-section{padding:clamp(70px,8vw,110px) 0;background:var(--grad-b);position:relative;overflow:hidden;color:#fff}
 .testi-mesh{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
 .testi-pulse-line{position:absolute;background:linear-gradient(90deg,transparent,rgba(222,110,48,.3),transparent);height:1px;width:200%;opacity:0;left:-50%}
@@ -272,7 +376,7 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .testi-header{text-align:center;margin-bottom:52px;opacity:0;transform:translateY(26px);transition:all .7s var(--ease)}
 .testi-section-active .testi-header{opacity:1;transform:none}
 .testi-header .kicker{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16)}
-.testi-header .kicker .num,.testi-header .kicker .lbl{color:#fff}
+.testi-header .kicker .lbl{color:#fff}
 .testi-title{font-weight:800;font-size:clamp(28px,4.3vw,52px);letter-spacing:-.04em;line-height:1.06;margin-bottom:16px}
 .testi-title .uacc{-webkit-text-fill-color:initial;background:none;color:var(--orange-l)}
 .testi-sub{color:rgba(255,255,255,.74);font-size:16px;max-width:600px;margin:0 auto}
@@ -360,7 +464,7 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .faq-inner ul li::before{content:'';position:absolute;left:0;top:.62em;width:7px;height:7px;background:var(--orange);border-radius:50%}
 .cbar{position:fixed;left:0;right:0;bottom:0;z-index:980;transform:translateY(140%);transition:transform .55s var(--ease);padding:0 16px 16px}
 .cbar.show{transform:none}
-.cbar-inner{max-width:var(--maxw);margin:0 auto;background:rgba(255,255,255,.86);backdrop-filter:blur(16px) saturate(160%);border:1px solid var(--line-2);border-radius:var(--r-l);box-shadow:var(--sh-3);display:flex;align-items:center;gap:20px;padding:14px 16px 14px 24px}
+.cbar-inner{max-width:var(--maxw);margin:0 auto;background:rgba(255,255,255,.86);backdrop-filter:blur(16px) saturate(160%);border:1px solid var(--line-2);border-radius:var(--r-l);box-shadow:var(--sh-3);display:flex;align-items:center;gap:20px;padding:14px 16px 14px 24px;margin-bottom:env(safe-area-inset-bottom,0px)}
 .cbar-tag{width:46px;height:46px;border-radius:13px;background:var(--grad-o);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--sh-o)}
 .cbar-tag svg{width:22px;height:22px;fill:#fff}
 .cbar-txt{flex:1;min-width:0}
@@ -372,28 +476,14 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .cbar-close{width:34px;height:34px;border-radius:50%;border:1px solid var(--line-2);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--t)}
 .cbar-close:hover{background:var(--panel)}
 .cbar-close svg{width:15px;height:15px;stroke:var(--ink-soft)}
-.wrap,.faq-container,.testi-inner{position:relative;z-index:1}
-#what-is-education-crm,.features,.ai-demo-section,#products,.faq-section{position:relative}
-#what-is-education-crm::before,.features::before,.ai-demo-section::before,#products::before,.faq-section::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(25,51,93,.05) 1.1px,transparent 1.1px);background-size:24px 24px;-webkit-mask-image:radial-gradient(115% 80% at 50% 0%,#000,transparent 78%);mask-image:radial-gradient(115% 80% at 50% 0%,#000,transparent 78%)}
-#what-is-education-crm::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(38% 46% at 100% 4%,rgba(222,110,48,.10),transparent 62%),radial-gradient(34% 42% at 0% 96%,rgba(25,51,93,.06),transparent 64%)}
-.features::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(36% 60% at 4% 100%,rgba(25,51,93,.07),transparent 60%),radial-gradient(30% 50% at 98% 0%,rgba(222,110,48,.07),transparent 62%)}
-.ai-demo-section::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(40% 52% at 78% 50%,rgba(222,110,48,.08),transparent 60%),radial-gradient(34% 46% at 6% 12%,rgba(25,51,93,.06),transparent 64%)}
-#products::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(40% 52% at 100% 0%,rgba(25,51,93,.07),transparent 62%),radial-gradient(34% 46% at 0% 100%,rgba(222,110,48,.07),transparent 64%)}
-.faq-section::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(46% 40% at 50% 0%,rgba(222,110,48,.06),transparent 66%)}
-.testimonials-section::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.06) 1.1px,transparent 1.1px);background-size:26px 26px;-webkit-mask-image:radial-gradient(120% 90% at 50% 0%,#000,transparent 80%);mask-image:radial-gradient(120% 90% at 50% 0%,#000,transparent 80%)}
-body.ee-product-page,body.ee-product-page html{max-width:100%}
-.ee-product-page img,.ee-product-page svg,.ee-product-page iframe,.ee-product-page video{max-width:100%}
-.ee-product-page button,.ee-product-page a.btn,.ee-product-page .toc-link,.ee-product-page .faq-trigger{touch-action:manipulation}
-.cbar-inner{margin-bottom:env(safe-area-inset-bottom,0px)}
 @media(min-width:1600px){:root{--maxw:1340px}}
 @media(max-width:1200px){.toc-zone-wrapper{display:block;padding:0}.toc-column{display:none}.toc-content-column>section{padding-left:0}.toc-mobile-toggle{display:flex}.toc-mobile-overlay,.toc-mobile-panel{display:block}}
 @media(max-width:1080px){.hero-layout{grid-template-columns:1fr;gap:48px;padding:60px 0 78px}.hero-right{justify-content:center}.hero-form-aside{max-width:540px;margin:0 auto}.hero-badge{align-self:center}.what-layout{grid-template-columns:1fr;gap:38px}.flow-panel{position:relative;top:0}.features-grid{grid-template-columns:repeat(3,1fr)}.ai-demo-inner{grid-template-columns:1fr;gap:38px}.ai-story-engine{transform:scale(.86)}.ai-cta-content{text-align:center}.ai-cta-content .kicker,.ai-cta-actions{justify-content:center;align-items:center}.ai-cta-sub{margin-left:auto;margin-right:auto}.testi-metrics{grid-template-columns:repeat(2,1fr)}.cbar-rating{display:none}}
 @media(max-width:980px){.hero-left{align-items:center;text-align:center}.hero-desc,.proof,.cta-row{margin-left:auto;margin-right:auto}.proof{display:inline-grid;text-align:left}.tag-row,.compliance-row{justify-content:center}}
 @media(max-width:880px){.alt-layout{flex-direction:column;gap:34px}.alt-visual{order:-1!important;width:100%}.testi-cards{grid-template-columns:1fr;max-width:480px;margin-left:auto;margin-right:auto}.products-inner{flex-direction:column}.products-card{min-width:0;width:100%}.ai-story-engine{display:flex;flex-direction:column;align-items:center;gap:12px;height:auto;transform:none;width:100%}.workflow-svg{display:none}.expert-center{width:120px;height:120px;margin-bottom:6px}.expert-ring{display:none}.workflow-node{position:static!important;transform:none!important;opacity:1!important;width:100%;max-width:420px;top:auto;right:auto;bottom:auto;left:auto}}
-@media(max-width:680px){body.ee-product-page{font-size:15.5px}.wrap,.faq-container{padding-left:18px;padding-right:18px}.section{padding:clamp(48px,11vw,72px) 0}.alt-section{padding:48px 0}.stat-strip{grid-template-columns:repeat(3,1fr);gap:8px}.stat-cell{padding:16px 8px}.features-grid{grid-template-columns:1fr 1fr}.btn{width:100%}.cta-row{flex-direction:column}.cta-row .btn{width:100%}.float-badge{display:none}.product-grid{grid-template-columns:1fr}.automation-track{display:none}.growth-card{flex-direction:column;text-align:center;gap:14px;padding:24px}.testi-metrics{grid-template-columns:1fr 1fr}.toc-mobile-toggle{bottom:auto;top:14px;right:14px;width:46px;height:46px}.toc-mobile-panel{width:100%;max-width:none}.faq-trigger{padding:18px 18px}.faq-q{font-size:15px;gap:10px}.faq-inner{padding:0 18px 20px 32px}.card-body{padding:24px}.cbar{padding:0 10px calc(10px + env(safe-area-inset-bottom,0px))}.cbar-inner{padding:11px 11px 11px 14px;gap:11px;border-radius:var(--r)}.cbar-tag{display:none}.cbar-txt b{font-size:13px;line-height:1.25}.cbar-txt span{display:none}.cbar .btn{width:auto;padding:12px 18px;font-size:13.5px}}
-@media(max-width:480px){.stat-strip{grid-template-columns:1fr}.features-grid{grid-template-columns:1fr;max-width:360px;margin-left:auto;margin-right:auto}.testi-metrics{grid-template-columns:1fr}.hero-form-card{padding:24px 20px}.compliance-row{gap:14px}.marquee-wrap::before,.marquee-wrap::after{width:60px}}
+@media(max-width:680px){body.ee-product-page{font-size:15.5px}.wrap,.faq-container{padding-left:18px;padding-right:18px}.section{padding:clamp(48px,11vw,72px) 0}.alt-section{padding:48px 0}.stat-strip{grid-template-columns:repeat(3,1fr);gap:8px}.stat-cell{padding:16px 8px}.features-grid{grid-template-columns:1fr 1fr}.btn{width:100%}.cta-row{flex-direction:column}.cta-row .btn{width:100%}.product-grid{grid-template-columns:1fr}.growth-card{flex-direction:column;text-align:center;gap:14px;padding:24px}.testi-metrics{grid-template-columns:1fr 1fr}.toc-mobile-toggle{bottom:auto;top:14px;right:14px;width:46px;height:46px}.toc-mobile-panel{width:100%;max-width:none}.faq-trigger{padding:18px 18px}.faq-q{font-size:15px;gap:10px}.faq-inner{padding:0 18px 20px 32px}.card-body{padding:24px}.cbar{padding:0 10px calc(10px + env(safe-area-inset-bottom,0px))}.cbar-inner{padding:11px 11px 11px 14px;gap:11px;border-radius:var(--r)}.cbar-tag{display:none}.cbar-txt b{font-size:13px;line-height:1.25}.cbar-txt span{display:none}.cbar .btn{width:auto;padding:12px 18px;font-size:13.5px}}
+@media(max-width:480px){.stat-strip{grid-template-columns:1fr}.features-grid{grid-template-columns:1fr;max-width:360px;margin-left:auto;margin-right:auto}.testi-metrics{grid-template-columns:1fr}.hero-form-card{padding:24px 20px}.compliance-row{gap:14px}}
 @media(max-width:380px){.hero-h1{font-size:31px}.cbar-txt b{font-size:12px}.cbar .btn{padding:11px 14px}}
-@media(max-height:560px) and (orientation:landscape){.toc-mobile-panel{padding-top:14px}.hero-layout{padding:40px 0 56px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}.reveal{opacity:1!important;transform:none!important}}
 </style>
 
@@ -407,22 +497,9 @@ body.ee-product-page,body.ee-product-page html{max-width:100%}
     <nav class="toc-wrapper">
         <div class="toc-progress" id="toc-progress-mobile"></div>
         <ul class="toc-list" id="toc-list-mobile">
-            <li class="toc-item"><a href="#top" class="toc-link toc-link-mobile" data-section="top"><span class="toc-num">01</span>Home</a></li>
-            <li class="toc-item"><a href="#trusted-institutions" class="toc-link toc-link-mobile"><span class="toc-num">02</span>Trusted Institutions</a></li>
-            <li class="toc-item"><a href="#what-is-education-crm" class="toc-link toc-link-mobile"><span class="toc-num">03</span>Higher Education CRM</a></li>
-            <li class="toc-item"><a href="#features" class="toc-link toc-link-mobile"><span class="toc-num">04</span>Features</a></li>
-            <li class="toc-item"><a href="#lead-management" class="toc-link toc-link-mobile"><span class="toc-num">05</span>Lead Channels</a></li>
-            <li class="toc-item"><a href="#lead-nurturing" class="toc-link toc-link-mobile"><span class="toc-num">06</span>Communication</a></li>
-            <li class="toc-item"><a href="#lead-scoring" class="toc-link toc-link-mobile"><span class="toc-num">07</span>Application Forms</a></li>
-            <li class="toc-item"><a href="#reporting" class="toc-link toc-link-mobile"><span class="toc-num">08</span>Reporting Dashboard</a></li>
-            <li class="toc-item"><a href="#marketing-automation" class="toc-link toc-link-mobile"><span class="toc-num">09</span>Marketing Automation</a></li>
-            <li class="toc-item"><a href="#integrations" class="toc-link toc-link-mobile"><span class="toc-num">10</span>Integrations</a></li>
-            <li class="toc-item"><a href="#support" class="toc-link toc-link-mobile"><span class="toc-num">11</span>Support &amp; Training</a></li>
-            <li class="toc-item"><a href="#vidyagpt" class="toc-link toc-link-mobile"><span class="toc-num">12</span>VidyaGPT AI</a></li>
-            <li class="toc-item"><a href="#products" class="toc-link toc-link-mobile"><span class="toc-num">13</span>Products</a></li>
-            <li class="toc-item"><a href="#testimonials" class="toc-link toc-link-mobile"><span class="toc-num">14</span>Testimonials</a></li>
-            <li class="toc-item"><a href="#demo" class="toc-link toc-link-mobile"><span class="toc-num">15</span>Book Demo</a></li>
-            <li class="toc-item"><a href="#faq" class="toc-link toc-link-mobile"><span class="toc-num">16</span>FAQ</a></li>
+            <?php $tn = 1; foreach ($toc_final as $tlink): ?>
+            <li class="toc-item"><a href="#<?php echo esc_attr($tlink['anchor']); ?>" class="toc-link toc-link-mobile"><span class="toc-num"><?php echo str_pad($tn++, 2, '0', STR_PAD_LEFT); ?></span><?php echo esc_html($tlink['label']); ?></a></li>
+            <?php endforeach; ?>
         </ul>
     </nav>
 </div>
@@ -432,97 +509,120 @@ body.ee-product-page,body.ee-product-page html{max-width:100%}
     <div class="wrap">
         <div class="hero-layout">
             <div class="hero-left">
-                <div class="hero-badge reveal"><span class="pulse-dot"></span>500+ institutions scaling admissions with AI</div>
-                <h1 class="hero-h1 reveal">Higher Education CRM for universities &amp; <span class="uacc">standalone institutes</span></h1>
-                <p class="hero-desc reveal">An exclusively designed <strong>CRM for higher education</strong> that digitises your entire admissions process and boosts conversion rates by 2X — trusted by leading universities and standalone institutes across India.</p>
+                <?php if ($hero_badge): ?>
+                <div class="hero-badge reveal"><span class="pulse-dot"></span><?php echo esc_html($hero_badge); ?></div>
+                <?php endif; ?>
+                <h1 class="hero-h1 reveal"><?php
+                    if ($hero_h1_before || $hero_h1_highlight || $hero_h1_after) {
+                        if ($hero_h1_before)    echo esc_html($hero_h1_before) . ' ';
+                        if ($hero_h1_highlight) echo '<span class="uacc">' . esc_html($hero_h1_highlight) . '</span>';
+                        if ($hero_h1_after)     echo ' ' . esc_html($hero_h1_after);
+                    } else {
+                        echo esc_html(get_the_title());
+                    }
+                ?></h1>
+                <?php if ($hero_desc): ?>
+                <p class="hero-desc reveal"><?php echo function_exists('ee_inline_links') ? ee_inline_links($hero_desc) : wp_kses_post($hero_desc); ?></p>
+                <?php endif; ?>
+                <?php if (!empty($hero_proofs)): ?>
                 <ul class="proof reveal">
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Trusted by 500+ educational institutions</li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Helped enroll 50,000+ students</li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Managed 1 million+ admissions leads</li>
+                    <?php foreach ($hero_proofs as $p): if (empty($p)) continue; ?>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><?php echo esc_html(is_array($p) ? ($p['text'] ?? '') : $p); ?></li>
+                    <?php endforeach; ?>
                 </ul>
+                <?php endif; ?>
+                <?php if (!empty($stats)): ?>
                 <div class="stat-strip reveal">
-                    <div class="stat-cell"><span class="stat-num">2X</span><span class="stat-lab">Higher Conversion</span></div>
-                    <div class="stat-cell"><span class="stat-num">90%</span><span class="stat-lab">Faster Response</span></div>
-                    <div class="stat-cell"><span class="stat-num">50%</span><span class="stat-lab">Lower Cost</span></div>
+                    <?php foreach ($stats as $s): if (empty($s['num']) && empty($s['label'])) continue; ?>
+                    <div class="stat-cell"><span class="stat-num"><?php echo esc_html($s['num'] ?? ''); ?></span><span class="stat-lab"><?php echo esc_html($s['label'] ?? ''); ?></span></div>
+                    <?php endforeach; ?>
                 </div>
-                <div class="result-strip reveal"><span class="pulse-dot"></span>Increase admissions by 2X within your first 90 days</div>
-                <nav class="tag-row reveal" aria-label="Industry segments">
-                    <span class="tag">Universities</span><span class="tag">Colleges</span><span class="tag">Standalone Institutes</span><span class="tag">EdTech</span><span class="tag">Higher Education CRM</span><span class="tag">Overseas</span>
+                <?php endif; ?>
+                <?php if ($result_badge): ?>
+                <div class="result-strip reveal"><span class="pulse-dot"></span><?php echo esc_html($result_badge); ?></div>
+                <?php endif; ?>
+                <?php if (!empty($tags)): ?>
+                <nav class="tag-row reveal" aria-label="Segments">
+                    <?php foreach ($tags as $tag): if (empty($tag)) continue; ?>
+                    <span class="tag"><?php echo esc_html(is_array($tag) ? ($tag['text'] ?? '') : $tag); ?></span>
+                    <?php endforeach; ?>
                 </nav>
+                <?php endif; ?>
+                <?php if ($hero_cta_text || $hero_cta2_text): ?>
                 <div class="cta-row reveal">
-                    <a href="#admission-form" class="btn btn-primary" onclick="scrollToForm(event)">Book a Demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                    <a href="#" class="btn btn-outline">Watch Product Tour</a>
+                    <?php if ($hero_cta_text): ?>
+                    <a href="<?php echo esc_url($hero_cta_url ?: '#admission-form'); ?>" class="btn btn-primary"><?php echo esc_html($hero_cta_text); ?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                    <?php endif; ?>
+                    <?php if ($hero_cta2_text): ?>
+                    <a href="<?php echo esc_url($hero_cta2_url ?: '#'); ?>" class="btn btn-outline"><?php echo esc_html($hero_cta2_text); ?></a>
+                    <?php endif; ?>
                 </div>
+                <?php endif; ?>
+                <?php if ($trust_rating || $trust_text || !empty($compliance)): ?>
                 <footer class="trust-bar reveal">
-                    <div class="trust-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>Rated 4.9/5 by education leaders <span>(500+ verified reviews)</span></div>
+                    <?php if ($trust_rating || $trust_text): ?>
+                    <div class="trust-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><?php if ($trust_rating) echo esc_html($trust_rating); ?> <?php if ($trust_text) echo '<span>' . esc_html($trust_text) . '</span>'; ?></div>
+                    <?php endif; ?>
+                    <?php if (!empty($compliance)): ?>
                     <div class="compliance-row">
-                        <div class="compliance-item"><img src="https://www.extraaedge.com/wp-content/uploads/2025/09/GDPR-NEW.png" alt="GDPR Compliant Higher Education CRM" width="24" height="24"><span>GDPR Compliant</span></div>
-                        <div class="compliance-item"><img src="https://www.extraaedge.com/wp-content/uploads/2025/09/iso-0001.png" alt="ISO Certified CRM Software" width="24" height="24"><span>ISO Certified</span></div>
-                        <div class="compliance-item"><span style="font-size:18px">&#9729;&#65039;</span><span>Enterprise-Grade Secure Cloud</span></div>
+                        <?php foreach ($compliance as $c): if (empty($c['label']) && empty($c['icon'])) continue; ?>
+                        <div class="compliance-item"><?php if (!empty($c['icon'])): ?><img src="<?php echo esc_url($c['icon']); ?>" alt="<?php echo esc_attr($c['label'] ?? ''); ?>" width="24" height="24"><?php endif; ?><span><?php echo esc_html($c['label'] ?? ''); ?></span></div>
+                        <?php endforeach; ?>
                     </div>
+                    <?php endif; ?>
                 </footer>
+                <?php endif; ?>
             </div>
+            <?php if ($form_embed): ?>
             <div class="hero-right">
                 <aside class="hero-form-aside reveal" id="admission-form" aria-label="Book Demo Form">
                     <div class="hero-form-card">
-                        <script async src="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js"></script>
-                        <div id="ee-form-7"></div>
+                        <?php echo $form_embed; ?>
                         <p class="secure-label">&#128274; Secure Data Transmission Active</p>
                     </div>
                 </aside>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </main>
 
+<?php if (!empty($logos)): ?>
 <section class="logos" id="trusted-institutions" aria-label="Trusted Institutions">
+    <?php if ($logo_badge || $logo_title_line1 || $logo_title || $logo_sub): ?>
     <div class="logos-head reveal">
-        <div class="kicker center"><span class="lbl">Trusted Institutions</span></div>
-        <p class="logos-kicker">Trusted by 500+ institutions growing faster than ever</p>
-        <h2 class="logos-title">Why educational leaders choose <span class="uacc">ExtraaEdge CRM</span></h2>
-        <p class="logos-sub">AI-powered <strong>admission automation</strong> and <strong>enrollment management</strong> built for the next generation of education leaders.</p>
+        <?php if ($logo_badge): ?><div class="kicker center"><span class="lbl"><?php echo esc_html($logo_badge); ?></span></div><?php endif; ?>
+        <?php if ($logo_title_line1): ?><p class="logos-kicker"><?php echo esc_html($logo_title_line1); ?></p><?php endif; ?>
+        <?php if ($logo_title): ?><h2 class="logos-title"><?php echo wp_kses_post($logo_title); ?></h2><?php endif; ?>
+        <?php if ($logo_sub): ?><p class="logos-sub"><?php echo function_exists('ee_inline_links') ? ee_inline_links($logo_sub) : wp_kses_post($logo_sub); ?></p><?php endif; ?>
     </div>
+    <?php endif; ?>
+    <?php
+    $split = (int) ceil(count($logos) / 2);
+    $row_a = array_slice($logos, 0, $split);
+    $row_b = array_slice($logos, $split);
+    if (empty($row_b)) $row_b = $row_a;
+    ?>
     <div class="marquee-wrap">
         <div class="marquee-track marquee-left">
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/Xiss-3.webp" alt="XISS uses ExtraaEdge Higher Education CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/OIP-20.jpg" alt="Institution using student enrollment CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/10/Anant-National-University.png" alt="Anant National University admissions CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/sr-university.webp" alt="SR University lead management for colleges" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/hamstek-1.webp" alt="Hamstek higher education CRM software" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/adani.webp" alt="Adani University admission CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/techno-india-group.webp" alt="Techno India Group CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/cropped-final-logo.webp" alt="Institution higher education CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/Xiss-3.webp" alt="XISS uses ExtraaEdge Higher Education CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/OIP-20.jpg" alt="Institution using student enrollment CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/10/Anant-National-University.png" alt="Anant National University admissions CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/sr-university.webp" alt="SR University lead management for colleges" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/hamstek-1.webp" alt="Hamstek higher education CRM software" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/adani.webp" alt="Adani University admission CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/techno-india-group.webp" alt="Techno India Group CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/cropped-final-logo.webp" alt="Institution higher education CRM" loading="lazy"></div>
+            <?php for ($pass = 0; $pass < 2; $pass++): foreach ($row_a as $l): ?>
+            <div class="logo-card"><img src="<?php echo esc_url($l['image']); ?>" alt="<?php echo esc_attr($l['alt'] ?? ''); ?>" loading="lazy" onerror="this.closest('.logo-card').remove()"></div>
+            <?php endforeach; endfor; ?>
         </div>
         <div class="marquee-track marquee-right" style="margin-top:14px">
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/JGI-JAIN-2.webp" alt="Jain University higher education CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/mit-shillong.png" alt="MIT Shillong student lead tracking CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/isdi.webp" alt="ISDI admission management CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/09/jio-v3-3.png" alt="Jio education marketing automation" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/dpu-3.webp" alt="DPU enrollment management system" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/Graphic-Era-3.webp" alt="Graphic Era lead nurturing for universities" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/fostima.webp" alt="Fostima CRM for educational institutions" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/JGI-JAIN-2.webp" alt="Jain University higher education CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/mit-shillong.png" alt="MIT Shillong student lead tracking CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/isdi.webp" alt="ISDI admission management CRM" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2025/09/jio-v3-3.png" alt="Jio education marketing automation" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/dpu-3.webp" alt="DPU enrollment management system" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/Graphic-Era-3.webp" alt="Graphic Era lead nurturing for universities" loading="lazy"></div>
-            <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/fostima.webp" alt="Fostima CRM for educational institutions" loading="lazy"></div>
+            <?php for ($pass = 0; $pass < 2; $pass++): foreach ($row_b as $l): ?>
+            <div class="logo-card"><img src="<?php echo esc_url($l['image']); ?>" alt="<?php echo esc_attr($l['alt'] ?? ''); ?>" loading="lazy" onerror="this.closest('.logo-card').remove()"></div>
+            <?php endforeach; endfor; ?>
         </div>
     </div>
+    <?php if ($logo_footer_cta || $logo_live_text): ?>
     <div class="logos-foot reveal">
-        <a href="#admission-form" class="btn btn-primary" onclick="scrollToForm(event)">Start Converting Today<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        <div class="live-indicator"><span class="green-dot"></span><span>124 admissions processed in the last hour</span></div>
+        <?php if ($logo_footer_cta): ?><a href="<?php echo esc_url($logo_footer_cta_url ?: '#admission-form'); ?>" class="btn btn-primary"><?php echo esc_html($logo_footer_cta); ?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a><?php endif; ?>
+        <?php if ($logo_live_text): ?><div class="live-indicator"><span class="green-dot"></span><span><?php echo esc_html($logo_live_text); ?></span></div><?php endif; ?>
     </div>
+    <?php endif; ?>
 </section>
+<?php endif; ?>
 
 <div class="toc-zone-wrapper" id="toc-zone-wrapper">
     <div class="toc-column" id="toc-column">
@@ -533,387 +633,276 @@ body.ee-product-page,body.ee-product-page html{max-width:100%}
                 <p class="toc-title">Index</p>
             </div>
             <ul class="toc-list" id="toc-list">
-                <li class="toc-item"><a href="#top" class="toc-link" data-section="top"><span class="toc-num">01</span>Home</a></li>
-                <li class="toc-item"><a href="#trusted-institutions" class="toc-link"><span class="toc-num">02</span>Trusted Institutions</a></li>
-                <li class="toc-item"><a href="#what-is-education-crm" class="toc-link"><span class="toc-num">03</span>Higher Education CRM</a></li>
-                <li class="toc-item"><a href="#features" class="toc-link"><span class="toc-num">04</span>Features</a></li>
-                <li class="toc-item"><a href="#lead-management" class="toc-link"><span class="toc-num">05</span>Lead Channels</a></li>
-                <li class="toc-item"><a href="#lead-nurturing" class="toc-link"><span class="toc-num">06</span>Communication</a></li>
-                <li class="toc-item"><a href="#lead-scoring" class="toc-link"><span class="toc-num">07</span>Application Forms</a></li>
-                <li class="toc-item"><a href="#reporting" class="toc-link"><span class="toc-num">08</span>Reporting Dashboard</a></li>
-                <li class="toc-item"><a href="#marketing-automation" class="toc-link"><span class="toc-num">09</span>Marketing Automation</a></li>
-                <li class="toc-item"><a href="#integrations" class="toc-link"><span class="toc-num">10</span>Integrations</a></li>
-                <li class="toc-item"><a href="#support" class="toc-link"><span class="toc-num">11</span>Support &amp; Training</a></li>
-                <li class="toc-item"><a href="#vidyagpt" class="toc-link"><span class="toc-num">12</span>VidyaGPT AI</a></li>
-                <li class="toc-item"><a href="#products" class="toc-link"><span class="toc-num">13</span>Products</a></li>
-                <li class="toc-item"><a href="#testimonials" class="toc-link"><span class="toc-num">14</span>Testimonials</a></li>
-                <li class="toc-item"><a href="#demo" class="toc-link"><span class="toc-num">15</span>Book Demo</a></li>
-                <li class="toc-item"><a href="#faq" class="toc-link"><span class="toc-num">16</span>FAQ</a></li>
+                <?php $tn = 1; foreach ($toc_final as $tlink): ?>
+                <li class="toc-item"><a href="#<?php echo esc_attr($tlink['anchor']); ?>" class="toc-link"><span class="toc-num"><?php echo str_pad($tn++, 2, '0', STR_PAD_LEFT); ?></span><?php echo esc_html($tlink['label']); ?></a></li>
+                <?php endforeach; ?>
             </ul>
         </nav>
     </div>
     <div class="toc-content-column">
 
+        <?php if ($educrm_h2 || $educrm_p1): ?>
         <section class="section section-b" id="what-is-education-crm" aria-labelledby="edu-crm-h">
             <div class="wrap">
                 <div class="what-layout">
                     <div>
-                        <div class="kicker reveal"><span class="lbl">The Fundamentals</span><span class="ln"></span></div>
-                        <h2 id="edu-crm-h" class="what-h2 reveal">What is a Higher Education CRM?</h2>
-                        <p class="what-p reveal">A <strong>Higher Education CRM</strong> is purpose-built software that manages the student lifecycle — from first inquiry through enrollment. Unlike generic CRMs, it's designed specifically for the workflows of colleges and universities. It centralizes all student and applicant data in one place, automates repetitive tasks like follow-ups, email campaigns, and application tracking, and enables personalized, multi-channel communication with prospects.</p>
-                        <p class="what-p reveal">Managing growing inquiry volumes manually leads to delays, errors, and missed opportunities. A <strong>CRM for higher education</strong> replaces scattered spreadsheets and siloed processes with a single, automated system that keeps students engaged and staff focused on high-value work. It provides analytics to guide admissions strategy and tracks payments, reminders, and engagement across the enrollment funnel.</p>
-                        <p class="what-p reveal">It isn't just an efficiency tool — it's infrastructure for competing in a market where student expectations for timely, personalized communication are higher than ever. With built-in <strong>education marketing automation</strong>, institutions nurture leads on autopilot while counselors focus on high-priority conversions.</p>
+                        <?php if ($educrm_h2): ?><h2 id="edu-crm-h" class="what-h2 reveal"><?php echo esc_html($educrm_h2); ?></h2><?php endif; ?>
+                        <?php if ($educrm_p1): ?><p class="what-p reveal"><?php echo function_exists('ee_inline_links') ? ee_inline_links($educrm_p1) : wp_kses_post($educrm_p1); ?></p><?php endif; ?>
+                        <?php if ($educrm_p2): ?><p class="what-p reveal"><?php echo function_exists('ee_inline_links') ? ee_inline_links($educrm_p2) : wp_kses_post($educrm_p2); ?></p><?php endif; ?>
+                        <?php if ($educrm_p3): ?><p class="what-p reveal"><?php echo function_exists('ee_inline_links') ? ee_inline_links($educrm_p3) : wp_kses_post($educrm_p3); ?></p><?php endif; ?>
+                        <?php if ($growth_val || $growth_text): ?>
                         <div class="growth-card reveal">
-                            <div class="growth-val">33.12%</div>
-                            <div class="growth-text"><strong>India's GER for tertiary education</strong> reached 33.12% in 2023 — meaning institutions must handle higher student volumes without proportionally increasing overhead. A robust <strong>student enrollment CRM</strong> is essential to manage this rising demand.</div>
+                            <?php if ($growth_val): ?><div class="growth-val"><?php echo esc_html($growth_val); ?></div><?php endif; ?>
+                            <?php if ($growth_text): ?><div class="growth-text"><?php echo function_exists('ee_inline_links') ? ee_inline_links($growth_text) : wp_kses_post($growth_text); ?></div><?php endif; ?>
                         </div>
+                        <?php endif; ?>
                     </div>
+                    <?php if (!empty($flow_steps)): ?>
                     <div class="flow-panel reveal" id="flow-zone">
-                        <div class="flow-live"><span class="pulse-dot"></span>Status — Processing Admissions</div>
+                        <div class="flow-live"><span class="pulse-dot"></span>Status — Processing</div>
                         <div class="flow-steps" id="flow-stack">
-                            <div class="flow-step" data-step="0"><div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span class="step-label">Lead Captured</span></div>
-                            <div class="flow-step" data-step="1"><div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.19 11.8 19.79 19.79 0 0 1 1.12 3.14 2 2 0 0 1 3.1 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><span class="step-label">Auto-Nurturing Sent</span></div>
-                            <div class="flow-step" data-step="2"><div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="step-label">Document Verification</span></div>
-                            <div class="flow-step" data-step="3"><div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><span class="step-label">Fee Collection</span></div>
-                            <div class="flow-step" data-step="4"><div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><span class="step-label">Enrollment Confirmed</span></div>
+                            <?php foreach ($flow_steps as $i => $step): if (empty($step['label'])) continue; ?>
+                            <div class="flow-step" data-step="<?php echo (int)$i; ?>">
+                                <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+                                <span class="step-label"><?php echo esc_html($step['label']); ?></span>
+                            </div>
+                            <?php endforeach; ?>
                         </div>
                         <div class="data-log" id="data-log">
-                            <div class="log-line">Initiating CRM admission core...</div>
-                            <div class="log-line">Listening for new inquiries...</div>
+                            <div class="log-line">Initiating CRM core...</div>
+                            <div class="log-line">Listening for new events...</div>
                         </div>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </section>
+        <?php endif; ?>
 
+        <?php if (!empty($features)): ?>
         <section class="section section-b" id="features" aria-labelledby="features-h">
             <div class="wrap">
+                <?php if ($features_h2): ?>
                 <div class="features-head reveal">
                     <div class="kicker center"><span class="lbl">Platform</span></div>
-                    <h2 id="features-h" class="features-h2">Features that give you an edge</h2>
+                    <h2 id="features-h" class="features-h2"><?php echo esc_html($features_h2); ?></h2>
                 </div>
+                <?php endif; ?>
                 <div class="features-grid reveal">
-                    <article class="feat-card"><div class="feat-img-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2024/10/Comprehensive-ROI-Dashboard-1.webp" alt="Comprehensive ROI Dashboard for Higher Education CRM" class="feat-img" loading="lazy" width="200" height="110"></div><h3 class="feat-title"><span class="feat-dot"></span>Comprehensive ROI Dashboard</h3></article>
-                    <article class="feat-card"><div class="feat-img-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2024/10/Counselor-Productivity-Dashboard-1.webp" alt="Counselor Productivity Dashboard" class="feat-img" loading="lazy" width="200" height="110"></div><h3 class="feat-title"><span class="feat-dot"></span>Counselor Productivity Dashboard</h3></article>
-                    <article class="feat-card"><div class="feat-img-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2024/10/Robust-Communication-Dashboard-1.webp" alt="Robust Communication Dashboard" class="feat-img" loading="lazy" width="200" height="110"></div><h3 class="feat-title"><span class="feat-dot"></span>Robust Communication Dashboard</h3></article>
-                    <article class="feat-card"><div class="feat-img-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2024/10/Efficient-Adoption-Dashboard-1.webp" alt="Efficient Adoption Dashboard" class="feat-img" loading="lazy" width="200" height="110"></div><h3 class="feat-title"><span class="feat-dot"></span>Efficient Adoption Dashboard</h3></article>
-                    <article class="feat-card"><div class="feat-img-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2024/10/Self-generating-Report-Dashboard.webp" alt="Self-generating Report Dashboard" class="feat-img" loading="lazy" width="200" height="110"></div><h3 class="feat-title"><span class="feat-dot"></span>Self-generating Report Dashboard</h3></article>
+                    <?php foreach ($features as $f): if (empty($f['title'])) continue; ?>
+                    <article class="feat-card">
+                        <?php if (!empty($f['image'])): ?>
+                        <div class="feat-img-wrap"><img src="<?php echo esc_url($f['image']); ?>" alt="<?php echo esc_attr($f['alt'] ?: $f['title']); ?>" class="feat-img" loading="lazy" width="200" height="110"></div>
+                        <?php endif; ?>
+                        <h3 class="feat-title"><span class="feat-dot"></span><?php echo esc_html($f['title']); ?></h3>
+                    </article>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
+        <?php endif; ?>
 
-        <section class="alt-section" id="lead-management" aria-labelledby="lead-mgmt-h">
+        <?php if (!empty($sections)): foreach ($sections as $sec):
+            $sid = $sec['id']      ?? '';
+            $sh2 = $sec['heading'] ?? '';
+            if (!$sid || !$sh2) continue;
+            $img_left = (($sec['image_position'] ?? '') === 'left');
+        ?>
+        <section class="alt-section" id="<?php echo esc_attr($sid); ?>" aria-labelledby="sec-<?php echo esc_attr($sid); ?>-h">
             <div class="wrap"><div class="alt-layout">
-                <article class="alt-content reveal">
-                    <div class="kicker"><span class="lbl">Lead Channels</span><span class="ln"></span></div>
-                    <h2 id="lead-mgmt-h" class="alt-h2">Integrate all lead channels and auto-allocate leads</h2>
-                    <p class="alt-desc">Manually entering each lead into a spreadsheet is cumbersome. With a <strong>higher education CRM</strong>, you integrate all lead sources and third-party vendors into a single system — minimising counselor effort, avoiding <strong>lead leakage</strong>, and optimising response time.</p>
-                    <h3 class="alt-h3">Top Features</h3>
-                    <ul class="feature-list">
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Ad channel integration such as Google Adwords and Facebook Ads to avoid missing out on leads from paid sources.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Publisher panel integration to track and manage all publisher leads in a single system.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Social media integration across Facebook, Instagram, LinkedIn and Twitter to track interactions with leads and customers.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Auto-allocation to ensure the right counselors work on leads based on region or expertise.</span></li>
-                    </ul>
-                    <a href="#" class="btn btn-outline">Explore Lead Management<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                </article>
+                <?php if ($img_left && !empty($sec['image'])): ?>
                 <div class="alt-visual reveal">
-                    <div class="float-badge" style="top:8%;right:-10px"><span class="green-dot"></span>AI filtering junk leads</div>
-                    <div class="float-anim alt-frame"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/Integrate-all-lead-channels-and-auto-allocate-leads.webp" alt="Integrate All Lead Channels and Auto-Allocate Leads in Higher Education CRM" class="alt-img" loading="lazy" width="600" height="400"></div>
-                    <div class="float-badge" style="bottom:10%;left:-10px"><span style="color:var(--orange)">&#9889;</span>Automated assignment active</div>
+                    <div class="float-anim alt-frame"><img src="<?php echo esc_url($sec['image']); ?>" alt="<?php echo esc_attr($sh2); ?>" class="alt-img" loading="lazy" width="600" height="400"></div>
                 </div>
+                <?php endif; ?>
+                <article class="alt-content reveal">
+                    <?php if (!empty($sec['kicker'])): ?><div class="kicker"><span class="lbl"><?php echo esc_html($sec['kicker']); ?></span><span class="ln"></span></div><?php endif; ?>
+                    <h2 id="sec-<?php echo esc_attr($sid); ?>-h" class="alt-h2"><?php echo esc_html($sh2); ?></h2>
+                    <?php if (!empty($sec['description'])): ?><p class="alt-desc"><?php echo function_exists('ee_inline_links') ? ee_inline_links($sec['description']) : wp_kses_post($sec['description']); ?></p><?php endif; ?>
+                    <?php if (!empty($sec['features'])): ?>
+                    <?php if (!empty($sec['features_heading'])): ?><h3 class="alt-h3"><?php echo esc_html($sec['features_heading']); ?></h3><?php endif; ?>
+                    <ul class="feature-list">
+                        <?php foreach (preg_split('/\r?\n/', trim($sec['features'])) as $line): $line = trim($line); if ($line === '') continue; ?>
+                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text"><?php echo esc_html($line); ?></span></li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php endif; ?>
+                    <?php if (!empty($sec['cta_text'])): ?>
+                    <a href="<?php echo esc_url($sec['cta_url'] ?: '#admission-form'); ?>" class="btn btn-outline"><?php echo esc_html($sec['cta_text']); ?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                    <?php endif; ?>
+                </article>
+                <?php if (!$img_left && !empty($sec['image'])): ?>
+                <div class="alt-visual reveal">
+                    <div class="float-anim alt-frame"><img src="<?php echo esc_url($sec['image']); ?>" alt="<?php echo esc_attr($sh2); ?>" class="alt-img" loading="lazy" width="600" height="400"></div>
+                </div>
+                <?php endif; ?>
             </div></div>
         </section>
+        <?php endforeach; endif; ?>
 
-        <section class="alt-section" id="lead-nurturing" aria-labelledby="nurturing-h">
-            <div class="wrap"><div class="alt-layout">
-                <div class="alt-visual reveal">
-                    <div class="float-badge" style="top:12%;left:-10px"><span class="green-dot"></span>Automating follow-ups</div>
-                    <div class="float-anim alt-frame"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/Automate-all-communication-channels.webp" alt="Automate All Communication Channels in Higher Education CRM" class="alt-img" loading="lazy" width="600" height="400"></div>
-                    <div class="float-badge" style="bottom:16%;right:-10px"><span style="color:var(--orange)">&#128172;</span>Omnichannel connect active</div>
-                </div>
-                <article class="alt-content reveal">
-                    <div class="kicker"><span class="lbl">Communication</span><span class="ln"></span></div>
-                    <h2 id="nurturing-h" class="alt-h2">Automate all communication channels</h2>
-                    <p class="alt-desc">Manual communication is time-consuming and lowers productivity. With a <strong>CRM in higher education</strong>, you automate your entire communication across the admission cycle using our rule engine — assigning leads to counselors or triggering follow-ups automatically.</p>
-                    <h3 class="alt-h3">Top Features</h3>
-                    <ul class="feature-list">
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Drip and trigger-based email campaigns to automate lead nurturing and keep prospects engaged.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Marketing automation to track campaign effectiveness and optimise future campaigns.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Inbuilt click-to-call to reduce response time and offer a personalised experience with web-based video calling.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Bulk SMS and two-way WhatsApp to reach prospects at the right time and nurture them.</span></li>
-                    </ul>
-                    <a href="#" class="btn btn-outline">Explore Communication<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                </article>
-            </div></div>
-        </section>
-
-        <section class="alt-section" id="lead-scoring" aria-labelledby="lead-score-h">
-            <div class="wrap"><div class="alt-layout">
-                <article class="alt-content reveal">
-                    <div class="kicker"><span class="lbl">Application Forms</span><span class="ln"></span></div>
-                    <h2 id="lead-score-h" class="alt-h2">Customise and digitise application forms</h2>
-                    <p class="alt-desc">Enough of time-consuming, manual, complicated application processes. Switch to our three-step online Application Management System to automate candidate management, improve conversions, and boost engagement. Design your own application forms and GD/PI workflows.</p>
-                    <h3 class="alt-h3">Top Features</h3>
-                    <ul class="feature-list">
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Mobile-friendly application and communication to boost engagement, accessibility and user experience.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Application mapper to track student activity and know exactly which stage each applicant is at.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Integrated payment gateways for more control over transactions and effective monitoring.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Reminders and alerts for the counseling team to assist students with form filling.</span></li>
-                    </ul>
-                    <a href="#" class="btn btn-outline">Explore Application Management<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                </article>
-                <div class="alt-visual reveal">
-                    <div class="float-badge" style="top:12%;left:-10px"><span class="green-dot"></span>Digitising applications</div>
-                    <div class="float-anim alt-frame"><img src="https://www.extraaedge.com/wp-content/uploads/2024/10/Robust-Communication-Dashboard.webp" alt="Customise and Digitise Application Forms Higher Education CRM" class="alt-img" loading="lazy" width="600" height="400"></div>
-                    <div class="float-badge" style="bottom:16%;right:-10px"><span style="color:var(--orange)">&#128200;</span>Online forms active</div>
-                </div>
-            </div></div>
-        </section>
-
-        <section class="alt-section" id="reporting" aria-labelledby="reporting-h">
-            <div class="wrap"><div class="alt-layout">
-                <div class="alt-visual reveal">
-                    <div class="float-badge" style="top:12%;left:-10px"><span class="green-dot"></span>Building analytics</div>
-                    <div class="float-anim alt-frame"><img src="https://www.extraaedge.com/wp-content/uploads/2024/10/Efficient-Adoption-Dashboard.webp" alt="150+ Reports for Higher Education CRM" class="alt-img" loading="lazy" width="600" height="400"></div>
-                    <div class="float-badge" style="bottom:16%;right:-10px"><span style="color:var(--orange)">&#128202;</span>150+ reports live</div>
-                </div>
-                <article class="alt-content reveal">
-                    <div class="kicker"><span class="lbl">Reporting Dashboard</span><span class="ln"></span></div>
-                    <h2 id="reporting-h" class="alt-h2">150+ reports for higher education CRM</h2>
-                    <p class="alt-desc">Making data-driven decisions becomes effortless with actionable, insightful reports. Our inbuilt reporting dashboard offers 150+ tailored reports for deeper insight into counselor performance, marketing ROI, conversion funnels and more.</p>
-                    <h3 class="alt-h3">Top Features</h3>
-                    <ul class="feature-list">
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">A single-view dashboard to analyse all marketing efforts and make data-driven decisions.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Publisher panel dashboard to analyse lead attribution from different publishers and track performance.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Counselor performance dashboard to measure individual counselors across different parameters.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">ROI and conversion reports to identify and replicate successful strategies from high-performing campaigns.</span></li>
-                    </ul>
-                    <a href="#" class="btn btn-outline">Explore Reporting<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                </article>
-            </div></div>
-        </section>
-
-        <section class="alt-section" id="marketing-automation" aria-labelledby="automation-h">
-            <div class="wrap"><div class="alt-layout">
-                <article class="alt-content reveal">
-                    <div class="kicker"><span class="lbl">Marketing Automation</span><span class="ln"></span></div>
-                    <h2 id="automation-h" class="alt-h2">Workflow automation that saves counselor hours</h2>
-                    <p class="alt-desc">Every minute is precious, and ExtraaEdge gets it. Our <strong>higher education CRM software</strong> features built-in <strong>education marketing automation</strong> that frees you from repetitive tasks, nurturing leads on auto-pilot with <strong>admission automation</strong> that truly works.</p>
-                    <h3 class="alt-h3">Automate Marketing with ExtraaEdge</h3>
-                    <ul class="feature-list">
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Rule-based marketing to automate outreach based on specific criteria.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Advanced drip marketing to segment your audience and deliver targeted messages.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Two-way WhatsApp to personalize interaction and reduce response time.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Education chatbot with customizable chat flow to engage prospects 24/7.</span></li>
-                    </ul>
-                    <a href="#" class="btn btn-outline">Explore Marketing Automation<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                </article>
-                <div class="alt-visual reveal">
-                    <div class="float-badge" style="top:12%;left:-10px"><span class="green-dot"></span>Nurturing leads</div>
-                    <div class="float-anim alt-frame"><img src="https://www.extraaedge.com/wp-content/uploads/2024/08/Advanced-Marketing-Automation.webp" alt="Advanced Marketing Automation ExtraaEdge Higher Education CRM" class="alt-img" loading="lazy" width="600" height="400"></div>
-                    <div class="float-badge" style="bottom:16%;right:-10px"><span style="color:var(--orange)">&#129302;</span>Auto-pilot active</div>
-                </div>
-            </div></div>
-        </section>
-
-        <section class="alt-section" id="integrations" aria-labelledby="integrations-h">
-            <div class="wrap"><div class="alt-layout">
-                <div class="alt-visual reveal">
-                    <div class="float-badge" style="top:12%;left:-10px"><span class="green-dot"></span>Syncing data</div>
-                    <div class="float-anim alt-frame"><img src="https://www.extraaedge.com/wp-content/uploads/2024/08/Seamless-Integrations-Final.webp" alt="Seamless Integrations for higher education CRM software" class="alt-img" loading="lazy" width="600" height="400"></div>
-                    <div class="float-badge" style="bottom:16%;right:-10px"><span style="color:var(--orange)">&#128279;</span>Active integration</div>
-                </div>
-                <article class="alt-content reveal">
-                    <div class="kicker"><span class="lbl">Integrations</span><span class="ln"></span></div>
-                    <h2 id="integrations-h" class="alt-h2">Seamless integrations: IVR, WhatsApp, ERP &amp; more</h2>
-                    <p class="alt-desc">Whether it's social media, ERP systems, IVR, publishers, or payment gateways, ExtraaEdge <strong>Higher Education CRM</strong> integrates it all — a seamless flow of information while maintaining data integrity. The best <strong>student enrollment CRM</strong> connects with your entire tech stack effortlessly.</p>
-                    <h3 class="alt-h3">How it works within ExtraaEdge</h3>
-                    <ul class="feature-list">
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Publisher integration eliminates manual oversight and effortlessly manages publisher leads.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">IVR integration guarantees data accuracy and equips your team with complete information for effective calls.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Payment gateway integration streamlines fee management and simplifies transactions.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Social media integration prevents lead leakage and ensures precise data capture.</span></li>
-                    </ul>
-                    <a href="#" class="btn btn-outline">Explore Integrations<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                </article>
-            </div></div>
-        </section>
-
-        <section class="alt-section" id="support" aria-labelledby="support-h">
-            <div class="wrap"><div class="alt-layout">
-                <article class="alt-content reveal">
-                    <div class="kicker"><span class="lbl">Support &amp; Training</span><span class="ln"></span></div>
-                    <h2 id="support-h" class="alt-h2">Responsive support and training</h2>
-                    <p class="alt-desc">With ExtraaEdge, support and training are like having a personal coach by your side — always equipped with the right solutions. From navigating complex features to optimizing strategies, we empower you to excel with our <strong>higher education CRM software</strong>.</p>
-                    <h3 class="alt-h3">Unmatched dedicated support, 24/7</h3>
-                    <ul class="feature-list">
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">24-hour ticket resolution so you're never stuck for long and productivity is maintained.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Dedicated CSMs assigned to consult and keep you at the forefront of admissions trends.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Technical account managers who quickly address and resolve issues to minimize disruptions.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Comprehensive CRM training to ensure 100% system adoption by your team.</span></li>
-                    </ul>
-                    <a href="#" class="btn btn-outline">Explore Support &amp; Training<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                </article>
-                <div class="alt-visual reveal">
-                    <div class="float-badge" style="top:12%;left:-10px"><span class="green-dot"></span>Support active</div>
-                    <div class="float-anim alt-frame"><img src="https://www.extraaedge.com/wp-content/uploads/2024/08/Responsive-Support-and-Training02.webp" alt="Responsive Support and Training for higher education CRM" class="alt-img" loading="lazy" width="600" height="400"></div>
-                    <div class="float-badge" style="bottom:16%;right:-10px"><span style="color:var(--orange)">&#128222;</span>Fast resolution</div>
-                </div>
-            </div></div>
-        </section>
-
-        <section class="alt-section" id="vidyagpt" aria-labelledby="vidyagpt-h">
-            <div class="wrap"><div class="alt-layout">
-                <div class="alt-visual reveal">
-                    <div class="float-badge" style="top:12%;left:-10px"><span class="green-dot"></span>VidyaGPT active</div>
-                    <div class="float-anim alt-frame"><img src="https://www.extraaedge.com/wp-content/uploads/2025/05/vidya-ai-feature02.webp" alt="VidyaGPT AI Chatbot for higher education CRM admission automation" class="alt-img" loading="lazy" width="600" height="400"></div>
-                    <div class="float-badge" style="bottom:16%;right:-10px"><span style="color:var(--orange)">&#129302;</span>AI-powered inquiry</div>
-                </div>
-                <article class="alt-content reveal">
-                    <div class="kicker"><span class="lbl">VidyaGPT AI</span><span class="ln"></span></div>
-                    <h2 id="vidyagpt-h" class="alt-h2">VidyaGPT AI chatbot for inquiries</h2>
-                    <p class="alt-desc">In today's AI-driven age, keeping up matters. VidyaGPT AI is the most intelligent way of answering student queries — trained and designed specifically for your institute, providing accurate information 24/7. It assists students and empowers counselors, creating a positive, efficient admissions experience for everyone.</p>
-                    <h3 class="alt-h3">What it does within ExtraaEdge</h3>
-                    <ul class="feature-list">
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Trained exclusively on your institute's data using proprietary Edu LLMs.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Provides 24/7 support for students and admissions teams.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Delivers highly relevant, personalized answers to every query.</span></li>
-                        <li class="feature-item"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><span class="feature-text">Frees your admissions team for strategic tasks and engagement.</span></li>
-                    </ul>
-                    <a href="#" class="btn btn-primary">Explore VidyaGPT AI<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                </article>
-            </div></div>
-        </section>
-
+        <?php if ($bottom_h2 || !empty($products)): ?>
         <section class="section section-b" id="products" aria-labelledby="cta-h">
             <div class="wrap"><div class="products-inner">
                 <div class="products-content reveal">
-                    <div class="kicker"><span class="lbl">Products</span><span class="ln"></span></div>
-                    <h2 id="cta-h" class="products-h2">Ready to move to a modern higher education CRM?</h2>
-                    <p class="products-sub">Powerful <strong>CRM for higher education</strong> &amp; <strong>admission automation</strong> software that helps your teams increase, manage and predict admissions.</p>
-                    <a href="#admission-form" class="btn btn-primary btn-lg" onclick="scrollToForm(event)">Book a Demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                    <?php if ($bottom_label): ?><div class="kicker"><span class="lbl"><?php echo esc_html($bottom_label); ?></span><span class="ln"></span></div><?php endif; ?>
+                    <?php if ($bottom_h2): ?><h2 id="cta-h" class="products-h2"><?php echo esc_html($bottom_h2); ?></h2><?php endif; ?>
+                    <?php if ($bottom_h3): ?><p class="products-sub"><?php echo function_exists('ee_inline_links') ? ee_inline_links($bottom_h3) : wp_kses_post($bottom_h3); ?></p><?php endif; ?>
+                    <?php if ($bottom_cta_text): ?>
+                    <a href="<?php echo esc_url($bottom_cta_url ?: '#admission-form'); ?>" class="btn btn-primary btn-lg"><?php echo esc_html($bottom_cta_text); ?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                    <?php endif; ?>
                 </div>
+                <?php if (!empty($products)): ?>
                 <div class="products-card reveal">
                     <p class="featured-label">Featured Apps</p>
                     <div class="product-grid">
-                        <a href="https://www.extraaedge.com/centralised-lead-management/" class="product-item" target="_blank" rel="noopener"><div class="product-logo"><img src="https://www.extraaedge.com/wp-content/uploads/2022/06/whatsapp-3.png" alt="Lead Management for higher education CRM" loading="lazy" width="40" height="40"></div><h4>Lead Management</h4><span class="product-view-link">View Product &#8594;</span></a>
-                        <a href="https://www.extraaedge.com/strategic-lead-nurturing/" class="product-item" target="_blank" rel="noopener"><div class="product-logo"><img src="https://www.extraaedge.com/wp-content/uploads/2022/06/app-development-1.png" alt="Lead Nurturing for higher education" loading="lazy" width="40" height="40"></div><h4>Lead Nurturing</h4><span class="product-view-link">View Product &#8594;</span></a>
-                        <a href="https://www.extraaedge.com/advanced-marketing-automation/" class="product-item" target="_blank" rel="noopener"><div class="product-logo"><img src="https://www.extraaedge.com/wp-content/uploads/2022/06/chatbot-2-e1654579573780.png" alt="Marketing Automation for higher education CRM" loading="lazy" width="40" height="40"></div><h4>Marketing Automation</h4><span class="product-view-link">View Product &#8594;</span></a>
-                        <a href="https://www.extraaedge.com/responsive-support-and-training/" class="product-item" target="_blank" rel="noopener"><div class="product-logo"><img src="https://www.extraaedge.com/wp-content/uploads/2023/11/interactive-voice-response.png" alt="Support and Training for higher education CRM" loading="lazy" width="40" height="40"></div><h4>Support &amp; Training</h4><span class="product-view-link">View Product &#8594;</span></a>
-                    </div>
-                    <div class="automation-track">
-                        <p class="auto-track-label">Live Automation Stream</p>
-                        <div class="flow-viz">
-                            <div class="flow-node"><span class="flow-node-icon">&#128229;</span>Lead</div>
-                            <div class="flow-line"><div class="flow-shimmer"></div></div>
-                            <div class="flow-node flow-node-ai"><span class="flow-node-icon">&#9881;&#65039;</span>AI Engine</div>
-                            <div class="flow-line"><div class="flow-shimmer"></div></div>
-                            <div class="flow-node"><span class="flow-node-icon">&#127891;</span>Admission</div>
-                        </div>
+                        <?php foreach ($products as $p): if (empty($p['title'])) continue; ?>
+                        <a href="<?php echo esc_url($p['url'] ?: '#'); ?>" class="product-item" target="_blank" rel="noopener">
+                            <?php if (!empty($p['logo'])): ?><div class="product-logo"><img src="<?php echo esc_url($p['logo']); ?>" alt="<?php echo esc_attr($p['title']); ?>" loading="lazy" width="40" height="40"></div><?php endif; ?>
+                            <h4><?php echo esc_html($p['title']); ?></h4>
+                            <span class="product-view-link">View Product &#8594;</span>
+                        </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
+                <?php endif; ?>
             </div></div>
         </section>
+        <?php endif; ?>
 
+        <?php if (!empty($testimonials)): ?>
         <section class="testimonials-section" id="testimonials" aria-labelledby="testi-title">
             <div class="testi-mesh" id="testi-mesh"></div>
             <div class="wrap testi-inner">
+                <?php if ($testi_tagline || $testi_title || $testi_sub): ?>
                 <header class="testi-header">
-                    <div class="kicker center"><span class="lbl">CRM Impact Stories</span></div>
-                    <h2 id="testi-title" class="testi-title">Powering growth for <span class="uacc">500+ happy customers</span></h2>
-                    <p class="testi-sub">From streamlined <strong>counselor productivity</strong> to data-driven reporting, see how education leaders rewrite their success stories with ExtraaEdge <strong>Higher Education CRM</strong>.</p>
+                    <?php if ($testi_tagline): ?><div class="kicker center"><span class="lbl"><?php echo esc_html($testi_tagline); ?></span></div><?php endif; ?>
+                    <?php if ($testi_title): ?><h2 id="testi-title" class="testi-title"><?php echo wp_kses_post($testi_title); ?></h2><?php endif; ?>
+                    <?php if ($testi_sub): ?><p class="testi-sub"><?php echo function_exists('ee_inline_links') ? ee_inline_links($testi_sub) : wp_kses_post($testi_sub); ?></p><?php endif; ?>
                 </header>
+                <?php endif; ?>
+                <?php if (!empty($metrics)): ?>
                 <div class="testi-metrics">
-                    <div class="testi-metric"><span class="testi-metric-val" data-target="500" data-suffix="+">0</span><span class="testi-metric-lab">Happy Customers</span></div>
-                    <div class="testi-metric"><span class="testi-metric-val" data-target="3" data-suffix="X">0</span><span class="testi-metric-lab">Conversion Rate</span></div>
-                    <div class="testi-metric"><span class="testi-metric-val" data-target="15000" data-suffix="+" data-locale="true">0</span><span class="testi-metric-lab">Daily Power Users</span></div>
-                    <div class="testi-metric"><span class="testi-metric-val" data-target="99" data-suffix="%">0</span><span class="testi-metric-lab">Support Rating</span></div>
+                    <?php foreach ($metrics as $m): if (empty($m['label']) && empty($m['target'])) continue; ?>
+                    <div class="testi-metric"><span class="testi-metric-val" data-target="<?php echo esc_attr($m['target'] ?? '0'); ?>" data-suffix="<?php echo esc_attr($m['suffix'] ?? ''); ?>" <?php if (!empty($m['locale'])): ?>data-locale="true"<?php endif; ?>>0</span><span class="testi-metric-lab"><?php echo esc_html($m['label'] ?? ''); ?></span></div>
+                    <?php endforeach; ?>
                 </div>
+                <?php endif; ?>
                 <div class="testi-cards">
-                    <article class="testi-card"><div class="vid-wrap" id="vid-1" onclick="playVideo('vid-1','3SHgLf1GFgk')" role="button" aria-label="Play testimonial video"><div class="vid-thumb"><img src="https://img.youtube.com/vi/3SHgLf1GFgk/maxresdefault.jpg" class="vid-thumb-img" alt="Silky Jain Marwah ExtraaEdge Higher Education CRM testimonial" width="640" height="360" loading="lazy"><div class="vid-play"></div></div><div class="vid-slot"></div></div><div class="card-body"><blockquote class="card-quote">"ExtraaEdge is an incredibly dynamic and trustworthy platform that truly understands our needs. Whether it's from a counsellor's or an admin's perspective, most of the changes we require are implemented in a very short span of time."</blockquote><div class="card-profile"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Silky-Jain-Marwah.webp" class="card-avatar" alt="Silky Jain Marwah" loading="lazy" width="54" height="54"><div><p class="card-name">Silky Jain Marwah</p><p class="card-role">Executive Director</p><span class="card-inst">Tula's Institute</span></div></div></div></article>
-                    <article class="testi-card"><div class="vid-wrap" id="vid-2" onclick="playVideo('vid-2','dWLdQ8E3FOU')" role="button" aria-label="Play testimonial video"><div class="vid-thumb"><img src="https://img.youtube.com/vi/dWLdQ8E3FOU/maxresdefault.jpg" class="vid-thumb-img" alt="Pranay Rupani ExtraaEdge higher education CRM testimonial" width="640" height="360" loading="lazy"><div class="vid-play"></div></div><div class="vid-slot"></div></div><div class="card-body"><blockquote class="card-quote">"ExtraaEdge has been a true game-changer for us at Annapurna College of Film and Media. From seamless WhatsApp integrations to automated workflows, our entire lead journey is now streamlined and measurable."</blockquote><div class="card-profile"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/Pranay-sir-02.webp" class="card-avatar" alt="Pranay Rupani" loading="lazy" width="54" height="54"><div><p class="card-name">Pranay Rupani</p><p class="card-role">Head of Admissions &amp; Marketing</p><span class="card-inst">Annapurna College of Film &amp; Media</span></div></div></div></article>
-                    <article class="testi-card"><div class="vid-wrap" id="vid-3" onclick="playVideo('vid-3','yfK83D2SKps')" role="button" aria-label="Play testimonial video"><div class="vid-thumb"><img src="https://img.youtube.com/vi/yfK83D2SKps/maxresdefault.jpg" class="vid-thumb-img" alt="K. Nirmala Devi ExtraaEdge higher education CRM testimonial" width="640" height="360" loading="lazy"><div class="vid-play"></div></div><div class="vid-slot"></div></div><div class="card-body"><blockquote class="card-quote">"The platform is very user-friendly and allows us to customize the application to fit our specific needs. The ExtraaEdge technical team is accessible anytime, anywhere, and resolves issues immediately without any delays."</blockquote><div class="card-profile"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Nirmala-Devi.webp" class="card-avatar" alt="K. Nirmala Devi" loading="lazy" width="54" height="54"><div><p class="card-name">K. Nirmala Devi</p><p class="card-role">Assistant Manager</p><span class="card-inst">Indian Academy Group</span></div></div></div></article>
+                    <?php foreach ($testimonials as $i => $t): if (empty($t['name'])) continue; ?>
+                    <article class="testi-card">
+                        <?php if (!empty($t['youtube_id'])): ?>
+                        <div class="vid-wrap" id="vid-<?php echo (int)$i; ?>" onclick="playVideo('vid-<?php echo (int)$i; ?>','<?php echo esc_js($t['youtube_id']); ?>')" role="button"><div class="vid-thumb"><img src="https://img.youtube.com/vi/<?php echo esc_attr($t['youtube_id']); ?>/maxresdefault.jpg" class="vid-thumb-img" alt="<?php echo esc_attr($t['name']); ?>" width="640" height="360" loading="lazy"><div class="vid-play"></div></div><div class="vid-slot"></div></div>
+                        <?php endif; ?>
+                        <div class="card-body">
+                            <?php if (!empty($t['quote'])): ?><blockquote class="card-quote"><?php echo wp_kses_post($t['quote']); ?></blockquote><?php endif; ?>
+                            <div class="card-profile">
+                                <?php if (!empty($t['avatar'])): ?><img src="<?php echo esc_url($t['avatar']); ?>" class="card-avatar" alt="<?php echo esc_attr($t['name']); ?>" loading="lazy" width="54" height="54"><?php endif; ?>
+                                <div>
+                                    <p class="card-name"><?php echo esc_html($t['name']); ?></p>
+                                    <?php if (!empty($t['role'])): ?><p class="card-role"><?php echo esc_html($t['role']); ?></p><?php endif; ?>
+                                    <?php if (!empty($t['institution'])): ?><span class="card-inst"><?php echo esc_html($t['institution']); ?></span><?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
+        <?php endif; ?>
 
+        <?php if ($aidemo_h2): ?>
         <section class="ai-demo-section" id="demo" aria-labelledby="ai-cta-h">
             <div class="wrap"><div class="ai-demo-inner">
                 <div class="ai-cta-content reveal">
                     <div class="kicker"><span class="lbl">Book a Demo</span><span class="ln"></span></div>
-                    <h2 id="ai-cta-h" class="ai-cta-h2">Ready to move to an AI-powered higher education CRM?</h2>
-                    <p class="ai-cta-sub">See how you can scale your <strong>admission automation</strong> process and achieve your targets. Book a 45-minute free demo of our <strong>higher education CRM software</strong>.</p>
+                    <h2 id="ai-cta-h" class="ai-cta-h2"><?php echo esc_html($aidemo_h2); ?></h2>
+                    <?php if ($aidemo_sub): ?><p class="ai-cta-sub"><?php echo function_exists('ee_inline_links') ? ee_inline_links($aidemo_sub) : wp_kses_post($aidemo_sub); ?></p><?php endif; ?>
                     <div class="ai-cta-actions">
-                        <a href="https://www.extraaedge.com/" class="btn btn-primary btn-lg">Book a Demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                        <div class="ai-trust"><svg viewBox="0 0 24 24" fill="none" stroke="#DE6E30" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Trusted by 250+ premier institutions globally</div>
+                        <?php if ($aidemo_cta_text): ?>
+                        <a href="<?php echo esc_url($aidemo_cta_url ?: '#admission-form'); ?>" class="btn btn-primary btn-lg"><?php echo esc_html($aidemo_cta_text); ?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        <?php endif; ?>
+                        <?php if ($aidemo_trust): ?>
+                        <div class="ai-trust"><svg viewBox="0 0 24 24" fill="none" stroke="#DE6E30" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><?php echo esc_html($aidemo_trust); ?></div>
+                        <?php endif; ?>
                     </div>
                 </div>
+                <?php if (!empty($workflow_nodes) || $aidemo_expert_img): ?>
                 <div class="ai-story-engine reveal" id="ai-engine">
                     <svg class="workflow-svg" viewBox="0 0 500 500"><path id="ai-conn-path" class="conn-path" d=""/><circle id="ai-pulse-dot" r="6" fill="#DE6E30" opacity="0" style="transition:opacity .3s"/></svg>
-                    <div class="expert-center"><span class="expert-ring"></span><img src="https://www.extraaedge.com/wp-content/uploads/2024/08/Charu-400x400-1-300x300-1.webp" alt="ExtraaEdge Admission Expert" width="226" height="226" loading="lazy"></div>
-                    <div class="workflow-node wn-1" data-idx="0"><div class="wn-num">1</div><div><p class="wn-title">Inquiry Received</p><p class="wn-sub">Omnichannel lead capture</p></div></div>
-                    <div class="workflow-node wn-2" data-idx="1"><div class="wn-num">2</div><div><p class="wn-title">AI Response</p><p class="wn-sub">Instant personalized reply</p></div></div>
-                    <div class="workflow-node wn-3" data-idx="2"><div class="wn-num">3</div><div><p class="wn-title">Lead Scoring</p><p class="wn-sub">Predictive intent analysis</p></div></div>
-                    <div class="workflow-node wn-4" data-idx="3"><div class="wn-num">4</div><div><p class="wn-title">Auto Nurture</p><p class="wn-sub">Behavioral drip marketing</p></div></div>
-                    <div class="workflow-node wn-5" data-idx="4"><div class="wn-num">5</div><div><p class="wn-title">Counselor Alert</p><p class="wn-sub">High-priority task created</p></div></div>
-                    <div class="workflow-node wn-6" data-idx="5"><div class="wn-num">6</div><div><p class="wn-title">Admission Won</p><p class="wn-sub">Target achieved successfully</p></div></div>
+                    <?php if ($aidemo_expert_img): ?>
+                    <div class="expert-center"><span class="expert-ring"></span><img src="<?php echo esc_url($aidemo_expert_img); ?>" alt="ExtraaEdge Expert" width="226" height="226" loading="lazy"></div>
+                    <?php endif; ?>
+                    <?php foreach (array_slice($workflow_nodes, 0, 6) as $i => $n): ?>
+                    <div class="workflow-node wn-<?php echo ($i + 1); ?>" data-idx="<?php echo (int)$i; ?>">
+                        <div class="wn-num"><?php echo ($i + 1); ?></div>
+                        <div>
+                            <p class="wn-title"><?php echo esc_html($n['title'] ?? ''); ?></p>
+                            <?php if (!empty($n['sub'])): ?><p class="wn-sub"><?php echo esc_html($n['sub']); ?></p><?php endif; ?>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
                 </div>
+                <?php endif; ?>
             </div></div>
         </section>
+        <?php endif; ?>
 
+        <?php if (!empty($faqs)): ?>
         <section class="faq-section" id="faq" aria-labelledby="faq-title">
             <div class="faq-container">
+                <?php if ($faq_badge || $faq_title || $faq_subtitle): ?>
                 <header class="faq-header reveal">
-                    <div class="kicker center"><span class="lbl">FAQ</span></div>
-                    <h2 id="faq-title" class="faq-title">Frequently asked questions</h2>
-                    <p class="faq-subtitle">Everything you need to know about <strong>Higher Education CRM</strong> and ExtraaEdge excellence.</p>
+                    <?php if ($faq_badge): ?><div class="kicker center"><span class="lbl"><?php echo esc_html($faq_badge); ?></span></div><?php endif; ?>
+                    <?php if ($faq_title): ?><h2 id="faq-title" class="faq-title"><?php echo esc_html($faq_title); ?></h2><?php endif; ?>
+                    <?php if ($faq_subtitle): ?><p class="faq-subtitle"><?php echo function_exists('ee_inline_links') ? ee_inline_links($faq_subtitle) : wp_kses_post($faq_subtitle); ?></p><?php endif; ?>
                 </header>
+                <?php endif; ?>
                 <div class="faq-list" id="faq-list">
-                    <div class="faq-item"><button class="faq-trigger" aria-expanded="false"><span class="faq-q"><span class="qn">Q1</span>How can a CRM for higher education help increase conversion rates?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-body"><div class="faq-inner"><p>A <strong>higher education CRM</strong> improves conversion rates by centralizing lead data, automating communication, and giving counselors clear visibility into where each prospect stands. Key features that drive this include:</p><ul><li><strong>Multi-channel lead integration:</strong> Leads from all sources are captured, assigned, and tracked in one place — reducing leakage and improving response times.</li><li><strong>Automated application forms:</strong> Digital, paperless forms replace manual processes and can be customized per program.</li><li><strong>Lead verification via OTP:</strong> Filters out irrelevant leads upfront, so counselors spend time only on qualified prospects.</li><li><strong>Automated communication:</strong> Every touchpoint — emails, reminders, follow-ups — runs automatically.</li><li><strong>Lead status tracking:</strong> Counselors can see a prospect's engagement level at any time to time follow-ups effectively.</li></ul></div></div></div>
-                    <div class="faq-item"><button class="faq-trigger" aria-expanded="false"><span class="faq-q"><span class="qn">Q2</span>Can a higher education CRM support third-party integrations?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-body"><div class="faq-inner"><p>Yes. A <strong>higher education CRM</strong> integrates with tools like IVR systems, bulk SMS platforms, Zapier, and ERP systems. You can manage automated calls, bulk messaging, task automation, and post-admission academic workflows — all within a single platform.</p></div></div></div>
-                    <div class="faq-item"><button class="faq-trigger" aria-expanded="false"><span class="faq-q"><span class="qn">Q3</span>What additional benefits does a higher education CRM offer?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-body"><div class="faq-inner"><p>Beyond admissions, a <strong>CRM for higher education</strong> adds value in several areas:</p><ul><li><strong>Personalized communication:</strong> Segment your audience and tailor messaging based on student profiles and behavior.</li><li><strong>Always-on student support:</strong> Automated responses ensure students get answers at any time.</li><li><strong>Event management:</strong> Centralize event coordination across departments from one dashboard.</li><li><strong>Alumni engagement:</strong> Scheduled, relevant communication keeps alumni connected and encourages referrals.</li></ul></div></div></div>
-                    <div class="faq-item"><button class="faq-trigger" aria-expanded="false"><span class="faq-q"><span class="qn">Q4</span>How is an Application Management System useful in higher education?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-body"><div class="faq-inner"><p>An Application Management System replaces manual, paper-based processes with a fully digital workflow. Applicants can save progress, upload documents, and receive instant confirmation. Staff get a real-time dashboard showing each application's status, pending tasks, and complete applicant profiles.</p><p>Additional benefits include online fee collection, real-time application tracking, and reduced risk of errors or processing delays — all in one centralized system.</p></div></div></div>
-                    <div class="faq-item"><button class="faq-trigger" aria-expanded="false"><span class="faq-q"><span class="qn">Q5</span>How do you choose the right higher education CRM?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-body"><div class="faq-inner"><p>Evaluate any <strong>CRM for higher education</strong> against these six criteria:</p><ul><li><strong>Education-specific design:</strong> Built for admissions workflows, not adapted from a generic sales tool.</li><li><strong>Customizability:</strong> Flexible enough to match your specific processes and structure.</li><li><strong>Transparent pricing:</strong> No hidden fees that surprise you post-purchase.</li><li><strong>Mobile accessibility:</strong> Full functionality on smartphones and tablets for on-the-go teams.</li><li><strong>Behavioral automation:</strong> Triggers communication based on actions like email opens or form progress.</li><li><strong>Actionable reporting:</strong> Dashboards that support decisions, not just raw data exports.</li></ul></div></div></div>
-                    <div class="faq-item"><button class="faq-trigger" aria-expanded="false"><span class="faq-q"><span class="qn">Q6</span>What is a Mobile CRM?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-body"><div class="faq-inner"><p>A Mobile CRM is a full-featured CRM accessible on smartphones and tablets. For admissions teams, it means real-time access to student data, emails, and follow-up tasks from anywhere — particularly valuable for counselors attending events, campus visits, or working across multiple locations.</p></div></div></div>
-                    <div class="faq-item"><button class="faq-trigger" aria-expanded="false"><span class="faq-q"><span class="qn">Q7</span>What is an IVR?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-body"><div class="faq-inner"><p>An Interactive Voice Response (IVR) system automates inbound call handling for admissions. It greets callers, provides program information, answers common questions, and routes calls to the right counselor based on region or course interest — without manual intervention. The result is faster, more targeted support for prospective students.</p></div></div></div>
+                    <?php foreach ($faqs as $i => $faq): if (empty($faq['question'])) continue; ?>
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span class="faq-q"><span class="qn">Q<?php echo ($i + 1); ?></span><?php echo esc_html($faq['question']); ?></span>
+                            <span class="faq-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-body"><div class="faq-inner"><?php
+                            $answer = $faq['answer'] ?? '';
+                            echo function_exists('ee_format_rich_text') ? ee_format_rich_text($answer) : wp_kses_post(wpautop($answer));
+                        ?></div></div>
+                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
+        <?php endif; ?>
 
     </div>
 </div>
 
+<?php if ($bottom_h2 || $hero_cta_text): ?>
 <div class="cbar" id="cbar">
     <div class="cbar-inner">
         <div class="cbar-tag"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
-        <div class="cbar-txt"><b>Increase admissions by 2X in 90 days</b><span>Book a free 45-minute demo of ExtraaEdge Higher Education CRM</span></div>
-        <div class="cbar-rating"><span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span>4.9/5 &middot; 500+ reviews</div>
-        <a href="#admission-form" class="btn btn-primary" onclick="scrollToForm(event)">Book a Demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <div class="cbar-txt"><b><?php echo esc_html($bottom_h2 ?: get_the_title()); ?></b><?php if ($bottom_h3) echo '<span>' . esc_html(wp_strip_all_tags($bottom_h3)) . '</span>'; ?></div>
+        <?php if ($trust_rating): ?><div class="cbar-rating"><span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span><?php echo esc_html($trust_rating); ?></div><?php endif; ?>
+        <a href="<?php echo esc_url(($bottom_cta_url ?: $hero_cta_url) ?: '#admission-form'); ?>" class="btn btn-primary"><?php echo esc_html($bottom_cta_text ?: $hero_cta_text ?: 'Book a Demo'); ?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         <button class="cbar-close" id="cbar-close" aria-label="Dismiss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
 </div>
+<?php endif; ?>
 
 <script>
 (function(){'use strict';
-/* Sticky conversion bar */
 (function(){
 var bar=document.getElementById('cbar'),close=document.getElementById('cbar-close');
 if(!bar)return;
 var dismissed=false;
-function onScroll(){
-if(dismissed)return;
-var trigger=window.innerHeight*0.85;
-if(window.pageYOffset>trigger) bar.classList.add('show'); else bar.classList.remove('show');
-}
+function onScroll(){if(dismissed)return;var trigger=window.innerHeight*0.85;if(window.pageYOffset>trigger) bar.classList.add('show'); else bar.classList.remove('show');}
 if(close)close.addEventListener('click',function(){dismissed=true;bar.classList.remove('show');});
 window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 })();
-/* Mobile TOC */
 (function(){
-var btn=document.getElementById('toc-mobile-btn'),panel=document.getElementById('toc-mobile-panel'),
-overlay=document.getElementById('toc-mobile-overlay'),close=document.getElementById('toc-mobile-close'),
-links=document.querySelectorAll('.toc-link-mobile');
+var btn=document.getElementById('toc-mobile-btn'),panel=document.getElementById('toc-mobile-panel'),overlay=document.getElementById('toc-mobile-overlay'),close=document.getElementById('toc-mobile-close'),links=document.querySelectorAll('.toc-link-mobile');
 if(!btn||!panel||!overlay)return;
 function open(){panel.classList.add('active');overlay.classList.add('active');document.body.style.overflow='hidden';}
 function shut(){panel.classList.remove('active');overlay.classList.remove('active');document.body.style.overflow='';}
@@ -923,84 +912,47 @@ e.preventDefault();var t=document.getElementById(link.getAttribute('href').subst
 if(t)setTimeout(function(){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-100,behavior:'smooth'});},300);
 });});
 })();
-/* TOC active + progress */
 (function(){
-var tocLinks=document.querySelectorAll('.toc-link'),tocLinksM=document.querySelectorAll('.toc-link-mobile'),
-prog=document.getElementById('toc-progress'),progM=document.getElementById('toc-progress-mobile');
+var tocLinks=document.querySelectorAll('.toc-link'),tocLinksM=document.querySelectorAll('.toc-link-mobile'),prog=document.getElementById('toc-progress'),progM=document.getElementById('toc-progress-mobile');
 if(!tocLinks.length)return;
-tocLinks.forEach(function(link){link.addEventListener('click',function(e){
-e.preventDefault();var t=document.getElementById(link.getAttribute('href').substring(1));
-if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-100,behavior:'smooth'});
-});});
-function update(){
-var secs=[];tocLinks.forEach(function(link){var el=document.getElementById(link.getAttribute('href').substring(1));if(el)secs.push(el);});
-var pos=window.pageYOffset+160,active=secs[0];
-secs.forEach(function(s){if(s.offsetTop<=pos)active=s;});
-tocLinks.forEach(function(l){l.classList.toggle('active',active&&l.getAttribute('href').substring(1)===active.id);});
-tocLinksM.forEach(function(l){l.classList.toggle('active',active&&l.getAttribute('href').substring(1)===active.id);});
-var zone=document.getElementById('toc-zone-wrapper');
-if(zone&&prog){var pct=Math.max(0,Math.min(100,((window.pageYOffset-zone.offsetTop)/zone.offsetHeight)*100));
-prog.style.height=pct+'%';if(progM)progM.style.height=pct+'%';}
-}
+tocLinks.forEach(function(link){link.addEventListener('click',function(e){e.preventDefault();var t=document.getElementById(link.getAttribute('href').substring(1));if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-100,behavior:'smooth'});});});
+function update(){var secs=[];tocLinks.forEach(function(link){var el=document.getElementById(link.getAttribute('href').substring(1));if(el)secs.push(el);});var pos=window.pageYOffset+160,active=secs[0];secs.forEach(function(s){if(s.offsetTop<=pos)active=s;});tocLinks.forEach(function(l){l.classList.toggle('active',active&&l.getAttribute('href').substring(1)===active.id);});tocLinksM.forEach(function(l){l.classList.toggle('active',active&&l.getAttribute('href').substring(1)===active.id);});var zone=document.getElementById('toc-zone-wrapper');if(zone&&prog){var pct=Math.max(0,Math.min(100,((window.pageYOffset-zone.offsetTop)/zone.offsetHeight)*100));prog.style.height=pct+'%';if(progM)progM.style.height=pct+'%';}}
 var ticking=false;window.addEventListener('scroll',function(){if(!ticking){window.requestAnimationFrame(function(){update();ticking=false;});ticking=true;}});update();
 })();
-/* Reveal */
-var revObs=new IntersectionObserver(function(entries){entries.forEach(function(e,i){
-if(e.isIntersecting){setTimeout(function(){e.target.classList.add('visible');},i*55);revObs.unobserve(e.target);}});
-},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+var revObs=new IntersectionObserver(function(entries){entries.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('visible');},i*55);revObs.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){revObs.observe(el);});
-/* Scroll to form */
-window.scrollToForm=function(e){e.preventDefault();var t=document.getElementById('admission-form');
-if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-28,behavior:'smooth'});};
-/* Admissions flow panel — always running */
+window.scrollToForm=function(e){if(e&&e.preventDefault)e.preventDefault();var t=document.getElementById('admission-form');if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-28,behavior:'smooth'});};
 (function(){
 var fz=document.getElementById('flow-zone'),steps=document.querySelectorAll('#flow-stack .flow-step'),log=document.getElementById('data-log');
 if(!fz||!steps.length)return;
-var cur=0,iv=null;
-var msgs=["Lead #8821 captured via website","Auto-SMS sent: 'Welcome to admissions'","WhatsApp nurtured: course details delivered",
-"Transcript uploaded: AI verification passed","Fee payment detected: INR 45,000 received","Offer letter released: ID #EDU-991","Counselor assigned for onboarding"];
-function addLog(){var l=document.createElement('div');l.className='log-line';l.textContent=msgs[Math.floor(Math.random()*msgs.length)];
-log.appendChild(l);if(log.childNodes.length>5)log.removeChild(log.firstChild);log.scrollTop=log.scrollHeight;}
+var cur=0,iv=null,msgs=["Lead captured","Auto-message sent","Document verification","Fee processed","Enrollment confirmed"];
+function addLog(){var l=document.createElement('div');l.className='log-line';l.textContent=msgs[Math.floor(Math.random()*msgs.length)];log.appendChild(l);if(log.childNodes.length>5)log.removeChild(log.firstChild);}
 function run(){steps.forEach(function(s){s.classList.remove('active');});steps[cur].classList.add('active');if(Math.random()>.4)addLog();cur=(cur+1)%steps.length;}
 function start(){if(!iv){iv=setInterval(run,1800);run();}}
 new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)start();});},{threshold:.2}).observe(fz);
 steps.forEach(function(s,i){s.addEventListener('click',function(){cur=i;run();});});
 })();
-/* Testimonials */
 (function(){
 var section=document.querySelector('.testimonials-section'),mesh=document.getElementById('testi-mesh');
 if(!section||!mesh)return;
-for(var i=0;i<12;i++){var l=document.createElement('div');l.className='testi-pulse-line';
-l.style.top=(Math.random()*100)+'%';l.style.animationDuration=(4+Math.random()*6)+'s';l.style.animationDelay=(Math.random()*5)+'s';mesh.appendChild(l);}
+for(var i=0;i<12;i++){var l=document.createElement('div');l.className='testi-pulse-line';l.style.top=(Math.random()*100)+'%';l.style.animationDuration=(4+Math.random()*6)+'s';l.style.animationDelay=(Math.random()*5)+'s';mesh.appendChild(l);}
 var triggered=false;
 function activate(){if(triggered)return;triggered=true;section.classList.add('testi-section-active');
-document.querySelectorAll('.testi-metric-val').forEach(function(el){
-var target=+el.getAttribute('data-target'),suffix=el.getAttribute('data-suffix')||'',useLocale=el.getAttribute('data-locale')==='true',start=null,dur=2000;
-function anim(ts){if(!start)start=ts;var p=Math.min((ts-start)/dur,1),c=Math.floor(p*target);
-el.textContent=(useLocale?c.toLocaleString():c)+suffix;if(p<1)requestAnimationFrame(anim);}
-requestAnimationFrame(anim);});}
+document.querySelectorAll('.testi-metric-val').forEach(function(el){var target=+el.getAttribute('data-target'),suffix=el.getAttribute('data-suffix')||'',useLocale=el.getAttribute('data-locale')==='true',start=null,dur=2000;function anim(ts){if(!start)start=ts;var p=Math.min((ts-start)/dur,1),c=Math.floor(p*target);el.textContent=(useLocale?c.toLocaleString():c)+suffix;if(p<1)requestAnimationFrame(anim);}requestAnimationFrame(anim);});}
 new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)activate();});},{threshold:.15}).observe(section);
 })();
-/* Video play */
-window.playVideo=function(id,yt){var c=document.getElementById(id);if(!c||c.classList.contains('playing'))return;
-c.querySelector('.vid-slot').innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+yt+'?autoplay=1&rel=0&modestbranding=1" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="display:block" title="ExtraaEdge Higher Education CRM Customer Testimonial"></iframe>';
-c.classList.add('playing');};
-/* AI engine */
+window.playVideo=function(id,yt){var c=document.getElementById(id);if(!c||c.classList.contains('playing'))return;c.querySelector('.vid-slot').innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+yt+'?autoplay=1&rel=0&modestbranding=1" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="display:block"></iframe>';c.classList.add('playing');};
 (function(){
-var eng=document.getElementById('ai-engine'),nodes=document.querySelectorAll('.workflow-node'),
-connPath=document.getElementById('ai-conn-path'),pulseDot=document.getElementById('ai-pulse-dot');
+var eng=document.getElementById('ai-engine'),nodes=document.querySelectorAll('.workflow-node'),connPath=document.getElementById('ai-conn-path'),pulseDot=document.getElementById('ai-pulse-dot');
 if(!eng||!nodes.length)return;
 var cur=0,cyc=null,on=false;
 function center(el){var r=el.getBoundingClientRect(),pr=eng.getBoundingClientRect();return{x:(r.left+r.width/2)-pr.left,y:(r.top+r.height/2)-pr.top};}
-function cycle(){nodes.forEach(function(n){n.classList.remove('wn-active');});nodes[cur].classList.add('wn-active');
-var c=center(nodes[cur]);connPath.setAttribute('d','M250,283 L'+c.x+','+c.y);connPath.style.opacity='.6';
-pulseDot.setAttribute('cx',c.x);pulseDot.setAttribute('cy',c.y);pulseDot.style.opacity='1';cur=(cur+1)%nodes.length;}
+function cycle(){nodes.forEach(function(n){n.classList.remove('wn-active');});nodes[cur].classList.add('wn-active');var c=center(nodes[cur]);if(connPath){connPath.setAttribute('d','M250,283 L'+c.x+','+c.y);connPath.style.opacity='.6';}if(pulseDot){pulseDot.setAttribute('cx',c.x);pulseDot.setAttribute('cy',c.y);pulseDot.style.opacity='1';}cur=(cur+1)%nodes.length;}
 function start(){if(on)return;on=true;cycle();cyc=setInterval(cycle,2800);}
 eng.addEventListener('mouseenter',start);
 new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)start();});},{threshold:.35}).observe(eng);
 nodes.forEach(function(n,i){n.addEventListener('click',function(){cur=i;clearInterval(cyc);cycle();cyc=setInterval(cycle,3500);});});
 })();
-/* FAQ */
 (function(){
 var items=document.querySelectorAll('#faq-list .faq-item');
 items.forEach(function(item){var trigger=item.querySelector('.faq-trigger'),body=item.querySelector('.faq-body');
