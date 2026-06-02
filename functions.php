@@ -3629,14 +3629,30 @@ add_action('add_meta_boxes', function () {
 
 function ee_layout_toggles_render($post) {
     wp_nonce_field('ee_layout_toggles', 'ee_layout_toggles_nonce');
-    $h = get_post_meta($post->ID, '_ee_hide_header', true) === '1';
-    $f = get_post_meta($post->ID, '_ee_hide_footer', true) === '1';
-    $l = get_post_meta($post->ID, '_ee_hide_logos',  true) === '1';
+    $h   = get_post_meta($post->ID, '_ee_hide_header', true) === '1';
+    $f   = get_post_meta($post->ID, '_ee_hide_footer', true) === '1';
+    $l   = get_post_meta($post->ID, '_ee_hide_logos',  true) === '1';
+    $pos = get_post_meta($post->ID, '_ee_logos_position', true);
+    if ($pos === '') $pos = 'before-footer';
+    $positions = array(
+        'after-hero'    => 'After the hero / top banner',
+        'before-faq'    => 'Just above the FAQ section',
+        'before-footer' => 'Bottom of page, just above footer (default)',
+        'top'           => 'Very top of the page content',
+    );
     ?>
     <p style="margin:0 0 10px;font-size:12.5px;color:#1d2327;line-height:1.55;">Hide the global site chrome on <em>this page only</em> — useful for landing pages, thank-you screens, gated forms, etc.</p>
     <label style="display:block;margin-bottom:8px;font-size:13px;"><input type="checkbox" name="ee_hide_header" value="1" <?php checked($h); ?>> Hide the site <strong>header</strong></label>
     <label style="display:block;margin-bottom:8px;font-size:13px;"><input type="checkbox" name="ee_hide_footer" value="1" <?php checked($f); ?>> Hide the site <strong>footer</strong></label>
-    <label style="display:block;font-size:13px;"><input type="checkbox" name="ee_hide_logos"  value="1" <?php checked($l); ?>> Hide the <strong>logo marquee</strong> strip</label>
+    <label style="display:block;margin-bottom:14px;font-size:13px;"><input type="checkbox" name="ee_hide_logos"  value="1" <?php checked($l); ?>> Hide the <strong>logo marquee</strong> strip</label>
+
+    <p style="margin:0 0 6px;font-size:12.5px;font-weight:600;color:#1d2327;">📍 Logo strip position on this page</p>
+    <select name="ee_logos_position" style="width:100%;font-size:13px;padding:5px;">
+        <?php foreach ($positions as $val => $label): ?>
+        <option value="<?php echo esc_attr($val); ?>" <?php selected($pos, $val); ?>><?php echo esc_html($label); ?></option>
+        <?php endforeach; ?>
+    </select>
+    <p style="margin:6px 0 0;font-size:11.5px;color:#646970;line-height:1.5;">Choose where the scrolling logo strip appears on this page. If the chosen section doesn't exist on this page, it falls back to just above the footer.</p>
     <?php
 }
 
@@ -3647,6 +3663,11 @@ add_action('save_post', function ($post_id) {
     update_post_meta($post_id, '_ee_hide_header', !empty($_POST['ee_hide_header']) ? '1' : '');
     update_post_meta($post_id, '_ee_hide_footer', !empty($_POST['ee_hide_footer']) ? '1' : '');
     update_post_meta($post_id, '_ee_hide_logos',  !empty($_POST['ee_hide_logos'])  ? '1' : '');
+
+    $allowed_pos = array('after-hero', 'before-faq', 'before-footer', 'top');
+    $pos = isset($_POST['ee_logos_position']) ? sanitize_key(wp_unslash($_POST['ee_logos_position'])) : 'before-footer';
+    if (!in_array($pos, $allowed_pos, true)) $pos = 'before-footer';
+    update_post_meta($post_id, '_ee_logos_position', $pos);
 });
 
 /* ─────────────────────────────────────────────
@@ -3676,11 +3697,26 @@ function ee_should_hide_logos() {
 }
 
 function ee_render_logo_marquee($args = array()) {
+    /* Render only once per request — templates call this inline AND the
+       ee_before_footer hook calls it as a fallback; whichever fires first
+       wins so the strip is never duplicated on a page. */
+    static $done = false;
+    if ($done) return;
+    $done = true;
+
     /* Read global logos + home-page section texts from home settings so the
        strip is a faithful clone of the home page everywhere. Callers can still
        override any text via $args. */
     $s = get_option('ee_home_settings', array());
     if (!is_array($s)) $s = array();
+
+    /* Per-page placement (set via the 🧱 Site header & footer meta box).
+       The strip always renders here (before the footer); a tiny relocation
+       script then moves it to the chosen anchor on the page. */
+    $pos = '';
+    $qid = get_queried_object_id();
+    if ($qid) $pos = (string) get_post_meta($qid, '_ee_logos_position', true);
+    if ($pos === '') $pos = 'before-footer';
 
     $args = wp_parse_args($args, array(
         'badge'      => (string) ($s['logos_badge']      ?? ''),
@@ -3689,6 +3725,7 @@ function ee_render_logo_marquee($args = array()) {
         'cta_text'   => (string) ($s['logos_cta_text']   ?? ''),
         'cta_url'    => (string) ($s['logos_cta_url']     ?? ''),
         'live_text'  => (string) ($s['logos_live_text']  ?? ''),
+        'position'   => $pos,
     ));
 
     $row_t1 = array();
@@ -3737,7 +3774,7 @@ function ee_render_logo_marquee($args = array()) {
 @keyframes ee-pulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(3);opacity:0}}
 @media(max-width:768px){.ee-logo-card{width:150px;height:80px}.ee-logo-section{padding:24px 12px}}
 </style>
-<section class="ee-logo-section">
+<section class="ee-logo-section" data-ee-pos="<?php echo esc_attr($args['position']); ?>">
   <div class="ee-logo-container">
     <?php if ($args['badge'] || $args['heading'] || $args['subheading']): ?>
     <header class="ee-logo-header">
@@ -3773,6 +3810,27 @@ function ee_render_logo_marquee($args = array()) {
         if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',eeCleanupLogos);
         else eeCleanupLogos();
         window.addEventListener('load',eeCleanupLogos);
+
+        /* Relocate the strip to the page position chosen in the admin meta box.
+           Renders before the footer by default, then moves next to the chosen
+           anchor. If the anchor is missing on this page, it stays put. */
+        function eeMoveLogos(){
+            var sec = document.querySelector('.ee-logo-section[data-ee-pos]');
+            if(!sec || sec.getAttribute('data-ee-moved')==='1') return;
+            var pos = sec.getAttribute('data-ee-pos') || 'before-footer';
+            if(pos==='before-footer'){ sec.setAttribute('data-ee-moved','1'); return; }
+            var target=null, mode='after';
+            if(pos==='after-hero'){ target=document.querySelector('.hero'); mode='after'; }
+            else if(pos==='before-faq'){ target=document.querySelector('.faq-section, #faq'); mode='before'; }
+            else if(pos==='top'){ target=document.querySelector('#main-content'); mode='prepend'; }
+            if(!target){ sec.setAttribute('data-ee-moved','1'); return; }
+            if(mode==='prepend'){ target.insertBefore(sec, target.firstChild); }
+            else if(mode==='before'){ target.parentNode.insertBefore(sec, target); }
+            else { target.parentNode.insertBefore(sec, target.nextSibling); }
+            sec.setAttribute('data-ee-moved','1');
+        }
+        if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',eeMoveLogos);
+        else eeMoveLogos();
     })();
     </script>
 
