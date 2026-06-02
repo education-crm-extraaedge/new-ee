@@ -341,9 +341,9 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .feat-dot{width:6px;height:6px;background:var(--orange);border-radius:50%}
 .alt-section{padding:clamp(56px,7vw,92px) 0;overflow:hidden}
 .alt-section:nth-of-type(even){background:var(--panel)}
-.alt-layout{display:flex;align-items:center;gap:62px;flex-wrap:wrap}
+.alt-layout{display:flex;align-items:center;gap:48px;flex-wrap:wrap}
 .alt-content{flex:1;min-width:300px}
-.alt-visual{flex:1.02;min-width:300px;position:relative}
+.alt-visual{flex:1.1;min-width:300px;position:relative}
 .alt-h2{font-weight:800;font-size:clamp(26px,3.5vw,40px);letter-spacing:-.04em;line-height:1.1;margin-bottom:16px;color:var(--blue)}
 .alt-desc{color:var(--ink-soft);font-size:16px;line-height:1.8;margin-bottom:24px}
 .alt-h3{font-weight:800;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-deep);margin-bottom:16px}
@@ -353,7 +353,7 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .feature-icon{width:24px;height:24px;background:var(--grad-o);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;box-shadow:0 6px 14px -6px rgba(222,110,48,.7)}
 .feature-icon svg{width:13px;height:13px;fill:#fff}
 .feature-text{font-size:14.5px;font-weight:500;color:var(--ink-soft);line-height:1.55}
-.alt-img{width:100%;height:auto;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-3)}
+.alt-img{width:100%;height:auto;border-radius:20px;box-shadow:var(--sh-3);display:block}
 .alt-frame{position:relative}
 .float-anim{position:relative;animation:floatUD 6.5s ease-in-out infinite}
 @keyframes floatUD{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
