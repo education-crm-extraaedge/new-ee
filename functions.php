@@ -3780,7 +3780,10 @@ function ee_render_logo_marquee($args = array()) {
 .ee-logo-badge{display:inline-block;background:#fef3ec;color:#DE6E30;padding:6px 18px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
 .ee-logo-heading{font-family:'Poppins',sans-serif;color:#19335D;font-size:clamp(1.4rem,3vw,2.2rem);line-height:1.25;margin:0 auto 10px;max-width:800px;font-weight:700}
 .ee-logo-sub{color:#6b7280;font-size:1.05rem;max-width:600px;margin:0 auto}
-.ee-marquee-container{position:relative;overflow:hidden;width:100%}
+/* Break the scrolling strip out of the 1200px container so logos clip
+   exactly at the viewport edges — no leftover white blocks on the sides
+   where cards would otherwise disappear into the inner container. */
+.ee-marquee-container{position:relative;overflow:hidden;width:100vw;margin-left:calc(-50vw + 50%);max-width:100vw}
 /* Hard-kill any side-fade / vignette pseudo-elements inherited from
    sibling templates (older marquee styles still in the cascade). */
 .ee-marquee-container::before,.ee-marquee-container::after,
