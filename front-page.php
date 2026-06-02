@@ -595,26 +595,9 @@ get_header();
       padding: 0;
     }
 
+    /* Side-fade overlays intentionally disabled so every logo is fully visible. */
     .sp-marquee-container::before,
-    .sp-marquee-container::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      width: 150px;
-      height: 100%;
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .sp-marquee-container::before {
-      left: 0;
-      background: linear-gradient(to right, #FFFFFF, transparent);
-    }
-
-    .sp-marquee-container::after {
-      right: 0;
-      background: linear-gradient(to left, #FFFFFF, transparent);
-    }
+    .sp-marquee-container::after { display: none; }
 
     .sp-marquee-track {
       display: flex;
