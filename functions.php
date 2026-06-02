@@ -3774,7 +3774,7 @@ function ee_render_logo_marquee($args = array()) {
     $row_t2 = $ee_pad($row_t2);
     ?>
 <style>
-.ee-logo-section{background:#fff;padding:40px 20px;overflow:hidden}
+.ee-logo-section{background:transparent;padding:40px 20px;overflow:hidden}
 .ee-logo-container{max-width:1200px;margin:0 auto;text-align:center}
 .ee-logo-header{margin-bottom:32px}
 .ee-logo-badge{display:inline-block;background:#fef3ec;color:#DE6E30;padding:6px 18px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
