@@ -3774,12 +3774,12 @@ function ee_render_logo_marquee($args = array()) {
 @keyframes ee-pulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(3);opacity:0}}
 @media(max-width:768px){.ee-logo-card{width:150px;height:80px}.ee-logo-section{padding:24px 12px}}
 </style>
-<section class="ee-logo-section" data-ee-pos="<?php echo esc_attr($args['position']); ?>">
+<section class="ee-logo-section" id="trusted-institutions" data-ee-pos="<?php echo esc_attr($args['position']); ?>" aria-labelledby="ee-logo-heading">
   <div class="ee-logo-container">
     <?php if ($args['badge'] || $args['heading'] || $args['subheading']): ?>
     <header class="ee-logo-header">
       <?php if ($args['badge']): ?><div class="ee-logo-badge"><?php echo esc_html($args['badge']); ?></div><?php endif; ?>
-      <?php if ($args['heading']): ?><h2 class="ee-logo-heading"><?php echo esc_html($args['heading']); ?></h2><?php endif; ?>
+      <?php if ($args['heading']): ?><h2 id="ee-logo-heading" class="ee-logo-heading"><?php echo esc_html($args['heading']); ?></h2><?php endif; ?>
       <?php if ($args['subheading']): ?><p class="ee-logo-sub"><?php echo esc_html($args['subheading']); ?></p><?php endif; ?>
     </header>
     <?php endif; ?>
