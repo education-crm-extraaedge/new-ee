@@ -157,7 +157,7 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .logos-foot{margin-top:38px;display:flex;flex-direction:column;align-items:center;gap:16px}
 .live-indicator{display:flex;align-items:center;gap:10px;font-weight:600;font-size:13px;color:var(--ink-soft)}
 .toc-zone-wrapper{display:grid;grid-template-columns:var(--toc-w) 1fr;align-items:start;max-width:var(--maxw);margin:0 auto;padding:0 32px;position:relative}
-.toc-column{position:sticky;top:28px;align-self:start;padding:8px 20px 8px 0;max-height:calc(100vh - 56px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--orange) transparent}
+.toc-column{position:sticky;top:110px;align-self:start;padding:8px 20px 8px 0;max-height:calc(100vh - 130px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--orange) transparent;z-index:50}
 .toc-column::-webkit-scrollbar{width:3px}
 .toc-column::-webkit-scrollbar-thumb{background:var(--orange);border-radius:9px}
 .toc-content-column{min-width:0;width:100%}
@@ -920,7 +920,7 @@ function shut(){panel.classList.remove('active');overlay.classList.remove('activ
 btn.addEventListener('click',open);close.addEventListener('click',shut);overlay.addEventListener('click',shut);
 links.forEach(function(link){link.addEventListener('click',function(e){
 e.preventDefault();var t=document.getElementById(link.getAttribute('href').substring(1));shut();
-if(t)setTimeout(function(){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-72,behavior:'smooth'});},300);
+if(t)setTimeout(function(){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-100,behavior:'smooth'});},300);
 });});
 })();
 /* TOC active + progress */
@@ -930,7 +930,7 @@ prog=document.getElementById('toc-progress'),progM=document.getElementById('toc-
 if(!tocLinks.length)return;
 tocLinks.forEach(function(link){link.addEventListener('click',function(e){
 e.preventDefault();var t=document.getElementById(link.getAttribute('href').substring(1));
-if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-72,behavior:'smooth'});
+if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-100,behavior:'smooth'});
 });});
 function update(){
 var secs=[];tocLinks.forEach(function(link){var el=document.getElementById(link.getAttribute('href').substring(1));if(el)secs.push(el);});
