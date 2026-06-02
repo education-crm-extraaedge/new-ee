@@ -3728,24 +3728,22 @@ function ee_render_logo_marquee($args = array()) {
         'position'   => $pos,
     ));
 
-    $row_t1 = array();
+    /* Merge BOTH tracks into a single flat list so the strip becomes one
+       continuous, never-ending scroll line (instead of two stacked rows).
+       Logos appear in editor order: track-1 entries first, then track-2. */
+    $all_logos = array();
     for ($i = 1; $i <= 100; $i++) {
         $u = trim((string) ($s["logo_t1_{$i}_url"] ?? ''));
         if ($u === '') continue;
-        $row_t1[] = array('u' => $u, 'a' => (string) ($s["logo_t1_{$i}_alt"] ?? ''));
+        $all_logos[] = array('u' => $u, 'a' => (string) ($s["logo_t1_{$i}_alt"] ?? ''));
     }
-    $row_t2 = array();
     for ($i = 1; $i <= 100; $i++) {
         $u = trim((string) ($s["logo_t2_{$i}_url"] ?? ''));
         if ($u === '') continue;
-        $row_t2[] = array('u' => $u, 'a' => (string) ($s["logo_t2_{$i}_alt"] ?? ''));
+        $all_logos[] = array('u' => $u, 'a' => (string) ($s["logo_t2_{$i}_alt"] ?? ''));
     }
 
-    if (empty($row_t1) && empty($row_t2)) return;
-
-    /* If only one track has logos, mirror it into the other */
-    if (empty($row_t1)) $row_t1 = $row_t2;
-    if (empty($row_t2)) $row_t2 = $row_t1;
+    if (empty($all_logos)) return;
     ?>
 <style>
 .ee-logo-section{background:#fff;padding:40px 20px;overflow:hidden}
@@ -3754,11 +3752,9 @@ function ee_render_logo_marquee($args = array()) {
 .ee-logo-badge{display:inline-block;background:#fef3ec;color:#DE6E30;padding:6px 18px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
 .ee-logo-heading{font-family:'Poppins',sans-serif;color:#19335D;font-size:clamp(1.4rem,3vw,2.2rem);line-height:1.25;margin:0 auto 10px;max-width:800px;font-weight:700}
 .ee-logo-sub{color:#6b7280;font-size:1.05rem;max-width:600px;margin:0 auto}
-.ee-marquee-container{position:relative}
+.ee-marquee-container{position:relative;overflow:hidden;width:100%}
 .ee-marquee-container::before,.ee-marquee-container::after{display:none}
-.ee-marquee-track{display:flex;gap:30px;padding-bottom:20px;width:max-content}
-.ee-track-1{animation:eeScrollLeft 40s linear infinite}
-.ee-track-2{animation:eeScrollRight 40s linear infinite}
+.ee-marquee-track{display:flex;gap:30px;padding-bottom:20px;width:max-content;animation:eeScrollLeft 60s linear infinite;will-change:transform}
 .ee-logo-card{width:200px;height:100px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:20px;transition:transform .3s ease,border-color .3s ease;flex-shrink:0}
 .ee-logo-card:hover{border-color:#DE6E30;transform:translateY(-5px)}
 .ee-logo-card img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(100%);opacity:.7;transition:all .3s ease;font-size:0;color:transparent}
@@ -3770,7 +3766,6 @@ function ee_render_logo_marquee($args = array()) {
 .ee-pulse-dot{width:8px;height:8px;background:#10b981;border-radius:50%;position:relative}
 .ee-pulse-dot::after{content:"";position:absolute;width:100%;height:100%;background:#10b981;border-radius:50%;animation:ee-pulse 2s infinite}
 @keyframes eeScrollLeft{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 15px))}}
-@keyframes eeScrollRight{0%{transform:translateX(calc(-50% - 15px))}100%{transform:translateX(0)}}
 @keyframes ee-pulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(3);opacity:0}}
 @media(max-width:768px){.ee-logo-card{width:150px;height:80px}.ee-logo-section{padding:24px 12px}}
 </style>
@@ -3785,14 +3780,12 @@ function ee_render_logo_marquee($args = array()) {
     <?php endif; ?>
 
     <div class="ee-marquee-container">
-      <div class="ee-marquee-track ee-track-1">
-        <?php for ($pass = 0; $pass < 2; $pass++): foreach ($row_t1 as $logo): ?>
-        <div class="ee-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" loading="lazy" onerror="this.closest('.ee-logo-card').remove()"></div>
-        <?php endforeach; endfor; ?>
-      </div>
-      <div class="ee-marquee-track ee-track-2">
-        <?php for ($pass = 0; $pass < 2; $pass++): foreach ($row_t2 as $logo): ?>
-        <div class="ee-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" loading="lazy" onerror="this.closest('.ee-logo-card').remove()"></div>
+      <div class="ee-marquee-track" aria-label="Trusted institutions, scrolling list">
+        <?php /* Render the list twice — the keyframe ends at exactly -50%,
+                 so the duplicate slides in from the right while the original
+                 leaves on the left, giving an unbroken infinite scroll. */ ?>
+        <?php for ($pass = 0; $pass < 2; $pass++): foreach ($all_logos as $logo): ?>
+        <div class="ee-logo-card"<?php echo $pass === 1 ? ' aria-hidden="true"' : ''; ?>><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" loading="lazy" data-logo-src="<?php echo esc_attr($logo['u']); ?>" onerror="(function(s){document.querySelectorAll('.ee-logo-card img[data-logo-src=&quot;'+s+'&quot;]').forEach(function(i){var c=i.closest('.ee-logo-card');if(c)c.remove();});})(this.getAttribute('data-logo-src'))"></div>
         <?php endforeach; endfor; ?>
       </div>
     </div>
@@ -3800,9 +3793,19 @@ function ee_render_logo_marquee($args = array()) {
     <script>
     (function(){
         function eeCleanupLogos(){
+            /* Drop the broken card AND its duplicate (matched by image URL)
+               so the -50% seamless loop stays in sync. Without this, removing
+               just one copy would offset the duplicate set and break the
+               infinite scroll. */
+            var bad = {};
             document.querySelectorAll('.ee-logo-card img').forEach(function(img){
-                if(img.complete && img.naturalWidth===0){var c=img.closest('.ee-logo-card');if(c)c.remove();}
+                if(img.complete && img.naturalWidth===0){ bad[img.src] = true; }
             });
+            if(Object.keys(bad).length){
+                document.querySelectorAll('.ee-logo-card img').forEach(function(img){
+                    if(bad[img.src]){ var c=img.closest('.ee-logo-card'); if(c) c.remove(); }
+                });
+            }
             document.querySelectorAll('.ee-marquee-track').forEach(function(t){
                 if(!t.querySelector('.ee-logo-card'))t.style.display='none';
             });
