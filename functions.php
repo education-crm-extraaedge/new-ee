@@ -3676,18 +3676,20 @@ function ee_should_hide_logos() {
 }
 
 function ee_render_logo_marquee($args = array()) {
-    $args = wp_parse_args($args, array(
-        'badge'      => '',
-        'heading'    => '',
-        'subheading' => '',
-        'cta_text'   => '',
-        'cta_url'    => '',
-        'live_text'  => '',
-    ));
-
-    /* Read global logos from home settings */
+    /* Read global logos + home-page section texts from home settings so the
+       strip is a faithful clone of the home page everywhere. Callers can still
+       override any text via $args. */
     $s = get_option('ee_home_settings', array());
     if (!is_array($s)) $s = array();
+
+    $args = wp_parse_args($args, array(
+        'badge'      => (string) ($s['logos_badge']      ?? ''),
+        'heading'    => (string) ($s['logos_heading']    ?? ''),
+        'subheading' => (string) ($s['logos_subheading'] ?? ''),
+        'cta_text'   => (string) ($s['logos_cta_text']   ?? ''),
+        'cta_url'    => (string) ($s['logos_cta_url']     ?? ''),
+        'live_text'  => (string) ($s['logos_live_text']  ?? ''),
+    ));
 
     $row_t1 = array();
     for ($i = 1; $i <= 100; $i++) {
@@ -3785,8 +3787,11 @@ function ee_render_logo_marquee($args = array()) {
     <?php
 }
 
-/* Auto-inject on every page before the footer, unless hidden */
+/* Auto-inject on every page before the footer, unless hidden.
+   Skip the home page — front-page.php already renders its own logo wall,
+   so injecting here would duplicate it. */
 add_action('ee_before_footer', function () {
+    if (is_front_page() || is_home()) return;
     if (function_exists('ee_should_hide_logos') && !ee_should_hide_logos()) {
         ee_render_logo_marquee();
     }

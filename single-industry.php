@@ -752,59 +752,9 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
   </div>
 </section>
 
-<?php if(!empty($logos)): ?>
-<section class="logo-section<?php echo (!$logo_badge && !$logo_title_line1 && !$logo_title && !$logo_sub) ? ' logo-section--no-header' : ''; ?>" id="trusted-institutions" aria-labelledby="logo-title">
-  <?php if($logo_badge || $logo_title_line1 || $logo_title || $logo_sub): ?>
-  <header class="logo-header reveal">
-    <?php if($logo_badge): ?><div class="logo-badge"><?php echo esc_html($logo_badge); ?></div><?php endif; ?>
-    <?php if($logo_title_line1): ?><p style="font-family:var(--font-h);font-weight:700;font-size:1rem;color:var(--blue);margin-bottom:10px"><?php echo esc_html($logo_title_line1); ?></p><?php endif; ?>
-    <?php if($logo_title): ?><h2 id="logo-title" class="logo-title"><?php echo esc_html($logo_title); ?></h2><?php endif; ?>
-    <?php if($logo_sub): ?><p class="logo-sub"><?php echo ee_inline_links($logo_sub); ?></p><?php endif; ?>
-  </header>
-  <?php endif; ?>
-  <div class="marquee-wrap" role="region" aria-label="Trusted institutions carousel">
-    <?php
-    /* Two-row stack — same look as the home-page logo wall. Auto-splits
-       the master logo list in half so each row scrolls in the opposite
-       direction; each row is duplicated for a seamless loop. */
-    $logo_count = count($logos);
-    $split      = (int) ceil($logo_count / 2);
-    $row_a      = array_slice($logos, 0, $split);
-    $row_b      = array_slice($logos, $split);
-    if (empty($row_b)) { $row_b = $row_a; }
-    ?>
-    <div class="marquee-stack">
-      <div class="marquee-track marquee-left">
-        <?php for($i = 0; $i < 2; $i++): foreach($row_a as $logo): ?><div class="logo-card"><img src="<?php echo esc_url($logo['image']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>" loading="lazy" decoding="async" width="180" height="90" onerror="this.closest(&apos;.logo-card&apos;).remove()"></div><?php endforeach; endfor; ?>
-      </div>
-      <div class="marquee-track marquee-right">
-        <?php for($i = 0; $i < 2; $i++): foreach($row_b as $logo): ?><div class="logo-card"><img src="<?php echo esc_url($logo['image']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>" loading="lazy" decoding="async" width="180" height="90" onerror="this.closest(&apos;.logo-card&apos;).remove()"></div><?php endforeach; endfor; ?>
-      </div>
-    </div>
-  </div>
-  <script>
-  (function(){
-      function cleanup(){
-          document.querySelectorAll('.logo-card img').forEach(function(img){
-              if (img.complete && img.naturalWidth === 0) {
-                  var c = img.closest('.logo-card'); if (c) c.remove();
-              }
-          });
-          document.querySelectorAll('.marquee-track').forEach(function(t){
-              if (!t.querySelector('.logo-card')) t.style.display = 'none';
-          });
-      }
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', cleanup);
-      else cleanup();
-      window.addEventListener('load', cleanup);
-  })();
-  </script>
-  <div class="logo-footer reveal">
-    <?php if($logo_footer_cta): ?><a href="<?php echo esc_url($logo_footer_cta_url ?: '#admission-form'); ?>" class="btn-primary" aria-label="<?php echo esc_attr($logo_footer_cta); ?>"><?php echo esc_html($logo_footer_cta); ?></a><?php endif; ?>
-    <?php if($logo_live_text): ?><div class="live-indicator"><span class="green-dot" aria-hidden="true"></span><span><?php echo esc_html($logo_live_text); ?></span></div><?php endif; ?>
-  </div>
-</section>
-<?php endif; ?>
+<?php /* Logo marquee removed — now rendered globally (home-page style) via the
+   ee_before_footer hook in functions.php so every page looks identical.
+   Hide it per-page with the "🧱 Site header & footer" meta box checkbox. */ ?>
 
 <div class="toc-zone-wrapper" id="toc-zone-wrapper">
 
