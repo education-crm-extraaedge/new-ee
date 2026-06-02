@@ -3631,10 +3631,12 @@ function ee_layout_toggles_render($post) {
     wp_nonce_field('ee_layout_toggles', 'ee_layout_toggles_nonce');
     $h = get_post_meta($post->ID, '_ee_hide_header', true) === '1';
     $f = get_post_meta($post->ID, '_ee_hide_footer', true) === '1';
+    $l = get_post_meta($post->ID, '_ee_hide_logos',  true) === '1';
     ?>
     <p style="margin:0 0 10px;font-size:12.5px;color:#1d2327;line-height:1.55;">Hide the global site chrome on <em>this page only</em> — useful for landing pages, thank-you screens, gated forms, etc.</p>
     <label style="display:block;margin-bottom:8px;font-size:13px;"><input type="checkbox" name="ee_hide_header" value="1" <?php checked($h); ?>> Hide the site <strong>header</strong></label>
-    <label style="display:block;font-size:13px;"><input type="checkbox" name="ee_hide_footer" value="1" <?php checked($f); ?>> Hide the site <strong>footer</strong></label>
+    <label style="display:block;margin-bottom:8px;font-size:13px;"><input type="checkbox" name="ee_hide_footer" value="1" <?php checked($f); ?>> Hide the site <strong>footer</strong></label>
+    <label style="display:block;font-size:13px;"><input type="checkbox" name="ee_hide_logos"  value="1" <?php checked($l); ?>> Hide the <strong>logo marquee</strong> strip</label>
     <?php
 }
 
@@ -3644,6 +3646,150 @@ add_action('save_post', function ($post_id) {
     if (!current_user_can('edit_post', $post_id)) return;
     update_post_meta($post_id, '_ee_hide_header', !empty($_POST['ee_hide_header']) ? '1' : '');
     update_post_meta($post_id, '_ee_hide_footer', !empty($_POST['ee_hide_footer']) ? '1' : '');
+    update_post_meta($post_id, '_ee_hide_logos',  !empty($_POST['ee_hide_logos'])  ? '1' : '');
+});
+
+/* ─────────────────────────────────────────────
+ * Logo marquee — reusable across all templates
+ * ───────────────────────────────────────────── */
+function ee_should_hide_logos() {
+    $id = get_queried_object_id();
+    if ($id && get_post_meta($id, '_ee_hide_logos', true) === '1') return true;
+
+    $patterns = (string) get_option('ee_hide_layout_patterns_logos', '');
+    if (trim($patterns) === '') return false;
+
+    $req = '/' . ltrim(strtok((string) ($_SERVER['REQUEST_URI'] ?? '/'), '?'), '/');
+    $req = '/' . trim($req, '/') . '/';
+    foreach (preg_split('/\r?\n/', $patterns) as $p) {
+        $p = trim($p);
+        if ($p === '') continue;
+        $wild = (substr($p, -1) === '*');
+        $p    = '/' . trim(rtrim($p, '*'), '/') . '/';
+        if ($wild) {
+            if (strpos($req, $p) === 0) return true;
+        } else {
+            if ($req === $p) return true;
+        }
+    }
+    return false;
+}
+
+function ee_render_logo_marquee($args = array()) {
+    $args = wp_parse_args($args, array(
+        'badge'      => '',
+        'heading'    => '',
+        'subheading' => '',
+        'cta_text'   => '',
+        'cta_url'    => '',
+        'live_text'  => '',
+    ));
+
+    /* Read global logos from home settings */
+    $s = get_option('ee_home_settings', array());
+    if (!is_array($s)) $s = array();
+
+    $row_t1 = array();
+    for ($i = 1; $i <= 100; $i++) {
+        $u = trim((string) ($s["logo_t1_{$i}_url"] ?? ''));
+        if ($u === '') continue;
+        $row_t1[] = array('u' => $u, 'a' => (string) ($s["logo_t1_{$i}_alt"] ?? ''));
+    }
+    $row_t2 = array();
+    for ($i = 1; $i <= 100; $i++) {
+        $u = trim((string) ($s["logo_t2_{$i}_url"] ?? ''));
+        if ($u === '') continue;
+        $row_t2[] = array('u' => $u, 'a' => (string) ($s["logo_t2_{$i}_alt"] ?? ''));
+    }
+
+    if (empty($row_t1) && empty($row_t2)) return;
+
+    /* If only one track has logos, mirror it into the other */
+    if (empty($row_t1)) $row_t1 = $row_t2;
+    if (empty($row_t2)) $row_t2 = $row_t1;
+    ?>
+<style>
+.ee-logo-section{background:#fff;padding:40px 20px;overflow:hidden}
+.ee-logo-container{max-width:1200px;margin:0 auto;text-align:center}
+.ee-logo-header{margin-bottom:32px}
+.ee-logo-badge{display:inline-block;background:#fef3ec;color:#DE6E30;padding:6px 18px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
+.ee-logo-heading{font-family:'Poppins',sans-serif;color:#19335D;font-size:clamp(1.4rem,3vw,2.2rem);line-height:1.25;margin:0 auto 10px;max-width:800px;font-weight:700}
+.ee-logo-sub{color:#6b7280;font-size:1.05rem;max-width:600px;margin:0 auto}
+.ee-marquee-container{position:relative}
+.ee-marquee-container::before,.ee-marquee-container::after{display:none}
+.ee-marquee-track{display:flex;gap:30px;padding-bottom:20px;width:max-content}
+.ee-track-1{animation:eeScrollLeft 40s linear infinite}
+.ee-track-2{animation:eeScrollRight 40s linear infinite}
+.ee-logo-card{width:200px;height:100px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:20px;transition:transform .3s ease,border-color .3s ease;flex-shrink:0}
+.ee-logo-card:hover{border-color:#DE6E30;transform:translateY(-5px)}
+.ee-logo-card img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(100%);opacity:.7;transition:all .3s ease;font-size:0;color:transparent}
+.ee-logo-card:hover img{filter:grayscale(0%);opacity:1}
+.ee-logo-footer{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.ee-logo-cta{background:#DE6E30;color:#fff;text-decoration:none;padding:14px 28px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:1rem;transition:background .3s ease,transform .2s ease;box-shadow:0 4px 14px rgba(222,110,48,.3)}
+.ee-logo-cta:hover{background:#c55d28;transform:scale(1.05)}
+.ee-live-indicator{display:flex;align-items:center;gap:10px;font-size:.85rem;color:#19335D;font-weight:600}
+.ee-pulse-dot{width:8px;height:8px;background:#10b981;border-radius:50%;position:relative}
+.ee-pulse-dot::after{content:"";position:absolute;width:100%;height:100%;background:#10b981;border-radius:50%;animation:ee-pulse 2s infinite}
+@keyframes eeScrollLeft{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 15px))}}
+@keyframes eeScrollRight{0%{transform:translateX(calc(-50% - 15px))}100%{transform:translateX(0)}}
+@keyframes ee-pulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(3);opacity:0}}
+@media(max-width:768px){.ee-logo-card{width:150px;height:80px}.ee-logo-section{padding:24px 12px}}
+</style>
+<section class="ee-logo-section">
+  <div class="ee-logo-container">
+    <?php if ($args['badge'] || $args['heading'] || $args['subheading']): ?>
+    <header class="ee-logo-header">
+      <?php if ($args['badge']): ?><div class="ee-logo-badge"><?php echo esc_html($args['badge']); ?></div><?php endif; ?>
+      <?php if ($args['heading']): ?><h2 class="ee-logo-heading"><?php echo esc_html($args['heading']); ?></h2><?php endif; ?>
+      <?php if ($args['subheading']): ?><p class="ee-logo-sub"><?php echo esc_html($args['subheading']); ?></p><?php endif; ?>
+    </header>
+    <?php endif; ?>
+
+    <div class="ee-marquee-container">
+      <div class="ee-marquee-track ee-track-1">
+        <?php for ($pass = 0; $pass < 2; $pass++): foreach ($row_t1 as $logo): ?>
+        <div class="ee-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" loading="lazy" onerror="this.closest('.ee-logo-card').remove()"></div>
+        <?php endforeach; endfor; ?>
+      </div>
+      <div class="ee-marquee-track ee-track-2">
+        <?php for ($pass = 0; $pass < 2; $pass++): foreach ($row_t2 as $logo): ?>
+        <div class="ee-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" loading="lazy" onerror="this.closest('.ee-logo-card').remove()"></div>
+        <?php endforeach; endfor; ?>
+      </div>
+    </div>
+
+    <script>
+    (function(){
+        function eeCleanupLogos(){
+            document.querySelectorAll('.ee-logo-card img').forEach(function(img){
+                if(img.complete && img.naturalWidth===0){var c=img.closest('.ee-logo-card');if(c)c.remove();}
+            });
+            document.querySelectorAll('.ee-marquee-track').forEach(function(t){
+                if(!t.querySelector('.ee-logo-card'))t.style.display='none';
+            });
+        }
+        if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',eeCleanupLogos);
+        else eeCleanupLogos();
+        window.addEventListener('load',eeCleanupLogos);
+    })();
+    </script>
+
+    <?php if ($args['cta_text'] || $args['live_text']): ?>
+    <footer class="ee-logo-footer">
+      <?php if ($args['cta_text']): ?><a href="<?php echo esc_url($args['cta_url'] ?: '#'); ?>" class="ee-logo-cta"><?php echo esc_html($args['cta_text']); ?></a><?php endif; ?>
+      <?php if ($args['live_text']): ?><div class="ee-live-indicator"><span class="ee-pulse-dot"></span><span><?php echo esc_html($args['live_text']); ?></span></div><?php endif; ?>
+    </footer>
+    <?php endif; ?>
+  </div>
+</section>
+    <?php
+}
+
+/* Auto-inject on every page before the footer, unless hidden */
+add_action('ee_before_footer', function () {
+    if (function_exists('ee_should_hide_logos') && !ee_should_hide_logos()) {
+        ee_render_logo_marquee();
+    }
 });
 
 function ee_get_book_demo_cta() {
@@ -3782,6 +3928,7 @@ add_action('admin_post_ee_save_header_footer', function () {
     /* Global "hide on these URLs" patterns */
     update_option('ee_hide_layout_patterns_header', sanitize_textarea_field(wp_unslash($_POST['hide_header'] ?? '')));
     update_option('ee_hide_layout_patterns_footer', sanitize_textarea_field(wp_unslash($_POST['hide_footer'] ?? '')));
+    update_option('ee_hide_layout_patterns_logos',  sanitize_textarea_field(wp_unslash($_POST['hide_logos']  ?? '')));
 
     wp_safe_redirect(add_query_arg('updated', '1', admin_url('admin.php?page=ee-header-footer')));
     exit;
@@ -4021,13 +4168,14 @@ function ee_header_footer_render_admin() {
                 </template>
             </div>
 
-            <!-- ── HIDE HEADER / FOOTER ON SPECIFIC URLS ── -->
+            <!-- ── HIDE HEADER / FOOTER / LOGOS ON SPECIFIC URLS ── -->
             <?php
             $hp_h = (string) get_option('ee_hide_layout_patterns_header', '');
             $hp_f = (string) get_option('ee_hide_layout_patterns_footer', '');
+            $hp_l = (string) get_option('ee_hide_layout_patterns_logos',  '');
             ?>
             <div class="eehf-card">
-                <h2>🙈 Hide header / footer on specific pages</h2>
+                <h2>🙈 Hide header / footer / logos on specific pages</h2>
                 <p style="font-size:12.5px;color:#64748b;margin:0 0 12px;">
                     <strong>Two ways to hide the site chrome on a page:</strong><br>
                     ① <strong>Per-page checkbox</strong> — open the page in WP Admin (any Page, Post, or custom CPT). On the right side-bar you'll see <em>🧱 Site header &amp; footer</em> — tick the boxes there.<br>
@@ -4042,6 +4190,11 @@ function ee_header_footer_render_admin() {
                         <label>Hide the <strong>footer</strong> on these URLs</label>
                         <textarea name="hide_footer" rows="5" placeholder="thank-you&#10;landing/*" style="font-family:Menlo,Consolas,monospace;font-size:12.5px;line-height:1.55;"><?php echo esc_textarea($hp_f); ?></textarea>
                     </div>
+                </div>
+                <div class="eehf-row" style="margin-top:12px;">
+                    <label>Hide the <strong>logo marquee strip</strong> on these URLs</label>
+                    <textarea name="hide_logos" rows="5" placeholder="blog&#10;landing/*&#10;book-demo" style="font-family:Menlo,Consolas,monospace;font-size:12.5px;line-height:1.55;"><?php echo esc_textarea($hp_l); ?></textarea>
+                    <p style="font-size:11.5px;color:#64748b;margin-top:4px;font-style:italic;">The logo strip shows automatically on every page before the footer. Add URL slugs here (or use the per-page checkbox) to suppress it.</p>
                 </div>
                 <p style="font-size:11.5px;color:#64748b;margin-top:6px;font-style:italic;">Examples: <code>thank-you</code> hides on <code>/thank-you/</code> only. <code>ebooks/*</code> hides on every URL that starts with <code>/ebooks/</code> (the index plus every individual e-book).</p>
             </div>
