@@ -526,30 +526,10 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     margin-bottom: 12px !important;
 }
 
-.logo-section{background:var(--white);padding:40px 20px;overflow:hidden}
-.logo-section--no-header{padding-top:16px;padding-bottom:24px}
-.logo-header{text-align:center;margin-bottom:24px}
-.logo-badge{display:inline-block;background:var(--orange-pale);color:var(--orange);padding:6px 18px;border-radius:var(--radius-full);font-family:var(--font-h);font-size:12px;font-weight:600;margin-bottom:10px;letter-spacing:.5px;text-transform:uppercase}
-.logo-title{font-family:var(--font-h);color:var(--blue);font-size:clamp(1.5rem,3.5vw,2.4rem);line-height:1.2;margin-bottom:10px;font-weight:700}
-.logo-sub{color:var(--gray-600);font-size:1rem;max-width:520px;margin:0 auto}
-.marquee-wrap{position:relative;padding:14px 0}
-.marquee-wrap::before,.marquee-wrap::after{content:"";position:absolute;top:0;width:160px;height:100%;z-index:2;pointer-events:none}
-.marquee-wrap::before{left:0;background:linear-gradient(to right,var(--white),transparent)}
-.marquee-wrap::after{right:0;background:linear-gradient(to left,var(--white),transparent)}
-.marquee-track{display:flex;gap:24px;width:max-content;padding-bottom:14px}
-.marquee-left{animation:scroll-left 40s linear infinite}
-.marquee-right{animation:scroll-right 40s linear infinite}
-@keyframes scroll-left{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 12px))}}
-@keyframes scroll-right{from{transform:translateX(calc(-50% - 12px))}to{transform:translateX(0)}}
-.marquee-stack{display:flex;flex-direction:column;gap:14px}
-.marquee-wrap:hover .marquee-right{animation-play-state:paused}
-.marquee-wrap:hover .marquee-left{animation-play-state:paused}
-.logo-card{width:180px;height:90px;background:var(--off-white);border:1px solid var(--gray-200);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;padding:18px;transition:var(--transition);flex-shrink:0}
-.logo-card:hover{border-color:var(--orange);transform:translateY(-5px);box-shadow:var(--shadow-md)}
-.logo-card img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(100%);opacity:.65;transition:var(--transition);font-size:0;color:transparent}
-.logo-card:hover img{filter:grayscale(0);opacity:1}
-.logo-footer{margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:12px}
-.live-indicator{display:flex;align-items:center;gap:10px;font-family:var(--font-h);font-size:13px;font-weight:600;color:var(--blue)}
+/* Legacy logo-section / marquee-wrap styles removed —
+   the global ee_render_logo_marquee() now owns the logo strip on
+   every template; keeping these here would re-introduce the side-fade
+   overlay the editor asked to remove. */
 
 .edu-crm-section{background:var(--white);padding:40px 0;overflow:hidden}
 .edu-crm-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:start;padding:0 24px}
