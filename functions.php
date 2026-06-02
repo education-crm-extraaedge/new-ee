@@ -3728,22 +3728,50 @@ function ee_render_logo_marquee($args = array()) {
         'position'   => $pos,
     ));
 
-    /* Merge BOTH tracks into a single flat list so the strip becomes one
-       continuous, never-ending scroll line (instead of two stacked rows).
-       Logos appear in editor order: track-1 entries first, then track-2. */
-    $all_logos = array();
+    /* Two tracks, exactly like the home page — track 1 scrolls left, track 2
+       scrolls right. Each row is padded by cycling its source list until it
+       has at least MIN_PER_ROW cards, then the markup duplicates that whole
+       row a second time so the -50% keyframe lands seamlessly. The padding
+       prevents the "empty gap" the user noticed when there are few logos:
+       without it, a short list leaves blank space on the right edge after
+       the track translates leftwards. */
+    $row_t1 = array();
     for ($i = 1; $i <= 100; $i++) {
         $u = trim((string) ($s["logo_t1_{$i}_url"] ?? ''));
         if ($u === '') continue;
-        $all_logos[] = array('u' => $u, 'a' => (string) ($s["logo_t1_{$i}_alt"] ?? ''));
+        $row_t1[] = array('u' => $u, 'a' => (string) ($s["logo_t1_{$i}_alt"] ?? ''));
     }
+    $row_t2 = array();
     for ($i = 1; $i <= 100; $i++) {
         $u = trim((string) ($s["logo_t2_{$i}_url"] ?? ''));
         if ($u === '') continue;
-        $all_logos[] = array('u' => $u, 'a' => (string) ($s["logo_t2_{$i}_alt"] ?? ''));
+        $row_t2[] = array('u' => $u, 'a' => (string) ($s["logo_t2_{$i}_alt"] ?? ''));
     }
 
-    if (empty($all_logos)) return;
+    if (empty($row_t1) && empty($row_t2)) return;
+
+    /* If only one track has logos, mirror it into the other so both rows
+       always render and the design stays balanced. */
+    if (empty($row_t1)) $row_t1 = $row_t2;
+    if (empty($row_t2)) $row_t2 = $row_t1;
+
+    /* Cycle each row's source list until it holds at least MIN_PER_ROW items
+       — guarantees the duplicated track is wider than any realistic viewport
+       so the loop joins invisibly with no trailing empty space. */
+    $MIN_PER_ROW = 12;
+    $ee_pad = function ($row) use ($MIN_PER_ROW) {
+        if (empty($row)) return $row;
+        $out = $row;
+        while (count($out) < $MIN_PER_ROW) {
+            foreach ($row as $item) {
+                $out[] = $item;
+                if (count($out) >= $MIN_PER_ROW) break;
+            }
+        }
+        return $out;
+    };
+    $row_t1 = $ee_pad($row_t1);
+    $row_t2 = $ee_pad($row_t2);
     ?>
 <style>
 .ee-logo-section{background:#fff;padding:40px 20px;overflow:hidden}
@@ -3754,7 +3782,9 @@ function ee_render_logo_marquee($args = array()) {
 .ee-logo-sub{color:#6b7280;font-size:1.05rem;max-width:600px;margin:0 auto}
 .ee-marquee-container{position:relative;overflow:hidden;width:100%}
 .ee-marquee-container::before,.ee-marquee-container::after{display:none}
-.ee-marquee-track{display:flex;gap:30px;padding-bottom:20px;width:max-content;animation:eeScrollLeft 60s linear infinite;will-change:transform}
+.ee-marquee-track{display:flex;gap:30px;padding-bottom:20px;width:max-content;will-change:transform}
+.ee-track-1{animation:eeScrollLeft 40s linear infinite}
+.ee-track-2{animation:eeScrollRight 40s linear infinite}
 .ee-logo-card{width:200px;height:100px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:20px;transition:transform .3s ease,border-color .3s ease;flex-shrink:0}
 .ee-logo-card:hover{border-color:#DE6E30;transform:translateY(-5px)}
 .ee-logo-card img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(100%);opacity:.7;transition:all .3s ease;font-size:0;color:transparent}
@@ -3766,6 +3796,7 @@ function ee_render_logo_marquee($args = array()) {
 .ee-pulse-dot{width:8px;height:8px;background:#10b981;border-radius:50%;position:relative}
 .ee-pulse-dot::after{content:"";position:absolute;width:100%;height:100%;background:#10b981;border-radius:50%;animation:ee-pulse 2s infinite}
 @keyframes eeScrollLeft{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 15px))}}
+@keyframes eeScrollRight{0%{transform:translateX(calc(-50% - 15px))}100%{transform:translateX(0)}}
 @keyframes ee-pulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(3);opacity:0}}
 @media(max-width:768px){.ee-logo-card{width:150px;height:80px}.ee-logo-section{padding:24px 12px}}
 </style>
@@ -3780,11 +3811,17 @@ function ee_render_logo_marquee($args = array()) {
     <?php endif; ?>
 
     <div class="ee-marquee-container">
-      <div class="ee-marquee-track" aria-label="Trusted institutions, scrolling list">
-        <?php /* Render the list twice — the keyframe ends at exactly -50%,
-                 so the duplicate slides in from the right while the original
-                 leaves on the left, giving an unbroken infinite scroll. */ ?>
-        <?php for ($pass = 0; $pass < 2; $pass++): foreach ($all_logos as $logo): ?>
+      <?php /* Each track renders its (already-padded) row twice in markup —
+               the -50% keyframe then makes the duplicate slide into where
+               the original was, giving a truly seamless infinite scroll
+               with no trailing empty space. */ ?>
+      <div class="ee-marquee-track ee-track-1" aria-label="Trusted institutions, row 1">
+        <?php for ($pass = 0; $pass < 2; $pass++): foreach ($row_t1 as $logo): ?>
+        <div class="ee-logo-card"<?php echo $pass === 1 ? ' aria-hidden="true"' : ''; ?>><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" loading="lazy" data-logo-src="<?php echo esc_attr($logo['u']); ?>" onerror="(function(s){document.querySelectorAll('.ee-logo-card img[data-logo-src=&quot;'+s+'&quot;]').forEach(function(i){var c=i.closest('.ee-logo-card');if(c)c.remove();});})(this.getAttribute('data-logo-src'))"></div>
+        <?php endforeach; endfor; ?>
+      </div>
+      <div class="ee-marquee-track ee-track-2" aria-label="Trusted institutions, row 2">
+        <?php for ($pass = 0; $pass < 2; $pass++): foreach ($row_t2 as $logo): ?>
         <div class="ee-logo-card"<?php echo $pass === 1 ? ' aria-hidden="true"' : ''; ?>><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" loading="lazy" data-logo-src="<?php echo esc_attr($logo['u']); ?>" onerror="(function(s){document.querySelectorAll('.ee-logo-card img[data-logo-src=&quot;'+s+'&quot;]').forEach(function(i){var c=i.closest('.ee-logo-card');if(c)c.remove();});})(this.getAttribute('data-logo-src'))"></div>
         <?php endforeach; endfor; ?>
       </div>

@@ -727,113 +727,12 @@ get_header();
     }
 </style>
 
-<section class="sp-section">
-  <div class="sp-container">
-    <!-- Header Section -->
-    <header class="sp-header">
-      <div class="sp-badge-modern"><?php ee_h('logos_badge', 'Leading Institutions'); ?></div>
-      <h2 id="sp-heading" class="sp-heading"><?php ee_h('logos_heading', 'Trusted by 500+ Institutions Growing Faster Than Ever'); ?></h2>
-      <p class="sp-subheading"><?php ee_h('logos_subheading', 'AI-powered automation for the next generation of education leaders.'); ?></p>
-    </header>
-
-    <!-- Logo Marquee Section -->
-    <div class="sp-marquee-container">
-      <?php
-      $t1 = array(
-        array('https://www.extraaedge.com/wp-content/uploads/2024/12/Xiss-3.webp', 'XISS'),
-        array('https://www.extraaedge.com/wp-content/uploads/2025/10/OIP-20.jpg', 'Logo'),
-        array('https://www.extraaedge.com/wp-content/uploads/2024/10/Anant-National-University.png', 'Anant'),
-        array('https://www.extraaedge.com/wp-content/uploads/2025/10/sr-university.webp', 'SR University'),
-        array('https://www.extraaedge.com/wp-content/uploads/2024/12/hamstek-1.webp', 'Hamstek'),
-        array('https://www.extraaedge.com/wp-content/uploads/2025/10/adani.webp', 'Adani'),
-        array('https://www.extraaedge.com/wp-content/uploads/2025/10/techno-india-group.webp', 'Techno India'),
-        array('https://www.extraaedge.com/wp-content/uploads/2025/10/cropped-final-logo.webp', 'Final Logo'),
-      );
-      $t2 = array(
-        array('https://www.extraaedge.com/wp-content/uploads/2024/12/JGI-JAIN-2.webp', 'Jain University'),
-        array('https://www.extraaedge.com/wp-content/uploads/2025/01/mit-shillong.png', 'MIT Shillong'),
-        array('https://www.extraaedge.com/wp-content/uploads/2024/12/isdi.webp', 'ISDI'),
-        array('https://www.extraaedge.com/wp-content/uploads/2025/09/jio-v3-3.png', 'Jio'),
-        array('https://www.extraaedge.com/wp-content/uploads/2024/12/dpu-3.webp', 'DPU'),
-        array('https://www.extraaedge.com/wp-content/uploads/2024/12/Graphic-Era-3.webp', 'Graphic Era'),
-        array('https://www.extraaedge.com/wp-content/uploads/2024/12/fostima.webp', 'Fostima'),
-      );
-      ?>
-      <?php
-      /* Build clean lists first — skip any slot whose URL the editor cleared
-         in the home editor so empty cards do not render. */
-      $row_t1 = array();
-      for ($i = 1; $i <= 100; $i++) {
-          $u = trim((string) ee_raw("logo_t1_{$i}_url"));
-          if ($u === '') continue;
-          $row_t1[] = array('u' => $u, 'a' => ee_raw("logo_t1_{$i}_alt"));
-      }
-      $row_t2 = array();
-      for ($i = 1; $i <= 100; $i++) {
-          $u = trim((string) ee_raw("logo_t2_{$i}_url"));
-          if ($u === '') continue;
-          $row_t2[] = array('u' => $u, 'a' => ee_raw("logo_t2_{$i}_alt"));
-      }
-      ?>
-      <!-- Track 1: Moving Left -->
-      <?php if (!empty($row_t1)): ?>
-      <div class="sp-marquee-track sp-track-1">
-        <?php /* render twice for a seamless loop */
-        for ($pass = 0; $pass < 2; $pass++):
-          foreach ($row_t1 as $logo): ?>
-        <div class="sp-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" class="sp-img" onerror="this.closest('.sp-logo-card').remove()"></div>
-        <?php endforeach;
-        endfor; ?>
-      </div>
-      <?php endif; ?>
-
-      <!-- Track 2: Moving Right -->
-      <?php if (!empty($row_t2)): ?>
-      <div class="sp-marquee-track sp-track-2">
-        <?php for ($pass = 0; $pass < 2; $pass++):
-          foreach ($row_t2 as $logo): ?>
-        <div class="sp-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" class="sp-img" onerror="this.closest('.sp-logo-card').remove()"></div>
-        <?php endforeach;
-        endfor; ?>
-      </div>
-      <?php endif; ?>
-    </div>
-
-    <script>
-    /* Safety net: catch images that already failed before the inline onerror
-       attached (e.g. cached HTML, page-loaders that defer JS). Removes their
-       card and hides the parent track if the row ends up empty. */
-    (function(){
-        function cleanupBroken() {
-            document.querySelectorAll('.sp-logo-card img').forEach(function(img){
-                if (img.complete && img.naturalWidth === 0) {
-                    var card = img.closest('.sp-logo-card');
-                    if (card) card.remove();
-                }
-            });
-            document.querySelectorAll('.sp-marquee-track').forEach(function(t){
-                if (!t.querySelector('.sp-logo-card')) t.style.display = 'none';
-            });
-        }
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', cleanupBroken);
-        } else {
-            cleanupBroken();
-        }
-        window.addEventListener('load', cleanupBroken);
-    })();
-    </script>
-
-    <!-- Footer Action Section -->
-    <footer class="sp-footer">
-      <a href="<?php ee_u('logos_cta_url', '#get-started'); ?>" class="sp-cta-btn"><?php ee_h('logos_cta_text', 'Start Converting Today'); ?></a>
-      <div class="sp-live-indicator">
-        <span class="sp-pulse-dot"></span>
-        <span><?php ee_h('logos_live_text', 'Live: +124 Admissions Processed in last 1hr'); ?></span>
-      </div>
-    </footer>
-  </div>
-</section>
+<?php /* Logo wall — single source of truth in functions.php
+   (ee_render_logo_marquee). Same gap-free, two-row, infinite-scroll
+   strip is now used on home AND every other page. */
+if (function_exists('ee_render_logo_marquee')) {
+    ee_render_logo_marquee();
+} ?>
 
 <!-- VidyaAI Admission Intelligence Section -->
 <style>
