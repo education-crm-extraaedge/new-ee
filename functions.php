@@ -555,6 +555,7 @@ function extraaedge_register_cpts() {
         'product'    => array('Products',     'Product',     'dashicons-products',     'products'),
         'industry'   => array('Industries',   'Industry',    'dashicons-building',     'industries'),
         'use_case'   => array('Use Cases',    'Use Case',    'dashicons-groups',       'use-cases'),
+        'solution'   => array('Solutions',    'Solution',    'dashicons-lightbulb',    'solutions'),
         'ebook'      => array('E-books',      'E-book',      'dashicons-book',         'ebooks'),
         'webinar'    => array('Webinars',     'Webinar',     'dashicons-video-alt3',   'webinars'),
         'career'     => array('Careers',      'Career',      'dashicons-groups',       'careers'),
@@ -572,7 +573,7 @@ function extraaedge_register_cpts() {
            Without this, WP also tries to claim the same URL via its own
            archive rule and the resulting rewrite-rules order is brittle
            — one update_option call away from 404ing the singles. */
-        $custom_listed_cpts = array('product', 'industry', 'use_case');
+        $custom_listed_cpts = array('product', 'industry', 'use_case', 'solution');
         $has_archive        = !in_array($slug, $custom_listed_cpts, true);
 
         register_post_type($slug, array(
@@ -1653,7 +1654,7 @@ add_action('get_header', function () { remove_action('wp_head', '_admin_bar_bump
 // ══════════════════════════════════════════════════════════
 function product_admin_styles() {
     global $post_type;
-    if (!in_array($post_type, array('product', 'industry', 'use_case'), true)) return;
+    if (!in_array($post_type, array('product', 'industry', 'use_case', 'solution'), true)) return;
     ?>
 <style>
 .product-tabs-wrapper{margin-top:20px}
@@ -1703,7 +1704,7 @@ function product_add_meta_boxes() {
         'product_all_settings',
         '📋 Page Settings (All Content Editable)',
         'product_all_settings_callback',
-        array('product', 'industry', 'use_case'),
+        array('product', 'industry', 'use_case', 'solution'),
         'normal',
         'high'
     );
@@ -1714,7 +1715,7 @@ function product_add_meta_boxes() {
         'ee_link_picker',
         '🔗 Internal Link Picker',
         'ee_link_picker_render',
-        array('product', 'industry', 'use_case', 'page', 'post'),
+        array('product', 'industry', 'use_case', 'solution', 'page', 'post'),
         'side',
         'low'
     );
@@ -1732,7 +1733,7 @@ function ee_link_picker_render($post) {
     $targets = array();
 
     /* In-page anchors (only for product/industry CPTs that have the auto-anchor helper) */
-    if (function_exists('ee_get_available_toc_anchors') && in_array($post->post_type, array('product','industry','use_case'), true)) {
+    if (function_exists('ee_get_available_toc_anchors') && in_array($post->post_type, array('product','industry','use_case','solution'), true)) {
         foreach (ee_get_available_toc_anchors($current_id) as $a) {
             $targets[] = array(
                 'group' => 'On this page',
@@ -4850,7 +4851,7 @@ function product_save_meta_box_data($post_id) {
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (wp_is_post_revision($post_id)) return;
     if (!current_user_can('edit_post', $post_id)) return;
-    if (!in_array(get_post_type($post_id), array('product', 'industry', 'use_case'), true)) return;
+    if (!in_array(get_post_type($post_id), array('product', 'industry', 'use_case', 'solution'), true)) return;
 
     // ─── SEO ───
     $seo_fields = array('seo_title','seo_description','seo_keywords','og_image','canonical_url','schema_type','twitter_card','twitter_title','twitter_desc');
@@ -6463,6 +6464,7 @@ add_action('template_redirect', function () {
 add_filter('body_class', function ($classes) {
     if (is_singular('product'))     $classes[] = 'ee-product-page';
     if (is_singular('industry'))    $classes[] = 'ee-industry-page';
+    if (is_singular('solution'))    $classes[] = 'ee-solution-page';
     if (is_singular('case_study'))  $classes[] = 'ee-case-study-page';
     if (is_singular())              $classes[] = 'ee-singular';
     return $classes;
