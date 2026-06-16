@@ -1,9 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ExtraaEdge — AI-Powered Admission CRM | Convert More Students Automatically</title>
+<?php
+/**
+ * Front Page (Home) — ExtraaEdge AI-Powered Admission CRM.
+ *
+ * WordPress theme template: renders the homepage design INSIDE the active
+ * theme's header.php (get_header) and footer.php (get_footer). SEO meta,
+ * Open Graph/Twitter cards, JSON-LD structured data and the Google Fonts
+ * are injected into the theme <head> via the wp_head hook.
+ *
+ * @package ExtraaEdge
+ */
+if (!defined('ABSPATH')) exit;
+
+add_action('wp_head', function () {
+?>
 <meta name="description" content="ExtraaEdge is the AI-Powered Admission CRM trusted by 500+ institutions. AI lead scoring, smart follow-ups, AI calling, WhatsApp automation & counselor intelligence convert more students faster — powered by VidyaAI. Book a free demo." />
 <meta name="keywords" content="Admission CRM, Education CRM India, AI Admission Software, Lead Intent Scoring, AI Calling, VidyaAI, Admission Intelligence, Counselor Performance Intelligence, student enrolment software, WhatsApp Business API admissions" />
 <meta name="author" content="ExtraaEdge Technology Solutions Pvt. Ltd" />
@@ -118,6 +127,11 @@
 <link rel="dns-prefetch" href="https://www.extraaedge.com" />
 <link rel="preconnect" href="https://img.youtube.com" crossorigin />
 <link rel="dns-prefetch" href="https://img.youtube.com" />
+<?php
+});
+
+get_header();
+?>
 
 <style>
 /* =====================================================================
@@ -1187,8 +1201,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 #stories .ts-card{flex:1 1 320px!important;max-width:382px!important;scroll-snap-align:none!important}
 #stories .ts-nav,#stories .ts-hint{display:none!important}
 </style>
-</head>
-<body>
 <div id="prog"></div>
 
 <main>
@@ -7411,5 +7423,4 @@ document.querySelectorAll('.qa button').forEach(function(b){
   (function frame(){gl.uniform2f(uR,cv.width,cv.height);gl.uniform1f(uT,(performance.now()-start)/1000);gl.drawArrays(gl.TRIANGLES,0,3);if(!RM)requestAnimationFrame(frame);})();
 })();
 </script>
-</body>
-</html>
+<?php get_footer(); ?>
