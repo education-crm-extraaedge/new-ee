@@ -101,7 +101,10 @@ get_header();
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* overflow-x:clip (not hidden) clips the wide hero/marquee animations WITHOUT
+   turning <body> into a scroll container — which would break the theme header's
+   position:sticky and make the menu bar scroll away on the homepage. */
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-x:clip}
 .poppins{font-family:'Poppins',sans-serif}
 .container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 .muted{color:var(--muted)}

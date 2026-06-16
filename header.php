@@ -319,6 +319,13 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         .skip-to-content:focus { top:0; }
         #progress { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,#DE6E30,#19335D); z-index:2000; width:0%; }
 
+        /* Sticky-fail fallback — applied by the guard script in this file when an
+           ancestor's overflow/transform breaks position:sticky (e.g. on the
+           homepage). Promotes the header to fixed and shims the body so content
+           doesn't jump under it. Without these rules the JS guard did nothing. */
+        #site-header.ee-force-fixed { position:fixed; top:0; left:0; right:0; width:100%; }
+        body.ee-header-fixed { padding-top: var(--ee-header-h, 72px); }
+
         /* ════════════════════════════════════════════════════════════
            ADVANCED MULTI-LEVEL NAVIGATION — scoped to #site-header
            User-supplied design adapted for WordPress with custom SVGs.
