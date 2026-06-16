@@ -164,6 +164,19 @@ add_action('wp_head', function () use ($pid, $seo_title, $seo_desc, $seo_keyword
     $sw['provider'] = array('@type' => 'Organization', 'name' => 'ExtraaEdge', 'url' => 'https://www.extraaedge.com');
     echo "\n<script type=\"application/ld+json\">" . wp_json_encode($sw, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
 
+    /* BreadcrumbList — helps Google / AI answer-engines understand the page
+       hierarchy (Home › Products › This product). */
+    $crumb = array(
+        '@context'        => 'https://schema.org',
+        '@type'           => 'BreadcrumbList',
+        'itemListElement' => array(
+            array('@type' => 'ListItem', 'position' => 1, 'name' => 'Home',     'item' => home_url('/')),
+            array('@type' => 'ListItem', 'position' => 2, 'name' => 'Products', 'item' => home_url('/products/')),
+            array('@type' => 'ListItem', 'position' => 3, 'name' => wp_strip_all_tags(get_the_title($pid)), 'item' => $canonical),
+        ),
+    );
+    echo "<script type=\"application/ld+json\">" . wp_json_encode($crumb, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
+
     if (!empty($faqs)) {
         $faq_items = array();
         foreach ($faqs as $f) {
@@ -507,6 +520,7 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
     </nav>
 </div>
 
+<!-- START: Hero Section (editable via Product → Hero tab) -->
 <main class="hero" id="top">
     <div class="hero-grid-bg"></div>
     <div class="wrap">
@@ -589,7 +603,9 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
         </div>
     </div>
 </main>
+<!-- END: Hero Section -->
 
+<!-- START: Trusted Institutions / Logo Strip (editable via Home Editor → logos) -->
 <?php
 /* Logo strip — render the SAME global strip the home page uses so the
    editor only manages logos in one place (Home Editor → logos). Reading
@@ -598,7 +614,9 @@ if (function_exists('ee_render_logo_marquee')) {
     ee_render_logo_marquee();
 }
 ?>
+<!-- END: Trusted Institutions / Logo Strip -->
 
+<!-- START: TOC Zone (sticky index + all content sections) -->
 <div class="toc-zone-wrapper" id="toc-zone-wrapper">
     <div class="toc-column" id="toc-column">
         <nav class="toc-wrapper" id="toc" aria-label="Table of Contents">
@@ -616,6 +634,7 @@ if (function_exists('ee_render_logo_marquee')) {
     </div>
     <div class="toc-content-column">
 
+        <!-- START: Overview Section (editable via Product → Education CRM tab) -->
         <?php if ($educrm_h2 || $educrm_p1): ?>
         <section class="section section-b" id="what-is-education-crm" aria-labelledby="edu-crm-h">
             <div class="wrap">
@@ -653,7 +672,9 @@ if (function_exists('ee_render_logo_marquee')) {
             </div>
         </section>
         <?php endif; ?>
+        <!-- END: Overview Section -->
 
+        <!-- START: Features Section (editable via Product → Features tab) -->
         <?php if (!empty($features)): ?>
         <section class="section section-b" id="features" aria-labelledby="features-h">
             <div class="wrap">
@@ -676,7 +697,9 @@ if (function_exists('ee_render_logo_marquee')) {
             </div>
         </section>
         <?php endif; ?>
+        <!-- END: Features Section -->
 
+        <!-- START: Alternating Content Sections (editable via Product → Sections tab) -->
         <?php if (!empty($sections)): foreach ($sections as $sec):
             $sid = $sec['id']      ?? '';
             $sh2 = $sec['heading'] ?? '';
@@ -714,7 +737,9 @@ if (function_exists('ee_render_logo_marquee')) {
             </div></div>
         </section>
         <?php endforeach; endif; ?>
+        <!-- END: Alternating Content Sections -->
 
+        <!-- START: Products / Bottom CTA Section (editable via Product → Bottom CTA tab) -->
         <?php if ($bottom_h2 || !empty($products)): ?>
         <section class="section section-b" id="products" aria-labelledby="cta-h">
             <div class="wrap"><div class="products-inner">
@@ -743,7 +768,9 @@ if (function_exists('ee_render_logo_marquee')) {
             </div></div>
         </section>
         <?php endif; ?>
+        <!-- END: Products / Bottom CTA Section -->
 
+        <!-- START: Testimonials Section (editable via Product → Testimonials tab) -->
         <?php if (!empty($testimonials)): ?>
         <section class="testimonials-section" id="testimonials" aria-labelledby="testi-title">
             <div class="testi-mesh" id="testi-mesh"></div>
@@ -766,7 +793,7 @@ if (function_exists('ee_render_logo_marquee')) {
                     <?php foreach ($testimonials as $i => $t): if (empty($t['name'])) continue; ?>
                     <article class="testi-card">
                         <?php if (!empty($t['youtube_id'])): ?>
-                        <div class="vid-wrap" id="vid-<?php echo (int)$i; ?>" onclick="playVideo('vid-<?php echo (int)$i; ?>','<?php echo esc_js($t['youtube_id']); ?>')" role="button"><div class="vid-thumb"><img src="https://img.youtube.com/vi/<?php echo esc_attr($t['youtube_id']); ?>/maxresdefault.jpg" class="vid-thumb-img" alt="<?php echo esc_attr($t['name']); ?>" width="640" height="360" loading="lazy"><div class="vid-play"></div></div><div class="vid-slot"></div></div>
+                        <div class="vid-wrap" id="vid-<?php echo (int)$i; ?>" onclick="playVideo('vid-<?php echo (int)$i; ?>','<?php echo esc_js($t['youtube_id']); ?>')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();playVideo('vid-<?php echo (int)$i; ?>','<?php echo esc_js($t['youtube_id']); ?>');}" role="button" tabindex="0" aria-label="<?php echo esc_attr('Play video testimonial from ' . $t['name']); ?>"><div class="vid-thumb"><img src="https://img.youtube.com/vi/<?php echo esc_attr($t['youtube_id']); ?>/maxresdefault.jpg" class="vid-thumb-img" alt="<?php echo esc_attr($t['name']); ?>" width="640" height="360" loading="lazy"><div class="vid-play"></div></div><div class="vid-slot"></div></div>
                         <?php endif; ?>
                         <div class="card-body">
                             <?php if (!empty($t['quote'])): ?><blockquote class="card-quote"><?php echo wp_kses_post($t['quote']); ?></blockquote><?php endif; ?>
@@ -785,7 +812,9 @@ if (function_exists('ee_render_logo_marquee')) {
             </div>
         </section>
         <?php endif; ?>
+        <!-- END: Testimonials Section -->
 
+        <!-- START: AI Demo Section (editable via Product → AI Demo tab) -->
         <?php if ($aidemo_h2): ?>
         <section class="ai-demo-section" id="demo" aria-labelledby="ai-cta-h">
             <div class="wrap"><div class="ai-demo-inner">
@@ -822,7 +851,9 @@ if (function_exists('ee_render_logo_marquee')) {
             </div></div>
         </section>
         <?php endif; ?>
+        <!-- END: AI Demo Section -->
 
+        <!-- START: FAQ Section (editable via Product → FAQ tab) -->
         <?php if (!empty($faqs)): ?>
         <section class="faq-section" id="faq" aria-labelledby="faq-title">
             <div class="faq-container">
@@ -850,10 +881,13 @@ if (function_exists('ee_render_logo_marquee')) {
             </div>
         </section>
         <?php endif; ?>
+        <!-- END: FAQ Section -->
 
     </div>
 </div>
+<!-- END: TOC Zone -->
 
+<!-- START: Sticky Conversion Bar -->
 <?php if ($bottom_h2 || $hero_cta_text): ?>
 <div class="cbar" id="cbar">
     <div class="cbar-inner">
@@ -865,6 +899,7 @@ if (function_exists('ee_render_logo_marquee')) {
     </div>
 </div>
 <?php endif; ?>
+<!-- END: Sticky Conversion Bar -->
 
 <script>
 (function(){'use strict';
