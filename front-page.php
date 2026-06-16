@@ -7432,5 +7432,46 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   /* Full-width stacked buttons are easier to tap on tiny screens */
   .ee-home .btn{width:100%;justify-content:center}
 }
+
+/* ============================================================
+   MOBILE: flatten the tall scroll-story sections so they stop
+   leaving huge empty vh gaps, and tighten every section to a
+   ~10px top/bottom rhythm so sections read as distinct blocks.
+   ============================================================ */
+@media (max-width:768px){
+  /* —— VidyaAI · Admission Intelligence (#vidya) ——
+     The desktop scroll-scrubbing uses 74-92vh-tall triggers per step,
+     which read as enormous white gaps on a phone. Collapse to a compact
+     stacked layout with every step + its visual fully visible (mirrors the
+     theme's own no-JS fallback). */
+  #vidya .vx-stage{position:static!important;height:auto!important;padding:6px 0!important}
+  #vidya .vx-view{position:static!important;opacity:1!important;visibility:visible!important;height:auto!important}
+  #vidya .vx-body{height:auto!important;min-height:0!important}
+  #vidya .vx-trigger,
+  #vidya .vx-trigger:first-child,
+  #vidya .vx-trigger:last-child{min-height:0!important;padding:8px 0!important}
+  #vidya .vx-step{opacity:1!important;transform:none!important;filter:none!important;margin-bottom:10px}
+  #vidya .stg{opacity:1!important;transform:none!important}
+  #vidya .vx-rail,#vidya .vx-hint,#vidya .vx-dots,#vidya .vx-progress,.vx-progress{display:none!important}
+
+  /* —— "From first click to enrolment — four moves" (#respond-first) ——
+     Each of the four "moves" had 48px top+bottom padding on mobile; tighten
+     so the steps sit close together without big empty bands. */
+  #respond-first .rf-story,
+  #respond-first .rf-story:first-child{padding-top:12px!important;padding-bottom:12px!important}
+  #respond-first .rf-sticky{padding-bottom:8px!important}
+
+  /* —— Admission Ecosystem (#ecosystem) + every section ——
+     Uniform 10px top/bottom on the section wrappers so no two sections
+     blur together and none carries a tall empty gap on mobile. */
+  .ee-home > section{padding-top:10px!important;padding-bottom:10px!important}
+  .ee-home .ee-wrap,
+  .ee-home .rf-wrap,
+  .ee-home .ea-wrap,
+  .ee-home .vx-head,
+  .ee-home .vx-proof{padding-top:10px!important;padding-bottom:10px!important}
+  /* Tighten the gap under each section's heading/intro on mobile. */
+  .ee-home .intro,.ee-home .ee-head,.ee-home .sg-head,.ee-home .ci-head{margin-bottom:14px!important}
+}
 </style>
 <?php get_footer(); ?>
