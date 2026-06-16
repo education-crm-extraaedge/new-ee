@@ -13,69 +13,20 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<meta name="description" content="ExtraaEdge is the AI-Powered Admission CRM trusted by 500+ institutions. AI lead scoring, smart follow-ups, AI calling, WhatsApp automation & counselor intelligence convert more students faster — powered by VidyaAI. Book a free demo." />
-<meta name="keywords" content="Admission CRM, Education CRM India, AI Admission Software, Lead Intent Scoring, AI Calling, VidyaAI, Admission Intelligence, Counselor Performance Intelligence, student enrolment software, WhatsApp Business API admissions" />
-<meta name="author" content="ExtraaEdge Technology Solutions Pvt. Ltd" />
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-<link rel="canonical" href="https://www.extraaedge.com/" />
+<!--
+  NOTE: title / meta description / keywords / robots / canonical / hreflang /
+  Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
+  by the active theme's header.php (or SEO plugin). They are intentionally NOT
+  repeated here to avoid duplicate-tag conflicts for Google & AI crawlers.
+  This template only adds page-specific structured data (SoftwareApplication +
+  FAQPage) and the homepage's Google Fonts.
+-->
 
-<!-- Open Graph -->
-<meta property="og:locale" content="en_US" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="ExtraaEdge" />
-<meta property="og:url" content="https://www.extraaedge.com/" />
-<meta property="og:title" content="ExtraaEdge — AI-Powered Admission CRM | Convert More Students Automatically" />
-<meta property="og:description" content="500+ institutes trust ExtraaEdge for AI-powered admissions CRM, lead scoring, smart follow-ups, AI calling & counselor intelligence. Book a free demo." />
-<meta property="og:image" content="https://www.extraaedge.com/wp-content/uploads/2022/07/cropped-symbol.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="ExtraaEdge Admission CRM – AI-powered student enrolments" />
-
-<!-- Twitter / X -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content="@ExtraaEdge" />
-<meta name="twitter:title" content="ExtraaEdge — AI-Powered Admission CRM | Convert More Students Automatically" />
-<meta name="twitter:description" content="500+ institutes trust ExtraaEdge for AI admissions CRM, lead scoring, smart follow-ups & counselor intelligence. Book a free demo." />
-<meta name="twitter:image" content="https://www.extraaedge.com/wp-content/uploads/2022/07/cropped-symbol.png" />
-<meta name="twitter:image:alt" content="ExtraaEdge Admission CRM dashboard" />
-
-<!-- Structured data: powers rich results & AI search -->
+<!-- Page-specific structured data: powers rich results & AI search -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://www.extraaedge.com/#website",
-      "url": "https://www.extraaedge.com/",
-      "name": "ExtraaEdge",
-      "alternateName": "ExtraaEdge Admission CRM",
-      "description": "AI-powered Admission CRM for Educational Institutions",
-      "inLanguage": "en-US",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": { "@type": "EntryPoint", "urlTemplate": "https://www.extraaedge.com/?s={search_term_string}" },
-        "query-input": "required name=search_term_string"
-      }
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://www.extraaedge.com/#organization",
-      "name": "ExtraaEdge Technology Solutions Pvt. Ltd",
-      "url": "https://www.extraaedge.com/",
-      "logo": { "@type": "ImageObject", "url": "https://www.extraaedge.com/wp-content/uploads/2022/07/cropped-symbol.png", "width": 512, "height": 512 },
-      "description": "ExtraaEdge provides India's leading AI-powered Admission CRM to schools, colleges, universities and edtech companies.",
-      "foundingDate": "2016",
-      "areaServed": ["IN", "AE", "SG", "GB", "US"],
-      "sameAs": [
-        "https://www.linkedin.com/company/extraaedge/",
-        "https://www.facebook.com/extraaedge",
-        "https://twitter.com/ExtraaEdge",
-        "https://www.youtube.com/@extraaedge",
-        "https://www.g2.com/products/extraaedge/",
-        "https://www.capterra.com/p/166399/ExtraaEdge/"
-      ]
-    },
     {
       "@type": "SoftwareApplication",
       "@id": "https://www.extraaedge.com/#software",
@@ -86,7 +37,7 @@ add_action('wp_head', function () {
       "operatingSystem": "Web, Android, iOS",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR", "description": "Free demo available. Contact for custom pricing." },
       "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.7", "reviewCount": "320", "bestRating": "5", "worstRating": "1" },
-      "provider": { "@id": "https://www.extraaedge.com/#organization" },
+      "provider": { "@type": "Organization", "name": "ExtraaEdge Technology Solutions Pvt. Ltd", "url": "https://www.extraaedge.com/" },
       "featureList": [
         "AI Lead Intent Scoring",
         "Smart Follow-up Automation",
