@@ -205,6 +205,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     <!-- ─── 9. RESOURCE HINTS (TTFB + LCP boost) ─── -->
     <link rel="preconnect"   href="https://fonts.googleapis.com">
     <link rel="preconnect"   href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"   href="https://cdn.tailwindcss.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="dns-prefetch" href="https://www.clarity.ms">
@@ -301,16 +302,25 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
 
-    <!-- ─── 12. Tailwind for Layout & Utils — production-compiled (no CDN) ─── -->
-    <!-- Replaces the cdn.tailwindcss.com JIT runtime (dev-only, render-blocking,
-         flagged by Lighthouse/crawlers) with a pre-built minified stylesheet
-         scanned from the theme's PHP templates. Custom theme.extend colors
-         (brandOrange/brandBlue) and fonts are baked into this file.
-         Rebuild after adding new utility classes:
-           npx tailwindcss@3 -c build-tmp/tailwind.config.js \
-             -i build-tmp/input.css -o assets/css/tailwind.min.css --minify -->
-    <link rel="stylesheet" href="<?php echo esc_url( get_template_directory_uri() . '/assets/css/tailwind.min.css' ); ?>?ver=<?php echo esc_attr( @filemtime( get_template_directory() . '/assets/css/tailwind.min.css' ) ?: '1' ); ?>">
+    <!-- ─── 12. Tailwind for Layout & Utils (EXISTING) ─── -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#DE6E30',
+                        brandBlue: '#19335D',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
 
     <!-- ─── 13. Critical CSS (EXISTING — preserved fully) ─── -->
     <style>
