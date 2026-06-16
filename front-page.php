@@ -101,10 +101,18 @@ get_header();
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-/* overflow-x:clip (not hidden) clips the wide hero/marquee animations WITHOUT
-   turning <body> into a scroll container — which would break the theme header's
-   position:sticky and make the menu bar scroll away on the homepage. */
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-x:clip}
+/* NOTE: do NOT put overflow on <body>. The theme header (#site-header) and its
+   hover mega-menus/dropdowns live directly under <body>, so any overflow:hidden/
+   clip on <body> clips those submenus (they don't open on the homepage) and an
+   overflow:hidden would also turn <body> into a scroll container and break the
+   header's position:sticky. Horizontal overflow from the wide hero/marquee
+   animations is instead clipped on #main-content below, which does NOT contain
+   the header. */
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+/* Clip the homepage's horizontal overflow on the content wrapper (the header is
+   a sibling outside #main-content, so its dropdowns are never clipped). clip
+   (not hidden) keeps overflow-y visible so the sticky scrollytelling still works. */
+#main-content{overflow-x:hidden;overflow-x:clip}
 .poppins{font-family:'Poppins',sans-serif}
 .container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 .muted{color:var(--muted)}
@@ -1157,7 +1165,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 </style>
 <div id="prog"></div>
 
-<main>
+<!-- The theme's header.php already opens <main id="main-content">, so this
+     homepage uses a plain wrapper <div> (not a second <main>) to avoid two
+     nested <main> landmarks — invalid HTML and bad for SEO/screen readers. -->
+<div class="ee-home">
 <!-- ===================== HERO (WebGL) ===================== -->
 <!-- ===================== HERO — brand edition (scoped #xhero) ===================== -->
 <style>
@@ -7200,7 +7211,7 @@ function closeM(m){m.classList.remove("open");document.body.style.overflow=""}
     </div>
   </div>
 </section>
-</main>
+</div>
 
 <script>
 /* honour reduced-motion / low-power devices */
