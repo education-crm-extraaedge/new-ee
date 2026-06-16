@@ -7388,4 +7388,49 @@ document.querySelectorAll('.qa button').forEach(function(b){
   (function frame(){gl.uniform2f(uR,cv.width,cv.height);gl.uniform1f(uT,(performance.now()-start)/1000);gl.drawArrays(gl.TRIANGLES,0,3);if(!RM)requestAnimationFrame(frame);})();
 })();
 </script>
+
+<style id="ee-responsive-100">
+/* ============================================================
+   DEVICE-FRIENDLY SAFETY LAYER — 100% readable on all screens.
+   Appended last so it wins the cascade over every section style.
+   Scoped to .ee-home so the theme header/footer stay untouched.
+   Improves readability + removes horizontal overflow on phones &
+   tablets without rewriting each section's bespoke design.
+   ============================================================ */
+
+/* Contain everything: no sideways scroll, media never overflows. */
+.ee-home{overflow-x:clip}
+.ee-home img,.ee-home svg,.ee-home video,.ee-home iframe,.ee-home canvas{max-width:100%}
+/* Long words / URLs wrap instead of forcing the page wider. */
+.ee-home h1,.ee-home h2,.ee-home h3,.ee-home h4,.ee-home p,.ee-home a,.ee-home li,.ee-home span,.ee-home td{overflow-wrap:break-word;word-break:break-word}
+/* Stop iOS inflating text on rotate. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+/* Anchor jumps land below the sticky header, not hidden under it. */
+.ee-home :target{scroll-margin-top:88px}
+
+/* ---------- Tablet (≤900px) ---------- */
+@media (max-width:900px){
+  .ee-home .container{padding-left:20px;padding-right:20px}
+}
+
+/* ---------- Phone (≤640px): cap headings, comfy text & taps ---------- */
+@media (max-width:640px){
+  .ee-home h1{font-size:clamp(28px,8.4vw,40px)!important;line-height:1.14!important;letter-spacing:-.02em!important}
+  .ee-home h2{font-size:clamp(23px,6.6vw,32px)!important;line-height:1.18!important;letter-spacing:-.01em!important}
+  .ee-home h3{font-size:clamp(18px,5vw,22px)!important;line-height:1.25!important}
+  .ee-home .lead{font-size:clamp(15.5px,4.3vw,17.5px)!important;line-height:1.6!important}
+  .ee-home .container,.ee-home #xhero .container{padding-left:18px!important;padding-right:18px!important}
+  /* Comfortable, finger-friendly buttons */
+  .ee-home .btn{padding:13px 20px!important;font-size:15px!important;min-height:46px}
+}
+
+/* ---------- Small phone (≤400px) ---------- */
+@media (max-width:400px){
+  .ee-home h1{font-size:clamp(25px,8.6vw,33px)!important}
+  .ee-home h2{font-size:clamp(21px,7vw,27px)!important}
+  .ee-home .container,.ee-home #xhero .container{padding-left:15px!important;padding-right:15px!important}
+  /* Full-width stacked buttons are easier to tap on tiny screens */
+  .ee-home .btn{width:100%;justify-content:center}
+}
+</style>
 <?php get_footer(); ?>
