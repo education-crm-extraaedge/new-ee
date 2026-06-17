@@ -4,123 +4,81 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VidyaAI — Grow Enrollments with AI Simplicity</title>
-<meta name="description" content="VidyaAI is an intelligent, AI-first admissions platform that answers, qualifies and follows up with every student across WhatsApp, web and phone — and hands counsellors only hot, ready-to-enrol leads." />
+<meta name="description" content="VidyaAI is an intelligent, AI-first admissions platform that answers, qualifies and follows up with every student across WhatsApp, web and phone — and hands counsellors only hot, ready-to-enrol leads. Powered by ExtraaEdge." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --navy:#19335D;
-    --navy-2:#1E3A8A;
-    --cyan:#06B6D4;
-    --cyan-soft:#22D3EE;
-    --bg:#F8FAFC;
-    --slate:#0F172A;
-    --slate-2:#1E293B;
-    --line:#E2E8F0;
-    --muted:#64748B;
-    --text:#0F172A;
-    --white:#FFFFFF;
-    --radius:20px;
+    --navy:#19335D; --navy-2:#1E3A8A; --cyan:#06B6D4; --cyan-soft:#22D3EE;
+    --bg:#F8FAFC; --slate:#0F172A; --slate-2:#1E293B; --line:#E2E8F0;
+    --muted:#64748B; --text:#0F172A; --white:#FFFFFF;
+    --radius:22px;
     --shadow-sm:0 1px 2px rgba(15,23,42,.06),0 1px 3px rgba(15,23,42,.1);
     --shadow-md:0 10px 30px -10px rgba(25,51,93,.18);
-    --shadow-lg:0 30px 60px -20px rgba(25,51,93,.28);
+    --shadow-lg:0 34px 70px -24px rgba(25,51,93,.32);
     --shadow-cyan:0 18px 40px -12px rgba(6,182,212,.45);
-    --maxw:1180px;
+    --maxw:1200px;
     --grad:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 55%,#0b3a6b 100%);
     --grad-cyan:linear-gradient(135deg,var(--cyan) 0%,#0891B2 100%);
   }
-
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  h1,h2,h3,h4,.display{font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;line-height:1.1;color:var(--navy)}
+  body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,.display{font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-.025em;line-height:1.08;color:var(--navy)}
   a{text-decoration:none;color:inherit}
   img{max-width:100%;display:block}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  section{padding:96px 0}
+  section{padding:104px 0}
 
-  /* ---------- Scroll reveal ---------- */
-  .reveal{opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
   .reveal.in{opacity:1;transform:none}
-  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}.reveal.d5{transition-delay:.40s}
 
-  /* ---------- Pills ---------- */
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:8px;
-    font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;
-    font-size:13px;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--cyan);background:rgba(6,182,212,.1);
-    padding:8px 16px;border-radius:999px;margin-bottom:20px;
-    border:1px solid rgba(6,182,212,.22);
-  }
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Plus Jakarta Sans';font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);background:rgba(6,182,212,.1);padding:8px 16px;border-radius:999px;margin-bottom:20px;border:1px solid rgba(6,182,212,.22)}
   .eyebrow.on-dark{color:var(--cyan-soft);background:rgba(6,182,212,.14);border-color:rgba(6,182,212,.3)}
-
-  .section-head{max-width:730px;margin:0 auto 56px;text-align:center}
-  .section-head h2{font-size:clamp(28px,4vw,46px);font-weight:800;margin-bottom:16px}
+  .section-head{max-width:740px;margin:0 auto 56px;text-align:center}
+  .section-head h2{font-size:clamp(30px,4.2vw,48px);font-weight:800;margin-bottom:16px}
   .section-head p{font-size:18px;color:var(--muted)}
-  .section-head.dark h2{color:#fff}
-  .section-head.dark p{color:#94A3B8}
+  .section-head.dark h2{color:#fff}.section-head.dark p{color:#94A3B8}
 
-  /* ---------- Buttons ---------- */
-  .btn{
-    display:inline-flex;align-items:center;gap:10px;
-    font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;
-    padding:15px 28px;border-radius:14px;cursor:pointer;border:none;
-    transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
-  }
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:'Plus Jakarta Sans';font-weight:700;font-size:16px;padding:15px 28px;border-radius:14px;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s,background .2s}
   .btn-primary{background:var(--grad-cyan);color:#fff;box-shadow:var(--shadow-cyan)}
   .btn-primary:hover{transform:translateY(-3px);box-shadow:0 24px 50px -12px rgba(6,182,212,.6)}
-  .btn-navy{background:var(--navy);color:#fff}
-  .btn-navy:hover{transform:translateY(-3px);background:var(--navy-2)}
+  .btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{transform:translateY(-3px);background:var(--navy-2)}
   .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px)}
   .btn-ghost:hover{background:rgba(255,255,255,.16)}
 
   /* ============ HERO ============ */
-  .hero{position:relative;background:var(--grad);color:#fff;padding:120px 0 110px;overflow:hidden}
+  .hero{position:relative;background:var(--slate);color:#fff;padding:124px 0 112px;overflow:hidden}
   .hero .layer{position:absolute;inset:0;pointer-events:none}
-  .hero .glow{
+  .hero .mesh{
     background:
-      radial-gradient(600px 380px at 80% 10%,rgba(6,182,212,.32),transparent 60%),
-      radial-gradient(520px 340px at 5% 90%,rgba(34,211,238,.18),transparent 60%);
+      radial-gradient(640px 440px at 78% 8%,rgba(6,182,212,.40),transparent 60%),
+      radial-gradient(560px 380px at 8% 92%,rgba(30,58,138,.55),transparent 62%),
+      radial-gradient(700px 500px at 50% 50%,rgba(25,51,93,.7),transparent 70%);
     will-change:transform;
   }
-  .hero .grid-bg{
-    opacity:.4;
-    background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
-    background-size:48px 48px;
-    -webkit-mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%);
-    mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%);
-    will-change:transform;
-  }
-  .hero .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;will-change:transform}
-  .hero .orb.o1{width:340px;height:340px;background:#06B6D4;top:-80px;right:8%}
-  .hero .orb.o2{width:280px;height:280px;background:#1E3A8A;bottom:-90px;left:-40px}
+  .hero .grid-bg{opacity:.35;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:46px 46px;-webkit-mask-image:radial-gradient(circle at 50% 32%,#000,transparent 75%);mask-image:radial-gradient(circle at 50% 32%,#000,transparent 75%);will-change:transform}
+  .hero .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;will-change:transform}
+  .hero .orb.o1{width:360px;height:360px;background:#06B6D4;top:-90px;right:6%}
+  .hero .orb.o2{width:300px;height:300px;background:#1E3A8A;bottom:-110px;left:-50px}
   .hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
-  .hero-logo{height:40px;width:auto;margin-bottom:30px;filter:brightness(0) invert(1)}
-  .hero h1{color:#fff;font-size:clamp(36px,5.4vw,60px);font-weight:800;margin-bottom:20px}
+  .hero-logo{height:40px;width:auto;margin-bottom:28px;filter:brightness(0) invert(1)}
+  .hero h1{color:#fff;font-size:clamp(38px,5.6vw,64px);font-weight:800;margin-bottom:20px}
   .hero h1 .accent{background:linear-gradient(120deg,var(--cyan-soft),#7dd3fc);-webkit-background-clip:text;background-clip:text;color:transparent}
-  /* typewriter line */
-  .typer-line{display:block;min-height:1.15em;color:var(--cyan-soft);font-size:clamp(20px,3vw,32px);font-weight:800;margin-bottom:6px}
+  .typer-line{display:block;min-height:1.15em;color:var(--cyan-soft);font-size:clamp(20px,3vw,30px);font-weight:800;margin-bottom:8px}
   .caret{display:inline-block;width:3px;height:1em;background:var(--cyan-soft);margin-left:3px;transform:translateY(4px);animation:blink 1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
-  .hero p.lead{font-size:18px;color:#cbd5e1;max-width:540px;margin-bottom:34px}
-  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:38px}
-  .hero-stats{display:flex;gap:30px;flex-wrap:wrap}
+  .hero p.lead{font-size:18px;color:#cbd5e1;max-width:548px;margin-bottom:32px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px}
+  .hero-stats{display:flex;gap:28px;flex-wrap:wrap}
   .hero-stats .stat .n{font-family:'Plus Jakarta Sans';font-weight:800;font-size:26px;color:#fff}
   .hero-stats .stat .l{font-size:12.5px;color:#94A3B8;max-width:150px}
 
-  /* glass chat card */
-  .glass{background:rgba(255,255,255,.1);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.18)}
+  .glass{background:rgba(255,255,255,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.16)}
   .chat-card{border-radius:24px;padding:22px;box-shadow:var(--shadow-lg);position:relative}
-  .chat-head{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.18);margin-bottom:16px}
+  .chat-head{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.16);margin-bottom:16px}
   .chat-avatar{width:42px;height:42px;border-radius:12px;background:var(--grad-cyan);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-family:'Plus Jakarta Sans';font-size:18px}
   .chat-head .title{font-family:'Plus Jakarta Sans';font-weight:700;color:#fff;font-size:15px}
   .chat-head .sub{font-size:12px;color:#86efac;display:flex;align-items:center;gap:6px}
@@ -131,21 +89,24 @@
   .bubble.ai{background:var(--navy);color:#fff;border-bottom-left-radius:4px;border:1px solid rgba(255,255,255,.1)}
   .bubble.ai .strong{color:var(--cyan-soft);font-weight:700}
   @keyframes bubbleIn{to{opacity:1;transform:none}}
-  .qual{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#86efac;background:rgba(34,197,94,.14);padding:8px 12px;border-radius:10px;margin-top:4px;opacity:0;animation:bubbleIn .5s .2s forwards}
+  .qual{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#86efac;background:rgba(34,197,94,.14);padding:8px 12px;border-radius:10px;margin-top:4px;opacity:0;animation:bubbleIn .5s 2.1s forwards}
   .float-badge{position:absolute;border-radius:14px;padding:10px 14px;box-shadow:var(--shadow-md);font-family:'Plus Jakarta Sans';font-weight:700;font-size:13px;color:#fff;display:flex;align-items:center;gap:8px;background:rgba(15,23,42,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15)}
   .float-badge.b1{top:-18px;right:24px;color:var(--cyan-soft);animation:floaty 4s ease-in-out infinite}
   .float-badge.b2{bottom:-18px;left:-14px;animation:floaty 4s ease-in-out infinite .8s}
   @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-  /* trust strip */
-  .trust{background:var(--slate);color:#fff;padding:26px 0}
-  .trust .wrap{display:flex;align-items:center;justify-content:center;gap:14px 40px;flex-wrap:wrap;text-align:center}
-  .trust .lbl{font-size:13px;color:#64748B;text-transform:uppercase;letter-spacing:.1em;font-weight:600}
-  .trust .item{display:flex;align-items:center;gap:8px;font-family:'Plus Jakarta Sans';font-weight:700;font-size:15px;color:#E2E8F0}
+  /* ============ MARQUEE TRUST ============ */
+  .marquee{background:var(--slate);color:#fff;padding:22px 0;border-top:1px solid rgba(255,255,255,.06);overflow:hidden;position:relative}
+  .marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2}
+  .marquee::before{left:0;background:linear-gradient(90deg,var(--slate),transparent)}
+  .marquee::after{right:0;background:linear-gradient(270deg,var(--slate),transparent)}
+  .marquee-track{display:flex;gap:48px;width:max-content;animation:scrollX 28s linear infinite}
+  .marquee .item{display:flex;align-items:center;gap:8px;font-family:'Plus Jakarta Sans';font-weight:700;font-size:15px;color:#cbd5e1;white-space:nowrap}
+  @keyframes scrollX{to{transform:translateX(-50%)}}
 
   /* ============ LIVE DASHBOARD ============ */
   .dash-sec{background:var(--slate);color:#fff;position:relative;overflow:hidden}
-  .dash-sec::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 380px at 85% -5%,rgba(6,182,212,.18),transparent 60%)}
+  .dash-sec::before{content:"";position:absolute;inset:0;background:radial-gradient(720px 400px at 85% -5%,rgba(6,182,212,.18),transparent 60%)}
   .dash{position:relative;display:grid;grid-template-columns:1.3fr 1fr;gap:24px}
   .dash-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:24px}
   .live-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.08em;color:#fca5a5;background:rgba(239,68,68,.12);padding:5px 12px;border-radius:999px;margin-bottom:18px}
@@ -158,7 +119,7 @@
   .kpi .bar{height:6px;border-radius:6px;background:rgba(255,255,255,.08);margin-top:12px;overflow:hidden}
   .kpi .bar i{display:block;height:100%;border-radius:6px;background:var(--grad-cyan);transition:width .6s ease}
   .feed-title{font-family:'Plus Jakarta Sans';font-weight:700;font-size:15px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
-  .feed{display:flex;flex-direction:column;gap:10px;max-height:300px;overflow:hidden}
+  .feed{display:flex;flex-direction:column;gap:10px}
   .feed-item{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;animation:feedIn .5s ease}
   @keyframes feedIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
   .feed-item .ring{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-family:'Plus Jakarta Sans';font-weight:800;font-size:13px;color:#fff}
@@ -166,22 +127,27 @@
   .feed-item .mt{font-size:11.5px;color:#94A3B8}
   .feed-item .tag2{margin-left:auto;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
 
-  /* ============ STATS / gap ============ */
+  /* ============ GAP ============ */
   .gap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px}
   .gap-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:36px 30px;box-shadow:var(--shadow-sm);transition:transform .25s,box-shadow .25s}
   .gap-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
   .gap-card .big{font-family:'Plus Jakarta Sans';font-weight:800;font-size:46px;color:var(--cyan);margin-bottom:8px}
   .gap-card p{color:var(--muted);font-size:15px}
 
-  /* ============ FEATURES ============ */
-  .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-  .feat-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;transition:transform .25s,box-shadow .25s,border-color .25s}
-  .feat-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:rgba(6,182,212,.4)}
-  .feat-ico{width:54px;height:54px;border-radius:14px;background:rgba(6,182,212,.12);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px}
-  .feat-card h3{font-size:19px;font-weight:700;margin-bottom:10px}
-  .feat-card p{color:var(--muted);font-size:14.5px}
+  /* ============ BENTO SUPERPOWERS ============ */
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;grid-auto-rows:1fr}
+  .bento .cell{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;overflow:hidden}
+  .bento .cell:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:rgba(6,182,212,.4)}
+  .bento .feat-ico{width:54px;height:54px;border-radius:14px;background:rgba(6,182,212,.12);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px}
+  .bento h3{font-size:19px;font-weight:700;margin-bottom:10px}
+  .bento p{color:var(--muted);font-size:14.5px}
+  .bento .wide{grid-column:span 2;background:var(--grad);color:#fff;display:flex;flex-direction:column;justify-content:center}
+  .bento .wide h3{color:#fff;font-size:24px}.bento .wide p{color:#cbd5e1}
+  .bento .wide .mini{display:flex;gap:22px;margin-top:16px}
+  .bento .wide .mini b{font-family:'Plus Jakarta Sans';font-size:24px;display:block}
+  .bento .wide .mini span{font-size:12px;color:#94A3B8}
 
-  /* ============ PRODUCTS — scroll-driven view switch ============ */
+  /* ============ PRODUCTS scroll switch ============ */
   .products{background:var(--slate);color:#fff}
   .prod-switch{position:relative;display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:start}
   .prod-tabs{position:sticky;top:120px;display:flex;flex-direction:column;gap:14px}
@@ -190,14 +156,12 @@
   .prod-tab .tag{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--cyan-soft);text-transform:uppercase}
   .prod-tab h3{color:#fff;font-size:21px;margin:6px 0 4px}
   .prod-tab .role{font-size:13px;color:#94A3B8}
-  .prod-tab .desc{font-size:13.5px;color:#cbd5e1;margin-top:10px;max-height:0;overflow:hidden;opacity:0;transition:max-height .4s,opacity .3s,margin .3s}
-  .prod-tab.active .desc{max-height:120px;opacity:1;margin-top:12px}
+  .prod-tab .desc{font-size:13.5px;color:#cbd5e1;max-height:0;overflow:hidden;opacity:0;transition:max-height .4s,opacity .3s,margin .3s}
+  .prod-tab.active .desc{max-height:140px;opacity:1;margin-top:12px}
   .prod-stage{position:sticky;top:120px}
-  .stage-panel{display:none;animation:stageIn .5s ease}
-  .stage-panel.show{display:block}
+  .stage-panel{display:none;animation:stageIn .5s ease}.stage-panel.show{display:block}
   @keyframes stageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
-  /* mini panels (shared) */
   .panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:24px;color:#fff;backdrop-filter:blur(8px)}
   .panel .ph{display:flex;align-items:center;gap:10px;font-size:13px;color:#94A3B8;margin-bottom:16px}
   .panel .ph .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 1.8s infinite}
@@ -207,8 +171,6 @@
   .panel .doc{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:10px 14px;border-radius:12px;font-size:13px;margin-bottom:10px}
   .quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
   .quick span{background:rgba(6,182,212,.15);color:var(--cyan-soft);font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid rgba(6,182,212,.3)}
-
-  /* voice panel + wave */
   .wave{display:flex;align-items:center;gap:4px;height:54px;margin:8px 0 16px}
   .wave i{flex:1;background:var(--grad-cyan);border-radius:4px;height:20%;animation:wave 1.1s ease-in-out infinite}
   @keyframes wave{0%,100%{height:18%}50%{height:100%}}
@@ -221,8 +183,6 @@
   .voice-foot{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1)}
   .voice-foot .qn{font-family:'Plus Jakarta Sans';font-weight:800;color:var(--cyan-soft);font-size:15px}
   .voice-foot .qs{font-size:12px;color:#94A3B8}
-
-  /* intent score (animated counter ring) */
   .score-top{display:flex;align-items:center;gap:16px;margin-bottom:16px}
   .score-ring{flex:none;width:90px;height:90px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--cyan) 0%, #243049 0%)}
   .score-ring::after{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--slate)}
@@ -233,7 +193,31 @@
   .signal{display:flex;gap:10px;font-size:14px;color:#cbd5e1;padding:8px 0;border-top:1px dashed rgba(255,255,255,.12)}
   .signal .tick{color:var(--cyan);font-weight:800}
 
-  /* ============ SCROLL STORYTELLING (sticky) ============ */
+  /* ============ INTERACTIVE DEMO ============ */
+  .demo-tabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:30px}
+  .demo-tab{font-family:'Plus Jakarta Sans';font-weight:700;font-size:14px;padding:11px 20px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;transition:all .25s}
+  .demo-tab.active{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:var(--shadow-md)}
+  .demo-stage{max-width:720px;margin:0 auto}
+  .demo-window{background:var(--slate);border-radius:24px;padding:24px;box-shadow:var(--shadow-lg);border:1px solid rgba(255,255,255,.08)}
+  .demo-win-head{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:18px}
+  .demo-win-head .av{width:40px;height:40px;border-radius:11px;background:var(--grad-cyan);display:grid;place-items:center;color:#fff;font-weight:800;font-family:'Plus Jakarta Sans'}
+  .demo-win-head .ti{font-family:'Plus Jakarta Sans';font-weight:700;color:#fff;font-size:15px}
+  .demo-win-head .su{font-size:12px;color:#94A3B8}
+  .demo-thread{display:flex;flex-direction:column;gap:12px;min-height:280px;max-height:460px;overflow-y:auto;padding-right:6px}
+  .demo-thread::-webkit-scrollbar{width:6px}.demo-thread::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:6px}
+  .dm{padding:12px 16px;border-radius:16px;font-size:14.5px;max-width:86%;line-height:1.5}
+  .dm.u{background:rgba(255,255,255,.1);color:#e2e8f0;margin-left:auto;border-bottom-right-radius:4px}
+  .dm.a{background:var(--navy);color:#fff;border:1px solid rgba(255,255,255,.1);border-bottom-left-radius:4px}
+  .dm.a b{color:var(--cyan-soft)}
+  .dm-action{align-self:flex-start;background:rgba(6,182,212,.16);color:var(--cyan-soft);border:1px solid rgba(6,182,212,.34);font-weight:600;font-size:13px;padding:9px 14px;border-radius:12px}
+  .dm-sched{align-self:flex-start;background:rgba(34,197,94,.12);color:#86efac;border:1px solid rgba(34,197,94,.3);font-size:13px;padding:11px 14px;border-radius:12px;display:flex;gap:10px;align-items:center}
+  .typing{display:inline-flex;gap:4px;padding:14px 16px}
+  .typing i{width:7px;height:7px;border-radius:50%;background:#94A3B8;animation:typing 1.2s infinite}
+  .typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+  @keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+  .demo-foot{margin-top:14px;font-size:11.5px;color:#64748B;text-align:center}
+
+  /* ============ STORY ============ */
   .story{position:relative;background:#fff}
   .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
   .story-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center}
@@ -243,7 +227,6 @@
   .story-step .num{width:46px;height:46px;border-radius:13px;background:var(--grad);color:#fff;font-family:'Plus Jakarta Sans';font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:18px}
   .story-step h3{font-size:clamp(24px,3.2vw,34px);font-weight:800;margin-bottom:14px}
   .story-step p{font-size:16.5px;color:var(--muted);max-width:440px}
-  /* visual frames */
   .frame{background:var(--slate);border-radius:24px;padding:26px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;color:#fff}
   .frame-stage{position:relative;min-height:330px}
   .frame-panel{position:absolute;inset:26px;opacity:0;transform:translateY(20px) scale(.98);transition:opacity .5s,transform .5s}
@@ -256,20 +239,33 @@
   .progress-line i{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.12);transition:background .3s}
   .progress-line i.on{background:var(--cyan)}
 
-  /* ============ HOW IT WORKS (cards) ============ */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 24px;position:relative;transition:transform .25s,box-shadow .25s}
-  .step:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
-  .step .num{width:42px;height:42px;border-radius:12px;background:var(--grad);color:#fff;font-family:'Plus Jakarta Sans';font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
-  .step h3{font-size:18px;font-weight:700;margin-bottom:8px}
-  .step p{font-size:14px;color:var(--muted)}
+  /* ============ ROI TABS ============ */
+  .roi-tabs{display:flex;gap:10px;justify-content:center;margin-bottom:28px;flex-wrap:wrap}
+  .roi-tab{font-family:'Plus Jakarta Sans';font-weight:700;font-size:14px;padding:12px 22px;border-radius:14px;border:1.5px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;transition:all .25s}
+  .roi-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .roi-panel{display:none}.roi-panel.show{display:block;animation:stageIn .4s ease}
+  .roi-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-md);overflow:hidden;max-width:920px;margin:0 auto}
+  .roi-banner{background:var(--grad);color:#fff;padding:22px 30px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .roi-banner .big{font-family:'Plus Jakarta Sans';font-weight:800;font-size:30px;background:linear-gradient(120deg,#fff,var(--cyan-soft));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .roi-banner .sub{font-size:13.5px;color:#cbd5e1}
+  table.roi{width:100%;border-collapse:collapse;font-size:14.5px}
+  table.roi th,table.roi td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line)}
+  table.roi th{font-family:'Plus Jakarta Sans';font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+  table.roi td:first-child{font-weight:600;color:var(--slate-2)}
+  table.roi .imp{color:var(--cyan);font-weight:700}
+  table.roi tr:last-child td{border-bottom:none;background:rgba(6,182,212,.06);font-weight:700}
+  .roi-note{font-size:12.5px;color:var(--muted);padding:14px 18px;background:var(--bg)}
 
-  /* ============ ROI BAND (animated counters) ============ */
-  .band{background:var(--grad);color:#fff;border-radius:28px;padding:56px 48px;position:relative;overflow:hidden}
-  .band::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 300px at 90% 0,rgba(6,182,212,.3),transparent 60%)}
-  .band-grid{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
-  .band-grid .n{font-family:'Plus Jakarta Sans';font-weight:800;font-size:44px;background:linear-gradient(120deg,#fff,var(--cyan-soft));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .band-grid .l{font-size:14px;color:#cbd5e1;margin-top:4px}
+  /* ============ ARCHITECTURE ============ */
+  .arch{background:var(--slate);color:#fff}
+  .arch-stack{display:flex;flex-direction:column;gap:16px;max-width:860px;margin:0 auto}
+  .arch-row{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px 26px;text-align:center;position:relative}
+  .arch-row .lbl{font-family:'Plus Jakarta Sans';font-weight:800;font-size:18px;color:#fff;margin-bottom:4px}
+  .arch-row .ds{font-size:13.5px;color:#94A3B8}
+  .arch-row.hl{border-color:var(--cyan);background:rgba(6,182,212,.08);box-shadow:var(--shadow-cyan)}
+  .arch-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+  .arch-chips span{font-size:12.5px;font-weight:600;color:#cbd5e1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px}
+  .arch-conn{height:18px;width:2px;background:rgba(6,182,212,.4);margin:-8px auto}
 
   /* ============ EMPATHY ============ */
   .emp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -282,23 +278,36 @@
   /* ============ COMPARISON ============ */
   .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
   .cmp{border-radius:var(--radius);padding:32px;border:1px solid var(--line)}
-  .cmp.old{background:#fff}
-  .cmp.new{background:var(--slate);color:#fff;border-color:rgba(6,182,212,.3)}
+  .cmp.old{background:#fff}.cmp.new{background:var(--slate);color:#fff;border-color:rgba(6,182,212,.3)}
   .cmp .lbl{display:inline-block;font-family:'Plus Jakarta Sans';font-weight:800;font-size:12px;letter-spacing:.12em;padding:6px 14px;border-radius:999px;margin-bottom:18px}
-  .cmp.old .lbl{background:#FEE2E2;color:#b91c1c}
-  .cmp.new .lbl{background:rgba(6,182,212,.18);color:var(--cyan-soft)}
-  .cmp h3{font-size:20px;margin-bottom:18px}
-  .cmp.new h3{color:#fff}
+  .cmp.old .lbl{background:#FEE2E2;color:#b91c1c}.cmp.new .lbl{background:rgba(6,182,212,.18);color:var(--cyan-soft)}
+  .cmp h3{font-size:20px;margin-bottom:18px}.cmp.new h3{color:#fff}
   .cmp ul{list-style:none;display:flex;flex-direction:column;gap:12px}
   .cmp li{display:flex;gap:10px;font-size:14.5px}
-  .cmp.old li{color:#64748B}
-  .cmp.new li{color:#cbd5e1}
-  .cmp .ic{flex:none;font-weight:800}
-  .cmp.old .ic{color:#ef4444}
-  .cmp.new .ic{color:var(--cyan)}
+  .cmp.old li{color:#64748B}.cmp.new li{color:#cbd5e1}
+  .cmp .ic{flex:none;font-weight:800}.cmp.old .ic{color:#ef4444}.cmp.new .ic{color:var(--cyan)}
+
+  /* ============ USE CASES ============ */
+  .uc-tabs{display:flex;gap:10px;justify-content:center;margin-bottom:30px}
+  .uc-tab{font-family:'Plus Jakarta Sans';font-weight:700;font-size:15px;padding:13px 26px;border-radius:14px;border:1.5px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;transition:all .25s}
+  .uc-tab.active{background:var(--grad-cyan);color:#fff;border-color:transparent;box-shadow:var(--shadow-cyan)}
+  .uc-panel{display:none}.uc-panel.show{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;animation:stageIn .4s ease}
+  .uc-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;transition:transform .25s,box-shadow .25s}
+  .uc-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+  .uc-card .em{font-size:24px;margin-bottom:12px}
+  .uc-card h4{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .uc-card .beta{font-size:10px;font-weight:700;color:var(--cyan);background:rgba(6,182,212,.12);padding:2px 7px;border-radius:6px}
+  .uc-card p{font-size:14px;color:var(--muted)}
+
+  /* ============ ROI BAND ============ */
+  .band{background:var(--grad);color:#fff;border-radius:28px;padding:56px 48px;position:relative;overflow:hidden}
+  .band::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 300px at 90% 0,rgba(6,182,212,.3),transparent 60%)}
+  .band-grid{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
+  .band-grid .n{font-family:'Plus Jakarta Sans';font-weight:800;font-size:44px;background:linear-gradient(120deg,#fff,var(--cyan-soft));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .band-grid .l{font-size:14px;color:#cbd5e1;margin-top:4px}
 
   /* ============ LANGUAGES ============ */
-  .langs{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:780px;margin:0 auto}
+  .langs{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:800px;margin:0 auto}
   .langs span{font-family:'Plus Jakarta Sans';font-weight:600;font-size:16px;color:var(--navy);background:#fff;border:1px solid var(--line);padding:12px 22px;border-radius:999px;box-shadow:var(--shadow-sm);transition:transform .2s,border-color .2s}
   .langs span:hover{transform:translateY(-3px);border-color:var(--cyan);color:var(--cyan)}
   .langs span.more{background:var(--navy);color:#fff;border-color:var(--navy)}
@@ -307,9 +316,17 @@
   .int-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
   .int{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 20px;display:flex;gap:14px;align-items:flex-start;transition:transform .2s,box-shadow .2s}
   .int:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
-  .int .em{font-size:26px}
-  .int .nm{font-family:'Plus Jakarta Sans';font-weight:700;color:var(--navy);font-size:15px}
-  .int .ds{font-size:13px;color:var(--muted)}
+  .int .em{font-size:26px}.int .nm{font-family:'Plus Jakarta Sans';font-weight:700;color:var(--navy);font-size:15px}.int .ds{font-size:13px;color:var(--muted)}
+
+  /* ============ FOUNDERS ============ */
+  .founder{background:var(--slate);color:#fff;border-radius:28px;padding:54px 50px;position:relative;overflow:hidden}
+  .founder::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 360px at 90% 110%,rgba(6,182,212,.2),transparent 60%)}
+  .founder .q{position:relative;font-family:'Plus Jakarta Sans';font-weight:700;font-size:clamp(20px,2.6vw,30px);line-height:1.4;color:#fff;max-width:840px;margin-bottom:26px}
+  .founder .q .hl{color:var(--cyan-soft)}
+  .founder .by{position:relative;display:flex;align-items:center;gap:14px}
+  .founder .av{width:48px;height:48px;border-radius:12px;background:var(--grad-cyan);display:grid;place-items:center;font-family:'Plus Jakarta Sans';font-weight:800;color:#fff}
+  .founder .nm{font-family:'Plus Jakarta Sans';font-weight:700;font-size:15px;color:#fff}
+  .founder .ro{font-size:13px;color:#94A3B8}
 
   /* ============ TESTIMONIALS ============ */
   .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -319,8 +336,7 @@
   .test p{font-size:15px;color:var(--slate-2);margin-bottom:20px}
   .test .who{display:flex;align-items:center;gap:12px}
   .test .ava{width:44px;height:44px;border-radius:12px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans';font-weight:800;font-size:15px}
-  .test .nm{font-family:'Plus Jakarta Sans';font-weight:700;color:var(--navy);font-size:15px}
-  .test .ro{font-size:13px;color:var(--muted)}
+  .test .nm{font-family:'Plus Jakarta Sans';font-weight:700;color:var(--navy);font-size:15px}.test .ro{font-size:13px;color:var(--muted)}
 
   /* ============ FAQ ============ */
   .faq-wrap{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
@@ -332,17 +348,15 @@
   .faq[open] summary .pm{transform:rotate(45deg)}
   .faq .body{padding:0 26px 24px;color:var(--muted);font-size:15px}
 
-  /* ============ DEMO ============ */
-  .demo{background:var(--grad);color:#fff;position:relative;overflow:hidden}
-  .demo::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 380px at 15% 20%,rgba(6,182,212,.28),transparent 60%)}
+  /* ============ DEMO CTA ============ */
+  .demo-cta{background:var(--grad);color:#fff;position:relative;overflow:hidden}
+  .demo-cta::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 380px at 15% 20%,rgba(6,182,212,.28),transparent 60%)}
   .demo-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-  .demo h2{color:#fff;font-size:clamp(28px,3.6vw,42px);font-weight:800;margin-bottom:18px}
-  .demo p.intro{color:#cbd5e1;font-size:17px;margin-bottom:26px}
+  .demo-cta h2{color:#fff;font-size:clamp(28px,3.6vw,42px);font-weight:800;margin-bottom:18px}
+  .demo-cta p.intro{color:#cbd5e1;font-size:17px;margin-bottom:26px}
   .check-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
   .check-list li{display:flex;gap:12px;font-size:15.5px;color:#e2e8f0}
   .check-list li .tick{flex:none;width:24px;height:24px;border-radius:50%;background:rgba(6,182,212,.22);color:var(--cyan-soft);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;margin-top:1px}
-  .copy .check-list li{color:var(--slate-2)}
-  .copy .check-list li .tick{background:rgba(6,182,212,.14);color:var(--cyan)}
   .form-card{background:#fff;border-radius:24px;padding:34px;box-shadow:var(--shadow-lg)}
   .form-card h3{font-size:22px;font-weight:800;margin-bottom:6px}
   .form-card .sub{font-size:14px;color:var(--muted);margin-bottom:22px}
@@ -353,31 +367,33 @@
   .form-card .btn{width:100%;justify-content:center;margin-top:8px}
   .form-card .note{text-align:center;font-size:12.5px;color:var(--muted);margin-top:14px}
 
-  /* split shared */
   .split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
   .split .copy h2{font-size:clamp(26px,3.4vw,40px);font-weight:800;margin-bottom:18px}
   .split .copy p.intro{font-size:17px;color:var(--muted);margin-bottom:24px}
 
-  /* ============ RESPONSIVE ============ */
   @media (max-width:980px){
     .hero-grid,.split,.demo-grid,.dash,.story-grid,.prod-switch{grid-template-columns:1fr;gap:40px}
-    .feat-grid,.steps,.band-grid,.int-grid,.kpi-grid{grid-template-columns:repeat(2,1fr)}
+    .bento,.int-grid{grid-template-columns:repeat(2,1fr)}
+    .bento .wide{grid-column:span 2}
+    .feat-grid,.steps,.band-grid,.kpi-grid{grid-template-columns:repeat(2,1fr)}
     .gap-grid,.emp-grid,.test-grid{grid-template-columns:1fr}
     .cmp-grid{grid-template-columns:1fr}
+    .uc-panel.show{grid-template-columns:1fr}
     .prod-tabs,.prod-stage,.story-sticky{position:static;top:auto;height:auto}
     .story-step{min-height:auto;padding:30px 0}
     .frame-panel{position:relative;inset:auto;opacity:1;transform:none;margin-bottom:14px}
     .frame-panel:not(.show){display:none}
+    table.roi{font-size:13px}table.roi th,table.roi td{padding:11px 12px}
   }
   @media (max-width:560px){
-    section{padding:64px 0}
-    .feat-grid,.steps,.band-grid,.int-grid,.kpi-grid{grid-template-columns:1fr}
-    .hero{padding:90px 0 80px}
-    .band{padding:40px 24px}
-    .hero-stats{gap:20px}
+    section{padding:68px 0}
+    .bento,.int-grid,.band-grid,.kpi-grid{grid-template-columns:1fr}
+    .bento .wide{grid-column:span 1}
+    .hero{padding:92px 0 80px}.band,.founder{padding:40px 24px}
   }
   @media (prefers-reduced-motion:reduce){
     .reveal{opacity:1;transform:none;transition:none}
+    .marquee-track{animation:none}
     *{animation-duration:.001ms!important;animation-iteration-count:1!important}
   }
 </style>
@@ -386,14 +402,14 @@
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="top">
-  <div class="layer grid-bg" data-parallax="0.18"></div>
-  <div class="layer glow" data-parallax="0.30"></div>
+  <div class="layer grid-bg" data-parallax="0.16"></div>
+  <div class="layer mesh" data-parallax="0.28"></div>
   <div class="orb o1" data-parallax="0.5"></div>
   <div class="orb o2" data-parallax="0.35"></div>
   <div class="wrap hero-grid">
     <div>
       <img class="hero-logo" src="https://getvidya.ai/assets/vidya-ai-logo-DUZkn8LQ.png" alt="VidyaAI" />
-      <div class="eyebrow on-dark">⚡ The 24/7 AI Admissions Agent</div>
+      <div class="eyebrow on-dark">⚡ The 24/7 AI Admissions Agent · Powered by ExtraaEdge</div>
       <h1>
         <span class="typer-line"><span id="typer"></span><span class="caret"></span></span>
         Grow Enrollments,<br><span class="accent">with AI Simplicity.</span>
@@ -401,7 +417,7 @@
       <p class="lead">VidyaAI answers, qualifies and follows up with every student across WhatsApp, web and phone — in 30+ languages (all Indian regional, Spanish, Arabic, German) — and hands your counsellors only hot, ready-to-enrol leads.</p>
       <div class="hero-cta">
         <a href="#demo" class="btn btn-primary">Book a Free Demo →</a>
-        <a href="#products" class="btn btn-ghost">▶ See VidyaAI live</a>
+        <a href="#livedemo" class="btn btn-ghost">▶ Try the live demo</a>
       </div>
       <div class="hero-stats">
         <div class="stat"><div class="n">30+</div><div class="l">Languages · all Indian regional, Spanish, Arabic, German</div></div>
@@ -410,36 +426,31 @@
         <div class="stat"><div class="n">10M+</div><div class="l">Enquiries handled</div></div>
       </div>
     </div>
-
     <div style="position:relative">
       <div class="float-badge b1">⚡ Replies in 4s</div>
       <div class="float-badge b2">🎯 Intent 92/100</div>
       <div class="chat-card glass">
         <div class="chat-head">
           <div class="chat-avatar">V</div>
-          <div>
-            <div class="title">VidyaAI · Admission Agent</div>
-            <div class="sub">Online · replies in seconds</div>
-          </div>
+          <div><div class="title">VidyaAI · Admission Agent</div><div class="sub">Online · replies in seconds</div></div>
         </div>
         <div class="bubble user" style="animation-delay:.1s">Hi! I want to apply for B.Tech CSE but I think I missed the deadline 😟</div>
-        <div class="bubble ai" style="animation-delay:.5s">Good news — late applications close this <span class="strong">Friday!</span> 🎉 I've reserved your slot and sent the form to your WhatsApp.</div>
-        <div class="bubble user" style="animation-delay:.9s">Oh great! What documents do I need?</div>
-        <div class="bubble ai" style="animation-delay:1.3s">Just 3: marksheet, ID proof & photo. Want me to book a counsellor call for tomorrow 11 AM?</div>
-        <div class="qual" style="animation-delay:1.7s">✓ Qualified · scored 92/100 · routed to counsellor</div>
+        <div class="bubble ai" style="animation-delay:.6s">Good news — late applications close this <span class="strong">Friday!</span> 🎉 I've reserved your slot and sent the form to your WhatsApp.</div>
+        <div class="bubble user" style="animation-delay:1.1s">Oh great! What documents do I need?</div>
+        <div class="bubble ai" style="animation-delay:1.6s">Just 3: marksheet, ID proof & photo. Want me to book a counsellor call for tomorrow 11 AM?</div>
+        <div class="qual">✓ Qualified · scored 92/100 · routed to counsellor</div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- ============ TRUST STRIP ============ -->
-<div class="trust">
-  <div class="wrap">
-    <span class="lbl">Built into the ExtraaEdge admission stack · trusted across</span>
-    <span class="item">🎓 500+ Institutions</span>
-    <span class="item">🌍 12+ Countries</span>
-    <span class="item">⭐ 4.7/5 on G2</span>
-    <span class="item">🔒 ISO 27001 · GDPR</span>
+<!-- ============ MARQUEE ============ -->
+<div class="marquee">
+  <div class="marquee-track" id="marquee">
+    <div class="item">🎓 500+ Institutions</div><div class="item">🌍 12+ Countries</div>
+    <div class="item">⭐ 4.7/5 on G2 & Capterra</div><div class="item">🔒 ISO 27001 · GDPR</div>
+    <div class="item">💬 WhatsApp Business API Partner</div><div class="item">⚡ 10M+ Enquiries Handled</div>
+    <div class="item">🤖 Built on ExtraaEdge Admission CRM</div><div class="item">🇮🇳 India Data Residency</div>
   </div>
 </div>
 
@@ -449,32 +460,16 @@
     <div class="section-head dark reveal">
       <div class="eyebrow on-dark"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;animation:pulse 1.6s infinite"></span> Live · Admission Control Room</div>
       <h2>Watch your funnel work — in real time.</h2>
-      <p>Every enquiry captured, scored and routed the moment it arrives. This is a live simulation of VidyaAI handling your admission season.</p>
+      <p>Every enquiry captured, scored and routed the moment it arrives. A live simulation of VidyaAI handling your admission season.</p>
     </div>
     <div class="dash reveal d1">
       <div class="dash-card">
         <span class="live-tag"><span class="dot"></span> LIVE METRICS</span>
         <div class="kpi-grid">
-          <div class="kpi">
-            <div class="lab"><span>Enquiries today</span><span class="up" id="up1">▲ live</span></div>
-            <div class="val" id="kpi1">0</div>
-            <div class="bar"><i id="bar1" style="width:20%"></i></div>
-          </div>
-          <div class="kpi">
-            <div class="lab"><span>Auto-replies sent</span><span class="up">&lt;4s avg</span></div>
-            <div class="val" id="kpi2">0</div>
-            <div class="bar"><i id="bar2" style="width:30%"></i></div>
-          </div>
-          <div class="kpi">
-            <div class="lab"><span>Hot leads routed</span><span class="up">🔥 high intent</span></div>
-            <div class="val" id="kpi3">0</div>
-            <div class="bar"><i id="bar3" style="width:25%"></i></div>
-          </div>
-          <div class="kpi">
-            <div class="lab"><span>Slots booked</span><span class="up">▲ +today</span></div>
-            <div class="val" id="kpi4">0</div>
-            <div class="bar"><i id="bar4" style="width:18%"></i></div>
-          </div>
+          <div class="kpi"><div class="lab"><span>Enquiries today</span><span class="up">▲ live</span></div><div class="val" id="kpi1">0</div><div class="bar"><i id="bar1" style="width:20%"></i></div></div>
+          <div class="kpi"><div class="lab"><span>Auto-replies sent</span><span class="up">&lt;4s avg</span></div><div class="val" id="kpi2">0</div><div class="bar"><i id="bar2" style="width:30%"></i></div></div>
+          <div class="kpi"><div class="lab"><span>Hot leads routed</span><span class="up">🔥 high intent</span></div><div class="val" id="kpi3">0</div><div class="bar"><i id="bar3" style="width:25%"></i></div></div>
+          <div class="kpi"><div class="lab"><span>Slots booked</span><span class="up">▲ +today</span></div><div class="val" id="kpi4">0</div><div class="bar"><i id="bar4" style="width:18%"></i></div></div>
         </div>
       </div>
       <div class="dash-card">
@@ -485,13 +480,13 @@
   </div>
 </section>
 
-<!-- ============ THE ADMISSION GAP ============ -->
+<!-- ============ GAP ============ -->
 <section>
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">The admission gap</div>
       <h2>Students enrol with whoever replies first.<br>Most institutes reply too late.</h2>
-      <p>Peak season, every counsellor busy, enquiries pouring in at 2 AM. The fastest, most consistent responder wins the admission — and humans can't be everywhere, always.</p>
+      <p>Counsellors spend 60% of their day on admin, high-intent leads go cold, and institutions lose 30–40% of applicants because they can't respond fast enough. Every delay is a lost enrollment.</p>
     </div>
     <div class="gap-grid">
       <div class="gap-card reveal d1"><div class="big" data-count="40" data-suffix="%">0%</div><p>of admission-season calls & enquiries go unanswered at peak times.</p></div>
@@ -501,7 +496,7 @@
   </div>
 </section>
 
-<!-- ============ FOUR SUPERPOWERS ============ -->
+<!-- ============ BENTO SUPERPOWERS ============ -->
 <section style="background:#fff">
   <div class="wrap">
     <div class="section-head reveal">
@@ -509,43 +504,40 @@
       <h2>Everything a great counsellor does — at infinite scale.</h2>
       <p>VidyaAI works the top of your funnel 24/7 so your team spends time enrolling students, not chasing them.</p>
     </div>
-    <div class="feat-grid">
-      <div class="feat-card reveal d1"><div class="feat-ico">💬</div><h3>VidyaGPT Chat</h3><p>Answers fees, courses, eligibility & hostel questions on web and WhatsApp — instantly, in the student's language.</p></div>
-      <div class="feat-card reveal d2"><div class="feat-ico">📞</div><h3>AI Voice Calling</h3><p>Calls every new lead in seconds, qualifies intent and books counselling slots — thousands of calls, zero fatigue.</p></div>
-      <div class="feat-card reveal d3"><div class="feat-ico">🎯</div><h3>Intent Scoring</h3><p>Reads real behaviour and scores every lead 0–100, so counsellors always call the hottest applicant first.</p></div>
-      <div class="feat-card reveal d4"><div class="feat-ico">🧮</div><h3>Smart Routing</h3><p>Matches each student to the best counsellor by language, course & availability — and hands over with full context.</p></div>
+    <div class="bento">
+      <div class="cell wide reveal d1">
+        <h3>💬 VidyaGPT Chat</h3>
+        <p>Answers fees, courses, eligibility & hostel questions on web and WhatsApp — instantly, in the student's language. Captures the lead, sends the form & books the call automatically.</p>
+        <div class="mini">
+          <div><b>&lt;3s</b><span>Response time</span></div>
+          <div><b>24/7</b><span>Availability</span></div>
+          <div><b>50%</b><span>Better conversion</span></div>
+        </div>
+      </div>
+      <div class="cell reveal d2"><div class="feat-ico">📞</div><h3>AI Voice Calling</h3><p>Calls every new lead in seconds, qualifies intent and books slots — thousands of calls, zero fatigue.</p></div>
+      <div class="cell reveal d3"><div class="feat-ico">🎯</div><h3>Intent Scoring</h3><p>Reads real behaviour and scores every lead 0–100, so counsellors always call the hottest applicant first.</p></div>
+      <div class="cell reveal d2"><div class="feat-ico">🧮</div><h3>Smart Routing</h3><p>Matches each student to the best counsellor by language, course & availability — with full context.</p></div>
+      <div class="cell reveal d3"><div class="feat-ico">📲</div><h3>VidyaWABA GPT</h3><p>The power of VidyaGPT on WhatsApp Business Enterprise — follow-ups, reminders & docs in chat.</p></div>
+      <div class="cell reveal d4"><div class="feat-ico">🔁</div><h3>Auto Follow-ups</h3><p>Email, SMS & WhatsApp sequences, RSVP & payment reminders — nothing falls through the cracks.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ============ PRODUCTS — scroll-driven view switching ============ -->
+<!-- ============ PRODUCTS ============ -->
 <section class="products" id="products">
   <div class="wrap">
     <div class="section-head dark reveal">
       <div class="eyebrow on-dark">Three Products. One Platform.</div>
       <h2>Infinite Possibilities.</h2>
-      <p>A complete AI-powered admissions suite designed to work together. Scroll through — the live preview switches with you.</p>
+      <p>A complete AI-powered admissions suite — available as individual modules or as a complete platform. Scroll through; the live preview switches with you.</p>
     </div>
     <div class="prod-switch">
       <div class="prod-tabs">
-        <div class="prod-tab active" data-prod="0">
-          <span class="tag">Capture</span>
-          <h3>VidyaGPT</h3><div class="role">talks to students</div>
-          <div class="desc">Answer admission queries fast, accurate & timely with conversational AI — your always-on admissions counsellor.</div>
-        </div>
-        <div class="prod-tab" data-prod="1">
-          <span class="tag">Prioritise</span>
-          <h3>Vidya Pulse</h3><div class="role">decides admission priorities</div>
-          <div class="desc">AI surfaces high-intent students and recommends the next best action — the brain behind your admissions team.</div>
-        </div>
-        <div class="prod-tab" data-prod="2">
-          <span class="tag">Convert</span>
-          <h3>Vidya Agent</h3><div class="role">executes admission tasks</div>
-          <div class="desc">Calls leads, books meetings, runs follow-ups and updates the CRM automatically — work that never sleeps.</div>
-        </div>
+        <div class="prod-tab active" data-prod="0"><span class="tag">Capture</span><h3>VidyaGPT</h3><div class="role">talks to students</div><div class="desc">Answer admission queries fast, accurate & timely with conversational AI — your always-on admissions counsellor.</div></div>
+        <div class="prod-tab" data-prod="1"><span class="tag">Prioritise</span><h3>Vidya Pulse</h3><div class="role">decides admission priorities</div><div class="desc">AI surfaces high-intent students and recommends the next best action — the brain behind your admissions team.</div></div>
+        <div class="prod-tab" data-prod="2"><span class="tag">Convert</span><h3>Vidya Agent</h3><div class="role">executes admission tasks</div><div class="desc">Calls leads, books meetings, runs follow-ups and updates the CRM automatically — work that never sleeps.</div></div>
       </div>
       <div class="prod-stage">
-        <!-- VidyaGPT panel -->
         <div class="stage-panel show" data-panel="0">
           <div class="panel">
             <div class="ph"><span class="dot"></span> VidyaGPT · online · 02:47 AM</div>
@@ -557,34 +549,28 @@
             <div class="quick"><span>📅 Book a call</span><span>📝 Apply now</span></div>
           </div>
         </div>
-        <!-- Vidya Pulse panel -->
         <div class="stage-panel" data-panel="1">
           <div class="panel">
-            <div class="ph"><span class="dot"></span> Vidya Pulse · Lead Intelligence</div>
+            <div class="ph"><span class="dot"></span> Vidya Pulse · Lead Intelligence (Abhishek Singh)</div>
             <div class="score-top">
               <div class="score-ring" id="pulseRing"><span class="v" id="pulseVal">0</span></div>
-              <div>
-                <div class="nm">Riya's Parent</div>
-                <div class="meta">B.Tech (CS) · Missed Call · Google Ads</div>
-                <span class="hot">🔥 HOT — contact in 5 min</span>
-              </div>
+              <div><div class="nm">Abhishek Singh · MBA</div><div class="meta">Step 1 · Ageing 55 days · Website inquiry</div><span class="hot">🔥 Next best action ready</span></div>
             </div>
-            <div class="signal"><span class="tick">✓</span> Visited fee page 3× this week</div>
-            <div class="signal"><span class="tick">✓</span> Searched "B.Tech CS placements"</div>
-            <div class="signal"><span class="tick">✓</span> Lives 4 km from campus</div>
+            <div class="signal"><span class="tick">✓</span> Try WhatsApp with father's contact</div>
+            <div class="signal"><span class="tick">✓</span> Send personalised email · highlight placements</div>
+            <div class="signal"><span class="tick">✓</span> Schedule evening callback — 18 Sept, 6:00 PM</div>
           </div>
         </div>
-        <!-- Vidya Agent panel -->
         <div class="stage-panel" data-panel="2">
           <div class="panel">
-            <div class="ph"><span class="dot"></span> 📞 VidyaAI Voice Agent · LIVE CALL</div>
+            <div class="ph"><span class="dot"></span> 📞 Vidya Agent · LIVE CALL</div>
             <div class="wave" id="wave1"></div>
             <ul class="timeline">
               <li><div class="t">T+0.0s</div><div class="d">Inquiry detected · Meta Lead Ad — Aarav S. · B.Tech CSE · Pune</div></li>
               <li><div class="t">T+3.8s</div><div class="d">AI voice call initiated — language auto-detected: English + Hindi</div></li>
               <li><div class="t">T+18s</div><div class="d">Connected & qualified ✓ — slot booked tomorrow 11 AM</div></li>
             </ul>
-            <div class="voice-foot"><div class="qn">QUALIFIED IN 18 SECONDS</div><div class="qs">0 min counsellor time · summary pushed to CRM</div></div>
+            <div class="voice-foot"><div class="qn">QUALIFIED IN 18 SECONDS</div><div class="qs">Status updated → Interested · Hot Lead · summary pushed to CRM</div></div>
           </div>
         </div>
       </div>
@@ -592,16 +578,42 @@
   </div>
 </section>
 
-<!-- ============ SCROLL STORYTELLING (sticky) ============ -->
+<!-- ============ INTERACTIVE LIVE DEMO ============ -->
+<section id="livedemo">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">VidyaGPT Live Demo</div>
+      <h2>Chat with VidyaGPT — pick a campus.</h2>
+      <p>Real conversation threads showing how VidyaGPT guides students through admissions, fees, scholarships & booking — for any institution.</p>
+    </div>
+    <div class="demo-tabs reveal d1" id="demoTabs">
+      <button class="demo-tab active" data-demo="0">🎓 EE Edge University</button>
+      <button class="demo-tab" data-demo="1">🏛️ BVP University Pune</button>
+      <button class="demo-tab" data-demo="2">⚙️ IIT Bombay</button>
+      <button class="demo-tab" data-demo="3">💸 Delhi University · Aid</button>
+    </div>
+    <div class="demo-stage reveal d2">
+      <div class="demo-window">
+        <div class="demo-win-head">
+          <div class="av">V</div>
+          <div><div class="ti">VidyaGPT <span style="color:#64748B;font-weight:500;font-size:12px">powered by ExtraaEdge</span></div><div class="su" id="demoSub">EE Edge University Admissions</div></div>
+        </div>
+        <div class="demo-thread" id="demoThread"></div>
+        <div class="demo-foot">VidyaGPT may produce inaccurate information about people, places, or facts.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
 <section class="story" id="story">
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">From missed call to admission</div>
       <h2>One enquiry, fully handled — in four moves.</h2>
-      <p>Scroll down. The dashboard on the left advances as VidyaAI takes the lead from capture to enrolment.</p>
+      <p>Scroll down. The dashboard on the left advances as VidyaAI takes the lead from capture to enrolment — 7 of 9 touchpoints are AI.</p>
     </div>
     <div class="story-grid">
-      <!-- sticky visual -->
       <div class="story-sticky">
         <div class="story-visual">
           <div class="frame">
@@ -628,19 +640,185 @@
                 <div class="fp-row"><span class="em">🎉</span> Student enrols · status → Admitted</div>
               </div>
             </div>
-            <div class="progress-line" id="storyProgress">
-              <i class="on"></i><i></i><i></i><i></i>
-            </div>
+            <div class="progress-line" id="storyProgress"><i class="on"></i><i></i><i></i><i></i></div>
           </div>
         </div>
       </div>
-      <!-- scrolling steps -->
       <div class="story-steps" id="storySteps">
         <div class="story-step" data-step="0"><div class="num">1</div><h3>Capture</h3><p>Every enquiry — ads, forms, missed calls, walk-ins, WhatsApp — logged in 1.8s with source & intent. Zero leakage, even at 2 AM.</p></div>
         <div class="story-step" data-step="1"><div class="num">2</div><h3>Engage</h3><p>AI calls & messages within the same minute, answers fee/course/hostel questions and books a slot — in the student's own language.</p></div>
         <div class="story-step" data-step="2"><div class="num">3</div><h3>Qualify</h3><p>Behavioural intent scoring ranks every lead and picks the best counsellor by language, course & availability.</p></div>
         <div class="story-step" data-step="3"><div class="num">4</div><h3>Hand over</h3><p>A warm, fully-briefed lead lands on a counsellor's screen with full context — they close, the student enrols. 🎉</p></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROI TABS ============ -->
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">ROI · 10X value in conversion outcomes</div>
+      <h2>The numbers admissions leaders care about.</h2>
+      <p>See the tangible value VidyaGPT creates — across the admissions funnel and counsellor productivity.</p>
+    </div>
+    <div class="roi-tabs reveal d1" id="roiTabs">
+      <button class="roi-tab active" data-roi="0">Admissions Process ROI</button>
+      <button class="roi-tab" data-roi="1">Counsellor Productivity ROI</button>
+    </div>
+
+    <div class="roi-panel show reveal d2" data-roipanel="0">
+      <div class="roi-card">
+        <div class="roi-banner"><div><div class="big">24X ROI · 95% Revenue Increase</div><div class="sub">Traditional admissions vs an AI-enhanced process</div></div></div>
+        <table class="roi">
+          <thead><tr><th>Metric</th><th>Traditional</th><th>With VidyaGPT</th><th>Impact</th></tr></thead>
+          <tbody>
+            <tr><td>Average Response Time</td><td>24–48 hrs</td><td>Instant</td><td class="imp">—</td></tr>
+            <tr><td>Inquiry Conversion Rate</td><td>15%</td><td>30%</td><td class="imp">+100%</td></tr>
+            <tr><td>Annual Inquiries</td><td>5,000</td><td>5,000</td><td class="imp">—</td></tr>
+            <tr><td>Expected Enrollments</td><td>750</td><td>1,500</td><td class="imp">+750</td></tr>
+            <tr><td>Annual Revenue (₹1L/student)</td><td>₹7.5 CR</td><td>₹15 CR</td><td class="imp">+₹7.5 CR</td></tr>
+            <tr><td>Net Annual Gain</td><td>—</td><td>₹7.2 CR</td><td class="imp">24X ROI</td></tr>
+          </tbody>
+        </table>
+        <div class="roi-note">Assumptions: ₹1 Lakh average fee per student, 10% annual attrition rate.</div>
+      </div>
+    </div>
+
+    <div class="roi-panel reveal d2" data-roipanel="1">
+      <div class="roi-card">
+        <div class="roi-banner"><div><div class="big">52X Return on Investment</div><div class="sub">Impact on a team of 10 counsellors</div></div></div>
+        <table class="roi">
+          <thead><tr><th>Metric</th><th>Without</th><th>With VidyaGPT</th><th>Impact</th></tr></thead>
+          <tbody>
+            <tr><td>Daily Inquiries / Counsellor</td><td>20</td><td>40</td><td class="imp">+100%</td></tr>
+            <tr><td>Average Response Time</td><td>24 hrs</td><td>8 hrs</td><td class="imp">−67%</td></tr>
+            <tr><td>Conversion Rate</td><td>15%</td><td>25%</td><td class="imp">+67%</td></tr>
+            <tr><td>Annual Enrollments / Counsellor</td><td>144</td><td>300</td><td class="imp">+108%</td></tr>
+            <tr><td>Annual Revenue / Counsellor</td><td>₹1.44 CR</td><td>₹3 CR</td><td class="imp">+₹1.56 CR</td></tr>
+            <tr><td>Total Net Gain (10 counsellors)</td><td>—</td><td>₹15.6 CR</td><td class="imp">52X ROI</td></tr>
+          </tbody>
+        </table>
+        <div class="roi-note">Assumptions: Average counsellor salary ₹50,000/month, 15% attrition costs. Representative averages.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARCHITECTURE ============ -->
+<section class="arch">
+  <div class="wrap">
+    <div class="section-head dark reveal">
+      <div class="eyebrow on-dark">The VidyaGPT AI Architecture</div>
+      <h2>An education SLM, built for trust.</h2>
+      <p>A powerful Small Language Model designed for education — empathetic, secure and grounded in your institution's own data.</p>
+    </div>
+    <div class="arch-stack reveal d1">
+      <div class="arch-row hl">
+        <div class="lbl">VidyaGPT SLM</div>
+        <div class="ds">Education-specific Small Language Model with empathetic counselling, sentiment-trained on real counsellor interactions.</div>
+      </div>
+      <div class="arch-conn"></div>
+      <div class="arch-row">
+        <div class="lbl">Foundation Models</div>
+        <div class="ds">Best-in-class reasoning under the hood.</div>
+        <div class="arch-chips"><span>Anthropic Claude · Constitutional AI</span><span>Llama · Open-source power</span><span>OpenAI · Advanced reasoning</span></div>
+      </div>
+      <div class="arch-conn"></div>
+      <div class="arch-row">
+        <div class="lbl">Security & Privacy Layer</div>
+        <div class="ds">Customer-specific data isolation with proprietary anonymization & encryption for each model instance.</div>
+        <div class="arch-chips"><span>🔒 End-to-end encryption</span><span>🛡️ Data anonymization</span><span>🇮🇳 India data residency</span></div>
+      </div>
+      <div class="arch-conn"></div>
+      <div class="arch-row">
+        <div class="lbl">Your Knowledge Base (RAG)</div>
+        <div class="ds">Hyper-accurate, hallucination-resistant answers grounded only in your official content.</div>
+        <div class="arch-chips"><span>University Websites</span><span>PDF Documents</span><span>Docs</span><span>Structured Data</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EMPATHY ============ -->
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Secret Sauce · The Empathy Graph</div>
+      <h2>9 emotional classifiers. Every response, with care.</h2>
+      <p>Unlike generic AI bots, VidyaGPT's responses are built on emotional classifiers designed for education — 94% emotional accuracy, trained on 10M+ scenarios.</p>
+    </div>
+    <div class="emp-grid">
+      <div class="emp reveal d1"><h3>Empathy & Emotional Support</h3><span class="stat">94% emotional accuracy</span><p>Anxiety, fear and emotional needs handled with genuine care.</p><div class="quote">"It's natural to feel that way. Let's explore your options together so you can move forward with clarity."</div></div>
+      <div class="emp reveal d2"><h3>Financial Concerns</h3><span class="stat">₹2.5L avg savings identified</span><p>Economic pressures met with practical solutions.</p><div class="quote">"Yes, many institutions offer installment options to make the process manageable."</div></div>
+      <div class="emp reveal d3"><h3>Admission Guidance</h3><span class="stat">99% application success</span><p>Clear, step-by-step support with deadlines.</p><div class="quote">"The first step is usually filling out an online application form and uploading the necessary documents."</div></div>
+      <div class="emp reveal d1"><h3>Career Guidance</h3><span class="stat">87% placement alignment</span><p>Future-focused career planning with industry insight.</p><div class="quote">"Each course opens different paths, from internships to full-time roles in various industries."</div></div>
+      <div class="emp reveal d2"><h3>Cultural Context Awareness</h3><span class="stat">30+ languages supported</span><p>Respecting diversity & cultural sensitivities across regions.</p><div class="quote">"Campuses are diverse — you'll find students from many backgrounds, including your own."</div></div>
+      <div class="emp reveal d3"><h3>Safety & Accommodation</h3><span class="stat">100% verified facilities</span><p>Security & comfort answered in detail.</p><div class="quote">"Yes, first-year hostels often have round-the-clock wardens and CCTV coverage."</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARISON ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">VidyaGPT vs Generic AI</div>
+      <h2>See the difference.</h2>
+      <p>Cold, rule-based bots can't read a student's emotion. VidyaGPT can.</p>
+    </div>
+    <div class="cmp-grid">
+      <div class="cmp old reveal d1">
+        <span class="lbl">GENERIC AI · OLD</span><h3>Cold & robotic</h3>
+        <ul>
+          <li><span class="ic">✕</span> Rule-based responses, limited flexibility</li>
+          <li><span class="ic">✕</span> Can't understand context or nuance</li>
+          <li><span class="ic">✕</span> Repetitive answers regardless of needs</li>
+          <li><span class="ic">✕</span> "My parents are worried about fees." → "The fee structure is on the website."</li>
+          <li><span class="ic">✕</span> Frequent escalations, frustrating UX</li>
+        </ul>
+      </div>
+      <div class="cmp new reveal d2">
+        <span class="lbl">VIDYAGPT · NEW</span><h3>Caring & smart</h3>
+        <ul>
+          <li><span class="ic">✓</span> Advanced natural language understanding</li>
+          <li><span class="ic">✓</span> Contextual awareness across conversations</li>
+          <li><span class="ic">✓</span> Personalised to each student profile</li>
+          <li><span class="ic">✓</span> "I understand financial concerns are real. Let me show you scholarships & payment plans."</li>
+          <li><span class="ic">✓</span> Citations to official sources · always learning</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ USE CASES ============ -->
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Use Cases</div>
+      <h2>Where VidyaAI shines.</h2>
+      <p>Transforming admissions for both students and the teams who serve them.</p>
+    </div>
+    <div class="uc-tabs reveal d1" id="ucTabs">
+      <button class="uc-tab active" data-uc="0">🎓 Prospective Students</button>
+      <button class="uc-tab" data-uc="1">🧑‍💼 Admission Teams</button>
+    </div>
+    <div class="uc-panel show" data-ucpanel="0">
+      <div class="uc-card"><div class="em">⏱️</div><h4>24×7 Query Resolution</h4><p>Instant answers on eligibility, fees, deadlines & documents — zero wait time.</p></div>
+      <div class="uc-card"><div class="em">🧭</div><h4>Course Recommendations</h4><p>Matches interests & qualifications to best-fit courses with LLM-powered logic.</p></div>
+      <div class="uc-card"><div class="em">📍</div><h4>Application Status Updates</h4><p>Real-time tracking of submitted applications via ATS integration.</p></div>
+      <div class="uc-card"><div class="em">💬</div><h4>Guidance via WhatsApp</h4><p>Conversational follow-ups & reminders — payments, missing docs and more.</p></div>
+      <div class="uc-card"><div class="em">🎓</div><h4>Scholarship & Loan Assist</h4><p>AI recommendations on scholarships and financing options.</p></div>
+      <div class="uc-card"><div class="em">📄</div><h4>Document Upload & OCR <span class="beta">Beta</span></h4><p>Extracts data from marksheets & ID proofs to simplify form filling.</p></div>
+    </div>
+    <div class="uc-panel" data-ucpanel="1">
+      <div class="uc-card"><div class="em">📞</div><h4>AI Call Assist <span class="beta">Beta</span></h4><p>Post-call summary with sentiment, talk ratio, next steps & quality adherence.</p></div>
+      <div class="uc-card"><div class="em">🔥</div><h4>Opportunity Scoring <span class="beta">Beta</span></h4><p>ML ranking of leads (Hot/Not) to prioritise follow-ups and skip cold lists.</p></div>
+      <div class="uc-card"><div class="em">✍️</div><h4>Copy Generation</h4><p>Auto-personalised Email, SMS & WhatsApp based on lead-card context.</p></div>
+      <div class="uc-card"><div class="em">📚</div><h4>Course Info Retrieval</h4><p>One-click access to course & campus details from your training docs.</p></div>
+      <div class="uc-card"><div class="em">📊</div><h4>Analytics Co-Pilot <span class="beta">Beta</span></h4><p>Chat-based KPIs — conversion %, drop-off rates, counsellor performance.</p></div>
+      <div class="uc-card"><div class="em">🧠</div><h4>Guided Conversations</h4><p>Prompt suggestions & rebuttal handling during student conversations.</p></div>
     </div>
   </div>
 </section>
@@ -652,62 +830,8 @@
       <div class="band-grid">
         <div><div class="n" data-count="50" data-suffix="%">0</div><div class="l">Better Conversion</div></div>
         <div><div class="n" data-count="75" data-suffix="%">0</div><div class="l">Less Manual Work</div></div>
-        <div><div class="n" data-count="24" data-suffix="X">0</div><div class="l">ROI on admissions</div></div>
-        <div><div class="n" data-count="10" data-suffix="M+">0</div><div class="l">Enquiries handled</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ EMPATHY ============ -->
-<section style="background:#fff">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">Secret Sauce · The Empathy Graph</div>
-      <h2>Empathy in every response.</h2>
-      <p>Unlike generic AI bots, VidyaGPT's responses are built on 9 emotional classifiers designed for education — infused with empathy, cultural awareness and genuine care.</p>
-    </div>
-    <div class="emp-grid">
-      <div class="emp reveal d1"><h3>Empathy & Emotional Support</h3><span class="stat">94% emotional accuracy</span><p>Understanding anxiety, fear and emotional needs with genuine care.</p><div class="quote">"It's natural to feel that way. Let's explore your options together so you can move forward with clarity."</div></div>
-      <div class="emp reveal d2"><h3>Financial Concerns</h3><span class="stat">₹2.5L avg savings identified</span><p>Understanding economic pressures with practical solutions.</p><div class="quote">"Yes, many institutions offer installment options to make the process manageable."</div></div>
-      <div class="emp reveal d3"><h3>Admission Guidance</h3><span class="stat">99% application success</span><p>Clear, step-by-step admission support with deadlines.</p><div class="quote">"The first step is usually filling out an online application form and uploading the necessary documents."</div></div>
-      <div class="emp reveal d1"><h3>Career Guidance</h3><span class="stat">87% placement alignment</span><p>Future-focused career planning with industry insights.</p><div class="quote">"Each course opens different paths, from internships to full-time roles in various industries."</div></div>
-      <div class="emp reveal d2"><h3>Cultural Context Awareness</h3><span class="stat">30+ languages supported</span><p>Respecting diversity and cultural sensitivities across regions.</p><div class="quote">"Campuses are diverse, and you'll likely find students from many backgrounds, including your own."</div></div>
-      <div class="emp reveal d3"><h3>Safety & Accommodation</h3><span class="stat">100% verified facilities</span><p>Ensuring security and comfort with detailed information.</p><div class="quote">"Yes, first-year hostels often have round-the-clock wardens and CCTV coverage."</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ COMPARISON ============ -->
-<section>
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">VidyaGPT vs Generic AI</div>
-      <h2>See the difference.</h2>
-      <p>Cold & robotic rule-based bots can't read a student's emotion. VidyaGPT can.</p>
-    </div>
-    <div class="cmp-grid">
-      <div class="cmp old reveal d1">
-        <span class="lbl">GENERIC AI · OLD</span>
-        <h3>Cold & robotic</h3>
-        <ul>
-          <li><span class="ic">✕</span> Rule-based responses with limited flexibility</li>
-          <li><span class="ic">✕</span> Unable to understand context or nuance</li>
-          <li><span class="ic">✕</span> Repetitive answers regardless of student needs</li>
-          <li><span class="ic">✕</span> No emotional understanding — "Please check the website."</li>
-          <li><span class="ic">✕</span> Frequent escalations & frustrating experience</li>
-        </ul>
-      </div>
-      <div class="cmp new reveal d2">
-        <span class="lbl">VIDYAGPT · NEW</span>
-        <h3>Caring & smart</h3>
-        <ul>
-          <li><span class="ic">✓</span> Advanced natural language understanding & generation</li>
-          <li><span class="ic">✓</span> Contextual awareness across conversations</li>
-          <li><span class="ic">✓</span> Personalised responses based on student profile</li>
-          <li><span class="ic">✓</span> Empathetic — "I understand financial concerns are real. Let me show you scholarships."</li>
-          <li><span class="ic">✓</span> Citations to official sources · continuously learning</li>
-        </ul>
+        <div><div class="n" data-count="95" data-suffix="%">0</div><div class="l">Lead Accuracy</div></div>
+        <div><div class="n" data-count="10" data-suffix="X">0</div><div class="l">ROI Improvement</div></div>
       </div>
     </div>
   </div>
@@ -750,8 +874,21 @@
   </div>
 </section>
 
-<!-- ============ TESTIMONIALS ============ -->
+<!-- ============ FOUNDERS ============ -->
 <section style="background:#fff">
+  <div class="wrap reveal">
+    <div class="founder">
+      <div class="q">Admissions is now a <span class="hl">speed game</span> — whoever responds, prioritizes and personalizes first wins enrollment. None of the old tools were built for Gen Z. So we built <span class="hl">Vidya AI</span>: one platform, three AI products, built for modern admissions.</div>
+      <div class="by">
+        <div class="av">A+S</div>
+        <div><div class="nm">Abhi & Sushil</div><div class="ro">Founders · Vidya AI by ExtraaEdge</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section>
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">Loved by admission teams</div>
@@ -759,63 +896,30 @@
       <p>4.7/5 on G2 & Capterra · 500+ Institutions · 12+ Countries · 10M+ enquiries handled.</p>
     </div>
     <div class="test-grid">
-      <div class="test reveal d1">
-        <div class="stars">★★★★★</div>
-        <p>"Most changes we need are implemented fast, and creating our own reports has been a game-changer. Dynamic and trustworthy."</p>
-        <div class="who"><div class="ava">SM</div><div><div class="nm">Silky Jain Marwah</div><div class="ro">Executive Director · Tula's Institute</div></div></div>
-      </div>
-      <div class="test reveal d2">
-        <div class="stars">★★★★★</div>
-        <p>"From seamless WhatsApp integrations to automated workflows, our entire lead journey is now streamlined and measurable."</p>
-        <div class="who"><div class="ava">PR</div><div><div class="nm">Pranay Rupani</div><div class="ro">Head of Admissions · Annapurna College</div></div></div>
-      </div>
-      <div class="test reveal d3">
-        <div class="stars">★★★★★</div>
-        <p>"Very user-friendly and fully customizable. Tracking the lead journey is smooth and the team resolves issues immediately."</p>
-        <div class="who"><div class="ava">ND</div><div><div class="nm">K. Nirmala Devi</div><div class="ro">Assistant Manager · Indian Academy Group</div></div></div>
-      </div>
+      <div class="test reveal d1"><div class="stars">★★★★★</div><p>"Most changes we need are implemented fast, and creating our own reports has been a game-changer. Dynamic and trustworthy."</p><div class="who"><div class="ava">SM</div><div><div class="nm">Silky Jain Marwah</div><div class="ro">Executive Director · Tula's Institute</div></div></div></div>
+      <div class="test reveal d2"><div class="stars">★★★★★</div><p>"From seamless WhatsApp integrations to automated workflows, our entire lead journey is now streamlined and measurable."</p><div class="who"><div class="ava">PR</div><div><div class="nm">Pranay Rupani</div><div class="ro">Head of Admissions · Annapurna College</div></div></div></div>
+      <div class="test reveal d3"><div class="stars">★★★★★</div><p>"Very user-friendly and fully customizable. Tracking the lead journey is smooth and the team resolves issues immediately."</p><div class="who"><div class="ava">ND</div><div><div class="nm">K. Nirmala Devi</div><div class="ro">Assistant Manager · Indian Academy Group</div></div></div></div>
     </div>
   </div>
 </section>
 
 <!-- ============ FAQ ============ -->
-<section>
+<section style="background:#fff">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">Frequently asked</div>
-      <h2>Everything about VidyaAI.</h2>
-    </div>
+    <div class="section-head reveal"><div class="eyebrow">Curiosity Corner</div><h2>Everything about VidyaAI.</h2></div>
     <div class="faq-wrap reveal d1">
-      <details class="faq" open>
-        <summary>What is VidyaAI? <span class="pm">+</span></summary>
-        <div class="body">VidyaAI is an intelligent, AI-first admissions platform built for education. It answers, qualifies and follows up with every student across WhatsApp, web and phone in 30+ languages — and hands your counsellors only hot, ready-to-enrol leads. It combines VidyaGPT (chat), Vidya Pulse (intelligence) and Vidya Agent (automation).</div>
-      </details>
-      <details class="faq">
-        <summary>Which languages does it support? <span class="pm">+</span></summary>
-        <div class="body">30+ languages across chat and AI voice calls — all Indian regional languages (Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, Gujarati, Malayalam, Punjabi, Urdu and more) plus Spanish, Arabic and German — so no enquiry is lost to a language barrier.</div>
-      </details>
-      <details class="faq">
-        <summary>Does it work on WhatsApp? <span class="pm">+</span></summary>
-        <div class="body">Yes. VidyaAI is an official WhatsApp Business API partner. It chats, sends brochures and forms, runs reminders and books counsellor calls — all inside WhatsApp.</div>
-      </details>
-      <details class="faq">
-        <summary>How is it trained on our data? <span class="pm">+</span></summary>
-        <div class="body">VidyaAI uses Retrieval-Augmented Generation (RAG) trained exclusively on your secure, partner-specific data — websites, PDFs, brochures, fee structures and policies. This creates a private, hallucination-resistant assistant with hyper-accurate, institution-specific answers and source citations.</div>
-      </details>
-      <details class="faq">
-        <summary>Does it replace our counsellors? <span class="pm">+</span></summary>
-        <div class="body">No — it amplifies them. VidyaAI handles the repetitive top-of-funnel work 24/7 and hands counsellors only warm, fully-briefed, high-intent leads, so they spend their time closing and enrolling rather than chasing.</div>
-      </details>
-      <details class="faq">
-        <summary>Is our data secure? <span class="pm">+</span></summary>
-        <div class="body">Yes. VidyaAI is ISO 27001 certified and GDPR / FERPA / CCPA compliant, with end-to-end encryption, India data residency, role-based access, audit trails and customer-specific data isolation.</div>
-      </details>
+      <details class="faq" open><summary>What is VidyaAI? <span class="pm">+</span></summary><div class="body">An intelligent, AI-first admissions platform built for education. It answers, qualifies and follows up with every student across WhatsApp, web and phone in 30+ languages — combining VidyaGPT (chat), Vidya Pulse (intelligence) and Vidya Agent (automation) — and hands counsellors only hot, ready-to-enrol leads.</div></details>
+      <details class="faq"><summary>Which languages does it support? <span class="pm">+</span></summary><div class="body">30+ languages across chat and AI voice — all Indian regional languages (Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, Gujarati, Malayalam, Punjabi, Urdu & more) plus Spanish, Arabic and German.</div></details>
+      <details class="faq"><summary>What training data does VidyaGPT use? <span class="pm">+</span></summary><div class="body">Retrieval-Augmented Generation (RAG) trained exclusively on your secure, partner-specific data — websites, PDFs, brochures, fee structures and policies — creating a private, hallucination-resistant assistant with source citations.</div></details>
+      <details class="faq"><summary>How does it prevent hallucinations? <span class="pm">+</span></summary><div class="body">A rigorous fact-checking system verifies responses against your official documentation before delivery, and the Education SLM is designed to avoid common AI hallucinations in educational contexts — providing only verified information with citations.</div></details>
+      <details class="faq"><summary>Is it integrated with ExtraaEdge CRM? <span class="pm">+</span></summary><div class="body">Yes — natively. Automated data sync, lead tracking and communication history give a unified view of every student interaction, with intent scores written back live.</div></details>
+      <details class="faq"><summary>Is our data secure? <span class="pm">+</span></summary><div class="body">SOC 2 & ISO 27001, GDPR / FERPA / CCPA compliant, end-to-end encryption, India data residency, MFA, role-based access and regular penetration testing.</div></details>
     </div>
   </div>
 </section>
 
-<!-- ============ DEMO ============ -->
-<section class="demo" id="demo">
+<!-- ============ DEMO CTA ============ -->
+<section class="demo-cta" id="demo">
   <div class="wrap demo-grid">
     <div>
       <div class="eyebrow on-dark">Book your free demo</div>
@@ -837,15 +941,8 @@
           <div class="field"><label>Institute / organisation *</label><input type="text" required placeholder="ABC University" /></div>
           <div class="field"><label>Work email *</label><input type="email" required placeholder="you@institute.edu" /></div>
           <div class="field"><label>WhatsApp number *</label><input type="tel" required placeholder="+91 98765 43210" /></div>
-          <div class="field">
-            <label>Monthly enquiry volume (optional)</label>
-            <select>
-              <option value="">Select a range</option>
-              <option>Under 1,000</option>
-              <option>1,000 – 5,000</option>
-              <option>5,000 – 20,000</option>
-              <option>20,000+</option>
-            </select>
+          <div class="field"><label>Monthly enquiry volume (optional)</label>
+            <select><option value="">Select a range</option><option>Under 1,000</option><option>1,000 – 5,000</option><option>5,000 – 20,000</option><option>20,000+</option></select>
           </div>
           <button type="submit" class="btn btn-primary">Book My Free Demo →</button>
           <div class="note">🔒 ISO 27001 & GDPR compliant · No spam, ever</div>
@@ -856,162 +953,162 @@
 </section>
 
 <script>
-/* ============ REVEAL ON SCROLL ============ */
-const revObs = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); revObs.unobserve(e.target);} });
-},{threshold:.15});
+/* REVEAL */
+const revObs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revObs.unobserve(e.target);}})},{threshold:.14});
 document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
 
-/* ============ TYPEWRITER ============ */
-(function(){
-  const el=document.getElementById('typer');
-  const words=['Answer instantly.','Qualify every lead.','Book the meeting.','Never miss 2 AM.'];
-  let w=0,c=0,del=false;
-  function tick(){
-    const word=words[w];
-    el.textContent = del ? word.slice(0,c--) : word.slice(0,c++);
-    if(!del && c===word.length+1){del=true;c=word.length;setTimeout(tick,1300);return;}
-    if(del && c<0){del=false;c=0;w=(w+1)%words.length;}
-    setTimeout(tick, del?45:80);
-  }
-  tick();
-})();
+/* TYPEWRITER */
+(function(){const el=document.getElementById('typer');const words=['Answer instantly.','Qualify every lead.','Book the meeting.','Never miss 2 AM.'];let w=0,c=0,del=false;
+function tick(){const word=words[w];el.textContent=del?word.slice(0,c--):word.slice(0,c++);
+if(!del&&c===word.length+1){del=true;c=word.length;setTimeout(tick,1300);return;}
+if(del&&c<0){del=false;c=0;w=(w+1)%words.length;}setTimeout(tick,del?45:80);}tick();})();
 
-/* ============ ANIMATED COUNTERS ============ */
-function animateCount(el){
-  const target=parseFloat(el.dataset.count), suffix=el.dataset.suffix||'';
-  const dur=1400, start=performance.now();
-  function frame(now){
-    const p=Math.min((now-start)/dur,1);
-    const eased=1-Math.pow(1-p,3);
-    el.textContent=Math.round(target*eased)+suffix;
-    if(p<1)requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-}
-const countObs=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{ if(e.isIntersecting){ animateCount(e.target); countObs.unobserve(e.target);} });
-},{threshold:.5});
+/* COUNTERS */
+function animateCount(el){const t=parseFloat(el.dataset.count),sfx=el.dataset.suffix||'',dur=1400,s=performance.now();
+function f(n){const p=Math.min((n-s)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(t*e)+sfx;if(p<1)requestAnimationFrame(f);}requestAnimationFrame(f);}
+const countObs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){animateCount(e.target);countObs.unobserve(e.target);}})},{threshold:.5});
 document.querySelectorAll('[data-count]').forEach(el=>countObs.observe(el));
 
-/* ============ PARALLAX ============ */
-const plx=document.querySelectorAll('[data-parallax]');
-let ticking=false;
-window.addEventListener('scroll',()=>{
-  if(!ticking){
-    requestAnimationFrame(()=>{
-      const y=window.scrollY;
-      plx.forEach(el=>{ const s=parseFloat(el.dataset.parallax); el.style.transform=`translate3d(0,${y*s}px,0)`; });
-      ticking=false;
+/* PARALLAX */
+const plx=document.querySelectorAll('[data-parallax]');let tk=false;
+window.addEventListener('scroll',()=>{if(!tk){requestAnimationFrame(()=>{const y=window.scrollY;plx.forEach(el=>{el.style.transform=`translate3d(0,${y*parseFloat(el.dataset.parallax)}px,0)`;});tk=false;});tk=true;}});
+
+/* MARQUEE duplicate */
+(function(){const m=document.getElementById('marquee');m.innerHTML+=m.innerHTML;})();
+
+/* PRODUCTS scroll switch */
+(function(){const tabs=[...document.querySelectorAll('.prod-tab')],panels=[...document.querySelectorAll('.stage-panel')];let cur=-1;
+function set(i){if(i===cur)return;cur=i;tabs.forEach((t,k)=>t.classList.toggle('active',k===i));panels.forEach((p,k)=>p.classList.toggle('show',k===i));if(i===1)pulse();}
+tabs.forEach((t,i)=>t.addEventListener('click',()=>set(i)));set(0);
+let cyc=null;new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting&&!cyc){cyc=setInterval(()=>set((cur+1)%3),3200);}else if(!e.isIntersecting&&cyc){clearInterval(cyc);cyc=null;}})},{threshold:.35}).observe(document.getElementById('products'));
+function pulse(){const ring=document.getElementById('pulseRing'),val=document.getElementById('pulseVal');if(!ring)return;const t=92,s=performance.now(),dur=1200;
+function f(n){const p=Math.min((n-s)/dur,1),e=1-Math.pow(1-p,3),v=Math.round(t*e);val.textContent=v;ring.style.background=`conic-gradient(var(--cyan) ${v}%, #243049 ${v}%)`;if(p<1)requestAnimationFrame(f);}requestAnimationFrame(f);}})();
+
+/* VOICE WAVE */
+(function(){const w=document.getElementById('wave1');if(!w)return;for(let i=0;i<28;i++){const b=document.createElement('i');b.style.animationDelay=(i*0.05)+'s';b.style.animationDuration=(0.8+Math.random()*0.7)+'s';w.appendChild(b);}})();
+
+/* STORY */
+(function(){const steps=[...document.querySelectorAll('.story-step')],panels=[...document.querySelectorAll('.frame-panel')],prog=[...document.querySelectorAll('#storyProgress i')];
+function set(i){panels.forEach((p,k)=>p.classList.toggle('show',k===i));prog.forEach((b,k)=>b.classList.toggle('on',k<=i));}
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)set(+e.target.dataset.step);})},{threshold:.55});steps.forEach(s=>obs.observe(s));})();
+
+/* ROI TABS */
+(function(){const tabs=[...document.querySelectorAll('.roi-tab')],panels=[...document.querySelectorAll('.roi-panel')];
+tabs.forEach((t,i)=>t.addEventListener('click',()=>{tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');panels.forEach((p,k)=>p.classList.toggle('show',k===i));}));})();
+
+/* USE CASE TABS */
+(function(){const tabs=[...document.querySelectorAll('.uc-tab')],panels=[...document.querySelectorAll('.uc-panel')];
+tabs.forEach((t,i)=>t.addEventListener('click',()=>{tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');panels.forEach((p,k)=>p.classList.toggle('show',k===i));}));})();
+
+/* INTERACTIVE LIVE DEMO */
+(function(){
+  const subs=['EE Edge University Admissions','BVP University Pune Admissions','IIT Bombay Application Process','Delhi University · Financial Aid'];
+  const threads=[
+    [ ['a',"Hi there! I'm here to help you with your EE Edge University application. What's your name?"],
+      ['u',"Hi! I'm Alex Chen. I'm really interested in applying to EE Edge University."],
+      ['a',"Nice to meet you, Alex! Let me share our comprehensive university brochure — programs, campus life, admissions & financial aid."],
+      ['doc',"📄 Download University Brochure"],
+      ['u',"Thanks! Can you tell me about the admission requirements?"],
+      ['a',"EE Edge looks for academic excellence, extracurriculars & strong character. Acceptance rate ~4–5%, with admitted students typically scoring <b>SAT 1460–1580</b>."],
+      ['u',"What about tuition and scholarships?"],
+      ['a',"Tuition is ~$52,000 (total ~$80,000 with room & board). But we meet <b>100% of demonstrated need</b> — families under $75K often pay nothing."],
+      ['u',"Amazing! Can we schedule a meeting?"],
+      ['a',"Absolutely — let me show you available slots."],
+      ['sched',"✅ Counseling Session Scheduled — Thu, Jun 18 at 10:00 AM. Check your email for confirmation!"] ],
+
+    [ ['u',"Hi, I want to know about BVP University Pune's admission process."],
+      ['a',"Welcome! BVP Pune admissions start in March — Engineering, Management & Health Sciences. Which program interests you?"],
+      ['u',"I'm interested in B.Tech Computer Science."],
+      ['a',"For B.Tech CS you'll need: 60% in 12th with PCM, a valid JEE Main score & the online application (fee ₹1500). Want the detailed brochure?"],
+      ['doc',"📄 Download University Brochure"],
+      ['u',"Yes, and tell me about fees and placements."],
+      ['a',"Fees ≈ <b>₹2.5L/year</b>. 2023 placements: highest <b>₹44 LPA</b>, average ₹7.2 LPA, ~85% placed. Recruiters: Microsoft, Amazon, TCS, Infosys, Wipro."],
+      ['u',"Hostel facilities and campus life?"],
+      ['a',"Separate hostels for boys & girls (~₹1.2L/yr incl. mess), modern labs, library, sports & active clubs. Shall I book a counselling session?"],
+      ['sched',"✅ Session Scheduled — Thu, Jun 18 at 10:00 AM. Confirmation email on its way!"] ],
+
+    [ ['u',"Hello, I'd like information about IIT Bombay admissions."],
+      ['a',"Welcome! IIT Bombay admits via JEE Advanced (after qualifying JEE Main). Consistently ranked #1 in India. What would you like to know?"],
+      ['u',"What rank is needed for CS?"],
+      ['a',"For CS, typically a JEE Advanced rank <b>under 50</b> (General). Last year's closing rank was 55. 120 seats, excellent placements. Want the brochure?"],
+      ['doc',"📄 Download University Brochure"],
+      ['u',"Yes. What about placements & packages?"],
+      ['a',"2023: highest <b>₹2.05 Cr</b> (international), average ₹23.26 LPA, median ₹19.2 LPA. 100% placement, multiple offers per student."],
+      ['u',"Dual degree & exchange options?"],
+      ['a',"5-year Dual Degree (B.Tech + M.Tech) with AI/Data Science tracks, plus exchanges with MIT, Stanford & ETH Zurich. Shall I book a discussion?"],
+      ['sched',"✅ Session Scheduled — Fri, Jun 19 at 11:30 AM. Confirmation email sent!"] ],
+
+    [ ['u',"Can you help me with Delhi University's financial aid options?"],
+      ['a',"Of course! DU offers merit & need-based scholarships, fee waivers and bank loan tie-ups. What's your family's annual income?"],
+      ['u',"Around 3 lakhs per annum."],
+      ['a',"You're eligible for: <b>full fee waiver under EWS</b>, Merit-cum-Means Scholarship (₹40,000/yr) & college-specific scholarships. Want the aid guide?"],
+      ['doc',"📄 Download University Brochure"],
+      ['u',"Yes, and the application process?"],
+      ['a',"Apply on the DU portal within 30 days of admission with income certificate, bank statements & transcripts. Funds disbursed in 2 installments."],
+      ['u',"What about education loans?"],
+      ['a',"DU partners with SBI, HDFC, ICICI & PNB — up to <b>₹10L without collateral</b>, 8.5–11% interest, repayment 6 months after course completion."],
+      ['sched',"✅ Aid Consultation Scheduled — Thu, Jun 18 at 3:30 PM. Check your email!"] ]
+  ];
+  const tabs=[...document.querySelectorAll('.demo-tab')];
+  const thread=document.getElementById('demoThread');
+  const sub=document.getElementById('demoSub');
+  let timers=[];
+  function clearTimers(){timers.forEach(t=>clearTimeout(t));timers=[];}
+  function render(idx){
+    clearTimers();thread.innerHTML='';sub.textContent=subs[idx];
+    const msgs=threads[idx];let delay=0;
+    msgs.forEach((m)=>{
+      const isAI=(m[0]==='a');
+      const showAt=delay;
+      // typing indicator for AI
+      if(isAI){
+        timers.push(setTimeout(()=>{
+          const ty=document.createElement('div');ty.className='dm a typing';ty.innerHTML='<i></i><i></i><i></i>';ty.id='typing';
+          thread.appendChild(ty);thread.scrollTop=thread.scrollHeight;
+        },showAt));
+        delay+=650;
+      }
+      timers.push(setTimeout(()=>{
+        const ex=document.getElementById('typing');if(ex)ex.remove();
+        const d=document.createElement('div');
+        if(m[0]==='u'){d.className='dm u';d.textContent=m[1];}
+        else if(m[0]==='a'){d.className='dm a';d.innerHTML=m[1];}
+        else if(m[0]==='doc'){d.className='dm-action';d.textContent=m[1];}
+        else if(m[0]==='sched'){d.className='dm-sched';d.textContent=m[1];}
+        thread.appendChild(d);thread.scrollTop=thread.scrollHeight;
+      },delay));
+      delay+=700;
     });
-    ticking=true;
   }
-});
-
-/* ============ PRODUCTS scroll-driven view switching (also click) ============ */
-(function(){
-  const tabs=[...document.querySelectorAll('.prod-tab')];
-  const panels=[...document.querySelectorAll('.stage-panel')];
-  let current=-1;
-  function setProd(i){
-    if(i===current)return; current=i;
-    tabs.forEach((t,k)=>t.classList.toggle('active',k===i));
-    panels.forEach((p,k)=>p.classList.toggle('show',k===i));
-    if(i===1) animatePulseRing();
-  }
-  tabs.forEach((t,i)=>t.addEventListener('click',()=>setProd(i)));
-  setProd(0);
-  // auto cycle while products section is in view
-  let cyc=null;
-  const sec=document.getElementById('products');
-  new IntersectionObserver((es)=>{
-    es.forEach(e=>{
-      if(e.isIntersecting && !cyc){ cyc=setInterval(()=>setProd((current+1)%3),3200); }
-      else if(!e.isIntersecting && cyc){ clearInterval(cyc); cyc=null; }
-    });
-  },{threshold:.35}).observe(sec);
-
-  // pulse ring counter
-  window.animatePulseRing=function(){
-    const ring=document.getElementById('pulseRing'), val=document.getElementById('pulseVal');
-    if(!ring)return;
-    const target=92,start=performance.now(),dur=1200;
-    function f(now){
-      const p=Math.min((now-start)/dur,1),eased=1-Math.pow(1-p,3),v=Math.round(target*eased);
-      val.textContent=v;
-      ring.style.background=`conic-gradient(var(--cyan) ${v}%, #243049 ${v}%)`;
-      if(p<1)requestAnimationFrame(f);
-    }
-    requestAnimationFrame(f);
-  };
+  tabs.forEach((t,i)=>t.addEventListener('click',()=>{tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');render(i);}));
+  // render first when section scrolls into view
+  let done=false;
+  new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting&&!done){done=true;render(0);}})},{threshold:.3}).observe(document.getElementById('livedemo'));
 })();
 
-/* ============ VOICE WAVE bars ============ */
-(function(){
-  const wave=document.getElementById('wave1'); if(!wave)return;
-  for(let i=0;i<28;i++){ const b=document.createElement('i'); b.style.animationDelay=(i*0.05)+'s'; b.style.animationDuration=(0.8+Math.random()*0.7)+'s'; wave.appendChild(b); }
-})();
-
-/* ============ SCROLL STORYTELLING (sticky steps) ============ */
-(function(){
-  const steps=[...document.querySelectorAll('.story-step')];
-  const panels=[...document.querySelectorAll('.frame-panel')];
-  const prog=[...document.querySelectorAll('#storyProgress i')];
-  function setStep(i){
-    panels.forEach((p,k)=>p.classList.toggle('show',k===i));
-    prog.forEach((b,k)=>b.classList.toggle('on',k<=i));
-  }
-  const obs=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ setStep(+e.target.dataset.step); } });
-  },{threshold:.55});
-  steps.forEach(s=>obs.observe(s));
-})();
-
-/* ============ REAL-TIME DASHBOARD ============ */
+/* REAL-TIME DASHBOARD */
 (function(){
   const names=['Aarav S.','Riya P.','Kabir M.','Ananya R.','Vivaan K.','Diya N.','Arjun T.','Sara F.','Ishaan G.','Meera J.','Rohan B.','Zoya H.'];
   const courses=['B.Tech CSE','MBA','B.Com','B.Tech ECE','BBA','MCA','B.Arch','B.Des','B.Pharm','LLB'];
   const sources=['Meta Lead Ad','Google Ads','Website form','Missed call','WhatsApp','Walk-in'];
   const colors=['#06B6D4','#1E3A8A','#0891B2','#0ea5e9','#6366f1'];
-  let k1=1284,k2=1190,k3=312,k4=148;
-  const elK1=document.getElementById('kpi1'),elK2=document.getElementById('kpi2'),elK3=document.getElementById('kpi3'),elK4=document.getElementById('kpi4');
-  const feed=document.getElementById('feed');
-  let started=false;
-
-  function num(el,v){el.textContent=v.toLocaleString('en-IN');}
-  function rnd(a){return a[Math.floor(Math.random()*a.length)];}
-
-  function addFeed(){
-    const score=60+Math.floor(Math.random()*40);
-    const hot=score>=85;
-    const item=document.createElement('div');
-    item.className='feed-item';
-    const initials=rnd(names).split(' ')[0].slice(0,2).toUpperCase();
-    item.innerHTML=`
-      <div class="ring" style="background:${rnd(colors)}">${initials}</div>
-      <div>
-        <div class="nm">${rnd(names)} · <span style="color:#94A3B8;font-weight:500">${rnd(courses)}</span></div>
-        <div class="mt">${rnd(sources)} · replied in ${(2+Math.random()*4).toFixed(1)}s</div>
-      </div>
+  let k1=1284,k2=1190,k3=312,k4=148,started=false;
+  const e1=document.getElementById('kpi1'),e2=document.getElementById('kpi2'),e3=document.getElementById('kpi3'),e4=document.getElementById('kpi4'),feed=document.getElementById('feed');
+  const num=(el,v)=>el.textContent=v.toLocaleString('en-IN');const rnd=a=>a[Math.floor(Math.random()*a.length)];
+  function add(){
+    const score=60+Math.floor(Math.random()*40),hot=score>=85,it=document.createElement('div');it.className='feed-item';
+    const nm=rnd(names);
+    it.innerHTML=`<div class="ring" style="background:${rnd(colors)}">${nm.slice(0,2).toUpperCase()}</div>
+      <div><div class="nm">${nm} · <span style="color:#94A3B8;font-weight:500">${rnd(courses)}</span></div>
+      <div class="mt">${rnd(sources)} · replied in ${(2+Math.random()*4).toFixed(1)}s</div></div>
       <span class="tag2" style="background:${hot?'rgba(234,88,12,.18)':'rgba(6,182,212,.16)'};color:${hot?'#fdba74':'#67e8f9'}">${hot?'🔥 '+score:'⚡ '+score}</span>`;
-    feed.prepend(item);
-    while(feed.children.length>5) feed.lastChild.remove();
-    // bump kpis
-    k1+=1; k2+=1; if(hot)k3+=1; if(Math.random()>.6)k4+=1;
-    num(elK1,k1);num(elK2,k2);num(elK3,k3);num(elK4,k4);
-    document.getElementById('bar1').style.width=(40+Math.random()*55)+'%';
-    document.getElementById('bar2').style.width=(40+Math.random()*55)+'%';
-    document.getElementById('bar3').style.width=(30+Math.random()*50)+'%';
-    document.getElementById('bar4').style.width=(20+Math.random()*45)+'%';
+    feed.prepend(it);while(feed.children.length>5)feed.lastChild.remove();
+    k1++;k2++;if(hot)k3++;if(Math.random()>.6)k4++;num(e1,k1);num(e2,k2);num(e3,k3);num(e4,k4);
+    document.getElementById('bar1').style.width=(40+Math.random()*55)+'%';document.getElementById('bar2').style.width=(40+Math.random()*55)+'%';
+    document.getElementById('bar3').style.width=(30+Math.random()*50)+'%';document.getElementById('bar4').style.width=(20+Math.random()*45)+'%';
   }
-  function start(){
-    if(started)return;started=true;
-    num(elK1,k1);num(elK2,k2);num(elK3,k3);num(elK4,k4);
-    for(let i=0;i<5;i++)setTimeout(addFeed,i*250);
-    setInterval(addFeed, 2200);
-  }
-  new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)start();});},{threshold:.3})
-    .observe(document.querySelector('.dash-sec'));
+  function start(){if(started)return;started=true;num(e1,k1);num(e2,k2);num(e3,k3);num(e4,k4);for(let i=0;i<5;i++)setTimeout(add,i*250);setInterval(add,2200);}
+  new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)start();})},{threshold:.3}).observe(document.querySelector('.dash-sec'));
 })();
 </script>
 </body>
