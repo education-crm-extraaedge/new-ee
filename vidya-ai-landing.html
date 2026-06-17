@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VidyaAI — Grow Enrollments with AI Simplicity</title>
-<meta name="description" content="VidyaAI is an intelligent, AI-first admissions platform that answers student queries instantly, prioritises high-intent leads and automates follow-ups — converting more applicants into enrollments." />
+<meta name="description" content="VidyaAI is an intelligent, AI-first admissions platform that answers, qualifies and follows up with every student across WhatsApp, web and phone — and hands counsellors only hot, ready-to-enrol leads." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -47,7 +47,12 @@
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   section{padding:96px 0}
 
-  /* ---------- Pills / tags ---------- */
+  /* ---------- Scroll reveal ---------- */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+
+  /* ---------- Pills ---------- */
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
     font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;
@@ -58,7 +63,7 @@
   }
   .eyebrow.on-dark{color:var(--cyan-soft);background:rgba(6,182,212,.14);border-color:rgba(6,182,212,.3)}
 
-  .section-head{max-width:720px;margin:0 auto 56px;text-align:center}
+  .section-head{max-width:730px;margin:0 auto 56px;text-align:center}
   .section-head h2{font-size:clamp(28px,4vw,46px);font-weight:800;margin-bottom:16px}
   .section-head p{font-size:18px;color:var(--muted)}
   .section-head.dark h2{color:#fff}
@@ -75,72 +80,91 @@
   .btn-primary:hover{transform:translateY(-3px);box-shadow:0 24px 50px -12px rgba(6,182,212,.6)}
   .btn-navy{background:var(--navy);color:#fff}
   .btn-navy:hover{transform:translateY(-3px);background:var(--navy-2)}
-  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px)}
   .btn-ghost:hover{background:rgba(255,255,255,.16)}
-  .btn-outline{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
-  .btn-outline:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-3px)}
 
   /* ============ HERO ============ */
-  .hero{
-    position:relative;background:var(--grad);color:#fff;
-    padding:120px 0 110px;overflow:hidden;
-  }
-  .hero::before{
-    content:"";position:absolute;inset:0;
+  .hero{position:relative;background:var(--grad);color:#fff;padding:120px 0 110px;overflow:hidden}
+  .hero .layer{position:absolute;inset:0;pointer-events:none}
+  .hero .glow{
     background:
-      radial-gradient(600px 380px at 80% 10%,rgba(6,182,212,.30),transparent 60%),
-      radial-gradient(500px 320px at 5% 90%,rgba(34,211,238,.18),transparent 60%);
-    pointer-events:none;
+      radial-gradient(600px 380px at 80% 10%,rgba(6,182,212,.32),transparent 60%),
+      radial-gradient(520px 340px at 5% 90%,rgba(34,211,238,.18),transparent 60%);
+    will-change:transform;
   }
   .hero .grid-bg{
-    position:absolute;inset:0;opacity:.4;pointer-events:none;
+    opacity:.4;
     background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
     background-size:48px 48px;
     -webkit-mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%);
     mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%);
+    will-change:transform;
   }
+  .hero .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;will-change:transform}
+  .hero .orb.o1{width:340px;height:340px;background:#06B6D4;top:-80px;right:8%}
+  .hero .orb.o2{width:280px;height:280px;background:#1E3A8A;bottom:-90px;left:-40px}
   .hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
   .hero-logo{height:40px;width:auto;margin-bottom:30px;filter:brightness(0) invert(1)}
-  .hero h1{
-    color:#fff;font-size:clamp(36px,5.4vw,62px);font-weight:800;margin-bottom:22px;
-  }
-  .hero h1 .accent{
-    background:linear-gradient(120deg,var(--cyan-soft),#7dd3fc);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
+  .hero h1{color:#fff;font-size:clamp(36px,5.4vw,60px);font-weight:800;margin-bottom:20px}
+  .hero h1 .accent{background:linear-gradient(120deg,var(--cyan-soft),#7dd3fc);-webkit-background-clip:text;background-clip:text;color:transparent}
+  /* typewriter line */
+  .typer-line{display:block;min-height:1.15em;color:var(--cyan-soft);font-size:clamp(20px,3vw,32px);font-weight:800;margin-bottom:6px}
+  .caret{display:inline-block;width:3px;height:1em;background:var(--cyan-soft);margin-left:3px;transform:translateY(4px);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
   .hero p.lead{font-size:18px;color:#cbd5e1;max-width:540px;margin-bottom:34px}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:38px}
-  .hero-stats{display:flex;gap:34px;flex-wrap:wrap}
-  .hero-stats .stat .n{font-family:'Plus Jakarta Sans';font-weight:800;font-size:28px;color:#fff}
-  .hero-stats .stat .l{font-size:13px;color:#94A3B8}
+  .hero-stats{display:flex;gap:30px;flex-wrap:wrap}
+  .hero-stats .stat .n{font-family:'Plus Jakarta Sans';font-weight:800;font-size:26px;color:#fff}
+  .hero-stats .stat .l{font-size:12.5px;color:#94A3B8;max-width:150px}
 
-  /* hero chat card */
-  .chat-card{
-    background:rgba(255,255,255,.97);border-radius:24px;padding:22px;
-    box-shadow:var(--shadow-lg);position:relative;
-  }
-  .chat-head{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:16px}
+  /* glass chat card */
+  .glass{background:rgba(255,255,255,.1);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.18)}
+  .chat-card{border-radius:24px;padding:22px;box-shadow:var(--shadow-lg);position:relative}
+  .chat-head{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.18);margin-bottom:16px}
   .chat-avatar{width:42px;height:42px;border-radius:12px;background:var(--grad-cyan);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-family:'Plus Jakarta Sans';font-size:18px}
-  .chat-head .title{font-family:'Plus Jakarta Sans';font-weight:700;color:var(--navy);font-size:15px}
-  .chat-head .sub{font-size:12px;color:#16a34a;display:flex;align-items:center;gap:6px}
-  .chat-head .sub::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e}
-  .bubble{padding:12px 16px;border-radius:16px;font-size:14.5px;margin-bottom:12px;max-width:88%}
-  .bubble.user{background:#EEF2F7;color:var(--slate-2);margin-left:auto;border-bottom-right-radius:4px}
-  .bubble.ai{background:var(--navy);color:#fff;border-bottom-left-radius:4px}
+  .chat-head .title{font-family:'Plus Jakarta Sans';font-weight:700;color:#fff;font-size:15px}
+  .chat-head .sub{font-size:12px;color:#86efac;display:flex;align-items:center;gap:6px}
+  .chat-head .sub::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+  .bubble{padding:12px 16px;border-radius:16px;font-size:14.5px;margin-bottom:12px;max-width:88%;opacity:0;transform:translateY(10px);animation:bubbleIn .5s forwards}
+  .bubble.user{background:rgba(255,255,255,.92);color:var(--slate-2);margin-left:auto;border-bottom-right-radius:4px}
+  .bubble.ai{background:var(--navy);color:#fff;border-bottom-left-radius:4px;border:1px solid rgba(255,255,255,.1)}
   .bubble.ai .strong{color:var(--cyan-soft);font-weight:700}
-  .qual{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#16a34a;background:#ECFDF5;padding:8px 12px;border-radius:10px;margin-top:4px}
-  .float-badge{
-    position:absolute;background:#fff;border-radius:14px;padding:10px 14px;box-shadow:var(--shadow-md);
-    font-family:'Plus Jakarta Sans';font-weight:700;font-size:13px;color:var(--navy);display:flex;align-items:center;gap:8px;
-  }
-  .float-badge.b1{top:-18px;right:24px;color:var(--cyan)}
-  .float-badge.b2{bottom:-18px;left:-14px}
+  @keyframes bubbleIn{to{opacity:1;transform:none}}
+  .qual{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#86efac;background:rgba(34,197,94,.14);padding:8px 12px;border-radius:10px;margin-top:4px;opacity:0;animation:bubbleIn .5s .2s forwards}
+  .float-badge{position:absolute;border-radius:14px;padding:10px 14px;box-shadow:var(--shadow-md);font-family:'Plus Jakarta Sans';font-weight:700;font-size:13px;color:#fff;display:flex;align-items:center;gap:8px;background:rgba(15,23,42,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15)}
+  .float-badge.b1{top:-18px;right:24px;color:var(--cyan-soft);animation:floaty 4s ease-in-out infinite}
+  .float-badge.b2{bottom:-18px;left:-14px;animation:floaty 4s ease-in-out infinite .8s}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
   /* trust strip */
   .trust{background:var(--slate);color:#fff;padding:26px 0}
   .trust .wrap{display:flex;align-items:center;justify-content:center;gap:14px 40px;flex-wrap:wrap;text-align:center}
   .trust .lbl{font-size:13px;color:#64748B;text-transform:uppercase;letter-spacing:.1em;font-weight:600}
   .trust .item{display:flex;align-items:center;gap:8px;font-family:'Plus Jakarta Sans';font-weight:700;font-size:15px;color:#E2E8F0}
+
+  /* ============ LIVE DASHBOARD ============ */
+  .dash-sec{background:var(--slate);color:#fff;position:relative;overflow:hidden}
+  .dash-sec::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 380px at 85% -5%,rgba(6,182,212,.18),transparent 60%)}
+  .dash{position:relative;display:grid;grid-template-columns:1.3fr 1fr;gap:24px}
+  .dash-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:24px}
+  .live-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.08em;color:#fca5a5;background:rgba(239,68,68,.12);padding:5px 12px;border-radius:999px;margin-bottom:18px}
+  .live-tag .dot{width:8px;height:8px;border-radius:50%;background:#ef4444;animation:pulse 1.6s infinite}
+  .kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px}
+  .kpi .lab{font-size:12px;color:#94A3B8;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+  .kpi .up{font-size:11px;color:#86efac;font-weight:700}
+  .kpi .val{font-family:'Plus Jakarta Sans';font-weight:800;font-size:30px;color:#fff;line-height:1}
+  .kpi .bar{height:6px;border-radius:6px;background:rgba(255,255,255,.08);margin-top:12px;overflow:hidden}
+  .kpi .bar i{display:block;height:100%;border-radius:6px;background:var(--grad-cyan);transition:width .6s ease}
+  .feed-title{font-family:'Plus Jakarta Sans';font-weight:700;font-size:15px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+  .feed{display:flex;flex-direction:column;gap:10px;max-height:300px;overflow:hidden}
+  .feed-item{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;animation:feedIn .5s ease}
+  @keyframes feedIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+  .feed-item .ring{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-family:'Plus Jakarta Sans';font-weight:800;font-size:13px;color:#fff}
+  .feed-item .nm{font-weight:600;font-size:13.5px;color:#e2e8f0}
+  .feed-item .mt{font-size:11.5px;color:#94A3B8}
+  .feed-item .tag2{margin-left:auto;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
 
   /* ============ STATS / gap ============ */
   .gap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px}
@@ -149,7 +173,7 @@
   .gap-card .big{font-family:'Plus Jakarta Sans';font-weight:800;font-size:46px;color:var(--cyan);margin-bottom:8px}
   .gap-card p{color:var(--muted);font-size:15px}
 
-  /* ============ FEATURE / superpowers ============ */
+  /* ============ FEATURES ============ */
   .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
   .feat-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;transition:transform .25s,box-shadow .25s,border-color .25s}
   .feat-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:rgba(6,182,212,.4)}
@@ -157,35 +181,26 @@
   .feat-card h3{font-size:19px;font-weight:700;margin-bottom:10px}
   .feat-card p{color:var(--muted);font-size:14.5px}
 
-  /* ============ PRODUCTS ============ */
+  /* ============ PRODUCTS — scroll-driven view switch ============ */
   .products{background:var(--slate);color:#fff}
-  .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .prod-card{
-    background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
-    border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:34px 30px;
-    transition:transform .25s,border-color .25s,box-shadow .25s;position:relative;overflow:hidden;
-  }
-  .prod-card:hover{transform:translateY(-8px);border-color:rgba(6,182,212,.55);box-shadow:var(--shadow-cyan)}
-  .prod-card .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--cyan-soft);margin-bottom:14px;text-transform:uppercase}
-  .prod-card h3{color:#fff;font-size:24px;font-weight:800;margin-bottom:6px}
-  .prod-card .role{font-size:14px;color:#94A3B8;margin-bottom:16px}
-  .prod-card p{color:#cbd5e1;font-size:15px;margin-bottom:20px}
-  .prod-card .more{color:var(--cyan-soft);font-weight:700;font-size:14px;display:inline-flex;gap:8px;align-items:center}
-  .prod-num{position:absolute;top:18px;right:24px;font-family:'Plus Jakarta Sans';font-weight:800;font-size:60px;color:rgba(255,255,255,.05)}
+  .prod-switch{position:relative;display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:start}
+  .prod-tabs{position:sticky;top:120px;display:flex;flex-direction:column;gap:14px}
+  .prod-tab{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:22px;cursor:pointer;transition:border-color .3s,background .3s,transform .3s}
+  .prod-tab.active{border-color:var(--cyan);background:rgba(6,182,212,.08);transform:translateX(6px)}
+  .prod-tab .tag{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--cyan-soft);text-transform:uppercase}
+  .prod-tab h3{color:#fff;font-size:21px;margin:6px 0 4px}
+  .prod-tab .role{font-size:13px;color:#94A3B8}
+  .prod-tab .desc{font-size:13.5px;color:#cbd5e1;margin-top:10px;max-height:0;overflow:hidden;opacity:0;transition:max-height .4s,opacity .3s,margin .3s}
+  .prod-tab.active .desc{max-height:120px;opacity:1;margin-top:12px}
+  .prod-stage{position:sticky;top:120px}
+  .stage-panel{display:none;animation:stageIn .5s ease}
+  .stage-panel.show{display:block}
+  @keyframes stageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
-  /* ============ SPLIT showcase ============ */
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-  .split.rev .copy{order:2}
-  .split .copy h2{font-size:clamp(26px,3.4vw,40px);font-weight:800;margin-bottom:18px}
-  .split .copy p.intro{font-size:17px;color:var(--muted);margin-bottom:24px}
-  .check-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
-  .check-list li{display:flex;gap:12px;font-size:15.5px;color:var(--slate-2)}
-  .check-list li .tick{flex:none;width:24px;height:24px;border-radius:50%;background:rgba(6,182,212,.14);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;margin-top:1px}
-
-  /* mini chat / panel */
-  .panel{background:var(--slate);border-radius:24px;padding:24px;box-shadow:var(--shadow-lg);color:#fff}
+  /* mini panels (shared) */
+  .panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:24px;color:#fff;backdrop-filter:blur(8px)}
   .panel .ph{display:flex;align-items:center;gap:10px;font-size:13px;color:#94A3B8;margin-bottom:16px}
-  .panel .ph .dot{width:8px;height:8px;border-radius:50%;background:#22c55e}
+  .panel .ph .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 1.8s infinite}
   .panel .pb{padding:12px 15px;border-radius:14px;font-size:14px;margin-bottom:10px;max-width:90%}
   .panel .pb.u{background:rgba(255,255,255,.08);margin-left:auto;border-bottom-right-radius:4px}
   .panel .pb.a{background:var(--grad-cyan);border-bottom-left-radius:4px}
@@ -193,59 +208,70 @@
   .quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
   .quick span{background:rgba(6,182,212,.15);color:var(--cyan-soft);font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid rgba(6,182,212,.3)}
 
-  /* voice timeline */
+  /* voice panel + wave */
+  .wave{display:flex;align-items:center;gap:4px;height:54px;margin:8px 0 16px}
+  .wave i{flex:1;background:var(--grad-cyan);border-radius:4px;height:20%;animation:wave 1.1s ease-in-out infinite}
+  @keyframes wave{0%,100%{height:18%}50%{height:100%}}
   .timeline{list-style:none;position:relative;padding-left:26px}
   .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:rgba(6,182,212,.3)}
-  .timeline li{position:relative;padding:0 0 18px 6px}
+  .timeline li{position:relative;padding:0 0 16px 6px}
   .timeline li::before{content:"";position:absolute;left:-23px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 4px rgba(6,182,212,.18)}
   .timeline .t{font-family:'Plus Jakarta Sans';font-weight:700;font-size:12px;color:var(--cyan-soft);letter-spacing:.05em}
-  .timeline .d{font-size:14px;color:#cbd5e1}
-  .voice-foot{margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center}
+  .timeline .d{font-size:13.5px;color:#cbd5e1}
+  .voice-foot{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1)}
   .voice-foot .qn{font-family:'Plus Jakarta Sans';font-weight:800;color:var(--cyan-soft);font-size:15px}
   .voice-foot .qs{font-size:12px;color:#94A3B8}
 
-  /* intent score card */
-  .score-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow-md);max-width:380px;margin-left:auto}
-  .score-top{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-  .score-ring{flex:none;width:84px;height:84px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--cyan) 0 92%,#E2E8F0 92% 100%);position:relative}
-  .score-ring::after{content:"";position:absolute;inset:8px;border-radius:50%;background:#fff}
-  .score-ring .v{position:relative;font-family:'Plus Jakarta Sans';font-weight:800;font-size:24px;color:var(--navy)}
-  .score-top .nm{font-family:'Plus Jakarta Sans';font-weight:800;color:var(--navy);font-size:17px}
-  .score-top .meta{font-size:13px;color:var(--muted)}
-  .hot{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;color:#ea580c;background:#FFF7ED;padding:4px 10px;border-radius:999px}
-  .signal{display:flex;gap:10px;font-size:14px;color:var(--slate-2);padding:8px 0;border-top:1px dashed var(--line)}
+  /* intent score (animated counter ring) */
+  .score-top{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+  .score-ring{flex:none;width:90px;height:90px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--cyan) 0%, #243049 0%)}
+  .score-ring::after{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--slate)}
+  .score-ring .v{position:relative;font-family:'Plus Jakarta Sans';font-weight:800;font-size:26px;color:#fff}
+  .score-top .nm{font-family:'Plus Jakarta Sans';font-weight:800;color:#fff;font-size:17px}
+  .score-top .meta{font-size:13px;color:#94A3B8}
+  .hot{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;color:#fdba74;background:rgba(234,88,12,.16);padding:4px 10px;border-radius:999px}
+  .signal{display:flex;gap:10px;font-size:14px;color:#cbd5e1;padding:8px 0;border-top:1px dashed rgba(255,255,255,.12)}
   .signal .tick{color:var(--cyan);font-weight:800}
 
-  /* ============ HOW IT WORKS ============ */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:step}
+  /* ============ SCROLL STORYTELLING (sticky) ============ */
+  .story{position:relative;background:#fff}
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+  .story-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center}
+  .story-visual{width:100%}
+  .story-steps{display:flex;flex-direction:column}
+  .story-step{min-height:78vh;display:flex;flex-direction:column;justify-content:center}
+  .story-step .num{width:46px;height:46px;border-radius:13px;background:var(--grad);color:#fff;font-family:'Plus Jakarta Sans';font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:18px}
+  .story-step h3{font-size:clamp(24px,3.2vw,34px);font-weight:800;margin-bottom:14px}
+  .story-step p{font-size:16.5px;color:var(--muted);max-width:440px}
+  /* visual frames */
+  .frame{background:var(--slate);border-radius:24px;padding:26px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;color:#fff}
+  .frame-stage{position:relative;min-height:330px}
+  .frame-panel{position:absolute;inset:26px;opacity:0;transform:translateY(20px) scale(.98);transition:opacity .5s,transform .5s}
+  .frame-panel.show{opacity:1;transform:none}
+  .fp-head{display:flex;align-items:center;gap:10px;font-size:12.5px;color:#94A3B8;margin-bottom:16px}
+  .fp-head .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan)}
+  .fp-row{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px 13px;margin-bottom:9px;font-size:13.5px;color:#e2e8f0}
+  .fp-row .em{font-size:18px}
+  .progress-line{display:flex;gap:6px;margin-top:auto}
+  .progress-line i{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.12);transition:background .3s}
+  .progress-line i.on{background:var(--cyan)}
+
+  /* ============ HOW IT WORKS (cards) ============ */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
   .step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 24px;position:relative;transition:transform .25s,box-shadow .25s}
   .step:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
   .step .num{width:42px;height:42px;border-radius:12px;background:var(--grad);color:#fff;font-family:'Plus Jakarta Sans';font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
   .step h3{font-size:18px;font-weight:700;margin-bottom:8px}
   .step p{font-size:14px;color:var(--muted)}
 
-  /* ============ ROI / METRIC BAND ============ */
+  /* ============ ROI BAND (animated counters) ============ */
   .band{background:var(--grad);color:#fff;border-radius:28px;padding:56px 48px;position:relative;overflow:hidden}
   .band::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 300px at 90% 0,rgba(6,182,212,.3),transparent 60%)}
   .band-grid{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
   .band-grid .n{font-family:'Plus Jakarta Sans';font-weight:800;font-size:44px;background:linear-gradient(120deg,#fff,var(--cyan-soft));-webkit-background-clip:text;background-clip:text;color:transparent}
   .band-grid .l{font-size:14px;color:#cbd5e1;margin-top:4px}
 
-  /* ============ LANGUAGES ============ */
-  .langs{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:760px;margin:0 auto}
-  .langs span{font-family:'Plus Jakarta Sans';font-weight:600;font-size:16px;color:var(--navy);background:#fff;border:1px solid var(--line);padding:12px 22px;border-radius:999px;box-shadow:var(--shadow-sm);transition:transform .2s,border-color .2s}
-  .langs span:hover{transform:translateY(-3px);border-color:var(--cyan);color:var(--cyan)}
-  .langs span.more{background:var(--navy);color:#fff;border-color:var(--navy)}
-
-  /* ============ INTEGRATIONS ============ */
-  .int-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .int{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 20px;display:flex;gap:14px;align-items:flex-start;transition:transform .2s,box-shadow .2s}
-  .int:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
-  .int .em{font-size:26px}
-  .int .nm{font-family:'Plus Jakarta Sans';font-weight:700;color:var(--navy);font-size:15px}
-  .int .ds{font-size:13px;color:var(--muted)}
-
-  /* ============ EMPATHY classifiers ============ */
+  /* ============ EMPATHY ============ */
   .emp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .emp{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;transition:transform .25s,box-shadow .25s}
   .emp:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
@@ -271,6 +297,20 @@
   .cmp.old .ic{color:#ef4444}
   .cmp.new .ic{color:var(--cyan)}
 
+  /* ============ LANGUAGES ============ */
+  .langs{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:780px;margin:0 auto}
+  .langs span{font-family:'Plus Jakarta Sans';font-weight:600;font-size:16px;color:var(--navy);background:#fff;border:1px solid var(--line);padding:12px 22px;border-radius:999px;box-shadow:var(--shadow-sm);transition:transform .2s,border-color .2s}
+  .langs span:hover{transform:translateY(-3px);border-color:var(--cyan);color:var(--cyan)}
+  .langs span.more{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+  /* ============ INTEGRATIONS ============ */
+  .int-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .int{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 20px;display:flex;gap:14px;align-items:flex-start;transition:transform .2s,box-shadow .2s}
+  .int:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+  .int .em{font-size:26px}
+  .int .nm{font-family:'Plus Jakarta Sans';font-weight:700;color:var(--navy);font-size:15px}
+  .int .ds{font-size:13px;color:var(--muted)}
+
   /* ============ TESTIMONIALS ============ */
   .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
   .test{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-sm);transition:transform .25s,box-shadow .25s}
@@ -292,14 +332,17 @@
   .faq[open] summary .pm{transform:rotate(45deg)}
   .faq .body{padding:0 26px 24px;color:var(--muted);font-size:15px}
 
-  /* ============ FINAL CTA / DEMO FORM ============ */
+  /* ============ DEMO ============ */
   .demo{background:var(--grad);color:#fff;position:relative;overflow:hidden}
   .demo::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 380px at 15% 20%,rgba(6,182,212,.28),transparent 60%)}
   .demo-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
   .demo h2{color:#fff;font-size:clamp(28px,3.6vw,42px);font-weight:800;margin-bottom:18px}
   .demo p.intro{color:#cbd5e1;font-size:17px;margin-bottom:26px}
-  .demo .check-list li{color:#e2e8f0}
-  .demo .check-list li .tick{background:rgba(6,182,212,.22);color:var(--cyan-soft)}
+  .check-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+  .check-list li{display:flex;gap:12px;font-size:15.5px;color:#e2e8f0}
+  .check-list li .tick{flex:none;width:24px;height:24px;border-radius:50%;background:rgba(6,182,212,.22);color:var(--cyan-soft);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;margin-top:1px}
+  .copy .check-list li{color:var(--slate-2)}
+  .copy .check-list li .tick{background:rgba(6,182,212,.14);color:var(--cyan)}
   .form-card{background:#fff;border-radius:24px;padding:34px;box-shadow:var(--shadow-lg)}
   .form-card h3{font-size:22px;font-weight:800;margin-bottom:6px}
   .form-card .sub{font-size:14px;color:var(--muted);margin-bottom:22px}
@@ -310,41 +353,58 @@
   .form-card .btn{width:100%;justify-content:center;margin-top:8px}
   .form-card .note{text-align:center;font-size:12.5px;color:var(--muted);margin-top:14px}
 
+  /* split shared */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .split .copy h2{font-size:clamp(26px,3.4vw,40px);font-weight:800;margin-bottom:18px}
+  .split .copy p.intro{font-size:17px;color:var(--muted);margin-bottom:24px}
+
   /* ============ RESPONSIVE ============ */
   @media (max-width:980px){
-    .hero-grid,.split,.demo-grid{grid-template-columns:1fr;gap:40px}
-    .split.rev .copy{order:0}
-    .feat-grid,.steps,.band-grid,.int-grid{grid-template-columns:repeat(2,1fr)}
-    .prod-grid,.gap-grid,.emp-grid,.test-grid{grid-template-columns:1fr}
+    .hero-grid,.split,.demo-grid,.dash,.story-grid,.prod-switch{grid-template-columns:1fr;gap:40px}
+    .feat-grid,.steps,.band-grid,.int-grid,.kpi-grid{grid-template-columns:repeat(2,1fr)}
+    .gap-grid,.emp-grid,.test-grid{grid-template-columns:1fr}
     .cmp-grid{grid-template-columns:1fr}
-    .score-card{margin:0 auto}
+    .prod-tabs,.prod-stage,.story-sticky{position:static;top:auto;height:auto}
+    .story-step{min-height:auto;padding:30px 0}
+    .frame-panel{position:relative;inset:auto;opacity:1;transform:none;margin-bottom:14px}
+    .frame-panel:not(.show){display:none}
   }
   @media (max-width:560px){
     section{padding:64px 0}
-    .feat-grid,.steps,.band-grid,.int-grid{grid-template-columns:1fr}
+    .feat-grid,.steps,.band-grid,.int-grid,.kpi-grid{grid-template-columns:1fr}
     .hero{padding:90px 0 80px}
     .band{padding:40px 24px}
-    .hero-stats{gap:22px}
+    .hero-stats{gap:20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    *{animation-duration:.001ms!important;animation-iteration-count:1!important}
   }
 </style>
 </head>
 <body>
 
 <!-- ============ HERO ============ -->
-<header class="hero">
-  <div class="grid-bg"></div>
+<header class="hero" id="top">
+  <div class="layer grid-bg" data-parallax="0.18"></div>
+  <div class="layer glow" data-parallax="0.30"></div>
+  <div class="orb o1" data-parallax="0.5"></div>
+  <div class="orb o2" data-parallax="0.35"></div>
   <div class="wrap hero-grid">
     <div>
       <img class="hero-logo" src="https://getvidya.ai/assets/vidya-ai-logo-DUZkn8LQ.png" alt="VidyaAI" />
-      <div class="eyebrow on-dark">⚡ AI-First Admissions Platform</div>
-      <h1>Grow Enrollments,<br><span class="accent">with AI Simplicity</span></h1>
-      <p class="lead">An intelligent, AI-first admissions platform built for modern education teams — answer student queries instantly, focus counsellors on high-intent leads, and automate calling, meetings, walk-ins & follow-ups. Convert more applicants into enrollments, without scaling team headcount.</p>
+      <div class="eyebrow on-dark">⚡ The 24/7 AI Admissions Agent</div>
+      <h1>
+        <span class="typer-line"><span id="typer"></span><span class="caret"></span></span>
+        Grow Enrollments,<br><span class="accent">with AI Simplicity.</span>
+      </h1>
+      <p class="lead">VidyaAI answers, qualifies and follows up with every student across WhatsApp, web and phone — in 30+ languages (all Indian regional, Spanish, Arabic, German) — and hands your counsellors only hot, ready-to-enrol leads.</p>
       <div class="hero-cta">
-        <a href="#demo" class="btn btn-primary">Try with Your Website →</a>
-        <a href="#products" class="btn btn-ghost">▶ Explore VidyaAI</a>
+        <a href="#demo" class="btn btn-primary">Book a Free Demo →</a>
+        <a href="#products" class="btn btn-ghost">▶ See VidyaAI live</a>
       </div>
       <div class="hero-stats">
-        <div class="stat"><div class="n">95+</div><div class="l">Languages</div></div>
+        <div class="stat"><div class="n">30+</div><div class="l">Languages · all Indian regional, Spanish, Arabic, German</div></div>
         <div class="stat"><div class="n">&lt;60s</div><div class="l">First response</div></div>
         <div class="stat"><div class="n">24/7</div><div class="l">Always on</div></div>
         <div class="stat"><div class="n">10M+</div><div class="l">Enquiries handled</div></div>
@@ -354,7 +414,7 @@
     <div style="position:relative">
       <div class="float-badge b1">⚡ Replies in 4s</div>
       <div class="float-badge b2">🎯 Intent 92/100</div>
-      <div class="chat-card">
+      <div class="chat-card glass">
         <div class="chat-head">
           <div class="chat-avatar">V</div>
           <div>
@@ -362,11 +422,11 @@
             <div class="sub">Online · replies in seconds</div>
           </div>
         </div>
-        <div class="bubble user">Hi! I want to apply for B.Tech CSE but I think I missed the deadline 😟</div>
-        <div class="bubble ai">Good news — late applications close this <span class="strong">Friday!</span> 🎉 I've reserved your slot and sent the form to your WhatsApp.</div>
-        <div class="bubble user">Oh great! What documents do I need?</div>
-        <div class="bubble ai">Just 3: marksheet, ID proof & photo. Want me to book a counsellor call for tomorrow 11 AM?</div>
-        <div class="qual">✓ Qualified · scored 92/100 · routed to counsellor</div>
+        <div class="bubble user" style="animation-delay:.1s">Hi! I want to apply for B.Tech CSE but I think I missed the deadline 😟</div>
+        <div class="bubble ai" style="animation-delay:.5s">Good news — late applications close this <span class="strong">Friday!</span> 🎉 I've reserved your slot and sent the form to your WhatsApp.</div>
+        <div class="bubble user" style="animation-delay:.9s">Oh great! What documents do I need?</div>
+        <div class="bubble ai" style="animation-delay:1.3s">Just 3: marksheet, ID proof & photo. Want me to book a counsellor call for tomorrow 11 AM?</div>
+        <div class="qual" style="animation-delay:1.7s">✓ Qualified · scored 92/100 · routed to counsellor</div>
       </div>
     </div>
   </div>
@@ -383,18 +443,60 @@
   </div>
 </div>
 
+<!-- ============ LIVE DASHBOARD ============ -->
+<section class="dash-sec">
+  <div class="wrap">
+    <div class="section-head dark reveal">
+      <div class="eyebrow on-dark"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;animation:pulse 1.6s infinite"></span> Live · Admission Control Room</div>
+      <h2>Watch your funnel work — in real time.</h2>
+      <p>Every enquiry captured, scored and routed the moment it arrives. This is a live simulation of VidyaAI handling your admission season.</p>
+    </div>
+    <div class="dash reveal d1">
+      <div class="dash-card">
+        <span class="live-tag"><span class="dot"></span> LIVE METRICS</span>
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="lab"><span>Enquiries today</span><span class="up" id="up1">▲ live</span></div>
+            <div class="val" id="kpi1">0</div>
+            <div class="bar"><i id="bar1" style="width:20%"></i></div>
+          </div>
+          <div class="kpi">
+            <div class="lab"><span>Auto-replies sent</span><span class="up">&lt;4s avg</span></div>
+            <div class="val" id="kpi2">0</div>
+            <div class="bar"><i id="bar2" style="width:30%"></i></div>
+          </div>
+          <div class="kpi">
+            <div class="lab"><span>Hot leads routed</span><span class="up">🔥 high intent</span></div>
+            <div class="val" id="kpi3">0</div>
+            <div class="bar"><i id="bar3" style="width:25%"></i></div>
+          </div>
+          <div class="kpi">
+            <div class="lab"><span>Slots booked</span><span class="up">▲ +today</span></div>
+            <div class="val" id="kpi4">0</div>
+            <div class="bar"><i id="bar4" style="width:18%"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="dash-card">
+        <div class="feed-title">📡 Live enquiry feed <span style="font-size:11px;color:#94A3B8;font-weight:500">auto-updating</span></div>
+        <div class="feed" id="feed"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ THE ADMISSION GAP ============ -->
 <section>
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">The admission gap</div>
       <h2>Students enrol with whoever replies first.<br>Most institutes reply too late.</h2>
       <p>Peak season, every counsellor busy, enquiries pouring in at 2 AM. The fastest, most consistent responder wins the admission — and humans can't be everywhere, always.</p>
     </div>
     <div class="gap-grid">
-      <div class="gap-card"><div class="big">35–40%</div><p>of admission-season calls & enquiries go unanswered at peak times.</p></div>
-      <div class="gap-card"><div class="big">78%</div><p>of students enrol with the institute that contacts them first.</p></div>
-      <div class="gap-card"><div class="big">17h</div><p>average industry response time — VidyaAI replies in under 60 seconds.</p></div>
+      <div class="gap-card reveal d1"><div class="big" data-count="40" data-suffix="%">0%</div><p>of admission-season calls & enquiries go unanswered at peak times.</p></div>
+      <div class="gap-card reveal d2"><div class="big" data-count="78" data-suffix="%">0%</div><p>of students enrol with the institute that contacts them first.</p></div>
+      <div class="gap-card reveal d3"><div class="big" data-count="17" data-suffix="h">0h</div><p>average industry response time — VidyaAI replies in under 60 seconds.</p></div>
     </div>
   </div>
 </section>
@@ -402,196 +504,176 @@
 <!-- ============ FOUR SUPERPOWERS ============ -->
 <section style="background:#fff">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">One AI agent · four superpowers</div>
       <h2>Everything a great counsellor does — at infinite scale.</h2>
       <p>VidyaAI works the top of your funnel 24/7 so your team spends time enrolling students, not chasing them.</p>
     </div>
     <div class="feat-grid">
-      <div class="feat-card"><div class="feat-ico">💬</div><h3>VidyaGPT Chat</h3><p>Answers fees, courses, eligibility & hostel questions on web and WhatsApp — instantly, in the student's language.</p></div>
-      <div class="feat-card"><div class="feat-ico">📞</div><h3>AI Voice Calling</h3><p>Calls every new lead in seconds, qualifies intent and books counselling slots — thousands of calls, zero fatigue.</p></div>
-      <div class="feat-card"><div class="feat-ico">🎯</div><h3>Intent Scoring</h3><p>Reads real behaviour and scores every lead 0–100, so counsellors always call the hottest applicant first.</p></div>
-      <div class="feat-card"><div class="feat-ico">🧮</div><h3>Smart Routing</h3><p>Matches each student to the best counsellor by language, course & availability — and hands over with full context.</p></div>
+      <div class="feat-card reveal d1"><div class="feat-ico">💬</div><h3>VidyaGPT Chat</h3><p>Answers fees, courses, eligibility & hostel questions on web and WhatsApp — instantly, in the student's language.</p></div>
+      <div class="feat-card reveal d2"><div class="feat-ico">📞</div><h3>AI Voice Calling</h3><p>Calls every new lead in seconds, qualifies intent and books counselling slots — thousands of calls, zero fatigue.</p></div>
+      <div class="feat-card reveal d3"><div class="feat-ico">🎯</div><h3>Intent Scoring</h3><p>Reads real behaviour and scores every lead 0–100, so counsellors always call the hottest applicant first.</p></div>
+      <div class="feat-card reveal d4"><div class="feat-ico">🧮</div><h3>Smart Routing</h3><p>Matches each student to the best counsellor by language, course & availability — and hands over with full context.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ============ PRODUCTS ============ -->
+<!-- ============ PRODUCTS — scroll-driven view switching ============ -->
 <section class="products" id="products">
   <div class="wrap">
-    <div class="section-head dark">
+    <div class="section-head dark reveal">
       <div class="eyebrow on-dark">Three Products. One Platform.</div>
       <h2>Infinite Possibilities.</h2>
-      <p>A complete AI-powered admissions suite designed to work together seamlessly. Available as individual modules or as a complete platform.</p>
+      <p>A complete AI-powered admissions suite designed to work together. Scroll through — the live preview switches with you.</p>
     </div>
-    <div class="prod-grid">
-      <div class="prod-card">
-        <span class="prod-num">01</span>
-        <span class="tag">Capture</span>
-        <h3>VidyaGPT</h3>
-        <div class="role">talks to students</div>
-        <p>Answer admission queries fast, accurate & timely with conversational AI — your always-on admissions counsellor.</p>
-        <a href="#vidyagpt" class="more">Learn More →</a>
-      </div>
-      <div class="prod-card">
-        <span class="prod-num">02</span>
-        <span class="tag">Prioritise</span>
-        <h3>Vidya Pulse</h3>
-        <div class="role">decides admission priorities</div>
-        <p>AI surfaces high-intent students and recommends the next best action — the brain behind your admissions team.</p>
-        <a href="#intent" class="more">Learn More →</a>
-      </div>
-      <div class="prod-card">
-        <span class="prod-num">03</span>
-        <span class="tag">Convert</span>
-        <h3>Vidya Agent</h3>
-        <div class="role">executes admission tasks</div>
-        <p>Workflows, follow-ups, and critical processes run on autopilot — work that never sleeps.</p>
-        <a href="#voice" class="more">Learn More →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ VIDYAGPT SPLIT ============ -->
-<section id="vidyagpt">
-  <div class="wrap split">
-    <div class="copy">
-      <div class="eyebrow">VidyaGPT · Conversational AI</div>
-      <h2>A counsellor that never sleeps — on chat & WhatsApp.</h2>
-      <p class="intro">VidyaGPT understands real student questions and answers with your exact fees, courses, scholarships and deadlines — then nudges them towards applying.</p>
-      <ul class="check-list">
-        <li><span class="tick">✓</span>Answers in 95+ languages, including Hindi, Marathi, Tamil & Bengali — on chat and voice.</li>
-        <li><span class="tick">✓</span>Trained on <strong>your</strong> brochure, fee structure & policies — no generic replies.</li>
-        <li><span class="tick">✓</span>Captures the lead, sends the form & books a counsellor call automatically.</li>
-        <li><span class="tick">✓</span>Full context handed to a human the moment buying intent appears.</li>
-      </ul>
-      <a href="#demo" class="btn btn-navy">See VidyaGPT on your data →</a>
-    </div>
-    <div>
-      <div class="panel">
-        <div class="ph"><span class="dot"></span> VidyaGPT · online · 02:47 AM</div>
-        <div class="pb u">Is there a hostel facility? 🏠</div>
-        <div class="pb a">Yes! 4 hostel blocks with 24/7 security. Sending the brochure to your WhatsApp now 📄</div>
-        <div class="doc">📄 Brochure + Fee Structure 2026.pdf</div>
-        <div class="pb u">And the fee for B.Tech CSE?</div>
-        <div class="pb a">₹1.85L/yr with scholarships up to 40%. Want me to book a counsellor call?</div>
-        <div class="quick"><span>📅 Book a call</span><span>📝 Apply now</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ AI VOICE SPLIT ============ -->
-<section style="background:#fff" id="voice">
-  <div class="wrap split rev">
-    <div class="copy">
-      <div class="eyebrow">AI Voice Calling · Vidya Agent</div>
-      <h2>Calls every lead in seconds — in their language.</h2>
-      <p class="intro">The moment a lead arrives, VidyaAI dials, verifies intent, answers program & fee questions and books the counselling slot. 24/7, in 10+ languages, every call transcribed and scored.</p>
-      <ul class="check-list">
-        <li><span class="tick">✓</span>Leads contacted in &lt;5 min are <strong>21× more likely</strong> to qualify.</li>
-        <li><span class="tick">✓</span>Thousands of simultaneous calls — no missed peak-hour enquiry.</li>
-        <li><span class="tick">✓</span>Every call transcribed, summarised & scored into your CRM.</li>
-      </ul>
-      <a href="#demo" class="btn btn-navy">Hear a sample call →</a>
-    </div>
-    <div>
-      <div class="panel">
-        <div class="ph"><span class="dot"></span> 📞 VidyaAI Voice Agent · LIVE CALL</div>
-        <ul class="timeline">
-          <li><div class="t">T+0.0s</div><div class="d">Inquiry detected · Meta Lead Ad — Aarav S. · B.Tech CSE · Pune</div></li>
-          <li><div class="t">T+1.4s</div><div class="d">Lead scored & routed — Intent HIGH · program match 94%</div></li>
-          <li><div class="t">T+3.8s</div><div class="d">AI voice call initiated — language auto-detected: English + Hindi</div></li>
-          <li><div class="t">T+18s</div><div class="d">Connected & qualified ✓ — counselling slot booked tomorrow 11 AM</div></li>
-          <li><div class="t">T+19s</div><div class="d">Warm summary pushed to counsellor — score 92/100</div></li>
-        </ul>
-        <div class="voice-foot">
-          <div><div class="qn">QUALIFIED IN 18 SECONDS</div><div class="qs">0 min counsellor time</div></div>
+    <div class="prod-switch">
+      <div class="prod-tabs">
+        <div class="prod-tab active" data-prod="0">
+          <span class="tag">Capture</span>
+          <h3>VidyaGPT</h3><div class="role">talks to students</div>
+          <div class="desc">Answer admission queries fast, accurate & timely with conversational AI — your always-on admissions counsellor.</div>
+        </div>
+        <div class="prod-tab" data-prod="1">
+          <span class="tag">Prioritise</span>
+          <h3>Vidya Pulse</h3><div class="role">decides admission priorities</div>
+          <div class="desc">AI surfaces high-intent students and recommends the next best action — the brain behind your admissions team.</div>
+        </div>
+        <div class="prod-tab" data-prod="2">
+          <span class="tag">Convert</span>
+          <h3>Vidya Agent</h3><div class="role">executes admission tasks</div>
+          <div class="desc">Calls leads, books meetings, runs follow-ups and updates the CRM automatically — work that never sleeps.</div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ INTENT SCORING SPLIT ============ -->
-<section id="intent">
-  <div class="wrap split">
-    <div class="copy">
-      <div class="eyebrow">Intent Intelligence · Vidya Pulse</div>
-      <h2>Always call the hottest applicant first.</h2>
-      <p class="intro">Not all leads are equal. VidyaAI reads real behavioural signals — fee-page visits, course searches, replies, distance — and rolls them into one intent score, so your team never wastes a minute on cold lists.</p>
-      <ul class="check-list">
-        <li><span class="tick">✓</span>Behaviour-based scoring, not guesswork or round-robin.</li>
-        <li><span class="tick">✓</span>Auto-flags "contact within 5 minutes" for hot leads.</li>
-        <li><span class="tick">✓</span>2.4× faster conversions when teams work by score.</li>
-      </ul>
-      <a href="#demo" class="btn btn-navy">See scoring on your funnel →</a>
-    </div>
-    <div>
-      <div class="score-card">
-        <div class="score-top">
-          <div class="score-ring"><span class="v">92</span></div>
-          <div>
-            <div class="nm">Riya's Parent</div>
-            <div class="meta">B.Tech (CS) · Missed Call · Google Ads</div>
-            <span class="hot">🔥 HOT — contact in 5 min</span>
+      <div class="prod-stage">
+        <!-- VidyaGPT panel -->
+        <div class="stage-panel show" data-panel="0">
+          <div class="panel">
+            <div class="ph"><span class="dot"></span> VidyaGPT · online · 02:47 AM</div>
+            <div class="pb u">Is there a hostel facility? 🏠</div>
+            <div class="pb a">Yes! 4 hostel blocks with 24/7 security. Sending the brochure to your WhatsApp now 📄</div>
+            <div class="doc">📄 Brochure + Fee Structure 2026.pdf</div>
+            <div class="pb u">And the fee for B.Tech CSE?</div>
+            <div class="pb a">₹1.85L/yr with scholarships up to 40%. Want me to book a counsellor call?</div>
+            <div class="quick"><span>📅 Book a call</span><span>📝 Apply now</span></div>
           </div>
         </div>
-        <div class="signal"><span class="tick">✓</span> Visited fee page 3× this week</div>
-        <div class="signal"><span class="tick">✓</span> Searched "B.Tech CS placements"</div>
-        <div class="signal"><span class="tick">✓</span> Lives 4 km from campus</div>
+        <!-- Vidya Pulse panel -->
+        <div class="stage-panel" data-panel="1">
+          <div class="panel">
+            <div class="ph"><span class="dot"></span> Vidya Pulse · Lead Intelligence</div>
+            <div class="score-top">
+              <div class="score-ring" id="pulseRing"><span class="v" id="pulseVal">0</span></div>
+              <div>
+                <div class="nm">Riya's Parent</div>
+                <div class="meta">B.Tech (CS) · Missed Call · Google Ads</div>
+                <span class="hot">🔥 HOT — contact in 5 min</span>
+              </div>
+            </div>
+            <div class="signal"><span class="tick">✓</span> Visited fee page 3× this week</div>
+            <div class="signal"><span class="tick">✓</span> Searched "B.Tech CS placements"</div>
+            <div class="signal"><span class="tick">✓</span> Lives 4 km from campus</div>
+          </div>
+        </div>
+        <!-- Vidya Agent panel -->
+        <div class="stage-panel" data-panel="2">
+          <div class="panel">
+            <div class="ph"><span class="dot"></span> 📞 VidyaAI Voice Agent · LIVE CALL</div>
+            <div class="wave" id="wave1"></div>
+            <ul class="timeline">
+              <li><div class="t">T+0.0s</div><div class="d">Inquiry detected · Meta Lead Ad — Aarav S. · B.Tech CSE · Pune</div></li>
+              <li><div class="t">T+3.8s</div><div class="d">AI voice call initiated — language auto-detected: English + Hindi</div></li>
+              <li><div class="t">T+18s</div><div class="d">Connected & qualified ✓ — slot booked tomorrow 11 AM</div></li>
+            </ul>
+            <div class="voice-foot"><div class="qn">QUALIFIED IN 18 SECONDS</div><div class="qs">0 min counsellor time · summary pushed to CRM</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ HOW IT WORKS ============ -->
-<section style="background:#fff">
+<!-- ============ SCROLL STORYTELLING (sticky) ============ -->
+<section class="story" id="story">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">From missed call to admission</div>
-      <h2>How VidyaAI works — in four moves.</h2>
-      <p>One real enquiry, fully handled. 7 of 9 touchpoints are AI; your counsellor does only the two that need a human.</p>
+      <h2>One enquiry, fully handled — in four moves.</h2>
+      <p>Scroll down. The dashboard on the left advances as VidyaAI takes the lead from capture to enrolment.</p>
     </div>
-    <div class="steps">
-      <div class="step"><div class="num">1</div><h3>Capture</h3><p>Every enquiry — ads, forms, missed calls, walk-ins, WhatsApp — logged in 1.8s with source & intent. Zero leakage.</p></div>
-      <div class="step"><div class="num">2</div><h3>Engage</h3><p>AI calls & messages within the same minute, answers questions and books a slot — in the student's language.</p></div>
-      <div class="step"><div class="num">3</div><h3>Qualify</h3><p>Behavioural intent scoring ranks every lead and picks the best counsellor by language, course & availability.</p></div>
-      <div class="step"><div class="num">4</div><h3>Hand over</h3><p>Warm, fully-briefed lead lands on a counsellor's screen with full context — they close, the student enrols. 🎉</p></div>
+    <div class="story-grid">
+      <!-- sticky visual -->
+      <div class="story-sticky">
+        <div class="story-visual">
+          <div class="frame">
+            <div class="fp-head"><span class="dot"></span> VidyaAI · Lead Journey · #EE-48217</div>
+            <div class="frame-stage">
+              <div class="frame-panel show" data-fp="0">
+                <div class="fp-row"><span class="em">📣</span> Meta Lead Ad — "Aarav S." captured</div>
+                <div class="fp-row"><span class="em">🌐</span> Source & UTM logged · B.Tech CSE · Pune</div>
+                <div class="fp-row"><span class="em">⏱️</span> Logged in 1.8s · zero leakage</div>
+              </div>
+              <div class="frame-panel" data-fp="1">
+                <div class="fp-row"><span class="em">📞</span> AI voice call placed — language: Hindi + English</div>
+                <div class="fp-row"><span class="em">💬</span> WhatsApp brochure + fee structure sent</div>
+                <div class="fp-row"><span class="em">📅</span> Counselling slot offered for tomorrow 11 AM</div>
+              </div>
+              <div class="frame-panel" data-fp="2">
+                <div class="fp-row"><span class="em">🎯</span> Intent score computed — 92/100 · HOT</div>
+                <div class="fp-row"><span class="em">🧮</span> Best counsellor matched by language & course</div>
+                <div class="fp-row"><span class="em">🔥</span> Flagged "contact within 5 minutes"</div>
+              </div>
+              <div class="frame-panel" data-fp="3">
+                <div class="fp-row"><span class="em">👤</span> Warm, briefed lead on counsellor's screen</div>
+                <div class="fp-row"><span class="em">📝</span> Full context + transcript attached</div>
+                <div class="fp-row"><span class="em">🎉</span> Student enrols · status → Admitted</div>
+              </div>
+            </div>
+            <div class="progress-line" id="storyProgress">
+              <i class="on"></i><i></i><i></i><i></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- scrolling steps -->
+      <div class="story-steps" id="storySteps">
+        <div class="story-step" data-step="0"><div class="num">1</div><h3>Capture</h3><p>Every enquiry — ads, forms, missed calls, walk-ins, WhatsApp — logged in 1.8s with source & intent. Zero leakage, even at 2 AM.</p></div>
+        <div class="story-step" data-step="1"><div class="num">2</div><h3>Engage</h3><p>AI calls & messages within the same minute, answers fee/course/hostel questions and books a slot — in the student's own language.</p></div>
+        <div class="story-step" data-step="2"><div class="num">3</div><h3>Qualify</h3><p>Behavioural intent scoring ranks every lead and picks the best counsellor by language, course & availability.</p></div>
+        <div class="story-step" data-step="3"><div class="num">4</div><h3>Hand over</h3><p>A warm, fully-briefed lead lands on a counsellor's screen with full context — they close, the student enrols. 🎉</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ ROI METRIC BAND ============ -->
+<!-- ============ ROI BAND ============ -->
 <section>
-  <div class="wrap">
+  <div class="wrap reveal">
     <div class="band">
       <div class="band-grid">
-        <div><div class="n">50%</div><div class="l">Better Conversion</div></div>
-        <div><div class="n">75%</div><div class="l">Less Manual Work</div></div>
-        <div><div class="n">2.4×</div><div class="l">Faster Conversions</div></div>
-        <div><div class="n">10×</div><div class="l">ROI Improvement</div></div>
+        <div><div class="n" data-count="50" data-suffix="%">0</div><div class="l">Better Conversion</div></div>
+        <div><div class="n" data-count="75" data-suffix="%">0</div><div class="l">Less Manual Work</div></div>
+        <div><div class="n" data-count="24" data-suffix="X">0</div><div class="l">ROI on admissions</div></div>
+        <div><div class="n" data-count="10" data-suffix="M+">0</div><div class="l">Enquiries handled</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ EMPATHY GRAPH ============ -->
+<!-- ============ EMPATHY ============ -->
 <section style="background:#fff">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Secret Sauce · The Empathy Graph</div>
       <h2>Empathy in every response.</h2>
       <p>Unlike generic AI bots, VidyaGPT's responses are built on 9 emotional classifiers designed for education — infused with empathy, cultural awareness and genuine care.</p>
     </div>
     <div class="emp-grid">
-      <div class="emp"><h3>Empathy & Emotional Support</h3><span class="stat">94% emotional accuracy</span><p>Understanding anxiety, fear and emotional needs with genuine care.</p><div class="quote">"It's natural to feel that way. Let's explore your options together so you can move forward with clarity."</div></div>
-      <div class="emp"><h3>Financial Concerns</h3><span class="stat">₹2.5L avg savings identified</span><p>Understanding economic pressures with practical solutions.</p><div class="quote">"Yes, many institutions offer installment options to make the process manageable."</div></div>
-      <div class="emp"><h3>Admission Guidance</h3><span class="stat">99% application success</span><p>Clear, step-by-step admission support with deadlines.</p><div class="quote">"The first step is usually filling out an online application form and uploading the necessary documents."</div></div>
-      <div class="emp"><h3>Career Guidance</h3><span class="stat">87% placement alignment</span><p>Future-focused career planning with industry insights.</p><div class="quote">"Each course opens different paths, from internships to full-time roles in various industries."</div></div>
-      <div class="emp"><h3>Cultural Context Awareness</h3><span class="stat">12+ languages supported</span><p>Respecting diversity and cultural sensitivities across regions.</p><div class="quote">"Campuses are diverse, and you'll likely find students from many backgrounds, including your own."</div></div>
-      <div class="emp"><h3>Safety & Accommodation</h3><span class="stat">100% verified facilities</span><p>Ensuring security and comfort with detailed information.</p><div class="quote">"Yes, first-year hostels often have round-the-clock wardens and CCTV coverage."</div></div>
+      <div class="emp reveal d1"><h3>Empathy & Emotional Support</h3><span class="stat">94% emotional accuracy</span><p>Understanding anxiety, fear and emotional needs with genuine care.</p><div class="quote">"It's natural to feel that way. Let's explore your options together so you can move forward with clarity."</div></div>
+      <div class="emp reveal d2"><h3>Financial Concerns</h3><span class="stat">₹2.5L avg savings identified</span><p>Understanding economic pressures with practical solutions.</p><div class="quote">"Yes, many institutions offer installment options to make the process manageable."</div></div>
+      <div class="emp reveal d3"><h3>Admission Guidance</h3><span class="stat">99% application success</span><p>Clear, step-by-step admission support with deadlines.</p><div class="quote">"The first step is usually filling out an online application form and uploading the necessary documents."</div></div>
+      <div class="emp reveal d1"><h3>Career Guidance</h3><span class="stat">87% placement alignment</span><p>Future-focused career planning with industry insights.</p><div class="quote">"Each course opens different paths, from internships to full-time roles in various industries."</div></div>
+      <div class="emp reveal d2"><h3>Cultural Context Awareness</h3><span class="stat">30+ languages supported</span><p>Respecting diversity and cultural sensitivities across regions.</p><div class="quote">"Campuses are diverse, and you'll likely find students from many backgrounds, including your own."</div></div>
+      <div class="emp reveal d3"><h3>Safety & Accommodation</h3><span class="stat">100% verified facilities</span><p>Ensuring security and comfort with detailed information.</p><div class="quote">"Yes, first-year hostels often have round-the-clock wardens and CCTV coverage."</div></div>
     </div>
   </div>
 </section>
@@ -599,13 +681,13 @@
 <!-- ============ COMPARISON ============ -->
 <section>
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">VidyaGPT vs Generic AI</div>
       <h2>See the difference.</h2>
       <p>Cold & robotic rule-based bots can't read a student's emotion. VidyaGPT can.</p>
     </div>
     <div class="cmp-grid">
-      <div class="cmp old">
+      <div class="cmp old reveal d1">
         <span class="lbl">GENERIC AI · OLD</span>
         <h3>Cold & robotic</h3>
         <ul>
@@ -616,7 +698,7 @@
           <li><span class="ic">✕</span> Frequent escalations & frustrating experience</li>
         </ul>
       </div>
-      <div class="cmp new">
+      <div class="cmp new reveal d2">
         <span class="lbl">VIDYAGPT · NEW</span>
         <h3>Caring & smart</h3>
         <ul>
@@ -634,15 +716,15 @@
 <!-- ============ LANGUAGES ============ -->
 <section style="background:#fff">
   <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">95+ languages · chat & voice</div>
+    <div class="section-head reveal">
+      <div class="eyebrow">30+ languages · chat & voice</div>
       <h2>Talks to every family in the language they trust.</h2>
-      <p>VidyaAI understands and responds in 95+ languages across chat and AI voice calls — so no enquiry is lost to a language barrier.</p>
+      <p>VidyaAI understands and responds in 30+ languages — all Indian regional languages plus Spanish, Arabic & German — across chat and AI voice calls, so no enquiry is lost to a language barrier.</p>
     </div>
-    <div class="langs">
+    <div class="langs reveal d1">
       <span>English</span><span>हिन्दी</span><span>मराठी</span><span>தமிழ்</span><span>తెలుగు</span>
       <span>ಕನ್ನಡ</span><span>বাংলা</span><span>ગુજરાતી</span><span>മലയാളം</span><span>ਪੰਜਾਬੀ</span>
-      <span>اردو</span><span class="more">+ 84 more</span>
+      <span>اردو</span><span>Español</span><span>العربية</span><span>Deutsch</span><span class="more">+ all Indian regional</span>
     </div>
   </div>
 </section>
@@ -650,20 +732,20 @@
 <!-- ============ INTEGRATIONS ============ -->
 <section>
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">50+ native integrations</div>
       <h2>Plugs into the tools your team already uses.</h2>
       <p>VidyaAI lives inside the ExtraaEdge Admission CRM and connects to your ads, telephony, payments and WhatsApp — no rip-and-replace.</p>
     </div>
     <div class="int-grid">
-      <div class="int"><span class="em">💬</span><div><div class="nm">WhatsApp Business API</div><div class="ds">Official partner · verified sending</div></div></div>
-      <div class="int"><span class="em">📞</span><div><div class="nm">Cloud Telephony</div><div class="ds">AI calling on your numbers</div></div></div>
-      <div class="int"><span class="em">📣</span><div><div class="nm">Meta & Google Ads</div><div class="ds">Auto lead capture + attribution</div></div></div>
-      <div class="int"><span class="em">🎓</span><div><div class="nm">ERP / SIS</div><div class="ds">Two-way student data sync</div></div></div>
-      <div class="int"><span class="em">💳</span><div><div class="nm">Payments</div><div class="ds">Razorpay, Paytm, Stripe & more</div></div></div>
-      <div class="int"><span class="em">🌐</span><div><div class="nm">Forms & Website</div><div class="ds">Embed chat & capture anywhere</div></div></div>
-      <div class="int"><span class="em">📊</span><div><div class="nm">ExtraaEdge CRM</div><div class="ds">Native — scores write back live</div></div></div>
-      <div class="int"><span class="em">⚡</span><div><div class="nm">Automation</div><div class="ds">Webhooks & Zapier-ready</div></div></div>
+      <div class="int reveal d1"><span class="em">💬</span><div><div class="nm">WhatsApp Business API</div><div class="ds">Official partner · verified sending</div></div></div>
+      <div class="int reveal d2"><span class="em">📞</span><div><div class="nm">Cloud Telephony</div><div class="ds">AI calling on your numbers</div></div></div>
+      <div class="int reveal d3"><span class="em">📣</span><div><div class="nm">Meta & Google Ads</div><div class="ds">Auto lead capture + attribution</div></div></div>
+      <div class="int reveal d4"><span class="em">🎓</span><div><div class="nm">ERP / SIS</div><div class="ds">Two-way student data sync</div></div></div>
+      <div class="int reveal d1"><span class="em">💳</span><div><div class="nm">Payments</div><div class="ds">Razorpay, Paytm, Stripe & more</div></div></div>
+      <div class="int reveal d2"><span class="em">🌐</span><div><div class="nm">Forms & Website</div><div class="ds">Embed chat & capture anywhere</div></div></div>
+      <div class="int reveal d3"><span class="em">📊</span><div><div class="nm">ExtraaEdge CRM</div><div class="ds">Native — scores write back live</div></div></div>
+      <div class="int reveal d4"><span class="em">⚡</span><div><div class="nm">Automation</div><div class="ds">Webhooks & Zapier-ready</div></div></div>
     </div>
   </div>
 </section>
@@ -671,23 +753,23 @@
 <!-- ============ TESTIMONIALS ============ -->
 <section style="background:#fff">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Loved by admission teams</div>
       <h2>Powering growth for 500+ institutions.</h2>
       <p>4.7/5 on G2 & Capterra · 500+ Institutions · 12+ Countries · 10M+ enquiries handled.</p>
     </div>
     <div class="test-grid">
-      <div class="test">
+      <div class="test reveal d1">
         <div class="stars">★★★★★</div>
         <p>"Most changes we need are implemented fast, and creating our own reports has been a game-changer. Dynamic and trustworthy."</p>
         <div class="who"><div class="ava">SM</div><div><div class="nm">Silky Jain Marwah</div><div class="ro">Executive Director · Tula's Institute</div></div></div>
       </div>
-      <div class="test">
+      <div class="test reveal d2">
         <div class="stars">★★★★★</div>
         <p>"From seamless WhatsApp integrations to automated workflows, our entire lead journey is now streamlined and measurable."</p>
         <div class="who"><div class="ava">PR</div><div><div class="nm">Pranay Rupani</div><div class="ro">Head of Admissions · Annapurna College</div></div></div>
       </div>
-      <div class="test">
+      <div class="test reveal d3">
         <div class="stars">★★★★★</div>
         <p>"Very user-friendly and fully customizable. Tracking the lead journey is smooth and the team resolves issues immediately."</p>
         <div class="who"><div class="ava">ND</div><div><div class="nm">K. Nirmala Devi</div><div class="ro">Assistant Manager · Indian Academy Group</div></div></div>
@@ -699,18 +781,18 @@
 <!-- ============ FAQ ============ -->
 <section>
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Frequently asked</div>
       <h2>Everything about VidyaAI.</h2>
     </div>
-    <div class="faq-wrap">
+    <div class="faq-wrap reveal d1">
       <details class="faq" open>
         <summary>What is VidyaAI? <span class="pm">+</span></summary>
-        <div class="body">VidyaAI is an intelligent, AI-first admissions platform built for education. It answers, qualifies and follows up with every student across WhatsApp, web and phone in 95+ languages — and hands your counsellors only hot, ready-to-enrol leads. It combines VidyaGPT (chat), Vidya Pulse (intelligence) and Vidya Agent (automation).</div>
+        <div class="body">VidyaAI is an intelligent, AI-first admissions platform built for education. It answers, qualifies and follows up with every student across WhatsApp, web and phone in 30+ languages — and hands your counsellors only hot, ready-to-enrol leads. It combines VidyaGPT (chat), Vidya Pulse (intelligence) and Vidya Agent (automation).</div>
       </details>
       <details class="faq">
         <summary>Which languages does it support? <span class="pm">+</span></summary>
-        <div class="body">95+ languages across chat and AI voice calls, including Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, Gujarati, Malayalam, Punjabi and Urdu — so no enquiry is lost to a language barrier.</div>
+        <div class="body">30+ languages across chat and AI voice calls — all Indian regional languages (Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, Gujarati, Malayalam, Punjabi, Urdu and more) plus Spanish, Arabic and German — so no enquiry is lost to a language barrier.</div>
       </details>
       <details class="faq">
         <summary>Does it work on WhatsApp? <span class="pm">+</span></summary>
@@ -732,7 +814,7 @@
   </div>
 </section>
 
-<!-- ============ FINAL CTA / DEMO ============ -->
+<!-- ============ DEMO ============ -->
 <section class="demo" id="demo">
   <div class="wrap demo-grid">
     <div>
@@ -773,5 +855,164 @@
   </div>
 </section>
 
+<script>
+/* ============ REVEAL ON SCROLL ============ */
+const revObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); revObs.unobserve(e.target);} });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+/* ============ TYPEWRITER ============ */
+(function(){
+  const el=document.getElementById('typer');
+  const words=['Answer instantly.','Qualify every lead.','Book the meeting.','Never miss 2 AM.'];
+  let w=0,c=0,del=false;
+  function tick(){
+    const word=words[w];
+    el.textContent = del ? word.slice(0,c--) : word.slice(0,c++);
+    if(!del && c===word.length+1){del=true;c=word.length;setTimeout(tick,1300);return;}
+    if(del && c<0){del=false;c=0;w=(w+1)%words.length;}
+    setTimeout(tick, del?45:80);
+  }
+  tick();
+})();
+
+/* ============ ANIMATED COUNTERS ============ */
+function animateCount(el){
+  const target=parseFloat(el.dataset.count), suffix=el.dataset.suffix||'';
+  const dur=1400, start=performance.now();
+  function frame(now){
+    const p=Math.min((now-start)/dur,1);
+    const eased=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*eased)+suffix;
+    if(p<1)requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+const countObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ animateCount(e.target); countObs.unobserve(e.target);} });
+},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>countObs.observe(el));
+
+/* ============ PARALLAX ============ */
+const plx=document.querySelectorAll('[data-parallax]');
+let ticking=false;
+window.addEventListener('scroll',()=>{
+  if(!ticking){
+    requestAnimationFrame(()=>{
+      const y=window.scrollY;
+      plx.forEach(el=>{ const s=parseFloat(el.dataset.parallax); el.style.transform=`translate3d(0,${y*s}px,0)`; });
+      ticking=false;
+    });
+    ticking=true;
+  }
+});
+
+/* ============ PRODUCTS scroll-driven view switching (also click) ============ */
+(function(){
+  const tabs=[...document.querySelectorAll('.prod-tab')];
+  const panels=[...document.querySelectorAll('.stage-panel')];
+  let current=-1;
+  function setProd(i){
+    if(i===current)return; current=i;
+    tabs.forEach((t,k)=>t.classList.toggle('active',k===i));
+    panels.forEach((p,k)=>p.classList.toggle('show',k===i));
+    if(i===1) animatePulseRing();
+  }
+  tabs.forEach((t,i)=>t.addEventListener('click',()=>setProd(i)));
+  setProd(0);
+  // auto cycle while products section is in view
+  let cyc=null;
+  const sec=document.getElementById('products');
+  new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      if(e.isIntersecting && !cyc){ cyc=setInterval(()=>setProd((current+1)%3),3200); }
+      else if(!e.isIntersecting && cyc){ clearInterval(cyc); cyc=null; }
+    });
+  },{threshold:.35}).observe(sec);
+
+  // pulse ring counter
+  window.animatePulseRing=function(){
+    const ring=document.getElementById('pulseRing'), val=document.getElementById('pulseVal');
+    if(!ring)return;
+    const target=92,start=performance.now(),dur=1200;
+    function f(now){
+      const p=Math.min((now-start)/dur,1),eased=1-Math.pow(1-p,3),v=Math.round(target*eased);
+      val.textContent=v;
+      ring.style.background=`conic-gradient(var(--cyan) ${v}%, #243049 ${v}%)`;
+      if(p<1)requestAnimationFrame(f);
+    }
+    requestAnimationFrame(f);
+  };
+})();
+
+/* ============ VOICE WAVE bars ============ */
+(function(){
+  const wave=document.getElementById('wave1'); if(!wave)return;
+  for(let i=0;i<28;i++){ const b=document.createElement('i'); b.style.animationDelay=(i*0.05)+'s'; b.style.animationDuration=(0.8+Math.random()*0.7)+'s'; wave.appendChild(b); }
+})();
+
+/* ============ SCROLL STORYTELLING (sticky steps) ============ */
+(function(){
+  const steps=[...document.querySelectorAll('.story-step')];
+  const panels=[...document.querySelectorAll('.frame-panel')];
+  const prog=[...document.querySelectorAll('#storyProgress i')];
+  function setStep(i){
+    panels.forEach((p,k)=>p.classList.toggle('show',k===i));
+    prog.forEach((b,k)=>b.classList.toggle('on',k<=i));
+  }
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ setStep(+e.target.dataset.step); } });
+  },{threshold:.55});
+  steps.forEach(s=>obs.observe(s));
+})();
+
+/* ============ REAL-TIME DASHBOARD ============ */
+(function(){
+  const names=['Aarav S.','Riya P.','Kabir M.','Ananya R.','Vivaan K.','Diya N.','Arjun T.','Sara F.','Ishaan G.','Meera J.','Rohan B.','Zoya H.'];
+  const courses=['B.Tech CSE','MBA','B.Com','B.Tech ECE','BBA','MCA','B.Arch','B.Des','B.Pharm','LLB'];
+  const sources=['Meta Lead Ad','Google Ads','Website form','Missed call','WhatsApp','Walk-in'];
+  const colors=['#06B6D4','#1E3A8A','#0891B2','#0ea5e9','#6366f1'];
+  let k1=1284,k2=1190,k3=312,k4=148;
+  const elK1=document.getElementById('kpi1'),elK2=document.getElementById('kpi2'),elK3=document.getElementById('kpi3'),elK4=document.getElementById('kpi4');
+  const feed=document.getElementById('feed');
+  let started=false;
+
+  function num(el,v){el.textContent=v.toLocaleString('en-IN');}
+  function rnd(a){return a[Math.floor(Math.random()*a.length)];}
+
+  function addFeed(){
+    const score=60+Math.floor(Math.random()*40);
+    const hot=score>=85;
+    const item=document.createElement('div');
+    item.className='feed-item';
+    const initials=rnd(names).split(' ')[0].slice(0,2).toUpperCase();
+    item.innerHTML=`
+      <div class="ring" style="background:${rnd(colors)}">${initials}</div>
+      <div>
+        <div class="nm">${rnd(names)} · <span style="color:#94A3B8;font-weight:500">${rnd(courses)}</span></div>
+        <div class="mt">${rnd(sources)} · replied in ${(2+Math.random()*4).toFixed(1)}s</div>
+      </div>
+      <span class="tag2" style="background:${hot?'rgba(234,88,12,.18)':'rgba(6,182,212,.16)'};color:${hot?'#fdba74':'#67e8f9'}">${hot?'🔥 '+score:'⚡ '+score}</span>`;
+    feed.prepend(item);
+    while(feed.children.length>5) feed.lastChild.remove();
+    // bump kpis
+    k1+=1; k2+=1; if(hot)k3+=1; if(Math.random()>.6)k4+=1;
+    num(elK1,k1);num(elK2,k2);num(elK3,k3);num(elK4,k4);
+    document.getElementById('bar1').style.width=(40+Math.random()*55)+'%';
+    document.getElementById('bar2').style.width=(40+Math.random()*55)+'%';
+    document.getElementById('bar3').style.width=(30+Math.random()*50)+'%';
+    document.getElementById('bar4').style.width=(20+Math.random()*45)+'%';
+  }
+  function start(){
+    if(started)return;started=true;
+    num(elK1,k1);num(elK2,k2);num(elK3,k3);num(elK4,k4);
+    for(let i=0;i<5;i++)setTimeout(addFeed,i*250);
+    setInterval(addFeed, 2200);
+  }
+  new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)start();});},{threshold:.3})
+    .observe(document.querySelector('.dash-sec'));
+})();
+</script>
 </body>
 </html>
