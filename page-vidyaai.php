@@ -1,8 +1,17 @@
 <?php
 /**
- * VidyaAI — getvidya.ai landing page (standalone).
- * Self-contained: own <head>, fonts, SEO, nav, sections, footer.
- * Deployable as the getvidya.ai home. Design system:
+ * Page Template — auto-loaded for any WordPress Page whose slug is "vidyaai"
+ * URL: /vidyaai/
+ *
+ * Setup (non-coder):
+ *   1. WP Admin → Pages → Add New
+ *   2. Title: VidyaAI   (permalink/slug must be "vidyaai")
+ *   3. Publish — WordPress auto-uses this template. Live at /vidyaai/
+ *
+ * VidyaAI landing page (standalone, self-contained: own <head>, fonts, SEO,
+ * nav, sections, footer — intentionally does NOT use get_header/get_footer).
+ * Also deployable as the getvidya.ai home (where the live URL is just "/").
+ * Design system:
  *   Navy #19335D / #1E3A8A · Teal/Cyan #06B6D4 · Off-white #F8FAFC ·
  *   Deep Slate #0F172A · Plus Jakarta Sans (headings) + Inter (body).
  */
