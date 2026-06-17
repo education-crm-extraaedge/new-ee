@@ -304,7 +304,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
     <!-- ─── 12. Tailwind for Layout & Utils (EXISTING) ─── -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
             theme: {
