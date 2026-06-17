@@ -1,0 +1,6 @@
+# Build artifacts
+vidyaai-theme.zip
+*.zip
+
+# OS / editor cruft
+.DS_Store
