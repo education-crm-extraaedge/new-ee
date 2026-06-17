@@ -7473,5 +7473,19 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   /* Tighten the gap under each section's heading/intro on mobile. */
   .ee-home .intro,.ee-home .ee-head,.ee-home .sg-head,.ee-home .ci-head{margin-bottom:14px!important}
 }
+
+/* ============================================================
+   PERFORMANCE — Core Web Vitals (LCP + CLS)
+   ============================================================ */
+/* LCP: the hero <h1> is the page's largest element. It was held at
+   opacity:0 for ~0.9s by an entrance animation, so it painted late and
+   pushed LCP to ~6s. Show the above-the-fold hero immediately. */
+#xhero .reveal,
+#xhero .reveal.d1,#xhero .reveal.d2,#xhero .reveal.d3,#xhero .reveal.d4,
+#xhero .step,#xhero .act{opacity:1!important;transform:none!important;animation:none!important}
+
+/* CLS: images always keep their natural aspect (never distort) and the
+   logo/card boxes already reserve space, so media stops shifting layout. */
+.ee-home img{height:auto}
 </style>
 <?php get_footer(); ?>
