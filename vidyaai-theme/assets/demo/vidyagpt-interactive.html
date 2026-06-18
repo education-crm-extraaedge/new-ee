@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VidyaGPT — Interactive Admissions Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#0F2347; --navy-2:#16315F; --teal:#06B6D4; --teal-2:#22D3EE;
+    --ink:#0F172A; --muted:#64748B; --line:#E6EBF2; --bg:#F4F7FB; --white:#fff;
+    --font-h:'Plus Jakarta Sans',system-ui,sans-serif; --font-b:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow:hidden}
+  body{font-family:var(--font-b);color:var(--ink);-webkit-font-smoothing:antialiased;background:var(--bg)}
+  #app{position:fixed;inset:0;display:flex;background:var(--bg)}
+
+  /* ===================== SIDEBAR ===================== */
+  #side{width:clamp(260px,22vw,340px);flex:0 0 auto;height:100%;background:linear-gradient(180deg,#0F2347,#0B1B3A);
+    color:#CFE0F5;display:flex;flex-direction:column;padding:20px 16px;border-right:1px solid rgba(255,255,255,.06)}
+  .brand{display:flex;align-items:center;gap:12px;padding:4px 6px 16px}
+  .brand .lm{width:40px;height:40px;filter:drop-shadow(0 3px 8px rgba(255,120,180,.3))}
+  .brand .bt{font-family:var(--font-h);font-weight:800;font-size:19px;color:#fff;line-height:1}
+  .brand .bt small{display:block;font-family:var(--font-b);font-weight:500;font-size:11px;color:#7E9AC4;margin-top:3px}
+  .newchat{display:flex;align-items:center;gap:10px;margin:4px 0 18px;padding:12px 15px;border-radius:12px;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:700;font-size:14.5px;cursor:pointer;
+    box-shadow:0 8px 20px rgba(6,182,212,.32);transition:transform .15s}
+  .newchat:hover{transform:translateY(-1px)}
+  .newchat svg{width:17px;height:17px}
+  .hist-lbl{font-size:11px;font-weight:700;letter-spacing:.14em;color:#6E89B5;padding:0 8px 9px}
+  .hist{display:flex;flex-direction:column;gap:5px}
+  .hi{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;font-size:13.8px;color:#B9CCE8;
+    font-weight:500;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid transparent;transition:background .15s,color .15s}
+  .hi svg{width:16px;height:16px;flex:0 0 auto;opacity:.7}
+  .hi:hover{background:rgba(255,255,255,.05);color:#E4EEFC}
+  .hi.active{background:rgba(34,211,238,.12);color:#fff;border-color:rgba(34,211,238,.25);font-weight:600}
+  .side-foot{margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:11px;
+    font-size:13.5px;color:#9DB3D6;font-weight:500}
+  .side-foot .ava{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.08);display:grid;place-items:center}
+  .side-foot .ava svg{width:18px;height:18px}
+
+  /* ===================== MAIN ===================== */
+  #main{flex:1;height:100%;display:flex;flex-direction:column;background:var(--white);min-width:0}
+  #top{padding:18px 36px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto}
+  #top h2{font-family:var(--font-h);font-weight:800;font-size:21px;color:var(--navy)}
+  #top p{font-size:13.5px;color:var(--muted);margin-top:3px}
+  #top .crumb{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--teal);
+    background:rgba(6,182,212,.10);border:1px solid rgba(6,182,212,.22);padding:4px 11px;border-radius:999px;margin-bottom:10px}
+  #top .crumb i{width:7px;height:7px;border-radius:50%;background:#22C55E;display:inline-block;box-shadow:0 0 8px #22C55E;animation:bl 1.6s infinite}
+  @keyframes bl{0%,100%{opacity:1}50%{opacity:.4}}
+
+  #msgs{flex:1;overflow-y:auto;overflow-x:hidden;padding:26px 0;scroll-behavior:smooth}
+  #msgs::-webkit-scrollbar{width:9px}#msgs::-webkit-scrollbar-thumb{background:#D5DEEA;border-radius:9px}
+  .inner{max-width:920px;margin:0 auto;padding:0 36px;display:flex;flex-direction:column}
+
+  .m{display:flex;gap:14px;margin-bottom:22px;animation:rise .42s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .m.user{flex-direction:row-reverse}
+  .av{width:44px;height:44px;flex:0 0 auto;border-radius:12px;display:grid;place-items:center}
+  .av.ai{background:linear-gradient(135deg,#EAF9FD,#F3ECFF);border:1px solid #E3ECF7;box-shadow:0 4px 14px rgba(15,35,71,.06)}
+  .av.ai svg{width:29px;height:29px}
+  .av.me{background:linear-gradient(135deg,#16315F,#0F2347);color:#fff;font-weight:700;font-size:14px;font-family:var(--font-h)}
+  .col{max-width:660px;display:flex;flex-direction:column;min-width:0}
+  .m.user .col{align-items:flex-end}
+  .who{font-size:12.5px;font-weight:700;color:var(--navy);margin:2px 0 6px;display:flex;align-items:center;gap:7px}
+  .who small{font-weight:500;color:var(--muted);font-size:11.5px}
+  .bub{padding:15px 19px;border-radius:16px;font-size:16px;line-height:1.6;color:#1A2742;white-space:pre-wrap}
+  .m.ai .bub{background:#F4F7FB;border:1px solid #E9EFF6;border-radius:5px 16px 16px 16px}
+  .m.user .bub{background:linear-gradient(135deg,#16315F,#0F2347);color:#EAF1FB;border-radius:16px 16px 5px 16px;box-shadow:0 10px 26px rgba(15,35,71,.22)}
+
+  .typing{display:flex;gap:6px;padding:17px 19px;background:#F4F7FB;border:1px solid #E9EFF6;border-radius:5px 16px 16px 16px;width:72px}
+  .typing i{width:9px;height:9px;border-radius:50%;background:#9FB6D4;display:block;animation:tp 1s infinite}
+  .typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+  @keyframes tp{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-6px);opacity:1}}
+
+  .brochure{display:inline-flex;align-items:center;gap:11px;margin-top:12px;padding:13px 19px;border-radius:13px;cursor:pointer;
+    background:#fff;border:1.5px solid var(--teal);color:#0A6E84;font-weight:700;font-size:15px;box-shadow:0 6px 18px rgba(6,182,212,.16);transition:transform .15s,box-shadow .15s}
+  .brochure:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(6,182,212,.26)}
+  .brochure svg{width:19px;height:19px}
+  .sched-btn{display:inline-flex;align-items:center;gap:9px;margin-top:12px;padding:12px 19px;border-radius:12px;cursor:pointer;
+    background:linear-gradient(135deg,#16315F,#0F2347);color:#fff;font-weight:700;font-size:14.5px;transition:transform .15s}
+  .sched-btn:hover{transform:translateY(-1px)}
+  .sched-btn svg{width:17px;height:17px}
+
+  .slots{margin-top:13px;width:560px;max-width:100%;background:#fff;border:1px solid var(--line);border-radius:18px;
+    padding:22px;box-shadow:0 16px 40px rgba(15,35,71,.10)}
+  .slots h4{font-family:var(--font-h);font-weight:800;font-size:17.5px;color:var(--navy)}
+  .slots .sub{font-size:13px;color:var(--muted);margin:3px 0 14px}
+  .slots .day{font-size:13px;font-weight:700;color:var(--navy);margin:13px 0 8px;display:flex;align-items:center;gap:8px}
+  .slots .day svg{width:15px;height:15px;color:var(--teal)}
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{font-size:13.5px;font-weight:600;color:#33486B;padding:9px 15px;border-radius:10px;border:1.5px solid var(--line);
+    background:#fff;cursor:pointer;transition:all .14s;user-select:none}
+  .chip:hover{border-color:var(--teal-2);color:var(--navy)}
+  .chip.sel{background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;border-color:transparent;box-shadow:0 6px 16px rgba(6,182,212,.32)}
+  .confirm{margin-top:16px;width:100%;padding:13px;border-radius:12px;border:0;cursor:pointer;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:700;font-size:15px;transition:opacity .15s,transform .15s}
+  .confirm:disabled{opacity:.45;cursor:not-allowed}
+  .confirm:not(:disabled):hover{transform:translateY(-1px)}
+
+  .done{display:flex;align-items:center;gap:15px;margin-top:13px;width:520px;max-width:100%;padding:17px 21px;border-radius:16px;
+    background:linear-gradient(135deg,#ECFDF5,#F0FBF6);border:1.5px solid #A7F3D0}
+  .done .ck{width:46px;height:46px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;
+    background:linear-gradient(135deg,#34D399,#10B981);box-shadow:0 8px 20px rgba(16,185,129,.4)}
+  .done .ck svg{width:25px;height:25px}
+  .done b{font-family:var(--font-h);font-weight:800;font-size:17px;color:#065F46;display:block}
+  .done span{font-size:13.5px;color:#0F7A5A;font-weight:500}
+
+  .aboutcard{margin:20px auto;max-width:640px;text-align:center;padding:40px 36px;border-radius:22px;
+    background:linear-gradient(160deg,#F7FBFF,#EEF4FF);border:1px solid #E3ECF7}
+  .aboutcard .lg{width:74px;height:74px;margin:0 auto 18px;filter:drop-shadow(0 6px 18px rgba(255,120,180,.3))}
+  .aboutcard h3{font-family:var(--font-h);font-weight:800;font-size:26px;color:var(--navy)}
+  .aboutcard .t{color:var(--teal);font-weight:700;margin:6px 0 16px;font-size:15px}
+  .aboutcard p{color:#3A4D6C;font-size:15.5px;line-height:1.7}
+
+  #composer{padding:16px 36px 10px;border-top:1px solid var(--line);background:#fff;flex:0 0 auto}
+  #composer .box{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:11px;
+    border:1.5px solid var(--line);border-radius:16px;padding:7px 7px 7px 20px;background:#F8FAFC}
+  #composer .ph{flex:1;font-size:15.5px;color:#90A2BC;font-weight:500}
+  #composer .ph.act{color:#1A2742}
+  #composer .send{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);box-shadow:0 8px 20px rgba(6,182,212,.4)}
+  #composer .send svg{width:21px;height:21px}
+  #composer .disc{max-width:920px;margin:10px auto 0;text-align:center;font-size:12px;color:#A0AEC2}
+  .hintbar{max-width:920px;margin:0 auto 8px;font-size:12.5px;color:var(--teal);font-weight:600;text-align:center;display:none}
+  .hintbar.show{display:block}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <linearGradient id="vg-head" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF86C9"/><stop offset="1" stop-color="#FF9559"/></linearGradient>
+    <linearGradient id="vg-bookL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB46A"/><stop offset="1" stop-color="#FF6FA3"/></linearGradient>
+    <linearGradient id="vg-bookR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#28D7F0"/><stop offset="1" stop-color="#8A7CFF"/></linearGradient>
+    <symbol id="vlogo" viewBox="0 0 120 120">
+      <path d="M93,15 C93,24.75 96.25,28 106,28 C96.25,28 93,31.25 93,41 C93,31.25 89.75,28 80,28 C89.75,28 93,24.75 93,15 Z" fill="#29D3F2"/>
+      <path d="M104,45 C104,50.25 105.75,52 111,52 C105.75,52 104,53.75 104,59 C104,53.75 102.25,52 97,52 C102.25,52 104,50.25 104,45 Z" fill="#E879F9"/>
+      <path d="M50,64 C39,57 27,55 17,57 C15.5,57.3 15,58.2 15,59.7 L15,82 C15,83.6 15.7,84.6 17,84.8 C29,86 41,88.5 50,93 Z" fill="url(#vg-bookL)"/>
+      <path d="M50,64 C61,57 73,55 83,57 C84.5,57.3 85,58.2 85,59.7 L85,82 C85,83.6 84.3,84.6 83,84.8 C71,86 59,88.5 50,93 Z" fill="url(#vg-bookR)"/>
+      <circle cx="50" cy="33" r="16" fill="url(#vg-head)"/>
+    </symbol></defs></svg>
+
+  <aside id="side">
+    <div class="brand">
+      <svg class="lm" viewBox="0 0 120 120"><use href="#vlogo"/></svg>
+      <div class="bt">VidyaGPT<small>powered by ExtraaEdge</small></div>
+    </div>
+    <div class="newchat" onclick="VG.select('eeedge')"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> New Chat</div>
+    <div class="hist-lbl">HISTORY</div>
+    <div class="hist" id="hist"></div>
+    <div class="side-foot"><div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#9DB3D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg></div> Alex Chen</div>
+  </aside>
+
+  <main id="main">
+    <div id="top">
+      <div class="crumb"><i></i> VidyaGPT · Live</div>
+      <h2 id="ctitle">EE Edge University Admissions</h2>
+      <p id="csub">Chat with VidyaGPT about EE Edge University's admissions process.</p>
+    </div>
+    <div id="msgs"><div class="inner" id="inner"></div></div>
+    <div id="composer">
+      <div class="hintbar" id="hint">👉 Select a date &amp; time above, then Confirm</div>
+      <div class="box">
+        <div class="ph" id="ph">Ask about admissions, tuition, requirements…</div>
+        <div class="send"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-7-7 16-2-7-7-2z"/></svg></div>
+      </div>
+      <div class="disc">VidyaGPT may produce inaccurate information about people, places, or facts.</div>
+    </div>
+  </main>
+</div>
+
+<script>
+const VG=(function(){
+  const inner=document.getElementById('inner'), msgs=document.getElementById('msgs'),
+        ctitle=document.getElementById('ctitle'), csub=document.getElementById('csub'),
+        hist=document.getElementById('hist'), ph=document.getElementById('ph'), hint=document.getElementById('hint');
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const logoSvg='<svg viewBox="0 0 120 120"><use href="#vlogo"/></svg>';
+  const PE='powered by ExtraaEdge';
+
+  // ---------- conversation data ----------
+  const U='user', A='ai';
+  const CONV={
+    eeedge:{title:"EE Edge University Admissions",sub:"Chat with VidyaGPT about EE Edge University's admissions process.",turns:[
+      [A,"Hi there! I'm here to help you with your EE Edge University application. What's your name?"],
+      [U,"Hi! I'm Alex Chen. I'm really interested in applying to EE Edge University."],
+      [A,"Nice to meet you, Alex! I'd love to help you learn more about EE Edge University. Let me share our comprehensive university brochure with you — it covers programs, campus life, admissions and financial aid.","brochure"],
+      [U,"Thank you! That would be really helpful. Can you tell me about the admission requirements?"],
+      [A,"Absolutely! EE Edge University looks for academic excellence, extracurricular achievements and strong character. Our acceptance rate is around 4–5%, with admitted students typically scoring SAT 1460–1580."],
+      [U,"What about the application deadlines?"],
+      [A,"Great question! The Early Action deadline is November 1st, and Regular Decision is January 1st. I always recommend applying early if possible."],
+      [U,"What are the tuition fees like?"],
+      [A,"For 2023–24, tuition is approximately $52,000. With room, board and fees, the total is around $80,000 per year — but we have generous financial aid programs."],
+      [U,"That's quite expensive. Are there scholarships available?"],
+      [A,"Yes! EE Edge University meets 100% of demonstrated financial need. Families earning below $75,000 typically pay nothing, and ~55% of students receive need-based aid averaging over $55,000."],
+      [U,"What programs is EE Edge University most known for?"],
+      [A,"We excel in many areas — particularly Computer Science, Engineering, Business, Medicine and Liberal Arts. Our interdisciplinary approach lets students explore multiple interests."],
+      [U,"This all sounds amazing! What would be the next steps for me to apply?"],
+      [A,"I'm so glad you're interested! The next step is a personalised consultation where we discuss your academic background and create a tailored application strategy."],
+      [U,"That sounds perfect! Can we schedule a meeting?"],
+      [A,"Absolutely! I'd be happy to schedule a one-on-one consultation. Let me show you our available time slots.","slots"],
+    ]},
+    bvp:{title:"BVP University Pune Admissions",sub:"Chat with VidyaGPT about BVP University Pune's admissions process.",turns:[
+      [U,"Hi, I want to know about BVP University Pune's admission process."],
+      [A,"Welcome! BVP University Pune's admission process typically starts in March. The university offers programs in Engineering, Management and Health Sciences. Could you specify which program interests you?"],
+      [U,"I'm interested in B.Tech Computer Science."],
+      [A,"For B.Tech Computer Science at BVP Pune, you'll need: 1) Minimum 60% in 12th with PCM, 2) Valid JEE Main score, 3) Complete online application at bvp.edu.in. The application fee is ₹1500. Would you like to download our detailed brochure?","brochure"],
+      [U,"Yes, please provide the brochure and tell me about the fees and placement records."],
+      [A,"Perfect! BVP Pune B.Tech fees are approximately ₹2.5 lakhs per year. For placements (2023): Highest ₹44 LPA, Average ₹7.2 LPA. Top recruiters include Microsoft, Amazon, TCS, Infosys and Wipro. The placement rate is around 85%."],
+      [U,"What about the hostel facilities and campus life?"],
+      [A,"BVP Pune has excellent hostels with separate accommodation for boys and girls (~₹1.2 lakhs/year incl. mess). Modern labs, library, sports facilities and active student clubs, with regular cultural and technical fests. Would you like to schedule a personal counseling session?","schedbtn"],
+      [U,"Yes, I'd like to schedule an appointment."],
+      [A,"Excellent! Let me help you schedule a personalised counseling session with our admission experts. Here are the available slots.","slots"],
+    ]},
+    iit:{title:"IIT Bombay Application Process",sub:"Chat with VidyaGPT about IIT Bombay's application process.",turns:[
+      [U,"Hello, I'd like information about IIT Bombay admissions."],
+      [A,"Welcome! IIT Bombay admission is primarily through JEE Advanced, which requires qualifying JEE Main first. The institute is consistently ranked #1 in India. What would you like to know?"],
+      [U,"What rank is needed for CS branch?"],
+      [A,"For Computer Science at IIT Bombay, you typically need a JEE Advanced rank under 50 (General). Last year's closing rank was 55. The program has 120 seats with excellent placements. Would you like the information brochure?","brochure"],
+      [U,"Yes, and please explain the CS curriculum and research opportunities."],
+      [A,"The CS curriculum covers algorithms, data structures, systems, ML, AI and cybersecurity — 160+ credits over 4 years. Research includes AI, quantum computing and blockchain with faculty; many students publish at top conferences."],
+      [U,"What about placements and average packages?"],
+      [A,"Outstanding placements (2023): Highest ₹2.05 crore (international), Average ₹23.26 LPA, Median ₹19.2 LPA. Recruiters include Google, Microsoft, Amazon, Goldman Sachs and top startups — 100% placement with multiple offers. Shall we schedule a discussion with our coordinator?","schedbtn"],
+      [U,"Yes, and what's a good preparation strategy for JEE Advanced?"],
+      [A,"For JEE Advanced: 1) Master NCERT, 2) Solve previous papers, 3) Focus on concepts over rote, 4) Time management, 5) Regular mock tests. Typical prep is 2–3 years. Let me show you available slots for a detailed session.","slots"],
+    ]},
+    du:{title:"Delhi University Financial Aid",sub:"Chat with VidyaGPT about Delhi University's financial aid options.",turns:[
+      [U,"Can you help me with Delhi University's financial aid options?"],
+      [A,"Of course! Delhi University offers merit scholarships, need-based scholarships and fee waivers, plus bank tie-ups for education loans. What's your family's annual income?"],
+      [U,"Around 3 lakhs per annum"],
+      [A,"With that income you're eligible for: 1) Full fee waiver under EWS quota, 2) Merit-cum-Means Scholarship (₹40,000/year), 3) College-specific scholarships. You'll need income proof and academic records. Would you like our financial aid brochure?","brochure"],
+      [U,"Yes, please provide the brochure and explain the application process."],
+      [A,"For financial aid: 1) Apply online via DU portal within 30 days of admission, 2) Submit income certificate, 3) Bank statements, 4) Academic transcripts, 5) Caste certificate (if applicable). The committee reviews and disburses funds in 2 installments."],
+      [U,"What about other scholarship opportunities and eligibility?"],
+      [A,"Additional options: 1) Post-Matric Scholarship (SC/ST), 2) National Scholarship Portal schemes, 3) Inspire Scholarship for Science (₹80,000/year), 4) College endowment scholarships. Most need 60%+ marks and income criteria. Would you like a session with our financial aid counsellor?","schedbtn"],
+      [U,"Yes, I'd like to schedule that session."],
+      [A,"Excellent! Let me help you book a personalised financial aid consultation. Please pick a slot below.","slots"],
+    ]},
+  };
+  const ORDER=[['eeedge','EE Edge University Admissions'],['bvp','BVP University Pune Admissions'],
+               ['iit','IIT Bombay Application Process'],['du','Delhi University Financial Aid'],['about','About VidyaGPT']];
+
+  // ---------- sidebar ----------
+  ORDER.forEach(([k,label])=>{
+    const d=document.createElement('div');d.className='hi';d.dataset.k=k;
+    const ic=k==='about'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+    d.innerHTML=ic+' '+label; d.onclick=()=>select(k); hist.appendChild(d);
+  });
+
+  // ---------- helpers ----------
+  function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function scroll(){msgs.scrollTop=msgs.scrollHeight;}
+  function addUser(text){const m=el('div','m user');m.appendChild(el('div','av me','You'));
+    const c=el('div','col');c.appendChild(el('div','who','You'));c.appendChild(el('div','bub',esc(text)));m.appendChild(c);inner.appendChild(m);scroll();}
+  function aiShell(){const m=el('div','m ai');m.appendChild(el('div','av ai',logoSvg));
+    const c=el('div','col');c.appendChild(el('div','who','VidyaGPT <small>'+PE+'</small>'));m.appendChild(c);return {m,c};}
+  function addTyping(){const {m,c}=aiShell();c.appendChild(el('div','typing','<i></i><i></i><i></i>'));inner.appendChild(m);scroll();return m;}
+  function addAI(text,card){const {m,c}=aiShell();c.appendChild(el('div','bub',esc(text)));
+    if(card==='brochure')c.appendChild(el('div','brochure','<svg viewBox="0 0 24 24" fill="none" stroke="#0A6E84" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg> Download University Brochure'));
+    if(card==='schedbtn')c.appendChild(el('div','sched-btn','<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg> Schedule Appointment'));
+    inner.appendChild(m);scroll();return c;}
+
+  // ---------- interactive slot picker ----------
+  const DAYS=[['Thu, Jun 18',['10:00 AM','11:30 AM','2:00 PM','3:30 PM','5:00 PM']],
+              ['Fri, Jun 19',['10:00 AM','11:30 AM','2:00 PM','3:30 PM','5:00 PM']]];
+  function addSlots(c){
+    const box=el('div','slots');
+    let h='<h4>Select a Time for Your Information Session</h4><div class="sub">Choose when you\'d like to speak with an admissions counsellor</div>';
+    DAYS.forEach((d,di)=>{
+      h+='<div class="day"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg> '+d[0]+'</div><div class="chips">';
+      d[1].forEach((t,ti)=>{h+='<span class="chip" data-day="'+d[0]+'" data-time="'+t+'">'+t+'</span>';});
+      h+='</div>';
+    });
+    h+='<button class="confirm" disabled>Confirm Selection</button>';
+    box.innerHTML=h; c.appendChild(box); scroll();
+    hint.classList.add('show');
+    return new Promise(resolve=>{
+      let sel=null;
+      box.querySelectorAll('.chip').forEach(ch=>ch.onclick=()=>{
+        box.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));
+        ch.classList.add('sel'); sel={day:ch.dataset.day,time:ch.dataset.time};
+        box.querySelector('.confirm').disabled=false;
+      });
+      box.querySelector('.confirm').onclick=()=>{
+        if(!sel)return;
+        box.querySelectorAll('.chip').forEach(x=>{x.style.pointerEvents='none';if(!x.classList.contains('sel'))x.style.opacity='.4';});
+        const btn=box.querySelector('.confirm');btn.disabled=true;btn.textContent='✓ '+sel.day+' · '+sel.time;
+        hint.classList.remove('show'); resolve(sel);
+      };
+    });
+  }
+
+  // ---------- playback ----------
+  let token=0;
+  function setComposer(text,active){ph.textContent=text;ph.classList.toggle('act',!!active);}
+  async function typeUserInComposer(text,my){
+    for(let i=0;i<=text.length;i+=2){if(my!==token)return;setComposer(text.slice(0,i)||' ',true);await sleep(18);}
+    setComposer(text,true);await sleep(160);
+  }
+  async function play(key){
+    const my=++token; const conv=CONV[key];
+    inner.innerHTML=''; hint.classList.remove('show'); setComposer('Ask about admissions, tuition, requirements…',false);
+    ctitle.textContent=conv.title; csub.textContent=conv.sub;
+    await sleep(350);
+    for(const turn of conv.turns){
+      if(my!==token)return;
+      const [role,text,card]=turn;
+      if(role===U){
+        await typeUserInComposer(text,my); if(my!==token)return;
+        addUser(text); setComposer('Ask about admissions, tuition, requirements…',false);
+        await sleep(450);
+      } else {
+        const ty=addTyping(); await sleep(700+Math.min(text.length*4,900)); if(my!==token){ty.remove();return;}
+        ty.remove();
+        if(card==='slots'){
+          const c=addAI(text); const sel=await waitSlots(c,my); if(my!==token||!sel)return;
+          // final scheduled message + confirmation, using the user's chosen day & time
+          await sleep(500); const ty2=addTyping(); await sleep(900); if(my!==token){ty2.remove();return;} ty2.remove();
+          const fc=addAI("Great! Your information session is scheduled for "+sel.day+" at "+sel.time+". You'll receive a confirmation email with all the details. We look forward to helping you with your application!");
+          fc.appendChild(el('div','done','<div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></div><div><b>Counseling Session Scheduled!</b><span>'+sel.day+' · '+sel.time+' — check your email for confirmation details</span></div>'));
+          scroll();
+        } else {
+          addAI(text,card); await sleep(700+Math.min(text.length*3,800));
+        }
+      }
+    }
+  }
+  function waitSlots(c,my){return addSlots(c);}
+
+  function select(key){
+    document.querySelectorAll('.hi').forEach(h=>h.classList.toggle('active',h.dataset.k===key));
+    if(key==='about'){ token++; aboutView(); return; }
+    play(key);
+  }
+  function aboutView(){
+    inner.innerHTML=''; hint.classList.remove('show'); setComposer('Ask about admissions, tuition, requirements…',false);
+    ctitle.textContent='About VidyaGPT'; csub.textContent='Your AI companion for education admissions.';
+    inner.appendChild(el('div','aboutcard',
+      '<svg class="lg" viewBox="0 0 120 120"><use href="#vlogo"/></svg>'+
+      '<h3>VidyaGPT AI</h3><div class="t">Your AI Companion for Education Admissions</div>'+
+      '<p>Powered by education-first foundation models, VidyaGPT AI is a co-pilot for prospective students &amp; admission teams — to navigate the critical admissions process and make the right admission decisions, faster, precise &amp; hyper-personalised.</p>'));
+    scroll();
+  }
+
+  // auto-start
+  window.addEventListener('load',()=>select('eeedge'));
+  return {select};
+})();
+</script>
+</body>
+</html>
