@@ -63,8 +63,8 @@
   .dots i{width:13px;height:13px;border-radius:50%;display:block}
   .dots i:nth-child(1){background:#ff5f57}.dots i:nth-child(2){background:#febc2e}.dots i:nth-child(3){background:#28c840}
   .logo{display:flex;align-items:center;gap:12px;margin-left:8px}
-  .logo .mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-family:var(--font-h);font-weight:800;font-size:20px;color:#02131A;
-    background:linear-gradient(150deg,#22D3EE,#06B6D4);box-shadow:0 6px 20px rgba(6,182,212,.5)}
+  .logo .mark{width:46px;height:46px;display:grid;place-items:center;background:transparent;box-shadow:none}
+  .logo .mark svg{width:100%;height:100%;filter:drop-shadow(0 3px 8px rgba(255,120,180,.35)) drop-shadow(0 2px 10px rgba(34,211,238,.30))}
   .logo .name{font-family:var(--font-h);font-weight:800;font-size:20px;letter-spacing:.2px}
   .logo .name b{color:var(--teal-2)}
   .live{display:flex;align-items:center;gap:9px;margin-left:6px;font-size:14.5px;font-weight:600;color:#CDE9F4;
@@ -169,8 +169,8 @@
 
   /* end logo glow */
   #endlogo{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:20px;text-align:center;will-change:opacity}
-  #endlogo .mark{width:96px;height:96px;border-radius:26px;display:grid;place-items:center;font-family:var(--font-h);font-weight:800;font-size:50px;color:#02131A;
-    background:linear-gradient(150deg,#22D3EE,#06B6D4);box-shadow:0 0 80px rgba(34,211,238,.65)}
+  #endlogo .mark{width:124px;height:124px;display:grid;place-items:center;background:transparent;box-shadow:none}
+  #endlogo .mark svg{width:100%;height:100%}
   #endlogo .wm{font-family:var(--font-h);font-weight:800;font-size:46px;letter-spacing:.3px}
   #endlogo .wm b{color:var(--teal-2)}
   #endlogo .tl{font-size:19px;color:#A9C0DC;font-weight:500}
@@ -185,12 +185,38 @@
     <div id="grid"></div>
 
     <div id="content">
+
+      <!-- ===== VidyaGPT brand logo (reusable symbol) ===== -->
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+          <linearGradient id="vg-head" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FF86C9"/><stop offset="1" stop-color="#FF9559"/>
+          </linearGradient>
+          <linearGradient id="vg-bookL" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#FFB46A"/><stop offset="1" stop-color="#FF6FA3"/>
+          </linearGradient>
+          <linearGradient id="vg-bookR" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#28D7F0"/><stop offset="1" stop-color="#8A7CFF"/>
+          </linearGradient>
+          <symbol id="vlogo" viewBox="0 0 120 120">
+            <!-- sparkles -->
+            <path d="M93,15 C93,24.75 96.25,28 106,28 C96.25,28 93,31.25 93,41 C93,31.25 89.75,28 80,28 C89.75,28 93,24.75 93,15 Z" fill="#29D3F2"/>
+            <path d="M104,45 C104,50.25 105.75,52 111,52 C105.75,52 104,53.75 104,59 C104,53.75 102.25,52 97,52 C102.25,52 104,50.25 104,45 Z" fill="#E879F9"/>
+            <!-- open book -->
+            <path d="M50,64 C39,57 27,55 17,57 C15.5,57.3 15,58.2 15,59.7 L15,82 C15,83.6 15.7,84.6 17,84.8 C29,86 41,88.5 50,93 Z" fill="url(#vg-bookL)"/>
+            <path d="M50,64 C61,57 73,55 83,57 C84.5,57.3 85,58.2 85,59.7 L85,82 C85,83.6 84.3,84.6 83,84.8 C71,86 59,88.5 50,93 Z" fill="url(#vg-bookR)"/>
+            <!-- head -->
+            <circle cx="50" cy="33" r="16" fill="url(#vg-head)"/>
+          </symbol>
+        </defs>
+      </svg>
+
       <!-- PRODUCT WINDOW -->
       <div id="win">
         <div id="hdr">
           <div class="dots"><i></i><i></i><i></i></div>
           <div class="logo">
-            <div class="mark">V</div>
+            <div class="mark"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg></div>
             <div class="name">Vidya<b>GPT</b></div>
           </div>
           <div class="live"><span class="pulse"></span>Live</div>
@@ -294,7 +320,7 @@
 
       <!-- END LOGO -->
       <div id="endlogo">
-        <div class="mark">V</div>
+        <div class="mark"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg></div>
         <div class="wm">Vidya<b>AI</b></div>
         <div class="tl">The 24/7 AI admission agent</div>
       </div>
@@ -467,7 +493,8 @@
     const elP=seg(t,14150,14750);
     endlogo.style.opacity=(t>=14150?easeInOut(elP)*(1-seg(t,14900,15000)*0.0):0).toFixed(3);
     const elMark=endlogo.querySelector('.mark');
-    if(t>=14150){const g=tri(((t-14150)%1200)/1200);elMark.style.boxShadow=`0 0 ${(60+50*g).toFixed(0)}px rgba(34,211,238,${(0.5+0.35*g).toFixed(3)})`;}
+    if(t>=14150){const g=tri(((t-14150)%1200)/1200);
+      elMark.style.filter=`drop-shadow(0 0 ${(20+26*g).toFixed(0)}px rgba(34,211,238,${(0.5+0.30*g).toFixed(3)})) drop-shadow(0 0 ${(12+18*g).toFixed(0)}px rgba(255,120,190,${(0.40+0.30*g).toFixed(3)}))`;}
 
     /* ===== seamless loop crossfade: fade whole content out at the tail =====
        At t→LOOP content opacity→0 which matches t=0 (everything hidden/rising) */
