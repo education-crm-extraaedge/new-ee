@@ -27,7 +27,7 @@
   .brand .bt small{display:block;font-family:var(--font-b);font-weight:500;font-size:11px;color:#7E9AC4;margin-top:3px}
   .newchat{display:flex;align-items:center;gap:10px;margin:4px 0 18px;padding:12px 15px;border-radius:12px;
     background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:700;font-size:14.5px;cursor:pointer;
-    box-shadow:0 8px 20px rgba(6,182,212,.32);transition:transform .15s}
+    text-decoration:none;box-shadow:0 8px 20px rgba(6,182,212,.32);transition:transform .15s}
   .newchat:hover{transform:translateY(-1px)}
   .newchat svg{width:17px;height:17px}
   .hist-lbl{font-size:11px;font-weight:700;letter-spacing:.14em;color:#6E89B5;padding:0 8px 9px}
@@ -149,7 +149,7 @@
       <svg class="lm" viewBox="0 0 120 120"><use href="#vlogo"/></svg>
       <div class="bt">VidyaGPT<small>powered by ExtraaEdge</small></div>
     </div>
-    <div class="newchat" onclick="VG.select('eeedge')"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> New Chat</div>
+    <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Add Your University / Institute</a>
     <div class="hist-lbl">HISTORY</div>
     <div class="hist" id="hist"></div>
     <div class="side-foot"><div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#9DB3D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg></div> Alex Chen</div>
