@@ -336,7 +336,10 @@ header.nav{
 .cb-send{width:44px;border-radius:12px;border:none;background:var(--grad-ai);color:#fff;cursor:pointer;font-size:1.05rem;display:grid;place-items:center}
 
 /* ====================== VIDYAGPT APP (guided click-through demo) ====================== */
-.gpt-app{display:grid;grid-template-columns:264px 1fr;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);background:var(--surface);height:640px;max-height:84vh}
+.gpt-app{display:grid;grid-template-columns:264px 1fr;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);background:var(--surface);height:640px;max-height:84vh;position:relative}
+.gpt-menu-btn{display:none;width:40px;height:40px;flex:0 0 auto;border-radius:10px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);font-size:1.2rem;cursor:pointer;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.gpt-ov{position:absolute;inset:0;background:rgba(8,16,34,.45);opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
+.gpt-ov.show{opacity:1;pointer-events:auto}
 .gpt-side{background:var(--slate);color:#EAF1FF;display:flex;flex-direction:column;padding:16px;gap:6px;overflow-y:auto}
 .gpt-side::-webkit-scrollbar{width:6px}.gpt-side::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:10px}
 .gpt-new{display:flex;align-items:center;gap:9px;width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:.9rem;cursor:pointer;transition:background .2s}
@@ -424,13 +427,14 @@ header.nav{
 .gpt-ctrl{padding:8px 14px;border-radius:9px;border:1px solid var(--line-strong);background:var(--surface);cursor:pointer;font-weight:700;font-size:.8rem;color:var(--accent-text);font-family:'Plus Jakarta Sans';transition:border-color .2s}
 .gpt-ctrl:hover{border-color:var(--teal)}
 @media(max-width:860px){
-  .gpt-app{grid-template-columns:1fr;height:auto;max-height:none}
-  .gpt-side{flex-direction:row;overflow-x:auto;padding:12px;gap:8px;border-bottom:1px solid var(--line)}
-  .gpt-hist-label,.gpt-side-foot{display:none}
-  .gpt-new{width:auto;white-space:nowrap}
-  .gpt-conv{white-space:nowrap;flex-shrink:0}
-  .gpt-body{height:440px;flex:none}
-  .gpt-row{max-width:97%}
+  .gpt-app{grid-template-columns:1fr;height:80vh;max-height:640px}
+  /* ChatGPT-style off-canvas drawer */
+  .gpt-side{position:absolute;left:0;top:0;bottom:0;width:min(82%,300px);z-index:30;
+    transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 0 60px rgba(0,0,0,.45);padding:16px}
+  .gpt-side.open{transform:none}
+  .gpt-menu-btn{display:inline-flex}
+  .gpt-row{max-width:94%}
 }
 
 /* ====================== DASHBOARD PREVIEW ====================== */
@@ -622,7 +626,6 @@ footer{background:var(--bg-alt);border-top:1px solid var(--line);padding:54px 0 
   .orb1,.orb2{width:300px;height:300px;opacity:.4}
   .hv-float{display:none}
   /* chat app sizing */
-  .gpt-body{height:420px}
   .gpt-slots{max-width:100%}
   .gpt-bubble{font-size:.9rem}
   .gpt-topbar{padding:13px 16px}
@@ -640,8 +643,7 @@ footer{background:var(--bg-alt);border-top:1px solid var(--line);padding:54px 0 
   .hero h1{font-size:clamp(2rem,9vw,2.6rem)}
   .prod-stats{gap:14px}
   .prod-stat .v{font-size:1.15rem}
-  .gpt-body{height:380px}
-  .gpt-side{padding:10px}
+  .gpt-side{padding:12px}
   .fab-wa{width:54px;height:54px;font-size:1.5rem;bottom:18px;right:18px}
   .roi-big{font-size:2rem}
 }
@@ -896,9 +898,11 @@ footer{background:var(--bg-alt);border-top:1px solid var(--line);padding:54px 0 
         <div class="gpt-conv" data-key="about"><span class="ic">✨</span> About VidyaGPT</div>
         <div class="gpt-side-foot">🔒 Powered by ExtraaEdge</div>
       </aside>
+      <div class="gpt-ov" id="gptOv"></div>
 
       <div class="gpt-main">
         <div class="gpt-topbar">
+          <button class="gpt-menu-btn" id="gptMenuBtn" aria-label="Conversations">☰</button>
           <span class="av">✨</span>
           <div>
             <div class="tt" id="gptTitle">EE Edge University Admissions</div>
@@ -1488,7 +1492,17 @@ function gStep(){
     setTimeout(()=>{ if(myRun===RUN && !PAUSED) gStep(); }, 560);
   });
 }
+/* ChatGPT-style mobile drawer for the demo sidebar */
+const gptSideEl=document.querySelector(".gpt-side"), gptOvEl=document.getElementById("gptOv"), gptMenuBtn=document.getElementById("gptMenuBtn");
+function gptToggleNav(open){
+  const o=(typeof open==="boolean")?open:!gptSideEl.classList.contains("open");
+  gptSideEl.classList.toggle("open",o); gptOvEl.classList.toggle("show",o);
+}
+if(gptMenuBtn) gptMenuBtn.onclick=()=>gptToggleNav();
+if(gptOvEl) gptOvEl.onclick=()=>gptToggleNav(false);
+
 function loadConvo(key){
+  gptToggleNav(false); // close drawer on mobile after picking a chat
   RUN++; PAUSED=false;
   G={key:key, steps:CONVOS[key].steps, i:0, slot:null};
   document.querySelectorAll(".gpt-conv").forEach(c=>c.classList.toggle("active", c.dataset.key===key));
