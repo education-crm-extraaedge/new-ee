@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VidyaAI — Live Product Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#19335D; --navy-2:#1E3A8A; --teal:#06B6D4; --teal-2:#22D3EE;
+    --slate:#0F172A; --ink:#E6EEF8; --muted:#8FA6C4;
+    --font-h:'Plus Jakarta Sans',system-ui,sans-serif;
+    --font-b:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow:hidden;background:#05070E}
+  body{font-family:var(--font-b);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+  /* 16:9 cinematic stage, scaled to fit any viewport */
+  #frame{position:fixed;inset:0;display:grid;place-items:center;background:#05070E}
+  #stage{
+    position:relative;width:1920px;height:1080px;transform-origin:center center;
+    background:
+      radial-gradient(1200px 760px at 26% 18%, rgba(6,182,212,.10), transparent 60%),
+      radial-gradient(1100px 800px at 82% 88%, rgba(30,58,138,.34), transparent 62%),
+      linear-gradient(160deg,#070B17 0%,#0A1326 46%,#070A14 100%);
+    overflow:hidden;
+  }
+  /* animated background glow blobs + grid */
+  .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;will-change:transform}
+  #blobA{width:760px;height:760px;left:-120px;top:-160px;background:radial-gradient(circle,rgba(6,182,212,.55),transparent 65%)}
+  #blobB{width:900px;height:900px;right:-220px;bottom:-260px;background:radial-gradient(circle,rgba(34,86,200,.60),transparent 65%)}
+  #blobC{width:560px;height:560px;left:42%;top:34%;background:radial-gradient(circle,rgba(34,211,238,.30),transparent 65%)}
+  #grid{position:absolute;inset:0;opacity:.30;
+    background-image:linear-gradient(rgba(120,160,220,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(120,160,220,.06) 1px,transparent 1px);
+    background-size:54px 54px;mask-image:radial-gradient(circle at 50% 46%,#000 0%,transparent 78%)}
+  .vignette{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 42%,transparent 52%,rgba(0,4,12,.62) 100%)}
+
+  /* ===== content layer (faded for seamless loop) ===== */
+  #content{position:absolute;inset:0;will-change:opacity}
+
+  /* product window (glass) */
+  #win{
+    position:absolute;left:386px;top:150px;width:1148px;height:780px;
+    border-radius:26px;
+    background:linear-gradient(180deg,rgba(20,32,58,.72),rgba(10,18,36,.74));
+    backdrop-filter:blur(26px) saturate(140%);-webkit-backdrop-filter:blur(26px) saturate(140%);
+    border:1px solid rgba(120,170,235,.18);
+    box-shadow:0 40px 120px rgba(2,8,24,.66),0 0 0 1px rgba(255,255,255,.02) inset,0 0 60px rgba(6,182,212,.06) inset;
+    will-change:transform,opacity;overflow:hidden;
+  }
+  /* top sheen */
+  #win::before{content:"";position:absolute;left:0;right:0;top:0;height:120px;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);pointer-events:none}
+
+  /* header */
+  #hdr{position:absolute;left:0;right:0;top:0;height:84px;display:flex;align-items:center;gap:16px;
+    padding:0 30px;border-bottom:1px solid rgba(120,170,235,.12)}
+  .dots{display:flex;gap:9px}
+  .dots i{width:13px;height:13px;border-radius:50%;display:block}
+  .dots i:nth-child(1){background:#ff5f57}.dots i:nth-child(2){background:#febc2e}.dots i:nth-child(3){background:#28c840}
+  .logo{display:flex;align-items:center;gap:12px;margin-left:8px}
+  .logo .mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-family:var(--font-h);font-weight:800;font-size:20px;color:#02131A;
+    background:linear-gradient(150deg,#22D3EE,#06B6D4);box-shadow:0 6px 20px rgba(6,182,212,.5)}
+  .logo .name{font-family:var(--font-h);font-weight:800;font-size:20px;letter-spacing:.2px}
+  .logo .name b{color:var(--teal-2)}
+  .live{display:flex;align-items:center;gap:9px;margin-left:6px;font-size:14.5px;font-weight:600;color:#CDE9F4;
+    padding:7px 14px;border-radius:999px;background:rgba(6,182,212,.10);border:1px solid rgba(6,182,212,.30)}
+  .live .pulse{width:10px;height:10px;border-radius:50%;background:#22D3EE;box-shadow:0 0 0 0 rgba(34,211,238,.7);will-change:box-shadow,transform}
+  .answering{font-size:14.5px;color:#9DE3F0;font-weight:600;display:flex;align-items:center;gap:8px}
+  .answering .ad{width:9px;height:9px;border-radius:50%;background:#34D399;box-shadow:0 0 12px #34D399}
+  .trust{margin-left:auto;font-size:14px;color:var(--muted);font-weight:500;display:flex;align-items:center;gap:10px}
+  .trust .av{display:flex}
+  .trust .av span{width:26px;height:26px;border-radius:50%;margin-left:-8px;border:2px solid #16243f;
+    background:linear-gradient(135deg,#2a4a86,#15233f);display:block}
+
+  /* chat body */
+  #body{position:absolute;left:0;right:0;top:84px;bottom:0;padding:34px 36px 30px}
+  .row{display:flex;margin-bottom:22px;align-items:flex-start;gap:14px}
+  .row.me{justify-content:flex-end}
+  .ava{width:46px;height:46px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;font-family:var(--font-h);font-weight:800;font-size:18px;color:#02131A;
+    background:linear-gradient(150deg,#22D3EE,#06B6D4);box-shadow:0 8px 22px rgba(6,182,212,.42)}
+  .bubble{max-width:680px;padding:18px 22px;border-radius:20px;font-size:20px;line-height:1.5;will-change:transform,opacity}
+  .bubble.me{background:linear-gradient(135deg,#1E3A8A,#2553B6);color:#EAF2FF;border-radius:20px 20px 6px 20px;
+    box-shadow:0 14px 34px rgba(30,58,138,.45)}
+  .bubble.ai{background:rgba(13,22,42,.82);border:1px solid rgba(120,170,235,.16);color:#E9F1FB;border-radius:6px 20px 20px 20px;
+    box-shadow:0 16px 40px rgba(2,8,24,.5);position:relative}
+  .bubble.ai .hl{position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;
+    box-shadow:0 0 0 1px rgba(34,211,238,.0),0 0 38px rgba(34,211,238,.0);will-change:box-shadow}
+  .bubble.ai b{color:#5BE6F5;font-weight:700}
+  .bubble.ai .price{color:#7DF1A6;font-weight:700}
+  .sub{color:#A9C0DC}
+
+  /* "Replied in 2.4s" badge */
+  #badge{display:inline-flex;align-items:center;gap:9px;margin-top:14px;margin-left:60px;
+    font-size:14px;font-weight:600;color:#9FECFF;padding:8px 15px;border-radius:999px;
+    background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.34);will-change:transform,opacity}
+  #badge svg{width:15px;height:15px}
+
+  /* AI typing indicator */
+  #typing{display:flex;gap:7px;padding:18px 22px;border-radius:6px 20px 20px 20px;background:rgba(13,22,42,.82);
+    border:1px solid rgba(120,170,235,.16);width:84px;will-change:opacity}
+  #typing i{width:11px;height:11px;border-radius:50%;background:#5BE6F5;will-change:transform,opacity;display:block}
+
+  /* smart-action buttons */
+  #cta{display:flex;gap:16px;margin-top:18px;margin-left:60px}
+  .btn{font-family:var(--font-b);font-weight:700;font-size:18px;padding:16px 26px;border-radius:14px;border:1px solid transparent;
+    display:flex;align-items:center;gap:11px;will-change:transform,opacity,box-shadow;cursor:pointer}
+  .btn.primary{color:#02131A;background:linear-gradient(135deg,#22D3EE,#06B6D4)}
+  .btn.secondary{color:#CFE9F5;background:rgba(120,170,235,.10);border:1px solid rgba(120,170,235,.28)}
+  .btn svg{width:20px;height:20px}
+
+  /* input bar */
+  #inputbar{position:absolute;left:36px;right:36px;bottom:30px;height:72px;display:flex;align-items:center;gap:14px;
+    padding:0 12px 0 24px;border-radius:18px;background:rgba(8,15,30,.86);border:1px solid rgba(120,170,235,.20);
+    box-shadow:0 10px 30px rgba(2,8,24,.4);will-change:transform,opacity}
+  #inputbar .ph{font-size:19px;color:#CBD9EE;font-weight:500;white-space:nowrap;overflow:hidden}
+  #caret{display:inline-block;width:2px;height:24px;background:#22D3EE;vertical-align:middle;margin-left:1px;transform:translateY(4px)}
+  #send{margin-left:auto;width:50px;height:50px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);box-shadow:0 8px 22px rgba(6,182,212,.5)}
+  #send svg{width:23px;height:23px}
+
+  /* ===== automation / lead panel (scene 5) ===== */
+  #panel{position:absolute;left:1216px;top:214px;width:520px;height:652px;border-radius:24px;
+    background:linear-gradient(180deg,rgba(12,22,44,.92),rgba(8,15,32,.94));
+    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+    border:1px solid rgba(120,170,235,.20);box-shadow:0 40px 120px rgba(2,8,24,.7),0 0 60px rgba(6,182,212,.07) inset;
+    padding:30px 30px;will-change:transform,opacity;overflow:hidden}
+  #panel .ph-top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  #panel .ph-top .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:rgba(6,182,212,.16);border:1px solid rgba(6,182,212,.3)}
+  #panel .ph-top .ic svg{width:19px;height:19px}
+  #panel .ttl{font-family:var(--font-h);font-weight:800;font-size:19px}
+  #panel .ttl small{display:block;font-family:var(--font-b);font-weight:500;font-size:13px;color:var(--muted);margin-top:2px}
+
+  .hot{display:flex;align-items:center;justify-content:space-between;margin-top:24px;padding:18px 20px;border-radius:16px;
+    background:linear-gradient(135deg,rgba(255,94,87,.16),rgba(255,160,60,.12));border:1px solid rgba(255,120,90,.34);will-change:transform,opacity}
+  .hot .lbl{font-size:13px;color:#FFC9B5;font-weight:600;letter-spacing:.4px}
+  .hot .big{font-family:var(--font-h);font-weight:800;font-size:25px;color:#FFD9C9;margin-top:3px}
+  .hot .flame{font-size:34px;will-change:transform}
+
+  /* score ring */
+  .score{display:flex;align-items:center;gap:22px;margin-top:22px;padding:20px;border-radius:16px;
+    background:rgba(8,15,30,.6);border:1px solid rgba(120,170,235,.16);will-change:transform,opacity}
+  .ring{position:relative;width:118px;height:118px;flex:0 0 auto}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .num{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+  .ring .num b{font-family:var(--font-h);font-weight:800;font-size:34px;color:#fff;line-height:1}
+  .ring .num small{font-size:12px;color:var(--muted);display:block;margin-top:2px}
+  .score .meta .k{font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.3px}
+  .score .meta .v{font-family:var(--font-h);font-weight:800;font-size:20px;margin-top:2px;color:#EAF4FF}
+  .score .meta .bar{width:230px;height:8px;border-radius:99px;background:rgba(120,170,235,.14);margin-top:14px;overflow:hidden}
+  .score .meta .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#22D3EE,#34D399);will-change:width}
+
+  .tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  .tag{font-size:14px;font-weight:600;color:#CFE9F5;padding:9px 15px;border-radius:999px;
+    background:rgba(6,182,212,.10);border:1px solid rgba(6,182,212,.30);will-change:transform,opacity}
+
+  /* counsellor toast */
+  #toast{display:flex;align-items:center;gap:14px;margin-top:22px;padding:16px 18px;border-radius:15px;
+    background:rgba(13,22,42,.9);border:1px solid rgba(52,211,153,.34);box-shadow:0 14px 36px rgba(2,8,24,.5);will-change:transform,opacity}
+  #toast .ck{width:38px;height:38px;border-radius:11px;flex:0 0 auto;display:grid;place-items:center;
+    background:linear-gradient(135deg,#34D399,#10B981);box-shadow:0 6px 18px rgba(16,185,129,.5)}
+  #toast .ck svg{width:20px;height:20px}
+  #toast .tx{font-size:15px;font-weight:600;color:#D9F6EA}
+  #toast .tx small{display:block;font-weight:500;color:#84A7A0;font-size:12.5px;margin-top:2px}
+
+  /* end logo glow */
+  #endlogo{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:20px;text-align:center;will-change:opacity}
+  #endlogo .mark{width:96px;height:96px;border-radius:26px;display:grid;place-items:center;font-family:var(--font-h);font-weight:800;font-size:50px;color:#02131A;
+    background:linear-gradient(150deg,#22D3EE,#06B6D4);box-shadow:0 0 80px rgba(34,211,238,.65)}
+  #endlogo .wm{font-family:var(--font-h);font-weight:800;font-size:46px;letter-spacing:.3px}
+  #endlogo .wm b{color:var(--teal-2)}
+  #endlogo .tl{font-size:19px;color:#A9C0DC;font-weight:500}
+</style>
+</head>
+<body>
+<div id="frame">
+  <div id="stage">
+    <div class="blob" id="blobA"></div>
+    <div class="blob" id="blobB"></div>
+    <div class="blob" id="blobC"></div>
+    <div id="grid"></div>
+
+    <div id="content">
+      <!-- PRODUCT WINDOW -->
+      <div id="win">
+        <div id="hdr">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <div class="logo">
+            <div class="mark">V</div>
+            <div class="name">Vidya<b>GPT</b></div>
+          </div>
+          <div class="live"><span class="pulse"></span>Live</div>
+          <div class="answering"><span class="ad"></span>Answering now</div>
+          <div class="trust">
+            <span class="av"><span></span><span></span><span></span></span>
+            Trusted by 500+ education brands
+          </div>
+        </div>
+
+        <div id="body">
+          <!-- student message -->
+          <div class="row me" id="rowMe">
+            <div class="bubble me" id="bubMe">Hi! I’m interested in the <b style="color:#9FE9FF">B.Des</b> program — what’s the fee and eligibility?</div>
+          </div>
+
+          <!-- AI typing indicator -->
+          <div class="row" id="rowTyping"><div class="ava">V</div><div id="typing"><i></i><i></i><i></i></div></div>
+
+          <!-- AI response -->
+          <div class="row" id="rowAi">
+            <div class="ava">V</div>
+            <div style="display:flex;flex-direction:column;align-items:flex-start">
+              <div class="bubble ai" id="bubAi">
+                <span class="hl"></span>
+                The B.Des is <span class="price">₹2.4L/year</span>.<br/>
+                <span class="sub">Eligibility:</span> 10+2 in any stream + <b>design aptitude round</b>.<br/>
+                <span class="sub">Scholarships up to</span> <b>30%</b> available.
+              </div>
+              <div id="badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#9FECFF" stroke-width="2.4" stroke-linecap="round"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+                Replied in 2.4s
+              </div>
+            </div>
+          </div>
+
+          <!-- smart action -->
+          <div class="row" id="rowAction">
+            <div class="ava">V</div>
+            <div style="display:flex;flex-direction:column;align-items:flex-start">
+              <div class="bubble ai" id="bubAction">Want me to <b>book your aptitude slot</b> or send the brochure?</div>
+              <div id="cta">
+                <button class="btn primary" id="ctaPrimary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#02131A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4M9 14l2 2 4-4"/></svg>
+                  Book Aptitude Slot
+                </button>
+                <button class="btn secondary" id="ctaSecondary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#CFE9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h9l5 5v12a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 20.5V5A1.5 1.5 0 0 1 5 3.5Z"/><path d="M14 3.5V9h5M8 13h8M8 17h6"/></svg>
+                  Send Brochure
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- input bar -->
+        <div id="inputbar">
+          <div class="ph" id="ph"></div>
+          <div id="send"><svg viewBox="0 0 24 24" fill="none" stroke="#02131A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-7-7 16-2-7-7-2z"/></svg></div>
+        </div>
+      </div><!-- /win -->
+
+      <!-- AUTOMATION PANEL -->
+      <div id="panel">
+        <div class="ph-top">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#5BE6F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.4"/></svg></div>
+          <div class="ttl">Lead Automation<small>Real-time CRM sync · ExtraaEdge</small></div>
+        </div>
+
+        <div class="hot" id="hot">
+          <div><div class="lbl">LEAD STATUS</div><div class="big">HOT LEAD</div></div>
+          <div class="flame" id="flame">🔥</div>
+        </div>
+
+        <div class="score" id="scoreCard">
+          <div class="ring">
+            <svg width="118" height="118" viewBox="0 0 118 118">
+              <circle cx="59" cy="59" r="51" fill="none" stroke="rgba(120,170,235,.16)" stroke-width="11"/>
+              <circle id="ringFill" cx="59" cy="59" r="51" fill="none" stroke="url(#g1)" stroke-width="11" stroke-linecap="round" stroke-dasharray="320.4" stroke-dashoffset="320.4"/>
+              <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#34D399"/></linearGradient></defs>
+            </svg>
+            <div class="num"><b id="scoreNum">0</b><small>/ 100</small></div>
+          </div>
+          <div class="meta">
+            <div class="k">INTENT SCORE</div>
+            <div class="v">High purchase intent</div>
+            <div class="bar"><i id="scoreBar" style="width:0%"></i></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <div class="tag" id="tag1">🎨 Design Interested Student</div>
+          <div class="tag" id="tag2">B.Des · 2026 intake</div>
+        </div>
+
+        <div id="toast">
+          <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#02131A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></div>
+          <div class="tx">Counsellor notified instantly<small>Priya S. · assigned 0.3s ago</small></div>
+        </div>
+      </div><!-- /panel -->
+
+      <!-- END LOGO -->
+      <div id="endlogo">
+        <div class="mark">V</div>
+        <div class="wm">Vidya<b>AI</b></div>
+        <div class="tl">The 24/7 AI admission agent</div>
+      </div>
+    </div><!-- /content -->
+
+    <div class="vignette"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   VidyaAI demo — deterministic timeline engine.
+   Every visual is a pure function of time `t` (ms) in [0, LOOP).
+   Drives a seamless live loop (rAF) AND frame-perfect capture
+   (window.__seek(t) used by the headless renderer).
+   ============================================================ */
+(function(){
+  const LOOP = 15000;
+  const $ = id => document.getElementById(id);
+
+  // ---- math helpers ----
+  const clamp=(x,a=0,b=1)=>x<a?a:x>b?b:x;
+  // progress of a window [s,e]
+  const seg=(t,s,e)=>clamp((t-s)/(e-s));
+  const lerp=(a,b,x)=>a+(b-a)*x;
+  const easeOut=x=>1-Math.pow(1-x,3);
+  const easeInOut=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+  const easeOutBack=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+  // smooth 0..1..0 pulse
+  const tri=(x)=>1-Math.abs((x%1)*2-1);
+
+  // appear: returns {o, y} opacity + translateY(px), with overshoot
+  function rise(t,s,dur=520,dist=26){
+    const p=seg(t,s,s+dur);
+    return {o:easeOut(clamp(p*1.25)), y:lerp(dist,0,easeOutBack(p))};
+  }
+  const setT=(el,y,o,extra='')=>{el.style.opacity=o.toFixed(3);el.style.transform=`translateY(${y.toFixed(2)}px) ${extra}`;};
+
+  // ---- query text for the typing effect ----
+  const QUERY = "Hi! I’m interested in the B.Des program — what’s the fee and eligibility?";
+
+  // cache nodes
+  const win=$('win'), content=$('content'),
+        blobA=$('blobA'),blobB=$('blobB'),blobC=$('blobC'),
+        pulse=document.querySelector('.live .pulse'),
+        rowMe=$('rowMe'),bubMe=$('bubMe'),
+        rowTyping=$('rowTyping'),typingDots=$('typing').children,
+        rowAi=$('rowAi'),bubAi=$('bubAi'),hl=bubAi.querySelector('.hl'),badge=$('badge'),
+        rowAction=$('rowAction'),bubAction=$('bubAction'),cta=$('cta'),
+        ctaPrimary=$('ctaPrimary'),ctaSecondary=$('ctaSecondary'),
+        inputbar=$('inputbar'),ph=$('ph'),send=$('send'),
+        panel=$('panel'),hot=$('hot'),flame=$('flame'),scoreCard=$('scoreCard'),
+        ringFill=$('ringFill'),scoreNum=$('scoreNum'),scoreBar=$('scoreBar'),
+        tag1=$('tag1'),tag2=$('tag2'),toast=$('toast'),endlogo=$('endlogo');
+
+  const RING_LEN=320.4;
+
+  function tick(t){
+    t=((t%LOOP)+LOOP)%LOOP;
+
+    /* ---- continuous background ---- */
+    const s=t/1000;
+    blobA.style.transform=`translate(${Math.sin(s*0.45)*40}px,${Math.cos(s*0.38)*34}px)`;
+    blobB.style.transform=`translate(${Math.cos(s*0.32)*46}px,${Math.sin(s*0.40)*40}px)`;
+    blobC.style.transform=`translate(${Math.sin(s*0.55+1)*30}px,${Math.cos(s*0.48)*26}px)`;
+    blobC.style.opacity=(0.42+0.18*tri(s/6)).toFixed(3);
+
+    /* live status dot pulse (period 1.6s) */
+    const pp=tri((t%1600)/1600);
+    pulse.style.boxShadow=`0 0 0 ${(pp*9).toFixed(1)}px rgba(34,211,238,${(0.34*(1-pp)).toFixed(3)})`;
+    pulse.style.transform=`scale(${(1+pp*0.12).toFixed(3)})`;
+
+    /* ===== SCENE 1 — window/header intro (0–1.8s) ===== */
+    const wi=seg(t,0,900);
+    const scaleIn=lerp(0.965,1,easeOut(wi));
+    win.style.opacity=easeOut(seg(t,0,650)).toFixed(3);
+    win.style.transform=`scale(${scaleIn.toFixed(4)}) translateY(${lerp(22,0,easeOut(wi)).toFixed(2)}px)`;
+
+    /* ===== SCENE 2 — input appears + student types (2.0–4.4s) ===== */
+    const ib=rise(t,2000,520,30);
+    setT(inputbar,ib.y,ib.o);
+    // typing into the input
+    const typP=seg(t,2300,4400);
+    const nChars=Math.round(typP*QUERY.length);
+    const showInput = t<4550; // input visible until message sends
+    if(showInput){
+      const txt=QUERY.slice(0,nChars);
+      const caretOn=(Math.floor(t/450)%2===0)||(typP>0&&typP<1); // blink; solid while actively typing
+      const body = txt.length ? escapeHtml(txt) : '<span style="color:#6F86A8">Ask Vidya anything…</span>';
+      ph.innerHTML = body + (caretOn?'<span id="caret"></span>':'<span style="display:inline-block;width:2px"></span>');
+      send.style.opacity=(0.55+0.45*clamp(typP*3)).toFixed(3);
+      send.style.transform=`scale(${(0.92+0.08*clamp(typP*3)).toFixed(3)})`;
+    } else {
+      // cleared after send
+      ph.innerHTML='<span style="color:#6F86A8">Ask Vidya anything…</span>';
+      send.style.opacity='0.55';send.style.transform='scale(0.92)';
+    }
+
+    /* student bubble pops in (4.5–4.9s) */
+    const meP=seg(t,4500,4900);
+    rowMe.style.opacity=t>=4480?easeOut(clamp(meP*1.3)).toFixed(3):'0';
+    bubMe.style.transform=`translateY(${lerp(14,0,easeOutBack(meP)).toFixed(2)}px) scale(${lerp(0.9,1,easeOutBack(meP)).toFixed(3)})`;
+
+    /* ===== SCENE 3 — AI typing dots then response (5.0–9.0s) ===== */
+    const tyShow = t>=5000 && t<5750;
+    rowTyping.style.opacity = tyShow?easeOut(seg(t,5000,5200)).toFixed(3):'0';
+    if(tyShow){
+      for(let i=0;i<3;i++){
+        const b=tri(((t-5000)/520 - i*0.18)%1);
+        typingDots[i].style.transform=`translateY(${(-7*b).toFixed(2)}px)`;
+        typingDots[i].style.opacity=(0.45+0.55*b).toFixed(3);
+      }
+    }
+    /* AI response reveal (5.75–6.45s) */
+    const aiP=seg(t,5750,6450);
+    rowAi.style.opacity=t>=5730?easeOut(clamp(aiP*1.3)).toFixed(3):'0';
+    bubAi.style.transform=`translateY(${lerp(16,0,easeOutBack(aiP)).toFixed(2)}px) scale(${lerp(0.92,1,easeOutBack(aiP)).toFixed(3)})`;
+    // glow highlight sweep right after reveal (6.0–7.4s)
+    const glow=Math.max(seg(t,6000,6500)*(1-seg(t,6900,7500)), 0)*tri((t%1400)/1400+0.0)*0.0; // base
+    const glowAmt = seg(t,6050,6450)*(1-seg(t,7100,7700));
+    hl.style.boxShadow=`0 0 0 1px rgba(34,211,238,${(0.5*glowAmt).toFixed(3)}),0 0 ${(46*glowAmt).toFixed(1)}px rgba(34,211,238,${(0.45*glowAmt).toFixed(3)})`;
+    /* "Replied in 2.4s" badge (6.5–7.0s) */
+    const bd=rise(t,6500,460,12);
+    badge.style.opacity=(t>=6500?bd.o:0).toFixed(3);
+    badge.style.transform=`translateY(${bd.y.toFixed(2)}px) translateX(0)`;
+
+    /* ===== SCENE 4 — smart action + buttons (9.0–12.0s) ===== */
+    const acP=seg(t,9000,9550);
+    rowAction.style.opacity=t>=8980?easeOut(clamp(acP*1.3)).toFixed(3):'0';
+    bubAction.style.transform=`translateY(${lerp(16,0,easeOutBack(acP)).toFixed(2)}px) scale(${lerp(0.92,1,easeOutBack(acP)).toFixed(3)})`;
+    const b1=rise(t,9550,460,16), b2=rise(t,9720,460,16);
+    setT(ctaPrimary,b1.y,t>=9550?b1.o:0,`scale(${lerp(0.9,1,easeOutBack(seg(t,9550,10010))).toFixed(3)})`);
+    setT(ctaSecondary,b2.y,t>=9720?b2.o:0,`scale(${lerp(0.9,1,easeOutBack(seg(t,9720,10180))).toFixed(3)})`);
+    // primary CTA pulse (from 10.1s) — glow + tiny scale, period 1.5s
+    if(t>=10100){
+      const cp=tri(((t-10100)%1500)/1500);
+      ctaPrimary.style.transform=`translateY(0) scale(${(1+cp*0.035).toFixed(3)})`;
+      ctaPrimary.style.boxShadow=`0 10px 30px rgba(6,182,212,${(0.35+0.4*cp).toFixed(3)}),0 0 ${(20+34*cp).toFixed(1)}px rgba(34,211,238,${(0.3+0.4*cp).toFixed(3)})`;
+    }
+
+    /* during scene 5, dim & nudge the chat window to spotlight automation */
+    const dim=seg(t,12000,12500);
+    win.style.filter=`brightness(${lerp(1,0.72,dim).toFixed(3)})`;
+    if(t>=12000){
+      win.style.transform=`scale(${lerp(1,0.965,easeInOut(dim)).toFixed(4)}) translateX(${lerp(0,-150,easeInOut(dim)).toFixed(1)}px)`;
+    }
+
+    /* ===== SCENE 5 — automation panel (12.0–15.0s) ===== */
+    const paP=seg(t,12050,12650);
+    panel.style.opacity=t>=12020?easeOut(clamp(paP*1.2)).toFixed(3):'0';
+    panel.style.transform=`translateX(${lerp(80,0,easeOut(paP)).toFixed(1)}px) translateY(${lerp(18,0,easeOutBack(paP)).toFixed(1)}px)`;
+    // hot lead card
+    const hp=rise(t,12500,460,18); setT(hot,hp.y,t>=12500?hp.o:0);
+    if(t>=12500){const fl=tri(((t-12500)%900)/900);flame.style.transform=`scale(${(1+fl*0.18).toFixed(3)}) rotate(${(fl*6-3).toFixed(1)}deg)`;}
+    // score ring + count to 92 (12.7–13.5s)
+    const scP=rise(t,12720,460,18); setT(scoreCard,scP.y,t>=12720?scP.o:0);
+    const fillP=easeOut(seg(t,12800,13650));
+    const val=Math.round(92*fillP);
+    ringFill.style.strokeDashoffset=(RING_LEN*(1-0.92*fillP)).toFixed(1);
+    scoreNum.textContent=val;
+    scoreBar.style.width=(92*fillP).toFixed(1)+'%';
+    // tags
+    const t1=rise(t,13350,420,14),t2=rise(t,13500,420,14);
+    setT(tag1,t1.y,t>=13350?t1.o:0,`scale(${lerp(0.85,1,easeOutBack(seg(t,13350,13770))).toFixed(3)})`);
+    setT(tag2,t2.y,t>=13500?t2.o:0,`scale(${lerp(0.85,1,easeOutBack(seg(t,13500,13920))).toFixed(3)})`);
+    // counsellor toast (13.6s)
+    const toP=rise(t,13650,500,20); setT(toast,toP.y,t>=13650?toP.o:0,`scale(${lerp(0.95,1,easeOutBack(seg(t,13650,14150))).toFixed(3)})`);
+
+    /* end logo glow flash (14.0–15.0) */
+    const elP=seg(t,14150,14750);
+    endlogo.style.opacity=(t>=14150?easeInOut(elP)*(1-seg(t,14900,15000)*0.0):0).toFixed(3);
+    const elMark=endlogo.querySelector('.mark');
+    if(t>=14150){const g=tri(((t-14150)%1200)/1200);elMark.style.boxShadow=`0 0 ${(60+50*g).toFixed(0)}px rgba(34,211,238,${(0.5+0.35*g).toFixed(3)})`;}
+
+    /* ===== seamless loop crossfade: fade whole content out at the tail =====
+       At t→LOOP content opacity→0 which matches t=0 (everything hidden/rising) */
+    let contentO=1;
+    contentO*= (1 - seg(t,14350,15000));           // fade out tail
+    content.style.opacity=contentO.toFixed(3);
+  }
+
+  function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  /* ---- responsive scaling of the 1920x1080 stage ---- */
+  function fit(){
+    const st=document.getElementById('stage');
+    const sc=Math.min(window.innerWidth/1920, window.innerHeight/1080);
+    st.style.transform=`scale(${sc})`;
+  }
+  window.addEventListener('resize',fit); fit();
+
+  /* ---- capture hook (used by headless renderer) ---- */
+  window.__seek=function(ms){tick(ms);};
+  window.__LOOP=LOOP;
+
+  /* ---- live playback (skipped in capture mode) ---- */
+  const params=new URLSearchParams(location.search);
+  if(params.get('capture')==='1'){ tick(0); }
+  else {
+    let start=null;
+    function frame(now){ if(start==null)start=now; tick(now-start); requestAnimationFrame(frame); }
+    requestAnimationFrame(frame);
+  }
+})();
+</script>
+</body>
+</html>

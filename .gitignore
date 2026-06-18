@@ -4,3 +4,6 @@ vidyaai-theme.zip
 
 # OS / editor cruft
 .DS_Store
+
+# Scratch render dir (node_modules, chromium cache, intermediate frames)
+build-tmp/
