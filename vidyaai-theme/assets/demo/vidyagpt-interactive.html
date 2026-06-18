@@ -44,7 +44,13 @@
 
   /* ===================== MAIN ===================== */
   #main{flex:1;height:100%;display:flex;flex-direction:column;background:var(--white);min-width:0}
-  #top{padding:18px 36px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto}
+  #top{padding:18px 36px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto;display:flex;align-items:center;gap:14px}
+  .thead{flex:1;min-width:0}
+  .menu-btn{display:none;width:44px;height:44px;border-radius:11px;border:1px solid var(--line);background:#fff;cursor:pointer;
+    flex:0 0 auto;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+  .menu-btn svg{width:23px;height:23px}
+  #ov{position:fixed;inset:0;background:rgba(8,16,34,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:40}
+  #ov.show{opacity:1;pointer-events:auto}
   #top h2{font-family:var(--font-h);font-weight:800;font-size:21px;color:var(--navy)}
   #top p{font-size:13.5px;color:var(--muted);margin-top:3px}
   #top .crumb{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--teal);
@@ -127,6 +133,51 @@
   #composer .disc{max-width:920px;margin:10px auto 0;text-align:center;font-size:12px;color:#A0AEC2}
   .hintbar{max-width:920px;margin:0 auto 8px;font-size:12.5px;color:var(--teal);font-weight:600;text-align:center;display:none}
   .hintbar.show{display:block}
+
+  /* ===================== MOBILE (ChatGPT-style drawer) ===================== */
+  @media (max-width:820px){
+    #side{position:fixed;z-index:50;left:0;top:0;height:100%;width:min(84vw,330px);
+      transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+      box-shadow:0 0 70px rgba(0,0,0,.45);padding:18px 14px}
+    #side.open{transform:none}
+    .menu-btn{display:inline-flex}
+    #top{padding:11px 14px;gap:10px}
+    #top h2{font-size:16.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #top p{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #top .crumb{margin-bottom:6px;font-size:10.5px;padding:3px 9px}
+    #msgs{padding:16px 0}
+    .inner{padding:0 13px}
+    .m{gap:9px;margin-bottom:15px}
+    .av{width:34px;height:34px;border-radius:9px}
+    .av.ai svg{width:23px;height:23px}
+    .av.me{font-size:11px}
+    .col{max-width:100%}
+    .m.user .col{max-width:86%}
+    .m.ai .col{max-width:88%}
+    .who{font-size:11.5px;margin-bottom:5px}
+    .who small{display:none}
+    .bub{font-size:14.5px;line-height:1.55;padding:11px 14px;border-radius:13px}
+    .brochure,.sched-btn{font-size:13.5px;padding:11px 15px}
+    .slots{width:100%;padding:16px;border-radius:15px}
+    .slots h4{font-size:15px}.slots .sub{font-size:12px}
+    .chip{font-size:12.5px;padding:8px 12px}
+    .confirm{font-size:14px;padding:12px}
+    .done{width:100%;padding:14px;gap:12px}
+    .done .ck{width:40px;height:40px}.done .ck svg{width:22px}
+    .done b{font-size:15px}.done span{font-size:12.5px}
+    .aboutcard{padding:28px 20px;margin:10px auto}
+    .aboutcard h3{font-size:21px}.aboutcard p{font-size:14px}
+    #composer{padding:9px 13px 7px}
+    #composer .box{padding:6px 6px 6px 15px;border-radius:14px}
+    #composer .ph{font-size:14px}
+    #composer .send{width:42px;height:42px}
+    #composer .disc{font-size:10.5px;margin-top:7px}
+  }
+  @media (max-width:430px){
+    #top h2{font-size:15px}
+    .m.user .col,.m.ai .col{max-width:90%}
+    .bub{font-size:14px}
+  }
 </style>
 </head>
 <body>
@@ -157,9 +208,12 @@
 
   <main id="main">
     <div id="top">
-      <div class="crumb"><i></i> VidyaGPT · Live</div>
-      <h2 id="ctitle">EE Edge University Admissions</h2>
-      <p id="csub">Chat with VidyaGPT about EE Edge University's admissions process.</p>
+      <button class="menu-btn" aria-label="Menu" onclick="VG.toggleNav()"><svg viewBox="0 0 24 24" fill="none" stroke="#0F2347" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <div class="thead">
+        <div class="crumb"><i></i> VidyaGPT · Live</div>
+        <h2 id="ctitle">EE Edge University Admissions</h2>
+        <p id="csub">Chat with VidyaGPT about EE Edge University's admissions process.</p>
+      </div>
     </div>
     <div id="msgs"><div class="inner" id="inner"></div></div>
     <div id="composer">
@@ -171,6 +225,7 @@
       <div class="disc">VidyaGPT may produce inaccurate information about people, places, or facts.</div>
     </div>
   </main>
+  <div id="ov" onclick="VG.toggleNav(false)"></div>
 </div>
 
 <script>
@@ -334,7 +389,13 @@ const VG=(function(){
   }
   function waitSlots(c,my){return addSlots(c);}
 
+  function toggleNav(force){
+    const side=document.getElementById('side'), ov=document.getElementById('ov');
+    const open=(typeof force==='boolean')?force:!side.classList.contains('open');
+    side.classList.toggle('open',open); ov.classList.toggle('show',open);
+  }
   function select(key){
+    toggleNav(false); // close drawer on mobile after picking a chat
     document.querySelectorAll('.hi').forEach(h=>h.classList.toggle('active',h.dataset.k===key));
     if(key==='about'){ token++; aboutView(); return; }
     play(key);
@@ -351,7 +412,7 @@ const VG=(function(){
 
   // auto-start
   window.addEventListener('load',()=>select('eeedge'));
-  return {select};
+  return {select,toggleNav};
 })();
 </script>
 </body>
