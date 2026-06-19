@@ -437,73 +437,6 @@ body{
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001s!important;animation-iteration-count:1!important}
 }
-
-/* ===================================================================
-   MOBILE FORMAT (<=640px) — abandon the fixed 1280x720 scaled canvas;
-   render a fluid, vertically-stacked, large-type layout instead.
-   =================================================================== */
-@media (max-width:768px){
-  body{background:#f6f8fb;display:block;overflow:hidden}
-  .stage{position:relative!important;left:auto!important;top:auto!important;
-    width:100%!important;height:auto!important;min-height:100vh;border-radius:0;
-    transform:none!important;box-shadow:none}
-  .stage::after{background-size:34px 34px}
-  .scene{position:relative!important;inset:auto!important;min-height:100vh;
-    justify-content:center;padding:74px 18px 132px!important}
-  /* shared text bumps */
-  .eyebrow{font-size:11px;padding:7px 13px;gap:7px}
-  .section-eyebrow,.case-eyebrow{position:static!important;align-self:center;margin:0 0 4px}
-  .ms-note{font-size:13px;text-align:center}
-  /* S0 opening */
-  #s0{gap:22px}
-  .core-wrap{width:230px;height:230px}
-  .s0-head{font-size:29px!important;letter-spacing:-1px!important}
-  .s0-sub{font-size:15px!important}
-  /* S2 multi-channel */
-  .s2-top{flex-direction:column;gap:12px;align-items:center}
-  .s2-stats{flex-wrap:wrap;justify-content:center;gap:10px}
-  .stat-chip{min-width:104px;padding:10px 14px}.stat-chip .n{font-size:19px}
-  .netviz{height:300px!important;max-width:330px!important}
-  .chan{font-size:11px;padding:5px 11px 5px 5px}
-  .chan-ic{width:26px;height:26px}.chan-ic .ic{width:14px;height:14px}
-  .hub{width:78px;height:78px}.hub b{font-size:13px}
-  /* S3 reasoning */
-  .s3-grid{grid-template-columns:1fr!important;gap:20px!important;max-width:560px}
-  .reason-cloud{max-width:100%!important;justify-content:center;gap:9px}
-  .kw{font-size:12.5px;padding:8px 13px}
-  .verdict{min-width:0;width:100%;padding:22px}.verdict .big{font-size:44px}
-  /* S4/5/6 cases — phone on top, analysis below */
-  .case{grid-template-columns:1fr!important;gap:16px!important;max-width:560px}
-  .phone{width:100%;max-width:420px;margin:0 auto}
-  .chat{min-height:auto;padding:16px}
-  .bubble{font-size:13.5px;max-width:88%}
-  .case-side{width:100%;gap:10px}
-  .case-side h4{font-size:12px}
-  .ov{font-size:13px;padding:9px 12px}.ov .tick{width:20px;height:20px}
-  /* S7 funnel */
-  .funnel{flex-wrap:wrap!important;gap:8px!important;max-width:340px}
-  .farrow{display:none}
-  .fstep{font-size:12px;padding:9px 12px}
-  .enrolled .badge{font-size:38px}
-  /* S8 metrics — 2 columns */
-  .metrics{grid-template-columns:repeat(2,1fr)!important;max-width:520px;gap:14px}
-  .metric{padding:18px 14px}.metric .v{font-size:26px!important}.metric .mic{width:38px;height:38px}
-  /* S9 ecosystem */
-  .ecosystem{width:290px!important}
-  .eco-core{width:96px;height:96px}.eco-core b{font-size:17px}
-  .mod{font-size:11px;padding:7px 11px}
-  /* SF final */
-  .logo-final{flex-direction:column;gap:10px}
-  .logo-word{font-size:34px!important}
-  .final-head{font-size:24px!important}
-  .final-sub{font-size:14px!important}
-  .cta{font-size:15px;padding:13px 26px}
-  /* overlays relative to the tall fluid stage */
-  .brandtag{top:14px;left:16px}
-  .caption{font-size:13px!important;bottom:80px;max-width:92%;padding:9px 16px;line-height:1.4}
-  .controls{width:94%;bottom:14px;padding:8px 12px;gap:9px}
-  .time{min-width:62px;font-size:11px}
-}
 </style>
 </head>
 <body>
@@ -989,9 +922,11 @@ const btnSound  = document.getElementById('btnSound');
 const STAGE_W=1280, STAGE_H=720;
 function fitStage(){
   if(location.search.includes('sync')) return;   // render harness sizes the stage itself
-  // >768px only: fit the fixed canvas to the frame (CONTAIN, never crop).
-  // <=768px is handled by the fluid CSS layout below, which overrides this transform.
-  const s=Math.min(window.innerWidth/STAGE_W, window.innerHeight/STAGE_H, 1);
+  const vw=window.innerWidth, vh=window.innerHeight;
+  // <=768px (phones/tablets): COVER the frame so the perfectly-rendered canvas
+  //   reads large (slight side crop). >768px: CONTAIN (fit fully, no crop).
+  const s = vw<=768 ? Math.max(vw/STAGE_W, vh/STAGE_H)
+                    : Math.min(vw/STAGE_W, vh/STAGE_H, 1);
   stage.style.position='fixed';
   stage.style.left='50%';
   stage.style.top='50%';
