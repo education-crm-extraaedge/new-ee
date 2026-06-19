@@ -1187,7 +1187,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 #xhero #glsl{position:absolute;inset:0;width:100%;height:100%;z-index:-3;opacity:.6}
 #xhero .hero__veil{position:absolute;inset:0;z-index:-2;background:radial-gradient(110% 80% at 80% 0%,transparent 25%,var(--bg) 72%),linear-gradient(to top,var(--bg) 0%,transparent 30%)}
 #xhero .hero__grid{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--navy-06) 1px,transparent 1px),linear-gradient(90deg,var(--navy-06) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%);mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%)}
-#xhero .hero__in{position:relative;z-index:1;display:block;max-width:760px}
+#xhero .hero__in{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,420px);gap:48px;align-items:center}
 #xhero .reveal{opacity:0;transform:translateY(22px);animation:xh-rise .9s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes xh-rise{to{opacity:1;transform:none}}
 #xhero .d1{animation-delay:.05s}#xhero .d2{animation-delay:.16s}#xhero .d3{animation-delay:.27s}#xhero .d4{animation-delay:.38s}#xhero .d5{animation-delay:.5s}#xhero .d6{animation-delay:.64s}
@@ -1340,8 +1340,47 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
         <div class="stat"><div class="stat__n"><span data-xhcount="60">0</span><em>s</em></div><div class="stat__l">Avg. first response</div></div>
       </div>
     </div>
+    <style>
+      #xhero .hero-form{background:#fff;border:1px solid rgba(25,51,93,.12);border-radius:18px;padding:24px 22px;box-shadow:0 30px 70px rgba(25,51,93,.16);width:100%}
+      #xhero .hf-title{font-family:'Inter',sans-serif;font-weight:800;font-size:20px;color:#19335D;margin:0 0 4px}
+      #xhero .hf-sub{font-size:12.5px;color:rgba(25,51,93,.6);margin:0 0 16px;line-height:1.45}
+      #xhero .hf-ping{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;vertical-align:middle;margin-right:5px}
+      #xhero .hf-form{display:grid;gap:10px}
+      #xhero .hf-form input,#xhero .hf-form select{width:100%;padding:12px 14px;border:1.5px solid rgba(25,51,93,.16);border-radius:11px;font-family:'Inter',sans-serif;font-size:14.5px;color:#19335D;background:#fff;outline:none}
+      #xhero .hf-form input:focus,#xhero .hf-form select:focus{border-color:#DE6E30}
+      #xhero .hf-btn{margin-top:2px;width:100%;padding:13px 18px;border:0;border-radius:11px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:#fff;background:#DE6E30;box-shadow:0 14px 30px rgba(222,110,48,.32);transition:transform .18s,background .2s}
+      #xhero .hf-btn:hover{transform:translateY(-2px);background:#c95f24}
+      #xhero .hf-ok{display:none;margin-top:12px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#15803d;border-radius:11px;padding:12px 14px;font-size:13.5px;font-weight:600}
+      #xhero .hf-ok.show{display:block}
+      #xhero .hf-trust{margin:12px 0 0;font-size:11.5px;color:rgba(25,51,93,.5);text-align:center}
+      @media(max-width:1024px){#xhero .hero-form{max-width:520px;margin:0 auto}}
+    </style>
+    <div class="hero-form reveal d4" aria-label="Book a free demo">
+      <h3 class="hf-title">Book your free demo</h3>
+      <p class="hf-sub"><span class="hf-ping"></span> We&#39;ll reach out within the hour &middot; 500+ institutions trust us</p>
+      <form class="hf-form" id="heroDemoForm" novalidate>
+        <input type="text" placeholder="Your full name *" required aria-label="Your full name" />
+        <input type="text" placeholder="Institute / organisation *" required aria-label="Institute name" />
+        <input type="tel" placeholder="WhatsApp number *" required aria-label="WhatsApp number" />
+        <input type="email" placeholder="Work email *" required aria-label="Work email" />
+        <select required aria-label="Monthly enquiry volume">
+          <option value="" disabled selected>Monthly enquiry volume</option>
+          <option>Under 1,000</option><option>1,000 &ndash; 5,000</option><option>5,000 &ndash; 20,000</option><option>20,000+</option>
+        </select>
+        <button type="submit" class="hf-btn">Book My Free Demo &rarr;</button>
+      </form>
+      <div class="hf-ok" id="heroDemoOk">&#127881; Thank you! Our admissions expert will reach out within the hour.</div>
+      <p class="hf-trust">&#128274; ISO 27001 &amp; GDPR compliant &middot; No spam, ever.</p>
+    </div>
   </div>
 </section>
+<script>
+(function(){var f=document.getElementById('heroDemoForm');if(!f)return;
+  f.addEventListener('submit',function(e){e.preventDefault();
+    if(!f.checkValidity()){f.reportValidity();return;}
+    f.style.display='none';var ok=document.getElementById('heroDemoOk');if(ok)ok.classList.add('show');});
+})();
+</script>
 <script>
 /* ===================== HERO — brand edition (scoped IIFE) ===================== */
 (function(){
