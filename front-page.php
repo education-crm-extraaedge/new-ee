@@ -1187,7 +1187,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 #xhero #glsl{position:absolute;inset:0;width:100%;height:100%;z-index:-3;opacity:.6}
 #xhero .hero__veil{position:absolute;inset:0;z-index:-2;background:radial-gradient(110% 80% at 80% 0%,transparent 25%,var(--bg) 72%),linear-gradient(to top,var(--bg) 0%,transparent 30%)}
 #xhero .hero__grid{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--navy-06) 1px,transparent 1px),linear-gradient(90deg,var(--navy-06) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%);mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%)}
-#xhero .hero__in{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,420px);gap:48px;align-items:center}
+#xhero .hero__in{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(400px,470px);gap:48px;align-items:center}
 #xhero .reveal{opacity:0;transform:translateY(22px);animation:xh-rise .9s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes xh-rise{to{opacity:1;transform:none}}
 #xhero .d1{animation-delay:.05s}#xhero .d2{animation-delay:.16s}#xhero .d3{animation-delay:.27s}#xhero .d4{animation-delay:.38s}#xhero .d5{animation-delay:.5s}#xhero .d6{animation-delay:.64s}
@@ -1341,24 +1341,22 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       </div>
     </div>
     <style>
-      #xhero .hero-form{background:#fff;border:1px solid rgba(25,51,93,.12);border-radius:18px;padding:18px;box-shadow:0 30px 70px rgba(25,51,93,.16);width:100%}
-      #xhero .hf-title{font-family:'Inter',sans-serif;font-weight:800;font-size:20px;color:#19335D;margin:0 0 4px}
-      #xhero .hf-sub{font-size:12.5px;color:rgba(25,51,93,.6);margin:0 0 16px;line-height:1.45}
-      #xhero .hf-ping{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;vertical-align:middle;margin-right:5px}
-      #xhero .hf-form{display:grid;gap:10px}
-      #xhero .hf-form input,#xhero .hf-form select{width:100%;padding:12px 14px;border:1.5px solid rgba(25,51,93,.16);border-radius:11px;font-family:'Inter',sans-serif;font-size:14.5px;color:#19335D;background:#fff;outline:none}
-      #xhero .hf-form input:focus,#xhero .hf-form select:focus{border-color:#DE6E30}
-      #xhero .hf-btn{margin-top:2px;width:100%;padding:13px 18px;border:0;border-radius:11px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:#fff;background:#DE6E30;box-shadow:0 14px 30px rgba(222,110,48,.32);transition:transform .18s,background .2s}
-      #xhero .hf-btn:hover{transform:translateY(-2px);background:#c95f24}
-      #xhero .hf-ok{display:none;margin-top:12px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#15803d;border-radius:11px;padding:12px 14px;font-size:13.5px;font-weight:600}
-      #xhero .hf-ok.show{display:block}
-      #xhero .hf-trust{margin:12px 0 0;font-size:11.5px;color:rgba(25,51,93,.5);text-align:center}
-      @media(max-width:1024px){#xhero .hero-form{max-width:520px;margin:0 auto}}
+      /* Exact same demo-form card as the product page (single-product.php) */
+      #xhero .hero-form-aside{width:100%}
+      #xhero .hero-form-card{position:relative;background:#fff;border:1px solid #EDF0F5;border-radius:26px;padding:clamp(26px,3vw,42px);box-shadow:0 30px 70px -20px rgba(25,51,93,.26)}
+      #xhero .hero-form-card::after{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;background:linear-gradient(140deg,rgba(222,110,48,.5),transparent 40%,transparent 60%,rgba(25,51,93,.4));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55}
+      #xhero .hero-form-card::before{content:"Book a Free Demo";position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#E8843F 0%,#DE6E30 55%,#C2541C 100%);color:#fff;padding:7px 20px;border-radius:999px;font-weight:700;font-size:11px;letter-spacing:.04em;white-space:nowrap;box-shadow:0 18px 44px -14px rgba(222,110,48,.55)}
+      #xhero .secure-label{text-align:center;margin-top:18px;font-size:10.5px;color:rgba(25,51,93,.5);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+      @media(max-width:1024px){#xhero .hero-form-aside{max-width:540px;margin:0 auto}}
+      @media(max-width:480px){#xhero .hero-form-card{padding:24px 20px}}
     </style>
-    <div class="hero-form reveal d4" aria-label="Book a free demo">
-      <script async src="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js"></script>
-      <div id="ee-form-7"></div>
-    </div>
+    <aside class="hero-form-aside reveal d4" id="admission-form" aria-label="Book Demo Form">
+      <div class="hero-form-card">
+        <script async src="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js"></script>
+        <div id="ee-form-7"></div>
+        <p class="secure-label">&#128274; Secure Data Transmission Active</p>
+      </div>
+    </aside>
   </div>
 </section>
 <script>
