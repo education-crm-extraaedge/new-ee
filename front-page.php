@@ -2034,44 +2034,60 @@ body{
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001s!important;animation-iteration-count:1!important}
 }
+.tapfx{position:absolute;z-index:11;left:50%;top:50%;width:76px;height:76px;border-radius:50%;background:rgba(15,23,42,.5);display:grid;place-items:center;color:#fff;opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(.6)}
+.tapfx .ic{width:30px;height:30px}
+.tapfx.show{animation:tapflash .6s ease forwards}
+@keyframes tapflash{0%{opacity:0;transform:translate(-50%,-50%) scale(.55)}28%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.18)}}
 /* player controls: visible only while the cursor is over the video (pointer devices);
    always visible on touch screens (no hover) */
 .controls{opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
 .stage:hover .controls,.controls:focus-within{opacity:1;visibility:visible}
 @media (hover:none),(pointer:coarse){.controls{opacity:1!important;visibility:visible!important}}
 
-/* ===== PHONE 9:16 / TABLET 1:1 (<=900px): fluid fill, fully readable, no crop ===== */
+/* ===== PHONE 9:16 / TABLET 1:1 (<=900px): compact fluid fill, fully readable ===== */
 @media (max-width:900px){
   body{display:block;overflow:hidden;background:#f6f8fb}
   .stage{position:relative!important;transform:none!important;left:auto!important;top:auto!important;width:100%!important;height:auto!important;min-height:100vh;border-radius:0;box-shadow:none}
-  .stage::after{-webkit-mask-image:none!important;mask-image:none!important;opacity:.28}
-  .scene{position:absolute!important;inset:0!important;display:none;width:100%;min-height:100vh;height:100%;padding:60px 18px 122px!important;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .stage::after{-webkit-mask-image:none!important;mask-image:none!important;opacity:.25}
+  .scene{position:absolute!important;inset:0!important;display:none;width:100%;min-height:100vh;height:100%;padding:52px 16px 70px!important;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:11px}
   .scene.active{display:flex!important}
-  .caption{display:inline-flex!important;position:absolute!important;left:50%!important;right:auto!important;bottom:66px;transform:translateX(-50%)!important;max-width:92%;font-size:12.5px!important;padding:8px 15px;line-height:1.4}
-  .controls{left:50%!important;bottom:14px;transform:translateX(-50%)!important;width:calc(100% - 28px)}
-  .brandtag{top:14px;left:16px}
-  .section-eyebrow,.case-eyebrow{position:static!important;top:auto!important;right:auto!important;left:auto!important;align-self:center;margin:0 0 8px}
-  .s0-head{font-size:clamp(26px,6.4vw,42px)!important}
-  .s0-sub{font-size:clamp(14px,3.4vw,18px)!important}
-  .core-wrap{width:210px;height:210px}
-  .s2-top{flex-direction:column;gap:12px;align-items:center;max-width:460px}
-  .s2-stats{flex-wrap:wrap;justify-content:center;gap:10px}
-  .netviz{height:320px!important;max-width:340px!important;width:100%!important}
-  .s3-grid{grid-template-columns:1fr!important;gap:18px!important;max-width:480px}
-  .reason-cloud{max-width:100%!important;justify-content:center}
-  .verdict{min-width:0!important;width:100%;max-width:300px}
-  .case{grid-template-columns:1fr!important;gap:14px!important;max-width:460px}
-  .phone{width:100%;max-width:440px;margin:0 auto}
-  .case-side{width:100%;max-width:440px}
-  .chat{min-height:auto}
-  .funnel{flex-wrap:wrap!important;gap:8px!important;max-width:440px}
-  .farrow{display:none!important}
-  .metrics{grid-template-columns:repeat(2,1fr)!important;max-width:460px;gap:12px}
-  .ecosystem{width:300px!important;max-width:84vw}
-  .logo-final{flex-direction:column!important;gap:10px}
-  .logo-word{font-size:clamp(30px,7.4vw,44px)!important}
-  .final-head{font-size:clamp(24px,5.8vw,38px)!important}
-  .final-sub{font-size:clamp(14px,3.4vw,18px)!important}
+  /* controls hidden on touch — tap the video centre to play/pause */
+  .controls{display:none!important}
+  .brandtag{top:12px;left:14px}.brandtag .vword{font-size:13px}.brandtag .vmark{width:24px;height:24px}
+  .section-eyebrow,.case-eyebrow,.eyebrow{position:static!important;top:auto!important;right:auto!important;left:auto!important;align-self:center;margin:0 0 4px;font-size:9.5px!important;padding:5px 11px!important;letter-spacing:.12em}
+  /* caption: compact, max 2 lines, pinned just above the bottom */
+  .caption{display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;position:absolute!important;left:50%!important;right:auto!important;top:auto!important;bottom:16px;transform:translateX(-50%)!important;max-width:92%;font-size:11.5px!important;font-weight:600;padding:7px 14px;line-height:1.35;text-align:center}
+  .s0-head{font-size:clamp(20px,5.2vw,28px)!important;letter-spacing:-.5px!important}
+  .s0-sub{font-size:clamp(12px,3vw,14px)!important}
+  .core-wrap{width:160px;height:160px}.core{width:90px;height:90px}#s0 .core{padding:14px 20px}
+  .s2-top{flex-direction:column;gap:10px;align-items:center;max-width:400px}
+  .s2-stats{flex-wrap:wrap;justify-content:center;gap:8px}
+  .stat-chip{min-width:88px;padding:8px 11px}.stat-chip .n{font-size:15px}.stat-chip .l{font-size:9px}
+  .netviz{height:240px!important;max-width:270px!important;width:100%!important}
+  .chan{font-size:9.5px;padding:4px 8px 4px 4px;gap:5px}.chan-ic{width:21px;height:21px}.chan-ic .ic{width:11px;height:11px}
+  .hub{width:60px;height:60px}.hub b{font-size:10.5px}.hub small{font-size:8.5px}
+  .s3-grid{grid-template-columns:1fr!important;gap:13px!important;max-width:400px}
+  .reason-cloud{max-width:100%!important;justify-content:center;gap:6px}
+  .kw{font-size:10.5px;padding:6px 9px}
+  .verdict{min-width:0!important;width:100%;max-width:230px;padding:16px}
+  .verdict .big{font-size:32px}.verdict .label{font-size:9.5px}.verdict .tag{font-size:10.5px;padding:5px 11px}
+  .ms-note{font-size:11px}
+  .case{grid-template-columns:1fr!important;gap:11px!important;max-width:360px}
+  .phone{width:100%;max-width:340px;margin:0 auto;border-radius:16px}
+  .phone-head{padding:10px 13px;gap:8px}.avatar{width:32px;height:32px}.who b{font-size:12.5px}.who span{font-size:10px}
+  .chan-pill{font-size:9px;padding:4px 8px}
+  .chat{min-height:auto;padding:12px;gap:8px}.bubble{font-size:12px;padding:8px 11px;max-width:90%}
+  .case-side{width:100%;max-width:340px;gap:7px}.case-side h4{font-size:10px}
+  .ov{font-size:11px;padding:7px 10px;gap:8px}.ov .tick{width:17px;height:17px}.ov .val{font-size:11.5px}
+  .funnel{flex-wrap:wrap!important;gap:6px!important;max-width:340px}
+  .farrow{display:none!important}.fstep{font-size:10.5px;padding:7px 9px}
+  .enrolled .badge{font-size:clamp(26px,6.6vw,36px)}.enrolled .sub{font-size:10px}
+  .metrics{grid-template-columns:repeat(2,1fr)!important;max-width:360px;gap:10px}
+  .metric{padding:13px 9px}.metric .v{font-size:clamp(18px,4.8vw,23px)!important}.metric .l{font-size:9.5px}.metric .mic{width:32px;height:32px;margin-bottom:8px}
+  .ecosystem{width:240px!important;max-width:78vw}.eco-core{width:80px;height:80px}.eco-core b{font-size:14px}.eco-core small{font-size:8px}.mod{font-size:9.5px;padding:5px 8px}
+  .logo-final{flex-direction:column!important;gap:8px}.logo-word{font-size:clamp(24px,6.6vw,36px)!important}.logo-final .vmark{width:46px!important;height:46px!important}
+  .final-head{font-size:clamp(19px,5.2vw,29px)!important}.final-sub{font-size:clamp(12px,3vw,14px)!important}
+  .cta{font-size:13px;padding:11px 20px}
 }
 </style>
 </head>
@@ -2383,6 +2399,8 @@ body{
     <div class=&quot;sweep&quot;></div>
   </section>
 
+  <div class=&quot;tapfx&quot; id=&quot;tapfx&quot; aria-hidden=&quot;true&quot;><svg class=&quot;ic ic--fill&quot;><use href=&quot;#ic-play&quot;/></svg></div>
+
   <!-- modern player controls -->
   <div class=&quot;controls&quot; id=&quot;controls&quot;>
     <button class=&quot;cbtn&quot; id=&quot;btnPlay&quot; aria-label=&quot;Play / Pause&quot;><svg class=&quot;ic ic--fill&quot;><use href=&quot;#ic-pause&quot;/></svg></button>
@@ -2618,6 +2636,14 @@ function setPlaying(p){
   useHref(svg, p?'ic-pause':'ic-play');
 }
 btnPlay.addEventListener('click',()=>setPlaying(!playing));
+/* tap/click the video (not the controls or links) toggles play/pause + flashes a centre icon */
+stage.addEventListener('click',function(e){
+  if(e.target.closest('.controls, a, button')) return;
+  setPlaying(!playing);
+  var fx=document.getElementById('tapfx');
+  if(fx){ fx.querySelector('use').setAttribute('href', playing?'#ic-play':'#ic-pause');
+    fx.classList.remove('show'); void fx.offsetWidth; fx.classList.add('show'); }
+});
 btnReplay.addEventListener('click',()=>{ clock=0; activate(0); scrubFill.style.width='0%'; setPlaying(true); });
 
 scrub.addEventListener('click',e=>{
