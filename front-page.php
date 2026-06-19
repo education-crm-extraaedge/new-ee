@@ -1362,7 +1362,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       /* phone field (intl-tel-input) — restored AFTER the block resets so the +91 flag sits correctly */
       #ee-form-7 .iti,#ee-form-7 .iti__country-list{background-color:#fff!important;color:#19335D!important}
       #ee-form-7 .iti{position:relative!important;display:block!important;width:100%!important}
-      #ee-form-7 .iti input[type="tel"]{padding-left:78px!important;width:100%!important}
+      #ee-form-7 .iti input[type="tel"]{padding-left:96px!important;width:100%!important}
       #ee-form-7 .iti__flag-container{position:absolute!important;top:0;bottom:0;left:0;z-index:2;display:flex!important;align-items:center}
       #ee-form-7 .iti__selected-flag{height:100%!important;padding:0 8px 0 14px!important;background:transparent!important;border-right:1px solid rgba(25,51,93,.10)!important;display:flex!important;align-items:center;gap:6px}
       #ee-form-7 .iti__selected-dial-code{color:#19335D!important;font-weight:700;font-size:.95rem}
