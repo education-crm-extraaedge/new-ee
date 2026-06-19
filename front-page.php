@@ -2423,16 +2423,16 @@ body{
    cleanly on each pass (true seamless loop).
    ================================================================= */
 const SCENES = [
-  {id:'s0', dur:4200},   // opening  (storyboard 0–2s, extended for read)
-  {id:'s2', dur:3200},   // multi-channel
-  {id:'s3', dur:3200},   // reasoning engine
-  {id:'s4', dur:4000},   // case 1 — Riya (longest action chain)
-  {id:'s5', dur:3000},   // case 2 — Arjun
-  {id:'s6', dur:3000},   // case 3 — Fatima
-  {id:'s7', dur:3600},   // autopilot funnel
-  {id:'s8', dur:3000},   // business impact
-  {id:'s9', dur:3400},   // ecosystem
-  {id:'sf', dur:4600},   // final + CTA + sweep, then loop
+  {id:'s0', dur:6200},   // opening  (slower for readability)
+  {id:'s2', dur:5200},   // multi-channel
+  {id:'s3', dur:5200},   // reasoning engine
+  {id:'s4', dur:6000},   // case 1 — Riya (longest action chain)
+  {id:'s5', dur:5000},   // case 2 — Arjun
+  {id:'s6', dur:5000},   // case 3 — Fatima
+  {id:'s7', dur:5600},   // autopilot funnel
+  {id:'s8', dur:5000},   // business impact
+  {id:'s9', dur:5400},   // ecosystem
+  {id:'sf', dur:6600},   // final + CTA + sweep, then loop
 ];
 const FADE = 450;
 
