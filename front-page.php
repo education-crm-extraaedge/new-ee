@@ -1347,15 +1347,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
         box-shadow:0 44px 96px rgba(25,51,93,.24), 0 0 0 1px rgba(25,51,93,.07);
         border:1px solid rgba(25,51,93,.12);background:#eef1f5}
       .hero-film__frame{display:block;width:100%;aspect-ratio:16/9;border:0;background:#eef1f5}
-      /* 1025–1199px: film sits in the grid's right column, kept prominent */
-      @media(min-width:1025px) and (max-width:1199px){ #xhero .hero-film{min-width:480px} }
-      /* >=1200px: large film bleeds to the right edge; left content stays in the
-         standard container so it keeps aligned with the rest of the site. */
+      /* Text (left) and film (right) ALWAYS share one row on desktop via the grid. */
+      @media(min-width:1025px){ #xhero .hero-film{min-width:460px} }
+      /* >=1200px: widen the hero band & enlarge the film column so the video is big
+         and prominent on the right — while staying on the same line as the text. */
       @media(min-width:1200px){
-        #xhero .hero__in{grid-template-columns:1fr;gap:0}
-        #xhero .hero__in > div:first-of-type{max-width:540px}
-        #xhero .hero-film{position:absolute;top:50%;right:18px;transform:translateY(-50%);
-          width:min(52vw,1060px);min-width:600px;margin:0;z-index:2}
+        #xhero .container{max-width:min(1560px,95vw)}
+        #xhero .hero__in{grid-template-columns:minmax(420px,1fr) clamp(560px,48vw,940px);gap:44px}
       }
     </style>
     <div class="hero-film reveal d3" aria-label="VidyaAI — Admission Intelligence film">
