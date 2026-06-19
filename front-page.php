@@ -1348,10 +1348,1043 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       .hero-film__frame{display:block;width:100%;aspect-ratio:16/9;border:0;background:#eef1f5}
     </style>
     <div class="hero-film reveal d3" aria-label="VidyaAI — Admission Intelligence film">
-      <iframe class="hero-film__frame"
-        src="<?php echo esc_url( get_template_directory_uri() . '/assets/vidyaai-hero-film.html' ); ?>"
-        title="VidyaAI — Admission Intelligence film" loading="eager"
-        scrolling="no" frameborder="0"></iframe>
+      <iframe class="hero-film__frame" title="VidyaAI — Admission Intelligence film" loading="eager" scrolling="no" frameborder="0" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>Vidya AI — Admission Intelligence | Hero Film</title>
+<meta name=&quot;description&quot; content=&quot;Vidya AI — the AI operating system that runs admissions. Every lead answered instantly, qualified, and enrolled. Cinematic hero film.&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<style>
+/* =================================================================
+   VIDYA AI — HERO FILM
+   Brand system (STRICTLY FOLLOWED):
+     • Background : #FFFFFF (pure white, light-mode SaaS)
+     • Brand blue : #19335D  (structure, AI, data, headings)
+     • Accent     : #DE6E30  (CTA, hot leads, active states, glow)
+     • Type       : Inter only
+   Aesthetic    : Apple × HubSpot × OpenAI (light). Soft shadows,
+                  glassmorphism (subtle), generous whitespace.
+   Behaviour    : Autoplay, seamless loop, ~28s, scene-directed.
+   ================================================================= */
+
+:root{
+  --blue:#19335D;
+  --blue-700:#22467c;
+  --blue-200:rgba(25,51,93,.14);
+  --blue-50:rgba(25,51,93,.045);
+  --orange:#DE6E30;
+  --orange-soft:rgba(222,110,48,.12);
+  --ink:#19335D;
+  --muted:rgba(25,51,93,.58);
+  --line:rgba(25,51,93,.10);
+  --white:#ffffff;
+  --shadow-sm:0 6px 20px rgba(25,51,93,.07);
+  --shadow:0 18px 50px rgba(25,51,93,.12);
+  --shadow-lg:0 30px 80px rgba(25,51,93,.16);
+  --r:20px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:#eef1f5;
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  display:grid;place-items:center;
+  min-height:100vh;min-height:100dvh;
+  padding:0;overflow:hidden;
+}
+
+/* ---- The film frame (fixed 16:9 canvas, scaled to fit any device) ---- */
+.stage{
+  position:relative;
+  width:1280px;height:720px;
+  transform-origin:center center;
+  will-change:transform;
+  background:var(--white);
+  border-radius:26px;
+  overflow:hidden;
+  box-shadow:0 50px 120px rgba(25,51,93,.22);
+  isolation:isolate;
+}
+/* soft ambient depth — never dark, just airy blue light */
+.stage::before{
+  content:&quot;&quot;;position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(900px 600px at 80% -10%, rgba(222,110,48,.06), transparent 60%),
+    radial-gradient(1000px 700px at 10% 110%, rgba(25,51,93,.06), transparent 60%),
+    linear-gradient(180deg,#ffffff 0%,#f6f8fb 100%);
+}
+/* faint enterprise grid for depth */
+.stage::after{
+  content:&quot;&quot;;position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:
+    linear-gradient(rgba(25,51,93,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(25,51,93,.035) 1px,transparent 1px);
+  background-size:46px 46px;
+  -webkit-mask-image:radial-gradient(circle at 50% 45%,#000 30%,transparent 75%);
+          mask-image:radial-gradient(circle at 50% 45%,#000 30%,transparent 75%);
+}
+
+/* ---- Scene base ---- */
+.scene{
+  position:absolute;inset:0;z-index:1;
+  display:none;
+  align-items:center;justify-content:center;
+  padding:54px 6% 128px;            /* bottom safe-area clears caption + player */
+  opacity:0;
+}
+.scene.active{display:flex;animation:sceneIn .6s var(--ease) forwards}
+.scene.leaving{animation:sceneOut .45s var(--ease) forwards}
+@keyframes sceneIn{from{opacity:0;transform:scale(.992)}to{opacity:1;transform:none}}
+@keyframes sceneOut{from{opacity:1}to{opacity:0;transform:scale(1.006)}}
+
+/* ---- Reusable atoms ---- */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--blue);background:var(--white);
+  border:1px solid var(--line);border-radius:999px;
+  padding:8px 16px;box-shadow:var(--shadow-sm);
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--orange);
+  box-shadow:0 0 0 0 rgba(222,110,48,.5);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(222,110,48,.45)}70%{box-shadow:0 0 0 10px rgba(222,110,48,0)}100%{box-shadow:0 0 0 0 rgba(222,110,48,0)}}
+
+.card{
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+}
+
+/* fade/rise helper driven by parent .active */
+.rise{opacity:0;transform:translateY(16px)}
+.scene.active .rise{animation:rise .7s var(--ease) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+/* centered variant — preserves translate(-50%,-50%) anchoring */
+@keyframes riseC{from{opacity:0;transform:translate(-50%,-50%) scale(.7)}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+
+/* =================================================================
+   SCENE 0 — OPENING : pulse → enquiry → particles → AI Core
+   ================================================================= */
+#s0{flex-direction:column;gap:34px;text-align:center}
+.core-wrap{position:relative;width:300px;height:300px;display:grid;place-items:center}
+/* the AI Core */
+.core{
+  position:relative;width:128px;height:128px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#2a4d85,#19335D 70%);
+  box-shadow:0 24px 60px rgba(25,51,93,.35),inset 0 0 30px rgba(255,255,255,.15);
+  display:grid;place-items:center;color:#fff;
+  opacity:0;transform:scale(.2);
+}
+.scene.active .core{animation:coreIn 1s var(--ease) .5s forwards}
+@keyframes coreIn{0%{opacity:0;transform:scale(.2)}60%{opacity:1}100%{opacity:1;transform:scale(1)}}
+.core b{font-size:34px;font-weight:800;letter-spacing:-1px}
+.core::after{/* breathing halo */
+  content:&quot;&quot;;position:absolute;inset:-22px;border-radius:50%;
+  border:1.5px solid rgba(25,51,93,.18);
+}
+/* opening shot shows the real brand logo on a soft white card */
+#s0 .core{width:auto;height:auto;min-width:0;padding:22px 30px;border-radius:26px;
+  background:radial-gradient(circle at 50% 30%,#ffffff,#eef2f8);
+  box-shadow:0 26px 60px rgba(25,51,93,.18),inset 0 0 0 1px rgba(25,51,93,.06)}
+#s0 .core::after{inset:-16px;border-radius:34px}
+#s0 .core .vmark{width:66px;height:66px}
+#s0 .core .eelogo__img{height:46px}
+/* rotating orbit rings around the core */
+.ring{position:absolute;inset:0;margin:auto;border-radius:50%;border:1.5px solid var(--blue-200);opacity:0}
+.ring.r1{width:200px;height:200px}
+.ring.r2{width:264px;height:264px;border-style:dashed}
+.scene.active .ring{animation:ringIn .8s var(--ease) 1s forwards,spin 18s linear 1s infinite}
+.scene.active .ring.r2{animation:ringIn .8s var(--ease) 1.1s forwards,spinR 26s linear 1.1s infinite}
+@keyframes ringIn{to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinR{to{transform:rotate(-360deg)}}
+/* orbiting accent node */
+.orbit-node{position:absolute;top:50%;left:50%;width:200px;height:200px;margin:-100px;opacity:0}
+.scene.active .orbit-node{animation:ringIn .6s 1.2s forwards,spin 18s linear 1.2s infinite}
+.orbit-node i{position:absolute;top:-6px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;
+  background:var(--orange);box-shadow:0 0 14px rgba(222,110,48,.6)}
+/* the very first pulse + enquiry chip */
+.seed{
+  position:absolute;top:50%;left:50%;margin:-7px;width:14px;height:14px;border-radius:50%;background:var(--orange);
+  box-shadow:0 0 0 0 rgba(222,110,48,.6);
+}
+.scene.active .seed{animation:seedPulse 1.4s ease-out forwards}
+@keyframes seedPulse{
+  0%{transform:scale(.4);opacity:0}
+  18%{opacity:1}
+  40%{box-shadow:0 0 0 26px rgba(222,110,48,0)}
+  60%{transform:scale(1);opacity:1}
+  100%{transform:scale(.2);opacity:0}
+}
+/* data particles streaming inward */
+.particles i{
+  position:absolute;top:50%;left:50%;width:6px;height:6px;border-radius:50%;
+  background:var(--blue);opacity:0;
+}
+.scene.active .particles i{animation:flowIn 1.4s ease-in forwards}
+@keyframes flowIn{
+  0%{opacity:0;transform:translate(var(--x),var(--y)) scale(.4)}
+  25%{opacity:.9}
+  100%{opacity:0;transform:translate(0,0) scale(.6)}
+}
+.s0-head{font-size:clamp(28px,2vw,52px);font-weight:800;letter-spacing:-1.6px;line-height:1.04}
+.s0-head .ax{color:var(--orange)}
+.s0-sub{font-size:clamp(13px,1.5vw,17px);color:var(--muted);font-weight:500;max-width:560px;line-height:1.6}
+.scene.active .d1{animation-delay:1.6s}
+.scene.active .d2{animation-delay:1.85s}
+
+/* =================================================================
+   SCENE 2 — MULTI-CHANNEL INTAKE
+   ================================================================= */
+#s2{flex-direction:column;gap:30px}
+.s2-top{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1040px}
+.s2-stats{display:flex;gap:14px}
+.stat-chip{display:flex;flex-direction:column;gap:2px;padding:12px 18px;border-radius:14px;
+  background:var(--white);border:1px solid var(--line);box-shadow:var(--shadow-sm);min-width:120px}
+.stat-chip .n{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.stat-chip .n.hot{color:var(--orange)}
+.stat-chip .l{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.netviz{position:relative;width:100%;max-width:1040px;height:46%;display:grid;place-items:center}
+.channels{position:absolute;inset:0}
+.chan{
+  position:absolute;display:flex;align-items:center;gap:10px;
+  padding:7px 18px 7px 7px;border-radius:999px;background:var(--white);
+  border:1px solid var(--line);box-shadow:var(--shadow-sm);
+  font-size:14px;font-weight:600;color:var(--blue);
+  transform:translate(-50%,-50%) scale(.7);opacity:0;white-space:nowrap;
+}
+.scene.active .chan{animation:riseC .6s var(--ease) forwards}
+.chan .g{width:9px;height:9px;border-radius:3px;background:var(--blue)}
+.chan.on .g{background:var(--orange)}
+.hub{position:relative;width:96px;height:96px;border-radius:50%;z-index:3;
+  background:radial-gradient(circle at 35% 30%,#2a4d85,#19335D 72%);color:#fff;
+  display:grid;place-items:center;font-weight:800;box-shadow:var(--shadow-lg)}
+.hub small{font-size:11px;opacity:.85;font-weight:600}
+.hub b{font-size:15px}
+/* animated lead pulses traveling along lines */
+.lead-pulse{position:absolute;top:50%;left:50%;width:9px;height:9px;border-radius:50%;
+  background:var(--orange);box-shadow:0 0 10px rgba(222,110,48,.55);opacity:0}
+.scene.active .lead-pulse{animation:travel 1.8s ease-in-out infinite}
+@keyframes travel{0%{opacity:0;transform:translate(var(--fx),var(--fy)) scale(.5)}
+  15%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translate(0,0) scale(.7)}}
+#netlines{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.netviz svg line{stroke:var(--blue-200);stroke-width:1.4;stroke-dasharray:5 7;opacity:0}
+.scene.active .netviz svg line{animation:lineDraw .8s ease forwards .2s,dash 1.4s linear infinite .8s}
+@keyframes lineDraw{to{opacity:1}}
+@keyframes dash{to{stroke-dashoffset:-24}}
+.section-eyebrow{position:absolute;top:6%;right:7%;left:auto}
+
+/* =================================================================
+   SCENE 3 — AI REASONING ENGINE
+   ================================================================= */
+#s3{flex-direction:column;gap:26px}
+.s3-grid{display:grid;grid-template-columns:1fr auto;gap:38px;align-items:center;width:100%;max-width:1000px}
+.reason-cloud{position:relative;display:flex;flex-wrap:wrap;gap:12px;max-width:560px}
+.kw{padding:10px 16px;border-radius:12px;background:var(--white);border:1px solid var(--line);
+  box-shadow:var(--shadow-sm);font-size:14px;font-weight:600;color:var(--blue);opacity:0;transform:translateY(10px)}
+.scene.active .kw{animation:rise .55s var(--ease) forwards}
+.kw .pct{color:var(--orange);font-weight:800;margin-left:8px}
+.verdict{display:flex;flex-direction:column;align-items:center;gap:10px;padding:32px 38px;
+  border-radius:24px;background:var(--blue);color:#fff;box-shadow:var(--shadow-lg);min-width:220px;
+  opacity:0;transform:scale(.9)}
+.scene.active .verdict{animation:pop .7s var(--ease) 1.7s forwards}
+@keyframes pop{0%{opacity:0;transform:scale(.9)}60%{transform:scale(1.03)}100%{opacity:1;transform:scale(1)}}
+.verdict .label{font-size:12px;letter-spacing:.18em;font-weight:700;text-transform:uppercase;opacity:.8}
+.verdict .big{font-size:54px;font-weight:800;letter-spacing:-2px;line-height:1}
+.verdict .tag{display:inline-flex;align-items:center;gap:8px;background:var(--orange);
+  padding:7px 16px;border-radius:999px;font-size:13px;font-weight:700}
+.ms-note{font-size:13px;color:var(--muted);font-weight:500}
+
+/* =================================================================
+   SCENE 4/5/6 — LIVE STUDENT CASES (chat + action chain)
+   ================================================================= */
+.case{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;width:100%;max-width:1000px}
+.phone{
+  background:var(--white);border:1px solid var(--line);border-radius:26px;
+  box-shadow:var(--shadow-lg);overflow:hidden;
+}
+.phone-head{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;
+  font-weight:800;background:linear-gradient(135deg,#2a4d85,#19335D)}
+.avatar.alt{background:linear-gradient(135deg,#e98a52,#DE6E30)}
+.who{display:flex;flex-direction:column;line-height:1.2}
+.who b{font-size:15px}
+.who span{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.chan-pill{margin-left:auto;font-size:11px;font-weight:700;color:var(--blue);
+  background:var(--blue-50);border:1px solid var(--line);padding:5px 11px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:6px}
+.chat{padding:20px;display:flex;flex-direction:column;gap:12px;min-height:240px}
+.bubble{max-width:84%;padding:12px 15px;font-size:14px;line-height:1.5;border-radius:16px;
+  opacity:0;transform:translateY(10px)}
+.scene.active .bubble{animation:rise .5s var(--ease) forwards}
+.bubble.in{align-self:flex-start;background:#f1f4f8;border:1px solid var(--line);border-bottom-left-radius:5px}
+.bubble.ai{align-self:flex-end;color:#fff;background:linear-gradient(135deg,#22467c,#19335D);border-bottom-right-radius:5px}
+/* analysis + action side */
+.case-side{display:flex;flex-direction:column;gap:14px}
+.case-side h4{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.overlay-list{display:flex;flex-direction:column;gap:9px}
+.ov{display:flex;align-items:center;gap:11px;padding:11px 15px;border-radius:13px;
+  background:var(--white);border:1px solid var(--line);box-shadow:var(--shadow-sm);
+  font-size:14px;font-weight:600;color:var(--blue);opacity:0;transform:translateX(14px)}
+.scene.active .ov{animation:slideIn .55s var(--ease) forwards}
+@keyframes slideIn{to{opacity:1;transform:none}}
+.ov .tick{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--blue);
+  display:grid;place-items:center;color:#fff;font-size:12px}
+.ov.accent{border-color:rgba(222,110,48,.4);background:var(--orange-soft)}
+.ov.accent .tick{background:var(--orange)}
+.ov .val{margin-left:auto;font-weight:800;color:var(--orange)}
+.case-eyebrow{position:absolute;top:6%;right:7%;left:auto}
+
+/* =================================================================
+   SCENE 7 — AUTOPILOT FUNNEL
+   ================================================================= */
+#s7{flex-direction:column;gap:30px}
+.funnel{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;justify-content:center;max-width:100%}
+.fstep{position:relative;padding:11px 14px;border-radius:13px;background:var(--white);
+  border:1px solid var(--line);box-shadow:var(--shadow-sm);font-size:13.5px;font-weight:700;color:var(--blue);
+  opacity:.35;transform:translateY(8px);display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.scene.active .fstep{animation:funnelLight .5s var(--ease) forwards}
+@keyframes funnelLight{to{opacity:1;transform:none;box-shadow:0 14px 36px rgba(25,51,93,.16);
+  border-color:rgba(222,110,48,.45)}}
+.farrow{color:var(--blue-200);font-size:15px;font-weight:800;opacity:0;flex:0 0 auto}
+.scene.active .farrow{animation:rise .4s forwards}
+.enrolled{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;transform:scale(.85)}
+.scene.active .enrolled{animation:pop .7s var(--ease) 2.4s forwards}
+.enrolled .badge{font-size:clamp(34px,5vw,60px);font-weight:800;letter-spacing:-2px;color:var(--orange)}
+.enrolled .sub{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.16em;text-transform:uppercase}
+
+/* =================================================================
+   SCENE 8 — BUSINESS IMPACT METRICS
+   ================================================================= */
+#s8{flex-direction:column;gap:34px}
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;width:100%;max-width:1080px}
+.metric{padding:26px 18px;border-radius:18px;background:var(--white);border:1px solid var(--line);
+  box-shadow:var(--shadow);text-align:center;opacity:0;transform:translateY(18px)}
+.scene.active .metric{animation:rise .6s var(--ease) forwards}
+.metric .v{font-size:clamp(24px,3vw,38px);font-weight:800;letter-spacing:-1.5px;line-height:1;color:var(--blue)}
+.metric .v.accent{color:var(--orange)}
+.metric .l{margin-top:9px;font-size:12px;font-weight:600;color:var(--muted);line-height:1.35}
+
+/* =================================================================
+   SCENE 9 — PRODUCT ECOSYSTEM (orbiting modules)
+   ================================================================= */
+#s9{flex-direction:column;gap:18px}
+.ecosystem{position:relative;width:min(560px,80%);aspect-ratio:1;display:grid;place-items:center}
+.eco-core{width:120px;height:120px;border-radius:50%;color:#fff;display:grid;place-items:center;text-align:center;
+  background:radial-gradient(circle at 35% 30%,#2a4d85,#19335D 72%);box-shadow:var(--shadow-lg);z-index:3}
+.eco-core b{font-size:20px;letter-spacing:-.5px}.eco-core small{font-size:10px;opacity:.85;letter-spacing:.12em}
+.eco-ring{position:absolute;inset:0;margin:auto;border-radius:50%;border:1px dashed var(--blue-200);opacity:0}
+.eco-ring.a{width:78%;height:78%}.eco-ring.b{width:100%;height:100%}
+.scene.active .eco-ring.a{animation:ringIn .6s .2s forwards,spin 30s linear .2s infinite}
+.scene.active .eco-ring.b{animation:ringIn .6s .3s forwards,spinR 40s linear .3s infinite}
+.mod{position:absolute;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;
+  background:var(--white);border:1px solid var(--line);box-shadow:var(--shadow-sm);
+  font-size:12.5px;font-weight:600;color:var(--blue);white-space:nowrap;
+  transform:translate(-50%,-50%) scale(.7);opacity:0}
+.scene.active .mod{animation:riseC .5s var(--ease) forwards}
+.mod .emo{font-size:14px}
+
+/* =================================================================
+   FINAL SHOT — logo convergence + CTA + light sweep
+   ================================================================= */
+#sf{flex-direction:column;gap:26px;text-align:center}
+.logo-final{display:flex;align-items:center;gap:16px;opacity:0;transform:scale(.9)}
+.scene.active .logo-final{animation:pop .8s var(--ease) .2s forwards}
+.logo-mark{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;color:#fff;
+  font-size:30px;font-weight:800;background:radial-gradient(circle at 35% 30%,#2a4d85,#19335D 72%);
+  box-shadow:var(--shadow-lg)}
+.logo-word{font-size:42px;font-weight:800;letter-spacing:-1.5px}
+.logo-word .ax{color:var(--orange)}
+.final-head{font-size:clamp(26px,3.6vw,46px);font-weight:800;letter-spacing:-1.4px;line-height:1.06;max-width:760px}
+.final-sub{font-size:clamp(13px,1.5vw,17px);color:var(--muted);font-weight:500;line-height:1.6}
+.final-sub b{color:var(--blue);font-weight:700}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#fff;
+  font-size:17px;font-weight:700;padding:16px 32px;border-radius:14px;text-decoration:none;
+  box-shadow:0 18px 40px rgba(222,110,48,.35)}
+.cta .arw{transition:transform .3s}
+/* light sweep across the whole final scene */
+.sweep{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.85) 50%,transparent 65%);
+  transform:translateX(-120%)}
+.scene.active .sweep{animation:sweep 1.3s var(--ease) 2.6s forwards}
+@keyframes sweep{0%{opacity:0;transform:translateX(-120%)}10%{opacity:1}100%{opacity:0;transform:translateX(120%)}}
+
+/* ---- inline icon system (currentColor strokes) ---- */
+.ic{width:1em;height:1em;display:block;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.ic--fill{fill:currentColor;stroke:none}
+
+.brandtag{position:absolute;z-index:9;top:20px;left:24px;display:flex;align-items:center;gap:10px}
+/* brand logo mark + gradient wordmark (matches supplied asset) */
+.vmark{display:block;filter:drop-shadow(0 3px 8px rgba(25,51,93,.12))}
+.vword{font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-.5px;line-height:1;
+  background:linear-gradient(90deg,#FF8A3D,#EC4899 42%,#A855F7 72%,#EC4899);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+/* official ExtraaEdge brand logo (loads from URL; falls back to mark if blocked) */
+.eelogo{display:inline-flex;align-items:center}
+.eelogo__img{display:none;width:auto;filter:drop-shadow(0 3px 8px rgba(25,51,93,.10))}
+.eelogo__img.ok{display:block}
+
+/* contextual icons in scene content */
+/* channel icons sit in a neat circular badge — clearly visible &amp; aligned */
+.chan-ic{flex:0 0 auto;width:34px;height:34px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--blue-50);color:var(--blue)}
+.chan-ic .ic{width:19px;height:19px;color:inherit;flex:0 0 auto}
+.chan.on .chan-ic{background:var(--orange-soft);color:var(--orange)}
+.mod .ic{width:15px;height:15px;color:var(--orange)}
+.ov .tick .ic{width:13px;height:13px;color:#fff}
+.chan-pill .ic{width:13px;height:13px;color:var(--blue)}
+.fstep .ic{width:15px;height:15px;color:var(--orange)}
+.metric .mic{width:42px;height:42px;border-radius:13px;background:var(--blue-50);
+  display:grid;place-items:center;margin:0 auto 13px}
+.metric .mic .ic{width:21px;height:21px;color:var(--blue)}
+.cta .ic{width:18px;height:18px;color:#fff}
+
+/* explanatory caption bar (sits above the player) */
+.caption{position:absolute;z-index:9;left:50%;bottom:92px;transform:translateX(-50%) translateY(8px);
+  display:inline-flex;align-items:center;gap:11px;max-width:84%;
+  font-size:17px;font-weight:600;color:var(--blue);text-align:center;
+  background:rgba(255,255,255,.74);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--line);padding:11px 24px;border-radius:999px;box-shadow:var(--shadow-sm);
+  opacity:0;transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.caption.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.caption .cdot{flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:var(--orange);
+  box-shadow:0 0 0 0 rgba(222,110,48,.5);animation:pulse 1.8s infinite}
+
+/* ---- modern player control bar ---- */
+.controls{position:absolute;z-index:10;left:50%;bottom:20px;transform:translateX(-50%);
+  display:flex;align-items:center;gap:12px;width:min(720px,86%);
+  background:rgba(255,255,255,.80);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--line);border-radius:999px;padding:9px 16px;box-shadow:var(--shadow)}
+.cbtn{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+  display:grid;place-items:center;background:transparent;color:var(--blue);transition:background .2s,color .2s}
+.cbtn:hover{background:var(--blue-50)}
+.cbtn .ic{width:18px;height:18px;color:inherit}
+#btnSound.on{color:var(--orange)}
+.scrub{position:relative;flex:1;height:6px;border-radius:99px;background:var(--blue-200);cursor:pointer}
+.scrub__fill{position:absolute;left:0;top:0;height:100%;width:0;border-radius:99px;background:var(--orange)}
+.scrub__segs{position:absolute;inset:0;pointer-events:none}
+.scrub__segs i{position:absolute;top:-1px;width:2px;height:8px;background:#fff;opacity:.85}
+.time{flex:0 0 auto;font-size:12px;font-weight:600;color:var(--muted);
+  font-variant-numeric:tabular-nums;min-width:78px;text-align:right}
+
+/* paused state freezes all scene motion */
+.stage.paused .scene,.stage.paused .scene *,
+.stage.paused .scene *::before,.stage.paused .scene *::after{animation-play-state:paused!important}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001s!important;animation-iteration-count:1!important}
+}
+</style>
+</head>
+<body>
+
+<div class=&quot;stage&quot; id=&quot;stage&quot;>
+
+  <!-- ===== brand logo gradients (defined once, referenced everywhere) ===== -->
+  <svg width=&quot;0&quot; height=&quot;0&quot; style=&quot;position:absolute&quot; aria-hidden=&quot;true&quot;><defs>
+    <linearGradient id=&quot;vg-main&quot; x1=&quot;0%&quot; y1=&quot;100%&quot; x2=&quot;100%&quot; y2=&quot;0%&quot;>
+      <stop offset=&quot;0%&quot; stop-color=&quot;#FF8A3D&quot;/><stop offset=&quot;32%&quot; stop-color=&quot;#EC4899&quot;/>
+      <stop offset=&quot;62%&quot; stop-color=&quot;#A855F7&quot;/><stop offset=&quot;100%&quot; stop-color=&quot;#22D3EE&quot;/>
+    </linearGradient>
+    <linearGradient id=&quot;vg-head&quot; x1=&quot;0%&quot; y1=&quot;0%&quot; x2=&quot;100%&quot; y2=&quot;100%&quot;>
+      <stop offset=&quot;0%&quot; stop-color=&quot;#FB7185&quot;/><stop offset=&quot;100%&quot; stop-color=&quot;#EC4899&quot;/>
+    </linearGradient>
+    <linearGradient id=&quot;vg-star1&quot; x1=&quot;0%&quot; y1=&quot;0%&quot; x2=&quot;100%&quot; y2=&quot;100%&quot;>
+      <stop offset=&quot;0%&quot; stop-color=&quot;#60A5FA&quot;/><stop offset=&quot;100%&quot; stop-color=&quot;#A855F7&quot;/>
+    </linearGradient>
+    <linearGradient id=&quot;vg-star2&quot; x1=&quot;0%&quot; y1=&quot;0%&quot; x2=&quot;100%&quot; y2=&quot;100%&quot;>
+      <stop offset=&quot;0%&quot; stop-color=&quot;#F472B6&quot;/><stop offset=&quot;100%&quot; stop-color=&quot;#EC4899&quot;/>
+    </linearGradient>
+  </defs></svg>
+
+  <!-- ===== icon sprite (inline, no CDN — strokes inherit currentColor) ===== -->
+  <svg width=&quot;0&quot; height=&quot;0&quot; style=&quot;position:absolute&quot; aria-hidden=&quot;true&quot;><defs>
+    <symbol id=&quot;ic-whatsapp&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z&quot;/></symbol>
+    <symbol id=&quot;ic-instagram&quot; viewBox=&quot;0 0 24 24&quot;><rect x=&quot;2&quot; y=&quot;2&quot; width=&quot;20&quot; height=&quot;20&quot; rx=&quot;5&quot;/><path d=&quot;M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z&quot;/><line x1=&quot;17.5&quot; y1=&quot;6.5&quot; x2=&quot;17.51&quot; y2=&quot;6.5&quot;/></symbol>
+    <symbol id=&quot;ic-globe&quot; viewBox=&quot;0 0 24 24&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/><line x1=&quot;2&quot; y1=&quot;12&quot; x2=&quot;22&quot; y2=&quot;12&quot;/><path d=&quot;M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z&quot;/></symbol>
+    <symbol id=&quot;ic-mail&quot; viewBox=&quot;0 0 24 24&quot;><rect x=&quot;2&quot; y=&quot;4&quot; width=&quot;20&quot; height=&quot;16&quot; rx=&quot;2&quot;/><path d=&quot;m22 6-10 7L2 6&quot;/></symbol>
+    <symbol id=&quot;ic-phone&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z&quot;/></symbol>
+    <symbol id=&quot;ic-facebook&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z&quot;/></symbol>
+    <symbol id=&quot;ic-megaphone&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;m3 11 18-5v12L3 14v-3z&quot;/><path d=&quot;M11.6 16.8a3 3 0 1 1-5.8-1.6&quot;/></symbol>
+    <symbol id=&quot;ic-book&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z&quot;/><path d=&quot;M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z&quot;/></symbol>
+    <symbol id=&quot;ic-clock&quot; viewBox=&quot;0 0 24 24&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/><polyline points=&quot;12 6 12 12 16 14&quot;/></symbol>
+    <symbol id=&quot;ic-zap&quot; viewBox=&quot;0 0 24 24&quot;><polygon points=&quot;13 2 3 14 12 14 11 22 21 10 12 10 13 2&quot;/></symbol>
+    <symbol id=&quot;ic-trending&quot; viewBox=&quot;0 0 24 24&quot;><polyline points=&quot;23 6 13.5 15.5 8.5 10.5 1 18&quot;/><polyline points=&quot;17 6 23 6 23 12&quot;/></symbol>
+    <symbol id=&quot;ic-send&quot; viewBox=&quot;0 0 24 24&quot;><line x1=&quot;22&quot; y1=&quot;2&quot; x2=&quot;11&quot; y2=&quot;13&quot;/><polygon points=&quot;22 2 15 22 11 13 2 9 22 2&quot;/></symbol>
+    <symbol id=&quot;ic-calendar&quot; viewBox=&quot;0 0 24 24&quot;><rect x=&quot;3&quot; y=&quot;4&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/><line x1=&quot;16&quot; y1=&quot;2&quot; x2=&quot;16&quot; y2=&quot;6&quot;/><line x1=&quot;8&quot; y1=&quot;2&quot; x2=&quot;8&quot; y2=&quot;6&quot;/><line x1=&quot;3&quot; y1=&quot;10&quot; x2=&quot;21&quot; y2=&quot;10&quot;/></symbol>
+    <symbol id=&quot;ic-user-check&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2&quot;/><circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/><polyline points=&quot;16 11 18 13 22 9&quot;/></symbol>
+    <symbol id=&quot;ic-award&quot; viewBox=&quot;0 0 24 24&quot;><circle cx=&quot;12&quot; cy=&quot;8&quot; r=&quot;6&quot;/><path d=&quot;M15.477 12.89 17 22l-5-3-5 3 1.523-9.11&quot;/></symbol>
+    <symbol id=&quot;ic-check&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M22 11.08V12a10 10 0 1 1-5.93-9.14&quot;/><polyline points=&quot;22 4 12 14.01 9 11.01&quot;/></symbol>
+    <symbol id=&quot;ic-file&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/><polyline points=&quot;14 2 14 8 20 8&quot;/><line x1=&quot;16&quot; y1=&quot;13&quot; x2=&quot;8&quot; y2=&quot;13&quot;/><line x1=&quot;16&quot; y1=&quot;17&quot; x2=&quot;8&quot; y2=&quot;17&quot;/></symbol>
+    <symbol id=&quot;ic-route&quot; viewBox=&quot;0 0 24 24&quot;><circle cx=&quot;6&quot; cy=&quot;19&quot; r=&quot;3&quot;/><path d=&quot;M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15&quot;/><circle cx=&quot;18&quot; cy=&quot;5&quot; r=&quot;3&quot;/></symbol>
+    <symbol id=&quot;ic-home&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z&quot;/></symbol>
+    <symbol id=&quot;ic-plane&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.2L8 11l-2 3-2.5-.5L2 15l3 2 2 3 1-1.5L7.5 16l3-2 2.8 4.3c.3.4.8.5 1.2.3l.5-.3c.4-.2.6-.6.5-1.1z&quot;/></symbol>
+    <symbol id=&quot;ic-mic&quot; viewBox=&quot;0 0 24 24&quot;><rect x=&quot;9&quot; y=&quot;2&quot; width=&quot;6&quot; height=&quot;12&quot; rx=&quot;3&quot;/><path d=&quot;M19 10v2a7 7 0 0 1-14 0v-2&quot;/><line x1=&quot;12&quot; y1=&quot;19&quot; x2=&quot;12&quot; y2=&quot;23&quot;/><line x1=&quot;8&quot; y1=&quot;23&quot; x2=&quot;16&quot; y2=&quot;23&quot;/></symbol>
+    <symbol id=&quot;ic-users&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;/><circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/><path d=&quot;M23 21v-2a4 4 0 0 0-3-3.87&quot;/><path d=&quot;M16 3.13a4 4 0 0 1 0 7.75&quot;/></symbol>
+    <symbol id=&quot;ic-user-plus&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2&quot;/><circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/><line x1=&quot;19&quot; y1=&quot;8&quot; x2=&quot;19&quot; y2=&quot;14&quot;/><line x1=&quot;22&quot; y1=&quot;11&quot; x2=&quot;16&quot; y2=&quot;11&quot;/></symbol>
+    <symbol id=&quot;ic-message&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z&quot;/></symbol>
+    <symbol id=&quot;ic-clipboard&quot; viewBox=&quot;0 0 24 24&quot;><rect x=&quot;8&quot; y=&quot;2&quot; width=&quot;8&quot; height=&quot;4&quot; rx=&quot;1&quot;/><path d=&quot;M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2&quot;/></symbol>
+    <symbol id=&quot;ic-funnel&quot; viewBox=&quot;0 0 24 24&quot;><polygon points=&quot;22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3&quot;/></symbol>
+    <symbol id=&quot;ic-sparkles&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M12 3l1.8 4.7L18.5 9.5 13.8 11.3 12 16l-1.8-4.7L5.5 9.5l4.7-1.8z&quot;/><path d=&quot;M19 14l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6z&quot;/></symbol>
+    <symbol id=&quot;ic-target&quot; viewBox=&quot;0 0 24 24&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;6&quot;/><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;2&quot;/></symbol>
+    <symbol id=&quot;ic-arrow-right&quot; viewBox=&quot;0 0 24 24&quot;><line x1=&quot;5&quot; y1=&quot;12&quot; x2=&quot;19&quot; y2=&quot;12&quot;/><polyline points=&quot;12 5 19 12 12 19&quot;/></symbol>
+    <symbol id=&quot;ic-play&quot; viewBox=&quot;0 0 24 24&quot;><polygon points=&quot;6 4 20 12 6 20 6 4&quot;/></symbol>
+    <symbol id=&quot;ic-pause&quot; viewBox=&quot;0 0 24 24&quot;><rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;4&quot; height=&quot;16&quot; rx=&quot;1&quot;/><rect x=&quot;14&quot; y=&quot;4&quot; width=&quot;4&quot; height=&quot;16&quot; rx=&quot;1&quot;/></symbol>
+    <symbol id=&quot;ic-replay&quot; viewBox=&quot;0 0 24 24&quot;><polyline points=&quot;1 4 1 10 7 10&quot;/><path d=&quot;M3.51 15a9 9 0 1 0 2.13-9.36L1 10&quot;/></symbol>
+    <symbol id=&quot;ic-volume&quot; viewBox=&quot;0 0 24 24&quot;><polygon points=&quot;11 5 6 9 2 9 2 15 6 15 11 19 11 5&quot;/><path d=&quot;M15.54 8.46a5 5 0 0 1 0 7.07&quot;/><path d=&quot;M19.07 4.93a10 10 0 0 1 0 14.14&quot;/></symbol>
+    <symbol id=&quot;ic-volume-x&quot; viewBox=&quot;0 0 24 24&quot;><polygon points=&quot;11 5 6 9 2 9 2 15 6 15 11 19 11 5&quot;/><line x1=&quot;23&quot; y1=&quot;9&quot; x2=&quot;17&quot; y2=&quot;15&quot;/><line x1=&quot;17&quot; y1=&quot;9&quot; x2=&quot;23&quot; y2=&quot;15&quot;/></symbol>
+  </defs></svg>
+
+  <!-- persistent overlay UI -->
+  <div class=&quot;brandtag&quot;>
+    <span class=&quot;eelogo&quot;>
+      <span class=&quot;eelogo__fb&quot; style=&quot;display:flex;align-items:center;gap:10px&quot;>
+        <svg class=&quot;vmark&quot; viewBox=&quot;0 0 120 120&quot; style=&quot;width:28px;height:28px&quot;>
+          <path d=&quot;M60 51 C 46 42 27 42 11 48 L11 92 C 27 86 46 86 60 94 Z&quot; fill=&quot;url(#vg-main)&quot;/>
+          <path d=&quot;M60 51 C 74 42 93 42 109 48 L109 92 C 93 86 74 86 60 94 Z&quot; fill=&quot;url(#vg-main)&quot;/>
+          <circle cx=&quot;48&quot; cy=&quot;31&quot; r=&quot;15&quot; fill=&quot;url(#vg-head)&quot;/>
+          <path transform=&quot;translate(80,14) scale(0.32)&quot; d=&quot;M50 0 C54 28 72 46 100 50 C72 54 54 72 50 100 C46 72 28 54 0 50 C28 46 46 28 50 0 Z&quot; fill=&quot;url(#vg-star1)&quot;/>
+          <path transform=&quot;translate(99,38) scale(0.19)&quot; d=&quot;M50 0 C54 28 72 46 100 50 C72 54 54 72 50 100 C46 72 28 54 0 50 C28 46 46 28 50 0 Z&quot; fill=&quot;url(#vg-star2)&quot;/>
+        </svg>
+        <span class=&quot;vword&quot; style=&quot;font-size:16px&quot;>Vidya AI</span>
+      </span>
+      <img class=&quot;eelogo__img&quot; alt=&quot;ExtraaEdge&quot; style=&quot;height:30px&quot;
+           src=&quot;https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg&quot;
+           onload=&quot;this.classList.add('ok');this.previousElementSibling.style.display='none'&quot;>
+    </span>
+  </div>
+
+  <!-- explanatory caption (plain-English benefit per scene) -->
+  <div class=&quot;caption&quot; id=&quot;caption&quot;><span class=&quot;cdot&quot;></span><span id=&quot;captionText&quot;></span></div>
+
+  <!-- ============ SCENE 0 — OPENING ============ -->
+  <section class=&quot;scene&quot; id=&quot;s0&quot;>
+    <div class=&quot;core-wrap&quot;>
+      <div class=&quot;ring r1&quot;></div>
+      <div class=&quot;ring r2&quot;></div>
+      <div class=&quot;orbit-node&quot;><i></i></div>
+      <div class=&quot;seed&quot;></div>
+      <div class=&quot;particles&quot; id=&quot;p0&quot;></div>
+      <div class=&quot;core&quot;>
+        <span class=&quot;eelogo&quot;>
+          <span class=&quot;eelogo__fb&quot;>
+            <svg class=&quot;vmark&quot; viewBox=&quot;0 0 120 120&quot;>
+              <path d=&quot;M60 51 C 46 42 27 42 11 48 L11 92 C 27 86 46 86 60 94 Z&quot; fill=&quot;url(#vg-main)&quot;/>
+              <path d=&quot;M60 51 C 74 42 93 42 109 48 L109 92 C 93 86 74 86 60 94 Z&quot; fill=&quot;url(#vg-main)&quot;/>
+              <circle cx=&quot;48&quot; cy=&quot;31&quot; r=&quot;15&quot; fill=&quot;url(#vg-head)&quot;/>
+              <path transform=&quot;translate(80,14) scale(0.32)&quot; d=&quot;M50 0 C54 28 72 46 100 50 C72 54 54 72 50 100 C46 72 28 54 0 50 C28 46 46 28 50 0 Z&quot; fill=&quot;url(#vg-star1)&quot;/>
+              <path transform=&quot;translate(99,38) scale(0.19)&quot; d=&quot;M50 0 C54 28 72 46 100 50 C72 54 54 72 50 100 C46 72 28 54 0 50 C28 46 46 28 50 0 Z&quot; fill=&quot;url(#vg-star2)&quot;/>
+            </svg>
+          </span>
+          <img class=&quot;eelogo__img&quot; alt=&quot;ExtraaEdge&quot; style=&quot;height:46px&quot;
+               src=&quot;https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg&quot;
+               onload=&quot;this.classList.add('ok');this.previousElementSibling.style.display='none'&quot;>
+        </span>
+      </div>
+    </div>
+    <h1 class=&quot;s0-head rise d1&quot;>Your Competitors Reply First. <span class=&quot;ax&quot;>They Win the Student.</span></h1>
+<div style=&quot;text-align:center;&quot;>
+<span class=&quot;s0-sub rise d2&quot;>Every student answered. Every lead qualified.</span><br><span class=&quot;s0-sub rise d2&quot;>Every opportunity captured.</span>
+</div>
+  </section>
+
+  <!-- ============ SCENE 2 — MULTI-CHANNEL INTAKE ============ -->
+  <section class=&quot;scene&quot; id=&quot;s2&quot;>
+    <span class=&quot;eyebrow section-eyebrow rise&quot;><span class=&quot;dot&quot;></span> Multi-channel intake</span>
+    <div class=&quot;s2-top&quot; style=&quot;margin-top:36px&quot;>
+      <div></div>
+      <div class=&quot;s2-stats&quot;>
+        <div class=&quot;stat-chip rise&quot; style=&quot;animation-delay:.5s&quot;><span class=&quot;n&quot; id=&quot;convN&quot;>1,284</span><span class=&quot;l&quot;>Active conversations</span></div>
+        <div class=&quot;stat-chip rise&quot; style=&quot;animation-delay:.7s&quot;><span class=&quot;n hot&quot;>+14</span><span class=&quot;l&quot;>New leads</span></div>
+        <div class=&quot;stat-chip rise&quot; style=&quot;animation-delay:.9s&quot;><span class=&quot;n hot&quot;>+6</span><span class=&quot;l&quot;>Hot leads</span></div>
+      </div>
+    </div>
+    <div class=&quot;netviz&quot; id=&quot;netviz&quot;>
+      <svg id=&quot;netlines&quot;></svg>
+      <div class=&quot;channels&quot; id=&quot;channels&quot;></div>
+      <div class=&quot;hub&quot;><div><small>Vidya</small><br><b>AI Core</b></div></div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 3 — AI REASONING ENGINE ============ -->
+  <section class=&quot;scene&quot; id=&quot;s3&quot;>
+    <span class=&quot;eyebrow section-eyebrow rise&quot;><span class=&quot;dot&quot;></span> AI reasoning engine</span>
+    <div class=&quot;s3-grid&quot;>
+      <div>
+        <div class=&quot;reason-cloud&quot;>
+          <span class=&quot;kw rise&quot; style=&quot;animation-delay:.2s&quot;>Program interest <span class=&quot;pct&quot;>96%</span></span>
+          <span class=&quot;kw rise&quot; style=&quot;animation-delay:.35s&quot;>Budget fit <span class=&quot;pct&quot;>88%</span></span>
+          <span class=&quot;kw rise&quot; style=&quot;animation-delay:.5s&quot;>Scholarship probability <span class=&quot;pct&quot;>71%</span></span>
+          <span class=&quot;kw rise&quot; style=&quot;animation-delay:.65s&quot;>Application stage</span>
+          <span class=&quot;kw rise&quot; style=&quot;animation-delay:.8s&quot;>Location match <span class=&quot;pct&quot;>94%</span></span>
+          <span class=&quot;kw rise&quot; style=&quot;animation-delay:.95s&quot;>Intent score <span class=&quot;pct&quot;>92%</span></span>
+          <span class=&quot;kw rise&quot; style=&quot;animation-delay:1.1s&quot;>Enrollment probability <span class=&quot;pct&quot;>92%</span></span>
+        </div>
+        <p class=&quot;ms-note rise&quot; style=&quot;animation-delay:1.3s;margin-top:18px&quot;>Reasoned in milliseconds — across every signal, for every student.</p>
+      </div>
+      <div class=&quot;verdict&quot;>
+        <span class=&quot;label&quot;>Verdict</span>
+        <span class=&quot;big&quot;>0<span style=&quot;font-size:24px;opacity:.6&quot;>/100</span></span>
+        <span class=&quot;tag&quot;>● High intent</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 4 — LIVE CASE #1 : Riya ============ -->
+  <section class=&quot;scene&quot; id=&quot;s4&quot;>
+    <span class=&quot;eyebrow case-eyebrow rise&quot;><span class=&quot;dot&quot;></span> Live student case</span>
+    <div class=&quot;case&quot;>
+      <div class=&quot;phone&quot;>
+        <div class=&quot;phone-head&quot;>
+          <div class=&quot;avatar&quot;>R</div>
+          <div class=&quot;who&quot;><b>Riya S.</b><span>Pune</span></div>
+          <span class=&quot;chan-pill&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-whatsapp&quot;/></svg>WhatsApp</span>
+        </div>
+        <div class=&quot;chat&quot;>
+          <div class=&quot;bubble in&quot; style=&quot;animation-delay:.3s&quot;>Hi! I want to apply for B.Tech CSE but I think I missed the deadline 😟</div>
+          <div class=&quot;bubble ai&quot; style=&quot;animation-delay:1.6s&quot;>Good news, Riya. Late applications close Friday. I've already reserved your slot. ✅</div>
+        </div>
+      </div>
+      <div class=&quot;case-side&quot;>
+        <h4 class=&quot;rise&quot;>Instant analysis</h4>
+        <div class=&quot;overlay-list&quot;>
+          <div class=&quot;ov&quot; style=&quot;animation-delay:.6s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-book&quot;/></svg></span> Program match found</div>
+          <div class=&quot;ov&quot; style=&quot;animation-delay:.8s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-clock&quot;/></svg></span> Late window available</div>
+          <div class=&quot;ov&quot; style=&quot;animation-delay:1.0s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-zap&quot;/></svg></span> Intent detected</div>
+          <div class=&quot;ov accent&quot; style=&quot;animation-delay:1.2s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-trending&quot;/></svg></span> Enrollment probability <span class=&quot;val&quot;>92%</span></div>
+        </div>
+        <h4 class=&quot;rise&quot; style=&quot;animation-delay:1.8s&quot;>Action chain activated</h4>
+        <div class=&quot;overlay-list&quot;>
+          <div class=&quot;ov accent&quot; style=&quot;animation-delay:2.0s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-send&quot;/></svg></span> Application sent</div>
+          <div class=&quot;ov accent&quot; style=&quot;animation-delay:2.2s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-calendar&quot;/></svg></span> Call scheduled</div>
+          <div class=&quot;ov accent&quot; style=&quot;animation-delay:2.4s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-user-check&quot;/></svg></span> Counsellor assigned</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 5 — LIVE CASE #2 : Arjun ============ -->
+  <section class=&quot;scene&quot; id=&quot;s5&quot;>
+    <span class=&quot;eyebrow case-eyebrow rise&quot;><span class=&quot;dot&quot;></span> Live student case</span>
+    <div class=&quot;case&quot;>
+      <div class=&quot;phone&quot;>
+        <div class=&quot;phone-head&quot;>
+          <div class=&quot;avatar alt&quot;>A</div>
+          <div class=&quot;who&quot;><b>Arjun M.</b><span>MBA aspirant</span></div>
+          <span class=&quot;chan-pill&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-instagram&quot;/></svg>Instagram</span>
+        </div>
+        <div class=&quot;chat&quot;>
+          <div class=&quot;bubble in&quot; style=&quot;animation-delay:.3s&quot;>What are the fees and scholarships?</div>
+          <div class=&quot;bubble ai&quot; style=&quot;animation-delay:1.4s&quot;>Here's a personalised estimate — you qualify for up to 40% scholarship. Brochure &amp; eligibility check are on the way. 🎓</div>
+        </div>
+      </div>
+      <div class=&quot;case-side&quot;>
+        <h4 class=&quot;rise&quot;>AI instantly generates</h4>
+        <div class=&quot;overlay-list&quot;>
+          <div class=&quot;ov accent&quot; style=&quot;animation-delay:.6s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-award&quot;/></svg></span> Personalised scholarship estimate <span class=&quot;val&quot;>40%</span></div>
+          <div class=&quot;ov&quot; style=&quot;animation-delay:.85s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-check&quot;/></svg></span> Eligibility checker <span class=&quot;val&quot; style=&quot;color:var(--blue)&quot;>Ready</span></div>
+          <div class=&quot;ov&quot; style=&quot;animation-delay:1.1s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-file&quot;/></svg></span> Brochure <span class=&quot;val&quot; style=&quot;color:var(--blue)&quot;>Delivered</span></div>
+          <div class=&quot;ov&quot; style=&quot;animation-delay:1.35s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-route&quot;/></svg></span> Journey <span class=&quot;val&quot;>Activated</span></div>
+        </div>
+        <p class=&quot;ms-note rise&quot; style=&quot;animation-delay:1.7s&quot;>Lead moved into the nurture workflow — automatically.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 6 — LIVE CASE #3 : Fatima ============ -->
+  <section class=&quot;scene&quot; id=&quot;s6&quot;>
+    <span class=&quot;eyebrow case-eyebrow rise&quot;><span class=&quot;dot&quot;></span> International enquiry</span>
+    <div class=&quot;case&quot;>
+      <div class=&quot;phone&quot;>
+        <div class=&quot;phone-head&quot;>
+          <div class=&quot;avatar&quot;>F</div>
+          <div class=&quot;who&quot;><b>Fatima K.</b><span>Dubai 🇦🇪</span></div>
+          <span class=&quot;chan-pill&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-book&quot;/></svg>B.Sc Nursing</span>
+        </div>
+        <div class=&quot;chat&quot;>
+          <div class=&quot;bubble in&quot; style=&quot;animation-delay:.3s&quot;>Hello, I'm enquiring from Dubai about B.Sc Nursing for the next intake.</div>
+          <div class=&quot;bubble ai&quot; style=&quot;animation-delay:1.3s&quot;>Welcome, Fatima! I've looped in our international team and sent your hostel, travel and parent information pack. ✈️</div>
+        </div>
+      </div>
+      <div class=&quot;case-side&quot;>
+        <h4 class=&quot;rise&quot;>AI immediately activates</h4>
+        <div class=&quot;overlay-list&quot;>
+          <div class=&quot;ov accent&quot; style=&quot;animation-delay:.6s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-users&quot;/></svg></span> International team</div>
+          <div class=&quot;ov&quot; style=&quot;animation-delay:.8s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-home&quot;/></svg></span> Hostel information</div>
+          <div class=&quot;ov&quot; style=&quot;animation-delay:1.0s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-plane&quot;/></svg></span> Airport pickup guide</div>
+          <div class=&quot;ov&quot; style=&quot;animation-delay:1.2s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-mic&quot;/></svg></span> Voice follow-up</div>
+          <div class=&quot;ov&quot; style=&quot;animation-delay:1.4s&quot;><span class=&quot;tick&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-file&quot;/></svg></span> Parent information pack</div>
+        </div>
+        <p class=&quot;ms-note rise&quot; style=&quot;animation-delay:1.8s&quot;>Everything happens automatically — across borders and time zones.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 7 — AUTOPILOT FUNNEL ============ -->
+  <section class=&quot;scene&quot; id=&quot;s7&quot;>
+    <span class=&quot;eyebrow section-eyebrow rise&quot;><span class=&quot;dot&quot;></span> Admissions on autopilot</span>
+    <div class=&quot;funnel&quot;>
+      <span class=&quot;fstep&quot; style=&quot;animation-delay:.2s&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-user-plus&quot;/></svg>Lead</span><span class=&quot;farrow&quot; style=&quot;animation-delay:.35s&quot;>→</span>
+      <span class=&quot;fstep&quot; style=&quot;animation-delay:.5s&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-message&quot;/></svg>Conversation</span><span class=&quot;farrow&quot; style=&quot;animation-delay:.65s&quot;>→</span>
+      <span class=&quot;fstep&quot; style=&quot;animation-delay:.8s&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-zap&quot;/></svg>Qualification</span><span class=&quot;farrow&quot; style=&quot;animation-delay:.95s&quot;>→</span>
+      <span class=&quot;fstep&quot; style=&quot;animation-delay:1.1s&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-file&quot;/></svg>Application</span><span class=&quot;farrow&quot; style=&quot;animation-delay:1.25s&quot;>→</span>
+      <span class=&quot;fstep&quot; style=&quot;animation-delay:1.4s&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-user-check&quot;/></svg>Counselling</span><span class=&quot;farrow&quot; style=&quot;animation-delay:1.55s&quot;>→</span>
+      <span class=&quot;fstep&quot; style=&quot;animation-delay:1.7s&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-award&quot;/></svg>Enrollment</span>
+    </div>
+    <div class=&quot;enrolled&quot;>
+      <span class=&quot;badge&quot;>ENROLLED</span>
+      <span class=&quot;sub&quot;>One intelligent, self-driving stream</span>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 8 — BUSINESS IMPACT ============ -->
+  <section class=&quot;scene&quot; id=&quot;s8&quot;>
+    <span class=&quot;eyebrow section-eyebrow rise&quot;><span class=&quot;dot&quot;></span> Business impact</span>
+    <div class=&quot;metrics&quot;>
+      <div class=&quot;metric&quot; style=&quot;animation-delay:.2s&quot;><div class=&quot;mic&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-user-check&quot;/></svg></div><div class=&quot;v accent&quot;>+48</div><div class=&quot;l&quot;>Students enrolled today</div></div>
+      <div class=&quot;metric&quot; style=&quot;animation-delay:.35s&quot;><div class=&quot;mic&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-trending&quot;/></svg></div><div class=&quot;v&quot;>₹1.8&amp;nbsp;Cr</div><div class=&quot;l&quot;>Pipeline created</div></div>
+      <div class=&quot;metric&quot; style=&quot;animation-delay:.5s&quot;><div class=&quot;mic&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-clock&quot;/></svg></div><div class=&quot;v&quot;>2.4s</div><div class=&quot;l&quot;>Average response time</div></div>
+      <div class=&quot;metric&quot; style=&quot;animation-delay:.65s&quot;><div class=&quot;mic&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-award&quot;/></svg></div><div class=&quot;v accent&quot;>24×</div><div class=&quot;l&quot;>Return on investment</div></div>
+      <div class=&quot;metric&quot; style=&quot;animation-delay:.8s&quot;><div class=&quot;mic&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-users&quot;/></svg></div><div class=&quot;v&quot;>95%</div><div class=&quot;l&quot;>Counsellor adoption</div></div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 9 — PRODUCT ECOSYSTEM ============ -->
+  <section class=&quot;scene&quot; id=&quot;s9&quot;>
+    <span class=&quot;eyebrow section-eyebrow rise&quot;><span class=&quot;dot&quot;></span> One operating system</span>
+    <div class=&quot;ecosystem&quot; id=&quot;ecosystem&quot;>
+      <div class=&quot;eco-ring a&quot;></div>
+      <div class=&quot;eco-ring b&quot;></div>
+      <div class=&quot;eco-core&quot;><div><b>Vidya</b><br><small>AI CORE</small></div></div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL SHOT ============ -->
+  <section class=&quot;scene&quot; id=&quot;sf&quot;>
+    <div class=&quot;logo-final&quot;>
+      <span class=&quot;eelogo&quot;>
+        <span class=&quot;eelogo__fb&quot; style=&quot;display:flex;align-items:center;gap:16px&quot;>
+          <svg class=&quot;vmark&quot; viewBox=&quot;0 0 120 120&quot; style=&quot;width:72px;height:72px&quot;>
+            <path d=&quot;M60 51 C 46 42 27 42 11 48 L11 92 C 27 86 46 86 60 94 Z&quot; fill=&quot;url(#vg-main)&quot;/>
+            <path d=&quot;M60 51 C 74 42 93 42 109 48 L109 92 C 93 86 74 86 60 94 Z&quot; fill=&quot;url(#vg-main)&quot;/>
+            <circle cx=&quot;48&quot; cy=&quot;31&quot; r=&quot;15&quot; fill=&quot;url(#vg-head)&quot;/>
+            <path transform=&quot;translate(80,14) scale(0.32)&quot; d=&quot;M50 0 C54 28 72 46 100 50 C72 54 54 72 50 100 C46 72 28 54 0 50 C28 46 46 28 50 0 Z&quot; fill=&quot;url(#vg-star1)&quot;/>
+            <path transform=&quot;translate(99,38) scale(0.19)&quot; d=&quot;M50 0 C54 28 72 46 100 50 C72 54 54 72 50 100 C46 72 28 54 0 50 C28 46 46 28 50 0 Z&quot; fill=&quot;url(#vg-star2)&quot;/>
+          </svg>
+          <span class=&quot;vword&quot; style=&quot;font-size:46px&quot;>Vidya AI</span>
+        </span>
+        <img class=&quot;eelogo__img&quot; alt=&quot;ExtraaEdge&quot; style=&quot;height:64px&quot;
+             src=&quot;https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg&quot;
+             onload=&quot;this.classList.add('ok');this.previousElementSibling.style.display='none'&quot;>
+      </span>
+    </div>
+    <h2 class=&quot;final-head rise&quot; style=&quot;animation-delay:.6s&quot;>Admissions is a velocity game.<br>Win it with VidyaAI.</h2>
+    <p class=&quot;final-sub rise&quot; style=&quot;animation-delay:.9s&quot;><b>Respond in seconds.</b> &amp;nbsp;·&amp;nbsp; <b>Qualify automatically.</b> &amp;nbsp;·&amp;nbsp; <b>Enroll more students.</b></p>
+    <a href=&quot;https://www.extraaedge.com/book-a-demo/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; class=&quot;cta rise&quot; style=&quot;animation-delay:1.2s&quot;>Book a Demo <svg class=&quot;ic&quot;><use href=&quot;#ic-arrow-right&quot;/></svg></a>
+    <div class=&quot;sweep&quot;></div>
+  </section>
+
+  <!-- modern player controls -->
+  <div class=&quot;controls&quot; id=&quot;controls&quot;>
+    <button class=&quot;cbtn&quot; id=&quot;btnPlay&quot; aria-label=&quot;Play / Pause&quot;><svg class=&quot;ic ic--fill&quot;><use href=&quot;#ic-pause&quot;/></svg></button>
+    <button class=&quot;cbtn&quot; id=&quot;btnReplay&quot; aria-label=&quot;Restart&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-replay&quot;/></svg></button>
+    <div class=&quot;scrub&quot; id=&quot;scrub&quot;><div class=&quot;scrub__fill&quot; id=&quot;scrubFill&quot;></div><div class=&quot;scrub__segs&quot; id=&quot;scrubSegs&quot;></div></div>
+    <span class=&quot;time&quot; id=&quot;time&quot;>0:00 / 0:35</span>
+    <button class=&quot;cbtn&quot; id=&quot;btnSound&quot; aria-label=&quot;Sound on / off&quot;><svg class=&quot;ic&quot;><use href=&quot;#ic-volume-x&quot;/></svg></button>
+  </div>
+</div>
+
+<script>
+/* =================================================================
+   SCENE DIRECTOR — sequences the film and loops seamlessly.
+   Using display:none/flex toggling so every CSS animation restarts
+   cleanly on each pass (true seamless loop).
+   ================================================================= */
+const SCENES = [
+  {id:'s0', dur:4200},   // opening  (storyboard 0–2s, extended for read)
+  {id:'s2', dur:3200},   // multi-channel
+  {id:'s3', dur:3200},   // reasoning engine
+  {id:'s4', dur:4000},   // case 1 — Riya (longest action chain)
+  {id:'s5', dur:3000},   // case 2 — Arjun
+  {id:'s6', dur:3000},   // case 3 — Fatima
+  {id:'s7', dur:3600},   // autopilot funnel
+  {id:'s8', dur:3000},   // business impact
+  {id:'s9', dur:3400},   // ecosystem
+  {id:'sf', dur:4600},   // final + CTA + sweep, then loop
+];
+const FADE = 450;
+
+/* connected narrative — one story told across the film */
+const CAPTIONS = {
+  s0:'Every day, thousands of students reach out — and most never get an answer in time.',
+  s2:'The moment a student says hello — on any channel — Vidya AI is already there.',
+  s3:'In milliseconds it reads their intent, budget and real chance to enroll.',
+  s4:'Riya fears she missed the deadline. Vidya reassures her — and reserves her seat.',
+  s5:'Arjun asks about fees — and instantly gets a scholarship offer and a clear plan.',
+  s6:'Fatima writes from Dubai. Her entire international journey begins on its own.',
+  s7:'Every enquiry flows from first hello to enrolled — automatically.',
+  s8:'By morning: more students enrolled, a fuller pipeline, real ROI.',
+  s9:'One intelligent system, quietly running your whole admissions team.',
+  sf:'This is admissions on autopilot. This is Vidya AI.',
+};
+
+/* ---- build the multi-channel network (positions + lines + pulses) ---- */
+function buildNetwork(){
+  const channels = [
+    ['WhatsApp','ic-whatsapp'],['Instagram','ic-instagram'],['Website','ic-globe'],
+    ['Email','ic-mail'],['Phone Calls','ic-phone'],['Facebook Leads','ic-facebook'],['Google Ads','ic-megaphone']
+  ];
+  const wrap = document.getElementById('channels');
+  const svg  = document.getElementById('netlines');
+  wrap.innerHTML=''; svg.innerHTML='';
+  const cx=50, cy=50;                       // hub center (%)
+  const N=channels.length;
+  channels.forEach((c,i)=>{
+    const ang = (-90 + i*(360/N)) * Math.PI/180;
+    const rx = 42, ry = 40;                  // ellipse radius (%)
+    const x = cx + Math.cos(ang)*rx;
+    const y = cy + Math.sin(ang)*ry;
+    // chip
+    const el=document.createElement('div');
+    el.className='chan'+(i%3===0?' on':'');
+    el.style.left=x+'%'; el.style.top=y+'%';
+    el.style.animationDelay=(0.3+i*0.12)+'s';
+    el.innerHTML='<span class=&quot;chan-ic&quot;><svg class=&quot;ic&quot;><use href=&quot;#'+c[1]+'&quot;/></svg></span>'+c[0];
+    wrap.appendChild(el);
+    // line to hub
+    const ln=document.createElementNS('http://www.w3.org/2000/svg','line');
+    ln.setAttribute('x1',x); ln.setAttribute('y1',y);
+    ln.setAttribute('x2',cx); ln.setAttribute('y2',cy);
+    ln.style.animationDelay=(0.3+i*0.12)+'s, '+(0.8+i*0.12)+'s';
+    svg.appendChild(ln);
+    // traveling lead pulse (uses px offset from center)
+    const p=document.createElement('div');
+    p.className='lead-pulse';
+    p.style.setProperty('--fx', ((x-cx)*8)+'px');
+    p.style.setProperty('--fy', ((y-cy)*4.4)+'px');
+    p.style.animationDelay=(1+i*0.18)+'s';
+    document.getElementById('netviz').appendChild(p);
+  });
+}
+
+/* ---- opening particle field flowing into the core ---- */
+function buildParticles(){
+  const host=document.getElementById('p0');
+  host.innerHTML='';
+  for(let i=0;i<26;i++){
+    const a=Math.random()*Math.PI*2, d=90+Math.random()*120;
+    const dot=document.createElement('i');
+    dot.style.setProperty('--x',Math.cos(a)*d+'px');
+    dot.style.setProperty('--y',Math.sin(a)*d+'px');
+    dot.style.animationDelay=(0.6+Math.random()*0.9)+'s';
+    dot.style.background = i%4===0 ? 'var(--orange)' : 'var(--blue)';
+    host.appendChild(dot);
+  }
+}
+
+/* ---- orbiting product modules ---- */
+function buildEcosystem(){
+  const mods=[
+    ['ic-users','Lead Manager'],['ic-phone','AI Calling Agent'],['ic-whatsapp','WhatsApp Automation'],
+    ['ic-clipboard','Application Tracker'],['ic-funnel','Funnel Analytics'],['ic-sparkles','VidyaGPT'],
+    ['ic-target','Smart Lead Scoring'],['ic-mail','Email Journeys']
+  ];
+  const host=document.getElementById('ecosystem');
+  host.querySelectorAll('.mod').forEach(m=>m.remove());
+  const N=mods.length;
+  mods.forEach((m,i)=>{
+    const ang=(-90 + i*(360/N))*Math.PI/180;
+    const r = i%2===0 ? 40 : 50;
+    const x=50+Math.cos(ang)*r, y=50+Math.sin(ang)*r;
+    const el=document.createElement('div');
+    el.className='mod';
+    el.style.left=x+'%'; el.style.top=y+'%';
+    el.style.animationDelay=(0.4+i*0.13)+'s';
+    el.innerHTML='<svg class=&quot;ic&quot;><use href=&quot;#'+m[0]+'&quot;/></svg>'+m[1];
+    host.appendChild(el);
+  });
+}
+
+/* ---- count-up for the active-conversations number in scene 2 ---- */
+function countUp(){
+  const el=document.getElementById('convN');
+  if(!el) return;
+  const target=1284; let cur=1180;
+  const t=setInterval(()=>{
+    cur+=Math.ceil((target-cur)/6);
+    if(cur>=target){cur=target;clearInterval(t);}
+    el.textContent=cur.toLocaleString('en-IN');
+  },60);
+}
+
+/* ---- count-up for the reasoning verdict score (0 → 92) ---- */
+function countVerdict(){
+  const el=document.querySelector('#s3 .verdict .big');
+  if(!el) return;
+  let cur=0;const target=92;
+  const t=setInterval(()=>{
+    cur+=4; if(cur>=target){cur=target;clearInterval(t);}
+    el.innerHTML=cur+'<span style=&quot;font-size:24px;opacity:.6&quot;>/100</span>';
+  },45);
+}
+
+/* ---- caption controller ---- */
+const captionEl=document.getElementById('caption');
+const captionTxt=document.getElementById('captionText');
+function setCaption(id){
+  if(!CAPTIONS[id]){captionEl.classList.remove('show');return;}
+  captionTxt.textContent=CAPTIONS[id];
+  captionEl.classList.add('show');
+}
+
+/* =================================================================
+   PLAYER ENGINE — rAF timeline with play / pause / seek / sound.
+   A single clock drives scene activation; every scene restarts its
+   own CSS animations on entry (display toggle), so the film loops
+   seamlessly and stays in sync after a seek.
+   ================================================================= */
+let total=0; SCENES.forEach(s=>{ s.start=total; total+=s.dur; });
+const LOOP=total;
+
+const stage     = document.getElementById('stage');
+const scrub     = document.getElementById('scrub');
+const scrubFill = document.getElementById('scrubFill');
+const scrubSegs = document.getElementById('scrubSegs');
+const timeEl    = document.getElementById('time');
+const btnPlay   = document.getElementById('btnPlay');
+const btnReplay = document.getElementById('btnReplay');
+const btnSound  = document.getElementById('btnSound');
+
+/* ---- device-friendly: scale the fixed 16:9 canvas to fit any screen ---- */
+const STAGE_W=1280, STAGE_H=720;
+function fitStage(){
+  if(location.search.includes('sync')) return;   // render harness sizes the stage itself
+  const s=Math.min(window.innerWidth/STAGE_W, window.innerHeight/STAGE_H, 1);
+  stage.style.position='fixed';
+  stage.style.left='50%';
+  stage.style.top='50%';
+  stage.style.transform='translate(-50%,-50%) scale('+s+')';
+}
+window.addEventListener('resize',fitStage,{passive:true});
+window.addEventListener('orientationchange',fitStage);
+fitStage();
+
+// scene boundary markers on the scrub
+SCENES.forEach(s=>{ if(s.start>0){const i=document.createElement('i');i.style.left=(s.start/LOOP*100)+'%';scrubSegs.appendChild(i);} });
+
+let clock=0, last=performance.now(), playing=true, curIndex=-1, perScene=[];
+function clearScene(){ perScene.forEach(clearTimeout); perScene=[]; }
+const useHref=(svg,id)=>svg.firstElementChild.setAttribute('href','#'+id);
+
+function sceneAt(t){ let i=0; for(let k=0;k<SCENES.length;k++){ if(t>=SCENES[k].start) i=k; } return i; }
+
+function activate(i){
+  clearScene();
+  document.querySelectorAll('.scene').forEach(s=>{s.classList.remove('active','leaving');s.style.display='none';});
+  const sc=SCENES[i], el=document.getElementById(sc.id);
+  if(sc.id==='s0') buildParticles();
+  if(sc.id==='s2') buildNetwork();
+  if(sc.id==='s9') buildEcosystem();
+  el.style.display='flex';
+  void el.offsetWidth;                 // reflow → restart CSS anims from 0
+  el.classList.add('active');
+  setCaption(sc.id);
+  if(sc.id==='s2') perScene.push(setTimeout(countUp,500));
+  if(sc.id==='s3') perScene.push(setTimeout(countVerdict,1750));
+  cue(i);                              // audio accent on each cut
+  curIndex=i;
+}
+
+const fmt=ms=>'0:'+String(Math.floor(ms/1000)).padStart(2,'0');
+
+function frame(now){
+  const dt=now-last; last=now;
+  if(playing){
+    clock+=dt; if(clock>=LOOP) clock-=LOOP;
+    const i=sceneAt(clock);
+    if(i!==curIndex) activate(i);
+    scrubFill.style.width=(clock/LOOP*100)+'%';
+    timeEl.textContent=fmt(clock)+' / '+fmt(LOOP);
+  }
+  requestAnimationFrame(frame);
+}
+
+function setPlaying(p){
+  playing=p; stage.classList.toggle('paused',!p);
+  const svg=btnPlay.firstElementChild; svg.classList.toggle('ic--fill',true);
+  useHref(svg, p?'ic-pause':'ic-play');
+}
+btnPlay.addEventListener('click',()=>setPlaying(!playing));
+btnReplay.addEventListener('click',()=>{ clock=0; activate(0); scrubFill.style.width='0%'; setPlaying(true); });
+
+scrub.addEventListener('click',e=>{
+  const r=scrub.getBoundingClientRect();
+  const frac=Math.max(0,Math.min(.999,(e.clientX-r.left)/r.width));
+  const i=sceneAt(frac*LOOP);
+  clock=SCENES[i].start;               // snap to scene start so visuals + bar align
+  activate(i);
+  scrubFill.style.width=(clock/LOOP*100)+'%';
+  timeEl.textContent=fmt(clock)+' / '+fmt(LOOP);
+});
+
+/* ---- optional Web Audio score (gesture-gated, fully in-browser) ---- */
+let actx=null, padGain=null, master=null, soundOn=false;
+function initAudio(){
+  if(actx) return;
+  actx=new (window.AudioContext||window.webkitAudioContext)();
+  master=actx.createGain(); master.gain.value=.9; master.connect(actx.destination);
+  padGain=actx.createGain(); padGain.gain.value=0; padGain.connect(master);
+  [110,164.81,220,277.18].forEach(f=>{          // calm sustained pad
+    const o=actx.createOscillator(); o.type='sine'; o.frequency.value=f;
+    const g=actx.createGain(); g.gain.value=.05; o.connect(g); g.connect(padGain); o.start();
+  });
+}
+function cue(i){
+  if(!soundOn||!actx) return;
+  const t=actx.currentTime;
+  const o=actx.createOscillator(); o.type='sine'; o.frequency.value=(i%3===0?52:58);
+  const g=actx.createGain();
+  g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.5,t+.02);
+  g.gain.exponentialRampToValueAtTime(.0001,t+.7);
+  o.connect(g); g.connect(master); o.start(t); o.stop(t+.75);
+  const dur=.4, buf=actx.createBuffer(1,actx.sampleRate*dur,actx.sampleRate), d=buf.getChannelData(0);
+  for(let n=0;n<d.length;n++){ const k=n/d.length; d[n]=(Math.random()*2-1)*Math.sin(Math.PI*k); }
+  const src=actx.createBufferSource(); src.buffer=buf;
+  const bp=actx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=1200;
+  const sg=actx.createGain(); sg.gain.value=.12;
+  src.connect(bp); bp.connect(sg); sg.connect(master); src.start(t);
+}
+function setSound(on){
+  soundOn=on; btnSound.classList.toggle('on',on);
+  useHref(btnSound.firstElementChild, on?'ic-volume':'ic-volume-x');
+  if(on){ initAudio(); if(actx.state==='suspended') actx.resume();
+          padGain.gain.linearRampToValueAtTime(.5,actx.currentTime+1.5); }
+  else if(actx){ padGain.gain.linearRampToValueAtTime(0,actx.currentTime+.4); }
+}
+btnSound.addEventListener('click',()=>setSound(!soundOn));
+
+/* ---- start ---- */
+function start(){ clock=0; last=performance.now(); curIndex=-1; activate(0); setPlaying(true);
+                  scrubFill.style.width='0%'; requestAnimationFrame(frame); }
+window.__go = start;                              // render harness triggers an exact start
+if(!location.search.includes('sync')) start();    // normal viewing: autoplay
+</script>
+</body>
+</html>
+"></iframe>
     </div>
   </div>
 </section>
