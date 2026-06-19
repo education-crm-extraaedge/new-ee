@@ -954,7 +954,7 @@ function activate(i){
   setCaption(sc.id);
   if(sc.id==='s2') perScene.push(setTimeout(countUp,500));
   if(sc.id==='s3') perScene.push(setTimeout(countVerdict,1750));
-  cue(i);                              // audio accent on each cut
+  sceneSound(sc.id);                   // scene-matched SFX choreography
   curIndex=i;
 }
 
@@ -990,41 +990,99 @@ scrub.addEventListener('click',e=>{
   timeEl.textContent=fmt(clock)+' / '+fmt(LOOP);
 });
 
-/* ---- optional Web Audio score (gesture-gated, fully in-browser) ---- */
-let actx=null, padGain=null, master=null, soundOn=false;
+/* ---- ADVANCED UI / TECH SOUND ENGINE (synthesised, in-browser, gesture-gated) ---- */
+let actx=null, master=null, amb=null, soundOn=false;
 function initAudio(){
   if(actx) return;
   actx=new (window.AudioContext||window.webkitAudioContext)();
-  master=actx.createGain(); master.gain.value=.9; master.connect(actx.destination);
-  padGain=actx.createGain(); padGain.gain.value=0; padGain.connect(master);
-  [110,164.81,220,277.18].forEach(f=>{          // calm sustained pad
+  master=actx.createGain(); master.gain.value=0; master.connect(actx.destination);
+  /* soft light-tech ambient pad — airy high chord, gentle drift (no low rumble) */
+  amb=actx.createGain(); amb.gain.value=0; amb.connect(master);
+  [329.63,392.0,493.88].forEach(function(f,i){
     const o=actx.createOscillator(); o.type='sine'; o.frequency.value=f;
-    const g=actx.createGain(); g.gain.value=.05; o.connect(g); g.connect(padGain); o.start();
+    const lfo=actx.createOscillator(); lfo.type='sine'; lfo.frequency.value=0.05+i*0.02;
+    const lg=actx.createGain(); lg.gain.value=2; lfo.connect(lg); lg.connect(o.detune);
+    const g=actx.createGain(); g.gain.value=0.016; o.connect(g); g.connect(amb);
+    o.start(); lfo.start();
   });
 }
-function cue(i){
-  if(!soundOn||!actx) return;
-  const t=actx.currentTime;
-  const o=actx.createOscillator(); o.type='sine'; o.frequency.value=(i%3===0?523.25:659.25);
+const aNow=function(){ return actx.currentTime; };
+/* generic enveloped tone (optional pitch glide) */
+function tone(f,t0,dur,type,peak,glideTo){
+  const o=actx.createOscillator(); o.type=type||'sine'; o.frequency.setValueAtTime(f,t0);
+  if(glideTo) o.frequency.exponentialRampToValueAtTime(glideTo,t0+dur);
   const g=actx.createGain();
-  g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.5,t+.02);
-  g.gain.exponentialRampToValueAtTime(.0001,t+.7);
-  o.connect(g); g.connect(master); o.start(t); o.stop(t+.75);
-  const dur=.4, buf=actx.createBuffer(1,actx.sampleRate*dur,actx.sampleRate), d=buf.getChannelData(0);
-  for(let n=0;n<d.length;n++){ const k=n/d.length; d[n]=(Math.random()*2-1)*Math.sin(Math.PI*k); }
+  g.gain.setValueAtTime(0.0001,t0);
+  g.gain.exponentialRampToValueAtTime(peak||0.25,t0+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);
+  o.connect(g); g.connect(master); o.start(t0); o.stop(t0+dur+0.02);
+}
+/* filtered noise burst (optional filter sweep) */
+function noise(t0,dur,type,freq,q,peak,sweepTo){
+  const n=Math.floor(actx.sampleRate*dur), buf=actx.createBuffer(1,n,actx.sampleRate), d=buf.getChannelData(0);
+  for(let i=0;i<n;i++){ const k=i/n; d[i]=(Math.random()*2-1)*(1-k); }
   const src=actx.createBufferSource(); src.buffer=buf;
-  const bp=actx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=1200;
-  const sg=actx.createGain(); sg.gain.value=.12;
-  src.connect(bp); bp.connect(sg); sg.connect(master); src.start(t);
+  const bp=actx.createBiquadFilter(); bp.type=type||'bandpass'; bp.frequency.setValueAtTime(freq,t0); bp.Q.value=q||0.8;
+  if(sweepTo) bp.frequency.exponentialRampToValueAtTime(sweepTo,t0+dur);
+  const g=actx.createGain(); g.gain.setValueAtTime(peak||0.18,t0); g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);
+  src.connect(bp); bp.connect(g); g.connect(master); src.start(t0);
+}
+/* named sound effects */
+const SFX={
+  uiBeep:function(){ const t=aNow(); tone(880,t,0.12,'triangle',0.16); tone(1318.5,t+0.05,0.12,'sine',0.10); },
+  pop:function(){ tone(420,aNow(),0.14,'sine',0.26,900); },                         // chat bubble pop
+  sent:function(){ noise(aNow(),0.28,'highpass',700,0.5,0.14,4200); },              // message sent whoosh
+  ping:function(){ const t=aNow(); tone(1568,t,0.18,'sine',0.16); tone(2093,t+0.08,0.22,'sine',0.12); }, // notification ping
+  tick:function(){ tone(2400,aNow(),0.03,'square',0.05); },                         // counter tick
+  ding:function(){ const t=aNow(); tone(1046.5,t,0.5,'sine',0.20); tone(1568,t+0.006,0.5,'sine',0.11); }, // success ding
+  chime:function(){ const t=aNow(); [523.25,659.25,783.99,1046.5].forEach(function(f,i){ tone(f,t+i*0.09,0.6,'sine',0.15); }); }, // achievement chime
+  hum:function(){ const t=aNow(); tone(330,t,0.5,'sawtooth',0.045,520); noise(t,0.5,'bandpass',1000,2,0.04); }, // AI processing (brief, textured)
+  scan:function(){ noise(aNow(),0.5,'bandpass',400,3,0.10,3200); },                 // digital scan / hologram reveal
+  whoosh:function(){ noise(aNow(),0.42,'bandpass',320,0.6,0.16,2200); },            // transition / page slide
+  kaching:function(){ const t=aNow(); tone(1318.5,t,0.12,'square',0.13); tone(1760,t+0.09,0.3,'square',0.15); }, // cash register
+  type:function(){ noise(aNow(),0.04,'bandpass',2600,1,0.06); },                    // keyboard click
+  riser:function(){ const t=aNow(); const o=actx.createOscillator(); o.type='sawtooth';
+    o.frequency.setValueAtTime(180,t); o.frequency.exponentialRampToValueAtTime(1200,t+1.2);
+    const g=actx.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(0.10,t+1.1);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+1.35); o.connect(g); g.connect(master); o.start(t); o.stop(t+1.4); },
+  impact:function(){ const t=aNow(); const o=actx.createOscillator(); o.type='sine';
+    o.frequency.setValueAtTime(220,t); o.frequency.exponentialRampToValueAtTime(46,t+0.7);
+    const g=actx.createGain(); g.gain.setValueAtTime(0.55,t); g.gain.exponentialRampToValueAtTime(0.0001,t+0.9);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t+0.95); noise(t,0.5,'lowpass',1300,0.7,0.22); } // cinematic boom
+};
+/* scene-by-scene sound choreography */
+function sceneSound(id){
+  if(!soundOn||!actx) return;
+  const q=function(fn,delay){ setTimeout(function(){ if(soundOn) fn(); }, delay); };
+  switch(id){
+    case 's0': SFX.scan(); q(SFX.uiBeep,520); break;
+    case 's2': SFX.whoosh(); q(SFX.ping,520); q(SFX.ping,1100); q(SFX.pop,1700); break;
+    case 's3': SFX.hum(); q(SFX.scan,320); [0,1,2,3,4,5,6].forEach(function(k){ q(SFX.tick,520+k*150); }); break;
+    case 's4': SFX.pop(); [0,1,2,3].forEach(function(k){ q(SFX.type,360+k*90); }); q(SFX.sent,1500); q(SFX.ding,3200); break;
+    case 's5': SFX.pop(); q(SFX.sent,1300); q(SFX.uiBeep,2000); break;
+    case 's6': SFX.pop(); q(SFX.sent,1200); q(SFX.ping,2200); break;
+    case 's7': [0,1,2,3,4,5].forEach(function(k){ q(SFX.tick,200+k*260); }); q(SFX.chime,2400); break;
+    case 's8': SFX.kaching(); [0,1,2,3,4].forEach(function(k){ q(SFX.tick,320+k*180); }); q(SFX.ding,1400); break;
+    case 's9': SFX.whoosh(); q(SFX.uiBeep,420); break;
+    case 'sf': SFX.riser(); q(SFX.impact,1300); q(SFX.chime,1700); break;
+    default: SFX.uiBeep();
+  }
 }
 function setSound(on){
   soundOn=on; btnSound.classList.toggle('on',on);
   useHref(btnSound.firstElementChild, on?'ic-volume':'ic-volume-x');
-  if(on){ initAudio(); if(actx.state==='suspended') actx.resume();
-          padGain.gain.linearRampToValueAtTime(.5,actx.currentTime+1.5); }
-  else if(actx){ padGain.gain.linearRampToValueAtTime(0,actx.currentTime+.4); }
+  if(on){
+    initAudio(); if(actx.state==='suspended') actx.resume();
+    master.gain.cancelScheduledValues(actx.currentTime);
+    master.gain.linearRampToValueAtTime(0.6, actx.currentTime+0.3);
+    amb.gain.linearRampToValueAtTime(0.5, actx.currentTime+1.6);
+    sceneSound((typeof curIndex==='number'&&curIndex>=0&&SCENES[curIndex])?SCENES[curIndex].id:'s0');
+  } else if(actx){
+    amb.gain.linearRampToValueAtTime(0, actx.currentTime+0.4);
+    master.gain.linearRampToValueAtTime(0, actx.currentTime+0.4);
+  }
 }
-btnSound.addEventListener('click',()=>setSound(!soundOn));
+btnSound.addEventListener('click',function(){ setSound(!soundOn); });
 
 /* ---- start ---- */
 function start(){ clock=0; last=performance.now(); curIndex=-1; activate(0); setPlaying(true);
