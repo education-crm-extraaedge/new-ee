@@ -1575,12 +1575,16 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   #vidya-film .vf-frame{position:relative;width:100%;border-radius:24px;overflow:hidden;
     box-shadow:0 54px 120px rgba(25,51,93,.26),0 0 0 1px rgba(25,51,93,.07);border:1px solid rgba(25,51,93,.10);background:#eef1f5}
   #vidya-film .hero-film__frame{display:block;width:100%;aspect-ratio:16/9;border:0;background:#eef1f5}
-  @media(max-width:768px){
-    #vidya-film{padding:30px 0 38px}
+  /* aspect ratio per device: 16:9 desktop/iPad-landscape · 1:1 tablet · 9:16 phone */
+  @media(max-width:900px){
+    #vidya-film .hero-film__frame{aspect-ratio:1/1;width:100%}
+  }
+  @media(max-width:600px){
+    #vidya-film{padding:26px 0 34px}
     #vidya-film .vf-wrap{padding:0}
-    #vidya-film .vf-head{padding:0 16px;margin-bottom:22px}
-    #vidya-film .vf-frame{border-radius:0;border-left:0;border-right:0;box-shadow:0 18px 44px rgba(25,51,93,.16)}
-    #vidya-film .hero-film__frame{aspect-ratio:auto!important;width:100%;height:auto;min-height:560px}
+    #vidya-film .vf-head{padding:0 16px;margin-bottom:20px}
+    #vidya-film .vf-frame{border-radius:0;border-left:0;border-right:0;box-shadow:0 16px 40px rgba(25,51,93,.16)}
+    #vidya-film .hero-film__frame{aspect-ratio:9/16}
   }
 </style>
 <section id="vidya-film" aria-label="VidyaAI — Admission Intelligence film">
@@ -2030,37 +2034,38 @@ body{
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001s!important;animation-iteration-count:1!important}
 }
-/* ===== MOBILE / TABLET (<=768px): fluid, fully-readable, nothing cropped ===== */
-@media (max-width:768px){
-  body{display:block;overflow:visible;background:#f6f8fb}
-  .stage{position:static!important;transform:none!important;left:auto!important;top:auto!important;width:100%!important;height:auto!important;border-radius:0;box-shadow:none}
-  .stage::after{-webkit-mask-image:none!important;mask-image:none!important;opacity:.3}
-  .scene{position:static!important;inset:auto!important;display:none;width:100%;min-height:auto!important;height:auto!important;padding:58px 18px 96px!important;flex-direction:column;align-items:center;text-align:center}
+/* ===== PHONE 9:16 / TABLET 1:1 (<=900px): fluid fill, fully readable, no crop ===== */
+@media (max-width:900px){
+  body{display:block;overflow:hidden;background:#f6f8fb}
+  .stage{position:relative!important;transform:none!important;left:auto!important;top:auto!important;width:100%!important;height:auto!important;min-height:100vh;border-radius:0;box-shadow:none}
+  .stage::after{-webkit-mask-image:none!important;mask-image:none!important;opacity:.28}
+  .scene{position:absolute!important;inset:0!important;display:none;width:100%;min-height:100vh;height:100%;padding:64px 18px 96px!important;flex-direction:column;align-items:center;justify-content:center;text-align:center}
   .scene.active{display:flex!important}
   .caption{display:none!important}
-  .controls{position:static!important;transform:none!important;left:auto!important;margin:12px auto 0;width:calc(100% - 28px)}
+  .controls{left:50%!important;bottom:14px;transform:translateX(-50%)!important;width:calc(100% - 28px)}
   .brandtag{top:14px;left:16px}
-  .section-eyebrow,.case-eyebrow{position:static!important;top:auto!important;right:auto!important;left:auto!important;align-self:center;margin:0 0 6px}
-  .s0-head{font-size:clamp(25px,7vw,40px)!important}
-  .s0-sub{font-size:clamp(14px,3.7vw,17px)!important}
+  .section-eyebrow,.case-eyebrow{position:static!important;top:auto!important;right:auto!important;left:auto!important;align-self:center;margin:0 0 8px}
+  .s0-head{font-size:clamp(26px,6.4vw,42px)!important}
+  .s0-sub{font-size:clamp(14px,3.4vw,18px)!important}
   .core-wrap{width:210px;height:210px}
-  .s2-top{flex-direction:column;gap:12px;align-items:center;max-width:440px}
+  .s2-top{flex-direction:column;gap:12px;align-items:center;max-width:460px}
   .s2-stats{flex-wrap:wrap;justify-content:center;gap:10px}
   .netviz{height:320px!important;max-width:340px!important;width:100%!important}
   .s3-grid{grid-template-columns:1fr!important;gap:18px!important;max-width:480px}
   .reason-cloud{max-width:100%!important;justify-content:center}
   .verdict{min-width:0!important;width:100%;max-width:300px}
-  .case{grid-template-columns:1fr!important;gap:16px!important;max-width:460px}
+  .case{grid-template-columns:1fr!important;gap:14px!important;max-width:460px}
   .phone{width:100%;max-width:440px;margin:0 auto}
   .case-side{width:100%;max-width:440px}
-  .funnel{flex-wrap:wrap!important;gap:8px!important;max-width:430px}
+  .chat{min-height:auto}
+  .funnel{flex-wrap:wrap!important;gap:8px!important;max-width:440px}
   .farrow{display:none!important}
-  .metrics{grid-template-columns:repeat(2,1fr)!important;max-width:440px;gap:12px}
-  .ecosystem{width:300px!important;max-width:86vw}
+  .metrics{grid-template-columns:repeat(2,1fr)!important;max-width:460px;gap:12px}
+  .ecosystem{width:300px!important;max-width:84vw}
   .logo-final{flex-direction:column!important;gap:10px}
-  .logo-word{font-size:clamp(30px,8vw,42px)!important}
-  .final-head{font-size:clamp(23px,6.2vw,38px)!important}
-  .final-sub{font-size:clamp(14px,3.7vw,17px)!important}
+  .logo-word{font-size:clamp(30px,7.4vw,44px)!important}
+  .final-head{font-size:clamp(24px,5.8vw,38px)!important}
+  .final-sub{font-size:clamp(14px,3.4vw,18px)!important}
 }
 </style>
 </head>
@@ -2547,10 +2552,8 @@ const btnSound  = document.getElementById('btnSound');
 const STAGE_W=1280, STAGE_H=720;
 function fitStage(){
   if(location.search.includes('sync')) return;   // render harness sizes the stage itself
-  if(window.innerWidth<=768){                     // mobile/tablet: fluid CSS layout owns sizing
-    stage.style.position='static'; stage.style.left=''; stage.style.top='';
-    stage.style.transform='none';
-    postHeight();
+  if(window.innerWidth<=900){                     // phones (9:16) &amp; tablets (1:1): fluid CSS fills the frame
+    stage.style.position=''; stage.style.left=''; stage.style.top=''; stage.style.transform='none';
     return;
   }
   const s=Math.min(window.innerWidth/STAGE_W, window.innerHeight/STAGE_H, 1);
@@ -2559,8 +2562,6 @@ function fitStage(){
   stage.style.top='50%';
   stage.style.transform='translate(-50%,-50%) scale('+s+')';
 }
-/* report the fluid film height so the parent can grow the iframe (no clipping) */
-function postHeight(){ try{ if(window.innerWidth<=768){ parent.postMessage({__vfilm:1, h: Math.ceil(document.documentElement.scrollHeight)}, '*'); } }catch(e){} }
 window.addEventListener('resize',fitStage,{passive:true});
 window.addEventListener('orientationchange',fitStage);
 fitStage();
@@ -2589,7 +2590,6 @@ function activate(i){
   if(sc.id==='s3') perScene.push(setTimeout(countVerdict,1750));
   sceneSound(sc.id);                   // scene-matched SFX choreography
   curIndex=i;
-  requestAnimationFrame(postHeight);   // grow the parent iframe to this scene
 }
 
 const fmt=ms=>'0:'+String(Math.floor(ms/1000)).padStart(2,'0');
@@ -2730,19 +2730,6 @@ if(!location.search.includes('sync')) start();    // normal viewing: autoplay
     </div>
   </div>
 </section>
-<script>
-/* Grow the VidyaAI film iframe to its content height on phones/tablets (fluid film) */
-(function(){
-  var f=document.querySelector('#vidya-film .hero-film__frame'); if(!f) return;
-  var maxh=0;
-  window.addEventListener('message',function(e){
-    var d=e.data;
-    if(d && d.__vfilm && d.h && window.innerWidth<=768){ if(d.h>maxh){ maxh=d.h; f.style.height=maxh+'px'; } }
-  });
-  window.addEventListener('resize',function(){ if(window.innerWidth>768){ f.style.height=''; maxh=0; } },{passive:true});
-})();
-</script>
-
 <section class="logo-section" id="trusted-institutions" aria-label="Trusted Institutions">
   <div class="logo-header reveal">
     <div class="logo-badge">Leading Institutions</div>
