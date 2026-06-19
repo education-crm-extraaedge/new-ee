@@ -1341,7 +1341,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       </div>
     </div>
     <style>
-      #xhero .hero-form{background:#fff;border:1px solid rgba(25,51,93,.12);border-radius:18px;padding:24px 22px;box-shadow:0 30px 70px rgba(25,51,93,.16);width:100%}
+      #xhero .hero-form{background:#fff;border:1px solid rgba(25,51,93,.12);border-radius:18px;padding:18px;box-shadow:0 30px 70px rgba(25,51,93,.16);width:100%}
       #xhero .hf-title{font-family:'Inter',sans-serif;font-weight:800;font-size:20px;color:#19335D;margin:0 0 4px}
       #xhero .hf-sub{font-size:12.5px;color:rgba(25,51,93,.6);margin:0 0 16px;line-height:1.45}
       #xhero .hf-ping{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;vertical-align:middle;margin-right:5px}
@@ -1356,31 +1356,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       @media(max-width:1024px){#xhero .hero-form{max-width:520px;margin:0 auto}}
     </style>
     <div class="hero-form reveal d4" aria-label="Book a free demo">
-      <h3 class="hf-title">Book your free demo</h3>
-      <p class="hf-sub"><span class="hf-ping"></span> We&#39;ll reach out within the hour &middot; 500+ institutions trust us</p>
-      <form class="hf-form" id="heroDemoForm" novalidate>
-        <input type="text" placeholder="Your full name *" required aria-label="Your full name" />
-        <input type="text" placeholder="Institute / organisation *" required aria-label="Institute name" />
-        <input type="tel" placeholder="WhatsApp number *" required aria-label="WhatsApp number" />
-        <input type="email" placeholder="Work email *" required aria-label="Work email" />
-        <select required aria-label="Monthly enquiry volume">
-          <option value="" disabled selected>Monthly enquiry volume</option>
-          <option>Under 1,000</option><option>1,000 &ndash; 5,000</option><option>5,000 &ndash; 20,000</option><option>20,000+</option>
-        </select>
-        <button type="submit" class="hf-btn">Book My Free Demo &rarr;</button>
-      </form>
-      <div class="hf-ok" id="heroDemoOk">&#127881; Thank you! Our admissions expert will reach out within the hour.</div>
-      <p class="hf-trust">&#128274; ISO 27001 &amp; GDPR compliant &middot; No spam, ever.</p>
+      <script async src="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js"></script>
+      <div id="ee-form-7"></div>
     </div>
   </div>
 </section>
-<script>
-(function(){var f=document.getElementById('heroDemoForm');if(!f)return;
-  f.addEventListener('submit',function(e){e.preventDefault();
-    if(!f.checkValidity()){f.reportValidity();return;}
-    f.style.display='none';var ok=document.getElementById('heroDemoOk');if(ok)ok.classList.add('show');});
-})();
-</script>
 <script>
 /* ===================== HERO — brand edition (scoped IIFE) ===================== */
 (function(){
@@ -2593,7 +2573,7 @@ function initAudio(){
 function cue(i){
   if(!soundOn||!actx) return;
   const t=actx.currentTime;
-  const o=actx.createOscillator(); o.type='sine'; o.frequency.value=(i%3===0?52:58);
+  const o=actx.createOscillator(); o.type='sine'; o.frequency.value=(i%3===0?523.25:659.25);
   const g=actx.createGain();
   g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.5,t+.02);
   g.gain.exponentialRampToValueAtTime(.0001,t+.7);
