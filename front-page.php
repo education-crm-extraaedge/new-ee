@@ -1183,11 +1183,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   background:var(--bg);color:var(--navy);font-family:var(--font);-webkit-font-smoothing:antialiased}
 #xhero *{margin:0;padding:0;box-sizing:border-box}
 #xhero a{text-decoration:none;color:inherit}
-#xhero .container{max-width:1240px;margin:0 auto;padding:0 32px}
+#xhero .container{max-width:1320px;margin:0 auto;padding:0 32px}
 #xhero #glsl{position:absolute;inset:0;width:100%;height:100%;z-index:-3;opacity:.6}
 #xhero .hero__veil{position:absolute;inset:0;z-index:-2;background:radial-gradient(110% 80% at 80% 0%,transparent 25%,var(--bg) 72%),linear-gradient(to top,var(--bg) 0%,transparent 30%)}
 #xhero .hero__grid{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--navy-06) 1px,transparent 1px),linear-gradient(90deg,var(--navy-06) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%);mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%)}
-#xhero .hero__in{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:64px;align-items:center}
+#xhero .hero__in{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(500px,620px);gap:56px;align-items:center}
 #xhero .reveal{opacity:0;transform:translateY(22px);animation:xh-rise .9s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes xh-rise{to{opacity:1;transform:none}}
 #xhero .d1{animation-delay:.05s}#xhero .d2{animation-delay:.16s}#xhero .d3{animation-delay:.27s}#xhero .d4{animation-delay:.38s}#xhero .d5{animation-delay:.5s}#xhero .d6{animation-delay:.64s}
