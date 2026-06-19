@@ -437,14 +437,20 @@ body{
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001s!important;animation-iteration-count:1!important}
 }
+/* player controls: visible only while the cursor is over the video (pointer devices);
+   always visible on touch screens (no hover) */
+.controls{opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
+.stage:hover .controls,.controls:focus-within{opacity:1;visibility:visible}
+@media (hover:none),(pointer:coarse){.controls{opacity:1!important;visibility:visible!important}}
+
 /* ===== PHONE 9:16 / TABLET 1:1 (<=900px): fluid fill, fully readable, no crop ===== */
 @media (max-width:900px){
   body{display:block;overflow:hidden;background:#f6f8fb}
   .stage{position:relative!important;transform:none!important;left:auto!important;top:auto!important;width:100%!important;height:auto!important;min-height:100vh;border-radius:0;box-shadow:none}
   .stage::after{-webkit-mask-image:none!important;mask-image:none!important;opacity:.28}
-  .scene{position:absolute!important;inset:0!important;display:none;width:100%;min-height:100vh;height:100%;padding:64px 18px 96px!important;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .scene{position:absolute!important;inset:0!important;display:none;width:100%;min-height:100vh;height:100%;padding:60px 18px 122px!important;flex-direction:column;align-items:center;justify-content:center;text-align:center}
   .scene.active{display:flex!important}
-  .caption{display:none!important}
+  .caption{display:inline-flex!important;position:absolute!important;left:50%!important;right:auto!important;bottom:66px;transform:translateX(-50%)!important;max-width:92%;font-size:12.5px!important;padding:8px 15px;line-height:1.4}
   .controls{left:50%!important;bottom:14px;transform:translateX(-50%)!important;width:calc(100% - 28px)}
   .brandtag{top:14px;left:16px}
   .section-eyebrow,.case-eyebrow{position:static!important;top:auto!important;right:auto!important;left:auto!important;align-self:center;margin:0 0 8px}
