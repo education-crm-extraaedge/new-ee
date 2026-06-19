@@ -1575,7 +1575,13 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   #vidya-film .vf-frame{position:relative;width:100%;border-radius:24px;overflow:hidden;
     box-shadow:0 54px 120px rgba(25,51,93,.26),0 0 0 1px rgba(25,51,93,.07);border:1px solid rgba(25,51,93,.10);background:#eef1f5}
   #vidya-film .hero-film__frame{display:block;width:100%;aspect-ratio:16/9;border:0;background:#eef1f5}
-  @media(max-width:560px){#vidya-film{padding:46px 0 50px}#vidya-film .vf-wrap{padding:0 16px}}
+  @media(max-width:600px){
+    #vidya-film{padding:32px 0 40px}
+    #vidya-film .vf-wrap{padding:0}
+    #vidya-film .vf-head{padding:0 16px;margin-bottom:24px}
+    #vidya-film .vf-frame{border-radius:0;border-left:0;border-right:0;box-shadow:0 20px 50px rgba(25,51,93,.18)}
+    #vidya-film .hero-film__frame{aspect-ratio:4/3}
+  }
 </style>
 <section id="vidya-film" aria-label="VidyaAI — Admission Intelligence film">
   <div class="vf-wrap">
@@ -2509,7 +2515,11 @@ const btnSound  = document.getElementById('btnSound');
 const STAGE_W=1280, STAGE_H=720;
 function fitStage(){
   if(location.search.includes('sync')) return;   // render harness sizes the stage itself
-  const s=Math.min(window.innerWidth/STAGE_W, window.innerHeight/STAGE_H, 1);
+  const vw=window.innerWidth, vh=window.innerHeight;
+  // phones: COVER the frame (fill it, crop slightly) so the film reads large;
+  // tablets/desktop: CONTAIN (fit fully, never crop)
+  const s = vw<=600 ? Math.max(vw/STAGE_W, vh/STAGE_H)
+                    : Math.min(vw/STAGE_W, vh/STAGE_H, 1);
   stage.style.position='fixed';
   stage.style.left='50%';
   stage.style.top='50%';

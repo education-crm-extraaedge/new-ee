@@ -922,7 +922,11 @@ const btnSound  = document.getElementById('btnSound');
 const STAGE_W=1280, STAGE_H=720;
 function fitStage(){
   if(location.search.includes('sync')) return;   // render harness sizes the stage itself
-  const s=Math.min(window.innerWidth/STAGE_W, window.innerHeight/STAGE_H, 1);
+  const vw=window.innerWidth, vh=window.innerHeight;
+  // phones: COVER the frame (fill it, crop slightly) so the film reads large;
+  // tablets/desktop: CONTAIN (fit fully, never crop)
+  const s = vw<=600 ? Math.max(vw/STAGE_W, vh/STAGE_H)
+                    : Math.min(vw/STAGE_W, vh/STAGE_H, 1);
   stage.style.position='fixed';
   stage.style.left='50%';
   stage.style.top='50%';
