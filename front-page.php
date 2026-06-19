@@ -1339,62 +1339,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
         <div class="stat"><div class="stat__n"><span data-xhcount="60">0</span><em>s</em></div><div class="stat__l">Avg. first response</div></div>
       </div>
     </div>
-    <div class="console-wrap reveal d3" aria-hidden="true">
-      <div class="console" id="console">
-        <div class="console__top">
-          <span class="brand"><span class="orb"><img decoding="async" src="https://www.extraaedge.com/wp-content/uploads/integration-icons/vidya-ai-icon.png" alt="VidyaAI" onerror="this.remove();this.parentElement.textContent='V'"></span><span>VidyaAI<small>ADMISSION INTELLIGENCE</small></span></span>
-          <span class="live-dot"><span class="ping"></span>LIVE</span>
-        </div>
-        <div class="feed">
-          <div class="step step--in" id="s1">
-            <div class="step__tag">INBOUND ENQUIRY &middot; <span id="srcChan">WHATSAPP</span></div>
-            <div class="step__txt"><q id="hInbound"></q><div class="src" id="hWho"></div></div>
-          </div>
-          <div class="step step--ai" id="s2">
-            <div class="step__tag">AI CORE <span class="wv"><i></i><i></i><i></i><i></i><i></i></span></div>
-            <div class="step__txt">
-              <div class="think-line" id="t1"><span class="tick">&#10003;</span><span></span></div>
-              <div class="think-line" id="t2"><span class="tick">&#10003;</span><span></span></div>
-              <div class="think-line" id="t3"><span class="tick">&#10003;</span><span></span></div>
-            </div>
-          </div>
-          <div class="step step--ai" id="s3">
-            <div class="step__tag">AI RESPONSE &middot; SENT IN 4s</div>
-            <div class="step__txt"><q id="hReply"></q></div>
-          </div>
-          <div class="step step--ok" id="s4">
-            <div class="step__tag">AUTOPILOT ACTIONS</div>
-            <div class="step__txt"><span class="badge-ok">Qualified &amp; routed</span> &mdash; 0 min of counsellor time</div>
-            <div class="acts"><span class="act" id="a1"></span><span class="act" id="a2"></span><span class="act" id="a3"></span></div>
-          </div>
-        </div>
-        <div class="console__mods">
-          <div class="mods__track" id="modsTrack">
-            <span>&#128203; Lead Manager</span><span>&#128222; AI Calling Agent</span><span>&#128172; WhatsApp Automation</span><span>&#128459; Application Tracker</span><span>&#128202; Funnel Analytics</span><span>&#10022; VidyaGPT</span><span>&#127919; Smart Lead Scoring</span><span>&#9993; Email Journeys</span>
-          </div>
-        </div>
-      </div>
-      <div class="float float--score">
-        <div class="ring">
-          <svg aria-hidden="true" width="54" height="54" viewBox="0 0 54 54">
-            <defs><linearGradient id="xhRingGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#19335D"/><stop offset="100%" stop-color="#DE6E30"/></linearGradient></defs>
-            <circle class="bg" cx="27" cy="27" r="22"/>
-            <circle class="fg" id="ringFg" cx="27" cy="27" r="22"/>
-          </svg>
-          <b id="ringVal">0</b>
-        </div>
-        <div><div class="lbl">LEAD SCORE</div><div class="who" id="ringWho">&mdash;</div></div>
-      </div>
-      <div class="float float--conv">
-        <div class="num"><span id="convNum">0</span></div>
-        <div class="lbl">students converted today</div>
-        <div class="spark">
-          <i style="height:30%;animation-delay:0s"></i><i style="height:55%;animation-delay:.2s"></i>
-          <i style="height:40%;animation-delay:.4s"></i><i style="height:75%;animation-delay:.6s"></i>
-          <i style="height:60%;animation-delay:.8s"></i><i style="height:95%;animation-delay:1s"></i>
-          <i style="height:80%;animation-delay:1.2s"></i><i style="height:100%;animation-delay:1.4s"></i>
-        </div>
-      </div>
+    <style>
+      /* Hero film (VidyaAI cinematic) — isolated in its own frame so its
+         global body styles + generic class names can't touch the homepage. */
+      .hero-film{position:relative;width:100%;border-radius:18px;overflow:hidden;
+        box-shadow:0 30px 80px rgba(25,51,93,.18);border:1px solid rgba(25,51,93,.10);
+        background:#eef1f5}
+      .hero-film__frame{display:block;width:100%;aspect-ratio:16/9;border:0;background:#eef1f5}
+    </style>
+    <div class="hero-film reveal d3" aria-label="VidyaAI — Admission Intelligence film">
+      <iframe class="hero-film__frame"
+        src="<?php echo esc_url( get_template_directory_uri() . '/assets/vidyaai-hero-film.html' ); ?>"
+        title="VidyaAI — Admission Intelligence film" loading="eager"
+        scrolling="no" frameborder="0"></iframe>
     </div>
   </div>
 </section>
