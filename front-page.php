@@ -2049,14 +2049,17 @@ body{
   body{display:block;overflow:hidden;background:#f6f8fb}
   .stage{position:relative!important;transform:none!important;left:auto!important;top:auto!important;width:100%!important;height:auto!important;min-height:100vh;border-radius:0;box-shadow:none}
   .stage::after{-webkit-mask-image:none!important;mask-image:none!important;opacity:.25}
-  .scene{position:absolute!important;inset:0!important;display:none;width:100%;min-height:100vh;height:100%;padding:52px 16px 70px!important;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:11px}
+  .scene{position:absolute!important;inset:0!important;display:none;width:100%;min-height:100vh;height:100%;padding:50px 16px 110px!important;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:11px}
   .scene.active{display:flex!important}
   /* controls hidden on touch — tap the video centre to play/pause */
-  .controls{display:none!important}
+  .controls{display:flex!important;opacity:1!important;visibility:visible!important;left:50%!important;bottom:12px;transform:translateX(-50%)!important;width:calc(100% - 22px);max-width:430px;padding:7px 11px;gap:8px}
+  .cbtn{width:30px;height:30px}.cbtn .ic{width:16px;height:16px}
+  .scrub{height:5px}
+  .time{min-width:56px;font-size:10px}
   .brandtag{top:12px;left:14px}.brandtag .vword{font-size:13px}.brandtag .vmark{width:24px;height:24px}
   .section-eyebrow,.case-eyebrow,.eyebrow{position:static!important;top:auto!important;right:auto!important;left:auto!important;align-self:center;margin:0 0 4px;font-size:9.5px!important;padding:5px 11px!important;letter-spacing:.12em}
   /* caption: compact, max 2 lines, pinned just above the bottom */
-  .caption{display:block!important;position:absolute!important;left:50%!important;right:auto!important;top:auto!important;bottom:14px;transform:translateX(-50%)!important;width:94%;max-width:520px;font-size:clamp(10px,2.9vw,12px)!important;font-weight:600;padding:7px 14px;line-height:1.34;text-align:center;white-space:normal}
+  .caption{display:block!important;position:absolute!important;left:50%!important;right:auto!important;top:auto!important;bottom:60px;transform:translateX(-50%)!important;width:94%;max-width:520px;font-size:clamp(10px,2.9vw,12px)!important;font-weight:600;padding:7px 14px;line-height:1.34;text-align:center;white-space:normal}
   .caption .cdot{display:none!important}
   .s0-head{font-size:clamp(20px,5.2vw,28px)!important;letter-spacing:-.5px!important}
   .s0-sub{font-size:clamp(12px,3vw,14px)!important}
