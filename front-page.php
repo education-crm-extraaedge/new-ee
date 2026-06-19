@@ -2056,7 +2056,8 @@ body{
   .brandtag{top:12px;left:14px}.brandtag .vword{font-size:13px}.brandtag .vmark{width:24px;height:24px}
   .section-eyebrow,.case-eyebrow,.eyebrow{position:static!important;top:auto!important;right:auto!important;left:auto!important;align-self:center;margin:0 0 4px;font-size:9.5px!important;padding:5px 11px!important;letter-spacing:.12em}
   /* caption: compact, max 2 lines, pinned just above the bottom */
-  .caption{display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;position:absolute!important;left:50%!important;right:auto!important;top:auto!important;bottom:16px;transform:translateX(-50%)!important;max-width:92%;font-size:11.5px!important;font-weight:600;padding:7px 14px;line-height:1.35;text-align:center}
+  .caption{display:block!important;position:absolute!important;left:50%!important;right:auto!important;top:auto!important;bottom:14px;transform:translateX(-50%)!important;width:94%;max-width:520px;font-size:clamp(10px,2.9vw,12px)!important;font-weight:600;padding:7px 14px;line-height:1.34;text-align:center;white-space:normal}
+  .caption .cdot{display:none!important}
   .s0-head{font-size:clamp(20px,5.2vw,28px)!important;letter-spacing:-.5px!important}
   .s0-sub{font-size:clamp(12px,3vw,14px)!important}
   .core-wrap{width:160px;height:160px}.core{width:90px;height:90px}#s0 .core{padding:14px 20px}
