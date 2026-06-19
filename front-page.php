@@ -1187,7 +1187,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 #xhero #glsl{position:absolute;inset:0;width:100%;height:100%;z-index:-3;opacity:.6}
 #xhero .hero__veil{position:absolute;inset:0;z-index:-2;background:radial-gradient(110% 80% at 80% 0%,transparent 25%,var(--bg) 72%),linear-gradient(to top,var(--bg) 0%,transparent 30%)}
 #xhero .hero__grid{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--navy-06) 1px,transparent 1px),linear-gradient(90deg,var(--navy-06) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%);mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%)}
-#xhero .hero__in{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) clamp(480px,42vw,640px);gap:56px;align-items:center}
+#xhero .hero__in{position:relative;z-index:1;display:block;max-width:760px}
 #xhero .reveal{opacity:0;transform:translateY(22px);animation:xh-rise .9s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes xh-rise{to{opacity:1;transform:none}}
 #xhero .d1{animation-delay:.05s}#xhero .d2{animation-delay:.16s}#xhero .d3{animation-delay:.27s}#xhero .d4{animation-delay:.38s}#xhero .d5{animation-delay:.5s}#xhero .d6{animation-delay:.64s}
@@ -1340,24 +1340,214 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
         <div class="stat"><div class="stat__n"><span data-xhcount="60">0</span><em>s</em></div><div class="stat__l">Avg. first response</div></div>
       </div>
     </div>
-    <style>
-      /* Hero film (VidyaAI cinematic) — isolated in its own frame so its
-         global body styles + generic class names can't touch the homepage. */
-      .hero-film{position:relative;width:100%;min-width:0;border-radius:20px;overflow:hidden;
-        box-shadow:0 44px 96px rgba(25,51,93,.24), 0 0 0 1px rgba(25,51,93,.07);
-        border:1px solid rgba(25,51,93,.12);background:#eef1f5}
-      .hero-film__frame{display:block;width:100%;aspect-ratio:16/9;border:0;background:#eef1f5}
-      /* Text (left) and film (right) ALWAYS share one row on desktop via the grid. */
-      @media(min-width:1025px){ #xhero .hero-film{min-width:460px} }
-      /* >=1200px: widen the hero band & enlarge the film column so the video is big
-         and prominent on the right — while staying on the same line as the text. */
-      @media(min-width:1200px){
-        #xhero .container{max-width:min(1560px,95vw)}
-        #xhero .hero__in{grid-template-columns:minmax(420px,1fr) clamp(560px,48vw,940px);gap:44px}
-      }
-    </style>
-    <div class="hero-film reveal d3" aria-label="VidyaAI — Admission Intelligence film">
-      <iframe class="hero-film__frame" title="VidyaAI — Admission Intelligence film" loading="eager" scrolling="no" frameborder="0" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
+  </div>
+</section>
+<script>
+/* ===================== HERO — brand edition (scoped IIFE) ===================== */
+(function(){
+const $=s=>document.querySelector(s);
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* 1. WebGL wisps */
+(function(){
+  const cv=$('#glsl'); if(!cv) return; if(reduced){cv.remove();return}
+  const gl=cv.getContext('webgl',{antialias:false,alpha:true});
+  if(!gl){cv.remove();return}
+  const VS=`attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
+  const FS=`precision mediump float;uniform vec2 r;uniform float t;
+  float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+  float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+    return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+  float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=p*2.04+vec2(7.3,3.1);a*=.5;}return v;}
+  void main(){
+    vec2 uv=gl_FragCoord.xy/r; vec2 q=uv; q.x*=r.x/r.y;
+    float T=t*.05;
+    float f=fbm(q*1.5+vec2(T*.8,-T*.5));
+    f=fbm(q*1.2+f*1.4+vec2(-T*.4,T*.3));
+    vec3 white=vec3(1.);
+    vec3 navy=vec3(.098,.2,.365);
+    vec3 orange=vec3(.871,.431,.188);
+    float band=smoothstep(.45,.85,f);
+    float glowTR=smoothstep(.95,.15,distance(uv,vec2(.85,.85)));
+    float glowBL=smoothstep(1.05,.2,distance(uv,vec2(.05,.1)));
+    vec3 col=white;
+    col=mix(col,navy,band*glowTR*.14);
+    col=mix(col,navy,glowTR*.05);
+    col=mix(col,orange,band*glowBL*.10);
+    col=mix(col,orange,glowBL*.04);
+    gl_FragColor=vec4(col,1.);
+  }`;
+  function sh(t,s){const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o}
+  const pr=gl.createProgram();
+  gl.attachShader(pr,sh(gl.VERTEX_SHADER,VS));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FS));
+  gl.linkProgram(pr);gl.useProgram(pr);
+  const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const uR=gl.getUniformLocation(pr,'r'),uT=gl.getUniformLocation(pr,'t');
+  function size(){const d=Math.min(devicePixelRatio||1,1.5);
+    cv.width=innerWidth*d*.7;cv.height=cv.parentElement.offsetHeight*d*.7;
+    gl.viewport(0,0,cv.width,cv.height);gl.uniform2f(uR,cv.width,cv.height);}
+  size();addEventListener('resize',size);
+  let vis=true;new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(cv);
+  (function loop(ts){if(vis){gl.uniform1f(uT,ts/1000);gl.drawArrays(gl.TRIANGLES,0,3);}requestAnimationFrame(loop);})(0);
+})();
+
+/* 2. typed headline */
+(function(){
+  const words=["Into Enrolled Students.","On WhatsApp - in Seconds.","Before Competitors Reply.","With 40% Less Effort."];
+  const el=$('#typed');let w=0,c=0,del=false;
+  if(!el) return; if(reduced){el.textContent=words[0];return}
+  (function tick(){
+    const word=words[w];
+    el.textContent=word.slice(0,c+=del?-1:1);
+    let t=del?34:62;
+    if(!del&&c===word.length){t=2100;del=true}
+    else if(del&&c===0){del=false;w=(w+1)%words.length;t=420}
+    setTimeout(tick,t);
+  })();
+})();
+
+/* 3. counters */
+(function(){
+  const ease=x=>1-Math.pow(1-x,3);
+  function run(el,end,dur){const t0=performance.now();
+    (function f(t){const p=Math.min((t-t0)/dur,1);el.textContent=Math.round(end*ease(p)).toLocaleString();
+      if(p<1)requestAnimationFrame(f)})(t0)}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){run(e.target,+e.target.dataset.xhcount,1400);io.unobserve(e.target)}}),{threshold:.6});
+  document.querySelectorAll('#xhero [data-xhcount]').forEach(el=>io.observe(el));
+  let conv=418;const cEl=$('#convNum'); if(cEl){run(cEl,conv,1600);
+  setInterval(()=>{conv+=Math.random()<.6?1:2;cEl.textContent=conv.toLocaleString()},reduced?9999999:5200);}
+})();
+
+/* 4. VidyaAI journey simulation */
+(function(){
+  if(!$('#s1')) return;
+  const scenarios=[
+    {chan:'WHATSAPP',who:'Riya S. · Pune · 22:41',msg:'Hi! I want to apply for B.Tech CSE but I think I missed the deadline 😟',
+     think:['Intent detected: Admission · B.Tech CSE','Eligibility & late-window policy checked','Scored 92/100 — high intent, hot region'],
+     reply:'Good news, Riya — late applications close Friday! I’ve reserved your slot and sent the form. Want help with documents?',
+     acts:['📅 Call auto-booked · tom 11:00','📄 Application link sent','🔥 Routed to Priya · CSE desk'],score:92,name:'Riya S.'},
+    {chan:'INSTAGRAM DM',who:'Arjun M. · Jaipur · 09:12',msg:'What’s the fee for MBA and do you offer scholarships?',
+     think:['Intent detected: Fees + Scholarship · MBA','Merit-scholarship matrix matched','Scored 78/100 — needs nurturing'],
+     reply:'Hi Arjun! MBA fees start at ₹4.2L/yr — and you may qualify for up to 40% merit scholarship. Shall I check your eligibility in 2 minutes?',
+     acts:['🎓 Scholarship quiz sent','✉️ Brochure delivered','📊 Added to MBA nurture journey'],score:78,name:'Arjun M.'},
+    {chan:'WEBSITE FORM',who:'Fatima K. · Dubai · 17:55',msg:'Interested in B.Sc Nursing for my daughter. Is hostel available for international students?',
+     think:['Intent detected: Parent enquiry · Intl','Hostel + visa docs retrieved','Scored 88/100 — decision-maker'],
+     reply:'Absolutely, Fatima — we have secure girls’ hostels with airport pickup for international students. I’ve emailed the parent guide. Prefer a call this week?',
+     acts:['🌍 Intl. counsellor assigned','🏠 Hostel guide emailed','📞 AI voice follow-up queued'],score:88,name:'Fatima K.'}
+  ];
+  const S=[ $('#s1'),$('#s2'),$('#s3'),$('#s4') ];
+  const T=[ $('#t1'),$('#t2'),$('#t3') ];
+  const ring=$('#ringFg'),ringVal=$('#ringVal'),ringWho=$('#ringWho');
+  const C=138.2; let i=0;
+  const wait=ms=>new Promise(r=>setTimeout(r,ms));
+  async function play(sc){
+    S.forEach(s=>s.classList.remove('on'));
+    T.forEach(t=>{t.classList.remove('done');t.lastElementChild.textContent=''});
+    ['a1','a2','a3'].forEach(id=>{const a=document.getElementById(id);a.classList.remove('on');a.textContent=''});
+    ring.style.strokeDashoffset=C; ringVal.textContent='0';
+    await wait(450);
+    $('#srcChan').textContent=sc.chan;
+    $('#hInbound').textContent=sc.msg;
+    $('#hWho').textContent=sc.who;
+    S[0].classList.add('on'); await wait(900);
+    S[1].classList.add('on');
+    for(let k=0;k<3;k++){T[k].lastElementChild.textContent=sc.think[k];await wait(700);T[k].classList.add('done');}
+    ringWho.textContent=sc.name;
+    ring.style.strokeDashoffset=C*(1-sc.score/100);
+    let sv=0;const si=setInterval(()=>{sv+=2;if(sv>=sc.score){sv=sc.score;clearInterval(si)}ringVal.textContent=sv},22);
+    await wait(700);
+    S[2].classList.add('on');
+    const r=$('#hReply');r.textContent='';
+    if(reduced){r.textContent=sc.reply}
+    else{for(const ch of sc.reply){r.textContent+=ch;await wait(13)}}
+    await wait(800);
+    S[3].classList.add('on');
+    for(let k=0;k<3;k++){const a=document.getElementById('a'+(k+1));a.textContent=sc.acts[k];await wait(380);a.classList.add('on')}
+    await wait(3600);
+  }
+  (async function loop(){for(;;){await play(scenarios[i%scenarios.length]);i++}})();
+})();
+
+/* 5. tilt + magnetic CTA */
+(function(){
+  if(reduced||!matchMedia('(pointer:fine)').matches)return;
+  const card=$('#console'); if(!card) return; const wrap=card.parentElement;
+  wrap.addEventListener('mousemove',e=>{const b=wrap.getBoundingClientRect();
+    const x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;
+    card.style.transform=`rotateY(${x*6}deg) rotateX(${-y*6}deg)`});
+  wrap.addEventListener('mouseleave',()=>card.style.transform='');
+  const m=$('#magnet'); if(!m) return;
+  m.addEventListener('mousemove',e=>{const b=m.getBoundingClientRect();
+    m.style.transform=`translate(${(e.clientX-b.left-b.width/2)*.18}px,${(e.clientY-b.top-b.height/2)*.3}px)`});
+  m.addEventListener('mouseleave',()=>m.style.transform='');
+})();
+})();
+</script>
+
+<!-- ═══ LOGO MARQUEE · styles ═══ -->
+<style id="trusted-institutions-style">
+#trusted-institutions{
+  --font-h:'Poppins',sans-serif;
+  padding:10px 0;background:#fff;font-family:'Inter',sans-serif;overflow:hidden;
+  border-top:1px solid rgba(25,51,93,.08);border-bottom:1px solid rgba(25,51,93,.08);
+}
+#trusted-institutions .logo-header{max-width:780px;margin:0 auto 18px;text-align:center;padding:0 24px}
+#trusted-institutions .logo-badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#DE6E30;background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.18);padding:7px 16px;border-radius:99px;margin-bottom:12px}
+#trusted-institutions .logo-title{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(23px,3.4vw,40px);line-height:1.12;letter-spacing:-.02em;color:#19335D;margin:4px 0 10px}
+#trusted-institutions .logo-sub{font-size:clamp(14.5px,1.6vw,17px);line-height:1.6;color:rgba(25,51,93,.66);max-width:640px;margin:0 auto}
+#trusted-institutions .logo-sub strong{color:#19335D;font-weight:700}
+
+#trusted-institutions .marquee-wrap{overflow:hidden;padding:6px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+#trusted-institutions .marquee-track{display:flex;gap:26px;width:max-content;align-items:center;will-change:transform}
+#trusted-institutions .marquee-left{animation:ti-scroll-l 45s linear infinite}
+#trusted-institutions .marquee-right{animation:ti-scroll-r 45s linear infinite}
+#trusted-institutions .marquee-wrap:hover .marquee-track{animation-play-state:paused}
+@keyframes ti-scroll-l{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes ti-scroll-r{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+#trusted-institutions .logo-card{flex:none;width:170px;height:86px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;display:grid;place-items:center;padding:16px;transition:.3s}
+#trusted-institutions .logo-card:hover{border-color:#DE6E30;transform:translateY(-4px)}
+#trusted-institutions .logo-card img{max-height:54px;width:auto;object-fit:contain;filter:grayscale(100%);opacity:.7;transition:.3s}
+#trusted-institutions .logo-card:hover img{filter:none;opacity:1}
+
+#trusted-institutions .logo-footer{display:flex;flex-direction:column;align-items:center;gap:13px;margin-top:18px;padding:0 24px;text-align:center}
+#trusted-institutions .btn-primary{display:inline-flex;align-items:center;gap:8px;background:#DE6E30;color:#fff;font-weight:700;font-size:15px;padding:13px 28px;border-radius:99px;text-decoration:none;box-shadow:0 8px 24px rgba(222,110,48,.28);transition:.25s}
+#trusted-institutions .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(222,110,48,.36)}
+#trusted-institutions .live-indicator{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(25,51,93,.7)}
+#trusted-institutions .green-dot{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.5);animation:ti-pulse 1.8s infinite}
+@keyframes ti-pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 9px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(25,51,93,.12),transparent);max-width:1240px;margin:0 auto}
+
+@media (prefers-reduced-motion:reduce){#trusted-institutions .marquee-track,#trusted-institutions .green-dot{animation:none}}
+@media (max-width:600px){#trusted-institutions .logo-card{width:132px;height:72px;padding:12px}#trusted-institutions .logo-card img{max-height:44px}}
+</style>
+<!-- ═══ LOGO MARQUEE ═══ -->
+
+<!-- ===================== VIDYAAI FILM · full-width feature ===================== -->
+<style>
+  #vidya-film{padding:66px 0 70px;background:linear-gradient(180deg,#ffffff,#f6f8fb)}
+  #vidya-film .vf-wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  #vidya-film .vf-head{text-align:center;max-width:760px;margin:0 auto 34px}
+  #vidya-film .vf-eyebrow{display:inline-flex;align-items:center;gap:8px;font:700 12.5px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#DE6E30;margin-bottom:14px}
+  #vidya-film .vf-eyebrow i{width:8px;height:8px;border-radius:50%;background:#DE6E30;display:inline-block}
+  #vidya-film .vf-head h2{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.02em;line-height:1.1;color:#19335D;margin:0 0 12px}
+  #vidya-film .vf-head p{color:rgba(25,51,93,.6);font-size:clamp(15px,1.6vw,18px);margin:0;line-height:1.6}
+  #vidya-film .vf-frame{position:relative;width:100%;border-radius:24px;overflow:hidden;
+    box-shadow:0 54px 120px rgba(25,51,93,.26),0 0 0 1px rgba(25,51,93,.07);border:1px solid rgba(25,51,93,.10);background:#eef1f5}
+  #vidya-film .hero-film__frame{display:block;width:100%;aspect-ratio:16/9;border:0;background:#eef1f5}
+  @media(max-width:560px){#vidya-film{padding:46px 0 50px}#vidya-film .vf-wrap{padding:0 16px}}
+</style>
+<section id="vidya-film" aria-label="VidyaAI — Admission Intelligence film">
+  <div class="vf-wrap">
+    <div class="vf-head">
+      <span class="vf-eyebrow"><i></i> See VidyaAI in action</span>
+      <h2>Watch VidyaAI run your admissions — live</h2>
+      <p>From the first enquiry to enrolled: every lead answered, qualified and followed up automatically, 24/7.</p>
+    </div>
+    <div class="vf-frame">
+            <iframe class="hero-film__frame" title="VidyaAI — Admission Intelligence film" loading="eager" scrolling="no" frameborder="0" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
 <meta charset=&quot;UTF-8&quot;>
@@ -2397,188 +2587,7 @@ if(!location.search.includes('sync')) start();    // normal viewing: autoplay
     </div>
   </div>
 </section>
-<script>
-/* ===================== HERO — brand edition (scoped IIFE) ===================== */
-(function(){
-const $=s=>document.querySelector(s);
-const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* 1. WebGL wisps */
-(function(){
-  const cv=$('#glsl'); if(!cv) return; if(reduced){cv.remove();return}
-  const gl=cv.getContext('webgl',{antialias:false,alpha:true});
-  if(!gl){cv.remove();return}
-  const VS=`attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
-  const FS=`precision mediump float;uniform vec2 r;uniform float t;
-  float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-  float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
-    return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
-  float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=p*2.04+vec2(7.3,3.1);a*=.5;}return v;}
-  void main(){
-    vec2 uv=gl_FragCoord.xy/r; vec2 q=uv; q.x*=r.x/r.y;
-    float T=t*.05;
-    float f=fbm(q*1.5+vec2(T*.8,-T*.5));
-    f=fbm(q*1.2+f*1.4+vec2(-T*.4,T*.3));
-    vec3 white=vec3(1.);
-    vec3 navy=vec3(.098,.2,.365);
-    vec3 orange=vec3(.871,.431,.188);
-    float band=smoothstep(.45,.85,f);
-    float glowTR=smoothstep(.95,.15,distance(uv,vec2(.85,.85)));
-    float glowBL=smoothstep(1.05,.2,distance(uv,vec2(.05,.1)));
-    vec3 col=white;
-    col=mix(col,navy,band*glowTR*.14);
-    col=mix(col,navy,glowTR*.05);
-    col=mix(col,orange,band*glowBL*.10);
-    col=mix(col,orange,glowBL*.04);
-    gl_FragColor=vec4(col,1.);
-  }`;
-  function sh(t,s){const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o}
-  const pr=gl.createProgram();
-  gl.attachShader(pr,sh(gl.VERTEX_SHADER,VS));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FS));
-  gl.linkProgram(pr);gl.useProgram(pr);
-  const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
-  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
-  const loc=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
-  const uR=gl.getUniformLocation(pr,'r'),uT=gl.getUniformLocation(pr,'t');
-  function size(){const d=Math.min(devicePixelRatio||1,1.5);
-    cv.width=innerWidth*d*.7;cv.height=cv.parentElement.offsetHeight*d*.7;
-    gl.viewport(0,0,cv.width,cv.height);gl.uniform2f(uR,cv.width,cv.height);}
-  size();addEventListener('resize',size);
-  let vis=true;new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(cv);
-  (function loop(ts){if(vis){gl.uniform1f(uT,ts/1000);gl.drawArrays(gl.TRIANGLES,0,3);}requestAnimationFrame(loop);})(0);
-})();
-
-/* 2. typed headline */
-(function(){
-  const words=["Into Enrolled Students.","On WhatsApp - in Seconds.","Before Competitors Reply.","With 40% Less Effort."];
-  const el=$('#typed');let w=0,c=0,del=false;
-  if(!el) return; if(reduced){el.textContent=words[0];return}
-  (function tick(){
-    const word=words[w];
-    el.textContent=word.slice(0,c+=del?-1:1);
-    let t=del?34:62;
-    if(!del&&c===word.length){t=2100;del=true}
-    else if(del&&c===0){del=false;w=(w+1)%words.length;t=420}
-    setTimeout(tick,t);
-  })();
-})();
-
-/* 3. counters */
-(function(){
-  const ease=x=>1-Math.pow(1-x,3);
-  function run(el,end,dur){const t0=performance.now();
-    (function f(t){const p=Math.min((t-t0)/dur,1);el.textContent=Math.round(end*ease(p)).toLocaleString();
-      if(p<1)requestAnimationFrame(f)})(t0)}
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){run(e.target,+e.target.dataset.xhcount,1400);io.unobserve(e.target)}}),{threshold:.6});
-  document.querySelectorAll('#xhero [data-xhcount]').forEach(el=>io.observe(el));
-  let conv=418;const cEl=$('#convNum'); if(cEl){run(cEl,conv,1600);
-  setInterval(()=>{conv+=Math.random()<.6?1:2;cEl.textContent=conv.toLocaleString()},reduced?9999999:5200);}
-})();
-
-/* 4. VidyaAI journey simulation */
-(function(){
-  if(!$('#s1')) return;
-  const scenarios=[
-    {chan:'WHATSAPP',who:'Riya S. · Pune · 22:41',msg:'Hi! I want to apply for B.Tech CSE but I think I missed the deadline 😟',
-     think:['Intent detected: Admission · B.Tech CSE','Eligibility & late-window policy checked','Scored 92/100 — high intent, hot region'],
-     reply:'Good news, Riya — late applications close Friday! I’ve reserved your slot and sent the form. Want help with documents?',
-     acts:['📅 Call auto-booked · tom 11:00','📄 Application link sent','🔥 Routed to Priya · CSE desk'],score:92,name:'Riya S.'},
-    {chan:'INSTAGRAM DM',who:'Arjun M. · Jaipur · 09:12',msg:'What’s the fee for MBA and do you offer scholarships?',
-     think:['Intent detected: Fees + Scholarship · MBA','Merit-scholarship matrix matched','Scored 78/100 — needs nurturing'],
-     reply:'Hi Arjun! MBA fees start at ₹4.2L/yr — and you may qualify for up to 40% merit scholarship. Shall I check your eligibility in 2 minutes?',
-     acts:['🎓 Scholarship quiz sent','✉️ Brochure delivered','📊 Added to MBA nurture journey'],score:78,name:'Arjun M.'},
-    {chan:'WEBSITE FORM',who:'Fatima K. · Dubai · 17:55',msg:'Interested in B.Sc Nursing for my daughter. Is hostel available for international students?',
-     think:['Intent detected: Parent enquiry · Intl','Hostel + visa docs retrieved','Scored 88/100 — decision-maker'],
-     reply:'Absolutely, Fatima — we have secure girls’ hostels with airport pickup for international students. I’ve emailed the parent guide. Prefer a call this week?',
-     acts:['🌍 Intl. counsellor assigned','🏠 Hostel guide emailed','📞 AI voice follow-up queued'],score:88,name:'Fatima K.'}
-  ];
-  const S=[ $('#s1'),$('#s2'),$('#s3'),$('#s4') ];
-  const T=[ $('#t1'),$('#t2'),$('#t3') ];
-  const ring=$('#ringFg'),ringVal=$('#ringVal'),ringWho=$('#ringWho');
-  const C=138.2; let i=0;
-  const wait=ms=>new Promise(r=>setTimeout(r,ms));
-  async function play(sc){
-    S.forEach(s=>s.classList.remove('on'));
-    T.forEach(t=>{t.classList.remove('done');t.lastElementChild.textContent=''});
-    ['a1','a2','a3'].forEach(id=>{const a=document.getElementById(id);a.classList.remove('on');a.textContent=''});
-    ring.style.strokeDashoffset=C; ringVal.textContent='0';
-    await wait(450);
-    $('#srcChan').textContent=sc.chan;
-    $('#hInbound').textContent=sc.msg;
-    $('#hWho').textContent=sc.who;
-    S[0].classList.add('on'); await wait(900);
-    S[1].classList.add('on');
-    for(let k=0;k<3;k++){T[k].lastElementChild.textContent=sc.think[k];await wait(700);T[k].classList.add('done');}
-    ringWho.textContent=sc.name;
-    ring.style.strokeDashoffset=C*(1-sc.score/100);
-    let sv=0;const si=setInterval(()=>{sv+=2;if(sv>=sc.score){sv=sc.score;clearInterval(si)}ringVal.textContent=sv},22);
-    await wait(700);
-    S[2].classList.add('on');
-    const r=$('#hReply');r.textContent='';
-    if(reduced){r.textContent=sc.reply}
-    else{for(const ch of sc.reply){r.textContent+=ch;await wait(13)}}
-    await wait(800);
-    S[3].classList.add('on');
-    for(let k=0;k<3;k++){const a=document.getElementById('a'+(k+1));a.textContent=sc.acts[k];await wait(380);a.classList.add('on')}
-    await wait(3600);
-  }
-  (async function loop(){for(;;){await play(scenarios[i%scenarios.length]);i++}})();
-})();
-
-/* 5. tilt + magnetic CTA */
-(function(){
-  if(reduced||!matchMedia('(pointer:fine)').matches)return;
-  const card=$('#console'); if(!card) return; const wrap=card.parentElement;
-  wrap.addEventListener('mousemove',e=>{const b=wrap.getBoundingClientRect();
-    const x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;
-    card.style.transform=`rotateY(${x*6}deg) rotateX(${-y*6}deg)`});
-  wrap.addEventListener('mouseleave',()=>card.style.transform='');
-  const m=$('#magnet'); if(!m) return;
-  m.addEventListener('mousemove',e=>{const b=m.getBoundingClientRect();
-    m.style.transform=`translate(${(e.clientX-b.left-b.width/2)*.18}px,${(e.clientY-b.top-b.height/2)*.3}px)`});
-  m.addEventListener('mouseleave',()=>m.style.transform='');
-})();
-})();
-</script>
-
-<!-- ═══ LOGO MARQUEE · styles ═══ -->
-<style id="trusted-institutions-style">
-#trusted-institutions{
-  --font-h:'Poppins',sans-serif;
-  padding:10px 0;background:#fff;font-family:'Inter',sans-serif;overflow:hidden;
-  border-top:1px solid rgba(25,51,93,.08);border-bottom:1px solid rgba(25,51,93,.08);
-}
-#trusted-institutions .logo-header{max-width:780px;margin:0 auto 18px;text-align:center;padding:0 24px}
-#trusted-institutions .logo-badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#DE6E30;background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.18);padding:7px 16px;border-radius:99px;margin-bottom:12px}
-#trusted-institutions .logo-title{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(23px,3.4vw,40px);line-height:1.12;letter-spacing:-.02em;color:#19335D;margin:4px 0 10px}
-#trusted-institutions .logo-sub{font-size:clamp(14.5px,1.6vw,17px);line-height:1.6;color:rgba(25,51,93,.66);max-width:640px;margin:0 auto}
-#trusted-institutions .logo-sub strong{color:#19335D;font-weight:700}
-
-#trusted-institutions .marquee-wrap{overflow:hidden;padding:6px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
-#trusted-institutions .marquee-track{display:flex;gap:26px;width:max-content;align-items:center;will-change:transform}
-#trusted-institutions .marquee-left{animation:ti-scroll-l 45s linear infinite}
-#trusted-institutions .marquee-right{animation:ti-scroll-r 45s linear infinite}
-#trusted-institutions .marquee-wrap:hover .marquee-track{animation-play-state:paused}
-@keyframes ti-scroll-l{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes ti-scroll-r{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-
-#trusted-institutions .logo-card{flex:none;width:170px;height:86px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;display:grid;place-items:center;padding:16px;transition:.3s}
-#trusted-institutions .logo-card:hover{border-color:#DE6E30;transform:translateY(-4px)}
-#trusted-institutions .logo-card img{max-height:54px;width:auto;object-fit:contain;filter:grayscale(100%);opacity:.7;transition:.3s}
-#trusted-institutions .logo-card:hover img{filter:none;opacity:1}
-
-#trusted-institutions .logo-footer{display:flex;flex-direction:column;align-items:center;gap:13px;margin-top:18px;padding:0 24px;text-align:center}
-#trusted-institutions .btn-primary{display:inline-flex;align-items:center;gap:8px;background:#DE6E30;color:#fff;font-weight:700;font-size:15px;padding:13px 28px;border-radius:99px;text-decoration:none;box-shadow:0 8px 24px rgba(222,110,48,.28);transition:.25s}
-#trusted-institutions .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(222,110,48,.36)}
-#trusted-institutions .live-indicator{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(25,51,93,.7)}
-#trusted-institutions .green-dot{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.5);animation:ti-pulse 1.8s infinite}
-@keyframes ti-pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 9px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
-.section-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(25,51,93,.12),transparent);max-width:1240px;margin:0 auto}
-
-@media (prefers-reduced-motion:reduce){#trusted-institutions .marquee-track,#trusted-institutions .green-dot{animation:none}}
-@media (max-width:600px){#trusted-institutions .logo-card{width:132px;height:72px;padding:12px}#trusted-institutions .logo-card img{max-height:44px}}
-</style>
-<!-- ═══ LOGO MARQUEE ═══ -->
 <section class="logo-section" id="trusted-institutions" aria-label="Trusted Institutions">
   <div class="logo-header reveal">
     <div class="logo-badge">Leading Institutions</div>
