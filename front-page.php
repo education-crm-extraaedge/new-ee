@@ -1187,7 +1187,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 #xhero #glsl{position:absolute;inset:0;width:100%;height:100%;z-index:-3;opacity:.6}
 #xhero .hero__veil{position:absolute;inset:0;z-index:-2;background:radial-gradient(110% 80% at 80% 0%,transparent 25%,var(--bg) 72%),linear-gradient(to top,var(--bg) 0%,transparent 30%)}
 #xhero .hero__grid{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--navy-06) 1px,transparent 1px),linear-gradient(90deg,var(--navy-06) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%);mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%)}
-#xhero .hero__in{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(400px,470px);gap:48px;align-items:center}
+#xhero .hero__in{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(440px,540px);gap:48px;align-items:center}
 #xhero .reveal{opacity:0;transform:translateY(22px);animation:xh-rise .9s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes xh-rise{to{opacity:1;transform:none}}
 #xhero .d1{animation-delay:.05s}#xhero .d2{animation-delay:.16s}#xhero .d3{animation-delay:.27s}#xhero .d4{animation-delay:.38s}#xhero .d5{animation-delay:.5s}#xhero .d6{animation-delay:.64s}
@@ -1560,7 +1560,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <!-- ===================== VIDYAAI FILM · full-width feature ===================== -->
 <style>
   #vidya-film{padding:66px 0 70px;background:linear-gradient(180deg,#ffffff,#f6f8fb)}
-  #vidya-film .vf-wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  #vidya-film .vf-wrap{max-width:1320px;margin:0 auto;padding:0 24px}
   #vidya-film .vf-head{text-align:center;max-width:760px;margin:0 auto 34px}
   #vidya-film .vf-eyebrow{display:inline-flex;align-items:center;gap:8px;font:700 12.5px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#DE6E30;margin-bottom:14px}
   #vidya-film .vf-eyebrow i{width:8px;height:8px;border-radius:50%;background:#DE6E30;display:inline-block}
