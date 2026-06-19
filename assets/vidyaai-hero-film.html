@@ -487,7 +487,11 @@ body{
   .enrolled .badge{font-size:clamp(26px,6.6vw,36px)}.enrolled .sub{font-size:10px}
   .metrics{grid-template-columns:repeat(2,1fr)!important;max-width:360px;gap:10px}
   .metric{padding:13px 9px}.metric .v{font-size:clamp(18px,4.8vw,23px)!important}.metric .l{font-size:9.5px}.metric .mic{width:32px;height:32px;margin-bottom:8px}
-  .ecosystem{width:240px!important;max-width:78vw}.eco-core{width:80px;height:80px}.eco-core b{font-size:14px}.eco-core small{font-size:8px}.mod{font-size:9.5px;padding:5px 8px}
+  .ecosystem{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%!important;max-width:320px;height:auto!important;aspect-ratio:auto!important}
+  .eco-ring{display:none!important}
+  .eco-core{grid-column:1/-1;justify-self:center;width:80px;height:80px;margin:0 auto 6px}
+  .eco-core b{font-size:14px}.eco-core small{font-size:8px}
+  .mod{position:static!important;transform:none!important;left:auto!important;top:auto!important;opacity:1!important;animation:none!important;justify-content:center;font-size:9.5px;padding:6px 8px}
   .logo-final{flex-direction:column!important;gap:8px}.logo-word{font-size:clamp(24px,6.6vw,36px)!important}.logo-final .vmark{width:46px!important;height:46px!important}
   .final-head{font-size:clamp(19px,5.2vw,29px)!important}.final-sub{font-size:clamp(12px,3vw,14px)!important}
   .cta{font-size:13px;padding:11px 20px}
