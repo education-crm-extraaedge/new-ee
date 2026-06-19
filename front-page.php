@@ -1187,7 +1187,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 #xhero #glsl{position:absolute;inset:0;width:100%;height:100%;z-index:-3;opacity:.6}
 #xhero .hero__veil{position:absolute;inset:0;z-index:-2;background:radial-gradient(110% 80% at 80% 0%,transparent 25%,var(--bg) 72%),linear-gradient(to top,var(--bg) 0%,transparent 30%)}
 #xhero .hero__grid{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--navy-06) 1px,transparent 1px),linear-gradient(90deg,var(--navy-06) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%);mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%)}
-#xhero .hero__in{position:relative;z-index:1;display:grid;grid-template-columns:1.06fr .94fr;gap:56px;align-items:center}
+#xhero .hero__in{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) clamp(480px,42vw,640px);gap:56px;align-items:center}
 #xhero .reveal{opacity:0;transform:translateY(22px);animation:xh-rise .9s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes xh-rise{to{opacity:1;transform:none}}
 #xhero .d1{animation-delay:.05s}#xhero .d2{animation-delay:.16s}#xhero .d3{animation-delay:.27s}#xhero .d4{animation-delay:.38s}#xhero .d5{animation-delay:.5s}#xhero .d6{animation-delay:.64s}
@@ -1285,8 +1285,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 #xhero .spark i{width:5px;border-radius:2px;background:linear-gradient(to top,var(--org-25),var(--orange));animation:xh-sp 2.6s ease-in-out infinite}
 @keyframes xh-sp{0%,100%{transform:scaleY(.6)}50%{transform:scaleY(1)}}
 @media(max-width:1024px){
-  #xhero .hero__in{grid-template-columns:1fr;gap:84px}
+  #xhero .hero__in{grid-template-columns:1fr;gap:48px}
   #xhero .console-wrap{max-width:560px;margin:0 auto}
+  #xhero .hero-film{max-width:640px;margin:0 auto}
   #xhero .stats{grid-template-columns:repeat(2,auto);gap:18px 40px}
   #xhero .stat:nth-child(odd)+.stat::before{display:none}
 }
@@ -1342,10 +1343,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     <style>
       /* Hero film (VidyaAI cinematic) — isolated in its own frame so its
          global body styles + generic class names can't touch the homepage. */
-      .hero-film{position:relative;width:100%;border-radius:18px;overflow:hidden;
-        box-shadow:0 30px 80px rgba(25,51,93,.18);border:1px solid rgba(25,51,93,.10);
-        background:#eef1f5}
+      .hero-film{position:relative;width:100%;min-width:0;border-radius:20px;overflow:hidden;
+        box-shadow:0 44px 96px rgba(25,51,93,.24), 0 0 0 1px rgba(25,51,93,.07);
+        border:1px solid rgba(25,51,93,.12);background:#eef1f5}
       .hero-film__frame{display:block;width:100%;aspect-ratio:16/9;border:0;background:#eef1f5}
+      @media(min-width:1025px){ /* keep the film prominent & stable on desktop */
+        .hero-film{min-width:480px} }
     </style>
     <div class="hero-film reveal d3" aria-label="VidyaAI — Admission Intelligence film">
       <iframe class="hero-film__frame" title="VidyaAI — Admission Intelligence film" loading="eager" scrolling="no" frameborder="0" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
