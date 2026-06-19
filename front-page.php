@@ -1183,7 +1183,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   background:var(--bg);color:var(--navy);font-family:var(--font);-webkit-font-smoothing:antialiased}
 #xhero *{margin:0;padding:0;box-sizing:border-box}
 #xhero a{text-decoration:none;color:inherit}
-#xhero .container{max-width:1320px;margin:0 auto;padding:0 32px}
+#xhero .container{max-width:1400px;margin:0 auto;padding:0 32px}
 #xhero #glsl{position:absolute;inset:0;width:100%;height:100%;z-index:-3;opacity:.6}
 #xhero .hero__veil{position:absolute;inset:0;z-index:-2;background:radial-gradient(110% 80% at 80% 0%,transparent 25%,var(--bg) 72%),linear-gradient(to top,var(--bg) 0%,transparent 30%)}
 #xhero .hero__grid{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--navy-06) 1px,transparent 1px),linear-gradient(90deg,var(--navy-06) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%);mask-image:radial-gradient(75% 60% at 50% 38%,#000 0%,transparent 100%)}
@@ -1347,21 +1347,27 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       #xhero .hero-form-card::after{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;background:linear-gradient(140deg,rgba(222,110,48,.5),transparent 40%,transparent 60%,rgba(25,51,93,.4));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55}
       #xhero .hero-form-card::before{content:"Book a Free Demo";position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#E8843F 0%,#DE6E30 55%,#C2541C 100%);color:#fff;padding:7px 20px;border-radius:999px;font-weight:700;font-size:11px;letter-spacing:.04em;white-space:nowrap;box-shadow:0 18px 44px -14px rgba(222,110,48,.55)}
       #xhero .secure-label{text-align:center;margin-top:18px;font-size:10.5px;color:rgba(25,51,93,.5);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-      /* ── EE form-7 widget: force light theme + proper stacked layout (same as product page) ── */
-      #ee-form-7 label{color:#19335D!important;font-weight:600!important;font-size:13px!important;margin-bottom:6px!important;display:block!important}
-      #ee-form-7 input[type="text"],#ee-form-7 input[type="email"],#ee-form-7 input[type="tel"],#ee-form-7 input[type="url"],#ee-form-7 input[type="number"],#ee-form-7 select,#ee-form-7 textarea{background-color:#fff!important;color:#19335D!important;border:1px solid #e2e8f0!important;border-radius:10px!important;padding:12px 14px!important;font-size:14px!important;font-family:'Inter',sans-serif!important;width:100%!important;box-shadow:none!important;transition:border-color .2s,box-shadow .2s!important}
+      /* ── EE form-7 widget: FORCE clean single-column layout (overrides global page CSS + widget internals) ── */
+      #ee-form-7,#ee-form-7 *{box-sizing:border-box!important}
+      #ee-form-7 form{display:block!important;width:100%!important}
+      #ee-form-7 form>div,#ee-form-7 form>div>div{display:block!important;width:100%!important;max-width:100%!important;float:none!important;grid-template-columns:1fr!important;margin-bottom:12px!important}
+      #ee-form-7 h1,#ee-form-7 h2,#ee-form-7 h3,#ee-form-7 h4{line-height:1.2!important;margin:0 0 4px!important;text-align:center!important}
+      #ee-form-7 p{line-height:1.45!important;margin:0 0 14px!important}
+      #ee-form-7 label{display:block!important;float:none!important;width:auto!important;max-width:100%!important;text-align:left!important;color:#19335D!important;font-weight:600!important;font-size:13px!important;margin:0 0 6px!important}
+      #ee-form-7 input[type="text"],#ee-form-7 input[type="email"],#ee-form-7 input[type="tel"],#ee-form-7 input[type="url"],#ee-form-7 input[type="number"],#ee-form-7 select,#ee-form-7 textarea{display:block!important;float:none!important;background-color:#fff!important;color:#19335D!important;border:1px solid #e2e8f0!important;border-radius:10px!important;padding:12px 14px!important;font-size:14px!important;font-family:'Inter',sans-serif!important;width:100%!important;max-width:100%!important;box-shadow:none!important;transition:border-color .2s,box-shadow .2s!important}
       #ee-form-7 input:focus,#ee-form-7 select:focus,#ee-form-7 textarea:focus{outline:none!important;border-color:#DE6E30!important;box-shadow:0 0 0 3px rgba(222,110,48,.12)!important}
       #ee-form-7 input::placeholder,#ee-form-7 textarea::placeholder{color:#94a3b8!important;opacity:1!important}
-      #ee-form-7 input[type="submit"],#ee-form-7 button[type="submit"]{background-color:#DE6E30!important;color:#fff!important;border:none!important;border-radius:12px!important;padding:14px 28px!important;font-size:15px!important;font-weight:700!important;font-family:'Inter',sans-serif!important;width:100%!important;cursor:pointer!important;transition:all .3s!important;box-shadow:0 8px 20px rgba(222,110,48,.25)!important}
+      #ee-form-7 input[type="submit"],#ee-form-7 button[type="submit"]{display:block!important;background-color:#DE6E30!important;color:#fff!important;border:none!important;border-radius:12px!important;padding:14px 28px!important;font-size:15px!important;font-weight:700!important;font-family:'Inter',sans-serif!important;width:100%!important;cursor:pointer!important;transition:all .3s!important;box-shadow:0 8px 20px rgba(222,110,48,.25)!important}
       #ee-form-7 input[type="submit"]:hover,#ee-form-7 button[type="submit"]:hover{background-color:#c85d20!important;transform:translateY(-2px)!important;box-shadow:0 12px 28px rgba(222,110,48,.35)!important}
+      /* phone field (intl-tel-input) — restored AFTER the block resets so the +91 flag sits correctly */
       #ee-form-7 .iti,#ee-form-7 .iti__country-list{background-color:#fff!important;color:#19335D!important}
-      #ee-form-7 .iti{width:100%!important;display:block!important;position:relative}
+      #ee-form-7 .iti{position:relative!important;display:block!important;width:100%!important}
       #ee-form-7 .iti input[type="tel"]{padding-left:78px!important;width:100%!important}
       #ee-form-7 .iti__flag-container{position:absolute!important;top:0;bottom:0;left:0;z-index:2;display:flex!important;align-items:center}
       #ee-form-7 .iti__selected-flag{height:100%!important;padding:0 8px 0 14px!important;background:transparent!important;border-right:1px solid rgba(25,51,93,.10)!important;display:flex!important;align-items:center;gap:6px}
       #ee-form-7 .iti__selected-dial-code{color:#19335D!important;font-weight:700;font-size:.95rem}
+      #ee-form-7 .iti__country-list{position:absolute!important;z-index:5!important}
       #ee-form-7 .iti__arrow{margin-left:4px!important}
-      #ee-form-7 form>div{margin-bottom:12px!important}
       @media(max-width:1024px){#xhero .hero-form-aside{max-width:540px;margin:0 auto}}
       @media(max-width:480px){#xhero .hero-form-card{padding:24px 20px}}
     </style>
