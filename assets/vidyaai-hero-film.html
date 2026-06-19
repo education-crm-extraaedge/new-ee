@@ -437,6 +437,38 @@ body{
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001s!important;animation-iteration-count:1!important}
 }
+/* ===== MOBILE / TABLET (<=768px): fluid, fully-readable, nothing cropped ===== */
+@media (max-width:768px){
+  body{display:block;overflow:visible;background:#f6f8fb}
+  .stage{position:static!important;transform:none!important;left:auto!important;top:auto!important;width:100%!important;height:auto!important;border-radius:0;box-shadow:none}
+  .stage::after{-webkit-mask-image:none!important;mask-image:none!important;opacity:.3}
+  .scene{position:static!important;inset:auto!important;display:none;width:100%;min-height:auto!important;height:auto!important;padding:58px 18px 96px!important;flex-direction:column;align-items:center;text-align:center}
+  .scene.active{display:flex!important}
+  .caption{display:none!important}
+  .controls{position:static!important;transform:none!important;left:auto!important;margin:12px auto 0;width:calc(100% - 28px)}
+  .brandtag{top:14px;left:16px}
+  .section-eyebrow,.case-eyebrow{position:static!important;top:auto!important;right:auto!important;left:auto!important;align-self:center;margin:0 0 6px}
+  .s0-head{font-size:clamp(25px,7vw,40px)!important}
+  .s0-sub{font-size:clamp(14px,3.7vw,17px)!important}
+  .core-wrap{width:210px;height:210px}
+  .s2-top{flex-direction:column;gap:12px;align-items:center;max-width:440px}
+  .s2-stats{flex-wrap:wrap;justify-content:center;gap:10px}
+  .netviz{height:320px!important;max-width:340px!important;width:100%!important}
+  .s3-grid{grid-template-columns:1fr!important;gap:18px!important;max-width:480px}
+  .reason-cloud{max-width:100%!important;justify-content:center}
+  .verdict{min-width:0!important;width:100%;max-width:300px}
+  .case{grid-template-columns:1fr!important;gap:16px!important;max-width:460px}
+  .phone{width:100%;max-width:440px;margin:0 auto}
+  .case-side{width:100%;max-width:440px}
+  .funnel{flex-wrap:wrap!important;gap:8px!important;max-width:430px}
+  .farrow{display:none!important}
+  .metrics{grid-template-columns:repeat(2,1fr)!important;max-width:440px;gap:12px}
+  .ecosystem{width:300px!important;max-width:86vw}
+  .logo-final{flex-direction:column!important;gap:10px}
+  .logo-word{font-size:clamp(30px,8vw,42px)!important}
+  .final-head{font-size:clamp(23px,6.2vw,38px)!important}
+  .final-sub{font-size:clamp(14px,3.7vw,17px)!important}
+}
 </style>
 </head>
 <body>
@@ -922,16 +954,20 @@ const btnSound  = document.getElementById('btnSound');
 const STAGE_W=1280, STAGE_H=720;
 function fitStage(){
   if(location.search.includes('sync')) return;   // render harness sizes the stage itself
-  const vw=window.innerWidth, vh=window.innerHeight;
-  // <=768px (phones/tablets): COVER the frame so the perfectly-rendered canvas
-  //   reads large (slight side crop). >768px: CONTAIN (fit fully, no crop).
-  const s = vw<=768 ? Math.max(vw/STAGE_W, vh/STAGE_H)
-                    : Math.min(vw/STAGE_W, vh/STAGE_H, 1);
+  if(window.innerWidth<=768){                     // mobile/tablet: fluid CSS layout owns sizing
+    stage.style.position='static'; stage.style.left=''; stage.style.top='';
+    stage.style.transform='none';
+    postHeight();
+    return;
+  }
+  const s=Math.min(window.innerWidth/STAGE_W, window.innerHeight/STAGE_H, 1);
   stage.style.position='fixed';
   stage.style.left='50%';
   stage.style.top='50%';
   stage.style.transform='translate(-50%,-50%) scale('+s+')';
 }
+/* report the fluid film height so the parent can grow the iframe (no clipping) */
+function postHeight(){ try{ if(window.innerWidth<=768){ parent.postMessage({__vfilm:1, h: Math.ceil(document.documentElement.scrollHeight)}, '*'); } }catch(e){} }
 window.addEventListener('resize',fitStage,{passive:true});
 window.addEventListener('orientationchange',fitStage);
 fitStage();
@@ -960,6 +996,7 @@ function activate(i){
   if(sc.id==='s3') perScene.push(setTimeout(countVerdict,1750));
   sceneSound(sc.id);                   // scene-matched SFX choreography
   curIndex=i;
+  requestAnimationFrame(postHeight);   // grow the parent iframe to this scene
 }
 
 const fmt=ms=>'0:'+String(Math.floor(ms/1000)).padStart(2,'0');
