@@ -2771,6 +2771,140 @@ if(!location.search.includes('sync')) start();    // normal viewing: autoplay
     </div>
   </div>
 </section>
+<!-- ===================== PREMIUM BENTO · ADMISSION OS (2026 redesign) ===================== -->
+<style>
+#ee-os{--nv:#19335D;--nv2:#22467c;--or:#DE6E30;--or2:#E8843F;--bg:#F8FAFC;--ink:#0F1F3A;--mut:#5A6B85;--line:rgba(25,51,93,.09);--glass:rgba(255,255,255,.7);position:relative;padding:clamp(72px,9vw,128px) 0;background:linear-gradient(180deg,#fff 0%,var(--bg) 40%,#fff 100%);overflow:hidden;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+#ee-os *{box-sizing:border-box}
+#ee-os .eeos-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+#ee-os .eeos-blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5}
+#ee-os .eeos-blob.b1{width:540px;height:540px;top:-160px;right:-120px;background:radial-gradient(circle,rgba(222,110,48,.28),transparent 70%)}
+#ee-os .eeos-blob.b2{width:600px;height:600px;bottom:-220px;left:-160px;background:radial-gradient(circle,rgba(25,51,93,.22),transparent 70%)}
+#ee-os .eeos-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(25,51,93,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(25,51,93,.04) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(70% 55% at 50% 35%,#000,transparent 80%);mask-image:radial-gradient(70% 55% at 50% 35%,#000,transparent 80%)}
+#ee-os .eeos-wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 24px}
+#ee-os .eeos-head{max-width:720px;margin:0 auto clamp(40px,5vw,64px);text-align:center}
+#ee-os .eeos-eyebrow{display:inline-flex;align-items:center;gap:9px;font:700 12px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:var(--nv);background:var(--glass);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:999px;padding:9px 16px;box-shadow:0 4px 14px rgba(25,51,93,.06)}
+#ee-os .eeos-dot{width:7px;height:7px;border-radius:50%;background:var(--or);box-shadow:0 0 0 4px rgba(222,110,48,.18)}
+#ee-os .eeos-head h2{font-weight:800;font-size:clamp(30px,4.6vw,52px);line-height:1.06;letter-spacing:-.035em;color:var(--nv);margin:20px 0 16px}
+#ee-os .eeos-head h2 em{font-style:normal;background:linear-gradient(100deg,var(--or),var(--nv2));-webkit-background-clip:text;background-clip:text;color:transparent}
+#ee-os .eeos-head p{font-size:clamp(16px,1.7vw,18.5px);line-height:1.65;color:var(--mut)}
+/* bento grid */
+#ee-os .eeos-bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(176px,auto);gap:18px}
+#ee-os .eeos-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:0 10px 30px -16px rgba(25,51,93,.16);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;overflow:hidden;will-change:transform}
+#ee-os .eeos-card:hover{transform:translateY(-6px);box-shadow:0 28px 60px -24px rgba(25,51,93,.32);border-color:rgba(222,110,48,.4)}
+#ee-os .eeos-card:focus-within{outline:2px solid var(--or);outline-offset:3px}
+#ee-os .eeos-card .eeos-ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(150deg,rgba(25,51,93,.08),rgba(222,110,48,.1));color:var(--nv);margin-bottom:16px}
+#ee-os .eeos-card .eeos-ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#ee-os .eeos-card h3{font-weight:700;font-size:19px;letter-spacing:-.01em;color:var(--nv);margin:0 0 7px}
+#ee-os .eeos-card p{font-size:14.5px;line-height:1.6;color:var(--mut);margin:0}
+#ee-os .eeos-card .eeos-tag{margin-top:auto;padding-top:16px;font-size:12.5px;font-weight:700;color:var(--or);display:inline-flex;align-items:center;gap:7px}
+#ee-os .eeos-c1{grid-column:span 2;grid-row:span 2}
+#ee-os .eeos-c4{grid-column:span 2}
+#ee-os .eeos-c7{grid-column:span 2}
+#ee-os .eeos-c8{grid-column:span 4}
+/* dark hero card */
+#ee-os .eeos-card--dark{background:radial-gradient(120% 120% at 80% 0%,#22467c,#19335D 55%,#122548);border-color:rgba(255,255,255,.1);color:#fff;justify-content:flex-end}
+#ee-os .eeos-card--dark::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 85% 12%,rgba(222,110,48,.32),transparent 60%);pointer-events:none}
+#ee-os .eeos-card--dark .eeos-ic{background:rgba(255,255,255,.1);color:var(--or2)}
+#ee-os .eeos-card--dark h3{color:#fff;font-size:clamp(22px,2.6vw,30px);margin-bottom:12px}
+#ee-os .eeos-card--dark p{color:rgba(255,255,255,.78);font-size:15.5px;max-width:30ch}
+#ee-os .eeos-card--dark .eeos-bignum{position:relative;font-weight:800;font-size:clamp(40px,6vw,72px);letter-spacing:-.04em;line-height:1;background:linear-gradient(100deg,#fff,#E8843F);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:4px}
+#ee-os .eeos-card--dark .eeos-bignum small{font-size:.4em;color:rgba(255,255,255,.6);-webkit-text-fill-color:rgba(255,255,255,.6);font-weight:600;margin-left:6px}
+/* CTA strip card */
+#ee-os .eeos-card--cta{flex-direction:row;align-items:center;justify-content:space-between;gap:24px;background:linear-gradient(120deg,#fff,#FDF3EC);flex-wrap:wrap}
+#ee-os .eeos-card--cta h3{font-size:clamp(20px,2.4vw,26px);margin:0}
+#ee-os .eeos-card--cta p{margin-top:4px}
+#ee-os .eeos-btn{display:inline-flex;align-items:center;gap:10px;background:var(--or);color:#fff;font-weight:700;font-size:15px;padding:14px 26px;border-radius:13px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.5);transition:transform .25s,box-shadow .25s;cursor:pointer;white-space:nowrap}
+#ee-os .eeos-btn:hover{transform:translateY(-3px);box-shadow:0 20px 40px -10px rgba(222,110,48,.6)}
+#ee-os .eeos-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* reveal initial (JS-driven; visible by default for no-JS / a11y) */
+#ee-os [data-eeos-reveal]{opacity:1}
+/* responsive */
+@media(max-width:1024px){
+  #ee-os .eeos-bento{grid-template-columns:repeat(2,1fr)}
+  #ee-os .eeos-c1{grid-column:span 2;grid-row:span 1}
+  #ee-os .eeos-c4,#ee-os .eeos-c7{grid-column:span 2}
+  #ee-os .eeos-c8{grid-column:span 2}
+}
+@media(max-width:560px){
+  #ee-os .eeos-bento{grid-template-columns:1fr;gap:14px}
+  #ee-os .eeos-c1,#ee-os .eeos-c4,#ee-os .eeos-c7,#ee-os .eeos-c8{grid-column:span 1}
+  #ee-os .eeos-card{padding:22px;border-radius:20px}
+  #ee-os .eeos-card--cta{flex-direction:column;align-items:flex-start;text-align:left}
+  #ee-os .eeos-card--cta .eeos-btn{width:100%;justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){#ee-os *{transition:none!important;animation:none!important}}
+</style>
+<section id="ee-os" aria-label="The complete Admission Operating System">
+  <div class="eeos-bg" aria-hidden="true"><span class="eeos-blob b1"></span><span class="eeos-blob b2"></span><span class="eeos-grid"></span></div>
+  <div class="eeos-wrap">
+    <header class="eeos-head" data-eeos-reveal>
+      <span class="eeos-eyebrow"><span class="eeos-dot"></span> The Admission Operating System</span>
+      <h2>Every tool your team needs — <em>in one intelligent platform.</em></h2>
+      <p>From first enquiry to enrolled, ExtraaEdge unifies capture, AI engagement, scoring and analytics — so nothing leaks and no lead ever goes cold.</p>
+    </header>
+    <div class="eeos-bento">
+      <article class="eeos-card eeos-card--dark eeos-c1" tabindex="0" data-eeos-reveal>
+        <div class="eeos-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div class="eeos-bignum">2.4&times;<small>faster conversions</small></div>
+        <h3>AI Lead Scoring</h3>
+        <p>Every lead scored 0&ndash;100 on real buying intent — your counsellors always call the hottest applicant first.</p>
+      </article>
+      <article class="eeos-card eeos-c2" tabindex="0" data-eeos-reveal>
+        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.5 7.3L3 21l2.2-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg></div>
+        <h3>WhatsApp Automation</h3>
+        <p>Verified, personalised conversations at scale — official Business API.</p>
+      </article>
+      <article class="eeos-card eeos-c3" tabindex="0" data-eeos-reveal>
+        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div>
+        <h3>AI Calling Agent</h3>
+        <p>Calls every new lead in seconds and books counselling slots — 24/7.</p>
+      </article>
+      <article class="eeos-card eeos-c4" tabindex="0" data-eeos-reveal>
+        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></div>
+        <h3>Counsellor Intelligence</h3>
+        <p>Live performance, smart routing by language &amp; course, and warm, fully-briefed handovers — your team closes faster with full context.</p>
+        <span class="eeos-tag">Real-time dashboards &rarr;</span>
+      </article>
+      <article class="eeos-card eeos-c5" tabindex="0" data-eeos-reveal>
+        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8"/></svg></div>
+        <h3>Application Tracking</h3>
+        <p>Every application stage, document &amp; fee in one pipeline.</p>
+      </article>
+      <article class="eeos-card eeos-c6" tabindex="0" data-eeos-reveal>
+        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 2 5-7"/></svg></div>
+        <h3>Funnel Analytics</h3>
+        <p>Source-to-enrolment ROI, in real time.</p>
+      </article>
+      <article class="eeos-card eeos-c7" tabindex="0" data-eeos-reveal>
+        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 14l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6z"/></svg></div>
+        <h3>VidyaGPT &middot; 24/7 AI Agent</h3>
+        <p>Answers fees, courses, scholarships &amp; deadlines instantly across web and WhatsApp — in 95+ languages — and hands hot leads to your team.</p>
+        <span class="eeos-tag">Meet VidyaAI &rarr;</span>
+      </article>
+      <article class="eeos-card eeos-card--cta eeos-c8" data-eeos-reveal>
+        <div>
+          <h3>See the entire platform working on your funnel.</h3>
+          <p>A 30-minute walkthrough mapped to your courses, sources &amp; team.</p>
+        </div>
+        <a href="#demo" class="eeos-btn">Book a Free Demo <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script>
+window.addEventListener('load',function(){
+  var els=document.querySelectorAll('#ee-os [data-eeos-reveal]');
+  if(!els.length) return;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce||!window.gsap||!window.ScrollTrigger){els.forEach(function(e){e.style.opacity=1;e.style.transform='none';});return;}
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.set(els,{opacity:0,y:36});
+  ScrollTrigger.batch(els,{start:'top 86%',once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:.85,ease:'power3.out',stagger:.09});}});
+});
+</script>
+
 <section class="logo-section" id="trusted-institutions" aria-label="Trusted Institutions">
   <div class="logo-header reveal">
     <div class="logo-badge">Leading Institutions</div>
