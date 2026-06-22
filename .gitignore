@@ -7,3 +7,8 @@ node_modules/
 
 # OS / editor cruft
 .DS_Store
+
+# QA / Playwright artifacts
+.playwright-mcp/
+*-desktop.png
+*-mobile.png
