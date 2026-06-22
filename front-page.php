@@ -6762,4 +6762,50 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
    logo/card boxes already reserve space, so media stops shifting layout. */
 .ee-home img{height:auto}
 </style>
+<!-- ===================== GLOBAL PREMIUM MOTION + POLISH PASS ===================== -->
+<style>
+  html{scroll-behavior:smooth}
+  html,body{overflow-x:clip}
+  /* scroll progress bar (brand gradient) */
+  #ee-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:99999;background:linear-gradient(90deg,#19335D,#DE6E30);box-shadow:0 0 12px rgba(222,110,48,.45);pointer-events:none;transition:width .08s linear}
+  /* section scroll-reveal — class is added by JS only, so no-JS users always see content */
+  .ee-reveal{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}
+  .ee-reveal.ee-in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    #ee-progress{display:none}
+    .ee-reveal{opacity:1!important;transform:none!important;transition:none!important}
+  }
+</style>
+<div id="ee-progress" aria-hidden="true"></div>
+<script>
+(function(){
+  /* ---- scroll progress bar ---- */
+  var bar=document.getElementById('ee-progress');
+  if(bar){
+    var tick=function(){
+      var d=document.documentElement, sc=d.scrollTop||document.body.scrollTop, max=(d.scrollHeight-d.clientHeight)||1;
+      bar.style.width=Math.min(100,(sc/max*100))+'%';
+    };
+    window.addEventListener('scroll',tick,{passive:true});
+    window.addEventListener('resize',tick,{passive:true}); tick();
+  }
+  /* ---- premium section scroll-reveal (IntersectionObserver, 60fps) ---- */
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce||!('IntersectionObserver' in window)) return;     // a11y / old browser: content stays visible
+  var skip={xhero:1,'vidya-film':1,'ee-os':1};                // these animate themselves
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('ee-in'); io.unobserve(e.target); } });
+  },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+  var vh=window.innerHeight||document.documentElement.clientHeight;
+  [].forEach.call(document.querySelectorAll('section[id]'),function(sec){
+    if(skip[sec.id]) return;
+    var r=sec.getBoundingClientRect();
+    if(r.top < vh*0.9) return;                                // already in/near view -> never hide
+    sec.classList.add('ee-reveal');
+    io.observe(sec);
+  });
+})();
+</script>
+
 <?php get_footer(); ?>
