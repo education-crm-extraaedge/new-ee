@@ -2,5 +2,8 @@
 vidyaai-theme.zip
 *.zip
 
+# Node
+node_modules/
+
 # OS / editor cruft
 .DS_Store
