@@ -2632,7 +2632,7 @@ body.vg-open .vg-launch{display:none}
       var target=document.querySelector(st.sel);
       if(!target){ tSpot.style.opacity='0'; return; }
       tSpot.style.opacity='';
-      try{ target.scrollIntoView({block:'center',behavior:'auto'}); }catch(e){}
+      try{ var __mn=document.getElementById('main'); if(__mn&amp;&amp;__mn.contains(target)){ var __mr=__mn.getBoundingClientRect(),__tr=target.getBoundingClientRect(); __mn.scrollTop += (__tr.top-__mr.top) - (__mn.clientHeight/2 - __tr.height/2); } }catch(e){}
       setTimeout(function(){
         var r=target.getBoundingClientRect(), pad=6;
         tSpot.style.left=(r.left-pad)+'px'; tSpot.style.top=(r.top-pad)+'px'; tSpot.style.width=(r.width+pad*2)+'px'; tSpot.style.height=(r.height+pad*2)+'px';
@@ -2665,11 +2665,19 @@ body.vg-open .vg-launch{display:none}
   var tResizeT=null;
   window.addEventListener('resize',function(){ if(tRun){ clearTimeout(tResizeT); tResizeT=setTimeout(function(){ tPlace(tIdx); },150); } });
   $('#main').addEventListener('click',function(){ if(tRun) tStop(); });
-  function tBoot(){ if(!tReduce){ setTimeout(function(){ if(!tRun &amp;&amp; tIdx<0) tStart(); },1000); } else { document.body.classList.add('tour-on'); tPlace(0); } }
-  if('IntersectionObserver' in window){
-    var tio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ tBoot(); tio.disconnect(); } }); },{threshold:.25});
-    tio.observe(document.querySelector('.app'));
-  } else { tBoot(); }
+  function tBoot(){ if(!tReduce){ setTimeout(function(){ if(!tRun &amp;&amp; tIdx<0) tStart(); },800); } else { document.body.classList.add('tour-on'); tPlace(0); } }
+  var __standalone=(window.self===window.top);
+  if(__standalone){
+    if('IntersectionObserver' in window){
+      var tio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ tBoot(); tio.disconnect(); } }); },{threshold:.25});
+      tio.observe(document.querySelector('.app'));
+    } else { tBoot(); }
+  } else {
+    window.addEventListener('message',function(e){ var d=e.data;
+      if(d==='ee-tour-start'){ if(!tRun) tStart(); }
+      else if(d==='ee-tour-stop'){ if(tRun) tStop(); }
+    });
+  }
 })();
 </script>
 <script>
@@ -2745,6 +2753,24 @@ body.vg-open .vg-launch{display:none}
     </div>
   </div>
 </section>
+<script>
+/* Run the platform demo's guided tour ONLY while the section is on screen,
+   so the iframe never scroll-jumps the page back while the user reads on. */
+(function(){
+  var sec=document.getElementById('ee-platform'); if(!sec) return;
+  var fr=sec.querySelector('.eep-frame'); if(!fr) return;
+  var inView=false, loaded=false;
+  function send(m){ try{ if(fr.contentWindow) fr.contentWindow.postMessage(m,'*'); }catch(e){} }
+  fr.addEventListener('load',function(){ loaded=true; send(inView?'ee-tour-start':'ee-tour-stop'); });
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+      var nowIn=e.isIntersecting && e.intersectionRatio>=0.35;
+      if(nowIn!==inView){ inView=nowIn; if(loaded) send(inView?'ee-tour-start':'ee-tour-stop'); }
+    }); },{threshold:[0,0.35,0.6]});
+    io.observe(sec);
+  }
+})();
+</script>
 <!-- ===================== PREMIUM BENTO · ADMISSION OS (2026 redesign) ===================== -->
 <style>
 #ee-os{--nv:#19335D;--nv2:#22467c;--or:#DE6E30;--or2:#E8843F;--bg:#F8FAFC;--ink:#0F1F3A;--mut:#5A6B85;--line:rgba(25,51,93,.09);--glass:rgba(255,255,255,.7);position:relative;padding:clamp(72px,9vw,128px) 0;background:linear-gradient(180deg,#fff 0%,var(--bg) 40%,#fff 100%);overflow:hidden;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
