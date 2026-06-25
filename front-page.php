@@ -6761,10 +6761,6 @@ function startFeed() {
           <li><span class="ck">✓</span><div><b>No obligation, no credit card</b> — just answers and a clear path to more enrolments.</div></li>
         </ul>
         <div class="dbadges">
-          <img decoding="async" class="dbadge-img" src="https://www.extraaedge.com/wp-content/uploads/integration-icons/iso%20certified%20logo.png" alt="ISO 27001 Certified" loading="lazy">
-          <img decoding="async" class="dbadge-img" src="https://www.extraaedge.com/wp-content/uploads/integration-icons/GDPR%20logo%20.png" alt="GDPR Compliant" loading="lazy">
-          <img decoding="async" class="dbadge-img" src="https://www.extraaedge.com/wp-content/uploads/integration-icons/india-data-residency-logo.png" alt="India Data Residency" loading="lazy">
-          <img decoding="async" class="dbadge-img" src="https://www.extraaedge.com/wp-content/uploads/integration-icons/role-based-acccess-logo.png" alt="Role-Based Access" loading="lazy">
           <div class="drating"><span class="st">★★★★★</span> 4.7/5 on G2 &amp; Capterra</div>
         </div>
       </div>
