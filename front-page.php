@@ -6856,7 +6856,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   var skip={xhero:1,'vidya-film':1,'ee-os':1};                // these animate themselves
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('ee-in'); io.unobserve(e.target); } });
-  },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+  },{threshold:0,rootMargin:'0px 0px -12% 0px'});
   var vh=window.innerHeight||document.documentElement.clientHeight;
   [].forEach.call(document.querySelectorAll('section[id]'),function(sec){
     if(skip[sec.id]) return;
