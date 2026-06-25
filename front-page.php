@@ -1636,7 +1636,1112 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     </header>
     <div class="eep-window">
       <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span></div>
-      <iframe class="eep-frame" src="<?php echo esc_url( get_template_directory_uri() . '/assets/laxmi-platform.html' ); ?>" title="ExtraaEdge — Lead Management Platform (interactive demo)" loading="lazy"></iframe>
+      <iframe class="eep-frame" title="ExtraaEdge — Lead Management Platform (interactive demo)" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot; />
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, viewport-fit=cover&quot; />
+<title>Laxmi | Lead Management Platform — ExtraaEdge (Interactive Replica)</title>
+<meta name=&quot;description&quot; content=&quot;Fully functional, all-device-friendly interactive replica of the ExtraaEdge (Laxmi) Lead Management Platform — every module from the reference screenshots.&quot; />
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot; />
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin />
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot; />
+<style>
+:root{
+  --o:#f47b20; --o-d:#dc6912; --o-soft:#fdeede; --o-soft2:#fff5ec; --o-line:#f6c9a3;
+  --nav:#1f3a63; --nav-2:#2a4a7a; --ink:#2b3445; --mut:#6b7589; --dim:#94a0b4;
+  --line:#e6e9ef; --line-2:#dce1ea; --paper:#f4f5f7; --white:#fff; --head:#3a4256;
+  --grn:#2faf6a; --grn-soft:#e7f7ee; --red:#e0564a; --blue:#2f74d0;
+  --f1:#f47b20; --f2:#f1c40f; --f3:#48b3a0; --f4:#7ed09a; --f5:#1f6fb2; --f6:#e87b6b; --f7:#f4e08a;
+  --sb:248px; --top:58px;
+  --sh:0 1px 3px rgba(25,40,70,.07),0 1px 2px rgba(25,40,70,.04);
+  --sh-md:0 8px 28px -12px rgba(25,40,70,.28);
+  --f:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--f);color:var(--ink);background:var(--paper);font-size:14px;-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:#c9d0db;border-radius:9px;border:2px solid var(--paper)}
+::-webkit-scrollbar-thumb:hover{background:#b3bccb}
+.app{display:grid;grid-template-columns:var(--sb) 1fr;grid-template-rows:var(--top) 1fr;
+  grid-template-areas:&quot;brand top&quot; &quot;side main&quot;;height:100vh;height:100dvh}
+.brand{grid-area:brand;display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);background:var(--white)}
+.brand .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:19px;letter-spacing:-.02em}
+.brand .logo-img{height:30px;width:auto;display:block}
+.brand .logo .gx{display:flex;gap:2px}
+.brand .logo .gx i{width:13px;height:13px;border-radius:3px;display:block}
+.brand .logo .gx i:nth-child(1){background:var(--o)}
+.brand .logo .gx i:nth-child(2){background:var(--nav)}
+.brand .logo b{color:var(--nav);font-weight:800}
+.brand .logo b em{color:var(--o);font-style:normal}
+.brand .burger{margin-left:auto;display:none;width:34px;height:34px;border-radius:8px;align-items:center;justify-content:center;color:var(--nav)}
+.brand .burger:hover{background:var(--paper)}
+.top{grid-area:top;display:flex;align-items:center;gap:14px;padding:0 18px;background:var(--white);border-bottom:1px solid var(--line);position:relative;z-index:20}
+.search{display:flex;align-items:center;background:var(--white);border:1px solid var(--line-2);border-radius:7px;height:36px;max-width:520px;flex:1}
+.search .gsel{display:flex;align-items:center;gap:5px;padding:0 11px;height:100%;border-right:1px solid var(--line);color:var(--nav);font-weight:600;font-size:12.5px;white-space:nowrap}
+.search .gsel svg{width:12px;height:12px}
+.search input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-family:inherit;font-size:13px;padding:0 11px;color:var(--ink)}
+.search input::placeholder{color:var(--dim)}
+.search .mag{padding:0 12px;color:var(--dim)}
+.search .mag svg{width:15px;height:15px;display:block}
+.top .acts{margin-left:auto;display:flex;align-items:center;gap:16px}
+.iconbtn{position:relative;color:var(--nav);display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px}
+.iconbtn:hover{background:var(--paper)}
+.iconbtn svg{width:19px;height:19px}
+.iconbtn .dot{position:absolute;top:-3px;right:-4px;background:#e23b3b;color:#fff;font-size:9px;font-weight:700;line-height:1;border-radius:999px;padding:2px 4px;min-width:15px;text-align:center}
+.top .timer{display:flex;align-items:center;gap:6px;color:var(--mut);font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.top .timer svg{width:14px;height:14px}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#e2603a,#c0421f);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;border:2px solid #fff;box-shadow:0 0 0 1px var(--line-2)}
+.side{grid-area:side;background:var(--white);border-right:1px solid var(--line);overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;padding:8px 0}
+.side>.nav,.side>.submenu,.side>.ticket,.side .subnav{flex-shrink:0}
+.nav{display:flex;align-items:center;gap:12px;padding:11px 18px;font-size:13.5px;font-weight:500;color:#56607a;width:100%;text-align:left;border-left:3px solid transparent;transition:background .15s,color .15s}
+.nav:hover{background:#fafbfc;color:var(--nav)}
+.nav.on{background:var(--o-soft);color:var(--o-d);font-weight:600;border-left-color:var(--o)}
+.nav svg{width:18px;height:18px;flex:none;stroke-width:1.8}
+.nav .cnt{margin-left:auto;background:var(--grn);color:#fff;font-size:10px;font-weight:700;border-radius:999px;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.nav .chev{margin-left:auto;transition:transform .2s}
+.nav .chev svg{width:14px;height:14px}
+.nav.exp .chev{transform:rotate(90deg)}
+.submenu{overflow:hidden;max-height:0;transition:max-height .28s ease}
+.submenu.open{max-height:320px}
+.subnav{display:flex;align-items:center;gap:10px;padding:9px 18px 9px 46px;font-size:12.5px;color:#697389;width:100%;text-align:left;border-left:3px solid transparent;transition:background .15s,color .15s}
+.subnav:hover{background:#fafbfc;color:var(--nav)}
+.subnav.on{color:var(--o-d);font-weight:600;background:var(--o-soft2);border-left-color:var(--o)}
+.subnav i{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.45;flex:none}
+.side .spacer{flex:1}
+.side .ticket{display:flex;align-items:center;gap:11px;padding:13px 18px;border-top:1px solid var(--line);color:var(--nav);font-weight:600;font-size:13px}
+.side .ticket svg{width:17px;height:17px}
+.side .ticket:hover{background:#fafbfc}
+.scrim{position:fixed;inset:0;background:rgba(20,30,50,.4);z-index:40;opacity:0;visibility:hidden;transition:opacity .25s}
+.scrim.show{opacity:1;visibility:visible}
+.main{grid-area:main;overflow-y:auto;overflow-x:hidden;background:var(--paper);position:relative}
+.view{display:none;padding:20px 26px 60px;animation:fade .3s ease;min-height:100%}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.vhead{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.vhead h1{font-size:20px;font-weight:700;color:var(--head)}
+.vhead h1 .back{margin-right:8px;color:var(--mut);cursor:pointer}
+.vhead .right{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;border-radius:7px;padding:9px 15px;border:1px solid var(--line-2);background:#fff;color:var(--nav);transition:.15s}
+.btn:hover{border-color:var(--o-line);color:var(--o-d)}
+.btn.pri{background:var(--o);border-color:var(--o);color:#fff}
+.btn.pri:hover{background:var(--o-d);color:#fff}
+.btn svg{width:14px;height:14px}
+.ctrls{display:flex;align-items:center;gap:11px;margin-bottom:16px;flex-wrap:wrap}
+.ctrls .filtbtn{width:34px;height:34px;border-radius:7px;border:1px solid var(--line-2);background:#fff;color:var(--o);display:flex;align-items:center;justify-content:center}
+.ctrls .filtbtn svg{width:15px;height:15px}
+.ctrls .right{margin-left:auto;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+.synced{display:inline-flex;align-items:center;gap:7px;background:var(--o-soft);border:1px solid var(--o-line);color:var(--o-d);font-size:11.5px;font-weight:600;border-radius:7px;padding:7px 11px}
+.synced svg{width:14px;height:14px}
+.synced u{text-decoration:underline;cursor:pointer}
+.select,.daterange{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line-2);border-radius:7px;padding:8px 12px;font-size:12.5px;color:var(--ink);min-width:170px;justify-content:space-between;cursor:pointer}
+.select svg,.daterange svg{width:13px;height:13px;color:var(--mut)}
+.daterange{color:var(--o-d);font-weight:600;min-width:auto}
+.daterange .ar{color:var(--grn)}
+.statcards{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.statcard{background:#fff;border-radius:8px;box-shadow:var(--sh);min-width:260px;flex:0 1 320px;overflow:hidden;border-bottom:3px solid var(--nav)}
+.statcard .h{display:flex;align-items:center;gap:8px;padding:13px 16px 4px;font-weight:700;color:var(--head);font-size:14px}
+.statcard .h .rf{margin-left:auto;color:var(--o);cursor:pointer}
+.statcard .h .rf svg{width:14px;height:14px;display:block}
+.statcard .rows{padding:6px 16px 16px}
+.statcard .r{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;font-size:13px;color:var(--mut)}
+.statcard .r b{color:var(--ink);font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
+.statcard .r.big b{font-size:26px;font-weight:800;color:var(--nav)}
+.statcard.two .grid{display:grid;grid-template-columns:1fr 1fr;gap:2px 22px;padding:6px 16px 16px}
+.tabbar{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none;background:#fff;border-radius:8px 8px 0 0}
+.tabbar::-webkit-scrollbar{display:none}
+.tab{flex:none;padding:13px 22px;font-size:13px;font-weight:600;color:var(--mut);border-bottom:3px solid transparent;white-space:nowrap;transition:.15s}
+.tab:hover{color:var(--nav)}
+.tab.on{color:var(--o-d);border-bottom-color:var(--o)}
+.subtabbar{display:flex;background:#fff;border:1px solid var(--line);border-top:0;overflow-x:auto;scrollbar-width:none}
+.subtabbar::-webkit-scrollbar{display:none}
+.subtab{flex:1;min-width:150px;padding:13px 16px;font-size:12.5px;font-weight:600;color:var(--mut);text-align:center;border-right:1px solid var(--line);position:relative;white-space:nowrap}
+.subtab:last-child{border-right:0}
+.subtab.on{color:var(--o-d)}
+.subtab.on::after{content:&quot;&quot;;position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--o)}
+.panel{background:#fff;border:1px solid var(--line);border-top:0;border-radius:0 0 8px 8px;padding:18px}
+.panel .toolbar{display:flex;justify-content:flex-end;gap:14px;color:var(--mut);margin-bottom:6px}
+.panel .toolbar svg{width:16px;height:16px;cursor:pointer}
+.panel .toolbar svg:hover{color:var(--o)}
+.funnel-wrap{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}
+.funnel{flex:1;min-width:280px}
+.funnel .total{font-size:30px;font-weight:800;color:var(--nav);margin-bottom:10px}
+.fbar{height:34px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;clip-path:polygon(0 0,100% 0,96% 100%,4% 100%);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.legend{display:flex;flex-direction:column;gap:9px;min-width:170px}
+.legend .li{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--mut)}
+.legend .li i{width:11px;height:11px;border-radius:3px;flex:none}
+.legend .li b{margin-left:auto;color:var(--ink);font-weight:700}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:7px}
+table.tbl{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px}
+table.tbl thead th{background:#8b93a5;color:#fff;font-weight:600;text-align:left;padding:12px 14px;white-space:nowrap;position:sticky;top:0}
+table.tbl thead th.num,table.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.tbl tbody td{padding:11px 14px;border-bottom:1px solid var(--line);color:var(--ink);white-space:nowrap}
+table.tbl tbody tr:nth-child(even){background:#fafbfc}
+table.tbl tbody tr:hover{background:var(--o-soft2)}
+table.tbl tbody tr.tot{font-weight:700;background:#f1f3f7}
+table.tbl tbody tr.tot:hover{background:#f1f3f7}
+table.tbl tr.hl{background:var(--o-soft)!important}
+table.tbl .exp{color:var(--mut);cursor:pointer;user-select:none;margin-right:5px;display:inline-block;width:12px}
+table.tbl .ind{display:inline-block}
+.badge{font-size:10.5px;font-weight:700;border-radius:5px;padding:3px 9px;white-space:nowrap}
+.badge.done{background:#2b3445;color:#fff}
+.badge.draft{background:#fff;color:var(--mut);border:1px solid var(--line-2)}
+.badge.green{display:inline-flex;align-items:center;gap:5px;background:var(--grn-soft);color:var(--grn);border:1px solid #bfe8d1}
+.badge.green::before{content:&quot;&quot;;width:6px;height:6px;border-radius:50%;background:var(--grn)}
+.actcell{display:flex;gap:10px;color:var(--o)}
+.actcell svg{width:16px;height:16px;cursor:pointer}
+.actcell .del{color:var(--red)}
+.toggle{width:34px;height:18px;border-radius:999px;background:var(--o);position:relative;display:inline-block;cursor:pointer}
+.toggle::after{content:&quot;&quot;;position:absolute;top:2px;right:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:.2s}
+.toggle.off{background:#c9d0db}
+.toggle.off::after{right:auto;left:2px}
+.pager{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:16px;color:var(--mut);font-size:12.5px}
+.pager button{width:28px;height:28px;border-radius:6px;border:1px solid var(--line-2);background:#fff;color:var(--mut);font-weight:600}
+.pager button.on{background:var(--o);border-color:var(--o);color:#fff}
+.pager button:hover:not(.on){border-color:var(--o-line);color:var(--o-d)}
+.lm-tabs{display:flex;gap:2px;border-bottom:2px solid var(--line);overflow-x:auto;scrollbar-width:none;margin-bottom:14px}
+.lm-tabs::-webkit-scrollbar{display:none}
+.lm-tab{flex:none;padding:11px 16px;font-size:12.5px;font-weight:600;color:var(--mut);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;border-radius:6px 6px 0 0;transition:.15s}
+.lm-tab:hover{background:#fff;color:var(--nav)}
+.lm-tab.on{color:#fff;background:var(--o);border-bottom-color:var(--o-d)}
+.lm-pill{border:1px solid var(--line-2);background:#fff;border-radius:7px;padding:8px 14px;font-size:12.5px;font-weight:600;color:var(--nav)}
+.lm-pill:hover{border-color:var(--o-line);color:var(--o-d)}
+.lm-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin-bottom:12px;flex-wrap:wrap}
+.lm-toolbar .tb{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--o);background:var(--o-soft2);border:1px solid var(--o-line)}
+.lm-toolbar .tb.plain{color:var(--mut);background:#fff;border-color:var(--line-2)}
+.lm-toolbar .tb:hover{background:var(--o);color:#fff}
+.lm-toolbar .tb svg{width:15px;height:15px}
+.lm-sort{display:flex;align-items:center;gap:6px;color:var(--o);font-weight:600;font-size:12.5px;margin:0 auto 12px 0;cursor:pointer}
+.lm-sort svg{width:15px;height:15px}
+.lead{background:#fff;border:1px solid var(--line);border-radius:8px;margin-bottom:12px;box-shadow:var(--sh);overflow:hidden}
+.lead-head{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer}
+.lead-head .chk{width:17px;height:17px;border:1.5px solid var(--line-2);border-radius:4px;flex:none}
+.lead-head .name{min-width:160px}
+.lead-head .name b{font-weight:700;color:var(--nav);font-size:14px;display:flex;align-items:center;gap:7px}
+.lead-head .name b .ct{background:var(--o-soft);color:var(--o-d);border:1px solid var(--o-line);border-radius:999px;font-size:10px;padding:1px 7px;font-weight:700}
+.lead-head .name span{color:var(--mut);font-size:12px}
+.lead-head .status{margin:0 auto}
+.lead-head .status .s1{background:#2b3445;color:#fff;font-size:11px;font-weight:600;padding:4px 12px;border-radius:4px 4px 0 0;display:block;text-align:center}
+.lead-head .status .s2{background:var(--o-soft);color:var(--o-d);font-size:11px;font-weight:600;padding:3px 12px;border-radius:0 0 4px 4px;display:block;text-align:center;border:1px solid var(--o-line);border-top:0}
+.lead-head .metrics{display:flex;align-items:center;gap:14px;color:var(--mut);font-size:12px}
+.lead-head .metrics .m{display:flex;align-items:center;gap:5px}
+.lead-head .metrics .m svg{width:15px;height:15px}
+.lead-head .viewall{color:var(--o);font-weight:600;font-size:12px}
+.lead-head .kebab,.lead-head .caret{color:var(--mut);display:flex;align-items:center}
+.lead-head .kebab svg,.lead-head .caret svg{width:17px;height:17px}
+.lead-head .caret{transition:transform .25s}
+.lead.open .lead-head .caret{transform:rotate(180deg)}
+.lead-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.lead.open .lead-body{border-top:1px solid var(--line)}
+.lead-subtabs{display:flex;gap:22px;padding:12px 18px 0;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.lead-subtabs::-webkit-scrollbar{display:none}
+.lead-subtab{padding:8px 2px 11px;font-size:12.5px;font-weight:600;color:var(--mut);border-bottom:2px solid transparent;white-space:nowrap}
+.lead-subtab.on{color:var(--nav);border-bottom-color:var(--o)}
+.lead-fields{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 24px;padding:18px}
+.field .l{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.field .v{font-size:13px;color:var(--ink);font-weight:500}
+.field .v.link{color:var(--blue)}
+.field .v.rmk{color:var(--o-d);text-decoration:underline;cursor:pointer}
+.wa-list{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--sh);overflow:hidden}
+.wa-row{display:flex;align-items:center;gap:16px;padding:15px 18px;border-bottom:1px solid var(--line)}
+.wa-row:last-child{border-bottom:0}
+.wa-row:hover{background:var(--o-soft2)}
+.wa-row .chk{width:16px;height:16px;border:1.5px solid var(--line-2);border-radius:4px;flex:none}
+.wa-row .nm{min-width:190px;flex:1}
+.wa-row .nm b{display:block;font-weight:700;color:var(--nav);font-size:13.5px}
+.wa-row .nm span{font-size:12px;color:var(--mut)}
+.wa-row .st{min-width:150px}
+.wa-row .st .a{background:#2b3445;color:#fff;font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:4px 4px 0 0;display:block;text-align:center}
+.wa-row .st .b{background:var(--o-soft);color:var(--o-d);font-size:10.5px;font-weight:600;padding:2px 10px;border-radius:0 0 4px 4px;display:block;text-align:center;border:1px solid var(--o-line);border-top:0}
+.wa-row .links{display:flex;gap:14px;color:var(--o);font-size:12px;font-weight:600;white-space:nowrap}
+.wa-row .links span{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.wa-row .links svg{width:14px;height:14px}
+.wa-row .ic{display:flex;gap:12px;color:var(--o-d)}
+.wa-row .ic svg{width:16px;height:16px;cursor:pointer}
+.wa-row .caret svg{width:16px;height:16px;color:var(--mut)}
+@media(max-width:760px){.wa-row .links,.wa-row .st{display:none}}
+.fu-grid{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}
+.cal{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--sh);padding:14px;position:sticky;top:0}
+.cal .ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-weight:700;color:var(--nav);font-size:13.5px}
+.cal .ch button{color:var(--mut);font-size:16px;padding:2px 6px}
+.cal .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.cal .dow{font-size:10px;font-weight:700;color:var(--dim);padding:5px 0}
+.cal .d{font-size:12px;color:var(--ink);padding:7px 0;border-radius:7px;cursor:pointer}
+.cal .d:hover{background:var(--o-soft2)}
+.cal .d.mut{color:var(--dim)}
+.cal .d.on{background:var(--o);color:#fff;font-weight:700}
+.cal .d.dot{position:relative}
+.cal .d.dot::after{content:&quot;&quot;;position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--o)}
+.cal .fhd{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--nav);font-size:13px;margin-bottom:8px}
+@media(max-width:980px){.fu-grid{grid-template-columns:1fr}.cal{position:static;order:-1}}
+.set-sec{margin-bottom:22px;max-width:620px}
+.set-sec .h{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--head);font-size:14px;margin-bottom:10px}
+.set-sec .h svg{width:18px;height:18px;color:var(--mut)}
+.set-card{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:9px;padding:16px 18px;box-shadow:var(--sh);font-weight:600;color:var(--nav);cursor:pointer;transition:.15s}
+.set-card:hover{border-color:var(--o-line);box-shadow:var(--sh-md)}
+.set-card svg{width:17px;height:17px;color:var(--mut)}
+.wf-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.wf-card{display:flex;gap:18px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:.15s}
+.wf-card:hover{border-color:var(--o-line);box-shadow:var(--sh-md)}
+.wf-prev{flex:none;width:170px;background:var(--o-soft2);border-right:1px solid var(--o-line);padding:16px 14px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.wf-node{background:#fff;border:1px solid var(--line-2);border-radius:7px;padding:8px 10px;font-size:10px}
+.wf-info{padding:18px 18px 18px 0;flex:1}
+.wf-info h4{font-size:15px;font-weight:700;color:var(--nav);margin-bottom:9px}
+.wf-info ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.wf-info li{font-size:12.5px;color:var(--mut);line-height:1.5;padding-left:16px;position:relative}
+.wf-info li::before{content:&quot;•&quot;;position:absolute;left:3px;color:var(--o);font-weight:800}
+@media(max-width:1024px){.wf-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.wf-card{flex-direction:column}.wf-prev{width:auto;flex-direction:row;border-right:0;border-bottom:1px solid var(--o-line)}}
+.int-stats{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:16px}
+.int-stat{flex:1;min-width:200px;background:#fff;border:1px solid var(--line);border-radius:9px;box-shadow:var(--sh);padding:18px 20px}
+.int-stat .l{font-size:12.5px;color:var(--dim);margin-bottom:8px}
+.int-stat .v{font-size:30px;font-weight:800;color:var(--nav)}
+.int-stat.pub .v{color:var(--blue)}
+.int-stat.unp .v{color:var(--red)}
+.int-bar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:14px}
+.int-cats{display:flex;flex-direction:column;gap:24px}
+.int-cat .ch{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.int-cat .ch h3{font-size:14.5px;font-weight:700;color:var(--head)}
+.int-cat .ch .ct{font-size:11px;font-weight:700;color:var(--o-d);background:var(--o-soft);border:1px solid var(--o-line);border-radius:999px;padding:2px 9px}
+.int-cat .ch .ln{flex:1;height:1px;background:var(--line)}
+.int-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.int-tile{background:#fff;border:1px solid var(--line);border-radius:11px;box-shadow:var(--sh);padding:16px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center;transition:box-shadow .2s,transform .2s,border-color .2s;min-height:104px}
+.int-tile:hover{box-shadow:var(--sh-md);transform:translateY(-3px);border-color:var(--o-line)}
+.int-tile .logo{height:38px;display:flex;align-items:center;justify-content:center;width:100%}
+.int-tile img{max-height:38px;max-width:108px;object-fit:contain}
+.int-tile span{font-size:11.5px;font-weight:600;color:var(--ink);line-height:1.2}
+.int-sec-badges .int-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.cmp-row{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--sh);padding:14px 18px;margin-bottom:10px;display:grid;grid-template-columns:1.4fr 1fr 1.2fr 1.2fr 1.2fr 1.4fr auto auto;gap:14px;align-items:center}
+.cmp-row .c .l{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);margin-bottom:3px}
+.cmp-row .c .v{font-size:12.5px;color:var(--ink);font-weight:500}
+.cmp-row .acts{display:flex;gap:9px;color:var(--o)}
+.cmp-row .acts svg{width:16px;height:16px;cursor:pointer}
+.cmp-row .caret svg{width:16px;height:16px;color:var(--mut)}
+@media(max-width:1100px){.cmp-row{grid-template-columns:1fr 1fr;gap:12px}.cmp-row .acts,.cmp-row .caret{grid-column:span 2;justify-content:flex-end}}
+.placeholder{background:#fff;border:1px dashed var(--line-2);border-radius:10px;padding:46px 24px;text-align:center;color:var(--mut)}
+.placeholder .ic{width:54px;height:54px;border-radius:14px;background:var(--o-soft);color:var(--o);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.placeholder .ic svg{width:26px;height:26px}
+.placeholder b{display:block;color:var(--nav);font-size:16px;margin-bottom:6px}
+.toasts{position:fixed;right:18px;top:70px;z-index:9003;display:flex;flex-direction:column;gap:9px;max-width:300px}
+.toast{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--o);border-radius:9px;padding:11px 14px;box-shadow:var(--sh-md);font-size:12.5px;color:var(--mut);opacity:0;transform:translateX(20px);transition:.35s}
+.toast.in{opacity:1;transform:none}
+.toast b{display:block;color:var(--nav);font-weight:700;margin-bottom:1px}
+.toast .ti{font-size:16px}
+@media(max-width:1024px){.lead-fields{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){
+  :root{--sb:0px}
+  .app{grid-template-columns:1fr}
+  .brand{border-right:0}
+  .brand .burger{display:flex}
+  .side{position:fixed;top:0;left:0;bottom:0;width:268px;z-index:50;transform:translateX(-100%);transition:transform .28s ease;box-shadow:var(--sh-md)}
+  .side.show{transform:none}
+  .main{grid-column:1/-1}
+  .search{display:none}
+  .lead-head{flex-wrap:wrap}
+  .lead-head .status{order:5;margin:0}
+}
+@media(max-width:520px){
+  .view{padding:16px 14px 50px}
+  .lead-fields{grid-template-columns:1fr}
+  .vhead h1{font-size:18px}
+  .top{padding:0 12px;gap:8px}
+  .top .timer{display:none}
+  .statcard{flex:1 1 100%;min-width:0}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.vg-launch{position:fixed;left:18px;bottom:20px;z-index:9001;display:inline-flex;align-items:center;gap:9px;background:linear-gradient(120deg,var(--nav),#2a4a7a);color:#fff;border-radius:999px;padding:10px 16px 10px 11px;box-shadow:0 14px 34px -10px rgba(25,40,70,.6);cursor:pointer;font-weight:700;font-size:13px;transition:transform .2s}
+.vg-launch:hover{transform:translateY(-2px)}
+.vg-launch .av{width:30px;height:30px;border-radius:50%;background:var(--o);display:flex;align-items:center;justify-content:center;flex:none}
+.vg-launch .av svg{width:17px;height:17px}
+.vg-launch .pp{width:8px;height:8px;border-radius:50%;background:#43d98a;box-shadow:0 0 0 3px rgba(67,217,138,.25);animation:aiblink 1.4s infinite}
+body.vg-open .vg-launch{display:none}
+.vg-panel{position:fixed;left:18px;bottom:20px;z-index:9002;width:350px;max-width:calc(100vw - 28px);height:500px;max-height:calc(100vh - 40px);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 70px -20px rgba(15,28,51,.5);display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(12px) scale(.98);pointer-events:none;transition:.25s}
+.vg-panel.open{opacity:1;transform:none;pointer-events:auto}
+.vg-hd{display:flex;align-items:center;gap:11px;padding:13px 15px;background:linear-gradient(120deg,var(--nav),#2a4a7a);color:#fff}
+.vg-hd .av{width:38px;height:38px;border-radius:50%;background:var(--o);display:flex;align-items:center;justify-content:center;flex:none}
+.vg-hd .av svg{width:20px;height:20px}
+.vg-hd .ti b{font-size:14px;font-weight:800;display:block;line-height:1.1}
+.vg-hd .ti span{font-size:11px;color:#c6d4ea;display:flex;align-items:center;gap:5px}
+.vg-hd .ti span i{width:6px;height:6px;border-radius:50%;background:#43d98a;display:inline-block}
+.vg-hd .tools{margin-left:auto;display:flex;gap:6px}
+.vg-hd .tools button{width:30px;height:30px;border-radius:8px;color:#fff;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12)}
+.vg-hd .tools button:hover{background:rgba(255,255,255,.22)}
+.vg-hd .tools button svg{width:16px;height:16px}
+.vg-body{flex:1;overflow-y:auto;padding:14px;background:var(--paper);display:flex;flex-direction:column;gap:10px}
+.vg-msg{max-width:85%;font-size:12.8px;line-height:1.5;padding:10px 12px;border-radius:12px;white-space:pre-wrap;animation:vgin .3s ease}
+@keyframes vgin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.vg-msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;color:var(--ink)}
+.vg-msg.user{align-self:flex-end;background:var(--nav);color:#fff;border-bottom-right-radius:4px}
+.vg-typing{align-self:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;display:inline-flex;gap:4px}
+.vg-typing i{width:6px;height:6px;border-radius:50%;background:var(--dim);animation:vgtyp 1.1s infinite}
+.vg-typing i:nth-child(2){animation-delay:.18s}.vg-typing i:nth-child(3){animation-delay:.36s}
+@keyframes vgtyp{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.vg-chips{display:flex;flex-wrap:wrap;gap:7px;padding:10px 12px 8px;border-top:1px solid var(--line);background:#fff}
+.vg-chip{font-size:11.5px;font-weight:600;color:var(--o-d);background:var(--o-soft);border:1px solid var(--o-line);border-radius:999px;padding:6px 11px;cursor:pointer;transition:.15s}
+.vg-chip:hover{background:var(--o);color:#fff}
+.vg-input{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:#fff}
+.vg-input input{flex:1;border:1px solid var(--line-2);border-radius:999px;padding:9px 14px;font-family:inherit;font-size:12.8px;outline:none;color:var(--ink)}
+.vg-input input:focus{border-color:var(--o-line);box-shadow:0 0 0 3px var(--o-soft)}
+.vg-input button{width:38px;height:38px;border-radius:50%;background:var(--o);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.vg-input button:hover{background:var(--o-d)}
+.vg-input button svg{width:17px;height:17px}
+@media(max-width:860px){.vg-launch{bottom:78px}.vg-panel{bottom:14px;left:14px;height:72vh}}
+.ai-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--o-d);background:var(--o-soft);border:1px solid var(--o-line);border-radius:999px;padding:5px 12px}
+.ai-eyebrow svg{width:13px;height:13px}
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:16px}
+.ai-card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.ai-card:hover{box-shadow:var(--sh-md);transform:translateY(-3px)}
+.ai-card .top{display:flex;align-items:center;gap:12px;padding:15px 18px;background:linear-gradient(120deg,var(--nav),#2a4a7a);color:#fff}
+.ai-ic{width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex:none}
+.ai-ic svg{width:21px;height:21px}
+.ai-card .top .nm h3{font-size:15.5px;font-weight:800;line-height:1.1}
+.ai-card .top .nm span{font-size:11px;color:#c6d4ea}
+.ai-card .top .live{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:800;letter-spacing:.06em;background:rgba(47,175,106,.22);color:#9ff0c4;border:1px solid rgba(47,175,106,.5);border-radius:999px;padding:3px 8px}
+.ai-card .top .live i{width:5px;height:5px;border-radius:50%;background:#43d98a;animation:aiblink 1.3s infinite}
+@keyframes aiblink{50%{opacity:.3}}
+.ai-viz{height:78px;display:flex;align-items:center;justify-content:center;background:var(--o-soft2);border-bottom:1px solid var(--line);overflow:hidden;padding:0 16px}
+.ai-body{padding:15px 18px;flex:1;display:flex;flex-direction:column}
+.ai-body p{font-size:12.8px;color:var(--mut);line-height:1.55;margin-bottom:13px}
+.ai-body ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:auto}
+.ai-body li{font-size:12.5px;color:var(--ink);display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+.ai-body li svg{width:15px;height:15px;color:var(--grn);flex:none;margin-top:1px}
+.ai-wave{display:flex;align-items:center;gap:3px;height:40px}
+.ai-wave i{width:4px;border-radius:4px;background:var(--o);animation:aiwv 1s ease-in-out infinite}
+@keyframes aiwv{0%,100%{height:7px}50%{height:34px}}
+.ai-chat{display:flex;flex-direction:column;gap:6px;width:100%}
+.ai-bub{max-width:80%;font-size:11px;padding:6px 10px;border-radius:10px;line-height:1.3}
+.ai-bub.a{background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px}
+.ai-bub.u{background:var(--nav);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.ai-wabub{background:#dcf8c6;color:#0b3b2e;font-size:11px;padding:6px 10px;border-radius:10px;border-bottom-right-radius:3px;max-width:82%}
+.ai-wabub::after{content:&quot;✓✓&quot;;color:#34b7f1;font-size:9px;float:right;margin-left:8px}
+.ai-pulse{position:relative;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--o) 0 92%,#e1e5ec 92% 100%)}
+.ai-pulse span{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--nav);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
+.ai-pulse::before{content:&quot;&quot;;position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--o);animation:aiping 1.8s ease-out infinite}
+@keyframes aiping{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.25);opacity:0}}
+.nav .cnt.ai{background:var(--o)}
+.pii{filter:blur(4px);-webkit-user-select:none;user-select:none;cursor:not-allowed;letter-spacing:.5px}
+.sample-badge{display:inline-flex;align-items:center;gap:6px;background:var(--o-soft);color:var(--o-d);border:1px solid var(--o-line);font-size:11px;font-weight:700;border-radius:999px;padding:5px 11px;white-space:nowrap}
+.sample-badge svg{width:12px;height:12px}
+.privacy-bar{display:flex;align-items:center;gap:9px;background:#eef6ff;border:1px solid #cfe3fb;color:#2c5b94;font-size:12.5px;font-weight:500;border-radius:9px;padding:10px 14px;margin-bottom:16px}
+.privacy-bar svg{width:16px;height:16px;flex:none}
+.privacy-bar b{font-weight:700}
+@media(max-width:520px){.sample-badge span{display:none}}
+.oc-hero{background:linear-gradient(120deg,var(--nav),#2a4a7a);color:#fff;border-radius:12px;padding:22px 24px;margin-bottom:18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.oc-hero .htxt h2{font-size:21px;font-weight:800;margin-bottom:4px}
+.oc-hero .htxt p{font-size:13px;color:#c6d4ea;max-width:560px;line-height:1.5}
+.oc-hero .hsum{margin-left:auto;display:flex;gap:22px;flex-wrap:wrap}
+.oc-hero .hsum .s b{font-size:24px;font-weight:800;display:block}
+.oc-hero .hsum .s span{font-size:11px;color:#c6d4ea}
+.oc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
+.oc-card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);padding:18px 20px;position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s}
+.oc-card:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
+.oc-card::after{content:&quot;&quot;;position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ac,var(--o))}
+.oc-card .ic{width:42px;height:42px;border-radius:11px;background:var(--acs,var(--o-soft));color:var(--ac,var(--o-d));display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.oc-card .ic svg{width:21px;height:21px}
+.oc-card .lab{font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--mut)}
+.oc-card .big{font-size:38px;font-weight:800;color:var(--nav);line-height:1.05;margin:3px 0 2px;font-variant-numeric:tabular-nums}
+.oc-card .sub{font-size:12.5px;color:var(--mut);line-height:1.45}
+.oc-card .tr{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:11.5px;font-weight:700;color:var(--grn);background:var(--grn-soft);border-radius:999px;padding:4px 11px}
+.oc-card .ba{margin-top:13px;display:flex;flex-direction:column;gap:8px}
+.oc-card .ba .r{display:flex;align-items:center;gap:9px;font-size:11px}
+.oc-card .ba .r b{width:78px;color:var(--mut);font-weight:600}
+.oc-card .ba .tk{flex:1;height:8px;border-radius:5px;background:var(--paper);overflow:hidden}
+.oc-card .ba .tk i{display:block;height:100%;border-radius:5px;background:var(--ac,var(--o));width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.oc-card .ba .r.old .tk i{background:#c9d0db}
+.oc-card .ba .r em{width:58px;text-align:right;font-style:normal;font-weight:700;color:var(--ink);font-size:11px}
+.bd-modal{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(15,28,51,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .25s}
+.bd-modal.show{opacity:1;visibility:visible}
+.bd-card{background:#fff;border-radius:18px;max-width:390px;width:100%;padding:30px 26px;text-align:center;box-shadow:0 30px 80px -20px rgba(15,28,51,.55);transform:translateY(14px) scale(.97);transition:transform .28s}
+.bd-modal.show .bd-card{transform:none}
+.bd-logo-img{height:34px;width:auto;display:block;margin:0 auto 16px}
+.bd-logo{display:flex;align-items:center;justify-content:center;gap:8px;font-weight:800;font-size:17px;color:var(--nav);margin-bottom:16px}
+.bd-logo .gx{display:flex;gap:2px}.bd-logo .gx i{width:12px;height:12px;border-radius:3px;display:block}
+.bd-logo .gx i:nth-child(1){background:var(--o)}.bd-logo .gx i:nth-child(2){background:var(--nav)}
+.bd-logo b em{color:var(--o);font-style:normal}
+.bd-ic{width:60px;height:60px;border-radius:16px;background:var(--o-soft);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px}
+.bd-card h3{font-size:20px;font-weight:800;color:var(--nav);margin-bottom:8px;line-height:1.2}
+.bd-card p{font-size:13.5px;color:var(--mut);line-height:1.6;margin-bottom:20px}
+.bd-go{display:block;background:var(--o);color:#fff;font-weight:700;font-size:15px;border-radius:11px;padding:14px;text-decoration:none;transition:background .2s,transform .15s}
+.bd-go:hover{background:var(--o-d)}.bd-go:active{transform:scale(.98)}
+.bd-close{margin-top:12px;font-size:12.5px;color:var(--dim);font-weight:600;background:none;border:0;cursor:pointer}
+.bd-close:hover{color:var(--mut)}
+.tour-spot{position:fixed;z-index:9000;border-radius:10px;border:2px solid var(--o);box-shadow:0 0 0 9999px rgba(15,28,51,.5);pointer-events:none;opacity:0;transition:all .5s cubic-bezier(.4,0,.2,1)}
+.tour-on .tour-spot{opacity:1}
+.tour-tip{position:fixed;z-index:9002;width:300px;max-width:calc(100vw - 28px);background:#fff;border-radius:14px;box-shadow:0 24px 60px rgba(15,28,51,.42);padding:17px 18px;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s,left .45s cubic-bezier(.4,0,.2,1),top .45s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.tour-on .tour-tip{opacity:1;transform:none;pointer-events:auto}
+.tour-tip .stp{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--o);margin-bottom:7px}
+.tour-tip h4{font-size:15.5px;font-weight:700;color:var(--nav);line-height:1.25;margin-bottom:6px}
+.tour-tip p{font-size:12.8px;line-height:1.55;color:var(--mut)}
+.tour-tip .row{display:flex;align-items:center;gap:10px;margin-top:14px}
+.tour-tip .dts{display:flex;gap:5px;margin-right:auto}
+.tour-tip .dts b{width:7px;height:7px;border-radius:999px;background:var(--line-2);cursor:pointer;transition:.25s;display:block}
+.tour-tip .dts b.on{width:18px;background:var(--o)}
+.tour-tip .sk{font-size:11.5px;font-weight:600;color:var(--dim)}
+.tour-tip .nx{background:var(--o);color:#fff;font-weight:700;font-size:12.5px;border-radius:8px;padding:8px 15px}
+.tour-tip .nx:hover{background:var(--o-d)}
+.tour-dock{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:9002;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 9px 7px 12px;box-shadow:0 16px 44px -14px rgba(25,40,70,.5)}
+.tour-dock .dbtn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--paper);color:var(--nav)}
+.tour-dock .dbtn:hover{background:var(--o-soft);color:var(--o-d)}
+.tour-dock .dbtn.play{background:var(--o);color:#fff}
+.tour-dock .dbtn.play:hover{background:var(--o-d)}
+.tour-dock .dbtn svg{width:15px;height:15px}
+.tour-dock .lbl{font-size:12.5px;font-weight:600;color:var(--nav);white-space:nowrap;padding:0 4px}
+.tour-dock .ddots{display:flex;gap:5px;padding:0 4px}
+.tour-dock .ddots b{width:6px;height:6px;border-radius:50%;background:var(--line-2);cursor:pointer}
+.tour-dock .ddots b.on{background:var(--o)}
+.demo-cta{position:fixed;right:18px;bottom:20px;z-index:9001;display:inline-flex;align-items:center;gap:8px;background:var(--o);color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:11px 18px;box-shadow:0 14px 34px -10px rgba(244,123,32,.7);cursor:pointer}
+.demo-cta:hover{background:var(--o-d)}
+.demo-cta svg{width:15px;height:15px}
+@media(max-width:860px){
+  .tour-tip{left:14px!important;right:14px!important;top:auto!important;bottom:88px!important;width:auto;max-width:none}
+  .tour-dock{left:14px;right:14px;transform:none;justify-content:center;bottom:14px}
+  .tour-dock .lbl{display:none}
+  .tour-dock .ddots{max-width:46vw;overflow:hidden}
+  .demo-cta{bottom:66px;right:14px;padding:9px 14px;font-size:12px}
+}
+@media(max-width:420px){ .tour-dock .ddots{display:none} }
+</style>
+</head>
+<body>
+<div class=&quot;app&quot; id=&quot;app&quot;>
+  <div class=&quot;brand&quot;>
+    <span class=&quot;logo&quot;><img class=&quot;logo-img&quot; src=&quot;https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg&quot; alt=&quot;ExtraaEdge&quot; onerror=&quot;this.style.display='none';this.nextElementSibling.style.display='flex'&quot;><span class=&quot;logo-fb&quot; style=&quot;display:none;align-items:center;gap:9px&quot;><span class=&quot;gx&quot;><i></i><i></i></span> <b>extraa<em>edge</em></b></span></span>
+    <button class=&quot;burger&quot; id=&quot;burger&quot; aria-label=&quot;Menu&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><line x1=&quot;3&quot; y1=&quot;6&quot; x2=&quot;21&quot; y2=&quot;6&quot;/><line x1=&quot;3&quot; y1=&quot;12&quot; x2=&quot;21&quot; y2=&quot;12&quot;/><line x1=&quot;3&quot; y1=&quot;18&quot; x2=&quot;21&quot; y2=&quot;18&quot;/></svg></button>
+  </div>
+  <header class=&quot;top&quot;>
+    <div class=&quot;search&quot;>
+      <span class=&quot;gsel&quot;>Global Search <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;m6 9 6 6 6-6&quot;/></svg></span>
+      <input id=&quot;search&quot; type=&quot;text&quot; placeholder=&quot;Search by Institute Name, Email ID or Mobile No.&quot; autocomplete=&quot;off&quot;>
+      <span class=&quot;mag&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;7&quot;/><path d=&quot;m21 21-4.3-4.3&quot;/></svg></span>
+    </div>
+    <div class=&quot;acts&quot;>
+      <span class=&quot;sample-badge&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>Sample data</span></span>
+      <button class=&quot;iconbtn&quot; id=&quot;bell&quot; title=&quot;Notifications&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9&quot;/><path d=&quot;M10.3 21a1.94 1.94 0 0 0 3.4 0&quot;/></svg><span class=&quot;dot&quot; id=&quot;bellCnt&quot;>193</span></button>
+      <button class=&quot;iconbtn&quot; id=&quot;addBtn&quot; title=&quot;Add&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><line x1=&quot;12&quot; y1=&quot;5&quot; x2=&quot;12&quot; y2=&quot;19&quot;/><line x1=&quot;5&quot; y1=&quot;12&quot; x2=&quot;19&quot; y2=&quot;12&quot;/></svg></button>
+      <button class=&quot;iconbtn&quot; title=&quot;Call transfer&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7A2 2 0 0 1 22 16.9z&quot;/></svg></button>
+      <span class=&quot;timer&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/><path d=&quot;M12 7v5l3 2&quot;/></svg><span id=&quot;sessTimer&quot;>00:00:00</span></span>
+      <span class=&quot;avatar&quot;>M</span>
+    </div>
+  </header>
+  <aside class=&quot;side&quot; id=&quot;side&quot;>
+    <button class=&quot;nav on&quot; data-go=&quot;outcomes&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z&quot;/><path d=&quot;M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3&quot;/></svg> Business Outcomes</button>
+    <button class=&quot;nav&quot; data-go=&quot;ai&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M12 3l1.7 4.3L18 9l-4.3 1.7L12 15l-1.7-4.3L6 9l4.3-1.7z&quot;/><path d=&quot;M19 14l.8 1.9 1.9.8-1.9.8L19 19.4l-.8-1.9-1.9-.8 1.9-.8z&quot;/></svg> Vidya AI <span class=&quot;cnt ai&quot;>AI</span></button>
+    <button class=&quot;nav exp&quot; data-toggle=&quot;analytics&quot;>
+      <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M3 3v18h18&quot;/><rect x=&quot;7&quot; y=&quot;10&quot; width=&quot;3&quot; height=&quot;7&quot;/><rect x=&quot;12&quot; y=&quot;6&quot; width=&quot;3&quot; height=&quot;11&quot;/><rect x=&quot;17&quot; y=&quot;13&quot; width=&quot;3&quot; height=&quot;4&quot;/></svg>
+      Analytics Dashboard
+      <span class=&quot;chev&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;m9 18 6-6-6-6&quot;/></svg></span>
+    </button>
+    <div class=&quot;submenu open&quot; id=&quot;sub-analytics&quot;>
+      <button class=&quot;subnav&quot; data-go=&quot;mgmt&quot;><i></i>Management Dashboard</button>
+      <button class=&quot;subnav&quot; data-go=&quot;counselor&quot;><i></i>Counselor Dashboard</button>
+      <button class=&quot;subnav&quot; data-go=&quot;comm&quot;><i></i>Communication Dashboard</button>
+      <button class=&quot;subnav&quot; data-go=&quot;publisher&quot;><i></i>Publisher Dashboard</button>
+      <button class=&quot;subnav&quot; data-go=&quot;demographic&quot;><i></i>Demographic Dashboard</button>
+    </div>
+    <button class=&quot;nav&quot; data-go=&quot;leads&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2&quot;/><circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/><path d=&quot;M22 21v-2a4 4 0 0 0-3-3.9&quot;/></svg> Lead Manager</button>
+    <button class=&quot;nav&quot; data-go=&quot;rawdata&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><ellipse cx=&quot;12&quot; cy=&quot;5&quot; rx=&quot;8&quot; ry=&quot;3&quot;/><path d=&quot;M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5&quot;/><path d=&quot;M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6&quot;/></svg> Raw Data Manager</button>
+    <button class=&quot;nav&quot; data-go=&quot;wa&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z&quot;/></svg> WhatsApp Chat <span class=&quot;cnt&quot;>7</span></button>
+    <button class=&quot;nav&quot; data-go=&quot;followups&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><rect x=&quot;3&quot; y=&quot;4&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/><path d=&quot;M16 2v4M8 2v4M3 10h18&quot;/></svg> Follow-ups Manager</button>
+    <button class=&quot;nav&quot; data-go=&quot;failed&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/><path d=&quot;M17 8l-5-5-5 5M12 3v12&quot;/></svg> Upload Failed Leads</button>
+    <button class=&quot;nav&quot; data-go=&quot;bulk&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M9 11l3 3L22 4&quot;/><path d=&quot;M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11&quot;/></svg> Bulk Actions</button>
+    <button class=&quot;nav&quot; data-go=&quot;campaign&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;m3 11 18-5v12L3 14v-3z&quot;/><path d=&quot;M11.6 16.8a3 3 0 1 1-5.8-1.6&quot;/></svg> Bulk Marketing Campaign</button>
+    <button class=&quot;nav&quot; data-go=&quot;workflow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;6&quot; height=&quot;6&quot; rx=&quot;1&quot;/><rect x=&quot;15&quot; y=&quot;15&quot; width=&quot;6&quot; height=&quot;6&quot; rx=&quot;1&quot;/><path d=&quot;M9 6h6a3 3 0 0 1 3 3v6&quot;/></svg> Workflow Automation</button>
+    <button class=&quot;nav&quot; data-go=&quot;basic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/><path d=&quot;M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 0 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 14.3H3a2 2 0 0 1 0-4h.1A1.6 1.6 0 0 0 4.6 7a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 9 3V3a2 2 0 0 1 4 0v.1A1.6 1.6 0 0 0 17 4.6a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a2 2 0 0 1 0 4h-.1z&quot;/></svg> Basic Settings</button>
+    <button class=&quot;nav&quot; data-go=&quot;advanced&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M14 3v4a1 1 0 0 0 1 1h4&quot;/><path d=&quot;M5 3h9l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z&quot;/><circle cx=&quot;11&quot; cy=&quot;14&quot; r=&quot;2&quot;/></svg> Advanced Settings</button>
+    <button class=&quot;nav&quot; data-go=&quot;integration&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5&quot;/><path d=&quot;M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1.5-1.5&quot;/></svg> Third Party Integration</button>
+    <div class=&quot;spacer&quot;></div>
+    <button class=&quot;ticket&quot; data-go=&quot;ticket&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z&quot;/></svg> Raise a Ticket</button>
+  </aside>
+  <div class=&quot;scrim&quot; id=&quot;scrim&quot;></div>
+  <main class=&quot;main&quot; id=&quot;main&quot;>
+    <section class=&quot;view on&quot; data-v=&quot;outcomes&quot;>
+      <div class=&quot;vhead&quot;><h1>Business Outcomes</h1><div class=&quot;right&quot;><span class=&quot;sample-badge&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>Illustrative sample data</span></span></div></div>
+      <div class=&quot;privacy-bar&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span><b>Privacy-first demo.</b> All names, numbers and emails shown are fictional samples — real student data is masked. No internal rules, keys or confidential reports are exposed.</span></div>
+      <div class=&quot;oc-hero&quot;>
+        <div class=&quot;htxt&quot;><h2>What ExtraaEdge delivers, in numbers</h2><p>Not just a dashboard — measurable results across response time, conversion, automation, productivity and ROI for your admission funnel.</p></div>
+        <div class=&quot;hsum&quot;>
+          <div class=&quot;s&quot;><b>+40%</b><span>Conversion lift</span></div>
+          <div class=&quot;s&quot;><b>12×</b><span>Faster response</span></div>
+          <div class=&quot;s&quot;><b>6.5×</b><span>ROI</span></div>
+          <div class=&quot;s&quot;><b>₹4.2 Cr</b><span>Revenue influenced</span></div>
+        </div>
+      </div>
+      <div class=&quot;oc-grid&quot; id=&quot;ocGrid&quot;></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;ai&quot;>
+      <div class=&quot;vhead&quot;><div><span class=&quot;ai-eyebrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><path d=&quot;M13 2 3 14h7l-1 8 10-12h-7z&quot;/></svg> Powered by Vidya AI</span><h1 style=&quot;margin-top:8px&quot;>AI that does the work — not just assists</h1></div><div class=&quot;right&quot;><span class=&quot;sample-badge&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>Sample data</span></span></div></div>
+      <div class=&quot;ai-grid&quot; id=&quot;aiGrid&quot;></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;mgmt&quot;>
+      <div class=&quot;vhead&quot;><h1>Management Dashboard</h1><div class=&quot;right&quot;><button class=&quot;btn pri&quot;>CREATE REPORTS</button></div></div>
+      <div class=&quot;ctrls&quot;>
+        <button class=&quot;filtbtn&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><polygon points=&quot;22 3 2 3 10 12.5 10 19 14 21 14 12.5&quot;/></svg></button>
+        <div class=&quot;right&quot;>
+          <span class=&quot;synced&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M21 12a9 9 0 1 1-3-6.7L21 8&quot;/><path d=&quot;M21 3v5h-5&quot;/></svg> Last Synced: <u>03:04 pm</u></span>
+          <span class=&quot;select&quot;>Select Counselor <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;m6 9 6 6 6-6&quot;/></svg></span>
+          <span class=&quot;daterange&quot;><span class=&quot;ar&quot;>↕</span> Creation Date: Sep 21, 2025 - Jun 23, 2026 <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;4&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/><path d=&quot;M16 2v4M8 2v4M3 10h18&quot;/></svg></span>
+        </div>
+      </div>
+      <div class=&quot;statcards&quot;><div class=&quot;statcard&quot;><div class=&quot;h&quot;>Total Leads <span class=&quot;rf&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M21 12a9 9 0 1 1-3-6.7L21 8&quot;/><path d=&quot;M21 3v5h-5&quot;/></svg></span></div><div class=&quot;rows&quot;><div class=&quot;r big&quot;><span>Leads</span><b>917</b></div><div class=&quot;r&quot;><span>Admissions</span><b>386</b></div><div class=&quot;r&quot;><span>Revenue influenced</span><b>₹4.2 Cr</b></div></div></div></div>
+      <div class=&quot;tabbar&quot;><button class=&quot;tab on&quot;>Live Funnel</button><button class=&quot;tab&quot;>Conversions</button><button class=&quot;tab&quot;>ROI</button></div>
+      <div class=&quot;subtabbar&quot;><button class=&quot;subtab on&quot;>Lead List</button><button class=&quot;subtab&quot;>Program Vs Status</button><button class=&quot;subtab&quot;>Counselor Vs Status</button></div>
+      <div class=&quot;panel&quot;>
+        <div class=&quot;toolbar&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M21 12a9 9 0 1 1-3-6.7L21 8&quot;/><path d=&quot;M21 3v5h-5&quot;/></svg><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/><path d=&quot;M7 10l5 5 5-5M12 15V3&quot;/></svg><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7&quot;/></svg></div>
+        <div class=&quot;funnel-wrap&quot;><div class=&quot;funnel&quot; id=&quot;mgmtFunnel&quot;><div class=&quot;total&quot;>917</div></div><div class=&quot;legend&quot; id=&quot;mgmtLegend&quot;></div></div>
+      </div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;counselor&quot;>
+      <div class=&quot;vhead&quot;><h1>Counselor Dashboard</h1><div class=&quot;right&quot;><button class=&quot;btn pri&quot;>CREATE REPORTS</button></div></div>
+      <div class=&quot;ctrls&quot;>
+        <button class=&quot;filtbtn&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><polygon points=&quot;22 3 2 3 10 12.5 10 19 14 21 14 12.5&quot;/></svg></button>
+        <div class=&quot;right&quot;>
+          <span class=&quot;synced&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M21 12a9 9 0 1 1-3-6.7L21 8&quot;/><path d=&quot;M21 3v5h-5&quot;/></svg> Last Synced: <u>03:04 pm</u></span>
+          <span class=&quot;select&quot;>Select Counselor <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;m6 9 6 6 6-6&quot;/></svg></span>
+          <span class=&quot;daterange&quot;><span class=&quot;ar&quot;>↕</span> Creation Date: Sep 21, 2025 - Jun 23, 2026 <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;4&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/><path d=&quot;M16 2v4M8 2v4M3 10h18&quot;/></svg></span>
+        </div>
+      </div>
+      <div class=&quot;statcards&quot;><div class=&quot;statcard two&quot; style=&quot;flex:0 1 460px&quot;><div class=&quot;h&quot;>Counselor Pending Stats <span class=&quot;rf&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M21 12a9 9 0 1 1-3-6.7L21 8&quot;/><path d=&quot;M21 3v5h-5&quot;/></svg></span></div><div class=&quot;grid&quot;><div class=&quot;r&quot;><span>Follow-ups On Time</span><b>98%</b></div><div class=&quot;r&quot;><span>Re-Engaged Leads</span><b>1,240</b></div><div class=&quot;r&quot;><span>Missed Follow Ups</span><b>6</b></div><div class=&quot;r&quot;><span>Unread Chats</span><b>0</b></div></div></div></div>
+      <div class=&quot;tabbar&quot;><button class=&quot;tab on&quot;>Counselor Outcomes</button><button class=&quot;tab&quot;>Counselor Efforts</button><button class=&quot;tab&quot;>Mobile Calling Analysis</button><button class=&quot;tab&quot;>IVR Calling Analysis</button><button class=&quot;tab&quot;>More ▾</button></div>
+      <div class=&quot;subtabbar&quot;><button class=&quot;subtab on&quot;>Counselor</button><button class=&quot;subtab&quot;>Counselor Vs Status</button><button class=&quot;subtab&quot;>Counselor Status Change Tracker</button><button class=&quot;subtab&quot;>Counselor Vs Enrolled</button><button class=&quot;subtab&quot;>More ▾</button></div>
+      <div class=&quot;panel&quot;>
+        <div class=&quot;toolbar&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/><path d=&quot;M9 3v18M3 9h18&quot;/></svg></div>
+        <div class=&quot;tbl-wrap&quot;><table class=&quot;tbl&quot; id=&quot;counselorTbl&quot;><thead><tr><th>Counselor Name</th><th class=&quot;num&quot;>Total Leads</th><th class=&quot;num&quot;>Enrolled</th><th class=&quot;num&quot;>Lead To Enrolled Leads %</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;comm&quot;>
+      <div class=&quot;vhead&quot;><h1>Communication Dashboard</h1><div class=&quot;right&quot;><button class=&quot;btn pri&quot;>CREATE REPORTS</button></div></div>
+      <div class=&quot;ctrls&quot;><button class=&quot;filtbtn&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><polygon points=&quot;22 3 2 3 10 12.5 10 19 14 21 14 12.5&quot;/></svg></button><div class=&quot;right&quot;><span class=&quot;select&quot;>Select Counselor <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;m6 9 6 6 6-6&quot;/></svg></span></div></div>
+      <div class=&quot;statcards&quot;><div class=&quot;statcard two&quot; style=&quot;flex:0 1 460px&quot;><div class=&quot;h&quot;>Email Summary</div><div class=&quot;grid&quot;><div class=&quot;r&quot;><span>Sent</span><b>24620</b></div><div class=&quot;r&quot;><span>Bounce</span><b>410</b></div><div class=&quot;r&quot;><span>Delivered</span><b>23640</b></div><div class=&quot;r&quot;><span>Deferred</span><b>120</b></div><div class=&quot;r&quot;><span>Open</span><b>9460</b></div><div class=&quot;r&quot;><span>Click</span><b>2980</b></div></div></div></div>
+      <div class=&quot;tabbar&quot;><button class=&quot;tab on&quot;>Sent Email Analysis</button><button class=&quot;tab&quot;>SMS Sent Analysis</button><button class=&quot;tab&quot;>Enterprise WhatsApp Sent Analysis</button></div>
+      <div class=&quot;subtabbar&quot;><button class=&quot;subtab on&quot;>Email Overview</button><button class=&quot;subtab&quot;>Template Wise Usage</button><button class=&quot;subtab&quot;>Marketing Campaign Performance</button></div>
+      <div class=&quot;panel&quot;><div class=&quot;tbl-wrap&quot;><table class=&quot;tbl&quot; id=&quot;commTbl&quot;><thead><tr><th>Type</th><th class=&quot;num&quot;>Email Sent</th><th class=&quot;num&quot;>Email Delivered</th><th class=&quot;num&quot;>Delivery Rate</th><th class=&quot;num&quot;>Email Opened</th><th class=&quot;num&quot;>Open Rate</th><th class=&quot;num&quot;>Email Clicked</th><th class=&quot;num&quot;>Click Rate</th><th class=&quot;num&quot;>Click Through Rate</th></tr></thead><tbody></tbody></table></div></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;publisher&quot;>
+      <div class=&quot;vhead&quot;><h1>Publisher Dashboard</h1><div class=&quot;right&quot;><button class=&quot;btn pri&quot;>CREATE REPORTS</button></div></div>
+      <div class=&quot;statcards&quot;>
+        <div class=&quot;statcard two&quot;><div class=&quot;h&quot;>Lead Summary</div><div class=&quot;grid&quot; style=&quot;grid-template-columns:1fr&quot;><div class=&quot;r&quot;><span>Total Leads Count</span><b>10259</b></div><div class=&quot;r&quot;><span>Primary Leads &amp;gt;&amp;gt;</span><b>10259</b></div><div class=&quot;r&quot;><span>Non Primary Leads</span><b>20</b></div></div></div>
+        <div class=&quot;statcard two&quot;><div class=&quot;h&quot;>Instance Summary</div><div class=&quot;grid&quot; style=&quot;grid-template-columns:1fr&quot;><div class=&quot;r&quot;><span>Total Instance Count &amp;gt;&amp;gt;</span><b>73770</b></div><div class=&quot;r&quot;><span>Primary Instance &amp;gt;&amp;gt;</span><b>10313</b></div><div class=&quot;r&quot;><span>Non Primary Instance &amp;gt;&amp;gt;</span><b>63452</b></div></div></div>
+      </div>
+      <div class=&quot;tabbar&quot; style=&quot;border-radius:8px 8px 0 0&quot;><button class=&quot;tab on&quot;>Publisher Analysis</button></div>
+      <div class=&quot;subtabbar&quot;><button class=&quot;subtab on&quot;>Program Wise Bifurcation</button><button class=&quot;subtab&quot;>Program wise Conversion</button></div>
+      <div class=&quot;panel&quot;><div class=&quot;tbl-wrap&quot;><table class=&quot;tbl&quot; id=&quot;pubTbl&quot;><thead><tr><th>Deal-Month, Products Interested</th><th class=&quot;num&quot;>Total</th><th class=&quot;num&quot;>Lead Captured</th><th class=&quot;num&quot;>Open</th><th class=&quot;num&quot;>No SAL</th><th class=&quot;num&quot;>Demo Pipeline</th><th class=&quot;num&quot;>Demo Done</th><th class=&quot;num&quot;>Onboarding</th><th class=&quot;num&quot;>Deal Lost</th></tr></thead><tbody></tbody></table></div></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;demographic&quot;>
+      <div class=&quot;vhead&quot;><h1>Demographic Dashboard</h1><div class=&quot;right&quot;><button class=&quot;btn pri&quot;>CREATE REPORTS</button></div></div>
+      <div class=&quot;tabbar&quot; style=&quot;border-radius:8px 8px 0 0&quot;><button class=&quot;tab on&quot;>Regional Analysis</button></div>
+      <div class=&quot;subtabbar&quot;><button class=&quot;subtab on&quot;>Country-State-City wise Conversion Analysis</button><button class=&quot;subtab&quot;>Country Wise Lead Count</button><button class=&quot;subtab&quot;>State Wise Lead Count</button></div>
+      <div class=&quot;panel&quot;><div class=&quot;tbl-wrap&quot;><table class=&quot;tbl&quot; id=&quot;demoTbl&quot;><thead><tr><th>Country-State-City</th><th class=&quot;num&quot;>Total Leads</th><th class=&quot;num&quot;>Enrolled Leads</th><th class=&quot;num&quot;>Lead To Enrolled Leads %</th></tr></thead><tbody></tbody></table></div></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;leads&quot;>
+      <div class=&quot;vhead&quot; style=&quot;justify-content:flex-end&quot;><div class=&quot;right&quot;><button class=&quot;lm-pill&quot;>Hot Leads (468)</button><button class=&quot;lm-pill&quot;>Verified Leads (1,206)</button></div></div>
+      <div class=&quot;lm-tabs&quot; data-tabs=&quot;leads&quot;></div>
+      <button class=&quot;lm-sort&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M3 7h6M3 12h12M3 17h18&quot;/><path d=&quot;M18 7l3-3 3 3M21 4v9&quot;/></svg> Sort</button>
+      <div class=&quot;lm-toolbar&quot; data-tools=&quot;1&quot;></div>
+      <div data-list=&quot;leads&quot;></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;rawdata&quot;>
+      <div class=&quot;vhead&quot; style=&quot;justify-content:flex-end&quot;><div class=&quot;right&quot;><button class=&quot;lm-pill&quot;>Verified Leads (8,940)</button><button class=&quot;lm-pill&quot;>Enriched Leads (6,120)</button></div></div>
+      <div class=&quot;lm-tabs&quot; data-tabs=&quot;rawdata&quot;></div>
+      <button class=&quot;lm-sort&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M3 7h6M3 12h12M3 17h18&quot;/><path d=&quot;M18 7l3-3 3 3M21 4v9&quot;/></svg> Sort</button>
+      <div class=&quot;lm-toolbar&quot; data-tools=&quot;1&quot;></div>
+      <div data-list=&quot;rawdata&quot;></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;wa&quot;>
+      <div class=&quot;vhead&quot;><h1>WhatsApp Chat</h1></div>
+      <div class=&quot;wa-list&quot; id=&quot;waList&quot;></div>
+      <div class=&quot;pager&quot; id=&quot;waPager&quot;></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;followups&quot;>
+      <div class=&quot;lm-tabs&quot; data-tabs=&quot;followups&quot;></div>
+      <div class=&quot;fu-grid&quot;>
+        <div>
+          <button class=&quot;lm-sort&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M3 7h6M3 12h12M3 17h18&quot;/><path d=&quot;M18 7l3-3 3 3M21 4v9&quot;/></svg> Sort</button>
+          <div class=&quot;lm-toolbar&quot; data-tools=&quot;1&quot;></div>
+          <div data-list=&quot;followups&quot;></div>
+        </div>
+        <div class=&quot;cal&quot; id=&quot;fuCal&quot;>
+          <div class=&quot;fhd&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; style=&quot;width:16px;height:16px&quot;><rect x=&quot;3&quot; y=&quot;4&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/><path d=&quot;M16 2v4M8 2v4M3 10h18&quot;/></svg> Followup Calendar</div>
+          <div class=&quot;ch&quot;><button id=&quot;calPrev&quot;>‹</button><span id=&quot;calLabel&quot;>June 2026</span><button id=&quot;calNext&quot;>›</button></div>
+          <div class=&quot;grid&quot; id=&quot;calGrid&quot;></div>
+        </div>
+      </div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;failed&quot;>
+      <div class=&quot;vhead&quot;><h1>Failed Lead List</h1></div>
+      <div class=&quot;tbl-wrap&quot;><table class=&quot;tbl&quot; id=&quot;failedTbl&quot;><thead><tr><th style=&quot;width:30px&quot;></th><th>Institute Name</th><th>EB Email</th><th>EB Contact No</th><th>Refered To</th><th>Created On</th><th>Error Message</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class=&quot;pager&quot; id=&quot;failedPager&quot;></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;bulk&quot;>
+      <div class=&quot;tabbar&quot; style=&quot;border-radius:8px 8px 0 0;margin-bottom:18px&quot;><button class=&quot;tab on&quot;>Bulk Upload</button><button class=&quot;tab&quot;>Data Download</button><button class=&quot;tab&quot;>Bulk Status Change</button><button class=&quot;tab&quot;>Bulk Refer</button></div>
+      <div class=&quot;ctrls&quot;><div class=&quot;right&quot;><span class=&quot;select&quot;>File Name <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;m6 9 6 6 6-6&quot;/></svg></span><span class=&quot;select&quot; style=&quot;min-width:200px&quot;>ExtraaEdge Admin <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;m6 9 6 6 6-6&quot;/></svg></span></div></div>
+      <div class=&quot;tbl-wrap&quot;><table class=&quot;tbl&quot; id=&quot;bulkTbl&quot;><thead><tr><th>File Name</th><th>Upload Date</th><th>Uploaded By</th><th class=&quot;num&quot;>Total Records</th><th>Stage</th></tr></thead><tbody></tbody></table></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;campaign&quot;>
+      <div class=&quot;lm-tabs&quot;><button class=&quot;lm-tab on&quot;>All Bulk Communications (30)</button></div>
+      <div id=&quot;cmpList&quot;></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;workflow&quot;>
+      <div class=&quot;vhead&quot;><h1>Workflow Automation</h1><div class=&quot;right&quot;><span class=&quot;sample-badge&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>Sample data</span></span></div></div>
+      <div class=&quot;privacy-bar&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>These automations run quietly in the background to save your team time. <b>Internal rules, conditions and configuration are not shown.</b></span></div>
+      <div class=&quot;wf-grid&quot; id=&quot;wfGrid&quot;></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;basic&quot;>
+      <div class=&quot;tabbar&quot; style=&quot;border-radius:8px 8px 0 0;margin-bottom:18px&quot;><button class=&quot;tab on&quot;>Email Templates</button><button class=&quot;tab&quot;>SMS Templates</button><button class=&quot;tab&quot;>Lead Score</button><button class=&quot;tab&quot;>Assignment Rules</button></div>
+      <div class=&quot;tbl-wrap&quot;><table class=&quot;tbl&quot; id=&quot;tmplTbl&quot;><thead><tr><th>Template Name</th><th>Subject</th><th>Stage</th><th>Visibility</th><th>Actions</th></tr></thead><tbody></tbody></table></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;advanced&quot;>
+      <div class=&quot;vhead&quot;><h1>Settings</h1></div>
+      <div class=&quot;set-sec&quot;><div class=&quot;h&quot;>Dropdown Values</div><div class=&quot;set-card&quot; data-toast=&quot;Setup Dropdown Values&quot;>Setup Dropdown Values <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;m9 18 6-6-6-6&quot;/></svg></div></div>
+      <div class=&quot;set-sec&quot;><div class=&quot;h&quot;>Users &amp;amp; Roles</div><div class=&quot;set-card&quot; data-toast=&quot;User Profiles&quot;>User Profiles <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;m9 18 6-6-6-6&quot;/></svg></div></div>
+      <div class=&quot;set-sec&quot;><div class=&quot;h&quot;>Communications</div><div class=&quot;set-card&quot; data-toast=&quot;Template Settings&quot;>Template Settings <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;m9 18 6-6-6-6&quot;/></svg></div></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;integration&quot;>
+      <div class=&quot;vhead&quot;><h1>Third Party integrations</h1></div>
+      <div class=&quot;int-stats&quot;>
+        <div class=&quot;int-stat&quot;><div class=&quot;l&quot;>Total Integrations</div><div class=&quot;v&quot;>60+</div></div>
+        <div class=&quot;int-stat pub&quot;><div class=&quot;l&quot;>Live &amp;amp; Ready</div><div class=&quot;v&quot;>60+</div></div>
+        <div class=&quot;int-stat unp&quot; style=&quot;border:0&quot;><div class=&quot;l&quot;>Categories</div><div class=&quot;v&quot; style=&quot;color:var(--o)&quot;>8</div></div>
+      </div>
+      <div class=&quot;int-bar&quot;><button class=&quot;btn&quot; id=&quot;intRefresh&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M21 12a9 9 0 1 1-3-6.7L21 8&quot;/><path d=&quot;M21 3v5h-5&quot;/></svg> Refresh</button><button class=&quot;btn pri&quot; data-toast=&quot;Request an integration&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><line x1=&quot;12&quot; y1=&quot;5&quot; x2=&quot;12&quot; y2=&quot;19&quot;/><line x1=&quot;5&quot; y1=&quot;12&quot; x2=&quot;19&quot; y2=&quot;12&quot;/></svg> Request an integration</button></div>
+      <div class=&quot;int-cats&quot; id=&quot;intCats&quot;></div>
+    </section>
+    <section class=&quot;view&quot; data-v=&quot;ticket&quot;>
+      <div class=&quot;vhead&quot;><h1>Raise a Ticket</h1></div>
+      <div class=&quot;placeholder&quot;><div class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;><path d=&quot;M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z&quot;/></svg></div><b>Support</b><span>Our team responds to your tickets 24×7.</span></div>
+    </section>
+  </main>
+</div>
+<div class=&quot;toasts&quot; id=&quot;toasts&quot;></div>
+<script>
+(function(){
+  var $=function(s,c){return (c||document).querySelector(s);};
+  var $$=function(s,c){return [].slice.call((c||document).querySelectorAll(s));};
+  var views=$$('.view'), navs=$$('.nav[data-go]'), subnavs=$$('.subnav'), ticket=$('.ticket');
+  function go(v){
+    views.forEach(function(s){s.classList.toggle('on', s.dataset.v===v);});
+    navs.forEach(function(n){n.classList.toggle('on', n.dataset.go===v);});
+    subnavs.forEach(function(n){n.classList.toggle('on', n.dataset.go===v);});
+    var main=$('#main'); if(main) main.scrollTop=0;
+    closeSidebar();
+    if(v==='mgmt') drawFunnel();
+    if(v==='outcomes') drawOutcomes();
+    var av=$('.view[data-v=&quot;'+v+'&quot;]');
+    if(av) $$('.lead.open',av).forEach(function(c){var b=c.querySelector('.lead-body');if(b)b.style.maxHeight=b.scrollHeight+'px';});
+  }
+  function userStop(){ if(window.__laxmiStopTour) window.__laxmiStopTour(); }
+  navs.forEach(function(n){ n.addEventListener('click',function(){ userStop(); go(n.dataset.go); }); });
+  subnavs.forEach(function(n){ n.addEventListener('click',function(){ userStop(); go(n.dataset.go); }); });
+  if(ticket) ticket.addEventListener('click',function(){ userStop(); go('ticket'); });
+  $$('.nav[data-toggle]').forEach(function(btn){btn.addEventListener('click',function(){
+    var sub=$('#sub-'+btn.dataset.toggle);
+    btn.classList.add('exp'); if(sub) sub.classList.add('open');
+    if(btn.dataset.toggle==='analytics'){ userStop(); go('mgmt'); }
+  });});
+  var side=$('#side'), scrim=$('#scrim'), burger=$('#burger');
+  function openSidebar(){ side.classList.add('show'); scrim.classList.add('show'); }
+  function closeSidebar(){ side.classList.remove('show'); scrim.classList.remove('show'); }
+  if(burger) burger.addEventListener('click',openSidebar);
+  if(scrim) scrim.addEventListener('click',closeSidebar);
+  var t0=Date.now(), tEl=$('#sessTimer');
+  setInterval(function(){var s=Math.floor((Date.now()-t0)/1000);
+    var h=Math.floor(s/3600),m=Math.floor(s%3600/60),ss=s%60;
+    if(tEl) tEl.textContent=[h,m,ss].map(function(n){return(n<10?'0':'')+n;}).join(':');},1000);
+  var toasts=$('#toasts');
+  function toast(icon,title,msg){
+    var t=document.createElement('div'); t.className='toast';
+    t.innerHTML='<span class=&quot;ti&quot;>'+icon+'</span><div><b>'+title+'</b>'+(msg||'')+'</div>';
+    toasts.appendChild(t);
+    requestAnimationFrame(function(){requestAnimationFrame(function(){t.classList.add('in');});});
+    setTimeout(function(){t.classList.remove('in');setTimeout(function(){t.remove();},400);},3000);
+    while(toasts.children.length>3) toasts.removeChild(toasts.firstChild);
+  }
+  window.__toast=toast;
+  $('#bell').addEventListener('click',function(){ $('#bellCnt').textContent='0'; toast('🔔','193 notifications','Latest: Meera J. paid fees · enrolled'); });
+  $('#addBtn').addEventListener('click',function(){ toast('➕','Quick add','Create a new lead, task or campaign'); });
+  $$('[data-toast]').forEach(function(el){el.addEventListener('click',function(){toast('✨',el.dataset.toast,'Live in your real workspace');});});
+  $$('.tabbar').forEach(function(bar){bar.addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;$$('.tab',bar).forEach(function(x){x.classList.toggle('on',x===t);});});});
+  $$('.subtabbar').forEach(function(bar){bar.addEventListener('click',function(e){var t=e.target.closest('.subtab');if(!t)return;$$('.subtab',bar).forEach(function(x){x.classList.toggle('on',x===t);});});});
+  var FUNNEL=[{l:'New Leads',v:917,c:'var(--f1)'},{l:'Qualified',v:812,c:'var(--f3)'},{l:'Counselling',v:690,c:'var(--f4)'},{l:'Application',v:540,c:'var(--f5)'},{l:'Admission',v:386,c:'var(--grn)'}];
+  function drawFunnel(){
+    var f=$('#mgmtFunnel'), lg=$('#mgmtLegend'); if(!f||lg.dataset.done) return;
+    var n=FUNNEL.length;
+    FUNNEL.forEach(function(d,i){
+      var bar=document.createElement('div'); bar.className='fbar';
+      var topW=100-i*(70/n);
+      bar.style.background=d.c; bar.style.color='#fff'; bar.style.width='0%'; bar.textContent=d.v;
+      f.appendChild(bar);
+      requestAnimationFrame(function(){requestAnimationFrame(function(){bar.style.width=topW+'%';});});
+      var li=document.createElement('div'); li.className='li'; li.innerHTML='<i style=&quot;background:'+d.c+'&quot;></i>'+d.l+': <b>'+d.v+'</b>'; lg.appendChild(li);
+    });
+    lg.dataset.done='1';
+  }
+  drawFunnel();
+  var aiIc={
+    voice:'<path d=&quot;M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.4 2.3 1.2 3 .2 4.2L8 9.9a16 16 0 0 0 6 6l2-1.4c1.2-1 1.9-.2 4.2.2A2 2 0 0 1 22 16.9z&quot;/>',
+    gpt:'<path d=&quot;M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z&quot;/><path d=&quot;M9 10h.01M13 10h.01&quot;/>',
+    waba:'<path d=&quot;M21 11.5a8.4 8.4 0 0 1-11.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z&quot;/>',
+    pulse:'<path d=&quot;M22 12h-4l-3 9L9 3l-3 9H2&quot;/>'
+  };
+  var chk='<svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;><path d=&quot;M20 6 9 17l-5-5&quot;/></svg>';
+  function aiViz(k){
+    if(k==='voice'){var s='';for(var i=0;i<15;i++){s+='<i style=&quot;animation-delay:'+(i*0.07)+'s;animation-duration:'+(0.7+(i%4)*0.12)+'s&quot;></i>';}return '<div class=&quot;ai-wave&quot;>'+s+'</div>';}
+    if(k==='gpt')return '<div class=&quot;ai-chat&quot;><div class=&quot;ai-bub a&quot;>Hi! What are the fees?</div><div class=&quot;ai-bub u&quot;>Here you go 📄 — book a call?</div></div>';
+    if(k==='waba')return '<div class=&quot;ai-chat&quot; style=&quot;align-items:flex-end&quot;><div class=&quot;ai-wabub&quot;>Your counselling slot is booked ✅</div></div>';
+    if(k==='pulse')return '<div class=&quot;ai-pulse&quot;><span>92</span></div>';
+    return '';
+  }
+  var AI=[
+    {k:'voice',name:'VidyaAI Voice Agent',tag:'AI voice calls in 10+ languages',live:1,desc:'An AI voice agent that calls new enquiries the moment they arrive, qualifies them and books counselling slots — in Hindi, Marathi and 10+ Indian languages.',pts:['Human-like voice, 24×7','Calls &amp; qualifies in under 60 seconds','Books slots and updates the CRM on its own']},
+    {k:'gpt',name:'VidyaGPT',tag:'Your 24×7 AI admissions counsellor',live:1,desc:'A conversational AI that answers student questions instantly, guides them through admissions and never lets a query go cold.',pts:['Answers course &amp; fee queries instantly','Understands context like a real counsellor','Hands warm leads off to your team']},
+    {k:'waba',name:'VidyaWABA',tag:'WhatsApp Business API, automated',live:1,desc:'Official verified WhatsApp automation — segmented broadcasts, fee reminders and document nudges that run on their own, with every reply synced to the lead.',pts:['Verified WhatsApp Business API','Automated journeys &amp; broadcasts','Two-way chats synced to every lead']},
+    {k:'pulse',name:'VidyaPulse',tag:'Real-time lead intent &amp; buying signals',live:1,desc:'Continuously scores every lead on intent and surfaces buying signals, so counsellors always act on the hottest leads first.',pts:['Live AI intent score per lead','Buying-signal alerts in real time','Auto-prioritised work queue']}
+  ];
+  (function(){
+    var g=$('#aiGrid'); if(!g) return;
+    AI.forEach(function(a){
+      var c=document.createElement('div'); c.className='ai-card';
+      c.innerHTML='<div class=&quot;top&quot;><div class=&quot;ai-ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;>'+aiIc[a.k]+'</svg></div>'+
+        '<div class=&quot;nm&quot;><h3>'+a.name+'</h3><span>'+a.tag+'</span></div>'+(a.live?'<span class=&quot;live&quot;><i></i>LIVE</span>':'')+'</div>'+
+        '<div class=&quot;ai-viz&quot;>'+aiViz(a.k)+'</div>'+
+        '<div class=&quot;ai-body&quot;><p>'+a.desc+'</p><ul>'+a.pts.map(function(p){return '<li>'+chk+p+'</li>';}).join('')+'</ul></div>';
+      g.appendChild(c);
+    });
+  })();
+  var INTEG_BASE='https://www.extraaedge.com/wp-content/uploads/integration-icons/';
+  var INTEG=[
+    ['Cloud Telephony',[['3CX','3CX.png'],['Ameyo','Ameyo.png'],['Exotel','Exotel.png'],['Knowlarity','Knowlarity.png'],['MyOperator','MyOperator.png'],['Ozonetel','Ozonetel.png'],['Servetel','Servetel.png'],['Smartflo','Smartflo.png'],['TeleCMI','TeleCMI.png']]],
+    ['Lead Sources &amp; Marketplaces',[['CollegeDekho','CollegeDekho.png'],['Jagran Josh','Jagran%20Josh.png'],['Justdial','Justdial.png'],['Shiksha','Shiksha.png'],['Sulekha','Sulekha.png']]],
+    ['Advertising &amp; Remarketing',[['Google Ads','Google%20Ads.png'],['Facebook Ads','Facebook%20Ads.png'],['Instagram','Instagram.png'],['LinkedIn Ads','LinkedIn%20Ads.png']]],
+    ['Payments &amp; Banking',[['Razorpay','Razorpay.png'],['Paytm','Paytm.png'],['Stripe','Stripe.png'],['HDFC Bank','HDFC%20Bank.png'],['Mastercard','Mastercard.png']]],
+    ['Forms &amp; Website Builders',[['WordPress','WordPress.png'],['Wix','Wix.png'],['Contact Form 7','Contact%20Form%207.png'],['Zoho Forms','Zoho%20Forms.png']]],
+    ['Learning &amp; Assessment',[['CollPoll','CollPoll.png'],['Learnyst','Learnyst.png'],['Populi','Populi.png'],['Wheebox','Wheebox.png']]],
+    ['Automation &amp; Productivity',[['Zapier','Zapier.png'],['SendGrid','SendGrid.png']]]
+  ];
+  var INTEG_SEC=['Security &amp; Compliance',[['ISO Certified','iso%20certified%20logo.png'],['GDPR Ready','GDPR%20logo%20.png'],['India Data Residency','india-data-residency-logo.png'],['Role-Based Access','role-based-acccess-logo.png']]];
+  (function(){var host=$('#intCats'); if(!host) return;
+    function tile(it){return '<div class=&quot;int-tile&quot;><div class=&quot;logo&quot;><img src=&quot;'+INTEG_BASE+it[1]+'&quot; alt=&quot;'+it[0]+'&quot; loading=&quot;lazy&quot; onerror=&quot;this.closest(&amp;quot;.logo&amp;quot;).style.display=&amp;quot;none&amp;quot;&quot;></div><span>'+it[0]+'</span></div>';}
+    function section(title,items,cls){var sec=document.createElement('div'); sec.className='int-cat'+(cls?' '+cls:'');
+      sec.innerHTML='<div class=&quot;ch&quot;><h3>'+title+'</h3><span class=&quot;ct&quot;>'+items.length+'</span><span class=&quot;ln&quot;></span></div><div class=&quot;int-grid&quot;>'+items.map(tile).join('')+'</div>';
+      host.appendChild(sec);}
+    INTEG.forEach(function(c){section(c[0],c[1]);});
+    section(INTEG_SEC[0],INTEG_SEC[1],'int-sec-badges');
+  })();
+  var _ir=$('#intRefresh'); if(_ir) _ir.addEventListener('click',function(){toast('🔄','Refreshed','All integrations up to date');});
+  var ocIcon={bolt:'<path d=&quot;M13 2 3 14h7l-1 8 10-12h-7l1-8z&quot;/>',up:'<path d=&quot;M3 17l6-6 4 4 7-7&quot;/><path d=&quot;M17 8h4v4&quot;/>',wa:'<path d=&quot;M21 11.5a8.4 8.4 0 0 1-11.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z&quot;/>',people:'<path d=&quot;M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2&quot;/><circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/>',roi:'<circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/><path d=&quot;M12 6v12M15 9.5A3.5 3 0 0 0 11.5 8H10a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4h-1.5A3.5 3 0 0 1 9 14.5&quot;/>'};
+  var OUTCOMES=[
+    {ac:'--o',acs:'var(--o-soft)',ic:'bolt',lab:'Lead Response Time',big:'30 sec',sub:'Average first response to a new enquiry — VidyaAI calls and messages the instant a lead arrives.',tr:'12× faster than manual',ba:[['Manual','old',100,'6h 12m'],['ExtraaEdge','',6,'30 sec']]},
+    {ac:'--grn',acs:'var(--grn-soft)',ic:'up',lab:'Admission Conversion Rate',big:'42%',sub:'Enquiry → enrolled this cycle, with AI prioritising the hottest, highest-intent leads first.',tr:'+40% vs last cycle',ba:[['This cycle','',100,'42%'],['Last cycle','old',71,'30%']]},
+    {ac:'--blue',acs:'#e6f0fb',ic:'wa',lab:'WhatsApp Automation',big:'94%',sub:'Conversations handled automatically — reminders, nudges and FAQs, synced to every lead.',tr:'24,000+ messages automated',ba:[['Automated','',94,'94%'],['Manual','old',6,'6%']]},
+    {ac:'--nav',acs:'#e8edf5',ic:'people',lab:'Counselor Productivity',big:'3.5×',sub:'More leads converted per counsellor — they only talk to warm, ready-to-enrol students.',tr:'70 quality calls / day',ba:[['With AI','',100,'70/day'],['Before','old',27,'19/day']]},
+    {ac:'--o',acs:'var(--o-soft)',ic:'roi',lab:'Revenue &amp; ROI',big:'6.5×',sub:'Return on investment, with ₹4.2 Cr in revenue influenced this cycle and a lower cost per enrolment.',tr:'₹4.2 Cr revenue · cost/enrol ↓ 46%',ba:[['Return','',100,'6.5×'],['Cost / enrol','old',54,'↓ 46%']]}
+  ];
+  function drawOutcomes(){
+    var g=$('#ocGrid'); if(!g) return;
+    if(!g.dataset.built){
+      OUTCOMES.forEach(function(o){
+        var c=document.createElement('div'); c.className='oc-card'; c.style.setProperty('--ac','var('+o.ac+')'); c.style.setProperty('--acs',o.acs);
+        c.innerHTML='<div class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;>'+ocIcon[o.ic]+'</svg></div>'+
+          '<div class=&quot;lab&quot;>'+o.lab+'</div><div class=&quot;big&quot;>'+o.big+'</div><div class=&quot;sub&quot;>'+o.sub+'</div>'+
+          '<div class=&quot;tr&quot;>▲ '+o.tr+'</div>'+
+          '<div class=&quot;ba&quot;>'+o.ba.map(function(r){return '<div class=&quot;r '+(r[1])+'&quot;><b>'+r[0]+'</b><span class=&quot;tk&quot;><i data-w=&quot;'+r[2]+'&quot;></i></span><em>'+r[3]+'</em></div>';}).join('')+'</div>';
+        g.appendChild(c);
+      });
+      g.dataset.built='1';
+    }
+    g.querySelectorAll('.ba i').forEach(function(i){ i.style.width='0'; requestAnimationFrame(function(){requestAnimationFrame(function(){ i.style.width=i.dataset.w+'%'; });}); });
+  }
+  drawOutcomes();
+  function rows(tb,data){var b=$(tb+' tbody'); if(!b)return; data.forEach(function(r){var tr=document.createElement('tr'); if(r.cls)tr.className=r.cls; if(r.lvl!=null)tr.dataset.level=r.lvl; tr.innerHTML=r.html; b.appendChild(tr);});}
+  function wireTree(tb){var t=$(tb+' tbody'); if(!t)return;
+    t.addEventListener('click',function(e){var ex=e.target.closest('.exp'); if(!ex)return;
+      var tr=ex.closest('tr'), lvl=+tr.dataset.level; if(isNaN(lvl))return;
+      var open=ex.textContent.indexOf('▾')>-1; ex.textContent=open?'▸':'▾';
+      var n=tr.nextElementSibling;
+      while(n){var nl=+n.dataset.level; if(isNaN(nl)||nl<=lvl)break;
+        n.style.display=open?'none':''; n=n.nextElementSibling;}
+    });
+  }
+  var COUNSELORS=[['Counsellor A',228,89,'39%'],['Counsellor B',216,80,'37%'],['Counsellor C',146,53,'36%'],['Counsellor D',145,49,'34%'],['Demo Admin',109,37,'34%'],['Counsellor E',42,15,'36%'],['Counsellor F',25,9,'36%'],['Counsellor G',18,6,'33%']];
+  rows('#counselorTbl',COUNSELORS.map(function(r){return {html:'<td>'+r[0]+'</td><td class=&quot;num&quot;>'+r[1]+'</td><td class=&quot;num&quot;>'+r[2]+'</td><td class=&quot;num&quot;>'+r[3]+'</td>'};}));
+  rows('#commTbl',[
+    {lvl:0,html:'<td><span class=&quot;exp&quot;>▸</span> Manual (5)</td><td class=&quot;num&quot;>400</td><td class=&quot;num&quot;>388</td><td class=&quot;num&quot;>97.0</td><td class=&quot;num&quot;>168</td><td class=&quot;num&quot;>43.3</td><td class=&quot;num&quot;>58</td><td class=&quot;num&quot;>14.5</td><td class=&quot;num&quot;>34.5</td>'},
+    {lvl:0,html:'<td><span class=&quot;exp&quot;>▸</span> Campaigns (2)</td><td class=&quot;num&quot;>24220</td><td class=&quot;num&quot;>23252</td><td class=&quot;num&quot;>96.0</td><td class=&quot;num&quot;>9292</td><td class=&quot;num&quot;>40.0</td><td class=&quot;num&quot;>2922</td><td class=&quot;num&quot;>12.6</td><td class=&quot;num&quot;>31.4</td>'},
+    {cls:'tot',html:'<td>Total</td><td class=&quot;num&quot;>24620</td><td class=&quot;num&quot;>23640</td><td class=&quot;num&quot;>96.0</td><td class=&quot;num&quot;>9460</td><td class=&quot;num&quot;>40.0</td><td class=&quot;num&quot;>2980</td><td class=&quot;num&quot;>12.6</td><td class=&quot;num&quot;>31.5</td>'}
+  ]);
+  rows('#pubTbl',[
+    {cls:'hl',lvl:0,html:'<td><span class=&quot;exp&quot;>▾</span> UG (1)</td><td class=&quot;num&quot;>10313</td><td class=&quot;num&quot;>2480</td><td class=&quot;num&quot;>760</td><td class=&quot;num&quot;>210</td><td class=&quot;num&quot;>1620</td><td class=&quot;num&quot;>2540</td><td class=&quot;num&quot;>2380</td><td class=&quot;num&quot;>123</td>'},
+    {cls:'tot',html:'<td>Total</td><td class=&quot;num&quot;>10313</td><td class=&quot;num&quot;>2480</td><td class=&quot;num&quot;>760</td><td class=&quot;num&quot;>210</td><td class=&quot;num&quot;>1620</td><td class=&quot;num&quot;>2540</td><td class=&quot;num&quot;>2380</td><td class=&quot;num&quot;>123</td>'}
+  ]);
+  wireTree('#pubTbl'); wireTree('#commTbl');
+  function ind(lv){return '<span class=&quot;ind&quot; style=&quot;width:'+(lv*16)+'px&quot;></span>';}
+  rows('#demoTbl',[
+    {lvl:0,html:'<td>'+ind(0)+'<span class=&quot;exp&quot;>▾</span> India (43)</td><td class=&quot;num&quot;>909</td><td class=&quot;num&quot;>382</td><td class=&quot;num&quot;>42%</td>'},
+    {cls:'hl',lvl:1,html:'<td>'+ind(1)+'<span class=&quot;exp&quot;>▸</span> Maharashtra (12)</td><td class=&quot;num&quot;>286</td><td class=&quot;num&quot;>128</td><td class=&quot;num&quot;>45%</td>'},
+    {lvl:1,html:'<td>'+ind(1)+'<span class=&quot;exp&quot;>▸</span> Uttar Pradesh (9)</td><td class=&quot;num&quot;>212</td><td class=&quot;num&quot;>88</td><td class=&quot;num&quot;>42%</td>'},
+    {lvl:0,html:'<td>'+ind(0)+'<span class=&quot;exp&quot;>▸</span> United States (1)</td><td class=&quot;num&quot;>8</td><td class=&quot;num&quot;>4</td><td class=&quot;num&quot;>50%</td>'},
+    {cls:'tot',html:'<td>Total</td><td class=&quot;num&quot;>917</td><td class=&quot;num&quot;>386</td><td class=&quot;num&quot;>42%</td>'}
+  ]);
+  wireTree('#demoTbl');
+  function icon(p){return '<svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;>'+p+'</svg>';}
+  var I={ppl:'<path d=&quot;M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2&quot;/><circle cx=&quot;10&quot; cy=&quot;7&quot; r=&quot;4&quot;/>',call:'<path d=&quot;M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.4 2.3 1.2 3 .2 4.2L8 9.9a16 16 0 0 0 6 6l2-1.4c1.2-1 1.9-.2 4.2.2A2 2 0 0 1 22 16.9z&quot;/>',mail:'<rect x=&quot;2&quot; y=&quot;4&quot; width=&quot;20&quot; height=&quot;16&quot; rx=&quot;2&quot;/><path d=&quot;m2 6 10 7L22 6&quot;/>',wa:'<path d=&quot;M21 11.5a8.4 8.4 0 0 1-11.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z&quot;/>',sms:'<path d=&quot;M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z&quot;/>',kebab:'<circle cx=&quot;12&quot; cy=&quot;5&quot; r=&quot;1.6&quot;/><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;1.6&quot;/><circle cx=&quot;12&quot; cy=&quot;19&quot; r=&quot;1.6&quot;/>',caret:'<path d=&quot;m6 9 6 6 6-6&quot;/>'};
+  var SUBTABS=['Account Details','Deal Attributes','Contact Details','Source Details','Geography details'];
+  var TOOLBAR='<span class=&quot;tb&quot;>'+icon('<path d=&quot;m3 11 18-5v12L3 14v-3z&quot;/>')+'</span><span class=&quot;tb&quot;>'+icon(I.call)+'</span><span class=&quot;tb&quot;>'+icon(I.wa)+'</span><span class=&quot;tb&quot;>'+icon(I.sms)+'</span><span class=&quot;tb plain refresh&quot;>'+icon('<path d=&quot;M21 12a9 9 0 1 1-3-6.7L21 8&quot;/><path d=&quot;M21 3v5h-5&quot;/>')+'</span><span class=&quot;tb plain&quot;>'+icon('<polygon points=&quot;22 3 2 3 10 12.5 10 19 14 21 14 12.5&quot;/>')+'</span>';
+  $$('.lm-toolbar[data-tools]').forEach(function(t){t.innerHTML=TOOLBAR;});
+  function buildCard(l,open){
+    var card=document.createElement('div'); card.className='lead'+(open?' open':'');
+    var fields=l.fields.map(function(f){var cls='v'+(f[2]==='link'?' link':'')+(f[2]==='rmk'?' rmk':'');return '<div class=&quot;field&quot;><div class=&quot;l&quot;>'+f[0]+'</div><div class=&quot;'+cls+'&quot;>'+f[1]+'</div></div>';}).join('');
+    var m=l.m||{};
+    card.innerHTML='<div class=&quot;lead-head&quot;><span class=&quot;chk&quot;></span><div class=&quot;name&quot;><b>'+l.name+' <span class=&quot;ct&quot;>'+l.count+'</span></b><span>'+(/\d/.test(l.phone)?'<span class=&quot;pii&quot;>'+l.phone+'</span>':l.phone)+'</span></div><div class=&quot;status&quot;><span class=&quot;s1&quot;>'+l.s1+'</span><span class=&quot;s2&quot;>'+l.s2+'</span></div><div class=&quot;metrics&quot;><span class=&quot;m&quot;>'+icon(I.ppl)+(m.ppl||0)+'</span><a class=&quot;viewall&quot;>View all</a><span class=&quot;m&quot;>'+icon(I.call)+(m.call||0)+'</span><span class=&quot;m&quot;>'+icon(I.mail)+(m.mail||0)+'</span><span class=&quot;m&quot;>'+icon(I.wa)+(m.wa||0)+'</span><span class=&quot;m&quot;>'+icon(I.sms)+(m.sms||0)+'</span></div><span class=&quot;kebab&quot;>'+icon(I.kebab)+'</span><span class=&quot;caret&quot;>'+icon(I.caret)+'</span></div><div class=&quot;lead-body&quot;><div class=&quot;lead-subtabs&quot;>'+SUBTABS.map(function(s,i){return '<button class=&quot;lead-subtab'+(i===0?' on':'')+'&quot;>'+s+'</button>';}).join('')+'</div><div class=&quot;lead-fields&quot;>'+fields+'</div></div>';
+    $('.lead-head',card).addEventListener('click',function(e){
+      if(e.target.closest('.viewall')||e.target.closest('.kebab')){e.stopPropagation();toast('ℹ️','Lead action','Opening details');return;}
+      setLeadOpen(card,!card.classList.contains('open'));
+    });
+    $$('.lead-subtab',card).forEach(function(st){st.addEventListener('click',function(){$$('.lead-subtab',card).forEach(function(x){x.classList.toggle('on',x===st);});});});
+    return card;
+  }
+  function setLeadOpen(card,open){card.classList.toggle('open',open);var body=card.querySelector('.lead-body');if(body) body.style.maxHeight=open?body.scrollHeight+'px':'0px';}
+  function renderList(key,data,tab){
+    var host=$('[data-list=&quot;'+key+'&quot;]'); if(!host) return;
+    var list=data.filter(function(l){return tab==='all'||!l.cat||l.cat.indexOf(tab)>-1;});
+    host.innerHTML='';
+    if(!list.length){host.innerHTML='<div class=&quot;placeholder&quot;><b>No leads</b><span>No leads in this view.</span></div>';return;}
+    list.forEach(function(l,i){var c=buildCard(l,i===0);host.appendChild(c);if(i===0)setLeadOpen(c,true);});
+  }
+  window.addEventListener('resize',function(){$$('.lead.open').forEach(function(c){var b=c.querySelector('.lead-body');if(b)b.style.maxHeight=b.scrollHeight+'px';});});
+  var TABSETS={
+    leads:[['all','All',1420],['captured','Lead Captured',286],['open','Open',64],['demopipe','Demo Pipeline',168],['demodone','Demo Done',142],['onboard','Onboarding',96],['referred','Referred From Me',312]],
+    rawdata:[['all','All',90328],['raw','Raw Data',90727],['reenq','Re-enquired',7908]],
+    followups:[['all','All',50],['done','Done Followups',25],['missed','Missed Followups',5],['planned','Planned Followups',24]]
+  };
+  function field(l,v,t){return [l,v,t];}
+  var WS='[www.example-edu](https://www.example-edu)...';
+  var LEADS=[
+    {cat:['all','demodone'],name:'Greenwood Institute (Sample)',count:2,phone:'+91 98•• ••• ••01',s1:'Demo Done',s2:'Proposal Sent',m:{ppl:6,call:4,mail:5,wa:3,sms:1},fields:[field('Lead Age','36 Days'),field('Account Segment','Universities'),field('EB Name','A. Sharma'),field('Deal Owner','Counsellor D'),field('Products Used','Admission CRM'),field('Deal Sub-stage','Proposal Sent'),field('Account_Website',WS,'link'),field('Deal Value','₹6.5 L'),field('Remarks','Hot lead — proposal accepted, closing this week','rmk'),field('Buying Month','June'),field('Subscription Status','Negotiation'),field('Lead Added On','May 18, 2026 10:19 AM'),field('Last Updated On','Jun 23, 2026 11:31 AM')]},
+    {cat:['all','onboard'],name:'Sunrise Academy (Sample)',count:2,phone:'+91 98•• ••• ••06',s1:'Admission',s2:'Fee Paid',m:{ppl:5,call:3,mail:4,wa:5,sms:1},fields:[field('Lead Age','9 Days'),field('Account Segment','Edtech'),field('EB Name','R. Patel'),field('Deal Owner','Counsellor A'),field('Products Used','Admission CRM + WhatsApp'),field('Deal Sub-stage','Fee Paid'),field('Account_Website',WS,'link'),field('Deal Value','₹4.2 L'),field('Remarks','Enrolled — fee received, onboarding started','rmk'),field('Buying Month','June'),field('Subscription Status','Converted'),field('Lead Added On','Jun 14, 2026 02:10 PM'),field('Last Updated On','Jun 23, 2026 09:40 AM')]},
+    {cat:['all','demopipe'],name:'Horizon School (Sample)',count:1,phone:'+91 98•• ••• ••78',s1:'Demo Pipeline',s2:'Demo Scheduled',m:{ppl:4,call:3,mail:1,wa:2,sms:0},fields:[field('Lead Age','12 Days'),field('Account Segment','K-12 Schools'),field('EB Name','M. Rao'),field('Deal Owner','Counsellor B'),field('Products Used','Admission CRM'),field('Deal Sub-stage','Demo Scheduled'),field('Account_Website',WS,'link'),field('Deal Value','₹3.8 L'),field('Remarks','High intent — demo booked for Friday 4 PM'),field('Buying Month','July'),field('Subscription Status','Trial'),field('Lead Added On','Jun 11, 2026 11:00 AM'),field('Last Updated On','Jun 23, 2026 10:05 AM')]}
+  ];
+  var RAWDATA=[
+    {cat:['all','raw'],name:'Maple Academy (Sample)',count:2,phone:'+91 75•• ••• ••57',s1:'Raw Data',s2:'Follow Up 2',m:{ppl:3,call:0,mail:0,wa:0,sms:0},fields:[field('Lead Age','54 Days'),field('Account Segment','Vocational'),field('EB Name','S. Trivedi'),field('Deal Sub-stage','Follow Up 2'),field('Old Stage','01 - Leads'),field('Account_Website',WS,'link'),field('Subscription Status','Subscribed'),field('Lead Added On','Apr 30, 2026 2:53 PM'),field('Last Updated On','Jun 23, 2026 11:47 AM'),field('Old Lead Source','Sample Data')]},
+    {cat:['all','raw'],name:'Pinnacle Research (Sample)',count:18,phone:'+91 70•• ••• ••86',s1:'Raw Data',s2:'Follow Up 2',m:{ppl:43,call:0,mail:23,wa:0,sms:0},fields:[field('Lead Age','70 Days'),field('Account Segment','GOI'),field('EB Name','V. Singh'),field('Deal Sub-stage','Follow Up 2'),field('Old Stage','01 - Leads'),field('Account_Website',WS,'link'),field('Subscription Status','Subscribed'),field('Lead Added On','Apr 14, 2026 10:02 AM'),field('Last Updated On','Jun 22, 2026 06:18 PM'),field('Old Lead Source','Sample Data')]}
+  ];
+  var FOLLOWUPS=[
+    {cat:['all','missed'],name:'Riverside Institute (Sample)',count:15,phone:'No Phone',s1:'Raw Data',s2:'Follow Up 2',m:{ppl:64,call:3,mail:28,wa:0,sms:0},fields:[field('Lead Age','70 Days'),field('Account Segment','NGO'),field('EB Name','N. Bhatia'),field('Deal Sub-stage','Follow Up 2'),field('Country','India'),field('State','Delhi'),field('Account_Website',WS,'link'),field('Subscription Status','Subscribed'),field('Lead Added On','Apr 14, 2026 8:23 PM'),field('Last Updated On','Jun 11, 2026 2:46 PM'),field('UTM Campaign','Bulk Upload','link')]},
+    {cat:['all','planned'],name:'Crestview Academy (Sample)',count:32,phone:'+91 91•• ••• ••97',s1:'Demo Pipeline',s2:'Demo Scheduled',m:{ppl:55,call:7,mail:12,wa:3,sms:0},fields:[field('Lead Age','41 Days'),field('Account Segment','Colleges'),field('EB Name','A. Verma'),field('Deal Owner','Counsellor C'),field('Deal Sub-stage','Demo Scheduled'),field('Country','India'),field('State','Maharashtra'),field('Account_Website',WS,'link'),field('Remarks','Demo set for Monday'),field('Subscription Status','Trial'),field('Lead Added On','May 13, 2026 3:11 PM'),field('UTM Campaign','Paid Search','link')]}
+  ];
+  var DATASETS={leads:LEADS,rawdata:RAWDATA,followups:FOLLOWUPS};
+  $$('.lm-tabs[data-tabs]').forEach(function(bar){
+    var key=bar.dataset.tabs;
+    TABSETS[key].forEach(function(t,i){var b=document.createElement('button');b.className='lm-tab'+(i===0?' on':'');b.dataset.f=t[0];b.textContent=t[1]+' ('+t[2].toLocaleString()+')';bar.appendChild(b);});
+    bar.addEventListener('click',function(e){var t=e.target.closest('.lm-tab');if(!t)return;$$('.lm-tab',bar).forEach(function(x){x.classList.toggle('on',x===t);});renderList(key,DATASETS[key],t.dataset.f);});
+    renderList(key,DATASETS[key],'all');
+  });
+  $$('.lm-sort').forEach(function(s){s.addEventListener('click',function(){toast('↕️','Sorted','Order updated');});});
+  document.addEventListener('click',function(e){var r=e.target.closest('.tb.refresh');if(r){toast('🔄','Refreshed','List updated');}});
+  var WA=[{n:'Greenwood Institute (Sample)',p:'No Phone',a:'Open',b:'Unresponsive'},{n:'Maple Academy (Sample)',p:'+91 98•• ••• ••67',a:'Raw Data',b:'Untouched'},{n:'Horizon School (Sample)',p:'+91 92•• ••• ••38',a:'Raw Data',b:'Untouched'},{n:'Nova College (Sample)',p:'+91 96•• ••• ••34',a:'Raw Data',b:'Untouched'},{n:'Crestview Academy (Sample)',p:'+91 85•• ••• ••04',a:'Demo Pipeline',b:'Demo Scheduled'}];
+  (function(){var host=$('#waList'); if(!host)return;
+    WA.forEach(function(w){var row=document.createElement('div');row.className='wa-row';
+      row.innerHTML='<span class=&quot;chk&quot;></span><div class=&quot;nm&quot;><b>'+w.n+'</b><span>'+(/\d/.test(w.p)?'<span class=&quot;pii&quot;>'+w.p+'</span>':w.p)+'</span></div><div class=&quot;st&quot;><span class=&quot;a&quot;>'+w.a+'</span><span class=&quot;b&quot;>'+w.b+'</span></div><div class=&quot;links&quot;><span>'+icon('<path d=&quot;M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7&quot;/>')+'Open Lead</span></div><div class=&quot;ic&quot;>'+icon(I.call)+icon(I.mail)+icon(I.wa)+'</div><span class=&quot;caret&quot;>'+icon(I.caret)+'</span>';
+      row.addEventListener('click',function(){toast('💬','Chat opened',w.n);});
+      host.appendChild(row);});
+    var pg=$('#waPager');var html='<button>‹</button>';for(var i=1;i<=8;i++)html+='<button'+(i===1?' class=&quot;on&quot;':'')+'>'+i+'</button>';html+='<button>›</button>';pg.innerHTML=html;
+    pg.addEventListener('click',function(e){var b=e.target.closest('button');if(!b||isNaN(+b.textContent))return;$$('button',pg).forEach(function(x){x.classList.toggle('on',x===b);});});
+  })();
+  (function(){
+    var grid=$('#calGrid'), label=$('#calLabel'); if(!grid) return;
+    var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var cur=new Date(2026,5,1), dots=[3,12,18,24];
+    function draw(){
+      label.textContent=months[cur.getMonth()]+' '+cur.getFullYear();
+      grid.innerHTML='';
+      ['S','M','T','W','T','F','S'].forEach(function(d){var e=document.createElement('div');e.className='dow';e.textContent=d;grid.appendChild(e);});
+      var first=new Date(cur.getFullYear(),cur.getMonth(),1).getDay();
+      var days=new Date(cur.getFullYear(),cur.getMonth()+1,0).getDate();
+      for(var i=0;i<first;i++){grid.appendChild(document.createElement('div'));}
+      for(var d=1;d<=days;d++){var e=document.createElement('div');e.className='d';
+        if(d===23&amp;&amp;cur.getMonth()===5)e.className+=' on';
+        if(dots.indexOf(d)>-1)e.className+=' dot';
+        e.textContent=d;(function(d){e.addEventListener('click',function(){toast('📅','Followups',months[cur.getMonth()]+' '+d);});})(d);
+        grid.appendChild(e);}
+    }
+    $('#calPrev').addEventListener('click',function(){cur.setMonth(cur.getMonth()-1);draw();});
+    $('#calNext').addEventListener('click',function(){cur.setMonth(cur.getMonth()+1);draw();});
+    draw();
+  })();
+  var FAILED=[['Sample Lead 01'],['Sample Lead 02'],['Sample Lead 03'],['Sample Lead 04'],['Sample Lead 05'],['Sample Lead 06']];
+  rows('#failedTbl',FAILED.map(function(r){return {html:'<td><span class=&quot;chk&quot; style=&quot;display:inline-block;width:15px;height:15px;border:1.5px solid #dce1ea;border-radius:4px&quot;></span></td><td>'+r[0]+'</td><td><span class=&quot;pii&quot;>name@example.edu</span></td><td><span class=&quot;pii&quot;>+91 98•• ••• ••00</span></td><td>Demo Admin</td><td>Jun 22, 2026 7:20 PM</td><td>Email or mobile number already registered</td><td><div class=&quot;actcell&quot;>'+icon('<line x1=&quot;12&quot; y1=&quot;5&quot; x2=&quot;12&quot; y2=&quot;19&quot;/><line x1=&quot;5&quot; y1=&quot;12&quot; x2=&quot;19&quot; y2=&quot;12&quot;/>')+'<span class=&quot;del&quot;>'+icon('<path d=&quot;M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6&quot;/>')+'</span></div></td>'};}));
+  (function(){var pg=$('#failedPager'); if(!pg)return; var html='<button>‹</button>';[1,2,3,4,5].forEach(function(i){html+='<button'+(i===1?' class=&quot;on&quot;':'')+'>'+i+'</button>';});html+='<span style=&quot;margin:0 6px&quot;>...</span><button>290</button><button>›</button>';pg.innerHTML=html;
+    pg.addEventListener('click',function(e){var b=e.target.closest('button');if(!b||isNaN(+b.textContent))return;$$('button',pg).forEach(function(x){x.classList.remove('on');});b.classList.add('on');});})();
+  var BULK=[['Untitled spreadsheet - Sheet1 (5).csv','May 18, 2026 11:03 AM',7],['Upload updated data - Sheet1 (1).csv','May 18, 2026 10:19 AM',86],['Updated Data_4 - Sheet1.csv','May 11, 2026 6:22 PM',1158],['Updated Data_2 - Sheet1.csv','May 11, 2026 6:09 PM',300],['_upload data - Sheet1.csv','May 6, 2026 4:15 PM',17],['Datase - Sheet1.csv','May 5, 2026 5:30 PM',86]];
+  rows('#bulkTbl',BULK.map(function(r){return {html:'<td>'+r[0]+'</td><td>'+r[1]+'</td><td>ExtraaEdge Admin</td><td class=&quot;num&quot;>'+r[2]+'</td><td><span class=&quot;badge green&quot;>Completed</span></td>'};}));
+  var CMP=[['May 7, 2026 5:29 PM','May 7, 2026 5:31 PM'],['Apr 27, 2026 4:02 PM','Apr 27, 2026 4:04 PM'],['Apr 27, 2026 4:01 PM','Apr 27, 2026 4:03 PM'],['Apr 27, 2026 3:59 PM','Apr 27, 2026 4:01 PM']];
+  (function(){var host=$('#cmpList'); if(!host)return;
+    CMP.forEach(function(r){var row=document.createElement('div');row.className='cmp-row';
+      row.innerHTML='<div class=&quot;c&quot;><div class=&quot;l&quot;>Institute Name</div><div class=&quot;v&quot;>BulkCommunication...</div></div><div class=&quot;c&quot;><div class=&quot;l&quot;>Stage</div><div class=&quot;v&quot;><span class=&quot;badge green&quot;>COMPLETED</span></div></div><div class=&quot;c&quot;><div class=&quot;l&quot;>Created On</div><div class=&quot;v&quot;>'+r[0]+'</div></div><div class=&quot;c&quot;><div class=&quot;l&quot;>Created By</div><div class=&quot;v&quot;>ExtraaEdge Admin</div></div><div class=&quot;c&quot;><div class=&quot;l&quot;>Updated On</div><div class=&quot;v&quot;>'+r[1]+'</div></div><div class=&quot;c&quot;><div class=&quot;l&quot;>Rule</div><div class=&quot;v&quot;>Based on No. of days...</div></div><div class=&quot;acts&quot;>'+icon('<path d=&quot;M21 12a9 9 0 1 1-3-6.7L21 8&quot;/><path d=&quot;M21 3v5h-5&quot;/>')+'</div><span class=&quot;caret&quot;>'+icon(I.caret)+'</span>';
+      host.appendChild(row);});
+  })();
+  var WF=[{title:'Instant lead response',desc:'New enquiry → AI call + WhatsApp within seconds.'},{title:'Fee reminder journey',desc:'Timely nudges until the admission fee is paid.'},{title:'Re-engagement for cold leads',desc:'Automatically wins back leads that went silent.'},{title:'Document collection nudges',desc:'Reminds applicants to upload pending documents.'},{title:'Counsellor handoff',desc:'Routes warm, qualified leads to the right counsellor.'},{title:'Post-demo follow-up',desc:'Keeps the momentum going after a demo or counselling call.'}];
+  (function(){var g=$('#wfGrid'); if(!g)return;
+    WF.forEach(function(w){var c=document.createElement('div');c.className='set-card';c.style.cssText='cursor:default;align-items:center';
+      c.innerHTML='<div style=&quot;flex:1&quot;><div style=&quot;font-weight:700;color:var(--nav);margin-bottom:3px&quot;>'+w.title+'</div><div style=&quot;font-size:12.5px;color:var(--mut);font-weight:400&quot;>'+w.desc+'</div></div><span class=&quot;badge green&quot;>Active</span>';
+      g.appendChild(c);});
+  })();
+  var TMPL=[['vidya_whatsapp_temp_1','WhatsApp is no longer just messaging','done',1],['vidya_call_template_2','Increase Admission Conversions with AI Automation','draft',1],['vidya_call_template_1','What if every inquiry got a call instantly?','done',1],['Student - Default Welcome Email','Thank you for your interest!','done',1],['ApplicationFormOTPVerification','Verify Account &amp; Apply','done',1],['Appointment Email to Lead','Your Appointment set at extraaedge','done',1]];
+  rows('#tmplTbl',TMPL.map(function(r){var badge=r[2]==='done'?'<span class=&quot;badge done&quot;>Published</span>':'<span class=&quot;badge draft&quot;>Draft</span>';return {html:'<td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+badge+'</td><td><span class=&quot;toggle'+(r[3]?'':' off')+'&quot;></span></td><td><div class=&quot;actcell&quot;>'+icon('<rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;13&quot; height=&quot;13&quot; rx=&quot;2&quot;/><path d=&quot;M5 15V5a2 2 0 0 1 2-2h10&quot;/>')+'<span class=&quot;del&quot;>'+icon('<path d=&quot;M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6&quot;/>')+'</span></div></td>'};}));
+  document.addEventListener('click',function(e){var tg=e.target.closest('.toggle');if(tg)tg.classList.toggle('off');});
+  var search=$('#search');
+  if(search) search.addEventListener('keydown',function(e){if(e.key==='Enter'){userStop();go('leads');toast('🔎','Search','Showing matches for &quot;'+(search.value||'all')+'&quot;');}});
+  /* ── guided tour ── */
+  var tReduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function tMobile(){return window.innerWidth<=860;}
+  function si(p){return '<svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;>'+p+'</svg>';}
+  var tSpot=document.createElement('div'); tSpot.className='tour-spot';
+  var tTip=document.createElement('div'); tTip.className='tour-tip';
+  tTip.innerHTML='<div class=&quot;stp&quot;></div><h4></h4><p></p><div class=&quot;row&quot;><div class=&quot;dts&quot;></div><button class=&quot;sk&quot;>Skip tour</button><button class=&quot;nx&quot;>Next →</button></div>';
+  document.body.appendChild(tSpot); document.body.appendChild(tTip);
+  var tDock=document.createElement('div'); tDock.className='tour-dock';
+  tDock.innerHTML='<button class=&quot;dbtn restart&quot; title=&quot;Restart&quot;>'+si('<path d=&quot;M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z&quot;/>')+'</button><button class=&quot;dbtn play&quot; title=&quot;Play / Pause&quot;></button><div class=&quot;ddots&quot;></div><span class=&quot;lbl&quot;>Product tour</span><button class=&quot;dbtn close&quot; title=&quot;Close&quot;>'+si('<path d=&quot;M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z&quot;/>')+'</button>';
+  document.body.appendChild(tDock);
+  var demoCta=document.createElement('div'); demoCta.className='demo-cta';
+  demoCta.innerHTML=si('<path d=&quot;M7 2v3M17 2v3M3.5 9h17M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z&quot;/>')+' Book a free demo';
+  document.body.appendChild(demoCta);
+  demoCta.addEventListener('click',function(){ toast('📅','Demo request','Our team will reach out within the hour'); });
+  var PLAY=si('<path d=&quot;M8 5v14l11-7z&quot;/>'), PAUSE=si('<path d=&quot;M6 5h4v14H6zM14 5h4v14h-4z&quot;/>');
+  var playBtn=tDock.querySelector('.play'), ddots=tDock.querySelector('.ddots'), lbl=tDock.querySelector('.lbl'), tipDots=tTip.querySelector('.dts');
+  var TSTEPS=[
+    {v:'outcomes',sel:'#side',side:1,t:'This is your Admission CRM',b:'A privacy-first demo on <b>sample data</b>. Let us start with the <b>results</b> it delivers 👇'},
+    {v:'outcomes',sel:'#ocGrid',t:'Business outcomes, not just screens',b:'Faster <b>lead response</b>, higher <b>conversion</b>, more <b>WhatsApp automation</b>, better <b>productivity</b> and stronger <b>ROI</b>.'},
+    {v:'ai',sel:'#aiGrid',t:'Powered by Vidya AI',b:'Four AI products: <b>Voice Agent</b> calls leads, <b>VidyaGPT</b> chats 24×7, <b>VidyaWABA</b> automates WhatsApp, <b>VidyaPulse</b> scores intent.'},
+    {v:'mgmt',sel:'.view[data-v=&quot;mgmt&quot;] .panel',t:'Management · Live Funnel',b:'<b>917 enquiries → 386 admissions (42%)</b>, with strong movement at every stage.'},
+    {v:'counselor',sel:'#counselorTbl',t:'Counselor · Leaderboard',b:'Total leads, enrolled and <b>conversion %</b> for every counsellor.'},
+    {v:'comm',sel:'#commTbl',t:'Communication · Email Overview',b:'<b>24,620 sent</b>, <b>96% delivered</b>, <b>40% open rate</b> — well above industry norms.'},
+    {v:'leads',sel:'.view[data-v=&quot;leads&quot;] .lead',t:'Lead Manager · every lead, organised',b:'Open any lead to see its full history, contact details and status.'},
+    {v:'wa',sel:'#waList',t:'WhatsApp Chat · talk directly',b:'Reach students where they reply. Every chat syncs to the lead.'},
+    {v:'workflow',sel:'#wfGrid',t:'Automation working for you',b:'Follow-ups and WhatsApp journeys run automatically in the background.'},
+    {v:'mgmt',sel:'.demo-cta',t:'Want this on your funnel?',b:'Lead capture → calling → WhatsApp → conversion — all in one window. Book a free demo.'}
+  ];
+  var tIdx=-1, tTimer=null, tRun=false, TDUR=6500;
+  TSTEPS.forEach(function(_,i){var a=document.createElement('b');a.addEventListener('click',function(){tGo(i);});tipDots.appendChild(a);var b=document.createElement('b');b.addEventListener('click',function(){tGo(i);});ddots.appendChild(b);});
+  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+  function tPlace(i){
+    var st=TSTEPS[i]; go(st.v);
+    if(st.side &amp;&amp; tMobile()) openSidebar(); else if(tMobile()) closeSidebar();
+    setTimeout(function(){
+      var target=document.querySelector(st.sel);
+      if(!target){ tSpot.style.opacity='0'; return; }
+      tSpot.style.opacity='';
+      try{ target.scrollIntoView({block:'center',behavior:'auto'}); }catch(e){}
+      setTimeout(function(){
+        var r=target.getBoundingClientRect(), pad=6;
+        tSpot.style.left=(r.left-pad)+'px'; tSpot.style.top=(r.top-pad)+'px'; tSpot.style.width=(r.width+pad*2)+'px'; tSpot.style.height=(r.height+pad*2)+'px';
+        tTip.querySelector('.stp').textContent='Step '+(i+1)+' / '+TSTEPS.length;
+        tTip.querySelector('h4').textContent=st.t; tTip.querySelector('p').innerHTML=st.b;
+        tTip.querySelector('.nx').textContent=(i===TSTEPS.length-1)?'Finish ✓':'Next →';
+        [].forEach.call(tipDots.children,function(d,j){d.classList.toggle('on',j===i);});
+        [].forEach.call(ddots.children,function(d,j){d.classList.toggle('on',j===i);});
+        if(!tMobile()){
+          var vw=window.innerWidth,vh=window.innerHeight,tw=300,th=tTip.offsetHeight||190,gap=14,tx,ty;
+          if(r.bottom+gap+th<vh){ ty=r.bottom+gap; tx=clamp(r.left,14,vw-tw-14); }
+          else if(r.top-gap-th>0){ ty=r.top-gap-th; tx=clamp(r.left,14,vw-tw-14); }
+          else if(r.right+gap+tw<vw){ tx=r.right+gap; ty=clamp(r.top,14,vh-th-14); }
+          else { tx=clamp(r.left-gap-tw,14,vw-tw-14); ty=clamp(r.top,14,vh-th-14); }
+          tTip.style.left=tx+'px'; tTip.style.top=ty+'px';
+        } else { tTip.style.left=''; tTip.style.top=''; }
+      }, tReduce?60:380);
+    },120);
+  }
+  function tGo(i){ clearTimeout(tTimer); if(i>=TSTEPS.length){ tStop(); return; } tIdx=i; tPlace(i); if(tRun &amp;&amp; !tReduce){ tTimer=setTimeout(function(){ tGo(tIdx+1); }, TDUR); } }
+  function tStart(){ tRun=true; document.body.classList.add('tour-on'); playBtn.innerHTML=PAUSE; lbl.textContent='Auto-playing…'; tGo(tIdx<0?0:tIdx); }
+  function tStop(){ tRun=false; clearTimeout(tTimer); document.body.classList.remove('tour-on'); playBtn.innerHTML=PLAY; lbl.textContent='Product tour'; }
+  window.__laxmiStopTour=tStop;
+  playBtn.innerHTML=PLAY;
+  playBtn.addEventListener('click',function(){ tRun?tStop():tStart(); });
+  tDock.querySelector('.restart').addEventListener('click',function(){ tIdx=-1; tStart(); });
+  tDock.querySelector('.close').addEventListener('click',tStop);
+  tTip.querySelector('.nx').addEventListener('click',function(){ tGo(tIdx+1); });
+  tTip.querySelector('.sk').addEventListener('click',tStop);
+  var tResizeT=null;
+  window.addEventListener('resize',function(){ if(tRun){ clearTimeout(tResizeT); tResizeT=setTimeout(function(){ tPlace(tIdx); },150); } });
+  $('#main').addEventListener('click',function(){ if(tRun) tStop(); });
+  function tBoot(){ if(!tReduce){ setTimeout(function(){ if(!tRun &amp;&amp; tIdx<0) tStart(); },1000); } else { document.body.classList.add('tour-on'); tPlace(0); } }
+  if('IntersectionObserver' in window){
+    var tio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ tBoot(); tio.disconnect(); } }); },{threshold:.25});
+    tio.observe(document.querySelector('.app'));
+  } else { tBoot(); }
+})();
+</script>
+<script>
+(function(){
+  var ICON='<svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z&quot;/><path d=&quot;M9 10h.01M13 10h.01&quot;/></svg>';
+  var A={
+    hi:&quot;Namaste! So glad you stopped by. I'm VidyaGPT from ExtraaEdge — think of me as a friendly admissions counsellor. Ask me how our CRM works, what it can do, or how it helps your institute bring in more students.&quot;,
+    flow:&quot;Happy to explain. The moment a student enquires — from an ad, your website, or WhatsApp — we capture it right away. Then Vidya, our AI, sees how interested they are and calls them within seconds, in their own language. Follow-ups run on their own, counsellors spend time only on ready students, and you watch conversions and ROI live on one screen.&quot;,
+    feat:&quot;The parts you'll really enjoy are the Lead Manager that scores every lead, follow-ups that go out automatically across WhatsApp, email and SMS, and the live dashboards for management, counsellors and communication. Everything in one place.&quot;,
+    ai:&quot;Our Vidya AI works like four teammates who never take a break. The Voice Agent calls and qualifies leads in 10+ Indian languages. VidyaGPT chats with students 24×7. VidyaWABA looks after WhatsApp, and VidyaPulse scores every lead so you know who to call first.&quot;,
+    ben:&quot;Most institutes start replying to enquiries in under a minute instead of hours, conversions go up by roughly a third, most WhatsApp chats run on their own, and each counsellor handles many more students — a much stronger return on the money you already spend.&quot;,
+    roi:&quot;You're already paying to bring in enquiries, so we make sure many more turn into admissions by responding instantly and following up without fail. In our demo, that works out to around 6.5× the return, with a fuller pipeline.&quot;,
+    use:&quot;During admission season it handles a flood of overnight enquiries and sorts them by morning. It calls paid-ad leads instantly, wins back students who went quiet, sends fee and document reminders on time, and gives management clear reports.&quot;,
+    wa:&quot;VidyaWABA uses the official verified WhatsApp Business API. Send broadcasts, fee reminders and document nudges automatically, and every reply comes straight back into the lead record.&quot;,
+    demo:&quot;Just tap the orange Book a free demo button, and our team will walk you through ExtraaEdge on your own admission funnel.&quot;,
+    fb:&quot;In short, ExtraaEdge is an AI-powered admission CRM that helps institutes turn far more enquiries into admissions, almost on autopilot. Ask me how it works, its features, the Vidya AI, the benefits or the returns.&quot;
+  };
+  var KB=[
+    {k:['how','work','workflow','process','step','kaise','kaam','chalt'],a:A.flow},
+    {k:['feature','features','module','what can','capab'],a:A.feat},
+    {k:['ai','vidya','voice agent','gpt','waba','pulse','agent','bot','artificial'],a:A.ai},
+    {k:['benefit','result','outcome','faster','productiv','improve','convert more'],a:A.ben},
+    {k:['roi','cost','price','pricing','value','worth','paisa','return','invest'],a:A.roi},
+    {k:['use case','usecase','college','school','univers','coaching','edtech','institute','scenario'],a:A.use},
+    {k:['whatsapp','broadcast','reminder'],a:A.wa},
+    {k:['demo','book','contact','buy','trial','talk to','sales','reach'],a:A.demo},
+    {k:['hi','hello','hey','namaste','namaskar'],a:A.hi}
+  ];
+  function reply(q){var s=' '+q.toLowerCase()+' ';for(var i=0;i<KB.length;i++)for(var j=0;j<KB[i].k.length;j++)if(s.indexOf(KB[i].k[j])>-1)return KB[i].a;return A.fb;}
+  var launch=document.createElement('button');launch.className='vg-launch';launch.setAttribute('aria-label','Chat with VidyaGPT');
+  launch.innerHTML='<span class=&quot;av&quot;>'+ICON+'</span> Ask VidyaGPT <span class=&quot;pp&quot;></span>';
+  document.body.appendChild(launch);
+  var panel=document.createElement('div');panel.className='vg-panel';
+  panel.innerHTML='<div class=&quot;vg-hd&quot;><span class=&quot;av&quot;>'+ICON+'</span><div class=&quot;ti&quot;><b>VidyaGPT</b><span><i></i>ExtraaEdge AI counsellor • online</span></div><div class=&quot;tools&quot;><button class=&quot;vclose&quot; title=&quot;Close&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M18 6 6 18M6 6l12 12&quot;/></svg></button></div></div><div class=&quot;vg-body&quot; id=&quot;vgBody&quot;></div><div class=&quot;vg-chips&quot; id=&quot;vgChips&quot;></div><form class=&quot;vg-input&quot; id=&quot;vgForm&quot;><input id=&quot;vgIn&quot; type=&quot;text&quot; placeholder=&quot;Ask about the CRM, AI, benefits…&quot; autocomplete=&quot;off&quot;><button type=&quot;submit&quot; aria-label=&quot;Send&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;m22 2-7 20-4-9-9-4z&quot;/><path d=&quot;M22 2 11 13&quot;/></svg></button></form>';
+  document.body.appendChild(panel);
+  var body=panel.querySelector('#vgBody'), chips=panel.querySelector('#vgChips'), form=panel.querySelector('#vgForm'), input=panel.querySelector('#vgIn'), closeb=panel.querySelector('.vclose');
+  var CHIPS=[['How does it work?',A.flow],['Features',A.feat],['Vidya AI',A.ai],['Benefits',A.ben],['ROI',A.roi],['Book a demo',A.demo]];
+  CHIPS.forEach(function(c){var b=document.createElement('button');b.className='vg-chip';b.type='button';b.textContent=c[0];b.addEventListener('click',function(){ userSay(c[0]); botSay(c[1]); });chips.appendChild(b);});
+  function scroll(){body.scrollTop=body.scrollHeight;}
+  function userSay(t){var d=document.createElement('div');d.className='vg-msg user';d.textContent=t;body.appendChild(d);scroll();}
+  function botSay(t){var tp=document.createElement('div');tp.className='vg-typing';tp.innerHTML='<i></i><i></i><i></i>';body.appendChild(tp);scroll();setTimeout(function(){tp.remove();var d=document.createElement('div');d.className='vg-msg bot';d.textContent=t;body.appendChild(d);scroll();},650);}
+  var greeted=false;
+  function openChat(){panel.classList.add('open');document.body.classList.add('vg-open');if(!greeted){greeted=true;botSay(A.hi);}setTimeout(function(){input.focus();},200);}
+  function closeChat(){panel.classList.remove('open');document.body.classList.remove('vg-open');}
+  launch.addEventListener('click',openChat);
+  closeb.addEventListener('click',closeChat);
+  form.addEventListener('submit',function(e){e.preventDefault();var v=input.value.trim();if(!v)return;input.value='';userSay(v);botSay(reply(v));});
+})();
+</script>
+<script>
+(function(){
+  var BOOK_URL='https://www.extraaedge.com/book-a-demo/';
+  if(/explore/i.test(location.search+location.hash)) return;
+  var m=document.createElement('div'); m.className='bd-modal';
+  m.innerHTML='<div class=&quot;bd-card&quot;><img class=&quot;bd-logo-img&quot; src=&quot;https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg&quot; alt=&quot;ExtraaEdge&quot; onerror=&quot;this.style.display=&amp;quot;none&amp;quot;&quot;><div class=&quot;bd-ic&quot;>🚀</div><h3>Want to explore this?</h3><p>Book a quick demo and our team will walk you through the entire ExtraaEdge CRM — live, on your own admission funnel.</p><a class=&quot;bd-go&quot; href=&quot;'+BOOK_URL+'&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>📅 Book a Demo →</a><button class=&quot;bd-close&quot; type=&quot;button&quot;>Maybe later</button></div>';
+  document.body.appendChild(m);
+  function openM(){ m.classList.add('show'); }
+  function closeM(){ m.classList.remove('show'); }
+  m.addEventListener('click',function(e){ if(e.target===m) closeM(); });
+  m.querySelector('.bd-close').addEventListener('click',closeM);
+  m.querySelector('.bd-go').addEventListener('click',closeM);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeM(); });
+  document.addEventListener('click', function(e){
+    var t=e.target;
+    if(t &amp;&amp; t.closest &amp;&amp; t.closest('.tour-tip, .tour-dock, .side, .burger, .scrim, .bd-modal')) return;
+    e.preventDefault(); e.stopPropagation(); openM();
+  }, true);
+})();
+</script>
+</body>
+</html>
+"></iframe>
     </div>
   </div>
 </section>
