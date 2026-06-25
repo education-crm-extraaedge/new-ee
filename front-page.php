@@ -1335,7 +1335,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       </div>
       <div class="hero__cta reveal d5">
         <a href="#demo" class="btn btn-primary" id="magnet">Book a Free Demo <span class="arr">&rarr;</span><span class="shine"></span></a>
-        <a href="https://getvidya.ai/" class="btn btn-ghost"><span class="play">&#9654;</span> Meet VidyaAI</a>
         <span class="cta-note">No credit card &middot; Personalised to your institution</span>
       </div>
       <div class="stats reveal d6">
@@ -3831,7 +3830,6 @@ function startFeed() {
 
         <div class="rf-ctarow rf-rv d2">
           <a href="#demo" class="rf-cta">Book a Demo <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="#rfRoiLab" class="rf-cta rf-cta--ghost">Calculate My ROI</a>
         </div>
         <p class="rf-trust rf-rv d3"><span class="stars">★★★★★</span> Trusted by 400+ institutes · 22M+ inquiries processed</p>
       </div>
@@ -5073,7 +5071,6 @@ function startFeed() {
 
     <div class="cis-cta">
       <a class="cis-btn primary" href="#demo">Book a free demo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 5l7 7-7 7-1.6-1.6 4.3-4.3H4v-2.2h11.9l-4.3-4.3z"/></svg></a>
-      <a class="cis-btn ghost" href="#demo">Browse all success stories</a>
     </div>
   </div>
 </section>
