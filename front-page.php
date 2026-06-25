@@ -1320,6 +1320,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <style>
         #xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);transition:opacity .4s cubic-bezier(.2,.7,.2,1),transform .4s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}
         #xhero .hero__rot.is-out{opacity:0!important;transform:translateY(14px)!important}
+        #xhero .hero-caret{display:inline-block;width:3px;height:.92em;margin-left:4px;border-radius:2px;background:var(--orange);vertical-align:-1px;animation:heroCaretBlink 1s steps(1) infinite}
+        @keyframes heroCaretBlink{50%{opacity:0}}
+        @media(prefers-reduced-motion:reduce){#xhero .hero-caret{display:none}}
         #xhero .hero__rot .accent{background:linear-gradient(100deg,var(--orange),#22467c);-webkit-background-clip:text;background-clip:text;color:transparent}
         @media(prefers-reduced-motion:reduce){#xhero .hero__rot{transition:none}}
       </style>
@@ -1383,28 +1386,44 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   </div>
 </section>
 <script>
-/* hero rotating headlines (text-telling) */
+/* hero rotating headlines — typewriter (text-telling) */
 (function(){
   var DATA=[
-    'Convert More Student Enquiries Into Admissions With <span class="accent">AI-Powered Education CRM</span>',
-    'Capture And Convert Student Leads 24/7 With <span class="accent">AI-Powered Education Chatbot</span>',
-    'Engage Every Prospect Instantly With <span class="accent">AI-Powered WhatsApp Admissions</span>',
-    'Automate Student Recruitment Campaigns With <span class="accent">AI-Powered Marketing Automation</span>'
+    {pre:'Convert More Student Enquiries Into Admissions With ', acc:'AI-Powered Education CRM'},
+    {pre:'Capture And Convert Student Leads 24/7 With ',          acc:'AI-Powered Education Chatbot'},
+    {pre:'Engage Every Prospect Instantly With ',                 acc:'AI-Powered WhatsApp Admissions'},
+    {pre:'Automate Student Recruitment Campaigns With ',          acc:'AI-Powered Marketing Automation'}
   ];
   var el=document.getElementById('heroRot'); if(!el) return;
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var i=0,timer=null,DUR=4200;
-  function show(n){ i=((n%DATA.length)+DATA.length)%DATA.length;
-    if(reduce){el.innerHTML=DATA[i];return;}
-    el.classList.add('is-out');
-    setTimeout(function(){el.innerHTML=DATA[i];el.classList.remove('is-out');},400);
+  var CARET='<span class="hero-caret" aria-hidden="true"></span>';
+  var i=0,n=0,paused=false,t=null;
+  function paint(k){
+    var d=DATA[i], full=d.pre+d.acc, txt=full.slice(0,k), html;
+    if(k<=d.pre.length){ html=txt; }
+    else { html=d.pre+'<span class="accent">'+txt.slice(d.pre.length)+'</span>'; }
+    el.innerHTML=html+CARET;
   }
-  function start(){ if(reduce) return; stop(); timer=setInterval(function(){show(i+1);},DUR); }
-  function stop(){ if(timer){clearInterval(timer);timer=null;} }
+  function typeLoop(){
+    if(paused){ t=setTimeout(typeLoop,300); return; }
+    var full=DATA[i].pre.length+DATA[i].acc.length;
+    n++; paint(n);
+    if(n>=full){ t=setTimeout(delLoop,1900); return; }
+    t=setTimeout(typeLoop, 30+Math.random()*36);
+  }
+  function delLoop(){
+    if(paused){ t=setTimeout(delLoop,300); return; }
+    n--; paint(n<0?0:n);
+    if(n<=0){ n=0; i=(i+1)%DATA.length; t=setTimeout(typeLoop,300); return; }
+    t=setTimeout(delLoop,15);
+  }
+  if(reduce){ var d=DATA[0]; el.innerHTML=d.pre+'<span class="accent">'+d.acc+'</span>'; return; }
+  n=DATA[0].pre.length+DATA[0].acc.length; paint(n);   /* start fully showing headline 1 (no flash, SEO-friendly) */
+  t=setTimeout(delLoop,2200);
   var host=document.getElementById('xhero')||el;
-  host.addEventListener('mouseenter',stop); host.addEventListener('mouseleave',start);
-  document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
-  start();
+  host.addEventListener('mouseenter',function(){paused=true;});
+  host.addEventListener('mouseleave',function(){paused=false;});
+  document.addEventListener('visibilitychange',function(){paused=document.hidden;});
 })();
 </script>
 <script>
