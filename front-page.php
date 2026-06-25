@@ -1317,11 +1317,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   <div class="container hero__in">
     <div>
       <span class="pill reveal d1"><img decoding="async" class="pill__ico" src="https://www.extraaedge.com/wp-content/uploads/integration-icons/vidya-ai-icon.png" alt="" onerror="this.remove()"><span class="pill__new">NEW &middot; VidyaAI</span><span class="pill__txt">Trusted by <b>500+ admission teams</b> across 12 countries</span></span>
-      <h1 class="reveal d2">
-        Every enquiry,<br />
-        answered <span class="accent">instantly.<svg aria-hidden="true" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 18 C 70 6, 220 4, 296 14"/></svg></span><br />
-        <span class="hero__type-row"><span id="typed"></span><span class="caret"></span></span>
-      </h1>
+      <style>
+        #xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);transition:opacity .4s cubic-bezier(.2,.7,.2,1),transform .4s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}
+        #xhero .hero__rot.is-out{opacity:0!important;transform:translateY(14px)!important}
+        #xhero .hero__rot .accent{background:linear-gradient(100deg,var(--orange),#22467c);-webkit-background-clip:text;background-clip:text;color:transparent}
+        @media(prefers-reduced-motion:reduce){#xhero .hero__rot{transition:none}}
+      </style>
+      <h1 class="reveal d2 hero__rot" id="heroRot" aria-live="polite">Convert More Student Enquiries Into Admissions With <span class="accent">AI-Powered Education CRM</span></h1>
       <p class="sub reveal d3">The AI-powered Admission CRM where co-pilots and agents <b>qualify leads, brief counsellors and follow up 24/7</b> &mdash; so your team spends time enrolling students, not chasing them.</p>
       <div class="chips reveal d4">
         <span class="chip"><i>&#9889;</i> Go live in 7 days</span>
@@ -1380,6 +1382,31 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     </aside>
   </div>
 </section>
+<script>
+/* hero rotating headlines (text-telling) */
+(function(){
+  var DATA=[
+    'Convert More Student Enquiries Into Admissions With <span class="accent">AI-Powered Education CRM</span>',
+    'Capture And Convert Student Leads 24/7 With <span class="accent">AI-Powered Education Chatbot</span>',
+    'Engage Every Prospect Instantly With <span class="accent">AI-Powered WhatsApp Admissions</span>',
+    'Automate Student Recruitment Campaigns With <span class="accent">AI-Powered Marketing Automation</span>'
+  ];
+  var el=document.getElementById('heroRot'); if(!el) return;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var i=0,timer=null,DUR=4200;
+  function show(n){ i=((n%DATA.length)+DATA.length)%DATA.length;
+    if(reduce){el.innerHTML=DATA[i];return;}
+    el.classList.add('is-out');
+    setTimeout(function(){el.innerHTML=DATA[i];el.classList.remove('is-out');},400);
+  }
+  function start(){ if(reduce) return; stop(); timer=setInterval(function(){show(i+1);},DUR); }
+  function stop(){ if(timer){clearInterval(timer);timer=null;} }
+  var host=document.getElementById('xhero')||el;
+  host.addEventListener('mouseenter',stop); host.addEventListener('mouseleave',start);
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
+  start();
+})();
+</script>
 <script>
 /* ===================== HERO — brand edition (scoped IIFE) ===================== */
 (function(){
@@ -3355,66 +3382,6 @@ window.addEventListener('load',function(){
 #platform .ci-row{grid-template-columns:34px 1fr 44px 70px}
 #platform .ci-track{display:none}}
 </style>
-
-<!-- ===================== ROTATING HEADLINES · TEXT-TELLING ===================== -->
-<style>
-#ee-tt{--nv:#19335D;--or:#DE6E30;--mut:#5A6B85;position:relative;padding:clamp(72px,9vw,120px) 0;background:radial-gradient(120% 80% at 50% 0%,#fff,#F5F8FC 60%,#fff);overflow:hidden;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-align:center}
-#ee-tt *{box-sizing:border-box}
-#ee-tt .eett-blob{position:absolute;width:600px;height:600px;border-radius:50%;filter:blur(90px);top:-220px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(222,110,48,.12),transparent 70%);pointer-events:none}
-#ee-tt .eett-wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 24px}
-#ee-tt .eett-eyebrow{display:inline-flex;align-items:center;gap:9px;font:700 12px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:var(--nv);background:rgba(255,255,255,.72);backdrop-filter:blur(10px);border:1px solid rgba(25,51,93,.1);border-radius:999px;padding:9px 16px;box-shadow:0 4px 14px rgba(25,51,93,.06);min-height:34px;transition:opacity .35s}
-#ee-tt .eett-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--or);box-shadow:0 0 0 4px rgba(222,110,48,.18)}
-#ee-tt .eett-eyebrow.is-out{opacity:0}
-#ee-tt .eett-stage{display:flex;align-items:center;justify-content:center;min-height:clamp(140px,22vw,224px);margin:26px 0 30px}
-#ee-tt .eett-headline{font-weight:800;font-size:clamp(27px,4.8vw,56px);line-height:1.1;letter-spacing:-.032em;color:var(--nv);max-width:14ch;margin:0 auto;transition:opacity .4s cubic-bezier(.2,.7,.2,1),transform .4s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}
-#ee-tt .eett-headline em{font-style:normal;background:linear-gradient(100deg,var(--or),#22467c);-webkit-background-clip:text;background-clip:text;color:transparent}
-#ee-tt .eett-headline.is-out{opacity:0;transform:translateY(14px)}
-#ee-tt .eett-dots{display:inline-flex;gap:9px;align-items:center}
-#ee-tt .eett-dots button{width:9px;height:9px;padding:0;border:0;border-radius:999px;background:rgba(25,51,93,.18);cursor:pointer;transition:width .35s,background .35s}
-#ee-tt .eett-dots button.on{width:30px;background:var(--or)}
-#ee-tt .eett-dots button:focus-visible{outline:2px solid var(--or);outline-offset:3px}
-@media(max-width:560px){#ee-tt .eett-headline{max-width:18ch}}
-@media(prefers-reduced-motion:reduce){#ee-tt .eett-headline,#ee-tt .eett-eyebrow{transition:none}}
-</style>
-<section id="ee-tt" aria-label="What ExtraaEdge does" aria-roledescription="rotating headlines">
-  <span class="eett-blob" aria-hidden="true"></span>
-  <div class="eett-wrap">
-    <span class="eett-eyebrow" id="eett-cat"><span class="dot"></span> Admission CRM</span>
-    <div class="eett-stage">
-      <h2 class="eett-headline" id="eett-headline" aria-live="polite">Convert More Student Enquiries Into Admissions With <em>AI-Powered Education CRM</em></h2>
-    </div>
-    <div class="eett-dots" id="eett-dots" role="tablist" aria-label="Choose a value proposition"></div>
-  </div>
-</section>
-<script>
-(function(){
-  var DATA=[
-    {c:'Admission CRM',        h:'Convert More Student Enquiries Into Admissions With <em>AI-Powered Education CRM</em>'},
-    {c:'AI Chatbot',           h:'Capture And Convert Student Leads 24/7 With <em>AI-Powered Education Chatbot</em>'},
-    {c:'WhatsApp Admissions',  h:'Engage Every Prospect Instantly With <em>AI-Powered WhatsApp Admissions</em>'},
-    {c:'Marketing Automation', h:'Automate Student Recruitment Campaigns With <em>AI-Powered Marketing Automation</em>'}
-  ];
-  var sec=document.getElementById('ee-tt'); if(!sec) return;
-  var hEl=document.getElementById('eett-headline'), cEl=document.getElementById('eett-cat'), dotWrap=document.getElementById('eett-dots');
-  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var i=0,timer=null,DUR=4000;
-  DATA.forEach(function(d,k){var b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.setAttribute('aria-label',d.c);b.addEventListener('click',function(){show(k);restart();});dotWrap.appendChild(b);});
-  var dots=[].slice.call(dotWrap.children);
-  function paint(){dots.forEach(function(d,k){d.classList.toggle('on',k===i);d.setAttribute('aria-selected',k===i);});}
-  function show(n,instant){
-    i=((n%DATA.length)+DATA.length)%DATA.length; paint();
-    if(instant||reduce){hEl.innerHTML=DATA[i].h;cEl.lastChild.textContent=' '+DATA[i].c;return;}
-    hEl.classList.add('is-out'); cEl.classList.add('is-out');
-    setTimeout(function(){hEl.innerHTML=DATA[i].h;cEl.lastChild.textContent=' '+DATA[i].c;hEl.classList.remove('is-out');cEl.classList.remove('is-out');},380);
-  }
-  function start(){if(reduce)return;stop();timer=setInterval(function(){show(i+1);},DUR);}
-  function stop(){if(timer){clearInterval(timer);timer=null;}}
-  function restart(){stop();start();}
-  sec.addEventListener('mouseenter',stop); sec.addEventListener('mouseleave',start);
-  sec.addEventListener('focusin',stop); sec.addEventListener('focusout',start);
-  show(0,true); start();
-})();
-</script>
 
 <section class="ci-sec" id="platform">
   <div class="ci-container ci-split">
