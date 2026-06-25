@@ -6392,6 +6392,162 @@ function startFeed() {
 </section>
 
 <!-- ===================== FAQ ===================== -->
+<!-- ===================== CRO · COMPARISON + ROI CALCULATOR + STICKY CTA ===================== -->
+<style>
+  /* whitespace tighten across the home (safe higher-specificity override) */
+  .ee-home .sec{padding-top:64px;padding-bottom:64px}
+  @media(max-width:768px){.ee-home .sec{padding-top:44px;padding-bottom:44px}}
+  #ee-cro{--nv:#19335D;--nv2:#22467c;--or:#DE6E30;--mut:#5A6B85;--line:rgba(25,51,93,.1);position:relative;padding:clamp(56px,7vw,92px) 0;background:linear-gradient(180deg,#fff,#f5f8fc);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+  #ee-cro *{box-sizing:border-box}
+  #ee-cro .cw{max-width:1140px;margin:0 auto;padding:0 22px}
+  #ee-cro .ch{text-align:center;max-width:680px;margin:0 auto 34px}
+  #ee-cro .eyebrow{display:inline-flex;align-items:center;gap:8px;font:700 12px/1 'Inter';letter-spacing:.13em;text-transform:uppercase;color:var(--or);margin-bottom:12px}
+  #ee-cro .eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--or)}
+  #ee-cro h2{font-weight:800;font-size:clamp(26px,3.8vw,42px);line-height:1.1;letter-spacing:-.03em;color:var(--nv);margin:0 0 10px}
+  #ee-cro h2 em{font-style:normal;color:var(--or)}
+  #ee-cro .ch p{font-size:clamp(15px,1.6vw,17px);color:var(--mut);line-height:1.6;margin:0}
+  /* comparison table */
+  #ee-cro .cmp{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 60px -30px rgba(25,51,93,.3);overflow:hidden;margin-bottom:46px}
+  #ee-cro .cmp-row{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;align-items:center}
+  #ee-cro .cmp-row+.cmp-row{border-top:1px solid var(--line)}
+  #ee-cro .cmp-row.head{background:linear-gradient(180deg,#fbfdff,#f3f7fc);position:sticky;top:0}
+  #ee-cro .cmp-row.head>div{padding:16px 14px;font-weight:800;font-size:13px;text-align:center;color:var(--nv)}
+  #ee-cro .cmp-row.head>div:first-child{text-align:left;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+  #ee-cro .cmp-row.head .us{background:linear-gradient(180deg,var(--nv2),var(--nv));color:#fff;border-radius:12px 12px 0 0;font-size:14px}
+  #ee-cro .cmp-row>div{padding:13px 14px;font-size:13.5px}
+  #ee-cro .cmp-row .feat{font-weight:600;color:var(--nv)}
+  #ee-cro .cmp-row .cell{text-align:center;color:var(--mut)}
+  #ee-cro .cmp-row .cell.us{background:rgba(222,110,48,.06);color:var(--nv);font-weight:700}
+  #ee-cro .cmp-row:last-child .cell.us{border-radius:0 0 12px 12px}
+  #ee-cro .yes{color:#1f9d57;font-weight:800}#ee-cro .no{color:#c2c9d6}#ee-cro .part{color:#b9852b;font-weight:600;font-size:12px}
+  #ee-cro .cmp-note{font-size:11.5px;color:var(--mut);text-align:center;margin-top:10px}
+  @media(max-width:720px){
+    #ee-cro .cmp-row{grid-template-columns:1.4fr .9fr .9fr .9fr}
+    #ee-cro .cmp-row>div{padding:11px 8px;font-size:12px}
+    #ee-cro .cmp-row.head>div{padding:12px 6px;font-size:11px}
+    #ee-cro .cmp-row .feat{font-size:12px}
+  }
+  /* ROI calculator */
+  #ee-cro .roi{display:grid;grid-template-columns:1fr 1.05fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 60px -30px rgba(25,51,93,.3);overflow:hidden}
+  #ee-cro .roi-in{padding:clamp(24px,3vw,38px)}
+  #ee-cro .roi-in h3{font-size:20px;font-weight:800;color:var(--nv);margin:0 0 4px}
+  #ee-cro .roi-in .sub{font-size:13px;color:var(--mut);margin:0 0 22px}
+  #ee-cro .fld{margin-bottom:18px}
+  #ee-cro .fld label{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;color:var(--nv);margin-bottom:7px}
+  #ee-cro .fld label b{color:var(--or);font-weight:800}
+  #ee-cro .fld input[type=range]{width:100%;accent-color:var(--or);height:5px}
+  #ee-cro .fld .nums{display:flex;justify-content:space-between;font-size:10.5px;color:var(--mut);margin-top:4px}
+  #ee-cro .roi-out{background:linear-gradient(150deg,var(--nv2),var(--nv));color:#fff;padding:clamp(24px,3vw,38px);display:flex;flex-direction:column;justify-content:center}
+  #ee-cro .roi-out .lab{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c6d4ea}
+  #ee-cro .roi-out .big{font-size:clamp(34px,5vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.05;background:linear-gradient(100deg,#fff,#E8843F);-webkit-background-clip:text;background-clip:text;color:transparent;margin:2px 0 0}
+  #ee-cro .roi-out .rev{font-size:clamp(18px,2.4vw,24px);font-weight:800;margin-top:14px}
+  #ee-cro .roi-out .rev span{color:#9fe0bd}
+  #ee-cro .roi-out .meta{display:flex;gap:22px;margin-top:18px;flex-wrap:wrap}
+  #ee-cro .roi-out .meta div b{display:block;font-size:19px;font-weight:800}
+  #ee-cro .roi-out .meta div span{font-size:11px;color:#c6d4ea}
+  #ee-cro .roi-out .cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;margin-top:24px;background:var(--or);color:#fff;font-weight:700;font-size:15px;padding:14px 24px;border-radius:12px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.6);transition:transform .2s}
+  #ee-cro .roi-out .cta:hover{transform:translateY(-2px)}
+  #ee-cro .roi-out .fine{font-size:10.5px;color:#9fb0cc;margin-top:12px;text-align:center}
+  @media(max-width:760px){#ee-cro .roi{grid-template-columns:1fr}}
+  /* sticky CTA bar */
+  #ee-sticky{position:fixed;left:0;right:0;bottom:0;z-index:990;transform:translateY(120%);transition:transform .4s cubic-bezier(.2,.8,.2,1);background:rgba(15,28,51,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.12);box-shadow:0 -10px 40px rgba(15,28,51,.3)}
+  #ee-sticky.show{transform:none}
+  #ee-sticky .sw{max-width:1140px;margin:0 auto;padding:11px 18px;display:flex;align-items:center;gap:16px}
+  #ee-sticky .txt{color:#fff;font-size:14px;font-weight:600}
+  #ee-sticky .txt b{color:#E8843F}
+  #ee-sticky .sp{margin-left:auto;display:flex;align-items:center;gap:10px}
+  #ee-sticky .go{background:var(--or,#DE6E30);color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:10px;text-decoration:none;white-space:nowrap;transition:transform .2s}
+  #ee-sticky .go:hover{transform:translateY(-2px)}
+  #ee-sticky .x{background:rgba(255,255,255,.12);color:#fff;border:0;width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:18px;line-height:1}
+  #ee-sticky .x:hover{background:rgba(255,255,255,.22)}
+  @media(max-width:600px){#ee-sticky .txt{font-size:12.5px}#ee-sticky .txt .hide{display:none}#ee-sticky .sw{padding:9px 12px;gap:10px}#ee-sticky .go{padding:10px 16px;font-size:13px}}
+  @media(prefers-reduced-motion:reduce){#ee-sticky{transition:none}}
+</style>
+<section id="ee-cro" aria-label="Why teams choose ExtraaEdge + ROI calculator">
+  <div class="cw">
+    <div class="ch">
+      <span class="eyebrow"><i></i> Why teams switch to us</span>
+      <h2>The only <em>AI-native</em> Admission CRM</h2>
+      <p>Others automate. ExtraaEdge actually <b>calls, qualifies and follows up</b> with every student using AI — so your team only talks to ready-to-enrol leads.</p>
+    </div>
+    <div class="cmp" role="table" aria-label="Feature comparison">
+      <div class="cmp-row head" role="row"><div>Capability</div><div class="us">ExtraaEdge</div><div>Meritto</div><div>LeadSquared</div></div>
+      <div class="cmp-row"><div class="feat">AI Voice Agent (calls leads in 10+ languages)</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="no">&mdash;</span></div><div class="cell"><span class="no">&mdash;</span></div></div>
+      <div class="cmp-row"><div class="feat">24&times;7 AI chat counsellor (VidyaGPT)</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Basic bot</span></div><div class="cell"><span class="part">Basic bot</span></div></div>
+      <div class="cmp-row"><div class="feat">Real-time AI lead intent scoring</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Rule-based</span></div><div class="cell"><span class="part">Rule-based</span></div></div>
+      <div class="cmp-row"><div class="feat">Official WhatsApp Business API automation</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div></div>
+      <div class="cmp-row"><div class="feat">Built only for admissions</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Generic CRM</span></div></div>
+      <div class="cmp-row"><div class="feat">Go live in 7 days</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Weeks</span></div><div class="cell"><span class="part">Weeks</span></div></div>
+      <div class="cmp-row"><div class="feat">Free migration &amp; 1:1 onboarding</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="no">&mdash;</span></div><div class="cell"><span class="no">&mdash;</span></div></div>
+    </div>
+    <p class="cmp-note">Comparison based on publicly listed features (Jun 2026) &mdash; verify for your exact requirements. Switching from Meritto or LeadSquared? We migrate your data free.</p>
+    <div class="roi" aria-label="ROI calculator">
+      <div class="roi-in">
+        <h3>How many more admissions could you get?</h3>
+        <p class="sub">Move the sliders &mdash; see your upside instantly.</p>
+        <div class="fld"><label>Monthly enquiries <b id="ro1">2,000</b></label><input id="ri1" type="range" min="200" max="20000" step="100" value="2000"><div class="nums"><span>200</span><span>20,000</span></div></div>
+        <div class="fld"><label>Current conversion rate <b id="ro2">20%</b></label><input id="ri2" type="range" min="5" max="45" step="1" value="20"><div class="nums"><span>5%</span><span>45%</span></div></div>
+        <div class="fld"><label>Average fee / student <b id="ro3">&#8377;1.0 L</b></label><input id="ri3" type="range" min="20000" max="800000" step="10000" value="100000"><div class="nums"><span>&#8377;20K</span><span>&#8377;8L</span></div></div>
+      </div>
+      <div class="roi-out">
+        <span class="lab">Extra admissions / month with ExtraaEdge</span>
+        <div class="big" id="roExtra">+96</div>
+        <div class="rev">Extra revenue: <span id="roRev">&#8377;96.0 L</span> / mo</div>
+        <div class="meta">
+          <div><b id="roNow">400</b><span>Admissions now</span></div>
+          <div><b id="roNew">496</b><span>With ExtraaEdge</span></div>
+          <div><b>+40%</b><span>Conversion lift</span></div>
+        </div>
+        <a href="#demo" class="cta">Get my detailed ROI report &rarr;</a>
+        <div class="fine">Projection based on a typical +40% conversion lift. Book a demo for numbers on your real funnel.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="ee-sticky" aria-hidden="true">
+  <div class="sw">
+    <div class="txt">🎓 <b>Fill more seats this cycle.</b><span class="hide"> See ExtraaEdge on your funnel in 30 minutes.</span></div>
+    <div class="sp"><a href="#demo" class="go">Book a Free Demo &rarr;</a><button class="x" aria-label="Dismiss" id="eeStickyX">&times;</button></div>
+  </div>
+</div>
+<script>
+(function(){
+  /* ROI calculator */
+  var i1=document.getElementById('ri1'),i2=document.getElementById('ri2'),i3=document.getElementById('ri3');
+  if(i1){
+    var o1=document.getElementById('ro1'),o2=document.getElementById('ro2'),o3=document.getElementById('ro3');
+    var eEx=document.getElementById('roExtra'),eRev=document.getElementById('roRev'),eNow=document.getElementById('roNow'),eNew=document.getElementById('roNew');
+    function inr(n){ if(n>=1e7)return '₹'+(n/1e7).toFixed(1)+' Cr'; if(n>=1e5)return '₹'+(n/1e5).toFixed(1)+' L'; if(n>=1e3)return '₹'+Math.round(n/1e3)+'K'; return '₹'+Math.round(n); }
+    function calc(){
+      var enq=+i1.value, conv=+i2.value, fee=+i3.value;
+      var now=Math.round(enq*conv/100);
+      var newConv=Math.min(conv*1.4,60);
+      var nw=Math.round(enq*newConv/100);
+      var extra=Math.max(nw-now,0);
+      o1.textContent=enq.toLocaleString('en-IN'); o2.textContent=conv+'%'; o3.textContent=inr(fee);
+      eNow.textContent=now.toLocaleString('en-IN'); eNew.textContent=nw.toLocaleString('en-IN');
+      eEx.textContent='+'+extra.toLocaleString('en-IN'); eRev.textContent=inr(extra*fee);
+    }
+    [i1,i2,i3].forEach(function(s){s.addEventListener('input',calc);}); calc();
+  }
+  /* sticky CTA — show after scrolling past the hero, hide near the final demo form */
+  var bar=document.getElementById('ee-sticky'); 
+  if(bar){
+    var dismissed=false;
+    var x=document.getElementById('eeStickyX'); if(x) x.addEventListener('click',function(){dismissed=true;bar.classList.remove('show');});
+    bar.querySelector('.go').addEventListener('click',function(){bar.classList.remove('show');});
+    var hero=document.getElementById('xhero'), demo=document.getElementById('demo');
+    function upd(){
+      if(dismissed){bar.classList.remove('show');return;}
+      var y=window.pageYOffset, past=hero?(y>hero.offsetHeight*0.9):(y>500);
+      var nearDemo=demo?(y+window.innerHeight > demo.offsetTop+80):false;
+      bar.classList.toggle('show', past && !nearDemo);
+    }
+    window.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd,{passive:true}); upd();
+  }
+})();
+</script>
+
 <section class="sec sec--soft" id="faq">
   <div class="container">
     <div class="head rv">
