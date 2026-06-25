@@ -6489,6 +6489,154 @@ function startFeed() {
   @media(max-width:600px){#ee-sticky .txt{font-size:12.5px}#ee-sticky .txt .hide{display:none}#ee-sticky .sw{padding:9px 12px;gap:10px}#ee-sticky .go{padding:10px 16px;font-size:13px}}
   @media(prefers-reduced-motion:reduce){#ee-sticky{transition:none}}
 </style>
+<!-- ===================== COMPETITOR-BEATING · GO-LIVE / PRICING / SWITCH ===================== -->
+<style>
+  #ee-golive,#ee-pricing,#ee-switch{--nv:#19335D;--nv2:#22467c;--or:#DE6E30;--mut:#5A6B85;--line:rgba(25,51,93,.1);position:relative;padding:clamp(54px,7vw,88px) 0;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  #ee-golive *,#ee-pricing *,#ee-switch *{box-sizing:border-box}
+  .rvw{max-width:1140px;margin:0 auto;padding:0 22px}
+  .rvh{text-align:center;max-width:680px;margin:0 auto 36px}
+  .rvh .eb{display:inline-flex;align-items:center;gap:8px;font:700 12px/1 'Inter';letter-spacing:.13em;text-transform:uppercase;color:var(--or);margin-bottom:12px}
+  .rvh .eb i{width:7px;height:7px;border-radius:50%;background:var(--or)}
+  .rvh h2{font-weight:800;font-size:clamp(26px,3.8vw,42px);line-height:1.1;letter-spacing:-.03em;color:var(--nv);margin:0 0 10px}
+  .rvh h2 em{font-style:normal;color:var(--or)}
+  .rvh p{font-size:clamp(15px,1.6vw,17px);color:var(--mut);line-height:1.6;margin:0}
+  /* GO-LIVE timeline */
+  #ee-golive .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative}
+  #ee-golive .tl::before{content:"";position:absolute;top:34px;left:8%;right:8%;height:2px;background:linear-gradient(90deg,var(--or),var(--nv2))}
+  #ee-golive .st{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 18px;box-shadow:0 12px 30px -18px rgba(25,51,93,.25);text-align:center}
+  #ee-golive .st .n{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--or),var(--nv2));color:#fff;font-weight:800;display:grid;place-items:center;margin:0 auto 12px;position:relative;z-index:1}
+  #ee-golive .st .day{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or);margin-bottom:5px}
+  #ee-golive .st h4{font-size:15px;font-weight:700;color:var(--nv);margin:0 0 5px}
+  #ee-golive .st p{font-size:12.5px;color:var(--mut);line-height:1.5;margin:0}
+  #ee-golive .note{text-align:center;margin-top:26px;font-size:14px;color:var(--nv);font-weight:600}
+  #ee-golive .note b{color:var(--or)}
+  @media(max-width:760px){#ee-golive .tl{grid-template-columns:1fr 1fr}#ee-golive .tl::before{display:none}}
+  @media(max-width:430px){#ee-golive .tl{grid-template-columns:1fr}}
+  /* PRICING */
+  #ee-pricing{background:transparent}
+  #ee-pricing .pg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+  #ee-pricing .pc{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 22px;box-shadow:0 14px 36px -22px rgba(25,51,93,.28)}
+  #ee-pricing .pc.pop{border:2px solid var(--or);box-shadow:0 26px 60px -26px rgba(222,110,48,.5);position:relative}
+  #ee-pricing .pc.pop::before{content:"Most popular";position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--or);color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em;padding:5px 14px;border-radius:999px;white-space:nowrap}
+  #ee-pricing .pc .pn{font-size:17px;font-weight:800;color:var(--nv)}
+  #ee-pricing .pc .pd{font-size:12.5px;color:var(--mut);margin:4px 0 14px}
+  #ee-pricing .pc .pp{font-size:26px;font-weight:800;color:var(--nv);letter-spacing:-.02em}
+  #ee-pricing .pc .pp span{font-size:13px;font-weight:600;color:var(--mut)}
+  #ee-pricing .pc ul{list-style:none;margin:16px 0 18px;padding:0;display:flex;flex-direction:column;gap:9px}
+  #ee-pricing .pc li{font-size:13px;color:var(--nv);display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+  #ee-pricing .pc li svg{width:15px;height:15px;color:#1f9d57;flex:none;margin-top:1px}
+  #ee-pricing .pc .pb{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14px;padding:12px;border-radius:11px;text-decoration:none;transition:transform .2s}
+  #ee-pricing .pc .pb.ghost{border:1.5px solid var(--line);color:var(--nv)}
+  #ee-pricing .pc .pb.solid{background:var(--or);color:#fff;box-shadow:0 12px 26px -10px rgba(222,110,48,.5)}
+  #ee-pricing .pc .pb:hover{transform:translateY(-2px)}
+  #ee-pricing .pnote{text-align:center;margin-top:18px;font-size:12.5px;color:var(--mut)}
+  #ee-pricing .pnote b{color:var(--nv)}
+  @media(max-width:820px){#ee-pricing .pg{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+  /* SWITCH */
+  #ee-switch .sw{display:grid;grid-template-columns:1.1fr .9fr;gap:0;background:linear-gradient(150deg,var(--nv2),var(--nv));border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -34px rgba(25,51,93,.55)}
+  #ee-switch .swl{padding:clamp(28px,3.4vw,44px);color:#fff}
+  #ee-switch .swl .eb{display:inline-flex;align-items:center;gap:8px;font:800 11px/1 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#E8843F;margin-bottom:12px}
+  #ee-switch .swl h2{font-size:clamp(24px,3.2vw,36px);font-weight:800;line-height:1.12;letter-spacing:-.02em;margin:0 0 12px}
+  #ee-switch .swl p{font-size:14.5px;color:#c6d4ea;line-height:1.6;margin:0 0 20px;max-width:46ch}
+  #ee-switch .swl ul{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:11px}
+  #ee-switch .swl li{font-size:14px;display:flex;gap:10px;align-items:flex-start;color:#eaf0f8}
+  #ee-switch .swl li svg{width:18px;height:18px;color:#9fe0bd;flex:none;margin-top:1px}
+  #ee-switch .swl .cta{display:inline-flex;align-items:center;gap:9px;background:var(--or);color:#fff;font-weight:700;font-size:15px;padding:14px 26px;border-radius:12px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.6);transition:transform .2s}
+  #ee-switch .swl .cta:hover{transform:translateY(-2px)}
+  #ee-switch .swr{background:rgba(255,255,255,.06);border-left:1px solid rgba(255,255,255,.12);padding:clamp(28px,3.4vw,44px);display:flex;flex-direction:column;justify-content:center;gap:14px}
+  #ee-switch .swr .gain{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9fb4d4;margin-bottom:2px}
+  #ee-switch .swr .g{display:flex;gap:11px;align-items:center;color:#fff;font-size:14px;font-weight:600}
+  #ee-switch .swr .g b{width:34px;height:34px;border-radius:9px;background:rgba(232,132,63,.2);color:#E8843F;display:grid;place-items:center;flex:none}
+  #ee-switch .swr .g b svg{width:18px;height:18px}
+  @media(max-width:760px){#ee-switch .sw{grid-template-columns:1fr}#ee-switch .swr{border-left:0;border-top:1px solid rgba(255,255,255,.12)}}
+</style>
+
+<section id="ee-golive" aria-label="Go live in 7 days">
+  <div class="rvw">
+    <div class="rvh">
+      <span class="eb"><i></i> Fast implementation</span>
+      <h2>Go live in <em>7 days</em> &mdash; not months.</h2>
+      <p>No long IT projects. Our team imports your data, configures your AI &amp; WhatsApp, trains your counsellors and gets you live in a single week.</p>
+    </div>
+    <div class="tl">
+      <div class="st"><div class="n">1</div><div class="day">Day 1&ndash;2</div><h4>Kickoff &amp; data import</h4><p>We migrate your leads &amp; history &mdash; zero manual work for you.</p></div>
+      <div class="st"><div class="n">2</div><div class="day">Day 3&ndash;4</div><h4>Setup &amp; branding</h4><p>Stages, forms, templates &amp; dashboards mapped to your funnel.</p></div>
+      <div class="st"><div class="n">3</div><div class="day">Day 5&ndash;6</div><h4>AI &amp; WhatsApp config</h4><p>VidyaAI calling, VidyaGPT &amp; WhatsApp API live and tested.</p></div>
+      <div class="st"><div class="n">4</div><div class="day">Day 7</div><h4>Go live + training</h4><p>Counsellors trained, you start converting from day one.</p></div>
+    </div>
+    <p class="note">Most CRMs take <b>weeks of onboarding</b>. With ExtraaEdge you&rsquo;re live in <b>7 days</b>.</p>
+  </div>
+</section>
+
+<section id="ee-pricing" aria-label="Transparent pricing">
+  <div class="rvw">
+    <div class="rvh">
+      <span class="eb"><i></i> Transparent pricing</span>
+      <h2>Plans that fit <em>every institute size</em>.</h2>
+      <p>No hidden fees, no surprises. Pick the plan that matches your enquiry volume &mdash; pay only for what you need.</p>
+    </div>
+    <div class="pg">
+      <div class="pc">
+        <div class="pn">Starter</div><div class="pd">Single-campus &amp; growing institutes</div>
+        <div class="pp">Custom <span>/ get a quote</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Admission CRM &amp; Lead Manager</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> WhatsApp, Email &amp; SMS automation</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Core dashboards &amp; reports</li>
+        </ul>
+        <a href="#demo" class="pb ghost">Get a quote</a>
+      </div>
+      <div class="pc pop">
+        <div class="pn">Growth</div><div class="pd">Most institutes choose this</div>
+        <div class="pp">Custom <span>/ get a quote</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Everything in Starter, plus&hellip;</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> <b>VidyaAI Voice Agent</b> &amp; VidyaGPT 24&times;7</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> AI lead scoring &amp; smart routing</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Advanced analytics &amp; workflows</li>
+        </ul>
+        <a href="#demo" class="pb solid">Get a quote &rarr;</a>
+      </div>
+      <div class="pc">
+        <div class="pn">Enterprise</div><div class="pd">Multi-campus &amp; universities</div>
+        <div class="pp">Custom <span>/ talk to sales</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Everything in Growth, plus&hellip;</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Multi-campus &amp; role-based access</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Dedicated success manager &amp; SLAs</li>
+        </ul>
+        <a href="#demo" class="pb ghost">Talk to sales</a>
+      </div>
+    </div>
+    <p class="pnote">🔒 <b>Unlike Meritto &amp; LeadSquared</b>, you&rsquo;ll see exactly what you get &mdash; no hidden modules, no surprise add-ons.</p>
+  </div>
+</section>
+
+<section id="ee-switch" aria-label="Switch from Meritto or LeadSquared">
+  <div class="rvw">
+    <div class="sw">
+      <div class="swl">
+        <span class="eb">🔁 Switching is easy</span>
+        <h2>On Meritto or LeadSquared? Switch in 14 days.</h2>
+        <p>Outgrown a generic CRM or a basic enrollment tool? Move to the AI-native platform built only for admissions &mdash; we do the heavy lifting.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> <b>Free data migration</b> &mdash; leads, history &amp; templates</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Run both in parallel &mdash; <b>zero downtime</b></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> 1:1 onboarding &amp; counsellor training included</li>
+        </ul>
+        <a href="#demo" class="cta">Get a free migration plan &rarr;</a>
+      </div>
+      <div class="swr">
+        <div class="gain">What you gain on day one</div>
+        <div class="g"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.4 2.3 1.2 3 .2 4.2L8 9.9a16 16 0 0 0 6 6l2-1.4c1.2-1 1.9-.2 4.2.2A2 2 0 0 1 22 16.9z"/></svg></b> AI Voice Agent that calls leads in 30 sec</div>
+        <div class="g"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></b> VidyaGPT &mdash; 24&times;7 AI counsellor</div>
+        <div class="g"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 18-5v12L3 14v-3z"/></svg></b> Real-time AI lead intent scoring</div>
+        <div class="g"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></b> 95+ languages on chat &amp; voice</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="ee-cro" aria-label="Why teams choose ExtraaEdge + ROI calculator">
   <div class="cw">
     <div class="ch">
@@ -6967,6 +7115,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <style id="ee-seamless">
 /* One continuous background across the homepage — no divider lines, no section seams */
 .ee-home .section-divider{display:none!important}
+#ecosystem,#segments,#whatsapp{display:none!important}
 body.ee-home{background:#f6f8fc!important}
 #ee-platform,#ee-os,#trusted-institutions,#platform,#respond-first,#ams,#stories,#segments,#ecosystem,#integrations,#whatsapp,#security,#faq,#demo,#ee-cro,
 .ee-home .sec,.ee-home .sec--soft,.ee-home .logo-section,.ee-home .ci-sec,.ee-home .rf-bp,.ee-home .ea-bp,.ee-home .ee-bp,.ee-home .wa-sec{
