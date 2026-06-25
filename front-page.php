@@ -6964,4 +6964,13 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 })();
 </script>
 
+<style id="ee-seamless">
+/* One continuous background across the homepage — no divider lines, no section seams */
+.ee-home .section-divider{display:none!important}
+body.ee-home{background:#f6f8fc!important}
+#ee-platform,#ee-os,#trusted-institutions,#platform,#respond-first,#ams,#stories,#segments,#ecosystem,#integrations,#whatsapp,#security,#faq,#demo,#ee-cro,
+.ee-home .sec,.ee-home .sec--soft,.ee-home .logo-section,.ee-home .ci-sec,.ee-home .rf-bp,.ee-home .ea-bp,.ee-home .ee-bp,.ee-home .wa-sec{
+  background:transparent!important;border-top:0!important;border-bottom:0!important
+}
+</style>
 <?php get_footer(); ?>
