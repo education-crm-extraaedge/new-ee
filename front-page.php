@@ -2775,331 +2775,553 @@ body.vg-open .vg-launch{display:none}
 <!-- ===================== PRODUCTS / VIDYA AI / TEAMS / SOLUTIONS / INDUSTRIES (added) ===================== -->
 <style>
   #ee-products{
+    --navy:#19335D; --ink:#0F1F3A; --orange:#DE6E30; --orange-2:#E8843F;
+    --line:rgba(25,51,93,.10); --muted:#5A6B85;
     position:relative;
-    padding:clamp(64px,8vw,104px) 0;
-    background:linear-gradient(180deg,rgba(246,248,252,0) 0%,rgba(237,242,250,.45) 45%,rgba(246,248,252,0) 100%);
+    padding:clamp(60px,8vw,108px) 0;
+    background:
+      radial-gradient(1100px 480px at 88% -6%, rgba(222,110,48,.06), transparent 60%),
+      radial-gradient(900px 460px at 8% 104%, rgba(25,51,93,.06), transparent 60%),
+      #F6F8FC;
     font-family:'Inter',system-ui,-apple-system,sans-serif;
-    color:#0F1F3A;
+    color:var(--ink);
     -webkit-font-smoothing:antialiased;
   }
   #ee-products *{box-sizing:border-box;}
-  #ee-products .ee-prod-container{
-    max-width:1240px;
-    margin:0 auto;
-    padding:0 24px;
+  #ee-products .eep-wrap{ max-width:1280px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- Header ---------- */
+  #ee-products .eep-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin-bottom:clamp(26px,3vw,38px); }
+  #ee-products .eep-head-l{ max-width:660px; }
+  #ee-products .eep-eyebrow{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:7px 14px 7px 11px; border-radius:999px;
+    background:rgba(222,110,48,.08); border:1px solid rgba(222,110,48,.2);
+    color:#C45A20; font-size:11.5px; font-weight:600; letter-spacing:.13em; text-transform:uppercase;
+    margin-bottom:18px;
   }
-  #ee-products .ee-prod-head{
-    max-width:760px;
-    margin:0 auto clamp(40px,5vw,60px);
-    text-align:center;
-  }
-  #ee-products .ee-prod-eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:7px 15px 7px 12px;
-    border-radius:999px;
-    background:rgba(222,110,48,.08);
-    border:1px solid rgba(222,110,48,.18);
-    color:#C45A20;
-    font-size:11.5px;
-    font-weight:600;
-    letter-spacing:.13em;
-    text-transform:uppercase;
-    margin-bottom:22px;
-  }
-  #ee-products .ee-prod-eyebrow .ee-dot{
-    width:7px;height:7px;border-radius:50%;
-    background:#DE6E30;
-    box-shadow:0 0 0 4px rgba(222,110,48,.16);
-    flex:0 0 auto;
-  }
+  #ee-products .eep-eyebrow .eep-dot{ width:7px; height:7px; border-radius:50%; background:var(--orange); box-shadow:0 0 0 4px rgba(222,110,48,.16); animation:eepPulse 2.6s ease-in-out infinite; }
+  @keyframes eepPulse{ 0%,100%{box-shadow:0 0 0 3px rgba(222,110,48,.18);} 50%{box-shadow:0 0 0 6px rgba(222,110,48,0);} }
   #ee-products h2{
-    font-family:'Poppins','Inter',sans-serif;
-    font-size:clamp(30px,4.4vw,46px);
-    line-height:1.08;
-    letter-spacing:-.02em;
-    font-weight:700;
-    margin:0 0 16px;
-    color:#19335D;
+    font-family:'Poppins','Inter',sans-serif; font-weight:700;
+    font-size:clamp(30px,4.4vw,46px); line-height:1.06; letter-spacing:-.022em;
+    margin:0 0 14px; color:var(--navy);
   }
-  #ee-products .ee-prod-sub{
-    font-size:clamp(15px,1.7vw,18px);
-    line-height:1.55;
-    color:#5A6B85;
-    margin:0;
+  #ee-products h2 .eep-accent{
+    background:linear-gradient(120deg,var(--orange-2),var(--orange)); -webkit-background-clip:text; background-clip:text; color:transparent;
   }
-  #ee-products .ee-prod-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
+  #ee-products .eep-sub{ font-size:clamp(15px,1.7vw,17.5px); line-height:1.55; color:var(--muted); margin:0; }
+
+  /* ---------- Search ---------- */
+  #ee-products .eep-search{ position:relative; flex:0 0 auto; width:min(300px,100%); }
+  #ee-products .eep-search svg{ position:absolute; left:14px; top:50%; transform:translateY(-50%); width:17px; height:17px; pointer-events:none; }
+  #ee-products .eep-search svg *{ stroke:#8696b0; }
+  #ee-products .eep-search input{
+    width:100%; height:46px; padding:0 38px 0 40px;
+    border:1px solid var(--line); border-radius:12px; background:#fff;
+    font-family:inherit; font-size:14px; color:var(--ink);
+    box-shadow:0 1px 2px rgba(25,51,93,.04); transition:border-color .2s ease, box-shadow .2s ease;
   }
-  #ee-products .ee-card{
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    padding:24px 22px 22px;
-    background:#fff;
-    border:1px solid rgba(25,51,93,.09);
-    border-radius:16px;
-    text-decoration:none;
-    color:inherit;
-    box-shadow:0 1px 2px rgba(25,51,93,.04),0 8px 24px -16px rgba(25,51,93,.18);
-    transition:transform .28s cubic-bezier(.2,.7,.3,1),box-shadow .28s ease,border-color .28s ease;
-    overflow:hidden;
-    isolation:isolate;
+  #ee-products .eep-search input::placeholder{ color:#9aa7bd; }
+  #ee-products .eep-search input:focus{ outline:none; border-color:rgba(222,110,48,.5); box-shadow:0 0 0 4px rgba(222,110,48,.12); }
+  #ee-products .eep-clear{ position:absolute; right:8px; top:50%; transform:translateY(-50%); display:none; width:24px; height:24px; border:0; border-radius:7px; background:rgba(25,51,93,.06); color:var(--navy); cursor:pointer; font-size:14px; line-height:1; }
+  #ee-products .eep-search.has-val .eep-clear{ display:grid; place-items:center; }
+
+  /* ---------- Filter pills ---------- */
+  #ee-products .eep-filters{ display:flex; gap:9px; flex-wrap:wrap; margin-bottom:clamp(22px,2.6vw,30px); }
+  #ee-products .eep-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:9px 16px; border-radius:999px; cursor:pointer;
+    border:1px solid var(--line); background:#fff; color:var(--navy);
+    font-family:inherit; font-size:13.5px; font-weight:600; letter-spacing:.005em;
+    transition:transform .18s ease, border-color .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
   }
-  #ee-products .ee-card::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:inherit;
-    background:linear-gradient(180deg,rgba(34,70,124,.03),rgba(34,70,124,0));
-    opacity:0;
-    transition:opacity .28s ease;
-    z-index:-1;
+  #ee-products .eep-pill .eep-count{ font-size:11px; font-weight:700; padding:1px 7px; border-radius:999px; background:rgba(25,51,93,.07); color:var(--navy); transition:background .2s ease,color .2s ease; }
+  #ee-products .eep-pill:hover{ transform:translateY(-1px); border-color:rgba(222,110,48,.35); }
+  #ee-products .eep-pill[aria-pressed="true"]{ background:linear-gradient(135deg,var(--orange-2),var(--orange)); border-color:transparent; color:#fff; box-shadow:0 8px 18px -10px rgba(222,110,48,.7); }
+  #ee-products .eep-pill[aria-pressed="true"] .eep-count{ background:rgba(255,255,255,.24); color:#fff; }
+  #ee-products .eep-pill:focus-visible{ outline:2px solid var(--orange); outline-offset:3px; }
+
+  /* ---------- Main split ---------- */
+  #ee-products .eep-main{ display:grid; grid-template-columns:minmax(0,380px) minmax(0,1fr); gap:24px; align-items:start; }
+
+  /* ---------- Spotlight (signature) ---------- */
+  #ee-products .eep-spot{
+    --acc:#8B5CF6; --acc-soft:rgba(139,92,246,.18);
+    position:sticky; top:24px;
+    border-radius:22px; overflow:hidden; isolation:isolate;
+    background:linear-gradient(165deg,#1B335C 0%,#13284A 55%,#0E1F3B 100%);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 30px 60px -30px rgba(11,24,48,.75), inset 0 1px 0 rgba(255,255,255,.06);
+    color:#EAF0FA;
+    min-height:520px; display:flex; flex-direction:column;
+    transition:--acc .4s ease;
   }
-  #ee-products .ee-card:hover{
-    transform:translateY(-5px);
-    border-color:rgba(222,110,48,.30);
-    box-shadow:0 2px 4px rgba(25,51,93,.05),0 22px 40px -22px rgba(25,51,93,.35);
+  #ee-products .eep-spot::before{ /* accent glow keyed to active category */
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(520px 320px at 78% -8%, var(--acc-soft), transparent 62%);
+    transition:background .45s ease;
   }
-  #ee-products .ee-card:hover::after{opacity:1;}
-  #ee-products .ee-card:focus-visible{
-    outline:2px solid #DE6E30;
-    outline-offset:3px;
+  #ee-products .eep-spot::after{ /* fine grid texture */
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.5;
+    background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:30px 30px; mask-image:radial-gradient(420px 300px at 75% 0%, #000, transparent 75%);
   }
-  #ee-products .ee-chip{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:46px;height:46px;
-    border-radius:12px;
-    background:linear-gradient(135deg,#E8843F,#DE6E30);
-    box-shadow:0 6px 16px -6px rgba(222,110,48,.6),inset 0 1px 0 rgba(255,255,255,.25);
-    flex:0 0 auto;
+  #ee-products .eep-spot-top{ position:relative; z-index:2; padding:20px 22px 6px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  #ee-products .eep-spot-tag{ display:inline-flex; align-items:center; gap:7px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#aebbd2; }
+  #ee-products .eep-spot-tag i{ width:8px; height:8px; border-radius:50%; background:var(--acc); box-shadow:0 0 0 4px var(--acc-soft); }
+  #ee-products .eep-live{ display:inline-flex; align-items:center; gap:6px; font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#7fe3c4; }
+  #ee-products .eep-live b{ width:6px; height:6px; border-radius:50%; background:#34d399; animation:eepBlink 1.4s ease-in-out infinite; }
+  @keyframes eepBlink{ 0%,100%{opacity:1;} 50%{opacity:.25;} }
+
+  /* stage = animated scene */
+  #ee-products .eep-stage{ position:relative; z-index:2; margin:8px 18px 4px; height:188px; border-radius:16px; background:rgba(8,18,38,.45); border:1px solid rgba(255,255,255,.07); overflow:hidden; display:grid; place-items:center; padding:16px; }
+  #ee-products .eep-stage .eep-scene{ width:100%; height:100%; opacity:0; animation:eepSceneIn .5s ease forwards; }
+  @keyframes eepSceneIn{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+
+  /* spotlight text */
+  #ee-products .eep-spot-body{ position:relative; z-index:2; padding:16px 22px 22px; display:flex; flex-direction:column; gap:12px; flex:1; }
+  #ee-products .eep-spot-icon{ width:48px; height:48px; border-radius:13px; display:grid; place-items:center; background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 60%,#0b1730)); box-shadow:0 10px 22px -10px var(--acc), inset 0 1px 0 rgba(255,255,255,.25); }
+  #ee-products .eep-spot-icon svg{ width:25px; height:25px; } #ee-products .eep-spot-icon svg *{ stroke:#fff; }
+  #ee-products .eep-spot-title{ font-family:'Poppins','Inter',sans-serif; font-size:21px; font-weight:600; letter-spacing:-.01em; color:#fff; margin:2px 0 0; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  #ee-products .eep-spot-title .eep-new{ font-family:'Inter',sans-serif; font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 8px; border-radius:999px; background:var(--acc); color:#0c1730; }
+  #ee-products .eep-spot-desc{ font-size:14px; line-height:1.6; color:#c2cfe4; margin:0; }
+  #ee-products .eep-spot-tags{ display:flex; flex-wrap:wrap; gap:7px; margin-top:2px; }
+  #ee-products .eep-spot-tags span{ font-size:11.5px; font-weight:500; color:#dfe7f4; padding:5px 11px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); }
+  #ee-products .eep-spot-cta{ margin-top:auto; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:13px 20px; border-radius:12px; background:linear-gradient(135deg,var(--orange-2),var(--orange)); color:#fff; font-weight:600; font-size:14.5px; text-decoration:none; box-shadow:0 12px 26px -12px rgba(222,110,48,.7), inset 0 1px 0 rgba(255,255,255,.22); transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+  #ee-products .eep-spot-cta:hover{ transform:translateY(-2px); filter:saturate(1.05); }
+  #ee-products .eep-spot-cta:focus-visible{ outline:2px solid #fff; outline-offset:3px; }
+  #ee-products .eep-spot-cta svg{ width:16px; height:16px; } #ee-products .eep-spot-cta svg *{ stroke:#fff; }
+
+  /* ---------- Grid ---------- */
+  #ee-products .eep-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  #ee-products .eep-card{
+    position:relative; display:flex; flex-direction:column; gap:11px;
+    padding:18px 17px; background:#fff; border:1px solid var(--line); border-radius:15px;
+    text-decoration:none; color:inherit; cursor:pointer;
+    box-shadow:0 1px 2px rgba(25,51,93,.04);
+    transition:transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s ease, border-color .22s ease;
   }
-  #ee-products .ee-chip svg{width:23px;height:23px;display:block;}
-  #ee-products .ee-chip svg *{stroke:#fff;}
-  #ee-products .ee-card-body{display:flex;flex-direction:column;gap:6px;}
-  #ee-products .ee-card-title{
-    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-    font-family:'Poppins','Inter',sans-serif;
-    font-size:16px;
-    font-weight:600;
-    line-height:1.25;
-    letter-spacing:-.01em;
-    color:#19335D;
+  #ee-products .eep-card::before{ content:""; position:absolute; left:0; top:14px; bottom:14px; width:3px; border-radius:0 3px 3px 0; background:var(--cardacc,var(--orange)); opacity:0; transform:scaleY(.4); transform-origin:center; transition:opacity .22s ease, transform .22s ease; }
+  #ee-products .eep-card:hover, #ee-products .eep-card.is-active{ transform:translateY(-4px); border-color:rgba(222,110,48,.3); box-shadow:0 20px 38px -22px rgba(25,51,93,.4); }
+  #ee-products .eep-card.is-active::before, #ee-products .eep-card:hover::before{ opacity:1; transform:scaleY(1); }
+  #ee-products .eep-card:focus-visible{ outline:2px solid var(--orange); outline-offset:3px; }
+  #ee-products .eep-card-top{ display:flex; align-items:center; gap:11px; }
+  #ee-products .eep-chip{ flex:0 0 auto; width:40px; height:40px; border-radius:11px; display:grid; place-items:center; background:linear-gradient(135deg, color-mix(in srgb,var(--cardacc,#DE6E30) 88%,#fff), var(--cardacc,#DE6E30)); box-shadow:0 6px 14px -7px var(--cardacc,rgba(222,110,48,.6)), inset 0 1px 0 rgba(255,255,255,.3); }
+  #ee-products .eep-chip svg{ width:21px; height:21px; } #ee-products .eep-chip svg *{ stroke:#fff; }
+  #ee-products .eep-card-title{ font-family:'Poppins','Inter',sans-serif; font-size:14.5px; font-weight:600; line-height:1.25; letter-spacing:-.01em; color:var(--navy); display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
+  #ee-products .eep-badge{ font-size:9px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#fff; background:var(--orange); padding:2px 6px; border-radius:999px; }
+  #ee-products .eep-card-desc{ font-size:12.5px; line-height:1.5; color:var(--muted); margin:0; }
+  #ee-products .eep-card-foot{ margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  #ee-products .eep-card-cat{ font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--cardacc,#C45A20); opacity:.85; }
+  #ee-products .eep-card-go{ display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; color:var(--navy); opacity:0; transform:translateX(-4px); transition:opacity .2s ease, transform .2s ease; }
+  #ee-products .eep-card-go svg{ width:13px; height:13px; } #ee-products .eep-card-go svg *{ stroke:var(--orange); }
+  #ee-products .eep-card:hover .eep-card-go, #ee-products .eep-card:focus-visible .eep-card-go, #ee-products .eep-card.is-active .eep-card-go{ opacity:1; transform:none; }
+  /* filtered out */
+  #ee-products .eep-card[hidden]{ display:none; }
+
+  /* empty state */
+  #ee-products .eep-empty{ grid-column:1/-1; display:none; flex-direction:column; align-items:center; text-align:center; gap:10px; padding:48px 20px; border:1px dashed var(--line); border-radius:15px; color:var(--muted); }
+  #ee-products .eep-empty.show{ display:flex; }
+  #ee-products .eep-empty svg{ width:34px; height:34px; opacity:.5; } #ee-products .eep-empty svg *{ stroke:var(--navy); }
+  #ee-products .eep-empty b{ color:var(--navy); font-family:'Poppins','Inter',sans-serif; font-size:16px; }
+  #ee-products .eep-empty button{ margin-top:4px; padding:9px 16px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--navy); font-family:inherit; font-weight:600; font-size:13px; cursor:pointer; }
+  #ee-products .eep-empty button:hover{ border-color:rgba(222,110,48,.4); }
+
+  /* ---------- Scene animation bits ---------- */
+  #ee-products .sc{ font-size:11px; color:#cdd9ec; }
+  /* AI scene */
+  #ee-products .sc-ai{ display:flex; flex-direction:column; gap:8px; justify-content:center; }
+  #ee-products .sc-bub{ max-width:78%; padding:8px 11px; border-radius:12px; font-size:11.5px; line-height:1.35; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08); opacity:0; transform:translateY(6px); animation:eepBub .5s ease forwards; }
+  #ee-products .sc-bub.me{ align-self:flex-end; background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 55%,#10204a)); border-color:transparent; color:#fff; }
+  #ee-products .sc-bub.b2{ animation-delay:.5s; } #ee-products .sc-bub.b3{ animation-delay:1.05s; }
+  @keyframes eepBub{ to{opacity:1; transform:none;} }
+  #ee-products .sc-type{ display:inline-flex; gap:4px; align-self:flex-start; padding:9px 12px; border-radius:12px; background:rgba(255,255,255,.08); opacity:0; animation:eepBub .4s 1.55s ease forwards; }
+  #ee-products .sc-type i{ width:5px; height:5px; border-radius:50%; background:#aeb9cf; animation:eepDot 1.1s infinite; }
+  #ee-products .sc-type i:nth-child(2){ animation-delay:.18s; } #ee-products .sc-type i:nth-child(3){ animation-delay:.36s; }
+  @keyframes eepDot{ 0%,60%,100%{transform:translateY(0); opacity:.5;} 30%{transform:translateY(-4px); opacity:1;} }
+  #ee-products .sc-wave{ display:inline-flex; align-items:flex-end; gap:3px; height:18px; margin-left:6px; }
+  #ee-products .sc-wave span{ width:3px; background:var(--acc); border-radius:2px; animation:eepWave 1s ease-in-out infinite; }
+  #ee-products .sc-wave span:nth-child(2){animation-delay:.12s} #ee-products .sc-wave span:nth-child(3){animation-delay:.24s} #ee-products .sc-wave span:nth-child(4){animation-delay:.36s} #ee-products .sc-wave span:nth-child(5){animation-delay:.48s}
+  @keyframes eepWave{ 0%,100%{height:5px;} 50%{height:17px;} }
+  /* Platform / kanban scene */
+  #ee-products .sc-kan{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; align-content:center; width:100%; }
+  #ee-products .sc-col{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.07); border-radius:9px; padding:7px 6px; display:flex; flex-direction:column; gap:6px; min-height:118px; }
+  #ee-products .sc-col h6{ margin:0 0 1px; font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#9fb0cc; }
+  #ee-products .sc-lead{ height:18px; border-radius:6px; background:rgba(255,255,255,.1); }
+  #ee-products .sc-lead.live{ background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 50%,#0c1c40)); animation:eepHop 4s ease-in-out infinite; }
+  @keyframes eepHop{ 0%,18%{transform:translateX(0);} 33%,52%{transform:translateX(calc(100% + 14px));} 67%,86%{transform:translateX(calc(200% + 28px));} 100%{transform:translateX(0);} }
+  /* Admissions scene */
+  #ee-products .sc-adm{ width:100%; display:flex; flex-direction:column; gap:9px; justify-content:center; }
+  #ee-products .sc-prog{ height:8px; border-radius:999px; background:rgba(255,255,255,.1); overflow:hidden; }
+  #ee-products .sc-prog i{ display:block; height:100%; width:20%; border-radius:999px; background:linear-gradient(90deg,var(--acc),color-mix(in srgb,var(--acc) 55%,#fff)); animation:eepFill 4s ease-in-out infinite; }
+  @keyframes eepFill{ 0%{width:12%;} 45%{width:100%;} 60%{width:100%;} 100%{width:12%;} }
+  #ee-products .sc-row{ display:flex; align-items:center; gap:9px; font-size:11px; color:#c7d3e8; }
+  #ee-products .sc-tick{ width:18px; height:18px; border-radius:6px; border:1.5px solid rgba(255,255,255,.25); display:grid; place-items:center; flex:0 0 auto; }
+  #ee-products .sc-tick.on{ background:var(--acc); border-color:transparent; }
+  #ee-products .sc-tick svg{ width:11px; height:11px; opacity:0; } #ee-products .sc-tick.on svg{ opacity:1; } #ee-products .sc-tick svg *{ stroke:#0c1730; }
+  #ee-products .sc-r1 .sc-tick{ animation:eepOn .1s 1s forwards; } #ee-products .sc-r2 .sc-tick{ animation:eepOn .1s 1.8s forwards; } #ee-products .sc-r3 .sc-tick{ animation:eepOn .1s 2.6s forwards; }
+  @keyframes eepOn{ to{ background:var(--acc); border-color:transparent; } }
+  #ee-products .sc-r1 .sc-tick svg, #ee-products .sc-r2 .sc-tick svg, #ee-products .sc-r3 .sc-tick svg{ animation:eepShow .1s forwards; }
+  #ee-products .sc-r1 .sc-tick svg{ animation-delay:1s; } #ee-products .sc-r2 .sc-tick svg{ animation-delay:1.8s; } #ee-products .sc-r3 .sc-tick svg{ animation-delay:2.6s; }
+  @keyframes eepShow{ to{opacity:1;} }
+  /* Engage scene */
+  #ee-products .sc-eng{ display:flex; flex-direction:column; gap:8px; justify-content:center; width:100%; }
+  #ee-products .sc-msg{ display:flex; align-items:center; gap:8px; opacity:0; transform:translateX(-8px); animation:eepBub .5s ease forwards; }
+  #ee-products .sc-msg.m2{ animation-delay:.6s; } #ee-products .sc-msg.m3{ animation-delay:1.2s; flex-direction:row-reverse; }
+  #ee-products .sc-msg .av{ width:22px; height:22px; border-radius:50%; flex:0 0 auto; background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 50%,#0c1c40)); }
+  #ee-products .sc-msg .tx{ flex:1; height:13px; border-radius:6px; background:rgba(255,255,255,.1); }
+  #ee-products .sc-msg.m3 .tx{ background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 55%,#10204a)); max-width:60%; }
+  #ee-products .sc-verified{ align-self:center; display:inline-flex; align-items:center; gap:6px; font-size:10.5px; font-weight:600; color:#a9e9cf; margin-top:2px; opacity:0; animation:eepBub .5s 1.7s forwards; }
+  #ee-products .sc-verified svg{ width:14px; height:14px; } #ee-products .sc-verified svg *{ stroke:#34d399; }
+  /* Grow scene */
+  #ee-products .sc-grow{ display:flex; align-items:flex-end; justify-content:space-between; gap:9px; height:100%; padding:6px 4px; width:100%; }
+  #ee-products .sc-bar{ flex:1; border-radius:6px 6px 0 0; background:linear-gradient(180deg,var(--acc),color-mix(in srgb,var(--acc) 45%,#0c1c40)); height:14%; transform-origin:bottom; animation:eepGrow 2.4s ease-in-out infinite; }
+  #ee-products .sc-bar:nth-child(1){--h:40%;} #ee-products .sc-bar:nth-child(2){--h:62%;} #ee-products .sc-bar:nth-child(3){--h:50%;} #ee-products .sc-bar:nth-child(4){--h:82%;} #ee-products .sc-bar:nth-child(5){--h:96%;}
+  #ee-products .sc-bar:nth-child(2){animation-delay:.12s} #ee-products .sc-bar:nth-child(3){animation-delay:.24s} #ee-products .sc-bar:nth-child(4){animation-delay:.36s} #ee-products .sc-bar:nth-child(5){animation-delay:.48s}
+  @keyframes eepGrow{ 0%{height:14%;} 55%,100%{height:var(--h);} }
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:980px){
+    #ee-products .eep-main{ grid-template-columns:1fr; }
+    #ee-products .eep-spot{ position:static; min-height:auto; }
+    #ee-products .eep-grid{ grid-template-columns:repeat(2,1fr); }
   }
-  #ee-products .ee-badge{
-    font-family:'Inter',sans-serif;
-    font-size:9.5px;
-    font-weight:700;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:#fff;
-    background:#DE6E30;
-    padding:2px 7px;
-    border-radius:999px;
-    line-height:1.4;
+  @media(max-width:620px){
+    #ee-products .eep-head{ align-items:stretch; }
+    #ee-products .eep-search{ width:100%; }
+    #ee-products .eep-filters{ flex-wrap:nowrap; overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+    #ee-products .eep-filters::-webkit-scrollbar{ display:none; }
+    #ee-products .eep-pill{ flex:0 0 auto; }
+    #ee-products .eep-grid{ grid-template-columns:1fr; }
+    #ee-products .eep-card-go{ opacity:1; transform:none; }
   }
-  #ee-products .ee-card-desc{
-    font-size:13.5px;
-    line-height:1.5;
-    color:#5A6B85;
-    margin:0;
-  }
-  #ee-products .ee-card-arrow{
-    margin-top:auto;
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    font-size:12.5px;
-    font-weight:600;
-    color:#22467c;
-    opacity:0;
-    transform:translateX(-4px);
-    transition:opacity .26s ease,transform .26s ease;
-  }
-  #ee-products .ee-card-arrow svg{width:14px;height:14px;}
-  #ee-products .ee-card-arrow svg *{stroke:#DE6E30;}
-  #ee-products .ee-card:hover .ee-card-arrow,
-  #ee-products .ee-card:focus-visible .ee-card-arrow{opacity:1;transform:translateX(0);}
-  #ee-products .ee-prod-cta{
-    margin-top:clamp(40px,5vw,56px);
-    text-align:center;
-  }
-  #ee-products .ee-prod-cta a{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:15px 30px;
-    border-radius:999px;
-    background:linear-gradient(135deg,#E8843F,#DE6E30);
-    color:#fff;
-    font-family:'Inter',sans-serif;
-    font-size:15px;
-    font-weight:600;
-    letter-spacing:.01em;
-    text-decoration:none;
-    box-shadow:0 10px 26px -10px rgba(222,110,48,.65),inset 0 1px 0 rgba(255,255,255,.22);
-    transition:transform .24s ease,box-shadow .24s ease,filter .24s ease;
-  }
-  #ee-products .ee-prod-cta a:hover{
-    transform:translateY(-2px);
-    filter:saturate(1.05);
-    box-shadow:0 16px 32px -12px rgba(222,110,48,.7),inset 0 1px 0 rgba(255,255,255,.22);
-  }
-  #ee-products .ee-prod-cta a:focus-visible{
-    outline:2px solid #19335D;
-    outline-offset:3px;
-  }
-  @media(max-width:900px){
-    #ee-products .ee-prod-grid{grid-template-columns:repeat(2,1fr);gap:16px;}
-  }
-  @media(max-width:560px){
-    #ee-products .ee-prod-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
-    #ee-products .ee-card{padding:18px 16px 16px;gap:12px;}
-    #ee-products .ee-chip{width:42px;height:42px;}
-    #ee-products .ee-card-title{font-size:14.5px;}
-    #ee-products .ee-card-desc{font-size:12.5px;}
-    #ee-products .ee-card-arrow{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){
+    #ee-products *{ animation-duration:.001s !important; animation-iteration-count:1 !important; transition-duration:.001s !important; }
   }
 </style>
-<section id="ee-products" aria-label="Our Products">
-  <div class="ee-prod-container">
-    <div class="ee-prod-head">
-      <span class="ee-prod-eyebrow"><span class="ee-dot" aria-hidden="true"></span>New Product Launch</span>
-      <h2>Our Products</h2>
-      <p class="ee-prod-sub">One intelligent platform — every tool your admissions engine needs, from first enquiry to enrolled.</p>
+
+<section id="ee-products" aria-label="Our products">
+  <div class="eep-wrap">
+
+    <div class="eep-head">
+      <div class="eep-head-l">
+        <span class="eep-eyebrow"><span class="eep-dot" aria-hidden="true"></span>The admissions platform</span>
+        <h2>One platform. <span class="eep-accent">Every admissions tool.</span></h2>
+        <p class="eep-sub">From first enquiry to enrolled — explore the suite. Hover any product to see it come alive on the left.</p>
+      </div>
+      <div class="eep-search" id="eepSearch">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke-width="1.8"/><path d="M20 20l-3.5-3.5" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <input type="text" id="eepInput" placeholder="Search products…" aria-label="Search products" autocomplete="off">
+        <button class="eep-clear" id="eepClear" aria-label="Clear search">&times;</button>
+      </div>
     </div>
 
-    <div class="ee-prod-grid">
+    <div class="eep-filters" id="eepFilters" role="group" aria-label="Filter products by category"></div>
 
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke-width="1.6"/><path d="M3.5 19c.6-3.1 2.8-5 5.5-5s4.9 1.9 5.5 5" stroke-width="1.6" stroke-linecap="round"/><path d="M16 8h5M16 12h4" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">Education CRM</span>
-          <p class="ee-card-desc">Unify every enquiry, counsellor and campus on one purpose-built admissions platform.</p>
+    <div class="eep-main">
+      <!-- Spotlight -->
+      <aside class="eep-spot" id="eepSpot" aria-live="polite">
+        <div class="eep-spot-top">
+          <span class="eep-spot-tag"><i></i><span id="eepSpotCat">AI &amp; automation</span></span>
+          <span class="eep-live"><b></b>Live preview</span>
         </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8L18 14z" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">VidyaAI <span class="ee-badge">New</span></span>
-          <p class="ee-card-desc">Your AI admissions copilot that drafts replies, scores leads and predicts intent.</p>
+        <div class="eep-stage"><div class="eep-scene" id="eepScene"></div></div>
+        <div class="eep-spot-body">
+          <div class="eep-spot-icon" id="eepSpotIcon"></div>
+          <h3 class="eep-spot-title" id="eepSpotTitle"></h3>
+          <p class="eep-spot-desc" id="eepSpotDesc"></p>
+          <div class="eep-spot-tags" id="eepSpotTags"></div>
+          <a class="eep-spot-cta" id="eepSpotCta" href="#demo">See it in action <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
+      </aside>
 
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="18" rx="2.4" stroke-width="1.6"/><path d="M11 18h2" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">Mobile CRM <span class="ee-badge">New</span></span>
-          <p class="ee-card-desc">Run admissions from your pocket — call, follow up and close leads on the go.</p>
+      <!-- Grid -->
+      <div class="eep-grid" id="eepGrid">
+        <div class="eep-empty" id="eepEmpty">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke-width="1.7"/><path d="M20 20l-3.5-3.5" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <b>No products match that</b>
+          <span>Try a different word, or clear your search.</span>
+          <button id="eepReset" type="button">Reset filters</button>
         </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke-width="1.6"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">Core CRM</span>
-          <p class="ee-card-desc">The reliable engine for pipelines, tasks and workflows that never drops a lead.</p>
-        </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7a2 2 0 01-2-2V5a2 2 0 012-2z" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4h4M9 13h6M9 16.5h4" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">Application Management</span>
-          <p class="ee-card-desc">Track every application stage with automated nudges so no form stalls midway.</p>
-        </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">Admission Management System</span>
-          <p class="ee-card-desc">Orchestrate fees, documents and approvals end-to-end in one auditable flow.</p>
-        </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M3 12h18M12 3c2.5 2.4 3.8 5.6 3.8 9S14.5 18.6 12 21c-2.5-2.4-3.8-5.6-3.8-9S9.5 5.4 12 3z" stroke-width="1.5"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">Online Admissions</span>
-          <p class="ee-card-desc">Let applicants apply and pay from anywhere with a frictionless online journey.</p>
-        </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 10h.01M12 10h.01M15 10h.01" stroke-width="2" stroke-linecap="round"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">Education AI Chatbot</span>
-          <p class="ee-card-desc">Answer student questions 24/7 and capture qualified enquiries while you sleep.</p>
-        </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19l1.3-3.9A8 8 0 1112 20a8 8 0 01-3.9-1L4 19z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 11c0 2 2 4 4 4l1-1.4c.3-.4-.1-.9-.6-1l-1.4-.4-.6.8c-.9-.4-1.7-1.2-2.1-2.1l.8-.6c.3-.5-.1-1.3-1-1.5C9 8.8 9 9.8 9 11z" stroke-width="1.4" stroke-linejoin="round"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">WhatsApp Business API</span>
-          <p class="ee-card-desc">Reach families on their favourite channel with verified, automated conversations.</p>
-        </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h3l1.5 4-2 1.4a12 12 0 005.6 5.6l1.4-2L18.5 18v3a1 1 0 01-1.1 1A15 15 0 013 6.6 1 1 0 014.1 5.5L5 4z" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">IVR System</span>
-          <p class="ee-card-desc">Route, record and track every call so no enquiry rings out unanswered.</p>
-        </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8l13-4-2 16-4-3-2.5 2.5L8 16 4 8z" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 16l9-12" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">Marketing Automation</span>
-          <p class="ee-card-desc">Launch multi-channel campaigns that fill your funnel on autopilot.</p>
-        </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21c4.5-2 7-5.2 7-9.5C19 7 16 4 12 4S5 7 5 11.5C5 15.8 7.5 19 12 21z" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 12.5a2.2 2.2 0 100-4.4 2.2 2.2 0 000 4.4z" stroke-width="1.5"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">Lead Nurturing</span>
-          <p class="ee-card-desc">Warm every prospect with timely, personalised drips until they enrol.</p>
-        </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-      <a href="#demo" class="ee-card">
-        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V4M4 20h16" stroke-width="1.6" stroke-linecap="round"/><path d="M8 16v-4M12 16V8M16 16v-6M20 16v-9" stroke-width="1.8" stroke-linecap="round"/></svg></span>
-        <div class="ee-card-body">
-          <span class="ee-card-title">Analytics Dashboard</span>
-          <p class="ee-card-desc">See conversion, cost and counsellor performance in real time, all in one view.</p>
-        </div>
-        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
-
-    </div>
-
-    <div class="ee-prod-cta">
-      <a href="#demo">Explore all products <span aria-hidden="true">&rarr;</span></a>
+      </div>
     </div>
   </div>
+
+  <script>
+  (function(){
+    var root = document.getElementById('ee-products');
+    if(!root) return;
+
+    /* ---- icons ---- */
+    var IC = {
+      crm:'<svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke-width="1.6"/><path d="M3.5 19c.6-3.1 2.8-5 5.5-5s4.9 1.9 5.5 5" stroke-width="1.6" stroke-linecap="round"/><path d="M16 8h5M16 12h4" stroke-width="1.6" stroke-linecap="round"/></svg>',
+      spark:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8L18 14z" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+      phone:'<svg viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="18" rx="2.4" stroke-width="1.6"/><path d="M11 18h2" stroke-width="1.6" stroke-linecap="round"/></svg>',
+      gear:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke-width="1.6"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke-width="1.6" stroke-linecap="round"/></svg>',
+      doc:'<svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7a2 2 0 01-2-2V5a2 2 0 012-2z" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4h4M9 13h6M9 16.5h4" stroke-width="1.6" stroke-linecap="round"/></svg>',
+      shield:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      globe:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M3 12h18M12 3c2.5 2.4 3.8 5.6 3.8 9S14.5 18.6 12 21c-2.5-2.4-3.8-5.6-3.8-9S9.5 5.4 12 3z" stroke-width="1.5"/></svg>',
+      chat:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 10h.01M12 10h.01M15 10h.01" stroke-width="2" stroke-linecap="round"/></svg>',
+      whatsapp:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 19l1.3-3.9A8 8 0 1112 20a8 8 0 01-3.9-1L4 19z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 11c0 2 2 4 4 4l1-1.4c.3-.4-.1-.9-.6-1l-1.4-.4-.6.8c-.9-.4-1.7-1.2-2.1-2.1l.8-.6c.3-.5-.1-1.3-1-1.5C9 8.8 9 9.8 9 11z" stroke-width="1.4" stroke-linejoin="round"/></svg>',
+      call:'<svg viewBox="0 0 24 24" fill="none"><path d="M5 4h3l1.5 4-2 1.4a12 12 0 005.6 5.6l1.4-2L18.5 18v3a1 1 0 01-1.1 1A15 15 0 013 6.6 1 1 0 014.1 5.5L5 4z" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+      send:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 8l13-4-2 16-4-3-2.5 2.5L8 16 4 8z" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 16l9-12" stroke-width="1.5" stroke-linecap="round"/></svg>',
+      heart:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 21c4.5-2 7-5.2 7-9.5C19 7 16 4 12 4S5 7 5 11.5C5 15.8 7.5 19 12 21z" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 12.5a2.2 2.2 0 100-4.4 2.2 2.2 0 000 4.4z" stroke-width="1.5"/></svg>',
+      bars:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 20V4M4 20h16" stroke-width="1.6" stroke-linecap="round"/><path d="M8 16v-4M12 16V8M16 16v-6M20 16v-9" stroke-width="1.8" stroke-linecap="round"/></svg>'
+    };
+
+    /* ---- categories ---- (accent only shows inside the dark spotlight) */
+    var CATS = {
+      ai:        { label:'AI & automation', acc:'#8B5CF6', scene:'ai'   },
+      platform:  { label:'Core platform',   acc:'#F2935A', scene:'kan'  },
+      admissions:{ label:'Admissions',      acc:'#5B8DEF', scene:'adm'  },
+      engage:    { label:'Engage',          acc:'#25C28A', scene:'eng'  },
+      grow:      { label:'Grow',            acc:'#F2B441', scene:'grow' }
+    };
+    var FILTERS = [
+      {id:'all', label:'All'},
+      {id:'ai', label:'AI & automation'},
+      {id:'platform', label:'Core platform'},
+      {id:'admissions', label:'Admissions'},
+      {id:'engage', label:'Engage'},
+      {id:'grow', label:'Grow'}
+    ];
+
+    /* ---- products ---- */
+    var P = [
+      {id:'vidya', t:'VidyaAI', badge:'New', cat:'ai', ic:'spark', href:'#demo',
+        d:'Your AI admissions copilot — drafts replies, scores intent and rings visitors live.',
+        l:'The AI layer across your whole funnel. It drafts counsellor replies, scores every lead by intent, and can call a website visitor the moment they show interest — the live experience competitors do not offer.',
+        tags:['Drafts replies','Scores lead intent','Rings visitors live']},
+      {id:'edu-crm', t:'Education CRM', cat:'platform', ic:'crm', href:'#demo',
+        d:'Unify every enquiry, counsellor and campus on one purpose-built platform.',
+        l:'Built for admissions, not retrofitted from sales. One view of every enquiry, every counsellor and every campus — so nothing slips between teams.',
+        tags:['360° enquiry view','Counsellor workflows','Multi-campus ready']},
+      {id:'mob-crm', t:'Mobile CRM', badge:'New', cat:'platform', ic:'phone', href:'#demo',
+        d:'Run admissions from your pocket — call, follow up and close on the go.',
+        l:'Your full pipeline on mobile. Counsellors call, log and follow up from anywhere, with reminders that keep every lead moving.',
+        tags:['Call from your phone','Push reminders','Works on the move']},
+      {id:'core-crm', t:'Core CRM', cat:'platform', ic:'gear', href:'#demo',
+        d:'The reliable engine for pipelines, tasks and workflows that never drops a lead.',
+        l:'The dependable core underneath it all — pipelines, tasks and automation tuned so a lead is never forgotten or double-handled.',
+        tags:['Smart pipelines','Task automation','Zero lead leakage']},
+      {id:'app-mgmt', t:'Application Management', cat:'admissions', ic:'doc', href:'#demo',
+        d:'Track every application stage with automated nudges so no form stalls.',
+        l:'See where every applicant is, in real time. Automated nudges restart stalled forms before they go cold.',
+        tags:['Stage tracking','Auto nudges','Status alerts']},
+      {id:'ams', t:'Admission Management System', cat:'admissions', ic:'shield', href:'#demo',
+        d:'Orchestrate fees, documents and approvals end-to-end in one auditable flow.',
+        l:'Run the whole admission cycle — fees, documents, approvals — in one place, with a complete audit trail for every decision.',
+        tags:['Fees & documents','Approval flows','Full audit trail']},
+      {id:'online-adm', t:'Online Admissions', cat:'admissions', ic:'globe', href:'#demo',
+        d:'Let applicants apply and pay from anywhere with a frictionless journey.',
+        l:'A clean, mobile-first apply-and-pay flow that students finish — fewer drop-offs, more completed applications.',
+        tags:['Apply anywhere','Integrated payments','Frictionless forms']},
+      {id:'chatbot', t:'Education AI Chatbot', cat:'ai', ic:'chat', href:'#demo',
+        d:'Answer student questions 24/7 and capture qualified enquiries while you sleep.',
+        l:'An always-on assistant that answers questions on your site and WhatsApp, qualifies interest, and hands warm leads to counsellors.',
+        tags:['24/7 answers','Qualifies enquiries','Site + WhatsApp']},
+      {id:'waba', t:'WhatsApp Business API', cat:'engage', ic:'whatsapp', href:'#demo',
+        d:'Reach families on their favourite channel with verified, automated conversations.',
+        l:'Meet families where they already are. Verified WhatsApp with automated replies and broadcast campaigns that actually get read.',
+        tags:['Verified sender','Automated replies','Broadcast campaigns']},
+      {id:'ivr', t:'IVR System', cat:'engage', ic:'call', href:'#demo',
+        d:'Route, record and track every call so no enquiry rings out unanswered.',
+        l:'Smart call routing with recording and missed-call capture — every ring becomes a tracked, followed-up enquiry.',
+        tags:['Smart call routing','Call recording','Missed-call capture']},
+      {id:'mkt-auto', t:'Marketing Automation', cat:'grow', ic:'send', href:'#demo',
+        d:'Launch multi-channel campaigns that fill your funnel on autopilot.',
+        l:'Build journeys once and let them run — email, SMS and WhatsApp triggered by what each prospect does.',
+        tags:['Multi-channel drips','Triggered journeys','Campaign analytics']},
+      {id:'nurture', t:'Lead Nurturing', cat:'grow', ic:'heart', href:'#demo',
+        d:'Warm every prospect with timely, personalised drips until they enrol.',
+        l:'Keep undecided prospects engaged with personalised, behaviour-based drips that bring them back to apply.',
+        tags:['Personalised drips','Behaviour triggers','Re-engagement']},
+      {id:'analytics', t:'Analytics Dashboard', cat:'grow', ic:'bars', href:'#demo',
+        d:'See conversion, cost and counsellor performance in real time, in one view.',
+        l:'Know what is working at a glance — funnels, cost per enrolment and counsellor scorecards, live and in one place.',
+        tags:['Real-time funnels','Cost per enrol','Counsellor scorecards']}
+    ];
+
+    /* ---- scene builders ---- */
+    function scene(type){
+      switch(type){
+        case 'ai': return '<div class="sc-ai">'+
+          '<div class="sc-bub">Hi! Is the fee structure available?</div>'+
+          '<div class="sc-bub me b2">Yes — sharing it now. Shall I call you to walk through it?</div>'+
+          '<div class="sc-bub b3" style="display:flex;align-items:center;gap:6px">Calling you<span class="sc-wave"><span></span><span></span><span></span><span></span><span></span></span></div>'+
+          '<div class="sc-type"><i></i><i></i><i></i></div></div>';
+        case 'kan': return '<div class="sc-kan">'+
+          '<div class="sc-col"><h6>New</h6><div class="sc-lead live"></div><div class="sc-lead"></div></div>'+
+          '<div class="sc-col"><h6>Engaged</h6><div class="sc-lead"></div></div>'+
+          '<div class="sc-col"><h6>Enrolled</h6><div class="sc-lead"></div><div class="sc-lead"></div></div></div>';
+        case 'adm': var tk='<svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          return '<div class="sc-adm"><div class="sc-prog"><i></i></div>'+
+          '<div class="sc-row sc-r1"><span class="sc-tick">'+tk+'</span>Documents verified</div>'+
+          '<div class="sc-row sc-r2"><span class="sc-tick">'+tk+'</span>Fee received</div>'+
+          '<div class="sc-row sc-r3"><span class="sc-tick">'+tk+'</span>Offer approved</div></div>';
+        case 'eng': return '<div class="sc-eng">'+
+          '<div class="sc-msg"><span class="av"></span><span class="tx"></span></div>'+
+          '<div class="sc-msg m2"><span class="av"></span><span class="tx"></span></div>'+
+          '<div class="sc-msg m3"><span class="av"></span><span class="tx"></span></div>'+
+          '<div class="sc-verified"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified business · delivered</div></div>';
+        case 'grow': return '<div class="sc-grow"><span class="sc-bar"></span><span class="sc-bar"></span><span class="sc-bar"></span><span class="sc-bar"></span><span class="sc-bar"></span></div>';
+      }
+      return '';
+    }
+
+    /* ---- build filter pills ---- */
+    var counts = {all:P.length};
+    P.forEach(function(p){ counts[p.cat]=(counts[p.cat]||0)+1; });
+    var filtersEl = document.getElementById('eepFilters');
+    FILTERS.forEach(function(f,i){
+      var b=document.createElement('button');
+      b.className='eep-pill'; b.type='button'; b.dataset.cat=f.id;
+      b.setAttribute('aria-pressed', i===0?'true':'false');
+      b.innerHTML=f.label+' <span class="eep-count">'+(counts[f.id]||0)+'</span>';
+      filtersEl.appendChild(b);
+    });
+
+    /* ---- build cards ---- */
+    var grid = document.getElementById('eepGrid');
+    var emptyEl = document.getElementById('eepEmpty');
+    P.forEach(function(p){
+      var c = CATS[p.cat];
+      var a=document.createElement('a');
+      a.className='eep-card'; a.href=p.href; a.dataset.id=p.id; a.dataset.cat=p.cat;
+      a.dataset.search=(p.t+' '+p.d+' '+p.tags.join(' ')+' '+c.label).toLowerCase();
+      a.style.setProperty('--cardacc', c.acc);
+      a.innerHTML=''+
+        '<div class="eep-card-top"><span class="eep-chip" aria-hidden="true">'+IC[p.ic]+'</span>'+
+        '<span class="eep-card-title">'+p.t+(p.badge?' <span class="eep-badge">'+p.badge+'</span>':'')+'</span></div>'+
+        '<p class="eep-card-desc">'+p.d+'</p>'+
+        '<div class="eep-card-foot"><span class="eep-card-cat">'+c.label+'</span>'+
+        '<span class="eep-card-go">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>';
+      grid.insertBefore(a, emptyEl);
+    });
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.eep-card'));
+
+    /* ---- spotlight refs ---- */
+    var spot=document.getElementById('eepSpot'), sCat=document.getElementById('eepSpotCat'),
+        sIcon=document.getElementById('eepSpotIcon'), sTitle=document.getElementById('eepSpotTitle'),
+        sDesc=document.getElementById('eepSpotDesc'), sTags=document.getElementById('eepSpotTags'),
+        sCta=document.getElementById('eepSpotCta'), sScene=document.getElementById('eepScene');
+    var activeId=null;
+
+    function setActive(id, fromUser){
+      var p=P.filter(function(x){return x.id===id;})[0]; if(!p) return;
+      activeId=id;
+      var c=CATS[p.cat];
+      spot.style.setProperty('--acc', c.acc);
+      spot.style.setProperty('--acc-soft', hexA(c.acc,.18));
+      sCat.textContent=c.label;
+      sIcon.innerHTML=IC[p.ic];
+      sTitle.innerHTML=p.t+(p.badge?' <span class="eep-new">'+p.badge+'</span>':'');
+      sDesc.textContent=p.l;
+      sTags.innerHTML=p.tags.map(function(t){return '<span>'+t+'</span>';}).join('');
+      sCta.setAttribute('href', p.href);
+      sScene.innerHTML=''; // restart scene animation
+      void sScene.offsetWidth;
+      sScene.innerHTML=scene(c.scene);
+      cards.forEach(function(cd){ cd.classList.toggle('is-active', cd.dataset.id===id); });
+      if(fromUser) pauseRotate();
+    }
+    function hexA(hex,a){ var h=hex.replace('#',''); var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+
+    /* ---- hover / focus updates spotlight ---- */
+    cards.forEach(function(cd){
+      cd.addEventListener('mouseenter', function(){ setActive(cd.dataset.id, true); });
+      cd.addEventListener('focus', function(){ setActive(cd.dataset.id, true); });
+    });
+
+    /* ---- filtering + search ---- */
+    var curCat='all', curQ='';
+    function apply(){
+      var shown=0, firstVisible=null;
+      cards.forEach(function(cd){
+        var okCat = curCat==='all' || cd.dataset.cat===curCat;
+        var okQ = !curQ || cd.dataset.search.indexOf(curQ)>-1;
+        var vis = okCat && okQ;
+        cd.hidden = !vis;
+        if(vis){ shown++; if(!firstVisible) firstVisible=cd; }
+      });
+      emptyEl.classList.toggle('show', shown===0);
+      // keep spotlight pointing at something visible
+      if(shown>0){
+        var stillVisible = cards.some(function(cd){ return cd.dataset.id===activeId && !cd.hidden; });
+        if(!stillVisible && firstVisible) setActive(firstVisible.dataset.id);
+        rebuildRotation();
+      }
+    }
+
+    filtersEl.addEventListener('click', function(e){
+      var b=e.target.closest('.eep-pill'); if(!b) return;
+      curCat=b.dataset.cat;
+      filtersEl.querySelectorAll('.eep-pill').forEach(function(p){ p.setAttribute('aria-pressed', p===b?'true':'false'); });
+      apply(); pauseRotate();
+    });
+
+    var input=document.getElementById('eepInput'), searchWrap=document.getElementById('eepSearch'),
+        clearBtn=document.getElementById('eepClear');
+    input.addEventListener('input', function(){
+      curQ=input.value.trim().toLowerCase();
+      searchWrap.classList.toggle('has-val', curQ.length>0);
+      apply(); pauseRotate();
+    });
+    clearBtn.addEventListener('click', function(){ input.value=''; curQ=''; searchWrap.classList.remove('has-val'); apply(); input.focus(); });
+    document.getElementById('eepReset').addEventListener('click', function(){
+      input.value=''; curQ=''; curCat='all'; searchWrap.classList.remove('has-val');
+      filtersEl.querySelectorAll('.eep-pill').forEach(function(p){ p.setAttribute('aria-pressed', p.dataset.cat==='all'?'true':'false'); });
+      apply();
+    });
+
+    /* ---- idle auto-rotation through featured products ---- */
+    var FEATURED=['vidya','edu-crm','analytics','waba','app-mgmt'];
+    var rotePool=[], roteIdx=0, roteTimer=null, idleTimer=null;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    function rebuildRotation(){
+      rotePool = FEATURED.filter(function(id){
+        var cd=cards.filter(function(c){return c.dataset.id===id;})[0];
+        return cd && !cd.hidden;
+      });
+      if(rotePool.length===0){
+        rotePool = cards.filter(function(c){return !c.hidden;}).map(function(c){return c.dataset.id;});
+      }
+    }
+    function startRotate(){
+      if(reduce) return;
+      stopRotate(); rebuildRotation();
+      roteTimer=setInterval(function(){
+        if(rotePool.length===0) return;
+        roteIdx=(roteIdx+1)%rotePool.length;
+        // skip if it lands on current
+        if(rotePool[roteIdx]===activeId && rotePool.length>1) roteIdx=(roteIdx+1)%rotePool.length;
+        setActive(rotePool[roteIdx]);
+      }, 3600);
+    }
+    function stopRotate(){ if(roteTimer){ clearInterval(roteTimer); roteTimer=null; } }
+    function pauseRotate(){
+      stopRotate();
+      if(idleTimer) clearTimeout(idleTimer);
+      idleTimer=setTimeout(startRotate, 6000); // resume after 6s of no interaction
+    }
+    // stop rotation while the user is inside the section
+    root.addEventListener('mouseenter', stopRotate);
+    root.addEventListener('mouseleave', function(){ pauseRotate(); });
+
+    /* ---- init ---- */
+    setActive('vidya');
+    apply();
+    // begin idle rotation only when section scrolls into view
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(ents){
+        ents.forEach(function(en){ if(en.isIntersecting){ startRotate(); io.disconnect(); } });
+      }, {threshold:.25});
+      io.observe(root);
+    } else { startRotate(); }
+  })();
+  </script>
 </section>
 
 <style>
