@@ -3406,15 +3406,6 @@ body.vg-open .vg-launch{display:none}
   #ee-vidya-suite .vsx-cta-btn svg{ width:17px; height:17px; } #ee-vidya-suite .vsx-cta-btn svg *{ stroke:#fff; }
 
   /* ---- footer: progress + dots + hint ---- */
-  #ee-vidya-suite .vsx-foot{ display:flex; align-items:center; gap:16px; margin-top:22px; }
-  #ee-vidya-suite .vsx-dots{ display:flex; gap:8px; }
-  #ee-vidya-suite .vsx-dots b{ width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.22); transition:background .3s, transform .3s; }
-  #ee-vidya-suite .vsx-dots b.on{ background:var(--cy); transform:scale(1.35); }
-  #ee-vidya-suite .vsx-bar{ flex:1; height:4px; border-radius:999px; background:rgba(255,255,255,.12); overflow:hidden; }
-  #ee-vidya-suite .vsx-bar i{ display:block; height:100%; width:12%; border-radius:999px; background:linear-gradient(90deg,var(--cy),var(--or)); transition:width .15s linear; }
-  #ee-vidya-suite .vsx-hint{ font-size:11.5px; font-weight:600; letter-spacing:.04em; color:#9fb0cc; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; }
-  #ee-vidya-suite .vsx-hint svg{ width:14px; height:14px; animation:vsxNudge 1.6s ease-in-out infinite; } #ee-vidya-suite .vsx-hint svg *{ stroke:currentColor; }
-  @keyframes vsxNudge{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(3px)} }
 
   /* ================= PINNED HORIZONTAL MODE (desktop, JS on) ================= */
   #ee-vidya-suite.vsx-on .vsx-track{ height:360vh; }
