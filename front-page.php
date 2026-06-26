@@ -4035,146 +4035,461 @@ body.vg-open .vg-launch{display:none}
     </div>
   </div>
 </section>
+<!-- ===================== EE INDUSTRIES / STORY REEL ===================== -->
+<!-- Self-contained: scoped CSS + vanilla JS, no CDN. Each industry is a chapter that auto-plays. -->
 <style>
-#ee-industries{
-  --navy:#19335D; --navy2:#22467c; --orange:#DE6E30; --orange2:#E8843F;
-  --ink:#0F1F3A; --muted:#5A6B85; --hair:rgba(25,51,93,.09); --bg:#f6f8fc;
-  position:relative; padding:clamp(64px,8vw,104px) 0; background:transparent;
-  font-family:'Inter',system-ui,-apple-system,sans-serif; color:var(--ink);
-  -webkit-font-smoothing:antialiased;
-}
-#ee-industries *{box-sizing:border-box;}
-#ee-industries .ee-container{max-width:1240px;margin:0 auto;padding:0 24px;}
-#ee-industries .ee-head{max-width:720px;margin:0 0 clamp(36px,5vw,56px);}
-#ee-industries .ee-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--orange);margin:0 0 16px;
-}
-#ee-industries .ee-eyebrow::before{
-  content:"";width:22px;height:2px;border-radius:2px;
-  background:linear-gradient(90deg,var(--orange),var(--orange2));
-}
-#ee-industries h2{
-  font-family:'Poppins','Inter',sans-serif;font-weight:600;
-  font-size:clamp(28px,4vw,40px);line-height:1.12;letter-spacing:-.02em;
-  margin:0 0 14px;color:var(--navy);
-}
-#ee-industries .ee-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:var(--muted);margin:0;}
-#ee-industries .ee-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,20px);
-}
-#ee-industries .ee-card{
-  position:relative;display:flex;align-items:center;gap:14px;
-  text-decoration:none;
-  background:#fff;border:1px solid var(--hair);border-radius:16px;
-  padding:18px 20px;color:var(--ink);
-  box-shadow:0 1px 2px rgba(15,31,58,.04),0 14px 30px -24px rgba(25,51,93,.28);
-  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;
-  overflow:hidden;
-}
-#ee-industries .ee-card::after{
-  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-  box-shadow:inset 0 0 0 1px transparent;transition:box-shadow .35s;
-}
-#ee-industries .ee-card:hover{
-  transform:translateY(-5px);border-color:rgba(222,110,48,.32);
-  box-shadow:0 1px 2px rgba(15,31,58,.05),0 24px 42px -26px rgba(25,51,93,.42);
-}
-#ee-industries .ee-card:hover::after{box-shadow:inset 0 0 0 1px rgba(222,110,48,.25);}
-#ee-industries .ee-card:focus-visible{outline:2px solid var(--orange);outline-offset:3px;}
-#ee-industries .ee-ico{
-  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
-  width:44px;height:44px;border-radius:12px;
-  background:linear-gradient(160deg,rgba(34,70,124,.1),rgba(222,110,48,.12));
-  border:1px solid var(--hair);color:var(--navy2);
-  transition:color .35s,background .35s;
-}
-#ee-industries .ee-ico svg{width:22px;height:22px;}
-#ee-industries .ee-card:hover .ee-ico{
-  color:var(--orange);background:linear-gradient(160deg,rgba(222,110,48,.14),rgba(232,132,63,.1));
-}
-#ee-industries .ee-name{
-  font-family:'Poppins','Inter',sans-serif;font-weight:500;
-  font-size:15.5px;line-height:1.3;letter-spacing:-.005em;color:var(--ink);
-}
-@media (max-width:900px){
-  #ee-industries .ee-grid{grid-template-columns:repeat(2,1fr);}
-}
-@media (max-width:560px){
-  #ee-industries .ee-container{padding:0 18px;}
-  #ee-industries .ee-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
-  #ee-industries .ee-card{flex-direction:column;align-items:flex-start;gap:12px;padding:16px;}
-  #ee-industries .ee-name{font-size:14.5px;}
-}
+  #ee-industries{
+    --navy:#19335D;
+    --ink:#0F1F3A;
+    --orange:#DE6E30;
+    --orange-lt:#E8843F;
+    --muted:#5A6B85;
+    --line:rgba(25,51,93,.10);
+    --dur:6500ms;            /* auto-advance interval */
+    position:relative;
+    padding:clamp(64px,8vw,108px) 0;
+    background:
+      radial-gradient(120% 60% at 50% -10%,rgba(222,110,48,.05),transparent 60%),
+      linear-gradient(180deg,#fbfcfe,#f4f7fc 55%,#fbfcfe);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased;
+  }
+  #ee-industries *{box-sizing:border-box;}
+  #ee-industries svg{stroke-linecap:round;stroke-linejoin:round;}
+  #ee-industries .ee-wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- Header ---------- */
+  #ee-industries .ee-head{max-width:720px;margin:0 auto clamp(34px,4.5vw,46px);text-align:center;}
+  #ee-industries .ee-eyebrow{
+    display:inline-flex;align-items:center;gap:8px;padding:7px 15px 7px 12px;border-radius:999px;
+    background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.18);
+    color:#C45A20;font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;margin-bottom:20px;
+  }
+  #ee-industries .ee-eyebrow .ee-dot{width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 4px rgba(222,110,48,.16);}
+  #ee-industries h2{
+    font-family:'Poppins','Inter',sans-serif;font-size:clamp(30px,4.4vw,46px);line-height:1.08;
+    letter-spacing:-.02em;font-weight:700;margin:0 0 14px;color:var(--navy);
+  }
+  #ee-industries .ee-sub{font-size:clamp(15px,1.7vw,18px);line-height:1.55;color:var(--muted);margin:0;}
+
+  /* ---------- Stage card (dark, cinematic) ---------- */
+  #ee-industries .ee-stage{
+    position:relative;border-radius:22px;overflow:hidden;
+    background:
+      radial-gradient(120% 120% at 100% 0%,rgba(222,110,48,.18),transparent 55%),
+      radial-gradient(100% 120% at 0% 100%,rgba(34,70,124,.55),transparent 55%),
+      linear-gradient(135deg,#1b3055,#0f1f3a);
+    box-shadow:0 30px 70px -34px rgba(15,31,58,.55);
+    border:1px solid rgba(255,255,255,.06);
+  }
+
+  /* progress segments */
+  #ee-industries .ee-segs{
+    display:flex;align-items:center;gap:6px;
+    padding:16px clamp(18px,3vw,30px) 0;
+  }
+  #ee-industries .ee-seg{
+    position:relative;flex:1;height:4px;border-radius:99px;border:0;padding:0;cursor:pointer;
+    background:rgba(255,255,255,.16);overflow:hidden;
+  }
+  #ee-industries .ee-seg-fill{position:absolute;inset:0;width:0;background:linear-gradient(90deg,var(--orange-lt),var(--orange));border-radius:99px;}
+  #ee-industries .ee-seg.done .ee-seg-fill,
+  #ee-industries .ee-seg.cur  .ee-seg-fill{width:100%;}
+  #ee-industries .ee-seg.active .ee-seg-fill{animation:eeFill var(--dur) linear forwards;}
+  #ee-industries.paused .ee-seg.active .ee-seg-fill{animation-play-state:paused;}
+  @keyframes eeFill{from{width:0}to{width:100%}}
+  #ee-industries .ee-seg:focus-visible{outline:2px solid var(--orange);outline-offset:3px;}
+
+  #ee-industries .ee-playpause{
+    flex:0 0 auto;width:30px;height:30px;margin-left:6px;border-radius:50%;cursor:pointer;
+    background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);
+    display:inline-flex;align-items:center;justify-content:center;color:#fff;
+    transition:background .2s;
+  }
+  #ee-industries .ee-playpause:hover{background:rgba(255,255,255,.2);}
+  #ee-industries .ee-playpause svg{width:13px;height:13px;}
+  #ee-industries .ee-playpause .ee-ic-pause{display:none;}
+  #ee-industries:not(.paused) .ee-playpause .ee-ic-pause{display:block;}
+  #ee-industries:not(.paused) .ee-playpause .ee-ic-play{display:none;}
+
+  /* layout: rail + panel */
+  #ee-industries .ee-grid{
+    display:grid;grid-template-columns:236px 1fr;gap:0;
+    padding:18px clamp(18px,3vw,30px) clamp(24px,3vw,32px);
+  }
+
+  /* chapter rail */
+  #ee-industries .ee-rail{display:flex;flex-direction:column;gap:2px;padding-right:18px;border-right:1px solid rgba(255,255,255,.08);}
+  #ee-industries .ee-chap{
+    display:flex;align-items:center;gap:11px;width:100%;text-align:left;cursor:pointer;
+    padding:10px 12px;border-radius:11px;border:0;background:transparent;color:#9fb2cf;
+    font:inherit;font-size:13.5px;font-weight:600;letter-spacing:-.005em;line-height:1.3;
+    position:relative;transition:color .2s,background .2s;
+  }
+  #ee-industries .ee-chap-ic{flex:0 0 auto;width:20px;height:20px;color:#6f86a8;transition:color .2s,transform .2s;}
+  #ee-industries .ee-chap-ic svg{width:20px;height:20px;display:block;}
+  #ee-industries .ee-chap:hover{color:#e6eefb;background:rgba(255,255,255,.04);}
+  #ee-industries .ee-chap:hover .ee-chap-ic{color:#9fb2cf;}
+  #ee-industries .ee-chap[aria-selected="true"]{color:#fff;background:rgba(255,255,255,.06);}
+  #ee-industries .ee-chap[aria-selected="true"] .ee-chap-ic{color:var(--orange-lt);transform:scale(1.05);}
+  #ee-industries .ee-chap[aria-selected="true"]::before{
+    content:"";position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:99px;
+    background:linear-gradient(180deg,var(--orange-lt),var(--orange));
+  }
+  #ee-industries .ee-chap:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}
+
+  /* story panel */
+  #ee-industries .ee-panel{position:relative;padding-left:clamp(18px,2.6vw,34px);min-height:300px;}
+  #ee-industries .ee-slide{display:none;}
+  #ee-industries .ee-slide.is-active{display:block;animation:eeRise .5s cubic-bezier(.2,.7,.3,1) both;}
+  @keyframes eeRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  #ee-industries .ee-slide-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:22px;}
+  #ee-industries .ee-ind-icon{
+    flex:0 0 auto;width:54px;height:54px;border-radius:14px;color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--orange-lt),var(--orange));
+    box-shadow:0 12px 26px -12px rgba(222,110,48,.7),inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  #ee-industries .ee-ind-icon svg{width:27px;height:27px;}
+  #ee-industries .ee-kicker{display:block;font-family:'Poppins','Inter',sans-serif;font-size:clamp(20px,2.4vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;line-height:1.15;}
+  #ee-industries .ee-scene{margin:6px 0 0;font-size:clamp(14px,1.7vw,16px);line-height:1.5;color:#cdd9ee;font-style:italic;}
+
+  #ee-industries .ee-beats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px;}
+  #ee-industries .ee-beat{
+    padding:15px 16px;border-radius:13px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);
+  }
+  #ee-industries .ee-beat-sol{background:rgba(222,110,48,.12);border-color:rgba(222,110,48,.28);}
+  #ee-industries .ee-beat-label{
+    display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;color:#8ea3c4;margin-bottom:7px;
+  }
+  #ee-industries .ee-beat-sol .ee-beat-label{color:var(--orange-lt);}
+  #ee-industries .ee-beat-label::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;}
+  #ee-industries .ee-beat p{margin:0;font-size:13.5px;line-height:1.5;color:#d6e0f1;}
+
+  #ee-industries .ee-slide-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;}
+  #ee-industries .ee-outcome{
+    display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+    font-size:13px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  }
+  #ee-industries .ee-outcome::before{
+    content:"";width:15px;height:15px;border-radius:50%;flex:0 0 auto;
+    background:radial-gradient(circle at 50% 50%,var(--orange-lt),var(--orange));
+    box-shadow:0 0 0 4px rgba(222,110,48,.18);
+  }
+  #ee-industries .ee-slide-cta{
+    display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--orange-lt);
+    text-decoration:none;transition:gap .2s,color .2s;
+  }
+  #ee-industries .ee-slide-cta:hover{color:#fff;gap:10px;}
+  #ee-industries .ee-slide-cta svg{width:15px;height:15px;}
+
+  /* prev / next */
+  #ee-industries .ee-nav{position:absolute;right:0;bottom:0;display:flex;gap:8px;}
+  #ee-industries .ee-nav button{
+    width:34px;height:34px;border-radius:50%;cursor:pointer;color:#cdd9ee;
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+    display:inline-flex;align-items:center;justify-content:center;transition:background .2s,color .2s;
+  }
+  #ee-industries .ee-nav button:hover{background:rgba(255,255,255,.18);color:#fff;}
+  #ee-industries .ee-nav button:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}
+  #ee-industries .ee-nav svg{width:15px;height:15px;}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:840px){
+    #ee-industries .ee-grid{grid-template-columns:1fr;padding-top:14px;}
+    #ee-industries .ee-rail{
+      flex-direction:row;overflow-x:auto;gap:6px;padding:0 0 12px;margin-bottom:16px;
+      border-right:0;border-bottom:1px solid rgba(255,255,255,.08);-webkit-overflow-scrolling:touch;
+    }
+    #ee-industries .ee-chap{flex:0 0 auto;white-space:nowrap;}
+    #ee-industries .ee-chap[aria-selected="true"]::before{display:none;}
+    #ee-industries .ee-panel{padding-left:0;min-height:0;}
+    #ee-industries .ee-beats{grid-template-columns:1fr;}
+    #ee-industries .ee-nav{position:static;justify-content:flex-end;margin-top:18px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    #ee-industries *{animation:none !important;}
+    #ee-industries .ee-seg.active .ee-seg-fill{width:100%;}
+  }
 </style>
-<section id="ee-industries" aria-label="Industries">
-  <div class="ee-container">
+
+<!-- icon sprite (defined once) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="ee-i-edtech" viewBox="0 0 24 24">
+    <rect x="3" y="4.5" width="18" height="12" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M3 20h18M10 16.5v3M14 16.5v3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M10 8.5l3.2 2-3.2 2v-4z" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  </symbol>
+  <symbol id="ee-i-coaching" viewBox="0 0 24 24">
+    <rect x="3" y="3.5" width="18" height="13" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M12 16.5v3.5M9 20h6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M8 13v-2.5M12 13V8M16 13v-4.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  </symbol>
+  <symbol id="ee-i-k12" viewBox="0 0 24 24">
+    <path d="M3.5 21V10l8.5-5.5L20.5 10v11" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M9 21v-5.5h6V21M3 21h18" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M12 4.5V2l3 1-3 1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+  <symbol id="ee-i-preschool" viewBox="0 0 24 24">
+    <rect x="2.8" y="11" width="7.4" height="7.4" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <rect x="13.8" y="11" width="7.4" height="7.4" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <rect x="8.3" y="3.5" width="7.4" height="7.4" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </symbol>
+  <symbol id="ee-i-online" viewBox="0 0 24 24">
+    <circle cx="12" cy="14" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M6 14h12M12 8.2c2 1.8 3 3.7 3 5.8s-1 4-3 5.8c-2-1.8-3-3.7-3-5.8s1-4 3-5.8z" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M5 7.2l7-3 7 3-7 3-7-3z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </symbol>
+  <symbol id="ee-i-higher" viewBox="0 0 24 24">
+    <path d="M3 9l9-5 9 5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M5.5 10v8M9.5 10v8M14.5 10v8M18.5 10v8" fill="none" stroke="currentColor" stroke-width="1.7"/>
+    <path d="M3.5 21h17M4.5 10h15" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </symbol>
+  <symbol id="ee-i-abroad" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M4 11h14M11 4c2.1 1.9 3.3 4.3 3.3 7s-1.2 5.1-3.3 7c-2.1-1.9-3.3-4.3-3.3-7S8.9 5.9 11 4z" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M16 16l5 5M21 17v4h-4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </symbol>
+  <symbol id="ee-i-channel" viewBox="0 0 24 24">
+    <circle cx="6" cy="6.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <circle cx="18" cy="6.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <circle cx="12" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M7.6 8.6l3.2 7M16.4 8.6l-3.2 7M8.5 6.5h7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+</defs></svg>
+
+<section id="ee-industries" aria-label="Industries we serve">
+  <div class="ee-wrap">
+
     <div class="ee-head">
-      <p class="ee-eyebrow">Industries</p>
+      <span class="ee-eyebrow"><span class="ee-dot" aria-hidden="true"></span>Industries</span>
       <h2>Built for every kind of institution</h2>
-      <p class="ee-sub">One AI-powered admissions platform, tuned to the way your category recruits, nurtures and enrols students.</p>
+      <p class="ee-sub">One AI-powered admissions platform, tuned to the way your category recruits, nurtures and enrols students. Press play and see your story.</p>
     </div>
-    <div class="ee-grid">
 
-      <a class="ee-card" href="#demo">
-        <span class="ee-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="m9 8 3 2.5L9 13"/><path d="M14 13h2"/></svg>
-        </span>
-        <span class="ee-name">EdTech</span>
-      </a>
+    <div class="ee-stage">
 
-      <a class="ee-card" href="#demo">
-        <span class="ee-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1 2.7 3 6 3s6-2 6-3v-5.5"/><path d="M22 8v5"/></svg>
-        </span>
-        <span class="ee-name">Coaching &amp; Training Institutes</span>
-      </a>
+      <!-- progress segments -->
+      <div class="ee-segs" id="eeSegs" aria-hidden="true"></div>
 
-      <a class="ee-card" href="#demo">
-        <span class="ee-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M3 21h18"/><path d="M9 21v-5a3 3 0 0 1 6 0v5"/><path d="M12 7v.01"/></svg>
-        </span>
-        <span class="ee-name">K-12 Schools</span>
-      </a>
+      <div class="ee-grid">
 
-      <a class="ee-card" href="#demo">
-        <span class="ee-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M12 2.5v1M7 4l.6.8M17 4l-.6.8"/></svg>
-        </span>
-        <span class="ee-name">Preschools &amp; Playschools</span>
-      </a>
+        <!-- chapter rail -->
+        <div class="ee-rail" role="tablist" aria-label="Choose an industry">
+          <button class="ee-chap" role="tab" data-i="0" aria-selected="true"><span class="ee-chap-ic"><svg><use href="#ee-i-edtech"/></svg></span><span class="ee-chap-name">EdTech</span></button>
+          <button class="ee-chap" role="tab" data-i="1" aria-selected="false"><span class="ee-chap-ic"><svg><use href="#ee-i-coaching"/></svg></span><span class="ee-chap-name">Coaching &amp; Training Institutes</span></button>
+          <button class="ee-chap" role="tab" data-i="2" aria-selected="false"><span class="ee-chap-ic"><svg><use href="#ee-i-k12"/></svg></span><span class="ee-chap-name">K-12 Schools</span></button>
+          <button class="ee-chap" role="tab" data-i="3" aria-selected="false"><span class="ee-chap-ic"><svg><use href="#ee-i-preschool"/></svg></span><span class="ee-chap-name">Preschools &amp; Playschools</span></button>
+          <button class="ee-chap" role="tab" data-i="4" aria-selected="false"><span class="ee-chap-ic"><svg><use href="#ee-i-online"/></svg></span><span class="ee-chap-name">Online Degree Programmes</span></button>
+          <button class="ee-chap" role="tab" data-i="5" aria-selected="false"><span class="ee-chap-ic"><svg><use href="#ee-i-higher"/></svg></span><span class="ee-chap-name">Higher Education</span></button>
+          <button class="ee-chap" role="tab" data-i="6" aria-selected="false"><span class="ee-chap-ic"><svg><use href="#ee-i-abroad"/></svg></span><span class="ee-chap-name">Study Abroad Consultants</span></button>
+          <button class="ee-chap" role="tab" data-i="7" aria-selected="false"><span class="ee-chap-ic"><svg><use href="#ee-i-channel"/></svg></span><span class="ee-chap-name">Channel Partners</span></button>
+        </div>
 
-      <a class="ee-card" href="#demo">
-        <span class="ee-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><circle cx="12" cy="11" r="3"/><path d="m12 8 .6 1.8H14.5l-1.5 1.1.6 1.8-1.6-1.1-1.6 1.1.6-1.8-1.5-1.1h1.9Z" stroke-width="0" fill="currentColor" opacity=".3"/></svg>
-        </span>
-        <span class="ee-name">Online Degree Programmes</span>
-      </a>
+        <!-- story panel -->
+        <div class="ee-panel" role="tabpanel" aria-live="polite">
 
-      <a class="ee-card" href="#demo">
-        <span class="ee-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M22 8v6"/><path d="M6 10.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-5.5"/></svg>
-        </span>
-        <span class="ee-name">Higher Education</span>
-      </a>
+          <article class="ee-slide is-active" data-i="0">
+            <div class="ee-slide-head">
+              <span class="ee-ind-icon"><svg><use href="#ee-i-edtech"/></svg></span>
+              <div><span class="ee-kicker">EdTech</span><p class="ee-scene">You buy leads by the thousand — and they cool in minutes.</p></div>
+            </div>
+            <div class="ee-beats">
+              <div class="ee-beat"><span class="ee-beat-label">The challenge</span><p>Manual follow-up can't keep pace. Paid leads go cold before a counsellor ever calls.</p></div>
+              <div class="ee-beat ee-beat-sol"><span class="ee-beat-label">With ExtraaEdge</span><p>Vidya Call rings every new lead in seconds, AI reads intent, and hot leads route straight to a counsellor.</p></div>
+            </div>
+            <div class="ee-slide-foot"><span class="ee-outcome">First response in seconds, not days</span><a class="ee-slide-cta" href="#demo">See it for EdTech <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/></svg></a></div>
+          </article>
 
-      <a class="ee-card" href="#demo">
-        <span class="ee-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18Z"/></svg>
-        </span>
-        <span class="ee-name">Study Abroad Consultants</span>
-      </a>
+          <article class="ee-slide" data-i="1">
+            <div class="ee-slide-head">
+              <span class="ee-ind-icon"><svg><use href="#ee-i-coaching"/></svg></span>
+              <div><span class="ee-kicker">Coaching &amp; Training Institutes</span><p class="ee-scene">Batches fill on deadlines — every enquiry is a seat.</p></div>
+            </div>
+            <div class="ee-beats">
+              <div class="ee-beat"><span class="ee-beat-label">The challenge</span><p>The front desk juggles calls, WhatsApp and walk-ins. Follow-ups slip and seats stay empty.</p></div>
+              <div class="ee-beat ee-beat-sol"><span class="ee-beat-label">With ExtraaEdge</span><p>One inbox for calls, WhatsApp and forms, with auto-nurture that keeps every enquiry warm until the batch starts.</p></div>
+            </div>
+            <div class="ee-slide-foot"><span class="ee-outcome">Every seat tracked to enrolment</span><a class="ee-slide-cta" href="#demo">See it for Coaching <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/></svg></a></div>
+          </article>
 
-      <a class="ee-card" href="#demo">
-        <span class="ee-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="17" r="2.5"/><path d="M7.5 9 11 15M16.5 9 13 15M8.5 7h7"/></svg>
-        </span>
-        <span class="ee-name">Channel Partners</span>
-      </a>
+          <article class="ee-slide" data-i="2">
+            <div class="ee-slide-head">
+              <span class="ee-ind-icon"><svg><use href="#ee-i-k12"/></svg></span>
+              <div><span class="ee-kicker">K-12 Schools</span><p class="ee-scene">Parents take months to choose — trust wins the seat.</p></div>
+            </div>
+            <div class="ee-beats">
+              <div class="ee-beat"><span class="ee-beat-label">The challenge</span><p>Enquiries span the whole admission season. Manual nurture loses families along the way.</p></div>
+              <div class="ee-beat ee-beat-sol"><span class="ee-beat-label">With ExtraaEdge</span><p>Personalised drips, school-tour reminders and gentle fee nudges keep families warm right up to the deadline.</p></div>
+            </div>
+            <div class="ee-slide-foot"><span class="ee-outcome">Nurtured from enquiry to fee paid</span><a class="ee-slide-cta" href="#demo">See it for K-12 <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/></svg></a></div>
+          </article>
 
+          <article class="ee-slide" data-i="3">
+            <div class="ee-slide-head">
+              <span class="ee-ind-icon"><svg><use href="#ee-i-preschool"/></svg></span>
+              <div><span class="ee-kicker">Preschools &amp; Playschools</span><p class="ee-scene">It's their first school — parents want reassurance, fast.</p></div>
+            </div>
+            <div class="ee-beats">
+              <div class="ee-beat"><span class="ee-beat-label">The challenge</span><p>Small teams, anxious parents. Every missed call is a lost admission.</p></div>
+              <div class="ee-beat ee-beat-sol"><span class="ee-beat-label">With ExtraaEdge</span><p>WhatsApp and IVR catch every enquiry, and instant answers calm parents before they call the school next door.</p></div>
+            </div>
+            <div class="ee-slide-foot"><span class="ee-outcome">No enquiry rings out unanswered</span><a class="ee-slide-cta" href="#demo">See it for Preschools <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/></svg></a></div>
+          </article>
+
+          <article class="ee-slide" data-i="4">
+            <div class="ee-slide-head">
+              <span class="ee-ind-icon"><svg><use href="#ee-i-online"/></svg></span>
+              <div><span class="ee-kicker">Online Degree Programmes</span><p class="ee-scene">You compete nationally for every learner — online.</p></div>
+            </div>
+            <div class="ee-beats">
+              <div class="ee-beat"><span class="ee-beat-label">The challenge</span><p>Thousands of enquiries, a wide funnel, and no easy way to spot who's ready to enrol.</p></div>
+              <div class="ee-beat ee-beat-sol"><span class="ee-beat-label">With ExtraaEdge</span><p>AI scores intent and predicts who'll convert, while applicants apply and pay fully online.</p></div>
+            </div>
+            <div class="ee-slide-foot"><span class="ee-outcome">Apply and pay, fully online</span><a class="ee-slide-cta" href="#demo">See it for Online Degrees <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/></svg></a></div>
+          </article>
+
+          <article class="ee-slide" data-i="5">
+            <div class="ee-slide-head">
+              <span class="ee-ind-icon"><svg><use href="#ee-i-higher"/></svg></span>
+              <div><span class="ee-kicker">Higher Education</span><p class="ee-scene">Many programmes, many counsellors, one admission season.</p></div>
+            </div>
+            <div class="ee-beats">
+              <div class="ee-beat"><span class="ee-beat-label">The challenge</span><p>Pipelines fragment across departments and campuses, and leadership loses visibility.</p></div>
+              <div class="ee-beat ee-beat-sol"><span class="ee-beat-label">With ExtraaEdge</span><p>One CRM unifies every programme and campus, with real-time dashboards for the people who answer for the numbers.</p></div>
+            </div>
+            <div class="ee-slide-foot"><span class="ee-outcome">Every programme on one live dashboard</span><a class="ee-slide-cta" href="#demo">See it for Higher Ed <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/></svg></a></div>
+          </article>
+
+          <article class="ee-slide" data-i="6">
+            <div class="ee-slide-head">
+              <span class="ee-ind-icon"><svg><use href="#ee-i-abroad"/></svg></span>
+              <div><span class="ee-kicker">Study Abroad Consultants</span><p class="ee-scene">A single student journey can run for a year.</p></div>
+            </div>
+            <div class="ee-beats">
+              <div class="ee-beat"><span class="ee-beat-label">The challenge</span><p>Stages, documents and follow-ups stretch across countries and intakes — and high-value leads slip.</p></div>
+              <div class="ee-beat ee-beat-sol"><span class="ee-beat-label">With ExtraaEdge</span><p>Track every stage, automate document nudges, and never drop a lead worth lakhs in fees.</p></div>
+            </div>
+            <div class="ee-slide-foot"><span class="ee-outcome">Every stage and document on track</span><a class="ee-slide-cta" href="#demo">See it for Study Abroad <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/></svg></a></div>
+          </article>
+
+          <article class="ee-slide" data-i="7">
+            <div class="ee-slide-head">
+              <span class="ee-ind-icon"><svg><use href="#ee-i-channel"/></svg></span>
+              <div><span class="ee-kicker">Channel Partners</span><p class="ee-scene">Your partners send leads — you need to see every one.</p></div>
+            </div>
+            <div class="ee-beats">
+              <div class="ee-beat"><span class="ee-beat-label">The challenge</span><p>Leads leak across the partner network, and no one can prove which source actually delivered.</p></div>
+              <div class="ee-beat ee-beat-sol"><span class="ee-beat-label">With ExtraaEdge</span><p>Capture every partner lead with full source attribution and track each one all the way to enrolment.</p></div>
+            </div>
+            <div class="ee-slide-foot"><span class="ee-outcome">Full visibility, zero lead leakage</span><a class="ee-slide-cta" href="#demo">See it for Partners <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"/></svg></a></div>
+          </article>
+
+          <!-- prev / next -->
+          <div class="ee-nav">
+            <button id="eePrev" type="button" aria-label="Previous industry"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.9"/></svg></button>
+            <button id="eeNext" type="button" aria-label="Next industry"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.9"/></svg></button>
+          </div>
+
+        </div>
+      </div>
     </div>
+
   </div>
+
+  <script>
+  (function(){
+    var root = document.getElementById('ee-industries');
+    if(!root) return;
+    var rail   = root.querySelectorAll('.ee-chap');
+    var slides = root.querySelectorAll('.ee-slide');
+    var segWrap= root.querySelector('#eeSegs');
+    var N = slides.length, cur = 0;
+    var reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    // pause flags
+    var pUser=false, pHover=false, pView=false;
+    function syncPaused(){ root.classList.toggle('paused', pUser||pHover||pView||reduced); }
+
+    // build segments + play/pause control
+    var segs=[];
+    var names = Array.prototype.map.call(rail, function(c){ return c.querySelector('.ee-chap-name').textContent; });
+    for(var i=0;i<N;i++){
+      var s=document.createElement('button');
+      s.className='ee-seg'; s.type='button'; s.setAttribute('data-i',i);
+      s.setAttribute('aria-label','Show '+names[i]);
+      s.innerHTML='<span class="ee-seg-fill"></span>';
+      segWrap.appendChild(s); segs.push(s);
+    }
+    var pp=document.createElement('button');
+    pp.className='ee-playpause'; pp.type='button'; pp.setAttribute('aria-label','Pause');
+    pp.innerHTML='<svg class="ee-ic-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>'
+               +'<svg class="ee-ic-play" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg>';
+    segWrap.appendChild(pp);
+
+    function go(i, fromAuto){
+      cur = (i+N)%N;
+      rail.forEach(function(c){ c.setAttribute('aria-selected', +c.getAttribute('data-i')===cur ? 'true':'false'); });
+      slides.forEach(function(sl){ sl.classList.toggle('is-active', +sl.getAttribute('data-i')===cur); });
+      segs.forEach(function(seg,k){
+        seg.classList.remove('done','cur','active');
+        if(k<cur) seg.classList.add('done');
+      });
+      // restart current segment fill
+      var c0=segs[cur], f=c0.querySelector('.ee-seg-fill');
+      void f.offsetWidth;
+      if(reduced){ c0.classList.add('cur'); }
+      else { c0.classList.add('active'); }
+    }
+
+    // advance when the active segment finishes filling
+    segs.forEach(function(seg){
+      seg.querySelector('.ee-seg-fill').addEventListener('animationend', function(){
+        if(seg.classList.contains('active') && !(pUser||pHover||pView)) go(cur+1, true);
+      });
+    });
+
+    // interactions
+    rail.forEach(function(c){ c.addEventListener('click', function(){ go(+c.getAttribute('data-i')); }); });
+    segs.forEach(function(s){ s.addEventListener('click', function(){ go(+s.getAttribute('data-i')); }); });
+    root.querySelector('#eePrev').addEventListener('click', function(){ go(cur-1); });
+    root.querySelector('#eeNext').addEventListener('click', function(){ go(cur+1); });
+
+    pp.addEventListener('click', function(){
+      pUser=!pUser; syncPaused();
+      pp.setAttribute('aria-label', pUser?'Play':'Pause');
+      if(!pUser && !pHover && !pView){
+        // if the current animation already ended while paused, nudge forward
+        var f=segs[cur].querySelector('.ee-seg-fill');
+        if(getComputedStyle(f).width===getComputedStyle(segs[cur]).width){ go(cur+1); }
+      }
+    });
+
+    // pause on hover / keyboard focus
+    var stage=root.querySelector('.ee-stage');
+    stage.addEventListener('mouseenter', function(){ pHover=true; syncPaused(); });
+    stage.addEventListener('mouseleave', function(){ pHover=false; syncPaused(); });
+    stage.addEventListener('focusin',  function(){ pHover=true; syncPaused(); });
+    stage.addEventListener('focusout', function(){ pHover=false; syncPaused(); });
+
+    // keyboard arrows on rail
+    root.querySelector('.ee-rail').addEventListener('keydown', function(e){
+      if(e.key==='ArrowRight'||e.key==='ArrowDown'){ e.preventDefault(); go(cur+1); rail[cur].focus(); }
+      if(e.key==='ArrowLeft'||e.key==='ArrowUp'){ e.preventDefault(); go(cur-1); rail[cur].focus(); }
+    });
+
+    // pause while off-screen
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        pView = !es[0].isIntersecting; syncPaused();
+      }, {threshold:.25}).observe(stage);
+    }
+
+    go(0);
+  })();
+  </script>
 </section>
 
 <section id="stories" aria-labelledby="stories-title">
