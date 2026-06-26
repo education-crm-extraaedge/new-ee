@@ -1638,8 +1638,14 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 <section class="logo-section" id="trusted-institutions" aria-label="Trusted Institutions">
   <div class="logo-header reveal">
-    <div class="logo-badge">Leading Institutions</div>
-    <p style="font-family:var(--font-h);font-weight:700;font-size:1rem;color:var(--blue);margin-bottom:10px">Trusted by 500+ Institutions Growing Faster Than Ever</p>
+    <div class="logo-badge">Broad Client Base</div>
+    <h2 class="logo-title" style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.5rem,3.2vw,2.2rem);color:var(--blue);line-height:1.18;letter-spacing:-.02em;margin:6px 0 12px">Trusted by 500+ educational institutions across India</h2>
+    <p class="logo-sub" style="max-width:760px;margin:0 auto 18px;color:#5A6B85;font-size:clamp(.95rem,1.6vw,1.05rem);line-height:1.6">ExtraaEdge powers <strong>5M+ student leads</strong> and <strong>100M+ student interactions</strong>, enabling universities, colleges, and EdTech organizations to accelerate admissions with AI-powered CRM and intelligent automation.</p>
+    <div class="logo-stats" style="display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(20px,5vw,56px);margin-bottom:6px">
+      <div style="text-align:center"><div style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.4rem);color:#DE6E30;line-height:1">500+</div><div style="font-size:.8rem;font-weight:600;color:#7A879E;text-transform:uppercase;letter-spacing:.06em">Institutions</div></div>
+      <div style="text-align:center"><div style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.4rem);color:#DE6E30;line-height:1">5M+</div><div style="font-size:.8rem;font-weight:600;color:#7A879E;text-transform:uppercase;letter-spacing:.06em">Student Leads</div></div>
+      <div style="text-align:center"><div style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.4rem);color:#DE6E30;line-height:1">100M+</div><div style="font-size:.8rem;font-weight:600;color:#7A879E;text-transform:uppercase;letter-spacing:.06em">Interactions</div></div>
+    </div>
   </div>
   <div class="marquee-wrap">
     <div class="marquee-track marquee-left">
@@ -1676,6 +1682,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/Graphic-Era-3.webp" alt="Graphic Era lead nurturing for universities" loading="lazy"></div>
       <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/fostima.webp" alt="Fostima CRM for educational institutions" loading="lazy"></div>
     </div>
+  </div>
+  <div style="text-align:center;margin-top:26px">
+    <a href="#demo" style="display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;color:#19335D;border:1.5px solid rgba(25,51,93,.18);background:#fff;border-radius:999px;padding:11px 24px;text-decoration:none;transition:all .2s ease" onmouseover="this.style.borderColor='#DE6E30';this.style.color='#DE6E30'" onmouseout="this.style.borderColor='rgba(25,51,93,.18)';this.style.color='#19335D'">View More Clients <span aria-hidden="true">&rarr;</span></a>
   </div>
 </section>
 
@@ -2762,6 +2771,1280 @@ body.vg-open .vg-launch{display:none}
 })();
 </script>
 
+
+<!-- ===================== PRODUCTS / VIDYA AI / TEAMS / SOLUTIONS / INDUSTRIES (added) ===================== -->
+<style>
+  #ee-products{
+    position:relative;
+    padding:clamp(64px,8vw,104px) 0;
+    background:linear-gradient(180deg,rgba(246,248,252,0) 0%,rgba(237,242,250,.45) 45%,rgba(246,248,252,0) 100%);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    color:#0F1F3A;
+    -webkit-font-smoothing:antialiased;
+  }
+  #ee-products *{box-sizing:border-box;}
+  #ee-products .ee-prod-container{
+    max-width:1240px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  #ee-products .ee-prod-head{
+    max-width:760px;
+    margin:0 auto clamp(40px,5vw,60px);
+    text-align:center;
+  }
+  #ee-products .ee-prod-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 15px 7px 12px;
+    border-radius:999px;
+    background:rgba(222,110,48,.08);
+    border:1px solid rgba(222,110,48,.18);
+    color:#C45A20;
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  #ee-products .ee-prod-eyebrow .ee-dot{
+    width:7px;height:7px;border-radius:50%;
+    background:#DE6E30;
+    box-shadow:0 0 0 4px rgba(222,110,48,.16);
+    flex:0 0 auto;
+  }
+  #ee-products h2{
+    font-family:'Poppins','Inter',sans-serif;
+    font-size:clamp(30px,4.4vw,46px);
+    line-height:1.08;
+    letter-spacing:-.02em;
+    font-weight:700;
+    margin:0 0 16px;
+    color:#19335D;
+  }
+  #ee-products .ee-prod-sub{
+    font-size:clamp(15px,1.7vw,18px);
+    line-height:1.55;
+    color:#5A6B85;
+    margin:0;
+  }
+  #ee-products .ee-prod-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+  }
+  #ee-products .ee-card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    padding:24px 22px 22px;
+    background:#fff;
+    border:1px solid rgba(25,51,93,.09);
+    border-radius:16px;
+    text-decoration:none;
+    color:inherit;
+    box-shadow:0 1px 2px rgba(25,51,93,.04),0 8px 24px -16px rgba(25,51,93,.18);
+    transition:transform .28s cubic-bezier(.2,.7,.3,1),box-shadow .28s ease,border-color .28s ease;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  #ee-products .ee-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    background:linear-gradient(180deg,rgba(34,70,124,.03),rgba(34,70,124,0));
+    opacity:0;
+    transition:opacity .28s ease;
+    z-index:-1;
+  }
+  #ee-products .ee-card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(222,110,48,.30);
+    box-shadow:0 2px 4px rgba(25,51,93,.05),0 22px 40px -22px rgba(25,51,93,.35);
+  }
+  #ee-products .ee-card:hover::after{opacity:1;}
+  #ee-products .ee-card:focus-visible{
+    outline:2px solid #DE6E30;
+    outline-offset:3px;
+  }
+  #ee-products .ee-chip{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:46px;height:46px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#E8843F,#DE6E30);
+    box-shadow:0 6px 16px -6px rgba(222,110,48,.6),inset 0 1px 0 rgba(255,255,255,.25);
+    flex:0 0 auto;
+  }
+  #ee-products .ee-chip svg{width:23px;height:23px;display:block;}
+  #ee-products .ee-chip svg *{stroke:#fff;}
+  #ee-products .ee-card-body{display:flex;flex-direction:column;gap:6px;}
+  #ee-products .ee-card-title{
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-family:'Poppins','Inter',sans-serif;
+    font-size:16px;
+    font-weight:600;
+    line-height:1.25;
+    letter-spacing:-.01em;
+    color:#19335D;
+  }
+  #ee-products .ee-badge{
+    font-family:'Inter',sans-serif;
+    font-size:9.5px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#fff;
+    background:#DE6E30;
+    padding:2px 7px;
+    border-radius:999px;
+    line-height:1.4;
+  }
+  #ee-products .ee-card-desc{
+    font-size:13.5px;
+    line-height:1.5;
+    color:#5A6B85;
+    margin:0;
+  }
+  #ee-products .ee-card-arrow{
+    margin-top:auto;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:12.5px;
+    font-weight:600;
+    color:#22467c;
+    opacity:0;
+    transform:translateX(-4px);
+    transition:opacity .26s ease,transform .26s ease;
+  }
+  #ee-products .ee-card-arrow svg{width:14px;height:14px;}
+  #ee-products .ee-card-arrow svg *{stroke:#DE6E30;}
+  #ee-products .ee-card:hover .ee-card-arrow,
+  #ee-products .ee-card:focus-visible .ee-card-arrow{opacity:1;transform:translateX(0);}
+  #ee-products .ee-prod-cta{
+    margin-top:clamp(40px,5vw,56px);
+    text-align:center;
+  }
+  #ee-products .ee-prod-cta a{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:15px 30px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#E8843F,#DE6E30);
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:.01em;
+    text-decoration:none;
+    box-shadow:0 10px 26px -10px rgba(222,110,48,.65),inset 0 1px 0 rgba(255,255,255,.22);
+    transition:transform .24s ease,box-shadow .24s ease,filter .24s ease;
+  }
+  #ee-products .ee-prod-cta a:hover{
+    transform:translateY(-2px);
+    filter:saturate(1.05);
+    box-shadow:0 16px 32px -12px rgba(222,110,48,.7),inset 0 1px 0 rgba(255,255,255,.22);
+  }
+  #ee-products .ee-prod-cta a:focus-visible{
+    outline:2px solid #19335D;
+    outline-offset:3px;
+  }
+  @media(max-width:900px){
+    #ee-products .ee-prod-grid{grid-template-columns:repeat(2,1fr);gap:16px;}
+  }
+  @media(max-width:560px){
+    #ee-products .ee-prod-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+    #ee-products .ee-card{padding:18px 16px 16px;gap:12px;}
+    #ee-products .ee-chip{width:42px;height:42px;}
+    #ee-products .ee-card-title{font-size:14.5px;}
+    #ee-products .ee-card-desc{font-size:12.5px;}
+    #ee-products .ee-card-arrow{opacity:1;transform:none;}
+  }
+</style>
+<section id="ee-products" aria-label="Our Products">
+  <div class="ee-prod-container">
+    <div class="ee-prod-head">
+      <span class="ee-prod-eyebrow"><span class="ee-dot" aria-hidden="true"></span>New Product Launch</span>
+      <h2>Our Products</h2>
+      <p class="ee-prod-sub">One intelligent platform — every tool your admissions engine needs, from first enquiry to enrolled.</p>
+    </div>
+
+    <div class="ee-prod-grid">
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke-width="1.6"/><path d="M3.5 19c.6-3.1 2.8-5 5.5-5s4.9 1.9 5.5 5" stroke-width="1.6" stroke-linecap="round"/><path d="M16 8h5M16 12h4" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">Education CRM</span>
+          <p class="ee-card-desc">Unify every enquiry, counsellor and campus on one purpose-built admissions platform.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8L18 14z" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">VidyaAI <span class="ee-badge">New</span></span>
+          <p class="ee-card-desc">Your AI admissions copilot that drafts replies, scores leads and predicts intent.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="18" rx="2.4" stroke-width="1.6"/><path d="M11 18h2" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">Mobile CRM <span class="ee-badge">New</span></span>
+          <p class="ee-card-desc">Run admissions from your pocket — call, follow up and close leads on the go.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke-width="1.6"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">Core CRM</span>
+          <p class="ee-card-desc">The reliable engine for pipelines, tasks and workflows that never drops a lead.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7a2 2 0 01-2-2V5a2 2 0 012-2z" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4h4M9 13h6M9 16.5h4" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">Application Management</span>
+          <p class="ee-card-desc">Track every application stage with automated nudges so no form stalls midway.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">Admission Management System</span>
+          <p class="ee-card-desc">Orchestrate fees, documents and approvals end-to-end in one auditable flow.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M3 12h18M12 3c2.5 2.4 3.8 5.6 3.8 9S14.5 18.6 12 21c-2.5-2.4-3.8-5.6-3.8-9S9.5 5.4 12 3z" stroke-width="1.5"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">Online Admissions</span>
+          <p class="ee-card-desc">Let applicants apply and pay from anywhere with a frictionless online journey.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 10h.01M12 10h.01M15 10h.01" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">Education AI Chatbot</span>
+          <p class="ee-card-desc">Answer student questions 24/7 and capture qualified enquiries while you sleep.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19l1.3-3.9A8 8 0 1112 20a8 8 0 01-3.9-1L4 19z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 11c0 2 2 4 4 4l1-1.4c.3-.4-.1-.9-.6-1l-1.4-.4-.6.8c-.9-.4-1.7-1.2-2.1-2.1l.8-.6c.3-.5-.1-1.3-1-1.5C9 8.8 9 9.8 9 11z" stroke-width="1.4" stroke-linejoin="round"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">WhatsApp Business API</span>
+          <p class="ee-card-desc">Reach families on their favourite channel with verified, automated conversations.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h3l1.5 4-2 1.4a12 12 0 005.6 5.6l1.4-2L18.5 18v3a1 1 0 01-1.1 1A15 15 0 013 6.6 1 1 0 014.1 5.5L5 4z" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">IVR System</span>
+          <p class="ee-card-desc">Route, record and track every call so no enquiry rings out unanswered.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8l13-4-2 16-4-3-2.5 2.5L8 16 4 8z" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 16l9-12" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">Marketing Automation</span>
+          <p class="ee-card-desc">Launch multi-channel campaigns that fill your funnel on autopilot.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21c4.5-2 7-5.2 7-9.5C19 7 16 4 12 4S5 7 5 11.5C5 15.8 7.5 19 12 21z" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 12.5a2.2 2.2 0 100-4.4 2.2 2.2 0 000 4.4z" stroke-width="1.5"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">Lead Nurturing</span>
+          <p class="ee-card-desc">Warm every prospect with timely, personalised drips until they enrol.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+      <a href="#demo" class="ee-card">
+        <span class="ee-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V4M4 20h16" stroke-width="1.6" stroke-linecap="round"/><path d="M8 16v-4M12 16V8M16 16v-6M20 16v-9" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div class="ee-card-body">
+          <span class="ee-card-title">Analytics Dashboard</span>
+          <p class="ee-card-desc">See conversion, cost and counsellor performance in real time, all in one view.</p>
+        </div>
+        <span class="ee-card-arrow">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+
+    </div>
+
+    <div class="ee-prod-cta">
+      <a href="#demo">Explore all products <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+#ee-vidya-suite{
+  --ee-navy-1:#19335D;
+  --ee-navy-2:#122548;
+  --ee-orange:#DE6E30;
+  --ee-orange-2:#E8843F;
+  --ee-cyan:#06B6D4;
+  --ee-ink:#fff;
+  --ee-mut:rgba(255,255,255,.78);
+  --ee-line:rgba(255,255,255,.12);
+  font-family:'Inter',system-ui,sans-serif;
+  background:#f6f8fc;
+  padding:clamp(48px,7vw,88px) 16px;
+  box-sizing:border-box;
+}
+#ee-vidya-suite *{box-sizing:border-box;}
+#ee-vidya-suite .eev-panel{
+  position:relative;
+  max-width:1240px;
+  margin:0 auto;
+  border-radius:28px;
+  padding:clamp(34px,5vw,68px) clamp(22px,4vw,60px);
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    radial-gradient(120% 120% at 12% 0%, rgba(222,110,48,.20) 0%, rgba(222,110,48,0) 42%),
+    radial-gradient(120% 120% at 92% 10%, rgba(6,182,212,.16) 0%, rgba(6,182,212,0) 46%),
+    linear-gradient(160deg, var(--ee-navy-1) 0%, var(--ee-navy-2) 70%, #0f1f3d 100%);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 30px 80px -30px rgba(12,24,48,.55);
+}
+#ee-vidya-suite .eev-glow{
+  position:absolute;
+  inset:auto;
+  z-index:0;
+  pointer-events:none;
+  filter:blur(46px);
+  opacity:.55;
+}
+#ee-vidya-suite .eev-glow.g1{
+  top:-90px;left:-60px;width:360px;height:360px;border-radius:50%;
+  background:radial-gradient(circle, rgba(222,110,48,.55), transparent 70%);
+  animation:eevidyaGlow 9s ease-in-out infinite;
+}
+#ee-vidya-suite .eev-glow.g2{
+  bottom:-120px;right:-40px;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle, rgba(6,182,212,.40), transparent 70%);
+  animation:eevidyaGlow 11s ease-in-out infinite reverse;
+}
+#ee-vidya-suite .eev-grid-bg{
+  position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:54px 54px;
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 0%, #000 30%, transparent 78%);
+  mask-image:radial-gradient(120% 90% at 50% 0%, #000 30%, transparent 78%);
+}
+#ee-vidya-suite .eev-inner{position:relative;z-index:1;}
+#ee-vidya-suite .eev-head{max-width:820px;}
+#ee-vidya-suite .eev-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 15px;border-radius:999px;
+  font-size:13px;font-weight:600;letter-spacing:.02em;
+  color:#fff;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--ee-line);
+  backdrop-filter:blur(6px);
+}
+#ee-vidya-suite .eev-dot{
+  width:9px;height:9px;border-radius:50%;
+  background:var(--ee-orange-2);
+  box-shadow:0 0 0 0 rgba(232,132,63,.6);
+  animation:eevidyaPulse 1.9s ease-out infinite;
+}
+#ee-vidya-suite h2.eev-title{
+  font-family:'Poppins','Inter',sans-serif;
+  color:var(--ee-ink);
+  font-size:clamp(28px,4.4vw,46px);
+  line-height:1.12;
+  font-weight:700;
+  letter-spacing:-.01em;
+  margin:20px 0 0;
+}
+#ee-vidya-suite h2.eev-title .eev-grad{
+  background:linear-gradient(92deg,var(--ee-orange-2),var(--ee-cyan));
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+}
+#ee-vidya-suite .eev-lead{
+  color:var(--ee-mut);
+  font-size:clamp(15px,1.7vw,18px);
+  line-height:1.65;
+  margin:18px 0 0;
+  max-width:760px;
+}
+#ee-vidya-suite .eev-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin:clamp(30px,4vw,46px) 0 0;
+}
+#ee-vidya-suite .eev-card{
+  position:relative;
+  padding:22px 20px 20px;
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  border:1px solid var(--ee-line);
+  backdrop-filter:blur(10px);
+  transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease, background .3s ease;
+  overflow:hidden;
+}
+#ee-vidya-suite .eev-card::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+  background:linear-gradient(140deg, rgba(232,132,63,.5), rgba(6,182,212,.4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity .3s ease;
+}
+#ee-vidya-suite .eev-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,255,255,.22);
+  box-shadow:0 20px 40px -20px rgba(0,0,0,.6);
+  background:linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.04));
+}
+#ee-vidya-suite .eev-card:hover::before{opacity:1;}
+#ee-vidya-suite .eev-ico{
+  width:46px;height:46px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(140deg, rgba(222,110,48,.28), rgba(6,182,212,.22));
+  border:1px solid rgba(255,255,255,.14);
+  color:#fff;margin-bottom:14px;
+}
+#ee-vidya-suite .eev-ico svg{width:24px;height:24px;display:block;}
+#ee-vidya-suite .eev-card h3{
+  font-family:'Poppins','Inter',sans-serif;
+  color:#fff;font-size:16px;font-weight:600;margin:0 0 6px;letter-spacing:-.01em;
+}
+#ee-vidya-suite .eev-card p{
+  color:var(--ee-mut);font-size:13.5px;line-height:1.5;margin:0;
+}
+#ee-vidya-suite .eev-cta{
+  margin:clamp(32px,4vw,46px) 0 0;
+  text-align:center;
+}
+#ee-vidya-suite a.eev-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  text-decoration:none;
+  padding:16px 30px;border-radius:999px;
+  font-family:'Poppins','Inter',sans-serif;
+  font-size:16px;font-weight:600;letter-spacing:.01em;
+  color:#fff;
+  background:linear-gradient(135deg,var(--ee-orange-2),var(--ee-orange));
+  box-shadow:0 14px 34px -10px rgba(222,110,48,.7);
+  transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+#ee-vidya-suite a.eev-btn svg{width:18px;height:18px;}
+#ee-vidya-suite a.eev-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 20px 44px -10px rgba(222,110,48,.85);
+  filter:brightness(1.05);
+}
+#ee-vidya-suite a.eev-btn:focus-visible{
+  outline:3px solid var(--ee-cyan);
+  outline-offset:3px;
+}
+#ee-vidya-suite .eev-subtext{
+  margin:14px 0 0;
+  color:rgba(255,255,255,.62);
+  font-size:13.5px;
+}
+@keyframes eevidyaGlow{
+  0%,100%{transform:translate(0,0) scale(1);opacity:.5;}
+  50%{transform:translate(14px,18px) scale(1.08);opacity:.7;}
+}
+@keyframes eevidyaPulse{
+  0%{box-shadow:0 0 0 0 rgba(232,132,63,.6);}
+  70%{box-shadow:0 0 0 8px rgba(232,132,63,0);}
+  100%{box-shadow:0 0 0 0 rgba(232,132,63,0);}
+}
+@media (max-width:900px){
+  #ee-vidya-suite .eev-cards{grid-template-columns:repeat(auto-fit,minmax(210px,1fr));}
+}
+@media (max-width:560px){
+  #ee-vidya-suite{padding:clamp(40px,9vw,60px) 12px;}
+  #ee-vidya-suite .eev-panel{border-radius:22px;}
+  #ee-vidya-suite .eev-cards{grid-template-columns:1fr;}
+  #ee-vidya-suite a.eev-btn{width:100%;justify-content:center;}
+}
+@media (prefers-reduced-motion:reduce){
+  #ee-vidya-suite .eev-glow,#ee-vidya-suite .eev-dot{animation:none;}
+}
+</style>
+<section id="ee-vidya-suite" aria-label="Meet Vidya AI">
+  <div class="eev-panel">
+    <span class="eev-glow g1" aria-hidden="true"></span>
+    <span class="eev-glow g2" aria-hidden="true"></span>
+    <span class="eev-grid-bg" aria-hidden="true"></span>
+    <div class="eev-inner">
+      <div class="eev-head">
+        <span class="eev-pill"><span class="eev-dot" aria-hidden="true"></span>Agentic AI Suite</span>
+        <h2 class="eev-title">Meet <span class="eev-grad">Vidya AI</span>, the Agentic AI Suite Built for Smarter Admissions</h2>
+        <p class="eev-lead">Vidya AI is your always-on AI workforce that engages every prospective student, qualifies leads instantly, automates follow-ups, supports counselors, and accelerates enrollments — so your teams can focus on building meaningful student relationships instead of repetitive tasks.</p>
+      </div>
+
+      <div class="eev-cards">
+        <article class="eev-card">
+          <div class="eev-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <h3>Vidya GPT</h3>
+          <p>Your 24×7 AI chat counsellor that answers every query and never sleeps.</p>
+        </article>
+
+        <article class="eev-card">
+          <div class="eev-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3>Vidya Pulse</h3>
+          <p>Real-time lead intent scoring that surfaces your hottest prospects first.</p>
+        </article>
+
+        <article class="eev-card">
+          <div class="eev-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h3>Vidyaai Voice Agent</h3>
+          <p>Calls and qualifies leads with natural conversations in 10+ languages.</p>
+        </article>
+
+        <article class="eev-card">
+          <div class="eev-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg>
+          </div>
+          <h3>VidyaWABA GPT</h3>
+          <p>Automated WhatsApp Business engagement that nurtures leads at scale.</p>
+        </article>
+
+        <article class="eev-card">
+          <div class="eev-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <h3>Vidya Work</h3>
+          <p>Autonomous workflow and follow-up automation that runs your busywork.</p>
+        </article>
+      </div>
+
+      <div class="eev-cta">
+        <a href="#ee-platform" class="eev-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Try Vidya AI Live
+        </a>
+        <p class="eev-subtext">Explore the live AI inside the product demo</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #ee-teams {
+    background: transparent;
+    padding: clamp(64px, 8vw, 104px) 0;
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: #0F1F3A;
+    -webkit-font-smoothing: antialiased;
+  }
+  #ee-teams * { box-sizing: border-box; }
+  #ee-teams .ee-teams-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  #ee-teams .ee-teams-head {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  #ee-teams .ee-teams-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 15px;
+    border-radius: 999px;
+    background: rgba(222, 110, 48, .08);
+    border: 1px solid rgba(222, 110, 48, .22);
+    color: #C25A22;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  #ee-teams .ee-teams-eyebrow .ee-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #DE6E30;
+    box-shadow: 0 0 0 3px rgba(222, 110, 48, .18);
+  }
+  #ee-teams h2 {
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.12;
+    letter-spacing: -.015em;
+    margin: 20px 0 0;
+    color: #19335D;
+  }
+  #ee-teams .ee-teams-lead {
+    margin: 18px auto 0;
+    max-width: 680px;
+    font-size: clamp(15px, 1.6vw, 17px);
+    line-height: 1.65;
+    color: #5A6B85;
+  }
+  #ee-teams .ee-teams-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: clamp(40px, 5vw, 60px);
+  }
+  #ee-teams .ee-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+    background: #ffffff;
+    border: 1px solid rgba(25, 51, 93, .09);
+    border-radius: 16px;
+    padding: 26px 24px 24px;
+    box-shadow: 0 1px 2px rgba(15, 31, 58, .04), 0 10px 24px -16px rgba(15, 31, 58, .22);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  #ee-teams .ee-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, #DE6E30, #E8843F);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s ease;
+  }
+  #ee-teams a.ee-card:hover,
+  #ee-teams a.ee-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 1px 2px rgba(15, 31, 58, .05), 0 22px 40px -22px rgba(25, 51, 93, .35);
+    border-color: rgba(25, 51, 93, .16);
+  }
+  #ee-teams a.ee-card:hover::before,
+  #ee-teams a.ee-card:focus-visible::before {
+    transform: scaleX(1);
+  }
+  #ee-teams a.ee-card:focus-visible {
+    outline: 2px solid #22467c;
+    outline-offset: 3px;
+  }
+  #ee-teams .ee-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 13px;
+    font-size: 24px;
+    line-height: 1;
+    background: linear-gradient(160deg, rgba(34, 70, 124, .10), rgba(25, 51, 93, .05));
+    border: 1px solid rgba(25, 51, 93, .10);
+  }
+  #ee-teams .ee-card-title {
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.25;
+    color: #0F1F3A;
+    margin: 0;
+  }
+  #ee-teams .ee-card-benefit {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #5A6B85;
+    margin: 0;
+  }
+  #ee-teams .ee-card-arrow {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #C25A22;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  #ee-teams a.ee-card:hover .ee-card-arrow,
+  #ee-teams a.ee-card:focus-visible .ee-card-arrow {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #ee-teams .ee-card-arrow svg { display: block; }
+
+  @media (max-width: 900px) {
+    #ee-teams .ee-teams-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    #ee-teams .ee-teams-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    #ee-teams .ee-card { padding: 22px 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #ee-teams .ee-card,
+    #ee-teams .ee-card::before,
+    #ee-teams .ee-card-arrow { transition: none; }
+  }
+</style>
+<section id="ee-teams" aria-label="Built for Every Team">
+  <div class="ee-teams-container">
+    <div class="ee-teams-head">
+      <span class="ee-teams-eyebrow"><span class="ee-dot" aria-hidden="true"></span>One platform, every team</span>
+      <h2>Built for Every Team Driving Student Enrollment</h2>
+      <p class="ee-teams-lead">From marketing and admissions to counseling, finance, leadership, and AI-powered automation &mdash; ExtraaEdge brings every team together on one intelligent platform, helping institutions attract, engage, convert, and enroll more students with less effort.</p>
+    </div>
+
+    <div class="ee-teams-grid">
+      <a class="ee-card" href="#demo">
+        <span class="ee-chip" aria-hidden="true">&#127919;</span>
+        <h3 class="ee-card-title">Marketing Teams</h3>
+        <p class="ee-card-benefit">Capture every inquiry across channels and track which campaigns actually drive enrolled students, not just clicks.</p>
+        <span class="ee-card-arrow" aria-hidden="true">See it in action
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-chip" aria-hidden="true">&#128222;</span>
+        <h3 class="ee-card-title">Admissions Teams</h3>
+        <p class="ee-card-benefit">Prioritize hot leads with smart scoring and automated follow-ups so no prospective student slips through the cracks.</p>
+        <span class="ee-card-arrow" aria-hidden="true">See it in action
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-chip" aria-hidden="true">&#128172;</span>
+        <h3 class="ee-card-title">Counseling Teams</h3>
+        <p class="ee-card-benefit">Give counselors a full applicant history so every call, message, and meeting moves students closer to confirmation.</p>
+        <span class="ee-card-arrow" aria-hidden="true">See it in action
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-chip" aria-hidden="true">&#129302;</span>
+        <h3 class="ee-card-title">Vidya AI Agents</h3>
+        <p class="ee-card-benefit">Engage and qualify applicants instantly, around the clock, answering queries and booking counseling slots on autopilot.</p>
+        <span class="ee-card-arrow" aria-hidden="true">See it in action
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-chip" aria-hidden="true">&#128202;</span>
+        <h3 class="ee-card-title">Leadership &amp; Analytics</h3>
+        <p class="ee-card-benefit">See the full funnel in real time, from source to enrollment, and forecast intake with dashboards built for decisions.</p>
+        <span class="ee-card-arrow" aria-hidden="true">See it in action
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-chip" aria-hidden="true">&#128179;</span>
+        <h3 class="ee-card-title">Finance &amp; Operations</h3>
+        <p class="ee-card-benefit">Streamline fee collection, payment links, and reconciliation so confirmed admissions convert to paid enrollments faster.</p>
+        <span class="ee-card-arrow" aria-hidden="true">See it in action
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+#ee-solutions{
+  --navy:#19335D; --navy2:#22467c; --orange:#DE6E30; --orange2:#E8843F;
+  --ink:#0F1F3A; --muted:#5A6B85; --hair:rgba(25,51,93,.09); --bg:#f6f8fc;
+  position:relative; padding:clamp(64px,8vw,104px) 0; background:transparent;
+  font-family:'Inter',system-ui,-apple-system,sans-serif; color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+#ee-solutions *{box-sizing:border-box;}
+#ee-solutions .ee-container{max-width:1240px;margin:0 auto;padding:0 24px;}
+#ee-solutions .ee-head{max-width:720px;margin:0 0 clamp(36px,5vw,56px);}
+#ee-solutions .ee-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--orange);margin:0 0 16px;
+}
+#ee-solutions .ee-eyebrow::before{
+  content:"";width:22px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--orange),var(--orange2));
+}
+#ee-solutions h2{
+  font-family:'Poppins','Inter',sans-serif;font-weight:600;
+  font-size:clamp(28px,4vw,40px);line-height:1.12;letter-spacing:-.02em;
+  margin:0 0 14px;color:var(--navy);
+}
+#ee-solutions .ee-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:var(--muted);margin:0;}
+#ee-solutions .ee-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2vw,24px);
+}
+#ee-solutions .ee-card{
+  position:relative;display:flex;flex-direction:column;
+  background:#fff;border:1px solid var(--hair);border-radius:18px;
+  padding:clamp(24px,2.6vw,30px);
+  box-shadow:0 1px 2px rgba(15,31,58,.04),0 14px 30px -22px rgba(25,51,93,.28);
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;
+  overflow:hidden;
+}
+#ee-solutions .ee-card::before{
+  content:"";position:absolute;left:0;top:0;height:3px;width:100%;
+  background:linear-gradient(90deg,var(--orange),var(--orange2));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s ease;
+}
+#ee-solutions .ee-card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(222,110,48,.32);
+  box-shadow:0 1px 2px rgba(15,31,58,.05),0 26px 46px -24px rgba(25,51,93,.4);
+}
+#ee-solutions .ee-card:hover::before{transform:scaleX(1);}
+#ee-solutions .ee-ico{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:50px;height:50px;border-radius:14px;margin-bottom:20px;
+  background:linear-gradient(160deg,rgba(34,70,124,.1),rgba(222,110,48,.12));
+  border:1px solid var(--hair);color:var(--navy2);
+}
+#ee-solutions .ee-ico svg{width:24px;height:24px;}
+#ee-solutions .ee-card h3{
+  font-family:'Poppins','Inter',sans-serif;font-weight:600;
+  font-size:19px;line-height:1.25;margin:0 0 18px;color:var(--ink);letter-spacing:-.01em;
+}
+#ee-solutions .ee-pills{display:flex;flex-wrap:wrap;gap:9px;margin:0;padding:0;list-style:none;}
+#ee-solutions .ee-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 14px;border-radius:999px;
+  font-size:14px;font-weight:500;line-height:1;text-decoration:none;
+  color:var(--navy);background:#fff;border:1px solid var(--hair);
+  transition:background .25s,border-color .25s,color .25s,transform .25s;
+}
+#ee-solutions .ee-pill svg{width:13px;height:13px;opacity:.45;transition:opacity .25s,transform .25s;flex-shrink:0;}
+#ee-solutions .ee-pill:hover{
+  color:var(--orange);border-color:rgba(222,110,48,.4);
+  background:rgba(222,110,48,.06);transform:translateY(-1px);
+}
+#ee-solutions .ee-pill:hover svg{opacity:1;transform:translateX(2px);color:var(--orange);}
+#ee-solutions .ee-pill:focus-visible{
+  outline:2px solid var(--orange);outline-offset:2px;color:var(--orange);
+}
+@media (max-width:900px){
+  #ee-solutions .ee-grid{grid-template-columns:1fr;}
+}
+@media (max-width:560px){
+  #ee-solutions .ee-container{padding:0 18px;}
+  #ee-solutions .ee-card{border-radius:16px;}
+}
+</style>
+<section id="ee-solutions" aria-label="Solutions">
+  <div class="ee-container">
+    <div class="ee-head">
+      <p class="ee-eyebrow">Solutions</p>
+      <h2>Solutions for every admissions motion</h2>
+      <p class="ee-sub">From first enquiry to confirmed enrolment, ExtraaEdge brings the right workflow to every stage of your admissions journey.</p>
+    </div>
+    <div class="ee-grid">
+
+      <article class="ee-card">
+        <span class="ee-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 8v6l9 5 9-5V8"/><path d="M12 13v6"/></svg>
+        </span>
+        <h3>Admission Solutions</h3>
+        <ul class="ee-pills">
+          <li><a class="ee-pill" href="#demo">Admission Management<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          <li><a class="ee-pill" href="#demo">Enrollment Management<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          <li><a class="ee-pill" href="#demo">Walk-in Management<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+        </ul>
+      </article>
+
+      <article class="ee-card">
+        <span class="ee-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18Z"/></svg>
+        </span>
+        <h3>Study Abroad</h3>
+        <ul class="ee-pills">
+          <li><a class="ee-pill" href="#demo">Study Abroad CRM<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          <li><a class="ee-pill" href="#demo">Education Agents<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          <li><a class="ee-pill" href="#demo">Education Consultants<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+        </ul>
+      </article>
+
+      <article class="ee-card">
+        <span class="ee-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        <h3>Recruitment &amp; Lead Management</h3>
+        <ul class="ee-pills">
+          <li><a class="ee-pill" href="#demo">Student Recruitment<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          <li><a class="ee-pill" href="#demo">Lead Management<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          <li><a class="ee-pill" href="#demo">Lead Nurturing<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          <li><a class="ee-pill" href="#demo">Enrollment CRM<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+<style>
+#ee-industries{
+  --navy:#19335D; --navy2:#22467c; --orange:#DE6E30; --orange2:#E8843F;
+  --ink:#0F1F3A; --muted:#5A6B85; --hair:rgba(25,51,93,.09); --bg:#f6f8fc;
+  position:relative; padding:clamp(64px,8vw,104px) 0; background:transparent;
+  font-family:'Inter',system-ui,-apple-system,sans-serif; color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+#ee-industries *{box-sizing:border-box;}
+#ee-industries .ee-container{max-width:1240px;margin:0 auto;padding:0 24px;}
+#ee-industries .ee-head{max-width:720px;margin:0 0 clamp(36px,5vw,56px);}
+#ee-industries .ee-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--orange);margin:0 0 16px;
+}
+#ee-industries .ee-eyebrow::before{
+  content:"";width:22px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--orange),var(--orange2));
+}
+#ee-industries h2{
+  font-family:'Poppins','Inter',sans-serif;font-weight:600;
+  font-size:clamp(28px,4vw,40px);line-height:1.12;letter-spacing:-.02em;
+  margin:0 0 14px;color:var(--navy);
+}
+#ee-industries .ee-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:var(--muted);margin:0;}
+#ee-industries .ee-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,20px);
+}
+#ee-industries .ee-card{
+  position:relative;display:flex;align-items:center;gap:14px;
+  text-decoration:none;
+  background:#fff;border:1px solid var(--hair);border-radius:16px;
+  padding:18px 20px;color:var(--ink);
+  box-shadow:0 1px 2px rgba(15,31,58,.04),0 14px 30px -24px rgba(25,51,93,.28);
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;
+  overflow:hidden;
+}
+#ee-industries .ee-card::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  box-shadow:inset 0 0 0 1px transparent;transition:box-shadow .35s;
+}
+#ee-industries .ee-card:hover{
+  transform:translateY(-5px);border-color:rgba(222,110,48,.32);
+  box-shadow:0 1px 2px rgba(15,31,58,.05),0 24px 42px -26px rgba(25,51,93,.42);
+}
+#ee-industries .ee-card:hover::after{box-shadow:inset 0 0 0 1px rgba(222,110,48,.25);}
+#ee-industries .ee-card:focus-visible{outline:2px solid var(--orange);outline-offset:3px;}
+#ee-industries .ee-ico{
+  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:44px;height:44px;border-radius:12px;
+  background:linear-gradient(160deg,rgba(34,70,124,.1),rgba(222,110,48,.12));
+  border:1px solid var(--hair);color:var(--navy2);
+  transition:color .35s,background .35s;
+}
+#ee-industries .ee-ico svg{width:22px;height:22px;}
+#ee-industries .ee-card:hover .ee-ico{
+  color:var(--orange);background:linear-gradient(160deg,rgba(222,110,48,.14),rgba(232,132,63,.1));
+}
+#ee-industries .ee-name{
+  font-family:'Poppins','Inter',sans-serif;font-weight:500;
+  font-size:15.5px;line-height:1.3;letter-spacing:-.005em;color:var(--ink);
+}
+@media (max-width:900px){
+  #ee-industries .ee-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:560px){
+  #ee-industries .ee-container{padding:0 18px;}
+  #ee-industries .ee-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+  #ee-industries .ee-card{flex-direction:column;align-items:flex-start;gap:12px;padding:16px;}
+  #ee-industries .ee-name{font-size:14.5px;}
+}
+</style>
+<section id="ee-industries" aria-label="Industries">
+  <div class="ee-container">
+    <div class="ee-head">
+      <p class="ee-eyebrow">Industries</p>
+      <h2>Built for every kind of institution</h2>
+      <p class="ee-sub">One AI-powered admissions platform, tuned to the way your category recruits, nurtures and enrols students.</p>
+    </div>
+    <div class="ee-grid">
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="m9 8 3 2.5L9 13"/><path d="M14 13h2"/></svg>
+        </span>
+        <span class="ee-name">EdTech</span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1 2.7 3 6 3s6-2 6-3v-5.5"/><path d="M22 8v5"/></svg>
+        </span>
+        <span class="ee-name">Coaching &amp; Training Institutes</span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M3 21h18"/><path d="M9 21v-5a3 3 0 0 1 6 0v5"/><path d="M12 7v.01"/></svg>
+        </span>
+        <span class="ee-name">K-12 Schools</span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M12 2.5v1M7 4l.6.8M17 4l-.6.8"/></svg>
+        </span>
+        <span class="ee-name">Preschools &amp; Playschools</span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><circle cx="12" cy="11" r="3"/><path d="m12 8 .6 1.8H14.5l-1.5 1.1.6 1.8-1.6-1.1-1.6 1.1.6-1.8-1.5-1.1h1.9Z" stroke-width="0" fill="currentColor" opacity=".3"/></svg>
+        </span>
+        <span class="ee-name">Online Degree Programmes</span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M22 8v6"/><path d="M6 10.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-5.5"/></svg>
+        </span>
+        <span class="ee-name">Higher Education</span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18Z"/></svg>
+        </span>
+        <span class="ee-name">Study Abroad Consultants</span>
+      </a>
+
+      <a class="ee-card" href="#demo">
+        <span class="ee-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="17" r="2.5"/><path d="M7.5 9 11 15M16.5 9 13 15M8.5 7h7"/></svg>
+        </span>
+        <span class="ee-name">Channel Partners</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="stories" aria-labelledby="stories-title">
+  <div class="cis-wrap">
+    <div class="cis-head">
+      <span class="cis-eyebrow"><span class="d"></span> CRM Impact Stories</span>
+      <h2 class="cis-title" id="stories-title">Powering growth for <em>500+ happy customers</em></h2>
+      <p class="cis-lead">Real admissions leaders and the stories behind them. See how institutions grow with ExtraaEdge.</p>
+      <div class="cis-trust">
+        <span class="cis-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><b>4.7</b>/5 on G2</span>
+        <span class="cis-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg>Top rated on Capterra</span>
+        <span class="cis-chip">&#127891; <b>500+</b> Institutions</span>
+        <span class="cis-chip">&#127757; <b>12+</b> Countries</span>
+      </div>
+    </div>
+
+    <div class="cis-grid">
+
+      <article class="cis-card">
+        <div class="cis-video" data-yt="3SHgLf1GFgk" role="button" tabindex="0" aria-label="Play video testimonial: Silky Jain Marwah, Tula's Institute">
+          <img src="https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg" alt="Silky Jain Marwah, Executive Director, Tula's Institute — ExtraaEdge CRM review" loading="lazy" decoding="async">
+          <span class="cis-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+          <span class="cis-dur">&#9654; 2 min</span>
+        </div>
+        <div class="cis-body">
+          <div class="cis-stars" aria-label="Rated 5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg></div>
+          <p class="cis-quote"><span>ExtraaEdge is an incredibly dynamic and trustworthy platform that truly understands our needs. Most changes we require are implemented in a very short span of time, and creating reports on our own has been a game-changer.</span></p>
+          <div class="cis-author">
+            <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Silky-Jain-Marwah.webp" alt="Silky Jain Marwah" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">SJ</span></span>
+            <div><div class="cis-aname">Silky Jain Marwah</div><div class="cis-arole">Executive Director &middot; Tula's Institute</div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="cis-card">
+        <div class="cis-video" data-yt="dWLdQ8E3FOU" role="button" tabindex="0" aria-label="Play video testimonial: Pranay Rupani, Annapurna College of Film &amp; Media">
+          <img src="https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg" alt="Pranay Rupani, Head of Admissions &amp; Marketing, Annapurna College of Film &amp; Media — ExtraaEdge CRM review" loading="lazy" decoding="async">
+          <span class="cis-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+          <span class="cis-dur">&#9654; 2 min</span>
+        </div>
+        <div class="cis-body">
+          <div class="cis-stars" aria-label="Rated 5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg></div>
+          <p class="cis-quote"><span>A true game-changer for us at Annapurna College. From seamless WhatsApp integrations to automated workflows, our entire lead journey is now streamlined and measurable. The team's dedication makes them indispensable.</span></p>
+          <div class="cis-author">
+            <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/Pranay-sir-02.webp" alt="Pranay Rupani" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">PR</span></span>
+            <div><div class="cis-aname">Pranay Rupani</div><div class="cis-arole">Head of Admissions &amp; Marketing &middot; Annapurna College of Film &amp; Media</div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="cis-card">
+        <div class="cis-video" data-yt="yfK83D2SKps" role="button" tabindex="0" aria-label="Play video testimonial: K. Nirmala Devi, Indian Academy Group">
+          <img src="https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg" alt="K. Nirmala Devi, Assistant Manager, Indian Academy Group — ExtraaEdge CRM review" loading="lazy" decoding="async">
+          <span class="cis-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+          <span class="cis-dur">&#9654; 2 min</span>
+        </div>
+        <div class="cis-body">
+          <div class="cis-stars" aria-label="Rated 5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg></div>
+          <p class="cis-quote"><span>Very user-friendly and fully customizable to our needs. Tracking the lead journey is smooth, and the technical team is accessible anytime — they resolve issues immediately without any delays.</span></p>
+          <div class="cis-author">
+            <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Nirmala-Devi.webp" alt="K. Nirmala Devi" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">KN</span></span>
+            <div><div class="cis-aname">K. Nirmala Devi</div><div class="cis-arole">Assistant Manager &middot; Indian Academy Group</div></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="cis-cta">
+      <a class="cis-btn primary" href="#demo">Book a free demo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 5l7 7-7 7-1.6-1.6 4.3-4.3H4v-2.2h11.9l-4.3-4.3z"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var root=document.getElementById('stories');
+  if(!root)return;
+  root.querySelectorAll('.cis-video').forEach(function(v){
+    var img=v.querySelector('img'), yt=v.getAttribute('data-yt');
+    if(img){img.addEventListener('error',function(){img.src='https://img.youtube.com/vi/'+yt+'/0.jpg';},{once:true});}
+    function play(){
+      if(v.classList.contains('playing'))return;
+      root.querySelectorAll('.cis-video.playing').forEach(function(o){var f=o.querySelector('iframe');if(f)f.remove();o.classList.remove('playing');});
+      var fr=document.createElement('iframe');
+      fr.src='https://www.youtube-nocookie.com/embed/'+yt+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      fr.title='Video testimonial';
+      fr.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');
+      fr.setAttribute('allowfullscreen','');
+      v.appendChild(fr);v.classList.add('playing');
+    }
+    v.addEventListener('click',play);
+    v.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}});
+  });
+  root.querySelectorAll('.cis-av img').forEach(function(a){a.addEventListener('error',function(){a.closest('.cis-av').classList.add('noimg');},{once:true});});
+})();
+</script>
+
+<section id="ee-cro" aria-label="Why teams choose ExtraaEdge + ROI calculator">
+  <div class="cw">
+    <div class="ch">
+      <span class="eyebrow"><i></i> Why teams switch to us</span>
+      <h2>The only <em>AI-native</em> Admission CRM</h2>
+      <p>Others automate. ExtraaEdge actually <b>calls, qualifies and follows up</b> with every student using AI — so your team only talks to ready-to-enrol leads.</p>
+    </div>
+    <div class="cmp" role="table" aria-label="Feature comparison">
+      <div class="cmp-row head" role="row"><div>Capability</div><div class="us">ExtraaEdge</div><div>Other CRMs</div><div>Generic tools</div></div>
+      <div class="cmp-row"><div class="feat">AI Voice Agent (calls leads in 10+ languages)</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="no">&mdash;</span></div><div class="cell"><span class="no">&mdash;</span></div></div>
+      <div class="cmp-row"><div class="feat">24&times;7 AI chat counsellor (VidyaGPT)</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Basic bot</span></div><div class="cell"><span class="part">Basic bot</span></div></div>
+      <div class="cmp-row"><div class="feat">Real-time AI lead intent scoring</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Rule-based</span></div><div class="cell"><span class="part">Rule-based</span></div></div>
+      <div class="cmp-row"><div class="feat">Official WhatsApp Business API automation</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div></div>
+      <div class="cmp-row"><div class="feat">Built only for admissions</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Generic CRM</span></div></div>
+      <div class="cmp-row"><div class="feat">Go live in 7 days</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Weeks</span></div><div class="cell"><span class="part">Weeks</span></div></div>
+      <div class="cmp-row"><div class="feat">Free migration &amp; 1:1 onboarding</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="no">&mdash;</span></div><div class="cell"><span class="no">&mdash;</span></div></div>
+    </div>
+    <p class="cmp-note">Comparison based on publicly listed features (Jun 2026) &mdash; verify for your exact requirements. Switching from another CRM? We migrate your data free.</p>
+    <div class="roi" aria-label="ROI calculator">
+      <div class="roi-in">
+        <h3>How many more admissions could you get?</h3>
+        <p class="sub">Move the sliders &mdash; see your upside instantly.</p>
+        <div class="fld"><label>Monthly enquiries <b id="ro1">2,000</b></label><input id="ri1" type="range" min="200" max="20000" step="100" value="2000"><div class="nums"><span>200</span><span>20,000</span></div></div>
+        <div class="fld"><label>Current conversion rate <b id="ro2">20%</b></label><input id="ri2" type="range" min="5" max="45" step="1" value="20"><div class="nums"><span>5%</span><span>45%</span></div></div>
+        <div class="fld"><label>Average fee / student <b id="ro3">&#8377;1.0 L</b></label><input id="ri3" type="range" min="20000" max="800000" step="10000" value="100000"><div class="nums"><span>&#8377;20K</span><span>&#8377;8L</span></div></div>
+      </div>
+      <div class="roi-out">
+        <span class="lab">Extra admissions / month with ExtraaEdge</span>
+        <div class="big" id="roExtra">+96</div>
+        <div class="rev">Extra revenue: <span id="roRev">&#8377;96.0 L</span> / mo</div>
+        <div class="meta">
+          <div><b id="roNow">400</b><span>Admissions now</span></div>
+          <div><b id="roNew">496</b><span>With ExtraaEdge</span></div>
+          <div><b>+40%</b><span>Conversion lift</span></div>
+        </div>
+        <a href="#demo" class="cta">Get my detailed ROI report &rarr;</a>
+        <div class="fine">Projection based on a typical +40% conversion lift. Book a demo for numbers on your real funnel.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="ee-sticky" aria-hidden="true">
+  <div class="sw">
+    <div class="txt">🎓 <b>Fill more seats this cycle.</b><span class="hide"> See ExtraaEdge on your funnel in 30 minutes.</span></div>
+    <div class="sp"><a href="#demo" class="go">Book a Free Demo &rarr;</a><button class="x" aria-label="Dismiss" id="eeStickyX">&times;</button></div>
+  </div>
+</div>
+<script>
+(function(){
+  /* ROI calculator */
+  var i1=document.getElementById('ri1'),i2=document.getElementById('ri2'),i3=document.getElementById('ri3');
+  if(i1){
+    var o1=document.getElementById('ro1'),o2=document.getElementById('ro2'),o3=document.getElementById('ro3');
+    var eEx=document.getElementById('roExtra'),eRev=document.getElementById('roRev'),eNow=document.getElementById('roNow'),eNew=document.getElementById('roNew');
+    function inr(n){ if(n>=1e7)return '₹'+(n/1e7).toFixed(1)+' Cr'; if(n>=1e5)return '₹'+(n/1e5).toFixed(1)+' L'; if(n>=1e3)return '₹'+Math.round(n/1e3)+'K'; return '₹'+Math.round(n); }
+    function calc(){
+      var enq=+i1.value, conv=+i2.value, fee=+i3.value;
+      var now=Math.round(enq*conv/100);
+      var newConv=Math.min(conv*1.4,60);
+      var nw=Math.round(enq*newConv/100);
+      var extra=Math.max(nw-now,0);
+      o1.textContent=enq.toLocaleString('en-IN'); o2.textContent=conv+'%'; o3.textContent=inr(fee);
+      eNow.textContent=now.toLocaleString('en-IN'); eNew.textContent=nw.toLocaleString('en-IN');
+      eEx.textContent='+'+extra.toLocaleString('en-IN'); eRev.textContent=inr(extra*fee);
+    }
+    [i1,i2,i3].forEach(function(s){s.addEventListener('input',calc);}); calc();
+  }
+  /* sticky CTA — show after scrolling past the hero, hide near the final demo form */
+  var bar=document.getElementById('ee-sticky'); 
+  if(bar){
+    var dismissed=false;
+    var x=document.getElementById('eeStickyX'); if(x) x.addEventListener('click',function(){dismissed=true;bar.classList.remove('show');});
+    bar.querySelector('.go').addEventListener('click',function(){bar.classList.remove('show');});
+    var hero=document.getElementById('xhero'), demo=document.getElementById('demo');
+    function upd(){
+      if(dismissed){bar.classList.remove('show');return;}
+      var y=window.pageYOffset, past=hero?(y>hero.offsetHeight*0.9):(y>500);
+      var nearDemo=demo?(y+window.innerHeight > demo.offsetTop+80):false;
+      bar.classList.toggle('show', past && !nearDemo);
+    }
+    window.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd,{passive:true}); upd();
+  }
+})();
+</script>
 
 <!-- ===================== PREMIUM BENTO · ADMISSION OS (2026 redesign) ===================== -->
 <style>
@@ -4949,101 +6232,7 @@ function startFeed() {
 @media(max-width:600px){#stories .cis-wrap{padding:26px 18px}}
 </style>
 
-<section id="stories" aria-labelledby="stories-title">
-  <div class="cis-wrap">
-    <div class="cis-head">
-      <span class="cis-eyebrow"><span class="d"></span> CRM Impact Stories</span>
-      <h2 class="cis-title" id="stories-title">Powering growth for <em>500+ happy customers</em></h2>
-      <p class="cis-lead">Real admissions leaders and the stories behind them. See how institutions grow with ExtraaEdge.</p>
-      <div class="cis-trust">
-        <span class="cis-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><b>4.7</b>/5 on G2</span>
-        <span class="cis-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg>Top rated on Capterra</span>
-        <span class="cis-chip">&#127891; <b>500+</b> Institutions</span>
-        <span class="cis-chip">&#127757; <b>12+</b> Countries</span>
-      </div>
-    </div>
 
-    <div class="cis-grid">
-
-      <article class="cis-card">
-        <div class="cis-video" data-yt="3SHgLf1GFgk" role="button" tabindex="0" aria-label="Play video testimonial: Silky Jain Marwah, Tula's Institute">
-          <img src="https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg" alt="Silky Jain Marwah, Executive Director, Tula's Institute — ExtraaEdge CRM review" loading="lazy" decoding="async">
-          <span class="cis-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-          <span class="cis-dur">&#9654; 2 min</span>
-        </div>
-        <div class="cis-body">
-          <div class="cis-stars" aria-label="Rated 5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg></div>
-          <p class="cis-quote"><span>ExtraaEdge is an incredibly dynamic and trustworthy platform that truly understands our needs. Most changes we require are implemented in a very short span of time, and creating reports on our own has been a game-changer.</span></p>
-          <div class="cis-author">
-            <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Silky-Jain-Marwah.webp" alt="Silky Jain Marwah" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">SJ</span></span>
-            <div><div class="cis-aname">Silky Jain Marwah</div><div class="cis-arole">Executive Director &middot; Tula's Institute</div></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="cis-card">
-        <div class="cis-video" data-yt="dWLdQ8E3FOU" role="button" tabindex="0" aria-label="Play video testimonial: Pranay Rupani, Annapurna College of Film &amp; Media">
-          <img src="https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg" alt="Pranay Rupani, Head of Admissions &amp; Marketing, Annapurna College of Film &amp; Media — ExtraaEdge CRM review" loading="lazy" decoding="async">
-          <span class="cis-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-          <span class="cis-dur">&#9654; 2 min</span>
-        </div>
-        <div class="cis-body">
-          <div class="cis-stars" aria-label="Rated 5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg></div>
-          <p class="cis-quote"><span>A true game-changer for us at Annapurna College. From seamless WhatsApp integrations to automated workflows, our entire lead journey is now streamlined and measurable. The team's dedication makes them indispensable.</span></p>
-          <div class="cis-author">
-            <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/Pranay-sir-02.webp" alt="Pranay Rupani" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">PR</span></span>
-            <div><div class="cis-aname">Pranay Rupani</div><div class="cis-arole">Head of Admissions &amp; Marketing &middot; Annapurna College of Film &amp; Media</div></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="cis-card">
-        <div class="cis-video" data-yt="yfK83D2SKps" role="button" tabindex="0" aria-label="Play video testimonial: K. Nirmala Devi, Indian Academy Group">
-          <img src="https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg" alt="K. Nirmala Devi, Assistant Manager, Indian Academy Group — ExtraaEdge CRM review" loading="lazy" decoding="async">
-          <span class="cis-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-          <span class="cis-dur">&#9654; 2 min</span>
-        </div>
-        <div class="cis-body">
-          <div class="cis-stars" aria-label="Rated 5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 19.8 5.8 23l1.6-7L2 9.3l7.1-.7z"/></svg></div>
-          <p class="cis-quote"><span>Very user-friendly and fully customizable to our needs. Tracking the lead journey is smooth, and the technical team is accessible anytime — they resolve issues immediately without any delays.</span></p>
-          <div class="cis-author">
-            <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Nirmala-Devi.webp" alt="K. Nirmala Devi" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">KN</span></span>
-            <div><div class="cis-aname">K. Nirmala Devi</div><div class="cis-arole">Assistant Manager &middot; Indian Academy Group</div></div>
-          </div>
-        </div>
-      </article>
-
-    </div>
-
-    <div class="cis-cta">
-      <a class="cis-btn primary" href="#demo">Book a free demo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 5l7 7-7 7-1.6-1.6 4.3-4.3H4v-2.2h11.9l-4.3-4.3z"/></svg></a>
-    </div>
-  </div>
-</section>
-
-<script>
-(function(){
-  var root=document.getElementById('stories');
-  if(!root)return;
-  root.querySelectorAll('.cis-video').forEach(function(v){
-    var img=v.querySelector('img'), yt=v.getAttribute('data-yt');
-    if(img){img.addEventListener('error',function(){img.src='https://img.youtube.com/vi/'+yt+'/0.jpg';},{once:true});}
-    function play(){
-      if(v.classList.contains('playing'))return;
-      root.querySelectorAll('.cis-video.playing').forEach(function(o){var f=o.querySelector('iframe');if(f)f.remove();o.classList.remove('playing');});
-      var fr=document.createElement('iframe');
-      fr.src='https://www.youtube-nocookie.com/embed/'+yt+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-      fr.title='Video testimonial';
-      fr.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');
-      fr.setAttribute('allowfullscreen','');
-      v.appendChild(fr);v.classList.add('playing');
-    }
-    v.addEventListener('click',play);
-    v.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}});
-  });
-  root.querySelectorAll('.cis-av img').forEach(function(a){a.addEventListener('error',function(){a.closest('.cis-av').classList.add('noimg');},{once:true});});
-})();
-</script>
 
 <!-- ===================== SEGMENT · INTERACTIVE PREVIEW ===================== -->
 <!-- ===================== SEGMENTS · Built for your institution (scoped #segments) ===================== -->
@@ -6582,90 +7771,399 @@ function startFeed() {
   </div>
 </section>
 
-<section id="ee-cro" aria-label="Why teams choose ExtraaEdge + ROI calculator">
-  <div class="cw">
-    <div class="ch">
-      <span class="eyebrow"><i></i> Why teams switch to us</span>
-      <h2>The only <em>AI-native</em> Admission CRM</h2>
-      <p>Others automate. ExtraaEdge actually <b>calls, qualifies and follows up</b> with every student using AI — so your team only talks to ready-to-enrol leads.</p>
+
+
+<!-- ===================== RESOURCES / EVENTS (added) ===================== -->
+<style>
+  #ee-resources{
+    --navy:#19335D; --navy2:#22467c; --orange:#DE6E30; --orange2:#E8843F;
+    --ink:#0F1F3A; --muted:#5A6B85; --hair:rgba(25,51,93,.09);
+    position:relative; padding:clamp(64px,8vw,104px) 0;
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:var(--ink); background:transparent;
+  }
+  #ee-resources *{box-sizing:border-box;}
+  #ee-resources .ee-r-container{max-width:1240px;margin:0 auto;padding:0 24px;}
+  #ee-resources .ee-r-head{max-width:760px;margin:0 0 clamp(32px,4vw,48px);}
+  #ee-resources .ee-r-eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--orange);margin:0 0 16px;
+  }
+  #ee-resources .ee-r-eyebrow::before{
+    content:"";width:22px;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange),var(--orange2));
+  }
+  #ee-resources h2{
+    font-family:'Poppins','Inter',system-ui,sans-serif;
+    font-weight:600;font-size:clamp(28px,3.6vw,42px);line-height:1.12;
+    letter-spacing:-.015em;margin:0 0 14px;color:var(--navy);
+  }
+  #ee-resources .ee-r-sub{
+    margin:0;font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:var(--muted);max-width:600px;
+  }
+  #ee-resources .ee-r-grid{
+    display:grid;gap:18px;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+  #ee-resources .ee-r-card{
+    position:relative;display:flex;flex-direction:column;align-items:flex-start;
+    background:#fff;border:1px solid var(--hair);border-radius:16px;
+    padding:24px 22px 22px;text-decoration:none;color:inherit;
+    box-shadow:0 1px 2px rgba(15,31,58,.04),0 8px 24px -16px rgba(15,31,58,.18);
+    transition:transform .28s cubic-bezier(.2,.7,.3,1),box-shadow .28s ease,border-color .28s ease;
+    overflow:hidden;
+  }
+  #ee-resources .ee-r-card::after{
+    content:"";position:absolute;left:0;top:0;height:3px;width:100%;
+    background:linear-gradient(90deg,var(--orange),var(--orange2));
+    transform:scaleX(0);transform-origin:left;transition:transform .3s ease;
+  }
+  #ee-resources .ee-r-card:hover{
+    transform:translateY(-6px);border-color:rgba(25,51,93,.16);
+    box-shadow:0 2px 4px rgba(15,31,58,.05),0 22px 40px -22px rgba(25,51,93,.32);
+  }
+  #ee-resources .ee-r-card:hover::after{transform:scaleX(1);}
+  #ee-resources .ee-r-card:focus-visible{
+    outline:3px solid rgba(222,110,48,.55);outline-offset:3px;
+  }
+  #ee-resources .ee-r-ico{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:46px;height:46px;border-radius:12px;margin-bottom:18px;
+    background:linear-gradient(160deg,rgba(34,70,124,.10),rgba(34,70,124,.04));
+    color:var(--navy2);border:1px solid var(--hair);
+    transition:background .28s ease,color .28s ease;
+  }
+  #ee-resources .ee-r-card:hover .ee-r-ico{
+    background:linear-gradient(160deg,rgba(222,110,48,.16),rgba(232,132,63,.06));
+    color:var(--orange);
+  }
+  #ee-resources .ee-r-ico svg{width:23px;height:23px;display:block;}
+  #ee-resources .ee-r-title{
+    font-family:'Poppins','Inter',system-ui,sans-serif;
+    font-weight:600;font-size:16.5px;line-height:1.25;margin:0 0 7px;color:var(--navy);
+  }
+  #ee-resources .ee-r-desc{
+    margin:0 0 16px;font-size:14px;line-height:1.55;color:var(--muted);
+  }
+  #ee-resources .ee-r-link{
+    margin-top:auto;display:inline-flex;align-items:center;gap:6px;
+    font-size:13.5px;font-weight:600;color:var(--orange);letter-spacing:.01em;
+  }
+  #ee-resources .ee-r-link svg{width:14px;height:14px;transition:transform .25s ease;}
+  #ee-resources .ee-r-card:hover .ee-r-link svg{transform:translateX(4px);}
+
+  @media (max-width:900px){
+    #ee-resources .ee-r-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+  @media (max-width:560px){
+    #ee-resources .ee-r-grid{grid-template-columns:1fr;gap:14px;}
+    #ee-resources .ee-r-container{padding:0 18px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    #ee-resources .ee-r-card,#ee-resources .ee-r-card::after,
+    #ee-resources .ee-r-ico,#ee-resources .ee-r-link svg{transition:none;}
+  }
+</style>
+<section id="ee-resources" aria-label="Resources">
+  <div class="ee-r-container">
+    <div class="ee-r-head">
+      <p class="ee-r-eyebrow">Resources</p>
+      <h2>Everything you need to win admissions</h2>
+      <p class="ee-r-sub">Practical guides, data-backed reports, and ready-to-use tools that help your team enroll more students, faster.</p>
     </div>
-    <div class="cmp" role="table" aria-label="Feature comparison">
-      <div class="cmp-row head" role="row"><div>Capability</div><div class="us">ExtraaEdge</div><div>Other CRMs</div><div>Generic tools</div></div>
-      <div class="cmp-row"><div class="feat">AI Voice Agent (calls leads in 10+ languages)</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="no">&mdash;</span></div><div class="cell"><span class="no">&mdash;</span></div></div>
-      <div class="cmp-row"><div class="feat">24&times;7 AI chat counsellor (VidyaGPT)</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Basic bot</span></div><div class="cell"><span class="part">Basic bot</span></div></div>
-      <div class="cmp-row"><div class="feat">Real-time AI lead intent scoring</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Rule-based</span></div><div class="cell"><span class="part">Rule-based</span></div></div>
-      <div class="cmp-row"><div class="feat">Official WhatsApp Business API automation</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div></div>
-      <div class="cmp-row"><div class="feat">Built only for admissions</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Generic CRM</span></div></div>
-      <div class="cmp-row"><div class="feat">Go live in 7 days</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Weeks</span></div><div class="cell"><span class="part">Weeks</span></div></div>
-      <div class="cmp-row"><div class="feat">Free migration &amp; 1:1 onboarding</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="no">&mdash;</span></div><div class="cell"><span class="no">&mdash;</span></div></div>
-    </div>
-    <p class="cmp-note">Comparison based on publicly listed features (Jun 2026) &mdash; verify for your exact requirements. Switching from another CRM? We migrate your data free.</p>
-    <div class="roi" aria-label="ROI calculator">
-      <div class="roi-in">
-        <h3>How many more admissions could you get?</h3>
-        <p class="sub">Move the sliders &mdash; see your upside instantly.</p>
-        <div class="fld"><label>Monthly enquiries <b id="ro1">2,000</b></label><input id="ri1" type="range" min="200" max="20000" step="100" value="2000"><div class="nums"><span>200</span><span>20,000</span></div></div>
-        <div class="fld"><label>Current conversion rate <b id="ro2">20%</b></label><input id="ri2" type="range" min="5" max="45" step="1" value="20"><div class="nums"><span>5%</span><span>45%</span></div></div>
-        <div class="fld"><label>Average fee / student <b id="ro3">&#8377;1.0 L</b></label><input id="ri3" type="range" min="20000" max="800000" step="10000" value="100000"><div class="nums"><span>&#8377;20K</span><span>&#8377;8L</span></div></div>
-      </div>
-      <div class="roi-out">
-        <span class="lab">Extra admissions / month with ExtraaEdge</span>
-        <div class="big" id="roExtra">+96</div>
-        <div class="rev">Extra revenue: <span id="roRev">&#8377;96.0 L</span> / mo</div>
-        <div class="meta">
-          <div><b id="roNow">400</b><span>Admissions now</span></div>
-          <div><b id="roNew">496</b><span>With ExtraaEdge</span></div>
-          <div><b>+40%</b><span>Conversion lift</span></div>
-        </div>
-        <a href="#demo" class="cta">Get my detailed ROI report &rarr;</a>
-        <div class="fine">Projection based on a typical +40% conversion lift. Book a demo for numbers on your real funnel.</div>
-      </div>
+    <div class="ee-r-grid">
+
+      <a class="ee-r-card" href="#demo">
+        <span class="ee-r-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20"/></svg>
+        </span>
+        <h3 class="ee-r-title">Guides</h3>
+        <p class="ee-r-desc">Step-by-step playbooks to set up and scale a high-converting admissions funnel.</p>
+        <span class="ee-r-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ee-r-card" href="#demo">
+        <span class="ee-r-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/><path d="M9.5 13.5l2 2 3.5-4"/></svg>
+        </span>
+        <h3 class="ee-r-title">Reports</h3>
+        <p class="ee-r-desc">Benchmark studies on enrollment performance across institutions like yours.</p>
+        <span class="ee-r-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ee-r-card" href="#demo">
+        <span class="ee-r-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M5 16l4-4 3 3 6-7"/><path d="M18 8h3v3"/></svg>
+        </span>
+        <h3 class="ee-r-title">Admission Trends</h3>
+        <p class="ee-r-desc">What's shifting in applicant behavior, channels, and timelines this cycle.</p>
+        <span class="ee-r-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ee-r-card" href="#demo">
+        <span class="ee-r-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+        </span>
+        <h3 class="ee-r-title">Templates</h3>
+        <p class="ee-r-desc">Proven email, SMS, and counselor scripts you can deploy in minutes.</p>
+        <span class="ee-r-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ee-r-card" href="#demo">
+        <span class="ee-r-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4v16l7-4 7 4V4z"/><path d="M9 9h6M9 12h4"/></svg>
+        </span>
+        <h3 class="ee-r-title">Playbooks</h3>
+        <p class="ee-r-desc">End-to-end strategies for lead nurturing, follow-ups, and yield management.</p>
+        <span class="ee-r-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ee-r-card" href="#demo">
+        <span class="ee-r-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8"/><path d="M8 11h3M13 11h3M8 15h3M13 15h3"/></svg>
+        </span>
+        <h3 class="ee-r-title">ROI Calculator</h3>
+        <p class="ee-r-desc">Estimate the revenue lift ExtraaEdge can unlock for your admissions team.</p>
+        <span class="ee-r-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ee-r-card" href="#demo">
+        <span class="ee-r-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/><path d="M9 8l4 2.5L9 13z" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <h3 class="ee-r-title">Webinars</h3>
+        <p class="ee-r-desc">Expert-led sessions on AI, counseling, and modern admissions operations.</p>
+        <span class="ee-r-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ee-r-card" href="#demo">
+        <span class="ee-r-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18v-3a5 5 0 0 1 10 0v3"/><path d="M5 21h14"/><circle cx="12" cy="6" r="3"/><path d="M9 21v-2M15 21v-2"/></svg>
+        </span>
+        <h3 class="ee-r-title">Customer Stories</h3>
+        <p class="ee-r-desc">See how institutions grew enrollments and slashed response times with us.</p>
+        <span class="ee-r-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ee-r-card" href="#demo">
+        <span class="ee-r-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <h3 class="ee-r-title">Videos</h3>
+        <p class="ee-r-desc">Short, practical walkthroughs of features, workflows, and best practices.</p>
+        <span class="ee-r-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ee-r-card" href="#demo">
+        <span class="ee-r-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/><path d="M7.5 13h2v2h-2z" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <h3 class="ee-r-title">Events</h3>
+        <p class="ee-r-desc">Workshops and meetups where admissions leaders share what's working now.</p>
+        <span class="ee-r-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
     </div>
   </div>
 </section>
-<div id="ee-sticky" aria-hidden="true">
-  <div class="sw">
-    <div class="txt">🎓 <b>Fill more seats this cycle.</b><span class="hide"> See ExtraaEdge on your funnel in 30 minutes.</span></div>
-    <div class="sp"><a href="#demo" class="go">Book a Free Demo &rarr;</a><button class="x" aria-label="Dismiss" id="eeStickyX">&times;</button></div>
+
+<style>
+  #ee-events{
+    --navy:#19335D; --navy2:#22467c; --orange:#DE6E30; --orange2:#E8843F;
+    --ink:#0F1F3A; --muted:#5A6B85; --hair:rgba(25,51,93,.09);
+    position:relative; padding:clamp(64px,8vw,104px) 0;
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:var(--ink);
+    background:linear-gradient(180deg,rgba(34,70,124,.025),rgba(34,70,124,0) 40%);
+  }
+  #ee-events *{box-sizing:border-box;}
+  #ee-events .ee-e-container{max-width:1240px;margin:0 auto;padding:0 24px;}
+  #ee-events .ee-e-head{max-width:760px;margin:0 0 clamp(32px,4vw,48px);}
+  #ee-events .ee-e-eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--orange);margin:0 0 16px;
+  }
+  #ee-events .ee-e-eyebrow::before{
+    content:"";width:22px;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange),var(--orange2));
+  }
+  #ee-events h2{
+    font-family:'Poppins','Inter',system-ui,sans-serif;
+    font-weight:600;font-size:clamp(28px,3.6vw,42px);line-height:1.12;
+    letter-spacing:-.015em;margin:0 0 14px;color:var(--navy);
+  }
+  #ee-events .ee-e-sub{
+    margin:0;font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:var(--muted);max-width:600px;
+  }
+  #ee-events .ee-e-grid{
+    display:grid;gap:20px;margin-bottom:clamp(40px,5vw,56px);
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  #ee-events .ee-e-card{
+    position:relative;display:flex;flex-direction:column;
+    background:#fff;border:1px solid var(--hair);border-radius:18px;
+    padding:22px;text-decoration:none;color:inherit;
+    box-shadow:0 1px 2px rgba(15,31,58,.04),0 10px 28px -18px rgba(15,31,58,.22);
+    transition:transform .28s cubic-bezier(.2,.7,.3,1),box-shadow .28s ease,border-color .28s ease;
+  }
+  #ee-events .ee-e-card:hover{
+    transform:translateY(-6px);border-color:rgba(25,51,93,.16);
+    box-shadow:0 2px 4px rgba(15,31,58,.05),0 24px 44px -22px rgba(25,51,93,.34);
+  }
+  #ee-events .ee-e-card:focus-within{outline:3px solid rgba(222,110,48,.4);outline-offset:3px;}
+  #ee-events .ee-e-top{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+  #ee-events .ee-e-date{
+    flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    width:58px;height:62px;border-radius:14px;line-height:1;
+    background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;
+    box-shadow:0 8px 18px -10px rgba(25,51,93,.6);
+  }
+  #ee-events .ee-e-date .d{font-family:'Poppins','Inter',sans-serif;font-weight:600;font-size:22px;}
+  #ee-events .ee-e-date .m{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-top:4px;opacity:.92;}
+  #ee-events .ee-e-date .y{font-size:10px;font-weight:500;margin-top:3px;opacity:.7;}
+  #ee-events .ee-e-tag{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+    padding:6px 11px;border-radius:999px;
+    color:var(--navy2);background:rgba(34,70,124,.08);border:1px solid var(--hair);
+  }
+  #ee-events .ee-e-tag.is-live{color:var(--orange);background:rgba(222,110,48,.10);border-color:rgba(222,110,48,.18);}
+  #ee-events .ee-e-tag .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+  #ee-events .ee-e-title{
+    font-family:'Poppins','Inter',system-ui,sans-serif;
+    font-weight:600;font-size:18px;line-height:1.28;margin:0 0 9px;color:var(--navy);
+  }
+  #ee-events .ee-e-desc{margin:0 0 20px;font-size:14px;line-height:1.55;color:var(--muted);}
+  #ee-events .ee-e-link{
+    margin-top:auto;display:inline-flex;align-items:center;gap:6px;
+    font-size:13.5px;font-weight:600;color:var(--orange);
+  }
+  #ee-events .ee-e-link svg{width:14px;height:14px;transition:transform .25s ease;}
+  #ee-events .ee-e-card:hover .ee-e-link svg{transform:translateX(4px);}
+  #ee-events .ee-e-link:focus-visible{outline:3px solid rgba(222,110,48,.55);outline-offset:3px;border-radius:4px;}
+
+  #ee-events .ee-e-odhead{
+    display:flex;align-items:baseline;gap:12px;margin:0 0 18px;
+    font-family:'Poppins','Inter',sans-serif;font-weight:600;font-size:15px;color:var(--navy);
+  }
+  #ee-events .ee-e-odhead::before{
+    content:"On-demand";font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--orange);
+  }
+  #ee-events .ee-e-odgrid{
+    display:grid;gap:16px;grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  #ee-events .ee-e-od{
+    display:flex;align-items:center;gap:14px;
+    background:#fff;border:1px solid var(--hair);border-radius:14px;padding:16px 18px;
+    text-decoration:none;color:inherit;
+    box-shadow:0 1px 2px rgba(15,31,58,.04),0 8px 22px -16px rgba(15,31,58,.2);
+    transition:transform .26s cubic-bezier(.2,.7,.3,1),box-shadow .26s ease,border-color .26s ease;
+  }
+  #ee-events .ee-e-od:hover{transform:translateY(-4px);border-color:rgba(25,51,93,.16);box-shadow:0 2px 4px rgba(15,31,58,.05),0 18px 34px -20px rgba(25,51,93,.3);}
+  #ee-events .ee-e-od:focus-visible{outline:3px solid rgba(222,110,48,.55);outline-offset:3px;}
+  #ee-events .ee-e-play{
+    flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
+    width:42px;height:42px;border-radius:50%;
+    background:linear-gradient(160deg,var(--orange),var(--orange2));color:#fff;
+    box-shadow:0 8px 18px -9px rgba(222,110,48,.65);
+  }
+  #ee-events .ee-e-play svg{width:16px;height:16px;margin-left:2px;}
+  #ee-events .ee-e-od-body{display:flex;flex-direction:column;gap:5px;min-width:0;}
+  #ee-events .ee-e-od-title{font-family:'Poppins','Inter',sans-serif;font-weight:600;font-size:14.5px;line-height:1.25;color:var(--navy);}
+  #ee-events .ee-e-od-link{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--orange);}
+  #ee-events .ee-e-od-link svg{width:12px;height:12px;transition:transform .25s ease;}
+  #ee-events .ee-e-od:hover .ee-e-od-link svg{transform:translateX(3px);}
+
+  @media (max-width:900px){
+    #ee-events .ee-e-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    #ee-events .ee-e-odgrid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    #ee-events .ee-e-grid .ee-e-card:nth-child(3){grid-column:1 / -1;}
+  }
+  @media (max-width:560px){
+    #ee-events .ee-e-grid,#ee-events .ee-e-odgrid{grid-template-columns:1fr;}
+    #ee-events .ee-e-grid .ee-e-card:nth-child(3){grid-column:auto;}
+    #ee-events .ee-e-container{padding:0 18px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    #ee-events .ee-e-card,#ee-events .ee-e-od,
+    #ee-events .ee-e-link svg,#ee-events .ee-e-od-link svg{transition:none;}
+  }
+</style>
+<section id="ee-events" aria-label="Events and Webinars">
+  <div class="ee-e-container">
+    <div class="ee-e-head">
+      <p class="ee-e-eyebrow">Events &amp; Webinars</p>
+      <h2>Live events &amp; on-demand webinars</h2>
+      <p class="ee-e-sub">Learn from admissions leaders and AI experts, then revisit the sessions that matter most, anytime.</p>
+    </div>
+
+    <div class="ee-e-grid">
+
+      <a class="ee-e-card" href="#demo">
+        <div class="ee-e-top">
+          <div class="ee-e-date"><span class="d">12</span><span class="m">Jul</span><span class="y">2026</span></div>
+          <span class="ee-e-tag"><span class="dot"></span>Webinar</span>
+        </div>
+        <h3 class="ee-e-title">Using AI to Convert Inquiries into Enrollments</h3>
+        <p class="ee-e-desc">A practical look at AI-led lead scoring and automated follow-ups that lift yield.</p>
+        <span class="ee-e-link">Register free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ee-e-card" href="#demo">
+        <div class="ee-e-top">
+          <div class="ee-e-date"><span class="d">29</span><span class="m">Jul</span><span class="y">2026</span></div>
+          <span class="ee-e-tag"><span class="dot"></span>Workshop</span>
+        </div>
+        <h3 class="ee-e-title">Building a Counselor Workflow That Scales</h3>
+        <p class="ee-e-desc">Hands-on session to design follow-up cadences your team can actually sustain.</p>
+        <span class="ee-e-link">Register free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="ee-e-card" href="#demo">
+        <div class="ee-e-top">
+          <div class="ee-e-date"><span class="d">14</span><span class="m">Aug</span><span class="y">2026</span></div>
+          <span class="ee-e-tag is-live"><span class="dot"></span>Live Event</span>
+        </div>
+        <h3 class="ee-e-title">Admissions Summit 2026: The AI-First Campus</h3>
+        <p class="ee-e-desc">A flagship gathering of admissions leaders shaping the next enrollment era.</p>
+        <span class="ee-e-link">Register free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+    </div>
+
+    <h3 class="ee-e-odhead">webinars you can watch right now</h3>
+    <div class="ee-e-odgrid">
+
+      <a class="ee-e-od" href="#demo">
+        <span class="ee-e-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="ee-e-od-body">
+          <span class="ee-e-od-title">Cutting Lead Response Time to Under 5 Minutes</span>
+          <span class="ee-e-od-link">Watch now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
+
+      <a class="ee-e-od" href="#demo">
+        <span class="ee-e-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="ee-e-od-body">
+          <span class="ee-e-od-title">Personalizing Outreach at Scale with AI</span>
+          <span class="ee-e-od-link">Watch now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
+
+      <a class="ee-e-od" href="#demo">
+        <span class="ee-e-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="ee-e-od-body">
+          <span class="ee-e-od-title">Measuring True ROI Across Your Admissions Funnel</span>
+          <span class="ee-e-od-link">Watch now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
+
+    </div>
   </div>
-</div>
-<script>
-(function(){
-  /* ROI calculator */
-  var i1=document.getElementById('ri1'),i2=document.getElementById('ri2'),i3=document.getElementById('ri3');
-  if(i1){
-    var o1=document.getElementById('ro1'),o2=document.getElementById('ro2'),o3=document.getElementById('ro3');
-    var eEx=document.getElementById('roExtra'),eRev=document.getElementById('roRev'),eNow=document.getElementById('roNow'),eNew=document.getElementById('roNew');
-    function inr(n){ if(n>=1e7)return '₹'+(n/1e7).toFixed(1)+' Cr'; if(n>=1e5)return '₹'+(n/1e5).toFixed(1)+' L'; if(n>=1e3)return '₹'+Math.round(n/1e3)+'K'; return '₹'+Math.round(n); }
-    function calc(){
-      var enq=+i1.value, conv=+i2.value, fee=+i3.value;
-      var now=Math.round(enq*conv/100);
-      var newConv=Math.min(conv*1.4,60);
-      var nw=Math.round(enq*newConv/100);
-      var extra=Math.max(nw-now,0);
-      o1.textContent=enq.toLocaleString('en-IN'); o2.textContent=conv+'%'; o3.textContent=inr(fee);
-      eNow.textContent=now.toLocaleString('en-IN'); eNew.textContent=nw.toLocaleString('en-IN');
-      eEx.textContent='+'+extra.toLocaleString('en-IN'); eRev.textContent=inr(extra*fee);
-    }
-    [i1,i2,i3].forEach(function(s){s.addEventListener('input',calc);}); calc();
-  }
-  /* sticky CTA — show after scrolling past the hero, hide near the final demo form */
-  var bar=document.getElementById('ee-sticky'); 
-  if(bar){
-    var dismissed=false;
-    var x=document.getElementById('eeStickyX'); if(x) x.addEventListener('click',function(){dismissed=true;bar.classList.remove('show');});
-    bar.querySelector('.go').addEventListener('click',function(){bar.classList.remove('show');});
-    var hero=document.getElementById('xhero'), demo=document.getElementById('demo');
-    function upd(){
-      if(dismissed){bar.classList.remove('show');return;}
-      var y=window.pageYOffset, past=hero?(y>hero.offsetHeight*0.9):(y>500);
-      var nearDemo=demo?(y+window.innerHeight > demo.offsetTop+80):false;
-      bar.classList.toggle('show', past && !nearDemo);
-    }
-    window.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd,{passive:true}); upd();
-  }
-})();
-</script>
+</section>
 
 <section class="sec sec--soft" id="faq">
   <div class="container">
