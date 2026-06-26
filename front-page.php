@@ -4163,127 +4163,360 @@ body.vg-open .vg-launch{display:none}
 
 <!-- ===================== PREMIUM BENTO · ADMISSION OS (2026 redesign) ===================== -->
 <style>
-#ee-os{--nv:#19335D;--nv2:#22467c;--or:#DE6E30;--or2:#E8843F;--bg:#F8FAFC;--ink:#0F1F3A;--mut:#5A6B85;--line:rgba(25,51,93,.09);--glass:rgba(255,255,255,.7);position:relative;padding:clamp(72px,9vw,128px) 0;background:linear-gradient(180deg,#fff 0%,var(--bg) 40%,#fff 100%);overflow:hidden;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-#ee-os *{box-sizing:border-box}
-#ee-os .eeos-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
-#ee-os .eeos-blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5}
-#ee-os .eeos-blob.b1{width:540px;height:540px;top:-160px;right:-120px;background:radial-gradient(circle,rgba(222,110,48,.28),transparent 70%)}
-#ee-os .eeos-blob.b2{width:600px;height:600px;bottom:-220px;left:-160px;background:radial-gradient(circle,rgba(25,51,93,.22),transparent 70%)}
-#ee-os .eeos-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(25,51,93,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(25,51,93,.04) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(70% 55% at 50% 35%,#000,transparent 80%);mask-image:radial-gradient(70% 55% at 50% 35%,#000,transparent 80%)}
-#ee-os .eeos-wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 24px}
-#ee-os .eeos-head{max-width:720px;margin:0 auto clamp(40px,5vw,64px);text-align:center}
-#ee-os .eeos-eyebrow{display:inline-flex;align-items:center;gap:9px;font:700 12px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:var(--nv);background:var(--glass);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:999px;padding:9px 16px;box-shadow:0 4px 14px rgba(25,51,93,.06)}
-#ee-os .eeos-dot{width:7px;height:7px;border-radius:50%;background:var(--or);box-shadow:0 0 0 4px rgba(222,110,48,.18)}
-#ee-os .eeos-head h2{font-weight:800;font-size:clamp(30px,4.6vw,52px);line-height:1.06;letter-spacing:-.035em;color:var(--nv);margin:20px 0 16px}
-#ee-os .eeos-head h2 em{font-style:normal;background:linear-gradient(100deg,var(--or),var(--nv2));-webkit-background-clip:text;background-clip:text;color:transparent}
-#ee-os .eeos-head p{font-size:clamp(16px,1.7vw,18.5px);line-height:1.65;color:var(--mut)}
-/* bento grid */
-#ee-os .eeos-bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(176px,auto);gap:18px}
-#ee-os .eeos-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:0 10px 30px -16px rgba(25,51,93,.16);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;overflow:hidden;will-change:transform}
-#ee-os .eeos-card:hover{transform:translateY(-6px);box-shadow:0 28px 60px -24px rgba(25,51,93,.32);border-color:rgba(222,110,48,.4)}
-#ee-os .eeos-card:focus-within{outline:2px solid var(--or);outline-offset:3px}
-#ee-os .eeos-card .eeos-ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(150deg,rgba(25,51,93,.08),rgba(222,110,48,.1));color:var(--nv);margin-bottom:16px}
-#ee-os .eeos-card .eeos-ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-#ee-os .eeos-card h3{font-weight:700;font-size:19px;letter-spacing:-.01em;color:var(--nv);margin:0 0 7px}
-#ee-os .eeos-card p{font-size:14.5px;line-height:1.6;color:var(--mut);margin:0}
-#ee-os .eeos-card .eeos-tag{margin-top:auto;padding-top:16px;font-size:12.5px;font-weight:700;color:var(--or);display:inline-flex;align-items:center;gap:7px}
-#ee-os .eeos-c1{grid-column:span 2;grid-row:span 2}
-#ee-os .eeos-c4{grid-column:span 2}
-#ee-os .eeos-c7{grid-column:span 2}
-#ee-os .eeos-c8{grid-column:span 4}
-/* dark hero card */
-#ee-os .eeos-card--dark{background:radial-gradient(120% 120% at 80% 0%,#22467c,#19335D 55%,#122548);border-color:rgba(255,255,255,.1);color:#fff;justify-content:flex-end}
-#ee-os .eeos-card--dark::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 85% 12%,rgba(222,110,48,.32),transparent 60%);pointer-events:none}
-#ee-os .eeos-card--dark .eeos-ic{background:rgba(255,255,255,.1);color:var(--or2)}
-#ee-os .eeos-card--dark h3{color:#fff;font-size:clamp(22px,2.6vw,30px);margin-bottom:12px}
-#ee-os .eeos-card--dark p{color:rgba(255,255,255,.78);font-size:15.5px;max-width:30ch}
-#ee-os .eeos-card--dark .eeos-bignum{position:relative;font-weight:800;font-size:clamp(40px,6vw,72px);letter-spacing:-.04em;line-height:1;background:linear-gradient(100deg,#fff,#E8843F);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:4px}
-#ee-os .eeos-card--dark .eeos-bignum small{font-size:.4em;color:rgba(255,255,255,.6);-webkit-text-fill-color:rgba(255,255,255,.6);font-weight:600;margin-left:6px}
-/* CTA strip card */
-#ee-os .eeos-card--cta{flex-direction:row;align-items:center;justify-content:space-between;gap:24px;background:linear-gradient(120deg,#fff,#FDF3EC);flex-wrap:wrap}
-#ee-os .eeos-card--cta h3{font-size:clamp(20px,2.4vw,26px);margin:0}
-#ee-os .eeos-card--cta p{margin-top:4px}
-#ee-os .eeos-btn{display:inline-flex;align-items:center;gap:10px;background:var(--or);color:#fff;font-weight:700;font-size:15px;padding:14px 26px;border-radius:13px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.5);transition:transform .25s,box-shadow .25s;cursor:pointer;white-space:nowrap}
-#ee-os .eeos-btn:hover{transform:translateY(-3px);box-shadow:0 20px 40px -10px rgba(222,110,48,.6)}
-#ee-os .eeos-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-/* reveal initial (JS-driven; visible by default for no-JS / a11y) */
-#ee-os [data-eeos-reveal]{opacity:1}
-/* responsive */
-@media(max-width:1024px){
-  #ee-os .eeos-bento{grid-template-columns:repeat(2,1fr)}
-  #ee-os .eeos-c1{grid-column:span 2;grid-row:span 1}
-  #ee-os .eeos-c4,#ee-os .eeos-c7{grid-column:span 2}
-  #ee-os .eeos-c8{grid-column:span 2}
+#ee-os{
+  --eeos-navy:#19335D;
+  --eeos-navy2:#22467c;
+  --eeos-orange:#DE6E30;
+  --eeos-orange2:#E8843F;
+  --eeos-ink:#0F1F3A;
+  --eeos-muted:#5A6B85;
+  --eeos-line:rgba(25,51,93,.09);
+  --eeos-bg:#f6f8fc;
+  position:relative;
+  padding:clamp(64px,8vw,104px) 0;
+  background:
+    radial-gradient(900px 480px at 88% -8%, rgba(222,110,48,.05), transparent 60%),
+    radial-gradient(820px 520px at 6% 4%, rgba(34,70,124,.06), transparent 62%),
+    var(--eeos-bg);
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--eeos-ink);
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
 }
-@media(max-width:560px){
-  #ee-os .eeos-bento{grid-template-columns:1fr;gap:14px}
-  #ee-os .eeos-c1,#ee-os .eeos-c4,#ee-os .eeos-c7,#ee-os .eeos-c8{grid-column:span 1}
-  #ee-os .eeos-card{padding:22px;border-radius:20px}
-  #ee-os .eeos-card--cta{flex-direction:column;align-items:flex-start;text-align:left}
-  #ee-os .eeos-card--cta .eeos-btn{width:100%;justify-content:center}
+#ee-os *{box-sizing:border-box;}
+#ee-os .eeos-container{
+  max-width:1240px;margin:0 auto;padding:0 24px;position:relative;z-index:1;
 }
-@media(prefers-reduced-motion:reduce){#ee-os *{transition:none!important;animation:none!important}}
+
+/* ---------- Header ---------- */
+#ee-os .eeos-head{
+  max-width:760px;margin:0 0 clamp(34px,4vw,56px);
+}
+#ee-os .eeos-pill{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:7px 14px 7px 11px;border-radius:999px;
+  background:rgba(255,255,255,.75);
+  border:1px solid var(--eeos-line);
+  box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 6px 16px -10px rgba(25,51,93,.22);
+  font-size:12.5px;font-weight:600;letter-spacing:.04em;
+  color:var(--eeos-navy);text-transform:uppercase;
+  backdrop-filter:blur(6px);
+}
+#ee-os .eeos-pill .eeos-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:linear-gradient(180deg,var(--eeos-orange2),var(--eeos-orange));
+  box-shadow:0 0 0 4px rgba(222,110,48,.14);
+  animation:eeosPulse 2.8s ease-in-out infinite;
+}
+#ee-os h2{
+  font-family:'Poppins','Inter',sans-serif;
+  margin:18px 0 0;
+  font-size:clamp(28px,4.2vw,46px);
+  line-height:1.07;letter-spacing:-.02em;font-weight:650;
+  color:var(--eeos-ink);
+}
+#ee-os h2 .eeos-grad{
+  background:linear-gradient(96deg,var(--eeos-orange),var(--eeos-orange2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+#ee-os .eeos-sub{
+  margin:16px 0 0;max-width:600px;
+  font-size:clamp(15px,1.4vw,17px);line-height:1.65;color:var(--eeos-muted);
+}
+
+/* ---------- Bento grid ---------- */
+#ee-os .eeos-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:16px;
+}
+#ee-os .eeos-card{
+  position:relative;
+  grid-column:span 2;
+  display:flex;flex-direction:column;
+  padding:22px;
+  background:#fff;
+  border:1px solid var(--eeos-line);
+  border-radius:20px;
+  box-shadow:0 1px 2px rgba(25,51,93,.04), 0 14px 30px -22px rgba(25,51,93,.30);
+  transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
+  opacity:1;
+}
+#ee-os .eeos-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 1px 2px rgba(25,51,93,.05), 0 26px 50px -26px rgba(25,51,93,.40);
+  border-color:rgba(25,51,93,.16);
+}
+#ee-os .eeos-ico{
+  width:42px;height:42px;border-radius:12px;
+  display:grid;place-items:center;margin-bottom:15px;flex:none;
+  background:linear-gradient(180deg,#fff,#f1f5fb);
+  border:1px solid var(--eeos-line);
+  color:var(--eeos-navy2);
+  box-shadow:0 6px 14px -10px rgba(25,51,93,.4);
+}
+#ee-os .eeos-ico svg{width:21px;height:21px;display:block;}
+#ee-os .eeos-card h3{
+  font-family:'Poppins','Inter',sans-serif;
+  margin:0 0 7px;font-size:16.5px;font-weight:600;letter-spacing:-.01em;
+  color:var(--eeos-ink);line-height:1.25;
+}
+#ee-os .eeos-card p{
+  margin:0;font-size:14px;line-height:1.55;color:var(--eeos-muted);
+}
+#ee-os .eeos-link{
+  display:inline-flex;align-items:center;gap:5px;margin-top:14px;
+  font-size:13px;font-weight:600;color:var(--eeos-orange);
+  text-decoration:none;letter-spacing:-.01em;
+  transition:gap .25s ease,color .25s ease;
+}
+#ee-os .eeos-link:hover{gap:9px;color:var(--eeos-orange2);}
+#ee-os .eeos-link svg{width:13px;height:13px;}
+
+/* metric chip inside scoring card */
+#ee-os .eeos-metric{
+  margin-top:auto;padding-top:16px;display:flex;align-items:baseline;gap:8px;
+}
+#ee-os .eeos-metric b{
+  font-family:'Poppins','Inter',sans-serif;
+  font-size:30px;font-weight:680;letter-spacing:-.02em;line-height:1;
+  background:linear-gradient(96deg,var(--eeos-orange),var(--eeos-orange2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+#ee-os .eeos-metric span{font-size:12.5px;color:var(--eeos-muted);font-weight:500;}
+
+/* size variants */
+#ee-os .eeos-tall{grid-row:span 2;}
+#ee-os .eeos-wide{grid-column:span 4;}
+
+/* dark feature card (VidyaGPT) */
+#ee-os .eeos-dark{
+  grid-column:span 2;grid-row:span 2;
+  background:
+    radial-gradient(420px 280px at 84% -10%, rgba(222,110,48,.28), transparent 64%),
+    linear-gradient(165deg,var(--eeos-navy2),var(--eeos-navy) 55%,var(--eeos-ink));
+  border-color:rgba(255,255,255,.10);
+  color:#eaf0fa;
+  box-shadow:0 20px 50px -26px rgba(15,31,58,.7);
+  overflow:hidden;
+}
+#ee-os .eeos-dark::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(2px 2px at 30% 70%,rgba(255,255,255,.35),transparent),
+             radial-gradient(2px 2px at 70% 40%,rgba(255,255,255,.25),transparent),
+             radial-gradient(1.5px 1.5px at 50% 85%,rgba(232,132,63,.4),transparent);
+  opacity:.55;
+}
+#ee-os .eeos-dark .eeos-ico{
+  background:linear-gradient(180deg,rgba(232,132,63,.28),rgba(222,110,48,.16));
+  border-color:rgba(255,255,255,.18);color:#fff;
+}
+#ee-os .eeos-dark h3{color:#fff;font-size:19px;}
+#ee-os .eeos-dark p{color:rgba(228,236,248,.78);font-size:14.5px;}
+#ee-os .eeos-dark .eeos-badge{
+  display:inline-flex;align-items:center;gap:7px;align-self:flex-start;
+  padding:5px 11px;border-radius:999px;margin-bottom:14px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+  font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  color:#fff;
+}
+#ee-os .eeos-dark .eeos-badge i{
+  width:6px;height:6px;border-radius:50%;background:#7ee787;font-style:normal;
+  box-shadow:0 0 0 4px rgba(126,231,135,.18);animation:eeosPulse 2.6s ease-in-out infinite;
+}
+#ee-os .eeos-dark .eeos-link{color:var(--eeos-orange2);}
+#ee-os .eeos-dark .eeos-link:hover{color:#fff;}
+#ee-os .eeos-langs{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;
+}
+#ee-os .eeos-langs span{
+  padding:4px 9px;border-radius:8px;font-size:11.5px;font-weight:500;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  color:rgba(228,236,248,.85);
+}
+
+/* CTA card */
+#ee-os .eeos-cta{
+  grid-column:span 6;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:22px;
+  padding:30px clamp(24px,3vw,40px);
+  background:
+    radial-gradient(520px 320px at 92% 120%, rgba(222,110,48,.30), transparent 60%),
+    linear-gradient(120deg,var(--eeos-navy),var(--eeos-ink));
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:22px;color:#fff;
+  box-shadow:0 24px 54px -28px rgba(15,31,58,.7);
+}
+#ee-os .eeos-cta:hover{transform:none;}
+#ee-os .eeos-cta-txt{max-width:640px;}
+#ee-os .eeos-cta h3{
+  font-family:'Poppins','Inter',sans-serif;
+  margin:0 0 8px;font-size:clamp(19px,2.2vw,24px);font-weight:620;letter-spacing:-.01em;color:#fff;
+}
+#ee-os .eeos-cta p{margin:0;font-size:15px;line-height:1.55;color:rgba(228,236,248,.78);}
+#ee-os .eeos-btn{
+  display:inline-flex;align-items:center;gap:9px;flex:none;
+  padding:14px 26px;border-radius:12px;
+  background:linear-gradient(180deg,var(--eeos-orange2),var(--eeos-orange));
+  color:#fff;font-weight:650;font-size:15px;letter-spacing:-.01em;
+  text-decoration:none;
+  box-shadow:0 10px 24px -10px rgba(222,110,48,.7), 0 1px 0 rgba(255,255,255,.25) inset;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+#ee-os .eeos-btn:hover{transform:translateY(-2px);box-shadow:0 16px 32px -12px rgba(222,110,48,.8);}
+#ee-os .eeos-btn svg{width:16px;height:16px;}
+
+/* focus-visible */
+#ee-os a:focus-visible,#ee-os .eeos-btn:focus-visible{
+  outline:3px solid var(--eeos-orange);outline-offset:3px;border-radius:8px;
+}
+
+/* subtle entrance (safe: starts visible) */
+@media (prefers-reduced-motion:no-preference){
+  #ee-os .eeos-reveal{animation:eeosRise .7s cubic-bezier(.2,.7,.2,1) both;}
+}
+@keyframes eeosRise{from{opacity:.001;transform:translateY(14px);}to{opacity:1;transform:none;}}
+@keyframes eeosPulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(.82);opacity:.65;}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  #ee-os .eeos-grid{grid-template-columns:repeat(4,1fr);}
+  #ee-os .eeos-card{grid-column:span 2;}
+  #ee-os .eeos-wide{grid-column:span 4;}
+  #ee-os .eeos-dark{grid-column:span 4;grid-row:auto;}
+  #ee-os .eeos-tall{grid-row:auto;}
+  #ee-os .eeos-cta{grid-column:span 4;}
+}
+@media (max-width:560px){
+  #ee-os .eeos-grid{grid-template-columns:1fr;gap:14px;}
+  #ee-os .eeos-card,
+  #ee-os .eeos-wide,
+  #ee-os .eeos-dark,
+  #ee-os .eeos-cta{grid-column:span 1;}
+  #ee-os .eeos-cta{flex-direction:column;align-items:flex-start;}
+  #ee-os .eeos-btn{width:100%;justify-content:center;}
+}
 </style>
 
-
 <section id="ee-os" aria-label="The complete Admission Operating System">
-  <div class="eeos-bg" aria-hidden="true"><span class="eeos-blob b1"></span><span class="eeos-blob b2"></span><span class="eeos-grid"></span></div>
-  <div class="eeos-wrap">
-    <header class="eeos-head" data-eeos-reveal>
-      <span class="eeos-eyebrow"><span class="eeos-dot"></span> The Admission Operating System</span>
-      <h2>Every tool your team needs — <em>in one intelligent platform.</em></h2>
-      <p>From first enquiry to enrolled, ExtraaEdge unifies capture, AI engagement, scoring and analytics — so nothing leaks and no lead ever goes cold.</p>
+  <div class="eeos-container">
+
+    <header class="eeos-head eeos-reveal">
+      <span class="eeos-pill"><span class="eeos-dot"></span>The Admission Operating System</span>
+      <h2>Every tool your team needs — <span class="eeos-grad">in one intelligent platform.</span></h2>
+      <p class="eeos-sub">From first enquiry to enrolled, ExtraaEdge unifies capture, AI engagement, scoring and analytics — so nothing leaks and no lead ever goes cold.</p>
     </header>
-    <div class="eeos-bento">
-      <article class="eeos-card eeos-card--dark eeos-c1" tabindex="0" data-eeos-reveal>
-        <div class="eeos-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
-        <div class="eeos-bignum">2.4&times;<small>faster conversions</small></div>
+
+    <div class="eeos-grid">
+
+      <!-- AI Lead Scoring : tall + metric -->
+      <article class="eeos-card eeos-tall eeos-reveal">
+        <div class="eeos-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg>
+        </div>
         <h3>AI Lead Scoring</h3>
-        <p>Every lead scored 0&ndash;100 on real buying intent — your counsellors always call the hottest applicant first.</p>
+        <p>Every lead scored 0–100 on real buying intent — counsellors always call the hottest applicant first.</p>
+        <div class="eeos-metric"><b>2.4×</b><span>faster conversions</span></div>
       </article>
-      <article class="eeos-card eeos-c2" tabindex="0" data-eeos-reveal>
-        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.5 7.3L3 21l2.2-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg></div>
+
+      <!-- WhatsApp Automation -->
+      <article class="eeos-card eeos-reveal">
+        <div class="eeos-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.2-5.6A8.4 8.4 0 1 1 21 11.5Z"/><path d="M8.5 9.3c0 4 2.7 6.4 6.2 6.4.6 0 1.1-.6 1-1.2l-.2-1-2 .3-1.6-2 .4-1.9-1-.2c-.6-.1-1.2.4-1.3 1Z" fill="currentColor" stroke="none"/></svg>
+        </div>
         <h3>WhatsApp Automation</h3>
         <p>Verified, personalised conversations at scale — official Business API.</p>
       </article>
-      <article class="eeos-card eeos-c3" tabindex="0" data-eeos-reveal>
-        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div>
+
+      <!-- AI Calling Agent -->
+      <article class="eeos-card eeos-reveal">
+        <div class="eeos-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16.9v2.6a2 2 0 0 1-2.2 2 19.5 19.5 0 0 1-8.5-3 19.2 19.2 0 0 1-5.9-5.9 19.5 19.5 0 0 1-3-8.6A2 2 0 0 1 3.4 4H6a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.4 2.1l-1.1 1.1a16 16 0 0 0 5.9 5.9l1.1-1.1a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+        </div>
         <h3>AI Calling Agent</h3>
         <p>Calls every new lead in seconds and books counselling slots — 24/7.</p>
       </article>
-      <article class="eeos-card eeos-c4" tabindex="0" data-eeos-reveal>
-        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></div>
-        <h3>Counsellor Intelligence</h3>
-        <p>Live performance, smart routing by language &amp; course, and warm, fully-briefed handovers — your team closes faster with full context.</p>
-        <span class="eeos-tag">Real-time dashboards &rarr;</span>
+
+      <!-- VidyaGPT : DARK feature, 2x2 -->
+      <article class="eeos-card eeos-dark eeos-reveal">
+        <span class="eeos-badge"><i></i>24/7 AI Agent</span>
+        <div class="eeos-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 7V4M9 12h.01M15 12h.01M9 15.5c.9.7 4.1.7 5 0"/><path d="M2 12v2M22 12v2"/></svg>
+        </div>
+        <h3>VidyaGPT</h3>
+        <p>Answers fees, courses, scholarships &amp; deadlines instantly across web &amp; WhatsApp — in 95+ languages — and hands hot leads to your team.</p>
+        <div class="eeos-langs">
+          <span>English</span><span>हिन्दी</span><span>मराठी</span><span>தமிழ்</span><span>తెలుగు</span><span>+90 more</span>
+        </div>
+        <a class="eeos-link" href="#ee-vidya-suite">Meet VidyaAI
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </article>
-      <article class="eeos-card eeos-c5" tabindex="0" data-eeos-reveal>
-        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8"/></svg></div>
+
+      <!-- Counsellor Intelligence : wide -->
+      <article class="eeos-card eeos-wide eeos-reveal">
+        <div class="eeos-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 8.2a3 3 0 0 1 0 5.6M17.5 20a6 6 0 0 0-3-5.2"/></svg>
+        </div>
+        <h3>Counsellor Intelligence</h3>
+        <p>Live performance, smart routing by language &amp; course, and warm, fully-briefed handovers.</p>
+        <a class="eeos-link" href="#platform">Real-time dashboards
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+
+      <!-- Application Tracking -->
+      <article class="eeos-card eeos-reveal">
+        <div class="eeos-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-2"/><path d="M14 3v4h4"/><path d="M3 11l2 2 4-4"/></svg>
+        </div>
         <h3>Application Tracking</h3>
         <p>Every application stage, document &amp; fee in one pipeline.</p>
       </article>
-      <article class="eeos-card eeos-c6" tabindex="0" data-eeos-reveal>
-        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 2 5-7"/></svg></div>
+
+      <!-- Funnel Analytics -->
+      <article class="eeos-card eeos-reveal">
+        <div class="eeos-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8v6l-4-2v-4L3 5Z"/></svg>
+        </div>
         <h3>Funnel Analytics</h3>
         <p>Source-to-enrolment ROI, in real time.</p>
       </article>
-      <article class="eeos-card eeos-c7" tabindex="0" data-eeos-reveal>
-        <div class="eeos-ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 14l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6z"/></svg></div>
-        <h3>VidyaGPT &middot; 24/7 AI Agent</h3>
-        <p>Answers fees, courses, scholarships &amp; deadlines instantly across web and WhatsApp — in 95+ languages — and hands hot leads to your team.</p>
-        <span class="eeos-tag">Meet VidyaAI &rarr;</span>
-      </article>
-      <article class="eeos-card eeos-card--cta eeos-c8" data-eeos-reveal>
-        <div>
+
+      <!-- CTA -->
+      <article class="eeos-card eeos-cta eeos-reveal">
+        <div class="eeos-cta-txt">
           <h3>See the entire platform working on your funnel.</h3>
           <p>A 30-minute walkthrough mapped to your courses, sources &amp; team.</p>
         </div>
-        <a href="#demo" class="eeos-btn">Book a Free Demo <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+        <a class="eeos-btn" href="#demo">Book a Free Demo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </article>
+
     </div>
   </div>
+
+  <script>
+  (function(){
+    var sec=document.getElementById('ee-os');
+    if(!sec)return;
+    if(!('IntersectionObserver'in window)||window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var items=sec.querySelectorAll('.eeos-reveal');
+    items.forEach(function(el){el.style.animationPlayState='paused';});
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.style.animationDelay=(Math.min(e.target.__i||0,8)*55)+'ms';
+          e.target.style.animationPlayState='running';
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    items.forEach(function(el,i){el.__i=i;io.observe(el);});
+  })();
+  </script>
 </section>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script>
 window.addEventListener('load',function(){
@@ -4590,213 +4823,415 @@ window.addEventListener('load',function(){
 <!-- ===================== Counsellor Intelligence (scoped #platform) ===================== -->
 <style>
 #platform{
-  --orange:#DE6E30;
-  --blue:#19335D;
-  --white:#FFFFFF;
-  --blue-70:rgba(25,51,93,.70);
-  --blue-55:rgba(25,51,93,.55);
-  --blue-12:rgba(25,51,93,.12);
-  --blue-08:rgba(25,51,93,.08);
-  --blue-04:rgba(25,51,93,.04);
-  --orange-12:rgba(222,110,48,.12);
-  --orange-08:rgba(222,110,48,.08);
-  --radius:18px;
-  --shadow:0 24px 60px -24px rgba(25,51,93,.22);
-  font-size:16px;
+  --ci-navy:#19335D;--ci-navy2:#22467c;--ci-orange:#DE6E30;--ci-orange2:#E8843F;
+  --ci-ink:#0F1F3A;--ci-muted:#5A6B85;--ci-hair:rgba(25,51,93,.09);--ci-bg:#f6f8fc;
+  --ci-green:#16a34a;--ci-amber:#d97706;
+  background:var(--ci-bg);
+  padding:clamp(64px,8vw,104px) 0;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  color:var(--ci-ink);
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
 }
-#platform *{margin:0;padding:0;box-sizing:border-box}
-#platform{font-family:'Inter',sans-serif;background:var(--white);color:var(--blue);-webkit-font-smoothing:antialiased}
-#platform{position:relative;padding:104px 0;overflow:hidden;background:var(--white)}
-#platform::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(900px 500px at 88% 8%, var(--orange-08), transparent 60%),radial-gradient(700px 460px at 0% 100%, var(--blue-04), transparent 60%);}
-#platform .ci-container{max-width:1240px;margin:0 auto;padding:0 28px;position:relative}
-#platform .ci-split{display:grid;grid-template-columns:0.86fr 1.14fr;gap:64px;align-items:center}
-#platform .ci-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);background:var(--white);border:1px solid var(--blue-12);padding:8px 14px;border-radius:999px;box-shadow:0 2px 10px var(--blue-08);}
-#platform .ci-dot{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:ci-pulse 1.8s ease-out infinite}
-@keyframes ci-pulse{0%{box-shadow:0 0 0 0 rgba(222,110,48,.45)}70%{box-shadow:0 0 0 9px rgba(222,110,48,0)}100%{box-shadow:0 0 0 0 rgba(222,110,48,0)}}
-#platform .ci-h2{font-weight:800;font-size:clamp(2.05rem,3.5vw,2.9rem);line-height:1.12;letter-spacing:-.025em;margin:22px 0 18px;color:var(--blue);}
-#platform .ci-h2 em{font-style:normal;color:var(--orange)}
-#platform .ci-lead{font-size:1.05rem;line-height:1.65;color:var(--blue-70);max-width:46ch}
-#platform .ci-feats{margin-top:34px;display:flex;flex-direction:column}
-#platform .ci-feat{display:grid;grid-template-columns:46px 1fr auto;gap:16px;align-items:center;padding:18px 4px;border-top:1px solid var(--blue-12);transition:background .25s ease,padding-left .25s ease;cursor:default;}
-#platform .ci-feat:last-of-type{border-bottom:1px solid var(--blue-12)}
-#platform .ci-feat:hover{background:var(--orange-08);padding-left:12px;border-radius:12px}
-#platform .ci-feat__ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:1.2rem;background:var(--white);border:1px solid var(--blue-12);box-shadow:0 4px 12px var(--blue-08);}
-#platform .ci-feat b{display:block;font-size:.98rem;font-weight:700;margin-bottom:3px;color:var(--blue)}
-#platform .ci-feat span.d{display:block;font-size:.86rem;color:var(--blue-70);line-height:1.5}
-#platform .ci-feat .stat{font-weight:800;font-size:1.2rem;color:var(--orange);white-space:nowrap;letter-spacing:-.02em}
-#platform .ci-feat .stat small{display:block;font-weight:600;font-size:.6rem;color:var(--blue-55);letter-spacing:.08em;text-transform:uppercase;text-align:right}
-#platform .ci-ctas{display:flex;align-items:center;gap:18px;margin-top:30px;flex-wrap:wrap}
-#platform .ci-btn{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:var(--white);text-decoration:none;font-weight:600;font-size:.92rem;padding:15px 26px;border-radius:999px;transition:transform .2s ease,box-shadow .2s ease,background .2s;}
-#platform .ci-btn:hover{transform:translateY(-2px);background:var(--orange);box-shadow:0 14px 30px -12px rgba(222,110,48,.5)}
-#platform .ci-btn svg{transition:transform .2s}
-#platform .ci-btn:hover svg{transform:translateX(4px)}
-#platform .ci-link{font-size:.9rem;font-weight:600;color:var(--blue);text-decoration:none;border-bottom:2px solid var(--orange);padding-bottom:2px}
-#platform .ci-link:hover{color:var(--orange)}
-#platform .ci-dash{background:var(--white);border:1px solid var(--blue-12);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transform:perspective(1400px) rotateY(-2.5deg) rotateX(1deg);transition:transform .5s ease;}
-#platform .ci-dash:hover{transform:perspective(1400px) rotateY(0) rotateX(0)}
-#platform .ci-bar{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--blue-12);background:var(--blue-04);}
-#platform .ci-traffic{display:flex;gap:6px}
-#platform .ci-traffic i{width:9px;height:9px;border-radius:50%}
-#platform .ci-traffic i:nth-child(1){background:var(--orange)}
-#platform .ci-traffic i:nth-child(2){background:rgba(222,110,48,.5)}
-#platform .ci-traffic i:nth-child(3){background:var(--blue-12)}
-#platform .ci-url{flex:1;font-size:.74rem;color:var(--blue-70);background:var(--white);border:1px solid var(--blue-12);border-radius:8px;padding:6px 12px;text-align:center;}
-#platform .ci-live{display:inline-flex;align-items:center;gap:7px;font-size:.7rem;font-weight:700;color:var(--orange);letter-spacing:.05em}
-#platform .ci-live i{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:ci-pulse 1.6s infinite}
-#platform .ci-tabs{display:flex;gap:6px;padding:14px 18px 0}
-#platform .ci-tab{border:1px solid var(--blue-12);background:var(--white);color:var(--blue-70);font-family:'Inter',sans-serif;font-size:.74rem;font-weight:600;padding:7px 16px;border-radius:999px;cursor:pointer;transition:all .2s;}
-#platform .ci-tab.on{background:var(--blue);color:var(--white);border-color:var(--blue)}
-#platform .ci-tab:not(.on):hover{border-color:var(--blue)}
-#platform .ci-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 18px 4px}
-#platform .ci-kpi{background:var(--blue-04);border:1px solid var(--blue-12);border-radius:13px;padding:12px 14px;transition:transform .2s,box-shadow .2s;}
-#platform .ci-kpi:hover{transform:translateY(-3px);box-shadow:0 10px 22px -12px rgba(25,51,93,.3)}
-#platform .ci-kpi .l{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-55)}
-#platform .ci-kpi .v{font-weight:800;font-size:1.4rem;margin-top:4px;color:var(--blue);letter-spacing:-.02em}
-#platform .ci-kpi .t{font-size:.66rem;font-weight:600;margin-top:3px}
-#platform .t.up{color:var(--blue-70)}
-#platform .t.dn{color:var(--orange)}
-#platform .ci-label{display:flex;justify-content:space-between;align-items:baseline;padding:16px 18px 8px;font-size:.78rem;font-weight:700;color:var(--blue)}
-#platform .ci-label span{font-weight:400;font-size:.68rem;color:var(--blue-55)}
-#platform .ci-funnel{display:flex;flex-direction:column;gap:6px;padding:0 18px}
-#platform .ci-stage{display:grid;grid-template-columns:96px 1fr 64px;gap:12px;align-items:center;font-size:.74rem}
-#platform .ci-stage .n{color:var(--blue-70);font-weight:500}
-#platform .ci-stage .bar{height:22px;border-radius:7px;background:var(--blue-08);overflow:hidden;position:relative}
-#platform .ci-stage .bar i{display:block;height:100%;border-radius:7px;width:0;background:linear-gradient(90deg,var(--blue),rgba(25,51,93,.75));transition:width 1.1s cubic-bezier(.22,.8,.3,1);position:relative;}
-#platform .ci-stage .bar i::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);transform:translateX(-100%);animation:ci-sheen 3.2s ease infinite;}
-@keyframes ci-sheen{60%{transform:translateX(100%)}100%{transform:translateX(100%)}}
-#platform .ci-stage .c{font-weight:700;text-align:right;font-variant-numeric:tabular-nums;color:var(--blue)}
-#platform .ci-stage.alert .bar i{background:linear-gradient(90deg,var(--orange),rgba(222,110,48,.8))}
-#platform .ci-stuck{margin:10px 18px 0;display:flex;align-items:center;gap:10px;background:var(--orange-08);border:1px solid rgba(222,110,48,.3);border-radius:11px;padding:9px 13px;font-size:.74rem;color:var(--blue-70);}
-#platform .ci-stuck b{color:var(--orange)}
-#platform .ci-stuck .fix{margin-left:auto;font-weight:700;font-size:.7rem;color:var(--orange);cursor:pointer;white-space:nowrap}
-#platform .ci-leadb{padding:4px 18px 6px;display:flex;flex-direction:column;gap:5px}
-#platform .ci-row{display:grid;grid-template-columns:34px 1fr 110px 44px 70px;gap:11px;align-items:center;padding:8px 10px;border-radius:11px;font-size:.78rem;transition:background .2s;}
-#platform .ci-row:hover{background:var(--orange-08)}
-#platform .ci-av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:.66rem;font-weight:700;color:var(--white);background:var(--blue);}
-#platform .ci-row:nth-child(1) .ci-av{background:var(--orange)}
-#platform .ci-row:nth-child(3) .ci-av{background:rgba(25,51,93,.75)}
-#platform .ci-row:nth-child(4) .ci-av{background:rgba(25,51,93,.55)}
-#platform .ci-row .nm b{display:block;font-weight:600;color:var(--blue)}
-#platform .ci-row .nm small{color:var(--blue-55);font-size:.64rem}
-#platform .ci-track{height:7px;border-radius:99px;background:var(--blue-08);overflow:hidden}
-#platform .ci-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--orange),rgba(222,110,48,.75));width:0;transition:width 1.2s cubic-bezier(.22,.8,.3,1)}
-#platform .ci-pct{font-weight:700;text-align:right;font-variant-numeric:tabular-nums;color:var(--blue)}
-#platform .ci-tag{font-size:.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-align:center;padding:4px 0;border-radius:99px}
-#platform .ci-tag.top{background:var(--blue);color:var(--white)}
-#platform .ci-tag.ok{background:var(--blue-08);color:var(--blue-70)}
-#platform .ci-tag.coach{background:var(--orange-12);color:var(--orange)}
-#platform .ci-feed{border-top:1px solid var(--blue-12);background:var(--blue-04);padding:12px 18px 16px}
-#platform .ci-feed .hd{display:flex;align-items:center;gap:8px;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-55);margin-bottom:9px}
-#platform .ci-feed .hd i{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:ci-pulse 1.6s infinite}
-#platform .ci-feed-item{display:flex;gap:9px;align-items:center;font-size:.74rem;color:var(--blue-70);padding:5px 0;animation:ci-slideIn .45s ease both;}
-#platform .ci-feed-item b{color:var(--blue);font-weight:600}
-#platform .ci-feed-item .tm{margin-left:auto;font-size:.64rem;color:var(--blue-55);white-space:nowrap}
-@keyframes ci-slideIn{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
-#platform .rv2{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
-#platform .rv2.in{opacity:1;transform:none}
-@media(max-width:980px){#platform .ci-split{grid-template-columns:1fr;gap:44px}
-#platform .ci-dash{transform:none}
-#platform .ci-kpis{grid-template-columns:repeat(2,1fr)}
-#platform .ci-row{grid-template-columns:34px 1fr 44px 70px}
-#platform .ci-track{display:none}}
+#platform *{box-sizing:border-box;}
+#platform .ci-wrap{
+  max-width:1240px;margin:0 auto;padding:0 24px;
+  display:grid;grid-template-columns:1fr 1.08fr;gap:clamp(40px,5vw,72px);align-items:center;
+}
+
+/* ---------- Copy column ---------- */
+#platform .ci-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ci-orange);margin:0 0 18px;
+}
+#platform .ci-eyebrow::before{
+  content:"";width:22px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--ci-orange),var(--ci-orange2));
+}
+#platform h2{
+  font-family:'Poppins','Inter',sans-serif;
+  font-size:clamp(28px,3.6vw,46px);line-height:1.08;font-weight:700;
+  letter-spacing:-.02em;margin:0 0 18px;color:var(--ci-ink);
+}
+#platform .ci-sub{
+  font-size:clamp(15px,1.15vw,17px);line-height:1.62;color:var(--ci-muted);
+  margin:0 0 32px;max-width:520px;
+}
+#platform .ci-points{list-style:none;margin:0 0 34px;padding:0;display:grid;gap:14px;}
+#platform .ci-point{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;
+  padding:16px 18px;background:#fff;border:1px solid var(--ci-hair);
+  border-radius:16px;box-shadow:0 1px 2px rgba(15,31,58,.04);
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+#platform .ci-point:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px -14px rgba(25,51,93,.28);
+  border-color:rgba(222,110,48,.35);
+}
+#platform .ci-ic{
+  width:42px;height:42px;flex:none;display:grid;place-items:center;border-radius:12px;
+  background:linear-gradient(135deg,rgba(34,70,124,.1),rgba(222,110,48,.12));
+  color:var(--ci-navy2);
+}
+#platform .ci-ic svg{width:21px;height:21px;}
+#platform .ci-pt-title{font-weight:650;font-size:15px;color:var(--ci-ink);margin:0 0 3px;font-family:'Poppins','Inter',sans-serif;}
+#platform .ci-pt-desc{font-size:13px;line-height:1.45;color:var(--ci-muted);margin:0;}
+#platform .ci-stat{
+  flex:none;font-size:12px;font-weight:700;color:var(--ci-orange);
+  background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.18);
+  padding:6px 11px;border-radius:999px;white-space:nowrap;align-self:start;
+}
+#platform .ci-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  font-weight:650;font-size:15px;text-decoration:none;color:#fff;
+  background:linear-gradient(135deg,var(--ci-orange),var(--ci-orange2));
+  padding:15px 28px;border-radius:12px;
+  box-shadow:0 12px 28px -10px rgba(222,110,48,.6);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+#platform .ci-cta:hover{transform:translateY(-2px);box-shadow:0 16px 34px -10px rgba(222,110,48,.7);}
+#platform .ci-cta svg{width:17px;height:17px;transition:transform .2s ease;}
+#platform .ci-cta:hover svg{transform:translateX(3px);}
+#platform a:focus-visible{outline:3px solid var(--ci-navy2);outline-offset:3px;border-radius:12px;}
+
+/* ---------- Dashboard column ---------- */
+#platform .ci-dash{
+  border-radius:20px;
+  background:linear-gradient(160deg,#1a3157 0%,#0f2342 55%,#0c1c38 100%);
+  box-shadow:0 40px 80px -30px rgba(11,28,56,.55),0 0 0 1px rgba(255,255,255,.04);
+  overflow:hidden;color:#e8eefb;position:relative;
+}
+#platform .ci-dash::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 80% at 90% -10%,rgba(222,110,48,.16),transparent 55%);
+}
+/* browser bar */
+#platform .ci-bar{
+  display:flex;align-items:center;gap:12px;padding:13px 16px;
+  background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);
+  position:relative;z-index:1;
+}
+#platform .ci-dots{display:flex;gap:6px;}
+#platform .ci-dots i{width:11px;height:11px;border-radius:50%;display:block;}
+#platform .ci-dots i:nth-child(1){background:#ff5f57;}
+#platform .ci-dots i:nth-child(2){background:#febc2e;}
+#platform .ci-dots i:nth-child(3){background:#28c840;}
+#platform .ci-url{
+  flex:1;display:flex;align-items:center;gap:8px;
+  background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.06);
+  border-radius:8px;padding:6px 12px;font-size:12px;color:#aec0e0;min-width:0;
+}
+#platform .ci-url svg{width:12px;height:12px;flex:none;opacity:.7;}
+#platform .ci-url span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#platform .ci-live{
+  display:inline-flex;align-items:center;gap:6px;flex:none;
+  font-size:11px;font-weight:700;letter-spacing:.08em;color:#5be08a;
+  background:rgba(40,200,64,.12);border:1px solid rgba(40,200,64,.28);
+  padding:5px 10px;border-radius:999px;
+}
+#platform .ci-live i{width:7px;height:7px;border-radius:50%;background:#28c840;animation:ciPulse 1.8s infinite;}
+
+/* tabs */
+#platform .ci-tabs{
+  display:flex;gap:4px;padding:12px 18px 0;position:relative;z-index:1;
+}
+#platform .ci-tab{
+  font-size:12.5px;font-weight:600;color:#8ea4c9;
+  padding:8px 14px;border-radius:8px 8px 0 0;cursor:default;
+}
+#platform .ci-tab.is-on{color:#fff;background:rgba(255,255,255,.06);position:relative;}
+#platform .ci-tab.is-on::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--ci-orange),var(--ci-orange2));
+}
+
+#platform .ci-body{padding:18px;position:relative;z-index:1;}
+
+/* KPI tiles */
+#platform .ci-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+#platform .ci-kpi{
+  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:13px 14px;
+}
+#platform .ci-kpi-l{font-size:11px;color:#92a6cb;font-weight:600;margin-bottom:6px;letter-spacing:.02em;}
+#platform .ci-kpi-v{font-family:'Poppins','Inter',sans-serif;font-size:22px;font-weight:700;color:#fff;line-height:1;}
+#platform .ci-kpi-d{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;margin-top:7px;}
+#platform .ci-up{color:#5be08a;}
+#platform .ci-warn{color:#ffb259;}
+#platform .ci-kpi-d svg{width:11px;height:11px;}
+
+/* section heading inside dash */
+#platform .ci-h{font-size:12px;font-weight:700;color:#b6c6e4;letter-spacing:.04em;text-transform:uppercase;margin:0 0 11px;}
+
+/* pipeline bars */
+#platform .ci-pipe{
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:15px 16px;margin-bottom:14px;
+}
+#platform .ci-bars{display:grid;gap:11px;}
+#platform .ci-brow{display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:12px;}
+#platform .ci-blabel{font-size:12px;color:#cdd9ef;font-weight:500;}
+#platform .ci-btrack{height:9px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden;position:relative;}
+#platform .ci-bfill{
+  height:100%;border-radius:6px;width:var(--w,50%);
+  background:linear-gradient(90deg,var(--ci-orange),var(--ci-orange2));
+  transition:width 1.1s cubic-bezier(.22,1,.36,1);
+}
+#platform .ci-brow:nth-child(2) .ci-bfill{background:linear-gradient(90deg,#3a6cb5,#4d83d6);}
+#platform .ci-brow:nth-child(3) .ci-bfill{background:linear-gradient(90deg,#4d83d6,#6aa0e8);}
+#platform .ci-bval{font-size:12.5px;font-weight:700;color:#fff;min-width:42px;text-align:right;font-variant-numeric:tabular-nums;}
+
+/* alert chip */
+#platform .ci-alert{
+  display:flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,rgba(217,119,6,.16),rgba(222,110,48,.12));
+  border:1px solid rgba(255,178,89,.32);border-radius:10px;
+  padding:11px 13px;font-size:12.5px;color:#ffd9b0;line-height:1.4;margin-bottom:16px;
+}
+#platform .ci-alert b{color:#fff;font-weight:700;}
+#platform .ci-alert .ci-al-ic{flex:none;font-size:14px;line-height:1;}
+#platform .ci-alert .ci-al-cta{
+  margin-left:auto;flex:none;color:#fff;font-weight:700;text-decoration:underline;
+  text-underline-offset:2px;white-space:nowrap;font-size:12px;
+}
+
+/* leaderboard */
+#platform .ci-lead{
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:15px 16px;margin-bottom:14px;
+}
+#platform .ci-lrow{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:11px;padding:8px 0;}
+#platform .ci-lrow+.ci-lrow{border-top:1px solid rgba(255,255,255,.05);}
+#platform .ci-av{
+  width:32px;height:32px;border-radius:9px;flex:none;display:grid;place-items:center;
+  font-size:11px;font-weight:700;color:#fff;letter-spacing:.02em;
+}
+#platform .ci-av.c1{background:linear-gradient(135deg,#de6e30,#e8843f);}
+#platform .ci-av.c2{background:linear-gradient(135deg,#3a6cb5,#4d83d6);}
+#platform .ci-av.c3{background:linear-gradient(135deg,#5b4bb5,#7d6ad6);}
+#platform .ci-av.c4{background:linear-gradient(135deg,#3e556f,#566f8c);}
+#platform .ci-lname{font-size:13px;font-weight:600;color:#fff;line-height:1.2;}
+#platform .ci-lmeta{font-size:11px;color:#90a4c9;margin-top:2px;font-variant-numeric:tabular-nums;}
+#platform .ci-lpct{font-size:14px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
+#platform .ci-tag{
+  font-size:10px;font-weight:700;padding:4px 9px;border-radius:999px;white-space:nowrap;letter-spacing:.02em;
+}
+#platform .ci-tag.top{color:#5be08a;background:rgba(40,200,64,.13);border:1px solid rgba(40,200,64,.28);}
+#platform .ci-tag.ok{color:#8fb4ea;background:rgba(77,131,214,.14);border:1px solid rgba(77,131,214,.3);}
+#platform .ci-tag.coach{color:#ffb259;background:rgba(217,119,6,.14);border:1px solid rgba(255,178,89,.3);}
+
+/* live feed */
+#platform .ci-feed{
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:15px 16px;
+}
+#platform .ci-fitem{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:11px;padding:8px 0;font-size:12.5px;color:#d2deef;line-height:1.4;}
+#platform .ci-fitem+.ci-fitem{border-top:1px solid rgba(255,255,255,.05);}
+#platform .ci-fic{font-size:14px;line-height:1;flex:none;}
+#platform .ci-fitem b{color:#fff;font-weight:650;}
+#platform .ci-ftime{font-size:11px;color:#7e93ba;white-space:nowrap;font-variant-numeric:tabular-nums;}
+
+/* ---------- Responsive ---------- */
+@media(max-width:980px){
+  #platform .ci-wrap{grid-template-columns:1fr;gap:44px;}
+  #platform .ci-sub{max-width:none;}
+  #platform .ci-dash{max-width:560px;}
+}
+@media(max-width:560px){
+  #platform .ci-kpis{grid-template-columns:1fr;}
+  #platform .ci-point{grid-template-columns:auto 1fr;gap:13px;padding:14px;}
+  #platform .ci-stat{grid-column:2;justify-self:start;margin-top:2px;}
+  #platform .ci-brow{grid-template-columns:70px 1fr auto;gap:9px;}
+  #platform .ci-blabel{font-size:11px;}
+  #platform .ci-alert{flex-wrap:wrap;}
+  #platform .ci-alert .ci-al-cta{margin-left:0;}
+  #platform .ci-body{padding:14px;}
+}
+
+@keyframes ciPulse{0%{box-shadow:0 0 0 0 rgba(40,200,64,.5);}70%{box-shadow:0 0 0 7px rgba(40,200,64,0);}100%{box-shadow:0 0 0 0 rgba(40,200,64,0);}}
+@media(prefers-reduced-motion:reduce){
+  #platform .ci-bfill{transition:none;}
+  #platform .ci-live i{animation:none;}
+}
 </style>
 
-<section class="ci-sec" id="platform">
-  <div class="ci-container ci-split">
+<section class="ci-sec" id="platform" aria-label="Counsellor Intelligence">
+  <div class="ci-wrap">
 
-    <!-- LEFT -->
-    <div class="rv2">
-      <span class="ci-eyebrow"><span class="ci-dot"></span> Counsellor Intelligence</span>
-      <h2 class="ci-h2">Every admission. Tracked.<br><em>Moving forward.</em></h2>
-      <p class="ci-lead">Your entire admission team on one live screen — who is converting, who needs coaching, and exactly where each lead is stuck. No exports. No guesswork. Just numbers that update as your team works.</p>
+    <!-- ===== Copy ===== -->
+    <div class="ci-copy">
+      <p class="ci-eyebrow">Counsellor Intelligence</p>
+      <h2>Every admission. Tracked. Moving forward.</h2>
+      <p class="ci-sub">Your entire admission team on one live screen — who is converting, who needs coaching, and exactly where each lead is stuck. No exports. No guesswork. Just numbers that update as your team works.</p>
 
-      <div class="ci-feats">
-        <div class="ci-feat">
-          <div class="ci-feat__ic">🎯</div>
-          <div><b>Funnel Management</b><span class="d">Spot the exact stage where leads stall and clear bottlenecks before the cycle slips.</span></div>
-          <div class="stat">0<small>leads lost</small></div>
-        </div>
-        <div class="ci-feat">
-          <div class="ci-feat__ic">🔔</div>
-          <div><b>Smart Follow-ups</b><span class="d">Auto-triggers fire reminders, WhatsApp nudges and call tasks at the right moment.</span></div>
-          <div class="stat">+65%<small>engagement</small></div>
-        </div>
-        <div class="ci-feat">
-          <div class="ci-feat__ic">📊</div>
-          <div><b>Real-time Insights</b><span class="d">See top-performing sources, courses and counsellors the moment trends shift.</span></div>
-          <div class="stat">1.4m<small>avg response</small></div>
-        </div>
-      </div>
+      <ul class="ci-points">
+        <li class="ci-point">
+          <span class="ci-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>
+          </span>
+          <span>
+            <span class="ci-pt-title">Funnel Management</span>
+            <p class="ci-pt-desc">Spot the exact stage where leads stall and clear bottlenecks before the cycle slips.</p>
+          </span>
+          <span class="ci-stat">0 leads lost</span>
+        </li>
+        <li class="ci-point">
+          <span class="ci-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          </span>
+          <span>
+            <span class="ci-pt-title">Smart Follow-ups</span>
+            <p class="ci-pt-desc">Auto-triggers fire reminders, WhatsApp nudges and call tasks at the right moment.</p>
+          </span>
+          <span class="ci-stat">+65% engagement</span>
+        </li>
+        <li class="ci-point">
+          <span class="ci-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3.5-4 3 2.5L21 6"/></svg>
+          </span>
+          <span>
+            <span class="ci-pt-title">Real-time Insights</span>
+            <p class="ci-pt-desc">See top-performing sources, courses and counsellors the moment trends shift.</p>
+          </span>
+          <span class="ci-stat">1.4m avg response</span>
+        </li>
+      </ul>
 
-      <div class="ci-ctas">
-        <a href="#demo" class="ci-btn">Explore the Flow
-          <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a href="#demo" class="ci-link">Watch 2-min walkthrough</a>
-      </div>
+      <a class="ci-cta" href="#demo">
+        Book a Free Demo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
 
-    <!-- RIGHT · DASHBOARD -->
-    <div class="ci-dash rv2" aria-hidden="true">
+    <!-- ===== Mock dashboard ===== -->
+    <div class="ci-dash" role="img" aria-label="Live admissions dashboard preview showing KPIs, pipeline stages, counsellor leaderboard and live activity">
+
       <div class="ci-bar">
-        <span class="ci-traffic"><i></i><i></i><i></i></span>
-        <span class="ci-url">app.extraaedge.com/admissions</span>
-        <span class="ci-live"><i></i>LIVE</span>
-      </div>
-
-      <div class="ci-tabs">
-        <button class="ci-tab on" data-view="today">Today</button>
-        <button class="ci-tab" data-view="week">This Week</button>
-        <button class="ci-tab" data-view="cycle">Cycle</button>
-      </div>
-
-      <div class="ci-kpis">
-        <div class="ci-kpi"><div class="l">Conversion</div><div class="v" id="kConv">0%</div><div class="t up" id="tConv">▲ 12% vs last</div></div>
-        <div class="ci-kpi"><div class="l">Response time</div><div class="v" id="kRt">0m</div><div class="t up" id="tRt">▲ 9.2x faster</div></div>
-        <div class="ci-kpi"><div class="l">Active leads</div><div class="v" id="kAct">0</div><div class="t up" id="tAct">▲ 184 new</div></div>
-        <div class="ci-kpi"><div class="l">Idle &gt; 48h</div><div class="v" id="kIdle" style="color:var(--orange)">0</div><div class="t dn" id="tIdle">needs action</div></div>
-      </div>
-
-      <div class="ci-label">Pipeline by stage <span id="viewTag">· today</span></div>
-      <div class="ci-funnel" id="funnel">
-        <div class="ci-stage"><span class="n">Enquiry</span><span class="bar"><i data-w="96"></i></span><span class="c">1,248</span></div>
-        <div class="ci-stage"><span class="n">Counselling</span><span class="bar"><i data-w="71"></i></span><span class="c">912</span></div>
-        <div class="ci-stage alert"><span class="n">Application</span><span class="bar"><i data-w="42"></i></span><span class="c">534</span></div>
-        <div class="ci-stage"><span class="n">Fee paid</span><span class="bar"><i data-w="27"></i></span><span class="c">341</span></div>
-      </div>
-      <div class="ci-stuck">⚠️ <span><b>23 leads</b> idle at Application for 48h+</span><span class="fix">Auto-assign follow-ups →</span></div>
-
-      <div class="ci-label">Counsellor leaderboard <span>this cycle</span></div>
-      <div class="ci-leadb">
-        <div class="ci-row">
-          <span class="ci-av">PS</span>
-          <span class="nm"><b>Priya S.</b><small>62 calls · 31 follow-ups</small></span>
-          <span class="ci-track"><i data-w="92"></i></span>
-          <span class="ci-pct">24%</span><span class="ci-tag top">▲ Top</span>
+        <div class="ci-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="ci-url">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <span>app.extraaedge.com/admissions</span>
         </div>
-        <div class="ci-row">
-          <span class="ci-av">RM</span>
-          <span class="nm"><b>Rahul M.</b><small>54 calls · 26 follow-ups</small></span>
-          <span class="ci-track"><i data-w="74"></i></span>
-          <span class="ci-pct">19%</span><span class="ci-tag ok">On track</span>
-        </div>
-        <div class="ci-row">
-          <span class="ci-av">AK</span>
-          <span class="nm"><b>Aisha K.</b><small>49 calls · 22 follow-ups</small></span>
-          <span class="ci-track"><i data-w="62"></i></span>
-          <span class="ci-pct">16%</span><span class="ci-tag ok">On track</span>
-        </div>
-        <div class="ci-row">
-          <span class="ci-av">VT</span>
-          <span class="nm"><b>Vikram T.</b><small>28 calls · 9 follow-ups</small></span>
-          <span class="ci-track"><i data-w="42"></i></span>
-          <span class="ci-pct">11%</span><span class="ci-tag coach">Coach</span>
-        </div>
+        <span class="ci-live"><i aria-hidden="true"></i>LIVE</span>
       </div>
 
-      <div class="ci-feed">
-        <div class="hd"><i></i> Live activity</div>
-        <div id="feed"></div>
+      <div class="ci-tabs" role="tablist" aria-label="Time range">
+        <span class="ci-tab is-on">Today</span>
+        <span class="ci-tab">This Week</span>
+        <span class="ci-tab">Cycle</span>
+      </div>
+
+      <div class="ci-body">
+
+        <!-- KPIs -->
+        <div class="ci-kpis">
+          <div class="ci-kpi">
+            <div class="ci-kpi-l">Conversion</div>
+            <div class="ci-kpi-v" data-count="12" data-prefix="+" data-suffix="%">+12%</div>
+            <div class="ci-kpi-d ci-up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg>vs last week</div>
+          </div>
+          <div class="ci-kpi">
+            <div class="ci-kpi-l">Response time</div>
+            <div class="ci-kpi-v" data-count="58" data-suffix="s">58s</div>
+            <div class="ci-kpi-d ci-up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg>9.2× faster</div>
+          </div>
+          <div class="ci-kpi">
+            <div class="ci-kpi-l">Active leads</div>
+            <div class="ci-kpi-v" data-count="1248">1,248</div>
+            <div class="ci-kpi-d ci-up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg>184 new</div>
+          </div>
+          <div class="ci-kpi">
+            <div class="ci-kpi-l">Idle &gt; 48h</div>
+            <div class="ci-kpi-v" data-count="23">23</div>
+            <div class="ci-kpi-d ci-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 2 18a1.7 1.7 0 0 0 1.5 2.6h17A1.7 1.7 0 0 0 22 18L13.7 3.9a1.7 1.7 0 0 0-3 0Z"/></svg>needs action</div>
+          </div>
+        </div>
+
+        <!-- Pipeline -->
+        <div class="ci-pipe">
+          <p class="ci-h">Pipeline by stage</p>
+          <div class="ci-bars">
+            <div class="ci-brow">
+              <span class="ci-blabel">Enquiry</span>
+              <span class="ci-btrack"><span class="ci-bfill" style="--w:100%"></span></span>
+              <span class="ci-bval">1,248</span>
+            </div>
+            <div class="ci-brow">
+              <span class="ci-blabel">Counselling</span>
+              <span class="ci-btrack"><span class="ci-bfill" style="--w:73%"></span></span>
+              <span class="ci-bval">912</span>
+            </div>
+            <div class="ci-brow">
+              <span class="ci-blabel">Application</span>
+              <span class="ci-btrack"><span class="ci-bfill" style="--w:43%"></span></span>
+              <span class="ci-bval">534</span>
+            </div>
+            <div class="ci-brow">
+              <span class="ci-blabel">Fee paid</span>
+              <span class="ci-btrack"><span class="ci-bfill" style="--w:27%"></span></span>
+              <span class="ci-bval">341</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alert -->
+        <div class="ci-alert">
+          <span class="ci-al-ic" aria-hidden="true">⚠</span>
+          <span><b>23 leads</b> idle at Application for 48h+</span>
+          <span class="ci-al-cta">Auto-assign follow-ups →</span>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="ci-lead">
+          <p class="ci-h">Counsellor leaderboard</p>
+          <div class="ci-lrow">
+            <span class="ci-av c1" aria-hidden="true">PS</span>
+            <span><span class="ci-lname">Priya S.</span><span class="ci-lmeta">62 calls · 31 follow-ups</span></span>
+            <span class="ci-lpct">24%</span>
+            <span class="ci-tag top">Top</span>
+          </div>
+          <div class="ci-lrow">
+            <span class="ci-av c2" aria-hidden="true">RM</span>
+            <span><span class="ci-lname">Rahul M.</span><span class="ci-lmeta">54 calls · 26 follow-ups</span></span>
+            <span class="ci-lpct">19%</span>
+            <span class="ci-tag ok">On track</span>
+          </div>
+          <div class="ci-lrow">
+            <span class="ci-av c3" aria-hidden="true">AK</span>
+            <span><span class="ci-lname">Aisha K.</span><span class="ci-lmeta">49 calls · 22 follow-ups</span></span>
+            <span class="ci-lpct">16%</span>
+            <span class="ci-tag ok">On track</span>
+          </div>
+          <div class="ci-lrow">
+            <span class="ci-av c4" aria-hidden="true">VT</span>
+            <span><span class="ci-lname">Vikram T.</span><span class="ci-lmeta">28 calls · 9 follow-ups</span></span>
+            <span class="ci-lpct">11%</span>
+            <span class="ci-tag coach">Coach</span>
+          </div>
+        </div>
+
+        <!-- Live feed -->
+        <div class="ci-feed">
+          <p class="ci-h">Live activity</p>
+          <div class="ci-fitem">
+            <span class="ci-fic" aria-hidden="true">📈</span>
+            <span><b>Google Ads</b> conversion up 8% today</span>
+            <span class="ci-ftime">just now</span>
+          </div>
+          <div class="ci-fitem">
+            <span class="ci-fic" aria-hidden="true">🔔</span>
+            <span>Follow-up auto-assigned to <b>Vikram T.</b></span>
+            <span class="ci-ftime">1m ago</span>
+          </div>
+          <div class="ci-fitem">
+            <span class="ci-fic" aria-hidden="true">💰</span>
+            <span>Fee received — <b>Kavya N.</b>, B.Tech CSE</span>
+            <span class="ci-ftime">2m ago</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -4805,762 +5240,442 @@ window.addEventListener('load',function(){
 
 <script>
 (function(){
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-}), { threshold: .15 });
-document.querySelectorAll('.rv2').forEach(el => io.observe(el));
-
-function countUp(el, end, suffix, dur = 1100, decimals = 0) {
-  const t0 = performance.now();
-  (function step(t) {
-    const p = Math.min((t - t0) / dur, 1);
-    const eased = 1 - Math.pow(1 - p, 3);
-    el.textContent = (end * eased).toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix;
-    if (p < 1) requestAnimationFrame(step);
-  })(t0);
-}
-
-const VIEWS = {
-  today: { conv: [38, '%'], rt: [1.4, 'm', 1], act: [1248, ''], idle: [23, ''],
-           stages: [[96, '1,248'], [71, '912'], [42, '534'], [27, '341']] },
-  week:  { conv: [34, '%'], rt: [1.8, 'm', 1], act: [6930, ''], idle: [61, ''],
-           stages: [[96, '6,930'], [68, '4,710'], [39, '2,720'], [24, '1,660']] },
-  cycle: { conv: [29, '%'], rt: [2.3, 'm', 1], act: [48210, ''], idle: [204, ''],
-           stages: [[96, '48,210'], [64, '32,400'], [36, '17,900'], [21, '10,350']] }
-};
-
-function render(view) {
-  const v = VIEWS[view];
-  countUp(document.getElementById('kConv'), v.conv[0], v.conv[1]);
-  countUp(document.getElementById('kRt'),  v.rt[0],  v.rt[1], 1100, v.rt[2]);
-  countUp(document.getElementById('kAct'), v.act[0], v.act[1]);
-  countUp(document.getElementById('kIdle'),v.idle[0],v.idle[1]);
-  document.getElementById('viewTag').textContent = '· ' + (view === 'today' ? 'today' : view === 'week' ? 'this week' : 'full cycle');
-  document.querySelectorAll('#funnel .ci-stage').forEach((row, i) => {
-    row.querySelector('.bar i').style.width = v.stages[i][0] + '%';
-    row.querySelector('.c').textContent = v.stages[i][1];
-  });
-}
-
-document.querySelectorAll('.ci-tab').forEach(tab => tab.addEventListener('click', () => {
-  document.querySelectorAll('.ci-tab').forEach(t => t.classList.remove('on'));
-  tab.classList.add('on');
-  render(tab.dataset.view);
-}));
-
-const dashIO = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  render('today');
-  document.querySelectorAll('.ci-track i').forEach(i => i.style.width = i.dataset.w + '%');
-  startFeed();
-  dashIO.disconnect();
-}), { threshold: .3 });
-dashIO.observe(document.querySelector('.ci-dash'));
-
-const EVENTS = [
-  ['📞', '<b>Priya S.</b> connected with Ananya R. — MBA enquiry'],
-  ['✅', '<b>Rohan D.</b> moved to <b>Application</b> stage'],
-  ['💬', 'WhatsApp nudge auto-sent to <b>12 idle leads</b>'],
-  ['💰', '<b>Fee received</b> — Kavya N., B.Tech CSE'],
-  ['🔔', 'Follow-up auto-assigned to <b>Vikram T.</b>'],
-  ['📈', 'Source <b>Google Ads</b> conversion up 8% today'],
-  ['📞', '<b>Aisha K.</b> scheduled campus visit — Arjun P.'],
-  ['✅', '<b>Meera J.</b> verified documents — moved forward']
-];
-let feedTimer = null, ei = 0;
-function pushEvent() {
-  const feed = document.getElementById('feed');
-  const [ic, txt] = EVENTS[ei++ % EVENTS.length];
-  const el = document.createElement('div');
-  el.className = 'ci-feed-item';
-  el.innerHTML = `<span>${ic}</span><span>${txt}</span><span class="tm">just now</span>`;
-  feed.prepend(el);
-  feed.querySelectorAll('.tm').forEach((t, i) => { if (i > 0) t.textContent = i + 'm ago'; });
-  while (feed.children.length > 3) feed.lastChild.remove();
-}
-function startFeed() {
-  pushEvent(); pushEvent(); pushEvent();
-  feedTimer = setInterval(pushEvent, 3800);
-}
+  var root=document.getElementById('platform');
+  if(!root)return;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fills=root.querySelectorAll('.ci-bfill');
+  var counters=root.querySelectorAll('[data-count]');
+  function fmt(n){return n.toLocaleString('en-US');}
+  function run(){
+    fills.forEach(function(f){
+      var w=f.style.getPropertyValue('--w');
+      if(reduce){return;}
+      f.style.setProperty('--w','0%');
+      requestAnimationFrame(function(){requestAnimationFrame(function(){f.style.setProperty('--w',w);});});
+    });
+    counters.forEach(function(el){
+      var target=parseInt(el.getAttribute('data-count'),10);
+      if(isNaN(target))return;
+      var pre=el.getAttribute('data-prefix')||'';
+      var suf=el.getAttribute('data-suffix')||'';
+      if(reduce)return;
+      var start=null,dur=1100;
+      function step(ts){
+        if(!start)start=ts;
+        var p=Math.min((ts-start)/dur,1);
+        var e=1-Math.pow(1-p,3);
+        el.textContent=pre+fmt(Math.round(target*e))+suf;
+        if(p<1)requestAnimationFrame(step);
+        else el.textContent=pre+fmt(target)+suf;
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(e){if(e.isIntersecting){run();io.disconnect();}});
+    },{threshold:.3});
+    io.observe(root);
+  }else{run();}
 })();
 </script>
 <!-- ===================== Admission Response Automation · Respond First (inline, namespaced rf-) ===================== -->
 <style>
-.rf-bp{
-  --orange:#DE6E30;
-  --orange-90:rgba(222,110,48,.9);
-  --orange-60:rgba(222,110,48,.6);
-  --orange-12:rgba(222,110,48,.12);
-  --orange-08:rgba(222,110,48,.08);
-  --blue:#19335D;
-  --blue-70:rgba(25,51,93,.7);
-  --blue-55:rgba(25,51,93,.55);
-  --blue-12:rgba(25,51,93,.12);
-  --blue-04:rgba(25,51,93,.04);
-  --line:rgba(25,51,93,.12);
-  --line-strong:rgba(25,51,93,.45);
-  --w-90:rgba(255,255,255,.9);
-  --w-60:rgba(255,255,255,.6);
-  --w-35:rgba(255,255,255,.35);
-  --w-15:rgba(255,255,255,.15);
-  --w-06:rgba(255,255,255,.06);
-  --font:'Inter',sans-serif;
-  font-family:var(--font);
-  background:#ffffff; color:var(--blue);
-  position:relative;
-  -webkit-font-smoothing:antialiased;
+#respond-first{
+  --rf-navy:#19335D; --rf-navy2:#22467c; --rf-orange:#DE6E30; --rf-orange2:#E8843F;
+  --rf-ink:#0F1F3A; --rf-muted:#5A6B85; --rf-hair:rgba(25,51,93,.09);
+  --rf-bg:#f6f8fc;
+  position:relative; background:var(--rf-bg);
+  padding:clamp(64px,8vw,104px) 0;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  color:var(--rf-ink); -webkit-font-smoothing:antialiased;
+  overflow:hidden;
 }
-.rf-bp *{box-sizing:border-box;margin:0;padding:0}
-.rf-bp::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
+#respond-first *{box-sizing:border-box;}
+#respond-first .rf-container{
+  max-width:1240px; margin:0 auto; padding:0 24px; position:relative; z-index:2;
+}
+#respond-first .rf-glow{
+  position:absolute; pointer-events:none; z-index:0; border-radius:50%;
+  filter:blur(80px); opacity:.5;
+}
+#respond-first .rf-glow.g1{top:-120px; right:-80px; width:420px; height:420px;
+  background:radial-gradient(circle,rgba(222,110,48,.18),transparent 70%);}
+#respond-first .rf-glow.g2{bottom:-160px; left:-120px; width:480px; height:480px;
+  background:radial-gradient(circle,rgba(34,70,124,.16),transparent 70%);}
+
+#respond-first .rf-grid{
+  display:grid; grid-template-columns:1.05fr 1fr; gap:clamp(32px,4vw,64px);
+  align-items:center;
+}
+
+/* ---- LEFT COPY ---- */
+#respond-first .rf-eyebrow{
+  display:inline-flex; align-items:center; gap:9px;
+  font-size:12.5px; font-weight:600; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--rf-orange); margin:0 0 20px;
+}
+#respond-first .rf-eyebrow .rf-dot{
+  width:7px; height:7px; border-radius:50%; background:var(--rf-orange);
+  box-shadow:0 0 0 4px rgba(222,110,48,.16);
+}
+#respond-first h2{
+  font-family:'Poppins','Inter',sans-serif; font-weight:700;
+  font-size:clamp(30px,4.4vw,48px); line-height:1.06; letter-spacing:-.02em;
+  margin:0 0 20px; color:var(--rf-ink);
+}
+#respond-first h2 .rf-accent{
+  background:linear-gradient(100deg,var(--rf-orange),var(--rf-orange2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+#respond-first .rf-sub{
+  font-size:clamp(15px,1.5vw,17px); line-height:1.62; color:var(--rf-muted);
+  margin:0 0 30px; max-width:560px;
+}
+
+/* ---- BENCHMARK ---- */
+#respond-first .rf-bench{
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:stretch; gap:14px;
+  margin:0 0 18px; max-width:560px;
+}
+#respond-first .rf-bench-card{
+  border:1px solid var(--rf-hair); border-radius:16px; padding:18px 20px;
+  background:#fff; box-shadow:0 1px 0 rgba(25,51,93,.04);
+}
+#respond-first .rf-bench-card.win{
+  background:linear-gradient(160deg,#fff,#fff7f1);
+  border-color:rgba(222,110,48,.28);
+  box-shadow:0 14px 34px -18px rgba(222,110,48,.55);
+}
+#respond-first .rf-bench-label{
+  font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--rf-muted); margin:0 0 8px; display:flex; align-items:center; gap:7px;
+}
+#respond-first .rf-bench-card.win .rf-bench-label{color:var(--rf-orange);}
+#respond-first .rf-bench-num{
+  font-family:'Poppins','Inter',sans-serif; font-weight:700; letter-spacing:-.03em;
+  font-size:clamp(30px,4vw,42px); line-height:1; color:var(--rf-ink);
+}
+#respond-first .rf-bench-card.win .rf-bench-num{color:var(--rf-orange);}
+#respond-first .rf-bench-num span{font-size:.46em; font-weight:600; color:var(--rf-muted); margin-left:3px;}
+#respond-first .rf-bench-card.win .rf-bench-num span{color:rgba(222,110,48,.7);}
+#respond-first .rf-bench-vs{
+  align-self:center; font-family:'Poppins','Inter',sans-serif; font-weight:700;
+  font-size:13px; color:var(--rf-muted); opacity:.6;
+}
+#respond-first .rf-bench-cap{
+  font-size:13.5px; line-height:1.5; color:var(--rf-muted); margin:0 0 30px; max-width:560px;
+}
+#respond-first .rf-bench-cap b{color:var(--rf-ink); font-weight:700;}
+
+/* ---- CTA ---- */
+#respond-first .rf-cta-row{display:flex; flex-wrap:wrap; align-items:center; gap:18px;}
+#respond-first .rf-cta{
+  display:inline-flex; align-items:center; gap:10px;
+  font-weight:600; font-size:15.5px; text-decoration:none; color:#fff;
+  padding:14px 26px; border-radius:12px;
+  background:linear-gradient(135deg,var(--rf-orange),var(--rf-orange2));
+  box-shadow:0 12px 28px -10px rgba(222,110,48,.6);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+#respond-first .rf-cta:hover{transform:translateY(-2px); box-shadow:0 18px 34px -12px rgba(222,110,48,.7);}
+#respond-first .rf-cta svg{width:17px; height:17px;}
+#respond-first a:focus-visible,#respond-first button:focus-visible{
+  outline:3px solid rgba(34,70,124,.55); outline-offset:3px; border-radius:12px;
+}
+#respond-first .rf-trust{
+  font-size:13px; color:var(--rf-muted); line-height:1.4;
+}
+#respond-first .rf-trust .rf-stars{color:var(--rf-orange); letter-spacing:1px;}
+
+/* ---- RIGHT: CONSOLE ---- */
+#respond-first .rf-console{
+  position:relative; border-radius:22px; overflow:hidden;
   background:
-    repeating-linear-gradient(0deg,transparent 0 35px,var(--line) 35px 36px),
-    repeating-linear-gradient(90deg,transparent 0 35px,var(--line) 35px 36px);
-  mask-image:radial-gradient(130% 100% at 65% 0%,#000 25%,transparent 78%);
-  opacity:.6;
+    radial-gradient(120% 80% at 80% 0%,rgba(34,70,124,.55),transparent 60%),
+    linear-gradient(165deg,#142a4d 0%,#0f2142 55%,#0c1a36 100%);
+  border:1px solid rgba(120,150,200,.18);
+  box-shadow:0 40px 80px -34px rgba(8,18,40,.7), inset 0 1px 0 rgba(255,255,255,.06);
+  color:#dce6f5;
 }
-.rf-wrap{max-width:1200px;margin:0 auto;padding:96px 28px 0;position:relative;z-index:1}
-.rf-anno{font:600 10px/1.6 var(--font);letter-spacing:.18em;text-transform:uppercase;color:var(--blue-55)}
-.rf-anno b{color:var(--orange);font-weight:700}
-.rf-hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(36px,5vw,72px);align-items:center}
-.rf-kicker{display:inline-flex;align-items:center;gap:10px;font:700 10.5px/1 var(--font);letter-spacing:.22em;text-transform:uppercase;color:var(--orange);border:1px solid var(--orange-60);border-radius:3px;padding:9px 14px;background:#fff;position:relative}
-.rf-kicker::before{content:"";position:absolute;left:-1px;top:-1px;width:8px;height:8px;border-top:2px solid var(--orange);border-left:2px solid var(--orange)}
-.rf-kicker i{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:rf-ping 1.6s ease-out infinite}
-@keyframes rf-ping{0%{box-shadow:0 0 0 0 rgba(222,110,48,.5)}100%{box-shadow:0 0 0 11px rgba(222,110,48,0)}}
-.rf-h1{font:800 clamp(38px,5.2vw,68px)/1.05 var(--font);letter-spacing:-.03em;margin:24px 0 20px;max-width:15ch}
-.rf-h1 em{font-style:italic;font-weight:700;color:var(--orange);position:relative;white-space:nowrap}
-.rf-h1 em svg{position:absolute;left:0;right:0;bottom:-.16em;width:100%;height:.3em;overflow:visible}
-.rf-h1 em svg path{fill:none;stroke:var(--orange);stroke-width:3.4;stroke-linecap:round;stroke-dasharray:320;stroke-dashoffset:320;animation:rf-draw 1s ease .5s forwards}
-@keyframes rf-draw{to{stroke-dashoffset:0}}
-.rf-lead{max-width:50ch;font-size:17px;line-height:1.7;color:var(--blue-70);font-weight:400}
-.rf-lead b{color:var(--blue);font-weight:600}
-.rf-race{margin-top:34px;border:1.5px solid var(--blue);border-radius:14px;background:#fff;padding:18px 20px 20px;position:relative;box-shadow:6px 6px 0 var(--blue-12)}
-.rf-race .rf-anno{display:flex;justify-content:space-between;margin-bottom:14px}
-.rf-lane{margin-top:12px}
-.rf-lane small{display:flex;justify-content:space-between;font:600 10px var(--font);letter-spacing:.12em;color:var(--blue-55);text-transform:uppercase}
-.rf-lane small output{font-size:12px}
-.rf-lane .bar{height:12px;margin-top:7px;border-radius:99px;background:var(--blue-04);border:1px solid var(--line);overflow:hidden;position:relative}
-.rf-lane .fill{height:100%;width:0;border-radius:99px;transition:width 1.6s cubic-bezier(.2,.8,.2,1)}
-.rf-lane.you .fill{background:var(--orange);box-shadow:0 0 14px rgba(222,110,48,.45)}
-.rf-lane.you output{color:var(--orange);font-weight:700}
-.rf-lane.them .fill{background:repeating-linear-gradient(135deg,var(--blue-12) 0 8px,rgba(25,51,93,.22) 8px 16px)}
-.rf-race-foot{margin-top:14px;font:500 11.5px var(--font);color:var(--blue-55)}
-.rf-race-foot b{color:var(--orange);font-weight:700}
-.rf-ctarow{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:30px}
-.rf-cta{display:inline-flex;align-items:center;gap:10px;font:600 14.5px var(--font);color:#fff;text-decoration:none;background:var(--blue);padding:16px 26px;border-radius:10px;box-shadow:5px 5px 0 var(--orange);transition:.18s;border:none;cursor:pointer}
-.rf-cta:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--orange)}
-.rf-cta svg{transition:transform .2s}
-.rf-cta:hover svg{transform:translateX(4px)}
-.rf-cta--ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue);box-shadow:5px 5px 0 var(--blue-12)}
-.rf-cta--ghost:hover{box-shadow:2px 2px 0 var(--blue-12)}
-.rf-trust{font-size:12.5px;color:var(--blue-55);margin-top:14px;display:flex;align-items:center;gap:8px}
-.rf-trust .stars{color:var(--orange);letter-spacing:2px}
-.rf-sim{position:relative}
-.rf-sim-frame{border-radius:20px;background:var(--blue);border:1px solid var(--w-15);color:#fff;box-shadow:0 50px 90px -34px rgba(25,51,93,.55),0 0 0 9px var(--w-60),0 0 0 10px var(--line);overflow:hidden;position:relative}
-.rf-sim-frame::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 35px,var(--w-06) 35px 36px),repeating-linear-gradient(90deg,transparent 0 35px,var(--w-06) 35px 36px)}
-.rf-sim-hd{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;border-bottom:1px solid var(--w-15);font:700 11px var(--font);letter-spacing:.14em}
-.rf-live{display:inline-flex;align-items:center;gap:8px;font:700 10px var(--font);letter-spacing:.18em;color:var(--orange)}
-.rf-live i{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:rf-ping 1.5s infinite}
-.rf-sim-body{padding:22px 20px 20px;position:relative;min-height:336px}
-.rf-clock{display:flex;align-items:baseline;gap:10px;font:800 54px/1 var(--font);color:#fff;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.rf-clock small{font:700 10px var(--font);letter-spacing:.2em;color:var(--w-35)}
-.rf-clock .unit{font-size:20px;color:var(--orange)}
-.rf-ledger{margin-top:18px;display:flex;flex-direction:column;font:500 12px var(--font)}
-.rf-ev{display:grid;grid-template-columns:60px 18px 1fr;align-items:start;gap:10px;padding:9px 0;opacity:.25;transition:opacity .4s}
-.rf-ev.on{opacity:1}
-.rf-ev .t{color:var(--orange);font-weight:700;font-size:11px;letter-spacing:.04em}
-.rf-ev .nd{width:11px;height:11px;margin-top:2px;border-radius:50%;border:2px solid var(--w-35);position:relative}
-.rf-ev.on .nd{border-color:var(--orange);background:var(--orange);box-shadow:0 0 10px rgba(222,110,48,.6)}
-.rf-ev .nd::after{content:"";position:absolute;left:50%;top:13px;width:2px;height:22px;background:var(--w-15);transform:translateX(-50%)}
-.rf-ev:last-child .nd::after{display:none}
-.rf-ev .x{color:var(--w-90);line-height:1.5}
-.rf-ev .x small{display:block;color:var(--w-35);font-size:10.5px}
-.rf-ev .x .ok{color:var(--orange);font-weight:600}
-.rf-stamp{position:absolute;right:22px;bottom:20px;transform:rotate(-7deg) scale(.6);opacity:0;border:2.5px solid var(--orange);color:var(--orange);border-radius:8px;padding:8px 14px;font:800 13px var(--font);letter-spacing:.2em;text-transform:uppercase;transition:.35s cubic-bezier(.2,1.6,.4,1)}
-.rf-stamp.show{opacity:1;transform:rotate(-7deg) scale(1)}
-.rf-sim-ft{display:flex;gap:10px;align-items:center;padding:14px 20px;border-top:1px solid var(--w-15)}
-.rf-simbtn{flex:0 0 auto;font:700 12px var(--font);letter-spacing:.04em;color:#fff;background:var(--orange);border:none;border-radius:8px;padding:12px 18px;cursor:pointer;transition:.18s;box-shadow:0 4px 14px rgba(222,110,48,.4)}
-.rf-simbtn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(222,110,48,.5)}
-.rf-simbtn:disabled{opacity:.5;cursor:wait;transform:none}
-.rf-sim-ft p{font:500 10.5px/1.5 var(--font);color:var(--w-35)}
-.rf-spec{position:absolute;font:600 9.5px var(--font);letter-spacing:.14em;color:var(--blue-55);background:#fff;border:1px solid var(--line-strong);border-radius:4px;padding:6px 9px;z-index:2;box-shadow:3px 3px 0 var(--blue-12)}
-.rf-spec b{color:var(--orange)}
-.rf-spec--a{top:-14px;left:-18px;transform:rotate(-2deg)}
-.rf-spec--b{bottom:34px;right:-16px;transform:rotate(2deg)}
-.rf-section-hd{margin:96px 0 56px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
-.rf-h2{font:800 clamp(30px,3.6vw,48px)/1.1 var(--font);letter-spacing:-.025em;max-width:21ch}
-.rf-h2 em{font-style:italic;font-weight:700;color:var(--orange)}
-.rf-index{font:600 10.5px/2 var(--font);letter-spacing:.06em;color:var(--blue-55);text-align:right;white-space:nowrap;display:none}
-@media(min-width:960px){.rf-index{display:block}}
-.rf-index span{color:var(--orange)}
-.rf-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6vw,90px);align-items:start}
-.rf-stories{position:relative;padding-left:42px}
-.rf-rail{position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--line)}
-.rf-rail i{position:absolute;left:0;top:0;width:2px;height:0;background:var(--orange)}
-.rf-story{padding:8.5vh 0;max-width:46ch;position:relative;opacity:.28;transition:opacity .5s ease}
-.rf-story:first-child{padding-top:2vh}
-.rf-story.on{opacity:1}
-.rf-node{position:absolute;left:-42px;top:calc(8.5vh + 4px);width:26px;height:26px;display:grid;place-items:center;font:700 10.5px var(--font);color:var(--blue-55);background:#fff;border:1.5px solid var(--line-strong);border-radius:50%;cursor:pointer;transition:.3s}
-.rf-story:first-child .rf-node{top:calc(2vh + 4px)}
-.rf-node:hover{border-color:var(--orange);color:var(--orange);transform:scale(1.14)}
-.rf-story.on .rf-node{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:0 0 0 7px var(--orange-12)}
-.rf-tag{font:700 10px/1 var(--font);letter-spacing:.22em;text-transform:uppercase;color:var(--orange)}
-.rf-story h3{font:700 clamp(23px,2.5vw,30px)/1.18 var(--font);letter-spacing:-.02em;margin:13px 0 14px}
-.rf-story p{font-size:15.5px;line-height:1.72;color:var(--blue-70)}
-.rf-story p b{color:var(--blue);font-weight:600}
-.rf-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.rf-chip{font:600 11px var(--font);color:var(--blue);border:1px solid var(--line-strong);background:#fff;padding:7px 12px;border-radius:5px;transition:.2s;cursor:default}
-.rf-chip:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-2px);box-shadow:2px 2px 0 var(--orange-12)}
-.rf-sticky{position:sticky;top:7vh;height:86vh;display:flex;align-items:center;perspective:1300px}
-.rf-device{width:100%;max-width:500px;margin:0 auto;border-radius:20px;background:var(--blue);border:1px solid var(--w-15);color:#fff;box-shadow:0 44px 84px -30px rgba(25,51,93,.5),0 0 0 9px var(--w-60),0 0 0 10px var(--line);overflow:hidden;position:relative;transform-style:preserve-3d;transition:transform .25s ease;will-change:transform}
-.rf-device::after{content:"";position:absolute;inset:10px;border:1px dashed var(--w-15);border-radius:14px;pointer-events:none}
-.rf-shine{position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.08) 50%,transparent 60%);transform:translateX(-130%);pointer-events:none;z-index:4}
-.rf-device.shined .rf-shine{animation:rf-shine 1s ease}
-@keyframes rf-shine{to{transform:translateX(130%)}}
-.rf-dhd{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--w-15);font:700 11px var(--font);letter-spacing:.12em}
-.rf-pills{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--w-15);overflow-x:auto;scrollbar-width:none}
-.rf-pills::-webkit-scrollbar{display:none}
-.rf-pill{flex:0 0 auto;font:700 10px var(--font);letter-spacing:.08em;color:var(--w-35);background:var(--w-06);border:1px solid var(--w-15);border-radius:999px;padding:8px 13px;cursor:pointer;transition:.22s;white-space:nowrap}
-.rf-pill:hover{color:#fff;border-color:var(--w-35)}
-.rf-pill.on{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:0 4px 14px rgba(222,110,48,.4)}
-.rf-screen{position:relative;height:372px;padding:20px 18px}
-.rf-view{position:absolute;inset:20px 18px;opacity:0;transform:translateY(14px) scale(.985);transition:opacity .45s ease,transform .45s ease;pointer-events:none}
-.rf-view.on{opacity:1;transform:none;pointer-events:auto}
-.rf-mono-dim{font:700 10px var(--font);letter-spacing:.2em;text-transform:uppercase;color:var(--w-35);margin-bottom:12px;display:flex;justify-content:space-between}
-.rf-mono-dim b{color:var(--orange)}
-.rf-feed{display:flex;flex-direction:column;gap:9px;overflow:hidden;max-height:296px}
-.rf-row{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--w-06);border:1px solid var(--w-15);border-radius:12px;padding:11px 13px}
-.rf-row.new{animation:rf-drop .5s cubic-bezier(.2,.8,.2,1)}
-@keyframes rf-drop{from{opacity:0;transform:translateY(-16px) scale(.97)}to{opacity:1;transform:none}}
-.rf-id{display:flex;gap:11px;align-items:center;min-width:0}
-.rf-av{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font:700 11px var(--font);background:var(--orange);color:#fff;flex:0 0 auto}
-.rf-row b{font:600 12.5px var(--font);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rf-row small{font:500 10.5px var(--font);color:var(--w-35)}
-.rf-sync{font:700 9px var(--font);letter-spacing:.14em;color:var(--orange);border:1px solid var(--orange-60);border-radius:5px;padding:4px 7px;flex:0 0 auto}
-.rf-center{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.rf-ring{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:var(--orange);position:relative;font-size:26px}
-.rf-ring::before,.rf-ring::after{content:"";position:absolute;inset:-13px;border-radius:50%;border:1px solid var(--orange-60);animation:rf-rg 2.2s ease-out infinite}
-.rf-ring::after{animation-delay:1.1s}
-@keyframes rf-rg{0%{transform:scale(.7);opacity:1}100%{transform:scale(1.55);opacity:0}}
-.rf-wave{display:flex;gap:4px;align-items:flex-end;height:26px;margin-top:16px}
-.rf-wave i{width:4px;border-radius:3px;background:var(--orange);animation:rf-wv 1s ease-in-out infinite}
-@keyframes rf-wv{0%,100%{height:6px}50%{height:26px}}
-.rf-calllog{margin-top:16px;width:100%;max-width:300px;text-align:left}
-.rf-calllog div{font:500 10.5px var(--font);color:var(--w-35);padding:6px 0;border-bottom:1px dashed var(--w-15);opacity:0;transform:translateX(-8px);transition:.4s}
-.rf-calllog div.show{opacity:1;transform:none}
-.rf-calllog b{color:var(--orange)}
-.rf-bubble{max-width:84%;padding:11px 14px;border-radius:13px;font-size:12.5px;line-height:1.55;margin-bottom:10px;opacity:0;transform:translateY(8px);transition:.4s}
-.rf-bubble.show{opacity:1;transform:none}
-.rf-bubble.u{background:var(--w-06);border:1px solid var(--w-15);border-bottom-left-radius:4px}
-.rf-bubble.a{background:var(--orange);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
-.rf-typing{display:none;gap:4px;padding:10px 13px;background:var(--w-06);border:1px solid var(--w-15);border-radius:13px;width:fit-content;margin-left:auto}
-.rf-typing.show{display:inline-flex}
-.rf-typing i{width:5px;height:5px;border-radius:50%;background:var(--w-35);animation:rf-tp 1s infinite}
-.rf-typing i:nth-child(2){animation-delay:.15s}.rf-typing i:nth-child(3){animation-delay:.3s}
-@keyframes rf-tp{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
-.rf-handover{display:flex;align-items:center;gap:8px;margin-top:6px;font:700 9.5px var(--font);letter-spacing:.14em;color:var(--orange);opacity:0;transition:.4s}
-.rf-handover.show{opacity:1}
-.rf-handover::before,.rf-handover::after{content:"";flex:1;height:1px;background:var(--w-15)}
-.rf-gaugewrap{display:flex;gap:18px;align-items:center}
-.rf-gauge{position:relative;width:150px;height:150px;flex:0 0 auto}
-.rf-gauge svg{transform:rotate(-90deg)}
-.rf-gauge .bg{stroke:var(--w-15)}
-.rf-gauge .fg{stroke:var(--orange);stroke-linecap:round;stroke-dasharray:408;stroke-dashoffset:408;transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1)}
-.rf-gauge .num{position:absolute;inset:0;display:grid;place-items:center;font:800 40px/1 var(--font);letter-spacing:-.02em;color:var(--orange)}
-.rf-gstats{flex:1;display:flex;flex-direction:column;gap:8px}
-.rf-gstat{background:var(--w-06);border:1px solid var(--w-15);border-radius:10px;padding:9px 12px;display:flex;justify-content:space-between;align-items:center}
-.rf-gstat small{font:600 9px var(--font);letter-spacing:.1em;color:var(--w-35);text-transform:uppercase}
-.rf-gstat b{font:700 12px var(--font);color:var(--orange)}
-.rf-spark{margin-top:14px}
-.rf-spark path.l{stroke:var(--orange);stroke-width:2;fill:none;stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.6s ease .3s}
-.rf-spark.run path.l{stroke-dashoffset:0}
-.rf-spark .area{fill:url(#rfAreaGrad);stroke:none;opacity:0;transition:opacity .8s ease .8s}
-.rf-spark.run .area{opacity:1}
-.rf-stage-label{position:absolute;right:18px;bottom:12px;z-index:3;font:600 9.5px var(--font);color:var(--w-35);letter-spacing:.2em}
-.rf-metrics{margin-top:96px;border-top:1.5px solid var(--blue);border-bottom:1.5px solid var(--blue);display:grid;grid-template-columns:repeat(4,1fr);background:#fff}
-.rf-m{padding:32px 24px;border-left:1px solid var(--line)}
-.rf-m:first-child{border-left:none}
-.rf-m b{display:flex;align-items:baseline;font:800 clamp(34px,3.6vw,48px)/1 var(--font);color:var(--orange);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.rf-m b sup{font:700 18px var(--font);margin-left:2px}
-.rf-m span{display:block;margin-top:10px;font:700 10px var(--font);letter-spacing:.18em;text-transform:uppercase;color:var(--blue-55)}
-.rf-roi{margin:84px 0 0;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);border:1.5px solid var(--blue);border-radius:18px;overflow:hidden;background:#fff;box-shadow:8px 8px 0 var(--blue-12)}
-.rf-roi-l{padding:40px 38px}
-.rf-roi-l h3{font:800 clamp(25px,2.8vw,36px)/1.15 var(--font);letter-spacing:-.025em}
-.rf-roi-l h3 em{font-style:italic;font-weight:700;color:var(--orange)}
-.rf-roi-l>p{margin-top:12px;font-size:14.5px;line-height:1.68;color:var(--blue-70);max-width:46ch}
-.rf-sliderbox{margin-top:30px}
-.rf-sliderbox+.rf-sliderbox{margin-top:24px}
-.rf-sliderbox label{display:flex;justify-content:space-between;align-items:baseline;font:700 10.5px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--blue-55)}
-.rf-sliderbox label output{color:var(--orange);font-size:14px;font-weight:700}
-.rf-range{appearance:none;-webkit-appearance:none;width:100%;height:4px;border-radius:99px;background:linear-gradient(90deg,var(--orange) var(--p,30%),var(--line) var(--p,30%));margin-top:16px;cursor:pointer}
-.rf-range::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:5px solid var(--orange);box-shadow:0 2px 8px var(--blue-12);transition:transform .15s}
-.rf-range::-webkit-slider-thumb:hover{transform:scale(1.15)}
-.rf-range::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:5px solid var(--orange);box-shadow:0 2px 8px var(--blue-12)}
-.rf-roi-note{margin-top:20px;font:500 10px/1.7 var(--font);color:var(--blue-55)}
-.rf-roi-r{background:var(--blue);color:#fff;padding:40px 38px;display:flex;flex-direction:column;justify-content:center;gap:24px;position:relative;overflow:hidden}
-.rf-roi-r::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 35px,var(--w-06) 35px 36px),repeating-linear-gradient(90deg,transparent 0 35px,var(--w-06) 35px 36px);pointer-events:none}
-.rf-roi-stat{position:relative}
-.rf-roi-stat small{font:700 9.5px var(--font);letter-spacing:.2em;text-transform:uppercase;color:var(--w-35);display:block;margin-bottom:9px}
-.rf-roi-stat b{font:800 clamp(28px,3.2vw,42px)/1 var(--font);letter-spacing:-.025em;color:var(--orange);font-variant-numeric:tabular-nums}
-.rf-roi-stat.hero b{font-size:clamp(40px,4.6vw,56px);text-shadow:0 0 44px rgba(222,110,48,.45)}
-.rf-roi-cta{position:relative;display:inline-flex;align-items:center;gap:10px;width:fit-content;font:700 14px var(--font);color:var(--blue);background:#fff;text-decoration:none;padding:15px 24px;border-radius:10px;box-shadow:4px 4px 0 var(--orange);transition:.2s}
-.rf-roi-cta:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--orange)}
-.rf-quote{margin:84px 0 0;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:start;border-left:3px solid var(--orange);padding:6px 0 6px 28px}
-.rf-quote .mark{font:800 90px/0.6 var(--font);color:var(--orange);opacity:.9}
-.rf-quote blockquote{font:500 clamp(19px,2.2vw,25px)/1.5 var(--font);font-style:italic;color:var(--blue);max-width:40ch;letter-spacing:-.01em}
-.rf-quote figcaption{margin-top:16px;font:700 11px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--blue-55)}
-.rf-quote figcaption b{color:var(--orange)}
-.rf-band{margin-top:96px;background:var(--blue);color:#fff;position:relative;overflow:hidden}
-.rf-band::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 35px,var(--w-06) 35px 36px),repeating-linear-gradient(90deg,transparent 0 35px,var(--w-06) 35px 36px);mask-image:radial-gradient(100% 130% at 50% 0%,#000 30%,transparent 80%)}
-.rf-band-in{max-width:1200px;margin:0 auto;padding:84px 28px;position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
-.rf-band h2{font:800 clamp(32px,3.8vw,52px)/1.1 var(--font);letter-spacing:-.025em}
-.rf-band h2 em{font-style:italic;font-weight:700;color:var(--orange)}
-.rf-band p{margin-top:16px;font-size:15.5px;line-height:1.7;color:var(--w-60);max-width:46ch}
-.rf-band-r{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
-.rf-band .rf-cta{background:var(--orange);box-shadow:5px 5px 0 var(--w-90)}
-.rf-band .rf-cta:hover{box-shadow:2px 2px 0 var(--w-90)}
-.rf-band small{font:500 11px var(--font);color:var(--w-35)}
-.rf-band small b{color:var(--orange);font-weight:700}
-.rf-rv{opacity:0;transform:translateY(24px);transition:.75s cubic-bezier(.2,.7,.2,1)}
-.rf-rv.in{opacity:1;transform:none}
-.rf-rv.d1{transition-delay:.1s}.rf-rv.d2{transition-delay:.2s}.rf-rv.d3{transition-delay:.3s}
-@media(max-width:980px){
-  .rf-hero{grid-template-columns:1fr}
-  .rf-spec{display:none}
-  .rf-band-in{grid-template-columns:1fr}
+#respond-first .rf-console::before{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
+  background-image:linear-gradient(rgba(120,160,220,.05) 1px,transparent 1px);
+  background-size:100% 30px;
 }
-@media(max-width:880px){
-  .rf-grid{grid-template-columns:1fr}
-  .rf-sticky{position:sticky;top:8px;height:auto;order:-1;z-index:5;padding:0 0 14px;perspective:none}
-  .rf-device{max-width:none}
-  .rf-screen{height:330px}
-  .rf-story{padding:48px 0}
-  .rf-node,.rf-story:first-child .rf-node{top:50px}
-  .rf-story:first-child{padding-top:48px}
-  .rf-roi{grid-template-columns:1fr}
-  .rf-metrics{grid-template-columns:repeat(2,1fr)}
-  .rf-m:nth-child(3){border-left:none;border-top:1px solid var(--line)}
-  .rf-m:nth-child(4){border-top:1px solid var(--line)}
-  .rf-quote{grid-template-columns:1fr;gap:8px}
-  .rf-quote .mark{font-size:60px}
+#respond-first .rf-con-head{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  padding:16px 20px; border-bottom:1px solid rgba(120,150,200,.16);
+  position:relative; z-index:1;
 }
-@media(prefers-reduced-motion:reduce){
-  .rf-bp *,.rf-bp *::before,.rf-bp *::after{animation:none!important;transition:none!important}
-  .rf-rv,.rf-bubble,.rf-ev,.rf-calllog div{opacity:1!important;transform:none!important}
+#respond-first .rf-con-title{
+  font-family:'Poppins','Inter',sans-serif; font-size:11.5px; font-weight:600;
+  letter-spacing:.06em; color:#9fb6d8; text-transform:uppercase;
+}
+#respond-first .rf-live{
+  margin-left:auto; display:inline-flex; align-items:center; gap:7px;
+  font-size:11px; font-weight:700; letter-spacing:.1em; color:#ffd9c2;
+  background:rgba(222,110,48,.16); border:1px solid rgba(222,110,48,.4);
+  padding:4px 10px; border-radius:999px;
+}
+#respond-first .rf-live i{
+  width:7px; height:7px; border-radius:50%; background:var(--rf-orange2);
+  box-shadow:0 0 0 0 rgba(232,132,63,.7);
+  animation:rfPulse 1.6s ease-out infinite;
+}
+@keyframes rfPulse{
+  0%{box-shadow:0 0 0 0 rgba(232,132,63,.7);}
+  70%{box-shadow:0 0 0 8px rgba(232,132,63,0);}
+  100%{box-shadow:0 0 0 0 rgba(232,132,63,0);}
+}
+#respond-first .rf-elapsed{
+  padding:20px 20px 6px; position:relative; z-index:1;
+}
+#respond-first .rf-elapsed .rf-big{
+  font-family:'Poppins','Inter',sans-serif; font-weight:700; letter-spacing:-.02em;
+  font-size:clamp(34px,6vw,46px); line-height:1; color:#fff;
+  display:flex; align-items:baseline; gap:6px;
+}
+#respond-first .rf-counter{
+  font-variant-numeric:tabular-nums;
+  background:linear-gradient(120deg,#fff,#ffd0b3);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+#respond-first .rf-elapsed .rf-unit{font-size:.46em; font-weight:600; color:#9fb6d8;}
+#respond-first .rf-elapsed .rf-since{
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#7f96bb;
+  margin-top:9px;
+}
+
+/* timeline */
+#respond-first .rf-timeline{
+  position:relative; z-index:1; padding:14px 22px 8px; margin-left:6px;
+}
+#respond-first .rf-timeline::before{
+  content:""; position:absolute; left:30px; top:22px; bottom:30px; width:2px;
+  background:linear-gradient(rgba(120,150,200,.3),rgba(120,150,200,.08));
+}
+#respond-first .rf-step{
+  position:relative; padding:0 0 18px 38px; opacity:1;
+}
+#respond-first .rf-step .rf-node{
+  position:absolute; left:2px; top:3px; width:18px; height:18px; border-radius:50%;
+  background:#1a3258; border:2px solid rgba(150,180,225,.5);
+  display:flex; align-items:center; justify-content:center;
+}
+#respond-first .rf-step .rf-node::after{
+  content:""; width:6px; height:6px; border-radius:50%; background:#6f8bb8;
+}
+#respond-first .rf-step .rf-t{
+  font-family:'Poppins','Inter',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:.04em; color:var(--rf-orange2); margin:0 0 3px;
+}
+#respond-first .rf-step .rf-line{
+  font-size:14px; font-weight:600; color:#eaf1fb; line-height:1.3; margin:0 0 3px;
+}
+#respond-first .rf-step .rf-meta{
+  font-size:12.5px; color:#90a6c8; line-height:1.4; margin:0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+/* active styling driven by keyframes — default fully visible (no-JS friendly) */
+#respond-first .rf-step.done .rf-node{border-color:var(--rf-orange2); background:#26456f;}
+#respond-first .rf-step.done .rf-node::after{background:var(--rf-orange2);}
+
+/* CSS auto-play: sequentially highlight nodes, looping. Works without JS. */
+#respond-first .rf-step .rf-node{animation:rfReveal 19s linear infinite;}
+#respond-first .rf-step.s1 .rf-node{animation-delay:0s;}
+#respond-first .rf-step.s2 .rf-node{animation-delay:1.4s;}
+#respond-first .rf-step.s3 .rf-node{animation-delay:3.8s;}
+#respond-first .rf-step.s4 .rf-node{animation-delay:18s;}
+@keyframes rfReveal{
+  0%,5%{transform:scale(1); box-shadow:0 0 0 0 rgba(232,132,63,0);}
+  2%{transform:scale(1.25); box-shadow:0 0 0 6px rgba(232,132,63,.18);
+     border-color:var(--rf-orange2);}
+  100%{transform:scale(1);}
+}
+
+#respond-first .rf-con-foot{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  padding:14px 22px 20px; position:relative; z-index:1;
+  border-top:1px solid rgba(120,150,200,.14); margin-top:4px;
+}
+#respond-first .rf-chip{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:'Poppins','Inter',sans-serif; font-size:12px; font-weight:700;
+  letter-spacing:.05em; color:#0f1f3a;
+  background:linear-gradient(135deg,#e8f6ec,#c9f0d6);
+  border:1px solid rgba(46,160,90,.4); padding:6px 13px; border-radius:999px;
+}
+#respond-first .rf-chip svg{width:13px; height:13px;}
+#respond-first .rf-replay{
+  margin-left:auto; display:inline-flex; align-items:center; gap:7px;
+  font-family:inherit; font-size:12.5px; font-weight:600; cursor:pointer;
+  color:#cfe0f7; background:rgba(120,150,200,.12);
+  border:1px solid rgba(120,150,200,.28); padding:7px 14px; border-radius:10px;
+  transition:background .16s ease, transform .16s ease;
+}
+#respond-first .rf-replay:hover{background:rgba(120,150,200,.22); transform:translateY(-1px);}
+#respond-first .rf-replay svg{width:14px; height:14px;}
+
+#respond-first .rf-watch{
+  text-align:center; font-size:13px; color:var(--rf-muted); margin:34px 0 0;
+}
+#respond-first .rf-watch b{color:var(--rf-ink); font-weight:600;}
+
+/* JS-driven replay restart helper (re-triggers animations) */
+#respond-first .rf-console.rf-restart .rf-step .rf-node{animation:none;}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width:980px){
+  #respond-first .rf-grid{grid-template-columns:1fr; gap:40px;}
+  #respond-first .rf-sub,#respond-first .rf-bench,#respond-first .rf-bench-cap{max-width:none;}
+  #respond-first .rf-console{max-width:560px;}
+}
+@media (max-width:560px){
+  #respond-first .rf-bench{grid-template-columns:1fr; gap:10px;}
+  #respond-first .rf-bench-vs{justify-self:start; padding:2px 0;}
+  #respond-first .rf-cta-row{align-items:flex-start; flex-direction:column; gap:14px;}
+  #respond-first .rf-con-head{padding:14px 16px;}
+  #respond-first .rf-elapsed{padding:16px 16px 4px;}
+  #respond-first .rf-timeline{padding:12px 16px 4px;}
+  #respond-first .rf-timeline::before{left:24px;}
+  #respond-first .rf-step{padding-left:34px;}
+}
+@media (prefers-reduced-motion:reduce){
+  #respond-first .rf-step .rf-node,#respond-first .rf-live i{animation:none;}
+  #respond-first .rf-step .rf-node{border-color:var(--rf-orange2);}
 }
 </style>
 
-<section class="rf-bp" id="respond-first">
-  <div class="rf-wrap">
-
-    <div class="rf-hero">
-      <div class="rf-rv">
-        <span class="rf-kicker"><i></i> Admission Response Automation</span>
-        <h2 class="rf-h1">The institute that responds first, <em>wins<svg aria-hidden="true" viewBox="0 0 120 12" preserveAspectRatio="none"><path d="M2 9 C 30 3, 60 11, 118 5"/></svg></em>.</h2>
-        <p class="rf-lead">78% of students enrol with the institute that contacts them <b>first</b>. ExtraaEdge captures every inquiry — ads, forms, portals, walk-ins — and places an AI-powered call <b>within seconds</b>, so your counsellors only talk to warm, qualified leads.</p>
-
-        <div class="rf-race rf-rv d1" id="rfRace">
-          <div class="rf-anno"><span>FIG 01 · SPEED-TO-LEAD</span><span><b>LIVE BENCHMARK</b></span></div>
-          <div class="rf-lane you">
-            <small><span>With ExtraaEdge AI</span><output id="rfRaceYou">0s</output></small>
-            <div class="bar"><div class="fill" data-w="9%"></div></div>
-          </div>
-          <div class="rf-lane them">
-            <small><span>Industry average</span><output id="rfRaceThem">0h</output></small>
-            <div class="bar"><div class="fill" data-w="96%"></div></div>
-          </div>
-          <p class="rf-race-foot">→ Leads contacted in &lt;5 min are <b>21× more likely</b> to qualify.</p>
-        </div>
-
-        <div class="rf-ctarow rf-rv d2">
-          <a href="#demo" class="rf-cta">Book a Demo <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-        <p class="rf-trust rf-rv d3"><span class="stars">★★★★★</span> Trusted by 400+ institutes · 22M+ inquiries processed</p>
-      </div>
-
-      <div class="rf-sim rf-rv d1">
-        <span class="rf-spec rf-spec--a">RESPONSE ENGINE <b>v4.2</b></span>
-        <span class="rf-spec rf-spec--b">UPTIME <b>99.98%</b></span>
-        <div class="rf-sim-frame">
-          <div class="rf-sim-hd"><span>RESPONSE SIMULATOR</span><span class="rf-live"><i></i> LIVE</span></div>
-          <div class="rf-sim-body">
-            <div class="rf-clock"><span id="rfSimClock">00.0</span><span class="unit">sec</span><small>ELAPSED SINCE INQUIRY</small></div>
-            <div class="rf-ledger" id="rfSimLedger">
-              <div class="rf-ev" data-at="0"><span class="t">T+0.0s</span><span class="nd"></span><span class="x">Inquiry detected · Meta Lead Ad<small>Aarav S. · B.Tech CSE · Pune</small></span></div>
-              <div class="rf-ev" data-at="14"><span class="t">T+1.4s</span><span class="nd"></span><span class="x">Lead scored &amp; routed<small>Intent: HIGH · Program match: 94%</small></span></div>
-              <div class="rf-ev" data-at="38"><span class="t">T+3.8s</span><span class="nd"></span><span class="x">AI voice call initiated<small>Language auto-detected: English + Hindi</small></span></div>
-              <div class="rf-ev" data-at="180"><span class="t">T+18s</span><span class="nd"></span><span class="x"><span class="ok">Connected &amp; qualified ✓</span><small>Counsellor Priya assigned · WhatsApp brochure sent</small></span></div>
-            </div>
-            <div class="rf-stamp" id="rfSimStamp">QUALIFIED · 18s</div>
-          </div>
-          <div class="rf-sim-ft">
-            <button class="rf-simbtn" id="rfSimBtn">▶ Simulate an inquiry</button>
-            <p>Watch what happens in the first 18 seconds after a student hits "submit".</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rf-section-hd">
-      <h2 class="rf-h2 rf-rv">From first click to enrolment — <em>one engine</em>, four moves.</h2>
-    </div>
-
+<section class="rf-bp" id="respond-first" aria-label="Admission Response Automation">
+  <span class="rf-glow g1" aria-hidden="true"></span>
+  <span class="rf-glow g2" aria-hidden="true"></span>
+  <div class="rf-container">
     <div class="rf-grid">
-      <div class="rf-stories" id="rfStories">
-        <div class="rf-rail"><i id="rfRailFill"></i></div>
 
-        <article class="rf-story on" data-view="0">
-          <span class="rf-node">01</span>
-          <span class="rf-tag">Capture · Zero Leakage</span>
-          <h3>Every inquiry lands in one queue. None slip away.</h3>
-          <p>Ads, portals, forms, missed calls, walk-ins — <b>auto-synced in real time</b> with duplicates merged and sources tagged. Your team starts the day with one clean, prioritised pipeline instead of six spreadsheets.</p>
-          <div class="rf-chips"><span class="rf-chip">Ads Sync</span><span class="rf-chip">Form Capture</span><span class="rf-chip">Dedup Engine</span><span class="rf-chip">Source Attribution</span></div>
-        </article>
+      <!-- LEFT: COPY -->
+      <div class="rf-copy">
+        <p class="rf-eyebrow"><span class="rf-dot"></span>Admission Response Automation</p>
+        <h2>The institute that <span class="rf-accent">responds first</span>, wins.</h2>
+        <p class="rf-sub">78% of students enrol with the institute that contacts them first. ExtraaEdge captures every inquiry — ads, forms, portals, walk-ins — and places an AI-powered call within seconds, so your counsellors only talk to warm, qualified leads.</p>
 
-        <article class="rf-story" data-view="1">
-          <span class="rf-node">02</span>
-          <span class="rf-tag">Engage · AI Voice</span>
-          <h3>AI calls in seconds — in the student's language.</h3>
-          <p>The moment a lead arrives, an AI agent dials, verifies intent, answers program and fee questions, and books counselling slots. <b>24/7, in 10+ languages</b>, with every call transcribed and scored.</p>
-          <div class="rf-chips"><span class="rf-chip">AI Calling</span><span class="rf-chip">IVR Routing</span><span class="rf-chip">Multilingual</span><span class="rf-chip">Call Transcripts</span></div>
-        </article>
+        <div class="rf-bench">
+          <div class="rf-bench-card win">
+            <p class="rf-bench-label">
+              <svg viewBox="0 0 24 24" fill="none" width="13" height="13" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z" fill="#DE6E30"/></svg>
+              With ExtraaEdge AI
+            </p>
+            <div class="rf-bench-num">18<span>sec</span></div>
+          </div>
+          <div class="rf-bench-vs" aria-hidden="true">vs</div>
+          <div class="rf-bench-card">
+            <p class="rf-bench-label">Industry average</p>
+            <div class="rf-bench-num">17<span>hrs</span></div>
+          </div>
+        </div>
+        <p class="rf-bench-cap">Leads contacted in under 5 minutes are <b>21× more likely to qualify.</b></p>
 
-        <article class="rf-story" data-view="2">
-          <span class="rf-node">03</span>
-          <span class="rf-tag">Nurture · Smart Handover</span>
-          <h3>Warm leads handed to humans at the perfect moment.</h3>
-          <p>AI handles the repetitive 80% — follow-ups, reminders, document nudges on WhatsApp and email. The instant a student shows buying intent, <b>a counsellor takes over with full context</b>.</p>
-          <div class="rf-chips"><span class="rf-chip">WhatsApp Automation</span><span class="rf-chip">Drip Journeys</span><span class="rf-chip">Intent Triggers</span><span class="rf-chip">Context Handover</span></div>
-        </article>
-
-        <article class="rf-story" data-view="3">
-          <span class="rf-node">04</span>
-          <span class="rf-tag">Convert · Command Center</span>
-          <h3>See exactly which rupee turns into an enrolment.</h3>
-          <p>Live funnels, counsellor leaderboards, source-level ROI and response-time SLAs — <b>one dashboard your director will actually open</b>. Cut spend on what doesn't convert, double down on what does.</p>
-          <div class="rf-chips"><span class="rf-chip">Live Funnel</span><span class="rf-chip">Source ROI</span><span class="rf-chip">SLA Alerts</span><span class="rf-chip">Forecasting</span></div>
-        </article>
+        <div class="rf-cta-row">
+          <a class="rf-cta" href="#demo">
+            Book a Demo
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <p class="rf-trust"><span class="rf-stars">★★★★★</span> Trusted by 400+ institutes<br>22M+ inquiries processed</p>
+        </div>
       </div>
 
-      <div class="rf-sticky">
-        <div class="rf-device" id="rfDevice">
-          <div class="rf-shine"></div>
-          <div class="rf-dhd"><span>EXTRAAEDGE · AI HUB</span><span class="rf-live"><i></i> LIVE</span></div>
-          <div class="rf-pills" id="rfPills">
-            <button class="rf-pill on" data-view="0">01 CAPTURE</button>
-            <button class="rf-pill" data-view="1">02 AI CALL</button>
-            <button class="rf-pill" data-view="2">03 NURTURE</button>
-            <button class="rf-pill" data-view="3">04 ANALYTICS</button>
+      <!-- RIGHT: CONSOLE / SIMULATOR -->
+      <div class="rf-sim">
+        <div class="rf-console" id="rf-console">
+          <div class="rf-con-head">
+            <span class="rf-con-title">Response Engine v4.2 · Uptime 99.98%</span>
+            <span class="rf-live"><i></i>LIVE</span>
           </div>
-          <div class="rf-screen">
-            <div class="rf-view on" data-view="0">
-              <div class="rf-mono-dim"><span>INBOUND QUEUE</span><b id="rfFeedCount">+0 TODAY</b></div>
-              <div class="rf-feed" id="rfFeed"></div>
+
+          <div class="rf-elapsed">
+            <div class="rf-big"><span class="rf-counter" id="rf-counter">18.0</span><span class="rf-unit">s</span></div>
+            <div class="rf-since">Elapsed since inquiry</div>
+          </div>
+
+          <div class="rf-timeline" role="list">
+            <div class="rf-step s1 done" role="listitem">
+              <span class="rf-node" aria-hidden="true"></span>
+              <p class="rf-t">T+0.0s</p>
+              <p class="rf-line">Inquiry detected · Meta Lead Ad</p>
+              <p class="rf-meta">Aarav S. · B.Tech CSE · Pune</p>
             </div>
-            <div class="rf-view" data-view="1">
-              <div class="rf-center">
-                <div class="rf-ring">📞</div>
-                <div class="rf-wave" aria-hidden="true"></div>
-                <div class="rf-calllog" id="rfCallLog">
-                  <div>→ Dialing <b>+91 98••• ••421</b> · attempt 1</div>
-                  <div>→ Connected · language: <b>English</b></div>
-                  <div>→ Intent verified: <b>MBA 2026 · High</b></div>
-                  <div>→ Slot booked: <b>Tomorrow 11:00 AM</b></div>
-                  <div>→ Summary pushed to CRM · <b>score 92/100</b></div>
-                </div>
-              </div>
+            <div class="rf-step s2 done" role="listitem">
+              <span class="rf-node" aria-hidden="true"></span>
+              <p class="rf-t">T+1.4s</p>
+              <p class="rf-line">Lead scored &amp; routed</p>
+              <p class="rf-meta">Intent: HIGH · Program match: 94%</p>
             </div>
-            <div class="rf-view" data-view="2">
-              <div class="rf-mono-dim"><span>WHATSAPP · AUTOPILOT</span><b>RIYA M.</b></div>
-              <div id="rfChat">
-                <div class="rf-bubble u">Hi, what's the fee for B.Des and is hostel included? 🏠</div>
-                <div class="rf-bubble a">Hi Riya! B.Des is ₹2.4L/yr — hostel + mess is ₹85K extra. I've sent the full breakdown to your WhatsApp. Want me to book a campus tour this Saturday?</div>
-                <div class="rf-bubble u">Yes please, Saturday works!</div>
-                <div class="rf-typing" id="rfTyping"><i></i><i></i><i></i></div>
-                <div class="rf-handover" id="rfHandover">HIGH INTENT → COUNSELLOR ARJUN ASSIGNED</div>
-              </div>
+            <div class="rf-step s3 done" role="listitem">
+              <span class="rf-node" aria-hidden="true"></span>
+              <p class="rf-t">T+3.8s</p>
+              <p class="rf-line">AI voice call initiated</p>
+              <p class="rf-meta">Language auto-detected: English + Hindi</p>
             </div>
-            <div class="rf-view" data-view="3">
-              <div class="rf-mono-dim"><span>FUNNEL VELOCITY</span><b>THIS WEEK</b></div>
-              <div class="rf-gaugewrap">
-                <div class="rf-gauge">
-                  <svg aria-hidden="true" width="150" height="150" viewBox="0 0 150 150">
-                    <defs>
-                      <linearGradient id="rfAreaGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stop-color="rgba(222,110,48,.35)"/><stop offset="1" stop-color="rgba(222,110,48,0)"/>
-                      </linearGradient>
-                    </defs>
-                    <circle class="bg" cx="75" cy="75" r="65" fill="none" stroke-width="10"/>
-                    <circle class="fg" id="rfGaugeFg" cx="75" cy="75" r="65" fill="none" stroke-width="10"/>
-                  </svg>
-                  <span class="num" id="rfGaugeNum">0%</span>
-                </div>
-                <div class="rf-gstats">
-                  <div class="rf-gstat"><small>Avg response</small><b>22 sec</b></div>
-                  <div class="rf-gstat"><small>Calls today</small><b>1,284</b></div>
-                  <div class="rf-gstat"><small>Hot leads</small><b>312 ↑</b></div>
-                </div>
-              </div>
-              <svg aria-hidden="true" class="rf-spark" id="rfSpark" width="100%" height="64" viewBox="0 0 420 64" preserveAspectRatio="none">
-                <path class="area" d="M0,52 C40,48 70,38 110,40 C150,42 180,26 220,28 C260,30 290,16 330,14 C370,12 400,8 420,6 L420,64 L0,64 Z"/>
-                <path class="l" d="M0,52 C40,48 70,38 110,40 C150,42 180,26 220,28 C260,30 290,16 330,14 C370,12 400,8 420,6"/>
-              </svg>
+            <div class="rf-step s4 done" role="listitem">
+              <span class="rf-node" aria-hidden="true"></span>
+              <p class="rf-t">T+18s</p>
+              <p class="rf-line">Connected &amp; qualified ✓</p>
+              <p class="rf-meta">Counsellor Priya assigned · WhatsApp brochure sent</p>
             </div>
-            <span class="rf-stage-label" id="rfStageLabel">STAGE 01 / 04</span>
+          </div>
+
+          <div class="rf-con-foot">
+            <span class="rf-chip">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 13 4 4 10-11" stroke="#1f8a4d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              QUALIFIED · 18s
+            </span>
+            <button type="button" class="rf-replay" id="rf-replay">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12a8 8 0 1 1 2.5 5.8M4 12V7m0 5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Replay simulation
+            </button>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="rf-metrics rf-rv">
-      <div class="rf-m"><b><span data-rfcount="90">0</span><sup>%</sup></b><span>Faster first response</span></div>
-      <div class="rf-m"><b><span data-rfcount="3.2" data-dec="1">0</span><sup>×</sup></b><span>More leads contacted</span></div>
-      <div class="rf-m"><b><span data-rfcount="41">0</span><sup>%</sup></b><span>Lift in enrolments</span></div>
-      <div class="rf-m"><b><span data-rfcount="60">0</span><sup>%</sup></b><span>Counsellor hours saved</span></div>
     </div>
-
-    <div class="rf-roi rf-rv" id="rfRoiLab">
-      <div class="rf-roi-l">
-        <h3>What is slow response <em>costing you</em>?</h3>
-        <p>Drag the sliders to your numbers. We'll show the enrolments — and revenue — currently leaking out of your funnel every admission season.</p>
-
-        <div class="rf-sliderbox">
-          <label>Inquiries per month <output id="rfOLeads">2,000</output></label>
-          <input class="rf-range" type="range" id="rfLeads" min="200" max="10000" step="100" value="2000">
-        </div>
-        <div class="rf-sliderbox">
-          <label>Avg. annual fee (₹) <output id="rfOFee">₹1.5L</output></label>
-          <input class="rf-range" type="range" id="rfFee" min="50000" max="1000000" step="10000" value="150000">
-        </div>
-        <div class="rf-sliderbox">
-          <label>Current conversion rate <output id="rfOConv">3%</output></label>
-          <input class="rf-range" type="range" id="rfConv" min="1" max="12" step="0.5" value="3">
-        </div>
-        <p class="rf-roi-note">* Model assumes a conservative 35% conversion lift from sub-minute response, based on aggregate outcomes across ExtraaEdge institutes. Your demo includes a calibrated projection.</p>
-      </div>
-      <div class="rf-roi-r">
-        <div class="rf-roi-stat"><small>Extra enrolments / season</small><b id="rfEnrol">+252</b></div>
-        <div class="rf-roi-stat hero"><small>Recovered revenue / year</small><b id="rfRev">₹3.8 Cr</b></div>
-        <div class="rf-roi-stat"><small>Counsellor hours freed / month</small><b id="rfHours">640 hrs</b></div>
-        <a href="#demo" class="rf-roi-cta">Get my calibrated projection →</a>
-      </div>
-    </div>
+    <p class="rf-watch">Watch what happens in the first 18 seconds after a student hits <b>submit.</b></p>
   </div>
-
 </section>
 
 <script>
 (function(){
-  "use strict";
-  var bp = document.getElementById('respond-first');
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var rvIO = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rvIO.unobserve(e.target);} });
-  },{threshold:.15});
-  bp.querySelectorAll('.rf-rv').forEach(function(el){ rvIO.observe(el); });
-  var race = document.getElementById('rfRace');
-  var raceIO = new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting) return;
-      raceIO.disconnect();
-      race.querySelectorAll('.fill').forEach(function(f){ f.style.width = f.dataset.w; });
-      animNum(document.getElementById('rfRaceYou'), 18, 1500, function(v){ return Math.round(v)+'s'; });
-      animNum(document.getElementById('rfRaceThem'), 17, 1500, function(v){ return Math.round(v)+'h'; });
-    });
-  },{threshold:.5});
-  raceIO.observe(race);
-  function animNum(el, to, dur, fmt){
-    if(reduced){ el.textContent = fmt(to); return; }
-    var t0 = performance.now();
-    (function step(t){
-      var p = Math.min((t-t0)/dur, 1), e = 1-Math.pow(1-p,3);
-      el.textContent = fmt(to*e);
-      if(p<1) requestAnimationFrame(step);
-    })(t0);
-  }
-  var rfSimBtn = document.getElementById('rfSimBtn'),
-      rfSimClock = document.getElementById('rfSimClock'),
-      rfSimStamp = document.getElementById('rfSimStamp'),
-      simEvents = Array.prototype.slice.call(document.querySelectorAll('#rfSimLedger .rf-ev')),
-      simTimer = null;
-  function resetSim(){
-    clearInterval(simTimer);
-    rfSimClock.textContent = '00.0';
-    rfSimStamp.classList.remove('show');
-    simEvents.forEach(function(ev){ ev.classList.remove('on'); });
-  }
-  function runSim(){
-    resetSim();
-    rfSimBtn.disabled = true;
-    var tick = 0;
-    var schedule = [0, 14, 38, 180];
-    var i = 0;
-    if(reduced){
-      simEvents.forEach(function(ev){ ev.classList.add('on'); });
-      rfSimClock.textContent='18.0'; rfSimStamp.classList.add('show'); rfSimBtn.disabled=false;
-      rfSimBtn.textContent = '↻ Replay simulation';
-      return;
+  var root=document.getElementById('respond-first'); if(!root) return;
+  var console_=root.querySelector('#rf-console');
+  var counter=root.querySelector('#rf-counter');
+  var replay=root.querySelector('#rf-replay');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var timer=null;
+
+  function runCounter(){
+    if(reduce){counter.textContent='18.0'; return;}
+    if(timer) clearInterval(timer);
+    var t=0, dur=18000, start=null;
+    function tick(ts){
+      if(start===null) start=ts;
+      var p=Math.min((ts-start)/dur,1);
+      // ease toward 18 with a fast early jump
+      counter.textContent=(18*p).toFixed(1);
+      if(p<1){ requestAnimationFrame(tick); }
+      else { counter.textContent='18.0'; }
     }
-    simTimer = setInterval(function(){
-      tick = tick < 40 ? tick + 1 : tick + 6;
-      if(tick >= 180){ tick = 180; }
-      var s = (tick/10);
-      rfSimClock.textContent = (s<10?'0':'') + s.toFixed(1);
-      while(i < schedule.length && tick >= schedule[i]){
-        simEvents[i].classList.add('on'); i++;
-      }
-      if(tick >= 180){
-        clearInterval(simTimer);
-        rfSimStamp.classList.add('show');
-        rfSimBtn.disabled = false;
-        rfSimBtn.textContent = '↻ Replay simulation';
-      }
-    }, 100);
+    requestAnimationFrame(tick);
   }
-  rfSimBtn.addEventListener('click', runSim);
-  var simIO = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ simIO.disconnect(); setTimeout(runSim, 700); } });
-  },{threshold:.4});
-  simIO.observe(rfSimBtn);
-  var wave = bp.querySelector('.rf-wave');
-  for(var w=0; w<14; w++){
-    var bar = document.createElement('i');
-    bar.style.animationDelay = (w*0.07)+'s';
-    bar.style.animationDuration = (0.7 + (w%4)*0.12)+'s';
-    wave.appendChild(bar);
+
+  function restart(){
+    console_.classList.add('rf-restart');
+    // force reflow then re-enable CSS step animations
+    void console_.offsetWidth;
+    console_.classList.remove('rf-restart');
+    runCounter();
   }
-  var device = document.getElementById('rfDevice'),
-      pills = Array.prototype.slice.call(document.querySelectorAll('#rfPills .rf-pill')),
-      views = Array.prototype.slice.call(bp.querySelectorAll('.rf-view')),
-      stories = Array.prototype.slice.call(document.querySelectorAll('#rfStories .rf-story')),
-      stageLabel = document.getElementById('rfStageLabel'),
-      current = 0, pinnedUntil = 0;
-  function setView(n, fromUser){
-    if(n === current && !fromUser) return;
-    current = n;
-    pills.forEach(function(p,i){ p.classList.toggle('on', i===n); });
-    views.forEach(function(v,i){ v.classList.toggle('on', i===n); });
-    stories.forEach(function(s,i){ s.classList.toggle('on', i===n); });
-    stageLabel.textContent = 'STAGE 0'+(n+1)+' / 04';
-    device.classList.remove('shined'); void device.offsetWidth; device.classList.add('shined');
-    if(n===1) playCallLog();
-    if(n===2) playChat();
-    if(n===3) playGauge();
-    if(fromUser) pinnedUntil = Date.now() + 4000;
-  }
-  pills.forEach(function(p){ p.addEventListener('click', function(){ setView(+p.dataset.view, true); }); });
-  stories.forEach(function(s){
-    s.querySelector('.rf-node').addEventListener('click', function(){
-      s.scrollIntoView({behavior: reduced?'auto':'smooth', block:'center'});
-    });
-  });
-  var storyIO = new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(e.isIntersecting && Date.now() > pinnedUntil){
-        setView(+e.target.dataset.view, false);
-      }
-    });
-  },{rootMargin:'-40% 0px -40% 0px'});
-  stories.forEach(function(s){ storyIO.observe(s); });
-  var railFill = document.getElementById('rfRailFill'), storiesWrap = document.getElementById('rfStories');
-  function updRail(){
-    var r = storiesWrap.getBoundingClientRect();
-    var p = Math.min(Math.max((window.innerHeight*0.55 - r.top) / r.height, 0), 1);
-    railFill.style.height = (p*100)+'%';
-  }
-  window.addEventListener('scroll', updRail, {passive:true}); updRail();
-  if(!reduced && matchMedia('(pointer:fine)').matches){
-    device.addEventListener('mousemove', function(e){
-      var r = device.getBoundingClientRect();
-      var x = (e.clientX - r.left)/r.width - .5, y = (e.clientY - r.top)/r.height - .5;
-      device.style.transform = 'rotateY('+(x*5)+'deg) rotateX('+(-y*4)+'deg)';
-    });
-    device.addEventListener('mouseleave', function(){ device.style.transform=''; });
-  }
-  var feed = document.getElementById('rfFeed'), rfFeedCount = document.getElementById('rfFeedCount'), fc = 0;
-  var people = [
-    ['AS','Aarav Shah','Meta Ads · B.Tech CSE'],['RM','Riya Mehta','Website · B.Des'],
-    ['KP','Kabir Patel','Shiksha · MBA'],['ZK','Zara Khan','Google Ads · BBA'],
-    ['VN','Vihaan Nair','Walk-in · M.Tech'],['IA','Ishita Agarwal','WhatsApp · B.Com'],
-    ['DR','Dev Reddy','Collegedunia · B.Arch'],['MJ','Meera Joshi','IVR · MBBS Coaching']
-  ];
-  function pushLead(){
-    var p = people[fc % people.length]; fc++;
-    var row = document.createElement('div');
-    row.className = 'rf-row new';
-    row.innerHTML = '<span class="rf-id"><span class="rf-av">'+p[0]+'</span><span><b>'+p[1]+'</b><small>'+p[2]+'</small></span></span><span class="rf-sync">SYNCED</span>';
-    feed.prepend(row);
-    while(feed.children.length > 5) feed.removeChild(feed.lastChild);
-    rfFeedCount.textContent = '+'+(214+fc)+' TODAY';
-  }
-  for(var s0=0;s0<4;s0++) pushLead();
-  if(!reduced) setInterval(function(){ if(current===0) pushLead(); }, 2600);
-  var callLines = Array.prototype.slice.call(document.querySelectorAll('#rfCallLog div'));
-  function playCallLog(){
-    callLines.forEach(function(l){ l.classList.remove('show'); });
-    callLines.forEach(function(l,i){
-      setTimeout(function(){ if(current===1) l.classList.add('show'); }, reduced?0:300+i*550);
-    });
-  }
-  var bubbles = Array.prototype.slice.call(document.querySelectorAll('#rfChat .rf-bubble')),
-      typing = document.getElementById('rfTyping'), handover = document.getElementById('rfHandover');
-  function playChat(){
-    bubbles.forEach(function(b){ b.classList.remove('show'); });
-    typing.classList.remove('show'); handover.classList.remove('show');
-    if(reduced){ bubbles.forEach(function(b){b.classList.add('show');}); handover.classList.add('show'); return; }
-    setTimeout(function(){ if(current!==2)return; bubbles[0].classList.add('show'); }, 250);
-    setTimeout(function(){ if(current!==2)return; typing.classList.add('show'); }, 850);
-    setTimeout(function(){ if(current!==2)return; typing.classList.remove('show'); bubbles[1].classList.add('show'); }, 1900);
-    setTimeout(function(){ if(current!==2)return; bubbles[2].classList.add('show'); }, 2700);
-    setTimeout(function(){ if(current!==2)return; handover.classList.add('show'); }, 3400);
-  }
-  var gaugeFg = document.getElementById('rfGaugeFg'), gaugeNum = document.getElementById('rfGaugeNum'), spark = document.getElementById('rfSpark');
-  function playGauge(){
-    var C = 408;
-    gaugeFg.style.strokeDashoffset = C; spark.classList.remove('run');
-    void gaugeFg.offsetWidth;
-    gaugeFg.style.strokeDashoffset = C - (C * 0.78);
-    spark.classList.add('run');
-    animNum(gaugeNum, 41, 1300, function(v){ return Math.round(v)+'%'; });
-  }
-  var counters = bp.querySelectorAll('[data-rfcount]');
-  var cntIO = new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting) return; cntIO.unobserve(e.target);
-      var to = parseFloat(e.target.dataset.rfcount), dec = +(e.target.dataset.dec||0);
-      animNum(e.target, to, 1400, function(v){ return v.toFixed(dec); });
-    });
-  },{threshold:.6});
-  counters.forEach(function(c){ cntIO.observe(c); });
-  var rfLeads = document.getElementById('rfLeads'), rfFee = document.getElementById('rfFee'), rfConv = document.getElementById('rfConv');
-  var rfOLeads = document.getElementById('rfOLeads'), rfOFee = document.getElementById('rfOFee'), rfOConv = document.getElementById('rfOConv');
-  var rfEnrol = document.getElementById('rfEnrol'), rfRev = document.getElementById('rfRev'), rfHours = document.getElementById('rfHours');
-  function inr(n){
-    if(n >= 1e7) return '₹'+(n/1e7).toFixed(1).replace(/\.0$/,'')+' Cr';
-    if(n >= 1e5) return '₹'+(n/1e5).toFixed(1).replace(/\.0$/,'')+'L';
-    return '₹'+Math.round(n).toLocaleString('en-IN');
-  }
-  function fmtInt(n){ return Math.round(n).toLocaleString('en-IN'); }
-  function paintRange(el){
-    var p = (el.value - el.min)/(el.max - el.min)*100;
-    el.style.setProperty('--p', p+'%');
-  }
-  function calc(){
-    var leads = +rfLeads.value, fee = +rfFee.value, conv = +rfConv.value/100;
-    paintRange(rfLeads); paintRange(rfFee); paintRange(rfConv);
-    rfOLeads.textContent = fmtInt(leads);
-    rfOFee.textContent = inr(fee);
-    rfOConv.textContent = (+rfConv.value)+'%';
-    var LIFT = 0.35, SEASON = 12;
-    var extraEnrol = leads * SEASON * conv * LIFT;
-    var revenue = extraEnrol * fee;
-    var hours = Math.round(leads * 0.32);
-    rfEnrol.textContent = '+'+fmtInt(extraEnrol);
-    rfRev.textContent = inr(revenue);
-    rfHours.textContent = fmtInt(hours)+' hrs';
-  }
-  [rfLeads,rfFee,rfConv].forEach(function(r){ r.addEventListener('input', calc); });
-  calc();
+
+  if(replay){ replay.addEventListener('click', restart); }
+  runCounter();
 })();
 </script>
 <!-- ===================== VIDYAGPT WIDGET ===================== -->
