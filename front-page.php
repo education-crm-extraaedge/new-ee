@@ -8785,7 +8785,32 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* One continuous background across the homepage — no divider lines, no section seams */
 .ee-home .section-divider{display:none!important}
 #ecosystem,#segments,#whatsapp{display:none!important}
-body.ee-home{background:#f6f8fc!important}
+/* ---- premium SaaS abstract background (CSS only · zero images) ---- */
+body.ee-home{
+  background-color:#f6f8fc!important;
+  background-image:
+    radial-gradient(circle at 14% 6%, rgba(34,70,124,.08), transparent 40%),
+    radial-gradient(circle at 88% 14%, rgba(222,110,48,.07), transparent 42%),
+    radial-gradient(circle at 78% 72%, rgba(34,70,124,.07), transparent 46%),
+    radial-gradient(circle at 8% 86%, rgba(222,110,48,.05), transparent 40%),
+    linear-gradient(rgba(25,51,93,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25,51,93,.022) 1px, transparent 1px)!important;
+  background-size:100% 100%,100% 100%,100% 100%,100% 100%,48px 48px,48px 48px!important;
+  background-position:0 0,0 0,0 0,0 0,0 0,0 0!important;
+  background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,repeat,repeat!important;
+  background-attachment:fixed,fixed,fixed,fixed,fixed,fixed!important;
+}
+@media (max-width:768px){
+  /* avoid fixed-attachment jank on mobile; drop the grid for clarity */
+  body.ee-home{
+    background-image:
+      radial-gradient(circle at 12% 4%, rgba(34,70,124,.08), transparent 44%),
+      radial-gradient(circle at 90% 12%, rgba(222,110,48,.06), transparent 46%)!important;
+    background-size:100% 100%,100% 100%!important;
+    background-repeat:no-repeat,no-repeat!important;
+    background-attachment:scroll,scroll!important;
+  }
+}
 #ee-platform,#ee-os,#trusted-institutions,#platform,#respond-first,#ams,#stories,#segments,#ecosystem,#integrations,#whatsapp,#security,#faq,#demo,#ee-cro,
 .ee-home .sec,.ee-home .sec--soft,.ee-home .logo-section,.ee-home .ci-sec,.ee-home .rf-bp,.ee-home .ea-bp,.ee-home .ee-bp,.ee-home .wa-sec{
   background:transparent!important;border-top:0!important;border-bottom:0!important
