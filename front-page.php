@@ -1632,8 +1632,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   <div class="logo-header reveal">
     <div class="logo-badge">Leading Institutions</div>
     <p style="font-family:var(--font-h);font-weight:700;font-size:1rem;color:var(--blue);margin-bottom:10px">Trusted by 500+ Institutions Growing Faster Than Ever</p>
-    <h2 class="logo-title">Why Educational Institutions Choose ExtraaEdge CRM</h2>
-    <p class="logo-sub">AI-powered <strong>admission automation</strong> and <strong>enrollment management system</strong> for the next generation of education leaders.</p>
   </div>
   <div class="marquee-wrap">
     <div class="marquee-track marquee-left">
