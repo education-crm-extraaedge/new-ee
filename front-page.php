@@ -3367,53 +3367,60 @@ body.vg-open .vg-launch{display:none}
   /* ---- stage / rail ---- */
   #ee-vidya-suite .vsx-stage{ margin-top:clamp(22px,3vw,38px); }
   #ee-vidya-suite .vsx-rail{
-    display:flex; gap:clamp(14px,1.6vw,20px); align-items:stretch;
+    display:flex; gap:clamp(16px,1.8vw,22px); align-items:stretch;
     /* default (mobile / no-JS): horizontal swipe carousel */
     overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:14px;
     -webkit-overflow-scrolling:touch; scrollbar-width:none;
   }
   #ee-vidya-suite .vsx-rail::-webkit-scrollbar{ display:none; }
   #ee-vidya-suite .vsx-card{
-    scroll-snap-align:center; flex:0 0 clamp(248px,76vw,340px);
-    display:flex; flex-direction:column; gap:13px;
-    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
-    border-radius:20px; padding:22px 22px 24px; position:relative; overflow:hidden;
+    scroll-snap-align:center; flex:0 0 clamp(280px,84vw,400px);
+    display:flex; flex-direction:column; gap:14px;
+    background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.1);
+    border-radius:24px; padding:28px 26px 30px; position:relative; overflow:hidden;
+    box-shadow:0 20px 50px -30px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.05);
     transition:transform .4s cubic-bezier(.2,.7,.2,1), border-color .4s, background .4s;
   }
-  #ee-vidya-suite .vsx-card::before{ content:""; position:absolute; left:0; top:0; height:3px; width:100%;
-    background:linear-gradient(90deg,var(--ca,var(--cy)),transparent); opacity:.9; }
-  #ee-vidya-suite .vsx-card::after{ content:""; position:absolute; right:-40px; top:-40px; width:150px; height:150px; border-radius:50%;
-    background:radial-gradient(circle,var(--ca,var(--cy)),transparent 65%); opacity:.16; pointer-events:none; }
-  #ee-vidya-suite .vsx-num{ font-family:'Poppins','Inter',sans-serif; font-weight:700; font-size:12px; letter-spacing:.1em; color:var(--ca,var(--cy)); }
-  #ee-vidya-suite .vsx-ic{ width:50px; height:50px; border-radius:14px; display:grid; place-items:center;
-    background:linear-gradient(150deg, color-mix(in srgb,var(--ca,#22D3EE) 78%,#0c1c40), color-mix(in srgb,var(--ca,#22D3EE) 30%,#0c1c40));
-    box-shadow:0 10px 24px -12px var(--ca,#22D3EE), inset 0 1px 0 rgba(255,255,255,.28); }
-  #ee-vidya-suite .vsx-ic svg{ width:25px; height:25px; } #ee-vidya-suite .vsx-ic svg *{ stroke:#fff; }
-  #ee-vidya-suite .vsx-card h3{ font-family:'Poppins','Inter',sans-serif; font-weight:600; font-size:18.5px; color:#fff; margin:2px 0 0; letter-spacing:-.01em; }
-  #ee-vidya-suite .vsx-card p{ font-size:13.5px; line-height:1.55; color:#c2cfe4; margin:0; }
+  #ee-vidya-suite .vsx-card::before{ content:""; position:absolute; left:0; top:0; height:4px; width:100%;
+    background:linear-gradient(90deg,var(--ca,var(--cy)),transparent); opacity:.95; }
+  #ee-vidya-suite .vsx-card::after{ content:""; position:absolute; right:-50px; top:-50px; width:180px; height:180px; border-radius:50%;
+    background:radial-gradient(circle,var(--ca,var(--cy)),transparent 65%); opacity:.18; pointer-events:none; }
+
+  /* large icon box */
+  #ee-vidya-suite .vsx-ic{ width:72px; height:72px; border-radius:20px; display:grid; place-items:center; flex:0 0 auto;
+    background:linear-gradient(150deg, color-mix(in srgb,var(--ca,#22D3EE) 80%,#0c1c40), color-mix(in srgb,var(--ca,#22D3EE) 28%,#0c1c40));
+    box-shadow:0 14px 30px -12px var(--ca,#22D3EE), inset 0 1px 0 rgba(255,255,255,.3); }
+  #ee-vidya-suite .vsx-ic svg{ width:36px; height:36px; } #ee-vidya-suite .vsx-ic svg *{ stroke:#fff; }
+  #ee-vidya-suite .vsx-card h3{ font-family:'Poppins','Inter',sans-serif; font-weight:600; font-size:21px; color:#fff; margin:4px 0 0; letter-spacing:-.01em; }
+  #ee-vidya-suite .vsx-card .vsx-desc{ font-size:13.5px; line-height:1.55; color:#c2cfe4; margin:0; }
+
+  /* features list */
+  #ee-vidya-suite .vsx-feats{ list-style:none; margin:6px 0 0; padding:14px 0 0; border-top:1px solid rgba(255,255,255,.1); display:flex; flex-direction:column; gap:11px; }
+  #ee-vidya-suite .vsx-feats li{ display:flex; align-items:flex-start; gap:10px; font-size:13.5px; line-height:1.4; color:#dbe4f3; }
+  #ee-vidya-suite .vsx-feats li .fk{ flex:0 0 auto; width:20px; height:20px; border-radius:7px; display:grid; place-items:center; margin-top:1px;
+    background:color-mix(in srgb,var(--ca,#22D3EE) 22%, transparent); }
+  #ee-vidya-suite .vsx-feats li .fk svg{ width:12px; height:12px; } #ee-vidya-suite .vsx-feats li .fk svg *{ stroke:var(--ca,#22D3EE); }
 
   /* CTA card */
-  #ee-vidya-suite .vsx-cta-card{ background:linear-gradient(150deg, rgba(222,110,48,.18), rgba(255,255,255,.04)); border-color:rgba(222,110,48,.4); justify-content:center; }
+  #ee-vidya-suite .vsx-cta-card{ background:linear-gradient(150deg, rgba(222,110,48,.2), rgba(255,255,255,.04)); border-color:rgba(222,110,48,.42); justify-content:center; align-items:flex-start; }
   #ee-vidya-suite .vsx-cta-card::before{ background:linear-gradient(90deg,var(--or),transparent); }
-  #ee-vidya-suite .vsx-cta-card::after{ background:radial-gradient(circle,var(--or),transparent 65%); opacity:.22; }
-  #ee-vidya-suite .vsx-cta-card h3{ font-size:21px; }
-  #ee-vidya-suite .vsx-cta-btn{ margin-top:6px; display:inline-flex; align-items:center; justify-content:center; gap:9px;
-    padding:14px 22px; border-radius:13px; background:linear-gradient(135deg,var(--or2),var(--or)); color:#fff;
-    font-weight:700; font-size:15px; text-decoration:none; box-shadow:0 14px 30px -12px rgba(222,110,48,.7), inset 0 1px 0 rgba(255,255,255,.22);
+  #ee-vidya-suite .vsx-cta-card::after{ background:radial-gradient(circle,var(--or),transparent 65%); opacity:.24; }
+  #ee-vidya-suite .vsx-cta-card h3{ font-size:24px; }
+  #ee-vidya-suite .vsx-cta-btn{ margin-top:10px; display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    padding:15px 24px; border-radius:14px; background:linear-gradient(135deg,var(--or2),var(--or)); color:#fff;
+    font-weight:700; font-size:15.5px; text-decoration:none; box-shadow:0 14px 30px -12px rgba(222,110,48,.7), inset 0 1px 0 rgba(255,255,255,.22);
     transition:transform .2s ease, box-shadow .2s ease; }
   #ee-vidya-suite .vsx-cta-btn:hover{ transform:translateY(-2px); }
   #ee-vidya-suite .vsx-cta-btn:focus-visible{ outline:2px solid #fff; outline-offset:3px; }
-  #ee-vidya-suite .vsx-cta-btn svg{ width:17px; height:17px; } #ee-vidya-suite .vsx-cta-btn svg *{ stroke:#fff; }
-
-  /* ---- footer: progress + dots + hint ---- */
+  #ee-vidya-suite .vsx-cta-btn svg{ width:18px; height:18px; } #ee-vidya-suite .vsx-cta-btn svg *{ stroke:#fff; }
 
   /* ================= PINNED HORIZONTAL MODE (desktop, JS on) ================= */
-  #ee-vidya-suite.vsx-on .vsx-track{ height:360vh; }
-  #ee-vidya-suite.vsx-on .vsx-sticky{ position:sticky; top:0; height:100vh; min-height:620px; margin-top:0; margin-bottom:0; border-radius:0; max-width:none;
+  #ee-vidya-suite.vsx-on .vsx-track{ height:420vh; }
+  #ee-vidya-suite.vsx-on .vsx-sticky{ position:sticky; top:0; height:100vh; min-height:680px; margin-top:0; margin-bottom:0; border-radius:0; max-width:none;
     display:flex; flex-direction:column; justify-content:center; }
   #ee-vidya-suite.vsx-on .vsx-stage{ overflow:hidden; }
   #ee-vidya-suite.vsx-on .vsx-rail{ overflow:visible; scroll-snap-type:none; padding-bottom:0; flex-wrap:nowrap; will-change:transform; }
-  #ee-vidya-suite.vsx-on .vsx-card{ flex:0 0 clamp(300px,28vw,380px); }
+  #ee-vidya-suite.vsx-on .vsx-card{ flex:0 0 clamp(320px,30vw,420px); }
   #ee-vidya-suite.vsx-on .vsx-inner{ max-width:1280px; margin:0 auto; width:100%; padding:0 24px; }
 
   /* ---- responsive (carousel mode) ---- */
@@ -3438,45 +3445,76 @@ body.vg-open .vg-launch{display:none}
 
         <div class="vsx-stage">
           <div class="vsx-rail" id="vsxRail">
+
             <article class="vsx-card" style="--ca:#22D3EE">
-              <span class="vsx-num">01</span>
               <span class="vsx-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 10h.01M12 10h.01M15 10h.01" stroke-width="2" stroke-linecap="round"/></svg></span>
               <h3>Vidya GPT</h3>
-              <p>Your 24×7 AI chat counsellor that answers every query and never sleeps.</p>
+              <p class="vsx-desc">Your 24×7 AI chat counsellor that answers every query and never sleeps.</p>
+              <ul class="vsx-feats">
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Answers fees, courses, scholarships &amp; deadlines</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Works across website &amp; WhatsApp</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Replies instantly in 95+ languages</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Hands hot leads to your counsellors</li>
+              </ul>
             </article>
+
             <article class="vsx-card" style="--ca:#DE6E30">
-              <span class="vsx-num">02</span>
               <span class="vsx-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2 6 4-14 2 8h6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
               <h3>Vidya Pulse</h3>
-              <p>Real-time lead intent scoring that surfaces your hottest prospects first.</p>
+              <p class="vsx-desc">Real-time lead intent scoring that surfaces your hottest prospects first.</p>
+              <ul class="vsx-feats">
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Scores every lead 0–100 on real intent</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Surfaces the hottest prospects first</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Re-scores in real time as leads engage</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Tells counsellors exactly who to call now</li>
+              </ul>
             </article>
+
             <article class="vsx-card" style="--ca:#A78BFA">
-              <span class="vsx-num">03</span>
               <span class="vsx-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h3l1.5 4-2 1.4a12 12 0 005.6 5.6l1.4-2L18.5 18v3a1 1 0 01-1.1 1A15 15 0 013 6.6 1 1 0 014.1 5.5L5 4z" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
               <h3>Vidyaai Voice Agent</h3>
-              <p>Calls and qualifies leads with natural conversations in 10+ languages.</p>
+              <p class="vsx-desc">Calls and qualifies leads with natural conversations in 10+ languages.</p>
+              <ul class="vsx-feats">
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Calls every new lead within seconds</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Natural human-like conversations</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Qualifies &amp; books counselling slots</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Speaks 10+ Indian languages, 24/7</li>
+              </ul>
             </article>
+
             <article class="vsx-card" style="--ca:#34D399">
-              <span class="vsx-num">04</span>
               <span class="vsx-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19l1.3-3.9A8 8 0 1112 20a8 8 0 01-3.9-1L4 19z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 11c0 2 2 4 4 4l1-1.4c.3-.4-.1-.9-.6-1l-1.4-.4-.6.8c-.9-.4-1.7-1.2-2.1-2.1l.8-.6c.3-.5-.1-1.3-1-1.5C9 8.8 9 9.8 9 11z" stroke-width="1.4" stroke-linejoin="round"/></svg></span>
               <h3>VidyaWABA GPT</h3>
-              <p>Automated WhatsApp Business engagement that nurtures leads at scale.</p>
+              <p class="vsx-desc">Automated WhatsApp Business engagement that nurtures leads at scale.</p>
+              <ul class="vsx-feats">
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Official, verified WhatsApp Business API</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Automated replies &amp; smart broadcasts</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Personalised nurture journeys at scale</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Every reply logged back to the lead</li>
+              </ul>
             </article>
+
             <article class="vsx-card" style="--ca:#FBBF24">
-              <span class="vsx-num">05</span>
               <span class="vsx-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke-width="1.6"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke-width="1.6" stroke-linecap="round"/></svg></span>
               <h3>Vidya Work</h3>
-              <p>Autonomous workflow and follow-up automation that runs your busywork.</p>
+              <p class="vsx-desc">Autonomous workflow and follow-up automation that runs your busywork.</p>
+              <ul class="vsx-feats">
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Auto-triggers follow-ups &amp; reminders</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Routes &amp; assigns tasks automatically</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Runs repetitive busywork on its own</li>
+                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Keeps every lead moving forward</li>
+              </ul>
             </article>
+
             <article class="vsx-card vsx-cta-card" style="--ca:#DE6E30">
-              <span class="vsx-num">Live</span>
+              <span class="vsx-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.8 5L19 9.8l-5.2 1.8L12 17l-1.8-5.4L5 9.8l5.2-1.8L12 3z" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
               <h3>Try Vidya AI Live</h3>
-              <p>Explore the live AI inside the product demo.</p>
+              <p class="vsx-desc">Explore the live AI inside the product demo — see every agent working on a real admission funnel.</p>
               <a class="vsx-cta-btn" href="#ee-platform">Try Vidya AI Live <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </article>
+
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -3484,31 +3522,20 @@ body.vg-open .vg-launch{display:none}
   <script>
   (function(){
     var sec=document.getElementById('ee-vidya-suite'); if(!sec) return;
-    var track=sec.querySelector('.vsx-track'), rail=document.getElementById('vsxRail'),
-        bar=document.getElementById('vsxBar'), dotsWrap=document.getElementById('vsxDots');
+    var track=sec.querySelector('.vsx-track'), rail=document.getElementById('vsxRail');
     var cards=Array.prototype.slice.call(rail.querySelectorAll('.vsx-card'));
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     var mq=window.matchMedia('(min-width:901px)');
 
-    // build dots (optional UI)
-    if(dotsWrap){ cards.forEach(function(){ var b=document.createElement('b'); dotsWrap.appendChild(b); }); }
-    var dots=dotsWrap?Array.prototype.slice.call(dotsWrap.children):[];
-
     var maxX=0, on=false;
-    function recalc(){
-      if(!on) return;
-      maxX=Math.max(0, rail.scrollWidth - rail.clientWidth);
-      onScroll();
-    }
     function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+    function recalc(){ if(!on) return; maxX=Math.max(0, rail.scrollWidth - rail.clientWidth); onScroll(); }
     function onScroll(){
       if(!on) return;
       var rect=track.getBoundingClientRect();
       var dist=track.offsetHeight - window.innerHeight;
       var p = dist>0 ? clamp(-rect.top/dist,0,1) : 0;
       rail.style.transform='translate3d('+(-(p*maxX))+'px,0,0)';
-      if(bar) bar.style.width=(8+p*92)+'%';
-      if(dots.length){ var ai=Math.round(p*(cards.length-1)); dots.forEach(function(d,i){ d.classList.toggle('on', i===ai); }); }
     }
     function enable(){
       if(on) return; on=true; sec.classList.add('vsx-on');
@@ -3518,17 +3545,14 @@ body.vg-open .vg-launch{display:none}
     }
     function disable(){
       if(!on) return; on=false; sec.classList.remove('vsx-on');
-      rail.style.transform=''; if(bar) bar.style.width='12%';
+      rail.style.transform='';
       window.removeEventListener('scroll', onScroll);
-      dots.forEach(function(d){ d.classList.remove('on'); });
     }
     function evaluate(){ (mq.matches && !reduce) ? enable() : disable(); }
 
     evaluate();
     window.addEventListener('resize', function(){ evaluate(); recalc(); }, {passive:true});
     if(mq.addEventListener) mq.addEventListener('change', evaluate);
-    // first dot active in carousel mode
-    if(dots[0]) dots[0].classList.add('on');
   })();
   </script>
 </section>
