@@ -1669,10 +1669,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class="logo-card"><img src="https://www.extraaedge.com/wp-content/uploads/2024/12/fostima.webp" alt="Fostima CRM for educational institutions" loading="lazy"></div>
     </div>
   </div>
-  <div class="logo-footer reveal">
-    <a href="#demo" class="btn-primary">Start Converting Today</a>
-    <div class="live-indicator"><span class="green-dot"></span><span>Live: +124 Admissions Processed in last 1hr</span></div>
-  </div>
 </section>
 
 <section id="ee-platform" aria-label="Explore the ExtraaEdge platform">
