@@ -3486,11 +3486,6 @@ body.vg-open .vg-launch{display:none}
           </div>
         </div>
 
-        <div class="vsx-foot">
-          <div class="vsx-dots" id="vsxDots" aria-hidden="true"></div>
-          <div class="vsx-bar"><i id="vsxBar"></i></div>
-          <span class="vsx-hint">Scroll to explore <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M6 13l6 6 6-6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
       </div>
     </div>
   </div>
@@ -3504,9 +3499,9 @@ body.vg-open .vg-launch{display:none}
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     var mq=window.matchMedia('(min-width:901px)');
 
-    // build dots
-    cards.forEach(function(){ var b=document.createElement('b'); dotsWrap.appendChild(b); });
-    var dots=Array.prototype.slice.call(dotsWrap.children);
+    // build dots (optional UI)
+    if(dotsWrap){ cards.forEach(function(){ var b=document.createElement('b'); dotsWrap.appendChild(b); }); }
+    var dots=dotsWrap?Array.prototype.slice.call(dotsWrap.children):[];
 
     var maxX=0, on=false;
     function recalc(){
@@ -3521,9 +3516,8 @@ body.vg-open .vg-launch{display:none}
       var dist=track.offsetHeight - window.innerHeight;
       var p = dist>0 ? clamp(-rect.top/dist,0,1) : 0;
       rail.style.transform='translate3d('+(-(p*maxX))+'px,0,0)';
-      bar.style.width=(8+p*92)+'%';
-      var ai=Math.round(p*(cards.length-1));
-      dots.forEach(function(d,i){ d.classList.toggle('on', i===ai); });
+      if(bar) bar.style.width=(8+p*92)+'%';
+      if(dots.length){ var ai=Math.round(p*(cards.length-1)); dots.forEach(function(d,i){ d.classList.toggle('on', i===ai); }); }
     }
     function enable(){
       if(on) return; on=true; sec.classList.add('vsx-on');
@@ -3533,7 +3527,7 @@ body.vg-open .vg-launch{display:none}
     }
     function disable(){
       if(!on) return; on=false; sec.classList.remove('vsx-on');
-      rail.style.transform=''; bar.style.width='12%';
+      rail.style.transform=''; if(bar) bar.style.width='12%';
       window.removeEventListener('scroll', onScroll);
       dots.forEach(function(d){ d.classList.remove('on'); });
     }
