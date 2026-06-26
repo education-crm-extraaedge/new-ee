@@ -1624,7 +1624,15 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   #ee-platform .eep-bar .eep-url{margin:0 auto;font-size:12px;font-weight:600;color:#8a93a6;background:#fff;border:1px solid rgba(25,51,93,.08);border-radius:7px;padding:4px 16px}
   #ee-platform .eep-frame{display:block;width:100%;height:min(80vh,780px);border:0;background:#f4f5f7}
   @media(max-width:860px){#ee-platform .eep-frame{height:min(82vh,680px)}#ee-platform .eep-bar .eep-url{display:none}}
-  @media(max-width:560px){#ee-platform{padding:46px 0 54px}#ee-platform .eep-wrap{padding:0 14px}#ee-platform .eep-window{border-radius:12px}}
+  #ee-platform .eep-cta{margin:clamp(26px,4vw,40px) auto 0;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+  #ee-platform .eep-cta-t{font-size:clamp(17px,2vw,21px);font-weight:700;color:#19335D;margin:0;line-height:1.4}
+  #ee-platform .eep-cta-t strong{color:#DE6E30}
+  #ee-platform .eep-cta-btn{display:inline-flex;align-items:center;gap:9px;background:#DE6E30;color:#fff;font-weight:700;font-size:16px;padding:15px 30px;border-radius:999px;box-shadow:0 14px 30px -10px rgba(222,110,48,.6);transition:transform .2s ease,box-shadow .2s ease}
+  #ee-platform .eep-cta-btn svg{width:18px;height:18px;transition:transform .2s ease}
+  #ee-platform .eep-cta-btn:hover{transform:translateY(-2px);box-shadow:0 20px 38px -10px rgba(222,110,48,.7)}
+  #ee-platform .eep-cta-btn:hover svg{transform:translateX(4px)}
+  #ee-platform .eep-cta-sub{font-size:13px;font-weight:600;color:#7A879E}
+  @media(max-width:560px){#ee-platform{padding:46px 0 54px}#ee-platform .eep-wrap{padding:0 14px}#ee-platform .eep-window{border-radius:12px}#ee-platform .eep-cta-btn{width:100%;justify-content:center}}
 </style>
 
 
@@ -1674,9 +1682,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <section id="ee-platform" aria-label="Explore the ExtraaEdge platform">
   <div class="eep-wrap">
     <header class="eep-head">
-      <span class="eep-eyebrow"><i></i> Live product walkthrough</span>
-      <h2>See ExtraaEdge in action</h2>
-      <p>Explore the real Admission CRM &mdash; dashboards, AI, lead manager, WhatsApp &amp; automation. An auto-playing guided tour walks you through it; click anywhere to take over.</p>
+      <span class="eep-eyebrow"><i></i> AI Product-Led Experience</span>
+      <h2>Explore the platform yourself &mdash; no sales call needed</h2>
+      <p>An advanced, AI-powered interactive product experience. Click through the real Admission CRM &mdash; dashboards, AI, lead manager, WhatsApp &amp; automation. A guided tour walks you through it; click anywhere to take over. When you&rsquo;re ready, book a personalised demo on your own funnel.</p>
     </header>
     <div class="eep-window">
       <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span></div>
@@ -2794,6 +2802,11 @@ body.vg-open .vg-launch{display:none}
 </body>
 </html>
 "></iframe>
+    </div>
+    <div class="eep-cta">
+      <p class="eep-cta-t">Explored the platform? See it run on <strong>your</strong> admission funnel.</p>
+      <a href="#demo" class="eep-cta-btn">Book your free demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <span class="eep-cta-sub">30-min personalised walkthrough &middot; No credit card</span>
     </div>
   </div>
 </section>
