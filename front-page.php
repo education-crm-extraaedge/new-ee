@@ -3600,7 +3600,7 @@ body.vg-open .vg-launch{display:none}
 }
 #ee-solutions *{box-sizing:border-box;}
 #ee-solutions .ee-container{max-width:1240px;margin:0 auto;padding:0 24px;}
-#ee-solutions .ee-head{max-width:720px;margin:0 0 clamp(36px,5vw,56px);}
+#ee-solutions .ee-head{max-width:740px;margin:0 0 clamp(32px,4.4vw,52px);}
 #ee-solutions .ee-eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
@@ -3616,62 +3616,148 @@ body.vg-open .vg-launch{display:none}
   margin:0 0 14px;color:var(--navy);
 }
 #ee-solutions .ee-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:var(--muted);margin:0;}
-#ee-solutions .ee-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2vw,24px);
+
+/* ---- unique split tab-panel (pure CSS radio tabs) ---- */
+#ee-solutions .sol-wrap{
+  display:grid;grid-template-columns:minmax(280px,1fr) 1.45fr;
+  gap:clamp(16px,2vw,26px);align-items:stretch;
 }
-#ee-solutions .ee-card{
-  position:relative;display:flex;flex-direction:column;
-  background:#fff;border:1px solid var(--hair);border-radius:18px;
-  padding:clamp(24px,2.6vw,30px);
-  box-shadow:0 1px 2px rgba(15,31,58,.04),0 14px 30px -22px rgba(25,51,93,.28);
-  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;
-  overflow:hidden;
+#ee-solutions .sol-radio{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
+
+/* left rail of tabs */
+#ee-solutions .sol-tabs{display:flex;flex-direction:column;gap:12px;}
+#ee-solutions .sol-tab{
+  position:relative;display:flex;align-items:center;gap:16px;cursor:pointer;
+  background:#fff;border:1px solid var(--hair);border-radius:16px;
+  padding:18px 20px;color:var(--ink);
+  box-shadow:0 1px 2px rgba(15,31,58,.04);
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s,border-color .3s,background .3s;
 }
-#ee-solutions .ee-card::before{
-  content:"";position:absolute;left:0;top:0;height:3px;width:100%;
-  background:linear-gradient(90deg,var(--orange),var(--orange2));
-  transform:scaleX(0);transform-origin:left;transition:transform .4s ease;
+#ee-solutions .sol-tab::before{
+  content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;
+  background:linear-gradient(180deg,var(--orange),var(--orange2));
+  transform:scaleY(0);transform-origin:top;transition:transform .35s ease;
 }
-#ee-solutions .ee-card:hover{
-  transform:translateY(-6px);
-  border-color:rgba(222,110,48,.32);
-  box-shadow:0 1px 2px rgba(15,31,58,.05),0 26px 46px -24px rgba(25,51,93,.4);
+#ee-solutions .sol-tab:hover{border-color:rgba(222,110,48,.3);transform:translateY(-2px);}
+#ee-solutions .sol-num{
+  font-family:'Poppins','Inter',sans-serif;font-weight:700;font-size:13px;
+  color:var(--orange);letter-spacing:.04em;flex-shrink:0;
 }
-#ee-solutions .ee-card:hover::before{transform:scaleX(1);}
-#ee-solutions .ee-ico{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:50px;height:50px;border-radius:14px;margin-bottom:20px;
+#ee-solutions .sol-ico{
+  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:46px;height:46px;border-radius:13px;
   background:linear-gradient(160deg,rgba(34,70,124,.1),rgba(222,110,48,.12));
-  border:1px solid var(--hair);color:var(--navy2);
+  border:1px solid var(--hair);color:var(--navy2);transition:color .3s,background .3s;
 }
-#ee-solutions .ee-ico svg{width:24px;height:24px;}
-#ee-solutions .ee-card h3{
-  font-family:'Poppins','Inter',sans-serif;font-weight:600;
-  font-size:19px;line-height:1.25;margin:0 0 18px;color:var(--ink);letter-spacing:-.01em;
+#ee-solutions .sol-ico svg{width:23px;height:23px;}
+#ee-solutions .sol-tt{display:flex;flex-direction:column;gap:3px;min-width:0;}
+#ee-solutions .sol-tt b{
+  font-family:'Poppins','Inter',sans-serif;font-weight:600;font-size:16px;
+  letter-spacing:-.01em;color:var(--ink);line-height:1.2;
 }
-#ee-solutions .ee-pills{display:flex;flex-wrap:wrap;gap:9px;margin:0;padding:0;list-style:none;}
-#ee-solutions .ee-pill{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:9px 14px;border-radius:999px;
-  font-size:14px;font-weight:500;line-height:1;text-decoration:none;
-  color:var(--navy);background:#fff;border:1px solid var(--hair);
-  transition:background .25s,border-color .25s,color .25s,transform .25s;
+#ee-solutions .sol-tt span{font-size:13px;color:var(--muted);line-height:1.35;}
+#ee-solutions .sol-arrow{margin-left:auto;color:var(--muted);opacity:0;transform:translateX(-4px);transition:opacity .3s,transform .3s;flex-shrink:0;}
+#ee-solutions .sol-arrow svg{width:18px;height:18px;}
+
+/* active tab states (driven by checked radios) */
+#ee-solutions #solr1:checked ~ .sol-tabs label[for="solr1"],
+#ee-solutions #solr2:checked ~ .sol-tabs label[for="solr2"],
+#ee-solutions #solr3:checked ~ .sol-tabs label[for="solr3"]{
+  background:linear-gradient(135deg,#fff, #fff7f1);
+  border-color:rgba(222,110,48,.4);
+  box-shadow:0 18px 38px -22px rgba(25,51,93,.5);transform:translateY(-2px);
 }
-#ee-solutions .ee-pill svg{width:13px;height:13px;opacity:.45;transition:opacity .25s,transform .25s;flex-shrink:0;}
-#ee-solutions .ee-pill:hover{
-  color:var(--orange);border-color:rgba(222,110,48,.4);
-  background:rgba(222,110,48,.06);transform:translateY(-1px);
+#ee-solutions #solr1:checked ~ .sol-tabs label[for="solr1"]::before,
+#ee-solutions #solr2:checked ~ .sol-tabs label[for="solr2"]::before,
+#ee-solutions #solr3:checked ~ .sol-tabs label[for="solr3"]::before{transform:scaleY(1);}
+#ee-solutions #solr1:checked ~ .sol-tabs label[for="solr1"] .sol-ico,
+#ee-solutions #solr2:checked ~ .sol-tabs label[for="solr2"] .sol-ico,
+#ee-solutions #solr3:checked ~ .sol-tabs label[for="solr3"] .sol-ico{
+  color:#fff;background:linear-gradient(160deg,var(--orange),var(--orange2));border-color:transparent;
 }
-#ee-solutions .ee-pill:hover svg{opacity:1;transform:translateX(2px);color:var(--orange);}
-#ee-solutions .ee-pill:focus-visible{
-  outline:2px solid var(--orange);outline-offset:2px;color:var(--orange);
+#ee-solutions #solr1:checked ~ .sol-tabs label[for="solr1"] .sol-arrow,
+#ee-solutions #solr2:checked ~ .sol-tabs label[for="solr2"] .sol-arrow,
+#ee-solutions #solr3:checked ~ .sol-tabs label[for="solr3"] .sol-arrow{opacity:1;transform:translateX(0);color:var(--orange);}
+#ee-solutions .sol-radio:focus-visible ~ .sol-tabs label{outline:none;}
+#ee-solutions #solr1:focus-visible ~ .sol-tabs label[for="solr1"],
+#ee-solutions #solr2:focus-visible ~ .sol-tabs label[for="solr2"],
+#ee-solutions #solr3:focus-visible ~ .sol-tabs label[for="solr3"]{outline:2px solid var(--orange);outline-offset:3px;}
+
+/* right detail panel */
+#ee-solutions .sol-panels{position:relative;}
+#ee-solutions .sol-panel{
+  position:relative;display:none;height:100%;
+  background:linear-gradient(165deg,#0f2547,#19335D 55%,#22467c);
+  border-radius:22px;padding:clamp(26px,3vw,40px);overflow:hidden;color:#fff;
+  box-shadow:0 30px 70px -30px rgba(25,51,93,.6);
+  animation:eesolIn .45s cubic-bezier(.2,.7,.2,1);
 }
+@keyframes eesolIn{from{opacity:0;transform:translateY(10px) scale(.99);}to{opacity:1;transform:none;}}
+#ee-solutions #solr1:checked ~ .sol-panels #solp1,
+#ee-solutions #solr2:checked ~ .sol-panels #solp2,
+#ee-solutions #solr3:checked ~ .sol-panels #solp3{display:block;}
+#ee-solutions .sol-panel::after{
+  content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(222,110,48,.5),transparent 65%);filter:blur(10px);pointer-events:none;
+}
+#ee-solutions .sol-ghost{
+  position:absolute;right:18px;bottom:-30px;font-family:'Poppins','Inter',sans-serif;
+  font-weight:800;font-size:clamp(120px,18vw,210px);line-height:.8;
+  color:rgba(255,255,255,.05);pointer-events:none;user-select:none;
+}
+#ee-solutions .sol-ptag{
+  display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:#ffd9c2;
+  background:rgba(222,110,48,.18);border:1px solid rgba(222,110,48,.35);
+  border-radius:999px;padding:6px 13px;margin:0 0 16px;position:relative;z-index:1;
+}
+#ee-solutions .sol-panel h3{
+  font-family:'Poppins','Inter',sans-serif;font-weight:700;font-size:clamp(21px,2.4vw,27px);
+  line-height:1.2;letter-spacing:-.01em;margin:0 0 8px;color:#fff;position:relative;z-index:1;
+}
+#ee-solutions .sol-panel .sol-desc{font-size:15px;line-height:1.55;color:rgba(255,255,255,.78);margin:0 0 22px;max-width:46ch;position:relative;z-index:1;}
+#ee-solutions .sol-list{display:flex;flex-direction:column;gap:10px;margin:0 0 24px;position:relative;z-index:1;}
+#ee-solutions .sol-item{
+  display:flex;align-items:center;gap:14px;text-decoration:none;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:13px;padding:13px 16px;color:#fff;
+  transition:background .25s,border-color .25s,transform .25s;
+}
+#ee-solutions .sol-item:hover{background:rgba(255,255,255,.12);border-color:rgba(222,110,48,.5);transform:translateX(4px);}
+#ee-solutions .sol-item:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}
+#ee-solutions .sol-chk{
+  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:30px;height:30px;border-radius:9px;background:linear-gradient(160deg,var(--orange),var(--orange2));color:#fff;
+}
+#ee-solutions .sol-chk svg{width:16px;height:16px;}
+#ee-solutions .sol-itxt{display:flex;flex-direction:column;gap:2px;min-width:0;}
+#ee-solutions .sol-itxt b{font-family:'Poppins','Inter',sans-serif;font-weight:600;font-size:15px;line-height:1.2;color:#fff;}
+#ee-solutions .sol-itxt span{font-size:12.5px;color:rgba(255,255,255,.62);line-height:1.3;}
+#ee-solutions .sol-iarr{margin-left:auto;color:rgba(255,255,255,.5);flex-shrink:0;transition:color .25s,transform .25s;}
+#ee-solutions .sol-iarr svg{width:17px;height:17px;}
+#ee-solutions .sol-item:hover .sol-iarr{color:#fff;transform:translateX(3px);}
+#ee-solutions .sol-cta{
+  display:inline-flex;align-items:center;gap:9px;position:relative;z-index:1;
+  background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;
+  font-weight:700;font-size:15px;padding:13px 24px;border-radius:999px;text-decoration:none;
+  box-shadow:0 14px 28px -10px rgba(222,110,48,.6);transition:transform .25s,box-shadow .25s;
+}
+#ee-solutions .sol-cta svg{width:17px;height:17px;transition:transform .25s;}
+#ee-solutions .sol-cta:hover{transform:translateY(-2px);box-shadow:0 20px 36px -10px rgba(222,110,48,.7);}
+#ee-solutions .sol-cta:hover svg{transform:translateX(4px);}
+
 @media (max-width:900px){
-  #ee-solutions .ee-grid{grid-template-columns:1fr;}
+  #ee-solutions .sol-wrap{grid-template-columns:1fr;gap:14px;}
+  #ee-solutions .sol-tabs{flex-direction:row;flex-wrap:wrap;}
+  #ee-solutions .sol-tab{flex:1 1 200px;}
+  #ee-solutions .sol-tt span{display:none;}
 }
 @media (max-width:560px){
   #ee-solutions .ee-container{padding:0 18px;}
-  #ee-solutions .ee-card{border-radius:16px;}
+  #ee-solutions .sol-tab{flex:1 1 100%;padding:14px 16px;gap:12px;}
+  #ee-solutions .sol-tt span{display:block;}
+  #ee-solutions .sol-num{display:none;}
+  #ee-solutions .sol-panel{padding:24px 20px;border-radius:18px;}
 }
 </style>
 <section id="ee-solutions" aria-label="Solutions">
@@ -3679,47 +3765,76 @@ body.vg-open .vg-launch{display:none}
     <div class="ee-head">
       <p class="ee-eyebrow">Solutions</p>
       <h2>Solutions for every admissions motion</h2>
-      <p class="ee-sub">From first enquiry to confirmed enrolment, ExtraaEdge brings the right workflow to every stage of your admissions journey.</p>
+      <p class="ee-sub">From first enquiry to confirmed enrolment, ExtraaEdge brings the right workflow to every stage of your admissions journey. Pick a motion &mdash; see exactly what&rsquo;s inside.</p>
     </div>
-    <div class="ee-grid">
 
-      <article class="ee-card">
-        <span class="ee-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 8v6l9 5 9-5V8"/><path d="M12 13v6"/></svg>
-        </span>
-        <h3>Admission Solutions</h3>
-        <ul class="ee-pills">
-          <li><a class="ee-pill" href="#demo">Admission Management<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-          <li><a class="ee-pill" href="#demo">Enrollment Management<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-          <li><a class="ee-pill" href="#demo">Walk-in Management<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-        </ul>
-      </article>
+    <div class="sol-wrap">
+      <input type="radio" name="ee-sol-tab" id="solr1" class="sol-radio" checked aria-label="Admission Solutions">
+      <input type="radio" name="ee-sol-tab" id="solr2" class="sol-radio" aria-label="Study Abroad">
+      <input type="radio" name="ee-sol-tab" id="solr3" class="sol-radio" aria-label="Recruitment and Lead Management">
 
-      <article class="ee-card">
-        <span class="ee-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18Z"/></svg>
-        </span>
-        <h3>Study Abroad</h3>
-        <ul class="ee-pills">
-          <li><a class="ee-pill" href="#demo">Study Abroad CRM<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-          <li><a class="ee-pill" href="#demo">Education Agents<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-          <li><a class="ee-pill" href="#demo">Education Consultants<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-        </ul>
-      </article>
+      <div class="sol-tabs" role="tablist">
+        <label for="solr1" class="sol-tab">
+          <span class="sol-num">01</span>
+          <span class="sol-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 8v6l9 5 9-5V8"/><path d="M12 13v6"/></svg></span>
+          <span class="sol-tt"><b>Admission Solutions</b><span>Run your core admissions engine</span></span>
+          <span class="sol-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </label>
+        <label for="solr2" class="sol-tab">
+          <span class="sol-num">02</span>
+          <span class="sol-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18Z"/></svg></span>
+          <span class="sol-tt"><b>Study Abroad</b><span>Overseas education counselling</span></span>
+          <span class="sol-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </label>
+        <label for="solr3" class="sol-tab">
+          <span class="sol-num">03</span>
+          <span class="sol-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="sol-tt"><b>Recruitment &amp; Lead Management</b><span>Fill the funnel, never lose a lead</span></span>
+          <span class="sol-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </label>
+      </div>
 
-      <article class="ee-card">
-        <span class="ee-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </span>
-        <h3>Recruitment &amp; Lead Management</h3>
-        <ul class="ee-pills">
-          <li><a class="ee-pill" href="#demo">Student Recruitment<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-          <li><a class="ee-pill" href="#demo">Lead Management<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-          <li><a class="ee-pill" href="#demo">Lead Nurturing<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-          <li><a class="ee-pill" href="#demo">Enrollment CRM<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-        </ul>
-      </article>
+      <div class="sol-panels">
+        <div class="sol-panel" id="solp1" role="tabpanel">
+          <span class="sol-ghost" aria-hidden="true">01</span>
+          <span class="sol-ptag">Admission Solutions</span>
+          <h3>Run your core admissions engine end-to-end</h3>
+          <p class="sol-desc">Capture, qualify, convert and enrol &mdash; one connected pipeline from first enquiry to fee paid.</p>
+          <div class="sol-list">
+            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol-itxt"><b>Admission Management</b><span>Track every applicant in one live pipeline</span></span><span class="sol-iarr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol-itxt"><b>Enrollment Management</b><span>Move offers to enrolled &amp; fee-paid, faster</span></span><span class="sol-iarr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol-itxt"><b>Walk-in Management</b><span>Log, assign &amp; follow up every campus visit</span></span><span class="sol-iarr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+          </div>
+          <a class="sol-cta" href="#demo">See it on your funnel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
 
+        <div class="sol-panel" id="solp2" role="tabpanel">
+          <span class="sol-ghost" aria-hidden="true">02</span>
+          <span class="sol-ptag">Study Abroad</span>
+          <h3>Purpose-built for overseas education counselling</h3>
+          <p class="sol-desc">Manage country, course and intake journeys &mdash; with full visibility over agents and consultants.</p>
+          <div class="sol-list">
+            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol-itxt"><b>Study Abroad CRM</b><span>Country, course &amp; intake pipelines in one place</span></span><span class="sol-iarr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol-itxt"><b>Education Agents</b><span>Onboard &amp; track sub-agents with clear visibility</span></span><span class="sol-iarr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol-itxt"><b>Education Consultants</b><span>Counsellor workflows for visa, docs &amp; apps</span></span><span class="sol-iarr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+          </div>
+          <a class="sol-cta" href="#demo">See it on your funnel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+
+        <div class="sol-panel" id="solp3" role="tabpanel">
+          <span class="sol-ghost" aria-hidden="true">03</span>
+          <span class="sol-ptag">Recruitment &amp; Lead Management</span>
+          <h3>Fill your funnel &mdash; and never let a lead go cold</h3>
+          <p class="sol-desc">Source, score, route and nurture every enquiry automatically, from first touch to enrolled.</p>
+          <div class="sol-list">
+            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol-itxt"><b>Student Recruitment</b><span>Source verified enquiries from every channel</span></span><span class="sol-iarr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol-itxt"><b>Lead Management</b><span>Score, route &amp; prioritise leads automatically</span></span><span class="sol-iarr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol-itxt"><b>Lead Nurturing</b><span>Automated drips across WhatsApp, email &amp; SMS</span></span><span class="sol-iarr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol-itxt"><b>Enrollment CRM</b><span>One CRM from first touch to enrolled</span></span><span class="sol-iarr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+          </div>
+          <a class="sol-cta" href="#demo">See it on your funnel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
