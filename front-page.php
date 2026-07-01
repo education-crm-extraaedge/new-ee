@@ -9330,4 +9330,95 @@ body.ee-home{
   background:transparent!important;border-top:0!important;border-bottom:0!important
 }
 </style>
+
+<style id="ee-ctx-bg">
+/* ===== Premium context-aware graphic backgrounds — navy · white · soft violet · zero images ===== */
+
+/* Richer whole-page wash (adds soft violet to the earlier navy/orange orbs) */
+body.ee-home{
+  background-color:#f6f8fc!important;
+  background-image:
+    radial-gradient(circle at 14% 4%, rgba(34,70,124,.09), transparent 42%),
+    radial-gradient(circle at 88% 10%, rgba(124,111,240,.09), transparent 44%),
+    radial-gradient(circle at 80% 74%, rgba(34,70,124,.07), transparent 46%),
+    radial-gradient(circle at 6% 88%, rgba(124,111,240,.07), transparent 42%),
+    linear-gradient(rgba(25,51,93,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25,51,93,.02) 1px, transparent 1px)!important;
+  background-size:100% 100%,100% 100%,100% 100%,100% 100%,48px 48px,48px 48px!important;
+  background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,repeat,repeat!important;
+  background-attachment:fixed,fixed,fixed,fixed,fixed,fixed!important;
+}
+@media (max-width:768px){ body.ee-home{ background-attachment:scroll!important; } }
+
+/* Per-section motif layer sits BEHIND text (z-index:-1) and fades out over the reading area (mask) */
+#ee-products,#ee-teams,#ee-solutions,#ee-resources,#ee-events,#integrations,#security,#stories{ position:relative; }
+#ee-products::before,#ee-teams::before,#ee-solutions::before,#ee-resources::before,
+#ee-events::before,#integrations::before,#security::before,#stories::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+}
+.eectx-fade{}
+#ee-products::before,#ee-teams::before,#ee-resources::before,#ee-events::before,#integrations::before,#security::before{
+  -webkit-mask-image:radial-gradient(135% 115% at 50% 42%, transparent 32%, #000 80%);
+          mask-image:radial-gradient(135% 115% at 50% 42%, transparent 32%, #000 80%);
+}
+
+/* Products → AI node matrix (violet glow + navy dots) */
+#ee-products::before{
+  background-image:
+    radial-gradient(circle at 92% 6%, rgba(124,111,240,.14), transparent 46%),
+    radial-gradient(rgba(25,51,93,.10) 1.4px, transparent 1.7px);
+  background-size:100% 100%, 26px 26px;
+}
+/* Teams → people/network dots (soft violet, wider grid) */
+#ee-teams::before{
+  background-image:
+    radial-gradient(circle at 8% 10%, rgba(124,111,240,.12), transparent 44%),
+    radial-gradient(rgba(124,111,240,.14) 1.6px, transparent 1.9px);
+  background-size:100% 100%, 36px 36px;
+}
+/* Solutions → flow / transformation diagonal lines */
+#ee-solutions::before{
+  background-image:
+    radial-gradient(circle at 90% 90%, rgba(124,111,240,.10), transparent 46%),
+    repeating-linear-gradient(135deg, rgba(25,51,93,.05) 0 1px, transparent 1px 24px);
+  -webkit-mask-image:linear-gradient(90deg,#000 0%, transparent 46%, transparent 54%, #000 100%);
+          mask-image:linear-gradient(90deg,#000 0%, transparent 46%, transparent 54%, #000 100%);
+}
+/* Resources → analytics / knowledge grid */
+#ee-resources::before{
+  background-image:
+    radial-gradient(circle at 90% 8%, rgba(124,111,240,.10), transparent 46%),
+    linear-gradient(rgba(25,51,93,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25,51,93,.05) 1px, transparent 1px);
+  background-size:100% 100%, 30px 30px, 30px 30px;
+}
+/* Events → schedule columns (violet vertical bars) */
+#ee-events::before{
+  background-image:
+    radial-gradient(circle at 10% 8%, rgba(124,111,240,.10), transparent 46%),
+    repeating-linear-gradient(90deg, rgba(124,111,240,.06) 0 2px, transparent 2px 46px);
+}
+/* Integrations → connection grid */
+#integrations::before{
+  background-image:
+    radial-gradient(circle at 88% 12%, rgba(124,111,240,.10), transparent 46%),
+    linear-gradient(rgba(25,51,93,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25,51,93,.045) 1px, transparent 1px);
+  background-size:100% 100%, 34px 34px, 34px 34px;
+}
+/* Security → protective cross-hatch mesh */
+#security::before{
+  background-image:
+    repeating-linear-gradient(45deg, rgba(25,51,93,.045) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(-45deg, rgba(124,111,240,.045) 0 1px, transparent 1px 16px);
+}
+/* Stories → soft testimonial blooms (glow only, no pattern) */
+#stories::before{
+  background-image:
+    radial-gradient(60% 60% at 12% 12%, rgba(124,111,240,.10), transparent 60%),
+    radial-gradient(55% 55% at 88% 88%, rgba(34,70,124,.09), transparent 60%);
+}
+
+@media (prefers-reduced-motion:reduce){ body.ee-home{ background-attachment:scroll!important; } }
+</style>
 <?php get_footer(); ?>
