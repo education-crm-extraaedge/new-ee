@@ -9332,87 +9332,14 @@ body.ee-home{
 </style>
 
 <style id="ee-ctx-bg">
-/* ===== Premium context-aware graphic backgrounds — navy · white · soft violet · zero images ===== */
+/* ===== Plain white background across the whole homepage ===== */
+body.ee-home{ background:#ffffff!important; }
 
-/* Whole-page wash (navy + soft violet + white) */
-body.ee-home{
-  background-color:#f5f7fc!important;
-  background-image:
-    radial-gradient(circle at 12% 2%, rgba(34,70,124,.14), transparent 40%),
-    radial-gradient(circle at 90% 8%, rgba(124,111,240,.16), transparent 42%),
-    radial-gradient(circle at 82% 72%, rgba(34,70,124,.11), transparent 44%),
-    radial-gradient(circle at 4% 90%, rgba(124,111,240,.12), transparent 42%),
-    linear-gradient(rgba(25,51,93,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(25,51,93,.035) 1px, transparent 1px)!important;
-  background-size:100% 100%,100% 100%,100% 100%,100% 100%,46px 46px,46px 46px!important;
-  background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,repeat,repeat!important;
-  background-attachment:fixed,fixed,fixed,fixed,fixed,fixed!important;
-}
-@media (max-width:768px){ body.ee-home{ background-attachment:scroll!important; } }
-
-/* Per-section motif sits BEHIND text (z-index:0 layer, content stays above via its own stacking) */
-#ee-products,#ee-teams,#ee-solutions,#ee-resources,#ee-events,#integrations,#security,#stories{ position:relative; }
+/* remove all graphic background motifs */
 #ee-products::before,#ee-teams::before,#ee-solutions::before,#ee-resources::before,
-#ee-events::before,#integrations::before,#security::before,#stories::before{
-  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-}
+#ee-events::before,#integrations::before,#security::before,#stories::before{ display:none!important; }
 
-/* Products -> AI node matrix */
-#ee-products::before{
-  background-image:
-    radial-gradient(circle at 92% 4%, rgba(124,111,240,.22), transparent 42%),
-    radial-gradient(rgba(25,51,93,.16) 1.6px, transparent 2px);
-  background-size:100% 100%, 24px 24px;
-}
-/* Teams -> people / network dots */
-#ee-teams::before{
-  background-image:
-    radial-gradient(circle at 6% 8%, rgba(124,111,240,.22), transparent 42%),
-    radial-gradient(rgba(124,111,240,.20) 1.8px, transparent 2.2px);
-  background-size:100% 100%, 34px 34px;
-}
-/* Solutions -> flow / transformation diagonal lines */
-#ee-solutions::before{
-  background-image:
-    radial-gradient(circle at 92% 92%, rgba(124,111,240,.20), transparent 44%),
-    repeating-linear-gradient(135deg, rgba(25,51,93,.07) 0 1px, transparent 1px 22px);
-}
-/* Resources -> analytics / knowledge grid */
-#ee-resources::before{
-  background-image:
-    radial-gradient(circle at 92% 6%, rgba(124,111,240,.20), transparent 44%),
-    linear-gradient(rgba(25,51,93,.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(25,51,93,.07) 1px, transparent 1px);
-  background-size:100% 100%, 28px 28px, 28px 28px;
-}
-/* Events -> schedule columns */
-#ee-events::before{
-  background-image:
-    radial-gradient(circle at 8% 6%, rgba(124,111,240,.20), transparent 44%),
-    repeating-linear-gradient(90deg, rgba(124,111,240,.09) 0 2px, transparent 2px 44px);
-}
-/* Integrations -> connection grid */
-#integrations::before{
-  background-image:
-    radial-gradient(circle at 90% 10%, rgba(124,111,240,.18), transparent 44%),
-    linear-gradient(rgba(25,51,93,.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(25,51,93,.06) 1px, transparent 1px);
-  background-size:100% 100%, 32px 32px, 32px 32px;
-}
-/* Security -> protective cross-hatch mesh */
-#security::before{
-  background-image:
-    repeating-linear-gradient(45deg, rgba(25,51,93,.06) 0 1px, transparent 1px 15px),
-    repeating-linear-gradient(-45deg, rgba(124,111,240,.06) 0 1px, transparent 1px 15px);
-}
-/* Stories -> soft testimonial blooms */
-#stories::before{
-  background-image:
-    radial-gradient(60% 60% at 10% 12%, rgba(124,111,240,.16), transparent 60%),
-    radial-gradient(55% 55% at 90% 88%, rgba(34,70,124,.14), transparent 60%);
-}
-
-/* Keep the section's real content above the motif */
-#ee-products>*,#ee-teams>*,#ee-solutions>*,#ee-resources>*,#ee-events>*,#integrations>*,#security>*,#stories>*{ position:relative; z-index:1; }
+/* plain white section backgrounds (keeps intentional dark component panels intact) */
+#ee-products,#ee-teams,#ee-solutions,#ee-resources,#ee-events,#ee-industries{ background:#ffffff!important; }
 </style>
 <?php get_footer(); ?>
