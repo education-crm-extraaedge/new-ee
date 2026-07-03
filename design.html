@@ -81,7 +81,6 @@ h1, h2, h3, h4, p { margin: 0; }
   --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   --container: 1200px;
-  --header-h: 68px;
 }
 
 body {
@@ -134,66 +133,17 @@ body {
 .ee-btn--block { width: 100%; }
 
 /* ==========================================================================
-   HEADER / NAV
+   LOGO (used in footer)
    ========================================================================== */
-.ee-header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(255,255,255,.82);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
-          backdrop-filter: saturate(180%) blur(14px);
-  border-bottom: 1px solid transparent;
-  transition: border-color .3s, box-shadow .3s;
-}
-.ee-header.is-stuck { border-bottom-color: var(--line); box-shadow: 0 6px 24px -18px rgba(25,51,93,.5); }
-.ee-nav { display: flex; align-items: center; gap: 16px; height: var(--header-h); }
-
 .ee-logo { display: inline-flex; align-items: center; gap: 9px; font-weight: 800; font-size: 18px; color: var(--navy); letter-spacing: -.4px; }
 .ee-logo-mark { width: 30px; height: 30px; border-radius: 8px; background: var(--orange); display: grid; place-items: center; box-shadow: 0 4px 10px -3px rgba(222,110,48,.6); }
 .ee-logo-mark svg { width: 17px; height: 17px; color: #fff; }
 .ee-logo b { color: var(--orange); font-weight: 800; }
 
-.ee-nav-links { display: none; }
-.ee-nav-links a { font-weight: 600; font-size: 15px; color: var(--ink-soft); padding: 8px 4px; transition: color .2s; }
-.ee-nav-links a:hover { color: var(--navy); }
-
-.ee-nav-actions { display: none; margin-left: auto; align-items: center; gap: 10px; }
-.ee-nav-login { font-weight: 700; font-size: 15px; color: var(--navy); padding: 10px 14px; }
-
-/* hamburger */
-.ee-burger { margin-left: auto; width: 44px; height: 44px; display: inline-grid; place-items: center; border-radius: 10px; color: var(--navy); }
-.ee-burger:hover { background: var(--navy-soft); }
-.ee-burger svg { width: 24px; height: 24px; }
-
-/* mobile drawer */
-.ee-drawer {
-  position: fixed; inset: 0; z-index: 200;
-  visibility: hidden; pointer-events: none;
-}
-.ee-drawer[data-open="true"] { visibility: visible; pointer-events: auto; }
-.ee-drawer-scrim { position: absolute; inset: 0; background: rgba(25,51,93,.42); opacity: 0; transition: opacity .3s; }
-.ee-drawer[data-open="true"] .ee-drawer-scrim { opacity: 1; }
-.ee-drawer-panel {
-  position: absolute; top: 0; right: 0; height: 100%; width: min(84vw, 340px);
-  background: #fff; box-shadow: var(--shadow-lg);
-  transform: translateX(100%); transition: transform .32s cubic-bezier(.22,1,.36,1);
-  display: flex; flex-direction: column; padding: 18px 20px 28px;
-}
-.ee-drawer[data-open="true"] .ee-drawer-panel { transform: translateX(0); }
-.ee-drawer-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.ee-drawer-close { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 10px; color: var(--navy); }
-.ee-drawer-close:hover { background: var(--navy-soft); }
-.ee-drawer-links { display: grid; gap: 2px; margin: 8px 0 20px; }
-.ee-drawer-links a { font-weight: 600; font-size: 17px; color: var(--navy); padding: 14px 12px; border-radius: 10px; }
-.ee-drawer-links a:hover { background: var(--navy-soft); }
-.ee-drawer-cta { display: grid; gap: 10px; margin-top: auto; }
-@media (prefers-reduced-motion: reduce) {
-  .ee-drawer-panel, .ee-drawer-scrim { transition: none; }
-}
-
 /* ==========================================================================
    HERO
    ========================================================================== */
-.ee-hero { position: relative; overflow: hidden; padding-block: clamp(36px, 6vw, 72px) clamp(48px, 7vw, 88px); }
+.ee-hero { position: relative; overflow: hidden; padding-block: clamp(40px, 6vw, 80px) clamp(48px, 7vw, 88px); }
 .ee-hero::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
   background:
@@ -480,10 +430,6 @@ body {
 }
 
 @media (min-width: 980px) {
-  :root { --header-h: 76px; }
-  .ee-nav-links { display: flex; align-items: center; gap: 28px; margin-left: 40px; }
-  .ee-nav-actions { display: flex; }
-  .ee-burger { display: none; }
   .ee-hero-grid { grid-template-columns: 1fr 1.06fr; }
   .ee-showcase { grid-template-columns: 1fr 1fr; }
   .ee-footer-grid { grid-template-columns: 1.3fr 2fr; }
@@ -497,59 +443,6 @@ body {
 
 <body>
 <a class="ee-skip" href="#main">Skip to content</a>
-
-<!-- ======================= HEADER ======================= -->
-<header class="ee-header" id="top">
-  <div class="ee-container">
-    <nav class="ee-nav" aria-label="Primary">
-      <a class="ee-logo" href="#top" aria-label="ExtraaEdge home">
-        <span class="ee-logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 6l4 8 2-4 4 8z"/></svg></span>
-        Extraa<b>Edge</b>
-      </a>
-      <div class="ee-nav-links">
-        <a href="#features">Product</a>
-        <a href="#how">How it works</a>
-        <a href="#showcase">Why VidyaAI</a>
-        <a href="#testimonials">Customers</a>
-        <a href="#faq">FAQ</a>
-      </div>
-      <div class="ee-nav-actions">
-        <a class="ee-nav-login" href="#">Log in</a>
-        <a class="ee-btn ee-btn--primary" href="#demo">Book a Free Demo</a>
-      </div>
-      <button class="ee-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="ee-drawer" id="ee-burger">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      </button>
-    </nav>
-  </div>
-</header>
-
-<!-- mobile drawer -->
-<div class="ee-drawer" id="ee-drawer" data-open="false">
-  <div class="ee-drawer-scrim" data-close></div>
-  <div class="ee-drawer-panel" role="dialog" aria-modal="true" aria-label="Menu">
-    <div class="ee-drawer-top">
-      <a class="ee-logo" href="#top" data-close>
-        <span class="ee-logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 6l4 8 2-4 4 8z"/></svg></span>
-        Extraa<b>Edge</b>
-      </a>
-      <button class="ee-drawer-close" type="button" aria-label="Close menu" data-close>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
-    </div>
-    <nav class="ee-drawer-links" aria-label="Mobile">
-      <a href="#features" data-close>Product</a>
-      <a href="#how" data-close>How it works</a>
-      <a href="#showcase" data-close>Why VidyaAI</a>
-      <a href="#testimonials" data-close>Customers</a>
-      <a href="#faq" data-close>FAQ</a>
-    </nav>
-    <div class="ee-drawer-cta">
-      <a class="ee-btn ee-btn--ghost ee-btn--block" href="#" data-close>Log in</a>
-      <a class="ee-btn ee-btn--primary ee-btn--block" href="#demo" data-close>Book a Free Demo</a>
-    </div>
-  </div>
-</div>
 
 <main id="main">
 
@@ -954,38 +847,6 @@ body {
   "use strict";
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---- Sticky header shadow ---- */
-  var header = document.getElementById("top");
-  var onScroll = function () { header.classList.toggle("is-stuck", window.scrollY > 8); };
-  onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
-
-  /* ---- Mobile drawer ---- */
-  var drawer = document.getElementById("ee-drawer");
-  var burger = document.getElementById("ee-burger");
-  var lastFocus = null;
-  function openDrawer() {
-    lastFocus = document.activeElement;
-    drawer.setAttribute("data-open", "true");
-    burger.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden";
-    var first = drawer.querySelector("a, button");
-    if (first) first.focus();
-    document.addEventListener("keydown", onKey);
-  }
-  function closeDrawer() {
-    drawer.setAttribute("data-open", "false");
-    burger.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
-    document.removeEventListener("keydown", onKey);
-    if (lastFocus) lastFocus.focus();
-  }
-  function onKey(e) { if (e.key === "Escape") closeDrawer(); }
-  burger.addEventListener("click", openDrawer);
-  drawer.addEventListener("click", function (e) {
-    if (e.target.hasAttribute("data-close") || e.target.closest("[data-close]")) closeDrawer();
-  });
-
   /* ---- Scroll reveal ---- */
   var revealEls = document.querySelectorAll(".ee-reveal");
   if (reduce || !("IntersectionObserver" in window)) {
@@ -1042,7 +903,7 @@ body {
       var t = document.querySelector(id);
       if (!t) return;
       e.preventDefault();
-      var y = t.getBoundingClientRect().top + window.scrollY - (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 68) - 8;
+      var y = t.getBoundingClientRect().top + window.scrollY - 16;
       window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
     });
   });
