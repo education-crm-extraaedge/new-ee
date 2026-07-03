@@ -3,1071 +3,1049 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>ExtraaEdge VidyaAI — Convert More Student Enquiries Into Admissions With AI-Powered Education CRM</title>
-<meta name="description" content="The AI-powered Admission CRM where AI co-pilots and autonomous agents qualify leads, brief counsellors, automate follow-ups and answer questions 24/7. Trusted by 500+ admission teams across 12 countries.">
-<meta name="theme-color" content="#DE6E30">
+<title>ExtraaEdge VidyaAI — AI-Powered Admission CRM for Higher Education</title>
+<meta name="description" content="Convert more student enquiries into admissions with VidyaAI — the AI-powered Admission CRM that qualifies leads, briefs counsellors, automates follow-ups and answers questions 24/7. Trusted by 500+ admission teams across 12 countries.">
+<meta name="theme-color" content="#19335D">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.extraaedge.com/">
 
 <!-- Open Graph / Social -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Convert More Student Enquiries Into Admissions With AI-Powered Education CRM">
-<meta property="og:description" content="AI co-pilots and autonomous agents qualify leads, brief counsellors, automate follow-ups and answer questions 24/7 — trusted by 500+ admission teams across 12 countries.">
+<meta property="og:title" content="ExtraaEdge VidyaAI — AI-Powered Admission CRM">
+<meta property="og:description" content="AI co-pilots and autonomous agents qualify leads, brief counsellors and automate follow-ups 24/7. Trusted by 500+ admission teams across 12 countries.">
 <meta property="og:site_name" content="ExtraaEdge">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Convert More Student Enquiries Into Admissions With AI-Powered Education CRM">
-<meta name="twitter:description" content="AI-powered Admission CRM that qualifies leads, briefs counsellors and automates follow-ups 24/7.">
+<meta name="twitter:title" content="ExtraaEdge VidyaAI — AI-Powered Admission CRM">
+<meta name="twitter:description" content="Convert more student enquiries into admissions with an AI-native Admission CRM.">
+
+<!-- Progressive-enhancement flag: reveal animations only apply when JS runs,
+     so content is always visible if scripts are disabled or slow to load. -->
+<script>document.documentElement.className += " js";</script>
 
 <!--
-  Font: Inter only (no CDN, per requirement). Self-host Inter and add an
-  @font-face block below for byte-identical rendering on WordPress; a
-  system fallback stack is used otherwise so the page never blocks on a
-  network font request.
-
-  Palette (strict): ONLY brand orange #DE6E30 and brand navy #19335D on a
-  white background. Muted text, borders and soft fills are opacity tints of
-  those two colours; multi-segment charts use tints of the same two hues.
+  Font: Inter only (self-host for production; system fallback used here so the
+  page never blocks on a network request — no CDN).
+  Palette (strict): ONLY brand orange #DE6E30 and brand navy #19335D on white.
+  Secondary surfaces, text hierarchy and borders are opacity tints of those two.
 -->
 
 <style>
 /* ==========================================================================
-   ExtraaEdge / VidyaAI — Hero + Product Dashboard
+   ExtraaEdge / VidyaAI — Landing Page
    Two-colour brand system (#DE6E30 + #19335D) on white. Inter only.
-   All selectors are namespaced with `ee-` to stay WordPress-friendly.
+   Mobile-first. All selectors namespaced `ee-` for WordPress-friendliness.
    ========================================================================== */
 
-/* ---- Reset (scoped to component root) ---- */
-.ee, .ee *, .ee *::before, .ee *::after { box-sizing: border-box; }
-.ee { margin: 0; }
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+button { font: inherit; color: inherit; cursor: pointer; background: none; border: 0; }
+h1, h2, h3, h4, p { margin: 0; }
+:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; border-radius: 4px; }
 
-/* ---- Design tokens ---- */
-.ee {
-  /* the only two brand colours */
-  --ee-orange: #DE6E30;
-  --ee-navy: #19335D;
+/* ---------- Tokens ---------- */
+:root {
+  --orange: #DE6E30;
+  --orange-dk: #C75E24;
+  --navy: #19335D;
 
-  /* white surface */
-  --ee-white: #ffffff;
-  --ee-bg: #ffffff;
-  --ee-panel: #ffffff;
+  --white: #ffffff;
+  --surface: #F6F8FB;                 /* subtle navy tint band */
+  --surface-2: #FBF7F3;               /* subtle orange tint band */
 
-  /* opacity tints of navy — text hierarchy, lines, soft fills */
-  --ee-ink: #19335D;
-  --ee-ink-soft: rgba(25, 51, 93, .66);
-  --ee-ink-mute: rgba(25, 51, 93, .46);
-  --ee-line: rgba(25, 51, 93, .12);
-  --ee-line-soft: rgba(25, 51, 93, .07);
-  --ee-navy-soft: rgba(25, 51, 93, .06);
+  --ink: #19335D;
+  --ink-soft: rgba(25, 51, 93, .70);
+  --ink-mute: rgba(25, 51, 93, .52);
+  --line: rgba(25, 51, 93, .12);
+  --line-soft: rgba(25, 51, 93, .07);
+  --navy-soft: rgba(25, 51, 93, .06);
+  --orange-soft: rgba(222, 110, 48, .12);
+  --orange-line: rgba(222, 110, 48, .34);
 
-  /* opacity tints of orange — soft fills / borders */
-  --ee-orange-soft: rgba(222, 110, 48, .12);
-  --ee-orange-line: rgba(222, 110, 48, .32);
+  --shadow-sm: 0 1px 2px rgba(25,51,93,.06), 0 4px 12px rgba(25,51,93,.05);
+  --shadow-md: 0 12px 30px -14px rgba(25,51,93,.22);
+  --shadow-lg: 0 40px 80px -30px rgba(25,51,93,.30);
+  --shadow-orange: 0 14px 30px -12px rgba(222,110,48,.5);
 
-  --ee-shadow-sm: 0 1px 2px rgba(25,51,93,.06), 0 3px 10px rgba(25,51,93,.05);
-  --ee-shadow-md: 0 10px 30px -12px rgba(25,51,93,.18);
-  --ee-shadow-lg: 0 30px 60px -22px rgba(25,51,93,.22);
-  --ee-shadow-orange: 0 16px 34px -12px rgba(222,110,48,.5);
+  --r-sm: 10px;
+  --r: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --pill: 999px;
 
-  --ee-r-sm: 10px;
-  --ee-r: 14px;
-  --ee-r-lg: 20px;
-  --ee-r-pill: 999px;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-  --ee-font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --container: 1200px;
+  --header-h: 68px;
+}
 
-  font-family: var(--ee-font);
-  color: var(--ee-ink);
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--white);
   line-height: 1.6;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-.ee img, .ee svg { display: block; max-width: 100%; }
-.ee a { color: inherit; text-decoration: none; }
-.ee ul { list-style: none; margin: 0; padding: 0; }
-.ee button { font-family: inherit; cursor: pointer; }
-
-/* semantic delta colours — constrained to the two brand colours */
-.ee-up { color: var(--ee-orange); }
-.ee-down { color: var(--ee-navy); }
-
-/* ==========================================================================
-   HERO SHELL — white background
-   ========================================================================== */
-.ee-hero {
-  position: relative;
-  overflow: hidden;
-  background: var(--ee-white);
-  padding: 40px 0 70px;
-}
-
-.ee-wrap {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 clamp(18px, 4vw, 48px);
-}
-
-.ee-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  gap: clamp(28px, 4vw, 56px);
-  align-items: center;
-}
-
-/* ==========================================================================
-   LEFT COLUMN — copy + CTAs + stats
-   ========================================================================== */
-.ee-badge-new {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px 8px 14px;
-  border-radius: var(--ee-r-pill);
-  background: var(--ee-orange-soft);
-  border: 1px solid var(--ee-orange-line);
-  color: var(--ee-orange);
-  font-weight: 700;
-  font-size: 12.5px;
-  letter-spacing: .3px;
-  margin-bottom: 20px;
-}
-.ee-badge-new .ee-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--ee-orange);
-  box-shadow: 0 0 0 4px rgba(222,110,48,.18);
-}
+/* ---------- Layout helpers ---------- */
+.ee-container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: 20px; }
+.ee-section { padding-block: clamp(56px, 9vw, 108px); }
+.ee-band { background: var(--surface); }
+.ee-center { text-align: center; }
 
 .ee-eyebrow {
-  font-size: clamp(14px, 1.4vw, 16px);
-  color: var(--ee-ink-soft);
-  font-weight: 500;
-  margin: 0 0 18px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
+  color: var(--orange);
+  background: var(--orange-soft);
+  border: 1px solid var(--orange-line);
+  padding: 6px 14px; border-radius: var(--pill);
 }
-.ee-eyebrow b { color: var(--ee-orange); font-weight: 800; }
+.ee-h2 { font-size: clamp(27px, 4.4vw, 44px); line-height: 1.1; letter-spacing: -1px; font-weight: 800; color: var(--navy); }
+.ee-h3 { font-size: 19px; line-height: 1.3; font-weight: 700; color: var(--navy); }
+.ee-lead { font-size: clamp(15px, 1.6vw, 18px); line-height: 1.7; color: var(--ink-soft); }
 
-.ee-h1 {
-  font-weight: 800;
-  font-size: clamp(34px, 4.6vw, 62px);
-  line-height: 1.04;
-  letter-spacing: -1.4px;
-  color: var(--ee-navy);
-  margin: 0 0 22px;
-}
-.ee-h1 .ee-h1-orange { color: var(--ee-orange); display: block; }
+.ee-section-head { max-width: 720px; margin-inline: auto; display: grid; gap: 16px; margin-bottom: clamp(36px, 5vw, 60px); }
+.ee-section-head .ee-eyebrow { justify-self: center; }
 
-.ee-lead {
-  font-size: clamp(15px, 1.25vw, 17px);
-  line-height: 1.7;
-  color: var(--ee-ink-soft);
-  max-width: 560px;
-  margin: 0 0 26px;
+/* ---------- Buttons ---------- */
+.ee-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-weight: 700; font-size: 15px; letter-spacing: -.1px;
+  padding: 14px 24px; border-radius: 12px;
+  transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s, background-color .2s, color .2s;
+  white-space: nowrap;
 }
+.ee-btn svg { width: 18px; height: 18px; }
+.ee-btn--primary { background: var(--orange); color: #fff; box-shadow: var(--shadow-orange); }
+.ee-btn--primary:hover { background: var(--orange-dk); transform: translateY(-2px); box-shadow: 0 20px 40px -14px rgba(222,110,48,.55); }
+.ee-btn--ghost { background: #fff; color: var(--navy); border: 1.5px solid var(--line); }
+.ee-btn--ghost:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.ee-btn--onnavy { background: #fff; color: var(--navy); }
+.ee-btn--onnavy:hover { background: var(--orange); color: #fff; transform: translateY(-2px); }
+.ee-btn--lg { padding: 17px 30px; font-size: 16px; border-radius: 14px; }
+.ee-btn--block { width: 100%; }
 
-/* feature chips */
-.ee-features {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 0 0 28px;
+/* ==========================================================================
+   HEADER / NAV
+   ========================================================================== */
+.ee-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,.82);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+          backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s, box-shadow .3s;
 }
-.ee-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 11px 16px;
-  background: var(--ee-white);
-  border: 1px solid var(--ee-line);
-  border-radius: var(--ee-r);
-  box-shadow: var(--ee-shadow-sm);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ee-navy);
-  line-height: 1.25;
-}
-.ee-chip-ico {
-  flex: none;
-  width: 30px; height: 30px;
-  display: grid; place-items: center;
-  border-radius: 9px;
-  background: var(--ee-navy-soft);
-  color: var(--ee-navy);
-}
-.ee-chip-ico.is-orange { background: var(--ee-orange-soft); color: var(--ee-orange); }
-.ee-chip-ico svg { width: 16px; height: 16px; }
+.ee-header.is-stuck { border-bottom-color: var(--line); box-shadow: 0 6px 24px -18px rgba(25,51,93,.5); }
+.ee-nav { display: flex; align-items: center; gap: 16px; height: var(--header-h); }
 
-/* CTA */
-.ee-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 22px;
-  width: min(100%, 400px);
-  padding: 18px 18px 18px 28px;
-  border: none;
-  border-radius: 16px;
-  background: var(--ee-orange);
-  color: #fff;
-  font-weight: 800;
-  font-size: clamp(17px, 1.6vw, 21px);
-  letter-spacing: -.2px;
-  box-shadow: var(--ee-shadow-orange);
-  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
-  margin-bottom: 14px;
-}
-.ee-cta:hover { transform: translateY(-3px); box-shadow: 0 22px 44px -14px rgba(222,110,48,.55); }
-.ee-cta:focus-visible { outline: 3px solid var(--ee-navy); outline-offset: 3px; }
-.ee-cta-arrow {
-  flex: none;
-  width: 42px; height: 42px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.22);
-  display: grid; place-items: center;
-  transition: transform .3s;
-}
-.ee-cta:hover .ee-cta-arrow { transform: translateX(4px); }
-.ee-cta-arrow svg { width: 20px; height: 20px; }
+.ee-logo { display: inline-flex; align-items: center; gap: 9px; font-weight: 800; font-size: 18px; color: var(--navy); letter-spacing: -.4px; }
+.ee-logo-mark { width: 30px; height: 30px; border-radius: 8px; background: var(--orange); display: grid; place-items: center; box-shadow: 0 4px 10px -3px rgba(222,110,48,.6); }
+.ee-logo-mark svg { width: 17px; height: 17px; color: #fff; }
+.ee-logo b { color: var(--orange); font-weight: 800; }
 
-.ee-cta-note {
-  font-size: 13px;
-  color: var(--ee-ink-mute);
-  font-weight: 500;
-  margin: 0 0 34px;
-}
+.ee-nav-links { display: none; }
+.ee-nav-links a { font-weight: 600; font-size: 15px; color: var(--ink-soft); padding: 8px 4px; transition: color .2s; }
+.ee-nav-links a:hover { color: var(--navy); }
 
-/* stat cards */
-.ee-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+.ee-nav-actions { display: none; margin-left: auto; align-items: center; gap: 10px; }
+.ee-nav-login { font-weight: 700; font-size: 15px; color: var(--navy); padding: 10px 14px; }
+
+/* hamburger */
+.ee-burger { margin-left: auto; width: 44px; height: 44px; display: inline-grid; place-items: center; border-radius: 10px; color: var(--navy); }
+.ee-burger:hover { background: var(--navy-soft); }
+.ee-burger svg { width: 24px; height: 24px; }
+
+/* mobile drawer */
+.ee-drawer {
+  position: fixed; inset: 0; z-index: 200;
+  visibility: hidden; pointer-events: none;
 }
-.ee-stat {
-  position: relative;
-  padding: 18px 16px 14px;
-  background: var(--ee-white);
-  border: 1px solid var(--ee-line);
-  border-radius: var(--ee-r);
-  box-shadow: var(--ee-shadow-sm);
-  overflow: hidden;
+.ee-drawer[data-open="true"] { visibility: visible; pointer-events: auto; }
+.ee-drawer-scrim { position: absolute; inset: 0; background: rgba(25,51,93,.42); opacity: 0; transition: opacity .3s; }
+.ee-drawer[data-open="true"] .ee-drawer-scrim { opacity: 1; }
+.ee-drawer-panel {
+  position: absolute; top: 0; right: 0; height: 100%; width: min(84vw, 340px);
+  background: #fff; box-shadow: var(--shadow-lg);
+  transform: translateX(100%); transition: transform .32s cubic-bezier(.22,1,.36,1);
+  display: flex; flex-direction: column; padding: 18px 20px 28px;
 }
-.ee-stat-ico {
-  width: 40px; height: 40px;
-  border-radius: 12px;
-  display: grid; place-items: center;
-  margin-bottom: 12px;
-  background: var(--ee-orange-soft);
-  color: var(--ee-orange);
-}
-.ee-stat:nth-child(2) .ee-stat-ico { background: var(--ee-navy-soft); color: var(--ee-navy); }
-.ee-stat:nth-child(4) .ee-stat-ico { background: var(--ee-navy-soft); color: var(--ee-navy); }
-.ee-stat-ico svg { width: 20px; height: 20px; }
-.ee-stat-val {
-  font-weight: 800;
-  font-size: clamp(24px, 2.6vw, 32px);
-  color: var(--ee-navy);
-  line-height: 1;
-}
-.ee-stat-lbl {
-  font-size: 12.5px;
-  color: var(--ee-ink-mute);
-  font-weight: 500;
-  margin-top: 4px;
-}
-.ee-stat-spark {
-  position: absolute;
-  right: 0; bottom: 0;
-  width: 60%;
-  height: 34px;
-  opacity: .5;
-  pointer-events: none;
+.ee-drawer[data-open="true"] .ee-drawer-panel { transform: translateX(0); }
+.ee-drawer-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.ee-drawer-close { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 10px; color: var(--navy); }
+.ee-drawer-close:hover { background: var(--navy-soft); }
+.ee-drawer-links { display: grid; gap: 2px; margin: 8px 0 20px; }
+.ee-drawer-links a { font-weight: 600; font-size: 17px; color: var(--navy); padding: 14px 12px; border-radius: 10px; }
+.ee-drawer-links a:hover { background: var(--navy-soft); }
+.ee-drawer-cta { display: grid; gap: 10px; margin-top: auto; }
+@media (prefers-reduced-motion: reduce) {
+  .ee-drawer-panel, .ee-drawer-scrim { transition: none; }
 }
 
 /* ==========================================================================
-   RIGHT COLUMN — floating product mockup
+   HERO
    ========================================================================== */
-.ee-visual {
-  position: relative;
-  min-width: 0;
-}
-
-/* decorative neural "brain" glow (two-colour) */
-.ee-brain {
-  position: absolute;
-  top: -52px;
-  left: 50%;
-  transform: translateX(-30%);
-  width: 190px;
-  height: 120px;
-  z-index: 4;
+.ee-hero { position: relative; overflow: hidden; padding-block: clamp(36px, 6vw, 72px) clamp(48px, 7vw, 88px); }
+.ee-hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(680px 460px at 92% -4%, var(--orange-soft), transparent 62%),
+    radial-gradient(620px 520px at 100% 60%, var(--navy-soft), transparent 60%);
   pointer-events: none;
-  filter: drop-shadow(0 10px 24px rgba(25,51,93,.22));
 }
+.ee-hero-grid { display: grid; gap: clamp(40px, 6vw, 56px); align-items: center; }
 
-/* the app "screenshot" */
+.ee-hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 15px; border-radius: var(--pill);
+  background: var(--orange-soft); border: 1px solid var(--orange-line);
+  color: var(--orange); font-weight: 700; font-size: 13px; letter-spacing: .3px;
+  margin-bottom: 18px;
+}
+.ee-hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 4px rgba(222,110,48,.18); }
+
+.ee-hero h1 {
+  font-size: clamp(33px, 7.4vw, 60px); line-height: 1.05; letter-spacing: -1.6px; font-weight: 800; color: var(--navy);
+  margin-bottom: 18px;
+}
+.ee-hero h1 .accent { color: var(--orange); }
+.ee-hero-sub { max-width: 560px; margin-bottom: 26px; }
+
+.ee-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+.ee-hero-note { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; font-size: 13.5px; color: var(--ink-mute); font-weight: 500; }
+.ee-hero-note span { display: inline-flex; align-items: center; gap: 6px; }
+.ee-hero-note svg { width: 15px; height: 15px; color: var(--orange); }
+
+/* feature chips under hero copy */
+.ee-hero-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.ee-chip {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 10px 14px; background: #fff; border: 1px solid var(--line);
+  border-radius: 12px; box-shadow: var(--shadow-sm);
+  font-size: 12.5px; font-weight: 600; color: var(--navy); line-height: 1.25;
+}
+.ee-chip-ico { flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; background: var(--orange-soft); color: var(--orange); }
+.ee-chip:nth-child(even) .ee-chip-ico { background: var(--navy-soft); color: var(--navy); }
+.ee-chip-ico svg { width: 15px; height: 15px; }
+
+/* ---------- Hero product mockup ---------- */
+.ee-visual { position: relative; min-width: 0; }
 .ee-app {
-  position: relative;
-  z-index: 3;
-  background: var(--ee-white);
-  border: 1px solid var(--ee-line);
-  border-radius: var(--ee-r-lg);
-  box-shadow: var(--ee-shadow-lg);
-  padding: 14px;
-  container-type: inline-size;
+  position: relative; z-index: 3;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg); padding: 12px;
 }
-
-/* app top bar */
-.ee-app-top {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 6px 6px 14px;
-}
-.ee-app-logo { display: flex; align-items: center; gap: 8px; }
-.ee-app-logo-mark {
-  width: 26px; height: 26px; border-radius: 7px;
-  background: var(--ee-orange);
-  display: grid; place-items: center;
-  box-shadow: 0 4px 10px -3px rgba(222,110,48,.6);
-}
-.ee-app-logo-mark svg { width: 15px; height: 15px; color: #fff; }
-.ee-app-logo-txt {
-  font-weight: 800; font-size: 15px; color: var(--ee-navy); letter-spacing: -.3px;
-}
-.ee-app-logo-badge {
-  font-size: 10px; font-weight: 800; color: var(--ee-orange);
-  background: var(--ee-orange-soft); padding: 3px 7px; border-radius: 6px; letter-spacing: .2px;
-}
-.ee-app-search {
-  flex: 1;
-  display: flex; align-items: center; gap: 8px;
-  background: var(--ee-navy-soft);
-  border: 1px solid var(--ee-line);
-  border-radius: var(--ee-r-pill);
-  padding: 8px 14px;
-  color: var(--ee-ink-mute);
-  font-size: 12px;
-  min-width: 0;
-}
-.ee-app-search svg { width: 14px; height: 14px; flex: none; }
+.ee-app-top { display: flex; align-items: center; gap: 10px; padding: 4px 4px 12px; }
+.ee-applogo { display: flex; align-items: center; gap: 7px; }
+.ee-applogo-mark { width: 24px; height: 24px; border-radius: 7px; background: var(--orange); display: grid; place-items: center; }
+.ee-applogo-mark svg { width: 14px; height: 14px; color: #fff; }
+.ee-applogo-txt { font-weight: 800; font-size: 14px; color: var(--navy); }
+.ee-applogo-badge { font-size: 9.5px; font-weight: 800; color: var(--orange); background: var(--orange-soft); padding: 3px 6px; border-radius: 6px; }
+.ee-app-search { flex: 1; display: flex; align-items: center; gap: 7px; background: var(--navy-soft); border: 1px solid var(--line); border-radius: var(--pill); padding: 7px 12px; color: var(--ink-mute); font-size: 11.5px; min-width: 0; }
+.ee-app-search svg { width: 13px; height: 13px; flex: none; }
 .ee-app-search span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ee-app-bell {
-  position: relative; flex: none;
-  width: 34px; height: 34px; border-radius: 50%;
-  background: var(--ee-navy-soft); border: 1px solid var(--ee-line);
-  display: grid; place-items: center; color: var(--ee-ink-soft);
-}
-.ee-app-bell svg { width: 16px; height: 16px; }
-.ee-app-bell b {
-  position: absolute; top: -3px; right: -3px;
-  width: 15px; height: 15px; border-radius: 50%;
-  background: var(--ee-orange); color: #fff;
-  font-size: 9px; font-weight: 800;
-  display: grid; place-items: center;
-  border: 2px solid #fff;
-}
-.ee-app-avatar {
-  flex: none; width: 34px; height: 34px; border-radius: 50%;
-  background: var(--ee-orange);
-  position: relative;
-  display: grid; place-items: center;
-  color: #fff; font-weight: 700; font-size: 13px;
-}
-.ee-app-avatar i {
-  position: absolute; right: 0; bottom: 0;
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--ee-navy); border: 2px solid #fff;
-}
+.ee-app-bell { position: relative; flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--navy-soft); border: 1px solid var(--line); display: grid; place-items: center; color: var(--ink-soft); }
+.ee-app-bell svg { width: 15px; height: 15px; }
+.ee-app-bell b { position: absolute; top: -3px; right: -3px; width: 14px; height: 14px; border-radius: 50%; background: var(--orange); color: #fff; font-size: 8.5px; font-weight: 800; display: grid; place-items: center; border: 2px solid #fff; }
+.ee-app-av { flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--orange); display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 12px; }
 
-/* app body layout */
-.ee-app-body {
-  display: grid;
-  grid-template-columns: 44px 1fr;
-  gap: 10px;
-}
-.ee-app-rail {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  padding-top: 4px;
-}
-.ee-app-rail a {
-  width: 34px; height: 34px; border-radius: 10px;
-  display: grid; place-items: center; color: var(--ee-ink-mute);
-}
-.ee-app-rail a.is-active { background: var(--ee-orange-soft); color: var(--ee-orange); }
-.ee-app-rail svg { width: 17px; height: 17px; }
-
-.ee-app-main { min-width: 0; display: flex; flex-direction: column; gap: 10px; }
-
-/* generic dashboard card */
+.ee-app-body { display: grid; grid-template-columns: 1fr; gap: 10px; }
 .ee-card {
-  background: var(--ee-panel);
-  border: 1px solid var(--ee-line);
-  border-radius: var(--ee-r);
-  padding: 12px;
-  box-shadow: 0 1px 2px rgba(25,51,93,.04);
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 12px;
 }
-.ee-card-title {
-  font-weight: 700; font-size: 12px; color: var(--ee-navy);
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 10px;
-}
-.ee-card-title .ee-chev { color: var(--ee-ink-mute); }
-.ee-card-title .ee-chev svg { width: 14px; height: 14px; }
-
-/* --- Row: Pipeline + Live Activity --- */
-.ee-row-top {
-  display: grid;
-  grid-template-columns: 1fr 0.42fr;
-  gap: 10px;
-}
-.ee-pipeline-cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-.ee-pl {
-  padding: 10px;
-  border-radius: 10px;
-  background: var(--ee-navy-soft);
-  border: 1px solid var(--ee-line-soft);
-}
-.ee-pl-lbl { font-size: 10px; color: var(--ee-ink-mute); font-weight: 600; }
-.ee-pl-val { font-weight: 800; font-size: 19px; color: var(--ee-navy); margin: 3px 0; line-height: 1; }
-.ee-pl-delta { font-size: 10px; font-weight: 700; }
-.ee-pl-bar { height: 4px; border-radius: 4px; margin-top: 8px; background: var(--ee-navy); }
-.ee-pl:nth-child(2) .ee-pl-bar { background: var(--ee-orange); }
-.ee-pl:nth-child(4) .ee-pl-bar { background: var(--ee-orange); }
-
-/* live activity list */
-.ee-la-item {
-  display: flex; align-items: center; gap: 8px;
-  padding: 5px 0;
-  font-size: 11px; color: var(--ee-ink-soft); font-weight: 500;
-}
-.ee-la-item + .ee-la-item { border-top: 1px solid var(--ee-line-soft); }
-.ee-la-ico {
-  flex: none; width: 22px; height: 22px; border-radius: 7px;
-  display: grid; place-items: center;
-  background: var(--ee-navy-soft); color: var(--ee-navy);
-}
-.ee-la-item:nth-child(odd) .ee-la-ico { background: var(--ee-orange-soft); color: var(--ee-orange); }
-.ee-la-ico svg { width: 12px; height: 12px; }
-.ee-la-item b { margin-left: auto; color: var(--ee-navy); font-weight: 700; }
-.ee-la-live {
-  width: 8px; height: 8px; border-radius: 50%; background: var(--ee-orange);
-  box-shadow: 0 0 0 3px rgba(222,110,48,.18);
-  animation: ee-pulse 1.8s infinite;
-}
+.ee-card-t { font-weight: 700; font-size: 12px; color: var(--navy); display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.ee-live { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 3px rgba(222,110,48,.18); animation: ee-pulse 1.8s infinite; }
 @keyframes ee-pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.25);opacity:.6} }
 
-/* --- Row: Voice + Chat + Intent --- */
-.ee-row-mid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 0.82fr;
-  gap: 10px;
-}
-/* voice agent */
-.ee-voice-tabs { display: flex; gap: 5px; margin-bottom: 8px; flex-wrap: wrap; }
-.ee-voice-tabs span {
-  font-size: 9.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px;
-  background: var(--ee-navy-soft); color: var(--ee-ink-mute);
-}
-.ee-voice-tabs span.is-on { background: var(--ee-orange-soft); color: var(--ee-orange); }
-.ee-wave { display: flex; align-items: center; gap: 2px; height: 42px; margin: 6px 0; }
-.ee-wave i {
-  flex: 1; border-radius: 2px;
-  background: var(--ee-orange);
-  animation: ee-wave 1.1s ease-in-out infinite;
-  min-height: 3px;
-}
-.ee-wave i:nth-child(even) { background: var(--ee-navy); }
-@keyframes ee-wave { 0%,100%{transform:scaleY(.28)} 50%{transform:scaleY(1)} }
-.ee-voice-foot { display: flex; align-items: center; justify-content: space-between; font-size: 10px; }
-.ee-voice-foot .ee-vf { display: flex; align-items: center; gap: 5px; font-weight: 700; color: var(--ee-navy); }
-.ee-voice-foot .ee-vf small { display: block; color: var(--ee-ink-mute); font-weight: 500; font-size: 9px; }
-.ee-call-btn {
-  width: 30px; height: 30px; border-radius: 50%;
-  background: var(--ee-orange); color: #fff;
-  display: grid; place-items: center;
-}
-.ee-call-btn svg { width: 14px; height: 14px; }
+.ee-pipe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.ee-pl { padding: 9px; border-radius: 10px; background: var(--navy-soft); border: 1px solid var(--line-soft); }
+.ee-pl small { font-size: 9.5px; color: var(--ink-mute); font-weight: 600; }
+.ee-pl b { display: block; font-weight: 800; font-size: 17px; color: var(--navy); margin: 2px 0; line-height: 1; }
+.ee-pl i { font-style: normal; font-size: 9.5px; font-weight: 700; }
+.ee-up { color: var(--orange); } .ee-down { color: var(--navy); }
+.ee-pl .bar { height: 4px; border-radius: 4px; margin-top: 7px; background: var(--navy); }
+.ee-pl:nth-child(2) .bar, .ee-pl:nth-child(4) .bar { background: var(--orange); }
 
-/* chat */
-.ee-chat-h { display: flex; align-items: center; gap: 6px; }
-.ee-chat-h .ee-bot {
-  width: 18px; height: 18px; border-radius: 6px; background: var(--ee-orange-soft);
-  color: var(--ee-orange); display: grid; place-items: center;
-}
-.ee-chat-h .ee-bot svg { width: 11px; height: 11px; }
-.ee-msg { font-size: 10.5px; line-height: 1.5; margin-top: 8px; }
-.ee-msg .ee-who { color: var(--ee-ink-mute); font-weight: 600; font-size: 9px; margin-bottom: 3px; display: flex; justify-content: space-between; }
-.ee-bubble {
-  background: var(--ee-navy-soft); border-radius: 10px 10px 10px 3px;
-  padding: 7px 9px; color: var(--ee-navy); font-weight: 500;
-}
-.ee-bubble.is-ai { background: var(--ee-orange-soft); border-radius: 10px 10px 3px 10px; color: var(--ee-navy); }
+.ee-two { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.ee-la { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 11px; color: var(--ink-soft); font-weight: 500; }
+.ee-la + .ee-la { border-top: 1px solid var(--line-soft); }
+.ee-la-ic { flex: none; width: 22px; height: 22px; border-radius: 7px; display: grid; place-items: center; background: var(--navy-soft); color: var(--navy); }
+.ee-la:nth-child(odd) .ee-la-ic { background: var(--orange-soft); color: var(--orange); }
+.ee-la-ic svg { width: 12px; height: 12px; }
+.ee-la b { margin-left: auto; color: var(--navy); font-weight: 700; }
 
-/* intent gauge (navy track → orange fill) */
-.ee-gauge {
-  width: 118px; height: 62px; margin: 4px auto 6px;
-  position: relative; overflow: hidden;
-}
-.ee-gauge::before {
-  content: ""; position: absolute; inset: 0;
-  border-radius: 118px 118px 0 0;
-  background: conic-gradient(from 270deg at 50% 100%,
-      var(--ee-navy) 0%, var(--ee-orange) 30%, var(--ee-orange) 47%,
-      var(--ee-line) 47%, var(--ee-line) 50%);
-  -webkit-mask: radial-gradient(circle at 50% 100%, transparent 44px, #000 44.5px);
-          mask: radial-gradient(circle at 50% 100%, transparent 44px, #000 44.5px);
-}
-.ee-gauge-val {
-  position: absolute; bottom: 2px; left: 0; right: 0; text-align: center;
-}
-.ee-gauge-val b { font-weight: 800; font-size: 24px; color: var(--ee-navy); }
-.ee-gauge-val b sup { font-size: 11px; }
-.ee-gauge-val small { display: block; color: var(--ee-orange); font-weight: 700; font-size: 10px; }
-.ee-intent-cta {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  border: 1px solid var(--ee-orange); color: var(--ee-orange);
-  border-radius: 8px; padding: 6px; font-size: 10px; font-weight: 700;
-  margin-top: 6px;
-}
+.ee-mid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.ee-voice-tabs { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 6px; }
+.ee-voice-tabs span { font-size: 9.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: var(--navy-soft); color: var(--ink-mute); }
+.ee-voice-tabs .on { background: var(--orange-soft); color: var(--orange); }
+.ee-wave { display: flex; align-items: center; gap: 2px; height: 38px; margin: 6px 0; }
+.ee-wave i { flex: 1; border-radius: 2px; background: var(--orange); animation: ee-wv 1.1s ease-in-out infinite; min-height: 3px; }
+.ee-wave i:nth-child(even) { background: var(--navy); }
+@keyframes ee-wv { 0%,100%{transform:scaleY(.28)} 50%{transform:scaleY(1)} }
+.ee-vfoot { display: flex; align-items: center; justify-content: space-between; font-size: 10px; font-weight: 700; color: var(--navy); }
+.ee-vfoot small { display: block; color: var(--ink-mute); font-weight: 500; font-size: 9px; }
+.ee-callbtn { width: 28px; height: 28px; border-radius: 50%; background: var(--orange); color: #fff; display: grid; place-items: center; }
+.ee-callbtn svg { width: 13px; height: 13px; }
+
+.ee-chat .who { color: var(--ink-mute); font-weight: 600; font-size: 9px; margin: 8px 0 3px; display: flex; justify-content: space-between; }
+.ee-bubble { font-size: 10.5px; line-height: 1.5; background: var(--navy-soft); border-radius: 10px 10px 10px 3px; padding: 7px 9px; color: var(--navy); font-weight: 500; }
+.ee-bubble.ai { background: var(--orange-soft); border-radius: 10px 10px 3px 10px; }
+.ee-bot { display: inline-grid; place-items: center; width: 17px; height: 17px; border-radius: 6px; background: var(--orange-soft); color: var(--orange); }
+.ee-bot svg { width: 11px; height: 11px; }
+
+.ee-gauge { width: 112px; height: 60px; margin: 2px auto 4px; position: relative; overflow: hidden; }
+.ee-gauge::before { content: ""; position: absolute; inset: 0; border-radius: 112px 112px 0 0;
+  background: conic-gradient(from 270deg at 50% 100%, var(--navy) 0%, var(--orange) 30%, var(--orange) 47%, var(--line) 47%, var(--line) 50%);
+  -webkit-mask: radial-gradient(circle at 50% 100%, transparent 42px, #000 42.5px); mask: radial-gradient(circle at 50% 100%, transparent 42px, #000 42.5px); }
+.ee-gauge-v { position: absolute; bottom: 2px; left: 0; right: 0; text-align: center; }
+.ee-gauge-v b { font-weight: 800; font-size: 23px; color: var(--navy); }
+.ee-gauge-v b sup { font-size: 11px; }
+.ee-gauge-v small { display: block; color: var(--orange); font-weight: 700; font-size: 10px; }
+.ee-intent-cta { display: flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--orange); color: var(--orange); border-radius: 8px; padding: 6px; font-size: 10px; font-weight: 700; margin-top: 6px; }
 .ee-intent-cta svg { width: 12px; height: 12px; }
-.ee-intent-time { font-size: 9px; color: var(--ee-ink-mute); text-align: center; margin-top: 6px; }
-.ee-intent-time b { color: var(--ee-navy); }
 
-/* --- Row: 4 metric mini cards --- */
-.ee-row-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.ee-mini-lbl { font-size: 10px; color: var(--ee-ink-mute); font-weight: 600; }
-.ee-mini-val { font-weight: 800; font-size: 18px; color: var(--ee-navy); margin: 2px 0 1px; }
-.ee-mini-val small { font-size: 11px; }
-.ee-mini-delta { font-size: 9.5px; font-weight: 700; }
-.ee-mini-spark { height: 30px; margin-top: 6px; }
-
-/* --- Row: funnel + donut + counsellors + notifications --- */
-.ee-row-bot { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
-
-/* funnel (tints of the two brand colours) */
-.ee-funnel { display: flex; flex-direction: column; gap: 4px; align-items: center; }
-.ee-funnel i { height: 14px; border-radius: 3px; display: block; }
-.ee-legend { margin-top: 8px; }
-.ee-legend li { display: flex; align-items: center; gap: 6px; font-size: 9px; color: var(--ee-ink-soft); padding: 2px 0; }
-.ee-legend .ee-sw { width: 8px; height: 8px; border-radius: 2px; flex: none; }
-.ee-legend b { margin-left: auto; color: var(--ee-navy); }
-
-/* donut */
-.ee-donut-wrap { display: flex; align-items: center; gap: 8px; }
-.ee-donut {
-  flex: none; width: 88px; height: 88px; border-radius: 50%;
-  background: conic-gradient(
-    var(--ee-orange) 0 46.9%,
-    var(--ee-navy) 46.9% 77.2%,
-    rgba(222,110,48,.55) 77.2% 92.9%,
-    rgba(25,51,93,.55) 92.9% 97.5%,
-    rgba(25,51,93,.30) 97.5% 100%);
-  display: grid; place-items: center;
-  position: relative;
-}
-.ee-donut::after {
-  content: ""; width: 58px; height: 58px; border-radius: 50%; background: #fff;
-}
-.ee-donut-c { position: absolute; text-align: center; }
-.ee-donut-c b { font-weight: 800; font-size: 16px; color: var(--ee-navy); display: block; line-height: 1; }
-.ee-donut-c small { font-size: 8px; color: var(--ee-ink-mute); }
-.ee-donut-legend li { display: flex; align-items: center; gap: 5px; font-size: 8.5px; color: var(--ee-ink-soft); padding: 1px 0; }
-.ee-donut-legend .ee-sw { width: 7px; height: 7px; border-radius: 2px; flex: none; }
-.ee-donut-legend b { margin-left: auto; color: var(--ee-navy); }
-
-/* counsellors (alternating brand colours) */
-.ee-cn { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 10px; }
-.ee-cn + .ee-cn { border-top: 1px solid var(--ee-line-soft); }
-.ee-cn-av {
-  flex: none; width: 24px; height: 24px; border-radius: 50%;
-  display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 10px;
-  background: var(--ee-orange);
-}
-.ee-cn:nth-child(even) .ee-cn-av { background: var(--ee-navy); }
-.ee-cn-name { font-weight: 700; color: var(--ee-navy); line-height: 1.2; }
-.ee-cn-sub { font-size: 8.5px; color: var(--ee-ink-mute); }
-.ee-cn-star { margin-left: auto; color: var(--ee-orange); }
-.ee-cn-star svg { width: 12px; height: 12px; }
-
-/* notifications */
-.ee-nt { display: flex; gap: 8px; padding: 5px 0; font-size: 9.5px; align-items: center; }
-.ee-nt + .ee-nt { border-top: 1px solid var(--ee-line-soft); }
-.ee-nt-ico { flex: none; width: 20px; height: 20px; border-radius: 6px; display: grid; place-items: center;
-  background: var(--ee-navy-soft); color: var(--ee-navy); }
-.ee-nt:nth-child(odd) .ee-nt-ico { background: var(--ee-orange-soft); color: var(--ee-orange); }
-.ee-nt-ico svg { width: 11px; height: 11px; }
-.ee-nt-body { min-width: 0; }
-.ee-nt-body b { color: var(--ee-navy); font-weight: 600; display: block; }
-.ee-nt-time { color: var(--ee-ink-mute); font-size: 8.5px; white-space: nowrap; margin-left: auto; }
-.ee-nt-all { text-align: center; font-size: 9.5px; font-weight: 700; color: var(--ee-orange); padding-top: 6px; }
+/* floating stat cards on the mockup */
+.ee-float { position: absolute; z-index: 6; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-md); padding: 10px 13px; }
+.ee-float small { font-size: 9.5px; color: var(--ink-mute); font-weight: 600; }
+.ee-float b { display: block; font-weight: 800; font-size: 17px; color: var(--navy); line-height: 1.1; }
+.ee-float i { font-style: normal; font-size: 9.5px; font-weight: 700; }
+.ee-float--a { display: none; top: -20px; left: -18px; animation: ee-floaty 6s ease-in-out infinite; }
+.ee-float--b { display: none; bottom: -18px; right: -14px; animation: ee-floaty 7s ease-in-out infinite .6s; }
+@keyframes ee-floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 
 /* ==========================================================================
-   FLOATING CARDS around the app
+   LOGO STRIP
    ========================================================================== */
-.ee-float {
-  position: absolute;
-  z-index: 6;
-  background: #fff;
-  border: 1px solid var(--ee-line);
-  border-radius: 14px;
-  box-shadow: var(--ee-shadow-md);
-  padding: 11px 14px;
-}
-.ee-float-lbl { font-size: 9.5px; color: var(--ee-ink-mute); font-weight: 600; }
-.ee-float-val { font-weight: 800; font-size: 18px; color: var(--ee-navy); line-height: 1.1; }
-.ee-float-delta { font-size: 9.5px; font-weight: 700; margin-top: 1px; }
-.ee-float-spark { margin-top: 4px; }
-
-.ee-float--enq { top: -22px; left: -16px; animation: ee-floaty 6s ease-in-out infinite; }
-.ee-float--acc { bottom: 78px; left: -18px; animation: ee-floaty 7s ease-in-out infinite .5s; }
-.ee-float--rev { bottom: -20px; left: 34%; animation: ee-floaty 6.5s ease-in-out infinite 1s; }
-@keyframes ee-floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
-
-/* right-side icon chips (alternating brand colours) */
-.ee-orbit {
-  position: absolute;
-  right: -22px; top: 0; bottom: 0;
-  width: 60px;
-  display: flex; flex-direction: column; justify-content: space-around; align-items: center;
-  z-index: 6;
-  pointer-events: none;
-}
-.ee-orbit-ico {
-  width: 46px; height: 46px; border-radius: 14px;
-  display: grid; place-items: center;
-  box-shadow: 0 12px 24px -10px rgba(25,51,93,.4);
-  color: #fff;
-  background: var(--ee-navy);
-  animation: ee-floaty 6s ease-in-out infinite;
-}
-.ee-orbit-ico:nth-child(even) { background: var(--ee-orange); }
-.ee-orbit-ico:nth-child(odd) { animation-duration: 7s; animation-delay: .6s; }
-.ee-orbit-ico svg { width: 22px; height: 22px; }
+.ee-logos { padding-block: clamp(32px, 5vw, 48px); }
+.ee-logos-label { text-align: center; font-size: 12.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 22px; }
+.ee-logos-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 22px 40px; }
+.ee-logos-row span { font-weight: 800; font-size: clamp(15px, 2.4vw, 20px); color: var(--navy); opacity: .5; letter-spacing: -.3px; transition: opacity .2s; }
+.ee-logos-row span:hover { opacity: 1; }
 
 /* ==========================================================================
-   RESPONSIVE
+   STATS BAND
    ========================================================================== */
-@media (max-width: 1180px) {
-  .ee-orbit { display: none; }
-  .ee-float--enq { left: 4px; }
-  .ee-float--acc { left: 0; }
-}
+.ee-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.ee-stat { background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 22px 18px; box-shadow: var(--shadow-sm); }
+.ee-stat .n { font-weight: 800; font-size: clamp(30px, 6vw, 42px); color: var(--navy); line-height: 1; letter-spacing: -1px; }
+.ee-stat .n .u { color: var(--orange); }
+.ee-stat .l { font-size: 13.5px; color: var(--ink-mute); font-weight: 500; margin-top: 6px; }
 
-@media (max-width: 980px) {
-  .ee-grid { grid-template-columns: 1fr; gap: 48px; }
-  .ee-visual { max-width: 640px; margin: 0 auto; width: 100%; }
-  .ee-lead, .ee-cta { max-width: none; }
+/* ==========================================================================
+   FEATURES GRID
+   ========================================================================== */
+.ee-features { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.ee-feature {
+  position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 26px 24px; box-shadow: var(--shadow-sm);
+  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s, border-color .3s;
 }
+.ee-feature:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--orange-line); }
+.ee-feature-ic { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--orange-soft); color: var(--orange); margin-bottom: 18px; }
+.ee-feature:nth-child(even) .ee-feature-ic { background: var(--navy-soft); color: var(--navy); }
+.ee-feature-ic svg { width: 26px; height: 26px; }
+.ee-feature h3 { margin-bottom: 8px; }
+.ee-feature p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.65; }
 
-@media (max-width: 560px) {
-  .ee-hero { padding: 28px 0 48px; }
-  .ee-stats { grid-template-columns: repeat(2, 1fr); }
-  .ee-cta { width: 100%; }
-  /* keep the dense dashboard readable: allow horizontal scroll of the shot */
-  .ee-app-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
-  .ee-app { min-width: 560px; }
-  .ee-brain { display: none; }
-  .ee-float--enq, .ee-float--rev, .ee-float--acc { display: none; }
+/* ==========================================================================
+   HOW IT WORKS
+   ========================================================================== */
+.ee-steps { display: grid; grid-template-columns: 1fr; gap: 20px; counter-reset: step; }
+.ee-step { position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px 24px; box-shadow: var(--shadow-sm); }
+.ee-step .num { counter-increment: step; width: 44px; height: 44px; border-radius: 12px; background: var(--navy); color: #fff; font-weight: 800; font-size: 18px; display: grid; place-items: center; margin-bottom: 16px; }
+.ee-step .num::before { content: counter(step, decimal-leading-zero); }
+.ee-step:nth-child(2) .num { background: var(--orange); }
+.ee-step h3 { margin-bottom: 8px; }
+.ee-step p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.65; }
+
+/* ==========================================================================
+   SHOWCASE (split feature)
+   ========================================================================== */
+.ee-showcase { display: grid; gap: clamp(32px, 5vw, 56px); align-items: center; }
+.ee-showcase h2 { margin-bottom: 16px; }
+.ee-showcase .ee-lead { margin-bottom: 24px; }
+.ee-checklist { display: grid; gap: 14px; }
+.ee-checklist li { display: flex; gap: 12px; font-size: 15px; color: var(--ink-soft); }
+.ee-checklist .ck { flex: none; width: 24px; height: 24px; border-radius: 7px; background: var(--orange-soft); color: var(--orange); display: grid; place-items: center; }
+.ee-checklist .ck svg { width: 14px; height: 14px; }
+.ee-checklist b { color: var(--navy); font-weight: 700; }
+
+.ee-showcase-panel {
+  background: var(--navy); border-radius: var(--r-xl); padding: clamp(24px, 4vw, 40px); color: #fff;
+  box-shadow: var(--shadow-lg); display: grid; gap: 14px;
 }
+.ee-scrow { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: var(--r); padding: 16px 18px; }
+.ee-scrow .si { flex: none; width: 42px; height: 42px; border-radius: 11px; background: var(--orange); display: grid; place-items: center; }
+.ee-scrow .si svg { width: 21px; height: 21px; color: #fff; }
+.ee-scrow .st { font-size: 13px; color: rgba(255,255,255,.72); font-weight: 500; }
+.ee-scrow .sv { font-weight: 800; font-size: 22px; letter-spacing: -.5px; }
+.ee-scrow .sd { margin-left: auto; font-weight: 700; font-size: 13px; color: #fff; background: rgba(222,110,48,.9); padding: 5px 10px; border-radius: var(--pill); }
 
-/* Respect reduced motion */
+/* ==========================================================================
+   TESTIMONIALS
+   ========================================================================== */
+.ee-quotes { display: grid; grid-template-columns: 1fr; gap: 18px; }
+.ee-quote { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); padding: 26px 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 16px; }
+.ee-quote .stars { display: flex; gap: 3px; color: var(--orange); }
+.ee-quote .stars svg { width: 16px; height: 16px; }
+.ee-quote blockquote { margin: 0; font-size: 15.5px; line-height: 1.65; color: var(--ink); font-weight: 500; }
+.ee-quote .who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.ee-quote .av { flex: none; width: 42px; height: 42px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 15px; }
+.ee-quote:nth-child(even) .av { background: var(--orange); }
+.ee-quote .nm { font-weight: 700; color: var(--navy); font-size: 14.5px; line-height: 1.3; }
+.ee-quote .rl { font-size: 12.5px; color: var(--ink-mute); }
+
+/* ==========================================================================
+   FAQ
+   ========================================================================== */
+.ee-faq { max-width: 800px; margin-inline: auto; display: grid; gap: 12px; }
+.ee-faq details { background: #fff; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; transition: border-color .2s, box-shadow .2s; }
+.ee-faq details[open] { border-color: var(--orange-line); box-shadow: var(--shadow-sm); }
+.ee-faq summary { list-style: none; cursor: pointer; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-weight: 700; font-size: 15.5px; color: var(--navy); }
+.ee-faq summary::-webkit-details-marker { display: none; }
+.ee-faq summary .ic { flex: none; width: 26px; height: 26px; border-radius: 8px; background: var(--navy-soft); color: var(--navy); display: grid; place-items: center; transition: transform .25s, background-color .2s, color .2s; }
+.ee-faq summary .ic svg { width: 15px; height: 15px; }
+.ee-faq details[open] summary .ic { transform: rotate(45deg); background: var(--orange); color: #fff; }
+.ee-faq .ans { padding: 0 20px 20px; font-size: 14.5px; line-height: 1.7; color: var(--ink-soft); }
+
+/* ==========================================================================
+   CTA BAND (full-bleed navy)
+   ========================================================================== */
+.ee-cta-band { background: var(--navy); color: #fff; border-radius: var(--r-xl); padding: clamp(40px, 6vw, 72px) clamp(24px, 5vw, 64px); text-align: center; position: relative; overflow: hidden; }
+.ee-cta-band::before { content: ""; position: absolute; inset: 0; background: radial-gradient(600px 300px at 80% -20%, rgba(222,110,48,.30), transparent 60%); pointer-events: none; }
+.ee-cta-band h2 { color: #fff; font-size: clamp(26px, 4.4vw, 42px); line-height: 1.1; letter-spacing: -1px; font-weight: 800; margin-bottom: 14px; position: relative; }
+.ee-cta-band p { color: rgba(255,255,255,.8); font-size: clamp(15px, 1.8vw, 18px); max-width: 560px; margin: 0 auto 28px; position: relative; }
+.ee-cta-band .ee-hero-cta { justify-content: center; position: relative; }
+.ee-cta-band .ee-hero-note { justify-content: center; color: rgba(255,255,255,.65); position: relative; }
+.ee-cta-band .ee-hero-note svg { color: var(--orange); }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.ee-footer { background: var(--navy); color: rgba(255,255,255,.72); padding-block: clamp(48px, 7vw, 72px) 28px; }
+.ee-footer-grid { display: grid; grid-template-columns: 1fr; gap: 36px; }
+.ee-footer .ee-logo { color: #fff; margin-bottom: 14px; }
+.ee-footer-about { font-size: 14px; line-height: 1.7; max-width: 320px; }
+.ee-footer-social { display: flex; gap: 10px; margin-top: 18px; }
+.ee-footer-social a { width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,.08); display: grid; place-items: center; color: #fff; transition: background-color .2s, transform .2s; }
+.ee-footer-social a:hover { background: var(--orange); transform: translateY(-2px); }
+.ee-footer-social svg { width: 18px; height: 18px; }
+.ee-footer-cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+.ee-footer-col h4 { color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; margin-bottom: 14px; }
+.ee-footer-col a { display: block; font-size: 14px; padding: 6px 0; transition: color .2s; }
+.ee-footer-col a:hover { color: #fff; }
+.ee-footer-bottom { margin-top: 40px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.12); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; font-size: 13px; }
+.ee-footer-bottom a:hover { color: #fff; }
+
+/* ---------- Scroll reveal (only when JS is active) ---------- */
+.js .ee-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+.js .ee-reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .ee * { animation: none !important; transition: none !important; }
+  .ee-reveal { opacity: 1; transform: none; transition: none; }
+  .ee-live, .ee-wave i, .ee-float--a, .ee-float--b { animation: none !important; }
+}
+
+/* skip link */
+.ee-skip { position: absolute; left: -9999px; top: 8px; z-index: 300; background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 700; }
+.ee-skip:focus { left: 8px; }
+
+/* ==========================================================================
+   RESPONSIVE — mobile-first breakpoints
+   ========================================================================== */
+@media (min-width: 560px) {
+  .ee-hero-cta .ee-btn { min-width: 0; }
+  .ee-two { grid-template-columns: 1fr; }
+  .ee-stats { grid-template-columns: repeat(4, 1fr); }
+  .ee-features { grid-template-columns: repeat(2, 1fr); }
+  .ee-steps { grid-template-columns: repeat(3, 1fr); }
+  .ee-quotes { grid-template-columns: repeat(2, 1fr); }
+  .ee-footer-cols { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 860px) {
+  .ee-app-body { grid-template-columns: 1.35fr .65fr; align-items: start; }
+  .ee-row-full { grid-column: 1 / -1; }
+  .ee-mid { grid-template-columns: 1fr 1fr; }
+  .ee-float--a, .ee-float--b { display: block; }
+  .ee-features { grid-template-columns: repeat(3, 1fr); }
+  .ee-quotes { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 980px) {
+  :root { --header-h: 76px; }
+  .ee-nav-links { display: flex; align-items: center; gap: 28px; margin-left: 40px; }
+  .ee-nav-actions { display: flex; }
+  .ee-burger { display: none; }
+  .ee-hero-grid { grid-template-columns: 1fr 1.06fr; }
+  .ee-showcase { grid-template-columns: 1fr 1fr; }
+  .ee-footer-grid { grid-template-columns: 1.3fr 2fr; }
+}
+
+@media (min-width: 1120px) {
+  .ee-mid { grid-template-columns: 1fr 1fr .82fr; }
 }
 </style>
 </head>
 
 <body>
-<main class="ee">
-  <section class="ee-hero" aria-labelledby="ee-hero-title">
-    <div class="ee-wrap">
-      <div class="ee-grid">
+<a class="ee-skip" href="#main">Skip to content</a>
 
-        <!-- ================= LEFT: COPY ================= -->
-        <div class="ee-copy">
-          <span class="ee-badge-new"><span class="ee-dot" aria-hidden="true"></span>NEW · VidyaAI</span>
+<!-- ======================= HEADER ======================= -->
+<header class="ee-header" id="top">
+  <div class="ee-container">
+    <nav class="ee-nav" aria-label="Primary">
+      <a class="ee-logo" href="#top" aria-label="ExtraaEdge home">
+        <span class="ee-logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 6l4 8 2-4 4 8z"/></svg></span>
+        Extraa<b>Edge</b>
+      </a>
+      <div class="ee-nav-links">
+        <a href="#features">Product</a>
+        <a href="#how">How it works</a>
+        <a href="#showcase">Why VidyaAI</a>
+        <a href="#testimonials">Customers</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="ee-nav-actions">
+        <a class="ee-nav-login" href="#">Log in</a>
+        <a class="ee-btn ee-btn--primary" href="#demo">Book a Free Demo</a>
+      </div>
+      <button class="ee-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="ee-drawer" id="ee-burger">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
 
-          <p class="ee-eyebrow">Trusted by <b>500+</b> admission teams across <b>12</b> countries</p>
+<!-- mobile drawer -->
+<div class="ee-drawer" id="ee-drawer" data-open="false">
+  <div class="ee-drawer-scrim" data-close></div>
+  <div class="ee-drawer-panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="ee-drawer-top">
+      <a class="ee-logo" href="#top" data-close>
+        <span class="ee-logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 6l4 8 2-4 4 8z"/></svg></span>
+        Extraa<b>Edge</b>
+      </a>
+      <button class="ee-drawer-close" type="button" aria-label="Close menu" data-close>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <nav class="ee-drawer-links" aria-label="Mobile">
+      <a href="#features" data-close>Product</a>
+      <a href="#how" data-close>How it works</a>
+      <a href="#showcase" data-close>Why VidyaAI</a>
+      <a href="#testimonials" data-close>Customers</a>
+      <a href="#faq" data-close>FAQ</a>
+    </nav>
+    <div class="ee-drawer-cta">
+      <a class="ee-btn ee-btn--ghost ee-btn--block" href="#" data-close>Log in</a>
+      <a class="ee-btn ee-btn--primary ee-btn--block" href="#demo" data-close>Book a Free Demo</a>
+    </div>
+  </div>
+</div>
 
-          <h1 class="ee-h1" id="ee-hero-title">
-            Convert More Student Enquiries
-            <span class="ee-h1-orange">Into Admissions</span>
-            With AI-Powered Education CRM
-          </h1>
+<main id="main">
 
-          <p class="ee-lead">
-            The AI-powered Admission CRM where AI co-pilots and autonomous agents qualify leads,
-            brief counsellors, automate follow-ups, answer questions 24/7, and accelerate student
-            enrollment while your team focuses on closing admissions instead of chasing leads.
+  <!-- ======================= HERO ======================= -->
+  <section class="ee-hero" aria-labelledby="hero-title">
+    <div class="ee-container">
+      <div class="ee-hero-grid">
+
+        <div class="ee-hero-copy">
+          <span class="ee-hero-badge"><span class="dot" aria-hidden="true"></span>NEW · VidyaAI</span>
+          <h1 id="hero-title">Convert more student enquiries <span class="accent">into admissions</span> with AI</h1>
+          <p class="ee-hero-sub ee-lead">
+            The AI-powered Admission CRM where co-pilots and autonomous agents qualify leads, brief
+            counsellors, automate follow-ups and answer questions 24/7 — so your team focuses on
+            closing admissions instead of chasing leads.
+          </p>
+          <div class="ee-hero-cta">
+            <a class="ee-btn ee-btn--primary ee-btn--lg" href="#demo">
+              Book a Free Demo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="ee-btn ee-btn--ghost ee-btn--lg" href="#features">See how it works</a>
+          </div>
+          <p class="ee-hero-note">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>No credit card required</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Personalised demo</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>20 minutes</span>
           </p>
 
-          <!-- feature chips -->
-          <ul class="ee-features">
-            <li class="ee-chip">
-              <span class="ee-chip-ico is-orange" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
-              </span>Go live<br>in 7 days
-            </li>
-            <li class="ee-chip">
-              <span class="ee-chip-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-              </span>Works with<br>existing forms
-            </li>
-            <li class="ee-chip">
-              <span class="ee-chip-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-              </span>ISO 27001 +<br>GDPR Ready
-            </li>
-            <li class="ee-chip">
-              <span class="ee-chip-ico is-orange" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M8 2h8"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg>
-              </span>AI Native<br>Platform
-            </li>
-          </ul>
-
-          <!-- CTA -->
-          <a class="ee-cta" href="#book-demo">
-            Book a Free Demo
-            <span class="ee-cta-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </span>
-          </a>
-          <p class="ee-cta-note">No Credit Card Required &nbsp;·&nbsp; Personalised Demo &nbsp;·&nbsp; 20 Minutes</p>
-
-          <!-- stat cards -->
-          <ul class="ee-stats">
-            <li class="ee-stat">
-              <span class="ee-stat-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10l8-5 8 5v11M9 21v-6h6v6"/></svg>
-              </span>
-              <div class="ee-stat-val">500+</div>
-              <div class="ee-stat-lbl">Institutions</div>
-              <svg class="ee-stat-spark" viewBox="0 0 120 34" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#DE6E30" stroke-width="2" points="0,28 20,24 40,26 60,16 80,18 100,8 120,10"/></svg>
-            </li>
-            <li class="ee-stat">
-              <span class="ee-stat-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg>
-              </span>
-              <div class="ee-stat-val">10M+</div>
-              <div class="ee-stat-lbl">Enquiries Managed</div>
-              <svg class="ee-stat-spark" viewBox="0 0 120 34" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#19335D" stroke-width="2" points="0,26 20,22 40,24 60,14 80,16 100,10 120,6"/></svg>
-            </li>
-            <li class="ee-stat">
-              <span class="ee-stat-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="4" width="3" height="14"/></svg>
-              </span>
-              <div class="ee-stat-val">37%</div>
-              <div class="ee-stat-lbl">Higher Conversions</div>
-              <svg class="ee-stat-spark" viewBox="0 0 120 34" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#DE6E30" stroke-width="2" points="0,24 20,26 40,18 60,20 80,12 100,14 120,6"/></svg>
-            </li>
-            <li class="ee-stat">
-              <span class="ee-stat-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-              </span>
-              <div class="ee-stat-val">60s</div>
-              <div class="ee-stat-lbl">Average First Response</div>
-              <svg class="ee-stat-spark" viewBox="0 0 120 34" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#19335D" stroke-width="2" points="0,10 20,14 40,12 60,18 80,16 100,22 120,20"/></svg>
-            </li>
+          <ul class="ee-hero-chips">
+            <li class="ee-chip"><span class="ee-chip-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>Go live in 7 days</li>
+            <li class="ee-chip"><span class="ee-chip-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>Works with existing forms</li>
+            <li class="ee-chip"><span class="ee-chip-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>ISO 27001 + GDPR ready</li>
+            <li class="ee-chip"><span class="ee-chip-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M8 2h8"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg></span>AI-native platform</li>
           </ul>
         </div>
 
-        <!-- ================= RIGHT: PRODUCT MOCKUP ================= -->
-        <div class="ee-visual">
-
-          <!-- neural brain glow (two-colour) -->
-          <svg class="ee-brain" viewBox="0 0 190 120" aria-hidden="true" focusable="false">
-            <defs>
-              <radialGradient id="ee-brainG" cx="50%" cy="40%" r="60%">
-                <stop offset="0%" stop-color="#DE6E30"/>
-                <stop offset="100%" stop-color="#19335D"/>
-              </radialGradient>
-            </defs>
-            <g fill="url(#ee-brainG)" opacity="0.9">
-              <ellipse cx="95" cy="52" rx="46" ry="34"/>
-            </g>
-            <g stroke="#fff" stroke-width="1" opacity=".55" fill="none">
-              <path d="M60 52c8-14 24-14 35 0M95 30v44M78 40c6 8 6 20 0 28M112 40c-6 8-6 20 0 28"/>
-            </g>
-            <g fill="#fff" opacity=".85">
-              <circle cx="60" cy="52" r="2.4"/><circle cx="95" cy="30" r="2.4"/><circle cx="130" cy="52" r="2.4"/>
-              <circle cx="95" cy="74" r="2.4"/><circle cx="78" cy="40" r="1.8"/><circle cx="112" cy="40" r="1.8"/>
-            </g>
-          </svg>
-
-          <!-- floating: Enquiries This Month -->
-          <div class="ee-float ee-float--enq" role="img" aria-label="Enquiries this month: 12,450, up 12.5 percent">
-            <div class="ee-float-lbl">Enquiries This Month</div>
-            <div class="ee-float-val">12,450</div>
-            <div class="ee-float-delta ee-up">▲ 12.5%</div>
-            <svg class="ee-float-spark" width="96" height="26" viewBox="0 0 96 26" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#19335D" stroke-width="2" points="0,20 16,16 32,18 48,10 64,12 80,5 96,7"/></svg>
+        <!-- product mockup -->
+        <div class="ee-visual ee-reveal">
+          <div class="ee-float ee-float--a" role="img" aria-label="Enquiries this month 12,450, up 12.5 percent">
+            <small>Enquiries This Month</small><b>12,450</b><i class="ee-up">▲ 12.5%</i>
+          </div>
+          <div class="ee-float ee-float--b" role="img" aria-label="AI accuracy 98.6 percent, up 8.2 percent">
+            <small>AI Accuracy</small><b>98.6%</b><i class="ee-up">▲ 8.2%</i>
           </div>
 
-          <!-- floating: AI Accuracy -->
-          <div class="ee-float ee-float--acc" role="img" aria-label="AI accuracy: 98.6 percent, up 8.2 percent">
-            <div class="ee-float-lbl">AI Accuracy</div>
-            <div class="ee-float-val">98.6%</div>
-            <div class="ee-float-delta ee-up">▲ 8.2%</div>
-            <svg class="ee-float-spark" width="96" height="26" viewBox="0 0 96 26" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#DE6E30" stroke-width="2" points="0,18 16,14 32,16 48,8 64,11 80,6 96,4"/></svg>
-          </div>
-
-          <!-- floating: Revenue This Month -->
-          <div class="ee-float ee-float--rev" role="img" aria-label="Revenue this month: 2.48 crore rupees, up 21.6 percent">
-            <div class="ee-float-lbl">Revenue This Month</div>
-            <div class="ee-float-val">₹ 2.48 Cr</div>
-            <div class="ee-float-delta ee-up">▲ 21.6%</div>
-            <svg class="ee-float-spark" width="110" height="26" viewBox="0 0 110 26" preserveAspectRatio="none" aria-hidden="true">
-              <g fill="#19335D"><rect x="2" y="16" width="7" height="10" rx="1.5"/><rect x="14" y="13" width="7" height="13" rx="1.5"/><rect x="26" y="15" width="7" height="11" rx="1.5"/><rect x="38" y="10" width="7" height="16" rx="1.5"/><rect x="50" y="12" width="7" height="14" rx="1.5"/><rect x="62" y="7" width="7" height="19" rx="1.5"/><rect x="74" y="9" width="7" height="17" rx="1.5"/><rect x="86" y="4" width="7" height="22" rx="1.5"/><rect x="98" y="6" width="7" height="20" rx="1.5"/></g>
-            </svg>
-          </div>
-
-          <!-- orbiting icon chips (alternating brand colours) -->
-          <div class="ee-orbit" aria-hidden="true">
-            <span class="ee-orbit-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg></span>
-            <span class="ee-orbit-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V11l7-5 7 5v10M9 21v-6M15 21v-6"/></svg></span>
-            <span class="ee-orbit-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2zm0 2a8 8 0 0 1 6.9 12l.5 3-3-.9A8 8 0 1 1 12 4z"/><path d="M8.5 7.5c.3-.6 1.2-.5 1.5.1l.6 1.4c.1.3 0 .6-.2.8l-.6.6c.6 1 1.4 1.8 2.4 2.4l.6-.6c.2-.2.5-.3.8-.2l1.4.6c.6.3.7 1.2.1 1.5-1.4.9-3.2.6-4.8-1-1.6-1.6-1.9-3.4-1-4.8z"/></svg></span>
-            <span class="ee-orbit-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-            <span class="ee-orbit-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.2 2.2z"/></svg></span>
-          </div>
-
-          <!-- the app screenshot -->
-          <div class="ee-app-scroll">
           <div class="ee-app">
-
-            <!-- top bar -->
             <div class="ee-app-top">
-              <div class="ee-app-logo">
-                <span class="ee-app-logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 6l4 8 2-4 4 8z"/></svg></span>
-                <span class="ee-app-logo-txt">ExtraaEdge</span>
-                <span class="ee-app-logo-badge">VidyaAI</span>
-              </div>
-              <div class="ee-app-search">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>
-                <span>Search anything...</span>
-              </div>
-              <button class="ee-app-bell" type="button" aria-label="Notifications, 3 unread">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
-                <b>3</b>
-              </button>
-              <span class="ee-app-avatar" aria-hidden="true">P<i></i></span>
+              <span class="ee-applogo">
+                <span class="ee-applogo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 6l4 8 2-4 4 8z"/></svg></span>
+                <span class="ee-applogo-txt">ExtraaEdge</span>
+                <span class="ee-applogo-badge">VidyaAI</span>
+              </span>
+              <span class="ee-app-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><span>Search anything…</span></span>
+              <span class="ee-app-bell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><b>3</b></span>
+              <span class="ee-app-av" aria-hidden="true">P</span>
             </div>
 
-            <!-- body -->
             <div class="ee-app-body">
-              <nav class="ee-app-rail" aria-label="Product navigation (illustrative)">
-                <a href="#" class="is-active" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></a>
-                <a href="#" aria-label="Analytics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></a>
-                <a href="#" aria-label="Leads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></a>
-                <a href="#" aria-label="Messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
-                <a href="#" aria-label="Calls"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></a>
-                <a href="#" aria-label="Reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></a>
-                <a href="#" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H1a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 2.6 7a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 7 2.6h.1A1.6 1.6 0 0 0 8 1.1V1a2 2 0 1 1 4 0v.1A1.6 1.6 0 0 0 15 2.6a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7h.2a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.4 1z"/></svg></a>
-              </nav>
+              <div class="ee-card ee-row-full">
+                <div class="ee-card-t">Admissions Pipeline</div>
+                <div class="ee-pipe">
+                  <div class="ee-pl"><small>Enquiry</small><b>12,450</b><i class="ee-up">+12.5%</i><span class="bar"></span></div>
+                  <div class="ee-pl"><small>Counselling</small><b>6,320</b><i class="ee-down">-8.2%</i><span class="bar"></span></div>
+                  <div class="ee-pl"><small>Application</small><b>3,240</b><i class="ee-up">+15.7%</i><span class="bar"></span></div>
+                  <div class="ee-pl"><small>Fee Paid</small><b>1,890</b><i class="ee-up">+18.3%</i><span class="bar"></span></div>
+                </div>
+              </div>
 
-              <div class="ee-app-main">
-
-                <!-- Row: Pipeline + Live Activity -->
-                <div class="ee-row-top">
-                  <div class="ee-card">
-                    <div class="ee-card-title">Admissions Pipeline</div>
-                    <div class="ee-pipeline-cards">
-                      <div class="ee-pl"><div class="ee-pl-lbl">Enquiry</div><div class="ee-pl-val">12,450</div><div class="ee-pl-delta ee-up">+12.5%</div><div class="ee-pl-bar"></div></div>
-                      <div class="ee-pl"><div class="ee-pl-lbl">Counselling</div><div class="ee-pl-val">6,320</div><div class="ee-pl-delta ee-down">-8.2%</div><div class="ee-pl-bar"></div></div>
-                      <div class="ee-pl"><div class="ee-pl-lbl">Application</div><div class="ee-pl-val">3,240</div><div class="ee-pl-delta ee-up">+15.7%</div><div class="ee-pl-bar"></div></div>
-                      <div class="ee-pl"><div class="ee-pl-lbl">Fee Paid</div><div class="ee-pl-val">1,890</div><div class="ee-pl-delta ee-up">+18.3%</div><div class="ee-pl-bar"></div></div>
-                    </div>
-                  </div>
-
-                  <div class="ee-card">
-                    <div class="ee-card-title">Live Activity <span class="ee-la-live" aria-hidden="true"></span></div>
-                    <ul>
-                      <li class="ee-la-item"><span class="ee-la-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>New Lead<b>2.4k</b></li>
-                      <li class="ee-la-item"><span class="ee-la-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span>Qualified<b>1.2k</b></li>
-                      <li class="ee-la-item"><span class="ee-la-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2 4-1 6 0 9 2-1 3-3 3-5 3 2 5 5 5 9a8 8 0 1 1-16 0c0-3 2-6 5-8-1 3 1 4 3 5 0-4-4-6 0-10z"/></svg></span>Hot Lead<b>850</b></li>
-                      <li class="ee-la-item"><span class="ee-la-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>AI Called<b>1.6k</b></li>
-                      <li class="ee-la-item"><span class="ee-la-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2z"/></svg></span>WhatsApp Sent<b>3.7k</b></li>
-                      <li class="ee-la-item"><span class="ee-la-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span>Admission Confirmed<b>320</b></li>
-                    </ul>
+              <div class="ee-mid ee-row-full">
+                <div class="ee-card">
+                  <div class="ee-card-t">AI Voice Agent</div>
+                  <div class="ee-voice-tabs"><span class="on">English</span><span>हिन्दी</span><span>मराठी</span><span>தமிழ்</span></div>
+                  <div class="ee-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                  <div class="ee-vfoot">
+                    <span style="display:flex;align-items:center;gap:6px"><span class="ee-callbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span>Connected<small>02:35</small></span></span>
+                    <span style="text-align:right">Qualified<small>High Intent</small></span>
                   </div>
                 </div>
 
-                <!-- Row: Voice + Chat + Intent -->
-                <div class="ee-row-mid">
-                  <div class="ee-card">
-                    <div class="ee-card-title">AI Voice Agent <span class="ee-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span></div>
-                    <div class="ee-pl-lbl" style="margin-bottom:6px">Calling...</div>
-                    <div class="ee-voice-tabs">
-                      <span class="is-on">English</span><span>हिन्दी</span><span>मराठी</span><span>தமிழ்</span>
-                    </div>
-                    <div class="ee-wave" aria-hidden="true">
-                      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-                    </div>
-                    <div class="ee-voice-foot">
-                      <div class="ee-vf"><span class="ee-call-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span>Connected<small>02:35</small></span></div>
-                      <div class="ee-vf" style="text-align:right"><span>Qualified<small>High Intent</small></span></div>
-                    </div>
-                  </div>
-
-                  <div class="ee-card">
-                    <div class="ee-card-title">
-                      <span class="ee-chat-h"><span class="ee-bot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg></span>VidyaGPT</span>
-                      <span class="ee-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span>
-                    </div>
-                    <div class="ee-msg">
-                      <div class="ee-who"><span>Student</span><span>11:30 AM</span></div>
-                      <div class="ee-bubble">Is scholarship available?</div>
-                    </div>
-                    <div class="ee-msg">
-                      <div class="ee-who"><span>AI</span></div>
-                      <div class="ee-bubble is-ai">Yes. Up to 20% scholarship based on eligibility. Would you like me to check your profile?</div>
-                    </div>
-                  </div>
-
-                  <div class="ee-card">
-                    <div class="ee-card-title">Lead Intent Score <span class="ee-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span></div>
-                    <div class="ee-gauge" role="img" aria-label="Lead intent score 94 percent, hot lead">
-                      <div class="ee-gauge-val"><b>94<sup>%</sup></b><small>Hot Lead</small></div>
-                    </div>
-                    <div class="ee-pl-lbl" style="text-align:center">Recommended Action</div>
-                    <div class="ee-intent-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call Now</div>
-                    <div class="ee-intent-time">Best Time to Call<br><b>Today, 4:30 PM</b></div>
-                  </div>
+                <div class="ee-card ee-chat">
+                  <div class="ee-card-t"><span style="display:flex;align-items:center;gap:6px"><span class="ee-bot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg></span>VidyaGPT</span></div>
+                  <div class="who"><span>Student</span><span>11:30 AM</span></div>
+                  <div class="ee-bubble">Is scholarship available?</div>
+                  <div class="who"><span>AI</span></div>
+                  <div class="ee-bubble ai">Yes — up to 20% based on eligibility. Shall I check your profile?</div>
                 </div>
 
-                <!-- Row: 4 metric mini cards -->
-                <div class="ee-row-metrics">
-                  <div class="ee-card">
-                    <div class="ee-mini-lbl">Conversion Rate</div>
-                    <div class="ee-mini-val">37.6%</div>
-                    <div class="ee-mini-delta ee-up">▲ 12.4%</div>
-                    <svg class="ee-mini-spark" width="100%" height="30" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#DE6E30" stroke-width="2" points="0,24 20,20 40,22 60,12 80,15 100,7 120,9"/><polyline fill="none" stroke="#19335D" stroke-width="2" points="0,26 20,22 40,18 60,16 80,10 100,12 120,5"/></svg>
-                  </div>
-                  <div class="ee-card">
-                    <div class="ee-mini-lbl">Response Time</div>
-                    <div class="ee-mini-val">60<small>s</small></div>
-                    <div class="ee-mini-delta ee-down">▼ 18.6%</div>
-                    <svg class="ee-mini-spark" width="100%" height="30" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true"><g fill="#DE6E30"><rect x="3" y="14" width="9" height="16" rx="2"/><rect x="20" y="10" width="9" height="20" rx="2"/><rect x="37" y="16" width="9" height="14" rx="2"/><rect x="54" y="8" width="9" height="22" rx="2"/><rect x="71" y="12" width="9" height="18" rx="2"/><rect x="88" y="6" width="9" height="24" rx="2"/><rect x="105" y="11" width="9" height="19" rx="2"/></g></svg>
-                  </div>
-                  <div class="ee-card">
-                    <div class="ee-mini-lbl">Applications</div>
-                    <div class="ee-mini-val">3,240</div>
-                    <div class="ee-mini-delta ee-up">▲ 15.7%</div>
-                    <svg class="ee-mini-spark" width="100%" height="30" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#19335D" stroke-width="2" points="0,22 20,24 40,16 60,18 80,10 100,12 120,6"/></svg>
-                  </div>
-                  <div class="ee-card">
-                    <div class="ee-mini-lbl">Revenue Forecast</div>
-                    <div class="ee-mini-val">₹ 24.8 Cr</div>
-                    <div class="ee-mini-delta ee-up">▲ 21.6%</div>
-                    <svg class="ee-mini-spark" width="100%" height="30" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true"><g fill="#19335D"><rect x="2" y="18" width="8" height="12" rx="2"/><rect x="17" y="15" width="8" height="15" rx="2"/><rect x="32" y="17" width="8" height="13" rx="2"/><rect x="47" y="12" width="8" height="18" rx="2"/><rect x="62" y="13" width="8" height="17" rx="2"/><rect x="77" y="8" width="8" height="22" rx="2"/><rect x="92" y="10" width="8" height="20" rx="2"/><rect x="107" y="5" width="8" height="25" rx="2"/></g></svg>
-                  </div>
+                <div class="ee-card">
+                  <div class="ee-card-t">Lead Intent Score</div>
+                  <div class="ee-gauge" role="img" aria-label="Lead intent score 94 percent, hot lead"><div class="ee-gauge-v"><b>94<sup>%</sup></b><small>Hot Lead</small></div></div>
+                  <div class="ee-intent-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call Now</div>
                 </div>
+              </div>
 
-                <!-- Row: funnel + donut + counsellors + notifications -->
-                <div class="ee-row-bot">
-                  <div class="ee-card">
-                    <div class="ee-card-title">Enrollment Funnel</div>
-                    <div class="ee-funnel" aria-hidden="true">
-                      <i style="width:100%;background:#DE6E30"></i>
-                      <i style="width:78%;background:rgba(222,110,48,.7)"></i>
-                      <i style="width:56%;background:#19335D"></i>
-                      <i style="width:38%;background:rgba(25,51,93,.6)"></i>
-                      <i style="width:24%;background:rgba(25,51,93,.4)"></i>
-                    </div>
-                    <ul class="ee-legend">
-                      <li><span class="ee-sw" style="background:#DE6E30"></span>Enquiry<b>12,450 (100%)</b></li>
-                      <li><span class="ee-sw" style="background:rgba(222,110,48,.7)"></span>Counselling<b>6,320 (50.7%)</b></li>
-                      <li><span class="ee-sw" style="background:#19335D"></span>Application<b>3,240 (26.0%)</b></li>
-                      <li><span class="ee-sw" style="background:rgba(25,51,93,.6)"></span>Offer Sent<b>2,450 (19.7%)</b></li>
-                      <li><span class="ee-sw" style="background:rgba(25,51,93,.4)"></span>Fee Paid<b>1,890 (15.2%)</b></li>
-                    </ul>
-                  </div>
+              <div class="ee-card">
+                <div class="ee-card-t">Live Activity <span class="ee-live" aria-hidden="true"></span></div>
+                <ul>
+                  <li class="ee-la"><span class="ee-la-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>New Lead<b>2.4k</b></li>
+                  <li class="ee-la"><span class="ee-la-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span>Qualified<b>1.2k</b></li>
+                  <li class="ee-la"><span class="ee-la-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2 4-1 6 0 9 2-1 3-3 3-5 3 2 5 5 5 9a8 8 0 1 1-16 0c0-3 2-6 5-8-1 3 1 4 3 5 0-4-4-6 0-10z"/></svg></span>Hot Lead<b>850</b></li>
+                  <li class="ee-la"><span class="ee-la-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>AI Called<b>1.6k</b></li>
+                  <li class="ee-la"><span class="ee-la-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2z"/></svg></span>WhatsApp<b>3.7k</b></li>
+                  <li class="ee-la"><span class="ee-la-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span>Confirmed<b>320</b></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                  <div class="ee-card">
-                    <div class="ee-card-title">Application Status</div>
-                    <div class="ee-donut-wrap">
-                      <div class="ee-donut" role="img" aria-label="Application status donut, 3,240 total">
-                        <div class="ee-donut-c"><b>3,240</b><small>Total</small></div>
-                      </div>
-                      <ul class="ee-donut-legend">
-                        <li><span class="ee-sw" style="background:#DE6E30"></span>In Progress<b>1,520 (46.9%)</b></li>
-                        <li><span class="ee-sw" style="background:#19335D"></span>Submitted<b>980 (30.2%)</b></li>
-                        <li><span class="ee-sw" style="background:rgba(222,110,48,.55)"></span>Under Review<b>510 (15.7%)</b></li>
-                        <li><span class="ee-sw" style="background:rgba(25,51,93,.55)"></span>Offered<b>150 (4.6%)</b></li>
-                        <li><span class="ee-sw" style="background:rgba(25,51,93,.3)"></span>Rejected<b>80 (2.6%)</b></li>
-                      </ul>
-                    </div>
-                  </div>
+  <!-- ======================= LOGO STRIP ======================= -->
+  <section class="ee-logos ee-band" aria-label="Trusted by">
+    <div class="ee-container">
+      <p class="ee-logos-label">Trusted by 500+ admission teams across 12 countries</p>
+      <div class="ee-logos-row">
+        <span>NorthPoint University</span>
+        <span>Sunrise Group</span>
+        <span>Vidya Global</span>
+        <span>Apex Institute</span>
+        <span>Meridian College</span>
+        <span>Zenith EduCare</span>
+      </div>
+    </div>
+  </section>
 
-                  <div class="ee-card">
-                    <div class="ee-card-title">Counsellor Activity</div>
-                    <div class="ee-cn"><span class="ee-cn-av">PS</span><span><span class="ee-cn-name">Priya Sharma</span><span class="ee-cn-sub">32 Conversations</span></span><span class="ee-cn-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg></span></div>
-                    <div class="ee-cn"><span class="ee-cn-av">RV</span><span><span class="ee-cn-name">Rohit Verma</span><span class="ee-cn-sub">28 Conversations</span></span><span class="ee-cn-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg></span></div>
-                    <div class="ee-cn"><span class="ee-cn-av">NK</span><span><span class="ee-cn-name">Neha Kapoor</span><span class="ee-cn-sub">24 Conversations</span></span><span class="ee-cn-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg></span></div>
-                    <div class="ee-cn"><span class="ee-cn-av">AM</span><span><span class="ee-cn-name">Arjun Mehta</span><span class="ee-cn-sub">18 Conversations</span></span><span class="ee-cn-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg></span></div>
-                  </div>
+  <!-- ======================= STATS ======================= -->
+  <section class="ee-section" aria-label="Key results">
+    <div class="ee-container">
+      <ul class="ee-stats">
+        <li class="ee-stat ee-reveal"><div class="n" data-count="500" data-suffix="+">0</div><div class="l">Institutions</div></li>
+        <li class="ee-stat ee-reveal"><div class="n"><span data-count="10">0</span><span class="u">M+</span></div><div class="l">Enquiries managed</div></li>
+        <li class="ee-stat ee-reveal"><div class="n"><span data-count="37">0</span><span class="u">%</span></div><div class="l">Higher conversions</div></li>
+        <li class="ee-stat ee-reveal"><div class="n"><span data-count="60">0</span><span class="u">s</span></div><div class="l">Average first response</div></li>
+      </ul>
+    </div>
+  </section>
 
-                  <div class="ee-card">
-                    <div class="ee-card-title">Real-time Notifications</div>
-                    <div class="ee-nt"><span class="ee-nt-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2 4-1 6 0 9 2-1 3-3 3-5 3 2 5 5 5 9a8 8 0 1 1-16 0c0-3 2-6 5-8-1 3 1 4 3 5 0-4-4-6 0-10z"/></svg></span><span class="ee-nt-body"><b>New hot lead from Bangalore</b></span><span class="ee-nt-time">Just now</span></div>
-                    <div class="ee-nt"><span class="ee-nt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span class="ee-nt-body"><b>AI Voice Agent call completed</b></span><span class="ee-nt-time">2 min ago</span></div>
-                    <div class="ee-nt"><span class="ee-nt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span><span class="ee-nt-body"><b>Payment received ₹45,000</b></span><span class="ee-nt-time">5 min ago</span></div>
-                    <div class="ee-nt"><span class="ee-nt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span><span class="ee-nt-body"><b>New application submitted</b></span><span class="ee-nt-time">10 min ago</span></div>
-                    <div class="ee-nt-all">View All Notifications</div>
-                  </div>
-                </div>
+  <!-- ======================= FEATURES ======================= -->
+  <section class="ee-section ee-band" id="features">
+    <div class="ee-container">
+      <div class="ee-section-head ee-center ee-reveal">
+        <span class="ee-eyebrow">One platform</span>
+        <h2 class="ee-h2">Everything your admissions team needs to convert</h2>
+        <p class="ee-lead">From first enquiry to fee paid, VidyaAI unifies your funnel and puts an AI co-pilot behind every counsellor.</p>
+      </div>
+      <div class="ee-features">
+        <article class="ee-feature ee-reveal">
+          <div class="ee-feature-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+          <h3 class="ee-h3">AI Lead Scoring</h3>
+          <p>Know which enquiries will convert. Every lead is scored in real time so counsellors call the hottest prospects first.</p>
+        </article>
+        <article class="ee-feature ee-reveal">
+          <div class="ee-feature-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div>
+          <h3 class="ee-h3">AI Voice Agent</h3>
+          <p>Autonomous calls that qualify and book counselling in 4+ languages — reaching every lead within 60 seconds.</p>
+        </article>
+        <article class="ee-feature ee-reveal">
+          <div class="ee-feature-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M8 2h8"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg></div>
+          <h3 class="ee-h3">VidyaGPT Assistant</h3>
+          <p>Answer student questions about courses, fees and scholarships instantly — 24/7, across web, WhatsApp and chat.</p>
+        </article>
+        <article class="ee-feature ee-reveal">
+          <div class="ee-feature-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.2L4 18z"/><path d="M8 9h8M8 12h5"/></svg></div>
+          <h3 class="ee-h3">Smart Follow-ups</h3>
+          <p>Automated, personalised nurture across email, SMS and WhatsApp so no enquiry ever goes cold again.</p>
+        </article>
+        <article class="ee-feature ee-reveal">
+          <div class="ee-feature-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg></div>
+          <h3 class="ee-h3">Counsellor Intelligence</h3>
+          <p>Coach your team with call insights, next-best actions and live performance dashboards that lift close rates.</p>
+        </article>
+        <article class="ee-feature ee-reveal">
+          <div class="ee-feature-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="4" width="3" height="14"/></svg></div>
+          <h3 class="ee-h3">Unified Admissions CRM</h3>
+          <p>One pipeline from enquiry to enrolment, with forecasting, reporting and revenue analytics built in.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-              </div><!-- /main -->
-            </div><!-- /body -->
-          </div><!-- /app -->
-          </div><!-- /app-scroll -->
+  <!-- ======================= HOW IT WORKS ======================= -->
+  <section class="ee-section" id="how">
+    <div class="ee-container">
+      <div class="ee-section-head ee-center ee-reveal">
+        <span class="ee-eyebrow">Live in 7 days</span>
+        <h2 class="ee-h2">Up and running in three simple steps</h2>
+        <p class="ee-lead">No rip-and-replace. VidyaAI plugs into your existing forms and channels — you keep everything that already works.</p>
+      </div>
+      <ol class="ee-steps">
+        <li class="ee-step ee-reveal">
+          <div class="num" aria-hidden="true"></div>
+          <h3 class="ee-h3">Connect your sources</h3>
+          <p>Link your website forms, ad campaigns, WhatsApp and portals. Every enquiry lands in one unified inbox automatically.</p>
+        </li>
+        <li class="ee-step ee-reveal">
+          <div class="num" aria-hidden="true"></div>
+          <h3 class="ee-h3">AI qualifies &amp; engages</h3>
+          <p>Agents score, call and follow up in seconds — routing high-intent students straight to the right counsellor.</p>
+        </li>
+        <li class="ee-step ee-reveal">
+          <div class="num" aria-hidden="true"></div>
+          <h3 class="ee-h3">Counsellors close</h3>
+          <p>Your team gets briefed leads and next-best actions, then closes more admissions with less busywork.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
 
-        </div><!-- /visual -->
-      </div><!-- /grid -->
-    </div><!-- /wrap -->
+  <!-- ======================= SHOWCASE ======================= -->
+  <section class="ee-section ee-band" id="showcase">
+    <div class="ee-container">
+      <div class="ee-showcase">
+        <div class="ee-reveal">
+          <span class="ee-eyebrow" style="margin-bottom:16px">Why VidyaAI</span>
+          <h2 class="ee-h2">An AI co-pilot that works while you sleep</h2>
+          <p class="ee-lead">Every enquiry is engaged instantly, every counsellor is briefed, and every follow-up happens on time — automatically.</p>
+          <ul class="ee-checklist" style="margin-top:8px">
+            <li><span class="ck" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span><span><b>60-second first response</b> to every enquiry, day or night.</span></li>
+            <li><span class="ck" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span><span><b>37% higher conversions</b> by prioritising the leads most likely to enrol.</span></li>
+            <li><span class="ck" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span><span><b>Zero leads lost</b> with automated multi-channel follow-ups.</span></li>
+            <li><span class="ck" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span><span><b>Enterprise-grade security</b> — ISO 27001 &amp; GDPR ready.</span></li>
+          </ul>
+        </div>
+        <div class="ee-showcase-panel ee-reveal" aria-hidden="true">
+          <div class="ee-scrow">
+            <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <span><span class="st">Average first response</span><br><span class="sv">60 seconds</span></span>
+            <span class="sd">▲ 18.6%</span>
+          </div>
+          <div class="ee-scrow">
+            <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></span>
+            <span><span class="st">Conversion rate</span><br><span class="sv">37.6%</span></span>
+            <span class="sd">▲ 12.4%</span>
+          </div>
+          <div class="ee-scrow">
+            <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+            <span><span class="st">Revenue forecast</span><br><span class="sv">₹ 24.8 Cr</span></span>
+            <span class="sd">▲ 21.6%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= TESTIMONIALS ======================= -->
+  <section class="ee-section" id="testimonials">
+    <div class="ee-container">
+      <div class="ee-section-head ee-center ee-reveal">
+        <span class="ee-eyebrow">Customer stories</span>
+        <h2 class="ee-h2">Loved by admission teams worldwide</h2>
+      </div>
+      <div class="ee-quotes">
+        <figure class="ee-quote ee-reveal">
+          <div class="stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg>
+          </div>
+          <blockquote>"VidyaAI's voice agent reaches every lead within a minute. Our counselling bookings jumped 40% in the first term."</blockquote>
+          <figcaption class="who"><span class="av" aria-hidden="true">PS</span><span><span class="nm">Priya Sharma</span><span class="rl">Head of Admissions, NorthPoint University</span></span></figcaption>
+        </figure>
+        <figure class="ee-quote ee-reveal">
+          <div class="stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg>
+          </div>
+          <blockquote>"We went live in a week and kept all our existing forms. The AI lead scoring alone paid for the platform."</blockquote>
+          <figcaption class="who"><span class="av" aria-hidden="true">RV</span><span><span class="nm">Rohit Verma</span><span class="rl">Director, Sunrise Education Group</span></span></figcaption>
+        </figure>
+        <figure class="ee-quote ee-reveal">
+          <div class="stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 15 9l7 .5-5.4 4.5L18.5 21 12 17l-6.5 4 1.9-7L2 9.5 9 9z"/></svg>
+          </div>
+          <blockquote>"Follow-ups used to slip through the cracks. Now nothing is missed and our counsellors finally focus on closing."</blockquote>
+          <figcaption class="who"><span class="av" aria-hidden="true">NK</span><span><span class="nm">Neha Kapoor</span><span class="rl">Admissions Lead, Vidya Global</span></span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= FAQ ======================= -->
+  <section class="ee-section ee-band" id="faq">
+    <div class="ee-container">
+      <div class="ee-section-head ee-center ee-reveal">
+        <span class="ee-eyebrow">FAQ</span>
+        <h2 class="ee-h2">Questions, answered</h2>
+      </div>
+      <div class="ee-faq ee-reveal">
+        <details name="faq" open>
+          <summary>How quickly can we go live?<span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Most institutions are fully live within 7 days. VidyaAI connects to your existing website forms, ad sources and WhatsApp with no engineering effort required.</div>
+        </details>
+        <details name="faq">
+          <summary>Does it work with our current forms and website?<span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Yes. There is no rip-and-replace — VidyaAI plugs into the forms, landing pages and channels you already use, so you keep everything that works today.</div>
+        </details>
+        <details name="faq">
+          <summary>Which languages does the AI Voice Agent support?<span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">The voice agent handles English, Hindi, Marathi, Tamil and more, automatically detecting the student's preferred language on each call.</div>
+        </details>
+        <details name="faq">
+          <summary>Is our student data secure?<span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Absolutely. The platform is ISO 27001 certified and GDPR ready, with enterprise-grade encryption, role-based access and full audit trails.</div>
+        </details>
+        <details name="faq">
+          <summary>How is pricing structured?<span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Pricing scales with your enquiry volume and the modules you enable. Book a demo and we'll build a plan tailored to your admissions targets.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= CTA BAND ======================= -->
+  <section class="ee-section" id="demo">
+    <div class="ee-container">
+      <div class="ee-cta-band ee-reveal">
+        <h2>Turn more enquiries into admissions</h2>
+        <p>See VidyaAI qualify, call and follow up on your real leads in a personalised 20-minute demo.</p>
+        <div class="ee-hero-cta">
+          <a class="ee-btn ee-btn--onnavy ee-btn--lg" href="#">
+            Book a Free Demo
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <p class="ee-hero-note">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>No credit card required</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Personalised demo</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>20 minutes</span>
+        </p>
+      </div>
+    </div>
   </section>
 </main>
 
-<!-- Structured data for SEO -->
+<!-- ======================= FOOTER ======================= -->
+<footer class="ee-footer">
+  <div class="ee-container">
+    <div class="ee-footer-grid">
+      <div>
+        <a class="ee-logo" href="#top"><span class="ee-logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 6l4 8 2-4 4 8z"/></svg></span>Extraa<b>Edge</b></a>
+        <p class="ee-footer-about">The AI-powered Admission CRM helping 500+ institutions across 12 countries convert more enquiries into enrolments.</p>
+        <div class="ee-footer-social">
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-3-1.8-3s-2 1.4-2 2.9V21h-4z"/></svg></a>
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3l-7 8 8.2 10h-6.4l-5-6.1L8 21H5l7.4-8.5L4.5 3H11l4.5 5.6zm-1.1 16h1.7L8 4.8H6.2z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.7-1.7C19.3 5.2 12 5.2 12 5.2s-7.3 0-8.9.4A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.7 1.7c1.6.4 8.9.4 8.9.4s7.3 0 8.9-.4a2.5 2.5 0 0 0 1.7-1.7C23 15.2 23 12 23 12zM9.8 15.3V8.7l5.7 3.3z"/></svg></a>
+        </div>
+      </div>
+      <div class="ee-footer-cols">
+        <div class="ee-footer-col">
+          <h4>Product</h4>
+          <a href="#features">AI Lead Scoring</a>
+          <a href="#features">AI Voice Agent</a>
+          <a href="#features">VidyaGPT</a>
+          <a href="#features">Admissions CRM</a>
+        </div>
+        <div class="ee-footer-col">
+          <h4>Company</h4>
+          <a href="#">About us</a>
+          <a href="#testimonials">Customers</a>
+          <a href="#">Careers</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="ee-footer-col">
+          <h4>Resources</h4>
+          <a href="#">Blog</a>
+          <a href="#">Case studies</a>
+          <a href="#faq">Help centre</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+    </div>
+    <div class="ee-footer-bottom">
+      <span>© 2026 ExtraaEdge. All rights reserved.</span>
+      <span><a href="#">Privacy</a> &nbsp;·&nbsp; <a href="#">Terms</a> &nbsp;·&nbsp; <a href="#">GDPR</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "ExtraaEdge VidyaAI",
-  "applicationCategory": "BusinessApplication",
-  "description": "AI-powered Admission CRM where AI co-pilots and autonomous agents qualify leads, brief counsellors, automate follow-ups and answer questions 24/7.",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free personalised demo" }
+  "@graph": [
+    { "@type": "Organization", "name": "ExtraaEdge", "url": "https://www.extraaedge.com/", "description": "AI-powered Admission CRM for higher education." },
+    { "@type": "SoftwareApplication", "name": "ExtraaEdge VidyaAI", "applicationCategory": "BusinessApplication", "operatingSystem": "Web",
+      "description": "AI-powered Admission CRM that qualifies leads, briefs counsellors, automates follow-ups and answers questions 24/7.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free personalised demo" } },
+    { "@type": "FAQPage", "mainEntity": [
+      { "@type": "Question", "name": "How quickly can we go live?", "acceptedAnswer": { "@type": "Answer", "text": "Most institutions are fully live within 7 days. VidyaAI connects to your existing website forms, ad sources and WhatsApp with no engineering effort required." } },
+      { "@type": "Question", "name": "Does it work with our current forms and website?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. There is no rip-and-replace — VidyaAI plugs into the forms, landing pages and channels you already use." } },
+      { "@type": "Question", "name": "Which languages does the AI Voice Agent support?", "acceptedAnswer": { "@type": "Answer", "text": "English, Hindi, Marathi, Tamil and more, automatically detecting the student's preferred language on each call." } },
+      { "@type": "Question", "name": "Is our student data secure?", "acceptedAnswer": { "@type": "Answer", "text": "The platform is ISO 27001 certified and GDPR ready, with enterprise-grade encryption, role-based access and full audit trails." } },
+      { "@type": "Question", "name": "How is pricing structured?", "acceptedAnswer": { "@type": "Answer", "text": "Pricing scales with your enquiry volume and the modules you enable. Book a demo for a tailored plan." } }
+    ] }
+  ]
 }
 </script>
 
 <script>
-/* Vanilla JS enhancements — progressive, non-blocking, no dependencies. */
+/* ============ Vanilla JS — progressive, dependency-free ============ */
 (function () {
   "use strict";
-
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* Give the voice waveform organic bar heights + staggered animation
-     (visual only — skipped when the user prefers reduced motion). */
-  var bars = document.querySelectorAll(".ee-wave i");
-  for (var i = 0; i < bars.length; i++) {
-    var h = 30 + Math.round(Math.sin(i * 1.3) * 22 + 40); // ~30%–92%
-    bars[i].style.height = Math.max(28, Math.min(96, h)) + "%";
-    if (!reduce) bars[i].style.animationDelay = ((i % 6) * 0.06) + "s";
+  /* ---- Sticky header shadow ---- */
+  var header = document.getElementById("top");
+  var onScroll = function () { header.classList.toggle("is-stuck", window.scrollY > 8); };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  /* ---- Mobile drawer ---- */
+  var drawer = document.getElementById("ee-drawer");
+  var burger = document.getElementById("ee-burger");
+  var lastFocus = null;
+  function openDrawer() {
+    lastFocus = document.activeElement;
+    drawer.setAttribute("data-open", "true");
+    burger.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+    var first = drawer.querySelector("a, button");
+    if (first) first.focus();
+    document.addEventListener("keydown", onKey);
+  }
+  function closeDrawer() {
+    drawer.setAttribute("data-open", "false");
+    burger.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+    document.removeEventListener("keydown", onKey);
+    if (lastFocus) lastFocus.focus();
+  }
+  function onKey(e) { if (e.key === "Escape") closeDrawer(); }
+  burger.addEventListener("click", openDrawer);
+  drawer.addEventListener("click", function (e) {
+    if (e.target.hasAttribute("data-close") || e.target.closest("[data-close]")) closeDrawer();
+  });
+
+  /* ---- Scroll reveal ---- */
+  var revealEls = document.querySelectorAll(".ee-reveal");
+  if (reduce || !("IntersectionObserver" in window)) {
+    revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+  } else {
+    var ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en, i) {
+        if (en.isIntersecting) {
+          setTimeout(function () { en.target.classList.add("is-visible"); }, (i % 4) * 70);
+          ro.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    revealEls.forEach(function (el) { ro.observe(el); });
   }
 
-  /* Smooth-scroll for the in-page demo anchor (only if a target exists). */
-  var cta = document.querySelector('.ee-cta[href="#book-demo"]');
-  if (cta) {
-    cta.addEventListener("click", function (e) {
-      var target = document.getElementById("book-demo");
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-      }
-    });
+  /* ---- Animated counters ---- */
+  var counters = document.querySelectorAll("[data-count]");
+  function animate(el) {
+    var target = +el.getAttribute("data-count");
+    var suffix = el.getAttribute("data-suffix") || "";
+    if (reduce) { el.textContent = target + suffix; return; }
+    var start = null, dur = 1400;
+    function tick(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
   }
+  if ("IntersectionObserver" in window) {
+    var co = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { animate(en.target); co.unobserve(en.target); } });
+    }, { threshold: 0.5 });
+    counters.forEach(function (el) { co.observe(el); });
+  } else {
+    counters.forEach(animate);
+  }
+
+  /* ---- Organic waveform heights ---- */
+  var bars = document.querySelectorAll(".ee-wave i");
+  bars.forEach(function (b, i) {
+    b.style.height = Math.max(28, Math.min(96, 30 + Math.round(Math.sin(i * 1.3) * 22 + 40))) + "%";
+    if (!reduce) b.style.animationDelay = ((i % 6) * 0.06) + "s";
+  });
+
+  /* ---- Smooth anchor scroll accounting for sticky header ---- */
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var id = a.getAttribute("href");
+      if (id.length < 2) return;
+      var t = document.querySelector(id);
+      if (!t) return;
+      e.preventDefault();
+      var y = t.getBoundingClientRect().top + window.scrollY - (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 68) - 8;
+      window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
+    });
+  });
 })();
 </script>
 </body>
