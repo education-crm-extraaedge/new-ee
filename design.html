@@ -374,12 +374,152 @@ body {
 .ee-metric b .u { color: var(--orange); }
 .ee-metric span { font-size: 12.5px; color: var(--ink-mute); }
 
+/* ==========================================================================
+   AGENTIC AI SUITE (Meet VidyaAI)
+   ========================================================================== */
+.ee-suite { position: relative; overflow: hidden; }
+.ee-suite::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(600px 400px at 6% 0%, var(--navy-soft), transparent 60%),
+              radial-gradient(640px 460px at 96% 12%, var(--orange-soft), transparent 62%);
+  pointer-events: none;
+}
+.ee-suite > .ee-container { position: relative; z-index: 1; }
+.ee-suite .ee-section-head h2 .accent { color: var(--orange); }
+
+/* agent cards grid */
+.ee-agents { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: clamp(28px, 4vw, 44px); }
+.ee-agent {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 20px; box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column; gap: 14px;
+  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s, border-color .3s;
+}
+.ee-agent:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--orange-line); }
+.ee-agent-top { display: flex; align-items: flex-start; gap: 10px; }
+.ee-agent-num {
+  flex: none; width: 34px; height: 34px; border-radius: 10px;
+  background: var(--orange-soft); color: var(--orange);
+  font-weight: 800; font-size: 13px; display: grid; place-items: center;
+}
+.ee-agent:nth-child(even) .ee-agent-num { background: var(--navy-soft); color: var(--navy); }
+.ee-agent-top h3 { font-size: 16.5px; font-weight: 800; color: var(--navy); letter-spacing: -.3px; line-height: 1.2; }
+.ee-agent-tag { font-size: 12px; color: var(--ink-mute); font-weight: 600; margin-top: 2px; }
+.ee-status {
+  margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10.5px; font-weight: 700; color: var(--orange);
+  background: var(--orange-soft); border-radius: var(--pill); padding: 4px 10px; white-space: nowrap;
+}
+.ee-alist { display: grid; gap: 6px; }
+.ee-alist li { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; color: var(--ink-soft); font-weight: 500; line-height: 1.45; }
+.ee-alist svg { flex: none; width: 14px; height: 14px; color: var(--orange); margin-top: 2px; }
+
+/* mini demo widget inside each card */
+.ee-agent-demo { margin-top: auto; background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--r); padding: 12px; }
+.ee-wlbl { font-size: 10px; color: var(--ink-mute); font-weight: 700; letter-spacing: .3px; }
+.ee-agent-foot { display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 700; color: var(--navy); margin-top: 10px; }
+.ee-agent-foot svg { width: 15px; height: 15px; color: var(--orange); }
+
+/* Vidya Pulse widget */
+.ee-leadrow { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+.ee-avatar-sm { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 700; font-size: 12px; display: grid; place-items: center; }
+.ee-leadrow b { display: block; font-size: 12.5px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+.ee-pulse-grid { display: flex; align-items: center; justify-content: space-around; gap: 10px; margin-bottom: 10px; }
+.ee-ring { flex: none; width: 58px; height: 58px; border-radius: 50%; background: conic-gradient(var(--orange) calc(var(--v) * 1%), var(--line) 0); display: grid; place-items: center; }
+.ee-ring i { width: 44px; height: 44px; border-radius: 50%; background: #fff; display: grid; place-items: center; font-style: normal; font-weight: 800; font-size: 12.5px; color: var(--navy); }
+.ee-prob b { display: block; font-size: 16px; font-weight: 800; color: var(--orange); }
+.ee-heatbar { height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--navy), var(--orange)); position: relative; margin-top: 10px; }
+.ee-heatbar i { position: absolute; right: 6%; top: 50%; transform: translate(50%, -50%); width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 3px solid var(--orange); }
+.ee-heatlbl { display: flex; justify-content: space-between; font-size: 9.5px; color: var(--ink-mute); font-weight: 600; margin-top: 5px; }
+
+/* Voice agent widget statuses */
+.ee-vstat { display: grid; gap: 6px; margin-top: 8px; }
+.ee-vstat li { display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 600; color: var(--navy); }
+.ee-vstat .vi { flex: none; width: 18px; height: 18px; border-radius: 50%; background: var(--orange-soft); color: var(--orange); display: grid; place-items: center; }
+.ee-vstat .vi svg { width: 11px; height: 11px; }
+
+/* WhatsApp assistant widget */
+.ee-receipt { display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; color: var(--ink-mute); font-weight: 600; padding: 6px 9px; background: #fff; border: 1px solid var(--line-soft); border-radius: 8px; margin-top: 6px; }
+.ee-receipt b { color: var(--navy); font-weight: 700; }
+.ee-waba-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; text-align: center; }
+.ee-waba-stats li { background: #fff; border: 1px solid var(--line-soft); border-radius: 8px; padding: 8px 4px; }
+.ee-waba-stats b { display: block; font-size: 13.5px; font-weight: 800; color: var(--navy); line-height: 1.1; }
+.ee-waba-stats i { font-style: normal; font-size: 10px; font-weight: 700; color: var(--orange); }
+.ee-waba-stats span { display: block; font-size: 9px; color: var(--ink-mute); font-weight: 600; }
+
+/* Vidya Work compact workflow */
+.ee-wflow { display: grid; gap: 0; }
+.ee-wflow li { position: relative; display: flex; align-items: center; gap: 9px; padding-bottom: 10px; font-size: 11.5px; font-weight: 700; color: var(--navy); }
+.ee-wflow li:last-child { padding-bottom: 0; }
+.ee-wflow li:not(:last-child)::before { content: ""; position: absolute; left: 11px; top: 24px; bottom: 0; width: 2px; background: var(--line); }
+.ee-wflow .wi { flex: none; width: 22px; height: 22px; border-radius: 7px; background: var(--navy-soft); color: var(--navy); display: grid; place-items: center; position: relative; z-index: 1; }
+.ee-wflow li:nth-child(odd) .wi { background: var(--orange-soft); color: var(--orange); }
+.ee-wflow .wi svg { width: 12px; height: 12px; }
+
+/* intelligent core card */
+.ee-agent--core {
+  background: var(--navy); border-color: var(--navy); color: #fff;
+  align-items: center; justify-content: center; text-align: center;
+  position: relative; overflow: hidden; min-height: 280px;
+}
+.ee-agent--core:hover { border-color: var(--navy); }
+.ee-agent--core::before { content: ""; position: absolute; inset: 0; background: radial-gradient(320px 260px at 50% 30%, rgba(222,110,48,.4), transparent 70%); pointer-events: none; }
+.ee-core-orb {
+  position: relative; width: 104px; height: 104px; border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, rgba(255,255,255,.35), transparent 55%),
+              radial-gradient(circle at 50% 55%, var(--orange), #7a3a14 78%);
+  box-shadow: 0 0 70px rgba(222,110,48,.6), inset 0 0 24px rgba(255,255,255,.25);
+  display: grid; place-items: center; margin-bottom: 18px;
+  animation: ee-corepulse 4s ease-in-out infinite;
+}
+.ee-core-orb svg { width: 44px; height: 44px; color: #fff; }
+@keyframes ee-corepulse { 0%,100%{box-shadow:0 0 50px rgba(222,110,48,.5), inset 0 0 24px rgba(255,255,255,.25)} 50%{box-shadow:0 0 90px rgba(222,110,48,.75), inset 0 0 24px rgba(255,255,255,.25)} }
+.ee-agent--core b { position: relative; font-size: 23px; font-weight: 800; letter-spacing: -.5px; }
+.ee-agent--core span { position: relative; font-size: 12.5px; color: rgba(255,255,255,.72); font-weight: 600; margin-top: 4px; }
+
+/* how the agents work together */
+.ee-howflow { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); padding: clamp(18px, 3vw, 30px); margin-bottom: clamp(28px, 4vw, 44px); }
+.ee-howflow h3 { text-align: center; font-size: 16px; font-weight: 800; color: var(--navy); letter-spacing: -.3px; margin-bottom: 22px; }
+.ee-howflow h3 .accent { color: var(--orange); }
+.ee-hsteps { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 16px 4px; }
+.ee-hstep { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 104px; text-align: center; }
+.ee-hstep .hi { width: 46px; height: 46px; border-radius: 50%; background: var(--navy-soft); color: var(--navy); display: grid; place-items: center; }
+.ee-hstep:nth-child(4n+1) .hi { background: var(--orange-soft); color: var(--orange); }
+.ee-hstep .hi svg { width: 21px; height: 21px; }
+.ee-hstep span { font-size: 10.5px; font-weight: 600; color: var(--ink-soft); line-height: 1.35; }
+.ee-harrow { display: none; color: var(--ink-mute); padding-top: 14px; }
+.ee-harrow svg { width: 16px; height: 16px; }
+
+/* suite stats */
+.ee-sstats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: clamp(28px, 4vw, 44px); }
+.ee-sstat { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 15px; box-shadow: var(--shadow-sm); }
+.ee-sstat .si { flex: none; width: 42px; height: 42px; border-radius: 11px; background: var(--orange-soft); color: var(--orange); display: grid; place-items: center; }
+.ee-sstat:nth-child(even) .si { background: var(--navy-soft); color: var(--navy); }
+.ee-sstat .si svg { width: 20px; height: 20px; }
+.ee-sstat b { display: block; font-weight: 800; font-size: 19px; color: var(--navy); line-height: 1.1; letter-spacing: -.4px; }
+.ee-sstat b em { font-style: normal; color: var(--orange); }
+.ee-sstat span { font-size: 11px; color: var(--ink-mute); font-weight: 500; }
+
+/* compliance chips */
+.ee-comply { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: clamp(30px, 4.6vw, 48px); }
+.ee-comply li { display: flex; align-items: center; gap: 9px; background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 10px 16px; box-shadow: var(--shadow-sm); }
+.ee-comply .ci { flex: none; width: 32px; height: 32px; border-radius: 9px; background: var(--navy-soft); color: var(--navy); display: grid; place-items: center; }
+.ee-comply li:nth-child(odd) .ci { background: var(--orange-soft); color: var(--orange); }
+.ee-comply .ci svg { width: 16px; height: 16px; }
+.ee-comply b { display: block; font-size: 12.5px; font-weight: 800; color: var(--navy); line-height: 1.15; }
+.ee-comply span { font-size: 10.5px; color: var(--ink-mute); }
+
+/* suite CTA */
+.ee-suite-cta { text-align: center; }
+.ee-suite-cta .ee-btn { font-size: 17px; padding: 18px 40px; border-radius: 14px; }
+.ee-suite-note { font-size: 13px; color: var(--ink-mute); font-weight: 500; margin-top: 14px; }
+
 /* ---------- Scroll reveal (only when JS is active) ---------- */
 .js .ee-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
 .js .ee-reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .ee-reveal { opacity: 1; transform: none; transition: none; }
-  .ee-live, .ee-wave i, .ee-float--a, .ee-float--b { animation: none !important; }
+  .ee-live, .ee-wave i, .ee-float--a, .ee-float--b, .ee-core-orb { animation: none !important; }
 }
 
 /* skip link */
@@ -394,6 +534,8 @@ body {
   .ee-pipe { grid-template-columns: repeat(4, 1fr); }
   .ee-form-grid { grid-template-columns: 1fr 1fr; }
   .ee-metrics { grid-template-columns: repeat(4, 1fr); }
+  .ee-sstats { grid-template-columns: repeat(3, 1fr); }
+  .ee-harrow { display: grid; }
 }
 
 @media (min-width: 860px) {
@@ -401,6 +543,7 @@ body {
   .ee-row-full { grid-column: 1 / -1; }
   .ee-mid { grid-template-columns: 1fr 1fr; }
   .ee-float--a, .ee-float--b { display: block; }
+  .ee-agents { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (min-width: 980px) {
@@ -411,6 +554,8 @@ body {
 
 @media (min-width: 1120px) {
   .ee-mid { grid-template-columns: 1fr 1fr .82fr; }
+  .ee-agents { grid-template-columns: repeat(3, 1fr); }
+  .ee-sstats { grid-template-columns: repeat(6, 1fr); }
 }
 </style>
 </head>
@@ -434,8 +579,7 @@ body {
             closing admissions instead of chasing leads.
           </p>
           <div class="ee-hero-cta">
-            <!-- TODO: point href to your booking / demo-request URL -->
-            <a class="ee-btn ee-btn--primary ee-btn--lg" href="#">
+            <a class="ee-btn ee-btn--primary ee-btn--lg" href="#demo">
               Book a Free Demo
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
@@ -527,6 +671,236 @@ body {
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ======================= AGENTIC AI SUITE ======================= -->
+  <section class="ee-suite ee-section" id="suite" aria-labelledby="suite-title">
+    <div class="ee-container">
+
+      <div class="ee-section-head ee-center ee-reveal">
+        <span class="ee-eyebrow">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M12 2c.6 3.9 2.3 6.7 4.6 8.2 1.6 1 3.4 1.6 5.4 1.8-2 .2-3.8.8-5.4 1.8-2.3 1.5-4 4.3-4.6 8.2-.6-3.9-2.3-6.7-4.6-8.2A11.6 11.6 0 0 0 2 12c2-.2 3.8-.8 5.4-1.8C9.7 8.7 11.4 5.9 12 2z"/></svg>
+          Agentic AI Suite
+        </span>
+        <h2 class="ee-h2" id="suite-title">Meet <span class="accent">VidyaAI</span> — Your Autonomous Admissions Workforce</h2>
+        <p class="ee-lead">VidyaAI is an always-on AI workforce that captures enquiries, answers student questions, scores intent, qualifies leads, books counselling sessions, automates follow-ups, and continuously supports your admissions team — 24 hours a day, every day.</p>
+      </div>
+
+      <!-- agent cards -->
+      <div class="ee-agents">
+
+        <!-- 01 VidyaGPT -->
+        <article class="ee-agent ee-reveal">
+          <div class="ee-agent-top">
+            <span class="ee-agent-num" aria-hidden="true">01</span>
+            <div>
+              <h3>VidyaGPT</h3>
+              <p class="ee-agent-tag">24×7 AI Admission Counsellor</p>
+            </div>
+            <span class="ee-status"><span class="ee-live" aria-hidden="true"></span>Online</span>
+          </div>
+          <ul class="ee-alist">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Answers course enquiries</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Explains fee structures</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Scholarship guidance</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Admission deadlines</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Multilingual conversations</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Website + WhatsApp</li>
+          </ul>
+          <div class="ee-agent-demo ee-chat">
+            <div class="who"><span>Student</span></div>
+            <div class="ee-bubble">Can I apply for MBA?</div>
+            <div class="who"><span>VidyaGPT</span></div>
+            <div class="ee-bubble ai">Absolutely. Would you like fee details or scholarship eligibility?</div>
+            <div class="ee-agent-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>95+ Languages</div>
+          </div>
+        </article>
+
+        <!-- 02 Vidya Pulse -->
+        <article class="ee-agent ee-reveal">
+          <div class="ee-agent-top">
+            <span class="ee-agent-num" aria-hidden="true">02</span>
+            <div>
+              <h3>Vidya Pulse</h3>
+              <p class="ee-agent-tag">Real-Time Lead Intent Engine</p>
+            </div>
+            <span class="ee-status"><span class="ee-live" aria-hidden="true"></span>Live</span>
+          </div>
+          <ul class="ee-alist">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Scores every lead</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Predicts enrollment probability</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Prioritizes hot leads</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Continuous AI learning</li>
+          </ul>
+          <div class="ee-agent-demo">
+            <div class="ee-leadrow">
+              <span class="ee-avatar-sm" aria-hidden="true">RS</span>
+              <span><span class="ee-wlbl">Lead</span><b>Rahul Sharma</b></span>
+            </div>
+            <div class="ee-pulse-grid">
+              <span style="text-align:center"><span class="ee-wlbl">Intent Score</span><span class="ee-ring" style="--v:96" role="img" aria-label="Intent score 96 percent"><i>96%</i></span></span>
+              <span class="ee-prob" style="text-align:center"><span class="ee-wlbl">Probability</span><b>High</b></span>
+            </div>
+            <div class="ee-wlbl">Recommended Action</div>
+            <div class="ee-intent-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call Now</div>
+            <div class="ee-heatbar" aria-hidden="true"><i></i></div>
+            <div class="ee-heatlbl" aria-hidden="true"><span>Cold</span><span>Warm</span><span>Hot</span></div>
+          </div>
+        </article>
+
+        <!-- 03 VidyaAI Voice Agent -->
+        <article class="ee-agent ee-reveal">
+          <div class="ee-agent-top">
+            <span class="ee-agent-num" aria-hidden="true">03</span>
+            <div>
+              <h3>VidyaAI Voice Agent</h3>
+              <p class="ee-agent-tag">AI Voice Calling Agent</p>
+            </div>
+            <span class="ee-status"><span class="ee-live" aria-hidden="true"></span>Calling</span>
+          </div>
+          <ul class="ee-alist">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Calls every lead instantly</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Human-like conversations</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Books counselling sessions</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Supports 10+ Indian languages</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>24×7 availability</li>
+          </ul>
+          <div class="ee-agent-demo">
+            <div class="ee-wlbl">Calling…</div>
+            <div class="ee-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <ul class="ee-vstat">
+              <li><span class="vi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span>Connected</li>
+              <li><span class="vi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span>Qualification Complete</li>
+              <li><span class="vi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span>Meeting Scheduled</li>
+            </ul>
+            <div class="ee-voice-tabs" style="margin-top:10px"><span class="on">English</span><span>हिन्दी</span><span>मराठी</span><span>தமிழ்</span><span>తెలుగు</span></div>
+          </div>
+        </article>
+
+        <!-- 04 VidyaWABA GPT -->
+        <article class="ee-agent ee-reveal">
+          <div class="ee-agent-top">
+            <span class="ee-agent-num" aria-hidden="true">04</span>
+            <div>
+              <h3>VidyaWABA GPT</h3>
+              <p class="ee-agent-tag">Official WhatsApp AI Assistant</p>
+            </div>
+            <span class="ee-status"><span class="ee-live" aria-hidden="true"></span>Connected</span>
+          </div>
+          <ul class="ee-alist">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Automated replies</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Smart broadcasts</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Personalized nurturing</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Verified Business API</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>CRM synchronization</li>
+          </ul>
+          <div class="ee-agent-demo ee-chat">
+            <div class="who"><span>Student</span><span>09:14 AM</span></div>
+            <div class="ee-bubble">Can you send the brochure?</div>
+            <div class="who"><span>AI Assistant</span><span>09:15 AM</span></div>
+            <div class="ee-bubble ai">Absolutely. Sending brochure now.</div>
+            <div class="ee-receipt"><b>Delivered</b><span>09:15 AM ✓✓</span></div>
+            <div class="ee-receipt"><b>Read</b><span>09:15 AM ✓✓</span></div>
+            <ul class="ee-waba-stats" aria-label="Broadcast performance">
+              <li><b>1.2K</b> <i>96%</i><span>Delivered</span></li>
+              <li><b>842</b> <i>70%</i><span>Opened</span></li>
+              <li><b>312</b> <i>26%</i><span>Clicked</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Intelligent core -->
+        <div class="ee-agent ee-agent--core ee-reveal" aria-hidden="true">
+          <span class="ee-core-orb">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 6l4 8 2-4 4 8z"/></svg>
+          </span>
+          <b>VidyaAI</b>
+          <span>Intelligent Core</span>
+        </div>
+
+        <!-- 05 Vidya Work -->
+        <article class="ee-agent ee-reveal">
+          <div class="ee-agent-top">
+            <span class="ee-agent-num" aria-hidden="true">05</span>
+            <div>
+              <h3>Vidya Work</h3>
+              <p class="ee-agent-tag">Autonomous Workflow Engine</p>
+            </div>
+            <span class="ee-status"><span class="ee-live" aria-hidden="true"></span>Active</span>
+          </div>
+          <ul class="ee-alist">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Assigns counsellors</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Creates follow-up tasks</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Sends reminders</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Updates CRM</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Automates repetitive work</li>
+          </ul>
+          <div class="ee-agent-demo">
+            <ol class="ee-wflow">
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-1a6 6 0 0 1 12 0v1M19 8v6M22 11h-6"/></svg></span>New Lead</li>
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span>AI Qualification</li>
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/><path d="m17 11 2 2 4-4"/></svg></span>Assign Counsellor</li>
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2z"/></svg></span>WhatsApp</li>
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>Reminder</li>
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></span>Application</li>
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span>Enrollment</li>
+            </ol>
+          </div>
+        </article>
+      </div>
+
+      <!-- how the agents work together -->
+      <div class="ee-howflow ee-reveal">
+        <h3>How VidyaAI Agents <span class="accent">Work Together</span></h3>
+        <div class="ee-hsteps">
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></span><span>Lead Enters System</span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>VidyaGPT Responds</span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><span>Vidya Pulse Scores</span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span>Voice Agent Calls</span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2z"/></svg></span><span>VidyaWABA Nurtures</span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span><span>Vidya Work Automates</span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/><path d="m17 11 2 2 4-4"/></svg></span><span>Counsellor Receives Qualified Lead</span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span><span>Admission Confirmed</span></div>
+        </div>
+      </div>
+
+      <!-- suite stats -->
+      <ul class="ee-sstats ee-reveal" aria-label="Platform performance">
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span><span><b>18 <em>sec</em></b><span>Average Response Time</span></span></li>
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span><span><b>95<em>+</em></b><span>Languages Supported</span></span></li>
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>24<em>×7</em></b><span>Always Active</span></span></li>
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span><b>10<em>M+</em></b><span>AI Conversations</span></span></li>
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></span><span><b>37<em>%</em></b><span>Higher Conversion</span></span></li>
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10l8-5 8 5v11M9 21v-6h6v6"/></svg></span><span><b>500<em>+</em></b><span>Institutions</span></span></li>
+      </ul>
+
+      <!-- compliance -->
+      <ul class="ee-comply ee-reveal" aria-label="Security and compliance">
+        <li><span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span><b>Enterprise AI</b><span>Grade Security</span></span></li>
+        <li><span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><span><b>ISO 27001</b><span>Certified</span></span></li>
+        <li><span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/></svg></span><span><b>GDPR Ready</b><span>Compliant</span></span></li>
+        <li><span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span><b>India Data Residency</b><span>Secure &amp; Compliant</span></span></li>
+        <li><span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span><span><b>99.98% Uptime</b><span>Monitored 24×7</span></span></li>
+        <li><span class="ci" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span><span><b>Enterprise SLA</b><span>Guaranteed</span></span></li>
+      </ul>
+
+      <!-- suite CTA -->
+      <div class="ee-suite-cta ee-reveal">
+        <a class="ee-btn ee-btn--primary" href="#demo">
+          Experience VidyaAI Live
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <p class="ee-suite-note">See every AI agent working together on your own admissions funnel.</p>
+      </div>
+
     </div>
   </section>
 
