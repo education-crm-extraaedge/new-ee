@@ -8298,7 +8298,7 @@ body.vg-open .vg-launch{display:none}
     </div>
 
     <div class="cis-cta">
-      <a class="cis-btn primary" href="#demo">Book a free demo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 5l7 7-7 7-1.6-1.6 4.3-4.3H4v-2.2h11.9l-4.3-4.3z"/></svg></a>
+      <a class="cis-btn primary" href="https://www.extraaedge.com/book-a-demo/">Book demo Now <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 5l7 7-7 7-1.6-1.6 4.3-4.3H4v-2.2h11.9l-4.3-4.3z"/></svg></a>
     </div>
   </div>
 </section>
