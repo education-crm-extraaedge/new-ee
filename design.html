@@ -59,8 +59,8 @@ h1, h2, h3, h4, p { margin: 0; }
   --surface-2: #FBF7F3;               /* subtle orange tint band */
 
   --ink: #19335D;
-  --ink-soft: rgba(25, 51, 93, .70);
-  --ink-mute: rgba(25, 51, 93, .52);
+  --ink-soft: rgba(25, 51, 93, .78);
+  --ink-mute: rgba(25, 51, 93, .60);
   --line: rgba(25, 51, 93, .12);
   --line-soft: rgba(25, 51, 93, .07);
   --navy-soft: rgba(25, 51, 93, .06);
@@ -94,8 +94,9 @@ body {
 }
 
 /* ---------- Layout helpers ---------- */
-.ee-container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: 20px; }
-.ee-section { padding-block: clamp(56px, 9vw, 108px); }
+.ee-container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: clamp(16px, 4vw, 20px); }
+.ee-section { padding-block: clamp(56px, 9vw, 108px); scroll-margin-top: 16px; }
+[id] { scroll-margin-top: 16px; }
 .ee-band { background: var(--surface); }
 .ee-center { text-align: center; }
 
@@ -410,8 +411,8 @@ body {
   font-size: 10.5px; font-weight: 700; color: var(--orange);
   background: var(--orange-soft); border-radius: var(--pill); padding: 4px 10px; white-space: nowrap;
 }
-.ee-alist { display: grid; gap: 6px; }
-.ee-alist li { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; color: var(--ink-soft); font-weight: 500; line-height: 1.45; }
+.ee-alist { display: grid; gap: 7px; }
+.ee-alist li { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; color: var(--ink-soft); font-weight: 500; line-height: 1.5; }
 .ee-alist svg { flex: none; width: 14px; height: 14px; color: var(--orange); margin-top: 2px; }
 
 /* mini demo widget inside each card */
@@ -491,8 +492,8 @@ body {
 .ee-harrow svg { width: 16px; height: 16px; }
 
 /* suite stats */
-.ee-sstats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: clamp(28px, 4vw, 44px); }
-.ee-sstat { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 15px; box-shadow: var(--shadow-sm); }
+.ee-sstats { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: clamp(28px, 4vw, 44px); }
+.ee-sstat { min-width: 0; display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 15px; box-shadow: var(--shadow-sm); }
 .ee-sstat .si { flex: none; width: 42px; height: 42px; border-radius: 11px; background: var(--orange-soft); color: var(--orange); display: grid; place-items: center; }
 .ee-sstat:nth-child(even) .si { background: var(--navy-soft); color: var(--navy); }
 .ee-sstat .si svg { width: 20px; height: 20px; }
@@ -531,7 +532,7 @@ body {
 .ee-team:nth-child(even) .ee-agent-num { background: var(--navy-soft); color: var(--navy); }
 .ee-team-top h3 { font-size: 16.5px; font-weight: 800; color: var(--navy); letter-spacing: -.3px; line-height: 1.2; }
 .ee-team-tag { font-size: 12px; color: var(--orange); font-weight: 700; margin-top: 2px; }
-.ee-team-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+.ee-team-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; }
 .ee-alist--2col { grid-template-columns: 1fr; }
 .ee-seelink {
   display: inline-flex; align-items: center; gap: 8px; align-self: flex-end; margin-top: auto;
@@ -677,9 +678,28 @@ body {
 .ee-skip { position: absolute; left: -9999px; top: 8px; z-index: 300; background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 700; }
 .ee-skip:focus { left: 8px; }
 
+/* back to top */
+.ee-top {
+  position: fixed; right: 18px; bottom: 18px; z-index: 90;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--navy); color: #fff;
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-md);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .3s, visibility .3s, transform .3s, background-color .2s;
+}
+.ee-top.is-show { opacity: 1; visibility: visible; transform: none; }
+.ee-top:hover { background: var(--orange); }
+.ee-top svg { width: 20px; height: 20px; }
+@media (prefers-reduced-motion: reduce) { .ee-top { transition: none; } }
+
 /* ==========================================================================
    RESPONSIVE — mobile-first breakpoints
    ========================================================================== */
+@media (min-width: 430px) {
+  .ee-sstats { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (min-width: 560px) {
   .ee-hero-cta .ee-btn { min-width: 0; }
   .ee-pipe { grid-template-columns: repeat(4, 1fr); }
@@ -1571,6 +1591,9 @@ body {
 
 </main>
 
+<button class="ee-top" type="button" id="ee-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+</button>
 
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -1612,6 +1635,17 @@ body {
     b.style.height = Math.max(28, Math.min(96, 30 + Math.round(Math.sin(i * 1.3) * 22 + 40))) + "%";
     if (!reduce) b.style.animationDelay = ((i % 6) * 0.06) + "s";
   });
+
+  /* ---- Back to top ---- */
+  var topBtn = document.getElementById("ee-top");
+  if (topBtn) {
+    var onScroll = function () { topBtn.classList.toggle("is-show", window.scrollY > 640); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    topBtn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+    });
+  }
 
   /* ---- Demo form: validate + confirmation (no backend) ---- */
   var form = document.getElementById("ee-demo-form");
