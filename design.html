@@ -511,8 +511,129 @@ body {
 
 /* suite CTA */
 .ee-suite-cta { text-align: center; }
-.ee-suite-cta .ee-btn { font-size: 17px; padding: 18px 40px; border-radius: 14px; }
+.ee-suite-cta .ee-btn { font-size: 17px; padding: 18px 40px; border-radius: 14px; white-space: normal; max-width: 100%; }
 .ee-suite-note { font-size: 13px; color: var(--ink-mute); font-weight: 500; margin-top: 14px; }
+
+/* ==========================================================================
+   BUILT FOR EVERY TEAM
+   ========================================================================== */
+.ee-teamsec { position: relative; }
+.ee-teams { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: clamp(28px, 4vw, 44px); }
+.ee-team {
+  min-width: 0;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 20px; box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column; gap: 12px;
+  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s, border-color .3s;
+}
+.ee-team:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--orange-line); }
+.ee-team-top { display: flex; align-items: flex-start; gap: 10px; }
+.ee-team:nth-child(even) .ee-agent-num { background: var(--navy-soft); color: var(--navy); }
+.ee-team-top h3 { font-size: 16.5px; font-weight: 800; color: var(--navy); letter-spacing: -.3px; line-height: 1.2; }
+.ee-team-tag { font-size: 12px; color: var(--orange); font-weight: 700; margin-top: 2px; }
+.ee-team-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+.ee-alist--2col { grid-template-columns: 1fr; }
+.ee-seelink {
+  display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; margin-top: auto;
+  font-weight: 700; font-size: 13.5px; color: var(--orange);
+  border: 1px solid var(--orange-line); border-radius: 10px; padding: 10px 16px;
+  transition: background-color .2s, transform .2s;
+}
+.ee-seelink:hover { background: var(--orange-soft); transform: translateY(-1px); }
+.ee-seelink svg { width: 15px; height: 15px; }
+
+/* marketing sources table */
+.ee-mtable-wrap { overflow-x: auto; }
+.ee-mtable { width: 100%; border-collapse: collapse; font-size: 11px; }
+.ee-mtable th { font-size: 8.5px; text-transform: uppercase; letter-spacing: .5px; color: var(--ink-mute); font-weight: 700; text-align: right; padding: 3px 6px; }
+.ee-mtable th:first-child { text-align: left; }
+.ee-mtable td { padding: 6px; border-top: 1px solid var(--line-soft); text-align: right; color: var(--ink-soft); font-weight: 600; white-space: nowrap; }
+.ee-mtable td:first-child { text-align: left; color: var(--navy); font-weight: 700; }
+.ee-mtable td:first-child i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); margin-right: 7px; }
+.ee-mtable tr:nth-child(even) td:first-child i { background: var(--navy); }
+.ee-mtable .roas { color: var(--orange); font-weight: 800; }
+
+/* admissions funnel + mini stats */
+.ee-funrow { display: grid; grid-template-columns: 74px 1fr 44px; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; color: var(--ink-soft); padding: 3px 0; }
+.ee-funrow .tr { height: 10px; border-radius: 6px; background: var(--line-soft); overflow: hidden; }
+.ee-funrow .tr i { display: block; height: 100%; border-radius: 6px; background: var(--orange); }
+.ee-funrow:nth-child(even) .tr i { background: var(--navy); }
+.ee-funrow b { color: var(--navy); font-weight: 700; text-align: right; }
+.ee-ministats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 10px; }
+.ee-ministats li { background: #fff; border: 1px solid var(--line-soft); border-radius: 8px; padding: 8px 10px; }
+.ee-ministats b { display: block; font-size: 14px; font-weight: 800; color: var(--navy); line-height: 1.1; }
+.ee-ministats span { font-size: 9.5px; color: var(--ink-mute); font-weight: 600; }
+
+/* counselling profile head */
+.ee-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.ee-profile .pm { display: block; font-size: 12.5px; font-weight: 700; color: var(--navy); line-height: 1.25; }
+.ee-profile .ps { font-size: 10px; color: var(--ink-mute); font-weight: 600; }
+.ee-profile .score { margin-left: auto; text-align: right; font-size: 9.5px; color: var(--ink-mute); font-weight: 600; }
+.ee-profile .score b { display: block; font-size: 15px; font-weight: 800; color: var(--orange); }
+.ee-wflow time { margin-left: auto; font-size: 9.5px; color: var(--ink-mute); font-weight: 600; }
+
+/* agent tiles (team 04) */
+.ee-atiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(102px, 1fr)); gap: 6px; }
+.ee-atiles li { background: #fff; border: 1px solid var(--line-soft); border-radius: 9px; padding: 9px 6px; text-align: center; }
+.ee-atiles .ai2 { width: 26px; height: 26px; border-radius: 8px; background: var(--orange-soft); color: var(--orange); display: grid; place-items: center; margin: 0 auto 5px; }
+.ee-atiles li:nth-child(even) .ai2 { background: var(--navy-soft); color: var(--navy); }
+.ee-atiles .ai2 svg { width: 14px; height: 14px; }
+.ee-atiles b { display: block; font-size: 10.5px; font-weight: 800; color: var(--navy); line-height: 1.2; }
+.ee-atiles span { display: block; font-size: 8.5px; color: var(--ink-mute); font-weight: 600; }
+.ee-atiles .on { display: inline-flex; align-items: center; gap: 4px; font-size: 8.5px; font-weight: 700; color: var(--orange); margin-top: 3px; }
+.ee-atiles .on::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--orange); }
+
+/* leadership stat tiles */
+.ee-lstats { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: 6px; }
+.ee-lstats li { background: #fff; border: 1px solid var(--line-soft); border-radius: 9px; padding: 9px 10px; }
+.ee-lstats b { display: block; font-size: 14px; font-weight: 800; color: var(--navy); line-height: 1.1; letter-spacing: -.3px; }
+.ee-lstats i { font-style: normal; font-size: 9.5px; font-weight: 700; color: var(--orange); }
+.ee-lstats span { display: block; font-size: 9px; color: var(--ink-mute); font-weight: 600; margin-top: 1px; }
+
+/* finance widget */
+.ee-fin { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.ee-fin .ee-ministats { flex: 1 1 150px; margin-top: 0; grid-template-columns: 1fr; }
+.ee-fdonut-wrap { flex: 1 1 140px; display: flex; align-items: center; gap: 10px; }
+.ee-fdonut { flex: none; width: 68px; height: 68px; border-radius: 50%; background: conic-gradient(var(--navy) 0 72%, var(--orange) 72% 90%, rgba(222,110,48,.4) 90% 100%); display: grid; place-items: center; }
+.ee-fdonut::after { content: ""; width: 42px; height: 42px; border-radius: 50%; background: var(--surface); }
+.ee-flegend li { display: flex; align-items: center; gap: 6px; font-size: 9.5px; color: var(--ink-soft); font-weight: 600; padding: 1px 0; }
+.ee-flegend .sw { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+.ee-flegend b { margin-left: auto; color: var(--navy); font-weight: 700; padding-left: 8px; }
+
+/* hub card */
+.ee-team--hub {
+  grid-column: 1 / -1; background: var(--navy); border-color: var(--navy); color: #fff;
+  align-items: center; text-align: center; position: relative; overflow: hidden;
+  padding: clamp(26px, 4vw, 40px);
+}
+.ee-team--hub:hover { border-color: var(--navy); }
+.ee-team--hub::before { content: ""; position: absolute; inset: 0; background: radial-gradient(420px 300px at 50% 20%, rgba(222,110,48,.38), transparent 70%); pointer-events: none; }
+.ee-team--hub > * { position: relative; }
+.ee-team--hub b { font-size: clamp(20px, 2.6vw, 26px); font-weight: 800; letter-spacing: -.5px; }
+.ee-team--hub > span { font-size: 13px; color: rgba(255,255,255,.72); font-weight: 600; }
+.ee-hubmods { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 16px; }
+.ee-hubmods li { display: flex; align-items: center; gap: 9px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 11px; padding: 9px 15px; font-size: 12.5px; font-weight: 700; }
+.ee-hubmods .mi { flex: none; width: 26px; height: 26px; border-radius: 8px; background: rgba(222,110,48,.32); color: #fff; display: grid; place-items: center; }
+.ee-hubmods .mi svg { width: 14px; height: 14px; }
+
+/* journey sub-labels */
+.ee-hstep small { display: block; font-size: 9.5px; font-weight: 500; color: var(--ink-mute); margin-top: 2px; }
+
+/* zero-silos band */
+.ee-silos {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 18px 32px;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm); padding: clamp(18px, 3vw, 28px);
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+.ee-silos h3 { display: flex; align-items: center; gap: 12px; font-size: clamp(16px, 2vw, 19px); font-weight: 800; color: var(--navy); letter-spacing: -.4px; }
+.ee-silos h3 .sh { flex: none; width: 44px; height: 44px; border-radius: 12px; background: var(--orange-soft); color: var(--orange); display: grid; place-items: center; }
+.ee-silos h3 .sh svg { width: 22px; height: 22px; }
+.ee-silos ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; }
+.ee-silos li { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 76px; text-align: center; font-size: 10px; font-weight: 600; color: var(--ink-soft); }
+.ee-silos li .si2 { width: 38px; height: 38px; border-radius: 50%; background: var(--navy-soft); color: var(--navy); display: grid; place-items: center; }
+.ee-silos li:nth-child(odd) .si2 { background: var(--orange-soft); color: var(--orange); }
+.ee-silos li .si2 svg { width: 17px; height: 17px; }
 
 /* ---------- Scroll reveal (only when JS is active) ---------- */
 .js .ee-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
@@ -536,6 +657,9 @@ body {
   .ee-metrics { grid-template-columns: repeat(4, 1fr); }
   .ee-sstats { grid-template-columns: repeat(3, 1fr); }
   .ee-harrow { display: grid; }
+  .ee-alist--2col { grid-template-columns: 1fr 1fr; }
+  .ee-ministats { grid-template-columns: repeat(4, 1fr); }
+  .ee-fin .ee-ministats { grid-template-columns: 1fr; }
 }
 
 @media (min-width: 860px) {
@@ -550,6 +674,7 @@ body {
   .ee-hero-grid { grid-template-columns: 1fr 1.06fr; }
   .ee-demo-grid { grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr); gap: 28px; }
   .ee-demo-right { position: sticky; top: 24px; }
+  .ee-teams { grid-template-columns: 1fr 1fr; }
 }
 
 @media (min-width: 1120px) {
@@ -899,6 +1024,296 @@ body {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <p class="ee-suite-note">See every AI agent working together on your own admissions funnel.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================= BUILT FOR EVERY TEAM ======================= -->
+  <section class="ee-teamsec ee-section ee-band" id="teams" aria-labelledby="teams-title">
+    <div class="ee-container">
+
+      <div class="ee-section-head ee-center ee-reveal">
+        <span class="ee-eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>
+          One Platform. Every Team.
+        </span>
+        <h2 class="ee-h2" id="teams-title">Built for <span class="accent" style="color:var(--orange)">Every Team</span> Driving Student Enrollment</h2>
+        <p class="ee-lead">From marketing and admissions to counseling, leadership, finance, and AI-powered automation, ExtraaEdge unifies every department on one intelligent platform — ensuring every enquiry becomes an opportunity and every team works from the same real-time data.</p>
+      </div>
+
+      <div class="ee-teams">
+
+        <!-- 01 Marketing -->
+        <article class="ee-team ee-reveal">
+          <div class="ee-team-top">
+            <span class="ee-agent-num" aria-hidden="true">01</span>
+            <div>
+              <h3>Marketing Teams</h3>
+              <p class="ee-team-tag">Capture Every Enquiry</p>
+            </div>
+          </div>
+          <p class="ee-team-desc">Track every lead source, campaign, and marketing channel while identifying which campaigns actually generate enrolled students — not just clicks.</p>
+          <div class="ee-agent-demo">
+            <div class="ee-mtable-wrap">
+              <table class="ee-mtable">
+                <thead><tr><th scope="col">Source</th><th scope="col">Lead Volume</th><th scope="col">Cost / Enrollment</th><th scope="col">ROAS</th></tr></thead>
+                <tbody>
+                  <tr><td><i aria-hidden="true"></i>Meta Ads</td><td>2,450</td><td>₹320</td><td class="roas">4.6x</td></tr>
+                  <tr><td><i aria-hidden="true"></i>Google Ads</td><td>1,890</td><td>₹280</td><td class="roas">5.1x</td></tr>
+                  <tr><td><i aria-hidden="true"></i>Website</td><td>3,120</td><td>₹180</td><td class="roas">6.2x</td></tr>
+                  <tr><td><i aria-hidden="true"></i>Organic</td><td>1,560</td><td>₹90</td><td class="roas">6.8x</td></tr>
+                  <tr><td><i aria-hidden="true"></i>Education Portals</td><td>980</td><td>₹210</td><td class="roas">4.1x</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <ul class="ee-alist ee-alist--2col">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Campaign Attribution</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Source Tracking</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Lead Capture</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>ROI Analytics</li>
+          </ul>
+          <a class="ee-seelink" href="#demo">See It In Action <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
+
+        <!-- 02 Admissions -->
+        <article class="ee-team ee-reveal">
+          <div class="ee-team-top">
+            <span class="ee-agent-num" aria-hidden="true">02</span>
+            <div>
+              <h3>Admissions Teams</h3>
+              <p class="ee-team-tag">Prioritize Every High-Intent Student</p>
+            </div>
+          </div>
+          <p class="ee-team-desc">Automatically score leads, trigger AI follow-ups, and ensure counselors contact the highest-intent applicants first.</p>
+          <div class="ee-agent-demo">
+            <div class="ee-wlbl" style="margin-bottom:6px">Admission Pipeline</div>
+            <div class="ee-funrow"><span>Enquiries</span><span class="tr"><i style="width:100%"></i></span><b>12,450</b></div>
+            <div class="ee-funrow"><span>Qualified</span><span class="tr"><i style="width:51%"></i></span><b>6,320</b></div>
+            <div class="ee-funrow"><span>Counselling</span><span class="tr"><i style="width:26%"></i></span><b>3,240</b></div>
+            <div class="ee-funrow"><span>Applications</span><span class="tr"><i style="width:15%"></i></span><b>1,890</b></div>
+            <div class="ee-funrow"><span>Admission</span><span class="tr"><i style="width:8%"></i></span><b>980</b></div>
+            <ul class="ee-ministats">
+              <li><b>248</b><span>Hot Leads</span></li>
+              <li><b>192</b><span>Today's Calls</span></li>
+              <li><b>731</b><span>AI Qualification</span></li>
+              <li><b>56</b><span>Pending Applications</span></li>
+            </ul>
+          </div>
+          <ul class="ee-alist ee-alist--2col">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>AI Lead Scoring</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Auto Assignment</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Pipeline Management</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Smart Follow-ups</li>
+          </ul>
+          <a class="ee-seelink" href="#demo">See It In Action <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
+
+        <!-- Hub -->
+        <div class="ee-team ee-team--hub ee-reveal" aria-label="ExtraaEdge Admission Operating System">
+          <span class="ee-core-orb" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 10 6l4 8 2-4 4 8z"/></svg>
+          </span>
+          <b>ExtraaEdge Admission Operating System</b>
+          <span>One intelligent core connecting every team and every tool</span>
+          <ul class="ee-hubmods">
+            <li><span class="mi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span>AI Brain</li>
+            <li><span class="mi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6 8v6l-4 2v-8z"/></svg></span>Admissions Pipeline</li>
+            <li><span class="mi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span>Student Database</li>
+            <li><span class="mi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span>Automation Engine</li>
+            <li><span class="mi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg></span>CRM</li>
+          </ul>
+        </div>
+
+        <!-- 03 Counseling -->
+        <article class="ee-team ee-reveal">
+          <div class="ee-team-top">
+            <span class="ee-agent-num" aria-hidden="true">03</span>
+            <div>
+              <h3>Counseling Teams</h3>
+              <p class="ee-team-tag">Every Conversation Has Context</p>
+            </div>
+          </div>
+          <p class="ee-team-desc">Give counselors a complete applicant history — including conversations, documents, interests, and previous interactions.</p>
+          <div class="ee-agent-demo">
+            <div class="ee-profile">
+              <span class="ee-avatar-sm" aria-hidden="true">RS</span>
+              <span><span class="pm">Rahul Sharma</span><span class="ps">MBA · 2025 Intake</span></span>
+              <span class="score">Lead Score<b>94%</b></span>
+            </div>
+            <div class="ee-wlbl" style="margin-bottom:6px">Student Timeline</div>
+            <ol class="ee-wflow">
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2z"/></svg></span>WhatsApp Conversation<time>09:15 AM</time></li>
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>AI Voice Call<time>09:32 AM</time></li>
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>Brochure Shared<time>10:10 AM</time></li>
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg></span>Counsellor Call<time>11:05 AM</time></li>
+              <li><span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10l8-5 8 5v11M9 21v-6h6v6"/></svg></span>Campus Visit Booked<time>12:30 PM</time></li>
+            </ol>
+          </div>
+          <ul class="ee-alist ee-alist--2col">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Complete Student Profile</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Activity Timeline</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Meeting Notes</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>AI Suggestions</li>
+          </ul>
+          <a class="ee-seelink" href="#demo">See It In Action <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
+
+        <!-- 04 VidyaAI Agents -->
+        <article class="ee-team ee-reveal">
+          <div class="ee-team-top">
+            <span class="ee-agent-num" aria-hidden="true">04</span>
+            <div>
+              <h3>VidyaAI Agents</h3>
+              <p class="ee-team-tag">Your 24×7 Admissions Workforce</p>
+            </div>
+          </div>
+          <p class="ee-team-desc">AI agents answer questions, qualify leads, schedule counseling sessions, automate follow-ups, and keep applicants engaged.</p>
+          <div class="ee-agent-demo">
+            <ul class="ee-atiles">
+              <li><span class="ai2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><b>VidyaGPT</b><span>AI Chat</span><span class="on">Active</span></li>
+              <li><span class="ai2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><b>Voice Agent</b><span>AI Calling</span><span class="on">Active</span></li>
+              <li><span class="ai2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><b>Vidya Pulse</b><span>Lead Scoring</span><span class="on">Active</span></li>
+              <li><span class="ai2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2z"/></svg></span><b>VidyaWABA GPT</b><span>WhatsApp</span><span class="on">Active</span></li>
+              <li><span class="ai2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span><b>Vidya Work</b><span>Automation</span><span class="on">Active</span></li>
+            </ul>
+          </div>
+          <ul class="ee-alist ee-alist--2col">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Instant Replies</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>AI Calling</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>WhatsApp Automation</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Autonomous Workflows</li>
+          </ul>
+          <a class="ee-seelink" href="#demo">See It In Action <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
+
+        <!-- 05 Leadership -->
+        <article class="ee-team ee-reveal">
+          <div class="ee-team-top">
+            <span class="ee-agent-num" aria-hidden="true">05</span>
+            <div>
+              <h3>Leadership &amp; Analytics</h3>
+              <p class="ee-team-tag">Real-Time Admission Intelligence</p>
+            </div>
+          </div>
+          <p class="ee-team-desc">Monitor conversions, enrollment forecasts, counselor performance, campaign ROI, and admission targets from one executive dashboard.</p>
+          <div class="ee-agent-demo">
+            <ul class="ee-lstats">
+              <li><b>₹24.8 Cr</b> <i>↑ 21.6%</i><span>Revenue</span></li>
+              <li><b>1,890</b> <i>↑ 18.4%</i><span>Admissions</span></li>
+              <li><b>37.6%</b> <i>↑ 12.4%</i><span>Conversion Rate</span></li>
+              <li><b>2,450</b> <i>↑ 22.8%</i><span>Enrollment Forecast</span></li>
+              <li><b>5.6x</b> <i>↑ 16.2%</i><span>Source ROI</span></li>
+            </ul>
+          </div>
+          <ul class="ee-alist ee-alist--2col">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Executive Dashboard</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Funnel Analytics</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Forecasting</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Team Performance</li>
+          </ul>
+          <a class="ee-seelink" href="#demo">See It In Action <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
+
+        <!-- 06 Finance -->
+        <article class="ee-team ee-reveal">
+          <div class="ee-team-top">
+            <span class="ee-agent-num" aria-hidden="true">06</span>
+            <div>
+              <h3>Finance &amp; Operations</h3>
+              <p class="ee-team-tag">Accelerate Fee Collection</p>
+            </div>
+          </div>
+          <p class="ee-team-desc">Streamline payment links, fee reconciliation, document approvals, and admission confirmations while reducing manual work.</p>
+          <div class="ee-agent-demo">
+            <div class="ee-fin">
+              <ul class="ee-ministats">
+                <li><b>₹2.4 Cr</b><span>Pending Fees · 124 Students</span></li>
+                <li><b>₹1.8 Cr</b><span>Online Payments · 876 Transactions</span></li>
+                <li><b>98.6%</b><span>Reconciliation · Matched</span></li>
+              </ul>
+              <div class="ee-fdonut-wrap">
+                <div class="ee-fdonut" role="img" aria-label="Payment status: paid 72 percent, pending 18 percent, partial 10 percent"></div>
+                <ul class="ee-flegend">
+                  <li><span class="sw" style="background:var(--navy)"></span>Paid<b>72%</b></li>
+                  <li><span class="sw" style="background:var(--orange)"></span>Pending<b>18%</b></li>
+                  <li><span class="sw" style="background:rgba(222,110,48,.4)"></span>Partial<b>10%</b></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <ul class="ee-alist ee-alist--2col">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Fee Management</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Payment Tracking</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Document Workflow</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Financial Reporting</li>
+          </ul>
+          <a class="ee-seelink" href="#demo">See It In Action <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
+      </div>
+
+      <!-- enrolment journey -->
+      <div class="ee-howflow ee-reveal">
+        <h3>One Enquiry. <span class="accent">Every Team.</span> Zero Handoffs Lost.</h3>
+        <div class="ee-hsteps">
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></span><span>Lead Captured<small>New enquiry received</small></span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-7-7 18-2.5-7.5z"/></svg></span><span>Marketing Campaign<small>Lead source identified</small></span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span><span>AI Qualification<small>Lead scored &amp; qualified</small></span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg></span><span>Admissions Team<small>Lead assigned</small></span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>Counselor<small>Engages student</small></span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></span><span>Application<small>Form submitted</small></span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span><span>Payment<small>Fee collected</small></span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span><span>Enrollment<small>Student enrolled</small></span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></span><span>Leadership Dashboard<small>Insights &amp; reporting</small></span></div>
+          <span class="ee-harrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="ee-hstep"><span class="hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg></span><span>Continuous Analytics<small>Optimize performance</small></span></div>
+        </div>
+      </div>
+
+      <!-- zero silos -->
+      <div class="ee-silos ee-reveal">
+        <h3><span class="sh" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 8 2 2 4-4"/></svg></span>Every Team. One Database. Zero Information Silos.</h3>
+        <ul>
+          <li><span class="si2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-7-7 18-2.5-7.5z"/></svg></span>Marketing</li>
+          <li><span class="si2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10l8-5 8 5v11M9 21v-6h6v6"/></svg></span>Admissions</li>
+          <li><span class="si2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg></span>Counselors</li>
+          <li><span class="si2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span>Finance</li>
+          <li><span class="si2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></span>Leadership</li>
+          <li><span class="si2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M8 2h8"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg></span>AI Agents</li>
+          <li><span class="si2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0-.9-8.9 6 6 0 0 0-11.5 1.7A3.5 3.5 0 0 0 6 19z"/></svg></span>Cloud Platform</li>
+        </ul>
+      </div>
+
+      <!-- team stats -->
+      <ul class="ee-sstats ee-reveal" aria-label="Platform scale">
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10l8-5 8 5v11M9 21v-6h6v6"/></svg></span><span><b>500<em>+</em></b><span>Institutions</span></span></li>
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></span><span><b>37<em>%</em></b><span>Higher Conversion</span></span></li>
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span><span><b>18 <em>sec</em></b><span>First Response</span></span></li>
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span><b>100<em>M+</em></b><span>Student Conversations</span></span></li>
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></span><span><b>1<em>M+</em></b><span>Applications Processed</span></span></li>
+        <li class="ee-sstat"><span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M8 2h8"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg></span><span><b>24<em>×7</em></b><span>AI Workforce</span></span></li>
+      </ul>
+
+      <!-- team CTA -->
+      <div class="ee-suite-cta ee-reveal">
+        <a class="ee-btn ee-btn--primary" href="#demo">
+          See How Every Team Works Together
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <div class="ee-reassure">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Personalized demo</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Built for your institution</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>Go live in 7 days</span>
+        </div>
       </div>
 
     </div>
