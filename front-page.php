@@ -2853,8 +2853,27 @@ body.vg-open .vg-launch{display:none}
   }
   var mq=window.matchMedia('(max-width:860px)');
   if(!mq.matches){ loadFrame(); }           /* desktop: load inline as before */
-  function openExp(){ loadFrame(); sec.classList.add('eep-launched'); document.body.classList.add('eep-lock'); }
-  function closeExp(){ sec.classList.remove('eep-launched'); document.body.classList.remove('eep-lock'); }
+  /* on phones the demo has a fixed ~460px min layout, so scale it to fill the
+     viewport width (full-width, nothing clipped); desktop shows it at native size */
+  function fitFrame(){
+    if(!fr) return;
+    if(sec.classList.contains('eep-launched') && mq.matches){
+      var base=460, barH=56;
+      var vw=document.documentElement.clientWidth||window.innerWidth;
+      var availH=(window.innerHeight||document.documentElement.clientHeight)-barH;
+      var scale=vw/base;
+      fr.style.width=base+'px';
+      fr.style.height=Math.ceil(availH/scale)+'px';
+      fr.style.transformOrigin='top left';
+      fr.style.transform='scale('+scale.toFixed(4)+')';
+    } else {
+      fr.style.width='';fr.style.height='';fr.style.transform='';fr.style.transformOrigin='';
+    }
+  }
+  function openExp(){ loadFrame(); sec.classList.add('eep-launched'); document.body.classList.add('eep-lock'); fitFrame(); setTimeout(fitFrame,60); }
+  function closeExp(){ sec.classList.remove('eep-launched'); document.body.classList.remove('eep-lock'); fitFrame(); }
+  window.addEventListener('resize',function(){ if(sec.classList.contains('eep-launched')) fitFrame(); });
+  window.addEventListener('orientationchange',function(){ setTimeout(fitFrame,120); });
   if(launch) launch.addEventListener('click',openExp);
   if(expand) expand.addEventListener('click',openExp);
   if(closeBtn) closeBtn.addEventListener('click',closeExp);
