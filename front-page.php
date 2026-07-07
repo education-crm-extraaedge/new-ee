@@ -1689,18 +1689,51 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </section>
 
 <style>
-/* ===== AI Product-Led Experience: mobile launch + full-screen overlay ===== */
+/* ===== AI Product-Led Experience: launch + full-screen overlay (all devices) ===== */
 #ee-platform .eep-mlaunch{display:none;}
-#ee-platform .eep-close,#ee-platform .eep-mbook{display:none;}
+#ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}
+
+/* ---- full-screen experience overlay — works on phone, tablet & desktop ---- */
+#ee-platform.eep-launched .eep-window{
+  position:fixed;inset:0;z-index:99999;display:block;width:100vw;height:100vh;height:100dvh;
+  max-width:none;margin:0;border:0;border-radius:0;background:#0f1f3a;box-shadow:none;
+}
+#ee-platform.eep-launched .eep-bar{
+  display:flex;align-items:center;gap:10px;height:56px;padding:0 clamp(12px,2vw,20px);
+  background:#12233f;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;position:relative;z-index:2;
+}
+#ee-platform.eep-launched .eep-url{color:#aebfdb;font-size:13px;}
+#ee-platform.eep-launched .eep-frame{display:block;width:100%;height:calc(100% - 56px);border:0;border-radius:0;background:#fff;}
+#ee-platform.eep-launched .eep-mbook{
+  display:inline-flex;align-items:center;margin-left:auto;background:linear-gradient(135deg,#E8843F,#DE6E30);
+  color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:9px 16px;border-radius:999px;white-space:nowrap;
+}
+#ee-platform.eep-launched .eep-close{
+  display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.14);color:#fff;border:0;font-size:15px;line-height:1;cursor:pointer;flex:0 0 auto;
+}
+#ee-platform.eep-launched .eep-expand{display:none !important;}
+body.eep-lock{overflow:hidden;}
+
+/* ---- desktop / tablet: keep the inline demo + a "Full screen" button ---- */
+@media(min-width:861px){
+  #ee-platform:not(.eep-launched) .eep-expand{
+    display:inline-flex;align-items:center;gap:7px;margin-left:auto;cursor:pointer;
+    background:rgba(25,51,93,.07);border:1px solid rgba(25,51,93,.14);color:#19335D;
+    font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:999px;transition:background .2s,color .2s,border-color .2s;
+  }
+  #ee-platform:not(.eep-launched) .eep-expand svg{width:15px;height:15px;}
+  #ee-platform:not(.eep-launched) .eep-expand:hover{background:rgba(222,110,48,.12);border-color:rgba(222,110,48,.32);color:#C45A20;}
+}
+
+/* ---- phones: hide the inline demo, offer a big launch card ---- */
 @media(max-width:860px){
-  /* hide the heavy interactive window on phones; offer a launch button */
   #ee-platform .eep-window{display:none;}
   #ee-platform .eep-cta{display:none;}
   #ee-platform .eep-mlaunch{
     display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;
     background:linear-gradient(135deg,#1b3055,#0f1f3a);color:#fff;border:0;border-radius:18px;
-    padding:17px 18px;box-shadow:0 18px 40px -22px rgba(15,31,58,.75);
-    -webkit-tap-highlight-color:transparent;
+    padding:17px 18px;box-shadow:0 18px 40px -22px rgba(15,31,58,.75);-webkit-tap-highlight-color:transparent;
   }
   #ee-platform .eep-mlaunch:active{transform:scale(.99);}
   #ee-platform .eep-mlaunch-play{flex:0 0 auto;width:46px;height:46px;border-radius:50%;
@@ -1712,26 +1745,8 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   #ee-platform .eep-mlaunch-tx i{display:block;font-style:normal;font-size:12.5px;color:#c0cee2;margin-top:3px;line-height:1.35;}
   #ee-platform .eep-mlaunch-arrow{flex:0 0 auto;color:#E8843F;}
   #ee-platform .eep-mlaunch-arrow svg{width:20px;height:20px;}
-  /* launched → full-screen overlay */
-  #ee-platform.eep-launched .eep-window{
-    display:block;position:fixed;inset:0;z-index:99999;width:100%;height:100%;
-    margin:0;border:0;border-radius:0;background:#0f1f3a;box-shadow:none;
-  }
-  #ee-platform.eep-launched .eep-bar{
-    display:flex;align-items:center;gap:9px;height:52px;padding:0 12px;background:#12233f;
-    border-bottom:1px solid rgba(255,255,255,.08);position:relative;z-index:2;
-  }
-  #ee-platform.eep-launched .eep-url{color:#aebfdb;font-size:12px;}
-  #ee-platform.eep-launched .eep-frame{display:block;width:100%;height:calc(100% - 52px);border:0;border-radius:0;background:#fff;}
-  #ee-platform.eep-launched .eep-mbook{
-    display:inline-flex;align-items:center;margin-left:auto;background:linear-gradient(135deg,#E8843F,#DE6E30);
-    color:#fff;text-decoration:none;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:999px;white-space:nowrap;
-  }
-  #ee-platform.eep-launched .eep-close{
-    display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;
-    background:rgba(255,255,255,.14);color:#fff;border:0;font-size:15px;line-height:1;cursor:pointer;flex:0 0 auto;
-  }
-  body.eep-lock{overflow:hidden;}
+  /* when launched on a phone the window is already full-screen (rules above) */
+  #ee-platform.eep-launched .eep-window{display:block;}
 }
 </style>
 <section id="ee-platform" aria-label="Explore the ExtraaEdge platform">
@@ -1747,7 +1762,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <span class="eep-mlaunch-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </button>
     <div class="eep-window">
-      <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span><a class="eep-mbook" href="https://www.extraaedge.com/book-a-demo/">Book now</a><button type="button" class="eep-close" id="eepClose" aria-label="Close experience">&#10005;</button></div>
+      <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span><button type="button" class="eep-expand" id="eepExpand" aria-label="Open full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg> Full screen</button><a class="eep-mbook" href="https://www.extraaedge.com/book-a-demo/">Book now</a><button type="button" class="eep-close" id="eepClose" aria-label="Close experience">&#10005;</button></div>
       <iframe class="eep-frame" title="ExtraaEdge — Lead Management Platform (interactive demo)" id="eepFrame" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" data-srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
@@ -2828,6 +2843,7 @@ body.vg-open .vg-launch{display:none}
   var sec=document.getElementById('ee-platform'); if(!sec) return;
   var fr=document.getElementById('eepFrame');
   var launch=document.getElementById('eepLaunch');
+  var expand=document.getElementById('eepExpand');
   var closeBtn=document.getElementById('eepClose');
   function loadFrame(){
     if(fr && !fr.getAttribute('srcdoc')){
@@ -2840,6 +2856,7 @@ body.vg-open .vg-launch{display:none}
   function openExp(){ loadFrame(); sec.classList.add('eep-launched'); document.body.classList.add('eep-lock'); }
   function closeExp(){ sec.classList.remove('eep-launched'); document.body.classList.remove('eep-lock'); }
   if(launch) launch.addEventListener('click',openExp);
+  if(expand) expand.addEventListener('click',openExp);
   if(closeBtn) closeBtn.addEventListener('click',closeExp);
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && sec.classList.contains('eep-launched')) closeExp(); });
   /* if the viewport grows past mobile while closed, make sure the inline demo is loaded */
