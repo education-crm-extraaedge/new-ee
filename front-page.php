@@ -5982,6 +5982,52 @@ body.vg-open .vg-launch{display:none}
    section is scrolled near, and keep every image fluid on small screens */
 #ee-ind .eei-info-hero,#ee-ind .eei-edt-hero{content-visibility:auto;contain-intrinsic-size:1200px 800px;}
 #ee-ind img{max-width:100%;height:auto;}
+
+/* ======= MOBILE REDESIGN: simple, professional, all info visible ======= */
+@media(max-width:860px){
+  #ee-ind{padding-top:clamp(34px,8vw,52px);padding-bottom:12px;}
+  #ee-ind .eei-wrap{padding:0 16px;}
+  #ee-ind .eei-head{margin:0 auto 22px;}
+  #ee-ind h2{font-size:clamp(25px,7vw,32px);}
+  #ee-ind .eei-sub{font-size:14.5px;}
+  /* strip the dark pinned "stage" chrome — cards stand on their own */
+  #ee-ind:not(.eei-js) .eei-stage{background:transparent;box-shadow:none;border:0;border-radius:0;overflow:visible;margin-bottom:0;height:auto;max-height:none;}
+  #ee-ind:not(.eei-js) .eei-panel{padding:0;overflow:visible;}
+  #ee-ind:not(.eei-js) .eei-slides{height:auto;display:block;}
+  #ee-ind:not(.eei-js) .eei-grid{gap:0;}
+  /* each industry = one clean contained card */
+  #ee-ind:not(.eei-js) .eei-slide,
+  #ee-ind:not(.eei-js) .eei-slide-full{
+    position:relative;inset:auto;display:block;
+    background:#fff;border:1px solid rgba(25,51,93,.10);border-radius:18px;
+    box-shadow:0 14px 34px -26px rgba(25,51,93,.6);
+    padding:20px 18px;margin:0 0 14px;
+  }
+  #ee-ind:not(.eei-js) .eei-slide:last-of-type,
+  #ee-ind:not(.eei-js) .eei-slide-full:last-of-type{margin-bottom:0;}
+  #ee-ind .eei-info-simple,#ee-ind .eei-edt-simple{padding:0;position:relative;inset:auto;display:block;}
+  /* header row: icon + name + one-line scene */
+  #ee-ind .eei-slide-head{display:flex;align-items:center;gap:13px;margin:0 0 15px;}
+  #ee-ind .eei-ico{width:46px;height:46px;border-radius:13px;box-shadow:0 10px 22px -12px rgba(222,110,48,.6);}
+  #ee-ind .eei-ico svg{width:24px;height:24px;}
+  #ee-ind .eei-kicker{font-size:19px;line-height:1.15;}
+  #ee-ind .eei-scene{margin-top:4px;font-size:13px;line-height:1.4;max-width:none;}
+  /* friction -> solution: two clean stacked blocks, no big arrow */
+  #ee-ind .eei-beats{grid-template-columns:1fr;gap:10px;margin:0 0 15px;max-width:none;}
+  #ee-ind .eei-arrow{display:none;}
+  #ee-ind .eei-beat{min-height:0;padding:13px 15px;border-radius:13px;}
+  #ee-ind .eei-beat-lbl{margin-bottom:6px;font-size:10px;}
+  #ee-ind .eei-beat p{font-size:13.5px;line-height:1.5;}
+  /* outcome + CTA row */
+  #ee-ind .eei-foot{align-items:center;gap:12px 16px;}
+  #ee-ind .eei-outcome{font-size:12.5px;padding:9px 14px;}
+  #ee-ind .eei-cta{font-size:14px;font-weight:700;}
+  /* coaching inbox widget stays, just tidy */
+  #ee-ind .eei-info-simple .eei-inbox{margin-bottom:15px;}
+}
+@media(max-width:400px){
+  #ee-ind .eei-info-simple .eei-chan-row{grid-template-columns:1fr 1fr;}
+}
 </style>
 <section id="ee-ind" aria-label="Industries we serve">
 
