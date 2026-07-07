@@ -2816,7 +2816,7 @@ body.vg-open .vg-launch{display:none}
     </div>
     <div class="eep-cta">
       <p class="eep-cta-t">Explored the platform? See it run on <strong>your</strong> admission funnel.</p>
-      <a href="https://www.extraaedge.com/book-a-demo/" class="eep-cta-btn">Book your free demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="https://www.extraaedge.com/book-a-demo/" class="eep-cta-btn">Book demo Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <span class="eep-cta-sub">30-min personalised walkthrough &middot; No credit card</span>
     </div>
   </div>
