@@ -1693,26 +1693,29 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-platform .eep-mlaunch{display:none;}
 #ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}
 
-/* ---- full-screen experience overlay — works on phone, tablet & desktop ---- */
-#ee-platform.eep-launched .eep-window{
-  position:fixed;inset:0;z-index:99999;display:block;width:100vw;height:100vh;height:100dvh;
-  max-width:none;margin:0;border:0;border-radius:0;background:#0f1f3a;box-shadow:none;
+/* ---- full-screen experience overlay — the window is relocated to <body> on
+   open (escapes any transformed/contained ancestor so position:fixed maps to
+   the real viewport) and these rules key off the window's own class ---- */
+.eep-window.eep-launched{
+  position:fixed!important;top:0;right:0;bottom:0;left:0;inset:0;z-index:2147483000;
+  display:block!important;width:100vw;width:100dvw;height:100vh;height:100dvh;
+  max-width:none;margin:0;border:0;border-radius:0;background:#0f1f3a;box-shadow:none;overflow:hidden;
 }
-#ee-platform.eep-launched .eep-bar{
+.eep-window.eep-launched .eep-bar{
   display:flex;align-items:center;gap:10px;height:56px;padding:0 clamp(12px,2vw,20px);
   background:#12233f;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;position:relative;z-index:2;
 }
-#ee-platform.eep-launched .eep-url{color:#aebfdb;font-size:13px;}
-#ee-platform.eep-launched .eep-frame{display:block;width:100%;height:calc(100% - 56px);border:0;border-radius:0;background:#fff;}
-#ee-platform.eep-launched .eep-mbook{
+.eep-window.eep-launched .eep-url{color:#aebfdb;font-size:13px;}
+.eep-window.eep-launched .eep-frame{display:block;width:100%;height:calc(100% - 56px);border:0;border-radius:0;background:#fff;}
+.eep-window.eep-launched .eep-mbook{
   display:inline-flex;align-items:center;margin-left:auto;background:linear-gradient(135deg,#E8843F,#DE6E30);
   color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:9px 16px;border-radius:999px;white-space:nowrap;
 }
-#ee-platform.eep-launched .eep-close{
+.eep-window.eep-launched .eep-close{
   display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;
   background:rgba(255,255,255,.14);color:#fff;border:0;font-size:15px;line-height:1;cursor:pointer;flex:0 0 auto;
 }
-#ee-platform.eep-launched .eep-expand{display:none !important;}
+.eep-window.eep-launched .eep-expand{display:none !important;}
 body.eep-lock{overflow:hidden;}
 
 /* ---- desktop / tablet: keep the inline demo + a "Full screen" button ---- */
@@ -1745,8 +1748,8 @@ body.eep-lock{overflow:hidden;}
   #ee-platform .eep-mlaunch-tx i{display:block;font-style:normal;font-size:12.5px;color:#c0cee2;margin-top:3px;line-height:1.35;}
   #ee-platform .eep-mlaunch-arrow{flex:0 0 auto;color:#E8843F;}
   #ee-platform .eep-mlaunch-arrow svg{width:20px;height:20px;}
-  /* when launched on a phone the window is already full-screen (rules above) */
-  #ee-platform.eep-launched .eep-window{display:block;}
+  /* when launched on a phone the window is relocated to <body> and full-screen (rules above) */
+  .eep-window.eep-launched{display:block;}
 }
 </style>
 <section id="ee-platform" aria-label="Explore the ExtraaEdge platform">
@@ -2845,6 +2848,8 @@ body.vg-open .vg-launch{display:none}
   var launch=document.getElementById('eepLaunch');
   var expand=document.getElementById('eepExpand');
   var closeBtn=document.getElementById('eepClose');
+  var winEl=sec.querySelector('.eep-window');
+  var winHome=null, winNext=null;   /* remembers where the window lived so we can put it back */
   function loadFrame(){
     if(fr && !fr.getAttribute('srcdoc')){
       var doc=fr.getAttribute('data-srcdoc');
@@ -2855,9 +2860,10 @@ body.vg-open .vg-launch{display:none}
   if(!mq.matches){ loadFrame(); }           /* desktop: load inline as before */
   /* on phones the demo has a fixed ~460px min layout, so scale it to fill the
      viewport width (full-width, nothing clipped); desktop shows it at native size */
+  function isOpen(){ return !!(winEl && winEl.classList.contains('eep-launched')); }
   function fitFrame(){
     if(!fr) return;
-    if(sec.classList.contains('eep-launched') && mq.matches){
+    if(isOpen() && mq.matches){
       var base=460, barH=56;
       var vw=document.documentElement.clientWidth||window.innerWidth;
       var availH=(window.innerHeight||document.documentElement.clientHeight)-barH;
@@ -2870,14 +2876,32 @@ body.vg-open .vg-launch{display:none}
       fr.style.width='';fr.style.height='';fr.style.transform='';fr.style.transformOrigin='';
     }
   }
-  function openExp(){ loadFrame(); sec.classList.add('eep-launched'); document.body.classList.add('eep-lock'); fitFrame(); setTimeout(fitFrame,60); }
-  function closeExp(){ sec.classList.remove('eep-launched'); document.body.classList.remove('eep-lock'); fitFrame(); }
-  window.addEventListener('resize',function(){ if(sec.classList.contains('eep-launched')) fitFrame(); });
+  function openExp(){
+    if(!winEl) return;
+    loadFrame();
+    /* relocate the window to <body> so position:fixed escapes any ancestor that
+       establishes a containing block (transform/filter/contain/perspective) */
+    if(winEl.parentNode!==document.body){
+      winHome=winEl.parentNode; winNext=winEl.nextSibling;
+      document.body.appendChild(winEl);
+    }
+    winEl.classList.add('eep-launched');
+    document.body.classList.add('eep-lock');
+    fitFrame(); setTimeout(fitFrame,60);
+  }
+  function closeExp(){
+    if(winEl) winEl.classList.remove('eep-launched');
+    document.body.classList.remove('eep-lock');
+    /* put the window back exactly where it came from */
+    if(winEl && winHome){ winHome.insertBefore(winEl, winNext); winHome=null; winNext=null; }
+    fitFrame();
+  }
+  window.addEventListener('resize',function(){ if(isOpen()) fitFrame(); });
   window.addEventListener('orientationchange',function(){ setTimeout(fitFrame,120); });
   if(launch) launch.addEventListener('click',openExp);
   if(expand) expand.addEventListener('click',openExp);
   if(closeBtn) closeBtn.addEventListener('click',closeExp);
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && sec.classList.contains('eep-launched')) closeExp(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && isOpen()) closeExp(); });
   /* if the viewport grows past mobile while closed, make sure the inline demo is loaded */
   (mq.addEventListener?mq.addEventListener.bind(mq,'change'):mq.addListener.bind(mq))(function(){ if(!mq.matches){ closeExp(); loadFrame(); } });
 })();
