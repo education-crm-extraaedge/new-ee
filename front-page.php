@@ -2735,9 +2735,9 @@ body.vg-open .vg-launch{display:none}
   tDock.innerHTML='<button class=&quot;dbtn restart&quot; title=&quot;Restart&quot;>'+si('<path d=&quot;M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z&quot;/>')+'</button><button class=&quot;dbtn play&quot; title=&quot;Play / Pause&quot;></button><div class=&quot;ddots&quot;></div><span class=&quot;lbl&quot;>Product tour</span><button class=&quot;dbtn close&quot; title=&quot;Close&quot;>'+si('<path d=&quot;M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z&quot;/>')+'</button>';
   document.body.appendChild(tDock);
   var demoCta=document.createElement('div'); demoCta.className='demo-cta';
-  demoCta.innerHTML=si('<path d=&quot;M7 2v3M17 2v3M3.5 9h17M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z&quot;/>')+' Book a free demo';
+  demoCta.innerHTML=si('<path d=&quot;M7 2v3M17 2v3M3.5 9h17M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z&quot;/>')+' Book a demo';
   document.body.appendChild(demoCta);
-  demoCta.addEventListener('click',function(){ toast('📅','Demo request','Our team will reach out within the hour'); });
+  demoCta.addEventListener('click',function(){ window.open('https://www.extraaedge.com/book-a-demo/','_blank','noopener'); });
   var PLAY=si('<path d=&quot;M8 5v14l11-7z&quot;/>'), PAUSE=si('<path d=&quot;M6 5h4v14H6zM14 5h4v14h-4z&quot;/>');
   var playBtn=tDock.querySelector('.play'), ddots=tDock.querySelector('.ddots'), lbl=tDock.querySelector('.lbl'), tipDots=tTip.querySelector('.dts');
   var TSTEPS=[
@@ -2750,7 +2750,7 @@ body.vg-open .vg-launch{display:none}
     {v:'leads',sel:'.view[data-v=&quot;leads&quot;] .lead',t:'Lead Manager · every lead, organised',b:'Open any lead to see its full history, contact details and status.'},
     {v:'wa',sel:'#waList',t:'WhatsApp Chat · talk directly',b:'Reach students where they reply. Every chat syncs to the lead.'},
     {v:'workflow',sel:'#wfGrid',t:'Automation working for you',b:'Follow-ups and WhatsApp journeys run automatically in the background.'},
-    {v:'mgmt',sel:'.demo-cta',t:'Want this on your funnel?',b:'Lead capture → calling → WhatsApp → conversion — all in one window. Book a free demo.'}
+    {v:'mgmt',sel:'.demo-cta',t:'Want this on your funnel?',b:'Lead capture → calling → WhatsApp → conversion — all in one window. Book a demo.'}
   ];
   var tIdx=-1, tTimer=null, tRun=false, TDUR=6500;
   TSTEPS.forEach(function(_,i){var a=document.createElement('b');a.addEventListener('click',function(){tGo(i);});tipDots.appendChild(a);var b=document.createElement('b');b.addEventListener('click',function(){tGo(i);});ddots.appendChild(b);});
