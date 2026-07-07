@@ -2738,6 +2738,14 @@ body.vg-open .vg-launch{display:none}
   demoCta.innerHTML=si('<path d=&quot;M7 2v3M17 2v3M3.5 9h17M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z&quot;/>')+' Book a demo';
   document.body.appendChild(demoCta);
   demoCta.addEventListener('click',function(){ window.open('https://www.extraaedge.com/book-a-demo/','_blank','noopener'); });
+  /* Explore mode: any click outside the left menu / tour controls sends the user to booking */
+  var BOOK_DEMO_URL='https://www.extraaedge.com/book-a-demo/';
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    if(t && t.closest && t.closest('#side,#burger,#scrim,.tour-tip,.tour-dock,.tour-spot,.demo-cta,.toasts,.toast')) return;
+    e.preventDefault(); e.stopPropagation();
+    window.open(BOOK_DEMO_URL,'_blank','noopener');
+  },true);
   var PLAY=si('<path d=&quot;M8 5v14l11-7z&quot;/>'), PAUSE=si('<path d=&quot;M6 5h4v14H6zM14 5h4v14h-4z&quot;/>');
   var playBtn=tDock.querySelector('.play'), ddots=tDock.querySelector('.ddots'), lbl=tDock.querySelector('.lbl'), tipDots=tTip.querySelector('.dts');
   var TSTEPS=[
