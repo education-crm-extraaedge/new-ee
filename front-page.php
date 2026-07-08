@@ -1310,6 +1310,143 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   #xhero h1 .accent svg path{stroke-dashoffset:0}
 }
 </style>
+
+<!-- ===================== EE · QUICK TABLE OF CONTENTS (scoped #ee-toc) ===================== -->
+<style>
+  /* keep anchored jumps clear of any sticky chrome */
+  #xhero,#trusted-institutions,#ee-platform,#ee-products,#ee-vidya-suite,#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#ee-night,#integrations,#security,#ee-golive,#ee-resources,#ee-events,#faq{scroll-margin-top:86px}
+
+  #ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}
+  #ee-toc button,#ee-toc a{font-family:inherit}
+  /* launcher */
+  #ee-toc .eetoc-fab{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:99990;
+    display:flex;align-items:center;gap:8px;height:46px;padding:0 15px 0 13px;border:0;cursor:pointer;
+    background:linear-gradient(135deg,#22406e,#19335D);color:#fff;border-radius:999px;
+    box-shadow:0 14px 30px -10px rgba(25,51,93,.55),0 0 0 1px rgba(255,255,255,.06) inset;
+    transition:transform .18s ease,box-shadow .18s ease;-webkit-tap-highlight-color:transparent}
+  #ee-toc .eetoc-fab:hover{transform:translateY(-50%) scale(1.04);box-shadow:0 18px 40px -12px rgba(25,51,93,.65)}
+  #ee-toc .eetoc-fab svg{width:18px;height:18px;flex:none}
+  #ee-toc .eetoc-fab-tx{font-size:13px;font-weight:700;letter-spacing:.01em;white-space:nowrap}
+  /* backdrop */
+  #ee-toc .eetoc-backdrop{position:fixed;inset:0;z-index:99991;background:rgba(9,18,38,.42);
+    opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease;backdrop-filter:blur(2px)}
+  #ee-toc.open .eetoc-backdrop{opacity:1;visibility:visible}
+  /* panel */
+  #ee-toc .eetoc-panel{position:fixed;right:16px;top:50%;transform:translateY(-50%) translateX(14px) scale(.98);
+    z-index:99992;width:296px;max-width:calc(100vw - 32px);max-height:80vh;display:flex;flex-direction:column;
+    background:#fff;border-radius:18px;border:1px solid #EAEDF3;overflow:hidden;
+    box-shadow:0 40px 90px -30px rgba(15,25,50,.5),0 0 0 1px rgba(25,51,93,.04);
+    opacity:0;visibility:hidden;pointer-events:none;transition:opacity .24s ease,transform .24s ease,visibility .24s ease}
+  #ee-toc.open .eetoc-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(-50%) translateX(0) scale(1)}
+  #ee-toc .eetoc-head{display:flex;align-items:center;justify-content:space-between;padding:15px 16px 12px;border-bottom:1px solid #F0F2F7}
+  #ee-toc .eetoc-head b{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#DE6E30}
+  #ee-toc .eetoc-x{width:28px;height:28px;border-radius:50%;border:0;cursor:pointer;background:#F4F6FA;color:#5A6B85;
+    font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
+  #ee-toc .eetoc-x:hover{background:#FDEDE2;color:#DE6E30}
+  #ee-toc .eetoc-list{list-style:none;margin:0;padding:8px 8px 4px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  #ee-toc .eetoc-list::-webkit-scrollbar{width:7px}
+  #ee-toc .eetoc-list::-webkit-scrollbar-thumb{background:#DDE3EC;border-radius:8px}
+  #ee-toc .eetoc-list a{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:11px;text-decoration:none;
+    color:#22314A;transition:background .16s ease,color .16s ease}
+  #ee-toc .eetoc-list a:hover{background:#F5F7FB}
+  #ee-toc .eetoc-list a i{flex:none;width:22px;font-size:10px;font-weight:700;font-style:normal;color:#AAB4C4;
+    font-variant-numeric:tabular-nums;letter-spacing:.02em;transition:color .16s ease}
+  #ee-toc .eetoc-list a span{font-size:13px;font-weight:600;line-height:1.3}
+  #ee-toc .eetoc-list a.active{background:linear-gradient(135deg,rgba(222,110,48,.12),rgba(222,110,48,.05));color:#C45A20}
+  #ee-toc .eetoc-list a.active i{color:#DE6E30}
+  #ee-toc .eetoc-cta{margin:8px 12px 14px;display:flex;align-items:center;justify-content:center;gap:8px;
+    background:linear-gradient(90deg,#E8843F,#DE6E30);color:#fff;text-decoration:none;font-size:13.5px;font-weight:800;
+    padding:12px 16px;border-radius:12px;box-shadow:0 12px 26px -10px rgba(222,110,48,.6);transition:transform .15s ease,box-shadow .15s ease}
+  #ee-toc .eetoc-cta:hover{transform:translateY(-1px);box-shadow:0 16px 32px -10px rgba(222,110,48,.7)}
+  #ee-toc .eetoc-cta svg{width:15px;height:15px}
+
+  @media(max-width:600px){
+    #ee-toc .eetoc-fab{top:auto;bottom:84px;transform:none;height:44px}
+    #ee-toc .eetoc-fab:hover{transform:scale(1.03)}
+    #ee-toc .eetoc-fab-tx{display:none}
+    #ee-toc .eetoc-fab{width:46px;padding:0;justify-content:center}
+    #ee-toc .eetoc-panel{right:12px;left:12px;bottom:14px;top:auto;width:auto;max-width:none;
+      transform:translateY(14px) scale(.99);max-height:74vh}
+    #ee-toc.open .eetoc-panel{transform:translateY(0) scale(1)}
+  }
+  @media(prefers-reduced-motion:reduce){
+    #ee-toc .eetoc-fab,#ee-toc .eetoc-panel,#ee-toc .eetoc-backdrop{transition:none}
+  }
+</style>
+<div id="ee-toc">
+  <button type="button" class="eetoc-fab" id="eetocFab" aria-label="Open table of contents" aria-expanded="false" aria-controls="eetocPanel">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+    <span class="eetoc-fab-tx">Contents</span>
+  </button>
+  <div class="eetoc-backdrop" id="eetocBackdrop" aria-hidden="true"></div>
+  <nav class="eetoc-panel" id="eetocPanel" aria-label="Table of contents">
+    <div class="eetoc-head"><b>Jump to section</b><button type="button" class="eetoc-x" id="eetocClose" aria-label="Close table of contents">&#10005;</button></div>
+    <ul class="eetoc-list">
+      <li><a href="#xhero" data-t="xhero"><i>01</i><span>Top</span></a></li>
+      <li><a href="#trusted-institutions" data-t="trusted-institutions"><i>02</i><span>Broad Client Base</span></a></li>
+      <li><a href="#ee-platform" data-t="ee-platform"><i>03</i><span>AI Product-Led Experience</span></a></li>
+      <li><a href="#ee-products" data-t="ee-products"><i>04</i><span>The admissions platform</span></a></li>
+      <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>05</i><span>Agentic AI Suite</span></a></li>
+      <li><a href="#ee-teams" data-t="ee-teams"><i>06</i><span>One platform, every team</span></a></li>
+      <li><a href="#ee-solutions" data-t="ee-solutions"><i>07</i><span>Solutions</span></a></li>
+      <li><a href="#ee-ind" data-t="ee-ind"><i>08</i><span>Industries</span></a></li>
+      <li><a href="#stories" data-t="stories"><i>09</i><span>CRM Impact Stories</span></a></li>
+      <li><a href="#ee-cro" data-t="ee-cro"><i>10</i><span>Why teams switch to us</span></a></li>
+      <li><a href="#ee-night" data-t="ee-night"><i>11</i><span>The Admission Operating System</span></a></li>
+      <li><a href="#integrations" data-t="integrations"><i>12</i><span>Extensions &amp; Integrations</span></a></li>
+      <li><a href="#security" data-t="security"><i>13</i><span>Enterprise-grade trust</span></a></li>
+      <li><a href="#ee-golive" data-t="ee-golive"><i>14</i><span>Fast implementation</span></a></li>
+      <li><a href="#ee-resources" data-t="ee-resources"><i>15</i><span>Resources</span></a></li>
+      <li><a href="#ee-events" data-t="ee-events"><i>16</i><span>Events &amp; Webinars</span></a></li>
+      <li><a href="#faq" data-t="faq"><i>17</i><span>Frequently Asked</span></a></li>
+    </ul>
+    <a class="eetoc-cta" href="https://www.extraaedge.com/book-a-demo/" target="_blank" rel="noopener">Book DEMO Now
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </nav>
+</div>
+<script>
+(function(){
+  function init(){
+  var root=document.getElementById('ee-toc'); if(!root) return;
+  var fab=document.getElementById('eetocFab'),
+      panel=document.getElementById('eetocPanel'),
+      closeBtn=document.getElementById('eetocClose'),
+      backdrop=document.getElementById('eetocBackdrop'),
+      links=[].slice.call(root.querySelectorAll('.eetoc-list a'));
+  function open(){ root.classList.add('open'); fab.setAttribute('aria-expanded','true'); }
+  function close(){ root.classList.remove('open'); fab.setAttribute('aria-expanded','false'); }
+  function toggle(){ root.classList.contains('open')?close():open(); }
+  fab.addEventListener('click',toggle);
+  closeBtn.addEventListener('click',close);
+  backdrop.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&root.classList.contains('open')) close(); });
+  links.forEach(function(a){ a.addEventListener('click',function(){ close(); }); });
+  /* scroll-spy: highlight the section currently in view */
+  var byId={}; links.forEach(function(a){ byId[a.getAttribute('data-t')]=a; });
+  var targets=links.map(function(a){ return document.getElementById(a.getAttribute('data-t')); }).filter(Boolean);
+  function setActive(a){ links.forEach(function(l){ l.classList.toggle('active',l===a); });
+    if(a && root.classList.contains('open')){ var p=a.parentNode; if(p&&p.scrollIntoView){ /* keep active visible */ var lp=a.offsetTop, lb=panel.querySelector('.eetoc-list'); if(lb){ if(lp<lb.scrollTop||lp>lb.scrollTop+lb.clientHeight){ lb.scrollTop=lp-60; } } } }
+  }
+  /* pick the last section whose top has crossed ~35% of the viewport */
+  var tick=false;
+  function onScroll(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){
+      tick=false;
+      var line=(window.innerHeight||document.documentElement.clientHeight)*0.35, curId=targets[0]&&targets[0].id;
+      for(var i=0;i<targets.length;i++){ if(targets[i].getBoundingClientRect().top<=line) curId=targets[i].id; else break; }
+      if(curId&&byId[curId]) setActive(byId[curId]);
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll,{passive:true});
+  onScroll();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+<!-- ===================== /EE · QUICK TABLE OF CONTENTS ===================== -->
+
 <section id="xhero" aria-label="ExtraaEdge AI-Powered Admission CRM">
   <canvas id="glsl" aria-hidden="true"></canvas>
   <div class="hero__veil" aria-hidden="true"></div>
