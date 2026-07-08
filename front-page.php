@@ -1532,34 +1532,42 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   ];
   var el=document.getElementById('heroRot'); if(!el) return;
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var CARET='<span class="hero-caret" aria-hidden="true"></span>';
+  if(reduce){ var d0=DATA[0]; el.innerHTML=d0.pre+'<span class="accent">'+d0.acc+'</span>'; return; }
+
+  /* Build stable child nodes ONCE. Typing then only mutates their text content —
+     no per-keystroke innerHTML reparse/reflow (that was the stutter), and the
+     caret keeps its own steady blink instead of being recreated every frame. */
+  var pre=document.createElement('span');
+  var acc=document.createElement('span'); acc.className='accent';
+  var caret=document.createElement('span'); caret.className='hero-caret'; caret.setAttribute('aria-hidden','true');
+  el.textContent=''; el.appendChild(pre); el.appendChild(acc); el.appendChild(caret);
+
   var i=0,n=0,paused=false,t=null;
-  function paint(k){
-    var d=DATA[i], full=d.pre+d.acc, txt=full.slice(0,k), html;
-    if(k<=d.pre.length){ html=txt; }
-    else { html=d.pre+'<span class="accent">'+txt.slice(d.pre.length)+'</span>'; }
-    el.innerHTML=html+CARET;
+  var TYPE=26, DEL=12, HOLD=1600, GAP=260, START_HOLD=2000;   /* even cadence, no random jitter */
+  function render(k){
+    var d=DATA[i], pl=d.pre.length;
+    if(k<=pl){ pre.textContent=d.pre.slice(0,k); acc.textContent=''; }
+    else { pre.textContent=d.pre; acc.textContent=d.acc.slice(0,k-pl); }
   }
   function typeLoop(){
-    if(paused){ t=setTimeout(typeLoop,300); return; }
+    if(paused){ t=setTimeout(typeLoop,200); return; }
     var full=DATA[i].pre.length+DATA[i].acc.length;
-    n++; paint(n);
-    if(n>=full){ t=setTimeout(delLoop,1900); return; }
-    t=setTimeout(typeLoop, 30+Math.random()*36);
+    n++; render(n);
+    if(n>=full){ t=setTimeout(delLoop,HOLD); return; }
+    t=setTimeout(typeLoop,TYPE);
   }
   function delLoop(){
-    if(paused){ t=setTimeout(delLoop,300); return; }
-    n--; paint(n<0?0:n);
-    if(n<=0){ n=0; i=(i+1)%DATA.length; t=setTimeout(typeLoop,300); return; }
-    t=setTimeout(delLoop,15);
+    if(paused){ t=setTimeout(delLoop,200); return; }
+    n--; render(n<0?0:n);
+    if(n<=0){ n=0; i=(i+1)%DATA.length; t=setTimeout(typeLoop,GAP); return; }
+    t=setTimeout(delLoop,DEL);
   }
-  if(reduce){ var d=DATA[0]; el.innerHTML=d.pre+'<span class="accent">'+d.acc+'</span>'; return; }
-  n=DATA[0].pre.length+DATA[0].acc.length; paint(n);   /* start fully showing headline 1 (no flash, SEO-friendly) */
-  t=setTimeout(delLoop,2200);
-  var host=document.getElementById('xhero')||el;
-  host.addEventListener('mouseenter',function(){paused=true;});
-  host.addEventListener('mouseleave',function(){paused=false;});
-  document.addEventListener('visibilitychange',function(){paused=document.hidden;});
+  /* start fully showing headline 1 (SEO-friendly, no flash), then cycle */
+  n=DATA[0].pre.length+DATA[0].acc.length; render(n);
+  t=setTimeout(delLoop,START_HOLD);
+  /* pause only when the tab is hidden — no hover pause (hovering the full-viewport
+     hero was freezing the animation mid-word) */
+  document.addEventListener('visibilitychange',function(){ paused=document.hidden; if(!paused){ /* resume promptly */ } });
 })();
 </script>
 <script>
