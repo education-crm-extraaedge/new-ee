@@ -12126,4 +12126,56 @@ body.ee-home{ background:#ffffff!important; }
 /* plain white section backgrounds (keeps intentional dark component panels intact) */
 #ee-products,#ee-teams,#ee-solutions,#ee-resources,#ee-events,#ee-industries{ background:#ffffff!important; }
 </style>
+
+<!-- ===================== EE · SMOOTH INERTIA SCROLL (desktop wheel, scoped/guarded) ===================== -->
+<script>
+(function(){
+  var docEl=document.documentElement;
+  try{
+    if(matchMedia('(pointer:coarse)').matches) return;            // touch already scrolls smoothly
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  }catch(e){ return; }
+  if(!('requestAnimationFrame' in window)) return;
+
+  var target=window.scrollY||window.pageYOffset||0, current=target, running=false;
+  var EASE=0.2;                                                   // snappy, not laggy
+  function maxScroll(){ return Math.max(0, docEl.scrollHeight - window.innerHeight); }
+  /* let native handle the wheel when it's over a scrollable inner element
+     (TOC list, horizontal rails, etc.) that can still move in this direction */
+  function innerScrollable(node, dir){
+    while(node && node!==document.body && node!==docEl && node.nodeType===1){
+      var s=window.getComputedStyle(node), oy=s.overflowY;
+      if((oy==='auto'||oy==='scroll') && node.scrollHeight>node.clientHeight+2){
+        if(dir<0 && node.scrollTop>0) return true;
+        if(dir>0 && node.scrollTop+node.clientHeight < node.scrollHeight-1) return true;
+      }
+      node=node.parentNode;
+    }
+    return false;
+  }
+  function step(){
+    current += (target-current)*EASE;
+    if(Math.abs(target-current)<0.5){ current=target; running=false; }
+    window.scrollTo({top:Math.round(current), left:0, behavior:'instant'});  // 'instant' so CSS smooth doesn't double-animate
+    if(running) requestAnimationFrame(step);
+  }
+  function onWheel(e){
+    if(e.ctrlKey || e.deltaMode!==0) return;                      // pinch-zoom / line|page mode -> native
+    if(Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;           // horizontal intent -> native
+    if(innerScrollable(e.target, e.deltaY)) return;               // inner scroller -> native
+    var mx=maxScroll();
+    if(!running){ current=target=(window.scrollY||window.pageYOffset||0); }
+    var nt=Math.max(0, Math.min(mx, target + e.deltaY));
+    if(nt===target) return;                                       // at an edge -> let the browser handle it
+    target=nt;
+    e.preventDefault();
+    if(!running){ running=true; requestAnimationFrame(step); }
+  }
+  /* keep our target in sync with any non-wheel scrolling (scrollbar drag, keys, anchor jumps) */
+  window.addEventListener('scroll', function(){ if(!running){ current=target=(window.scrollY||window.pageYOffset||0); } }, {passive:true});
+  window.addEventListener('wheel', onWheel, {passive:false});
+})();
+</script>
+<!-- ===================== /EE · SMOOTH INERTIA SCROLL ===================== -->
+
 <?php get_footer(); ?>
