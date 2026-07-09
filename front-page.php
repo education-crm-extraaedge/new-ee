@@ -3199,8 +3199,8 @@ body.vg-open .vg-launch{display:none}
   #ee-products .eep-chip{ flex:0 0 auto; width:40px; height:40px; border-radius:11px; display:grid; place-items:center; background:linear-gradient(135deg, color-mix(in srgb,var(--cardacc,#DE6E30) 88%,#fff), var(--cardacc,#DE6E30)); box-shadow:0 6px 14px -7px var(--cardacc,rgba(222,110,48,.6)), inset 0 1px 0 rgba(255,255,255,.3); }
   #ee-products .eep-chip svg{ width:21px; height:21px; } #ee-products .eep-chip svg *{ stroke:#fff; }
   /* product icon shown as a logo image */
-  #ee-products .eep-chip:has(img.eep-ic-img), #ee-products .eep-spot-icon:has(img.eep-ic-img){ background:#fff; padding:0; overflow:hidden; }
-  #ee-products .eep-ic-img{ width:100%; height:100%; object-fit:contain; display:block; border-radius:inherit; }
+  #ee-products .eep-chip:has(img.eep-ic-img), #ee-products .eep-spot-icon:has(img.eep-ic-img){ background:transparent; padding:0; overflow:hidden; box-shadow:none; }
+  #ee-products .eep-ic-img{ width:100%; height:100%; object-fit:cover; display:block; border-radius:inherit; }
   #ee-products .eep-card-title{ font-family:'Poppins','Inter',sans-serif; font-size:14.5px; font-weight:600; line-height:1.25; letter-spacing:-.01em; color:var(--navy); display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
   #ee-products .eep-badge{ font-size:9px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#fff; background:var(--orange); padding:2px 6px; border-radius:999px; }
   #ee-products .eep-card-desc{ font-size:12.5px; line-height:1.5; color:var(--muted); margin:0; }
@@ -3689,8 +3689,8 @@ body.vg-open .vg-launch{display:none}
     box-shadow:0 14px 30px -12px var(--ca,#22D3EE), inset 0 1px 0 rgba(255,255,255,.3); }
   #ee-vidya-suite .vsx-ic svg{ width:36px; height:36px; } #ee-vidya-suite .vsx-ic svg *{ stroke:#fff; }
   /* brand icon image tiles */
-  #ee-vidya-suite .vsx-ic.vsx-ic--img{ background:#fff; padding:0; overflow:hidden; }
-  #ee-vidya-suite .vsx-ic.vsx-ic--img img{ width:100%; height:100%; object-fit:contain; display:block; border-radius:inherit; }
+  #ee-vidya-suite .vsx-ic.vsx-ic--img{ background:transparent; padding:0; overflow:hidden; }
+  #ee-vidya-suite .vsx-ic.vsx-ic--img img{ width:100%; height:100%; object-fit:cover; display:block; border-radius:inherit; }
   #ee-vidya-suite .vsx-card h3{ font-family:'Poppins','Inter',sans-serif; font-weight:600; font-size:21px; color:#fff; margin:4px 0 0; letter-spacing:-.01em; }
   #ee-vidya-suite .vsx-card .vsx-desc{ font-size:13.5px; line-height:1.55; color:#c2cfe4; margin:0; }
 
