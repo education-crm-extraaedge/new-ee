@@ -3082,6 +3082,7 @@ body.vg-open .vg-launch{display:none}
   /* ---------- Header ---------- */
   #ee-products .eep-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin-bottom:clamp(26px,3vw,38px); }
   #ee-products .eep-head-l{ max-width:660px; }
+  #ee-products .eep-logo{ display:block; height:clamp(38px,4.6vw,54px); width:auto; max-width:230px; object-fit:contain; margin-bottom:16px; }
   #ee-products .eep-eyebrow{
     display:inline-flex; align-items:center; gap:9px;
     padding:7px 14px 7px 11px; border-radius:999px;
@@ -3295,6 +3296,7 @@ body.vg-open .vg-launch{display:none}
 
     <div class="eep-head">
       <div class="eep-head-l">
+        <img class="eep-logo" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/mobile-crm-logo.png" alt="ExtraaEdge Admissions CRM" loading="lazy" decoding="async" onerror="this.remove()">
         <span class="eep-eyebrow"><span class="eep-dot" aria-hidden="true"></span>The admissions platform</span>
         <h2>One platform. <span class="eep-accent">Every admissions tool.</span></h2>
         <p class="eep-sub">From first enquiry to enrolled — explore the suite. Hover any product to see it come alive on the left.</p>
