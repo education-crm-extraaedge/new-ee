@@ -3082,7 +3082,6 @@ body.vg-open .vg-launch{display:none}
   /* ---------- Header ---------- */
   #ee-products .eep-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin-bottom:clamp(26px,3vw,38px); }
   #ee-products .eep-head-l{ max-width:660px; }
-  #ee-products .eep-logo{ display:block; height:clamp(38px,4.6vw,54px); width:auto; max-width:230px; object-fit:contain; margin-bottom:16px; }
   #ee-products .eep-eyebrow{
     display:inline-flex; align-items:center; gap:9px;
     padding:7px 14px 7px 11px; border-radius:999px;
@@ -3199,6 +3198,9 @@ body.vg-open .vg-launch{display:none}
   #ee-products .eep-card-top{ display:flex; align-items:center; gap:11px; }
   #ee-products .eep-chip{ flex:0 0 auto; width:40px; height:40px; border-radius:11px; display:grid; place-items:center; background:linear-gradient(135deg, color-mix(in srgb,var(--cardacc,#DE6E30) 88%,#fff), var(--cardacc,#DE6E30)); box-shadow:0 6px 14px -7px var(--cardacc,rgba(222,110,48,.6)), inset 0 1px 0 rgba(255,255,255,.3); }
   #ee-products .eep-chip svg{ width:21px; height:21px; } #ee-products .eep-chip svg *{ stroke:#fff; }
+  /* product icon shown as a logo image */
+  #ee-products .eep-chip:has(img.eep-ic-img), #ee-products .eep-spot-icon:has(img.eep-ic-img){ background:#fff; padding:0; overflow:hidden; }
+  #ee-products .eep-ic-img{ width:100%; height:100%; object-fit:contain; display:block; border-radius:inherit; }
   #ee-products .eep-card-title{ font-family:'Poppins','Inter',sans-serif; font-size:14.5px; font-weight:600; line-height:1.25; letter-spacing:-.01em; color:var(--navy); display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
   #ee-products .eep-badge{ font-size:9px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#fff; background:var(--orange); padding:2px 6px; border-radius:999px; }
   #ee-products .eep-card-desc{ font-size:12.5px; line-height:1.5; color:var(--muted); margin:0; }
@@ -3296,7 +3298,6 @@ body.vg-open .vg-launch{display:none}
 
     <div class="eep-head">
       <div class="eep-head-l">
-        <img class="eep-logo" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/mobile-crm-logo.png" alt="ExtraaEdge Admissions CRM" loading="lazy" decoding="async" onerror="this.remove()">
         <span class="eep-eyebrow"><span class="eep-dot" aria-hidden="true"></span>The admissions platform</span>
         <h2>One platform. <span class="eep-accent">Every admissions tool.</span></h2>
         <p class="eep-sub">From first enquiry to enrolled — explore the suite. Hover any product to see it come alive on the left.</p>
@@ -3389,6 +3390,7 @@ body.vg-open .vg-launch{display:none}
         l:'Built for admissions, not retrofitted from sales. One view of every enquiry, every counsellor and every campus — so nothing slips between teams.',
         tags:['360° enquiry view','Counsellor workflows','Multi-campus ready']},
       {id:'mob-crm', t:'Mobile CRM', badge:'New', cat:'platform', ic:'phone', href:'#demo',
+        img:'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/mobile-crm-logo.png',
         d:'Run admissions from your pocket — call, follow up and close on the go.',
         l:'Your full pipeline on mobile. Counsellors call, log and follow up from anywhere, with reminders that keep every lead moving.',
         tags:['Call from your phone','Push reminders','Works on the move']},
@@ -3473,6 +3475,9 @@ body.vg-open .vg-launch{display:none}
       filtersEl.appendChild(b);
     });
 
+    /* icon HTML: a logo image when the product provides one, otherwise the glyph */
+    function ico(p){ return p.img ? '<img class="eep-ic-img" src="'+p.img+'" alt="" loading="lazy" decoding="async">' : IC[p.ic]; }
+
     /* ---- build cards ---- */
     var grid = document.getElementById('eepGrid');
     var emptyEl = document.getElementById('eepEmpty');
@@ -3483,7 +3488,7 @@ body.vg-open .vg-launch{display:none}
       a.dataset.search=(p.t+' '+p.d+' '+p.tags.join(' ')+' '+c.label).toLowerCase();
       a.style.setProperty('--cardacc', c.acc);
       a.innerHTML=''+
-        '<div class="eep-card-top"><span class="eep-chip" aria-hidden="true">'+IC[p.ic]+'</span>'+
+        '<div class="eep-card-top"><span class="eep-chip" aria-hidden="true">'+ico(p)+'</span>'+
         '<span class="eep-card-title">'+p.t+(p.badge?' <span class="eep-badge">'+p.badge+'</span>':'')+'</span></div>'+
         '<p class="eep-card-desc">'+p.d+'</p>'+
         '<div class="eep-card-foot"><span class="eep-card-cat">'+c.label+'</span>'+
@@ -3506,7 +3511,7 @@ body.vg-open .vg-launch{display:none}
       spot.style.setProperty('--acc', c.acc);
       spot.style.setProperty('--acc-soft', hexA(c.acc,.18));
       sCat.textContent=c.label;
-      sIcon.innerHTML=IC[p.ic];
+      sIcon.innerHTML=ico(p);
       sTitle.innerHTML=p.t+(p.badge?' <span class="eep-new">'+p.badge+'</span>':'');
       sDesc.textContent=p.l;
       sTags.innerHTML=p.tags.map(function(t){return '<span>'+t+'</span>';}).join('');
