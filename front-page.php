@@ -3390,7 +3390,6 @@ body.vg-open .vg-launch{display:none}
         l:'Built for admissions, not retrofitted from sales. One view of every enquiry, every counsellor and every campus — so nothing slips between teams.',
         tags:['360° enquiry view','Counsellor workflows','Multi-campus ready']},
       {id:'mob-crm', t:'Mobile CRM', badge:'New', cat:'platform', ic:'phone', href:'#demo',
-        img:'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/mobile-crm-logo.png',
         d:'Run admissions from your pocket — call, follow up and close on the go.',
         l:'Your full pipeline on mobile. Counsellors call, log and follow up from anywhere, with reminders that keep every lead moving.',
         tags:['Call from your phone','Push reminders','Works on the move']},
@@ -3475,8 +3474,10 @@ body.vg-open .vg-launch{display:none}
       filtersEl.appendChild(b);
     });
 
-    /* icon HTML: a logo image when the product provides one, otherwise the glyph */
-    function ico(p){ return p.img ? '<img class="eep-ic-img" src="'+p.img+'" alt="" loading="lazy" decoding="async">' : IC[p.ic]; }
+    /* brand logo per product; falls back to the glyph icon if none is mapped */
+    var LOGO_BASE='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/';
+    var LOGO={ 'vidya':'vidya-ai.svg','edu-crm':'education-crm.svg','mob-crm':'mobile-crm.svg','core-crm':'core-crm.svg','app-mgmt':'application-management.svg','ams':'admission-management-system.svg','online-adm':'online-admissions.svg','chatbot':'education-ai-chatbot.svg','waba':'whatsapp-business-api.svg','ivr':'ivr-system.svg','mkt-auto':'marketing-automation.svg','nurture':'lead-nurturing.svg','analytics':'analytics-dashboard.svg' };
+    function ico(p){ var u=p.img||(LOGO[p.id]?LOGO_BASE+LOGO[p.id]:''); return u ? '<img class="eep-ic-img" src="'+u+'" alt="" loading="lazy" decoding="async">' : IC[p.ic]; }
 
     /* ---- build cards ---- */
     var grid = document.getElementById('eepGrid');
