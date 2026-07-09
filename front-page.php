@@ -3739,7 +3739,7 @@ body.vg-open .vg-launch{display:none}
           <div class="vsx-rail" id="vsxRail">
 
             <article class="vsx-card" style="--ca:#22D3EE">
-              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/Vidya-gpt-fevicon.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
+              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/Vidya-gpt-fevicon%20(1).png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>Vidya GPT</h3>
               <p class="vsx-desc">Your 24×7 AI chat counsellor that answers every query and never sleeps.</p>
               <ul class="vsx-feats">
@@ -3751,7 +3751,7 @@ body.vg-open .vg-launch{display:none}
             </article>
 
             <article class="vsx-card" style="--ca:#DE6E30">
-              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-pulse-fevicon.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
+              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-pulse-fevicon.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>Vidya Pulse</h3>
               <p class="vsx-desc">Real-time lead intent scoring that surfaces your hottest prospects first.</p>
               <ul class="vsx-feats">
@@ -3763,7 +3763,7 @@ body.vg-open .vg-launch{display:none}
             </article>
 
             <article class="vsx-card" style="--ca:#A78BFA">
-              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-ai-voice-agent.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
+              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-ai-voice-agent-fevicon.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>Vidyaai Voice Agent</h3>
               <p class="vsx-desc">Calls and qualifies leads with natural conversations in 10+ languages.</p>
               <ul class="vsx-feats">
@@ -3775,7 +3775,7 @@ body.vg-open .vg-launch{display:none}
             </article>
 
             <article class="vsx-card" style="--ca:#34D399">
-              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidyawaba-gpt.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
+              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidyawaba-gpt-fevicon.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>VidyaWABA GPT</h3>
               <p class="vsx-desc">Automated WhatsApp Business engagement that nurtures leads at scale.</p>
               <ul class="vsx-feats">
@@ -3787,7 +3787,7 @@ body.vg-open .vg-launch{display:none}
             </article>
 
             <article class="vsx-card" style="--ca:#FBBF24">
-              <span class="vsx-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke-width="1.6"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-work-fevicon.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>Vidya Work</h3>
               <p class="vsx-desc">Autonomous workflow and follow-up automation that runs your busywork.</p>
               <ul class="vsx-feats">
@@ -3799,7 +3799,7 @@ body.vg-open .vg-launch{display:none}
             </article>
 
             <article class="vsx-card vsx-cta-card" style="--ca:#DE6E30">
-              <span class="vsx-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.8 5L19 9.8l-5.2 1.8L12 17l-1.8-5.4L5 9.8l5.2-1.8L12 3z" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidyaai-fevicon.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>Try Vidya AI Live</h3>
               <p class="vsx-desc">Explore the live AI inside the product demo — see every agent working on a real admission funnel.</p>
               <a class="vsx-cta-btn" href="#ee-platform">Try Vidya AI Live <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
