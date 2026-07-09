@@ -370,8 +370,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <p class="sub reveal d3">The AI-powered Admission CRM where co-pilots and agents <b>qualify leads, brief counsellors and follow up 24/7</b> &mdash; so your team spends time enrolling students, not chasing them.</p>
       <div class="chips reveal d4">
         <span class="chip"><i>&#9889;</i> Go live in 7 days</span>
-        <span class="chip"><i>&#123f82;</i> Works with your existing forms &amp; portals</span>
-        <span class="chip"><i>&#124187;</i> ISO 27001 &middot; GDPR-ready</span>
+        <span class="chip"><i>&#128279;</i> Works with your existing forms &amp; portals</span>
+        <span class="chip"><i>&#128737;</i> ISO 27001 &middot; GDPR-ready</span>
       </div>
       <div class="hero__cta reveal d5">
         <a href="#demo" class="btn btn-primary" id="magnet">Book a Free Demo <span class="arr">&rarr;</span><span class="shine"></span></a>
@@ -395,7 +395,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <div class="hero-form-card">
         <script async src="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js"></script>
         <div id="ee-form-7"></div>
-        <p class="secure-label">&#123f82; Secure Data Transmission Active</p>
+        <p class="secure-label">&#128274; Secure Data Transmission Active</p>
       </div>
     </aside>
   </div>
@@ -2204,7 +2204,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     <div class="ee-teams-grid">
       <a class="ee-card" href="#demo">
-        <span class="ee-chip" aria-hidden="true">&#123b79;</span>
+        <span class="ee-chip" aria-hidden="true">&#127919;</span>
         <h3 class="ee-card-title">Marketing Teams</h3>
         <p class="ee-card-benefit">Capture every inquiry across channels and track which campaigns actually drive enrolled students, not just clicks.</p>
         <span class="ee-card-arrow" aria-hidden="true">See it in action
@@ -2213,7 +2213,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </a>
 
       <a class="ee-card" href="#demo">
-        <span class="ee-chip" aria-hidden="true">&#123f82;</span>
+        <span class="ee-chip" aria-hidden="true">&#128222;</span>
         <h3 class="ee-card-title">Admissions Teams</h3>
         <p class="ee-card-benefit">Prioritize hot leads with smart scoring and automated follow-ups so no prospective student slips through the cracks.</p>
         <span class="ee-card-arrow" aria-hidden="true">See it in action
@@ -2222,7 +2222,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </a>
 
       <a class="ee-card" href="#demo">
-        <span class="ee-chip" aria-hidden="true">&#123e81;</span>
+        <span class="ee-chip" aria-hidden="true">&#128172;</span>
         <h3 class="ee-card-title">Counseling Teams</h3>
         <p class="ee-card-benefit">Give counselors a full applicant history so every call, message, and meeting moves students closer to confirmation.</p>
         <span class="ee-card-arrow" aria-hidden="true">See it in action
@@ -2231,7 +2231,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </a>
 
       <a class="ee-card" href="#demo">
-        <span class="ee-chip" aria-hidden="true">&#023c93;</span>
+        <span class="ee-chip" aria-hidden="true">&#129302;</span>
         <h3 class="ee-card-title">Vidya AI Agents</h3>
         <p class="ee-card-benefit">Engage and qualify applicants instantly, around the clock, answering queries and booking counseling slots on autopilot.</p>
         <span class="ee-card-arrow" aria-hidden="true">See it in action
@@ -2240,7 +2240,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </a>
 
       <a class="ee-card" href="#demo">
-        <span class="ee-chip" aria-hidden="true">&#023582;</span>
+        <span class="ee-chip" aria-hidden="true">&#128202;</span>
         <h3 class="ee-card-title">Leadership &amp; Analytics</h3>
         <p class="ee-card-benefit">See the full funnel in real time, from source to enrollment, and forecast intake with dashboards built for decisions.</p>
         <span class="ee-card-arrow" aria-hidden="true">See it in action
@@ -2249,7 +2249,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </a>
 
       <a class="ee-card" href="#demo">
-        <span class="ee-chip" aria-hidden="true">&#123e81;</span>
+        <span class="ee-chip" aria-hidden="true">&#128179;</span>
         <h3 class="ee-card-title">Finance &amp; Operations</h3>
         <p class="ee-card-benefit">Streamline fee collection, payment links, and reconciliation so confirmed admissions convert to paid enrollments faster.</p>
         <span class="ee-card-arrow" aria-hidden="true">See it in action
@@ -5186,8 +5186,8 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class="cis-trust">
         <span class="cis-chip"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><b>4.7</b>/5 on G2</span>
         <span class="cis-chip"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async">Top rated on Capterra</span>
-        <span class="cis-chip">&#124591; <b>500+</b> Institutions</span>
-        <span class="cis-chip">&#123a77; <b>12+</b> Countries</span>
+        <span class="cis-chip">&#127891; <b>500+</b> Institutions</span>
+        <span class="cis-chip">&#127757; <b>12+</b> Countries</span>
       </div>
     </div>
 
@@ -6302,7 +6302,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
               <div class="ee-mono-dim">VidyaGPT &middot; WhatsApp &middot; 02:47 AM</div>
               <div class="ee-bubble u" data-step="0">&ldquo;Is there a hostel facility?&rdquo;</div>
               <span class="ee-typing" data-step="1"><i></i><i></i><i></i></span>
-              <div class="ee-bubble a" data-step="2">Yes! 4 hostel blocks with 24/7 security. Sending the brochure to your WhatsApp now &#124796;</div>
+              <div class="ee-bubble a" data-step="2">Yes! 4 hostel blocks with 24/7 security. Sending the brochure to your WhatsApp now &#128196;</div>
               <div class="ee-bubble u" data-step="3">&ldquo;And the fee for B.Tech CSE?&rdquo;</div>
               <div class="ee-bubble a" data-step="4">&#8377;1.85L/yr with scholarships up to 40%. Want me to book a counsellor call?</div>
               <div class="ee-handover" data-step="5">LEAD QUALIFIED &#8594; ROUTED TO COUNSELLOR</div>
@@ -7573,7 +7573,7 @@ body.ee-home{ background:#ffffff!important; }/* remove all graphic background mo
 
 
 <style id="ee-brand-lock">
-.ee-home, .ee-home *:not(svg):not(svg *){ font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif !important; }
+.ee-home, .ee-home *:not(svg):not(svg *){ font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif !important; }
 .ee-home{ background:#ffffff !important; }
 </style>
 <?php get_footer(); ?>
