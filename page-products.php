@@ -254,7 +254,6 @@ get_header();
         <div class="ecrm-intro ecrm-anim ecrm-anim-fade">
             <span class="ecrm-intro-eyebrow">The ExtraaEdge Platform</span>
             <h1>Every tool your admissions team needs, <span class="g">in one place.</span></h1>
-            <p>Explore the full suite of AI-powered modules — from lead capture and CRM to communication and automation — built to convert more inquiries into enrollments.</p>
         </div>
 
         <div class="ecrm-shell">
