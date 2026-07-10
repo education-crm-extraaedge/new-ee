@@ -1267,14 +1267,28 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var demoCta=document.createElement('div'); demoCta.className='demo-cta';
   demoCta.innerHTML=si('<path d=&quot;M7 2v3M17 2v3M3.5 9h17M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z&quot;/>')+' Book a demo';
   document.body.appendChild(demoCta);
-  demoCta.addEventListener('click',function(){ window.open('https://www.extraaedge.com/book-a-demo/','_blank','noopener'); });
-  /* Explore mode: any click outside the left menu / tour controls sends the user to booking */
+  demoCta.addEventListener('click',function(){ openBookModal(); });
   var BOOK_DEMO_URL='https://www.extraaedge.com/book-a-demo/';
+  /* ---- "see the real CRM" popup (opens instead of an instant redirect) ---- */
+  var bkSt=document.createElement('style');
+  bkSt.textContent='.bkm-ov{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(8,18,35,.62)}.bkm-ov.on{display:flex}.bkm{position:relative;background:#fff;border-radius:18px;max-width:420px;width:100%;padding:32px 26px 24px;text-align:center;box-shadow:0 30px 80px rgba(8,18,35,.45)}.bkm-x{position:absolute;top:11px;right:11px;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;color:#8a94a6;background:none;cursor:pointer}.bkm-x:hover{background:#f1f3f7;color:var(--nav)}.bkm-ic{width:56px;height:56px;border-radius:15px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--o),var(--nav));color:#fff}.bkm-ic svg{width:27px;height:27px}.bkm h3{font-size:20px;font-weight:800;color:var(--nav);margin:0 0 10px}.bkm p{font-size:14px;line-height:1.6;color:#56607a;margin:0 0 22px}.bkm-cta{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:14px 20px;border-radius:11px;background:linear-gradient(135deg,#E8843F,var(--o));color:#fff;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 12px 26px -10px rgba(222,110,48,.7)}.bkm-cta:hover{filter:saturate(1.06)}.bkm-keep{display:block;width:100%;margin-top:12px;padding:6px;font-size:13px;font-weight:600;color:#8a94a6;background:none;cursor:pointer}.bkm-keep:hover{color:var(--nav)}';
+  document.head.appendChild(bkSt);
+  var bkOv=document.createElement('div'); bkOv.className='bkm-ov';
+  bkOv.innerHTML='<div class=&quot;bkm&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-label=&quot;See the real CRM&quot;><button class=&quot;bkm-x&quot; type=&quot;button&quot; aria-label=&quot;Close&quot;>&#10005;</button><div class=&quot;bkm-ic&quot;>'+si('<path d=&quot;M7 2v3M17 2v3M3.5 9h17M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z&quot;/>')+'</div><h3>Want to see the real CRM?</h3><p>This is a guided demo on sample data. To explore the complete, live CRM — every feature, with your own data — just message our team. We&#39;ll get in touch with you and give you a full walkthrough.</p><a class=&quot;bkm-cta&quot; href=&quot;'+BOOK_DEMO_URL+'&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Book a Demo &#8594;</a><button class=&quot;bkm-keep&quot; type=&quot;button&quot;>Keep exploring the demo</button></div>';
+  document.body.appendChild(bkOv);
+  function openBookModal(){ bkOv.classList.add('on'); }
+  function closeBookModal(){ bkOv.classList.remove('on'); }
+  bkOv.querySelector('.bkm-x').addEventListener('click',closeBookModal);
+  bkOv.querySelector('.bkm-keep').addEventListener('click',closeBookModal);
+  bkOv.querySelector('.bkm-cta').addEventListener('click',function(){ setTimeout(closeBookModal,80); });
+  bkOv.addEventListener('click',function(e){ if(e.target===bkOv) closeBookModal(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeBookModal(); });
+  /* Explore mode: any click outside the left menu / tour controls opens the popup */
   document.addEventListener('click',function(e){
     var t=e.target;
-    if(t && t.closest && t.closest('#side,#burger,#scrim,.tour-tip,.tour-dock,.tour-spot,.demo-cta,.toasts,.toast')) return;
+    if(t && t.closest && t.closest('#side,#burger,#scrim,.tour-tip,.tour-dock,.tour-spot,.demo-cta,.toasts,.toast,.bkm-ov')) return;
     e.preventDefault(); e.stopPropagation();
-    window.open(BOOK_DEMO_URL,'_blank','noopener');
+    openBookModal();
   },true);
   var PLAY=si('<path d=&quot;M8 5v14l11-7z&quot;/>'), PAUSE=si('<path d=&quot;M6 5h4v14H6zM14 5h4v14h-4z&quot;/>');
   var playBtn=tDock.querySelector('.play'), ddots=tDock.querySelector('.ddots'), lbl=tDock.querySelector('.lbl'), tipDots=tTip.querySelector('.dts');
