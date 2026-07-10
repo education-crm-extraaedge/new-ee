@@ -5463,7 +5463,8 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
               <div class=&quot;wmsg in&quot;>Hi Priya! 👋 Main Vidya hoon — aapki AI admission counsellor.<span class=&quot;wtm&quot;>11:02 PM</span></div>
               <div class=&quot;wmsg in&quot;>MBA 2026 ki total fees ₹8.4L hai. Aap 25% tak merit scholarship ke liye eligible ho sakti hain 🎓<span class=&quot;wtm&quot;>11:02 PM</span></div>
               <div class=&quot;wmsg out&quot;>Scholarship kaise milegi?<span class=&quot;wtm&quot;>11:03 PM <span class=&quot;ticks&quot;>✓✓</span></span></div>
-              <div class=&quot;wtyping&quot;><i></i><i></i><i></i></div>
+              <div class=&quot;wmsg in&quot;>Aapke 12th marks pe aap seedha 25% merit scholarship ke liye eligible ho 🎉<span class=&quot;wtm&quot;>11:03 PM</span></div>
+              <div class=&quot;wmsg in&quot;>Main kal subah 11 baje counsellor ke saath aapki call fix kar rahi hoon ✅<span class=&quot;wtm&quot;>11:04 PM</span></div>
             </div>
             <div class=&quot;winput&quot;><div class=&quot;wfield&quot;>Message</div><div class=&quot;wmic&quot;><svg width=&quot;13&quot; height=&quot;13&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><rect x=&quot;9&quot; y=&quot;3&quot; width=&quot;6&quot; height=&quot;11&quot; rx=&quot;3&quot;/><path d=&quot;M5 11a7 7 0 0 0 14 0M12 18v3&quot;/></svg></div></div>
           </div></div>
