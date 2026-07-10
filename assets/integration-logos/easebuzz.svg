@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" width="320" height="100" role="img" aria-label="Easebuzz Payment Solutions">
+<title>Easebuzz Payment Solutions</title>
+
+<g transform="translate(26,26)" stroke-linecap="round" fill="none">
+  <path d="M2 8 h34" stroke="#5A46DE" stroke-width="9"/>
+  <path d="M10 24 h34" stroke="#00D4C5" stroke-width="9"/>
+  <path d="M2 40 h34" stroke="#5A46DE" stroke-width="9"/>
+</g>
+<text x="84" y="56" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="800" fill="#123B6D" letter-spacing="0" text-anchor="start" >Easebuzz</text>
+<text x="86" y="80" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="500" fill="#555555" letter-spacing="0" text-anchor="start" >Payment Solutions</text>
+
+</svg>

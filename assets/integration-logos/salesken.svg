@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" width="300" height="80" role="img" aria-label="Salesken">
+<title>Salesken</title>
+
+<rect x="18" y="18" width="46" height="46" rx="10" fill="#17172B"/>
+<path d="M30 56 52 26" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+<path d="M30 56 52 26" stroke="#E5484D" stroke-width="7" stroke-linecap="round" stroke-dasharray="14 40"/>
+<text x="78" y="54" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#17172B" letter-spacing="0" text-anchor="start" >salesken</text>
+
+</svg>

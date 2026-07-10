@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 80" width="340" height="80" role="img" aria-label="Contact Form 7">
+<title>Contact Form 7</title>
+
+<g transform="translate(22,14)">
+  <circle cx="26" cy="26" r="26" fill="#2778C2"/>
+  <path d="M8 36 18 20 26 30 33 22 44 36 Z" fill="#fff"/>
+  <circle cx="34" cy="14" r="4" fill="#fff"/>
+</g>
+<text x="90" y="52" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#3A3A3A" letter-spacing="0" text-anchor="start" >Contact Form 7</text>
+
+</svg>

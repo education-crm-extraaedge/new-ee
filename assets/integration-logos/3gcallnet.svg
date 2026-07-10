@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" width="320" height="100" role="img" aria-label="3GCallnet">
+<title>3GCallnet</title>
+
+<g transform="translate(250,14)" fill="none" stroke="#3AAA35" stroke-width="5" stroke-linecap="round">
+  <path d="M6 26 C6 10, 34 10, 34 26 v10"/>
+  <rect x="0" y="26" width="10" height="16" rx="4" fill="#123B6D" stroke="none"/>
+  <rect x="30" y="26" width="10" height="16" rx="4" fill="#123B6D" stroke="none"/>
+  <path d="M34 44 c0 8 -8 10 -14 10" stroke-width="4"/>
+</g>
+<text x="20" y="52" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800"><tspan fill="#3AAA35">3G</tspan><tspan fill="#123B6D">Callnet</tspan></text>
+<text x="20" y="78" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500" fill="#3AAA35" letter-spacing="0" text-anchor="start" font-style="italic">Your's One Stop IT Solution</text>
+
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 80" width="310" height="80" role="img" aria-label="LinkedIn Ads">
+<title>LinkedIn Ads</title>
+
+<text x="14" y="53" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#101820" letter-spacing="0" text-anchor="start" >Linked</text>
+<rect x="126" y="24" width="40" height="36" rx="6" fill="#0A66C2"/>
+<text x="146" y="52" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="800" fill="#fff" letter-spacing="0" text-anchor="middle" >in</text>
+<circle cx="180" cy="55" r="3" fill="#101820"/>
+<text x="190" y="53" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#101820" letter-spacing="0" text-anchor="start" >ads</text>
+
+</svg>

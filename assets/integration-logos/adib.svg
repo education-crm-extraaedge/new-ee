@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90" role="img" aria-label="ADIB — Abu Dhabi Islamic Bank">
+<title>ADIB — Abu Dhabi Islamic Bank</title>
+
+<text x="24" y="62" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800" fill="#00376C" letter-spacing="2" text-anchor="start" >ADIB</text>
+<g transform="translate(214,45)">
+  <defs><radialGradient id="adibg" cx="0.35" cy="0.3" r="1"><stop offset="0" stop-color="#CDE6F7"/><stop offset="1" stop-color="#1B75BB"/></radialGradient></defs>
+  <circle r="30" fill="url(#adibg)"/>
+  <path d="M-30 4 C-12 -12, 12 -12, 30 4 M-28 12 C-10 -2, 10 -2, 28 12" stroke="#fff" stroke-width="3" fill="none"/>
+</g>
+
+</svg>

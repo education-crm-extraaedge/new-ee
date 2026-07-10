@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90" role="img" aria-label="HDFC Bank">
+<title>HDFC Bank</title>
+
+<g transform="translate(112,8)">
+  <rect width="40" height="40" fill="#ED232A"/>
+  <rect x="8" y="8" width="24" height="24" fill="#fff"/>
+  <rect x="15" y="15" width="10" height="10" fill="#004C8F"/>
+</g>
+<rect x="98" y="56" width="104" height="22" fill="#ED232A" rx="2"/>
+<text x="150" y="73" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="800" fill="#ffffff" letter-spacing="1" text-anchor="middle" >HDFC BANK</text>
+
+</svg>
