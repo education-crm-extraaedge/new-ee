@@ -3930,7 +3930,7 @@ function ee_get_header_top_labels() {
     $defaults = array(
         'products'   => array('label' => 'Products',   'url' => home_url('/products/')),
         'industries' => array('label' => 'Industries', 'url' => home_url('/industries/')),
-        'solutions'  => array('label' => 'Solutions',  'url' => home_url('/solution/')),
+        'solutions'  => array('label' => 'Solutions',  'url' => home_url('/solutions/')),
         'resources'  => array('label' => 'Resources',  'url' => '#'),
         'company'    => array('label' => 'Company',    'url' => '#'),
     );
@@ -6387,12 +6387,9 @@ add_action('template_redirect', function () {
         'products'   => array('file' => 'page-products.php',   'title' => 'Products'),
         'use-cases'  => array('file' => 'page-use-cases.php',  'title' => 'Use Cases'),
         'industries' => array('file' => 'page-industries.php', 'title' => 'Industries'),
-        'industry'   => array('file' => 'page-industry.php',   'title' => 'Industry'),
         'company'    => array('file' => 'page-company.php',    'title' => 'Company'),
-        'solution'   => array('file' => 'page-solution.php',   'title' => 'Solutions'),
         'solutions'  => array('file' => 'page-solution.php',   'title' => 'Solutions'),
         'resources'  => array('file' => 'page-resources.php',  'title' => 'Resources'),
-        'resource'   => array('file' => 'page-resources.php',  'title' => 'Resources'),
         'customers'  => array('file' => 'page-customers.php',  'title' => 'Customer Success Stories'),
         'customer'   => array('file' => 'page-customers.php',  'title' => 'Customer Success Stories'),
         'vidyaai'    => array('file' => 'page-vidyaai.php',     'title' => 'VidyaAI — The 24/7 AI Admission Agent'),
@@ -6407,6 +6404,18 @@ add_action('template_redirect', function () {
     });
 
     $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
+
+    /* Retire duplicate singular URLs — 301 to the canonical plural page so
+       existing links and SEO are preserved while only one page exists. */
+    $ee_singular_redirects = array(
+        'solution' => '/solutions/',
+        'industry' => '/industries/',
+        'resource' => '/resources/',
+    );
+    if (isset($ee_singular_redirects[$path])) {
+        wp_safe_redirect(home_url($ee_singular_redirects[$path]), 301);
+        exit;
+    }
 
     /* Extended /blog/ routing — three URL shapes all route to page-blog.php:
          /blog/page/N/                       → paginated landing
