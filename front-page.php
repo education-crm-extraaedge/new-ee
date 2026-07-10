@@ -5406,6 +5406,42 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   @media(max-width:960px){.stage{height:640px!important}}
   @media(max-width:380px){.stage{height:580px!important}}
 </style>
+<style id=&quot;ee-mobile-redesign&quot;>
+/* ---- contextual 'now playing' card (mobile only) ---- */
+.mnow{display:none;align-items:center;gap:11px;margin-top:15px;padding:12px 14px;border:1px solid var(--hair);border-radius:14px;background:var(--panel);transition:border-color 1.2s,background 1.2s}
+.mnow .mi{font:700 10px/1 ui-monospace,Menlo,monospace;color:var(--orange);background:rgba(222,110,48,.12);padding:6px 8px;border-radius:8px;flex:none;letter-spacing:.06em}
+.mnow .mm{flex:1;min-width:0}
+.mnow .mm b{display:block;font:600 14px/1.2 Inter;color:var(--fg);transition:color 1.2s}
+.mnow .mm span{display:block;font:500 11px/1.3 Inter;color:var(--faint);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color 1.2s}
+.mnow .mt{font:600 11px/1 ui-monospace,Menlo,monospace;color:var(--orange);flex:none}
+@media(max-width:960px){
+  .pleft,.pright{min-width:0}
+  .mnow{display:flex}
+  /* nicer tappable segment track */
+  .steps{gap:6px;margin-top:16px}
+  .step{height:5px;border-radius:3px}
+  .step.on{box-shadow:none}
+  /* stage sizes to the active shot — no clipping, minimal dead space */
+  .stage{height:auto!important;min-height:540px!important;max-width:100%!important;display:flex;align-items:center;justify-content:center;padding:4px 0}
+  .shot{position:relative!important;inset:auto!important;opacity:1;transform:none;display:none!important;width:100%;transition:none}
+  .shot{min-width:0}
+  .shot.on{display:flex!important;animation:mfade .5s cubic-bezier(.23,1,.32,1) both}
+  @keyframes mfade{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+  /* a real phone: fit the whole screen, don't cut off the chat */
+  .phone{width:min(330px,86vw)}
+  .phone .screen{height:auto!important;min-height:480px}
+  .wbody{overflow:visible!important}
+  .evcap{margin-top:16px;max-width:88vw}
+  .appwin{width:100%!important;max-width:100%!important}
+  .appbar .url{min-width:0}
+  .apptop{flex-wrap:wrap;row-gap:4px}
+  .apptop .lvpill{margin-left:auto}
+}
+@media(max-width:380px){
+  .phone .screen{min-height:440px}
+  .mnow .mm b{font-size:13px}
+}
+</style>
 </head>
 <body>
 <div id=&quot;sky&quot;></div>
@@ -5423,6 +5459,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class=&quot;step&quot; data-i=&quot;4&quot;><span class=&quot;tno&quot;>05</span><div class=&quot;tt&quot;><b>Counsellor handoff</b><span>Full context · zero cold starts</span></div><span class=&quot;tm&quot;>9:04 AM</span><div class=&quot;pbar&quot;><i></i></div></div>
       <div class=&quot;step&quot; data-i=&quot;5&quot;><span class=&quot;tno&quot;>06</span><div class=&quot;tt&quot;><b>Enrolled</b><span>Fee paid · pipeline complete</span></div><span class=&quot;tm&quot;>Day 12</span><div class=&quot;pbar&quot;><i></i></div></div>
     </div>
+    <div class=&quot;mnow&quot; id=&quot;mnow&quot; aria-live=&quot;polite&quot;><span class=&quot;mi&quot;>01 / 06</span><div class=&quot;mm&quot;><b>Lead captured</b><span>Meta ad · auto-logged in CRM</span></div><span class=&quot;mt&quot;>11:02 PM</span></div>
     <div class=&quot;pctrl&quot;>
       <button class=&quot;pbtn&quot; id=&quot;pplay&quot; aria-label=&quot;Pause story&quot;>
         <svg id=&quot;icpause&quot; width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;4&quot; height=&quot;16&quot; rx=&quot;1&quot;/><rect x=&quot;14&quot; y=&quot;4&quot; width=&quot;4&quot; height=&quot;16&quot; rx=&quot;1&quot;/></svg>
@@ -5629,6 +5666,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fnodes=[...document.querySelectorAll('#flowline .fnode')];
   const playBtn=document.getElementById('pplay');
   const icPlay=document.getElementById('icplay'),icPause=document.getElementById('icpause');
+  const mnow=document.getElementById('mnow');
   let cur=0,elapsed=0,last=null,paused=false,raf=null;
   const seen=new Set([0]);
 
@@ -5637,6 +5675,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       if(j!==i)s.querySelector('.pbar i').style.width=j<i?'100%':'0%'});
     shots.forEach((s,j)=>s.classList.toggle('on',j===i));
     fnodes.forEach((f,j)=>f.classList.toggle('hot',j<=i));
+    if(mnow){const s=steps[i];mnow.querySelector('.mi').textContent=String(i+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');mnow.querySelector('.mm b').textContent=s.querySelector('.tt b').textContent;mnow.querySelector('.mm span').textContent=s.querySelector('.tt span').textContent;mnow.querySelector('.mt').textContent=s.querySelector('.tm').textContent;}
     document.body.classList.toggle('day',i>=DAY_AT);
     if(!seen.has(i)){seen.add(i);
       const sh=shots[i];
