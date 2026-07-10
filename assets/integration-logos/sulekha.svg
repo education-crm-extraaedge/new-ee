@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" width="300" height="80" role="img" aria-label="Sulekha">
+<title>Sulekha</title>
+
+<g transform="translate(52,40)">
+  <path d="M-20 10 C-24 -8, -8 -26, 12 -22 C0 -16, -4 -6, 2 4 C-6 4, -14 8, -20 10z" fill="#E02B20"/>
+  <path d="M20 -10 C24 8, 8 26, -12 22 C0 16, 4 6, -2 -4 C6 -4, 14 -8, 20 -10z" fill="#F5A623"/>
+</g>
+<text x="96" y="55" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" fill="#E02B20" letter-spacing="0" text-anchor="start" >Sulekha</text>
+
+</svg>

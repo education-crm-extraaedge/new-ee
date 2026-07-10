@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90" role="img" aria-label="Shiksha">
+<title>Shiksha</title>
+
+<g transform="translate(24,10)">
+  <path d="M22 66 C10 50, 8 30, 20 14 C24 26, 30 34, 40 40 C30 48, 25 56, 22 66z" fill="#12888C"/>
+  <path d="M26 66 C34 52, 44 44, 58 40 C50 54, 40 62, 26 66z" fill="#0FA5A8"/>
+  <path d="M14 12 26 6 38 12 26 18z" fill="#0B5E61"/>
+  <rect x="25" y="16" width="2" height="8" fill="#0B5E61"/>
+</g>
+<text x="92" y="62" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#12888C" letter-spacing="0" text-anchor="start" >shiksha</text>
+
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" width="300" height="100" role="img" aria-label="MBA Universe">
+<title>MBA Universe</title>
+
+<rect x="60" y="14" width="180" height="72" fill="#ffffff" stroke="#C0392B" stroke-width="3"/>
+<text x="96" y="48" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#1F3C88" letter-spacing="0" text-anchor="start" font-style="italic">MBA</text>
+<g transform="translate(196,36)" fill="none" stroke="#1F3C88" stroke-width="2">
+  <circle r="16"/><ellipse rx="7" ry="16"/><path d="M-16 -5 h32 M-16 5 h32"/>
+</g>
+<rect x="63" y="58" width="174" height="24" fill="#C0392B"/>
+<text x="150" y="76" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#ffffff" letter-spacing="1" text-anchor="middle" >UNIVERSE.COM</text>
+
+</svg>

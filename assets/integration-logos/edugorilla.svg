@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 100" width="340" height="100" role="img" aria-label="EduGorilla — Ask Anything">
+<title>EduGorilla — Ask Anything</title>
+
+<g transform="translate(22,12)">
+  <path d="M14 30 a8 8 0 1 1 4 -14 M62 30 a8 8 0 1 0 -4 -14" fill="#8E2A22"/>
+  <path d="M38 4 C18 4, 8 20, 10 38 c2 16 12 26 28 26 s26 -10 28 -26 C68 20, 58 4, 38 4z" fill="#A93226"/>
+  <path d="M38 30 c-10 0 -18 8 -18 18 0 8 8 14 18 14 s18 -6 18 -14 c0 -10 -8 -18 -18 -18z" fill="#D5B8A8"/>
+  <circle cx="28" cy="24" r="4" fill="#2C1810"/><circle cx="48" cy="24" r="4" fill="#2C1810"/>
+  <ellipse cx="32" cy="46" rx="3" ry="4" fill="#2C1810"/><ellipse cx="44" cy="46" rx="3" ry="4" fill="#2C1810"/>
+  <path d="M10 2 22 -2 20 8z" fill="#A93226"/>
+</g>
+<text x="102" y="56" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800"><tspan fill="#1A1A1A">EDU</tspan><tspan fill="#C0392B">GORILLA</tspan></text>
+<text x="300" y="40" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="600" fill="#666666" letter-spacing="0" text-anchor="start" >TM</text>
+<text x="104" y="78" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" fill="#555555" letter-spacing="2" text-anchor="start" >ASK ANYTHING</text>
+
+</svg>
