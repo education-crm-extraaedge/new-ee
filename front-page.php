@@ -5358,347 +5358,313 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 })();
 </script>
 
-<!-- ===================== EE · WHILE YOUR CAMPUS SLEEPS (admission operating system story) ===================== -->
-<style>#ee-night{position:relative;width:100%;background:#0f2444}#ee-night iframe{display:block;width:100%;border:0;min-height:860px;background:#0f2444}
-</style>
-<section id="ee-night" aria-label="The admission operating system in action">
-  <iframe id="eeNightFrame" title="ExtraaEdge — the admission operating system, from lead to enrolled" loading="lazy" scrolling="no" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" srcdoc="<!DOCTYPE html>
-<html lang=&quot;en&quot;>
-<head>
-<meta charset=&quot;UTF-8&quot;>
-<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
-<meta name=&quot;robots&quot; content=&quot;noindex, nofollow&quot;>
-<title>ExtraaEdge — While Your Campus Sleeps</title>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
-<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Poppins:wght@600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
-<style>:root{
-  --orange:#DE6E30;--orange2:#E8843F;
-  --wa:#25D366;--wadark:#075E54;--green:#2BC98A;--blue:#4E86D8;--red:#E5484D;
-  --bg:#0F2144;--bg2:#132a55;--fg:#fff;--sub:rgba(255,255,255,.62);--faint:rgba(255,255,255,.36);--hair:rgba(255,255,255,.10);--panel:rgba(255,255,255,.05);
-}body.day{--bg:#fff;--bg2:#FBF6F1;--fg:#19335D;--sub:#7C8698;--faint:#A9B2C1;--hair:#ECEEF4;--panel:#fff}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}body{font-family:'Inter',system-ui,sans-serif;color:var(--fg);background:linear-gradient(var(--bg),var(--bg2));transition:background 1.2s,color 1.2s}::selection{background:rgba(222,110,48,.25)}h1,h2{font-family:'Poppins',sans-serif;letter-spacing:-.02em;color:var(--fg);transition:color 1.2s}.o{color:var(--orange)}.rev{opacity:0;transform:translateY(18px);transition:opacity .55s,transform .55s}.rev.in{opacity:1;transform:none}.d1{transition-delay:.08s}.d2{transition-delay:.16s}#sky{position:fixed;inset:0;pointer-events:none;z-index:0;transition:opacity 1.4s;
-  background-image:radial-gradient(1.5px 1.5px at 12% 18%,rgba(255,255,255,.7),transparent),radial-gradient(1px 1px at 28% 64%,rgba(255,255,255,.5),transparent),radial-gradient(1.5px 1.5px at 44% 30%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 61% 74%,rgba(255,255,255,.45),transparent),radial-gradient(2px 2px at 72% 12%,rgba(255,255,255,.65),transparent),radial-gradient(1px 1px at 84% 48%,rgba(255,255,255,.5),transparent);
-  animation:twinkle 5s ease-in-out infinite}body.day #sky{opacity:0}
-@keyframes twinkle{50%{opacity:.55}}
-@keyframes blink{50%{opacity:.35}}/* ============ PLAYER ============ */
-.player{position:relative;z-index:1;min-height:100vh;min-height:100svh;display:grid;grid-template-columns:minmax(320px,38%) 1fr;gap:3vw;max-width:1280px;margin:0 auto;padding:26px 4vw;align-items:center}.pleft{display:flex;flex-direction:column;justify-content:center}.kick{font:600 10.5px/1 Inter;letter-spacing:.24em;text-transform:uppercase;color:var(--orange2)}.pleft h1{font-size:clamp(28px,3.4vw,44px);font-weight:800;line-height:1.1;margin:12px 0 8px;max-width:18ch}.pleft .lede{color:var(--sub);font-size:13.5px;line-height:1.55;max-width:40ch;transition:color 1.2s}/* step list */
-.steps{margin-top:24px;display:flex;flex-direction:column;gap:4px}.step{position:relative;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:background .3s,border-color .3s;user-select:none}.step:hover{background:var(--panel)}.step.on{background:var(--panel);border-color:var(--hair);box-shadow:0 10px 30px rgba(3,10,26,.18)}body.day .step.on{box-shadow:0 10px 30px rgba(25,51,93,.08)}.step .tno{font:700 10px/1 ui-monospace,Menlo,monospace;color:var(--faint);width:20px;flex:none;transition:color .3s}.step.on .tno{color:var(--orange)}.step .tt{flex:1;min-width:0}.step .tt b{font:600 13px/1.3 Inter;color:var(--fg);display:block;transition:color 1.2s}.step .tt span{font:500 10.5px/1 Inter;color:var(--faint);transition:color 1.2s}.step .tm{font:600 10.5px/1 ui-monospace,Menlo,monospace;color:var(--sub);flex:none;transition:color 1.2s}.step.on .tm{color:var(--orange)}.step .pbar{position:absolute;left:12px;right:12px;bottom:4px;height:2px;border-radius:2px;background:var(--hair);overflow:hidden;opacity:0;transition:opacity .3s}.step.on .pbar{opacity:1}.step .pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange2),var(--orange))}.step.done .tno{color:var(--green)}.pctrl{display:flex;align-items:center;gap:10px;margin-top:16px}.pbtn{width:34px;height:34px;border-radius:50%;border:1px solid var(--hair);background:var(--panel);color:var(--fg);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,background 1.2s,color 1.2s}.pbtn:hover{border-color:var(--orange)}.pctrl span{font:500 10.5px/1 Inter;color:var(--faint);transition:color 1.2s}/* stage */
-.pright{display:flex;flex-direction:column;align-items:center;justify-content:center}.stage{position:relative;width:100%;max-width:680px;height:min(700px,80vh);display:flex;align-items:center;justify-content:center}.shot{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:translateY(16px) scale(.97);transition:opacity .45s,transform .45s;pointer-events:none}.shot.on{opacity:1;transform:none;pointer-events:auto;transition-delay:.08s}.evcap{margin-top:15px;text-align:center;font:500 13px/1.55 Inter;color:var(--sub);max-width:430px;transition:color 1.2s}/* phone */
-.phone{width:330px;background:#000;border-radius:42px;padding:10px;box-shadow:0 0 0 1.5px rgba(255,255,255,.12),0 26px 60px rgba(3,10,26,.5);transition:box-shadow 1.2s}body.day .phone{box-shadow:0 0 0 1.5px #D8DEE9,0 26px 60px rgba(25,51,93,.18)}.phone .screen{border-radius:33px;overflow:hidden;background:#fff;position:relative;height:580px;display:flex;flex-direction:column}.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:104px;height:25px;background:#000;border-radius:12px;z-index:5}/* app window */
-.appwin{width:min(600px,100%);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 26px 60px rgba(3,10,26,.5);transition:box-shadow 1.2s}body.day .appwin{box-shadow:0 0 0 1px #E6E9F0,0 26px 60px rgba(25,51,93,.14)}.appbar{display:flex;align-items:center;gap:9px;background:#F7F8FB;border-bottom:1px solid #ECEEF4;padding:10px 14px}.appbar .wd{display:flex;gap:5px}.appbar .wd i{width:8px;height:8px;border-radius:50%}.appbar .wd i:nth-child(1){background:#FF5F57}.appbar .wd i:nth-child(2){background:#FEBC2E}.appbar .wd i:nth-child(3){background:#28C840}.appbar .url{flex:1;background:#fff;border:1px solid #ECEEF4;border-radius:8px;padding:7px 12px;font:500 11px/1 Inter;color:#7C8698;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden}.apptop{display:flex;align-items:center;gap:9px;padding:12px 16px;border-bottom:1px solid #ECEEF4}.apptop .alogo{width:24px;height:24px;border-radius:6px;background:conic-gradient(from 200deg,#DE6E30,#19335D 55%,#DE6E30);flex:none}.apptop b{font:700 13.5px/1 Inter;color:#19335D}.apptop .crumb{font:500 11.5px/1 Inter;color:#A9B2C1}.apptop .lvpill{margin-left:auto;font:600 10.5px/1 Inter;color:#1FAF66;background:#E7F8EF;padding:4px 8px;border-radius:999px;display:flex;align-items:center;gap:5px}.apptop .lvpill::before{content:&quot;&quot;;width:5px;height:5px;border-radius:50%;background:#1FAF66;animation:blink 1.4s infinite}.appbody{padding:16px 18px;color:#22314A}.leadhead{display:flex;align-items:center;gap:12px;margin-bottom:13px}.lava{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#8FB2E8,#4E86D8);color:#fff;display:flex;align-items:center;justify-content:center;font:700 16px/1 Inter;flex:none}.leadhead .ln b{font:700 16px/1.2 Inter;color:#19335D;display:flex;align-items:center;gap:6px}.leadhead .ln b .new{font:700 9.5px/1 Inter;letter-spacing:.08em;color:#DE6E30;background:#FDF1E9;padding:3px 6px;border-radius:5px}.leadhead .ln span{font:500 11.5px/1 Inter;color:#A9B2C1;display:block;margin-top:3px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.fld{background:#F9FAFC;border:1px solid #EFF1F6;border-radius:10px;padding:10px 12px}.fld span{font:600 9.5px/1 Inter;letter-spacing:.1em;text-transform:uppercase;color:#A9B2C1;display:block;margin-bottom:5px}.fld b{font:600 13px/1.35 Inter;color:#22314A}.fld b.hl{color:#DE6E30}.appfoot{display:flex;gap:9px;margin-top:14px}.abtn{flex:1;text-align:center;font:600 12.5px/1 Inter;border-radius:9px;padding:11px 0}.abtn.pr{background:linear-gradient(90deg,#E8843F,#DE6E30);color:#fff}.abtn.sec{border:1px solid #ECEEF4;color:#19335D}/* whatsapp */
-.wchat{flex:1;display:flex;flex-direction:column;background:#EFE7DD}.whead{background:var(--wadark);color:#fff;display:flex;align-items:center;gap:10px;padding:32px 14px 11px}.whead .wava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#E8843F,#DE6E30);display:flex;align-items:center;justify-content:center;font:700 14px/1 Inter;flex:none}.whead .wn{flex:1;min-width:0}.whead .wn b{font:600 14.5px/1.2 Inter;display:flex;align-items:center;gap:5px}.whead .wn b .vf{width:12px;height:12px;border-radius:50%;background:#25A9E0;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:7px;flex:none}.whead .wn span{font:400 11px/1 Inter;opacity:.8}.wbody{flex:1;padding:13px 12px;display:flex;flex-direction:column;gap:8px;overflow:hidden}.wmsg{max-width:84%;border-radius:10px;padding:8px 11px 7px;font:400 13.5px/1.45 Inter;color:#111;box-shadow:0 1px 1px rgba(0,0,0,.08)}.wmsg .wtm{display:inline-flex;align-items:center;gap:3px;font:400 10px/1 Inter;color:#8696A0;margin-left:7px;position:relative;top:3px;float:right}.wmsg.in{background:#fff;align-self:flex-start;border-top-left-radius:2px}.wmsg.out{background:#DCF8C6;align-self:flex-end;border-top-right-radius:2px}.ticks{color:#4FC3F7;font-size:9px;letter-spacing:-2px}.wdate{align-self:center;background:#E1F2FA;border-radius:7px;padding:5px 11px;font:500 10.5px/1 Inter;color:#5B6B76}.wtyping{align-self:flex-start;background:#fff;border-radius:8px;border-top-left-radius:2px;padding:8px 11px;display:flex;gap:4px;box-shadow:0 1px 1px rgba(0,0,0,.08)}.wtyping i{width:5px;height:5px;border-radius:50%;background:#9AA7B0;animation:ty 1s infinite}.wtyping i:nth-child(2){animation-delay:.15s}.wtyping i:nth-child(3){animation-delay:.3s}
-@keyframes ty{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-3px);opacity:1}}.winput{display:flex;align-items:center;gap:8px;padding:9px 12px 16px;background:#EFE7DD}.winput .wfield{flex:1;background:#fff;border-radius:999px;padding:11px 16px;font:400 12.5px/1 Inter;color:#8696A0}.winput .wmic{width:40px;height:40px;border-radius:50%;background:var(--wa);flex:none;display:flex;align-items:center;justify-content:center}/* score */
-.scorehead{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}.scorehead b{font:700 14.5px/1 Inter;color:#19335D}.scorenum{font:800 30px/1 Inter;color:#DE6E30}.factor{margin-bottom:11px}.factor .fl{display:flex;justify-content:space-between;font:500 12px/1.3 Inter;color:#7C8698;margin-bottom:5px;gap:10px}.factor .fl b{color:#22314A;font-weight:600;text-align:right}.factor .fb{height:8px;border-radius:4px;background:#F1F3F7;overflow:hidden}.factor .fb i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#E8843F,#DE6E30);width:0;transition:width .9s ease}.shot.on .factor .fb i{width:var(--w)}.shot.on .factor:nth-child(3) .fb i{transition-delay:.12s}.shot.on .factor:nth-child(4) .fb i{transition-delay:.24s}.shot.on .factor:nth-child(5) .fb i{transition-delay:.36s}.scoreverdict{margin-top:12px;background:#FDF1E9;border:1px solid #F6D9C4;border-radius:10px;padding:11px 13px;font:600 12.5px/1.45 Inter;color:#B4571F}/* call */
-.callscr{flex:1;display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,#12233F,#0A1526);color:#fff;padding-top:36px}.callscr .cava{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#E8843F,#DE6E30);display:flex;align-items:center;justify-content:center;font:700 25px/1 Inter;margin-bottom:13px;box-shadow:0 0 0 9px rgba(222,110,48,.12),0 0 0 19px rgba(222,110,48,.05)}.callscr .cname{font:600 17.5px/1.2 Inter}.callscr .cnum{font:400 12.5px/1 Inter;opacity:.65;margin-top:4px}.callscr .cstate{font:500 11.5px/1 Inter;color:#2BC98A;margin-top:8px;display:flex;align-items:center;gap:5px}.callscr .cstate::before{content:&quot;&quot;;width:5px;height:5px;border-radius:50%;background:#2BC98A;animation:blink 1.4s infinite}.callscr .ctimer{font:600 27px/1 Inter;font-variant-numeric:tabular-nums;margin-top:10px;letter-spacing:.04em}.transcript{width:calc(100% - 28px);margin:16px 14px 0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:12px 13px;text-align:left}.transcript .tl{font:600 10px/1 Inter;letter-spacing:.16em;text-transform:uppercase;opacity:.5;margin-bottom:7px;display:flex;align-items:center;gap:5px}.transcript .tl::before{content:&quot;&quot;;width:5px;height:5px;border-radius:50%;background:#E5484D;animation:blink 1.2s infinite}.tline{font:400 12.5px/1.55 Inter;opacity:0;transform:translateY(5px);transition:opacity .45s,transform .45s;margin-bottom:5px}.tline b{font-weight:600;color:#F0A776}.tline.stu b{color:#8FB8F5}.shot.on .tline{opacity:.92;transform:none}.shot.on .tline:nth-child(2){transition-delay:.4s}.shot.on .tline:nth-child(3){transition-delay:1.1s}.shot.on .tline:nth-child(4){transition-delay:1.8s}.callbtns{margin-top:auto;display:flex;gap:36px;padding:18px 0 24px}.cbtn{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12)}.cbtn.end{background:#E5484D}/* assign */
-.assign{display:flex;align-items:flex-start;gap:9px}.assign .aicon{width:38px;height:38px;border-radius:8px;background:#FDF1E9;color:#DE6E30;flex:none;display:flex;align-items:center;justify-content:center}.assign h3{font:700 14.5px/1.35 Inter;color:#19335D}.assign p{font:400 12.5px/1.55 Inter;color:#7C8698;margin-top:4px}.attach{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.att{display:flex;align-items:center;gap:6px;border:1px solid #ECEEF4;border-radius:9px;padding:8px 12px;font:600 11.5px/1 Inter;color:#22314A;background:#F9FAFC}.sla{margin-top:13px;display:flex;align-items:center;gap:9px;font:600 11.5px/1 Inter;color:#1FAF66}.sla .slabar{flex:1;height:7px;border-radius:4px;background:#F1F3F7;overflow:hidden}.sla .slabar i{display:block;height:100%;width:0;background:#2BC98A;transition:width 1.2s ease .25s}.shot.on .sla .slabar i{width:88%}/* payment */
-.payscr{flex:1;display:flex;flex-direction:column;background:#F6F8FB}.payhead{background:#19335D;color:#fff;padding:34px 17px 14px;font:600 14px/1 Inter;display:flex;align-items:center;gap:7px}.paybody{flex:1;display:flex;flex-direction:column;align-items:center;padding:24px 17px}.payck{width:68px;height:68px;border-radius:50%;background:#E7F8EF;color:#1FAF66;display:flex;align-items:center;justify-content:center;margin-bottom:11px}.payck svg,.payck img.eeimg{width:33px;height:33px}.paybody h3{font:700 17px/1.2 Inter;color:#19335D}.payamt{font:800 32px/1 Inter;color:#19335D;margin:10px 0 3px}.paysub{font:400 12px/1 Inter;color:#7C8698}.payrows{width:100%;margin-top:16px;background:#fff;border:1px solid #ECEEF4;border-radius:13px;padding:4px 14px}.payrows .pr{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #F1F3F7;font:400 12px/1.35 Inter;color:#7C8698;gap:8px}.payrows .pr:last-child{border-bottom:none}.payrows .pr b{color:#22314A;font-weight:600;text-align:right}.paypill{margin-top:15px;background:#E7F8EF;color:#1FAF66;font:700 11.5px/1 Inter;letter-spacing:.08em;padding:10px 17px;border-radius:999px}/* ============ FLOWLINE RECAP ============ */
-.flow{position:relative;z-index:1;padding:44px 4vw 40px;border-top:1px solid var(--hair);transition:border-color 1.2s}.flow h2{text-align:center;font-size:clamp(20px,2.6vw,30px);font-weight:800}.flowline{display:flex;align-items:flex-start;justify-content:space-between;max-width:1080px;margin:28px auto 0;position:relative}.flowline::before{content:&quot;&quot;;position:absolute;left:3%;right:3%;top:17px;height:2px;background:var(--hair);transition:background 1.2s}.fnode{position:relative;flex:1;text-align:center;min-width:0}.fnode .fdot{width:36px;height:36px;border-radius:50%;margin:0 auto 8px;background:var(--bg);border:2px solid var(--hair);display:flex;align-items:center;justify-content:center;position:relative;transition:background 1.2s,border-color .3s}.fnode .fdot svg,.fnode .fdot img.eeimg{width:16px;height:16px}.fnode b{font:600 10.5px/1.3 Inter;color:var(--fg);display:block;transition:color 1.2s}.fnode span{font:600 9px/1 ui-monospace,Menlo,monospace;color:var(--faint);display:block;margin-top:3px;transition:color 1.2s}.fnode.hot .fdot{border-color:var(--orange);box-shadow:0 0 0 5px rgba(222,110,48,.14)}/* ============ FOOTER BANDS ============ */
-.band{position:relative;z-index:1;padding:38px 4vw;border-top:1px solid var(--hair);transition:border-color 1.2s}.bandgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:34px;max-width:1080px;margin:0 auto;align-items:center}.modrow{display:flex;flex-wrap:wrap;gap:7px}.modpill{display:flex;align-items:center;gap:6px;border:1px solid var(--hair);border-radius:999px;padding:7px 12px;font:600 10.5px/1 Inter;color:var(--fg);background:var(--panel);transition:color 1.2s,border-color 1.2s,background 1.2s}.modpill svg,.modpill img.eeimg{width:12px;height:12px;flex:none}.bandgrid h2{font-size:clamp(20px,2.4vw,28px);font-weight:800;line-height:1.15}.bandgrid .bp{color:var(--sub);font-size:12.5px;line-height:1.55;margin-top:8px;transition:color 1.2s}.numrow{display:flex;gap:26px;flex-wrap:wrap;margin-top:6px}.num .nv{font:800 clamp(30px,3.6vw,44px)/1 'Poppins',sans-serif;color:var(--orange)}.num .nd{margin-top:6px;font-size:10.5px;color:var(--sub);max-width:16ch;line-height:1.5;transition:color 1.2s}.ctaband{display:flex;align-items:center;justify-content:space-between;gap:22px;max-width:1080px;margin:0 auto;flex-wrap:wrap}.ctaband h2{font-size:clamp(22px,2.8vw,34px);font-weight:800;line-height:1.15}.ctaband p{color:var(--sub);font-size:12.5px;margin-top:6px;transition:color 1.2s}.cta{display:inline-block;background:linear-gradient(90deg,var(--orange2),var(--orange));color:#fff;font:700 14.5px/1 'Poppins',sans-serif;text-decoration:none;border-radius:12px;padding:16px 28px;box-shadow:0 12px 30px rgba(222,110,48,.4);transition:transform .15s,box-shadow .15s;white-space:nowrap}.cta:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(222,110,48,.5)}.trust{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px}.trust span{font:600 9.5px/1 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:6px;transition:color 1.2s}.trust span::before{content:&quot;&quot;;width:4px;height:4px;border-radius:50%;background:var(--orange2)}
+<!-- ===================== EE · ADMISSION OPERATING SYSTEM (scroll storytelling, scoped #ee-aos) ===================== -->
+<style>
+  #ee-aos{position:relative;background:#ffffff;font-family:'Inter',system-ui,-apple-system,sans-serif;color:#19335D;-webkit-font-smoothing:antialiased}
+  #ee-aos *{box-sizing:border-box}
+  #ee-aos .aos-intro{max-width:1200px;margin:0 auto;padding:clamp(56px,8vw,104px) 24px clamp(20px,3vw,36px);text-align:center}
+  #ee-aos .aos-kick{display:inline-flex;align-items:center;gap:8px;font:800 11.5px/1 'Inter';letter-spacing:.16em;text-transform:uppercase;color:#DE6E30;background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.2);padding:8px 15px;border-radius:999px}
+  #ee-aos .aos-kick i{width:7px;height:7px;border-radius:50%;background:#DE6E30;box-shadow:0 0 0 4px rgba(222,110,48,.16)}
+  #ee-aos .aos-intro h2{font-size:clamp(26px,4.4vw,46px);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin:18px auto 12px;max-width:20ch}
+  #ee-aos .aos-intro h2 .o{color:#DE6E30}
+  #ee-aos .aos-intro p{font-size:clamp(15px,1.8vw,18px);line-height:1.6;color:#5A6B85;margin:0 auto;max-width:56ch}
 
-@media (max-width:960px){.player{grid-template-columns:1fr;gap:14px;padding:20px 5vw 30px;align-items:start}.pleft h1{font-size:26px}.steps{flex-direction:row;gap:5px;margin-top:14px}.step{flex:1;padding:0;height:4px;border-radius:3px;background:var(--hair);border:none;overflow:hidden}.step .tno,.step .tt,.step .tm{display:none}.step .pbar{position:static;opacity:1;height:100%;background:transparent}.step.done .pbar i{width:100%!important}.stage{height:640px;max-width:100%}.bandgrid{grid-template-columns:1fr;gap:20px}.flowline{flex-wrap:wrap;gap:14px 0}.flowline::before{display:none}.fnode{flex:0 0 33%}.ctaband{justify-content:center;text-align:center}
-}
-@media (max-width:380px){.phone{width:290px}.phone .screen{height:520px}.appwin{width:100%}.stage{height:580px}
-}
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rev,.shot,.tline{opacity:1!important;transform:none!important}.shot{position:relative;display:none}.shot.on{display:flex}.shot .factor .fb i{width:var(--w)!important}.sla .slabar i{width:88%!important}
-}
+  /* ---- scroll track + pinned stage ---- */
+  #ee-aos .aos-track{position:relative;height:560vh}
+  #ee-aos .aos-pin{position:sticky;top:0;height:100vh;min-height:640px;display:flex;align-items:center;overflow:hidden}
+  #ee-aos .aos-pin::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(60vw 40vw at 88% 6%,rgba(222,110,48,.06),transparent 60%),
+    radial-gradient(60vw 40vw at 6% 96%,rgba(25,51,93,.06),transparent 62%);pointer-events:none}
+  #ee-aos .aos-grid{position:relative;width:100%;max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,64px);align-items:center}
+
+  /* ---- left narrative ---- */
+  #ee-aos .aos-left{position:relative;min-width:0}
+  #ee-aos .aos-rail{display:flex;gap:8px;margin-bottom:22px}
+  #ee-aos .aos-rail span{height:4px;flex:1;border-radius:3px;background:#E8EDF5;overflow:hidden;position:relative}
+  #ee-aos .aos-rail span i{position:absolute;inset:0;width:0;background:linear-gradient(90deg,#E8843F,#DE6E30);border-radius:3px;transition:width .3s ease}
+  #ee-aos .aos-rail span.done i{width:100%}
+  #ee-aos .aos-rail span.cur i{width:var(--p,0%)}
+  #ee-aos .aos-beat{position:relative}
+  #ee-aos .aos-scene-txt{position:absolute;inset:0;opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s;pointer-events:none}
+  #ee-aos .aos-scene-txt.on{opacity:1;transform:none;pointer-events:auto;position:relative}
+  #ee-aos .aos-meta{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  #ee-aos .aos-no{font:800 13px/1 ui-monospace,Menlo,monospace;color:#fff;background:#19335D;width:38px;height:38px;border-radius:11px;display:grid;place-items:center}
+  #ee-aos .aos-time{font:700 12px/1 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#DE6E30;background:rgba(222,110,48,.08);padding:6px 11px;border-radius:999px}
+  #ee-aos .aos-beat h3{font-size:clamp(22px,3vw,34px);font-weight:800;line-height:1.12;letter-spacing:-.02em;margin:0 0 12px;color:#19335D}
+  #ee-aos .aos-beat p{font-size:clamp(14.5px,1.7vw,17px);line-height:1.6;color:#5A6B85;margin:0 0 18px;max-width:44ch}
+  #ee-aos .aos-tags{display:flex;flex-wrap:wrap;gap:8px}
+  #ee-aos .aos-tags span{font:700 11.5px/1 'Inter';color:#19335D;background:#F1F5FB;border:1px solid #E3EAF4;padding:8px 12px;border-radius:999px}
+
+  /* ---- right visual stage ---- */
+  #ee-aos .aos-stage{position:relative;height:min(560px,72vh);display:flex;align-items:center;justify-content:center}
+  #ee-aos .aos-scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(24px) scale(.97);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+  #ee-aos .aos-scene.on{opacity:1;transform:none;pointer-events:auto}
+  #ee-aos .card{width:min(440px,100%);background:#fff;border:1px solid #E6ECF5;border-radius:20px;box-shadow:0 40px 90px -40px rgba(25,51,93,.4),0 0 0 1px rgba(25,51,93,.03);overflow:hidden}
+  #ee-aos .card-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#F6F8FC;border-bottom:1px solid #EAEFF6}
+  #ee-aos .card-bar .d{width:10px;height:10px;border-radius:50%;background:#D8E0EC}
+  #ee-aos .card-bar .u{margin-left:auto;font:600 11px/1 'Inter';color:#8A97AC}
+  #ee-aos .card-body{padding:20px}
+  /* scene 1: new lead */
+  #ee-aos .lead-top{display:flex;align-items:center;gap:13px;margin-bottom:16px}
+  #ee-aos .lead-av{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#22467C,#19335D);color:#fff;display:grid;place-items:center;font:800 17px/1 'Inter';flex:none}
+  #ee-aos .lead-top b{font:800 17px/1.2 'Inter';color:#19335D;display:flex;align-items:center;gap:8px}
+  #ee-aos .lead-new{font:800 9.5px/1 'Inter';letter-spacing:.08em;color:#DE6E30;background:#FDF1E9;padding:4px 7px;border-radius:5px}
+  #ee-aos .lead-top span{display:block;font:600 12px/1 'Inter';color:#9AA6BA;margin-top:5px}
+  #ee-aos .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  #ee-aos .fld{background:#F8FAFD;border:1px solid #EEF2F8;border-radius:11px;padding:11px 13px}
+  #ee-aos .fld small{display:block;font:800 9px/1 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#A6B1C4;margin-bottom:6px}
+  #ee-aos .fld b{font:700 13.5px/1.3 'Inter';color:#22314A}
+  #ee-aos .fld b.o{color:#DE6E30}
+  /* scene 2: whatsapp */
+  #ee-aos .wa{background:#EAE3D9}
+  #ee-aos .wa-head{background:#19335D;color:#fff;display:flex;align-items:center;gap:10px;padding:14px 16px}
+  #ee-aos .wa-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#E8843F,#DE6E30);display:grid;place-items:center;font:800 13px/1 'Inter';flex:none}
+  #ee-aos .wa-head b{font:700 14px/1.2 'Inter'}#ee-aos .wa-head small{display:block;font:400 11px/1 'Inter';opacity:.75;margin-top:2px}
+  #ee-aos .wa-body{padding:16px 14px;display:flex;flex-direction:column;gap:9px;min-height:230px}
+  #ee-aos .wa-msg{max-width:82%;padding:9px 12px;border-radius:12px;font:500 13.5px/1.45 'Inter';box-shadow:0 1px 1px rgba(0,0,0,.06)}
+  #ee-aos .wa-in{background:#fff;color:#20303f;align-self:flex-start;border-top-left-radius:3px}
+  #ee-aos .wa-out{background:#DEF3C9;color:#20303f;align-self:flex-end;border-top-right-radius:3px}
+  /* scene 3: score gauge */
+  #ee-aos .score{display:flex;flex-direction:column;align-items:center;padding:26px 20px}
+  #ee-aos .ring{width:170px;height:170px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#DE6E30 var(--deg,346deg),#EEF2F8 0);margin-bottom:6px}
+  #ee-aos .ring>div{width:132px;height:132px;border-radius:50%;background:#fff;display:grid;place-items:center;flex-direction:column;box-shadow:inset 0 0 0 1px #EEF2F8}
+  #ee-aos .ring b{font:800 44px/1 'Inter';color:#19335D}#ee-aos .ring small{font:700 11px/1 'Inter';color:#A6B1C4}
+  #ee-aos .score-tag{margin-top:14px;font:800 12px/1.4 'Inter';color:#B4571F;background:#FDF1E9;border:1px solid #F6D9C4;border-radius:10px;padding:10px 14px;text-align:center}
+  /* scene 4: call */
+  #ee-aos .call{background:linear-gradient(180deg,#22467C,#12233F);color:#fff;display:flex;flex-direction:column;align-items:center;padding:30px 20px 24px;min-height:300px}
+  #ee-aos .call-av{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,#E8843F,#DE6E30);display:grid;place-items:center;font:800 24px/1 'Inter';margin-bottom:12px;box-shadow:0 0 0 8px rgba(222,110,48,.14)}
+  #ee-aos .call b{font:700 17px/1.2 'Inter'}#ee-aos .call .st{font:600 11.5px/1 'Inter';color:#43E08B;margin-top:8px}
+  #ee-aos .wave{display:flex;align-items:center;gap:4px;height:34px;margin:16px 0}
+  #ee-aos .wave i{width:4px;border-radius:3px;background:#E8843F;animation:aosWave 1s ease-in-out infinite}
+  #ee-aos .wave i:nth-child(2){animation-delay:.1s}#ee-aos .wave i:nth-child(3){animation-delay:.2s}#ee-aos .wave i:nth-child(4){animation-delay:.3s}#ee-aos .wave i:nth-child(5){animation-delay:.15s}#ee-aos .wave i:nth-child(6){animation-delay:.25s}
+  @keyframes aosWave{0%,100%{height:9px}50%{height:30px}}
+  #ee-aos .call-cap{font:500 12.5px/1.5 'Inter';color:#c6d4ea;text-align:center;max-width:30ch}
+  /* scene 5: handoff */
+  #ee-aos .ho-row{display:flex;align-items:flex-start;gap:11px;margin-bottom:14px}
+  #ee-aos .ho-ic{width:40px;height:40px;border-radius:10px;background:#FDF1E9;color:#DE6E30;display:grid;place-items:center;flex:none}
+  #ee-aos .ho-ic svg{width:20px;height:20px}
+  #ee-aos .ho-row b{font:800 15px/1.3 'Inter';color:#19335D}#ee-aos .ho-row p{font:500 12.5px/1.5 'Inter';color:#7C8698;margin:3px 0 0}
+  #ee-aos .att{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  #ee-aos .att span{font:700 11px/1 'Inter';color:#22314A;background:#F6F8FC;border:1px solid #E9EEF6;border-radius:9px;padding:8px 11px}
+  #ee-aos .sla{display:flex;align-items:center;gap:9px;font:700 11.5px/1 'Inter';color:#1F9D6B}
+  #ee-aos .sla .bar{flex:1;height:7px;border-radius:4px;background:#EEF2F8;overflow:hidden}
+  #ee-aos .sla .bar i{display:block;height:100%;width:86%;background:linear-gradient(90deg,#43E08B,#1F9D6B)}
+  /* scene 6: enrolled */
+  #ee-aos .enr{display:flex;flex-direction:column;align-items:center;padding:30px 22px}
+  #ee-aos .enr-ck{width:76px;height:76px;border-radius:50%;background:#FDF1E9;color:#DE6E30;display:grid;place-items:center;margin-bottom:14px}
+  #ee-aos .enr-ck svg{width:38px;height:38px}
+  #ee-aos .enr h4{font:800 19px/1.2 'Inter';color:#19335D;margin:0}
+  #ee-aos .enr .amt{font:800 34px/1 'Inter';color:#19335D;margin:12px 0 4px}
+  #ee-aos .enr .sub{font:600 12px/1 'Inter';color:#8A97AC}
+  #ee-aos .enr .pill{margin-top:16px;font:800 12px/1 'Inter';letter-spacing:.06em;color:#1F9D6B;background:#E7F8EF;border:1px solid #CDEBD9;padding:10px 16px;border-radius:999px}
+
+  /* ---- flow recap ---- */
+  #ee-aos .aos-flow{max-width:1080px;margin:0 auto;padding:clamp(30px,5vw,64px) 24px clamp(50px,8vw,90px)}
+  #ee-aos .aos-flow h3{text-align:center;font-size:clamp(20px,2.6vw,28px);font-weight:800;margin:0 0 30px}
+  #ee-aos .aos-flow h3 .o{color:#DE6E30}
+  #ee-aos .fline{display:flex;justify-content:space-between;position:relative;gap:6px}
+  #ee-aos .fline::before{content:"";position:absolute;left:4%;right:4%;top:18px;height:2px;background:#E8EDF5}
+  #ee-aos .fnode{position:relative;flex:1;text-align:center;min-width:0}
+  #ee-aos .fnode .fd{width:38px;height:38px;border-radius:50%;margin:0 auto 8px;background:#fff;border:2px solid #E3EAF4;color:#19335D;display:grid;place-items:center}
+  #ee-aos .fnode .fd svg{width:17px;height:17px}
+  #ee-aos .fnode.hot .fd{border-color:#DE6E30;color:#DE6E30;box-shadow:0 0 0 5px rgba(222,110,48,.12)}
+  #ee-aos .fnode b{display:block;font:700 10.5px/1.3 'Inter';color:#19335D}
+  #ee-aos .fnode span{display:block;font:700 9px/1 ui-monospace,Menlo,monospace;color:#A6B1C4;margin-top:3px}
+
+  @media(max-width:860px){
+    #ee-aos .aos-track{height:auto}
+    #ee-aos .aos-pin{position:static;height:auto;min-height:0;display:block;padding:0 0 20px}
+    #ee-aos .aos-grid{grid-template-columns:1fr;gap:0}
+    #ee-aos .aos-rail{display:none}
+    #ee-aos .aos-beat{display:flex;flex-direction:column;gap:0}
+    #ee-aos .aos-scene-txt{position:relative;opacity:1;transform:none;margin-top:26px}
+    #ee-aos .aos-scene-txt.on{position:relative}
+    #ee-aos .aos-stage{display:none}
+    #ee-aos .m-scene{display:block;margin:14px 0 0}
+    #ee-aos .fline{flex-wrap:wrap;gap:16px 0}#ee-aos .fline::before{display:none}#ee-aos .fnode{flex:0 0 33%}
+  }
+  @media(min-width:861px){#ee-aos .m-scene{display:none}}
+  @media(prefers-reduced-motion:reduce){#ee-aos .aos-scene,#ee-aos .aos-scene-txt,#ee-aos .wave i{transition:none;animation:none}}
 </style>
-<style id=&quot;ee-embed-fix&quot;>html,body{height:auto!important;min-height:0!important;overflow:visible!important}.player{min-height:0!important}.stage{height:700px!important}
-  @media(max-width:960px){.stage{height:640px!important}}
-  @media(max-width:380px){.stage{height:580px!important}}
-</style>
-</head>
-<body>
-<div id=&quot;sky&quot;></div>
-<!-- ============ STORY PLAYER ============ -->
-<section class=&quot;player&quot; id=&quot;top&quot;>
-  <div class=&quot;pleft&quot;>
-    <span class=&quot;kick rev&quot;>The Admission Operating System</span>
-    <h1 class=&quot;rev d1&quot;>While your campus sleeps, <span class=&quot;o&quot;>admissions don't.</span></h1>
-    <p class=&quot;lede rev d2&quot;>One student, one night, six screens. Watch the whole process — it plays itself.</p>
-    <div class=&quot;steps&quot; id=&quot;steps&quot;>
-      <div class=&quot;step on&quot; data-i=&quot;0&quot;><span class=&quot;tno&quot;>01</span><div class=&quot;tt&quot;><b>Lead captured</b><span>Meta ad · auto-logged in CRM</span></div><span class=&quot;tm&quot;>11:02 PM</span><div class=&quot;pbar&quot;><i></i></div></div>
-      <div class=&quot;step&quot; data-i=&quot;1&quot;><span class=&quot;tno&quot;>02</span><div class=&quot;tt&quot;><b>VidyaGPT replies</b><span>WhatsApp · her language · 24×7</span></div><span class=&quot;tm&quot;>11:02 PM</span><div class=&quot;pbar&quot;><i></i></div></div>
-      <div class=&quot;step&quot; data-i=&quot;2&quot;><span class=&quot;tno&quot;>03</span><div class=&quot;tt&quot;><b>Intent scored 96</b><span>VidyaPulse ranks her priority</span></div><span class=&quot;tm&quot;>11:09 PM</span><div class=&quot;pbar&quot;><i></i></div></div>
-      <div class=&quot;step&quot; data-i=&quot;3&quot;><span class=&quot;tno&quot;>04</span><div class=&quot;tt&quot;><b>AI voice call</b><span>Qualified · meeting booked</span></div><span class=&quot;tm&quot;>9:00 AM</span><div class=&quot;pbar&quot;><i></i></div></div>
-      <div class=&quot;step&quot; data-i=&quot;4&quot;><span class=&quot;tno&quot;>05</span><div class=&quot;tt&quot;><b>Counsellor handoff</b><span>Full context · zero cold starts</span></div><span class=&quot;tm&quot;>9:04 AM</span><div class=&quot;pbar&quot;><i></i></div></div>
-      <div class=&quot;step&quot; data-i=&quot;5&quot;><span class=&quot;tno&quot;>06</span><div class=&quot;tt&quot;><b>Enrolled</b><span>Fee paid · pipeline complete</span></div><span class=&quot;tm&quot;>Day 12</span><div class=&quot;pbar&quot;><i></i></div></div>
+
+<section id="ee-night" aria-label="The Admission Operating System — a lead's journey, start to enrolled">
+  <div id="ee-aos">
+    <div class="aos-intro">
+      <span class="aos-kick"><i></i> The Admission Operating System</span>
+      <h2>One enquiry. One night. <span class="o">Enrolled by itself.</span></h2>
+      <p>Scroll to follow a single midnight lead move through every stage — captured, engaged, scored, called, handed off and enrolled — with no one at the desk.</p>
     </div>
-    <div class=&quot;pctrl&quot;>
-      <button class=&quot;pbtn&quot; id=&quot;pplay&quot; aria-label=&quot;Pause story&quot;>
-        <svg id=&quot;icpause&quot; width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;4&quot; height=&quot;16&quot; rx=&quot;1&quot;/><rect x=&quot;14&quot; y=&quot;4&quot; width=&quot;4&quot; height=&quot;16&quot; rx=&quot;1&quot;/></svg>
-        <svg id=&quot;icplay&quot; width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; style=&quot;display:none&quot;><path d=&quot;M7 4l13 8-13 8V4z&quot;/></svg>
-      </button>
-      <span>Auto-playing · click any step to jump</span>
-    </div>
-  </div>
 
-  <div class=&quot;pright&quot;>
-    <div class=&quot;stage&quot; id=&quot;stage&quot;>
-
-      <div class=&quot;shot on&quot; data-i=&quot;0&quot;>
-        <div class=&quot;appwin&quot;>
-          <div class=&quot;appbar&quot;><div class=&quot;wd&quot;><i></i><i></i><i></i></div><div class=&quot;url&quot;><svg width=&quot;9&quot; height=&quot;9&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#1FAF66&quot; stroke-width=&quot;3&quot;><rect x=&quot;5&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M8 10V7a4 4 0 0 1 8 0v3&quot;/></svg>app.extraaedge.com/leads/EE-2026-84517</div></div>
-          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;></div><b>ExtraaEdge</b><span class=&quot;crumb&quot;>/ Leads / New</span><span class=&quot;lvpill&quot;>Auto-captured</span></div>
-          <div class=&quot;appbody&quot;>
-            <div class=&quot;leadhead&quot;><div class=&quot;lava&quot;>PD</div><div class=&quot;ln&quot;><b>Priya Deshmukh <span class=&quot;new&quot;>NEW LEAD</span></b><span>Lead ID EE-2026-84517 · Created 23:02:14 IST</span></div></div>
-            <div class=&quot;grid2&quot;>
-              <div class=&quot;fld&quot;><span>Source</span><b class=&quot;hl&quot;>Meta Ads · Instagram</b></div>
-              <div class=&quot;fld&quot;><span>Campaign</span><b>MBA_Mumbai_Jul26</b></div>
-              <div class=&quot;fld&quot;><span>Course</span><b>MBA · 2026 Intake</b></div>
-              <div class=&quot;fld&quot;><span>Phone</span><b>+91 98••• ••342</b></div>
+    <div class="aos-track" id="aosTrack">
+      <div class="aos-pin">
+        <div class="aos-grid">
+          <!-- LEFT narrative -->
+          <div class="aos-left">
+            <div class="aos-rail" id="aosRail">
+              <span data-r="0"><i></i></span><span data-r="1"><i></i></span><span data-r="2"><i></i></span><span data-r="3"><i></i></span><span data-r="4"><i></i></span><span data-r="5"><i></i></span>
             </div>
-            <div class=&quot;appfoot&quot;><div class=&quot;abtn pr&quot;>Engage with VidyaGPT</div><div class=&quot;abtn sec&quot;>View timeline</div></div>
-          </div>
-        </div>
-        <p class=&quot;evcap&quot;>Captured, deduped, enriched — no one typed this in.</p>
-      </div>
-
-      <div class=&quot;shot&quot; data-i=&quot;1&quot;>
-        <div class=&quot;phone&quot;><div class=&quot;notch&quot;></div>
-          <div class=&quot;screen&quot;><div class=&quot;wchat&quot;>
-            <div class=&quot;whead&quot;><svg width=&quot;7&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2.6&quot;><path d=&quot;M15 5l-7 7 7 7&quot;/></svg><div class=&quot;wava&quot;>V</div><div class=&quot;wn&quot;><b>Vidya AI Counsellor <span class=&quot;vf&quot;>✓</span></b><span>online</span></div><svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><path d=&quot;M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z&quot;/></svg></div>
-            <div class=&quot;wbody&quot;>
-              <div class=&quot;wdate&quot;>Today</div>
-              <div class=&quot;wmsg out&quot;>MBA ki fees kya hai?<span class=&quot;wtm&quot;>11:02 PM <span class=&quot;ticks&quot;>✓✓</span></span></div>
-              <div class=&quot;wmsg in&quot;>Hi Priya! 👋 Main Vidya hoon — aapki AI admission counsellor.<span class=&quot;wtm&quot;>11:02 PM</span></div>
-              <div class=&quot;wmsg in&quot;>MBA 2026 ki total fees ₹8.4L hai. Aap 25% tak merit scholarship ke liye eligible ho sakti hain 🎓<span class=&quot;wtm&quot;>11:02 PM</span></div>
-              <div class=&quot;wmsg out&quot;>Scholarship kaise milegi?<span class=&quot;wtm&quot;>11:03 PM <span class=&quot;ticks&quot;>✓✓</span></span></div>
-              <div class=&quot;wtyping&quot;><i></i><i></i><i></i></div>
-            </div>
-            <div class=&quot;winput&quot;><div class=&quot;wfield&quot;>Message</div><div class=&quot;wmic&quot;><svg width=&quot;13&quot; height=&quot;13&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><rect x=&quot;9&quot; y=&quot;3&quot; width=&quot;6&quot; height=&quot;11&quot; rx=&quot;3&quot;/><path d=&quot;M5 11a7 7 0 0 0 14 0M12 18v3&quot;/></svg></div></div>
-          </div></div>
-        </div>
-        <p class=&quot;evcap&quot;>A real conversation at 11 PM — while your office is dark.</p>
-      </div>
-
-      <div class=&quot;shot&quot; data-i=&quot;2&quot;>
-        <div class=&quot;appwin&quot;>
-          <div class=&quot;appbar&quot;><div class=&quot;wd&quot;><i></i><i></i><i></i></div><div class=&quot;url&quot;><svg width=&quot;9&quot; height=&quot;9&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#1FAF66&quot; stroke-width=&quot;3&quot;><rect x=&quot;5&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M8 10V7a4 4 0 0 1 8 0v3&quot;/></svg>app.extraaedge.com/leads/EE-2026-84517/score</div></div>
-          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;></div><b>VidyaPulse</b><span class=&quot;crumb&quot;>/ Lead Scoring</span><span class=&quot;lvpill&quot;>Live model</span></div>
-          <div class=&quot;appbody&quot;>
-            <div class=&quot;scorehead&quot;><b>Intent Score — Priya Deshmukh</b><span class=&quot;scorenum&quot;><span data-count=&quot;96&quot;>0</span><span style=&quot;font-size:13px&quot;>/100</span></span></div>
-            <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Response velocity</span><b>Replied in 41s avg</b></div><div class=&quot;fb&quot;><i style=&quot;--w:92%&quot;></i></div></div>
-            <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Engagement depth</span><b>6 questions · fees + scholarship</b></div><div class=&quot;fb&quot;><i style=&quot;--w:88%&quot;></i></div></div>
-            <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Course-fit signals</span><b>Work-ex 3 yrs · CAT registered</b></div><div class=&quot;fb&quot;><i style=&quot;--w:84%&quot;></i></div></div>
-            <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Page activity</span><b>Fee page ×3 · Placements ×2</b></div><div class=&quot;fb&quot;><i style=&quot;--w:78%&quot;></i></div></div>
-            <div class=&quot;scoreverdict&quot;>⚡ Priority HIGH — queued for AI voice call at 9:00 AM.</div>
-          </div>
-        </div>
-        <p class=&quot;evcap&quot;>Not a guess — a live model reading behaviour, not form fields.</p>
-      </div>
-
-      <div class=&quot;shot&quot; data-i=&quot;3&quot;>
-        <div class=&quot;phone&quot;><div class=&quot;notch&quot;></div>
-          <div class=&quot;screen&quot;><div class=&quot;callscr&quot;>
-            <div class=&quot;cava&quot;>V</div>
-            <div class=&quot;cname&quot;>Vidya Call · Admissions</div>
-            <div class=&quot;cnum&quot;>+91 89569 82897</div>
-            <div class=&quot;cstate&quot;>Connected in 18s</div>
-            <div class=&quot;ctimer&quot; data-timer data-max=&quot;134&quot;>00:00</div>
-            <div class=&quot;transcript&quot;>
-              <div class=&quot;tl&quot;>Live transcript</div>
-              <div class=&quot;tline&quot;><b>Vidya:</b> Good morning Priya! Kal raat aapne MBA fees poocha tha…</div>
-              <div class=&quot;tline stu&quot;><b>Priya:</b> Haan! Scholarship ka process samajhna tha.</div>
-              <div class=&quot;tline&quot;><b>Vidya:</b> Main aapki counsellor ke saath 11 baje ki meeting book kar rahi hoon ✓</div>
-            </div>
-            <div class=&quot;callbtns&quot;>
-              <div class=&quot;cbtn&quot;><svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><rect x=&quot;9&quot; y=&quot;3&quot; width=&quot;6&quot; height=&quot;11&quot; rx=&quot;3&quot;/><path d=&quot;M5 11a7 7 0 0 0 14 0M12 18v3&quot;/></svg></div>
-              <div class=&quot;cbtn end&quot;><svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot; transform=&quot;rotate(135)&quot;><path d=&quot;M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z&quot;/></svg></div>
-              <div class=&quot;cbtn&quot;><svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><path d=&quot;M4 6h16v10H9l-5 4V6z&quot;/></svg></div>
-            </div>
-          </div></div>
-        </div>
-        <p class=&quot;evcap&quot;>18 seconds after she's active — qualified, transcribed, booked.</p>
-      </div>
-
-      <div class=&quot;shot&quot; data-i=&quot;4&quot;>
-        <div class=&quot;appwin&quot;>
-          <div class=&quot;appbar&quot;><div class=&quot;wd&quot;><i></i><i></i><i></i></div><div class=&quot;url&quot;><svg width=&quot;9&quot; height=&quot;9&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#1FAF66&quot; stroke-width=&quot;3&quot;><rect x=&quot;5&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M8 10V7a4 4 0 0 1 8 0v3&quot;/></svg>app.extraaedge.com/inbox</div></div>
-          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;></div><b>ExtraaEdge</b><span class=&quot;crumb&quot;>/ Inbox — Rahul Verma</span><span class=&quot;lvpill&quot;>1 new</span></div>
-          <div class=&quot;appbody&quot;>
-            <div class=&quot;assign&quot;>
-              <div class=&quot;aicon&quot;><svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M13 2L4 14h6l-1 8 9-12h-6l1-8z&quot;/></svg></div>
-              <div><h3>Priya Deshmukh assigned · Meeting 11:00 AM</h3><p>Smart-routed on score 96 and your 78% conversion on Meta leads. Context attached:</p></div>
-            </div>
-            <div class=&quot;attach&quot;>
-              <div class=&quot;att&quot;><svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#25D366&quot; stroke-width=&quot;2.4&quot;><path d=&quot;M4 6h16v10H9l-5 4V6z&quot;/></svg>WhatsApp · 14 msgs</div>
-              <div class=&quot;att&quot;><svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#DE6E30&quot; stroke-width=&quot;2.4&quot;><path d=&quot;M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z&quot;/></svg>Call rec · 02:14</div>
-              <div class=&quot;att&quot;><svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#4E86D8&quot; stroke-width=&quot;2.4&quot;><path d=&quot;M4 20V10M10 20V4M16 20v-8&quot;/></svg>Score · 96/100</div>
-              <div class=&quot;att&quot;><svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#7A5AF8&quot; stroke-width=&quot;2.4&quot;><rect x=&quot;5&quot; y=&quot;3&quot; width=&quot;14&quot; height=&quot;18&quot; rx=&quot;2&quot;/><path d=&quot;M9 8h6M9 12h6&quot;/></svg>AI summary</div>
-            </div>
-            <div class=&quot;sla&quot;><span>Follow-up SLA</span><div class=&quot;slabar&quot;><i></i></div><span>1h 56m left</span></div>
-          </div>
-        </div>
-        <p class=&quot;evcap&quot;>Zero cold starts. AI did the night shift; humans do the human part.</p>
-      </div>
-
-      <div class=&quot;shot&quot; data-i=&quot;5&quot;>
-        <div class=&quot;phone&quot;><div class=&quot;notch&quot;></div>
-          <div class=&quot;screen&quot;><div class=&quot;payscr&quot;>
-            <div class=&quot;payhead&quot;><svg width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2.6&quot;><path d=&quot;M15 5l-7 7 7 7&quot;/></svg>Admission Fee Payment</div>
-            <div class=&quot;paybody&quot;>
-              <div class=&quot;payck&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.6&quot;><path d=&quot;M4 12.5l5 5L20 6.5&quot;/></svg></div>
-              <h3>Payment Successful</h3>
-              <div class=&quot;payamt&quot;>₹1,00,000</div>
-              <div class=&quot;paysub&quot;>Admission Fee · MBA 2026</div>
-              <div class=&quot;payrows&quot;>
-                <div class=&quot;pr&quot;><span>Transaction ID</span><b>pay_Oq8xT2mK4KzR</b></div>
-                <div class=&quot;pr&quot;><span>Method</span><b>UPI · priya.d@okhdfc</b></div>
-                <div class=&quot;pr&quot;><span>Receipt</span><b style=&quot;color:#DE6E30&quot;>Sent on WhatsApp ✓</b></div>
+            <div class="aos-beat" id="aosBeat">
+              <div class="aos-scene-txt on" data-i="0">
+                <div class="aos-meta"><span class="aos-no">01</span><span class="aos-time">11:02 PM</span></div>
+                <h3>A lead lands while your office is dark.</h3>
+                <p>A Meta ad enquiry is captured, deduped and enriched into the Admission CRM automatically — no one typed a thing.</p>
+                <div class="aos-tags"><span>Auto-captured</span><span>Deduped</span><span>Enriched</span></div>
+                <div class="m-scene" data-m="0"></div>
               </div>
-              <div class=&quot;paypill&quot;>STATUS: ENROLLED 🎓</div>
+              <div class="aos-scene-txt" data-i="1">
+                <div class="aos-meta"><span class="aos-no">02</span><span class="aos-time">11:02 PM</span></div>
+                <h3>VidyaGPT replies in her language — instantly.</h3>
+                <p>A real conversation at 11 PM on WhatsApp: fees, scholarships, deadlines — answered in seconds, 24×7.</p>
+                <div class="aos-tags"><span>WhatsApp</span><span>95+ languages</span><span>24×7</span></div>
+                <div class="m-scene" data-m="1"></div>
+              </div>
+              <div class="aos-scene-txt" data-i="2">
+                <div class="aos-meta"><span class="aos-no">03</span><span class="aos-time">11:09 PM</span></div>
+                <h3>VidyaPulse scores her intent — 96/100.</h3>
+                <p>Not a guess — a live model reading behaviour, not form fields, and queueing her for a priority call.</p>
+                <div class="aos-tags"><span>Real-time scoring</span><span>Priority HIGH</span></div>
+                <div class="m-scene" data-m="2"></div>
+              </div>
+              <div class="aos-scene-txt" data-i="3">
+                <div class="aos-meta"><span class="aos-no">04</span><span class="aos-time">9:00 AM</span></div>
+                <h3>An AI voice agent calls, qualifies, books.</h3>
+                <p>Eighteen seconds after she's active — a natural call qualifies her and books a counselling slot, transcribed in full.</p>
+                <div class="aos-tags"><span>AI voice</span><span>Meeting booked</span></div>
+                <div class="m-scene" data-m="3"></div>
+              </div>
+              <div class="aos-scene-txt" data-i="4">
+                <div class="aos-meta"><span class="aos-no">05</span><span class="aos-time">9:04 AM</span></div>
+                <h3>Handed to a counsellor — zero cold starts.</h3>
+                <p>Smart-routed with the whole context attached: chat, call recording, score and an AI summary. Humans do the human part.</p>
+                <div class="aos-tags"><span>Smart routing</span><span>Full context</span></div>
+                <div class="m-scene" data-m="4"></div>
+              </div>
+              <div class="aos-scene-txt" data-i="5">
+                <div class="aos-meta"><span class="aos-no">06</span><span class="aos-time">Day 12</span></div>
+                <h3>Fee paid. Enrolled. Pipeline complete.</h3>
+                <p>All twelve days live in one timeline — from a midnight click to a paid admission, on autopilot.</p>
+                <div class="aos-tags"><span>Fee paid</span><span>Enrolled</span></div>
+                <div class="m-scene" data-m="5"></div>
+              </div>
             </div>
-          </div></div>
+          </div>
+
+          <!-- RIGHT visual stage -->
+          <div class="aos-stage" id="aosStage" aria-hidden="true">
+            <div class="aos-scene on" data-i="0">
+              <div class="card"><div class="card-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">app.extraaedge.com / leads</span></div>
+                <div class="card-body">
+                  <div class="lead-top"><span class="lead-av">PD</span><div><b>Priya Deshmukh <span class="lead-new">NEW LEAD</span></b><span>ID EE-2026-84517 · 23:02 IST</span></div></div>
+                  <div class="fgrid">
+                    <div class="fld"><small>Source</small><b class="o">Meta Ads · Instagram</b></div>
+                    <div class="fld"><small>Course</small><b>MBA · 2026</b></div>
+                    <div class="fld"><small>Campaign</small><b>MBA_Mumbai_Jul26</b></div>
+                    <div class="fld"><small>Phone</small><b>+91 98••• ••342</b></div>
+                  </div>
+                </div></div>
+            </div>
+            <div class="aos-scene" data-i="1">
+              <div class="card wa"><div class="wa-head"><span class="wa-av">V</span><div><b>Vidya AI Counsellor</b><small>online</small></div></div>
+                <div class="wa-body">
+                  <div class="wa-msg wa-out">MBA ki fees kya hai?</div>
+                  <div class="wa-msg wa-in">Hi Priya! 👋 Main Vidya hoon — aapki AI admission counsellor.</div>
+                  <div class="wa-msg wa-in">MBA 2026 ki total fees ₹8.4L hai. 25% tak merit scholarship possible 🎓</div>
+                  <div class="wa-msg wa-out">Scholarship kaise milegi?</div>
+                </div></div>
+            </div>
+            <div class="aos-scene" data-i="2">
+              <div class="card"><div class="card-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">VidyaPulse · lead scoring</span></div>
+                <div class="score">
+                  <div class="ring"><div><b>96</b><small>/ 100</small></div></div>
+                  <div class="score-tag">⚡ Priority HIGH — queued for an AI voice call at 9:00 AM.</div>
+                </div></div>
+            </div>
+            <div class="aos-scene" data-i="3">
+              <div class="card"><div class="call">
+                <div class="call-av">V</div><b>Vidya Call · Admissions</b><div class="st">● Connected in 18s</div>
+                <div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="call-cap">“Kal raat aapne MBA fees poocha tha — main 11 baje ki meeting book kar rahi hoon ✓”</div>
+              </div></div>
+            </div>
+            <div class="aos-scene" data-i="4">
+              <div class="card"><div class="card-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">Inbox · Rahul Verma</span></div>
+                <div class="card-body">
+                  <div class="ho-row"><span class="ho-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></span><div><b>Priya assigned · Meeting 11:00 AM</b><p>Smart-routed on score 96 and your 78% Meta conversion.</p></div></div>
+                  <div class="att"><span>💬 WhatsApp · 14</span><span>📞 Call · 02:14</span><span>📊 Score · 96</span><span>🧠 AI summary</span></div>
+                  <div class="sla"><span>Follow-up SLA</span><div class="bar"><i></i></div><span>1h 56m</span></div>
+                </div></div>
+            </div>
+            <div class="aos-scene" data-i="5">
+              <div class="card"><div class="enr">
+                <div class="enr-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M4 12.5l5 5L20 6.5"/></svg></div>
+                <h4>Payment Successful</h4>
+                <div class="amt">₹1,00,000</div><div class="sub">Admission Fee · MBA 2026</div>
+                <div class="pill">STATUS: ENROLLED 🎓</div>
+              </div></div>
+            </div>
+          </div>
         </div>
-        <p class=&quot;evcap&quot;>Day 12: enrolled. All 12 days live in one timeline.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ FLOW RECAP ============ -->
-<section class=&quot;flow&quot;>
-  <h2 class=&quot;rev&quot;>The whole night, <span class=&quot;o&quot;>on one line.</span></h2>
-  <div class=&quot;flowline&quot; id=&quot;flowline&quot;>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#DE6E30&quot; stroke-width=&quot;2&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;8&quot;/><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/></svg></div><b>Lead captured</b><span>11:02 PM</span></div>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#25D366&quot; stroke-width=&quot;2&quot;><path d=&quot;M4 6h16v10H9l-5 4V6z&quot;/></svg></div><b>VidyaGPT chat</b><span>11:02 PM</span></div>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#E8843F&quot; stroke-width=&quot;2&quot;><path d=&quot;M4 20V10M10 20V4M16 20v-8M22 20H2&quot;/></svg></div><b>Scored 96</b><span>11:09 PM</span></div>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#6FA3F2&quot; stroke-width=&quot;2&quot;><path d=&quot;M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z&quot;/></svg></div><b>AI voice call</b><span>9:00 AM</span></div>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#B29CFF&quot; stroke-width=&quot;2&quot;><circle cx=&quot;12&quot; cy=&quot;8&quot; r=&quot;3.5&quot;/><path d=&quot;M5 20a7 7 0 0 1 14 0&quot;/></svg></div><b>Handoff</b><span>9:04 AM</span></div>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#2BC98A&quot; stroke-width=&quot;2&quot;><path d=&quot;M4 12.5l5 5L20 6.5&quot;/></svg></div><b>Enrolled</b><span>Day 12</span></div>
-  </div>
-</section>
-
-<!-- ============ MODULES + NUMBERS ============ -->
-<section class=&quot;band&quot;>
-  <div class=&quot;bandgrid&quot;>
-    <div>
-      <h2 class=&quot;rev&quot;>One brain. <span class=&quot;o&quot;>Nine modules.</span></h2>
-      <p class=&quot;bp rev d1&quot;>Every screen above runs on the same platform — zero handoff gaps, one student timeline.</p>
-      <div class=&quot;modrow rev d2&quot; style=&quot;margin-top:14px&quot;>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#DE6E30&quot; stroke-width=&quot;2.2&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/><path d=&quot;M12 2v4M12 18v4M2 12h4M18 12h4&quot;/></svg>AI Engine</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#6FA3F2&quot; stroke-width=&quot;2.2&quot;><circle cx=&quot;9&quot; cy=&quot;8&quot; r=&quot;3&quot;/><path d=&quot;M3 20a6 6 0 0 1 12 0&quot;/></svg>Admissions CRM</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#B29CFF&quot; stroke-width=&quot;2.2&quot;><path d=&quot;M13 2L4 14h6l-1 8 9-12h-6l1-8z&quot;/></svg>Automation</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#2BC98A&quot; stroke-width=&quot;2.2&quot;><path d=&quot;M4 20V10M10 20V4M16 20v-8&quot;/></svg>Analytics</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#E8843F&quot; stroke-width=&quot;2.2&quot;><circle cx=&quot;12&quot; cy=&quot;8&quot; r=&quot;3.5&quot;/><path d=&quot;M5 20a7 7 0 0 1 14 0&quot;/></svg>Student Database</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#DE6E30&quot; stroke-width=&quot;2.2&quot;><circle cx=&quot;7&quot; cy=&quot;7&quot; r=&quot;3&quot;/><circle cx=&quot;17&quot; cy=&quot;17&quot; r=&quot;3&quot;/><path d=&quot;M10 7h7M7 10v7&quot;/></svg>Workflow Engine</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#25D366&quot; stroke-width=&quot;2.2&quot;><path d=&quot;M4 6h16v10H9l-5 4V6z&quot;/></svg>Communication</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#6FA3F2&quot; stroke-width=&quot;2.2&quot;><rect x=&quot;5&quot; y=&quot;3&quot; width=&quot;14&quot; height=&quot;18&quot; rx=&quot;2&quot;/><path d=&quot;M9 8h6M9 12h6&quot;/></svg>Applications</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#2BC98A&quot; stroke-width=&quot;2.2&quot;><path d=&quot;M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z&quot;/></svg>Security</span>
       </div>
     </div>
-    <div class=&quot;numrow&quot;>
-      <div class=&quot;num rev&quot;><div class=&quot;nv&quot;><span data-count=&quot;10&quot; data-suffix=&quot;M+&quot;>0M+</span></div><div class=&quot;nd&quot;>enquiries managed end-to-end</div></div>
-      <div class=&quot;num rev d1&quot;><div class=&quot;nv&quot;><span data-count=&quot;500&quot; data-suffix=&quot;+&quot;>0+</span></div><div class=&quot;nd&quot;>institutions on ExtraaEdge</div></div>
-      <div class=&quot;num rev d2&quot;><div class=&quot;nv&quot;><span data-count=&quot;37&quot; data-suffix=&quot;%&quot;>0%</span>↑</div><div class=&quot;nd&quot;>higher conversion — no lead waits</div></div>
+
+    <div class="aos-flow">
+      <h3>The whole night, <span class="o">on one line.</span></h3>
+      <div class="fline" id="aosFlow">
+        <div class="fnode"><div class="fd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></div><b>Captured</b><span>11:02 PM</span></div>
+        <div class="fnode"><div class="fd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v10H9l-5 4V6z"/></svg></div><b>VidyaGPT</b><span>11:02 PM</span></div>
+        <div class="fnode"><div class="fd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-8"/></svg></div><b>Scored 96</b><span>11:09 PM</span></div>
+        <div class="fnode"><div class="fd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div><b>AI call</b><span>9:00 AM</span></div>
+        <div class="fnode"><div class="fd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></div><b>Handoff</b><span>9:04 AM</span></div>
+        <div class="fnode"><div class="fd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12.5l5 5L20 6.5"/></svg></div><b>Enrolled</b><span>Day 12</span></div>
+      </div>
     </div>
   </div>
-</section>
 
+  <script>
+  (function(){
+    var root=document.getElementById('ee-aos'); if(!root) return;
+    var track=document.getElementById('aosTrack');
+    var texts=[].slice.call(root.querySelectorAll('.aos-scene-txt'));
+    var scenes=[].slice.call(root.querySelectorAll('.aos-stage .aos-scene'));
+    var rail=[].slice.call(root.querySelectorAll('#aosRail span'));
+    var fnodes=[].slice.call(root.querySelectorAll('#aosFlow .fnode'));
+    var N=texts.length, cur=-1;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var mq=window.matchMedia('(max-width:860px)');
 
-<script>
-(function(){
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.2});
-  document.querySelectorAll('.rev').forEach(el=>io.observe(el));
-
-  function countUp(el){
-    const end=+el.dataset.count,suf=el.dataset.suffix||'';
-    if(reduce){el.textContent=end+suf;return}
-    const t0=performance.now(),dur=1000;
-    (function tick(t){const p=Math.min((t-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(end*e)+suf;if(p<1)requestAnimationFrame(tick)})(t0);
-  }
-  const cIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){countUp(e.target);o.unobserve(e.target)}})},{threshold:.6});
-  document.querySelectorAll('.band [data-count]').forEach(el=>cIO.observe(el));
-
-  function runTimer(el){
-    const max=+el.dataset.max||120;
-    if(reduce){el.textContent='02:14';return}
-    const t0=performance.now(),dur=3000;
-    (function tick(t){const p=Math.min((t-t0)/dur,1),s=Math.round(max*(1-Math.pow(1-p,2)));
-      el.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
-      if(p<1)requestAnimationFrame(tick)})(t0);
-  }
-
-  /* ---- story player ---- */
-  const DUR=5200,N=6,DAY_AT=3;
-  const steps=[...document.querySelectorAll('#steps .step')];
-  const shots=[...document.querySelectorAll('#stage .shot')];
-  const fnodes=[...document.querySelectorAll('#flowline .fnode')];
-  const playBtn=document.getElementById('pplay');
-  const icPlay=document.getElementById('icplay'),icPause=document.getElementById('icpause');
-  let cur=0,elapsed=0,last=null,paused=false,raf=null;
-  const seen=new Set([0]);
-
-  function render(i){
-    steps.forEach((s,j)=>{s.classList.toggle('on',j===i);s.classList.toggle('done',j<i);
-      if(j!==i)s.querySelector('.pbar i').style.width=j<i?'100%':'0%'});
-    shots.forEach((s,j)=>s.classList.toggle('on',j===i));
-    fnodes.forEach((f,j)=>f.classList.toggle('hot',j<=i));
-    document.body.classList.toggle('day',i>=DAY_AT);
-    if(!seen.has(i)){seen.add(i);
-      const sh=shots[i];
-      sh.querySelectorAll('[data-count]').forEach(countUp);
-      const tm=sh.querySelector('[data-timer]');if(tm)runTimer(tm);
+    /* clone each stage scene into its text block for the mobile stacked view */
+    for(var i=0;i<scenes.length;i++){
+      var host=root.querySelector('.m-scene[data-m="'+i+'"]');
+      if(host) host.appendChild(scenes[i].firstElementChild.cloneNode(true));
     }
-  }
-  function go(i,resetTimer=true){
-    cur=(i+N)%N;
-    if(resetTimer)elapsed=0;
-    render(cur);
-  }
-  function loop(t){
-    if(last===null)last=t;
-    if(!paused&amp;&amp;!reduce){
-      elapsed+=t-last;
-      const bar=steps[cur].querySelector('.pbar i');
-      bar.style.width=Math.min(elapsed/DUR*100,100)+'%';
-      if(elapsed>=DUR)go(cur+1);
+    function setActive(i,frac){
+      if(i!==cur){
+        cur=i;
+        texts.forEach(function(t,j){ t.classList.toggle('on',j===i); });
+        scenes.forEach(function(s,j){ s.classList.toggle('on',j===i); });
+        fnodes.forEach(function(f,j){ f.classList.toggle('hot',j<=i); });
+        rail.forEach(function(r,j){ r.classList.remove('done','cur'); if(j<i)r.classList.add('done'); else if(j===i)r.classList.add('cur'); });
+      }
+      var cr=rail[i]; if(cr) cr.querySelector('i').style.setProperty('--p',Math.round((frac||0)*100)+'%');
+      var cri=rail[i]&&rail[i].querySelector('i'); if(cri) cri.style.width=Math.round((frac||0)*100)+'%';
     }
-    last=t;
-    raf=requestAnimationFrame(loop);
-  }
-  function setPaused(p){
-    paused=p;
-    icPause.style.display=p?'none':'block';
-    icPlay.style.display=p?'block':'none';
-    playBtn.setAttribute('aria-label',p?'Play story':'Pause story');
-  }
-  let userPaused=false;
-  steps.forEach(s=>s.addEventListener('click',()=>go(+s.dataset.i)));
-  playBtn.addEventListener('click',()=>{userPaused=!userPaused;setPaused(userPaused)});
-  const stage=document.getElementById('stage');
-  stage.addEventListener('mouseenter',()=>{if(!reduce)setPaused(true)});
-  stage.addEventListener('mouseleave',()=>{if(!reduce&amp;&amp;!userPaused)setPaused(false)});
-  document.addEventListener('visibilitychange',()=>{if(document.hidden)setPaused(true)});
-
-  render(0);
-  if(reduce){setPaused(true)}else{raf=requestAnimationFrame(loop)}
-})();
-</script>
-</body>
-</html>
-"></iframe>
+    function onScroll(){
+      if(mq.matches){ if(cur!==0){ setActive(0,1); } return; }   /* mobile: everything visible/stacked */
+      var r=track.getBoundingClientRect();
+      var scrollable=r.height-window.innerHeight;
+      var p=scrollable>0 ? Math.min(Math.max(-r.top/scrollable,0),1) : 0;
+      var pos=p*N; var i=Math.min(Math.floor(pos),N-1); var frac=pos-i;
+      setActive(i,frac);
+    }
+    if(mq.matches){ setActive(0,1); } else { setActive(0,0); }
+    window.addEventListener('scroll',onScroll,{passive:true});
+    window.addEventListener('resize',onScroll,{passive:true});
+    onScroll();
+  })();
+  </script>
 </section>
-<script>
-(function(){
-  var f=document.getElementById('eeNightFrame'); if(!f) return;
-  function fit(){
-    try{
-      var d=f.contentDocument||(f.contentWindow&&f.contentWindow.document);
-      if(!d||!d.documentElement) return;
-      var h=Math.max(d.documentElement.scrollHeight, d.body?d.body.scrollHeight:0);
-      if(h>0 && Math.abs(h-parseInt(f.style.height||0,10))>2) f.style.height=h+'px';
-    }catch(e){}
-  }
-  f.addEventListener('load',function(){ fit(); setTimeout(fit,300); setTimeout(fit,1200); });
-  window.addEventListener('resize',function(){ clearTimeout(f.__t); f.__t=setTimeout(fit,150); });
-  /* the story mutates the DOM (day/night, counters) — re-measure for a while, then settle */
-  var n=0, iv=setInterval(function(){ fit(); if(++n>40) clearInterval(iv); }, 600);
-})();
-</script>
-<!-- ===================== /EE · WHILE YOUR CAMPUS SLEEPS ===================== -->
+<!-- ===================== /EE · ADMISSION OPERATING SYSTEM ===================== -->
+
 
 
 <div class="section-divider"></div>
