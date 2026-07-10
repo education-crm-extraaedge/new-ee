@@ -5407,6 +5407,11 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   @media(max-width:380px){.stage{height:580px!important}}
 </style>
 <style id=&quot;ee-mobile-redesign&quot;>
+/* ---- real brand marks inside the story mockups ---- */
+.apptop .alogo{background:#fff!important;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.apptop .alogo img{width:100%;height:100%;object-fit:contain}
+.whead .wava,.callscr .cava{overflow:hidden}
+.whead .wava img,.callscr .cava img{width:100%;height:100%;object-fit:cover;display:block}
 /* ---- contextual 'now playing' card (mobile only) ---- */
 .mnow{display:none;align-items:center;gap:11px;margin-top:15px;padding:12px 14px;border:1px solid var(--hair);border-radius:14px;background:var(--panel);transition:border-color 1.2s,background 1.2s}
 .mnow .mi{font:700 10px/1 ui-monospace,Menlo,monospace;color:var(--orange);background:rgba(222,110,48,.12);padding:6px 8px;border-radius:8px;flex:none;letter-spacing:.06em}
@@ -5475,7 +5480,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class=&quot;shot on&quot; data-i=&quot;0&quot;>
         <div class=&quot;appwin&quot;>
           <div class=&quot;appbar&quot;><div class=&quot;wd&quot;><i></i><i></i><i></i></div><div class=&quot;url&quot;><svg width=&quot;9&quot; height=&quot;9&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#1FAF66&quot; stroke-width=&quot;3&quot;><rect x=&quot;5&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M8 10V7a4 4 0 0 1 8 0v3&quot;/></svg>app.extraaedge.com/leads/EE-2026-84517</div></div>
-          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;></div><b>ExtraaEdge</b><span class=&quot;crumb&quot;>/ Leads / New</span><span class=&quot;lvpill&quot;>Auto-captured</span></div>
+          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg&quot; alt=&quot;ExtraaEdge&quot;></div><b>ExtraaEdge</b><span class=&quot;crumb&quot;>/ Leads / New</span><span class=&quot;lvpill&quot;>Auto-captured</span></div>
           <div class=&quot;appbody&quot;>
             <div class=&quot;leadhead&quot;><div class=&quot;lava&quot;>PD</div><div class=&quot;ln&quot;><b>Priya Deshmukh <span class=&quot;new&quot;>NEW LEAD</span></b><span>Lead ID EE-2026-84517 · Created 23:02:14 IST</span></div></div>
             <div class=&quot;grid2&quot;>
@@ -5493,7 +5498,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class=&quot;shot&quot; data-i=&quot;1&quot;>
         <div class=&quot;phone&quot;><div class=&quot;notch&quot;></div>
           <div class=&quot;screen&quot;><div class=&quot;wchat&quot;>
-            <div class=&quot;whead&quot;><svg width=&quot;7&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2.6&quot;><path d=&quot;M15 5l-7 7 7 7&quot;/></svg><div class=&quot;wava&quot;>V</div><div class=&quot;wn&quot;><b>Vidya AI Counsellor <span class=&quot;vf&quot;>✓</span></b><span>online</span></div><svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><path d=&quot;M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z&quot;/></svg></div>
+            <div class=&quot;whead&quot;><svg width=&quot;7&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2.6&quot;><path d=&quot;M15 5l-7 7 7 7&quot;/></svg><div class=&quot;wava&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidyaai-fevicon.png&quot; alt=&quot;Vidya AI&quot;></div><div class=&quot;wn&quot;><b>Vidya AI Counsellor <span class=&quot;vf&quot;>✓</span></b><span>online</span></div><svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><path d=&quot;M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z&quot;/></svg></div>
             <div class=&quot;wbody&quot;>
               <div class=&quot;wdate&quot;>Today</div>
               <div class=&quot;wmsg out&quot;>MBA ki fees kya hai?<span class=&quot;wtm&quot;>11:02 PM <span class=&quot;ticks&quot;>✓✓</span></span></div>
@@ -5512,7 +5517,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class=&quot;shot&quot; data-i=&quot;2&quot;>
         <div class=&quot;appwin&quot;>
           <div class=&quot;appbar&quot;><div class=&quot;wd&quot;><i></i><i></i><i></i></div><div class=&quot;url&quot;><svg width=&quot;9&quot; height=&quot;9&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#1FAF66&quot; stroke-width=&quot;3&quot;><rect x=&quot;5&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M8 10V7a4 4 0 0 1 8 0v3&quot;/></svg>app.extraaedge.com/leads/EE-2026-84517/score</div></div>
-          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;></div><b>VidyaPulse</b><span class=&quot;crumb&quot;>/ Lead Scoring</span><span class=&quot;lvpill&quot;>Live model</span></div>
+          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-pulse-fevicon.png&quot; alt=&quot;VidyaPulse&quot;></div><b>VidyaPulse</b><span class=&quot;crumb&quot;>/ Lead Scoring</span><span class=&quot;lvpill&quot;>Live model</span></div>
           <div class=&quot;appbody&quot;>
             <div class=&quot;scorehead&quot;><b>Intent Score — Priya Deshmukh</b><span class=&quot;scorenum&quot;><span data-count=&quot;96&quot;>0</span><span style=&quot;font-size:13px&quot;>/100</span></span></div>
             <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Response velocity</span><b>Replied in 41s avg</b></div><div class=&quot;fb&quot;><i style=&quot;--w:92%&quot;></i></div></div>
@@ -5528,8 +5533,8 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class=&quot;shot&quot; data-i=&quot;3&quot;>
         <div class=&quot;phone&quot;><div class=&quot;notch&quot;></div>
           <div class=&quot;screen&quot;><div class=&quot;callscr&quot;>
-            <div class=&quot;cava&quot;>V</div>
-            <div class=&quot;cname&quot;>Vidya Call · Admissions</div>
+            <div class=&quot;cava&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-ai-voice-agent-fevicon.png&quot; alt=&quot;Vidya AI Voice Agent&quot;></div>
+            <div class=&quot;cname&quot;>Vidya AI Voice Agent</div>
             <div class=&quot;cnum&quot;>+91 89569 82897</div>
             <div class=&quot;cstate&quot;>Connected in 18s</div>
             <div class=&quot;ctimer&quot; data-timer data-max=&quot;134&quot;>00:00</div>
@@ -5552,7 +5557,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class=&quot;shot&quot; data-i=&quot;4&quot;>
         <div class=&quot;appwin&quot;>
           <div class=&quot;appbar&quot;><div class=&quot;wd&quot;><i></i><i></i><i></i></div><div class=&quot;url&quot;><svg width=&quot;9&quot; height=&quot;9&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#1FAF66&quot; stroke-width=&quot;3&quot;><rect x=&quot;5&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M8 10V7a4 4 0 0 1 8 0v3&quot;/></svg>app.extraaedge.com/inbox</div></div>
-          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;></div><b>ExtraaEdge</b><span class=&quot;crumb&quot;>/ Inbox — Rahul Verma</span><span class=&quot;lvpill&quot;>1 new</span></div>
+          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg&quot; alt=&quot;ExtraaEdge&quot;></div><b>ExtraaEdge</b><span class=&quot;crumb&quot;>/ Inbox — Rahul Verma</span><span class=&quot;lvpill&quot;>1 new</span></div>
           <div class=&quot;appbody&quot;>
             <div class=&quot;assign&quot;>
               <div class=&quot;aicon&quot;><svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M13 2L4 14h6l-1 8 9-12h-6l1-8z&quot;/></svg></div>
