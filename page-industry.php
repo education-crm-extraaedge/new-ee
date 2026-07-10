@@ -752,30 +752,7 @@ get_header();
                     Built for <span class="ee-headline-accent">Every</span><br>
                     Education Segment
                 </h1>
-
-                <p class="ee-subheadline">
-                    Purpose-built CRM solutions tailored to your institution type — so your admissions team spends less time on tasks and more time on students.
-                </p>
             </header>
-
-            <div class="ee-stats-strip" role="region" aria-label="Key statistics">
-                <div class="ee-stat">
-                    <div class="ee-stat-value">500<span>+</span></div>
-                    <div class="ee-stat-label">Institutions Trust Us</div>
-                </div>
-                <div class="ee-stat">
-                    <div class="ee-stat-value">3<span>x</span></div>
-                    <div class="ee-stat-label">Avg. Conversion Lift</div>
-                </div>
-                <div class="ee-stat">
-                    <div class="ee-stat-value">40<span>%</span></div>
-                    <div class="ee-stat-label">Faster Admissions Cycle</div>
-                </div>
-                <div class="ee-stat">
-                    <div class="ee-stat-value">6</div>
-                    <div class="ee-stat-label">Industry Verticals</div>
-                </div>
-            </div>
 
             <div class="ee-grid" id="ee-solution-grid" role="list" aria-label="Education CRM solutions">
 
@@ -922,22 +899,6 @@ get_header();
                         </span>
                     </div>
                 </a>
-            </div>
-
-            <div class="ee-bottom-cta" role="complementary" aria-label="Get started with ExtraaEdge">
-                <div class="ee-bottom-cta-text">
-                    <h3>Not sure which solution fits?</h3>
-                    <p>Our education CRM experts will map the right solution to your institution's exact needs — free of charge.</p>
-                </div>
-                <div class="ee-bottom-cta-actions">
-                    <a href="https://www.extraaedge.com/request-demo/" target="_blank" rel="noopener noreferrer" class="ee-btn-primary">
-                        Request a Free Demo
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                    <a href="https://www.extraaedge.com/contact/" target="_blank" rel="noopener noreferrer" class="ee-btn-secondary">
-                        Talk to an Expert
-                    </a>
-                </div>
             </div>
 
         </div>
