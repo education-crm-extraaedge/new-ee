@@ -5672,6 +5672,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   stage.addEventListener('mouseenter',()=>{if(!reduce)setPaused(true)});
   stage.addEventListener('mouseleave',()=>{if(!reduce&amp;&amp;!userPaused)setPaused(false)});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)setPaused(true)});
+  window.addEventListener('message',e=>{if(e.data==='ee-pause')setPaused(true);else if(e.data==='ee-play'&amp;&amp;!userPaused)setPaused(false)});
 
   render(0);
   if(reduce){setPaused(true)}else{raf=requestAnimationFrame(loop)}
@@ -5692,10 +5693,21 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       if(h>0 && Math.abs(h-parseInt(f.style.height||0,10))>2) f.style.height=h+'px';
     }catch(e){}
   }
-  f.addEventListener('load',function(){ fit(); setTimeout(fit,300); setTimeout(fit,1200); });
+  function post(m){ try{ if(f.contentWindow) f.contentWindow.postMessage(m,'*'); }catch(e){} }
+  f.addEventListener('load',function(){
+    fit(); setTimeout(fit,300); setTimeout(fit,1200);
+    /* resize only when the story's own size actually changes — no periodic reflow polling */
+    try{
+      var d=f.contentDocument||(f.contentWindow&&f.contentWindow.document);
+      if(d&&d.body&&'ResizeObserver' in window){ new ResizeObserver(function(){ requestAnimationFrame(fit); }).observe(d.body); }
+      else { var n=0, iv=setInterval(function(){ fit(); if(++n>20) clearInterval(iv); }, 800); }
+    }catch(e){}
+  });
   window.addEventListener('resize',function(){ clearTimeout(f.__t); f.__t=setTimeout(fit,150); });
-  /* the story mutates the DOM (day/night, counters) — re-measure for a while, then settle */
-  var n=0, iv=setInterval(function(){ fit(); if(++n>40) clearInterval(iv); }, 600);
+  /* play the story only while it's on screen — off-screen it's paused, so it never competes for frames */
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ post(e.isIntersecting?'ee-play':'ee-pause'); }); },{rootMargin:'120px 0px'}).observe(f);
+  }
 })();
 </script>
 <!-- ===================== /EE · WHILE YOUR CAMPUS SLEEPS ===================== -->
