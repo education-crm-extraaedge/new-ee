@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D2 · 3BHK Vasant Estella — Drawing Package</title>
+<style>
+:root{
+  --paper:#F5F2EC; --sheet:#FDFCFA; --ink:#2B2620; --muted:#6E655A;
+  --dim:#B4502E; --hair:#DAD2C5; --hair2:#C7BEAF;
+  --wood:#DCC49C; --wood2:#BFA070; --fabric:#C6CCC0; --stone:#E8E3D9;
+  --glass:#C2D4D9; --metal:#A9AFB3; --wall:#E7E1D6; --floor:#EFEAE0;
+  --dark:#4A443C; --note:#8C5A2B;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#151210; --sheet:#1D1915; --ink:#E9E2D5; --muted:#9C917E;
+    --dim:#E27C50; --hair:#373128; --hair2:#4A4237;
+    --wood:#8A6F47; --wood2:#6E5636; --fabric:#5A6459; --stone:#4E483F;
+    --glass:#3E545C; --metal:#5C6367; --wall:#2B2620; --floor:#241F19;
+    --dark:#C9C0B0; --note:#D6A35F;
+  }
+}
+:root[data-theme="light"]{
+  --paper:#F5F2EC; --sheet:#FDFCFA; --ink:#2B2620; --muted:#6E655A;
+  --dim:#B4502E; --hair:#DAD2C5; --hair2:#C7BEAF;
+  --wood:#DCC49C; --wood2:#BFA070; --fabric:#C6CCC0; --stone:#E8E3D9;
+  --glass:#C2D4D9; --metal:#A9AFB3; --wall:#E7E1D6; --floor:#EFEAE0;
+  --dark:#4A443C; --note:#8C5A2B;
+}
+:root[data-theme="dark"]{
+  --paper:#151210; --sheet:#1D1915; --ink:#E9E2D5; --muted:#9C917E;
+  --dim:#E27C50; --hair:#373128; --hair2:#4A4237;
+  --wood:#8A6F47; --wood2:#6E5636; --fabric:#5A6459; --stone:#4E483F;
+  --glass:#3E545C; --metal:#5C6367; --wall:#2B2620; --floor:#241F19;
+  --dark:#C9C0B0; --note:#D6A35F;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font:15px/1.55 "Avenir Next","Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;
+  padding:28px 18px 80px;
+}
+.mono, figcaption, .tb, .dimnote, table.data, .legend, .notes li::marker{
+  font-family:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+.wrap{max-width:1060px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+
+/* ---- cover ---- */
+.cover{background:var(--sheet);border:1px solid var(--hair2);padding:34px 38px 30px;position:relative}
+.cover .rule{height:3px;background:var(--dim);width:64px;margin-bottom:22px}
+.eyebrow{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase;margin:0 0 10px}
+h1{font-size:clamp(26px,4vw,38px);line-height:1.12;margin:0 0 6px;font-weight:650;letter-spacing:-.01em;text-wrap:balance}
+.cover .sub{color:var(--muted);margin:0 0 26px;max-width:60ch}
+table.data{border-collapse:collapse;width:100%;font-size:12.5px}
+table.data td,table.data th{border:1px solid var(--hair);padding:7px 10px;text-align:left;vertical-align:top;font-variant-numeric:tabular-nums}
+table.data th{font-weight:600;background:color-mix(in oklab,var(--sheet),var(--ink) 4%);white-space:nowrap}
+.cover-grid{display:grid;grid-template-columns:1fr 260px;gap:28px;align-items:start}
+@media(max-width:760px){.cover-grid{grid-template-columns:1fr}}
+.indexbox{border:1px solid var(--hair2);padding:14px 16px;font-family:ui-monospace,monospace;font-size:12px}
+.indexbox h3{margin:0 0 8px;font-size:11px;letter-spacing:.16em;color:var(--dim)}
+.indexbox ol{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:3px}
+.indexbox a{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--hair2)}
+.indexbox a:hover,.indexbox a:focus-visible{color:var(--dim);outline:none;border-bottom-color:var(--dim)}
+.flag{background:color-mix(in oklab,var(--sheet),var(--note) 10%);border:1px solid color-mix(in oklab,var(--hair2),var(--note) 40%);padding:12px 16px;font-size:13px;margin-top:22px}
+.flag strong{color:var(--note)}
+
+/* ---- sheets ---- */
+.sheet{background:var(--sheet);border:1px solid var(--hair2);scroll-margin-top:16px}
+.tb{display:flex;align-items:stretch;border-bottom:1px solid var(--hair2);font-size:12px}
+.tb .no{padding:12px 16px;border-right:1px solid var(--hair2);font-size:15px;font-weight:700;color:var(--dim);display:flex;align-items:center;white-space:nowrap;letter-spacing:.02em}
+.tb .tt{padding:9px 16px;flex:1;min-width:0}
+.tb .tt h2{margin:0;font-size:15px;letter-spacing:.05em;font-weight:650}
+.tb .tt p{margin:1px 0 0;color:var(--muted);font-size:11px;letter-spacing:.04em}
+.tb .mt{padding:9px 16px;border-left:1px solid var(--hair2);color:var(--muted);font-size:10.5px;text-align:right;line-height:1.7;white-space:nowrap;display:flex;flex-direction:column;justify-content:center}
+.figs{display:flex;flex-wrap:wrap;gap:0}
+figure{margin:0;padding:16px 14px 10px;flex:1 1 320px;min-width:0;border-top:1px solid var(--hair);display:flex;flex-direction:column;align-items:center}
+figure.wide{flex-basis:100%}
+figure svg{max-width:100%;height:auto;display:block}
+figcaption{font-size:10.5px;letter-spacing:.08em;color:var(--muted);margin-top:8px;text-align:center}
+figcaption b{color:var(--ink);font-weight:600}
+.notes{padding:10px 18px 14px;border-top:1px solid var(--hair);font-size:12px;color:var(--muted)}
+.notes ul{margin:4px 0 0;padding-left:18px}
+.notes li{margin:2px 0}
+.notes .vfy{color:var(--note);font-weight:600}
+h2.band{font-size:13px;letter-spacing:.2em;font-family:ui-monospace,monospace;color:var(--dim);margin:26px 0 -8px;text-transform:uppercase}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;padding:12px 16px;border:1px solid var(--hair2);background:var(--sheet);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:16px;height:12px;border:1px solid var(--ink);display:inline-block}
+footer.colophon{color:var(--muted);font-size:11.5px;font-family:ui-monospace,monospace;letter-spacing:.04em;text-align:center;padding-top:8px}
+@media print{
+  body{padding:0;background:#fff}
+  .sheet{break-inside:avoid;border-color:#999}
+}
+svg text{user-select:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="cover" id="top">
+    <div class="rule"></div>
+    <p class="eyebrow">D2 · Furniture Layout, Elevations &amp; Isometrics — Design Intent, For Approval</p>
+    <h1>3BHK Residence — Vasant Estella, Pune</h1>
+    <p class="sub">Dimensioned 2D plans, two elevations per room, and 3D isometric views of every room and every joinery unit. Concept “Warm Balance”. All dimensions in millimetres. Ref: Layout Drg. 2906 · Furniture Working Dwg AR/02 (Archiethos, 09/07/2026).</p>
+    <div class="cover-grid">
+      <div>
+        <table class="data">
+          <tr><th>Configuration</th><td>3 Bed · 3 Bath · Living–Dining · Kitchen · Pooja · Dry balcony · 2 Balconies</td></tr>
+          <tr><th>Carpet (est.)</th><td>≈ 1,000–1,050 sq ft — to be confirmed by laser measurement</td></tr>
+          <tr><th>Clear height</th><td>2,850 assumed slab-to-finish · false-ceiling levels per D3 shown dashed</td></tr>
+          <tr><th>Palette</th><td>Oak-tone woodwork · terracotta accent (one per zone) · black matte hardware · 3000 K</td></tr>
+          <tr><th>Status</th><td>Design intent — <b>not for construction</b>. GFC by project architect after site measurement.</td></tr>
+        </table>
+        <div class="flag"><strong>Drawing discrepancy flagged:</strong> imperial sub-dimensions on the base layout carry a ~1.55× conversion error against metric (e.g. “5.655&nbsp;[12′]” — 5.655&nbsp;m is 18′-7″). <b>Metric governs throughout this package.</b> Re-verify all dimensions on site before any factory production.</div>
+      </div>
+      <nav class="indexbox" aria-label="Sheet index">
+        <h3>SHEET INDEX</h3>
+        <ol id="index-rooms"></ol>
+        <h3 style="margin-top:12px">UNIT DRAWINGS</h3>
+        <ol id="index-units"></ol>
+      </nav>
+    </div>
+  </header>
+
+  <div class="legend" aria-label="Material legend">
+    <b style="font-size:11px;letter-spacing:.14em">LEGEND</b>
+    <span><i style="background:var(--wood)"></i>Woodwork / laminate</span>
+    <span><i style="background:var(--wood2)"></i>Veneer / dark oak</span>
+    <span><i style="background:var(--fabric)"></i>Upholstery / soft</span>
+    <span><i style="background:var(--stone)"></i>Stone / quartz</span>
+    <span><i style="background:var(--glass)"></i>Glass / mirror</span>
+    <span><i style="background:var(--wall)"></i>Wall / panelling</span>
+    <span style="color:var(--dim)">— dimension ink (mm)</span>
+  </div>
+
+  <h2 class="band">Part A — Rooms · plan + 2 elevations + isometric</h2>
+  <div id="rooms" style="display:flex;flex-direction:column;gap:26px"></div>
+
+  <h2 class="band">Part B — Unit drawings · front + side + isometric</h2>
+  <div id="units" style="display:flex;flex-direction:column;gap:26px"></div>
+
+  <footer class="colophon">D2 · 3BHK VASANT ESTELLA · JULY 2026 · ALL DIMS MM · NTS — DO NOT SCALE · READ WITH D1 BRIEF &amp; D12 BOQ</footer>
+</div>
+
+<script>
+"use strict";
+/* ================= drawing engine ================= */
+const C = {
+  ink:'var(--ink)', dim:'var(--dim)', muted:'var(--muted)', hair:'var(--hair)',
+  wood:'var(--wood)', wood2:'var(--wood2)', fabric:'var(--fabric)', stone:'var(--stone)',
+  glass:'var(--glass)', metal:'var(--metal)', wall:'var(--wall)', floor:'var(--floor)',
+  sheet:'var(--sheet)', dark:'var(--dark)'
+};
+const MONO = 'ui-monospace,SF Mono,Cascadia Mono,Roboto Mono,Menlo,Consolas,monospace';
+const mix=(c,t,p)=>`color-mix(in oklab, ${c}, ${t} ${p}%)`;
+const R=v=>Math.round(v*100)/100;
+function T(x,y,s,{size=8.5,fill=C.ink,anchor='middle',rot=0,w=400}={}){
+  const tr = rot?` transform="rotate(${rot} ${R(x)} ${R(y)})"`:'';
+  return `<text x="${R(x)}" y="${R(y)}" font-family="${MONO}" font-size="${size}" font-weight="${w}" fill="${fill}" text-anchor="${anchor}"${tr}>${s}</text>`;
+}
+function L(x1,y1,x2,y2,{stroke=C.ink,sw=1,dash=''}={}){
+  return `<line x1="${R(x1)}" y1="${R(y1)}" x2="${R(x2)}" y2="${R(y2)}" stroke="${stroke}" stroke-width="${sw}"${dash?` stroke-dasharray="${dash}"`:''}/>`;
+}
+function RECT(x,y,w,h,{fill='none',stroke=C.ink,sw=1,dash='',rx=0,op=1}={}){
+  return `<rect x="${R(x)}" y="${R(y)}" width="${R(Math.max(w,0.1))}" height="${R(Math.max(h,0.1))}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"${dash?` stroke-dasharray="${dash}"`:''}${rx?` rx="${rx}"`:''}${op<1?` opacity="${op}"`:''}/>`;
+}
+function POLY(pts,{fill='none',stroke=C.ink,sw=.8,op=1,dash=''}={}){
+  return `<polygon points="${pts.map(p=>R(p[0])+','+R(p[1])).join(' ')}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"${dash?` stroke-dasharray="${dash}"`:''}${op<1?` opacity="${op}"`:''}/>`;
+}
+/* dimension primitives (px space) */
+function tick(x,y){ return L(x-3,y+3,x+3,y-3,{stroke:C.dim,sw:1.1}); }
+function dimH(x1,x2,y,label,{ext=0,lift=3}={}){
+  let s = L(x1,y,x2,y,{stroke:C.dim,sw:.8}) + tick(x1,y)+tick(x2,y);
+  if(ext) s += L(x1,y-ext,x1,y+3,{stroke:C.dim,sw:.4}) + L(x2,y-ext,x2,y+3,{stroke:C.dim,sw:.4});
+  s += T((x1+x2)/2, y-lift, label, {fill:C.dim,size:8.5});
+  return s;
+}
+function dimV(x,y1,y2,label,{ext=0}={}){
+  let s = L(x,y1,x,y2,{stroke:C.dim,sw:.8}) + tick(x,y1)+tick(x,y2);
+  if(ext) s += L(x-3,y1,x+ext,y1,{stroke:C.dim,sw:.4}) + L(x-3,y2,x+ext,y2,{stroke:C.dim,sw:.4});
+  s += T(x-4,(y1+y2)/2, label, {fill:C.dim,size:8.5,rot:-90});
+  return s;
+}
+function chainH(ticksMM,y,X,{vals=null}={}){
+  let s='';
+  ticksMM.forEach(t=>{ s+=tick(X(t),y); });
+  s+=L(X(ticksMM[0]),y,X(ticksMM[ticksMM.length-1]),y,{stroke:C.dim,sw:.8});
+  for(let i=0;i<ticksMM.length-1;i++){
+    const v=(vals&&vals[i])||Math.round(ticksMM[i+1]-ticksMM[i]);
+    s+=T((X(ticksMM[i])+X(ticksMM[i+1]))/2, y-3, v, {fill:C.dim,size:8.5});
+  }
+  return s;
+}
+function chainV(ticksMM,x,Y){
+  let s='';
+  ticksMM.forEach(t=>{ s+=tick(x,Y(t)); });
+  s+=L(x,Y(ticksMM[0]),x,Y(ticksMM[ticksMM.length-1]),{stroke:C.dim,sw:.8});
+  for(let i=0;i<ticksMM.length-1;i++){
+    s+=T(x-4,(Y(ticksMM[i])+Y(ticksMM[i+1]))/2, Math.round(Math.abs(ticksMM[i+1]-ticksMM[i])), {fill:C.dim,size:8.5,rot:-90});
+  }
+  return s;
+}
+/* ---------------- PLAN ---------------- */
+const WT=115; /* wall band, mm */
+function planFig(r){
+  const W=r.W, D=r.D;
+  const padL=64,padR=26,padT=30,padB=66;
+  const sc = Math.min(0.19, (r.pw||690)/(W+2*WT), 460/(D+2*WT));
+  const X=mm=>padL+(mm+WT)*sc, Y=mm=>padT+(D+WT-mm)*sc;
+  const w=padL+padR+(W+2*WT)*sc, h=padT+padB+(D+2*WT)*sc;
+  let s='';
+  /* floor */
+  s+=RECT(X(0),Y(D),W*sc,D*sc,{fill:C.floor,stroke:'none'});
+  /* wall bands with openings */
+  const ops=r.openings||[];
+  const segs=(name,len)=>{
+    const o=ops.filter(v=>v.wall===name).sort((a,b)=>a.at-b.at);
+    let cur=-WT; const p=[];
+    for(const v of o){ if(v.at>cur)p.push([cur,v.at]); cur=Math.max(cur,v.at+v.w); }
+    if(len+WT>cur)p.push([cur,len+WT]);
+    return p;
+  };
+  const wf=mix(C.ink,'var(--sheet)',18);
+  segs('top',W).forEach(([a,b])=>{s+=RECT(X(a),Y(D+WT),(b-a)*sc,WT*sc,{fill:wf,stroke:C.ink,sw:.7});});
+  segs('bottom',W).forEach(([a,b])=>{s+=RECT(X(a),Y(0),(b-a)*sc,WT*sc,{fill:wf,stroke:C.ink,sw:.7});});
+  segs('left',D).forEach(([a,b])=>{s+=RECT(X(-WT),Y(b),WT*sc,(b-a)*sc,{fill:wf,stroke:C.ink,sw:.7});});
+  segs('right',D).forEach(([a,b])=>{s+=RECT(X(W),Y(b),WT*sc,(b-a)*sc,{fill:wf,stroke:C.ink,sw:.7});});
+  /* opening glyphs */
+  for(const o of ops){
+    const horiz=(o.wall==='top'||o.wall==='bottom');
+    const a=o.at, b=o.at+o.w;
+    if(o.type==='door'){
+      let hx,hy,tx,ty,ex,ey;
+      if(o.wall==='bottom'){ hx=X(o.hinge==='far'?b:a); hy=Y(0); tx=hx; ty=Y(o.w); ex=X(o.hinge==='far'?a:b); ey=Y(0);}
+      else if(o.wall==='top'){ hx=X(o.hinge==='far'?b:a); hy=Y(D); tx=hx; ty=Y(D-o.w); ex=X(o.hinge==='far'?a:b); ey=Y(D);}
+      else if(o.wall==='left'){ hx=X(0); hy=Y(o.hinge==='far'?b:a); tx=X(o.w); ty=hy; ex=X(0); ey=Y(o.hinge==='far'?a:b);}
+      else { hx=X(W); hy=Y(o.hinge==='far'?b:a); tx=X(W-o.w); ty=hy; ex=X(W); ey=Y(o.hinge==='far'?a:b);}
+      const rr=o.w*sc;
+      const cross=(tx-hx)*(ey-hy)-(ty-hy)*(ex-hx);
+      const sweep=cross>0?1:0;
+      s+=L(hx,hy,tx,ty,{stroke:C.ink,sw:1.4});
+      s+=`<path d="M ${R(tx)} ${R(ty)} A ${R(rr)} ${R(rr)} 0 0 ${sweep} ${R(ex)} ${R(ey)}" fill="none" stroke="${C.ink}" stroke-width="0.6" stroke-dasharray="3 2"/>`;
+    }else if(o.type==='window'){
+      if(horiz){ const yy=(o.wall==='top')?Y(D+WT):Y(0);
+        s+=RECT(X(a),yy,o.w*sc,WT*sc,{fill:C.glass,stroke:C.ink,sw:.7});
+        s+=L(X(a),yy+WT*sc/2,X(b),yy+WT*sc/2,{stroke:C.ink,sw:.6});
+      } else { const xx=(o.wall==='left')?X(-WT):X(W);
+        s+=RECT(xx,Y(b),WT*sc,o.w*sc,{fill:C.glass,stroke:C.ink,sw:.7});
+        s+=L(xx+WT*sc/2,Y(a),xx+WT*sc/2,Y(b),{stroke:C.ink,sw:.6});
+      }
+    }else if(o.type==='open'||o.type==='slider'){
+      if(horiz){ const yy=(o.wall==='top')?Y(D)-WT*sc/2:Y(0)+WT*sc/2;
+        s+=L(X(a),yy,X(b),yy,{stroke:C.ink,sw:.8,dash:o.type==='slider'?'':'5 3'});
+        if(o.type==='slider'){s+=L(X(a),yy-2,X((a+b)/2),yy-2,{stroke:C.ink,sw:1.6});s+=L(X((a+b)/2),yy+2,X(b),yy+2,{stroke:C.ink,sw:1.6});}
+        if(o.label) s+=T(X((a+b)/2),(o.wall==='top')?Y(D+WT)-4:Y(0)-6,o.label,{size:7.5,fill:C.muted});
+      } else { const xx=(o.wall==='left')?X(0)-WT*sc/2:X(W)+WT*sc/2;
+        s+=L(xx,Y(a),xx,Y(b),{stroke:C.ink,sw:.8,dash:o.type==='slider'?'':'5 3'});
+        if(o.label) s+=T((o.wall==='left')?xx-6:xx+6,Y((a+b)/2),o.label,{size:7.5,fill:C.muted,rot:-90});
+      }
+    }
+  }
+  /* furniture */
+  const fills={wood:C.wood,wood2:C.wood2,fabric:C.fabric,stone:C.stone,glass:C.glass,metal:C.metal,wall:C.wall,dark:mix(C.ink,'var(--sheet)',30)};
+  for(const it of (r.items||[])){
+    if(it.plan===false) continue;
+    const f=fills[it.c||'wood'];
+    const px=X(it.x), py=Y(it.y+it.d), pw=it.w*sc, ph=it.d*sc;
+    if(it.shape==='circle'){
+      s+=`<circle cx="${R(px+pw/2)}" cy="${R(py+ph/2)}" r="${R(pw/2)}" fill="${f}" stroke="${C.ink}" stroke-width="0.9"/>`;
+    }else if(it.shape==='chair'){
+      s+=RECT(px+1,py+1,pw-2,ph-2,{fill:mix(C.fabric,'var(--sheet)',30),stroke:C.ink,sw:.7,rx:2});
+    }else if(it.shape==='wc'){
+      s+=RECT(px,py+ph*0.55,pw,ph*0.45,{fill:C.stone,stroke:C.ink,sw:.8});
+      s+=`<ellipse cx="${R(px+pw/2)}" cy="${R(py+ph*0.32)}" rx="${R(pw*0.42)}" ry="${R(ph*0.3)}" fill="${C.stone}" stroke="${C.ink}" stroke-width="0.8"/>`;
+    }else if(it.shape==='sink'){
+      s+=RECT(px,py,pw,ph,{fill:C.metal,stroke:C.ink,sw:.8,rx:3});
+      s+=`<circle cx="${R(px+pw/2)}" cy="${R(py+ph/2)}" r="2" fill="${C.ink}"/>`;
+    }else if(it.shape==='hob'){
+      s+=RECT(px,py,pw,ph,{fill:C.dark,stroke:C.ink,sw:.8});
+      const r4=Math.min(pw,ph)*0.18;
+      [[.28,.3],[.72,.3],[.28,.7],[.72,.7]].forEach(p=>{ s+=`<circle cx="${R(px+pw*p[0])}" cy="${R(py+ph*p[1])}" r="${R(r4)}" fill="none" stroke="${C.sheet}" stroke-width="0.8"/>`; });
+    }else if(it.shape==='shower'){
+      s+=`<circle cx="${R(px+pw/2)}" cy="${R(py+ph/2)}" r="${R(pw/2)}" fill="none" stroke="${C.ink}" stroke-width="0.8"/>`;
+      s+=`<circle cx="${R(px+pw/2)}" cy="${R(py+ph/2)}" r="1.6" fill="${C.ink}"/>`;
+    }else{
+      s+=RECT(px,py,pw,ph,{fill:f,stroke:C.ink,sw:.95});
+      if(it.bed){ s+=L(px,py+ph*0.22,px+pw,py+ph*0.22,{stroke:C.ink,sw:.5}); s+=RECT(px+pw*0.05,py+ph*0.05,pw*0.4,ph*0.12,{fill:mix(f,'#fff',30),stroke:C.ink,sw:.5,rx:3}); s+=RECT(px+pw*0.55,py+ph*0.05,pw*0.4,ph*0.12,{fill:mix(f,'#fff',30),stroke:C.ink,sw:.5,rx:3}); }
+    }
+    if(it.label){
+      const vert=(ph>pw*1.5 && pw<64);
+      const lx=px+pw/2, ly=py+ph/2;
+      const outside=it.lo; /* label outside with leader */
+      if(outside){
+        const ox=lx+(it.lox||0), oy=py-(it.loy||10);
+        s+=L(lx,ly,ox,oy+3,{stroke:C.muted,sw:.4});
+        s+=T(ox,oy,it.label,{size:7.5,fill:C.ink});
+      } else {
+        s+=T(lx,vert?ly:ly+2.5,it.label,{size:7.5,fill:C.ink,rot:vert?-90:0});
+      }
+    }
+  }
+  /* clearance dims */
+  for(const d of (r.cdims||[])){
+    if(d.y1===d.y2) s+=dimH(X(d.x1),X(d.x2),Y(d.y1),d.label||Math.round(Math.abs(d.x2-d.x1)));
+    else s+=dimV(X(d.x1),Y(d.y1),Y(d.y2),d.label||Math.round(Math.abs(d.y2-d.y1)));
+  }
+  /* boundary chains */
+  const yb=Y(-WT)+16;
+  s+=chainH(r.dimx||[0,W], yb, X);
+  s+=dimH(X(0),X(W),yb+15,Math.round(W));
+  const xl=X(-WT)-14;
+  s+=chainV(r.dimy||[0,D], xl, Y);
+  s+=dimV(xl-15,Y(D),Y(0),Math.round(D));
+  /* scale bar */
+  const sb=X(0), sby=h-12, u=1000*sc;
+  if(u*2<w-140){
+    s+=L(sb,sby,sb+2*u,sby,{stroke:C.ink,sw:1});
+    s+=RECT(sb,sby-3,u,3,{fill:C.ink,stroke:'none'});
+    s+=RECT(sb+u,sby-3,u,3,{fill:'none',stroke:C.ink,sw:.6});
+    s+=T(sb,sby+9,'0',{size:7,fill:C.muted,anchor:'start'});
+    s+=T(sb+u,sby+9,'1M',{size:7,fill:C.muted});
+    s+=T(sb+2*u,sby+9,'2M',{size:7,fill:C.muted});
+  }
+  return `<svg viewBox="0 0 ${R(w)} ${R(h)}" role="img" aria-label="Plan — ${r.name}">${s}</svg>`;
+}
+/* ---------------- ELEVATION ---------------- */
+function flutes(x,y,w,h,gap){ let s=''; for(let u=gap;u<w;u+=gap) s+=L(x+u,y,x+u,y+h,{stroke:C.ink,sw:.35}); return s; }
+function elevElem(el,X,Yv,sc){
+  const x=X(el.x), y=Yv(el.z+el.h), w=el.w*sc, h=el.h*sc;
+  let s='';
+  const t=el.t;
+  if(t==='panel'){ s+=RECT(x,y,w,h,{fill:el.f?C[el.f]:C.wall,stroke:C.ink,sw:.7}); if(el.fluted) s+=flutes(x,y,w,h,55*sc); }
+  else if(t==='doors'){ s+=RECT(x,y,w,h,{fill:C.wood,stroke:C.ink,sw:.9});
+    const n=el.n||1, lw=w/n;
+    for(let i=1;i<n;i++) s+=L(x+i*lw,y,x+i*lw,y+h,{stroke:C.ink,sw:.6});
+    for(let i=0;i<n;i++){ const hx=x+i*lw+(i%2?6:lw-6); s+=L(hx,y+h*0.42,hx,y+h*0.58,{stroke:C.ink,sw:1.5}); }
+  }
+  else if(t==='slider'){ const n=el.n||2, lw=w/n;
+    for(let i=0;i<n;i++) s+=RECT(x+i*lw,y+(i%2?2:0),lw,h-(i%2?2:0),{fill:i%2?mix(C.wood,'#000',10):C.wood,stroke:C.ink,sw:.8});
+    s+=L(x+w*0.15,y+h*0.5,x+w*0.35,y+h*0.5,{stroke:C.ink,sw:1});
+    s+=`<path d="M ${R(x+w*0.15)} ${R(y+h*0.5)} l 5 -3 v 6 z M ${R(x+w*0.35)} ${R(y+h*0.5)} l -5 -3 v 6 z" fill="${C.ink}"/>`;
+  }
+  else if(t==='drawers'){ s+=RECT(x,y,w,h,{fill:mix(C.wood,'#000',6),stroke:C.ink,sw:.9});
+    const n=el.n||1, dh=h/n;
+    for(let i=1;i<n;i++) s+=L(x,y+i*dh,x+w,y+i*dh,{stroke:C.ink,sw:.6});
+    for(let i=0;i<n;i++) s+=L(x+w/2-Math.min(w*0.18,26),y+i*dh+4,x+w/2+Math.min(w*0.18,26),y+i*dh+4,{stroke:C.ink,sw:1.4});
+  }
+  else if(t==='shelves'){ s+=RECT(x,y,w,h,{fill:C.sheet,stroke:C.ink,sw:.9});
+    const bays=el.bays||1, rows=el.rows||1;
+    for(let i=1;i<bays;i++) s+=L(x+i*w/bays,y,x+i*w/bays,y+h,{stroke:C.ink,sw:.6});
+    for(let i=1;i<rows;i++) s+=L(x,y+i*h/rows,x+w,y+i*h/rows,{stroke:C.ink,sw:.6});
+  }
+  else if(t==='glass'){ s+=RECT(x,y,w,h,{fill:C.glass,stroke:C.ink,sw:.9,op:.9});
+    const n=el.n||2, lw=w/n;
+    for(let i=1;i<n;i++) s+=L(x+i*lw,y,x+i*lw,y+h,{stroke:C.ink,sw:.6});
+    if(el.fluted) s+=flutes(x,y,w,h,40*sc);
+    else { s+=L(x+4,y+h-4,x+w*0.3,y+4,{stroke:C.sheet,sw:.8}); }
+  }
+  else if(t==='jaali'){ s+=RECT(x,y,w,h,{fill:mix(C.wood2,'var(--sheet)',12),stroke:C.ink,sw:.9});
+    const g=90*sc;
+    for(let u=-h;u<w;u+=g){ s+=L(Math.max(x,x+u),u<0?y+(-u):y, Math.min(x+w,x+u+h), u+h>w? y+h-(u+h-w):y+h,{stroke:C.ink,sw:.35}); }
+    for(let u=0;u<w+h;u+=g){ s+=L(Math.max(x,x+u-h), u>h? y+h:(y+u), Math.min(x+w,x+u), u>w? y+(u-w):y,{stroke:C.ink,sw:.35}); }
+  }
+  else if(t==='tv'){ s+=RECT(x,y,w,h,{fill:mix(C.ink,'#000',10),stroke:C.ink,sw:1,rx:2}); s+=RECT(x+3,y+3,w-6,h-6,{fill:'none',stroke:C.sheet,sw:.4}); }
+  else if(t==='mirror'){ s+=RECT(x,y,w,h,{fill:C.glass,stroke:C.ink,sw:.9}); s+=L(x+w*0.12,y+h*0.35,x+w*0.4,y+h*0.06,{stroke:C.sheet,sw:1}); s+=L(x+w*0.2,y+h*0.6,x+w*0.6,y+h*0.18,{stroke:C.sheet,sw:.6}); }
+  else if(t==='counter'){ s+=RECT(x,y,w,h,{fill:C.stone,stroke:C.ink,sw:.9}); }
+  else if(t==='open'){ s+=RECT(x,y,w,h,{fill:'none',stroke:C.muted,sw:.8,dash:'5 3'}); }
+  else if(t==='seat'){ s+=RECT(x,y,w,h,{fill:C.fabric,stroke:C.ink,sw:.9,rx:4}); }
+  else if(t==='appl'){ s+=RECT(x,y,w,h,{fill:mix(C.metal,'#000',12),stroke:C.ink,sw:.9,rx:1}); }
+  else if(t==='window'){ s+=RECT(x,y,w,h,{fill:C.glass,stroke:C.ink,sw:1});
+    const n=el.n||2; for(let i=1;i<n;i++) s+=L(x+i*w/n,y,x+i*w/n,y+h,{stroke:C.ink,sw:.7}); s+=L(x,y+h/2,x+w,y+h/2,{stroke:C.ink,sw:.5});}
+  else if(t==='tile'){ s+=RECT(x,y,w,h,{fill:mix(C.stone,'var(--sheet)',30),stroke:C.ink,sw:.6});
+    const g=300*sc; for(let u=g;u<w;u+=g)s+=L(x+u,y,x+u,y+h,{stroke:C.hair,sw:.5}); for(let v=g;v<h;v+=g)s+=L(x,y+v,x+w,y+v,{stroke:C.hair,sw:.5}); }
+  else if(t==='light'){ s+=`<circle cx="${R(x+w/2)}" cy="${R(y+h/2)}" r="${R(Math.min(w,h)/2)}" fill="none" stroke="${C.dim}" stroke-width="0.9"/><circle cx="${R(x+w/2)}" cy="${R(y+h/2)}" r="1.5" fill="${C.dim}"/>`; }
+  if(el.label){
+    const ly = (el.lpos==='above')? y-5 : y+h/2+2.5;
+    const inside=(el.lpos!=='above');
+    if(inside && h>18 && w> el.label.length*5.4) s+=T(x+w/2, y+h-6, el.label,{size:7.2,fill:C.ink});
+    else s+=T(x+w/2, y-4, el.label,{size:7.2,fill:C.muted});
+  }
+  return s;
+}
+function elevFig(e,{unit=false}={}){
+  const W=e.W, H=e.H!=null?e.H:2850;
+  const padL=18,padR=44,padT=e.padT||22,padB=unit?40:58;
+  const sc=Math.min(unit?0.16:0.155,(e.tw||330)/W, 300/H);
+  const X=mm=>padL+mm*sc, Yv=mm=>padT+(H-mm)*sc;
+  const w=padL+padR+W*sc, h=padT+padB+H*sc;
+  let s='';
+  if(!unit){
+    s+=RECT(X(0),Yv(H),W*sc,H*sc,{fill:mix(C.wall,'var(--sheet)',55),stroke:'none'});
+    s+=L(X(0),Yv(H),X(W),Yv(H),{stroke:C.ink,sw:1.2});
+    s+=L(X(0),Yv(H),X(0),Yv(0),{stroke:C.ink,sw:1.2});
+    s+=L(X(W),Yv(H),X(W),Yv(0),{stroke:C.ink,sw:1.2});
+    if(e.fc){ s+=L(X(0),Yv(e.fc),X(W),Yv(e.fc),{stroke:C.muted,sw:.7,dash:'6 3'}); s+=T(X(W)-4,Yv(e.fc)-3,'FC +'+e.fc+' (D3)',{size:7,fill:C.muted,anchor:'end'}); }
+  }
+  for(const el of (e.elems||[])) s+=elevElem(el,X,Yv,sc);
+  /* floor line + hatch */
+  s+=L(X(0)-8,Yv(0),X(W)+8,Yv(0),{stroke:C.ink,sw:1.6});
+  for(let u=0;u<W*sc+10;u+=9) s+=L(X(0)-6+u,Yv(0)+7,X(0)+1+u,Yv(0)+1,{stroke:C.muted,sw:.5});
+  if(!unit) s+=T(X(0),Yv(0)+18,'FFL ±0',{size:7,fill:C.muted,anchor:'start'});
+  /* dims */
+  if(e.dx) s+=chainH(e.dx, Yv(0)+(unit?16:32), X);
+  s+=dimH(X(0),X(W),Yv(0)+(unit?30:46),Math.round(W));
+  const xr=X(W)+14;
+  if(e.dz) s+=chainV(e.dz, xr, Yv);
+  s+=dimV(xr+15,Yv(H),Yv(0),Math.round(H));
+  return `<svg viewBox="0 0 ${R(w)} ${R(h)}" role="img" aria-label="Elevation — ${e.title||''}">${s}</svg>`;
+}
+/* side section for units */
+function sideFig(u){
+  const Dp=u.d, H=u.h;
+  const padL=18,padR=42,padT=20,padB=36;
+  const sc=Math.min(0.16, 120/Dp, 260/H);
+  const X=mm=>padL+mm*sc, Yv=mm=>padT+(H-mm)*sc;
+  const w=padL+padR+Dp*sc, h=padT+padB+H*sc;
+  let s='';
+  s+=RECT(X(0),Yv(H),Dp*sc,H*sc,{fill:mix(C.wood,'var(--sheet)',35),stroke:C.ink,sw:1});
+  for(const z of (u.sideLines||[])) s+=L(X(0),Yv(z),X(Dp),Yv(z),{stroke:C.ink,sw:.6,dash:'4 3'});
+  s+=L(X(0)-8,Yv(0),X(Dp)+8,Yv(0),{stroke:C.ink,sw:1.4});
+  for(let q=0;q<Dp*sc+10;q+=9) s+=L(X(0)-6+q,Yv(0)+7,X(0)+1+q,Yv(0)+1,{stroke:C.muted,sw:.5});
+  s+=dimH(X(0),X(Dp),Yv(0)+16,u.d);
+  s+=dimV(X(Dp)+14,Yv(H),Yv(0),u.h);
+  return `<svg viewBox="0 0 ${R(w)} ${R(h)}" role="img" aria-label="Side section — ${u.name}">${s}</svg>`;
+}
+/* ---------------- ISOMETRIC ---------------- */
+const CO=Math.cos(Math.PI/6), SI=0.5;
+function isoBox(P,x,y,z,w,d,h,fill,{sw=.7,op=1,stroke=C.ink}={}){
+  const p=(a,b,c)=>P(a,b,c);
+  let s='';
+  s+=POLY([p(x,y+d,z),p(x+w,y+d,z),p(x+w,y+d,z+h),p(x,y+d,z+h)],{fill:mix(fill,'#000',24),stroke,sw,op});
+  s+=POLY([p(x+w,y,z),p(x+w,y+d,z),p(x+w,y+d,z+h),p(x+w,y,z+h)],{fill:mix(fill,'#000',10),stroke,sw,op});
+  s+=POLY([p(x,y,z+h),p(x+w,y,z+h),p(x+w,y+d,z+h),p(x,y+d,z+h)],{fill:mix(fill,'#fff',10),stroke,sw,op});
+  return s;
+}
+function isoRoomFig(r){
+  const W=r.W,D=r.D,Hw=r.fc?r.fc+100:2500;
+  const tw=r.itw||690;
+  const k=Math.min(0.12, tw/((W+D+520)*CO));
+  const pad=20, labelPad=16;
+  const ox=pad+(D+230)*CO*k, oy=pad+Hw*k+labelPad;
+  const P=(x,y,z)=>[ox+(x-y)*CO*k, oy+(x+y)*SI*k - z*k];
+  const w=pad*2+(W+D+490)*CO*k;
+  const h=oy+(W+D+330)*SI*k+90*k+pad+14;
+  let s='';
+  s+=isoBox(P,-115,-115,-90,W+230,D+230,90,C.floor,{sw:.8});
+  s+=isoBox(P,-115,-115,0,W+230,115,Hw,C.wall,{sw:.7});
+  s+=isoBox(P,-115,-115,0,115,D+230,Hw,C.wall,{sw:.7});
+  /* openings drawn on inner faces of the two back walls */
+  for(const o of (r.openings||[])){
+    if(o.wall==='bottom'&&(o.type==='window')){
+      s+=POLY([P(o.at,0,900),P(o.at+o.w,0,900),P(o.at+o.w,0,2250),P(o.at,0,2250)],{fill:C.glass,stroke:C.ink,sw:.6,op:.9});
+    }
+    if(o.wall==='bottom'&&(o.type==='door')){
+      s+=POLY([P(o.at,0,0),P(o.at+o.w,0,0),P(o.at+o.w,0,2100),P(o.at,0,2100)],{fill:mix(C.wood,'var(--sheet)',40),stroke:C.ink,sw:.6});
+    }
+    if(o.wall==='left'&&o.type==='window'){
+      s+=POLY([P(0,o.at,900),P(0,o.at+o.w,900),P(0,o.at+o.w,2250),P(0,o.at,2250)],{fill:C.glass,stroke:C.ink,sw:.6,op:.9});
+    }
+    if(o.wall==='left'&&o.type==='door'){
+      s+=POLY([P(0,o.at,0),P(0,o.at+o.w,0),P(0,o.at+o.w,2100),P(0,o.at,2100)],{fill:mix(C.wood,'var(--sheet)',40),stroke:C.ink,sw:.6});
+    }
+  }
+  const fills={wood:C.wood,wood2:C.wood2,fabric:C.fabric,stone:C.stone,glass:C.glass,metal:C.metal,wall:C.wall,dark:C.metal};
+  const items=(r.items||[]).filter(i=>i.iso!==false).slice().sort((a,b)=>(a.x+a.y)-(b.x+b.y));
+  for(const it of items){
+    const hh=it.h||450;
+    s+=isoBox(P,it.x,it.y,0,it.w,it.d,hh,fills[it.c||'wood'],{op:it.c==='glass'?0.62:1});
+    if(it.lbl){
+      const q=P(it.x+it.w/2,it.y+it.d/2,hh);
+      s+=T(q[0],q[1]-6,it.lbl,{size:8,fill:C.ink});
+    }
+  }
+  return `<svg viewBox="0 0 ${R(w)} ${R(h)}" role="img" aria-label="Isometric — ${r.name}">${s}</svg>`;
+}
+function isoUnitFig(u){
+  const W=u.w,Dp=u.d,H=u.h;
+  const k=Math.min(0.14, 240/((W+Dp+80)*CO), 210/(H+(W+Dp)*SI));
+  const pad=16;
+  const ox=pad+(Dp)*CO*k, oy=pad+H*k+6;
+  const P=(x,y,z)=>[ox+(x-y)*CO*k, oy+(x+y)*SI*k - z*k];
+  const w=pad*2+(W+Dp)*CO*k, h=oy+(W+Dp)*SI*k+pad;
+  let s='';
+  if(u.isoItems){
+    const items=u.isoItems.slice().sort((a,b)=>(a.x+a.y)-(b.x+b.y));
+    for(const it of items) s+=isoBox(P,it.x,it.y,it.z||0,it.w,it.d,it.h,C[it.c||'wood']);
+  } else {
+    s+=isoBox(P,0,0,0,W,Dp,H,C.wood);
+    /* project front features onto face y = d */
+    for(const el of (u.front||[])){
+      const pts=[P(el.x,Dp,el.z),P(el.x+el.w,Dp,el.z),P(el.x+el.w,Dp,el.z+el.h),P(el.x,Dp,el.z+el.h)];
+      let fill='none', op=1;
+      if(el.t==='glass'||el.t==='mirror'){fill=C.glass;op=.92}
+      else if(el.t==='tv'){fill=mix(C.ink,'#000',10)}
+      else if(el.t==='jaali'){fill=mix(C.wood2,'#000',18)}
+      else if(el.t==='counter'){fill=C.stone}
+      else if(el.t==='seat'){fill=C.fabric}
+      else if(el.t==='drawers'){fill=mix(C.wood,'#000',30)}
+      else if(el.t==='shelves'||el.t==='open'){fill=mix(C.wood,'#000',38)}
+      else if(el.t==='appl'){fill=C.metal}
+      s+=POLY(pts,{fill,stroke:C.ink,sw:.55,op});
+      const n=el.n||((el.t==='doors'||el.t==='slider')?el.n:0);
+      if((el.t==='doors'||el.t==='slider'||el.t==='glass')&&el.n>1){
+        for(let i=1;i<el.n;i++){ const fx=el.x+i*el.w/el.n; const a=P(fx,Dp,el.z),b=P(fx,Dp,el.z+el.h); s+=L(a[0],a[1],b[0],b[1],{stroke:C.ink,sw:.5}); }
+      }
+      if(el.t==='drawers'&&el.n>1){
+        for(let i=1;i<el.n;i++){ const fz=el.z+i*el.h/el.n; const a=P(el.x,Dp,fz),b=P(el.x+el.w,Dp,fz); s+=L(a[0],a[1],b[0],b[1],{stroke:C.ink,sw:.5}); }
+      }
+      if(el.t==='shelves'){
+        const bays=el.bays||1,rows=el.rows||1;
+        for(let i=1;i<bays;i++){const fx=el.x+i*el.w/bays;const a=P(fx,Dp,el.z),b=P(fx,Dp,el.z+el.h);s+=L(a[0],a[1],b[0],b[1],{stroke:C.ink,sw:.5});}
+        for(let i=1;i<rows;i++){const fz=el.z+i*el.h/rows;const a=P(el.x,Dp,fz),b=P(el.x+el.w,Dp,fz);s+=L(a[0],a[1],b[0],b[1],{stroke:C.ink,sw:.5});}
+      }
+    }
+  }
+  return `<svg viewBox="0 0 ${R(w)} ${R(h)}" role="img" aria-label="Isometric — ${u.name}">${s}</svg>`;
+}
+
+/* ================= DATA — ROOMS ================= */
+const ROOMS=[
+{
+ id:'D2-01', name:'LIVING', sub:'5655 × 3200 · 195 SQ FT · MEDIA WALL + FOYER', fc:2400,
+ W:5655, D:3200,
+ openings:[
+   {wall:'right',at:2000,w:1000,type:'door',hinge:'far'},
+   {wall:'bottom',at:3800,w:1500,type:'window'},
+   {wall:'top',at:300,w:1830,type:'open',label:'OPEN TO DINING'}
+ ],
+ items:[
+   {x:0,y:600,w:450,d:2400,h:450,c:'wood',label:'TV UNIT 2400x450'},
+   {x:0,y:0,w:450,d:600,h:2100,c:'wood2',label:'TALL STG',lbl:'TALL STG 2100H'},
+   {x:2850,y:610,w:900,d:1980,h:820,c:'fabric',label:'SOFA 3S 1980x900',lbl:'SOFA'},
+   {x:1800,y:1150,w:600,d:900,h:450,c:'stone',label:'CT 900x600'},
+   {x:900,y:20,w:1600,d:750,h:780,c:'fabric',label:'COUCH 1600x750'},
+   {x:3850,y:2800,w:1200,d:400,h:1100,c:'wood',label:'SHOE 1200x400',lbl:'SHOE UNIT'},
+   {x:3800,y:0,w:1500,d:400,h:450,c:'wood2',label:'BOOK BAY + SEAT'}
+ ],
+ cdims:[
+   {x1:450,x2:2850,y1:2720,y2:2720,label:'2400 SOFA-TV'},
+   {x1:2400,x2:2850,y1:1600,y2:1600,label:'450'},
+   {x1:3750,x2:5655,y1:2400,y2:2400,label:'1905 FOYER'}
+ ],
+ dimx:[0,3800,5300,5655], dimy:[0,600,3000,3200],
+ elevs:[
+  {title:'ELEVATION A — MEDIA WALL', W:3200, fc:2400, tw:340,
+   elems:[
+    {t:'panel',x:600,z:450,w:2600,h:1950,fluted:1,label:'FLUTED PANELLING',lpos:'above'},
+    {t:'doors',x:0,z:0,w:600,h:2100,n:1,label:'TALL STG'},
+    {t:'doors',x:0,z:2100,w:600,h:750,n:1},
+    {t:'drawers',x:600,z:150,w:2400,h:300,n:3},
+    {t:'tv',x:1185,z:1000,w:1230,h:710,label:'55 IN TV',lpos:'above'}
+   ],
+   dx:[0,600,3000,3200], dz:[0,150,450,1000,1710,2100,2850]},
+  {title:'ELEVATION B — FOYER / DINING-SIDE WALL', W:5655, fc:2400, tw:700,
+   elems:[
+    {t:'open',x:300,z:0,w:1830,h:2100,label:'OPEN TO DINING',lpos:'above'},
+    {t:'panel',x:2400,z:0,w:3255,h:2400,label:'PANELLING'},
+    {t:'doors',x:3850,z:100,w:1200,h:800,n:2},
+    {t:'drawers',x:3850,z:900,w:1200,h:200,n:1,label:'SHOE UNIT 1100H',lpos:'above'},
+    {t:'mirror',x:4150,z:1400,w:600,h:900,label:'MIRROR',lpos:'above'}
+   ],
+   dx:[0,300,2130,3850,5050,5655], dz:[0,1100,2400,2850]}
+ ],
+ notes:[
+  'Tall storage absorbs kitchen pantry function (delta 1 vs AR/02).',
+  'Sofa-to-TV 2400 suits 55 in panel; 65 in max.',
+  '<span class="vfy">VERIFY</span> window position and entry door swing on site.'
+ ]
+},
+{
+ id:'D2-02', name:'DINING', sub:'3825 × 1830 (EST — VERIFY) · 75 SQ FT', fc:2400,
+ W:3825, D:1830,
+ openings:[
+   {wall:'left',at:0,w:1830,type:'open',label:'OPEN TO LIVING'},
+   {wall:'bottom',at:2700,w:1000,type:'open',label:'PASSAGE 1000'}
+ ],
+ items:[
+   {x:900,y:1430,w:1800,d:400,h:2100,c:'wood',label:'CROCKERY A 1800x400',lbl:'CROCKERY A'},
+   {x:1100,y:265,w:1500,d:900,h:750,c:'stone',label:'DINING 1500x900',lbl:'DINING 6S'},
+   {x:1250,y:35,w:430,d:430,shape:'chair',h:450},
+   {x:1830,y:35,w:430,d:430,shape:'chair',h:450},
+   {x:2410,y:35,w:430,d:430,shape:'chair',h:450},
+   {x:1250,y:965,w:430,d:430,shape:'chair',h:450,iso:false},
+   {x:1830,y:965,w:430,d:430,shape:'chair',h:450,iso:false},
+   {x:2410,y:965,w:430,d:430,shape:'chair',h:450,iso:false},
+   {x:3425,y:315,w:400,d:1200,h:900,c:'wood2',label:'CONSOLE',lbl:'CONSOLE B'}
+ ],
+ cdims:[
+   {x1:2600,x2:3425,y1:900,y2:900,label:'825'},
+   {x1:520,y1:265,y2:1430,x2:520,label:'1165'}
+ ],
+ dimx:[0,900,2700,3825], dimy:[0,265,1165,1430,1830],
+ elevs:[
+  {title:'ELEVATION A — CROCKERY WALL', W:3825, fc:2400, tw:400,
+   elems:[
+    {t:'drawers',x:900,z:100,w:1800,h:800,n:3},
+    {t:'counter',x:900,z:900,w:1800,h:40},
+    {t:'open',x:900,z:940,w:1800,h:410,label:'DISPLAY LEDGE'},
+    {t:'glass',x:900,z:1350,w:1800,h:750,n:4,fluted:1,label:'FLUTED GLASS UPPERS',lpos:'above'}
+   ],
+   dx:[0,900,2700,3825], dz:[0,900,1350,2100,2850]},
+  {title:'ELEVATION B — CONSOLE WALL', W:1830, fc:2400, tw:280,
+   elems:[
+    {t:'drawers',x:315,z:500,w:1200,h:400,n:2},
+    {t:'doors',x:315,z:100,w:1200,h:400,n:2,label:'CONSOLE 900H',lpos:'above'},
+    {t:'mirror',x:465,z:1150,w:900,h:750,label:'ART / MIRROR',lpos:'above'}
+   ],
+   dx:[0,315,1515,1830], dz:[0,900,1900,2850]}
+ ],
+ notes:[
+  'Table off-centre toward crockery wall as per brief; pull-out extends into open living side.',
+  '<span class="vfy">VERIFY</span> dining zone width on site — 750 pull-out both sides governs final table size.',
+  'Console doubles as serving counter (delta 4).'
+ ]
+},
+{
+ id:'D2-03', name:'KITCHEN', sub:'1960 × 1570 · 33 SQ FT · SINGLE L — CONFIRMED SITE DIMS', fc:2350,
+ W:1960, D:1570, pw:430,
+ openings:[
+   {wall:'bottom',at:760,w:900,type:'open',label:'FROM DINING'},
+   {wall:'right',at:100,w:750,type:'open',label:'DRY BAL.'},
+   {wall:'top',at:700,w:900,type:'window'}
+ ],
+ items:[
+   {x:0,y:970,w:1960,d:600,h:850,c:'stone',label:'',lbl:'HOB RUN'},
+   {x:0,y:0,w:600,d:970,h:850,c:'stone',label:'',lbl:'SINK RUN'},
+   {x:900,y:1030,w:600,d:510,shape:'hob',h:860,label:'',iso:false},
+   {x:90,y:280,w:430,d:450,shape:'sink',h:860,label:'',iso:false}
+ ],
+ cdims:[
+   {x1:600,x2:1960,y1:485,y2:485,label:'1360 AISLE'},
+   {x1:1770,y1:0,y2:970,x2:1770,label:'970'}
+ ],
+ dimx:[0,600,900,1500,1960], dimy:[0,970,1570],
+ elevs:[
+  {title:'ELEVATION A — HOB WALL', W:1960, H:2850, fc:2350, tw:300,
+   elems:[
+    {t:'panel',x:0,z:0,w:1960,h:100,f:'dark'},
+    {t:'drawers',x:0,z:100,w:600,h:750,n:2},
+    {t:'drawers',x:600,z:100,w:760,h:750,n:2},
+    {t:'drawers',x:1360,z:100,w:600,h:750,n:2,label:'TANDEM DRAWERS',lpos:'above'},
+    {t:'counter',x:0,z:850,w:1960,h:20},
+    {t:'tile',x:0,z:870,w:1960,h:555},
+    {t:'doors',x:0,z:1650,w:680,h:450,n:2},
+    {t:'doors',x:1280,z:1650,w:680,h:450,n:2},
+    {t:'doors',x:0,z:2100,w:1960,h:750,n:3,label:'LOFT TO SLAB'},
+    {t:'appl',x:680,z:1470,w:600,h:180,label:'60CM SLIM CHIMNEY',lpos:'above'}
+   ],
+   dx:[0,600,1360,1960], dz:[0,850,1470,1650,2100,2850]},
+  {title:'ELEVATION B — SINK WALL', W:1570, H:2850, fc:2350, tw:280,
+   elems:[
+    {t:'panel',x:0,z:0,w:1570,h:100,f:'dark'},
+    {t:'doors',x:0,z:100,w:600,h:750,n:1,label:'U/SINK'},
+    {t:'drawers',x:600,z:100,w:970,h:750,n:2,label:'CAROUSEL CNR',lpos:'above'},
+    {t:'counter',x:0,z:850,w:1570,h:20},
+    {t:'tile',x:0,z:870,w:1570,h:555},
+    {t:'appl',x:120,z:880,w:450,h:60},
+    {t:'window',x:300,z:1425,w:900,h:900,n:2,label:'WINDOW',lpos:'above'},
+    {t:'doors',x:1250,z:1425,w:320,h:675,n:1},
+    {t:'doors',x:0,z:2100,w:1570,h:750,n:2,label:'LOFT'}
+   ],
+   dx:[0,600,1570], dz:[0,850,1425,2100,2850]}
+ ],
+ notes:[
+  'Tall pantry DELETED from kitchen — re-provided at living media wall (delta 1).',
+  'Fridge outside kitchen: 600 slot at dry balcony / dining edge with 6A+16A point (delta 3). <span class="vfy">VERIFY</span> slot on site.',
+  'Work sequence store-wash-prep-cook runs without crossing; 60 cm slim chimney only.'
+ ]
+},
+{
+ id:'D2-04', name:'POOJA', sub:'900 × 1200 (EST — VERIFY) · 12 SQ FT · OPEN NICHE', fc:2350,
+ W:900, D:1200, pw:300,
+ openings:[{wall:'bottom',at:100,w:700,type:'open',label:'OPEN FRONT'}],
+ items:[
+   {x:0,y:900,w:900,d:300,h:2100,c:'wood2',label:'NICHE UNIT',lbl:'POOJA UNIT'}
+ ],
+ cdims:[{x1:450,y1:0,y2:900,x2:450,label:'900 STANDING'}],
+ dimx:[0,900], dimy:[0,900,1200],
+ elevs:[
+  {title:'ELEVATION A — NICHE (BACK-LIT JAALI)', W:900, H:2850, fc:2350, tw:240,
+   elems:[
+    {t:'panel',x:0,z:0,w:900,h:100,f:'dark'},
+    {t:'open',x:0,z:100,w:900,h:450,label:'PLINTH STG'},
+    {t:'drawers',x:0,z:550,w:900,h:300,n:1,label:'SAMAGRI DRAWER',lpos:'above'},
+    {t:'counter',x:0,z:850,w:900,h:40,label:'STONE SHELF +850',lpos:'above'},
+    {t:'jaali',x:0,z:890,w:900,h:1210,label:'CNC JAALI + 2700K BACKLIGHT',lpos:'above'}
+   ],
+   dx:[0,900], dz:[0,550,850,2100,2850]},
+  {title:'ELEVATION B — SIDE SECTION', W:1200, H:2850, fc:2350, tw:240,
+   elems:[
+    {t:'panel',x:900,z:0,w:300,h:2100,f:'wood2',label:'UNIT 300 DP',lpos:'above'},
+    {t:'counter',x:850,z:850,w:350,h:40},
+    {t:'light',x:940,z:2150,w:60,h:60,label:'2700K STRIP',lpos:'above'},
+    {t:'open',x:0,z:0,w:850,h:2100,label:'STANDING ZONE'}
+   ],
+   dx:[0,900,1200], dz:[0,850,2100,2850]}
+ ],
+ notes:[
+  'Open niche with brass-finish frame — door omitted to keep living corner light.',
+  'Corian / stone shelf at 850; concealed samagri drawer below.'
+ ]
+},
+{
+ id:'D2-05', name:'MASTER BEDROOM', sub:'3825 × 3350 · 138 SQ FT', fc:2500,
+ W:3825, D:3350,
+ openings:[
+   {wall:'bottom',at:2825,w:900,type:'door',hinge:'far'},
+   {wall:'top',at:500,w:1500,type:'window'},
+   {wall:'right',at:30,w:750,type:'door'}
+ ],
+ items:[
+   {x:0,y:450,w:100,d:1950,h:1200,c:'wood2',label:''},
+   {x:100,y:600,w:1830,d:1650,h:450,c:'fabric',label:'BED 1830x1650',bed:1,lbl:'BED'},
+   {x:100,y:150,w:450,d:400,h:500,c:'wood',label:'BST'},
+   {x:100,y:2300,w:450,d:400,h:500,c:'wood',label:'BST'},
+   {x:3225,y:800,w:600,d:2135,h:2400,c:'wood',label:'WARDROBE 2135 SLIDING',lbl:'WARDROBE'},
+   {x:2000,y:2900,w:900,d:450,h:1800,c:'wood2',label:'DRESSER 900x450'}
+ ],
+ cdims:[
+   {x1:1930,x2:3225,y1:1500,y2:1500,label:'1295 FOOT PASSAGE'},
+   {x1:2600,y1:0,y2:600,x2:2600,label:'600'},
+   {x1:1000,y1:2250,y2:2900,x2:1000,label:'650'}
+ ],
+ dimx:[0,1930,3225,3825], dimy:[0,600,2250,3350],
+ elevs:[
+  {title:'ELEVATION A — WARDROBE WALL', W:3350, fc:2500, tw:340,
+   elems:[
+    {t:'open',x:30,z:0,w:750,h:2100,label:'BATH DOOR'},
+    {t:'slider',x:800,z:100,w:2135,h:2300,n:2,label:'SLIDING SHUTTERS',lpos:'above'},
+    {t:'doors',x:800,z:2400,w:2135,h:450,n:2,label:'LOFT'}
+   ],
+   dx:[0,800,2935,3350], dz:[0,2400,2850]},
+  {title:'ELEVATION B — HEADBOARD WALL', W:3350, fc:2500, tw:340,
+   elems:[
+    {t:'panel',x:450,z:0,w:1950,h:1200,f:'wood2',fluted:1,label:'HEADBOARD PANEL',lpos:'above'},
+    {t:'seat',x:600,z:300,w:1650,h:450},
+    {t:'doors',x:150,z:0,w:450,h:500,n:1},
+    {t:'doors',x:2300,z:0,w:450,h:500,n:1,label:'BST',lpos:'above'},
+    {t:'light',x:500,z:1450,w:80,h:80},
+    {t:'light',x:2350,z:1450,w:80,h:80,label:'WALL LIGHTS 3000K',lpos:'above'}
+   ],
+   dx:[0,450,2400,3350], dz:[0,500,1200,2850]}
+ ],
+ notes:[
+  'Sliding shutters mandatory — hinged would pinch foot passage below 750 (delta 2).',
+  'Bed clearances 600 / 650-1100 split toward dresser per brief.',
+  '<span class="vfy">VERIFY</span> bath door position vs wardrobe return on site.'
+ ]
+},
+{
+ id:'D2-06', name:'BEDROOM 2', sub:'3350 × 3350 · 121 SQ FT · BALCONY ACCESS', fc:2500,
+ W:3350, D:3350,
+ openings:[
+   {wall:'bottom',at:2350,w:900,type:'door',hinge:'far'},
+   {wall:'top',at:1200,w:1500,type:'slider',label:'BALCONY SLIDER'}
+ ],
+ items:[
+   {x:0,y:785,w:50,d:1780,h:1100,c:'wood2',label:''},
+   {x:50,y:835,w:1830,d:1680,h:450,c:'fabric',label:'BED 1830x1680',bed:1,lbl:'BED'},
+   {x:50,y:335,w:450,d:400,h:500,c:'wood',label:'BST'},
+   {x:50,y:2565,w:450,d:400,h:500,c:'wood',label:'BST'},
+   {x:2750,y:760,w:600,d:1830,h:2400,c:'wood',label:'WARDROBE 1830',lbl:'WARDROBE'},
+   {x:200,y:2900,w:750,d:450,h:1800,c:'wood2',label:'DRESSER 750'}
+ ],
+ cdims:[
+   {x1:1880,x2:2750,y1:1700,y2:1700,label:'870*'},
+   {x1:2300,y1:2590,y2:3350,x2:2300,label:'760'}
+ ],
+ dimx:[0,1880,2750,3350], dimy:[0,835,2515,3350],
+ elevs:[
+  {title:'ELEVATION A — WARDROBE WALL', W:3350, fc:2500, tw:340,
+   elems:[
+    {t:'doors',x:760,z:100,w:1830,h:2300,n:3,label:'HINGED 3-DR',lpos:'above'},
+    {t:'doors',x:760,z:2400,w:1830,h:450,n:2,label:'LOFT'}
+   ],
+   dx:[0,760,2590,3350], dz:[0,2400,2850]},
+  {title:'ELEVATION B — HEADBOARD WALL', W:3350, fc:2500, tw:340,
+   elems:[
+    {t:'panel',x:785,z:0,w:1780,h:1100,f:'wood2',label:'HEADBOARD',lpos:'above'},
+    {t:'seat',x:835,z:300,w:1680,h:400},
+    {t:'doors',x:335,z:0,w:450,h:500,n:1},
+    {t:'doors',x:2565,z:0,w:450,h:500,n:1,label:'BST',lpos:'above'},
+    {t:'light',x:700,z:1350,w:80,h:80},
+    {t:'light',x:2650,z:1350,w:80,h:80}
+   ],
+   dx:[0,785,2565,3350], dz:[0,500,1100,2850]}
+ ],
+ notes:[
+  '* Door-to-slider path achieves 870 against 900 target — <span class="vfy">VERIFY</span>; recover by reducing bed to 1650 wide or 550-deep wardrobe.',
+  'Balcony slider kept fully clear of furniture.'
+ ]
+},
+{
+ id:'D2-07', name:'BEDROOM 3 — STUDY / GUEST', sub:'3350 × 3050 · 110 SQ FT · WFH ROOM', fc:2500,
+ W:3350, D:3050,
+ openings:[
+   {wall:'left',at:1800,w:900,type:'door'},
+   {wall:'top',at:900,w:1500,type:'window'}
+ ],
+ items:[
+   {x:150,y:0,w:1200,d:550,h:750,c:'wood',label:'STUDY 1200x550'},
+   {x:600,y:600,w:450,d:450,shape:'chair',h:450},
+   {x:1520,y:0,w:1830,d:600,h:2400,c:'wood',label:'WARDROBE 1830',lbl:'WARDROBE'},
+   {x:835,y:2980,w:1680,d:70,h:1100,c:'wood2',label:''},
+   {x:835,y:1150,w:1680,d:1830,h:450,c:'fabric',label:'BED 1830x1680',bed:1,lbl:'BED'},
+   {x:385,y:2580,w:450,d:400,h:500,c:'wood',label:'BST'},
+   {x:2515,y:2580,w:450,d:400,h:500,c:'wood',label:'BST'}
+ ],
+ cdims:[
+   {x1:1000,y1:600,y2:1150,x2:1000,label:'550'},
+   {x1:0,x2:835,y1:2000,y2:2000,label:'835'},
+   {x1:2515,x2:3350,y1:2000,y2:2000,label:'835'}
+ ],
+ dimx:[0,835,2515,3350], dimy:[0,600,1150,3050],
+ elevs:[
+  {title:'ELEVATION A — STUDY + WARDROBE WALL', W:3350, fc:2500, tw:400,
+   elems:[
+    {t:'counter',x:150,z:700,w:1200,h:50,label:'DESK 750H',lpos:'above'},
+    {t:'drawers',x:950,z:100,w:400,h:600,n:2,label:'PED.'},
+    {t:'shelves',x:150,z:1100,w:1200,h:800,bays:2,rows:2,label:'WALL SHELVES',lpos:'above'},
+    {t:'doors',x:1520,z:100,w:1830,h:2300,n:3,label:'WARDROBE HINGED 3-DR',lpos:'above'},
+    {t:'doors',x:1520,z:2400,w:1830,h:450,n:2,label:'LOFT'}
+   ],
+   dx:[0,150,1350,1520,3350], dz:[0,750,1100,1900,2400,2850]},
+  {title:'ELEVATION B — WINDOW / HEADBOARD WALL', W:3350, fc:2500, tw:340,
+   elems:[
+    {t:'window',x:900,z:900,w:1500,h:1350,n:3,label:'WINDOW',lpos:'above'},
+    {t:'panel',x:835,z:0,w:1680,h:850,f:'wood2',label:'HEADBOARD',lpos:'above'},
+    {t:'doors',x:385,z:0,w:450,h:500,n:1},
+    {t:'doors',x:2515,z:0,w:450,h:500,n:1,label:'BST',lpos:'above'}
+   ],
+   dx:[0,900,2400,3350], dz:[0,900,2250,2850]}
+ ],
+ notes:[
+  'Natural WFH room — 6A + 16A + 2 data points at study (see D4).',
+  'Study and wardrobe share the door wall so the bed keeps 835 clearance both sides.'
+ ]
+},
+{
+ id:'D2-08', name:'BATHROOM — TYPICAL', sub:'2315 × 1375 TYP · 34 SQ FT · MASTER SHOWN (GLASS PARTITION)', fc:2350,
+ W:2315, D:1375, pw:520,
+ openings:[
+   {wall:'left',at:300,w:700,type:'door'},
+   {wall:'right',at:400,w:600,type:'window'}
+ ],
+ items:[
+   {x:150,y:0,w:750,d:450,h:850,c:'stone',label:'VANITY 750x450'},
+   {x:1050,y:40,w:400,d:680,shape:'wc',h:420,c:'stone',label:'WC',lo:1,loy:-14},
+   {x:1700,y:0,w:30,d:1375,h:2000,c:'glass',label:'10MM GLASS',lo:1,lox:40,loy:6},
+   {x:1900,y:900,w:300,d:300,shape:'shower',h:0,label:''}
+ ],
+ cdims:[
+   {x1:0,x2:1700,y1:1150,y2:1150,label:'1700 DRY'},
+   {x1:1730,x2:2315,y1:1150,y2:1150,label:'585 WET'}
+ ],
+ dimx:[0,150,900,1700,2315], dimy:[0,450,1375],
+ elevs:[
+  {title:'ELEVATION A — VANITY + WC WALL', W:2315, H:2850, fc:2350, tw:320,
+   elems:[
+    {t:'tile',x:0,z:0,w:2315,h:2100},
+    {t:'doors',x:150,z:250,w:750,h:560,n:2,label:'VANITY'},
+    {t:'counter',x:150,z:810,w:750,h:40},
+    {t:'mirror',x:150,z:1000,w:750,h:750,label:'MIRROR CAB.',lpos:'above'},
+    {t:'appl',x:1130,z:400,w:240,h:400,label:'WC',lpos:'above'},
+    {t:'light',x:1950,z:2150,w:80,h:80,label:'SHOWER 2150',lpos:'above'},
+    {t:'appl',x:1900,z:950,w:180,h:120,label:'MIXER',lpos:'above'}
+   ],
+   dx:[0,150,900,1700,2315], dz:[0,850,1000,1750,2100,2850]},
+  {title:'ELEVATION B — WET WALL (SECTION AT GLASS)', W:1375, H:2850, fc:2350, tw:260,
+   elems:[
+    {t:'tile',x:0,z:0,w:1375,h:2100},
+    {t:'open',x:500,z:1200,w:450,h:350,label:'NICHE 450x350'},
+    {t:'light',x:660,z:2150,w:80,h:80,label:'OH SHOWER',lpos:'above'},
+    {t:'glass',x:0,z:0,w:40,h:2000,n:1,label:''},
+    {t:'appl',x:580,z:950,w:180,h:120,label:'MIXER',lpos:'above'}
+   ],
+   dx:[0,500,950,1375], dz:[0,950,1200,2000,2850]}
+ ],
+ notes:[
+  'Master gets frameless 10 mm glass; bath 2 and 3 get rod + curtain (budget protection).',
+  'Builder CP / sanitary retained — no replacement assumed.',
+  '<span class="vfy">VERIFY</span> ledge walls against plumbing drawing; door swing against fixtures.'
+ ]
+},
+{
+ id:'D2-09', name:'DRY BALCONY — UTILITY', sub:'≈1960 × 1075 (EST — VERIFY) · 28 SQ FT', fc:2350,
+ W:1960, D:1075, pw:430,
+ openings:[
+   {wall:'left',at:150,w:750,type:'open',label:'FROM KITCHEN'}
+ ],
+ items:[
+   {x:100,y:475,w:600,d:600,h:850,c:'metal',label:'WM 600'},
+   {x:800,y:525,w:450,d:550,shape:'sink',h:850,c:'metal',label:'UTIL. SINK',lo:1,loy:-12},
+   {x:1350,y:625,w:550,d:450,h:850,c:'wood2',label:'STG'}
+ ],
+ cdims:[{x1:1000,y1:0,y2:475,x2:1000,label:'475*'}],
+ dimx:[0,100,700,1250,1960], dimy:[0,475,1075],
+ elevs:[
+  {title:'ELEVATION A — SERVICE WALL', W:1960, H:2850, fc:2350, tw:300,
+   elems:[
+    {t:'appl',x:100,z:100,w:600,h:750,label:'WM',lpos:'above'},
+    {t:'counter',x:800,z:850,w:1100,h:40},
+    {t:'appl',x:900,z:870,w:450,h:60},
+    {t:'shelves',x:100,z:1250,w:1800,h:800,bays:3,rows:2,label:'SERVICE SHELVING',lpos:'above'}
+   ],
+   dx:[0,100,700,1900,1960], dz:[0,850,1250,2050,2850]},
+  {title:'ELEVATION B — END WALL (SECTION)', W:1075, H:2850, fc:2350, tw:240,
+   elems:[
+    {t:'appl',x:475,z:100,w:600,h:750,label:'WM 600 DP',lpos:'above'},
+    {t:'shelves',x:655,z:1250,w:420,h:800,bays:1,rows:2,label:'SHELF 420 DP',lpos:'above'}
+   ],
+   dx:[0,475,1075], dz:[0,850,1250,2050,2850]}
+ ],
+ notes:[
+  '* Passage in front of WM achieves 475 vs 550 target — <span class="vfy">VERIFY</span> width on site; slim 525-deep WM if short.',
+  'Utility sink + tap point; shelving 420 deep above counter level.'
+ ]
+},
+{
+ id:'D2-10', name:'BALCONY 1 — LIVING', sub:'≈3200 × 1420 (EST — VERIFY) · 49 SQ FT · WPC DECK', fc:0,
+ W:3200, D:1420, pw:560,
+ openings:[
+   {wall:'bottom',at:850,w:1500,type:'slider',label:'SLIDER FROM LIVING'}
+ ],
+ items:[
+   {x:300,y:520,w:550,d:550,shape:'chair',h:430,label:'CH',c:'fabric'},
+   {x:1550,y:520,w:550,d:550,shape:'chair',h:430,label:'CH',c:'fabric'},
+   {x:1000,y:560,w:480,d:480,shape:'circle',h:700,c:'wood2',label:'T600',lo:1,loy:-12},
+   {x:2450,y:1120,w:650,d:250,h:300,c:'wood2',label:'PLANTERS',lo:1,loy:-12}
+ ],
+ cdims:[{x1:850,y1:0,y2:520,x2:850,label:'520'}],
+ dimx:[0,850,2350,3200], dimy:[0,1420],
+ elevs:[
+  {title:'ELEVATION A — PARAPET WALL (B1)', W:3200, H:2850, fc:0, tw:340,
+   elems:[
+    {t:'panel',x:0,z:0,w:3200,h:1050,f:'stone',label:'PARAPET 1050',lpos:'above'},
+    {t:'doors',x:2450,z:1050,w:650,h:300,n:2,label:'PLANTER BOXES',lpos:'above'},
+    {t:'light',x:1550,z:2200,w:90,h:90,label:'IP65 WALL LIGHT',lpos:'above'}
+   ],
+   dx:[0,2450,3100,3200], dz:[0,1050,2200,2850]},
+  {title:'ELEVATION B — GREEN WALL (B2 ≈3350 × 1270)', W:3350, H:2850, fc:0, tw:340,
+   elems:[
+    {t:'panel',x:0,z:0,w:3350,h:1050,f:'stone',label:'PARAPET 1050',lpos:'above'},
+    {t:'shelves',x:2100,z:300,w:1100,h:1800,bays:3,rows:4,label:'VERTICAL GREEN PANEL',lpos:'above'},
+    {t:'light',x:600,z:2300,w:80,h:80,label:'STRING LIGHTS ON DIMMER',lpos:'above'}
+   ],
+   dx:[0,2100,3200,3350], dz:[0,1050,2100,2850]}
+ ],
+ notes:[
+  'B1: café pair + planters on parapet brackets; WPC deck tiles over existing floor.',
+  'B2 (bedroom, ≈3350 × 1270): lounge chair + vertical green panel; string lights on dimmer.',
+  '<span class="vfy">VERIFY</span> both balcony sizes and parapet heights on site.'
+ ]
+}
+];
+
+/* ================= DATA — UNITS ================= */
+const UNITS=[
+{ id:'D2-U01', name:'SHOE STORAGE UNIT', where:'LIVING · ENTRY', w:1200,d:400,h:1100,
+  desc:'PU/laminate carcass · stone ledge top · black matte pulls',
+  front:[
+   {t:'panel',x:0,z:0,w:1200,h:100,f:'dark'},
+   {t:'doors',x:0,z:100,w:1200,h:800,n:2,label:'TILT-OUT RACKS'},
+   {t:'drawers',x:0,z:900,w:1200,h:160,n:1,label:'ACCESSORY DRAWER',lpos:'above'},
+   {t:'counter',x:0,z:1060,w:1200,h:40}
+  ], dz:[0,100,900,1060,1100], dx:[0,600,1200], sideLines:[100,500,900,1060]},
+{ id:'D2-U02', name:'TV UNIT (WALL-HUNG)', where:'LIVING · MEDIA WALL', w:2400,d:450,h:450,
+  desc:'Underside at +150 AFFL · flap-down centre for STB · cable chase to TV',
+  front:[
+   {t:'drawers',x:0,z:0,w:2400,h:450,n:3,label:''}
+  ], dz:[0,450], dx:[0,800,1600,2400], sideLines:[225]},
+{ id:'D2-U03', name:'TALL STORAGE / PANTRY', where:'LIVING · KITCHEN-SIDE END', w:600,d:450,h:2100,
+  desc:'Re-provided pantry (delta 1) · 5 adj. shelves · doubles as media-wall bookend',
+  front:[
+   {t:'doors',x:0,z:0,w:600,h:1200,n:1},
+   {t:'doors',x:0,z:1200,w:600,h:900,n:1}
+  ], dz:[0,1200,2100], dx:[0,600], sideLines:[400,800,1200,1600]},
+{ id:'D2-U04', name:'BOOK BAY + WINDOW SEAT', where:'LIVING · WINDOW BAY', w:1500,d:400,h:1800,
+  desc:'Cushioned seat 450 · concealed shoe drawers below (delta 5) · open shelving over',
+  front:[
+   {t:'drawers',x:0,z:60,w:1500,h:330,n:2,label:'CONCEALED SHOE DRWS'},
+   {t:'seat',x:0,z:390,w:1500,h:90,label:'CUSHION 450H',lpos:'above'},
+   {t:'shelves',x:0,z:530,w:1500,h:1270,bays:3,rows:3}
+  ], dz:[0,390,480,1800], dx:[0,500,1000,1500], sideLines:[390,480,950,1370]},
+{ id:'D2-U05', name:'CROCKERY UNIT A', where:'DINING · PASSAGE WALL', w:1800,d:400,h:2100,
+  desc:'Fluted glass uppers · display ledge with 3000K strip · drawer base',
+  front:[
+   {t:'drawers',x:0,z:100,w:1800,h:800,n:3},
+   {t:'counter',x:0,z:900,w:1800,h:40},
+   {t:'open',x:0,z:940,w:1800,h:410,label:'LEDGE + STRIP LIGHT'},
+   {t:'glass',x:0,z:1350,w:1800,h:750,n:4,fluted:1}
+  ], dz:[0,900,1350,2100], dx:[0,600,1200,1800], sideLines:[900,1350,1725]},
+{ id:'D2-U06', name:'CROCKERY UNIT B — CONSOLE', where:'DINING · SERVING EDGE', w:1200,d:400,h:900,
+  desc:'Low console — doubles as serving counter (delta 4) · stone top',
+  front:[
+   {t:'doors',x:0,z:100,w:1200,h:400,n:2},
+   {t:'drawers',x:0,z:500,w:1200,h:360,n:2},
+   {t:'counter',x:0,z:860,w:1200,h:40}
+  ], dz:[0,500,860,900], dx:[0,600,1200], sideLines:[500,860]},
+{ id:'D2-U07', name:'KITCHEN BASE UNIT — TYP.', where:'KITCHEN · BOTH RUNS', w:600,d:600,h:850,
+  desc:'Tandem box drawers only — no hinged base storage in this galley · 20 mm quartz over',
+  front:[
+   {t:'panel',x:0,z:0,w:600,h:100,f:'dark'},
+   {t:'drawers',x:0,z:100,w:600,h:730,n:2,label:'TANDEM PAIR'},
+   {t:'counter',x:0,z:830,w:600,h:20}
+  ], dz:[0,100,465,830,850], dx:[0,600], sideLines:[100,465,830]},
+{ id:'D2-U08', name:'POOJA NICHE UNIT', where:'POOJA', w:900,d:300,h:2100,
+  desc:'CNC MDF jaali, PU finish · 2700K backlight · brass-finish open frame',
+  front:[
+   {t:'open',x:0,z:100,w:900,h:450,label:'PLINTH STG'},
+   {t:'drawers',x:0,z:550,w:900,h:300,n:1,label:'SAMAGRI'},
+   {t:'counter',x:0,z:850,w:900,h:40},
+   {t:'jaali',x:0,z:890,w:900,h:1210}
+  ], dz:[0,550,850,890,2100], dx:[0,900], sideLines:[550,850]},
+{ id:'D2-U09', name:'MASTER WARDROBE — SLIDING', where:'MASTER BEDROOM', w:2135,d:600,h:2850,
+  desc:'2 sliding shutters (delta 2) + loft · soft-close track · long/short hang + 4 drawers inside',
+  front:[
+   {t:'panel',x:0,z:0,w:2135,h:100,f:'dark'},
+   {t:'slider',x:0,z:100,w:2135,h:2300,n:2},
+   {t:'doors',x:0,z:2400,w:2135,h:450,n:2,label:'LOFT'}
+  ], dz:[0,100,2400,2850], dx:[0,1068,2135], sideLines:[1000,1900,2400]},
+{ id:'D2-U10', name:'WARDROBE 1830 — HINGED', where:'BEDROOMS 2 + 3', w:1830,d:600,h:2850,
+  desc:'3 hinged shutters + 2-door loft · mirror on centre shutter optional',
+  front:[
+   {t:'panel',x:0,z:0,w:1830,h:100,f:'dark'},
+   {t:'doors',x:0,z:100,w:1830,h:2300,n:3},
+   {t:'doors',x:0,z:2400,w:1830,h:450,n:2,label:'LOFT'}
+  ], dz:[0,100,2400,2850], dx:[0,610,1220,1830], sideLines:[1000,1900,2400]},
+{ id:'D2-U11', name:'DRESSING UNIT', where:'MASTER + BR2', w:900,d:450,h:1800,
+  desc:'3-drawer base · stone ledge 850 · framed mirror · jewel tray in top drawer',
+  front:[
+   {t:'drawers',x:0,z:100,w:900,h:750,n:3},
+   {t:'counter',x:0,z:850,w:900,h:40},
+   {t:'mirror',x:150,z:1000,w:600,h:800}
+  ], dz:[0,850,1000,1800], dx:[0,150,750,900], sideLines:[350,600,850]},
+{ id:'D2-U12', name:'STUDY UNIT + SHELVES', where:'BEDROOM 3 · WFH', w:1200,d:550,h:1900,
+  desc:'Desk 750 · 2-drawer pedestal · wall shelves over · 6A+16A+2 data at desk (D4)',
+  front:[
+   {t:'drawers',x:800,z:100,w:400,h:600,n:2,label:'PED.'},
+   {t:'counter',x:0,z:700,w:1200,h:50,label:'DESK 750H',lpos:'above'},
+   {t:'shelves',x:0,z:1100,w:1200,h:800,bays:2,rows:2}
+  ], dz:[0,700,750,1100,1900], dx:[0,800,1200], sideLines:[700]},
+{ id:'D2-U13', name:'VANITY + MIRROR CABINET', where:'BATHROOMS × 3', w:750,d:450,h:1800,
+  desc:'Counter 850 · basin over · 150-deep mirror storage cabinet · marine ply/HDHMR',
+  front:[
+   {t:'doors',x:0,z:150,w:750,h:660,n:2},
+   {t:'counter',x:0,z:810,w:750,h:40},
+   {t:'mirror',x:0,z:1050,w:750,h:750,label:'MIRROR CAB. 150 DP',lpos:'above'}
+  ], dz:[0,150,810,1050,1800], dx:[0,375,750], sideLines:[400,810]},
+{ id:'D2-U14', name:'BED — MASTER (5′6″ × 6′0″)', where:'MASTER BEDROOM', w:1950,d:1930,h:1200,
+  desc:'Upholstered fluted headboard 1200 · hydraulic box storage under mattress',
+  isoItems:[
+   {x:0,y:0,z:0,w:1950,d:100,h:1200,c:'wood2'},
+   {x:150,y:100,z:0,w:1650,d:1830,h:350,c:'wood'},
+   {x:150,y:100,z:350,w:1650,d:1830,h:150,c:'fabric'},
+   {x:230,y:180,z:500,w:700,d:420,h:120,c:'stone'},
+   {x:1020,y:180,z:500,w:700,d:420,h:120,c:'stone'}
+  ],
+  front:[
+   {t:'panel',x:0,z:0,w:1950,h:1200,f:'wood2',fluted:1,label:'HEADBOARD 1200',lpos:'above'},
+   {t:'doors',x:150,z:0,w:1650,h:350,n:1,label:'BOX STG'},
+   {t:'seat',x:150,z:350,w:1650,h:150,label:'MATTRESS 1650W',lpos:'above'}
+  ], dz:[0,350,500,1200], dx:[0,150,1800,1950], sideLines:[350,500]}
+];
+
+/* ================= BUILD ================= */
+function roomSheet(r){
+  const el=document.createElement('section');
+  el.className='sheet'; el.id=r.id;
+  const figs=[
+    `<figure class="wide">${planFig(r)}<figcaption><b>${r.id}/P</b> · FURNITURE PLAN · ALL DIMS MM · NTS</figcaption></figure>`,
+    ...r.elevs.map((e,i)=>`<figure${e.W>4200?' class="wide"':''}>${elevFig(e)}<figcaption><b>${r.id}/E${i+1}</b> · ${e.title}</figcaption></figure>`),
+    `<figure class="wide">${isoRoomFig(r)}<figcaption><b>${r.id}/3D</b> · ISOMETRIC CUTAWAY · WALLS SHOWN TO FC LEVEL</figcaption></figure>`
+  ].join('');
+  el.innerHTML=`
+   <header class="tb"><div class="no">${r.id}</div>
+    <div class="tt"><h2>${r.name}</h2><p>${r.sub}</p></div>
+    <div class="mt"><span>SCALE NTS · MM</span><span>DESIGN INTENT · JUL 2026</span></div>
+   </header>
+   <div class="figs">${figs}</div>
+   <div class="notes"><b style="color:var(--dim)">NOTES</b><ul>${(r.notes||[]).map(n=>`<li>${n}</li>`).join('')}</ul></div>`;
+  return el;
+}
+function unitSheet(u){
+  const el=document.createElement('section');
+  el.className='sheet'; el.id=u.id;
+  el.innerHTML=`
+   <header class="tb"><div class="no">${u.id}</div>
+    <div class="tt"><h2>${u.name}</h2><p>${u.where} · ${u.w} W × ${u.d} DP × ${u.h} H · ${u.desc}</p></div>
+    <div class="mt"><span>SCALE NTS · MM</span></div>
+   </header>
+   <div class="figs">
+    <figure style="flex:1.4 1 300px">${elevFig({W:u.w,H:u.h,elems:u.front,dx:u.dx,dz:u.dz,tw:280,title:u.name},{unit:true})}<figcaption><b>${u.id}/F</b> · FRONT ELEVATION</figcaption></figure>
+    <figure style="flex:.8 1 170px">${sideFig(u)}<figcaption><b>${u.id}/S</b> · SIDE SECTION</figcaption></figure>
+    <figure style="flex:1.2 1 260px">${isoUnitFig(u)}<figcaption><b>${u.id}/3D</b> · ISOMETRIC</figcaption></figure>
+   </div>`;
+  return el;
+}
+const roomHost=document.getElementById('rooms');
+ROOMS.forEach(r=>roomHost.appendChild(roomSheet(r)));
+const unitHost=document.getElementById('units');
+UNITS.forEach(u=>unitHost.appendChild(unitSheet(u)));
+document.getElementById('index-rooms').innerHTML=ROOMS.map(r=>`<li><a href="#${r.id}">${r.id} · ${r.name}</a></li>`).join('');
+document.getElementById('index-units').innerHTML=UNITS.map(u=>`<li><a href="#${u.id}">${u.id} · ${u.name}</a></li>`).join('');
+</script>
+</body>
+</html>
