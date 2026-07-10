@@ -553,14 +553,7 @@ get_header();
                always see the four-category structure. Empty categories
                get a friendly "coming soon" placeholder. */
         ?>
-        <section id="ecrm-section-<?php echo esc_attr($ee_col_key); ?>" class="ecrm-cat ecrm-anim ecrm-anim-fade<?php echo empty($ee_col_items) ? ' ecrm-cat--empty' : ''; ?>" aria-labelledby="ecrm-cat-<?php echo esc_attr($ee_col_key); ?>">
-            <header class="ecrm-cat-head">
-                <div class="ecrm-cat-icon"><img src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $ee_col_meta['icon'] . '.svg'); ?>" alt=""></div>
-                <div>
-                    <h2 id="ecrm-cat-<?php echo esc_attr($ee_col_key); ?>" class="ecrm-cat-title"><?php echo esc_html($ee_col_meta['label']); ?></h2>
-                    <p class="ecrm-cat-desc"><?php echo esc_html($ee_col_meta['desc']); ?></p>
-                </div>
-            </header>
+        <section id="ecrm-section-<?php echo esc_attr($ee_col_key); ?>" class="ecrm-cat ecrm-anim ecrm-anim-fade<?php echo empty($ee_col_items) ? ' ecrm-cat--empty' : ''; ?>" aria-label="<?php echo esc_attr($ee_col_meta['label']); ?>">
 
             <?php if (empty($ee_col_items)) : ?>
                 <div class="ecrm-cat-empty">
