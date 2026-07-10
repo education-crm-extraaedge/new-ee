@@ -1552,7 +1552,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class="eep-head-l">
         <span class="eep-eyebrow"><span class="eep-dot" aria-hidden="true"></span>The admissions platform</span>
         <h2>One platform. <span class="eep-accent">Every admissions tool.</span></h2>
-        <p class="eep-sub">From first enquiry to enrolled — explore the suite. Hover any product to see it come alive on the left.</p>
+        <p class="eep-sub">From first enquiry to enrolled — explore the suite. Tap or hover any product to see it come alive.</p>
       </div>
       <div class="eep-search" id="eepSearch">
         <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-01.svg" alt="" loading="lazy" decoding="async">
@@ -1778,9 +1778,21 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     function hexA(hex,a){ var h=hex.replace('#',''); var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
 
     /* ---- hover / focus updates spotlight ---- */
+    var canHover = !!(window.matchMedia && window.matchMedia('(hover: hover)').matches);
     cards.forEach(function(cd){
       cd.addEventListener('mouseenter', function(){ setActive(cd.dataset.id, true); });
       cd.addEventListener('focus', function(){ setActive(cd.dataset.id, true); });
+      /* Touch / no-hover devices: first tap previews the product in the
+         spotlight (and brings it into view); a second tap on the already
+         active card follows the link. Keeps desktop hover+click unchanged. */
+      cd.addEventListener('click', function(e){
+        if(canHover) return;                 // desktop: let the link work normally
+        if(cd.dataset.id === activeId) return; // already previewed → allow navigation
+        e.preventDefault();
+        setActive(cd.dataset.id, true);
+        try{ spot.scrollIntoView({behavior:'smooth', block:'center'}); }
+        catch(_){ spot.scrollIntoView(); }
+      });
     });
 
     /* ---- filtering + search ---- */
