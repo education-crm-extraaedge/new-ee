@@ -457,7 +457,13 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* 1. WebGL wisps */
 (function(){
-  const cv=$('#glsl'); if(!cv) return; if(reduced){cv.remove();return}
+  const cv=$('#glsl'); if(!cv) return;
+  /* skip the WebGL hero animation on reduced-motion and on phones/tablets
+     (touch or narrow) — the CSS gradient background stays; saves battery,
+     GPU and main-thread work on mobile for better LCP/INP */
+  var _small=(window.innerWidth||document.documentElement.clientWidth||0)<900;
+  var _touch=window.matchMedia&&window.matchMedia('(hover:none)').matches;
+  if(reduced||_small||_touch){cv.remove();return}
   const gl=cv.getContext('webgl',{antialias:false,alpha:true});
   if(!gl){cv.remove();return}
   const VS=`attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
@@ -7804,5 +7810,7 @@ html.eebk-lock,body.eebk-lock{overflow:hidden}
   window.addEventListener('message',function(e){ if(e && e.data==='ee-book-open') openM(); });
 })();
 </script>
+
+
 
 <?php get_footer(); ?>
