@@ -7904,6 +7904,13 @@ html.eebk-lock,body.eebk-lock{overflow:hidden}
 
 
 <style id="ee-mobile-grids">
+/* No dark page/theme background may peek through at the very bottom
+   (the front-page content → footer boundary showed a black strip). Force the
+   page wrappers white and remove any collapsing gap at that seam. */
+html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
+.ee-home{ margin-bottom:0 !important; }
+#main-content{ padding-bottom:0 !important; }
+
 /* ---- Mobile: show these sections as 2-up grids ---- */
 @media (max-width:640px){
   /* Uniform type scale on phones: H1=28, H2-H6=19, body=14.

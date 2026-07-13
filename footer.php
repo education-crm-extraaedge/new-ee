@@ -202,6 +202,15 @@ if (!defined('ABSPATH')) exit;
     }
 </style>
 
+<style id="ee-footer-boundary-fix">
+    /* Belt-and-suspenders: never let a dark page background show as a strip
+       directly above the footer. Force the wrappers white on the home page and
+       drop the first footer block's collapsing top margin. */
+    body.home, body.home #main-content { background-color: #ffffff !important; }
+    #extraaedge-footer-engine { margin-top: 0 !important; }
+    #extraaedge-footer-engine > *:first-child { margin-top: 0 !important; }
+</style>
+
 <?php do_action('ee_before_footer'); ?>
 
 <?php if (!function_exists('ee_should_hide_part') || !ee_should_hide_part('footer')): ?>
