@@ -7655,11 +7655,11 @@ body.ee-home{ background:#ffffff!important; }/* remove all graphic background mo
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',system-ui,sans-serif;background:#0f1c30}
 .eebk-ov{position:fixed;inset:0;z-index:2147483000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(9,17,30,.72);backdrop-filter:blur(6px);overflow:auto}
-.eebk{position:relative;width:100%;max-width:1080px;background:#fff;border-radius:26px;box-shadow:0 40px 120px rgba(6,14,28,.55);overflow:hidden;font-family:'Inter',sans-serif}
+.eebk{position:relative;width:100%;max-width:1160px;background:#fff;border-radius:26px;box-shadow:0 40px 120px rgba(6,14,28,.55);overflow:hidden;font-family:'Inter',sans-serif}
 .eebk-x{position:absolute;top:18px;right:18px;z-index:6;width:44px;height:44px;border-radius:50%;border:1px solid #e7ecf3;background:#fff;display:flex;align-items:center;justify-content:center;color:#6b7789;cursor:pointer;transition:.2s;box-shadow:0 4px 12px rgba(25,51,93,.08)}
 .eebk-x:hover{background:#f4f6fa;color:#19335D;transform:rotate(90deg)}
 .eebk-x svg{width:20px;height:20px}
-.eebk-top{display:grid;grid-template-columns:1fr 1.05fr;gap:20px;padding:44px 44px 28px}
+.eebk-top{display:grid;grid-template-columns:0.82fr 1.18fr;gap:20px;padding:40px 40px 26px;align-items:center}
 /* left */
 .eebk-brand{display:flex;align-items:center;gap:11px;margin-bottom:26px}
 .eebk-brand .wm{height:30px;width:auto;display:block}
@@ -7678,8 +7678,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f1c30}
 .eebk-feat b{display:block;font-size:16px;font-weight:700;color:#19335D;line-height:1.25}
 .eebk-feat span{display:block;font-size:13.5px;color:#8a95a6;margin-top:1px}
 /* right — laptop illustration */
-.eebk-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:360px}
-.eebk-shot{width:100%;height:auto;max-width:560px;display:block;filter:drop-shadow(0 24px 50px rgba(25,51,93,.18))}
+.eebk-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:380px}
+.eebk-shot{width:100%;height:auto;max-width:100%;display:block;filter:drop-shadow(0 24px 50px rgba(25,51,93,.18))}
 .eebk-art .orbit{position:absolute;top:2px;left:44%;transform:translateX(-50%);width:78px;height:78px;border-radius:50%;background:linear-gradient(135deg,#eef3fb,#fff);border:1px solid #e7ecf3;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(25,51,93,.12);z-index:3}
 .eebk-art .orbit img{width:42px;height:42px}
 .eebk-art .dots{position:absolute;inset:0;z-index:1;pointer-events:none}
