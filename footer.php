@@ -28,7 +28,10 @@ if (!defined('ABSPATH')) exit;
         --ee-radius-lg: 24px;
         --ee-radius-sm: 12px;
         --ee-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        display: block;
+        /* flow-root contains the child sections' top/bottom margins so the
+           first block's margin-top:10px can't escape and reveal the (dark)
+           page background as a black strip above the footer. */
+        display: flow-root;
         background: var(--ee-white);
         font-family: 'Inter', sans-serif;
         color: var(--ee-slate-900);
