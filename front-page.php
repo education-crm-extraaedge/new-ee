@@ -1753,7 +1753,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         '<span class="eep-card-title">'+p.t+(p.badge?' <span class="eep-badge">'+p.badge+'</span>':'')+'</span></div>'+
         '<p class="eep-card-desc">'+p.d+'</p>'+
         '<div class="eep-card-foot"><span class="eep-card-cat">'+c.label+'</span>'+
-        '<span class="eep-card-go">Learn more <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>';
+        '<span class="eep-card-go" aria-label="Learn more"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>';
       grid.insertBefore(a, emptyEl);
     });
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.eep-card'));
@@ -1958,6 +1958,22 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---- responsive (carousel mode) ---- */
   @media (max-width:900px){#ee-vidya-suite .vsx-sticky{ border-radius:22px; }
+  }
+  /* Phones: compact the whole suite so a card + header fit one screen */
+  @media (max-width:640px){
+    #ee-vidya-suite{ padding-top:10px; padding-bottom:10px; }
+    #ee-vidya-suite .vsx-inner{ padding:16px 16px 18px; }
+    #ee-vidya-suite .vsx-eyebrow{ margin-bottom:9px; }
+    #ee-vidya-suite h2{ font-size:19px!important; margin:0 0 6px; }
+    #ee-vidya-suite .vsx-lead{ font-size:12px!important; line-height:1.45!important;
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    #ee-vidya-suite .vsx-stage{ margin-top:12px!important; }
+    #ee-vidya-suite .vsx-card{ padding:16px 16px 18px!important; gap:9px!important; flex-basis:82vw!important; }
+    #ee-vidya-suite .vsx-ic{ width:44px!important; height:44px!important; }
+    #ee-vidya-suite .vsx-card h3{ font-size:16px!important; }
+    #ee-vidya-suite .vsx-card .vsx-desc{ font-size:12px!important; line-height:1.4!important; }
+    #ee-vidya-suite .vsx-feats li{ font-size:11.5px!important; gap:7px; }
+    #ee-vidya-suite .vsx-arw{ top:58%; }
   }
   @media (prefers-reduced-motion:reduce){#ee-vidya-suite *{ animation:none !important; }
   }
@@ -5503,6 +5519,14 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   .pstage-prev{left:4px}
   .pstage-next{right:4px}
   .pstage-arw:active{transform:translateY(-50%) scale(.93)}
+  /* One brain. Nine modules. — modules + numbers as tidy 3-up grids, less whitespace */
+  .band{padding:22px 5vw 24px}
+  .bandgrid{gap:16px}
+  .modrow{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6px}
+  .modpill{justify-content:center;padding:7px 6px;font-size:9.5px;text-align:center}
+  .numrow{display:grid!important;grid-template-columns:repeat(3,1fr);gap:10px}
+  .num .nv{font-size:22px!important}
+  .num .nd{font-size:9.5px;max-width:none}
 }
 </style>
 </head>
@@ -7463,9 +7487,12 @@ document.querySelectorAll('.qa button').forEach(function(b){
   var ig=document.getElementById('ig');
   ig.addEventListener('mouseenter',function(){hovered=true;});
   ig.addEventListener('mouseleave',function(){hovered=false;});
-  var started=false;
-  var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!started){started=true;if(!RM)timer=setInterval(function(){if(!hovered)sel((cur+1)%C.length);},3500);o.disconnect();}});},{threshold:.2});
+  /* Only auto-rotate while the section is actually on screen — otherwise the
+     changing grid height reflows the page and jumps content the reader is on. */
+  var visible=false;
+  var o=new IntersectionObserver(function(es){es.forEach(function(e){visible=e.isIntersecting;});},{threshold:.2});
   o.observe(ig);
+  if(!RM)timer=setInterval(function(){if(visible&&!hovered)sel((cur+1)%C.length);},3500);
 })();
 
 
@@ -7948,6 +7975,42 @@ html.eebk-lock,body.eebk-lock{overflow:hidden}
   /* CRM Impact Stories: trust stats as a 2-up grid */
   #stories .cis-trust{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;max-width:420px!important}
   #stories .cis-chip{justify-content:center;text-align:center;font-size:12px!important;padding:10px 8px!important}
+
+  /* Hero stats: smaller boxes + numbers */
+  #xhero .stats{gap:9px!important;max-width:100%!important;margin-top:24px!important}
+  #xhero .stat{padding:11px 12px!important;border-radius:12px!important}
+  #xhero .stat__n{font-size:21px!important}
+  #xhero .stat__l{font-size:10.5px!important;margin-top:4px!important}
+
+  /* Broad Client Base: 3 stats on a single line */
+  #trusted-institutions .logo-stats{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:8px!important}
+  #trusted-institutions .logo-stats>div>div:first-child{font-size:20px!important}
+  #trusted-institutions .logo-stats>div>div:last-child{font-size:9px!important}
+
+  /* ROI calculator: 3 metrics on one line + smaller box */
+  #ee-cro .roi-out{padding:16px 14px!important}
+  #ee-cro .roi-out .meta{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:8px!important}
+  #ee-cro .roi-out .meta div b{font-size:15px!important}
+  #ee-cro .roi-out .meta div span{font-size:9px!important}
+  #ee-cro .roi-out .big{font-size:34px!important}
+  #ee-cro .roi-out .rev{font-size:15px!important}
+
+  /* Extensions & Integrations: 3 stats on one line */
+  #integrations .ig-stats{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:10px!important}
+  #integrations .ig-stats .n{font-size:22px!important}
+  #integrations .ig-stats .l{font-size:10px!important}
+
+  /* One platform, every team: tighter grid */
+  #ee-teams .ee-teams-grid{gap:10px!important}
+  #ee-teams .ee-card{padding:13px 11px!important}
+
+  /* Switching is easy: friendlier text sizes */
+  #ee-switch .swl h2{font-size:20px!important;line-height:1.2!important}
+  #ee-switch .swl p{font-size:13px!important}
+  #ee-switch .swl li{font-size:12.5px!important}
+  #ee-switch .swr .g{font-size:12.5px!important}
+  #ee-switch .swr .gain{font-size:10px!important}
+  #ee-switch .swl .cta{font-size:13.5px!important;padding:12px 20px!important}
 }
 </style>
 
