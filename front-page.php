@@ -5486,6 +5486,21 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   .phone .screen{min-height:440px}
   .mnow .mm b{font-size:13px}
 }
+/* Mobile: put the visual result on top and float the prev/next
+   arrows as a sticky bar so tapping updates the result in place. */
+@media(max-width:960px){
+  .player{display:flex!important;flex-direction:column;align-items:stretch}
+  .pleft{display:contents}
+  .kick,.pleft h1,.lede,.steps{order:0}
+  .pright{order:1}
+  .mnow{order:2;margin-top:12px}
+  .pctrl{order:3;position:sticky;bottom:12px;z-index:40;justify-content:center;
+    background:var(--bg2);border:1px solid var(--hair);border-radius:999px;
+    padding:9px 16px;margin:8px auto 4px;width:max-content;max-width:92%;
+    box-shadow:0 14px 34px rgba(3,10,26,.4)}
+  .pctrl span{display:none}
+  .pctrl .pbtn{width:40px;height:40px}
+}
 </style>
 </head>
 <body>
@@ -7505,7 +7520,7 @@ document.querySelectorAll('.qa button').forEach(function(b){
 
 /* Contain everything: no sideways scroll,media never overflows. */
 .ee-home{overflow-x:clip}.ee-home img,.ee-home svg,.ee-home img.eeimg,.ee-home video,.ee-home iframe,.ee-home canvas{max-width:100%}/* Long words / URLs wrap instead of forcing the page wider. */
-.ee-home h1,.ee-home h2,.ee-home h3,.ee-home h4,.ee-home p,.ee-home a,.ee-home li,.ee-home span,.ee-home td{overflow-wrap:break-word;word-break:break-word}/* Stop iOS inflating text on rotate. */
+.ee-home h1,.ee-home h2,.ee-home h3,.ee-home h4,.ee-home p,.ee-home a,.ee-home li,.ee-home span,.ee-home td{overflow-wrap:normal;word-break:keep-all;hyphens:none}/* Stop iOS inflating text on rotate. */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}/* Anchor jumps land below the sticky header,not hidden under it. */
 .ee-home :target{scroll-margin-top:88px}
 
@@ -7843,6 +7858,13 @@ html.eebk-lock,body.eebk-lock{overflow:hidden}
 <style id="ee-mobile-grids">
 /* ---- Mobile: show these sections as 2-up grids ---- */
 @media (max-width:640px){
+  /* Uniform type scale on phones: H1=28, H2-H6=19, body=14.
+     Grid cards keep their own smaller sizes (id-scoped rules below). */
+  .ee-home h1{font-size:28px!important;line-height:1.15!important}
+  .ee-home h2{font-size:19px!important;line-height:1.25!important}
+  .ee-home h3,.ee-home h4,.ee-home h5,.ee-home h6{font-size:19px!important;line-height:1.3!important}
+  .ee-home p,.ee-home li{font-size:14px!important;line-height:1.55!important}
+
   #ee-teams .ee-teams-grid,
   #security .sec-grid,
   #ee-golive .tl,
@@ -7901,6 +7923,10 @@ html.eebk-lock,body.eebk-lock{overflow:hidden}
   #ee-products .eep-card-go{font-size:10.5px!important}
   #ee-products .eep-chip{width:34px!important;height:34px!important}
   #ee-products .eep-chip svg,#ee-products .eep-chip img.eeimg{width:18px!important;height:18px!important}
+
+  /* CRM Impact Stories: trust stats as a 2-up grid */
+  #stories .cis-trust{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;max-width:420px!important}
+  #stories .cis-chip{justify-content:center;text-align:center;font-size:12px!important;padding:10px 8px!important}
 }
 </style>
 
