@@ -5506,10 +5506,12 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     </div>
     <div class=&quot;mnow&quot; id=&quot;mnow&quot; aria-live=&quot;polite&quot;><span class=&quot;mi&quot;>01 / 06</span><div class=&quot;mm&quot;><b>Lead captured</b><span>Meta ad · auto-logged in CRM</span></div><span class=&quot;mt&quot;>11:02 PM</span></div>
     <div class=&quot;pctrl&quot;>
+      <button class=&quot;pbtn&quot; id=&quot;pprev&quot; aria-label=&quot;Previous step&quot;><svg width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.4&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M15 18l-6-6 6-6&quot;/></svg></button>
       <button class=&quot;pbtn&quot; id=&quot;pplay&quot; aria-label=&quot;Pause story&quot;>
         <svg id=&quot;icpause&quot; width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;4&quot; height=&quot;16&quot; rx=&quot;1&quot;/><rect x=&quot;14&quot; y=&quot;4&quot; width=&quot;4&quot; height=&quot;16&quot; rx=&quot;1&quot;/></svg>
         <svg id=&quot;icplay&quot; width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; style=&quot;display:none&quot;><path d=&quot;M7 4l13 8-13 8V4z&quot;/></svg>
       </button>
+      <button class=&quot;pbtn&quot; id=&quot;pnext&quot; aria-label=&quot;Next step&quot;><svg width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.4&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 6l6 6-6 6&quot;/></svg></button>
       <span>Auto-playing · click any step to jump</span>
     </div>
   </div>
@@ -5753,6 +5755,10 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let userPaused=false;
   steps.forEach(s=>s.addEventListener('click',()=>go(+s.dataset.i)));
   playBtn.addEventListener('click',()=>{userPaused=!userPaused;setPaused(userPaused)});
+  var prevBtn=document.getElementById('pprev'),nextBtn=document.getElementById('pnext');
+  function stepBy(d){ userPaused=true; setPaused(true); go(cur+d); }
+  if(prevBtn) prevBtn.addEventListener('click',()=>stepBy(-1));
+  if(nextBtn) nextBtn.addEventListener('click',()=>stepBy(1));
   const stage=document.getElementById('stage');
   stage.addEventListener('mouseenter',()=>{if(!reduce)setPaused(true)});
   stage.addEventListener('mouseleave',()=>{if(!reduce&amp;&amp;!userPaused)setPaused(false)});
