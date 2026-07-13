@@ -7679,6 +7679,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f1c30}
 .eebk-feat span{display:block;font-size:13.5px;color:#8a95a6;margin-top:1px}
 /* right — laptop illustration */
 .eebk-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:360px}
+.eebk-shot{width:100%;height:auto;max-width:560px;display:block;filter:drop-shadow(0 24px 50px rgba(25,51,93,.18))}
 .eebk-art .orbit{position:absolute;top:2px;left:44%;transform:translateX(-50%);width:78px;height:78px;border-radius:50%;background:linear-gradient(135deg,#eef3fb,#fff);border:1px solid #e7ecf3;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(25,51,93,.12);z-index:3}
 .eebk-art .orbit img{width:42px;height:42px}
 .eebk-art .dots{position:absolute;inset:0;z-index:1;pointer-events:none}
@@ -7767,29 +7768,7 @@ html.eebk-lock,body.eebk-lock{overflow:hidden}
         <div class="eebk-feat f3"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 2.1 3.1-.5 1 3 2.8 1.5-1.2 2.9 1.2 2.9-2.8 1.5-1 3-3.1-.5L12 22l-2.4-2.1-3.1.5-1-3L2.7 16.4l1.2-2.9-1.2-2.9 2.8-1.5 1-3 3.1.5z"/><path d="M9 12l2 2 4-4"/></svg></div><div><b>No Obligation</b><span>Just explore and decide</span></div></div>
       </div>
       <div class="eebk-art">
-        <svg class="dots" viewBox="0 0 460 360" fill="none" preserveAspectRatio="none"><path d="M120 60 C40 90 40 200 130 230" stroke="#dbe6f5" stroke-width="1.5" stroke-dasharray="4 6"/><path d="M330 70 C430 100 430 210 340 250" stroke="#f4d3bd" stroke-width="1.5" stroke-dasharray="4 6"/></svg>
-        <div class="orbit"><img src="https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg" alt=""></div>
-        <div class="lp">
-          <div class="lp-scr">
-            <div class="lp-side"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-            <div class="lp-dash">
-              <div class="lp-dh"><b>Dashboard</b><em></em></div>
-              <div class="lp-stats">
-                <div class="lp-st"><span class="k">Total Enq.</span><span class="v">2,453</span><span class="g">+18.2%</span></div>
-                <div class="lp-st"><span class="k">Applications</span><span class="v">1,642</span><span class="g">+12.5%</span></div>
-                <div class="lp-st"><span class="k">Admissions</span><span class="v">842</span><span class="g">+15.6%</span></div>
-                <div class="lp-st"><span class="k">Conversion</span><span class="v">34.3%</span><span class="g">+8.4%</span></div>
-              </div>
-              <div class="lp-panels">
-                <div class="lp-pan"><div class="pt">Lead Source</div><div class="lp-donut"><div class="ring"><b>2,453</b></div><div class="leg"><span><i style="background:#3474d3"></i>Website</span><span><i style="background:#DE6E30"></i>Walk-in</span><span><i style="background:#E5484D"></i>Referral</span><span><i style="background:#7aa5e6"></i>Social</span></div></div></div>
-                <div class="lp-pan"><div class="pt">Enquiry Trend</div><svg class="lp-line" viewBox="0 0 160 60" preserveAspectRatio="none"><polyline points="4,50 28,42 52,44 76,30 100,32 124,18 156,10" fill="none" stroke="#3474d3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="156" cy="10" r="2.6" fill="#3474d3"/></svg></div>
-              </div>
-            </div>
-          </div>
-          <div class="lp-base"></div>
-          <div class="fl fl-ai"><div class="bot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V5M9 13h.01M15 13h.01"/></svg></div><div><b>AI Assistant</b><span>How can I help you today?</span></div></div>
-          <div class="fl fl-lead"><div class="av">R</div><p>Interested in B.Com Program</p><span class="pill">Hot Lead</span></div>
-        </div>
+        <img class="eebk-shot" src="https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/crm-info-laptop-screen-pop-up.png" alt="ExtraaEdge Education CRM dashboard" loading="lazy" decoding="async">
       </div>
     </div>
     <div class="eebk-cta">
