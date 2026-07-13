@@ -1269,24 +1269,12 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.body.appendChild(demoCta);
   demoCta.addEventListener('click',function(){ openBookModal(); });
   var BOOK_DEMO_URL='https://www.extraaedge.com/book-a-demo/';
-  /* ---- see-the-real-CRM popup (opens instead of an instant redirect) ---- */
-  var bkSt=document.createElement('style');
-  bkSt.textContent='.bkm-ov{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(8,18,35,.62)}.bkm-ov.on{display:flex}.bkm{position:relative;background:#fff;border-radius:18px;max-width:420px;width:100%;padding:32px 26px 24px;text-align:center;box-shadow:0 30px 80px rgba(8,18,35,.45)}.bkm-x{position:absolute;top:11px;right:11px;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;color:#8a94a6;background:none;cursor:pointer}.bkm-x:hover{background:#f1f3f7;color:var(--nav)}.bkm-ic{width:56px;height:56px;border-radius:15px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--o),var(--nav));color:#fff}.bkm-ic svg{width:27px;height:27px}.bkm h3{font-size:20px;font-weight:800;color:var(--nav);margin:0 0 10px}.bkm p{font-size:14px;line-height:1.6;color:#56607a;margin:0 0 22px}.bkm-cta{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:14px 20px;border-radius:11px;background:linear-gradient(135deg,#E8843F,var(--o));color:#fff;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 12px 26px -10px rgba(222,110,48,.7)}.bkm-cta:hover{filter:saturate(1.06)}.bkm-keep{display:block;width:100%;margin-top:12px;padding:6px;font-size:13px;font-weight:600;color:#8a94a6;background:none;cursor:pointer}.bkm-keep:hover{color:var(--nav)}';
-  document.head.appendChild(bkSt);
-  var bkOv=document.createElement('div'); bkOv.className='bkm-ov';
-  bkOv.innerHTML='<div class=&quot;bkm&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-label=&quot;See the real CRM&quot;><button class=&quot;bkm-x&quot; type=&quot;button&quot; aria-label=&quot;Close&quot;>&#10005;</button><div class=&quot;bkm-ic&quot;>'+si('<path d=&quot;M7 2v3M17 2v3M3.5 9h17M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z&quot;/>')+'</div><h3>Want to see the real CRM?</h3><p>This is a guided demo on sample data. To explore the complete, live CRM — every feature, with your own data — just message our team and we will get in touch to give you a full walkthrough.</p><a class=&quot;bkm-cta&quot; href=&quot;'+BOOK_DEMO_URL+'&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Book a Demo &#8594;</a><button class=&quot;bkm-keep&quot; type=&quot;button&quot;>Keep exploring the demo</button></div>';
-  document.body.appendChild(bkOv);
-  function openBookModal(){ bkOv.classList.add('on'); }
-  function closeBookModal(){ bkOv.classList.remove('on'); }
-  bkOv.querySelector('.bkm-x').addEventListener('click',closeBookModal);
-  bkOv.querySelector('.bkm-keep').addEventListener('click',closeBookModal);
-  bkOv.querySelector('.bkm-cta').addEventListener('click',function(){ setTimeout(closeBookModal,80); });
-  bkOv.addEventListener('click',function(e){ if(e.target===bkOv) closeBookModal(); });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeBookModal(); });
+  /* the rich popup lives on the parent page; the demo just asks it to open */
+  function openBookModal(){ try{ if(window.parent && window.parent!==window){ window.parent.postMessage('ee-book-open','*'); } else { window.open(BOOK_DEMO_URL,'_blank','noopener'); } }catch(e){ window.open(BOOK_DEMO_URL,'_blank','noopener'); } }
   /* Explore mode: any click outside the left menu / tour controls opens the popup */
   document.addEventListener('click',function(e){
     var t=e.target;
-    if(t && t.closest && t.closest('#side,#burger,#scrim,.tour-tip,.tour-dock,.tour-spot,.demo-cta,.toasts,.toast,.bkm-ov')) return;
+    if(t && t.closest && t.closest('#side,#burger,#scrim,.tour-tip,.tour-dock,.tour-spot,.demo-cta,.toasts,.toast')) return;
     e.preventDefault(); e.stopPropagation();
     openBookModal();
   },true);
@@ -7660,4 +7648,173 @@ body.ee-home{ background:#ffffff!important; }/* remove all graphic background mo
 .ee-home, .ee-home *:not(svg):not(svg *){ font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif !important; }
 .ee-home{ background:#ffffff !important; }
 </style>
+
+<!-- ===================== See-the-real-CRM popup (opened from the demo CRM iframe) ===================== -->
+<style>
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#0f1c30}
+.eebk-ov{position:fixed;inset:0;z-index:2147483000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(9,17,30,.72);backdrop-filter:blur(6px);overflow:auto}
+.eebk{position:relative;width:100%;max-width:1080px;background:#fff;border-radius:26px;box-shadow:0 40px 120px rgba(6,14,28,.55);overflow:hidden;font-family:'Inter',sans-serif}
+.eebk-x{position:absolute;top:18px;right:18px;z-index:6;width:44px;height:44px;border-radius:50%;border:1px solid #e7ecf3;background:#fff;display:flex;align-items:center;justify-content:center;color:#6b7789;cursor:pointer;transition:.2s;box-shadow:0 4px 12px rgba(25,51,93,.08)}
+.eebk-x:hover{background:#f4f6fa;color:#19335D;transform:rotate(90deg)}
+.eebk-x svg{width:20px;height:20px}
+.eebk-top{display:grid;grid-template-columns:1fr 1.05fr;gap:20px;padding:44px 44px 28px}
+/* left */
+.eebk-brand{display:flex;align-items:center;gap:11px;margin-bottom:26px}
+.eebk-brand .wm{height:30px;width:auto;display:block}
+.eebk-brand .mk{height:34px;width:auto;display:block}
+.eebk-brand .lbl{font-size:12.5px;font-weight:600;color:#8a95a6;border-left:1px solid #e2e7ef;padding-left:11px;letter-spacing:.01em}
+.eebk h2{font-family:'Poppins',sans-serif;font-size:clamp(30px,3.4vw,44px);font-weight:800;line-height:1.05;letter-spacing:-.03em;color:#19335D;margin:0 0 16px}
+.eebk h2 .o{color:#DE6E30}
+.eebk .bar{width:54px;height:5px;border-radius:5px;background:#DE6E30;margin:0 0 20px}
+.eebk .lead{font-size:16px;line-height:1.62;color:#5a6577;margin:0 0 26px;max-width:34ch}
+.eebk-feat{display:flex;align-items:center;gap:14px;margin-bottom:15px}
+.eebk-feat .fi{flex:none;width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:#fff}
+.eebk-feat .fi svg{width:23px;height:23px}
+.eebk-feat.f1 .fi{background:linear-gradient(135deg,#2f5aa8,#19335D)}
+.eebk-feat.f2 .fi{background:linear-gradient(135deg,#E8843F,#DE6E30)}
+.eebk-feat.f3 .fi{background:linear-gradient(135deg,#2f5aa8,#19335D)}
+.eebk-feat b{display:block;font-size:16px;font-weight:700;color:#19335D;line-height:1.25}
+.eebk-feat span{display:block;font-size:13.5px;color:#8a95a6;margin-top:1px}
+/* right — laptop illustration */
+.eebk-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:360px}
+.eebk-art .orbit{position:absolute;top:2px;left:44%;transform:translateX(-50%);width:78px;height:78px;border-radius:50%;background:linear-gradient(135deg,#eef3fb,#fff);border:1px solid #e7ecf3;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(25,51,93,.12);z-index:3}
+.eebk-art .orbit img{width:42px;height:42px}
+.eebk-art .dots{position:absolute;inset:0;z-index:1;pointer-events:none}
+.lp{position:relative;width:100%;max-width:460px;z-index:2;margin-top:36px}
+.lp-scr{border:7px solid #1a2740;border-bottom:0;border-radius:14px 14px 0 0;background:#12233c;overflow:hidden;display:flex;height:250px}
+.lp-side{width:42px;flex:none;background:#0d1b30;display:flex;flex-direction:column;align-items:center;gap:12px;padding:12px 0}
+.lp-side i{width:17px;height:17px;border-radius:5px;background:rgba(255,255,255,.14);display:block}
+.lp-side i:first-child{background:#DE6E30}
+.lp-dash{flex:1;background:#f4f6fa;padding:11px 12px;overflow:hidden}
+.lp-dh{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.lp-dh b{font-size:11px;font-weight:700;color:#19335D}
+.lp-dh em{width:34px;height:6px;border-radius:3px;background:#dbe2ec;font-style:normal}
+.lp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:9px}
+.lp-st{background:#fff;border-radius:7px;padding:7px 6px;box-shadow:0 1px 3px rgba(25,51,93,.06)}
+.lp-st .k{font-size:6px;font-weight:700;letter-spacing:.02em;color:#9aa6b6;text-transform:uppercase;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-st .v{font-size:13px;font-weight:800;color:#19335D;display:block;margin:2px 0}
+.lp-st .g{font-size:7px;font-weight:700;color:#1faf66}
+.lp-panels{display:grid;grid-template-columns:1fr 1.2fr;gap:6px}
+.lp-pan{background:#fff;border-radius:7px;padding:8px;box-shadow:0 1px 3px rgba(25,51,93,.06)}
+.lp-pan .pt{font-size:8px;font-weight:700;color:#19335D;margin-bottom:6px;display:flex;justify-content:space-between}
+.lp-donut{display:flex;align-items:center;gap:8px}
+.lp-donut .ring{width:52px;height:52px;border-radius:50%;flex:none;background:conic-gradient(#3474d3 0 46%,#DE6E30 46% 72%,#E5484D 72% 84%,#7aa5e6 84% 94%,#f0b64a 94% 100%);display:flex;align-items:center;justify-content:center;position:relative}
+.lp-donut .ring::after{content:"";position:absolute;width:32px;height:32px;border-radius:50%;background:#fff}
+.lp-donut .ring b{position:relative;z-index:1;font-size:9px;font-weight:800;color:#19335D}
+.lp-donut .leg{display:flex;flex-direction:column;gap:3px}
+.lp-donut .leg span{display:flex;align-items:center;gap:4px;font-size:6.5px;color:#6b7789}
+.lp-donut .leg span i{width:5px;height:5px;border-radius:50%;display:block}
+.lp-line{width:100%;height:66px;display:block}
+.lp-base{height:13px;background:linear-gradient(#c4ccd8,#aab4c3);border-radius:0 0 4px 4px;position:relative;box-shadow:0 12px 26px rgba(25,51,93,.22)}
+.lp-base::after{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:56px;height:5px;border-radius:0 0 6px 6px;background:#8f9bad}
+/* floating cards */
+.fl{position:absolute;background:#fff;border-radius:13px;box-shadow:0 16px 40px rgba(25,51,93,.16);z-index:4}
+.fl-ai{top:34px;right:-6px;padding:9px 12px;display:flex;align-items:center;gap:9px;max-width:190px}
+.fl-ai .bot{width:30px;height:30px;border-radius:9px;flex:none;background:linear-gradient(135deg,#E8843F,#DE6E30);display:flex;align-items:center;justify-content:center}
+.fl-ai .bot svg{width:17px;height:17px;color:#fff}
+.fl-ai b{font-size:11px;font-weight:700;color:#19335D;display:block}
+.fl-ai span{font-size:9.5px;color:#8a95a6;display:block;margin-top:1px}
+.fl-lead{bottom:6px;right:-10px;padding:11px;width:150px;text-align:center}
+.fl-lead .av{width:42px;height:42px;border-radius:50%;margin:0 auto 6px;background:linear-gradient(135deg,#8FB2E8,#4E86D8);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;border:2px solid #fff;box-shadow:0 4px 10px rgba(25,51,93,.15)}
+.fl-lead p{font-size:11px;font-weight:600;color:#19335D;line-height:1.3;margin:0 0 7px}
+.fl-lead .pill{display:inline-block;font-size:9px;font-weight:700;color:#1faf66;background:#e7f8ef;padding:3px 9px;border-radius:99px}
+/* bottom cta bar */
+.eebk-cta{margin:0 44px;padding:20px 24px;border:1px solid #eef1f5;border-radius:16px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;background:linear-gradient(180deg,#fff,#fcfdff)}
+.eebk-cta .lhs{display:flex;align-items:center;gap:15px}
+.eebk-cta .hs{width:52px;height:52px;border-radius:50%;flex:none;background:#fff3ec;display:flex;align-items:center;justify-content:center;color:#DE6E30}
+.eebk-cta .hs svg{width:26px;height:26px}
+.eebk-cta .lhs b{display:block;font-size:16px;font-weight:800;color:#19335D}
+.eebk-cta .lhs span{display:block;font-size:13.5px;color:#8a95a6;margin-top:2px}
+.eebk-cta .rhs{text-align:center}
+.eebk-book{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:linear-gradient(135deg,#E8843F,#DE6E30);color:#fff;font-weight:700;font-size:16px;text-decoration:none;padding:15px 34px;border-radius:12px;box-shadow:0 14px 30px -10px rgba(222,110,48,.65);transition:.2s;white-space:nowrap}
+.eebk-book:hover{transform:translateY(-2px);box-shadow:0 20px 40px -10px rgba(222,110,48,.75)}
+.eebk-book svg{width:19px;height:19px}
+.eebk-keep{display:block;width:100%;margin-top:9px;padding:4px;background:none;border:0;font-family:inherit;font-size:13.5px;font-weight:600;color:#8a95a6;cursor:pointer}
+.eebk-keep:hover{color:#19335D}
+/* footer trust */
+.eebk-foot{display:flex;align-items:center;justify-content:center;gap:9px;padding:20px;margin-top:6px;font-size:14.5px;color:#5a6577;font-weight:500}
+.eebk-foot svg{width:19px;height:19px;color:#DE6E30}
+.eebk-foot b{color:#19335D;font-weight:800}
+@media(max-width:860px){
+  .eebk-ov{padding:0;align-items:stretch}
+  .eebk{max-width:100%;border-radius:0;min-height:100%}
+  .eebk-top{grid-template-columns:1fr;padding:30px 22px 18px;gap:8px}
+  .eebk-art{display:none}
+  .eebk-cta{grid-template-columns:1fr;margin:0 22px;text-align:center;gap:14px}
+  .eebk-cta .lhs{flex-direction:column;text-align:center}
+  .eebk-book{width:100%}
+}
+
+.eebk-ov.on{display:flex}
+html.eebk-lock,body.eebk-lock{overflow:hidden}
+</style>
+<div class="eebk-ov" id="eebkOv">
+  <div class="eebk" role="dialog" aria-modal="true">
+    <button class="eebk-x" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="eebk-top">
+      <div class="eebk-left">
+        <div class="eebk-brand">
+          <img class="wm" src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg" alt="ExtraaEdge">
+          <span class="lbl">Education CRM</span>
+        </div>
+        <h2>Want to see<br>the <span class="o">real</span> CRM?</h2>
+        <div class="bar"></div>
+        <p class="lead">This is a guided demo on sample data. Explore the complete, live CRM — every feature, with your own data — just message our team and we will get in touch to give you a full walkthrough.</p>
+        <div class="eebk-feat f1"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg></div><div><b>100% Secure</b><span>Your data is safe</span></div></div>
+        <div class="eebk-feat f2"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><b>Personalized Walkthrough</b><span>Tailored to your needs</span></div></div>
+        <div class="eebk-feat f3"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 2.1 3.1-.5 1 3 2.8 1.5-1.2 2.9 1.2 2.9-2.8 1.5-1 3-3.1-.5L12 22l-2.4-2.1-3.1.5-1-3L2.7 16.4l1.2-2.9-1.2-2.9 2.8-1.5 1-3 3.1.5z"/><path d="M9 12l2 2 4-4"/></svg></div><div><b>No Obligation</b><span>Just explore and decide</span></div></div>
+      </div>
+      <div class="eebk-art">
+        <svg class="dots" viewBox="0 0 460 360" fill="none" preserveAspectRatio="none"><path d="M120 60 C40 90 40 200 130 230" stroke="#dbe6f5" stroke-width="1.5" stroke-dasharray="4 6"/><path d="M330 70 C430 100 430 210 340 250" stroke="#f4d3bd" stroke-width="1.5" stroke-dasharray="4 6"/></svg>
+        <div class="orbit"><img src="https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg" alt=""></div>
+        <div class="lp">
+          <div class="lp-scr">
+            <div class="lp-side"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="lp-dash">
+              <div class="lp-dh"><b>Dashboard</b><em></em></div>
+              <div class="lp-stats">
+                <div class="lp-st"><span class="k">Total Enq.</span><span class="v">2,453</span><span class="g">+18.2%</span></div>
+                <div class="lp-st"><span class="k">Applications</span><span class="v">1,642</span><span class="g">+12.5%</span></div>
+                <div class="lp-st"><span class="k">Admissions</span><span class="v">842</span><span class="g">+15.6%</span></div>
+                <div class="lp-st"><span class="k">Conversion</span><span class="v">34.3%</span><span class="g">+8.4%</span></div>
+              </div>
+              <div class="lp-panels">
+                <div class="lp-pan"><div class="pt">Lead Source</div><div class="lp-donut"><div class="ring"><b>2,453</b></div><div class="leg"><span><i style="background:#3474d3"></i>Website</span><span><i style="background:#DE6E30"></i>Walk-in</span><span><i style="background:#E5484D"></i>Referral</span><span><i style="background:#7aa5e6"></i>Social</span></div></div></div>
+                <div class="lp-pan"><div class="pt">Enquiry Trend</div><svg class="lp-line" viewBox="0 0 160 60" preserveAspectRatio="none"><polyline points="4,50 28,42 52,44 76,30 100,32 124,18 156,10" fill="none" stroke="#3474d3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="156" cy="10" r="2.6" fill="#3474d3"/></svg></div>
+              </div>
+            </div>
+          </div>
+          <div class="lp-base"></div>
+          <div class="fl fl-ai"><div class="bot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V5M9 13h.01M15 13h.01"/></svg></div><div><b>AI Assistant</b><span>How can I help you today?</span></div></div>
+          <div class="fl fl-lead"><div class="av">R</div><p>Interested in B.Com Program</p><span class="pill">Hot Lead</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="eebk-cta">
+      <div class="lhs"><div class="hs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 13a8 8 0 0 1 16 0M4 13v3a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2zM20 13v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2z"/></svg></div><div><b>See it in action. Experience the difference.</b><span>No commitment. Just clarity.</span></div></div>
+      <div class="rhs">
+        <a class="eebk-book" href="https://www.extraaedge.com/book-a-demo/" target="_blank" rel="noopener">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <button class="eebk-keep" type="button">Keep exploring the demo</button>
+      </div>
+    </div>
+    <div class="eebk-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg><span>Trusted by <b>500+</b> educational institutes across India</span></div>
+  </div>
+</div>
+<script>
+(function(){
+  var ov=document.getElementById('eebkOv'); if(!ov) return;
+  if(ov.parentNode!==document.body){ document.body.appendChild(ov); }
+  function openM(){ ov.classList.add('on'); document.documentElement.classList.add('eebk-lock'); }
+  function closeM(){ ov.classList.remove('on'); document.documentElement.classList.remove('eebk-lock'); }
+  var x=ov.querySelector('.eebk-x'); if(x) x.addEventListener('click',closeM);
+  var keep=ov.querySelector('.eebk-keep'); if(keep) keep.addEventListener('click',closeM);
+  var book=ov.querySelector('.eebk-book'); if(book) book.addEventListener('click',function(){ setTimeout(closeM,120); });
+  ov.addEventListener('click',function(e){ if(e.target===ov) closeM(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && ov.classList.contains('on')) closeM(); });
+  window.addEventListener('message',function(e){ if(e && e.data==='ee-book-open') openM(); });
+})();
+</script>
+
 <?php get_footer(); ?>
