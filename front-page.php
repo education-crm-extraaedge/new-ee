@@ -2168,7 +2168,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     line-height: 1;
     background: linear-gradient(160deg, rgba(34,70,124,.10), rgba(25,52,93,.05));
     border: 1px solid rgba(25,52,93,.10);
-  }#ee-teams .ee-card-title{
+  }#ee-teams .ee-chip--img{background:none;border:0;padding:0;overflow:hidden}#ee-teams .ee-chip--img img{width:100%;height:100%;object-fit:contain;display:block}#ee-teams .ee-card-title{
     font-family: 'Poppins', 'Inter', system-ui, sans-serif;
     font-weight: 600;
     font-size: 18px;
@@ -2245,7 +2245,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </a>
 
       <a class="ee-card" href="#demo">
-        <span class="ee-chip" aria-hidden="true">&#129302;</span>
+        <span class="ee-chip ee-chip--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="" loading="lazy" decoding="async"></span>
         <h3 class="ee-card-title">Vidya AI Agents</h3>
         <p class="ee-card-benefit">Engage and qualify applicants instantly, around the clock, answering queries and booking counseling slots on autopilot.</p>
         <span class="ee-card-arrow" aria-hidden="true">See it in action
