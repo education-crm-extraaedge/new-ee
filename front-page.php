@@ -5494,14 +5494,15 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   /* thin segment bars are redundant on phones (arrows + context card handle nav) */
   .steps{display:none!important}
   .kick,.pleft h1,.lede,.steps{order:0}
-  .pright{order:1}
+  .pright{order:1;position:relative}
   .mnow{order:2;margin-top:12px}
-  .pctrl{order:3;position:sticky;bottom:12px;z-index:40;justify-content:center;
-    background:var(--bg2);border:1px solid var(--hair);border-radius:999px;
-    padding:9px 16px;margin:8px auto 4px;width:max-content;max-width:92%;
-    box-shadow:0 14px 34px rgba(3,10,26,.4)}
-  .pctrl span{display:none}
-  .pctrl .pbtn{width:40px;height:40px}
+  .pctrl{display:none!important}
+  /* prev/next as side arrows over the stage — same as Agentic AI Suite */
+  .pstage-arw{display:flex;align-items:center;justify-content:center;position:absolute;top:50%;transform:translateY(-50%);z-index:20;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(15,28,48,.74);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.35)}
+  .pstage-arw svg{width:20px;height:20px}
+  .pstage-prev{left:4px}
+  .pstage-next{right:4px}
+  .pstage-arw:active{transform:translateY(-50%) scale(.93)}
 }
 </style>
 </head>
@@ -5777,6 +5778,24 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(prevBtn) prevBtn.addEventListener('click',()=>stepBy(-1));
   if(nextBtn) nextBtn.addEventListener('click',()=>stepBy(1));
   const stage=document.getElementById('stage');
+  /* On phones, move the prev/next buttons onto the stage as left/right
+     side arrows (same pattern as the Agentic AI Suite carousel). */
+  var mqSide=window.matchMedia('(max-width:960px)');
+  function placeArrows(){
+    if(!prevBtn||!nextBtn) return;
+    if(mqSide.matches){
+      prevBtn.classList.add('pstage-arw','pstage-prev');
+      nextBtn.classList.add('pstage-arw','pstage-next');
+      stage.insertBefore(prevBtn,stage.firstChild); stage.appendChild(nextBtn);
+    } else {
+      prevBtn.classList.remove('pstage-arw','pstage-prev');
+      nextBtn.classList.remove('pstage-arw','pstage-next');
+      var pc=document.querySelector('.pctrl');
+      if(pc){ pc.insertBefore(prevBtn,pc.firstChild); if(playBtn) pc.insertBefore(nextBtn,playBtn.nextSibling); else pc.appendChild(nextBtn); }
+    }
+  }
+  placeArrows();
+  if(mqSide.addEventListener) mqSide.addEventListener('change',placeArrows);
   stage.addEventListener('mouseenter',()=>{if(!reduce)setPaused(true)});
   stage.addEventListener('mouseleave',()=>{if(!reduce&amp;&amp;!userPaused)setPaused(false)});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)setPaused(true)});
