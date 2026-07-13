@@ -7858,6 +7858,49 @@ html.eebk-lock,body.eebk-lock{overflow:hidden}
      show only the products grid */
   #ee-products .eep-spot{display:none!important}
   #ee-products .eep-main{grid-template-columns:1fr!important}
+
+  /* ---- Smaller card text inside the 2-up grids on phones ---- */
+  /* One platform, every team */
+  #ee-teams .ee-card{padding:16px 14px!important}
+  #ee-teams .ee-card-title{font-size:14px!important;line-height:1.2!important}
+  #ee-teams .ee-card-benefit{font-size:11.5px!important;line-height:1.45!important}
+  #ee-teams .ee-card-arrow{font-size:11.5px!important}
+  #ee-teams .ee-chip{width:38px!important;height:38px!important;font-size:18px!important}
+
+  /* Enterprise-grade trust */
+  #security .sec-item{padding:16px 12px!important}
+  #security .sec-item .ic,#security .sec-item .ic img{height:36px!important}
+  #security .sec-item b{font-size:12.5px!important}
+  #security .sec-item span{font-size:11px!important;line-height:1.4!important}
+
+  /* Fast implementation timeline */
+  #ee-golive .st{padding:18px 12px!important}
+  #ee-golive .st .n{width:32px!important;height:32px!important;font-size:14px!important}
+  #ee-golive .st .day{font-size:10px!important}
+  #ee-golive .st h4{font-size:13px!important}
+  #ee-golive .st p{font-size:11.5px!important;line-height:1.4!important}
+
+  /* Resources */
+  #ee-resources .ee-r-card{padding:18px 14px!important}
+  #ee-resources .ee-r-ico svg,#ee-resources .ee-r-ico img.eeimg{width:20px!important;height:20px!important}
+  #ee-resources .ee-r-title{font-size:13.5px!important;margin-bottom:5px!important}
+  #ee-resources .ee-r-desc{font-size:11.5px!important;line-height:1.45!important;margin-bottom:12px!important}
+  #ee-resources .ee-r-link{font-size:11.5px!important}
+
+  /* Solutions tabs as cards */
+  #ee-solutions .sol-tab{padding:14px 12px!important}
+  #ee-solutions .sol-tt b{font-size:13.5px!important}
+  #ee-solutions .sol-tt span{font-size:11.5px!important;line-height:1.35!important}
+  #ee-solutions .sol-ico{width:38px!important;height:38px!important}
+  #ee-solutions .sol-ico svg,#ee-solutions .sol-ico img.eeimg{width:20px!important;height:20px!important}
+
+  /* The admissions platform product cards */
+  #ee-products .eep-card-title{font-size:13px!important}
+  #ee-products .eep-card-desc{font-size:11.5px!important;line-height:1.4!important}
+  #ee-products .eep-card-cat{font-size:9px!important}
+  #ee-products .eep-card-go{font-size:10.5px!important}
+  #ee-products .eep-chip{width:34px!important;height:34px!important}
+  #ee-products .eep-chip svg,#ee-products .eep-chip img.eeimg{width:18px!important;height:18px!important}
 }
 </style>
 
