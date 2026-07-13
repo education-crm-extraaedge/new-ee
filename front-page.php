@@ -7813,4 +7813,26 @@ html.eebk-lock,body.eebk-lock{overflow:hidden}
 
 
 
+
+<style id="ee-mobile-grids">
+/* ---- Mobile: show these sections as 2-up grids ---- */
+@media (max-width:640px){
+  #ee-teams .ee-teams-grid,
+  #security .sec-grid,
+  #ee-golive .tl,
+  #ee-resources .ee-r-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px!important;
+  }
+  /* Solutions: show all solution cards as a 2-up grid */
+  #ee-solutions .sol-tabs{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+  #ee-solutions .sol-tab{flex:none!important;min-width:0!important;flex-direction:column!important;text-align:center;align-items:center;justify-content:center}
+  #ee-solutions .sol-tab .sol-arrow{display:none!important}
+  /* The admissions platform: hide the live spotlight preview on phones,
+     show only the products grid */
+  #ee-products .eep-spot{display:none!important}
+  #ee-products .eep-main{grid-template-columns:1fr!important}
+}
+</style>
+
 <?php get_footer(); ?>
