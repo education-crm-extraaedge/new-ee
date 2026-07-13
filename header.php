@@ -133,8 +133,32 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
     <!-- ─── 1. BASE ─── -->
     <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- ─── Lock the site at 100% zoom (reset whatever the user zooms to) ─── -->
+    <script>
+    (function(){
+      var html=document.documentElement;
+      var base=window.devicePixelRatio||1;          /* baseline pixel ratio at 100% */
+      var t;
+      function hold(){
+        var z=(window.devicePixelRatio||1)/base;      /* current browser zoom factor */
+        if(z&&isFinite(z)&&z>0){ html.style.zoom=(1/z).toFixed(4); }  /* counter it back to ~100% */
+      }
+      hold();
+      /* browser zoom changes fire a resize (devicePixelRatio shifts) */
+      window.addEventListener('resize',function(){ clearTimeout(t); t=setTimeout(hold,60); },{passive:true});
+      /* block Ctrl/Cmd + mouse-wheel zoom */
+      window.addEventListener('wheel',function(e){ if(e.ctrlKey||e.metaKey){ e.preventDefault(); } },{passive:false});
+      /* block Ctrl/Cmd + ( + - = 0 ) keyboard zoom */
+      window.addEventListener('keydown',function(e){
+        if((e.ctrlKey||e.metaKey)&&['+','-','=','0','Add','Subtract','Equal','Minus'].indexOf(e.key)>-1){ e.preventDefault(); }
+      },{passive:false});
+      /* block pinch-zoom gesture (Safari / trackpads) */
+      document.addEventListener('gesturestart',function(e){ e.preventDefault(); },{passive:false});
+    })();
+    </script>
 
     <!-- ─── 2. PRIMARY SEO META (single source — works on every page) ─── -->
     <meta name="description" content="<?php echo esc_attr($ee_seo_desc); ?>">
