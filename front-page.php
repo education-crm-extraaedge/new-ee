@@ -1635,7 +1635,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* ---- products ---- */
     var P = [
-      {id:'vidya', t:'VidyaAI', badge:'New', cat:'ai', ic:'spark', href:'#demo',
+      {id:'vidya', t:'VidyaAI', badge:'New', cat:'ai', ic:'spark', img:'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg', href:'#demo',
         d:'Your AI admissions copilot — drafts replies, scores intent and rings visitors live.',
         l:'The AI layer across your whole funnel. It drafts counsellor replies, scores every lead by intent, and can call a website visitor the moment they show interest — the live experience competitors do not offer.',
         tags:['Drafts replies','Scores lead intent','Rings visitors live']},
