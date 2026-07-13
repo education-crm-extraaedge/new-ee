@@ -1919,7 +1919,16 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:16px; }#ee-vidya-suite .vsx-eyebrow i{ width:7px; height:7px; border-radius:50%; background:var(--cy); box-shadow:0 0 0 4px rgba(34,116,238,.18); animation:vsxBlink 1.8s ease-in-out infinite; }
   @keyframes vsxBlink{0%,100%{opacity:1}50%{opacity:.3} }#ee-vidya-suite h2{ font-family:'Poppins','Inter',sans-serif; font-weight:700; color:#fff;
     font-size:clamp(23px,3.3vw,40px); line-height:1.1; letter-spacing:-.02em; margin:0 0 12px; max-width:18ch; }#ee-vidya-suite .vsx-lead{ font-size:clamp(14px,1.6vw,16.5px); line-height:1.6; color:#c2d0e4; margin:0; max-width:62ch; }/* ---- stage / rail ---- */
-  #ee-vidya-suite .vsx-stage{ margin-top:clamp(22px,3vw,38px); }#ee-vidya-suite .vsx-rail{
+  #ee-vidya-suite .vsx-stage{ margin-top:clamp(22px,3vw,38px); position:relative; }
+  #ee-vidya-suite .vsx-arw{ display:none; }
+  @media (max-width:900px){
+    #ee-vidya-suite .vsx-arw{ display:flex; align-items:center; justify-content:center; position:absolute; top:46%; transform:translateY(-50%); z-index:6; width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.28); background:rgba(15,28,48,.74); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); color:#fff; cursor:pointer; box-shadow:0 10px 24px rgba(0,0,0,.35); }
+    #ee-vidya-suite .vsx-arw svg{ width:20px; height:20px; }
+    #ee-vidya-suite .vsx-arw.vsx-prev{ left:2px; }
+    #ee-vidya-suite .vsx-arw.vsx-next{ right:2px; }
+    #ee-vidya-suite .vsx-arw:active{ transform:translateY(-50%) scale(.93); }
+  }
+  #ee-vidya-suite .vsx-rail{
     display:flex; gap:clamp(16px,1.8vw,22px); align-items:stretch;
     /* default (mobile / no-JS): horizontal swipe carousel */
     overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:14px;
@@ -1966,6 +1975,8 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         </header>
 
         <div class="vsx-stage">
+          <button class="vsx-arw vsx-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button class="vsx-arw vsx-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
           <div class="vsx-rail" id="vsxRail">
 
             <article class="vsx-card" style="--ca:#2274ee">
@@ -2075,6 +2086,15 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     evaluate();
     window.addEventListener('resize', function(){ evaluate(); recalc(); }, {passive:true});
     if(mq.addEventListener) mq.addEventListener('change', evaluate);
+  })();
+  /* mobile carousel arrows — scroll the swipe rail one card at a time */
+  (function(){
+    var rail=document.getElementById('vsxRail'); if(!rail) return;
+    var sec=document.getElementById('ee-vidya-suite');
+    var prev=sec&&sec.querySelector('.vsx-prev'), next=sec&&sec.querySelector('.vsx-next');
+    function step(dir){ var c=rail.querySelector('.vsx-card'); var w=c?c.getBoundingClientRect().width+20:320; rail.scrollBy({left:dir*w,behavior:'smooth'}); }
+    if(prev) prev.addEventListener('click',function(){ step(-1); });
+    if(next) next.addEventListener('click',function(){ step(1); });
   })();
   </script>
 </section>
