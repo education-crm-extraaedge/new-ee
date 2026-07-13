@@ -5491,6 +5491,8 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 @media(max-width:960px){
   .player{display:flex!important;flex-direction:column;align-items:stretch}
   .pleft{display:contents}
+  /* thin segment bars are redundant on phones (arrows + context card handle nav) */
+  .steps{display:none!important}
   .kick,.pleft h1,.lede,.steps{order:0}
   .pright{order:1}
   .mnow{order:2;margin-top:12px}
