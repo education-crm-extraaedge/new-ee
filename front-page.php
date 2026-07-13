@@ -213,11 +213,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 @media(max-width:400px){.iphone{width:262px;height:540px;border-radius:46px}.ip-screen{border-radius:37px}.fc1,.fc3{left:-6px}.fc2{right:-6px}.fcard{padding:9px 11px}.fcard .fi{width:30px;height:30px;font-size:15px}.fcard b{font-size:11px}.fcard small{font-size:9.5px}.iphone-stage{min-height:560px}.scta__r .btn{padding:12px 16px;font-size:14px}
 }
 </style>
-<style id="ee-compact-rhythm">/* Compact,device-friendly section rhythm: 10px top / 10px bottom between sections.
-   Interactive scroll-story spacing (vh) and inner card padding are intentionally untouched. */
+<style id="ee-compact-rhythm">/* Uniform section rhythm: 18px top / 18px bottom on EVERY section — removes the
+   large white space between sections. The two full-bleed interactive sections
+   (Agentic pinned-scroll + the story iframe) keep their own spacing so their
+   scroll mechanics aren't disturbed. */
+.ee-home > section:not(#ee-vidya-suite):not(#ee-night){
+  padding-top:18px!important;
+  padding-bottom:18px!important;
+}
 .sec,.hero,#xhero,#platform,#stories,#segments,.vx-head,.vx-proof,.rf-wrap,.rf-band-in,.sec-auto,.ea-wrap,.ee-wrap,.wa-sec,.intro,.outro{
-  padding-top:10px!important;
-  padding-bottom:10px!important;
+  padding-top:18px!important;
+  padding-bottom:18px!important;
 }.ts-grid{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;overflow:visible!important;scroll-snap-type:none!important;margin-inline:auto!important;max-width:1180px;gap:clamp(16px,2.2vw,24px)!important}#stories .ts-card{flex:1 1 320px!important;max-width:382px!important;scroll-snap-align:none!important}#stories .ts-nav,#stories .ts-hint{display:none!important}
 </style>
 <div id="prog"></div>
