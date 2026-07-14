@@ -366,7 +366,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   <div class="hero__grid" aria-hidden="true"></div>
   <div class="container hero__in">
     <div>
-      <span class="pill reveal d1"><img decoding="async" class="pill__ico" src="https://www.extraaedge.com/wp-content/uploads/integration-icons/vidya-ai-icon.png" alt="" onerror="this.remove()"><span class="pill__new">NEW &middot; VidyaAI</span><span class="pill__txt">Trusted by <b>500+ admission teams</b> across 12 countries</span></span>
+      <span class="pill reveal d1"><svg class="pill__globe" viewBox="0 0 24 24" fill="none" stroke="#DE6E30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:17px;height:17px;flex:none"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><span class="pill__txt">Trusted by <b>500+ admission teams</b> across 12 countries</span></span>
       <style>#xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);transition:opacity .4s cubic-bezier(.2,.7,.2,1),transform .4s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}#xhero .hero__rot.is-out{opacity:0!important;transform:translateY(14px)!important}#xhero .hero-caret{display:none;width:3px;height:.92em;margin-left:4px;border-radius:2px;background:var(--orange);vertical-align:-1px;animation:heroCaretBlink 1s steps(1) infinite}
         @keyframes heroCaretBlink{50%{opacity:0}}
         @media(prefers-reduced-motion:reduce){#xhero .hero-caret{display:none}}#xhero .hero__rot .accent{background:linear-gradient(100deg,var(--orange),#22467c);-webkit-background-clip:text;background-clip:text;color:transparent}
