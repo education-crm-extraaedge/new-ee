@@ -5475,4 +5475,47 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 }
 </style>
 
+<style id="ee-spatial-skin">
+/* Apple visionOS "spatial" skin — VISUAL ONLY. Layout, markup and content of
+   these sections are untouched; only their backgrounds turn into soft ambient
+   depth and their existing cards become frosted glass. */
+
+/* soft ambient depth behind the light sections */
+#ee-products, #ee-teams, #ee-solutions, #ee-golive, #ee-resources{
+  position:relative;
+  background:
+    radial-gradient(560px 440px at 6% -8%, rgba(255,211,176,.45), transparent 60%),
+    radial-gradient(640px 500px at 102% 8%, rgba(199,214,255,.5), transparent 62%),
+    radial-gradient(540px 460px at 48% 112%, rgba(217,245,234,.42), transparent 66%),
+    linear-gradient(180deg,#fbfcff 0%,#eef2fb 55%,#f6f8fd 100%) !important;
+}
+
+/* frosted-glass treatment for the existing cards (no size/shape change) */
+#ee-products .eep-card,
+#ee-products .eep-spot,
+#ee-teams .ee-card,
+#ee-solutions .sol-tab,
+#ee-solutions .sol-panel,
+#ee-golive .st,
+#ee-resources .ee-r-card{
+  background:linear-gradient(158deg,rgba(255,255,255,.74),rgba(255,255,255,.46));
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid rgba(255,255,255,.7);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),
+             0 22px 44px -24px rgba(25,52,93,.4),
+             0 4px 12px -6px rgba(25,52,93,.16);
+}
+
+/* Agentic AI Suite sits on a dark canvas — give it DARK frosted glass */
+#ee-vidya-suite .vsx-card{
+  background:linear-gradient(158deg,rgba(255,255,255,.11),rgba(255,255,255,.04));
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  backdrop-filter:blur(18px) saturate(160%);
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),
+             0 30px 60px -30px rgba(0,0,0,.6);
+}
+</style>
+
 <?php get_footer(); ?>
