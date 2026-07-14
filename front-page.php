@@ -5515,7 +5515,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   .pleft{display:contents}
   /* thin segment bars are redundant on phones (arrows + context card handle nav) */
   .steps{display:none!important}
-  .kick,.pleft h1,.lede,.steps{order:0}
+  /* hide the eyebrow label — the story headline already leads the section */
+  .kick{display:none!important}
+  .pleft h1,.lede,.steps{order:0}
   .pright{order:1;position:relative}
   .mnow{order:2;margin-top:12px}
   .pctrl{display:none!important}
@@ -8024,6 +8026,32 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   #ee-switch .swr .g{font-size:12.5px!important}
   #ee-switch .swr .gain{font-size:10px!important}
   #ee-switch .swl .cta{font-size:13.5px!important;padding:12px 20px!important}
+
+  /* Hero: keep the trust pill on ONE line, drop the credit-card note,
+     keep the secure-transmission label on one line. */
+  #xhero .pill{flex-wrap:nowrap!important;gap:6px!important;font-size:9px!important;padding:5px 11px 5px 6px!important;max-width:100%!important}
+  #xhero .pill__txt{white-space:nowrap!important;min-width:0!important}
+  #xhero .pill__new{font-size:8px!important;padding:2px 6px!important;white-space:nowrap!important}
+  #xhero .pill__ico{width:16px!important;height:16px!important}
+  #xhero .cta-note{display:none!important}
+  #xhero .secure-label{white-space:nowrap!important;letter-spacing:.03em!important;font-size:9.5px!important}
+
+  /* Remove the small eyebrow/label above each section heading — on phones the
+     label + the main H2 read as a duplicate "double heading". Sections stay. */
+  #trusted-institutions .logo-badge,
+  #ee-platform .eep-eyebrow,
+  #ee-products .eep-eyebrow,
+  #ee-vidya-suite .vsx-eyebrow,
+  #ee-teams .ee-teams-eyebrow,
+  #ee-solutions .ee-eyebrow,
+  #ee-ind .eei-eyebrow,
+  #stories .cis-eyebrow,
+  #ee-cro .eyebrow,
+  #integrations .eyebrow,
+  #security .eyebrow,
+  #ee-golive .eb,
+  #ee-resources .ee-r-eyebrow,
+  #ee-events .ee-e-eyebrow{ display:none!important; }
 }
 </style>
 
