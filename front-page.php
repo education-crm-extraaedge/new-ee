@@ -1504,7 +1504,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   #ee-products .eep-main{ display:grid; grid-template-columns:minmax(0,380px) minmax(0,1fr); gap:24px; align-items:start; }/* ---------- Spotlight (signature) ---------- */
   #ee-products .eep-spot{
     --acc:#5c9af6; --acc-soft:rgba(92,154,246,.18);
-    position:sticky; top:24px;
+    position:sticky; top:100px;
     border-radius:22px; overflow:hidden; isolation:isolate;
     background:linear-gradient(165deg,#1b355c 0%,#13294a 55%,#0e203b 100%);
     border:1px solid rgba(255,255,255,.08);
@@ -2842,10 +2842,11 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 <!-- ===================== EE · WHILE YOUR CAMPUS SLEEPS (admission operating system story) ===================== -->
 <style>#ee-night{position:relative;width:100%;background:#0f2444}
-/* scroll-driven storytelling: tall track + sticky pinned viewport */
+/* scroll-driven storytelling: tall track + sticky pinned viewport.
+   Pin sits BELOW the sticky site header (≈90px) so the story isn't hidden. */
 #ee-night .een-track{position:relative;height:640vh}
-#ee-night .een-pin{position:sticky;top:0;height:100vh;overflow:hidden}
-#ee-night iframe{display:block;width:100%;height:100vh;border:0;background:#0f2444}
+#ee-night .een-pin{position:sticky;top:90px;height:calc(100vh - 90px);overflow:hidden}
+#ee-night iframe{display:block;width:100%;height:100%;border:0;background:#0f2444}
 /* phones: no pinning — keep the normal auto-play + side-arrow story */
 @media(max-width:960px){
   #ee-night .een-track{height:auto}
