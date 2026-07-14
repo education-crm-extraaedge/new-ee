@@ -2841,9 +2841,21 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </script>
 
 <!-- ===================== EE · WHILE YOUR CAMPUS SLEEPS (admission operating system story) ===================== -->
-<style>#ee-night{position:relative;width:100%;background:#0f2444}#ee-night iframe{display:block;width:100%;border:0;min-height:860px;background:#0f2444}
+<style>#ee-night{position:relative;width:100%;background:#0f2444}
+/* scroll-driven storytelling: tall track + sticky pinned viewport */
+#ee-night .een-track{position:relative;height:640vh}
+#ee-night .een-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+#ee-night iframe{display:block;width:100%;height:100vh;border:0;background:#0f2444}
+/* phones: no pinning — keep the normal auto-play + side-arrow story */
+@media(max-width:960px){
+  #ee-night .een-track{height:auto}
+  #ee-night .een-pin{position:static;height:auto;overflow:visible}
+  #ee-night iframe{height:auto;min-height:860px}
+}
 </style>
 <section id="ee-night" aria-label="The admission operating system in action">
+  <div class="een-track" id="eenTrack">
+  <div class="een-pin">
   <iframe id="eeNightFrame" title="ExtraaEdge — the admission operating system, from lead to enrolled" loading="lazy" scrolling="no" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
@@ -3274,7 +3286,15 @@ body{background:
   stage.addEventListener('mouseenter',()=>{if(!reduce)setPaused(true)});
   stage.addEventListener('mouseleave',()=>{if(!reduce&amp;&amp;!userPaused)setPaused(false)});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)setPaused(true)});
-  window.addEventListener('message',e=>{if(e.data==='ee-pause')setPaused(true);else if(e.data==='ee-play'&amp;&amp;!userPaused)setPaused(false)});
+  window.addEventListener('message',e=>{
+    if(e.data==='ee-pause')setPaused(true);
+    else if(e.data==='ee-play'&amp;&amp;!userPaused)setPaused(false);
+    else if(typeof e.data==='string'&amp;&amp;e.data.indexOf('ee-goto-')===0){
+      /* scroll-driven: parent tells us which step to show */
+      userPaused=true; setPaused(true);
+      var gi=parseInt(e.data.slice(8),10); if(!isNaN(gi))go(gi);
+    }
+  });
 
   render(0);
   if(reduce){setPaused(true)}else{raf=requestAnimationFrame(loop)}
@@ -3283,7 +3303,35 @@ body{background:
 </body>
 </html>
 "></iframe>
+  </div>
+  </div>
 </section>
+<script>
+/* Scroll-driven storytelling controller (desktop): map scroll progress through
+   the pinned track to the 6 story steps and tell the iframe which step to show. */
+(function(){
+  var track=document.getElementById('eenTrack');
+  var frame=document.getElementById('eeNightFrame');
+  if(!track||!frame) return;
+  var N=6, last=-1, ticking=false;
+  var mq=window.matchMedia('(max-width:960px)');
+  function update(){
+    ticking=false;
+    if(mq.matches) return;            /* phones keep auto-play + arrows */
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    var total=track.offsetHeight - vh;
+    if(total<=0) return;
+    var top=track.getBoundingClientRect().top;
+    var p=Math.min(1,Math.max(0, -top/total));
+    var i=Math.min(N-1, Math.floor(p*N + 0.0001));
+    if(i!==last){ last=i; try{ frame.contentWindow.postMessage('ee-goto-'+i,'*'); }catch(e){} }
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
 <script>
 (function(){
   var f=document.getElementById('eeNightFrame'); if(!f) return;
