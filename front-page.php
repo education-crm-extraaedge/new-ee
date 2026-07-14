@@ -2495,15 +2495,15 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </section>
 <!-- ===================== EE INDUSTRIES — Apple spatial / glass UI ===================== -->
 <style id="ee-ind-spatial">
-#ee-ind{ position:relative; overflow:hidden; --or:#DE6E30; --nv:#19345d;
-  background:linear-gradient(180deg,#fbfcff 0%,#eef2fb 55%,#f6f8fd 100%); }
+#ee-ind{ position:relative; overflow:hidden; --or:#DE6E30; --nv:#19335D;
+  background:#ffffff; font-family:'Inter',sans-serif; }
 #ee-ind *{ box-sizing:border-box; }
-/* ambient depth blobs that show through the frosted glass */
+/* ambient depth blobs — brand orange + navy only, on white */
 #ee-ind .spx-bg{ position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
 #ee-ind .spx-blob{ position:absolute; border-radius:50%; filter:blur(80px); opacity:.55; }
-#ee-ind .spx-blob.b1{ width:520px; height:520px; top:-140px; left:-90px; background:radial-gradient(circle,#ffd3b0,transparent 68%); }
-#ee-ind .spx-blob.b2{ width:560px; height:560px; top:120px; right:-160px; background:radial-gradient(circle,#c7d6ff,transparent 68%); }
-#ee-ind .spx-blob.b3{ width:460px; height:460px; bottom:-160px; left:38%; background:radial-gradient(circle,#d9f5ea,transparent 70%); opacity:.5; }
+#ee-ind .spx-blob.b1{ width:520px; height:520px; top:-140px; left:-90px; background:radial-gradient(circle,rgba(222,110,48,.16),transparent 68%); }
+#ee-ind .spx-blob.b2{ width:560px; height:560px; top:120px; right:-160px; background:radial-gradient(circle,rgba(25,51,93,.14),transparent 68%); }
+#ee-ind .spx-blob.b3{ width:460px; height:460px; bottom:-160px; left:38%; background:radial-gradient(circle,rgba(222,110,48,.10),transparent 70%); opacity:.5; }
 #ee-ind .spx-wrap{ position:relative; z-index:1; max-width:1200px; margin:0 auto; padding:26px 24px 30px; }
 /* header */
 #ee-ind .spx-head{ text-align:center; max-width:760px; margin:0 auto 40px; }
@@ -2511,12 +2511,12 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   border-radius:999px; background:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.8);
   -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
   box-shadow:0 6px 18px -10px rgba(25,52,93,.35), inset 0 1px 0 rgba(255,255,255,.9);
-  font-size:11.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#22467c; }
+  font-size:11.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#19335D; }
 #ee-ind .eei-dot{ width:7px; height:7px; border-radius:50%; background:var(--or);
   box-shadow:0 0 0 4px rgba(222,110,48,.16); }
-#ee-ind .spx-head h2{ font-family:'Poppins','Inter',sans-serif; font-weight:800; color:var(--nv);
+#ee-ind .spx-head h2{ font-family:'Inter',sans-serif; font-weight:800; color:var(--nv);
   font-size:clamp(24px,3.2vw,40px); line-height:1.12; letter-spacing:-.02em; margin:16px 0 10px; }
-#ee-ind .spx-head p{ font-size:clamp(14px,1.5vw,16px); line-height:1.6; color:#5a6b85; margin:0 auto; max-width:620px; }
+#ee-ind .spx-head p{ font-size:clamp(14px,1.5vw,16px); line-height:1.6; color:rgba(25,51,93,.62); margin:0 auto; max-width:620px; }
 /* glass card grid */
 #ee-ind .spx-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(258px,1fr)); gap:20px; perspective:1100px; }
 #ee-ind .spx-card{ position:relative; display:flex; flex-direction:column; border-radius:26px;
@@ -2542,9 +2542,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   background:linear-gradient(180deg,rgba(255,255,255,.4),transparent 55%); }
 #ee-ind .spx-ic svg{ width:27px; height:27px; fill:none; stroke:#fff; stroke-width:1.9;
   stroke-linecap:round; stroke-linejoin:round; position:relative; z-index:1; }
-#ee-ind .spx-card h3{ font-family:'Poppins','Inter',sans-serif; font-weight:600; font-size:17px;
+#ee-ind .spx-card h3{ font-family:'Inter',sans-serif; font-weight:700; font-size:17px;
   color:var(--nv); margin:0 0 7px; letter-spacing:-.01em; transform:translateZ(18px); }
-#ee-ind .spx-card p{ font-size:13px; line-height:1.55; color:#5a6b85; margin:0 0 18px; transform:translateZ(12px); }
+#ee-ind .spx-card p{ font-size:13px; line-height:1.55; color:rgba(25,51,93,.6); margin:0 0 18px; transform:translateZ(12px); }
 #ee-ind .spx-go{ margin-top:auto; display:inline-flex; align-items:center; gap:6px; font-size:12.5px;
   font-weight:700; color:var(--or); letter-spacing:.01em; transform:translateZ(18px); }
 #ee-ind .spx-go svg{ width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:2;
@@ -2578,56 +2578,56 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     </div>
 
     <div class="spx-grid">
-      <a class="spx-card" href="#demo" style="--g1:#F0A35A;--g2:#DE6E30">
+      <a class="spx-card" href="#demo" style="--g1:#E8843F;--g2:#DE6E30">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
         <h3>EdTech</h3>
         <p>You buy leads by the thousand &mdash; every enquiry has to convert.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#66ABF6;--g2:#2274EE">
+      <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 2-2h10v16H7a2 2 0 0 0-2 2z"/><path d="M17 3v16"/></svg></span>
         <h3>Coaching &amp; Training</h3>
         <p>Batches fill on deadlines &mdash; every enquiry counts.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#4FCFA6;--g2:#12A47A">
+      <a class="spx-card" href="#demo" style="--g1:#E8843F;--g2:#DE6E30">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M10 21v-6h4v6"/></svg></span>
         <h3>K-12 Schools</h3>
         <p>Parents take months to choose &mdash; trust wins the seat.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#F79AC0;--g2:#E5548A">
+      <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.6L21 9.3l-4.6 4.3 1.1 6.1L12 17l-5.5 2.7 1-6.1L3 9.3l6.4-.7z"/></svg></span>
         <h3>Preschools &amp; Playschools</h3>
         <p>It&rsquo;s their first school &mdash; reassurance closes the admission.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#B29BFB;--g2:#7C5CF0">
+      <a class="spx-card" href="#demo" style="--g1:#E8843F;--g2:#DE6E30">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
         <h3>Online Degree Programmes</h3>
         <p>You compete nationally for every learner.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#8AA0F7;--g2:#4E63D8">
+      <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.3 3 3 6 3s6-1.7 6-3v-5"/></svg></span>
         <h3>Higher Education</h3>
         <p>Many programmes, many counsellors &mdash; one admissions engine.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#4CD3DF;--g2:#12A0B4">
+      <a class="spx-card" href="#demo" style="--g1:#E8843F;--g2:#DE6E30">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span>
         <h3>Study Abroad Consultants</h3>
         <p>A single student journey can run for a year.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#F6C453;--g2:#E8983F">
+      <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 15l6-6M10 6l1-1a4 4 0 0 1 6 6l-1 1M14 18l-1 1a4 4 0 0 1-6-6l1-1"/></svg></span>
         <h3>Channel Partners</h3>
         <p>Your partners send leads &mdash; you need to see every one.</p>
@@ -5484,10 +5484,10 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 #ee-products, #ee-teams, #ee-solutions, #ee-golive, #ee-resources{
   position:relative;
   background:
-    radial-gradient(560px 440px at 6% -8%, rgba(255,211,176,.45), transparent 60%),
-    radial-gradient(640px 500px at 102% 8%, rgba(199,214,255,.5), transparent 62%),
-    radial-gradient(540px 460px at 48% 112%, rgba(217,245,234,.42), transparent 66%),
-    linear-gradient(180deg,#fbfcff 0%,#eef2fb 55%,#f6f8fd 100%) !important;
+    radial-gradient(560px 440px at 6% -8%, rgba(222,110,48,.12), transparent 60%),
+    radial-gradient(640px 500px at 102% 8%, rgba(25,51,93,.10), transparent 62%),
+    radial-gradient(540px 460px at 48% 112%, rgba(222,110,48,.07), transparent 66%),
+    #ffffff !important;
 }
 
 /* frosted-glass treatment for the existing cards (no size/shape change) */
