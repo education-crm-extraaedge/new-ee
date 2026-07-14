@@ -297,21 +297,23 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     <ul class="eetoc-list">
       <li><a href="#xhero" data-t="xhero"><i>01</i><span>Top</span></a></li>
       <li><a href="#trusted-institutions" data-t="trusted-institutions"><i>02</i><span>Broad Client Base</span></a></li>
-      <li><a href="#ee-platform" data-t="ee-platform"><i>03</i><span>AI Product-Led Experience</span></a></li>
-      <li><a href="#ee-products" data-t="ee-products"><i>04</i><span>The admissions platform</span></a></li>
-      <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>05</i><span>Agentic AI Suite</span></a></li>
-      <li><a href="#ee-teams" data-t="ee-teams"><i>06</i><span>One platform, every team</span></a></li>
-      <li><a href="#ee-solutions" data-t="ee-solutions"><i>07</i><span>Solutions</span></a></li>
-      <li><a href="#ee-ind" data-t="ee-ind"><i>08</i><span>Industries</span></a></li>
-      <li><a href="#stories" data-t="stories"><i>09</i><span>CRM Impact Stories</span></a></li>
-      <li><a href="#ee-cro" data-t="ee-cro"><i>10</i><span>Why teams switch to us</span></a></li>
-      <li><a href="#ee-night" data-t="ee-night"><i>11</i><span>The Admission Operating System</span></a></li>
-      <li><a href="#integrations" data-t="integrations"><i>12</i><span>Extensions &amp; Integrations</span></a></li>
-      <li><a href="#security" data-t="security"><i>13</i><span>Enterprise-grade trust</span></a></li>
-      <li><a href="#ee-golive" data-t="ee-golive"><i>14</i><span>Fast implementation</span></a></li>
-      <li><a href="#ee-resources" data-t="ee-resources"><i>15</i><span>Resources</span></a></li>
-      <li><a href="#ee-events" data-t="ee-events"><i>16</i><span>Events &amp; Webinars</span></a></li>
-      <li><a href="#faq" data-t="faq"><i>17</i><span>Frequently Asked</span></a></li>
+      <li><a href="#why-admissions-leak" data-t="why-admissions-leak"><i>03</i><span>Where admissions leak</span></a></li>
+      <li><a href="#feature-pillars" data-t="feature-pillars"><i>04</i><span>Feature pillars</span></a></li>
+      <li><a href="#ee-platform" data-t="ee-platform"><i>05</i><span>AI Product-Led Experience</span></a></li>
+      <li><a href="#ee-products" data-t="ee-products"><i>06</i><span>The admissions platform</span></a></li>
+      <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>07</i><span>Agentic AI Suite</span></a></li>
+      <li><a href="#ee-teams" data-t="ee-teams"><i>08</i><span>One platform, every team</span></a></li>
+      <li><a href="#ee-solutions" data-t="ee-solutions"><i>09</i><span>Solutions</span></a></li>
+      <li><a href="#ee-ind" data-t="ee-ind"><i>10</i><span>Industries</span></a></li>
+      <li><a href="#stories" data-t="stories"><i>11</i><span>CRM Impact Stories</span></a></li>
+      <li><a href="#ee-cro" data-t="ee-cro"><i>12</i><span>Why teams switch to us</span></a></li>
+      <li><a href="#ee-night" data-t="ee-night"><i>13</i><span>The Admission Operating System</span></a></li>
+      <li><a href="#integrations" data-t="integrations"><i>14</i><span>Extensions &amp; Integrations</span></a></li>
+      <li><a href="#security" data-t="security"><i>15</i><span>Enterprise-grade trust</span></a></li>
+      <li><a href="#ee-golive" data-t="ee-golive"><i>16</i><span>Fast implementation</span></a></li>
+      <li><a href="#ee-resources" data-t="ee-resources"><i>17</i><span>Resources</span></a></li>
+      <li><a href="#ee-events" data-t="ee-events"><i>18</i><span>Events &amp; Webinars</span></a></li>
+      <li><a href="#faq" data-t="faq"><i>19</i><span>Frequently Asked</span></a></li>
     </ul>
     <a class="eetoc-cta" href="https://www.extraaedge.com/book-a-demo/" target="_blank" rel="noopener">Book DEMO Now
       <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/page-icon-02.svg" alt="" loading="lazy" decoding="async"></a>
@@ -678,6 +680,299 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <a href="#demo" style="display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;color:#19345d;border:1.5px solid rgba(25,52,93,.18);background:#fff;border-radius:999px;padding:11px 24px;text-decoration:none;transition:all .2s ease" onmouseover="this.style.borderColor='#DE6E30';this.style.color='#DE6E30'" onmouseout="this.style.borderColor='rgba(25,52,93,.18)';this.style.color='#19345d'">View More Clients <span aria-hidden="true">&rarr;</span></a>
   </div>
 </section>
+<!-- ============================================================
+     NEW · Cinematic Scrollytelling sections (scoped .eeps- / .eefp-)
+     S4: Problem -> Solution   |   S6: Feature Pillars (tabbed)
+     Brand: #DE6E30 / #19335D on white, Inter. Reveal-on-scroll.
+     ============================================================ -->
+<style id="ee-cine-sections">
+  .eeps-section, .eefp-section{
+    --ee-orange:#DE6E30; --ee-orange-dark:#C55A20; --ee-orange-tint:#FBEFE7;
+    --ee-navy:#19335D; --ee-navy-deep:#10233F; --ee-ink:#2B3A52; --ee-slate:#5B6B84;
+    --ee-line:#E4E9F1; --ee-bg-soft:#F7F9FC; --ee-white:#FFFFFF; --ee-green:#1E9E6A;
+    --ee-radius:16px; --ee-shadow:0 18px 44px rgba(25,51,93,.10);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    color:var(--ee-ink); box-sizing:border-box;
+  }
+  .eeps-section *,.eeps-section *::before,.eeps-section *::after,
+  .eefp-section *,.eefp-section *::before,.eefp-section *::after{box-sizing:inherit;margin:0;padding:0}
+  .eeps-container,.eefp-container{max-width:1160px;margin:0 auto;padding:0 24px}
+  .eeps-eyebrow,.eefp-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ee-orange)}
+  .eeps-eyebrow::before,.eefp-eyebrow::before{content:"";width:26px;height:2px;background:var(--ee-orange);border-radius:2px}
+  .eeps-h2,.eefp-h2{font-family:'Inter',sans-serif;font-size:clamp(26px,3.4vw,38px);font-weight:800;line-height:1.18;color:var(--ee-navy);margin-top:14px;letter-spacing:-.02em}
+  .eeps-sub,.eefp-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.65;color:var(--ee-slate);margin-top:14px;max-width:640px}
+  .ee-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;padding:13px 26px;border-radius:11px;text-decoration:none;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;cursor:pointer;border:0}
+  .ee-btn-primary{background:var(--ee-orange);color:#fff;box-shadow:0 8px 22px rgba(222,110,48,.35)}
+  .ee-btn-primary:hover{background:var(--ee-orange-dark);transform:translateY(-2px)}
+  .ee-btn-primary:focus-visible,.eefp-tab:focus-visible,.ee-btn-ghost:focus-visible{outline:3px solid var(--ee-navy);outline-offset:3px}
+  .ee-btn-ghost{background:#fff;color:var(--ee-navy);border:1.5px solid var(--ee-line)}
+  .ee-btn-ghost:hover{border-color:var(--ee-orange);color:var(--ee-orange)}
+  .ee-btn .ee-arrow{transition:transform .18s ease}
+  .ee-btn:hover .ee-arrow{transform:translateX(3px)}
+
+  /* ---- cinematic reveal-on-scroll ---- */
+  .eeps-section .ee-cine,.eefp-section .ee-cine{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*90ms)}
+  .eeps-section .ee-cine.in,.eefp-section .ee-cine.in{opacity:1;transform:none}
+
+  @media (prefers-reduced-motion:reduce){
+    .eeps-section *,.eefp-section *{transition:none!important;animation:none!important}
+    .eeps-section .ee-cine,.eefp-section .ee-cine{opacity:1;transform:none}
+  }
+
+  /* ================= S4 · PROBLEM -> SOLUTION ================= */
+  .eeps-section{background:var(--ee-white)}
+  .eeps-head{max-width:720px}
+  .eeps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:clamp(30px,4vw,48px)}
+  .eeps-card{position:relative;border:1px solid var(--ee-line);border-radius:var(--ee-radius);padding:28px 26px 26px 30px;background:var(--ee-white);overflow:hidden;transition:box-shadow .25s ease,transform .25s ease,border-color .25s ease}
+  /* the "leak" accent that draws down the card edge as it reveals */
+  .eeps-card::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--ee-orange),var(--ee-navy));transform:scaleY(0);transform-origin:top;transition:transform .8s cubic-bezier(.2,.7,.2,1) .15s}
+  .eeps-card.in::before{transform:scaleY(1)}
+  .eeps-card:hover{box-shadow:var(--ee-shadow);transform:translateY(-4px);border-color:rgba(222,110,48,.35)}
+  .eeps-pain{display:flex;align-items:flex-start;gap:12px}
+  .eeps-pain-icon{flex:0 0 auto;width:42px;height:42px;border-radius:11px;background:var(--ee-orange-tint);display:grid;place-items:center}
+  .eeps-pain-icon svg{width:21px;height:21px;stroke:var(--ee-orange);fill:none}
+  .eeps-pain-title{font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:var(--ee-navy);line-height:1.35}
+  .eeps-pain-text{font-size:14.5px;line-height:1.6;color:var(--ee-slate);margin-top:8px}
+  .eeps-fix{margin-top:18px;padding-top:16px;border-top:1px dashed var(--ee-line);display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.55;color:var(--ee-ink)}
+  .eeps-fix strong{color:var(--ee-navy);font-weight:700}
+  .eeps-fix-badge{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ee-green);background:rgba(30,158,106,.1);border-radius:999px;padding:4px 10px;margin-top:1px}
+  .eeps-fix-badge svg{width:12px;height:12px;stroke:var(--ee-green);fill:none}
+  .eeps-cta-row{margin-top:clamp(30px,4vw,44px);display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .eeps-cta-note{font-size:13.5px;color:var(--ee-slate)}
+  @media (max-width:760px){.eeps-grid{grid-template-columns:1fr}}
+
+  /* ================= S6 · FEATURE PILLARS (tabbed) ================= */
+  .eefp-section{background:var(--ee-bg-soft)}
+  .eefp-head{max-width:720px}
+  .eefp-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-top:clamp(26px,3.5vw,40px)}
+  .eefp-tab{font-family:'Inter',sans-serif;font-size:14.5px;font-weight:600;color:var(--ee-slate);background:var(--ee-white);border:1.5px solid var(--ee-line);border-radius:999px;padding:11px 20px;cursor:pointer;transition:all .18s ease;display:inline-flex;align-items:center;gap:8px}
+  .eefp-tab svg{width:16px;height:16px;stroke:currentColor;fill:none}
+  .eefp-tab:hover{border-color:var(--ee-orange);color:var(--ee-orange)}
+  .eefp-tab[aria-selected="true"]{background:var(--ee-navy);border-color:var(--ee-navy);color:#fff;box-shadow:0 8px 18px rgba(25,51,93,.25)}
+  .eefp-panel{margin-top:26px;background:var(--ee-white);border:1px solid var(--ee-line);border-radius:20px;box-shadow:var(--ee-shadow);display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden}
+  .eefp-panel[hidden]{display:none}
+  /* cinematic panel + item cascade on each tab switch */
+  .eefp-panel:not([hidden]){animation:eefpPanel .55s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes eefpPanel{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .eefp-panel-copy{padding:clamp(28px,4vw,46px)}
+  .eefp-panel-title{font-family:'Inter',sans-serif;font-size:clamp(20px,2.4vw,26px);font-weight:800;color:var(--ee-navy);line-height:1.3;letter-spacing:-.01em}
+  .eefp-panel-desc{font-size:15px;line-height:1.65;color:var(--ee-slate);margin-top:12px}
+  .eefp-feature-list{list-style:none;margin-top:22px;display:grid;gap:12px}
+  .eefp-feature-list li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.5;color:var(--ee-ink);font-weight:500}
+  .eefp-panel:not([hidden]) .eefp-feature-list li{animation:eefpItem .55s cubic-bezier(.2,.7,.2,1) both}
+  .eefp-panel:not([hidden]) .eefp-feature-list li:nth-child(1){animation-delay:.10s}
+  .eefp-panel:not([hidden]) .eefp-feature-list li:nth-child(2){animation-delay:.18s}
+  .eefp-panel:not([hidden]) .eefp-feature-list li:nth-child(3){animation-delay:.26s}
+  .eefp-panel:not([hidden]) .eefp-feature-list li:nth-child(4){animation-delay:.34s}
+  @keyframes eefpItem{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+  .eefp-check{flex:0 0 auto;width:20px;height:20px;border-radius:6px;background:var(--ee-orange-tint);display:grid;place-items:center;margin-top:1px}
+  .eefp-check svg{width:12px;height:12px;stroke:var(--ee-orange);stroke-width:3;fill:none}
+  .eefp-panel-cta{margin-top:28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .eefp-panel-visual{background:linear-gradient(150deg,var(--ee-navy) 0%,var(--ee-navy-deep) 100%);padding:clamp(28px,4vw,46px);display:flex;flex-direction:column;justify-content:center;gap:16px;position:relative}
+  .eefp-panel-visual::before{content:"";position:absolute;inset:0;background:radial-gradient(420px 200px at 85% 10%,rgba(222,110,48,.22),transparent 65%),radial-gradient(360px 220px at 10% 95%,rgba(222,110,48,.12),transparent 60%);pointer-events:none}
+  .eefp-stat-card{position:relative;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:18px 20px;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+  .eefp-panel:not([hidden]) .eefp-stat-card{animation:eefpStat .6s cubic-bezier(.2,.9,.3,1.15) both .12s}
+  @keyframes eefpStat{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+  .eefp-stat-num{font-family:'Inter',sans-serif;font-size:clamp(26px,3vw,34px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.01em}
+  .eefp-stat-num em{font-style:normal;color:var(--ee-orange)}
+  .eefp-stat-label{font-size:13px;color:rgba(255,255,255,.72);margin-top:6px;line-height:1.5}
+  .eefp-quote{position:relative;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.85);border-left:3px solid var(--ee-orange);padding-left:14px}
+  @media (max-width:880px){
+    .eefp-panel{grid-template-columns:1fr}
+    .eefp-panel-visual{order:-1;padding:26px 24px}
+    .eefp-tabs{gap:8px}
+    .eefp-tab{font-size:13.5px;padding:10px 16px}
+  }
+</style>
+
+<!-- S4 · PROBLEM -> SOLUTION -->
+<section class="eeps-section" id="why-admissions-leak" aria-labelledby="eeps-heading">
+  <div class="eeps-container">
+    <div class="eeps-head">
+      <span class="eeps-eyebrow ee-cine">The Real Problem</span>
+      <h2 class="eeps-h2 ee-cine" style="--i:1" id="eeps-heading">Every admission season, good enquiries quietly slip away</h2>
+      <p class="eeps-sub ee-cine" style="--i:2">It&rsquo;s rarely a marketing problem &mdash; it&rsquo;s what happens <em>after</em> the enquiry: scattered leads, slow responses and manual follow-ups. Here&rsquo;s where admissions leak, and how ExtraaEdge plugs each gap.</p>
+    </div>
+
+    <div class="eeps-grid">
+      <article class="eeps-card ee-cine" style="--i:1">
+        <div class="eeps-pain">
+          <span class="eeps-pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v10"/><path d="M8 9l4 4 4-4"/><circle cx="12" cy="19" r="1.6"/></svg></span>
+          <div><h3 class="eeps-pain-title">Leads scattered across 10+ channels</h3>
+          <p class="eeps-pain-text">Portals, Google &amp; Meta ads, walk-ins, IVR, education fairs, referrals &mdash; enquiries land everywhere, live in spreadsheets, and duplicates go unnoticed until it&rsquo;s too late.</p></div>
+        </div>
+        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>One unified inbox.</strong> Every lead source auto-captured, deduplicated and assigned in seconds &mdash; nothing enters a spreadsheet, nothing gets lost.</p></div>
+      </article>
+
+      <article class="eeps-card ee-cine" style="--i:2">
+        <div class="eeps-pain">
+          <span class="eeps-pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+          <div><h3 class="eeps-pain-title">Slow first response loses the student</h3>
+          <p class="eeps-pain-text">Prospects apply to 4&ndash;5 institutions at once. The one that responds first usually wins the conversation &mdash; and hours-long response times hand your admissions to competitors.</p></div>
+        </div>
+        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>Instant engagement, 24&times;7.</strong> Automated WhatsApp, email &amp; AI chatbot replies fire the moment an enquiry arrives &mdash; your team follows up while interest is hottest.</p></div>
+      </article>
+
+      <article class="eeps-card ee-cine" style="--i:3">
+        <div class="eeps-pain">
+          <span class="eeps-pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg></span>
+          <div><h3 class="eeps-pain-title">Counselors buried in manual follow-ups</h3>
+          <p class="eeps-pain-text">With hundreds of leads per counselor, follow-ups get missed, notes stay in notebooks, and high-intent students get the same generic call as cold enquiries.</p></div>
+        </div>
+        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>AI-prioritized worklists.</strong> Prediction scores and next-best-action tell every counselor exactly whom to call first &mdash; follow-up calendars make missing one nearly impossible.</p></div>
+      </article>
+
+      <article class="eeps-card ee-cine" style="--i:4">
+        <div class="eeps-pain">
+          <span class="eeps-pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span>
+          <div><h3 class="eeps-pain-title">No visibility into what&rsquo;s actually working</h3>
+          <p class="eeps-pain-text">Which publisher sends leads that convert? Which counselor needs coaching? Where does the funnel drop? Without answers, budgets get spent on channels that never enrol a single student.</p></div>
+        </div>
+        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>50+ ready reports.</strong> Source-wise ROI, funnel drop-offs, counselor performance &mdash; every marketing rupee and every follow-up, measured in real time.</p></div>
+      </article>
+    </div>
+
+    <div class="eeps-cta-row ee-cine">
+      <a class="ee-btn ee-btn-primary" href="#demo">See how it works &mdash; Book a Free Demo <span class="ee-arrow" aria-hidden="true">&rarr;</span></a>
+      <span class="eeps-cta-note">45-minute walkthrough &middot; No commitment &middot; Built for education</span>
+    </div>
+  </div>
+</section>
+
+<!-- S6 · FEATURE PILLARS (tabbed) -->
+<section class="eefp-section" id="feature-pillars" aria-labelledby="eefp-heading">
+  <div class="eefp-container">
+    <div class="eefp-head">
+      <span class="eefp-eyebrow ee-cine">Built For Admission Teams</span>
+      <h2 class="eefp-h2 ee-cine" style="--i:1" id="eefp-heading">Everything your team needs, from first enquiry to enrolment</h2>
+      <p class="eefp-sub ee-cine" style="--i:2">Four pillars power every high-performing admission team on ExtraaEdge. Explore what each one does.</p>
+    </div>
+
+    <div class="eefp-tabs ee-cine" style="--i:3" role="tablist" aria-label="ExtraaEdge feature pillars">
+      <button class="eefp-tab" role="tab" id="eefp-tab-1" aria-controls="eefp-panel-1" aria-selected="true"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>Lead Capture &amp; Integrations</button>
+      <button class="eefp-tab" role="tab" id="eefp-tab-2" aria-controls="eefp-panel-2" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 20l1.5-5.5a8.5 8.5 0 1 1 16.5-3z"/></svg>Personalized Communication</button>
+      <button class="eefp-tab" role="tab" id="eefp-tab-3" aria-controls="eefp-panel-3" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 5.2L20 8l-4 4 1 5.6L12 15l-5 2.6L8 12 4 8l5.6-.8z"/></svg>AI Lead Scoring</button>
+      <button class="eefp-tab" role="tab" id="eefp-tab-4" aria-controls="eefp-panel-4" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7" rx="1"/><rect x="12" y="6" width="3" height="11" rx="1"/><rect x="17" y="13" width="3" height="4" rx="1"/></svg>Analytics &amp; Reporting</button>
+    </div>
+
+    <div class="eefp-panel ee-cine" style="--i:4" role="tabpanel" id="eefp-panel-1" aria-labelledby="eefp-tab-1">
+      <div class="eefp-panel-copy">
+        <h3 class="eefp-panel-title">Capture every lead, from every channel, automatically</h3>
+        <p class="eefp-panel-desc">Connect your ads, forms, portals, publishers and IVR once &mdash; and never copy-paste a lead again. Everything lands in one funnel with source tracked from day one.</p>
+        <ul class="eefp-feature-list">
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Native Google, Meta &amp; LinkedIn ads integration</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Website forms, chatbot &amp; landing page widgets</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>3rd-party publisher &amp; education portal sync</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>IVR &amp; missed-call lead capture with auto-assignment</li>
+        </ul>
+        <div class="eefp-panel-cta">
+          <a class="ee-btn ee-btn-primary" href="#demo">Book a Demo <span class="ee-arrow" aria-hidden="true">&rarr;</span></a>
+          <a class="ee-btn ee-btn-ghost" href="#integrations">View all integrations</a>
+        </div>
+      </div>
+      <div class="eefp-panel-visual" aria-hidden="true">
+        <div class="eefp-stat-card"><div class="eefp-stat-num"><em>0</em> leads lost</div><div class="eefp-stat-label">Every enquiry from every source is auto-captured, deduplicated &amp; assigned &mdash; across 50+ native integrations.</div></div>
+        <div class="eefp-quote">All your lead channels flow into one funnel &mdash; no more Monday-morning spreadsheet merging.</div>
+      </div>
+    </div>
+
+    <div class="eefp-panel" role="tabpanel" id="eefp-panel-2" aria-labelledby="eefp-tab-2" hidden>
+      <div class="eefp-panel-copy">
+        <h3 class="eefp-panel-title">Reach every prospect on the channel they actually use</h3>
+        <p class="eefp-panel-desc">Generic bulk blasts get ignored. Trigger-based, personalized journeys across WhatsApp, email, SMS, calls and video keep prospects engaged from enquiry to enrolment.</p>
+        <ul class="eefp-feature-list">
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Two-way WhatsApp Business API with verified account</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Trigger-based email &amp; SMS drip campaigns</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Click-to-call with automatic call logging</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Video counselling &amp; GD-PI, built into the CRM</li>
+        </ul>
+        <div class="eefp-panel-cta">
+          <a class="ee-btn ee-btn-primary" href="#demo">Book a Demo <span class="ee-arrow" aria-hidden="true">&rarr;</span></a>
+          <a class="ee-btn ee-btn-ghost" href="#ee-vidya-suite">Explore Vidya AI</a>
+        </div>
+      </div>
+      <div class="eefp-panel-visual" aria-hidden="true">
+        <div class="eefp-stat-card"><div class="eefp-stat-num">Under <em>60s</em> first response</div><div class="eefp-stat-label">Automated WhatsApp, email &amp; AI chatbot replies fire the moment an enquiry lands &mdash; while interest is hottest.</div></div>
+        <div class="eefp-quote">Students reply on WhatsApp in minutes &mdash; email alone never did that.</div>
+      </div>
+    </div>
+
+    <div class="eefp-panel" role="tabpanel" id="eefp-panel-3" aria-labelledby="eefp-tab-3" hidden>
+      <div class="eefp-panel-copy">
+        <h3 class="eefp-panel-title">Let AI tell your team exactly whom to call first</h3>
+        <p class="eefp-panel-desc">Not all leads are equal. Prediction scores rank every prospect by likelihood to enrol, so your counselors spend their day on students who are actually going to join.</p>
+        <ul class="eefp-feature-list">
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>AI prediction score on every lead, updated in real time</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Next-best-action suggestions for every counselor</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Multi-funnel stages mapped to your admission process</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Follow-up calendar that never lets a hot lead go cold</li>
+        </ul>
+        <div class="eefp-panel-cta">
+          <a class="ee-btn ee-btn-primary" href="#demo">Book a Demo <span class="ee-arrow" aria-hidden="true">&rarr;</span></a>
+          <a class="ee-btn ee-btn-ghost" href="#ee-vidya-suite">See VidyaPulse in action</a>
+        </div>
+      </div>
+      <div class="eefp-panel-visual" aria-hidden="true">
+        <div class="eefp-stat-card"><div class="eefp-stat-num"><em>37%</em> higher conversions</div><div class="eefp-stat-label">AI scoring puts your team on the students most likely to enrol &mdash; first.</div></div>
+        <div class="eefp-quote">Counselors stop guessing &mdash; the score shows where the admission is.</div>
+      </div>
+    </div>
+
+    <div class="eefp-panel" role="tabpanel" id="eefp-panel-4" aria-labelledby="eefp-tab-4" hidden>
+      <div class="eefp-panel-copy">
+        <h3 class="eefp-panel-title">Measure every rupee, every counselor, every funnel stage</h3>
+        <p class="eefp-panel-desc">Stop making budget decisions on gut feel. 50+ ready-made reports show which sources convert, where prospects drop off, and who on your team needs coaching.</p>
+        <ul class="eefp-feature-list">
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Source &amp; publisher ROI reports</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Funnel drop-off &amp; stage-velocity analysis</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Counselor &amp; team performance dashboards</li>
+          <li><span class="eefp-check" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg></span>Custom dashboards for leadership reviews</li>
+        </ul>
+        <div class="eefp-panel-cta">
+          <a class="ee-btn ee-btn-primary" href="#demo">Book a Demo <span class="ee-arrow" aria-hidden="true">&rarr;</span></a>
+          <a class="ee-btn ee-btn-ghost" href="#ee-resources">Explore sample reports</a>
+        </div>
+      </div>
+      <div class="eefp-panel-visual" aria-hidden="true">
+        <div class="eefp-stat-card"><div class="eefp-stat-num"><em>50+</em> analytical reports</div><div class="eefp-stat-label">Marketing, funnel, team and publisher performance &mdash; ready out of the box, no analyst required.</div></div>
+        <div class="eefp-quote">&ldquo;Their robust analytics have no competition.&rdquo; &mdash; Srinivas Shinde, CMO, DSU</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  /* --- S6 tabs (accessible) --- */
+  var tablist=document.querySelector('#feature-pillars .eefp-tabs');
+  if(tablist){
+    var tabs=Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
+    var panels=tabs.map(function(t){return document.getElementById(t.getAttribute('aria-controls'));});
+    function activate(index,focus){
+      tabs.forEach(function(tab,i){var sel=i===index;tab.setAttribute('aria-selected',sel?'true':'false');tab.tabIndex=sel?0:-1;if(panels[i])panels[i].hidden=!sel;});
+      if(focus)tabs[index].focus();
+    }
+    tabs.forEach(function(tab,i){
+      tab.addEventListener('click',function(){activate(i,false);});
+      tab.addEventListener('keydown',function(e){
+        var n=null;
+        if(e.key==='ArrowRight'||e.key==='ArrowDown')n=(i+1)%tabs.length;
+        else if(e.key==='ArrowLeft'||e.key==='ArrowUp')n=(i-1+tabs.length)%tabs.length;
+        else if(e.key==='Home')n=0; else if(e.key==='End')n=tabs.length-1;
+        if(n!==null){e.preventDefault();activate(n,true);}
+      });
+    });
+  }
+  /* --- cinematic reveal-on-scroll for both new sections --- */
+  var cine=document.querySelectorAll('#why-admissions-leak .ee-cine, #feature-pillars .ee-cine');
+  if('IntersectionObserver' in window && cine.length){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.16,rootMargin:'0px 0px -8% 0px'});
+    cine.forEach(function(el){io.observe(el);});
+  } else {
+    cine.forEach(function(el){el.classList.add('in');});
+  }
+})();
+</script>
 
 <style>/* ===== AI Product-Led Experience: launch + full-screen overlay (all devices) ===== */
 #ee-platform .eep-mlaunch{display:none;}#ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}/* ---- full-screen experience overlay — the window is relocated to <body> on
