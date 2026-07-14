@@ -10,13 +10,13 @@ if (!defined('ABSPATH')) exit;
 
 <!--  Start Footer Section -->
 
-<!-- Plus Jakarta Sans font (only Inter + Open Sans loaded in header.php — Jakarta Sans is footer-specific) -->
+<!-- Plus Jakarta Sans font (only Inter + Open Sans loaded in header.php - Jakarta Sans is footer-specific) -->
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-    /* RESET & BASE — variables scoped here (NOT to global :root) so they don't bleed into other sections */
+    /* RESET & BASE - variables scoped here (NOT to global :root) so they don't bleed into other sections */
     #extraaedge-footer-engine {
         all: unset;
         --ee-orange: #DE6E30;
@@ -133,7 +133,7 @@ if (!defined('ABSPATH')) exit;
     }
     #extraaedge-footer-engine .ee-cert-item p { font-size: 11px; font-weight: 800; opacity: 0.8; text-transform: uppercase; margin: 0; letter-spacing: 1px; }
 
-    /* 4. APP-STYLE NAV MENU — 6-column grid that mirrors the header.
+    /* 4. APP-STYLE NAV MENU - 6-column grid that mirrors the header.
        Desktop: 6 cols, tablet: 3 cols, mobile: collapsible accordions. */
     #extraaedge-footer-engine .ee-nav-matrix {
         display: grid;
@@ -267,7 +267,7 @@ if (!defined('ABSPATH')) exit;
     <section class="ee-container ee-section-block">
         <?php
         /* Footer nav mirrors the header mega-menu structure so the
-           editor only manages content in ONE place — the same
+           editor only manages content in ONE place - the same
            helpers feed the header dropdowns and these footer cols. */
         $ft_products   = function_exists('ee_get_product_menu_items')  ? ee_get_product_menu_items()  : array();
         $ft_industries = function_exists('ee_get_industry_menu_items') ? ee_get_industry_menu_items() : array();

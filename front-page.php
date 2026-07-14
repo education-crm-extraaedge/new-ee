@@ -1,6 +1,6 @@
 <?php
 /**
- * Front Page (Home) — ExtraaEdge AI-Powered Admission CRM.
+ * Front Page (Home) - ExtraaEdge AI-Powered Admission CRM.
  *
  * WordPress theme template: renders the homepage design INSIDE the active
  * theme's header.php (get_header) and footer.php (get_footer). SEO meta,
@@ -53,11 +53,11 @@ add_action('wp_head', function () {
       "@type": "FAQPage",
       "@id": "https://www.extraaedge.com/#faq",
       "mainEntity": [
-        { "@type": "Question", "name": "What is ExtraaEdge?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge is an AI-powered Admission CRM purpose-built for educational institutions — schools, colleges, universities and edtech companies. It automates lead capture, scores intent, triggers smart follow-ups and gives counselors real-time performance intelligence." } },
-        { "@type": "Question", "name": "How does ExtraaEdge help convert more students?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge prioritises high-intent leads with AI scoring, responds to every enquiry in minutes with AI calling and WhatsApp automation, and tells counselors exactly who to follow up with next — reducing response time by up to 90% and boosting conversions by up to 48%." } },
+        { "@type": "Question", "name": "What is ExtraaEdge?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge is an AI-powered Admission CRM purpose-built for educational institutions - schools, colleges, universities and edtech companies. It automates lead capture, scores intent, triggers smart follow-ups and gives counselors real-time performance intelligence." } },
+        { "@type": "Question", "name": "How does ExtraaEdge help convert more students?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge prioritises high-intent leads with AI scoring, responds to every enquiry in minutes with AI calling and WhatsApp automation, and tells counselors exactly who to follow up with next - reducing response time by up to 90% and boosting conversions by up to 48%." } },
         { "@type": "Question", "name": "Does ExtraaEdge offer a free demo?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can book a free personalised 45-minute demo on the ExtraaEdge website. A product expert will walk you through the platform live with data from your sector." } },
         { "@type": "Question", "name": "Is ExtraaEdge suitable for small colleges?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. ExtraaEdge serves institutions from single-campus colleges to large university groups processing 100,000+ applications per cycle. Pricing and features scale to your needs." } },
-        { "@type": "Question", "name": "What AI features does ExtraaEdge offer?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge offers AI Lead Intent Scoring, AI Calling at scale via VidyaAI, Smart Follow-up Automation, WhatsApp Business API engagement and Counselor Performance Intelligence — all powered by its proprietary Admission Intelligence engine." } },
+        { "@type": "Question", "name": "What AI features does ExtraaEdge offer?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge offers AI Lead Intent Scoring, AI Calling at scale via VidyaAI, Smart Follow-up Automation, WhatsApp Business API engagement and Counselor Performance Intelligence - all powered by its proprietary Admission Intelligence engine." } },
         { "@type": "Question", "name": "Will ExtraaEdge work with my existing ads and website?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. ExtraaEdge captures leads automatically from Meta and Google Ads, your website and landing pages, education portals, WhatsApp, IVR and more, with full source tracking. It also integrates with your ERP/SIS, payment gateway and cloud telephony." } },
         { "@type": "Question", "name": "How long does it take to implement ExtraaEdge?", "acceptedAnswer": { "@type": "Answer", "text": "Most institutions go live in around 14 days, including data migration, integrations, workflow setup and counselor training, supported by a dedicated onboarding specialist and Customer Success Manager." } },
         { "@type": "Question", "name": "Does VidyaGPT support regional languages?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. VidyaGPT understands and responds in 95+ languages including Hindi, Marathi, Tamil, Telugu, Kannada, Bengali and Gujarati, over chat and on AI voice calls." } },
@@ -85,7 +85,7 @@ get_header();
 ?>
 
 <style>/* =====================================================================
-   ExtraaEdge — Enterprise high-conversion Admission CRM homepage
+   ExtraaEdge - Enterprise high-conversion Admission CRM homepage
    (no nav,no footer). Brand: Orange #DE6E30 · Blue #19345d · Inter+Poppins.
    Pure CSS + raw WebGL + vanilla JS (no frameworks) for speed + SEO.
    Effects: WebGL hero,sticky scrollytelling,morphing/scroll-zoom
@@ -176,20 +176,20 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 .lx-folders{display:flex;gap:10px;padding:14px 14px 8px;overflow-x:auto}.lx-folder{flex:none;min-width:140px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px}.lx-folder .t{font-weight:700;color:var(--blue);font-size:12px;display:flex;gap:6px;align-items:center}.lx-folder .n{margin-top:8px;color:#5b6b82;font-size:12px;display:flex;gap:6px;align-items:center}.lx-pills{display:flex;gap:8px;padding:0 14px 10px;flex-wrap:wrap}.lx-pill{border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--blue);background:#fff}.lx-pill.o{border-color:var(--orange);color:var(--orange)}.lx-tabs{display:flex;gap:16px;padding:0 14px;border-bottom:1px solid var(--line);overflow-x:auto}.lx-tab{padding:10px 2px;font-size:12.5px;font-weight:700;color:#5b6b82;white-space:nowrap;border-bottom:2px solid transparent;cursor:pointer}.lx-tab.on{color:var(--orange);border-bottom-color:var(--orange)}.lx-toolbar{display:flex;gap:12px;padding:10px 14px;color:var(--orange);font-size:14px;align-items:center}.lx-toolbar .sp{margin-left:auto}.lx-row{background:#fff;border:1px solid var(--line);border-radius:10px;margin:0 14px 12px;padding:12px 14px}.lx-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.lx-chk{width:15px;height:15px;border:1.5px solid #c2ccd8;border-radius:3px;flex:none}.lx-name{font-weight:700;color:var(--blue)}.lx-c{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:999px;border:1px solid var(--line);font-size:10px;color:#5b6b82;padding:0 4px;margin-left:3px}.lx-c.o{border-color:var(--orange);color:var(--orange)}.lx-phone{color:#5b6b82;font-size:12px;margin-left:2px}.lx-tick{color:#164ea3}.lx-badge{background:#2f343a;color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px}.lx-sub{background:#fff;border:1px solid var(--line);color:#5b6b82;font-size:9.5px;padding:3px 9px;border-radius:4px;display:inline-block;margin-top:3px}.lx-meta{margin-left:auto;display:flex;align-items:center;gap:12px;color:#5b6b82;font-size:11px}.lx-meta .va{color:var(--orange);font-weight:700}.lx-insight{margin-top:10px;border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:8px;padding:9px 12px;font-size:12px;color:#5b6b82;line-height:1.5;position:relative;overflow:hidden}.lx-insight::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#f59e0b,#468aef)}.lx-insight .src{color:var(--blue);font-weight:800;text-decoration:underline}.lx-insight .more{color:var(--orange);font-weight:700}/* management dashboard */
 .mx-top{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 6px;gap:10px;flex-wrap:wrap}.mx-top h4{font-size:16px;color:var(--blue)}.mx-create{background:var(--orange);color:#fff;font-weight:800;font-size:11px;padding:9px 16px;border-radius:6px}.mx-filters{display:flex;gap:10px;padding:10px 16px;flex-wrap:wrap}.mx-sel{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 14px;font-size:12px;color:#5b6b82;display:flex;gap:18px;align-items:center}.mx-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:0 16px}.mx-kpi{background:#fff;border:1px solid var(--line);border-top:3px solid var(--blue-2);border-radius:8px;padding:13px 14px}.mx-kpi .h{font-size:12px;color:#5b6b82;font-weight:700}.mx-kpi .big{font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;color:var(--blue);background:#eef2f7;border-radius:6px;display:inline-block;padding:1px 9px;margin:8px 0}.mx-kpi .r{display:flex;justify-content:space-between;font-size:11.5px;color:#5b6b82;margin-top:5px}.mx-kpi .r b{color:var(--blue)}.mx-tabs2{display:flex;gap:24px;padding:14px 16px 0;border-bottom:1px solid var(--line);margin-top:12px}.mx-tab2{font-size:13px;font-weight:700;color:#5b6b82;padding-bottom:10px;border-bottom:2px solid transparent;cursor:pointer}.mx-tab2.on{color:var(--orange);border-bottom-color:var(--orange)}.mx-funnelwrap{display:flex;gap:30px;padding:24px 18px;align-items:center;flex-wrap:wrap}.mx-funnel{flex:1;min-width:240px;display:flex;flex-direction:column;align-items:center;gap:3px}.mx-funnel .total{font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;color:var(--blue);align-self:flex-start;margin-bottom:8px}.mx-seg{color:#fff;font-weight:700;font-size:12px;text-align:center;padding:7px 0;clip-path:polygon(7% 0,93% 0,85% 100%,15% 100%);transition:width .6s}.mx-legend{display:flex;flex-direction:column;gap:9px;font-size:12px;color:#5b6b82}.mx-legend div{display:flex;align-items:center;gap:8px}.mx-legend i{width:11px;height:11px;border-radius:3px;flex:none}/* crmx integrated inside the VidyaAI sticky dashboard */
 .crm.crmx{padding:0}.crm .crmx-body{min-height:0;flex:1}.crm .crmx-main{overflow-y:auto}.crm .crmx-side{width:152px}.crm .crmx-top{padding:9px 12px}.crm .crmx-search{max-width:none;font-size:11px}.crm .mx-kpis{grid-template-columns:1fr 1fr;gap:8px;padding-top:6px}.crm .mx-kpi{padding:10px}.crm .mx-kpi .big{font-size:20px;margin:6px 0}.crm .mx-funnelwrap{padding:18px 14px;gap:18px}.crm .lx-row{margin:0 12px 10px}/* "view more dashboards" step + premium teaser */
-.vd-step.vd-more{border-style:dashed;border-color:var(--orange);color:var(--orange);background:#fff5ef}.vd-step.vd-more b{background:var(--orange);color:#fff}.vd-more-head{text-align:center;margin-bottom:16px}.vd-more-eyebrow{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);background:var(--orange-soft);padding:5px 13px;border-radius:999px;margin-bottom:10px}.vd-more-head h4{font-family:'Poppins',sans-serif;font-size:22px;font-weight:800;color:var(--blue)}.vd-more-head p{color:var(--muted);font-size:14px;max-width:520px;margin:6px auto 0;line-height:1.5}.vd-locked{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.vd-lk{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;font-weight:700;color:var(--blue);transition:.2s}.vd-lk .ic{font-size:16px}.vd-lk .lock{margin-left:auto;font-size:12px;opacity:.45}.vd-lk:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:var(--shadow-sm)}.vd-more-cta{display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(135deg,var(--blue),#21457a);color:#fff;border-radius:16px;padding:18px 22px;flex-wrap:wrap}.vd-more-cta b{display:block;font-family:'Poppins',sans-serif;font-size:15px;margin-bottom:3px}.vd-more-cta span{font-size:13px;color:#c6d3e6}.vd-more-cta .btn{flex:none}/* ===================== VIDYA DASHBOARD — advanced controls ===================== */
+.vd-step.vd-more{border-style:dashed;border-color:var(--orange);color:var(--orange);background:#fff5ef}.vd-step.vd-more b{background:var(--orange);color:#fff}.vd-more-head{text-align:center;margin-bottom:16px}.vd-more-eyebrow{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);background:var(--orange-soft);padding:5px 13px;border-radius:999px;margin-bottom:10px}.vd-more-head h4{font-family:'Poppins',sans-serif;font-size:22px;font-weight:800;color:var(--blue)}.vd-more-head p{color:var(--muted);font-size:14px;max-width:520px;margin:6px auto 0;line-height:1.5}.vd-locked{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.vd-lk{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;font-weight:700;color:var(--blue);transition:.2s}.vd-lk .ic{font-size:16px}.vd-lk .lock{margin-left:auto;font-size:12px;opacity:.45}.vd-lk:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:var(--shadow-sm)}.vd-more-cta{display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(135deg,var(--blue),#21457a);color:#fff;border-radius:16px;padding:18px 22px;flex-wrap:wrap}.vd-more-cta b{display:block;font-family:'Poppins',sans-serif;font-size:15px;margin-bottom:3px}.vd-more-cta span{font-size:13px;color:#c6d3e6}.vd-more-cta .btn{flex:none}/* ===================== VIDYA DASHBOARD - advanced controls ===================== */
 .vd-ctrl{display:flex;align-items:center;gap:12px;padding:10px 18px;background:#fff;border-bottom:1px solid var(--line)}.vd-nav{flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--blue);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.2s}.vd-nav:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-1px)}.vd-play{flex:none;width:34px;height:34px;border-radius:50%;border:none;background:var(--orange);color:#fff;font-size:12px;cursor:pointer;display:grid;place-items:center;box-shadow:0 6px 16px rgba(222,110,48,.35)}.vd-prog{flex:1;height:5px;background:#eef2f7;border-radius:5px;overflow:hidden}.vd-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),#f0974f);border-radius:5px}.vd-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:4px;vertical-align:middle;box-shadow:0 0 0 0 rgba(16,84,185,.5);animation:pulse2 2s infinite}.vd-body{touch-action:pan-y}/* ===================== VIDYA DASHBOARD (clear tabbed) ===================== */
 .vd{max-width:980px;margin:30px auto 0;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);background:#fff}.vd-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);background:#fff}.vd-logo{height:30px;width:auto;display:block}.vd-live{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;color:#164ea3;text-transform:uppercase;letter-spacing:.5px}.vd-live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(16,84,185,.5);animation:pulse2 2s infinite}.vd-steps{display:flex;flex-wrap:wrap;gap:8px;padding:14px;background:#fafbfd;border-bottom:1px solid var(--line)}.vd-step{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;font-weight:700;color:var(--blue);cursor:pointer;transition:.2s}.vd-step:hover{border-color:var(--orange);color:var(--orange)}.vd-step b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#eef2f7;color:var(--blue);font-size:11px}.vd-step.on{background:var(--blue);color:#fff;border-color:var(--blue)}.vd-step.on b{background:var(--orange);color:#fff}.vd-cap{padding:13px 18px;background:#fff;color:var(--muted);font-size:14px;border-bottom:1px solid var(--line);line-height:1.5}.vd-body{padding:18px;background:#f4f6f9}.vd-view{display:none;animation:slideIn .4s ease}.vd-view.on{display:block}.vd .mx-kpis{grid-template-columns:1fr 1fr;gap:10px}.vd .mx-funnelwrap{padding:18px 6px;gap:18px}.vd .lx-row{margin:0 0 10px}/* ===================== SEGMENT CHOOSER (clear) ===================== */
-.seg3-tabs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:26px 0}.seg3-tab{display:inline-flex;align-items:center;gap:9px;padding:12px 18px;border-radius:14px;border:1.5px solid var(--line);background:#fff;font:inherit;font-weight:700;font-size:14.5px;color:var(--blue);cursor:pointer;transition:.2s}.seg3-tab .e{font-size:18px}.seg3-tab:hover{border-color:var(--orange);color:var(--orange)}.seg3-tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}.seg3-panel{display:grid;grid-template-columns:1.05fr .95fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-sm);overflow:hidden}.seg3-left{padding:clamp(26px,4vw,40px)}.seg3-left .for{font-family:'Poppins',sans-serif;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px}.seg3-left h3{font-family:'Poppins',sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:800;letter-spacing:-.6px;margin-bottom:12px;line-height:1.15}.seg3-left .desc{color:var(--muted);font-size:16px;margin-bottom:22px;line-height:1.6}.seg3-bl{list-style:none;display:flex;flex-direction:column;gap:14px;margin:0 0 26px}.seg3-bl li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:#333e4f;line-height:1.5}.seg3-bl .ck{flex:none;width:24px;height:24px;border-radius:7px;background:var(--orange-soft);color:var(--orange);display:grid;place-items:center;font-weight:900;font-size:13px}.seg3-right{background:linear-gradient(160deg,var(--blue),#21457a);color:#fff;padding:clamp(26px,4vw,40px);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}.seg3-right::before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:rgba(222,110,48,.3);filter:blur(80px);top:-90px;right:-50px}.seg3-emoji{font-size:54px;margin-bottom:12px;position:relative}.seg3-stat{font-family:'Poppins',sans-serif;font-size:clamp(40px,6vw,58px);font-weight:800;color:#ffd9bf;line-height:1;letter-spacing:-2px;position:relative}.seg3-statl{font-size:14px;color:#c6d3e6;font-weight:600;margin:8px 0 22px;position:relative}.seg3-feat{position:relative;display:flex;flex-direction:column;gap:10px}.seg3-feat div{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:600;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 14px}.seg3-feat .d{width:7px;height:7px;border-radius:50%;background:#7cb0ff;flex:none}/* ===================== WHATSAPP — realistic screen ===================== */
-.wachat{max-width:380px;width:100%;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);background:#fff}.wa-hd{background:#072a5e;color:#fff;display:flex;align-items:center;gap:10px;padding:11px 13px}.wa-hd .bk{font-size:20px;opacity:.9}.wa-av{width:38px;height:38px;border-radius:50%;background:#fff;object-fit:contain;padding:3px;flex:none}.wa-hd b{font-size:14px;display:block;line-height:1.25}.wa-hd small{font-size:10.5px;opacity:.85}.wa-hd .wa-ic{margin-left:auto;font-size:14px;opacity:.92;letter-spacing:1px}.wa-bd{height:420px;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:8px;background:#ece5dd;background-image:radial-gradient(rgba(0,0,0,.03) 1px,transparent 1px);background-size:18px 18px}.wa-bd .cmsg{max-width:82%;padding:8px 11px 7px;border-radius:9px;font-size:13.5px;box-shadow:0 1px 1px rgba(0,0,0,.08);line-height:1.45;animation:cin .35s both}.wa-bd .cmsg--a{align-self:flex-start;background:#fff;color:var(--ink);border:none;border-bottom-left-radius:2px}.wa-bd .cmsg--u{align-self:flex-end;background:#c6daf8;color:#0b1e3b;border-bottom-right-radius:2px}.wa-bd .cmsg--u::after{content:"✓✓";color:#3480f1;font-size:10px;float:right;margin:3px 0 -3px 8px}.wa-bd .cmsg--sys{align-self:center;background:#ffe8d6;color:#7a4d2a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:8px;box-shadow:none}.wa-bd .ctyping{align-self:flex-start;background:#fff;border:none}.wa-input{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#f0f0f0;color:#8a96a3;font-size:13px}.wa-input>span:first-child{flex:1;background:#fff;border-radius:20px;padding:9px 14px}.wa-input .snd{width:36px;height:36px;border-radius:50%;background:#072a5e;color:#fff;display:grid;place-items:center;flex:none}/* ===================== WHATSAPP — realistic screen END ===================== */
-/* counsellor intelligence — leaderboard */
+.seg3-tabs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:26px 0}.seg3-tab{display:inline-flex;align-items:center;gap:9px;padding:12px 18px;border-radius:14px;border:1.5px solid var(--line);background:#fff;font:inherit;font-weight:700;font-size:14.5px;color:var(--blue);cursor:pointer;transition:.2s}.seg3-tab .e{font-size:18px}.seg3-tab:hover{border-color:var(--orange);color:var(--orange)}.seg3-tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}.seg3-panel{display:grid;grid-template-columns:1.05fr .95fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-sm);overflow:hidden}.seg3-left{padding:clamp(26px,4vw,40px)}.seg3-left .for{font-family:'Poppins',sans-serif;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px}.seg3-left h3{font-family:'Poppins',sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:800;letter-spacing:-.6px;margin-bottom:12px;line-height:1.15}.seg3-left .desc{color:var(--muted);font-size:16px;margin-bottom:22px;line-height:1.6}.seg3-bl{list-style:none;display:flex;flex-direction:column;gap:14px;margin:0 0 26px}.seg3-bl li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:#333e4f;line-height:1.5}.seg3-bl .ck{flex:none;width:24px;height:24px;border-radius:7px;background:var(--orange-soft);color:var(--orange);display:grid;place-items:center;font-weight:900;font-size:13px}.seg3-right{background:linear-gradient(160deg,var(--blue),#21457a);color:#fff;padding:clamp(26px,4vw,40px);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}.seg3-right::before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:rgba(222,110,48,.3);filter:blur(80px);top:-90px;right:-50px}.seg3-emoji{font-size:54px;margin-bottom:12px;position:relative}.seg3-stat{font-family:'Poppins',sans-serif;font-size:clamp(40px,6vw,58px);font-weight:800;color:#ffd9bf;line-height:1;letter-spacing:-2px;position:relative}.seg3-statl{font-size:14px;color:#c6d3e6;font-weight:600;margin:8px 0 22px;position:relative}.seg3-feat{position:relative;display:flex;flex-direction:column;gap:10px}.seg3-feat div{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:600;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 14px}.seg3-feat .d{width:7px;height:7px;border-radius:50%;background:#7cb0ff;flex:none}/* ===================== WHATSAPP - realistic screen ===================== */
+.wachat{max-width:380px;width:100%;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);background:#fff}.wa-hd{background:#072a5e;color:#fff;display:flex;align-items:center;gap:10px;padding:11px 13px}.wa-hd .bk{font-size:20px;opacity:.9}.wa-av{width:38px;height:38px;border-radius:50%;background:#fff;object-fit:contain;padding:3px;flex:none}.wa-hd b{font-size:14px;display:block;line-height:1.25}.wa-hd small{font-size:10.5px;opacity:.85}.wa-hd .wa-ic{margin-left:auto;font-size:14px;opacity:.92;letter-spacing:1px}.wa-bd{height:420px;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:8px;background:#ece5dd;background-image:radial-gradient(rgba(0,0,0,.03) 1px,transparent 1px);background-size:18px 18px}.wa-bd .cmsg{max-width:82%;padding:8px 11px 7px;border-radius:9px;font-size:13.5px;box-shadow:0 1px 1px rgba(0,0,0,.08);line-height:1.45;animation:cin .35s both}.wa-bd .cmsg--a{align-self:flex-start;background:#fff;color:var(--ink);border:none;border-bottom-left-radius:2px}.wa-bd .cmsg--u{align-self:flex-end;background:#c6daf8;color:#0b1e3b;border-bottom-right-radius:2px}.wa-bd .cmsg--u::after{content:"✓✓";color:#3480f1;font-size:10px;float:right;margin:3px 0 -3px 8px}.wa-bd .cmsg--sys{align-self:center;background:#ffe8d6;color:#7a4d2a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:8px;box-shadow:none}.wa-bd .ctyping{align-self:flex-start;background:#fff;border:none}.wa-input{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#f0f0f0;color:#8a96a3;font-size:13px}.wa-input>span:first-child{flex:1;background:#fff;border-radius:20px;padding:9px 14px}.wa-input .snd{width:36px;height:36px;border-radius:50%;background:#072a5e;color:#fff;display:grid;place-items:center;flex:none}/* ===================== WHATSAPP - realistic screen END ===================== */
+/* counsellor intelligence - leaderboard */
 
-/* ===================== INTEGRATIONS — explorer ===================== */
+/* ===================== INTEGRATIONS - explorer ===================== */
 .ig-stats{display:flex;gap:46px;justify-content:center;margin:6px 0 30px;flex-wrap:wrap;text-align:center}.ig-stats .n{font-family:'Poppins',sans-serif;font-size:32px;font-weight:800;line-height:1}.ig-stats .l{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:6px}.ig{display:grid;grid-template-columns:290px 1fr;align-items:stretch;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-sm);overflow:hidden;background:#fff}.ig-nav{display:flex;flex-direction:column;background:var(--bg-soft);border-right:1px solid var(--line);padding:12px;gap:2px}.ig-nb{display:flex;align-items:center;gap:11px;padding:13px 14px;border:0;background:none;font:inherit;text-align:left;font-size:13.5px;font-weight:700;color:var(--muted);border-radius:12px;cursor:pointer;transition:.2s;border-left:3px solid transparent}.ig-nb .e{font-size:17px;width:20px;text-align:center;flex:none}.ig-nb:hover{color:var(--blue)}.ig-nb.on{background:#fff;color:var(--orange);box-shadow:var(--shadow-sm)}.ig-panel{padding:26px}.ig-phead{display:flex;align-items:center;gap:12px;margin-bottom:6px}.ig-arw{flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--blue);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.2s}.ig-arw:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-1px)}#igNext{margin-left:auto}.ig-count{font-family:'Poppins',sans-serif;font-weight:800;color:var(--orange);font-size:14px}.ig-phead h3{font-family:'Poppins',sans-serif;font-size:21px;font-weight:800;letter-spacing:-.4px}.ig-pd{color:var(--muted);font-size:14px;margin-bottom:18px;max-width:560px}.ig-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:18px}.ig-card{height:150px;border:1px solid var(--line);border-radius:16px;display:grid;place-items:center;padding:22px;transition:.25s;background:#fff;animation:igin .5s both}
 @keyframes igin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}.ig-card:hover{border-color:rgba(222,110,48,.4);box-shadow:var(--shadow-sm);transform:translateY(-3px)}.ig-card img{max-width:92%;max-height:96px;object-fit:contain;filter:none;opacity:1;mix-blend-mode:multiply;transition:transform .3s}.ig-card:hover img{transform:scale(1.07)}
 @media(max-width:820px){.ig{grid-template-columns:1fr}.ig-nav{display:none}
 }
 @media(max-width:560px){.ig-grid{grid-template-columns:repeat(3,1fr);gap:8px}.ig-card{height:80px;padding:8px;border-radius:12px}.ig-card img{max-height:48px;max-width:90%}.ig-panel{padding:16px}
-}/* ===================== SEGMENT — PREMIUM SCROLLYTELLING ===================== */
+}/* ===================== SEGMENT - PREMIUM SCROLLYTELLING ===================== */
 .sx{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:10px}.sx-ch{min-height:86vh;display:flex;flex-direction:column;justify-content:center;padding:40px 0;opacity:.26;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}.sx-ch.active{opacity:1;transform:none}.sx-ix{display:flex;align-items:center;gap:14px;font-family:'Poppins',sans-serif;font-size:15px;font-weight:800;color:var(--orange);letter-spacing:1px;margin-bottom:16px}.sx-kick{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}.sx-ch h3{font-family:'Poppins',sans-serif;font-size:clamp(28px,3.4vw,42px);font-weight:800;letter-spacing:-1.2px;line-height:1.08;margin-bottom:16px}.sx-ch p{color:var(--muted);font-size:17.5px;line-height:1.7;max-width:480px;margin-bottom:24px}.sx-feats{list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--line);max-width:480px}.sx-feats li{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line)}.sx-feats .n{font-family:'Poppins',sans-serif;font-size:12px;font-weight:800;color:var(--orange);padding-top:3px;min-width:22px}.sx-feats b{display:block;font-size:15px;color:var(--blue);margin-bottom:2px}.sx-feats span{font-size:13.5px;color:var(--muted)}/* sticky stage */
 .sx-stage{position:sticky;top:92px;height:84vh;max-height:700px;display:grid;grid-template-columns:auto 1fr;gap:22px}.sx-rail{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px}.sx-rdot{appearance:none;border:0;background:none;font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;color:#c2ccd8;font-family:'Poppins',sans-serif;font-weight:800;font-size:12px;padding:3px}.sx-rdot .ln{width:2px;height:24px;background:var(--line);border-radius:2px;transition:.35s}.sx-rdot.on{color:var(--orange)}.sx-rdot.on .ln{background:var(--orange);height:40px}.sx-right{display:flex;flex-direction:column;gap:16px;min-height:0}.sx-visual{flex:1;position:relative;border-radius:30px;overflow:hidden;background:radial-gradient(130% 130% at 0% 0%,#21457a 0%,#19345d 58%);box-shadow:0 50px 100px -30px rgba(25,52,93,.55);min-height:360px}.sx-visual::before{content:"";position:absolute;width:320px;height:320px;border-radius:50%;background:rgba(222,110,48,.3);filter:blur(90px);top:-110px;right:-60px;z-index:0}.sx-visual::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:42px 42px;opacity:.5;z-index:0}.sx-scene{position:absolute;inset:0;z-index:1;padding:clamp(26px,3.4vw,42px);display:flex;flex-direction:column;justify-content:space-between;color:#fff;opacity:0;transform:scale(1.04) translateY(10px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);pointer-events:none}.sx-scene.on{opacity:1;transform:none;pointer-events:auto}.sx-top{display:flex;align-items:center;gap:14px}.sx-badge{width:52px;height:52px;border-radius:15px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;color:#fff;flex:none}.sx-badge svg,.sx-badge img.eeimg{width:26px;height:26px}.sx-tt .sx-nm{font-family:'Poppins',sans-serif;font-weight:800;font-size:18px}.sx-tt .sx-sub{font-size:12px;color:#9bb3d6;font-weight:600}.sx-live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:800;letter-spacing:1.5px;color:#7cb0ff}.sx-live .d{width:7px;height:7px;border-radius:50%;background:#3474d3;animation:pulse2 2s infinite}.sx-metric{font-family:'Poppins',sans-serif;font-size:clamp(46px,7vw,76px);font-weight:800;color:#ffd9bf;line-height:1;letter-spacing:-3px}.sx-metricl{font-size:15px;color:#c6d3e6;font-weight:500;margin-top:10px;max-width:320px}.sx-glass{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:18px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);overflow:hidden}.sx-gr{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;font-size:14px;border-bottom:1px solid rgba(255,255,255,.08)}.sx-gr:last-child{border-bottom:0}.sx-gr span{color:#9bb3d6}.sx-gr b{color:#fff;font-weight:700}.sx-cta{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--orange);color:#fff;border-radius:16px;padding:16px 22px;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 14px 30px rgba(222,110,48,.32);transition:transform .25s,box-shadow .25s}.sx-cta:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(222,110,48,.42)}.sx-cta svg,.sx-cta img.eeimg{width:20px;height:20px;flex:none}
 @media(max-width:980px){.sx{grid-template-columns:1fr;gap:8px}.sx-stage{position:sticky;top:64px;height:auto;order:-1;grid-template-columns:1fr;gap:14px}.sx-rail{display:none}.sx-visual{min-height:330px}.sx-ch{min-height:auto;opacity:1;transform:none;padding:24px 0}.sx-ch p,.sx-feats{max-width:none}
@@ -213,7 +213,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 @media(max-width:400px){.iphone{width:262px;height:540px;border-radius:46px}.ip-screen{border-radius:37px}.fc1,.fc3{left:-6px}.fc2{right:-6px}.fcard{padding:9px 11px}.fcard .fi{width:30px;height:30px;font-size:15px}.fcard b{font-size:11px}.fcard small{font-size:9.5px}.iphone-stage{min-height:560px}.scta__r .btn{padding:12px 16px;font-size:14px}
 }
 </style>
-<style id="ee-compact-rhythm">/* Uniform section rhythm: 18px top / 18px bottom on EVERY section — removes the
+<style id="ee-compact-rhythm">/* Uniform section rhythm: 18px top / 18px bottom on EVERY section - removes the
    large white space between sections. The two full-bleed interactive sections
    (Agentic pinned-scroll + the story iframe) keep their own spacing so their
    scroll mechanics aren't disturbed. */
@@ -230,11 +230,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 
 <!-- The theme's header.php already opens <main id="main-content">, so this
      homepage uses a plain wrapper <div> (not a second <main>) to avoid two
-     nested <main> landmarks — invalid HTML and bad for SEO/screen readers. -->
+     nested <main> landmarks - invalid HTML and bad for SEO/screen readers. -->
 <div class="ee-home">
 <!-- ===================== HERO (WebGL) ===================== -->
-<!-- ===================== HERO — brand edition (scoped #xhero) ===================== -->
-<style>/* EXTRAAEDGE HERO — brand edition · scoped under #xhero (no global bleed) */
+<!-- ===================== HERO - brand edition (scoped #xhero) ===================== -->
+<style>/* EXTRAAEDGE HERO - brand edition · scoped under #xhero (no global bleed) */
 #xhero{
   --navy:#19345d; --orange:#DE6E30; --bg:#FFFFFF;
   --navy-90:rgba(25,52,93,.9); --navy-70:rgba(25,52,93,.7); --navy-55:rgba(25,52,93,.55);
@@ -373,7 +373,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
         @media(prefers-reduced-motion:reduce){#xhero .hero__rot{transition:none}}
       </style>
       <h1 class="reveal d2 hero__rot" id="heroRot" aria-live="polite">Convert More Student Enquiries Into Admissions With <span class="accent">AI-Powered Education CRM</span></h1>
-      <p class="sub reveal d3">The AI-powered Admission CRM where co-pilots and agents <b>qualify leads, brief counsellors and follow up 24/7</b> &mdash; so your team spends time enrolling students, not chasing them.</p>
+      <p class="sub reveal d3">The AI-powered Admission CRM where co-pilots and agents <b>qualify leads, brief counsellors and follow up 24/7</b> - so your team spends time enrolling students, not chasing them.</p>
       <div class="chips reveal d4">
         <span class="chip"><i>&#9889;</i> Go live in 7 days</span>
         <span class="chip"><i>&#128279;</i> Works with your existing forms &amp; portals</span>
@@ -392,7 +392,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     </div>
     <style>/* Exact same demo-form card as the product page (single-product.php) */
       #xhero .hero-form-aside{width:100%}#xhero .hero-form-card{position:relative;background:#fff;border:1px solid #EDF0F5;border-radius:26px;padding:clamp(26px,3vw,42px);box-shadow:0 30px 70px -20px rgba(25,52,93,.26)}#xhero .hero-form-card::after{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;background:linear-gradient(140deg,rgba(222,110,48,.5),transparent 40%,transparent 60%,rgba(25,52,93,.4));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55}#xhero .hero-form-card::before{content:"Book a Free Demo";position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#E8843F 0%,#DE6E30 55%,#C2541C 100%);color:#fff;padding:7px 20px;border-radius:999px;font-weight:700;font-size:11px;letter-spacing:.04em;white-space:nowrap;box-shadow:0 18px 44px -14px rgba(222,110,48,.55)}#xhero .secure-label{text-align:center;margin-top:18px;font-size:10.5px;color:rgba(25,52,93,.5);font-weight:600;letter-spacing:.08em;text-transform:uppercase}/* ── EE form-7 widget: FORCE clean single-column layout (overrides global page CSS + widget internals) ── */
-      #ee-form-7,#ee-form-7 *{box-sizing:border-box!important}#ee-form-7 form{display:block!important;width:100%!important}#ee-form-7 form>div,#ee-form-7 form>div>div{display:block!important;width:100%!important;max-width:100%!important;float:none!important;grid-template-columns:1fr!important;margin-bottom:12px!important}#ee-form-7 h1,#ee-form-7 h2,#ee-form-7 h3,#ee-form-7 h4{line-height:1.2!important;margin:0 0 4px!important;text-align:center!important}#ee-form-7 p{line-height:1.45!important;margin:0 0 14px!important}#ee-form-7 label{display:block!important;float:none!important;width:auto!important;max-width:100%!important;text-align:left!important;color:#19345d!important;font-weight:600!important;font-size:13px!important;margin:0 0 6px!important}#ee-form-7 input[type="text"],#ee-form-7 input[type="email"],#ee-form-7 input[type="tel"],#ee-form-7 input[type="url"],#ee-form-7 input[type="number"],#ee-form-7 select,#ee-form-7 textarea{display:block!important;float:none!important;background-color:#fff!important;color:#19345d!important;border:1px solid #e2e8f0!important;border-radius:10px!important;padding:12px 14px!important;font-size:14px!important;font-family:'Inter',sans-serif!important;width:100%!important;max-width:100%!important;box-shadow:none!important;transition:border-color .2s,box-shadow .2s!important}#ee-form-7 input:focus,#ee-form-7 select:focus,#ee-form-7 textarea:focus{outline:none!important;border-color:#DE6E30!important;box-shadow:0 0 0 3px rgba(222,110,48,.12)!important}#ee-form-7 input::placeholder,#ee-form-7 textarea::placeholder{color:#94a2b8!important;opacity:1!important}#ee-form-7 input[type="submit"],#ee-form-7 button[type="submit"]{display:block!important;background-color:#DE6E30!important;color:#fff!important;border:none!important;border-radius:12px!important;padding:14px 28px!important;font-size:15px!important;font-weight:700!important;font-family:'Inter',sans-serif!important;width:100%!important;cursor:pointer!important;transition:all .3s!important;box-shadow:0 8px 20px rgba(222,110,48,.25)!important}#ee-form-7 input[type="submit"]:hover,#ee-form-7 button[type="submit"]:hover{background-color:#c85d20!important;transform:translateY(-2px)!important;box-shadow:0 12px 28px rgba(222,110,48,.35)!important}/* phone field (intl-tel-input) — restored AFTER the block resets so the +91 flag sits correctly */
+      #ee-form-7,#ee-form-7 *{box-sizing:border-box!important}#ee-form-7 form{display:block!important;width:100%!important}#ee-form-7 form>div,#ee-form-7 form>div>div{display:block!important;width:100%!important;max-width:100%!important;float:none!important;grid-template-columns:1fr!important;margin-bottom:12px!important}#ee-form-7 h1,#ee-form-7 h2,#ee-form-7 h3,#ee-form-7 h4{line-height:1.2!important;margin:0 0 4px!important;text-align:center!important}#ee-form-7 p{line-height:1.45!important;margin:0 0 14px!important}#ee-form-7 label{display:block!important;float:none!important;width:auto!important;max-width:100%!important;text-align:left!important;color:#19345d!important;font-weight:600!important;font-size:13px!important;margin:0 0 6px!important}#ee-form-7 input[type="text"],#ee-form-7 input[type="email"],#ee-form-7 input[type="tel"],#ee-form-7 input[type="url"],#ee-form-7 input[type="number"],#ee-form-7 select,#ee-form-7 textarea{display:block!important;float:none!important;background-color:#fff!important;color:#19345d!important;border:1px solid #e2e8f0!important;border-radius:10px!important;padding:12px 14px!important;font-size:14px!important;font-family:'Inter',sans-serif!important;width:100%!important;max-width:100%!important;box-shadow:none!important;transition:border-color .2s,box-shadow .2s!important}#ee-form-7 input:focus,#ee-form-7 select:focus,#ee-form-7 textarea:focus{outline:none!important;border-color:#DE6E30!important;box-shadow:0 0 0 3px rgba(222,110,48,.12)!important}#ee-form-7 input::placeholder,#ee-form-7 textarea::placeholder{color:#94a2b8!important;opacity:1!important}#ee-form-7 input[type="submit"],#ee-form-7 button[type="submit"]{display:block!important;background-color:#DE6E30!important;color:#fff!important;border:none!important;border-radius:12px!important;padding:14px 28px!important;font-size:15px!important;font-weight:700!important;font-family:'Inter',sans-serif!important;width:100%!important;cursor:pointer!important;transition:all .3s!important;box-shadow:0 8px 20px rgba(222,110,48,.25)!important}#ee-form-7 input[type="submit"]:hover,#ee-form-7 button[type="submit"]:hover{background-color:#c85d20!important;transform:translateY(-2px)!important;box-shadow:0 12px 28px rgba(222,110,48,.35)!important}/* phone field (intl-tel-input) - restored AFTER the block resets so the +91 flag sits correctly */
       #ee-form-7 .iti,#ee-form-7 .iti__country-list{background-color:#fff!important;color:#19345d!important}#ee-form-7 .iti{position:relative!important;display:block!important;width:100%!important}#ee-form-7 .iti input[type="tel"]{padding-left:96px!important;width:100%!important}#ee-form-7 .iti__flag-container{position:absolute!important;top:0;bottom:0;left:0;z-index:2;display:flex!important;align-items:center}#ee-form-7 .iti__selected-flag{height:100%!important;padding:0 8px 0 14px!important;background:transparent!important;border-right:1px solid rgba(25,52,93,.10)!important;display:flex!important;align-items:center;gap:6px}#ee-form-7 .iti__selected-dial-code{color:#19345d!important;font-weight:700;font-size:.95rem}#ee-form-7 .iti__country-list{position:absolute!important;z-index:5!important}#ee-form-7 .iti__arrow{margin-left:4px!important}
       @media(max-width:1024px){#xhero .hero-form-aside{max-width:540px;margin:0 auto}}
       @media(max-width:480px){#xhero .hero-form-card{padding:24px 20px}}
@@ -407,7 +407,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   </div>
 </section>
 <script>
-/* hero rotating headlines — typewriter (text-telling) */
+/* hero rotating headlines - typewriter (text-telling) */
 (function(){
   var DATA=[
     {pre:'Convert More Student Enquiries Into Admissions With ', acc:'AI-Powered Education CRM'},
@@ -419,7 +419,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   if(reduce){ var d0=DATA[0]; el.innerHTML=d0.pre+'<span class="accent">'+d0.acc+'</span>'; return; }
 
-  /* Build stable child nodes ONCE. Typing then only mutates their text content —
+  /* Build stable child nodes ONCE. Typing then only mutates their text content -
      no per-keystroke innerHTML reparse/reflow (that was the stutter), and the
      caret keeps its own steady blink instead of being recreated every frame. */
   var pre=document.createElement('span');
@@ -450,13 +450,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   /* start fully showing headline 1 (SEO-friendly, no flash), then cycle */
   n=DATA[0].pre.length+DATA[0].acc.length; render(n);
   t=setTimeout(delLoop,START_HOLD);
-  /* pause only when the tab is hidden — no hover pause (hovering the full-viewport
+  /* pause only when the tab is hidden - no hover pause (hovering the full-viewport
      hero was freezing the animation mid-word) */
   document.addEventListener('visibilitychange',function(){ paused=document.hidden; if(!paused){ /* resume promptly */ } });
 })();
 </script>
 <script>
-/* ===================== HERO — brand edition (scoped IIFE) ===================== */
+/* ===================== HERO - brand edition (scoped IIFE) ===================== */
 (function(){
 const $=s=>document.querySelector(s);
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -465,7 +465,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 (function(){
   const cv=$('#glsl'); if(!cv) return;
   /* skip the WebGL hero animation on reduced-motion and on phones/tablets
-     (touch or narrow) — the CSS gradient background stays; saves battery,
+     (touch or narrow) - the CSS gradient background stays; saves battery,
      GPU and main-thread work on mobile for better LCP/INP */
   var _small=(window.innerWidth||document.documentElement.clientWidth||0)<900;
   var _touch=window.matchMedia&&window.matchMedia('(hover:none)').matches;
@@ -544,16 +544,16 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!$('#s1')) return;
   const scenarios=[
     {chan:'WHATSAPP',who:'Riya S. · Pune · 22:41',msg:'Hi! I want to apply for B.Tech CSE but I think I missed the deadline 😟',
-     think:['Intent detected: Admission · B.Tech CSE','Eligibility & late-window policy checked','Scored 92/100 — high intent, hot region'],
-     reply:'Good news, Riya — late applications close Friday! I’ve reserved your slot and sent the form. Want help with documents?',
+     think:['Intent detected: Admission · B.Tech CSE','Eligibility & late-window policy checked','Scored 92/100 - high intent, hot region'],
+     reply:'Good news, Riya - late applications close Friday! I’ve reserved your slot and sent the form. Want help with documents?',
      acts:['📅 Call auto-booked · tom 11:00','📄 Application link sent','🔥 Routed to Priya · CSE desk'],score:92,name:'Riya S.'},
     {chan:'INSTAGRAM DM',who:'Arjun M. · Jaipur · 09:12',msg:'What’s the fee for MBA and do you offer scholarships?',
-     think:['Intent detected: Fees + Scholarship · MBA','Merit-scholarship matrix matched','Scored 78/100 — needs nurturing'],
-     reply:'Hi Arjun! MBA fees start at ₹4.2L/yr — and you may qualify for up to 40% merit scholarship. Shall I check your eligibility in 2 minutes?',
+     think:['Intent detected: Fees + Scholarship · MBA','Merit-scholarship matrix matched','Scored 78/100 - needs nurturing'],
+     reply:'Hi Arjun! MBA fees start at ₹4.2L/yr - and you may qualify for up to 40% merit scholarship. Shall I check your eligibility in 2 minutes?',
      acts:['🎓 Scholarship quiz sent','✉️ Brochure delivered','📊 Added to MBA nurture journey'],score:78,name:'Arjun M.'},
     {chan:'WEBSITE FORM',who:'Fatima K. · Dubai · 17:55',msg:'Interested in B.Sc Nursing for my daughter. Is hostel available for international students?',
-     think:['Intent detected: Parent enquiry · Intl','Hostel + visa docs retrieved','Scored 88/100 — decision-maker'],
-     reply:'Absolutely, Fatima — we have secure girls’ hostels with airport pickup for international students. I’ve emailed the parent guide. Prefer a call this week?',
+     think:['Intent detected: Parent enquiry · Intl','Hostel + visa docs retrieved','Scored 88/100 - decision-maker'],
+     reply:'Absolutely, Fatima - we have secure girls’ hostels with airport pickup for international students. I’ve emailed the parent guide. Prefer a call this week?',
      acts:['🌍 Intl. counsellor assigned','🏠 Hostel guide emailed','📞 AI voice follow-up queued'],score:88,name:'Fatima K.'}
   ];
   const S=[ $('#s1'),$('#s2'),$('#s3'),$('#s4') ];
@@ -734,7 +734,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   .eeps-cta-note{font-size:13.5px;color:var(--ee-slate)}
   @media (max-width:760px){.eeps-grid{grid-template-columns:1fr}}
 
-  /* ================= S6 · FEATURE PILLARS — BENTO scrollytelling ================= */
+  /* ================= S6 · FEATURE PILLARS - BENTO scrollytelling ================= */
   .eefp-section{background:var(--ee-bg-soft)}
   .eefp-head{max-width:760px}
   .eefp-bento{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(28px,4vw,44px)}
@@ -793,7 +793,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <div class="eeps-head">
       <span class="eeps-eyebrow ee-cine">The Real Problem</span>
       <h2 class="eeps-h2 ee-cine" style="--i:1" id="eeps-heading">Every admission season, good enquiries quietly slip away</h2>
-      <p class="eeps-sub ee-cine" style="--i:2">It&rsquo;s rarely a marketing problem &mdash; it&rsquo;s what happens <em>after</em> the enquiry: scattered leads, slow responses and manual follow-ups. Here&rsquo;s where admissions leak, and how ExtraaEdge plugs each gap.</p>
+      <p class="eeps-sub ee-cine" style="--i:2">It&rsquo;s rarely a marketing problem - it&rsquo;s what happens <em>after</em> the enquiry: scattered leads, slow responses and manual follow-ups. Here&rsquo;s where admissions leak, and how ExtraaEdge plugs each gap.</p>
     </div>
 
     <div class="eeps-grid">
@@ -801,18 +801,18 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         <div class="eeps-pain">
           <span class="eeps-pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v10"/><path d="M8 9l4 4 4-4"/><circle cx="12" cy="19" r="1.6"/></svg></span>
           <div><h3 class="eeps-pain-title">Leads scattered across 10+ channels</h3>
-          <p class="eeps-pain-text">Portals, Google &amp; Meta ads, walk-ins, IVR, education fairs, referrals &mdash; enquiries land everywhere, live in spreadsheets, and duplicates go unnoticed until it&rsquo;s too late.</p></div>
+          <p class="eeps-pain-text">Portals, Google &amp; Meta ads, walk-ins, IVR, education fairs, referrals - enquiries land everywhere, live in spreadsheets, and duplicates go unnoticed until it&rsquo;s too late.</p></div>
         </div>
-        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>One unified inbox.</strong> Every lead source auto-captured, deduplicated and assigned in seconds &mdash; nothing enters a spreadsheet, nothing gets lost.</p></div>
+        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>One unified inbox.</strong> Every lead source auto-captured, deduplicated and assigned in seconds - nothing enters a spreadsheet, nothing gets lost.</p></div>
       </article>
 
       <article class="eeps-card ee-cine" style="--i:2">
         <div class="eeps-pain">
           <span class="eeps-pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
           <div><h3 class="eeps-pain-title">Slow first response loses the student</h3>
-          <p class="eeps-pain-text">Prospects apply to 4&ndash;5 institutions at once. The one that responds first usually wins the conversation &mdash; and hours-long response times hand your admissions to competitors.</p></div>
+          <p class="eeps-pain-text">Prospects apply to 4&ndash;5 institutions at once. The one that responds first usually wins the conversation - and hours-long response times hand your admissions to competitors.</p></div>
         </div>
-        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>Instant engagement, 24&times;7.</strong> Automated WhatsApp, email &amp; AI chatbot replies fire the moment an enquiry arrives &mdash; your team follows up while interest is hottest.</p></div>
+        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>Instant engagement, 24&times;7.</strong> Automated WhatsApp, email &amp; AI chatbot replies fire the moment an enquiry arrives - your team follows up while interest is hottest.</p></div>
       </article>
 
       <article class="eeps-card ee-cine" style="--i:3">
@@ -821,7 +821,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
           <div><h3 class="eeps-pain-title">Counselors buried in manual follow-ups</h3>
           <p class="eeps-pain-text">With hundreds of leads per counselor, follow-ups get missed, notes stay in notebooks, and high-intent students get the same generic call as cold enquiries.</p></div>
         </div>
-        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>AI-prioritized worklists.</strong> Prediction scores and next-best-action tell every counselor exactly whom to call first &mdash; follow-up calendars make missing one nearly impossible.</p></div>
+        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>AI-prioritized worklists.</strong> Prediction scores and next-best-action tell every counselor exactly whom to call first - follow-up calendars make missing one nearly impossible.</p></div>
       </article>
 
       <article class="eeps-card ee-cine" style="--i:4">
@@ -830,27 +830,27 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
           <div><h3 class="eeps-pain-title">No visibility into what&rsquo;s actually working</h3>
           <p class="eeps-pain-text">Which publisher sends leads that convert? Which counselor needs coaching? Where does the funnel drop? Without answers, budgets get spent on channels that never enrol a single student.</p></div>
         </div>
-        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>50+ ready reports.</strong> Source-wise ROI, funnel drop-offs, counselor performance &mdash; every marketing rupee and every follow-up, measured in real time.</p></div>
+        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>50+ ready reports.</strong> Source-wise ROI, funnel drop-offs, counselor performance - every marketing rupee and every follow-up, measured in real time.</p></div>
       </article>
     </div>
 
   </div>
 </section>
 
-<!-- S6 · FEATURE PILLARS — BENTO grid + scroll storytelling -->
+<!-- S6 · FEATURE PILLARS - BENTO grid + scroll storytelling -->
 <section class="eefp-section" id="feature-pillars" aria-labelledby="eefp-heading">
   <div class="eefp-container">
     <div class="eefp-head">
       <span class="eefp-eyebrow ee-cine">Built For Admission Teams</span>
       <h2 class="eefp-h2 ee-cine" style="--i:1" id="eefp-heading">Everything your team needs, from first enquiry to enrolment</h2>
-      <p class="eefp-sub ee-cine" style="--i:2">Four pillars power every high-performing admission team on ExtraaEdge &mdash; scroll through the whole story.</p>
+      <p class="eefp-sub ee-cine" style="--i:2">Four pillars power every high-performing admission team on ExtraaEdge - scroll through the whole story.</p>
     </div>
 
     <div class="eefp-bento">
       <article class="eefp-tile t-lead eefp-rv from-l">
         <span class="eefp-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></span>
         <h3>Capture every lead, from every channel</h3>
-        <p>Connect ads, forms, portals, publishers and IVR once &mdash; every enquiry lands in one funnel, source-tracked, deduplicated and auto-assigned. Never copy-paste a lead again.</p>
+        <p>Connect ads, forms, portals, publishers and IVR once - every enquiry lands in one funnel, source-tracked, deduplicated and auto-assigned. Never copy-paste a lead again.</p>
         <div class="eefp-mini"><b>0</b> leads lost &middot; <b>50+</b> native integrations</div>
         <div class="eefp-chips">
           <span class="eefp-chip"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Google &middot; Meta &middot; LinkedIn</span>
@@ -864,7 +864,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         <span class="eefp-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 5.2L20 8l-4 4 1 5.6L12 15l-5 2.6L8 12 4 8l5.6-.8z"/></svg></span>
         <div class="eefp-big"><em>37%</em> higher conversions</div>
         <h3>AI tells your team whom to call first</h3>
-        <p>Prediction scores rank every prospect by likelihood to enrol &mdash; counselors spend the day on students who actually join.</p>
+        <p>Prediction scores rank every prospect by likelihood to enrol - counselors spend the day on students who actually join.</p>
       </article>
 
       <article class="eefp-tile t-comm eefp-rv from-b" style="--i:2">
@@ -876,7 +876,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <article class="eefp-tile t-analytics eefp-rv from-b" style="--i:3">
         <span class="eefp-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7" rx="1"/><rect x="12" y="6" width="3" height="11" rx="1"/><rect x="17" y="13" width="3" height="4" rx="1"/></svg></span>
         <h3>Analytics &amp; reporting</h3>
-        <p><strong>50+</strong> ready reports &mdash; source ROI, funnel drop-offs and counselor performance, in real time.</p>
+        <p><strong>50+</strong> ready reports - source ROI, funnel drop-offs and counselor performance, in real time.</p>
       </article>
 
     </div>
@@ -895,7 +895,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </script>
 
 <style>/* ===== AI Product-Led Experience: launch + full-screen overlay (all devices) ===== */
-#ee-platform .eep-mlaunch{display:none;}#ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}/* ---- full-screen experience overlay — the window is relocated to <body> on
+#ee-platform .eep-mlaunch{display:none;}#ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}/* ---- full-screen experience overlay - the window is relocated to <body> on
    open (escapes any transformed/contained ancestor so position:fixed maps to
    the real viewport) and these rules key off the window's own class ---- */
 .eep-window.eep-launched{
@@ -936,23 +936,23 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   <div class="eep-wrap">
     <header class="eep-head">
       <span class="eep-eyebrow"><i></i> AI Product-Led Experience</span>
-      <h2>Explore the platform yourself &mdash; no sales call needed</h2>
-      <p>An advanced, AI-powered interactive product experience. Click through the real Admission CRM &mdash; dashboards, AI, lead manager, WhatsApp &amp; automation. A guided tour walks you through it; click anywhere to take over. When you&rsquo;re ready, book a personalised demo on your own funnel.</p>
+      <h2>Explore the platform yourself - no sales call needed</h2>
+      <p>An advanced, AI-powered interactive product experience. Click through the real Admission CRM - dashboards, AI, lead manager, WhatsApp &amp; automation. A guided tour walks you through it; click anywhere to take over. When you&rsquo;re ready, book a personalised demo on your own funnel.</p>
     </header>
     <button type="button" class="eep-mlaunch" id="eepLaunch" aria-label="Open the interactive product experience">
       <span class="eep-mlaunch-play" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-01.svg" alt="" loading="lazy" decoding="async"></span>
-      <span class="eep-mlaunch-tx"><b>Launch the live product experience</b><i>Tap to explore the AI Admission CRM — full screen</i></span>
+      <span class="eep-mlaunch-tx"><b>Launch the live product experience</b><i>Tap to explore the AI Admission CRM - full screen</i></span>
       <span class="eep-mlaunch-arrow" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
     </button>
     <div class="eep-window">
       <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span><button type="button" class="eep-expand" id="eepExpand" aria-label="Open full screen"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-03.svg" alt="" loading="lazy" decoding="async"> Full screen</button><a class="eep-mbook" href="https://www.extraaedge.com/book-a-demo/">Book now</a><button type="button" class="eep-close" id="eepClose" aria-label="Close experience">&#10005;</button></div>
-      <iframe class="eep-frame" title="ExtraaEdge — Lead Management Platform (interactive demo)" id="eepFrame" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" data-srcdoc="<!DOCTYPE html>
+      <iframe class="eep-frame" title="ExtraaEdge - Lead Management Platform (interactive demo)" id="eepFrame" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" data-srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
 <meta charset=&quot;UTF-8&quot; />
 <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, viewport-fit=cover&quot; />
-<title>Laxmi | Lead Management Platform — ExtraaEdge (Interactive Replica)</title>
-<meta name=&quot;description&quot; content=&quot;Fully functional, all-device-friendly interactive replica of the ExtraaEdge (Laxmi) Lead Management Platform — every module from the reference screenshots.&quot; />
+<title>Laxmi | Lead Management Platform - ExtraaEdge (Interactive Replica)</title>
+<meta name=&quot;description&quot; content=&quot;Fully functional, all-device-friendly interactive replica of the ExtraaEdge (Laxmi) Lead Management Platform - every module from the reference screenshots.&quot; />
 <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot; />
 <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin />
 <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot; />
@@ -1046,9 +1046,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   <main class=&quot;main&quot; id=&quot;main&quot;>
     <section class=&quot;view on&quot; data-v=&quot;outcomes&quot;>
       <div class=&quot;vhead&quot;><h1>Business Outcomes</h1><div class=&quot;right&quot;><span class=&quot;sample-badge&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>Illustrative sample data</span></span></div></div>
-      <div class=&quot;privacy-bar&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span><b>Privacy-first demo.</b> All names, numbers and emails shown are fictional samples — real student data is masked. No internal rules, keys or confidential reports are exposed.</span></div>
+      <div class=&quot;privacy-bar&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span><b>Privacy-first demo.</b> All names, numbers and emails shown are fictional samples - real student data is masked. No internal rules, keys or confidential reports are exposed.</span></div>
       <div class=&quot;oc-hero&quot;>
-        <div class=&quot;htxt&quot;><h2>What ExtraaEdge delivers, in numbers</h2><p>Not just a dashboard — measurable results across response time, conversion, automation, productivity and ROI for your admission funnel.</p></div>
+        <div class=&quot;htxt&quot;><h2>What ExtraaEdge delivers, in numbers</h2><p>Not just a dashboard - measurable results across response time, conversion, automation, productivity and ROI for your admission funnel.</p></div>
         <div class=&quot;hsum&quot;>
           <div class=&quot;s&quot;><b>+40%</b><span>Conversion lift</span></div>
           <div class=&quot;s&quot;><b>12×</b><span>Faster response</span></div>
@@ -1059,7 +1059,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class=&quot;oc-grid&quot; id=&quot;ocGrid&quot;></div>
     </section>
     <section class=&quot;view&quot; data-v=&quot;ai&quot;>
-      <div class=&quot;vhead&quot;><div><span class=&quot;ai-eyebrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><path d=&quot;M13 2 3 14h7l-1 8 10-12h-7z&quot;/></svg> Powered by Vidya AI</span><h1 style=&quot;margin-top:8px&quot;>AI that does the work — not just assists</h1></div><div class=&quot;right&quot;><span class=&quot;sample-badge&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>Sample data</span></span></div></div>
+      <div class=&quot;vhead&quot;><div><span class=&quot;ai-eyebrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><path d=&quot;M13 2 3 14h7l-1 8 10-12h-7z&quot;/></svg> Powered by Vidya AI</span><h1 style=&quot;margin-top:8px&quot;>AI that does the work - not just assists</h1></div><div class=&quot;right&quot;><span class=&quot;sample-badge&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>Sample data</span></span></div></div>
       <div class=&quot;ai-grid&quot; id=&quot;aiGrid&quot;></div>
     </section>
     <section class=&quot;view&quot; data-v=&quot;mgmt&quot;>
@@ -1275,15 +1275,15 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var chk='<svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;><path d=&quot;M20 6 9 17l-5-5&quot;/></svg>';
   function aiViz(k){
     if(k==='voice'){var s='';for(var i=0;i<15;i++){s+='<i style=&quot;animation-delay:'+(i*0.07)+'s;animation-duration:'+(0.7+(i%4)*0.12)+'s&quot;></i>';}return '<div class=&quot;ai-wave&quot;>'+s+'</div>';}
-    if(k==='gpt')return '<div class=&quot;ai-chat&quot;><div class=&quot;ai-bub a&quot;>Hi! What are the fees?</div><div class=&quot;ai-bub u&quot;>Here you go 📄 — book a call?</div></div>';
+    if(k==='gpt')return '<div class=&quot;ai-chat&quot;><div class=&quot;ai-bub a&quot;>Hi! What are the fees?</div><div class=&quot;ai-bub u&quot;>Here you go 📄 - book a call?</div></div>';
     if(k==='waba')return '<div class=&quot;ai-chat&quot; style=&quot;align-items:flex-end&quot;><div class=&quot;ai-wabub&quot;>Your counselling slot is booked ✅</div></div>';
     if(k==='pulse')return '<div class=&quot;ai-pulse&quot;><span>92</span></div>';
     return '';
   }
   var AI=[
-    {k:'voice',name:'VidyaAI Voice Agent',tag:'AI voice calls in 10+ languages',live:1,desc:'An AI voice agent that calls new enquiries the moment they arrive, qualifies them and books counselling slots — in Hindi, Marathi and 10+ Indian languages.',pts:['Human-like voice, 24×7','Calls &amp; qualifies in under 60 seconds','Books slots and updates the CRM on its own']},
+    {k:'voice',name:'VidyaAI Voice Agent',tag:'AI voice calls in 10+ languages',live:1,desc:'An AI voice agent that calls new enquiries the moment they arrive, qualifies them and books counselling slots - in Hindi, Marathi and 10+ Indian languages.',pts:['Human-like voice, 24×7','Calls &amp; qualifies in under 60 seconds','Books slots and updates the CRM on its own']},
     {k:'gpt',name:'VidyaGPT',tag:'Your 24×7 AI admissions counsellor',live:1,desc:'A conversational AI that answers student questions instantly, guides them through admissions and never lets a query go cold.',pts:['Answers course &amp; fee queries instantly','Understands context like a real counsellor','Hands warm leads off to your team']},
-    {k:'waba',name:'VidyaWABA',tag:'WhatsApp Business API, automated',live:1,desc:'Official verified WhatsApp automation — segmented broadcasts, fee reminders and document nudges that run on their own, with every reply synced to the lead.',pts:['Verified WhatsApp Business API','Automated journeys &amp; broadcasts','Two-way chats synced to every lead']},
+    {k:'waba',name:'VidyaWABA',tag:'WhatsApp Business API, automated',live:1,desc:'Official verified WhatsApp automation - segmented broadcasts, fee reminders and document nudges that run on their own, with every reply synced to the lead.',pts:['Verified WhatsApp Business API','Automated journeys &amp; broadcasts','Two-way chats synced to every lead']},
     {k:'pulse',name:'VidyaPulse',tag:'Real-time lead intent &amp; buying signals',live:1,desc:'Continuously scores every lead on intent and surfaces buying signals, so counsellors always act on the hottest leads first.',pts:['Live AI intent score per lead','Buying-signal alerts in real time','Auto-prioritised work queue']}
   ];
   (function(){
@@ -1319,10 +1319,10 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var _ir=$('#intRefresh'); if(_ir) _ir.addEventListener('click',function(){toast('🔄','Refreshed','All integrations up to date');});
   var ocIcon={bolt:'<path d=&quot;M13 2 3 14h7l-1 8 10-12h-7l1-8z&quot;/>',up:'<path d=&quot;M3 17l6-6 4 4 7-7&quot;/><path d=&quot;M17 8h4v4&quot;/>',wa:'<path d=&quot;M21 11.5a8.4 8.4 0 0 1-11.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z&quot;/>',people:'<path d=&quot;M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2&quot;/><circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/>',roi:'<circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/><path d=&quot;M12 6v12M15 9.5A3.5 3 0 0 0 11.5 8H10a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4h-1.5A3.5 3 0 0 1 9 14.5&quot;/>'};
   var OUTCOMES=[
-    {ac:'--o',acs:'var(--o-soft)',ic:'bolt',lab:'Lead Response Time',big:'30 sec',sub:'Average first response to a new enquiry — VidyaAI calls and messages the instant a lead arrives.',tr:'12× faster than manual',ba:[['Manual','old',100,'6h 12m'],['ExtraaEdge','',6,'30 sec']]},
+    {ac:'--o',acs:'var(--o-soft)',ic:'bolt',lab:'Lead Response Time',big:'30 sec',sub:'Average first response to a new enquiry - VidyaAI calls and messages the instant a lead arrives.',tr:'12× faster than manual',ba:[['Manual','old',100,'6h 12m'],['ExtraaEdge','',6,'30 sec']]},
     {ac:'--grn',acs:'var(--grn-soft)',ic:'up',lab:'Admission Conversion Rate',big:'42%',sub:'Enquiry → enrolled this cycle, with AI prioritising the hottest, highest-intent leads first.',tr:'+40% vs last cycle',ba:[['This cycle','',100,'42%'],['Last cycle','old',71,'30%']]},
-    {ac:'--blue',acs:'#e6f0fb',ic:'wa',lab:'WhatsApp Automation',big:'94%',sub:'Conversations handled automatically — reminders, nudges and FAQs, synced to every lead.',tr:'24,000+ messages automated',ba:[['Automated','',94,'94%'],['Manual','old',6,'6%']]},
-    {ac:'--nav',acs:'#e8edf5',ic:'people',lab:'Counselor Productivity',big:'3.5×',sub:'More leads converted per counsellor — they only talk to warm, ready-to-enrol students.',tr:'70 quality calls / day',ba:[['With AI','',100,'70/day'],['Before','old',27,'19/day']]},
+    {ac:'--blue',acs:'#e6f0fb',ic:'wa',lab:'WhatsApp Automation',big:'94%',sub:'Conversations handled automatically - reminders, nudges and FAQs, synced to every lead.',tr:'24,000+ messages automated',ba:[['Automated','',94,'94%'],['Manual','old',6,'6%']]},
+    {ac:'--nav',acs:'#e8edf5',ic:'people',lab:'Counselor Productivity',big:'3.5×',sub:'More leads converted per counsellor - they only talk to warm, ready-to-enrol students.',tr:'70 quality calls / day',ba:[['With AI','',100,'70/day'],['Before','old',27,'19/day']]},
     {ac:'--o',acs:'var(--o-soft)',ic:'roi',lab:'Revenue &amp; ROI',big:'6.5×',sub:'Return on investment, with ₹4.2 Cr in revenue influenced this cycle and a lower cost per enrolment.',tr:'₹4.2 Cr revenue · cost/enrol ↓ 46%',ba:[['Return','',100,'6.5×'],['Cost / enrol','old',54,'↓ 46%']]}
   ];
   function drawOutcomes(){
@@ -1406,9 +1406,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   function field(l,v,t){return [l,v,t];}
   var WS='[www.example-edu](https://www.example-edu)...';
   var LEADS=[
-    {cat:['all','demodone'],name:'Greenwood Institute (Sample)',count:2,phone:'+91 98•• ••• ••01',s1:'Demo Done',s2:'Proposal Sent',m:{ppl:6,call:4,mail:5,wa:3,sms:1},fields:[field('Lead Age','36 Days'),field('Account Segment','Universities'),field('EB Name','A. Sharma'),field('Deal Owner','Counsellor D'),field('Products Used','Admission CRM'),field('Deal Sub-stage','Proposal Sent'),field('Account_Website',WS,'link'),field('Deal Value','₹6.5 L'),field('Remarks','Hot lead — proposal accepted, closing this week','rmk'),field('Buying Month','June'),field('Subscription Status','Negotiation'),field('Lead Added On','May 18, 2026 10:19 AM'),field('Last Updated On','Jun 23, 2026 11:31 AM')]},
-    {cat:['all','onboard'],name:'Sunrise Academy (Sample)',count:2,phone:'+91 98•• ••• ••06',s1:'Admission',s2:'Fee Paid',m:{ppl:5,call:3,mail:4,wa:5,sms:1},fields:[field('Lead Age','9 Days'),field('Account Segment','Edtech'),field('EB Name','R. Patel'),field('Deal Owner','Counsellor A'),field('Products Used','Admission CRM + WhatsApp'),field('Deal Sub-stage','Fee Paid'),field('Account_Website',WS,'link'),field('Deal Value','₹4.2 L'),field('Remarks','Enrolled — fee received, onboarding started','rmk'),field('Buying Month','June'),field('Subscription Status','Converted'),field('Lead Added On','Jun 14, 2026 02:10 PM'),field('Last Updated On','Jun 23, 2026 09:40 AM')]},
-    {cat:['all','demopipe'],name:'Horizon School (Sample)',count:1,phone:'+91 98•• ••• ••78',s1:'Demo Pipeline',s2:'Demo Scheduled',m:{ppl:4,call:3,mail:1,wa:2,sms:0},fields:[field('Lead Age','12 Days'),field('Account Segment','K-12 Schools'),field('EB Name','M. Rao'),field('Deal Owner','Counsellor B'),field('Products Used','Admission CRM'),field('Deal Sub-stage','Demo Scheduled'),field('Account_Website',WS,'link'),field('Deal Value','₹3.8 L'),field('Remarks','High intent — demo booked for Friday 4 PM'),field('Buying Month','July'),field('Subscription Status','Trial'),field('Lead Added On','Jun 11, 2026 11:00 AM'),field('Last Updated On','Jun 23, 2026 10:05 AM')]}
+    {cat:['all','demodone'],name:'Greenwood Institute (Sample)',count:2,phone:'+91 98•• ••• ••01',s1:'Demo Done',s2:'Proposal Sent',m:{ppl:6,call:4,mail:5,wa:3,sms:1},fields:[field('Lead Age','36 Days'),field('Account Segment','Universities'),field('EB Name','A. Sharma'),field('Deal Owner','Counsellor D'),field('Products Used','Admission CRM'),field('Deal Sub-stage','Proposal Sent'),field('Account_Website',WS,'link'),field('Deal Value','₹6.5 L'),field('Remarks','Hot lead - proposal accepted, closing this week','rmk'),field('Buying Month','June'),field('Subscription Status','Negotiation'),field('Lead Added On','May 18, 2026 10:19 AM'),field('Last Updated On','Jun 23, 2026 11:31 AM')]},
+    {cat:['all','onboard'],name:'Sunrise Academy (Sample)',count:2,phone:'+91 98•• ••• ••06',s1:'Admission',s2:'Fee Paid',m:{ppl:5,call:3,mail:4,wa:5,sms:1},fields:[field('Lead Age','9 Days'),field('Account Segment','Edtech'),field('EB Name','R. Patel'),field('Deal Owner','Counsellor A'),field('Products Used','Admission CRM + WhatsApp'),field('Deal Sub-stage','Fee Paid'),field('Account_Website',WS,'link'),field('Deal Value','₹4.2 L'),field('Remarks','Enrolled - fee received, onboarding started','rmk'),field('Buying Month','June'),field('Subscription Status','Converted'),field('Lead Added On','Jun 14, 2026 02:10 PM'),field('Last Updated On','Jun 23, 2026 09:40 AM')]},
+    {cat:['all','demopipe'],name:'Horizon School (Sample)',count:1,phone:'+91 98•• ••• ••78',s1:'Demo Pipeline',s2:'Demo Scheduled',m:{ppl:4,call:3,mail:1,wa:2,sms:0},fields:[field('Lead Age','12 Days'),field('Account Segment','K-12 Schools'),field('EB Name','M. Rao'),field('Deal Owner','Counsellor B'),field('Products Used','Admission CRM'),field('Deal Sub-stage','Demo Scheduled'),field('Account_Website',WS,'link'),field('Deal Value','₹3.8 L'),field('Remarks','High intent - demo booked for Friday 4 PM'),field('Buying Month','July'),field('Subscription Status','Trial'),field('Lead Added On','Jun 11, 2026 11:00 AM'),field('Last Updated On','Jun 23, 2026 10:05 AM')]}
   ];
   var RAWDATA=[
     {cat:['all','raw'],name:'Maple Academy (Sample)',count:2,phone:'+91 75•• ••• ••57',s1:'Raw Data',s2:'Follow Up 2',m:{ppl:3,call:0,mail:0,wa:0,sms:0},fields:[field('Lead Age','54 Days'),field('Account Segment','Vocational'),field('EB Name','S. Trivedi'),field('Deal Sub-stage','Follow Up 2'),field('Old Stage','01 - Leads'),field('Account_Website',WS,'link'),field('Subscription Status','Subscribed'),field('Lead Added On','Apr 30, 2026 2:53 PM'),field('Last Updated On','Jun 23, 2026 11:47 AM'),field('Old Lead Source','Sample Data')]},
@@ -1513,11 +1513,11 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     {v:'ai',sel:'#aiGrid',t:'Powered by Vidya AI',b:'Four AI products: <b>Voice Agent</b> calls leads, <b>VidyaGPT</b> chats 24×7, <b>VidyaWABA</b> automates WhatsApp, <b>VidyaPulse</b> scores intent.'},
     {v:'mgmt',sel:'.view[data-v=&quot;mgmt&quot;] .panel',t:'Management · Live Funnel',b:'<b>917 enquiries → 386 admissions (42%)</b>, with strong movement at every stage.'},
     {v:'counselor',sel:'#counselorTbl',t:'Counselor · Leaderboard',b:'Total leads, enrolled and <b>conversion %</b> for every counsellor.'},
-    {v:'comm',sel:'#commTbl',t:'Communication · Email Overview',b:'<b>24,620 sent</b>, <b>96% delivered</b>, <b>40% open rate</b> — well above industry norms.'},
+    {v:'comm',sel:'#commTbl',t:'Communication · Email Overview',b:'<b>24,620 sent</b>, <b>96% delivered</b>, <b>40% open rate</b> - well above industry norms.'},
     {v:'leads',sel:'.view[data-v=&quot;leads&quot;] .lead',t:'Lead Manager · every lead, organised',b:'Open any lead to see its full history, contact details and status.'},
     {v:'wa',sel:'#waList',t:'WhatsApp Chat · talk directly',b:'Reach students where they reply. Every chat syncs to the lead.'},
     {v:'workflow',sel:'#wfGrid',t:'Automation working for you',b:'Follow-ups and WhatsApp journeys run automatically in the background.'},
-    {v:'mgmt',sel:'.demo-cta',t:'Want this on your funnel?',b:'Lead capture → calling → WhatsApp → conversion — all in one window. Book a demo.'}
+    {v:'mgmt',sel:'.demo-cta',t:'Want this on your funnel?',b:'Lead capture → calling → WhatsApp → conversion - all in one window. Book a demo.'}
   ];
   var tIdx=-1, tTimer=null, tRun=false, TDUR=6500;
   TSTEPS.forEach(function(_,i){var a=document.createElement('b');a.addEventListener('click',function(){tGo(i);});tipDots.appendChild(a);var b=document.createElement('b');b.addEventListener('click',function(){tGo(i);});ddots.appendChild(b);});
@@ -1781,7 +1781,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <div class="eep-head-l">
         <span class="eep-eyebrow"><span class="eep-dot" aria-hidden="true"></span>The admissions platform</span>
         <h2>One platform. <span class="eep-accent">Every admissions tool.</span></h2>
-        <p class="eep-sub">From first enquiry to enrolled — explore the suite. Tap or hover any product to see it come alive.</p>
+        <p class="eep-sub">From first enquiry to enrolled - explore the suite. Tap or hover any product to see it come alive.</p>
       </div>
       <div class="eep-search" id="eepSearch">
         <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-01.svg" alt="" loading="lazy" decoding="async">
@@ -1863,20 +1863,20 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     /* ---- products ---- */
     var P = [
       {id:'vidya', t:'VidyaAI', badge:'New', cat:'ai', ic:'spark', img:'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg', href:'#demo',
-        d:'Your AI admissions copilot — drafts replies, scores intent and rings visitors live.',
-        l:'The AI layer across your whole funnel. It drafts counsellor replies, scores every lead by intent, and can call a website visitor the moment they show interest — the live experience competitors do not offer.',
+        d:'Your AI admissions copilot - drafts replies, scores intent and rings visitors live.',
+        l:'The AI layer across your whole funnel. It drafts counsellor replies, scores every lead by intent, and can call a website visitor the moment they show interest - the live experience competitors do not offer.',
         tags:['Drafts replies','Scores lead intent','Rings visitors live']},
       {id:'edu-crm', t:'Education CRM', cat:'platform', ic:'crm', href:'#demo',
         d:'Unify every enquiry, counsellor and campus on one purpose-built platform.',
-        l:'Built for admissions, not retrofitted from sales. One view of every enquiry, every counsellor and every campus — so nothing slips between teams.',
+        l:'Built for admissions, not retrofitted from sales. One view of every enquiry, every counsellor and every campus - so nothing slips between teams.',
         tags:['360° enquiry view','Counsellor workflows','Multi-campus ready']},
       {id:'mob-crm', t:'Mobile CRM', badge:'New', cat:'platform', ic:'phone', href:'#demo',
-        d:'Run admissions from your pocket — call, follow up and close on the go.',
+        d:'Run admissions from your pocket - call, follow up and close on the go.',
         l:'Your full pipeline on mobile. Counsellors call, log and follow up from anywhere, with reminders that keep every lead moving.',
         tags:['Call from your phone','Push reminders','Works on the move']},
       {id:'core-crm', t:'Core CRM', cat:'platform', ic:'gear', href:'#demo',
         d:'The reliable engine for pipelines, tasks and workflows that never drops a lead.',
-        l:'The dependable core underneath it all — pipelines, tasks and automation tuned so a lead is never forgotten or double-handled.',
+        l:'The dependable core underneath it all - pipelines, tasks and automation tuned so a lead is never forgotten or double-handled.',
         tags:['Smart pipelines','Task automation','Zero lead leakage']},
       {id:'app-mgmt', t:'Application Management', cat:'admissions', ic:'doc', href:'#demo',
         d:'Track every application stage with automated nudges so no form stalls.',
@@ -1884,11 +1884,11 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         tags:['Stage tracking','Auto nudges','Status alerts']},
       {id:'ams', t:'Admission Management System', cat:'admissions', ic:'shield', href:'#demo',
         d:'Orchestrate fees, documents and approvals end-to-end in one auditable flow.',
-        l:'Run the whole admission cycle — fees, documents, approvals — in one place, with a complete audit trail for every decision.',
+        l:'Run the whole admission cycle - fees, documents, approvals - in one place, with a complete audit trail for every decision.',
         tags:['Fees & documents','Approval flows','Full audit trail']},
       {id:'online-adm', t:'Online Admissions', cat:'admissions', ic:'globe', href:'#demo',
         d:'Let applicants apply and pay from anywhere with a frictionless journey.',
-        l:'A clean, mobile-first apply-and-pay flow that students finish — fewer drop-offs, more completed applications.',
+        l:'A clean, mobile-first apply-and-pay flow that students finish - fewer drop-offs, more completed applications.',
         tags:['Apply anywhere','Integrated payments','Frictionless forms']},
       {id:'chatbot', t:'Education AI Chatbot', cat:'ai', ic:'chat', href:'#demo',
         d:'Answer student questions 24/7 and capture qualified enquiries while you sleep.',
@@ -1900,11 +1900,11 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         tags:['Verified sender','Automated replies','Broadcast campaigns']},
       {id:'ivr', t:'IVR System', cat:'engage', ic:'call', href:'#demo',
         d:'Route, record and track every call so no enquiry rings out unanswered.',
-        l:'Smart call routing with recording and missed-call capture — every ring becomes a tracked, followed-up enquiry.',
+        l:'Smart call routing with recording and missed-call capture - every ring becomes a tracked, followed-up enquiry.',
         tags:['Smart call routing','Call recording','Missed-call capture']},
       {id:'mkt-auto', t:'Marketing Automation', cat:'grow', ic:'send', href:'#demo',
         d:'Launch multi-channel campaigns that fill your funnel on autopilot.',
-        l:'Build journeys once and let them run — email, SMS and WhatsApp triggered by what each prospect does.',
+        l:'Build journeys once and let them run - email, SMS and WhatsApp triggered by what each prospect does.',
         tags:['Multi-channel drips','Triggered journeys','Campaign analytics']},
       {id:'nurture', t:'Lead Nurturing', cat:'grow', ic:'heart', href:'#demo',
         d:'Warm every prospect with timely, personalised drips until they enrol.',
@@ -1912,7 +1912,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         tags:['Personalised drips','Behaviour triggers','Re-engagement']},
       {id:'analytics', t:'Analytics Dashboard', cat:'grow', ic:'bars', href:'#demo',
         d:'See conversion, cost and counsellor performance in real time, in one view.',
-        l:'Know what is working at a glance — funnels, cost per enrolment and counsellor scorecards, live and in one place.',
+        l:'Know what is working at a glance - funnels, cost per enrolment and counsellor scorecards, live and in one place.',
         tags:['Real-time funnels','Cost per enrol','Counsellor scorecards']}
     ];
 
@@ -1921,7 +1921,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       switch(type){
         case 'ai': return '<div class="sc-ai">'+
           '<div class="sc-bub">Hi! Is the fee structure available?</div>'+
-          '<div class="sc-bub me b2">Yes — sharing it now. Shall I call you to walk through it?</div>'+
+          '<div class="sc-bub me b2">Yes - sharing it now. Shall I call you to walk through it?</div>'+
           '<div class="sc-bub b3" style="display:flex;align-items:center;gap:6px">Calling you<span class="sc-wave"><span></span><span></span><span></span><span></span><span></span></span></div>'+
           '<div class="sc-type"><i></i><i></i><i></i></div></div>';
         case 'kan': return '<div class="sc-kan">'+
@@ -2208,7 +2208,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         <header class="vsx-head">
           <span class="vsx-eyebrow"><i></i> Agentic AI Suite</span>
           <h2>Meet Vidya AI, the Agentic AI Suite Built for Smarter Admissions</h2>
-          <p class="vsx-lead">Vidya AI is your always-on AI workforce that engages every prospective student, qualifies leads instantly, automates follow-ups, supports counselors, and accelerates enrollments — so your teams can focus on building meaningful student relationships instead of repetitive tasks.</p>
+          <p class="vsx-lead">Vidya AI is your always-on AI workforce that engages every prospective student, qualifies leads instantly, automates follow-ups, supports counselors, and accelerates enrollments - so your teams can focus on building meaningful student relationships instead of repetitive tasks.</p>
         </header>
 
         <div class="vsx-stage">
@@ -2279,7 +2279,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
             <article class="vsx-card vsx-cta-card" style="--ca:#DE6E30">
               <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>Try Vidya AI Live</h3>
-              <p class="vsx-desc">Explore the live AI inside the product demo — see every agent working on a real admission funnel.</p>
+              <p class="vsx-desc">Explore the live AI inside the product demo - see every agent working on a real admission funnel.</p>
               <a class="vsx-cta-btn" href="#ee-platform">Try Vidya AI Live <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </article>
 
@@ -2324,7 +2324,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.addEventListener('resize', function(){ evaluate(); recalc(); }, {passive:true});
     if(mq.addEventListener) mq.addEventListener('change', evaluate);
   })();
-  /* mobile carousel arrows — scroll the swipe rail one card at a time */
+  /* mobile carousel arrows - scroll the swipe rail one card at a time */
   (function(){
     var rail=document.getElementById('vsxRail'); if(!rail) return;
     var sec=document.getElementById('ee-vidya-suite');
@@ -2476,7 +2476,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <div class="ee-teams-head">
       <span class="ee-teams-eyebrow"><span class="ee-dot" aria-hidden="true"></span>One platform, every team</span>
       <h2>Built for Every Team Driving Student Enrollment</h2>
-      <p class="ee-teams-lead">From marketing and admissions to counseling, finance, leadership, and AI-powered automation &mdash; ExtraaEdge brings every team together on one intelligent platform, helping institutions attract, engage, convert, and enroll more students with less effort.</p>
+      <p class="ee-teams-lead">From marketing and admissions to counseling, finance, leadership, and AI-powered automation - ExtraaEdge brings every team together on one intelligent platform, helping institutions attract, engage, convert, and enroll more students with less effort.</p>
     </div>
 
     <div class="ee-teams-grid">
@@ -2635,7 +2635,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <div class="ee-head">
       <p class="ee-eyebrow">Solutions</p>
       <h2>Solutions for every admissions motion</h2>
-      <p class="ee-sub">From first enquiry to confirmed enrolment, ExtraaEdge brings the right workflow to every stage of your admissions journey. Pick a motion &mdash; see exactly what&rsquo;s inside.</p>
+      <p class="ee-sub">From first enquiry to confirmed enrolment, ExtraaEdge brings the right workflow to every stage of your admissions journey. Pick a motion - see exactly what&rsquo;s inside.</p>
     </div>
 
     <div class="sol-wrap">
@@ -2669,7 +2669,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
           <span class="sol-ghost" aria-hidden="true">01</span>
           <span class="sol-ptag">Admission Solutions</span>
           <h3>Run your core admissions engine end-to-end</h3>
-          <p class="sol-desc">Capture, qualify, convert and enrol &mdash; one connected pipeline from first enquiry to fee paid.</p>
+          <p class="sol-desc">Capture, qualify, convert and enrol - one connected pipeline from first enquiry to fee paid.</p>
           <div class="sol-list">
             <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Admission Management</b><span>Track every applicant in one live pipeline</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
             <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Enrollment Management</b><span>Move offers to enrolled &amp; fee-paid, faster</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
@@ -2681,7 +2681,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
           <span class="sol-ghost" aria-hidden="true">02</span>
           <span class="sol-ptag">Study Abroad</span>
           <h3>Purpose-built for overseas education counselling</h3>
-          <p class="sol-desc">Manage country, course and intake journeys &mdash; with full visibility over agents and consultants.</p>
+          <p class="sol-desc">Manage country, course and intake journeys - with full visibility over agents and consultants.</p>
           <div class="sol-list">
             <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Study Abroad CRM</b><span>Country, course &amp; intake pipelines in one place</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
             <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Education Agents</b><span>Onboard &amp; track sub-agents with clear visibility</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
@@ -2692,7 +2692,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         <div class="sol-panel" id="solp3" role="tabpanel">
           <span class="sol-ghost" aria-hidden="true">03</span>
           <span class="sol-ptag">Recruitment &amp; Lead Management</span>
-          <h3>Fill your funnel &mdash; and never let a lead go cold</h3>
+          <h3>Fill your funnel - and never let a lead go cold</h3>
           <p class="sol-desc">Source, score, route and nurture every enquiry automatically, from first touch to enrolled.</p>
           <div class="sol-list">
             <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Student Recruitment</b><span>Source verified enquiries from every channel</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
@@ -2705,12 +2705,12 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     </div>
   </div>
 </section>
-<!-- ===================== EE INDUSTRIES — Apple spatial / glass UI ===================== -->
+<!-- ===================== EE INDUSTRIES - Apple spatial / glass UI ===================== -->
 <style id="ee-ind-spatial">
 #ee-ind{ position:relative; overflow:hidden; --or:#DE6E30; --nv:#19335D;
   background:#ffffff; font-family:'Inter',sans-serif; }
 #ee-ind *{ box-sizing:border-box; }
-/* ambient depth blobs — brand orange + navy only, on white */
+/* ambient depth blobs - brand orange + navy only, on white */
 #ee-ind .spx-bg{ position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
 #ee-ind .spx-blob{ position:absolute; border-radius:50%; filter:blur(80px); opacity:.55; }
 #ee-ind .spx-blob.b1{ width:520px; height:520px; top:-140px; left:-90px; background:radial-gradient(circle,rgba(222,110,48,.16),transparent 68%); }
@@ -2793,28 +2793,28 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <a class="spx-card" href="#demo" style="--g1:#E8843F;--g2:#DE6E30">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
         <h3>EdTech</h3>
-        <p>You buy leads by the thousand &mdash; every enquiry has to convert.</p>
+        <p>You buy leads by the thousand - every enquiry has to convert.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
       <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 2-2h10v16H7a2 2 0 0 0-2 2z"/><path d="M17 3v16"/></svg></span>
         <h3>Coaching &amp; Training</h3>
-        <p>Batches fill on deadlines &mdash; every enquiry counts.</p>
+        <p>Batches fill on deadlines - every enquiry counts.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
       <a class="spx-card" href="#demo" style="--g1:#E8843F;--g2:#DE6E30">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M10 21v-6h4v6"/></svg></span>
         <h3>K-12 Schools</h3>
-        <p>Parents take months to choose &mdash; trust wins the seat.</p>
+        <p>Parents take months to choose - trust wins the seat.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
       <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.6L21 9.3l-4.6 4.3 1.1 6.1L12 17l-5.5 2.7 1-6.1L3 9.3l6.4-.7z"/></svg></span>
         <h3>Preschools &amp; Playschools</h3>
-        <p>It&rsquo;s their first school &mdash; reassurance closes the admission.</p>
+        <p>It&rsquo;s their first school - reassurance closes the admission.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
@@ -2828,7 +2828,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.3 3 3 6 3s6-1.7 6-3v-5"/></svg></span>
         <h3>Higher Education</h3>
-        <p>Many programmes, many counsellors &mdash; one admissions engine.</p>
+        <p>Many programmes, many counsellors - one admissions engine.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
@@ -2842,7 +2842,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 15l6-6M10 6l1-1a4 4 0 0 1 6 6l-1 1M14 18l-1 1a4 4 0 0 1-6-6l1-1"/></svg></span>
         <h3>Channel Partners</h3>
-        <p>Your partners send leads &mdash; you need to see every one.</p>
+        <p>Your partners send leads - you need to see every one.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
     </div>
@@ -2850,7 +2850,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </section>
 
 <script>
-/* Industries — spatial pointer-tilt (adds visionOS-style depth on hover) */
+/* Industries - spatial pointer-tilt (adds visionOS-style depth on hover) */
 (function(){
   var root=document.getElementById('ee-ind'); if(!root) return;
   var mq=window.matchMedia;
@@ -2883,7 +2883,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       <article class="cis-card">
         <div class="cis-video" data-yt="3SHgLf1GFgk" role="button" tabindex="0" aria-label="Play video testimonial: Silky Jain Marwah, Tula's Institute">
-          <img src="https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg" alt="Silky Jain Marwah, Executive Director, Tula's Institute — ExtraaEdge CRM review" loading="lazy" decoding="async">
+          <img src="https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg" alt="Silky Jain Marwah, Executive Director, Tula's Institute - ExtraaEdge CRM review" loading="lazy" decoding="async">
           <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
           <span class="cis-dur">&#9654; 2 min</span>
         </div>
@@ -2899,7 +2899,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       <article class="cis-card">
         <div class="cis-video" data-yt="dWLdQ8E3FOU" role="button" tabindex="0" aria-label="Play video testimonial: Pranay Rupani, Annapurna College of Film &amp; Media">
-          <img src="https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg" alt="Pranay Rupani, Head of Admissions &amp; Marketing, Annapurna College of Film &amp; Media — ExtraaEdge CRM review" loading="lazy" decoding="async">
+          <img src="https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg" alt="Pranay Rupani, Head of Admissions &amp; Marketing, Annapurna College of Film &amp; Media - ExtraaEdge CRM review" loading="lazy" decoding="async">
           <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
           <span class="cis-dur">&#9654; 2 min</span>
         </div>
@@ -2915,13 +2915,13 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       <article class="cis-card">
         <div class="cis-video" data-yt="yfK83D2SKps" role="button" tabindex="0" aria-label="Play video testimonial: K. Nirmala Devi, Indian Academy Group">
-          <img src="https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg" alt="K. Nirmala Devi, Assistant Manager, Indian Academy Group — ExtraaEdge CRM review" loading="lazy" decoding="async">
+          <img src="https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg" alt="K. Nirmala Devi, Assistant Manager, Indian Academy Group - ExtraaEdge CRM review" loading="lazy" decoding="async">
           <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
           <span class="cis-dur">&#9654; 2 min</span>
         </div>
         <div class="cis-body">
           <div class="cis-stars" aria-label="Rated 5 out of 5 stars"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"></div>
-          <p class="cis-quote"><span>Very user-friendly and fully customizable to our needs. Tracking the lead journey is smooth, and the technical team is accessible anytime — they resolve issues immediately without any delays.</span></p>
+          <p class="cis-quote"><span>Very user-friendly and fully customizable to our needs. Tracking the lead journey is smooth, and the technical team is accessible anytime - they resolve issues immediately without any delays.</span></p>
           <div class="cis-author">
             <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Nirmala-Devi.webp" alt="K. Nirmala Devi" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">KN</span></span>
             <div><div class="cis-aname">K. Nirmala Devi</div><div class="cis-arole">Assistant Manager &middot; Indian Academy Group</div></div>
@@ -2966,23 +2966,23 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <div class="ch">
       <span class="eyebrow"><i></i> Why teams switch to us</span>
       <h2>The only <em>AI-native</em> Admission CRM</h2>
-      <p>Others automate. ExtraaEdge actually <b>calls, qualifies and follows up</b> with every student using AI — so your team only talks to ready-to-enrol leads.</p>
+      <p>Others automate. ExtraaEdge actually <b>calls, qualifies and follows up</b> with every student using AI - so your team only talks to ready-to-enrol leads.</p>
     </div>
     <div class="cmp" role="table" aria-label="Feature comparison">
       <div class="cmp-row head" role="row"><div>Capability</div><div class="us">ExtraaEdge</div><div>Other CRMs</div><div>Generic tools</div></div>
-      <div class="cmp-row"><div class="feat">AI Voice Agent (calls leads in 10+ languages)</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="no">&mdash;</span></div><div class="cell"><span class="no">&mdash;</span></div></div>
+      <div class="cmp-row"><div class="feat">AI Voice Agent (calls leads in 10+ languages)</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="no">-</span></div><div class="cell"><span class="no">-</span></div></div>
       <div class="cmp-row"><div class="feat">24&times;7 AI chat counsellor (VidyaGPT)</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Basic bot</span></div><div class="cell"><span class="part">Basic bot</span></div></div>
       <div class="cmp-row"><div class="feat">Real-time AI lead intent scoring</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Rule-based</span></div><div class="cell"><span class="part">Rule-based</span></div></div>
       <div class="cmp-row"><div class="feat">Official WhatsApp Business API automation</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div></div>
       <div class="cmp-row"><div class="feat">Built only for admissions</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Generic CRM</span></div></div>
       <div class="cmp-row"><div class="feat">Go live in 7 days</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="part">Weeks</span></div><div class="cell"><span class="part">Weeks</span></div></div>
-      <div class="cmp-row"><div class="feat">Free migration &amp; 1:1 onboarding</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="no">&mdash;</span></div><div class="cell"><span class="no">&mdash;</span></div></div>
+      <div class="cmp-row"><div class="feat">Free migration &amp; 1:1 onboarding</div><div class="cell us"><span class="yes">&#10003;</span></div><div class="cell"><span class="no">-</span></div><div class="cell"><span class="no">-</span></div></div>
     </div>
-    <p class="cmp-note">Comparison based on publicly listed features (Jun 2026) &mdash; verify for your exact requirements. Switching from another CRM? We migrate your data free.</p>
+    <p class="cmp-note">Comparison based on publicly listed features (Jun 2026) - verify for your exact requirements. Switching from another CRM? We migrate your data free.</p>
     <div class="roi" aria-label="ROI calculator">
       <div class="roi-in">
         <h3>How many more admissions could you get?</h3>
-        <p class="sub">Move the sliders &mdash; see your upside instantly.</p>
+        <p class="sub">Move the sliders - see your upside instantly.</p>
         <div class="fld"><label>Monthly enquiries <b id="ro1">2,000</b></label><input id="ri1" type="range" min="200" max="20000" step="100" value="2000"><div class="nums"><span>200</span><span>20,000</span></div></div>
         <div class="fld"><label>Current conversion rate <b id="ro2">20%</b></label><input id="ri2" type="range" min="5" max="45" step="1" value="20"><div class="nums"><span>5%</span><span>45%</span></div></div>
         <div class="fld"><label>Average fee / student <b id="ro3">&#8377;1.0 L</b></label><input id="ri3" type="range" min="20000" max="800000" step="10000" value="100000"><div class="nums"><span>&#8377;20K</span><span>&#8377;8L</span></div></div>
@@ -3028,7 +3028,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     }
     [i1,i2,i3].forEach(function(s){s.addEventListener('input',calc);}); calc();
   }
-  /* sticky CTA — show after scrolling past the hero, hide near the final demo form */
+  /* sticky CTA - show after scrolling past the hero, hide near the final demo form */
   var bar=document.getElementById('ee-sticky'); 
   if(bar){
     var dismissed=false;
@@ -3053,7 +3053,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-night .een-track{position:relative;height:640vh}
 #ee-night .een-pin{position:sticky;top:90px;height:calc(100vh - 90px);overflow:hidden}
 #ee-night iframe{display:block;width:100%;height:100%;border:0;background:#0f2444}
-/* phones: no pinning — keep the normal auto-play + side-arrow story */
+/* phones: no pinning - keep the normal auto-play + side-arrow story */
 @media(max-width:960px){
   #ee-night .een-track{height:auto}
   #ee-night .een-pin{position:static;height:auto;overflow:visible}
@@ -3063,13 +3063,13 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <section id="ee-night" aria-label="The admission operating system in action">
   <div class="een-track" id="eenTrack">
   <div class="een-pin">
-  <iframe id="eeNightFrame" title="ExtraaEdge — the admission operating system, from lead to enrolled" loading="lazy" scrolling="no" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" srcdoc="<!DOCTYPE html>
+  <iframe id="eeNightFrame" title="ExtraaEdge - the admission operating system, from lead to enrolled" loading="lazy" scrolling="no" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
 <meta charset=&quot;UTF-8&quot;>
 <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
 <meta name=&quot;robots&quot; content=&quot;noindex, nofollow&quot;>
-<title>ExtraaEdge — While Your Campus Sleeps</title>
+<title>ExtraaEdge - While Your Campus Sleeps</title>
 <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
 <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
 <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Poppins:wght@600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
@@ -3127,7 +3127,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   .steps{gap:6px;margin-top:16px}
   .step{height:5px;border-radius:3px}
   .step.on{box-shadow:none}
-  /* stage sizes to the active shot — no clipping, minimal dead space */
+  /* stage sizes to the active shot - no clipping, minimal dead space */
   .stage{height:auto!important;min-height:540px!important;max-width:100%!important;display:flex;align-items:center;justify-content:center;padding:4px 0}
   .shot{position:relative!important;inset:auto!important;opacity:1;transform:none;display:none!important;width:100%;transition:none}
   .shot{min-width:0}
@@ -3154,19 +3154,19 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   .pleft{display:contents}
   /* thin segment bars are redundant on phones (arrows + context card handle nav) */
   .steps{display:none!important}
-  /* hide the eyebrow label — the story headline already leads the section */
+  /* hide the eyebrow label - the story headline already leads the section */
   .kick{display:none!important}
   .pleft h1,.lede,.steps{order:0}
   .pright{order:1;position:relative}
   .mnow{order:2;margin-top:12px}
   .pctrl{display:none!important}
-  /* prev/next as side arrows over the stage — same as Agentic AI Suite */
+  /* prev/next as side arrows over the stage - same as Agentic AI Suite */
   .pstage-arw{display:flex;align-items:center;justify-content:center;position:absolute;top:50%;transform:translateY(-50%);z-index:20;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(15,28,48,.74);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.35)}
   .pstage-arw svg{width:20px;height:20px}
   .pstage-prev{left:4px}
   .pstage-next{right:4px}
   .pstage-arw:active{transform:translateY(-50%) scale(.93)}
-  /* One brain. Nine modules. — modules + numbers as tidy 3-up grids, less whitespace */
+  /* One brain. Nine modules. - modules + numbers as tidy 3-up grids, less whitespace */
   .band{padding:22px 5vw 24px}
   .bandgrid{gap:16px}
   .modrow{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6px}
@@ -3175,13 +3175,13 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   .num .nv{font-size:22px!important}
   .num .nd{font-size:9.5px;max-width:none}
 }
-/* ===== Apple visionOS spatial skin — brand navy + orange, Inter, dark frosted glass ===== */
+/* ===== Apple visionOS spatial skin - brand navy + orange, Inter, dark frosted glass ===== */
 h1,h2{font-family:'Inter',sans-serif!important}
 body{background:
   radial-gradient(620px 520px at 10% 6%, rgba(222,110,48,.15), transparent 60%),
   radial-gradient(700px 580px at 94% 88%, rgba(46,78,133,.34), transparent 62%),
   linear-gradient(var(--bg),var(--bg2))!important}
-/* frosted DARK-glass panels — stay dark so the light story text remains readable */
+/* frosted DARK-glass panels - stay dark so the light story text remains readable */
 .mnow,.modpill,.pctrl{
   background:linear-gradient(158deg,rgba(255,255,255,.09),rgba(255,255,255,.035))!important;
   -webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);
@@ -3207,7 +3207,7 @@ body{background:
   <div class=&quot;pleft&quot;>
     <span class=&quot;kick rev&quot;>The Admission Operating System</span>
     <h1 class=&quot;rev d1&quot;>While your campus sleeps, <span class=&quot;o&quot;>admissions don't.</span></h1>
-    <p class=&quot;lede rev d2&quot;>One student, one night, six screens. Watch the whole process — it plays itself.</p>
+    <p class=&quot;lede rev d2&quot;>One student, one night, six screens. Watch the whole process - it plays itself.</p>
     <div class=&quot;steps&quot; id=&quot;steps&quot;>
       <div class=&quot;step on&quot; data-i=&quot;0&quot;><span class=&quot;tno&quot;>01</span><div class=&quot;tt&quot;><b>Lead captured</b><span>Meta ad · auto-logged in CRM</span></div><span class=&quot;tm&quot;>11:02 PM</span><div class=&quot;pbar&quot;><i></i></div></div>
       <div class=&quot;step&quot; data-i=&quot;1&quot;><span class=&quot;tno&quot;>02</span><div class=&quot;tt&quot;><b>VidyaGPT replies</b><span>WhatsApp · her language · 24×7</span></div><span class=&quot;tm&quot;>11:02 PM</span><div class=&quot;pbar&quot;><i></i></div></div>
@@ -3246,7 +3246,7 @@ body{background:
             <div class=&quot;appfoot&quot;><div class=&quot;abtn pr&quot;>Engage with VidyaGPT</div><div class=&quot;abtn sec&quot;>View timeline</div></div>
           </div>
         </div>
-        <p class=&quot;evcap&quot;>Captured, deduped, enriched — no one typed this in.</p>
+        <p class=&quot;evcap&quot;>Captured, deduped, enriched - no one typed this in.</p>
       </div>
 
       <div class=&quot;shot&quot; data-i=&quot;1&quot;>
@@ -3256,7 +3256,7 @@ body{background:
             <div class=&quot;wbody&quot;>
               <div class=&quot;wdate&quot;>Today</div>
               <div class=&quot;wmsg out&quot;>MBA ki fees kya hai?<span class=&quot;wtm&quot;>11:02 PM <span class=&quot;ticks&quot;>✓✓</span></span></div>
-              <div class=&quot;wmsg in&quot;>Hi Priya! 👋 Main Vidya hoon — aapki AI admission counsellor.<span class=&quot;wtm&quot;>11:02 PM</span></div>
+              <div class=&quot;wmsg in&quot;>Hi Priya! 👋 Main Vidya hoon - aapki AI admission counsellor.<span class=&quot;wtm&quot;>11:02 PM</span></div>
               <div class=&quot;wmsg in&quot;>MBA 2026 ki total fees ₹8.4L hai. Aap 25% tak merit scholarship ke liye eligible ho sakti hain 🎓<span class=&quot;wtm&quot;>11:02 PM</span></div>
               <div class=&quot;wmsg out&quot;>Scholarship kaise milegi?<span class=&quot;wtm&quot;>11:03 PM <span class=&quot;ticks&quot;>✓✓</span></span></div>
               <div class=&quot;wmsg in&quot;>Aapke 12th marks pe aap seedha 25% merit scholarship ke liye eligible ho 🎉<span class=&quot;wtm&quot;>11:03 PM</span></div>
@@ -3265,7 +3265,7 @@ body{background:
             <div class=&quot;winput&quot;><div class=&quot;wfield&quot;>Message</div><div class=&quot;wmic&quot;><svg width=&quot;13&quot; height=&quot;13&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><rect x=&quot;9&quot; y=&quot;3&quot; width=&quot;6&quot; height=&quot;11&quot; rx=&quot;3&quot;/><path d=&quot;M5 11a7 7 0 0 0 14 0M12 18v3&quot;/></svg></div></div>
           </div></div>
         </div>
-        <p class=&quot;evcap&quot;>A real conversation at 11 PM — while your office is dark.</p>
+        <p class=&quot;evcap&quot;>A real conversation at 11 PM - while your office is dark.</p>
       </div>
 
       <div class=&quot;shot&quot; data-i=&quot;2&quot;>
@@ -3273,15 +3273,15 @@ body{background:
           <div class=&quot;appbar&quot;><div class=&quot;wd&quot;><i></i><i></i><i></i></div><div class=&quot;url&quot;><svg width=&quot;9&quot; height=&quot;9&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#1FAF66&quot; stroke-width=&quot;3&quot;><rect x=&quot;5&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M8 10V7a4 4 0 0 1 8 0v3&quot;/></svg>app.extraaedge.com/leads/EE-2026-84517/score</div></div>
           <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-pulse-fevicon.png&quot; alt=&quot;VidyaPulse&quot;></div><b>VidyaPulse</b><span class=&quot;crumb&quot;>/ Lead Scoring</span><span class=&quot;lvpill&quot;>Live model</span></div>
           <div class=&quot;appbody&quot;>
-            <div class=&quot;scorehead&quot;><b>Intent Score — Priya Deshmukh</b><span class=&quot;scorenum&quot;><span data-count=&quot;96&quot;>0</span><span style=&quot;font-size:13px&quot;>/100</span></span></div>
+            <div class=&quot;scorehead&quot;><b>Intent Score - Priya Deshmukh</b><span class=&quot;scorenum&quot;><span data-count=&quot;96&quot;>0</span><span style=&quot;font-size:13px&quot;>/100</span></span></div>
             <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Response velocity</span><b>Replied in 41s avg</b></div><div class=&quot;fb&quot;><i style=&quot;--w:92%&quot;></i></div></div>
             <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Engagement depth</span><b>6 questions · fees + scholarship</b></div><div class=&quot;fb&quot;><i style=&quot;--w:88%&quot;></i></div></div>
             <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Course-fit signals</span><b>Work-ex 3 yrs · CAT registered</b></div><div class=&quot;fb&quot;><i style=&quot;--w:84%&quot;></i></div></div>
             <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Page activity</span><b>Fee page ×3 · Placements ×2</b></div><div class=&quot;fb&quot;><i style=&quot;--w:78%&quot;></i></div></div>
-            <div class=&quot;scoreverdict&quot;>⚡ Priority HIGH — queued for AI voice call at 9:00 AM.</div>
+            <div class=&quot;scoreverdict&quot;>⚡ Priority HIGH - queued for AI voice call at 9:00 AM.</div>
           </div>
         </div>
-        <p class=&quot;evcap&quot;>Not a guess — a live model reading behaviour, not form fields.</p>
+        <p class=&quot;evcap&quot;>Not a guess - a live model reading behaviour, not form fields.</p>
       </div>
 
       <div class=&quot;shot&quot; data-i=&quot;3&quot;>
@@ -3305,13 +3305,13 @@ body{background:
             </div>
           </div></div>
         </div>
-        <p class=&quot;evcap&quot;>18 seconds after she's active — qualified, transcribed, booked.</p>
+        <p class=&quot;evcap&quot;>18 seconds after she's active - qualified, transcribed, booked.</p>
       </div>
 
       <div class=&quot;shot&quot; data-i=&quot;4&quot;>
         <div class=&quot;appwin&quot;>
           <div class=&quot;appbar&quot;><div class=&quot;wd&quot;><i></i><i></i><i></i></div><div class=&quot;url&quot;><svg width=&quot;9&quot; height=&quot;9&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#1FAF66&quot; stroke-width=&quot;3&quot;><rect x=&quot;5&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M8 10V7a4 4 0 0 1 8 0v3&quot;/></svg>app.extraaedge.com/inbox</div></div>
-          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg&quot; alt=&quot;ExtraaEdge&quot;></div><b>ExtraaEdge</b><span class=&quot;crumb&quot;>/ Inbox — Rahul Verma</span><span class=&quot;lvpill&quot;>1 new</span></div>
+          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg&quot; alt=&quot;ExtraaEdge&quot;></div><b>ExtraaEdge</b><span class=&quot;crumb&quot;>/ Inbox - Rahul Verma</span><span class=&quot;lvpill&quot;>1 new</span></div>
           <div class=&quot;appbody&quot;>
             <div class=&quot;assign&quot;>
               <div class=&quot;aicon&quot;><svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M13 2L4 14h6l-1 8 9-12h-6l1-8z&quot;/></svg></div>
@@ -3372,7 +3372,7 @@ body{background:
   <div class=&quot;bandgrid&quot;>
     <div>
       <h2 class=&quot;rev&quot;>One brain. <span class=&quot;o&quot;>Nine modules.</span></h2>
-      <p class=&quot;bp rev d1&quot;>Every screen above runs on the same platform — zero handoff gaps, one student timeline.</p>
+      <p class=&quot;bp rev d1&quot;>Every screen above runs on the same platform - zero handoff gaps, one student timeline.</p>
       <div class=&quot;modrow rev d2&quot; style=&quot;margin-top:14px&quot;>
         <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#DE6E30&quot; stroke-width=&quot;2.2&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/><path d=&quot;M12 2v4M12 18v4M2 12h4M18 12h4&quot;/></svg>AI Engine</span>
         <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#6FA3F2&quot; stroke-width=&quot;2.2&quot;><circle cx=&quot;9&quot; cy=&quot;8&quot; r=&quot;3&quot;/><path d=&quot;M3 20a6 6 0 0 1 12 0&quot;/></svg>Admissions CRM</span>
@@ -3388,7 +3388,7 @@ body{background:
     <div class=&quot;numrow&quot;>
       <div class=&quot;num rev&quot;><div class=&quot;nv&quot;><span data-count=&quot;10&quot; data-suffix=&quot;M+&quot;>0M+</span></div><div class=&quot;nd&quot;>enquiries managed end-to-end</div></div>
       <div class=&quot;num rev d1&quot;><div class=&quot;nv&quot;><span data-count=&quot;500&quot; data-suffix=&quot;+&quot;>0+</span></div><div class=&quot;nd&quot;>institutions on ExtraaEdge</div></div>
-      <div class=&quot;num rev d2&quot;><div class=&quot;nv&quot;><span data-count=&quot;37&quot; data-suffix=&quot;%&quot;>0%</span>↑</div><div class=&quot;nd&quot;>higher conversion — no lead waits</div></div>
+      <div class=&quot;num rev d2&quot;><div class=&quot;nv&quot;><span data-count=&quot;37&quot; data-suffix=&quot;%&quot;>0%</span>↑</div><div class=&quot;nd&quot;>higher conversion - no lead waits</div></div>
     </div>
   </div>
 </section>
@@ -3553,7 +3553,7 @@ body{background:
   function post(m){ try{ if(f.contentWindow) f.contentWindow.postMessage(m,'*'); }catch(e){} }
   f.addEventListener('load',function(){
     fit(); setTimeout(fit,300); setTimeout(fit,1200);
-    /* resize only when the story's own size actually changes — no periodic reflow polling */
+    /* resize only when the story's own size actually changes - no periodic reflow polling */
     try{
       var d=f.contentDocument||(f.contentWindow&&f.contentWindow.document);
       if(d&&d.body&&'ResizeObserver' in window){ new ResizeObserver(function(){ requestAnimationFrame(fit); }).observe(d.body); }
@@ -3561,7 +3561,7 @@ body{background:
     }catch(e){}
   });
   window.addEventListener('resize',function(){ clearTimeout(f.__t); f.__t=setTimeout(fit,150); });
-  /* play the story only while it's on screen — off-screen it's paused, so it never competes for frames */
+  /* play the story only while it's on screen - off-screen it's paused, so it never competes for frames */
   if('IntersectionObserver' in window){
     new IntersectionObserver(function(es){ es.forEach(function(e){ post(e.isIntersecting?'ee-play':'ee-pause'); }); },{rootMargin:'120px 0px'}).observe(f);
   }
@@ -3573,7 +3573,7 @@ body{background:
 <div class="section-divider"></div>
 
 <!-- ===================== VIDYA AI · STICKY SCROLLYTELLING + MORPHING DASHBOARD ===================== -->
-<!-- ===================== VidyaAI scroll story — scoped #vidya ===================== -->
+<!-- ===================== VidyaAI scroll story - scoped #vidya ===================== -->
 <style>#vidya{
   --navy:#19345d; --navy-2:#27497d; --ink:#1c2a3f; --muted:#5d6d86;
   --line:#e3e9f2; --paper:#f6f8fc;
@@ -3625,13 +3625,13 @@ body{background:
 <!-- ===================== VIDYA AI · SCROLL STORYTELLING + STICKY SCROLL ANIMATION ===================== -->
 <!-- ===================== COUNSELLOR · REAL-TIME STREAMING DASHBOARD ===================== -->
 <!-- ===================== VIDYAGPT WIDGET ===================== -->
-<!-- ===================== VidyaGPT · 24x7 AI Admission Agent (isolated iframe — pristine) ===================== -->
+<!-- ===================== VidyaGPT · 24x7 AI Admission Agent (isolated iframe - pristine) ===================== -->
 <style>#vidyagpt.vgpt-embed{padding:0;margin:0;border:0;background:#fff;overflow:hidden}#vidyagpt.vgpt-embed iframe{display:block;width:100%;border:0;background:#fff;height:920px}
 @media(max-width:980px){#vidyagpt.vgpt-embed iframe{height:1480px}}
 </style>
 
 <!-- ===================== AUTOMATION · LIVE FLOW ===================== -->
-<!-- ===================== AI Engine · Live Processing (isolated iframe — pristine) ===================== -->
+<!-- ===================== AI Engine · Live Processing (isolated iframe - pristine) ===================== -->
 <style>#automation.auto-embed{padding:0;margin:0;border:0;background:#fff;overflow:hidden}#automation.auto-embed iframe{display:block;width:100%;border:0;background:#fff;height:1400px}
 @media(max-width:980px){#automation.auto-embed iframe{height:2050px}}
 </style>
@@ -3726,7 +3726,7 @@ body{background:
 
     <div class="sg-eyebrow"><span class="dot"></span> Built for your institution</div>
     <h2 class="sg-h2">One platform. Tuned to the way <em>your institution runs.</em></h2>
-    <p class="sg-intro">Not a one-size-fits-all CRM. Pick your institution type and watch ExtraaEdge reshape itself — your channels, your pipeline, your admission model.</p>
+    <p class="sg-intro">Not a one-size-fits-all CRM. Pick your institution type and watch ExtraaEdge reshape itself - your channels, your pipeline, your admission model.</p>
 
     <p class="sg-chip-q">Which one are you?</p>
     <div class="sg-personas" role="tablist" aria-label="Institution type">
@@ -3745,13 +3745,13 @@ body{background:
         <article class="sg-ch active" data-seg="he" id="sg-he">
           <div class="sg-ix">01 <span class="k">Higher Education</span></div>
           <h3>Universities &amp; colleges, run end to end.</h3>
-          <p>From first enquiry to final enrolment — capture every lead, let AI prioritise real intent, and orchestrate programs, campuses and scholarships from one platform.</p>
+          <p>From first enquiry to final enrolment - capture every lead, let AI prioritise real intent, and orchestrate programs, campuses and scholarships from one platform.</p>
           <ul class="sg-feats">
-            <li><span class="n">01</span><div><b>Omnichannel capture</b><span class="s">Ads, website, WhatsApp &amp; portals land in one inbox — zero leakage</span></div></li>
+            <li><span class="n">01</span><div><b>Omnichannel capture</b><span class="s">Ads, website, WhatsApp &amp; portals land in one inbox - zero leakage</span></div></li>
             <li><span class="n">02</span><div><b>AI lead scoring</b><span class="s">Counsellors spend their day on students most likely to enrol</span></div></li>
             <li><span class="n">03</span><div><b>Multi-campus workflows</b><span class="s">Programs, intakes &amp; scholarships, perfectly organised</span></div></li>
           </ul>
-          <div class="sg-proof"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/segments-icon-06.svg" alt="" loading="lazy" decoding="async"><div class="q">Our counsellors stopped chasing cold lists. Conversion moved within the first intake itself.<span class="a">— Director of Admissions, Multi-campus University</span></div></div>
+          <div class="sg-proof"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/segments-icon-06.svg" alt="" loading="lazy" decoding="async"><div class="q">Our counsellors stopped chasing cold lists. Conversion moved within the first intake itself.<span class="a">- Director of Admissions, Multi-campus University</span></div></div>
         </article>
 
         <article class="sg-ch" data-seg="school" id="sg-school">
@@ -3760,22 +3760,22 @@ body{background:
           <p>Digitise enquiries and applications for every grade, automate warm WhatsApp follow-ups, and move each family cleanly from first visit to fee payment.</p>
           <ul class="sg-feats">
             <li><span class="n">01</span><div><b>Forms for every grade</b><span class="s">Branded online enquiry &amp; application, mobile-first for parents</span></div></li>
-            <li><span class="n">02</span><div><b>Parent WhatsApp automation</b><span class="s">Timely, personalised nudges — never spammy</span></div></li>
+            <li><span class="n">02</span><div><b>Parent WhatsApp automation</b><span class="s">Timely, personalised nudges - never spammy</span></div></li>
             <li><span class="n">03</span><div><b>Enquiry → fee pipeline</b><span class="s">One clean view of every family's journey</span></div></li>
           </ul>
-          <div class="sg-proof"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/segments-icon-06.svg" alt="" loading="lazy" decoding="async"><div class="q">Parents now get a reply before they've left the campus gate. Walk-in to admission jumped visibly.<span class="a">— Principal, K-12 School Group</span></div></div>
+          <div class="sg-proof"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/segments-icon-06.svg" alt="" loading="lazy" decoding="async"><div class="q">Parents now get a reply before they've left the campus gate. Walk-in to admission jumped visibly.<span class="a">- Principal, K-12 School Group</span></div></div>
         </article>
 
         <article class="sg-ch" data-seg="edtech" id="sg-edtech">
           <div class="sg-ix">03 <span class="k">EdTech</span></div>
           <h3>Qualify at scale. Sell to the serious.</h3>
-          <p>AI calling works through thousands of leads 24×7, scores intent from real behaviour, and routes only hot prospects to sales — grow without growing headcount.</p>
+          <p>AI calling works through thousands of leads 24×7, scores intent from real behaviour, and routes only hot prospects to sales - grow without growing headcount.</p>
           <ul class="sg-feats">
             <li><span class="n">01</span><div><b>24×7 AI calling</b><span class="s">Thousands of leads qualified automatically, even at 2 AM</span></div></li>
-            <li><span class="n">02</span><div><b>Behavioural intent scoring</b><span class="s">Real signals from clicks, calls &amp; replies — not guesswork</span></div></li>
+            <li><span class="n">02</span><div><b>Behavioural intent scoring</b><span class="s">Real signals from clicks, calls &amp; replies - not guesswork</span></div></li>
             <li><span class="n">03</span><div><b>Smart sales routing</b><span class="s">Hot leads hit a rep's screen in seconds</span></div></li>
           </ul>
-          <div class="sg-proof"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/segments-icon-06.svg" alt="" loading="lazy" decoding="async"><div class="q">Same sales team, three times the pipeline. The AI does the first conversation for us.<span class="a">— Growth Head, EdTech Platform</span></div></div>
+          <div class="sg-proof"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/segments-icon-06.svg" alt="" loading="lazy" decoding="async"><div class="q">Same sales team, three times the pipeline. The AI does the first conversation for us.<span class="a">- Growth Head, EdTech Platform</span></div></div>
         </article>
 
         <article class="sg-ch" data-seg="coaching" id="sg-coaching">
@@ -3784,10 +3784,10 @@ body{background:
           <p>Run batch-wise admissions with live seats and waitlists, capture every walk-in, and compare counsellor performance across all your centres in one view.</p>
           <ul class="sg-feats">
             <li><span class="n">01</span><div><b>Batch &amp; seat management</b><span class="s">Live capacity, automatic waitlists, zero overbooking</span></div></li>
-            <li><span class="n">02</span><div><b>Walk-in capture</b><span class="s">Front-desk app — no enquiry slips through</span></div></li>
+            <li><span class="n">02</span><div><b>Walk-in capture</b><span class="s">Front-desk app - no enquiry slips through</span></div></li>
             <li><span class="n">03</span><div><b>Multi-centre dashboard</b><span class="s">One unified command view of every branch</span></div></li>
           </ul>
-          <div class="sg-proof"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/segments-icon-06.svg" alt="" loading="lazy" decoding="async"><div class="q">I open one dashboard at 9 AM and know exactly which centre needs my attention today.<span class="a">— Founder, Multi-centre Coaching Institute</span></div></div>
+          <div class="sg-proof"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/segments-icon-06.svg" alt="" loading="lazy" decoding="async"><div class="q">I open one dashboard at 9 AM and know exactly which centre needs my attention today.<span class="a">- Founder, Multi-centre Coaching Institute</span></div></div>
         </article>
 
         <article class="sg-ch" data-seg="overseas" id="sg-overseas">
@@ -3795,11 +3795,11 @@ body{background:
           <h3>Global applications, one calm pipeline.</h3>
           <p>Track applications across countries and universities, manage document checklists and verification, and keep every student updated automatically at every stage.</p>
           <ul class="sg-feats">
-            <li><span class="n">01</span><div><b>Multi-country pipeline</b><span class="s">Universities, intakes &amp; deadlines — organised by default</span></div></li>
+            <li><span class="n">01</span><div><b>Multi-country pipeline</b><span class="s">Universities, intakes &amp; deadlines - organised by default</span></div></li>
             <li><span class="n">02</span><div><b>Document management</b><span class="s">Checklists, uploads &amp; verification in one place</span></div></li>
             <li><span class="n">03</span><div><b>Automated student updates</b><span class="s">Status at every stage, hands-free</span></div></li>
           </ul>
-          <div class="sg-proof"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/segments-icon-06.svg" alt="" loading="lazy" decoding="async"><div class="q">No more spreadsheets per country. Every counsellor sees the same live pipeline.<span class="a">— CEO, Study Abroad Consultancy</span></div></div>
+          <div class="sg-proof"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/segments-icon-06.svg" alt="" loading="lazy" decoding="async"><div class="q">No more spreadsheets per country. Every counsellor sees the same live pipeline.<span class="a">- CEO, Study Abroad Consultancy</span></div></div>
         </article>
 
       </div>
@@ -3882,7 +3882,7 @@ body{background:
       leads:[{av:'AI',b:'AI Caller · Batch #112544',s:'1,240 calls completed overnight',score:'Running',cls:'ok'},
              {av:'NV',b:'Neha V. · Data Science Pro',s:'Asked about EMI · attended webinar',score:'96 · Hot',cls:'hot'},
              {av:'AT',b:'Arjun T. · UX Bootcamp',s:'Opened pricing page 3× today',score:'78 · Warm',cls:'warm'}],
-      wa:'Hi Neha! Great talking to you. Booking your counselling call for 6 PM today — our advisor Rahul will join.',
+      wa:'Hi Neha! Great talking to you. Booking your counselling call for 6 PM today - our advisor Rahul will join.',
       cta:'See AI calling in action'},
     coaching:{name:'Coaching Institutes',sub:'Batch & Centre Operations',
       icon:'<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h13a1 1 0 011 1v13H7a2 2 0 00-2 2z"/><path d="M5 19a2 2 0 012-2h12"/></svg>',
@@ -4107,7 +4107,7 @@ body{background:
       <div>
         <span class="ee-kicker"><i></i> Admission Ecosystem</span>
         <h2 class="ee-h2">Why institutes choose ExtraaEdge as the <em>architect of their admissions.</em></h2>
-        <p class="ee-lead">Most Admission CRMs help you <b>manage</b> admissions. ExtraaEdge helps you <b>design</b> how admissions should work — end to end, at scale.</p>
+        <p class="ee-lead">Most Admission CRMs help you <b>manage</b> admissions. ExtraaEdge helps you <b>design</b> how admissions should work - end to end, at scale.</p>
       </div>
     </div>
     <div class="ee-grid">
@@ -4117,14 +4117,14 @@ body{background:
           <button class="ee-node" aria-label="Go to stage 1">01</button>
           <span class="ee-tag">Foundation</span>
           <h3>One Unified Admission Cloud</h3>
-          <p>Every channel, team and stage on a single intelligent platform — no fragmented tools, no manual follow-ups.</p>
+          <p>Every channel, team and stage on a single intelligent platform - no fragmented tools, no manual follow-ups.</p>
           <div class="ee-chips"><span class="ee-chip">Ads Integration</span><span class="ee-chip">ERP Sync</span><span class="ee-chip">Website Tracking</span></div>
         </article>
         <article class="ee-story" data-stage="1">
           <button class="ee-node" aria-label="Go to stage 2">02</button>
           <span class="ee-tag">Front Door</span>
           <h3>24/7 AI Admission Assistance</h3>
-          <p>VidyaGPT answers, qualifies and routes student queries across web and WhatsApp — round the clock, with full counsellor context.</p>
+          <p>VidyaGPT answers, qualifies and routes student queries across web and WhatsApp - round the clock, with full counsellor context.</p>
           <div class="ee-chips"><span class="ee-chip">WhatsApp API</span><span class="ee-chip">Web Chatbot</span><span class="ee-chip">Counsellor Handover</span></div>
         </article>
         <article class="ee-story" data-stage="2">
@@ -4138,7 +4138,7 @@ body{background:
           <button class="ee-node" aria-label="Go to stage 4">04</button>
           <span class="ee-tag">Control Tower</span>
           <h3>Real-Time Intent Intelligence</h3>
-          <p>Behaviour-driven scoring that decides who, when and how to engage — surfacing bottlenecks before they cost you a student.</p>
+          <p>Behaviour-driven scoring that decides who, when and how to engage - surfacing bottlenecks before they cost you a student.</p>
           <div class="ee-chips"><span class="ee-chip">Performance Audit</span><span class="ee-chip">Bottleneck Alerts</span><span class="ee-chip">Live Funnel</span></div>
         </article>
         <article class="ee-story" data-stage="4">
@@ -4181,10 +4181,10 @@ body{background:
                 <div class="ee-ring"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ecosystem-icon-01.svg" alt="" width="26" height="26" loading="lazy" decoding="async"></div>
                 <div class="ee-wave" aria-hidden="true"><i style="animation-delay:0s"></i><i style="animation-delay:.1s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.3s"></i><i style="animation-delay:.15s"></i><i style="animation-delay:.05s"></i><i style="animation-delay:.25s"></i></div>
                 <div class="ee-calllog" id="eeCallLog">
-                  <div>DIALED — 412 prospects this morning</div>
-                  <div>QUALIFIED — <b>118 high-intent</b></div>
-                  <div>ROUTED — 118 &#8594; 6 counsellors</div>
-                  <div>HUMAN TIME SAVED — <b>34 hrs</b></div>
+                  <div>DIALED - 412 prospects this morning</div>
+                  <div>QUALIFIED - <b>118 high-intent</b></div>
+                  <div>ROUTED - 118 &#8594; 6 counsellors</div>
+                  <div>HUMAN TIME SAVED - <b>34 hrs</b></div>
                 </div>
               </div>
             </div>
@@ -4348,7 +4348,7 @@ body{background:
     <div class="head rv">
       <span class="eyebrow"><span class="dot"></span> Extensions &amp; Integrations</span>
       <h2 class="h2">One platform, <span class="grad-o">infinite connections.</span></h2>
-      <p class="lead">Plug ExtraaEdge into the tools your team already loves — telephony, payments, marketplaces, marketing &amp; more. No rip-and-replace.</p>
+      <p class="lead">Plug ExtraaEdge into the tools your team already loves - telephony, payments, marketplaces, marketing &amp; more. No rip-and-replace.</p>
     </div>
     <div class="ig-stats rv">
       <div><div class="n grad-o">50+</div><div class="l">Native integrations</div></div>
@@ -4443,7 +4443,7 @@ body{background:
         </span>
       </h2>
 
-      <p class="wa-lead">Your prospects check WhatsApp <b>23 times a day</b> — not their inbox. Run verified, personalised conversations at scale from your Admission CRM, with every reply, click and counsellor handoff tracked automatically.</p>
+      <p class="wa-lead">Your prospects check WhatsApp <b>23 times a day</b> - not their inbox. Run verified, personalised conversations at scale from your Admission CRM, with every reply, click and counsellor handoff tracked automatically.</p>
 
       <div class="wa-tabs" role="tablist">
         <button class="wa-tab on" data-tab="0" role="tab"><span class="tic">📣</span> Broadcast</button>
@@ -4453,7 +4453,7 @@ body{background:
 
       <div class="wa-panel" id="waPanel">
         <h4>📣 Bulk campaigns that feel 1:1</h4>
-        <p>Segment by course, stage or source and send personalised broadcasts with merge fields, media and CTA buttons — without ever risking your number.</p>
+        <p>Segment by course, stage or source and send personalised broadcasts with merge fields, media and CTA buttons - without ever risking your number.</p>
         <div class="chips"><span class="chip">Smart segments</span><span class="chip">Template library</span><span class="chip">Scheduled sends</span></div>
       </div>
 
@@ -4531,9 +4531,9 @@ body{background:
   let fv=0; const fT=setInterval(()=>{fv+=3;fc.textContent=Math.min(fv,89)+'%';if(fv>=89)clearInterval(fT);},40);
 
   const panels=[
-    {h:'📣 Bulk campaigns that feel 1:1',p:'Segment by course, stage or source and send personalised broadcasts with merge fields, media and CTA buttons — without ever risking your number.',c:['Smart segments','Template library','Scheduled sends']},
+    {h:'📣 Bulk campaigns that feel 1:1',p:'Segment by course, stage or source and send personalised broadcasts with merge fields, media and CTA buttons - without ever risking your number.',c:['Smart segments','Template library','Scheduled sends']},
     {h:'⚡ Journeys that run themselves',p:'Auto-trigger fee reminders, document nudges and counselling follow-ups based on lead stage. Hand off to a human the moment intent spikes.',c:['Drip sequences','Smart handoff','24×7 chatbot']},
-    {h:'🎯 Every chat tied to revenue',p:'Replies, clicks and applications sync to the lead record instantly — so you know exactly which message moved which student to enrol.',c:['CRM auto-sync','Attribution reports','Counsellor inbox']}
+    {h:'🎯 Every chat tied to revenue',p:'Replies, clicks and applications sync to the lead record instantly - so you know exactly which message moved which student to enrol.',c:['CRM auto-sync','Attribution reports','Counsellor inbox']}
   ];
   const panel=document.getElementById('waPanel');
   document.querySelectorAll('.wa-tab').forEach(tab=>tab.addEventListener('click',()=>{
@@ -4550,26 +4550,26 @@ body{background:
   const typing=document.getElementById('waTyping');
   const scripts=[
     [
-      {who:'biz',html:'Hi <b>Riya</b> 👋 Applications for <b>B.Tech CSE 2026</b> close in 5 days. Your profile is a strong fit — shall I reserve your slot?'},
+      {who:'biz',html:'Hi <b>Riya</b> 👋 Applications for <b>B.Tech CSE 2026</b> close in 5 days. Your profile is a strong fit - shall I reserve your slot?'},
       {who:'usr',html:'Yes! What documents do I need?'},
       {who:'biz',html:'<div class="doc"><div class="di">PDF</div><div><b>Admission_Checklist.pdf</b><small>2 pages · 240 KB</small></div></div>Here you go! Just 3 documents. Want me to book a counselling call too?'},
       {who:'qr',opts:['📅 Book a call','📝 Apply now','💬 Talk to counsellor']},
       {who:'usr',html:'📝 Apply now'},
-      {who:'biz',html:'Perfect 🎉 Your application link: <b>extraaedge.in/apply/riya</b> — I\'ve pre-filled your details. Takes 4 minutes!'}
+      {who:'biz',html:'Perfect 🎉 Your application link: <b>extraaedge.in/apply/riya</b> - I\'ve pre-filled your details. Takes 4 minutes!'}
     ],
     [
       {who:'biz',html:'⏰ Reminder: your <b>fee payment</b> for Semester 1 is due tomorrow. Pay securely here 👇'},
       {who:'qr',opts:['💳 Pay now','📄 View invoice','🗓️ Request extension']},
       {who:'usr',html:'💳 Pay now'},
       {who:'biz',html:'Payment of <b>₹45,000</b> received ✅ Receipt sent to your email. Your seat is confirmed, Riya! 🎓'},
-      {who:'biz',html:'Next step: orientation on <b>July 14</b>. I\'ll send the joining kit a week before — no action needed.'}
+      {who:'biz',html:'Next step: orientation on <b>July 14</b>. I\'ll send the joining kit a week before - no action needed.'}
     ],
     [
       {who:'usr',html:'Hi, I filled the enquiry form on your website'},
-      {who:'biz',html:'Welcome Riya! I can see you\'re interested in <b>MBA — Marketing</b>. You\'re eligible for our <b>merit scholarship</b> (up to 40%). Want the details?'},
+      {who:'biz',html:'Welcome Riya! I can see you\'re interested in <b>MBA - Marketing</b>. You\'re eligible for our <b>merit scholarship</b> (up to 40%). Want the details?'},
       {who:'usr',html:'Yes please! 🙌'},
-      {who:'biz',html:'Connecting you to <b>Priya from Admissions</b> — she\'s helped 200+ students get this scholarship. She\'ll message you in under a minute ⏱️'},
-      {who:'biz',html:'Hi Riya, Priya here 👋 I\'ve reviewed your profile — let\'s get your scholarship application in today. Free for a quick call at 4 PM?'}
+      {who:'biz',html:'Connecting you to <b>Priya from Admissions</b> - she\'s helped 200+ students get this scholarship. She\'ll message you in under a minute ⏱️'},
+      {who:'biz',html:'Hi Riya, Priya here 👋 I\'ve reviewed your profile - let\'s get your scholarship application in today. Free for a quick call at 4 PM?'}
     ]
   ];
 
@@ -4661,11 +4661,11 @@ body{background:
   <div class="rvw">
     <div class="rvh">
       <span class="eb"><i></i> Fast implementation</span>
-      <h2>Go live in <em>7 days</em> &mdash; not months.</h2>
+      <h2>Go live in <em>7 days</em> - not months.</h2>
       <p>No long IT projects. Our team imports your data, configures your AI &amp; WhatsApp, trains your counsellors and gets you live in a single week.</p>
     </div>
     <div class="tl">
-      <div class="st"><div class="n">1</div><div class="day">Day 1&ndash;2</div><h4>Kickoff &amp; data import</h4><p>We migrate your leads &amp; history &mdash; zero manual work for you.</p></div>
+      <div class="st"><div class="n">1</div><div class="day">Day 1&ndash;2</div><h4>Kickoff &amp; data import</h4><p>We migrate your leads &amp; history - zero manual work for you.</p></div>
       <div class="st"><div class="n">2</div><div class="day">Day 3&ndash;4</div><h4>Setup &amp; branding</h4><p>Stages, forms, templates &amp; dashboards mapped to your funnel.</p></div>
       <div class="st"><div class="n">3</div><div class="day">Day 5&ndash;6</div><h4>AI &amp; WhatsApp config</h4><p>VidyaAI calling, VidyaGPT &amp; WhatsApp API live and tested.</p></div>
       <div class="st"><div class="n">4</div><div class="day">Day 7</div><h4>Go live + training</h4><p>Counsellors trained, you start converting from day one.</p></div>
@@ -4681,10 +4681,10 @@ body{background:
       <div class="swl">
         <span class="eb">🔁 Switching is easy</span>
         <h2>On a legacy CRM? Switch in 14 days.</h2>
-        <p>Outgrown a generic CRM or a basic enrollment tool? Move to the AI-native platform built only for admissions &mdash; we do the heavy lifting.</p>
+        <p>Outgrown a generic CRM or a basic enrollment tool? Move to the AI-native platform built only for admissions - we do the heavy lifting.</p>
         <ul>
-          <li><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> <b>Free data migration</b> &mdash; leads, history &amp; templates</li>
-          <li><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> Run both in parallel &mdash; <b>zero downtime</b></li>
+          <li><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> <b>Free data migration</b> - leads, history &amp; templates</li>
+          <li><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> Run both in parallel - <b>zero downtime</b></li>
           <li><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> 1:1 onboarding &amp; counsellor training included</li>
         </ul>
         <a href="#demo" class="cta">Get a free migration plan &rarr;</a>
@@ -4692,7 +4692,7 @@ body{background:
       <div class="swr">
         <div class="gain">What you gain on day one</div>
         <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-02.svg" alt="" loading="lazy" decoding="async"></b> AI Voice Agent that calls leads in 30 sec</div>
-        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-03.svg" alt="" loading="lazy" decoding="async"></b> VidyaGPT &mdash; 24&times;7 AI counsellor</div>
+        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-03.svg" alt="" loading="lazy" decoding="async"></b> VidyaGPT - 24&times;7 AI counsellor</div>
         <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-04.svg" alt="" loading="lazy" decoding="async"></b> Real-time AI lead intent scoring</div>
         <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-05.svg" alt="" loading="lazy" decoding="async"></b> 95+ languages on chat &amp; voice</div>
       </div>
@@ -5026,17 +5026,17 @@ body{background:
       <h2 class="h2">Everything you need to know about <span class="grad-o">ExtraaEdge.</span></h2>
     </div>
     <div class="faq rv">
-      <div class="qa"><button aria-expanded="false"><span>What is ExtraaEdge?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge is an AI-powered Admission CRM purpose-built for educational institutions — schools, colleges, universities and edtech companies. It automates lead capture, scores intent, triggers smart follow-ups and gives counsellors real-time performance intelligence.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>How does ExtraaEdge help convert more students?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge prioritises high-intent leads with AI scoring, responds to every enquiry in minutes with AI calling and WhatsApp automation, and tells counsellors exactly who to follow up with next — reducing response time by up to 90% and boosting conversions by up to 48%.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>What is ExtraaEdge?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge is an AI-powered Admission CRM purpose-built for educational institutions - schools, colleges, universities and edtech companies. It automates lead capture, scores intent, triggers smart follow-ups and gives counsellors real-time performance intelligence.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>How does ExtraaEdge help convert more students?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge prioritises high-intent leads with AI scoring, responds to every enquiry in minutes with AI calling and WhatsApp automation, and tells counsellors exactly who to follow up with next - reducing response time by up to 90% and boosting conversions by up to 48%.</p></div></div>
       <div class="qa"><button aria-expanded="false"><span>Does ExtraaEdge offer a free demo?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. You can book a free personalised 45-minute demo. A product expert will walk you through the platform live with data relevant to your sector.</p></div></div>
       <div class="qa"><button aria-expanded="false"><span>Is ExtraaEdge suitable for small colleges?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge serves institutions from single-campus colleges to large university groups processing 100,000+ applications per cycle. Pricing and features scale to your needs.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>What AI features does ExtraaEdge offer?</span><span class="ic">+</span></button><div class="qa__a"><p>AI Lead Intent Scoring, AI Calling at scale via VidyaAI, Smart Follow-up Automation, WhatsApp Business API engagement and Counsellor Performance Intelligence — all powered by ExtraaEdge's proprietary Admission Intelligence engine.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>Will ExtraaEdge work with my existing ads and website?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge captures leads automatically from Meta &amp; Google Ads, your website and landing pages, education portals (Shiksha, Collegedunia), WhatsApp, IVR and more — so every enquiry lands in one place with full source tracking. It also connects to your ERP/SIS, payment gateway and telephony.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>How long does it take to go live?</span><span class="ic">+</span></button><div class="qa__a"><p>Most institutions go live in around 14 days. That includes data migration, integrations (ads, website, WhatsApp, telephony), workflow set-up and counsellor training — with a dedicated onboarding specialist and Customer Success Manager.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>Does VidyaGPT support regional languages?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. VidyaGPT understands and responds in 95+ languages including Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, Gujarati and more — over chat and on AI voice calls — so you can engage every student in their preferred language.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>Is my data secure with ExtraaEdge?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge is ISO 27001 certified and GDPR compliant, with India-based data residency, role-based access controls, encryption and full audit trails — enterprise-grade protection for your institution and applicants.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>How does pricing work?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge uses simple, transparent product-based pricing — not module-based pricing that adds cost every time you scale. Your demo includes a tailored quote based on your enquiry volume and the modules you need, with no hidden third-party charges.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>Can I migrate from my existing CRM or spreadsheets?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. Our team handles full data migration from your existing CRM or spreadsheets — leads, history, sources and stages — as part of onboarding, so you go live without losing any data.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>What AI features does ExtraaEdge offer?</span><span class="ic">+</span></button><div class="qa__a"><p>AI Lead Intent Scoring, AI Calling at scale via VidyaAI, Smart Follow-up Automation, WhatsApp Business API engagement and Counsellor Performance Intelligence - all powered by ExtraaEdge's proprietary Admission Intelligence engine.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>Will ExtraaEdge work with my existing ads and website?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge captures leads automatically from Meta &amp; Google Ads, your website and landing pages, education portals (Shiksha, Collegedunia), WhatsApp, IVR and more - so every enquiry lands in one place with full source tracking. It also connects to your ERP/SIS, payment gateway and telephony.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>How long does it take to go live?</span><span class="ic">+</span></button><div class="qa__a"><p>Most institutions go live in around 14 days. That includes data migration, integrations (ads, website, WhatsApp, telephony), workflow set-up and counsellor training - with a dedicated onboarding specialist and Customer Success Manager.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>Does VidyaGPT support regional languages?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. VidyaGPT understands and responds in 95+ languages including Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, Gujarati and more - over chat and on AI voice calls - so you can engage every student in their preferred language.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>Is my data secure with ExtraaEdge?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge is ISO 27001 certified and GDPR compliant, with India-based data residency, role-based access controls, encryption and full audit trails - enterprise-grade protection for your institution and applicants.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>How does pricing work?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge uses simple, transparent product-based pricing - not module-based pricing that adds cost every time you scale. Your demo includes a tailored quote based on your enquiry volume and the modules you need, with no hidden third-party charges.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>Can I migrate from my existing CRM or spreadsheets?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. Our team handles full data migration from your existing CRM or spreadsheets - leads, history, sources and stages - as part of onboarding, so you go live without losing any data.</p></div></div>
       <div class="qa"><button aria-expanded="false"><span>Will my counsellors actually adopt it?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge is a single-window CRM designed around the admissions team, so it's quick to learn even for non-technical counsellors. Every account gets hands-on training, on-ground support and a dedicated Customer Success Manager to drive adoption.</p></div></div>
     </div>
   </div>
@@ -5050,12 +5050,12 @@ body{background:
       <!-- value side -->
       <div class="demo-left">
         <h2>Ready to convert more students, automatically?</h2>
-        <p class="s">Book a free 45-minute demo. We'll map ExtraaEdge to your exact admission funnel — and show the conversion lift live with data from your sector.</p>
+        <p class="s">Book a free 45-minute demo. We'll map ExtraaEdge to your exact admission funnel - and show the conversion lift live with data from your sector.</p>
         <ul class="dchecks">
-          <li><span class="ck">✓</span><div><b>A live walk-through of VidyaAI</b> — lead scoring, AI calling, WhatsApp &amp; follow-up automation working on your use case.</div></li>
-          <li><span class="ck">✓</span><div><b>Your personalised ROI model</b> — exactly how many extra admissions you can expect this cycle.</div></li>
-          <li><span class="ck">✓</span><div><b>A 14-day go-live plan</b> — migration, integrations and counsellor onboarding mapped out.</div></li>
-          <li><span class="ck">✓</span><div><b>No obligation, no credit card</b> — just answers and a clear path to more enrolments.</div></li>
+          <li><span class="ck">✓</span><div><b>A live walk-through of VidyaAI</b> - lead scoring, AI calling, WhatsApp &amp; follow-up automation working on your use case.</div></li>
+          <li><span class="ck">✓</span><div><b>Your personalised ROI model</b> - exactly how many extra admissions you can expect this cycle.</div></li>
+          <li><span class="ck">✓</span><div><b>A 14-day go-live plan</b> - migration, integrations and counsellor onboarding mapped out.</div></li>
+          <li><span class="ck">✓</span><div><b>No obligation, no credit card</b> - just answers and a clear path to more enrolments.</div></li>
         </ul>
         <div class="dbadges">
           <div class="drating"><span class="st">★★★★★</span> 4.7/5 on G2 &amp; Capterra</div>
@@ -5077,7 +5077,7 @@ body{background:
           <button type="submit" class="btn btn-primary btn-lg">Book My Free Demo →</button>
         </form>
         <div class="demo-ok" id="demoOk">🎉 Thank you! Our admissions expert will reach out within the hour.</div>
-        <p class="demo-trust">🔒 Your data is safe — ISO 27001 &amp; GDPR compliant. No spam, ever.</p>
+        <p class="demo-trust">🔒 Your data is safe - ISO 27001 &amp; GDPR compliant. No spam, ever.</p>
       </div>
     </div>
   </div>
@@ -5096,16 +5096,16 @@ addEventListener('scroll',function(){var h=document.documentElement;prog.style.w
 var rvObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rvObs.unobserve(e.target);}});},{threshold:.14});
 document.querySelectorAll('.rv').forEach(function(el){rvObs.observe(el);});
 
-/* (hero typewriter removed — now handled by the scoped #xhero hero script) */
+/* (hero typewriter removed - now handled by the scoped #xhero hero script) */
 
 /* counters */
 function animate(el){var t=parseFloat(el.dataset.count),pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';var dec=t%1!==0,cur=0,steps=46,inc=t/steps;var id=setInterval(function(){cur+=inc;if(cur>=t){cur=t;clearInterval(id);}el.textContent=pre+(dec?cur.toFixed(1):Math.round(cur).toLocaleString())+suf;},26);}
 var cObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){animate(e.target);cObs.unobserve(e.target);}});},{threshold:.6});
 document.querySelectorAll('[data-count]').forEach(function(el){cObs.observe(el);});
 
-/* (hero live flow removed — replaced by the scoped #xhero VidyaAI console simulation) */
+/* (hero live flow removed - replaced by the scoped #xhero VidyaAI console simulation) */
 
-/* marquee is now a static centered grid — logos shown once, no duplication/scroll */
+/* marquee is now a static centered grid - logos shown once, no duplication/scroll */
 
 /* ============ Counsellor streaming dashboard ============ */
 (function(){
@@ -5167,15 +5167,15 @@ document.querySelectorAll('.qa button').forEach(function(b){
   var nav=document.getElementById('igNav');if(!nav)return;
   var B='https://www.extraaedge.com/wp-content/uploads/2026/intigration-logo/';
   var C=[
-   {e:'📞',t:'Cloud Telephony',d:'Run your entire calling stack — IVR, click-to-call & recording — natively inside ExtraaEdge.',g:[['3cx.svg','3CX'],['3gcallnet.svg','3G Callnet'],['ameyo.svg','Ameyo'],['asterisk.svg','Asterisk'],['c-zentrix.svg','C-Zentrix'],['exotel.svg','Exotel'],['ivr-guru.svg','IVR Guru'],['knowlarity.svg','Knowlarity'],['mcube.svg','MCUBE'],['myoperator.svg','MyOperator'],['ozonetel.svg','Ozonetel'],['servetel.svg','Servetel'],['smartflo.svg','Smartflo'],['telecmi.svg','TeleCMI'],['voxbay.svg','Voxbay']]},
+   {e:'📞',t:'Cloud Telephony',d:'Run your entire calling stack - IVR, click-to-call & recording - natively inside ExtraaEdge.',g:[['3cx.svg','3CX'],['3gcallnet.svg','3G Callnet'],['ameyo.svg','Ameyo'],['asterisk.svg','Asterisk'],['c-zentrix.svg','C-Zentrix'],['exotel.svg','Exotel'],['ivr-guru.svg','IVR Guru'],['knowlarity.svg','Knowlarity'],['mcube.svg','MCUBE'],['myoperator.svg','MyOperator'],['ozonetel.svg','Ozonetel'],['servetel.svg','Servetel'],['smartflo.svg','Smartflo'],['telecmi.svg','TeleCMI'],['voxbay.svg','Voxbay']]},
    {e:'💬',t:'Messaging & SMS',d:'Reach every prospect on WhatsApp, SMS and RCS through India’s leading messaging gateways.',g:[['gupshup.svg','Gupshup'],['msg91.svg','MSG91'],['twilio.svg','Twilio'],['netcore.svg','Netcore']]},
    {e:'🎯',t:'Lead Sources & Marketplaces',d:'Pull verified enquiries from India’s largest education marketplaces in real time.',g:[['careers360.svg','Careers360'],['collegedekho.svg','CollegeDekho'],['collegedunia-learn.svg','Collegedunia'],['collegesearch.svg','CollegeSearch'],['edugorilla.svg','EduGorilla'],['getmyuni.svg','GetMyUni'],['india-study-channel.svg','India Study Channel'],['jagran-josh.svg','Jagran Josh'],['justdial.svg','Justdial'],['mba-universe.svg','MBA Universe'],['shiksha.svg','Shiksha'],['sulekha.svg','Sulekha']]},
-   {e:'📢',t:'Advertising & Remarketing',d:'Sync audiences and conversions back to your ad platforms — close the loop on every rupee.',g:[['google-ads.svg','Google Ads'],['google-remarketing.svg','Google Remarketing'],['facebook-ads.svg','Facebook Ads'],['facebook-remarketing.svg','Facebook Remarketing'],['instagram.svg','Instagram'],['linkedin-ads.svg','LinkedIn Ads']]},
+   {e:'📢',t:'Advertising & Remarketing',d:'Sync audiences and conversions back to your ad platforms - close the loop on every rupee.',g:[['google-ads.svg','Google Ads'],['google-remarketing.svg','Google Remarketing'],['facebook-ads.svg','Facebook Ads'],['facebook-remarketing.svg','Facebook Remarketing'],['instagram.svg','Instagram'],['linkedin-ads.svg','LinkedIn Ads']]},
    {e:'💳',t:'Payments & Banking',d:'PCI-compliant gateways and banking partners for secure, frictionless fee collection.',g:[['razorpay.svg','Razorpay'],['paytm.svg','Paytm'],['stripe.svg','Stripe'],['easebuzz.svg','Easebuzz'],['hdfc-bank.svg','HDFC Bank'],['adib.svg','ADIB'],['mastercard.svg','Mastercard']]},
-   {e:'🌐',t:'Forms & Website Builders',d:'Native connectors for the form and CMS tools you already use — no website lead slips through.',g:[['wordpress.svg','WordPress'],['elementor.svg','Elementor'],['wix.svg','Wix'],['contact-form-7.svg','Contact Form 7'],['typeform.svg','Typeform'],['zoho-forms.svg','Zoho Forms'],['unlayer.svg','Unlayer']]},
+   {e:'🌐',t:'Forms & Website Builders',d:'Native connectors for the form and CMS tools you already use - no website lead slips through.',g:[['wordpress.svg','WordPress'],['elementor.svg','Elementor'],['wix.svg','Wix'],['contact-form-7.svg','Contact Form 7'],['typeform.svg','Typeform'],['zoho-forms.svg','Zoho Forms'],['unlayer.svg','Unlayer']]},
    {e:'🧠',t:'Sales Intelligence',d:'Conversation intelligence that turns every counsellor call into coachable insight.',g:[['salesken.svg','Salesken'],['salesquared.svg','Salesquared']]},
    {e:'🎓',t:'Learning & Assessment',d:'Plug into LMS and assessment platforms for one unified journey from admission to classroom.',g:[['collpoll.svg','CollPoll'],['learnyst.svg','Learnyst'],['populi.svg','Populi'],['wheebox.svg','Wheebox'],['unipro-education.svg','Unipro Education']]},
-   {e:'⚡',t:'Automation & Productivity',d:'Trigger workflows, send transactional emails and connect 1000+ apps — no code needed.',g:[['zapier.svg','Zapier'],['sendgrid.svg','SendGrid']]}
+   {e:'⚡',t:'Automation & Productivity',d:'Trigger workflows, send transactional emails and connect 1000+ apps - no code needed.',g:[['zapier.svg','Zapier'],['sendgrid.svg','SendGrid']]}
   ];
   var count=document.getElementById('igCount'),title=document.getElementById('igTitle'),desc=document.getElementById('igDesc'),grid=document.getElementById('igGrid');
   function pad(n){return (n<10?'0':'')+n;}
@@ -5193,7 +5193,7 @@ document.querySelectorAll('.qa button').forEach(function(b){
   var ig=document.getElementById('ig');
   ig.addEventListener('mouseenter',function(){hovered=true;});
   ig.addEventListener('mouseleave',function(){hovered=false;});
-  /* Only auto-rotate while the section is actually on screen — otherwise the
+  /* Only auto-rotate while the section is actually on screen - otherwise the
      changing grid height reflows the page and jumps content the reader is on. */
   var visible=false;
   var o=new IntersectionObserver(function(es){es.forEach(function(e){visible=e.isIntersecting;});},{threshold:.2});
@@ -5218,7 +5218,7 @@ document.querySelectorAll('.qa button').forEach(function(b){
   o.observe(rm);
 })();
 
-/* ============ Demo form — functional lead capture via WhatsApp ============ */
+/* ============ Demo form - functional lead capture via WhatsApp ============ */
 (function(){
   var f=document.getElementById('demoForm');if(!f)return;
   function esc(s){return String(s).replace(/[<>&]/g,function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;'}[c];});}
@@ -5233,7 +5233,7 @@ document.querySelectorAll('.qa button').forEach(function(b){
       '%0AMonthly enquiries: '+encodeURIComponent(vol);
     var link='https://wa.me/918956982897?text='+msg;
     var ok=document.getElementById('demoOk');
-    ok.innerHTML='🎉 Thanks '+esc(name.split(' ')[0]||'')+'! Your request is in — our admissions expert will reach out within the hour.'+
+    ok.innerHTML='🎉 Thanks '+esc(name.split(' ')[0]||'')+'! Your request is in - our admissions expert will reach out within the hour.'+
       '<br><a href="'+link+'" target="_blank" rel="noopener" class="btn btn-dark" style="margin-top:14px">Confirm instantly on WhatsApp →</a>';
     f.style.display='none';ok.style.display='block';
     ok.scrollIntoView({behavior:'smooth',block:'center'});
@@ -5265,7 +5265,7 @@ document.querySelectorAll('.qa button').forEach(function(b){
 </script>
 
 <style id="ee-responsive-100">/* ============================================================
-   DEVICE-FRIENDLY SAFETY LAYER — 100% readable on all screens.
+   DEVICE-FRIENDLY SAFETY LAYER - 100% readable on all screens.
    Appended last so it wins the cascade over every section style.
    Scoped to .ee-home so the theme header/footer stay untouched.
    Improves readability + removes horizontal overflow on phones &
@@ -5300,20 +5300,20 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}/* Anchor jumps land be
    leaving huge empty vh gaps, and tighten every section to a
    ~10px top/bottom rhythm so sections read as distinct blocks.
    ============================================================ */
-@media (max-width:768px){/* —— VidyaAI · Admission Intelligence (#vidya) ——
+@media (max-width:768px){/* -- VidyaAI · Admission Intelligence (#vidya) --
      The desktop scroll-scrubbing uses 74-92vh-tall triggers per step,which read as enormous white gaps on a phone. Collapse to a compact
      stacked layout with every step + its visual fully visible (mirrors the
      theme's own no-JS fallback). */
-  #vidya .vx-stage{position:static!important;height:auto!important;padding:6px 0!important}#vidya .vx-view{position:static!important;opacity:1!important;visibility:visible!important;height:auto!important}#vidya .vx-body{height:auto!important;min-height:0!important}#vidya .vx-trigger,#vidya .vx-trigger:first-child,#vidya .vx-trigger:last-child{min-height:0!important;padding:8px 0!important}#vidya .vx-step{opacity:1!important;transform:none!important;filter:none!important;margin-bottom:10px}#vidya .stg{opacity:1!important;transform:none!important}#vidya .vx-rail,#vidya .vx-hint,#vidya .vx-dots,#vidya .vx-progress,.vx-progress{display:none!important}/* —— "From first click to enrolment — four moves" (#respond-first) ——
+  #vidya .vx-stage{position:static!important;height:auto!important;padding:6px 0!important}#vidya .vx-view{position:static!important;opacity:1!important;visibility:visible!important;height:auto!important}#vidya .vx-body{height:auto!important;min-height:0!important}#vidya .vx-trigger,#vidya .vx-trigger:first-child,#vidya .vx-trigger:last-child{min-height:0!important;padding:8px 0!important}#vidya .vx-step{opacity:1!important;transform:none!important;filter:none!important;margin-bottom:10px}#vidya .stg{opacity:1!important;transform:none!important}#vidya .vx-rail,#vidya .vx-hint,#vidya .vx-dots,#vidya .vx-progress,.vx-progress{display:none!important}/* -- "From first click to enrolment - four moves" (#respond-first) --
      Each of the four "moves" had 48px top+bottom padding on mobile; tighten
      so the steps sit close together without big empty bands. */
-  #respond-first .rf-story,#respond-first .rf-story:first-child{padding-top:12px!important;padding-bottom:12px!important}#respond-first .rf-sticky{padding-bottom:8px!important}/* —— Admission Ecosystem (#ecosystem) + every section ——
+  #respond-first .rf-story,#respond-first .rf-story:first-child{padding-top:12px!important;padding-bottom:12px!important}#respond-first .rf-sticky{padding-bottom:8px!important}/* -- Admission Ecosystem (#ecosystem) + every section --
      Uniform 10px top/bottom on the section wrappers so no two sections
      blur together and none carries a tall empty gap on mobile. */
   .ee-home > section{padding-top:10px!important;padding-bottom:10px!important}.ee-home .ee-wrap,.ee-home .rf-wrap,.ee-home .ea-wrap,.ee-home .vx-head,.ee-home .vx-proof{padding-top:10px!important;padding-bottom:10px!important}/* Tighten the gap under each section's heading/intro on mobile. */
   .ee-home .intro,.ee-home .ee-head,.ee-home .sg-head,.ee-home .ci-head{margin-bottom:14px!important}
 }/* ============================================================
-   PERFORMANCE — Core Web Vitals (LCP + CLS)
+   PERFORMANCE - Core Web Vitals (LCP + CLS)
    ============================================================ */
 /* LCP: the hero <h1> is the page's largest element. It was held at
    opacity:0 for ~0.9s by an entrance animation,so it painted late and
@@ -5324,7 +5324,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}/* Anchor jumps land be
 </style>
 <!-- ===================== GLOBAL PREMIUM MOTION + POLISH PASS ===================== -->
 <style>html{scroll-behavior:smooth}html,body{overflow-x:clip}/* scroll progress bar (brand gradient) */
-  #ee-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:99999;background:linear-gradient(90deg,#19345d,#DE6E30);box-shadow:0 0 12px rgba(222,110,48,.45);pointer-events:none;transition:width .08s linear}/* section scroll-reveal — class is added by JS only,so no-JS users always see content */
+  #ee-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:99999;background:linear-gradient(90deg,#19345d,#DE6E30);box-shadow:0 0 12px rgba(222,110,48,.45);pointer-events:none;transition:width .08s linear}/* section scroll-reveal - class is added by JS only,so no-JS users always see content */
   .ee-reveal{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}.ee-reveal.ee-in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}#ee-progress{display:none}.ee-reveal{opacity:1!important;transform:none!important;transition:none!important}
   }
@@ -5360,7 +5360,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}/* Anchor jumps land be
 })();
 </script>
 
-<style id="ee-seamless">/* One continuous background across the homepage — no divider lines,no section seams */
+<style id="ee-seamless">/* One continuous background across the homepage - no divider lines,no section seams */
 .ee-home .section-divider{display:none!important}#ecosystem,#segments,#whatsapp{display:none!important}/* ---- premium SaaS abstract background (CSS only · zero images) ---- */
 body.ee-home{
   background-color:#f6f8fc!important;
@@ -5481,7 +5481,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f1c30}
 .eebk-feat.f3 .fi{background:linear-gradient(135deg,#2f5aa8,#19335D)}
 .eebk-feat b{display:block;font-size:16px;font-weight:700;color:#19335D;line-height:1.25}
 .eebk-feat span{display:block;font-size:13.5px;color:#8a95a6;margin-top:1px}
-/* right — laptop illustration */
+/* right - laptop illustration */
 .eebk-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:380px}
 .eebk-shot{width:100%;height:auto;max-width:100%;display:block;filter:drop-shadow(0 24px 50px rgba(25,51,93,.18))}
 .eebk-art .orbit{position:absolute;top:2px;left:44%;transform:translateX(-50%);width:78px;height:78px;border-radius:50%;background:linear-gradient(135deg,#eef3fb,#fff);border:1px solid #e7ecf3;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(25,51,93,.12);z-index:3}
@@ -5572,7 +5572,7 @@ html.eebk-lock,body.eebk-lock{overflow:hidden}
         </div>
         <h2>Want to see<br>the <span class="o">real</span> CRM?</h2>
         <div class="bar"></div>
-        <p class="lead">This is a guided demo on sample data. Explore the complete, live CRM — every feature, with your own data — just message our team and we will get in touch to give you a full walkthrough.</p>
+        <p class="lead">This is a guided demo on sample data. Explore the complete, live CRM - every feature, with your own data - just message our team and we will get in touch to give you a full walkthrough.</p>
         <div class="eebk-feat f1"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg></div><div><b>100% Secure</b><span>Your data is safe</span></div></div>
         <div class="eebk-feat f2"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><b>Personalized Walkthrough</b><span>Tailored to your needs</span></div></div>
         <div class="eebk-feat f3"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 2.1 3.1-.5 1 3 2.8 1.5-1.2 2.9 1.2 2.9-2.8 1.5-1 3-3.1-.5L12 22l-2.4-2.1-3.1.5-1-3L2.7 16.4l1.2-2.9-1.2-2.9 2.8-1.5 1-3 3.1.5z"/><path d="M9 12l2 2 4-4"/></svg></div><div><b>No Obligation</b><span>Just explore and decide</span></div></div>
@@ -5734,7 +5734,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   #xhero .cta-note{display:none!important}
   #xhero .secure-label{white-space:nowrap!important;letter-spacing:.03em!important;font-size:9.5px!important}
 
-  /* Remove the small eyebrow/label above each section heading — on phones the
+  /* Remove the small eyebrow/label above each section heading - on phones the
      label + the main H2 read as a duplicate "double heading". Sections stay. */
   #trusted-institutions .logo-badge,
   #ee-platform .eep-eyebrow,
@@ -5754,7 +5754,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 </style>
 
 <style id="ee-spatial-skin">
-/* Apple visionOS "spatial" skin — VISUAL ONLY. Layout, markup and content of
+/* Apple visionOS "spatial" skin - VISUAL ONLY. Layout, markup and content of
    these sections are untouched; only their backgrounds turn into soft ambient
    depth and their existing cards become frosted glass. */
 
@@ -5768,7 +5768,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
     #ffffff !important;
 }
 
-/* Spatial cards — ONLY the simple white cards that have dark text. We use a
+/* Spatial cards - ONLY the simple white cards that have dark text. We use a
    near-solid white (readable) + soft depth shadow instead of heavy blur.
    The content panels (.eep-spot / .sol-panel / .sol-tab) are intentionally
    left ALONE: they have their own dark backgrounds with white text, and
