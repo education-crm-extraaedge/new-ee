@@ -748,6 +748,38 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     .stly-rv,.stly-step{opacity:1!important;transform:none!important}
     .stly-vslide{transition:none!important}
   }
+
+  /* ---- advanced/modern layer: 3D parallax, motes, progress ring, live, shine ---- */
+  .stly-vwrap{perspective:1000px}
+  .stly-visual{transform-style:preserve-3d;transition:transform .2s ease-out}
+  .stly-vslide{transform-style:preserve-3d}
+  .stly-vnum{transform:translateZ(24px)}
+  .stly-vic{transform:translateZ(48px)}
+  .stly-vtitle,.stly-vbig{transform:translateZ(26px)}
+  .stly-vtext,.stly-vfix{transform:translateZ(14px)}
+  .stly-motes{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .stly-motes i{position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(222,110,48,.55);opacity:.4;animation:stlyFloat 9s ease-in-out infinite}
+  .stly-motes i:nth-child(1){left:14%;top:24%}
+  .stly-motes i:nth-child(2){left:78%;top:32%;width:4px;background:rgba(255,255,255,.5);animation-delay:-2s}
+  .stly-motes i:nth-child(3){left:30%;top:72%;animation-delay:-4s}
+  .stly-motes i:nth-child(4){left:66%;top:80%;width:3px;background:rgba(255,255,255,.45);animation-delay:-6s}
+  .stly-motes i:nth-child(5){left:88%;top:62%;animation-delay:-1s}
+  .stly-motes i:nth-child(6){left:8%;top:54%;width:3px;background:rgba(255,255,255,.4);animation-delay:-3s}
+  @keyframes stlyFloat{0%,100%{transform:translateY(0) translateX(0);opacity:.2}50%{transform:translateY(-16px) translateX(6px);opacity:.65}}
+  .stly-ring{position:absolute;top:clamp(20px,2.4vw,30px);left:clamp(24px,3vw,36px);width:44px;height:44px;transform:rotate(-90deg);z-index:3}
+  .stly-ring circle{fill:none;stroke-width:3;stroke-linecap:round}
+  .stly-ring-bg{stroke:rgba(255,255,255,.16)}
+  .stly-ring-fg{stroke:var(--or);stroke-dasharray:119.4;stroke-dashoffset:119.4;transition:stroke-dashoffset .12s linear}
+  .stly-live{position:absolute;bottom:clamp(20px,2.4vw,28px);left:clamp(24px,3vw,36px);z-index:3;display:inline-flex;align-items:center;gap:7px;font:800 10px/1 'Inter',sans-serif;letter-spacing:.16em;color:rgba(255,255,255,.72)}
+  .stly-live i{width:7px;height:7px;border-radius:50%;background:#2BC98A;animation:stlyPulse 1.8s ease-out infinite}
+  @keyframes stlyPulse{0%{box-shadow:0 0 0 0 rgba(43,201,138,.55)}70%{box-shadow:0 0 0 8px rgba(43,201,138,0)}100%{box-shadow:0 0 0 0 rgba(43,201,138,0)}}
+  .stly-card{overflow:hidden}
+  .stly-card::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(222,110,48,.12),transparent);transform:skewX(-18deg);opacity:0;pointer-events:none}
+  @media(min-width:901px){.stly-step.is-active .stly-card::after{animation:stlyShine 1.1s ease-out}}
+  @keyframes stlyShine{0%{left:-60%;opacity:1}100%{left:130%;opacity:0}}
+  .stly-card::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--or),var(--nv));transform:scaleY(.12);transform-origin:top;transition:transform .55s cubic-bezier(.2,.7,.2,1);opacity:.9}
+  .stly-step.is-active .stly-card::before,.stly-step.in .stly-card::before{transform:scaleY(1)}
+  @media(prefers-reduced-motion:reduce){.stly-motes i,.stly-live i{animation:none!important}.stly-ring-fg{transition:none!important}.stly-visual{transform:none!important}}
 </style>
 
 <!-- STORY 1 · THE REAL PROBLEM -->
@@ -762,6 +794,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <div class="stly-scene" data-stly="1">
       <div class="stly-vwrap">
         <div class="stly-visual">
+          <div class="stly-motes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <svg class="stly-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="stly-ring-bg" cx="22" cy="22" r="19"></circle><circle class="stly-ring-fg" cx="22" cy="22" r="19"></circle></svg>
+          <span class="stly-live" aria-hidden="true"><i></i>LIVE</span>
           <div class="stly-vslide on" data-i="0">
             <span class="stly-vnum">01</span>
             <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13l3.5 7v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/></svg></span>
@@ -841,6 +876,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <div class="stly-scene" data-stly="2">
       <div class="stly-vwrap">
         <div class="stly-visual">
+          <div class="stly-motes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <svg class="stly-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="stly-ring-bg" cx="22" cy="22" r="19"></circle><circle class="stly-ring-fg" cx="22" cy="22" r="19"></circle></svg>
+          <span class="stly-live" aria-hidden="true"><i></i>LIVE</span>
           <div class="stly-vslide on" data-i="0">
             <span class="stly-vnum">01</span>
             <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></span>
@@ -906,6 +944,17 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 <script>
 (function(){
+  var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function countUp(el){
+    if(el.getAttribute('data-done')) return;
+    var raw=(el.textContent||'').trim(), m=raw.match(/^(\d+)(.*)$/); if(!m) return;
+    el.setAttribute('data-done','1');
+    var target=parseInt(m[1],10), suf=m[2]||'';
+    if(RM||target<=0){ el.textContent=target+suf; return; }
+    var start=null;
+    function step(t){ if(!start)start=t; var p=Math.min(1,(t-start)/850); var v=Math.round(target*(1-Math.pow(1-p,3))); el.textContent=v+suf; if(p<1)requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
   function initScene(scene){
     var steps=[].slice.call(scene.querySelectorAll('.stly-step'));
     var slides=[].slice.call(scene.querySelectorAll('.stly-vslide'));
@@ -913,25 +962,27 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     if(!steps.length) return;
     function setActive(i){
       steps.forEach(function(s,j){s.classList.toggle('is-active',j===i);});
-      slides.forEach(function(s,j){s.classList.toggle('on',j===i);});
+      slides.forEach(function(s,j){ var on=j===i; s.classList.toggle('on',on); if(on){ var n=s.querySelector('.stly-vbig em'); if(n)countUp(n); } });
       dots.forEach(function(d,j){d.classList.toggle('on',j===i);});
     }
-    /* active step = the one crossing the viewport centre band */
     if('IntersectionObserver' in window){
-      var aio=new IntersectionObserver(function(es){
-        es.forEach(function(e){ if(e.isIntersecting){ setActive(+e.target.getAttribute('data-i')); } });
-      },{rootMargin:'-45% 0px -45% 0px',threshold:0});
+      var aio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)setActive(+e.target.getAttribute('data-i'));});},{rootMargin:'-45% 0px -45% 0px',threshold:0});
       steps.forEach(function(s){aio.observe(s);});
     }
-    /* dots jump to a step */
     dots.forEach(function(d,i){ d.addEventListener('click',function(){ steps[i].scrollIntoView({behavior:'smooth',block:'center'}); }); });
+    var ring=scene.querySelector('.stly-ring-fg'), C=119.4;
+    function onScroll(){ if(!ring)return; var r=scene.getBoundingClientRect(), vh=window.innerHeight||1, total=r.height-vh; var p= total>0 ? Math.min(1,Math.max(0,-r.top/total)) : 0; ring.style.strokeDashoffset=C*(1-p); }
+    window.addEventListener('scroll',onScroll,{passive:true}); window.addEventListener('resize',onScroll,{passive:true}); onScroll();
+    var visual=scene.querySelector('.stly-visual'), vwrap=scene.querySelector('.stly-vwrap');
+    if(visual && vwrap && !RM && window.matchMedia && window.matchMedia('(hover:hover)').matches){
+      vwrap.addEventListener('mousemove',function(e){ var b=visual.getBoundingClientRect(); var px=(e.clientX-b.left)/b.width-0.5, py=(e.clientY-b.top)/b.height-0.5; visual.style.transform='rotateX('+(-py*6)+'deg) rotateY('+(px*8)+'deg)'; });
+      vwrap.addEventListener('mouseleave',function(){ visual.style.transform=''; });
+    }
   }
   [].slice.call(document.querySelectorAll('.stly-scene')).forEach(initScene);
-
-  /* reveal-on-scroll (headings + mobile step cards) */
   var rv=document.querySelectorAll('#why-admissions-leak .stly-rv, #feature-pillars .stly-rv, #why-admissions-leak .stly-step, #feature-pillars .stly-step');
   if('IntersectionObserver' in window && rv.length){
-    var rio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+    var rio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in'); [].slice.call(e.target.querySelectorAll('.stly-schip b')).forEach(countUp); rio.unobserve(e.target);}});},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
     [].slice.call(rv).forEach(function(el){rio.observe(el);});
   } else { [].slice.call(rv).forEach(function(el){el.classList.add('in');}); }
 })();
