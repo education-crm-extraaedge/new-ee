@@ -315,8 +315,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <li><a href="#ee-events" data-t="ee-events"><i>18</i><span>Events &amp; Webinars</span></a></li>
       <li><a href="#faq" data-t="faq"><i>19</i><span>Frequently Asked</span></a></li>
     </ul>
-    <a class="eetoc-cta" href="https://www.extraaedge.com/book-a-demo/" target="_blank" rel="noopener">Book DEMO Now
-      <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/page-icon-02.svg" alt="" loading="lazy" decoding="async"></a>
   </nav>
 </div>
 <script>
@@ -634,11 +632,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <div class="logo-badge">Broad Client Base</div>
     <h2 class="logo-title" style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.5rem,3.2vw,2.2rem);color:var(--blue);line-height:1.18;letter-spacing:-.02em;margin:6px 0 12px">Trusted by 500+ educational institutions across India</h2>
     <p class="logo-sub" style="max-width:760px;margin:0 auto 18px;color:#5a6b85;font-size:clamp(.95rem,1.6vw,1.05rem);line-height:1.6">ExtraaEdge powers <strong>5M+ student leads</strong> and <strong>100M+ student interactions</strong>, enabling universities, colleges, and EdTech organizations to accelerate admissions with AI-powered CRM and intelligent automation.</p>
-    <div class="logo-stats" style="display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(20px,5vw,56px);margin-bottom:6px">
-      <div style="text-align:center"><div style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.4rem);color:#DE6E30;line-height:1">500+</div><div style="font-size:.8rem;font-weight:600;color:#7a889e;text-transform:uppercase;letter-spacing:.06em">Institutions</div></div>
-      <div style="text-align:center"><div style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.4rem);color:#DE6E30;line-height:1">5M+</div><div style="font-size:.8rem;font-weight:600;color:#7a889e;text-transform:uppercase;letter-spacing:.06em">Student Leads</div></div>
-      <div style="text-align:center"><div style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.4rem);color:#DE6E30;line-height:1">100M+</div><div style="font-size:.8rem;font-weight:600;color:#7a889e;text-transform:uppercase;letter-spacing:.06em">Interactions</div></div>
-    </div>
   </div>
   <div class="marquee-wrap">
     <div class="marquee-track marquee-left">
@@ -841,10 +834,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </article>
     </div>
 
-    <div class="eeps-cta-row ee-cine">
-      <a class="ee-btn ee-btn-primary" href="#demo">See how it works &mdash; Book a Free Demo <span class="ee-arrow" aria-hidden="true">&rarr;</span></a>
-      <span class="eeps-cta-note">45-minute walkthrough &middot; No commitment &middot; Built for education</span>
-    </div>
   </div>
 </section>
 
@@ -890,13 +879,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         <p><strong>50+</strong> ready reports &mdash; source ROI, funnel drop-offs and counselor performance, in real time.</p>
       </article>
 
-      <article class="eefp-tile t-cta eefp-rv from-b" style="--i:2">
-        <div class="eefp-cta-copy">
-          <h3>See all four pillars on your funnel</h3>
-          <p>A 45-minute walkthrough, mapped to your admission process. No commitment.</p>
-        </div>
-        <a class="ee-btn ee-btn-primary" href="#demo">Book a Free Demo <span class="ee-arrow" aria-hidden="true">&rarr;</span></a>
-      </article>
     </div>
   </div>
 </section>
@@ -2693,7 +2675,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
             <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Enrollment Management</b><span>Move offers to enrolled &amp; fee-paid, faster</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
             <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Walk-in Management</b><span>Log, assign &amp; follow up every campus visit</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
           </div>
-          <a class="sol-cta" href="#demo">See it on your funnel <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-02.svg" alt="" loading="lazy" decoding="async"></a>
         </div>
 
         <div class="sol-panel" id="solp2" role="tabpanel">
@@ -2706,7 +2687,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
             <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Education Agents</b><span>Onboard &amp; track sub-agents with clear visibility</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
             <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Education Consultants</b><span>Counsellor workflows for visa, docs &amp; apps</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
           </div>
-          <a class="sol-cta" href="#demo">See it on your funnel <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-02.svg" alt="" loading="lazy" decoding="async"></a>
         </div>
 
         <div class="sol-panel" id="solp3" role="tabpanel">
@@ -2720,7 +2700,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
             <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Lead Nurturing</b><span>Automated drips across WhatsApp, email &amp; SMS</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
             <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Enrollment CRM</b><span>One CRM from first touch to enrolled</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
           </div>
-          <a class="sol-cta" href="#demo">See it on your funnel <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-02.svg" alt="" loading="lazy" decoding="async"></a>
         </div>
       </div>
     </div>
@@ -2898,12 +2877,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       <span class="cis-eyebrow"><span class="d"></span> CRM Impact Stories</span>
       <h2 class="cis-title" id="stories-title">Powering growth for <em>500+ happy customers</em></h2>
       <p class="cis-lead">Real admissions leaders and the stories behind them. See how institutions grow with ExtraaEdge.</p>
-      <div class="cis-trust">
-        <span class="cis-chip"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><b>4.7</b>/5 on G2</span>
-        <span class="cis-chip"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async">Top rated on Capterra</span>
-        <span class="cis-chip">&#127891; <b>500+</b> Institutions</span>
-        <span class="cis-chip">&#127757; <b>12+</b> Countries</span>
-      </div>
     </div>
 
     <div class="cis-grid">
