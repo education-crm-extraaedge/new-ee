@@ -2521,10 +2521,10 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-ind .spx-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(258px,1fr)); gap:20px; perspective:1100px; }
 #ee-ind .spx-card{ position:relative; display:flex; flex-direction:column; border-radius:26px;
   padding:26px 24px 22px; text-decoration:none;
-  background:linear-gradient(158deg,rgba(255,255,255,.74),rgba(255,255,255,.44));
-  -webkit-backdrop-filter:blur(22px) saturate(180%); backdrop-filter:blur(22px) saturate(180%);
-  border:1px solid rgba(255,255,255,.7);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 22px 44px -24px rgba(25,52,93,.4), 0 4px 12px -6px rgba(25,52,93,.16);
+  background:linear-gradient(158deg,rgba(255,255,255,.95),rgba(255,255,255,.85));
+  -webkit-backdrop-filter:blur(8px) saturate(140%); backdrop-filter:blur(8px) saturate(140%);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 22px 44px -24px rgba(25,52,93,.34), 0 4px 12px -6px rgba(25,52,93,.14);
   transform-style:preserve-3d; will-change:transform;
   transition:transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s cubic-bezier(.2,.7,.2,1), border-color .45s; }
 /* moving specular sheen (follows the pointer via --mx/--my) */
@@ -5490,31 +5490,20 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
     #ffffff !important;
 }
 
-/* frosted-glass treatment for the existing cards (no size/shape change) */
+/* Spatial cards — ONLY the simple white cards that have dark text. We use a
+   near-solid white (readable) + soft depth shadow instead of heavy blur.
+   The content panels (.eep-spot / .sol-panel / .sol-tab) are intentionally
+   left ALONE: they have their own dark backgrounds with white text, and
+   glassing them made that text invisible. */
 #ee-products .eep-card,
-#ee-products .eep-spot,
 #ee-teams .ee-card,
-#ee-solutions .sol-tab,
-#ee-solutions .sol-panel,
 #ee-golive .st,
 #ee-resources .ee-r-card{
-  background:linear-gradient(158deg,rgba(255,255,255,.74),rgba(255,255,255,.46));
-  -webkit-backdrop-filter:blur(20px) saturate(180%);
-  backdrop-filter:blur(20px) saturate(180%);
-  border:1px solid rgba(255,255,255,.7);
+  background:rgba(255,255,255,.96) !important;
+  border:1px solid rgba(255,255,255,.9);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.9),
-             0 22px 44px -24px rgba(25,52,93,.4),
-             0 4px 12px -6px rgba(25,52,93,.16);
-}
-
-/* Agentic AI Suite sits on a dark canvas — give it DARK frosted glass */
-#ee-vidya-suite .vsx-card{
-  background:linear-gradient(158deg,rgba(255,255,255,.11),rgba(255,255,255,.04));
-  -webkit-backdrop-filter:blur(18px) saturate(160%);
-  backdrop-filter:blur(18px) saturate(160%);
-  border:1px solid rgba(255,255,255,.18);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),
-             0 30px 60px -30px rgba(0,0,0,.6);
+             0 22px 44px -24px rgba(25,52,93,.34),
+             0 4px 12px -6px rgba(25,52,93,.14);
 }
 </style>
 
