@@ -674,223 +674,266 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   </div>
 </section>
 <!-- ============================================================
-     NEW · Cinematic Scrollytelling sections (scoped .eeps- / .eefp-)
-     S4: Problem -> Solution   |   S6: Feature Pillars (tabbed)
-     Brand: #DE6E30 / #19335D on white, Inter. Reveal-on-scroll.
+     Scroll-based storytelling: The Real Problem + Feature Pillars
+     Sticky premium visual + step-by-step reveal. Mobile-first.
+     Brand: #DE6E30 / #19335D on white, Inter. Scoped .stly-*
      ============================================================ -->
-<style id="ee-cine-sections">
-  .eeps-section, .eefp-section{
-    --ee-orange:#DE6E30; --ee-orange-dark:#C55A20; --ee-orange-tint:#FBEFE7;
-    --ee-navy:#19335D; --ee-navy-deep:#10233F; --ee-ink:#2B3A52; --ee-slate:#5B6B84;
-    --ee-line:#E4E9F1; --ee-bg-soft:#F7F9FC; --ee-white:#FFFFFF; --ee-green:#1E9E6A;
-    --ee-radius:16px; --ee-shadow:0 18px 44px rgba(25,51,93,.10);
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    color:var(--ee-ink); box-sizing:border-box;
+<style id="ee-story-sections">
+  .stly-sec{--or:#DE6E30;--ord:#C55A20;--tint:#FBEFE7;--nv:#19335D;--nvd:#10233F;--ink:#2B3A52;--slate:#5B6B84;--line:#E4E9F1;--soft:#F7F9FC;--green:#1E9E6A;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--ink);box-sizing:border-box}
+  .stly-sec *,.stly-sec *::before,.stly-sec *::after{box-sizing:inherit;margin:0;padding:0}
+  .stly-sec.is-white{background:#fff}
+  .stly-sec.is-soft{background:var(--soft)}
+  .stly-wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  .stly-head{max-width:720px;margin-bottom:clamp(20px,3vw,36px)}
+  .stly-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or)}
+  .stly-eyebrow::before{content:"";width:26px;height:2px;background:var(--or);border-radius:2px}
+  .stly-h2{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.16;letter-spacing:-.02em;color:var(--nv);margin-top:14px}
+  .stly-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.65;color:var(--slate);margin-top:14px;max-width:640px}
+  /* reveal */
+  .stly-rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*80ms)}
+  .stly-rv.in{opacity:1;transform:none}
+  /* scene: sticky visual + scrolling steps */
+  .stly-scene{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(28px,4vw,64px);align-items:start}
+  .stly-vwrap{position:sticky;top:100px;height:calc(100vh - 132px);min-height:440px;display:flex;flex-direction:column;gap:16px}
+  .stly-visual{position:relative;flex:1;border-radius:26px;overflow:hidden;background:linear-gradient(155deg,var(--nv),var(--nvd));box-shadow:0 34px 76px -32px rgba(25,51,93,.55)}
+  .stly-visual::before{content:"";position:absolute;inset:0;background:radial-gradient(460px 240px at 88% 6%,rgba(222,110,48,.30),transparent 62%),radial-gradient(360px 220px at 6% 96%,rgba(222,110,48,.14),transparent 60%);pointer-events:none}
+  .stly-vslide{position:absolute;inset:0;padding:clamp(26px,3vw,42px);display:flex;flex-direction:column;justify-content:center;gap:14px;color:#fff;opacity:0;transform:translateY(26px) scale(.98);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+  .stly-vslide.on{opacity:1;transform:none}
+  .stly-vnum{position:absolute;top:clamp(20px,2.4vw,30px);right:clamp(24px,3vw,36px);font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(52px,7vw,86px);line-height:1;letter-spacing:-.04em;color:rgba(255,255,255,.12)}
+  .stly-vic{width:62px;height:62px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(150deg,#E8843F,var(--or));box-shadow:0 14px 30px -10px var(--or)}
+  .stly-vic svg{width:29px;height:29px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .stly-vbig{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(38px,5.4vw,62px);line-height:1;letter-spacing:-.03em;color:#fff}
+  .stly-vbig em{font-style:normal;color:var(--or)}
+  .stly-vlabel{font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--or)}
+  .stly-vtitle{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(20px,2.4vw,27px);line-height:1.24;letter-spacing:-.01em}
+  .stly-vtext{font-size:14px;line-height:1.6;color:rgba(255,255,255,.8)}
+  .stly-vfix{margin-top:8px;padding-top:15px;border-top:1px solid rgba(255,255,255,.15);display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.92)}
+  .stly-vbadge{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#8ff0c4;background:rgba(30,158,106,.22);border-radius:999px;padding:4px 10px;margin-top:1px}
+  .stly-vbadge svg{width:12px;height:12px;stroke:#8ff0c4;fill:none;stroke-width:3}
+  .stly-progress{display:flex;gap:9px;justify-content:center;align-items:center}
+  .stly-dot{width:9px;height:9px;border-radius:50%;background:var(--line);transition:transform .3s,background .3s,box-shadow .3s;cursor:pointer}
+  .stly-dot.on{background:var(--or);transform:scale(1.35);box-shadow:0 0 0 4px rgba(222,110,48,.16)}
+  /* steps */
+  .stly-steps{display:flex;flex-direction:column}
+  .stly-step{min-height:64vh;display:flex;flex-direction:column;justify-content:center;padding:18px 0}
+  .stly-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(24px,3vw,34px);box-shadow:0 14px 40px -26px rgba(25,51,93,.3);transition:box-shadow .45s,transform .45s,border-color .45s,opacity .45s}
+  .stly-shead{display:flex;align-items:center;gap:13px;margin-bottom:14px}
+  .stly-snum{flex:0 0 auto;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-weight:800;font-size:15px;color:var(--or);background:var(--soft);border:1px solid var(--line)}
+  .stly-sic{flex:0 0 auto;width:44px;height:44px;border-radius:12px;background:var(--tint);display:grid;place-items:center}
+  .stly-sic svg{width:22px;height:22px;stroke:var(--or);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .stly-stitle{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(18px,2vw,22px);line-height:1.3;color:var(--nv);letter-spacing:-.01em}
+  .stly-stext{font-size:14.5px;line-height:1.65;color:var(--slate)}
+  .stly-sfix{margin-top:16px;padding-top:15px;border-top:1px dashed var(--line);display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.55;color:var(--ink)}
+  .stly-sfix strong{color:var(--nv);font-weight:700}
+  .stly-sbadge{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--green);background:rgba(30,158,106,.1);border-radius:999px;padding:4px 10px;margin-top:1px}
+  .stly-sbadge svg{width:12px;height:12px;stroke:var(--green);fill:none;stroke-width:3}
+  .stly-schip{display:inline-flex;align-items:baseline;gap:7px;margin-top:16px;font-size:13.5px;color:var(--slate)}
+  .stly-schip b{font-family:'Inter',sans-serif;font-weight:800;font-size:19px;color:var(--or)}
+  /* desktop: dim non-active steps, lift the active card */
+  @media(min-width:901px){
+    .stly-step{opacity:.4;transform:scale(.985);transition:opacity .45s,transform .45s}
+    .stly-step.is-active{opacity:1;transform:none}
+    .stly-step.is-active .stly-card{box-shadow:0 30px 64px -30px rgba(25,51,93,.42);border-color:rgba(222,110,48,.32)}
   }
-  .eeps-section *,.eeps-section *::before,.eeps-section *::after,
-  .eefp-section *,.eefp-section *::before,.eefp-section *::after{box-sizing:inherit;margin:0;padding:0}
-  .eeps-container,.eefp-container{max-width:1160px;margin:0 auto;padding:0 24px}
-  .eeps-eyebrow,.eefp-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ee-orange)}
-  .eeps-eyebrow::before,.eefp-eyebrow::before{content:"";width:26px;height:2px;background:var(--ee-orange);border-radius:2px}
-  .eeps-h2,.eefp-h2{font-family:'Inter',sans-serif;font-size:clamp(26px,3.4vw,38px);font-weight:800;line-height:1.18;color:var(--ee-navy);margin-top:14px;letter-spacing:-.02em}
-  .eeps-sub,.eefp-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.65;color:var(--ee-slate);margin-top:14px;max-width:640px}
-  .ee-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;padding:13px 26px;border-radius:11px;text-decoration:none;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;cursor:pointer;border:0}
-  .ee-btn-primary{background:var(--ee-orange);color:#fff;box-shadow:0 8px 22px rgba(222,110,48,.35)}
-  .ee-btn-primary:hover{background:var(--ee-orange-dark);transform:translateY(-2px)}
-  .ee-btn-primary:focus-visible,.eefp-tab:focus-visible,.ee-btn-ghost:focus-visible{outline:3px solid var(--ee-navy);outline-offset:3px}
-  .ee-btn-ghost{background:#fff;color:var(--ee-navy);border:1.5px solid var(--ee-line)}
-  .ee-btn-ghost:hover{border-color:var(--ee-orange);color:var(--ee-orange)}
-  .ee-btn .ee-arrow{transition:transform .18s ease}
-  .ee-btn:hover .ee-arrow{transform:translateX(3px)}
-
-  /* ---- cinematic reveal-on-scroll ---- */
-  .eeps-section .ee-cine,.eefp-section .ee-cine{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*90ms)}
-  .eeps-section .ee-cine.in,.eefp-section .ee-cine.in{opacity:1;transform:none}
-
-  @media (prefers-reduced-motion:reduce){
-    .eeps-section *,.eefp-section *{transition:none!important;animation:none!important}
-    .eeps-section .ee-cine,.eefp-section .ee-cine{opacity:1;transform:none}
+  /* mobile-first: single column, no sticky visual, reveal each step */
+  @media(max-width:900px){
+    .stly-scene{grid-template-columns:1fr;gap:0}
+    .stly-vwrap{display:none}
+    .stly-step{min-height:0;padding:0 0 14px;opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+    .stly-step.in{opacity:1;transform:none}
   }
-
-  /* ================= S4 · PROBLEM -> SOLUTION ================= */
-  .eeps-section{background:var(--ee-white)}
-  .eeps-head{max-width:720px}
-  .eeps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:clamp(30px,4vw,48px)}
-  .eeps-card{position:relative;border:1px solid var(--ee-line);border-radius:var(--ee-radius);padding:28px 26px 26px 30px;background:var(--ee-white);overflow:hidden;transition:box-shadow .25s ease,transform .25s ease,border-color .25s ease}
-  /* the "leak" accent that draws down the card edge as it reveals */
-  .eeps-card::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--ee-orange),var(--ee-navy));transform:scaleY(0);transform-origin:top;transition:transform .8s cubic-bezier(.2,.7,.2,1) .15s}
-  .eeps-card.in::before{transform:scaleY(1)}
-  .eeps-card:hover{box-shadow:var(--ee-shadow);transform:translateY(-4px);border-color:rgba(222,110,48,.35)}
-  .eeps-pain{display:flex;align-items:flex-start;gap:12px}
-  .eeps-pain-icon{flex:0 0 auto;width:42px;height:42px;border-radius:11px;background:var(--ee-orange-tint);display:grid;place-items:center}
-  .eeps-pain-icon svg{width:21px;height:21px;stroke:var(--ee-orange);fill:none}
-  .eeps-pain-title{font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:var(--ee-navy);line-height:1.35}
-  .eeps-pain-text{font-size:14.5px;line-height:1.6;color:var(--ee-slate);margin-top:8px}
-  .eeps-fix{margin-top:18px;padding-top:16px;border-top:1px dashed var(--ee-line);display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.55;color:var(--ee-ink)}
-  .eeps-fix strong{color:var(--ee-navy);font-weight:700}
-  .eeps-fix-badge{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ee-green);background:rgba(30,158,106,.1);border-radius:999px;padding:4px 10px;margin-top:1px}
-  .eeps-fix-badge svg{width:12px;height:12px;stroke:var(--ee-green);fill:none}
-  .eeps-cta-row{margin-top:clamp(30px,4vw,44px);display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-  .eeps-cta-note{font-size:13.5px;color:var(--ee-slate)}
-  @media (max-width:760px){.eeps-grid{grid-template-columns:1fr}}
-
-  /* ================= S6 · FEATURE PILLARS - BENTO scrollytelling ================= */
-  .eefp-section{background:var(--ee-bg-soft)}
-  .eefp-head{max-width:760px}
-  .eefp-bento{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(28px,4vw,44px)}
-  .eefp-tile{position:relative;background:var(--ee-white);border:1px solid var(--ee-line);border-radius:20px;padding:26px;overflow:hidden;box-shadow:0 10px 30px rgba(25,51,93,.06);transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s,border-color .3s;display:flex;flex-direction:column}
-  .eefp-tile:hover{transform:translateY(-5px);box-shadow:var(--ee-shadow);border-color:rgba(222,110,48,.32)}
-  .eefp-tile.t-lead{grid-column:span 2;grid-row:span 2}
-  .eefp-tile.t-score{grid-column:span 2}
-  .eefp-tile.t-comm{grid-column:span 1}
-  .eefp-tile.t-analytics{grid-column:span 1}
-  .eefp-tile.t-cta{grid-column:span 4;flex-direction:row;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-  .eefp-tile.t-dark{background:linear-gradient(150deg,var(--ee-navy),var(--ee-navy-deep));border-color:transparent;color:#fff}
-  .eefp-tile.t-dark::before{content:"";position:absolute;inset:0;background:radial-gradient(360px 220px at 92% 0%,rgba(222,110,48,.28),transparent 62%);pointer-events:none}
-  .eefp-tile.t-dark>*{position:relative}
-  .eefp-ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--ee-orange-tint);margin-bottom:16px}
-  .eefp-ic svg{width:24px;height:24px;stroke:var(--ee-orange);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .eefp-tile.t-dark .eefp-ic{background:rgba(255,255,255,.1)}
-  .eefp-tile.t-dark .eefp-ic svg{stroke:#fff}
-  .eefp-tile h3{font-family:'Inter',sans-serif;font-weight:800;color:var(--ee-navy);font-size:19px;line-height:1.25;letter-spacing:-.01em;margin-bottom:8px}
-  .eefp-tile.t-dark h3{color:#fff}
-  .eefp-tile p{font-size:14px;line-height:1.6;color:var(--ee-slate)}
-  .eefp-tile.t-dark p{color:rgba(255,255,255,.78)}
-  .eefp-tile p strong{color:var(--ee-navy);font-weight:700}
-  .eefp-big{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(32px,4.4vw,52px);line-height:1.02;color:#fff;letter-spacing:-.03em;margin-bottom:12px}
-  .eefp-big em{font-style:normal;color:var(--ee-orange)}
-  .eefp-mini{margin-top:14px;font-size:13.5px;color:var(--ee-slate)}
-  .eefp-mini b{font-family:'Inter',sans-serif;font-weight:800;font-size:20px;color:var(--ee-orange)}
-  .eefp-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:18px}
-  .eefp-chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ee-navy);background:var(--ee-bg-soft);border:1px solid var(--ee-line);border-radius:999px;padding:7px 13px}
-  .eefp-chip svg{width:12px;height:12px;stroke:var(--ee-orange);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
-  .eefp-cta-copy h3{margin-bottom:4px}
-  .eefp-cta-copy p{color:var(--ee-slate)}
-  /* ---- directional scroll-reveal storytelling ---- */
-  .eefp-bento .eefp-rv{opacity:0;transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*110ms)}
-  .eefp-bento .eefp-rv.from-l{transform:translateX(-48px)}
-  .eefp-bento .eefp-rv.from-r{transform:translateX(48px)}
-  .eefp-bento .eefp-rv.from-b{transform:translateY(52px)}
-  .eefp-bento .eefp-rv.in{opacity:1;transform:none}
-  @media (max-width:880px){
-    .eefp-bento{grid-template-columns:repeat(2,1fr);gap:12px}
-    .eefp-tile.t-lead{grid-column:span 2;grid-row:span 1}
-    .eefp-tile.t-score{grid-column:span 2}
-    .eefp-tile.t-comm,.eefp-tile.t-analytics{grid-column:span 1}
-    .eefp-tile.t-cta{grid-column:span 2;flex-direction:column;align-items:flex-start}
-    .eefp-bento .eefp-rv.from-l,.eefp-bento .eefp-rv.from-r{transform:translateY(40px)}
+  @media(prefers-reduced-motion:reduce){
+    .stly-sec *{transition:none!important;animation:none!important}
+    .stly-rv,.stly-step{opacity:1!important;transform:none!important}
+    .stly-vslide{transition:none!important}
   }
-  @media (max-width:520px){
-    .eefp-bento{grid-template-columns:1fr}
-    .eefp-tile,.eefp-tile.t-lead,.eefp-tile.t-score,.eefp-tile.t-comm,.eefp-tile.t-analytics,.eefp-tile.t-cta{grid-column:span 1}
-  }
-  @media (prefers-reduced-motion:reduce){.eefp-bento .eefp-rv{opacity:1!important;transform:none!important}}
 </style>
 
-<!-- S4 · PROBLEM -> SOLUTION -->
-<section class="eeps-section" id="why-admissions-leak" aria-labelledby="eeps-heading">
-  <div class="eeps-container">
-    <div class="eeps-head">
-      <span class="eeps-eyebrow ee-cine">The Real Problem</span>
-      <h2 class="eeps-h2 ee-cine" style="--i:1" id="eeps-heading">Every admission season, good enquiries quietly slip away</h2>
-      <p class="eeps-sub ee-cine" style="--i:2">It&rsquo;s rarely a marketing problem - it&rsquo;s what happens <em>after</em> the enquiry: scattered leads, slow responses and manual follow-ups. Here&rsquo;s where admissions leak, and how ExtraaEdge plugs each gap.</p>
+<!-- STORY 1 · THE REAL PROBLEM -->
+<section class="stly-sec is-white" id="why-admissions-leak" aria-labelledby="stly1-h">
+  <div class="stly-wrap">
+    <div class="stly-head">
+      <span class="stly-eyebrow stly-rv">The Real Problem</span>
+      <h2 class="stly-h2 stly-rv" style="--i:1" id="stly1-h">Every admission season, good enquiries quietly slip away</h2>
+      <p class="stly-sub stly-rv" style="--i:2">It&rsquo;s rarely a marketing problem &ndash; it&rsquo;s what happens after the enquiry. Scroll to see exactly where admissions leak, and how ExtraaEdge plugs each gap.</p>
     </div>
 
-    <div class="eeps-grid">
-      <article class="eeps-card ee-cine" style="--i:1">
-        <div class="eeps-pain">
-          <span class="eeps-pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v10"/><path d="M8 9l4 4 4-4"/><circle cx="12" cy="19" r="1.6"/></svg></span>
-          <div><h3 class="eeps-pain-title">Leads scattered across 10+ channels</h3>
-          <p class="eeps-pain-text">Portals, Google &amp; Meta ads, walk-ins, IVR, education fairs, referrals - enquiries land everywhere, live in spreadsheets, and duplicates go unnoticed until it&rsquo;s too late.</p></div>
+    <div class="stly-scene" data-stly="1">
+      <div class="stly-vwrap">
+        <div class="stly-visual">
+          <div class="stly-vslide on" data-i="0">
+            <span class="stly-vnum">01</span>
+            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13l3.5 7v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/></svg></span>
+            <span class="stly-vlabel">The leak</span>
+            <h3 class="stly-vtitle">Leads scattered across 10+ channels</h3>
+            <p class="stly-vtext">Portals, ads, walk-ins, IVR, fairs, referrals &ndash; enquiries land everywhere and duplicates slip through.</p>
+            <div class="stly-vfix"><span class="stly-vbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Plugged</span><span>One unified inbox &ndash; every source auto-captured, deduplicated &amp; assigned.</span></div>
+          </div>
+          <div class="stly-vslide" data-i="1">
+            <span class="stly-vnum">02</span>
+            <span class="stly-vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+            <span class="stly-vlabel">The leak</span>
+            <h3 class="stly-vtitle">Slow first response loses the student</h3>
+            <p class="stly-vtext">Prospects apply to 4&ndash;5 institutions at once &ndash; the one that replies first usually wins.</p>
+            <div class="stly-vfix"><span class="stly-vbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Plugged</span><span>Instant 24&times;7 engagement on WhatsApp, email &amp; AI chatbot the moment an enquiry lands.</span></div>
+          </div>
+          <div class="stly-vslide" data-i="2">
+            <span class="stly-vnum">03</span>
+            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+            <span class="stly-vlabel">The leak</span>
+            <h3 class="stly-vtitle">Counselors buried in manual follow-ups</h3>
+            <p class="stly-vtext">Hundreds of leads each &ndash; follow-ups get missed and hot students get a cold, generic call.</p>
+            <div class="stly-vfix"><span class="stly-vbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Plugged</span><span>AI-prioritized worklists tell every counselor exactly whom to call first.</span></div>
+          </div>
+          <div class="stly-vslide" data-i="3">
+            <span class="stly-vnum">04</span>
+            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span>
+            <span class="stly-vlabel">The leak</span>
+            <h3 class="stly-vtitle">No visibility into what&rsquo;s working</h3>
+            <p class="stly-vtext">Which source converts? Which counselor needs coaching? Budgets get spent on channels that never enrol.</p>
+            <div class="stly-vfix"><span class="stly-vbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Plugged</span><span>50+ ready reports &ndash; source ROI, funnel drop-offs and counselor performance in real time.</span></div>
+          </div>
         </div>
-        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>One unified inbox.</strong> Every lead source auto-captured, deduplicated and assigned in seconds - nothing enters a spreadsheet, nothing gets lost.</p></div>
-      </article>
+        <div class="stly-progress" aria-hidden="true">
+          <span class="stly-dot on"></span><span class="stly-dot"></span><span class="stly-dot"></span><span class="stly-dot"></span>
+        </div>
+      </div>
 
-      <article class="eeps-card ee-cine" style="--i:2">
-        <div class="eeps-pain">
-          <span class="eeps-pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
-          <div><h3 class="eeps-pain-title">Slow first response loses the student</h3>
-          <p class="eeps-pain-text">Prospects apply to 4&ndash;5 institutions at once. The one that responds first usually wins the conversation - and hours-long response times hand your admissions to competitors.</p></div>
-        </div>
-        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>Instant engagement, 24&times;7.</strong> Automated WhatsApp, email &amp; AI chatbot replies fire the moment an enquiry arrives - your team follows up while interest is hottest.</p></div>
-      </article>
+      <div class="stly-steps">
+        <article class="stly-step is-active" data-i="0"><div class="stly-card">
+          <div class="stly-shead"><span class="stly-snum">01</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13l3.5 7v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/></svg></span><h3 class="stly-stitle">Leads scattered across 10+ channels</h3></div>
+          <p class="stly-stext">Portals, Google &amp; Meta ads, walk-ins, IVR, education fairs, referrals &ndash; enquiries land everywhere, live in spreadsheets, and duplicates go unnoticed until it&rsquo;s too late.</p>
+          <div class="stly-sfix"><span class="stly-sbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>One unified inbox.</strong> Every lead source auto-captured, deduplicated and assigned in seconds &ndash; nothing enters a spreadsheet, nothing gets lost.</p></div>
+        </div></article>
 
-      <article class="eeps-card ee-cine" style="--i:3">
-        <div class="eeps-pain">
-          <span class="eeps-pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg></span>
-          <div><h3 class="eeps-pain-title">Counselors buried in manual follow-ups</h3>
-          <p class="eeps-pain-text">With hundreds of leads per counselor, follow-ups get missed, notes stay in notebooks, and high-intent students get the same generic call as cold enquiries.</p></div>
-        </div>
-        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>AI-prioritized worklists.</strong> Prediction scores and next-best-action tell every counselor exactly whom to call first - follow-up calendars make missing one nearly impossible.</p></div>
-      </article>
+        <article class="stly-step" data-i="1"><div class="stly-card">
+          <div class="stly-shead"><span class="stly-snum">02</span><span class="stly-sic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><h3 class="stly-stitle">Slow first response loses the student</h3></div>
+          <p class="stly-stext">Prospects apply to 4&ndash;5 institutions at once. The one that responds first usually wins the conversation &ndash; and hours-long response times hand your admissions to competitors.</p>
+          <div class="stly-sfix"><span class="stly-sbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>Instant engagement, 24&times;7.</strong> Automated WhatsApp, email &amp; AI chatbot replies fire the moment an enquiry arrives &ndash; your team follows up while interest is hottest.</p></div>
+        </div></article>
 
-      <article class="eeps-card ee-cine" style="--i:4">
-        <div class="eeps-pain">
-          <span class="eeps-pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span>
-          <div><h3 class="eeps-pain-title">No visibility into what&rsquo;s actually working</h3>
-          <p class="eeps-pain-text">Which publisher sends leads that convert? Which counselor needs coaching? Where does the funnel drop? Without answers, budgets get spent on channels that never enrol a single student.</p></div>
-        </div>
-        <div class="eeps-fix"><span class="eeps-fix-badge"><svg viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>50+ ready reports.</strong> Source-wise ROI, funnel drop-offs, counselor performance - every marketing rupee and every follow-up, measured in real time.</p></div>
-      </article>
+        <article class="stly-step" data-i="2"><div class="stly-card">
+          <div class="stly-shead"><span class="stly-snum">03</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span><h3 class="stly-stitle">Counselors buried in manual follow-ups</h3></div>
+          <p class="stly-stext">With hundreds of leads per counselor, follow-ups get missed, notes stay in notebooks, and high-intent students get the same generic call as cold enquiries.</p>
+          <div class="stly-sfix"><span class="stly-sbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>AI-prioritized worklists.</strong> Prediction scores and next-best-action tell every counselor exactly whom to call first &ndash; follow-up calendars make missing one nearly impossible.</p></div>
+        </div></article>
+
+        <article class="stly-step" data-i="3"><div class="stly-card">
+          <div class="stly-shead"><span class="stly-snum">04</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span><h3 class="stly-stitle">No visibility into what&rsquo;s actually working</h3></div>
+          <p class="stly-stext">Which publisher sends leads that convert? Which counselor needs coaching? Where does the funnel drop? Without answers, budgets get spent on channels that never enrol a single student.</p>
+          <div class="stly-sfix"><span class="stly-sbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>50+ ready reports.</strong> Source-wise ROI, funnel drop-offs, counselor performance &ndash; every marketing rupee and every follow-up, measured in real time.</p></div>
+        </div></article>
+      </div>
     </div>
-
   </div>
 </section>
 
-<!-- S6 · FEATURE PILLARS - BENTO grid + scroll storytelling -->
-<section class="eefp-section" id="feature-pillars" aria-labelledby="eefp-heading">
-  <div class="eefp-container">
-    <div class="eefp-head">
-      <span class="eefp-eyebrow ee-cine">Built For Admission Teams</span>
-      <h2 class="eefp-h2 ee-cine" style="--i:1" id="eefp-heading">Everything your team needs, from first enquiry to enrolment</h2>
-      <p class="eefp-sub ee-cine" style="--i:2">Four pillars power every high-performing admission team on ExtraaEdge - scroll through the whole story.</p>
+<!-- STORY 2 · BUILT FOR ADMISSION TEAMS -->
+<section class="stly-sec is-soft" id="feature-pillars" aria-labelledby="stly2-h">
+  <div class="stly-wrap">
+    <div class="stly-head">
+      <span class="stly-eyebrow stly-rv">Built For Admission Teams</span>
+      <h2 class="stly-h2 stly-rv" style="--i:1" id="stly2-h">Everything your team needs, from first enquiry to enrolment</h2>
+      <p class="stly-sub stly-rv" style="--i:2">Four pillars power every high-performing admission team on ExtraaEdge. Scroll through the whole story, one pillar at a time.</p>
     </div>
 
-    <div class="eefp-bento">
-      <article class="eefp-tile t-lead eefp-rv from-l">
-        <span class="eefp-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></span>
-        <h3>Capture every lead, from every channel</h3>
-        <p>Connect ads, forms, portals, publishers and IVR once - every enquiry lands in one funnel, source-tracked, deduplicated and auto-assigned. Never copy-paste a lead again.</p>
-        <div class="eefp-mini"><b>0</b> leads lost &middot; <b>50+</b> native integrations</div>
-        <div class="eefp-chips">
-          <span class="eefp-chip"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Google &middot; Meta &middot; LinkedIn</span>
-          <span class="eefp-chip"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Forms &amp; chatbot</span>
-          <span class="eefp-chip"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Publisher sync</span>
-          <span class="eefp-chip"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>IVR &amp; missed-call</span>
+    <div class="stly-scene" data-stly="2">
+      <div class="stly-vwrap">
+        <div class="stly-visual">
+          <div class="stly-vslide on" data-i="0">
+            <span class="stly-vnum">01</span>
+            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></span>
+            <div class="stly-vbig"><em>0</em> leads lost</div>
+            <h3 class="stly-vtitle">Lead capture &amp; integrations</h3>
+            <p class="stly-vtext">Every enquiry from every source auto-captured, deduplicated &amp; assigned &ndash; across 50+ native integrations.</p>
+          </div>
+          <div class="stly-vslide" data-i="1">
+            <span class="stly-vnum">02</span>
+            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 20l1.5-5.5a8.5 8.5 0 1 1 16.5-3z"/></svg></span>
+            <div class="stly-vbig">Under <em>60s</em></div>
+            <h3 class="stly-vtitle">Personalized communication</h3>
+            <p class="stly-vtext">Trigger-based WhatsApp, email, SMS &amp; calls &ndash; the first response fires the moment interest is hottest.</p>
+          </div>
+          <div class="stly-vslide" data-i="2">
+            <span class="stly-vnum">03</span>
+            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 5.2L20 8l-4 4 1 5.6L12 15l-5 2.6L8 12 4 8l5.6-.8z"/></svg></span>
+            <div class="stly-vbig"><em>37%</em> higher</div>
+            <h3 class="stly-vtitle">AI lead scoring</h3>
+            <p class="stly-vtext">Prediction scores rank every prospect by likelihood to enrol &ndash; counselors work the hottest first.</p>
+          </div>
+          <div class="stly-vslide" data-i="3">
+            <span class="stly-vnum">04</span>
+            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7" rx="1"/><rect x="12" y="6" width="3" height="11" rx="1"/><rect x="17" y="13" width="3" height="4" rx="1"/></svg></span>
+            <div class="stly-vbig"><em>50+</em> reports</div>
+            <h3 class="stly-vtitle">Analytics &amp; reporting</h3>
+            <p class="stly-vtext">Source ROI, funnel drop-offs and counselor performance &ndash; every decision backed by real numbers.</p>
+          </div>
         </div>
-      </article>
+        <div class="stly-progress" aria-hidden="true">
+          <span class="stly-dot on"></span><span class="stly-dot"></span><span class="stly-dot"></span><span class="stly-dot"></span>
+        </div>
+      </div>
 
-      <article class="eefp-tile t-score t-dark eefp-rv from-r" style="--i:1">
-        <span class="eefp-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 5.2L20 8l-4 4 1 5.6L12 15l-5 2.6L8 12 4 8l5.6-.8z"/></svg></span>
-        <div class="eefp-big"><em>37%</em> higher conversions</div>
-        <h3>AI tells your team whom to call first</h3>
-        <p>Prediction scores rank every prospect by likelihood to enrol - counselors spend the day on students who actually join.</p>
-      </article>
+      <div class="stly-steps">
+        <article class="stly-step is-active" data-i="0"><div class="stly-card">
+          <div class="stly-shead"><span class="stly-snum">01</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></span><h3 class="stly-stitle">Capture every lead, from every channel</h3></div>
+          <p class="stly-stext">Connect ads, forms, portals, publishers and IVR once &ndash; every enquiry lands in one funnel, source-tracked, deduplicated and auto-assigned. Never copy-paste a lead again.</p>
+          <span class="stly-schip"><b>0</b> leads lost &middot; <b>50+</b> native integrations</span>
+        </div></article>
 
-      <article class="eefp-tile t-comm eefp-rv from-b" style="--i:2">
-        <span class="eefp-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 20l1.5-5.5a8.5 8.5 0 1 1 16.5-3z"/></svg></span>
-        <h3>Personalized communication</h3>
-        <p>Trigger-based WhatsApp, email, SMS &amp; calls. <strong>Under 60s</strong> first response, 24&times;7.</p>
-      </article>
+        <article class="stly-step" data-i="1"><div class="stly-card">
+          <div class="stly-shead"><span class="stly-snum">02</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 20l1.5-5.5a8.5 8.5 0 1 1 16.5-3z"/></svg></span><h3 class="stly-stitle">Reach every prospect on the channel they use</h3></div>
+          <p class="stly-stext">Generic bulk blasts get ignored. Trigger-based, personalized journeys across WhatsApp, email, SMS, calls and video keep prospects engaged from enquiry to enrolment.</p>
+          <span class="stly-schip">Under <b>60s</b> first response &middot; 24&times;7</span>
+        </div></article>
 
-      <article class="eefp-tile t-analytics eefp-rv from-b" style="--i:3">
-        <span class="eefp-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7" rx="1"/><rect x="12" y="6" width="3" height="11" rx="1"/><rect x="17" y="13" width="3" height="4" rx="1"/></svg></span>
-        <h3>Analytics &amp; reporting</h3>
-        <p><strong>50+</strong> ready reports - source ROI, funnel drop-offs and counselor performance, in real time.</p>
-      </article>
+        <article class="stly-step" data-i="2"><div class="stly-card">
+          <div class="stly-shead"><span class="stly-snum">03</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 5.2L20 8l-4 4 1 5.6L12 15l-5 2.6L8 12 4 8l5.6-.8z"/></svg></span><h3 class="stly-stitle">Let AI tell your team whom to call first</h3></div>
+          <p class="stly-stext">Not all leads are equal. Prediction scores rank every prospect by likelihood to enrol, so your counselors spend their day on students who are actually going to join.</p>
+          <span class="stly-schip"><b>37%</b> higher conversions</span>
+        </div></article>
 
+        <article class="stly-step" data-i="3"><div class="stly-card">
+          <div class="stly-shead"><span class="stly-snum">04</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7" rx="1"/><rect x="12" y="6" width="3" height="11" rx="1"/><rect x="17" y="13" width="3" height="4" rx="1"/></svg></span><h3 class="stly-stitle">Measure every rupee, counselor and funnel stage</h3></div>
+          <p class="stly-stext">Stop deciding on gut feel. 50+ ready-made reports show which sources convert, where prospects drop off, and who on your team needs coaching.</p>
+          <span class="stly-schip"><b>50+</b> ready reports</span>
+        </div></article>
+      </div>
     </div>
   </div>
 </section>
 
 <script>
 (function(){
-  /* cinematic + directional scroll-reveal storytelling */
-  var els=document.querySelectorAll('#why-admissions-leak .ee-cine, #feature-pillars .ee-cine, #feature-pillars .eefp-rv');
-  if('IntersectionObserver' in window && els.length){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15,rootMargin:'0px 0px -8% 0px'});
-    els.forEach(function(el){io.observe(el);});
-  } else { els.forEach(function(el){el.classList.add('in');}); }
+  function initScene(scene){
+    var steps=[].slice.call(scene.querySelectorAll('.stly-step'));
+    var slides=[].slice.call(scene.querySelectorAll('.stly-vslide'));
+    var dots=[].slice.call(scene.querySelectorAll('.stly-dot'));
+    if(!steps.length) return;
+    function setActive(i){
+      steps.forEach(function(s,j){s.classList.toggle('is-active',j===i);});
+      slides.forEach(function(s,j){s.classList.toggle('on',j===i);});
+      dots.forEach(function(d,j){d.classList.toggle('on',j===i);});
+    }
+    /* active step = the one crossing the viewport centre band */
+    if('IntersectionObserver' in window){
+      var aio=new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ setActive(+e.target.getAttribute('data-i')); } });
+      },{rootMargin:'-45% 0px -45% 0px',threshold:0});
+      steps.forEach(function(s){aio.observe(s);});
+    }
+    /* dots jump to a step */
+    dots.forEach(function(d,i){ d.addEventListener('click',function(){ steps[i].scrollIntoView({behavior:'smooth',block:'center'}); }); });
+  }
+  [].slice.call(document.querySelectorAll('.stly-scene')).forEach(initScene);
+
+  /* reveal-on-scroll (headings + mobile step cards) */
+  var rv=document.querySelectorAll('#why-admissions-leak .stly-rv, #feature-pillars .stly-rv, #why-admissions-leak .stly-step, #feature-pillars .stly-step');
+  if('IntersectionObserver' in window && rv.length){
+    var rio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+    [].slice.call(rv).forEach(function(el){rio.observe(el);});
+  } else { [].slice.call(rv).forEach(function(el){el.classList.add('in');}); }
 })();
 </script>
 
