@@ -2956,6 +2956,29 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   .num .nv{font-size:22px!important}
   .num .nd{font-size:9.5px;max-width:none}
 }
+/* ===== Apple visionOS spatial skin — brand navy + orange, Inter, dark frosted glass ===== */
+h1,h2{font-family:'Inter',sans-serif!important}
+body{background:
+  radial-gradient(620px 520px at 10% 6%, rgba(222,110,48,.15), transparent 60%),
+  radial-gradient(700px 580px at 94% 88%, rgba(46,78,133,.34), transparent 62%),
+  linear-gradient(var(--bg),var(--bg2))!important}
+/* frosted DARK-glass panels — stay dark so the light story text remains readable */
+.mnow,.modpill,.pctrl{
+  background:linear-gradient(158deg,rgba(255,255,255,.09),rgba(255,255,255,.035))!important;
+  -webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);
+  border:1px solid rgba(255,255,255,.15)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 18px 38px -22px rgba(0,0,0,.6)!important;
+}
+.step.on{
+  background:linear-gradient(158deg,rgba(255,255,255,.10),rgba(255,255,255,.04))!important;
+  -webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);
+  border:1px solid rgba(255,255,255,.16)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 14px 30px -18px rgba(0,0,0,.5)!important;
+}
+/* spatial float for the device mockups + a subtle orange rim light */
+.phone,.appwin{
+  box-shadow:0 0 0 1px rgba(255,255,255,.10),0 44px 84px -30px rgba(0,0,0,.72),0 10px 34px -22px rgba(222,110,48,.5)!important;
+}
 </style>
 </head>
 <body>
