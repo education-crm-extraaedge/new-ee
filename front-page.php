@@ -899,7 +899,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   #feature-pillars.flw-sec *{box-sizing:border-box;margin:0;padding:0}
   #feature-pillars .flw-wrap{position:relative;max-width:1060px;margin:0 auto;padding:0 24px}
   /* header (scrolls away normally, then the cards pin) */
-  #feature-pillars .flw-head{max-width:760px;margin-bottom:clamp(18px,2.6vw,30px)}
+  #feature-pillars .flw-head{max-width:760px;margin-bottom:clamp(10px,1.6vw,18px)}
   #feature-pillars .flw-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or)}
   #feature-pillars .flw-eyebrow::before{content:"";width:26px;height:2px;background:var(--or);border-radius:2px}
   #feature-pillars .flw-h2{font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.16;letter-spacing:-.02em;color:var(--nv);margin-top:14px}
@@ -912,14 +912,15 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   @keyframes flwPulse{0%{box-shadow:0 0 0 0 rgba(43,201,138,.55)}70%{box-shadow:0 0 0 8px rgba(43,201,138,0)}100%{box-shadow:0 0 0 0 rgba(43,201,138,0)}}
   /* ---- default / fallback: native swipe rail ---- */
   #feature-pillars .flw-track{position:relative}
-  #feature-pillars .flw-pin{padding:0 0 26px}
+  #feature-pillars .flw-pin{padding:0 0 12px}
   #feature-pillars .flw-row{display:flex;gap:clamp(14px,1.8vw,22px);align-items:stretch;overflow-x:auto;
     scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;
     padding:6px max(24px,calc((100vw - 1060px)/2 + 24px)) 16px}
   #feature-pillars .flw-row::-webkit-scrollbar{display:none}
   /* ---- pinned scrollytelling mode (JS adds .flw-on): page scroll slides the boxes sideways ---- */
-  #feature-pillars.flw-on .flw-pin{position:sticky;top:90px;height:calc(100vh - 90px);height:calc(100svh - 90px);
-    display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:0}
+  /* pin hugs its content - no viewport-height centering, so no dead space above/below the card */
+  #feature-pillars.flw-on .flw-pin{position:sticky;top:90px;height:auto;
+    display:flex;flex-direction:column;justify-content:flex-start;overflow:hidden;padding:4px 0 8px}
   #feature-pillars.flw-on .flw-row{overflow:visible;scroll-snap-type:none;will-change:transform;padding-bottom:0;
     transition:transform .6s cubic-bezier(.2,.7,.2,1)}
   /* one box in focus at a time - the rest blur out */
@@ -956,13 +957,13 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   #feature-pillars .flw-arr{align-self:center;color:var(--or);line-height:0}
   #feature-pillars .flw-arr svg{width:14px;height:14px;display:block}
   /* progress dots */
-  #feature-pillars .flw-dots{display:flex;gap:9px;justify-content:center;align-items:center;padding:16px 0 22px}
+  #feature-pillars .flw-dots{display:flex;gap:9px;justify-content:center;align-items:center;padding:12px 0 6px}
   #feature-pillars .flw-dot{width:9px;height:9px;border-radius:50%;background:var(--line);transition:transform .3s,background .3s,box-shadow .3s}
   #feature-pillars .flw-dot.on{background:var(--or);transform:scale(1.35);box-shadow:0 0 0 4px rgba(222,110,48,.16)}
   #feature-pillars .flw-hint{display:none;text-align:center;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);padding-bottom:18px}
   #feature-pillars:not(.flw-on) .flw-hint{display:block}
   @media(max-width:760px){
-    #feature-pillars.flw-on .flw-pin{top:72px;height:calc(100vh - 72px);height:calc(100svh - 72px)}
+    #feature-pillars.flw-on .flw-pin{top:72px}
     #feature-pillars .flw-card{flex-basis:84vw;padding:15px 14px;border-radius:16px}
     #feature-pillars .flw-node{width:32px;height:32px;font-size:12px}
     #feature-pillars .flw-title{font-size:16px}
