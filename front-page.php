@@ -889,50 +889,56 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </script>
 
 
-<!-- STORY 2 · BUILT FOR ADMISSION TEAMS — Admission Intelligence pipeline timeline (scoped .flw-*) -->
+<!-- STORY 2 · BUILT FOR ADMISSION TEAMS — Admission Intelligence horizontal scrollytelling (scoped .flw-*) -->
 <section id="feature-pillars" class="flw-sec" aria-labelledby="flw-h">
 <style id="ee-flw">
   #feature-pillars.flw-sec{--nv:#19335D;--nvd:#10233F;--or:#DE6E30;--or2:#E8843F;--ink:#2B3A52;--mut:#5B6B84;--line:#E4E9F1;--soft:#F7F9FC;--grn:#1E9E6A;
     position:relative;background:#fff;color:var(--ink);
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow-x:clip;
-    padding:clamp(52px,7vw,92px) 0}
-  #feature-pillars.flw-sec::before{content:"";position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(480px 260px at 92% 0%,rgba(222,110,48,.07),transparent 62%),radial-gradient(420px 240px at 0% 100%,rgba(25,51,93,.06),transparent 60%)}
+    padding:clamp(40px,5vw,64px) 0 0}
   #feature-pillars.flw-sec *{box-sizing:border-box;margin:0;padding:0}
   #feature-pillars .flw-wrap{position:relative;max-width:1060px;margin:0 auto;padding:0 24px}
-  /* header */
-  #feature-pillars .flw-head{max-width:760px;margin-bottom:clamp(26px,3.6vw,44px)}
+  /* header (scrolls away normally, then the cards pin) */
+  #feature-pillars .flw-head{max-width:760px;margin-bottom:clamp(18px,2.6vw,30px)}
   #feature-pillars .flw-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or)}
   #feature-pillars .flw-eyebrow::before{content:"";width:26px;height:2px;background:var(--or);border-radius:2px}
   #feature-pillars .flw-h2{font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.16;letter-spacing:-.02em;color:var(--nv);margin-top:14px}
   #feature-pillars .flw-h2 em{font-style:normal;color:var(--or)}
   #feature-pillars .flw-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.65;color:var(--mut);margin-top:14px;max-width:640px}
-  #feature-pillars .flw-status{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}
+  #feature-pillars .flw-status{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px}
   #feature-pillars .flw-syslabel{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--nv);background:rgba(25,51,93,.06);border:1px solid rgba(25,51,93,.12);border-radius:999px;padding:7px 14px}
   #feature-pillars .flw-monitor{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);background:rgba(30,158,106,.08);border:1px solid rgba(30,158,106,.25);border-radius:999px;padding:7px 14px}
   #feature-pillars .flw-monitor i{width:7px;height:7px;border-radius:50%;background:#2BC98A;animation:flwPulse 1.8s ease-out infinite}
   @keyframes flwPulse{0%{box-shadow:0 0 0 0 rgba(43,201,138,.55)}70%{box-shadow:0 0 0 8px rgba(43,201,138,0)}100%{box-shadow:0 0 0 0 rgba(43,201,138,0)}}
-  /* timeline spine */
-  #feature-pillars .flw-line{position:relative;display:flex;flex-direction:column;gap:clamp(18px,2.6vw,28px);padding-left:64px}
-  #feature-pillars .flw-line::before{content:"";position:absolute;left:23px;top:10px;bottom:10px;width:2px;border-radius:2px;
-    background:linear-gradient(180deg,var(--or) 0%,rgba(222,110,48,.35) 55%,rgba(25,51,93,.25) 100%)}
-  #feature-pillars .flw-stage{position:relative}
-  #feature-pillars .flw-node{position:absolute;left:-64px;top:22px;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
-    font-weight:800;font-size:15px;color:#fff;background:linear-gradient(150deg,var(--or2),var(--or));
-    box-shadow:0 10px 22px -8px rgba(222,110,48,.65),0 0 0 5px #fff;z-index:1}
+  /* ---- default / fallback: native swipe rail ---- */
+  #feature-pillars .flw-track{position:relative}
+  #feature-pillars .flw-pin{padding:0 0 26px}
+  #feature-pillars .flw-row{display:flex;gap:clamp(14px,1.8vw,22px);align-items:stretch;overflow-x:auto;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    padding:6px max(24px,calc((100vw - 1060px)/2 + 24px)) 16px}
+  #feature-pillars .flw-row::-webkit-scrollbar{display:none}
+  /* ---- pinned scrollytelling mode (JS adds .flw-on): page scroll slides the boxes sideways ---- */
+  #feature-pillars.flw-on .flw-pin{position:sticky;top:90px;height:calc(100vh - 90px);height:calc(100svh - 90px);
+    display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:0}
+  #feature-pillars.flw-on .flw-row{overflow:visible;scroll-snap-type:none;will-change:transform;padding-bottom:0}
   /* stage card */
-  #feature-pillars .flw-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(20px,2.6vw,28px);
-    box-shadow:0 14px 40px -26px rgba(25,51,93,.3);transition:border-color .4s,box-shadow .4s,transform .4s}
-  #feature-pillars .flw-card:hover{border-color:rgba(222,110,48,.32);box-shadow:0 26px 56px -28px rgba(25,51,93,.38);transform:translateY(-3px)}
-  #feature-pillars .flw-title{font-weight:800;font-size:clamp(18px,2.2vw,23px);line-height:1.25;letter-spacing:-.01em;color:var(--nv);margin-bottom:14px}
-  #feature-pillars .flw-insight{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px}
-  #feature-pillars .flw-klabel{display:block;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or);margin-bottom:7px}
-  #feature-pillars .flw-desc{font-size:14px;line-height:1.65;color:var(--ink);font-style:italic;border-left:2px solid var(--or);padding-left:12px}
-  /* input -> AI -> output flow strip */
-  #feature-pillars .flw-io{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:stretch}
-  #feature-pillars .flw-box{border-radius:12px;padding:12px 14px;min-width:0}
-  #feature-pillars .flw-box span{display:block;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
-  #feature-pillars .flw-box b{display:block;font-size:13.5px;font-weight:700;line-height:1.35}
+  #feature-pillars .flw-card{position:relative;flex:0 0 min(86vw,470px);scroll-snap-align:center;
+    background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(18px,2.2vw,26px);
+    box-shadow:0 14px 40px -26px rgba(25,51,93,.3);transition:border-color .4s,box-shadow .4s}
+  #feature-pillars .flw-card:hover{border-color:rgba(222,110,48,.32);box-shadow:0 26px 56px -28px rgba(25,51,93,.38)}
+  #feature-pillars .flw-chead{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  #feature-pillars .flw-node{flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+    font-weight:800;font-size:14px;color:#fff;background:linear-gradient(150deg,var(--or2),var(--or));
+    box-shadow:0 10px 22px -8px rgba(222,110,48,.65)}
+  #feature-pillars .flw-title{font-weight:800;font-size:clamp(17px,2vw,21px);line-height:1.25;letter-spacing:-.01em;color:var(--nv)}
+  #feature-pillars .flw-insight{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+  #feature-pillars .flw-klabel{display:block;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or);margin-bottom:6px}
+  #feature-pillars .flw-desc{font-size:12.5px;line-height:1.6;color:var(--ink);font-style:italic;border-left:2px solid var(--or);padding-left:11px}
+  /* input -> AI -> output stack */
+  #feature-pillars .flw-io{display:flex;flex-direction:column;gap:5px}
+  #feature-pillars .flw-box{border-radius:11px;padding:9px 13px;min-width:0}
+  #feature-pillars .flw-box span{display:block;font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+  #feature-pillars .flw-box b{display:block;font-size:13px;font-weight:700;line-height:1.3}
   #feature-pillars .flw-box.in{background:rgba(25,51,93,.05);border:1px solid rgba(25,51,93,.12)}
   #feature-pillars .flw-box.in span{color:var(--mut)}
   #feature-pillars .flw-box.in b{color:var(--nv)}
@@ -942,133 +948,141 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   #feature-pillars .flw-box.out{background:rgba(30,158,106,.06);border:1px solid rgba(30,158,106,.25)}
   #feature-pillars .flw-box.out span{color:var(--grn)}
   #feature-pillars .flw-box.out b{color:var(--nv)}
-  #feature-pillars .flw-arr{align-self:center;color:var(--or);flex:0 0 auto}
-  #feature-pillars .flw-arr svg{width:16px;height:16px;display:block}
-  #feature-pillars .flw-arr .dn{display:none}
-  /* reveal */
-  #feature-pillars .flw-rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*90ms)}
-  #feature-pillars .flw-rv.in{opacity:1;transform:none}
+  #feature-pillars .flw-arr{align-self:center;color:var(--or);line-height:0}
+  #feature-pillars .flw-arr svg{width:14px;height:14px;display:block}
+  /* progress dots */
+  #feature-pillars .flw-dots{display:flex;gap:9px;justify-content:center;align-items:center;padding:16px 0 22px}
+  #feature-pillars .flw-dot{width:9px;height:9px;border-radius:50%;background:var(--line);transition:transform .3s,background .3s,box-shadow .3s}
+  #feature-pillars .flw-dot.on{background:var(--or);transform:scale(1.35);box-shadow:0 0 0 4px rgba(222,110,48,.16)}
+  #feature-pillars .flw-hint{display:none;text-align:center;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);padding-bottom:18px}
+  #feature-pillars:not(.flw-on) .flw-hint{display:block}
   @media(max-width:760px){
-    #feature-pillars .flw-line{padding-left:46px;gap:16px}
-    #feature-pillars .flw-line::before{left:16px}
-    #feature-pillars .flw-node{left:-46px;top:18px;width:34px;height:34px;font-size:12.5px;box-shadow:0 8px 18px -8px rgba(222,110,48,.65),0 0 0 4px #fff}
-    #feature-pillars .flw-card{padding:16px 14px;border-radius:16px}
-    #feature-pillars .flw-title{font-size:17px;margin-bottom:10px}
-    #feature-pillars .flw-insight{padding:12px;margin-bottom:12px}
-    #feature-pillars .flw-desc{font-size:13px}
-    #feature-pillars .flw-io{grid-template-columns:1fr;gap:6px}
-    #feature-pillars .flw-arr{justify-self:center}
-    #feature-pillars .flw-arr .rt{display:none}
-    #feature-pillars .flw-arr .dn{display:block}
-    #feature-pillars .flw-box{padding:10px 12px}
-    #feature-pillars .flw-box b{font-size:12.5px}
-    #feature-pillars .flw-status{gap:8px;margin-top:14px}
+    #feature-pillars.flw-on .flw-pin{top:72px;height:calc(100vh - 72px);height:calc(100svh - 72px)}
+    #feature-pillars .flw-card{flex-basis:84vw;padding:15px 14px;border-radius:16px}
+    #feature-pillars .flw-node{width:32px;height:32px;font-size:12px}
+    #feature-pillars .flw-title{font-size:16px}
+    #feature-pillars .flw-desc{font-size:12px}
+    #feature-pillars .flw-box b{font-size:12px}
+    #feature-pillars .flw-status{gap:8px;margin-top:12px}
     #feature-pillars .flw-syslabel,#feature-pillars .flw-monitor{font-size:9.5px;padding:6px 11px}
+    #feature-pillars .flw-row{padding-left:18px;padding-right:18px}
   }
   @media(prefers-reduced-motion:reduce){
-    #feature-pillars .flw-rv{opacity:1!important;transform:none!important;transition:none}
     #feature-pillars .flw-monitor i{animation:none}
     #feature-pillars .flw-card{transition:none}
   }
 </style>
-  <div class="flw-wrap">
-    <div class="flw-head">
-      <span class="flw-eyebrow flw-rv">Built For Admission Teams</span>
-      <h2 class="flw-h2 flw-rv" style="--i:1" id="flw-h">Admission Intelligence: <em>The Definite Enrollment Pipeline</em></h2>
-      <p class="flw-sub flw-rv" style="--i:2">A fully automated, AI-driven engine designed to turn raw inquiry data into high-intent enrollments with surgical precision.</p>
-      <div class="flw-status flw-rv" style="--i:3">
-        <span class="flw-syslabel">System Workflow</span>
-        <span class="flw-monitor"><i aria-hidden="true"></i>Active Pipeline Monitor</span>
-      </div>
+  <div class="flw-wrap flw-head">
+    <span class="flw-eyebrow">Built For Admission Teams</span>
+    <h2 class="flw-h2" id="flw-h">Admission Intelligence: <em>The Definite Enrollment Pipeline</em></h2>
+    <p class="flw-sub">A fully automated, AI-driven engine designed to turn raw inquiry data into high-intent enrollments with surgical precision.</p>
+    <div class="flw-status">
+      <span class="flw-syslabel">System Workflow</span>
+      <span class="flw-monitor"><i aria-hidden="true"></i>Active Pipeline Monitor</span>
     </div>
+  </div>
 
-    <div class="flw-line">
+  <div class="flw-track" id="flwTrack">
+    <div class="flw-pin">
+      <div class="flw-row" id="flwRow">
 
-      <article class="flw-stage flw-rv">
-        <span class="flw-node" aria-hidden="true">01</span>
-        <div class="flw-card">
-          <h3 class="flw-title">Lead Ingestion</h3>
+        <article class="flw-card">
+          <div class="flw-chead"><span class="flw-node" aria-hidden="true">01</span><h3 class="flw-title">Lead Ingestion</h3></div>
           <div class="flw-insight">
             <span class="flw-klabel">Strategic Insight</span>
             <p class="flw-desc">We centralize your entire ecosystem. By normalizing data schemas across 50+ channels, we eliminate data silos. This ensures every prospect, regardless of origin, is immediately formatted, deduplicated, and ready for action.</p>
           </div>
           <div class="flw-io">
             <div class="flw-box in"><span>Primary Input Data</span><b>Omni-channel API Gateways</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
             <div class="flw-box ai"><span>AI Processing Engine</span><b>Data Normalization &amp; Deduplication</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
             <div class="flw-box out"><span>Finalized Output</span><b>Verified Prospect Record</b></div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <article class="flw-stage flw-rv" style="--i:1">
-        <span class="flw-node" aria-hidden="true">02</span>
-        <div class="flw-card">
-          <h3 class="flw-title">Smart Engagement</h3>
+        <article class="flw-card">
+          <div class="flw-chead"><span class="flw-node" aria-hidden="true">02</span><h3 class="flw-title">Smart Engagement</h3></div>
           <div class="flw-insight">
             <span class="flw-klabel">Strategic Insight</span>
             <p class="flw-desc">Generic outreach is a cost, not an asset. Our system analyzes user behavior to trigger context-aware communication. Whether via WhatsApp, SMS, or Email, the message aligns perfectly with the prospect&rsquo;s current intent.</p>
           </div>
           <div class="flw-io">
             <div class="flw-box in"><span>Primary Input Data</span><b>User Behavior Signals</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
             <div class="flw-box ai"><span>AI Processing Engine</span><b>Adaptive Engagement Logic</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
             <div class="flw-box out"><span>Finalized Output</span><b>High-Intent Dialogue</b></div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <article class="flw-stage flw-rv" style="--i:2">
-        <span class="flw-node" aria-hidden="true">03</span>
-        <div class="flw-card">
-          <h3 class="flw-title">AI Prioritization</h3>
+        <article class="flw-card">
+          <div class="flw-chead"><span class="flw-node" aria-hidden="true">03</span><h3 class="flw-title">AI Prioritization</h3></div>
           <div class="flw-insight">
             <span class="flw-klabel">Strategic Insight</span>
             <p class="flw-desc">Your counselors should spend time closing, not sorting. We apply behavioral scoring models that analyze thousands of data points to predict who is most likely to enroll. This focuses your best human assets where they matter most.</p>
           </div>
           <div class="flw-io">
             <div class="flw-box in"><span>Primary Input Data</span><b>Interaction History</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
             <div class="flw-box ai"><span>AI Processing Engine</span><b>Predictive Scoring Models</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
             <div class="flw-box out"><span>Finalized Output</span><b>Weighted Priority Queue</b></div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <article class="flw-stage flw-rv" style="--i:3">
-        <span class="flw-node" aria-hidden="true">04</span>
-        <div class="flw-card">
-          <h3 class="flw-title">Funnel Analytics</h3>
+        <article class="flw-card">
+          <div class="flw-chead"><span class="flw-node" aria-hidden="true">04</span><h3 class="flw-title">Funnel Analytics</h3></div>
           <div class="flw-insight">
             <span class="flw-klabel">Strategic Insight</span>
             <p class="flw-desc">Decision-making requires clarity. We provide predictive forecasting on your pipeline health. Identify bottlenecks before they impact your enrollment targets and optimize your recruitment spend with verifiable ROI data.</p>
           </div>
           <div class="flw-io">
             <div class="flw-box in"><span>Primary Input Data</span><b>Pipeline/Conversion Logs</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
             <div class="flw-box ai"><span>AI Processing Engine</span><b>Predictive ROI Analytics</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
             <div class="flw-box out"><span>Finalized Output</span><b>Actionable Strategic Roadmap</b></div>
           </div>
-        </div>
-      </article>
+        </article>
 
+      </div>
+      <div class="flw-dots" aria-hidden="true">
+        <span class="flw-dot on"></span><span class="flw-dot"></span><span class="flw-dot"></span><span class="flw-dot"></span>
+      </div>
     </div>
   </div>
+  <p class="flw-hint" aria-hidden="true">Swipe to explore &rarr;</p>
 </section>
 <script>
 (function(){
   var root=document.getElementById('feature-pillars'); if(!root) return;
-  var rv=[].slice.call(root.querySelectorAll('.flw-rv'));
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
-    rv.forEach(function(el){ io.observe(el); });
-  } else {
-    rv.forEach(function(el){ el.classList.add('in'); });
+  var track=document.getElementById('flwTrack'), pin=root.querySelector('.flw-pin'), row=document.getElementById('flwRow');
+  var dots=[].slice.call(root.querySelectorAll('.flw-dot'));
+  var RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(RM||!track||!pin||!row) return;          /* fallback stays a native swipe rail */
+  root.classList.add('flw-on');
+  var dist=0,tick=false;
+  function measure(){
+    dist=Math.max(0,row.scrollWidth-pin.clientWidth);
+    track.style.height=(pin.offsetHeight+dist)+'px';
+    upd();
   }
+  function upd(){
+    tick=false;
+    var total=track.offsetHeight-pin.offsetHeight;
+    var p= total>0 ? Math.min(1,Math.max(0,-track.getBoundingClientRect().top/total)) : 0;
+    row.style.transform='translate3d('+(-p*dist)+'px,0,0)';
+    if(dots.length){
+      var i=Math.min(dots.length-1,Math.round(p*(dots.length-1)));
+      dots.forEach(function(d,j){d.classList.toggle('on',j===i);});
+    }
+  }
+  function onScroll(){ if(!tick){tick=true;requestAnimationFrame(upd);} }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',function(){clearTimeout(root.__t);root.__t=setTimeout(measure,120);},{passive:true});
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){measure();});}
+  measure(); setTimeout(measure,450); setTimeout(measure,1400);
 })();
 </script>
 
