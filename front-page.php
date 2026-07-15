@@ -1024,6 +1024,21 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     background:linear-gradient(135deg,#E8843F,#DE6E30);display:flex;align-items:center;justify-content:center;
     box-shadow:0 10px 22px -10px rgba(222,110,48,.8);}#ee-platform .eep-mlaunch-play svg,#ee-platform .eep-mlaunch-play img.eeimg{width:20px;height:20px;color:#fff;margin-left:2px;}#ee-platform .eep-mlaunch-tx{flex:1;min-width:0;}#ee-platform .eep-mlaunch-tx b{display:block;font-size:15.5px;font-weight:700;line-height:1.2;}#ee-platform .eep-mlaunch-tx i{display:block;font-style:normal;font-size:12.5px;color:#c0cee2;margin-top:3px;line-height:1.35;}#ee-platform .eep-mlaunch-arrow{flex:0 0 auto;color:#E8843F;}#ee-platform .eep-mlaunch-arrow svg,#ee-platform .eep-mlaunch-arrow img.eeimg{width:20px;height:20px;}/* when launched on a phone the window is relocated to <body> and full-screen (rules above) */
   .eep-window.eep-launched{display:block;}
+  /* phones: bound the launched popup as a card and pin the close (X) to the
+     top-right corner so it is always visible (Book button no longer hides it) */
+  .eep-window.eep-launched{
+    inset:12px!important;top:12px!important;right:12px!important;bottom:12px!important;left:12px!important;
+    width:auto!important;height:auto!important;max-width:none!important;
+    border-radius:16px!important;overflow:hidden!important;
+  }
+  .eep-window.eep-launched .eep-bar{padding-right:52px!important}
+  .eep-window.eep-launched .eep-url{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .eep-window.eep-launched .eep-mbook{font-size:12px!important;padding:7px 12px!important}
+  .eep-window.eep-launched .eep-close{
+    position:absolute!important;top:11px!important;right:11px!important;z-index:20!important;
+    width:34px!important;height:34px!important;font-size:16px!important;
+    background:rgba(15,32,58,.78)!important;box-shadow:0 4px 12px rgba(0,0,0,.35)!important;
+  }
 }
 </style>
 <section id="ee-platform" aria-label="Explore the ExtraaEdge platform">
