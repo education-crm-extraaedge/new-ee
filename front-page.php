@@ -299,15 +299,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <li><a href="#trusted-institutions" data-t="trusted-institutions"><i>02</i><span>Broad Client Base</span></a></li>
       <li><a href="#why-admissions-leak" data-t="why-admissions-leak"><i>03</i><span>Where admissions leak</span></a></li>
       <li><a href="#feature-pillars" data-t="feature-pillars"><i>04</i><span>Feature pillars</span></a></li>
-      <li><a href="#ee-platform" data-t="ee-platform"><i>05</i><span>AI Product-Led Experience</span></a></li>
-      <li><a href="#ee-products" data-t="ee-products"><i>06</i><span>The admissions platform</span></a></li>
-      <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>07</i><span>Agentic AI Suite</span></a></li>
-      <li><a href="#ee-teams" data-t="ee-teams"><i>08</i><span>One platform, every team</span></a></li>
-      <li><a href="#ee-solutions" data-t="ee-solutions"><i>09</i><span>Solutions</span></a></li>
-      <li><a href="#ee-ind" data-t="ee-ind"><i>10</i><span>Industries</span></a></li>
-      <li><a href="#stories" data-t="stories"><i>11</i><span>CRM Impact Stories</span></a></li>
-      <li><a href="#ee-cro" data-t="ee-cro"><i>12</i><span>Why teams switch to us</span></a></li>
-      <li><a href="#ee-night" data-t="ee-night"><i>13</i><span>The Admission Operating System</span></a></li>
+      <li><a href="#ee-night" data-t="ee-night"><i>05</i><span>The Admission Operating System</span></a></li>
+      <li><a href="#ee-platform" data-t="ee-platform"><i>06</i><span>AI Product-Led Experience</span></a></li>
+      <li><a href="#ee-products" data-t="ee-products"><i>07</i><span>The admissions platform</span></a></li>
+      <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>08</i><span>Agentic AI Suite</span></a></li>
+      <li><a href="#ee-teams" data-t="ee-teams"><i>09</i><span>One platform, every team</span></a></li>
+      <li><a href="#ee-solutions" data-t="ee-solutions"><i>10</i><span>Solutions</span></a></li>
+      <li><a href="#ee-ind" data-t="ee-ind"><i>11</i><span>Industries</span></a></li>
+      <li><a href="#stories" data-t="stories"><i>12</i><span>CRM Impact Stories</span></a></li>
+      <li><a href="#ee-cro" data-t="ee-cro"><i>13</i><span>Why teams switch to us</span></a></li>
       <li><a href="#integrations" data-t="integrations"><i>14</i><span>Extensions &amp; Integrations</span></a></li>
       <li><a href="#security" data-t="security"><i>15</i><span>Enterprise-grade trust</span></a></li>
       <li><a href="#ee-golive" data-t="ee-golive"><i>16</i><span>Fast implementation</span></a></li>
@@ -5877,6 +5877,40 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
              0 22px 44px -24px rgba(25,52,93,.34),
              0 4px 12px -6px rgba(25,52,93,.14);
 }
+</style>
+
+<style id="ee-cro-order">
+/* CRO / lead-gen section reorder — ideal user journey, DESIGN UNCHANGED.
+   Uses CSS order only (no markup moved) so every section keeps its exact
+   design, scripts and scroll behaviour. Flow: what it is -> proof -> problem
+   -> value -> how it works -> product -> differentiator -> relevance ->
+   social proof/ROI -> trust -> nurture -> FAQ -> convert. */
+.ee-home{display:flex;flex-direction:column}
+.ee-home>#ee-toc{order:-1}
+.ee-home>#xhero{order:10}                 /* What it is + primary CTA */
+.ee-home>#trusted-institutions{order:20}  /* Instant social proof */
+.ee-home>#why-admissions-leak{order:30}   /* The problem */
+.ee-home>#feature-pillars{order:40}       /* The value, at a glance */
+.ee-home>#ee-night{order:50}              /* How it works, end to end */
+.ee-home>#ee-platform{order:60}           /* See the product */
+.ee-home>#ee-products{order:70}           /* Full platform / modules */
+.ee-home>#ee-vidya-suite{order:80}        /* AI differentiator */
+.ee-home>#ee-teams{order:90}              /* Every team */
+.ee-home>#whatsapp{order:100}
+.ee-home>#segments{order:110}
+.ee-home>#ecosystem{order:120}
+.ee-home>#ee-solutions{order:130}         /* Relevance: solutions */
+.ee-home>#ee-ind{order:140}               /* Relevance: industries */
+.ee-home>#stories{order:150}              /* Proof: impact stories */
+.ee-home>#ee-cro{order:160}               /* Why switch + ROI value */
+.ee-home>#integrations{order:170}         /* Trust: fits your stack */
+.ee-home>#security{order:180}             /* Trust: enterprise-grade */
+.ee-home>#ee-golive{order:190}            /* Objection: fast go-live */
+.ee-home>#ee-switch{order:200}            /* Objection: easy switch */
+.ee-home>#ee-resources{order:210}         /* Nurture */
+.ee-home>#ee-events{order:220}            /* Nurture */
+.ee-home>#faq{order:230}                  /* Final objections */
+.ee-home>#demo{order:240}                 /* Convert */
 </style>
 
 <?php get_footer(); ?>
