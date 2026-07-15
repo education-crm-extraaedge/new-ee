@@ -787,7 +787,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
 <style id="ee-tan">
   #why-admissions-leak.tan-sec{--nv:#19335D;--or:#DE6E30;--mut:#5B6B84;--ink:#2B3A52;--line:#E4E9F1;--soft:#F7F9FC;
-    background:#fff;color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow-x:hidden}
+    background:#fff;color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow-x:clip}
   #why-admissions-leak.tan-sec *{box-sizing:border-box;margin:0;padding:0}
   #why-admissions-leak .tan-hero{max-width:760px;margin:0 auto;text-align:center;padding:8px 24px clamp(22px,4vw,38px)}
   #why-admissions-leak .tan-eyebrow{color:var(--or);font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:12px;margin-bottom:14px}
