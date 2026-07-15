@@ -786,68 +786,64 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <!-- ================= The Real Problem - The Admissions Narrative (scoped .tan-*) ================= -->
 <section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
 <style id="ee-tan">
-  #why-admissions-leak.tan-sec{--nv:#19335D;--or:#DE6E30;background:#f8fafc;color:#111827;
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow-x:hidden}
+  #why-admissions-leak.tan-sec{--nv:#19335D;--or:#DE6E30;--mut:#5B6B84;--ink:#2B3A52;--line:#E4E9F1;--soft:#F7F9FC;
+    background:#fff;color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow-x:hidden}
   #why-admissions-leak.tan-sec *{box-sizing:border-box;margin:0;padding:0}
-  #why-admissions-leak .tan-hero{min-height:52vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:clamp(48px,8vw,90px) 24px}
-  #why-admissions-leak .tan-hero-in{max-width:900px}
-  #why-admissions-leak .tan-eyebrow{color:var(--or);font-weight:700;letter-spacing:.3em;text-transform:uppercase;font-size:12px;margin-bottom:22px}
-  #why-admissions-leak .tan-title{font-weight:800;color:var(--nv);font-size:clamp(38px,6.2vw,72px);line-height:1.05;letter-spacing:-.02em;margin-bottom:26px;min-height:1.1em}
-  #why-admissions-leak .tan-caret{color:var(--or);animation:tanBlink 1s steps(1) infinite;font-weight:300}
+  #why-admissions-leak .tan-hero{max-width:760px;margin:0 auto;text-align:center;padding:8px 24px clamp(22px,4vw,38px)}
+  #why-admissions-leak .tan-eyebrow{color:var(--or);font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:12px;margin-bottom:14px}
+  #why-admissions-leak .tan-title{font-weight:800;color:var(--nv);font-size:clamp(26px,3.6vw,40px);line-height:1.18;letter-spacing:-.02em;margin-bottom:14px;min-height:1.2em}
+  #why-admissions-leak .tan-caret{color:var(--or);animation:tanBlink 1s steps(1) infinite;font-weight:400}
   @keyframes tanBlink{50%{opacity:0}}
-  #why-admissions-leak .tan-lead{font-size:clamp(16px,1.9vw,20px);color:#64748b;max-width:640px;margin:0 auto;line-height:1.6;font-weight:500}
-  #why-admissions-leak .tan-main{max-width:1200px;margin:0 auto;padding:0 24px clamp(48px,8vw,120px)}
-  #why-admissions-leak .tan-row{display:grid;grid-template-columns:4fr 8fr;gap:clamp(28px,4vw,48px);align-items:start;margin-bottom:clamp(48px,9vw,150px)}
-  #why-admissions-leak .tan-side{position:sticky;top:120px;align-self:flex-start}
-  #why-admissions-leak .tan-bar{width:64px;height:4px;background:var(--or);margin-bottom:28px;border-radius:2px}
-  #why-admissions-leak .tan-h3{font-size:clamp(24px,2.6vw,30px);font-weight:700;color:var(--nv);letter-spacing:-.01em}
-  #why-admissions-leak .tan-side-sub{color:#64748b;margin-top:8px;font-weight:500}
-  #why-admissions-leak .tan-bento{background:#fff;border:1px solid #e5e7eb;border-radius:32px;padding:clamp(24px,3vw,40px);transition:border-color .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1)}
-  #why-admissions-leak .tan-bento:hover{border-color:rgba(222,110,48,.3);box-shadow:0 30px 60px -12px rgba(25,51,93,.08)}
-  #why-admissions-leak .tan-grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  #why-admissions-leak .tan-lead{font-size:clamp(15px,1.6vw,17px);color:var(--mut);max-width:600px;margin:0 auto;line-height:1.65;font-weight:500}
+  #why-admissions-leak .tan-main{max-width:1100px;margin:0 auto;padding:clamp(6px,2vw,18px) 24px clamp(22px,4vw,40px)}
+  #why-admissions-leak .tan-row{display:grid;grid-template-columns:4fr 8fr;gap:clamp(22px,3vw,40px);align-items:start;margin-bottom:clamp(26px,4vw,52px)}
+  #why-admissions-leak .tan-side{position:sticky;top:100px;align-self:flex-start}
+  #why-admissions-leak .tan-bar{width:52px;height:3px;background:var(--or);margin-bottom:16px;border-radius:2px}
+  #why-admissions-leak .tan-h3{font-size:clamp(19px,2.2vw,24px);font-weight:800;color:var(--nv);letter-spacing:-.01em}
+  #why-admissions-leak .tan-side-sub{color:var(--mut);margin-top:6px;font-weight:600;font-size:13.5px}
+  #why-admissions-leak .tan-bento{background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(18px,2.4vw,28px);box-shadow:0 14px 40px -26px rgba(25,51,93,.28);transition:border-color .4s,box-shadow .4s}
+  #why-admissions-leak .tan-bento:hover{border-color:rgba(222,110,48,.28);box-shadow:0 26px 56px -28px rgba(25,51,93,.35)}
+  #why-admissions-leak .tan-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   #why-admissions-leak .tan-col2{grid-column:1 / -1}
-  #why-admissions-leak .tan-panel{border-radius:24px;padding:clamp(22px,2.4vw,32px)}
-  #why-admissions-leak .tan-soft{background:#f8fafc;border:1px solid #f1f5f9}
-  #why-admissions-leak .tan-white{background:#fff;border:1px solid #f1f5f9;transition:background .3s}
-  #why-admissions-leak .tan-white:hover{background:#f8fafc}
+  #why-admissions-leak .tan-panel{border-radius:16px;padding:clamp(16px,2vw,22px)}
+  #why-admissions-leak .tan-soft{background:var(--soft);border:1px solid var(--line)}
+  #why-admissions-leak .tan-white{background:#fff;border:1px solid var(--line);transition:background .3s}
+  #why-admissions-leak .tan-white:hover{background:var(--soft)}
   #why-admissions-leak .tan-navy{background:var(--nv);color:#fff}
-  #why-admissions-leak .tan-klabel{color:var(--or);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
-  #why-admissions-leak .tan-chal{color:#334155;font-size:clamp(16px,1.5vw,18px);line-height:1.6}
-  #why-admissions-leak .tan-cap{font-size:14px;font-weight:500;margin-bottom:8px}
-  #why-admissions-leak .tan-cap.op{color:rgba(255,255,255,.8)}
-  #why-admissions-leak .tan-cap.mut{color:#64748b}
-  #why-admissions-leak .tan-big{font-size:clamp(20px,2vw,24px);font-weight:700}
+  #why-admissions-leak .tan-klabel{color:var(--or);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+  #why-admissions-leak .tan-chal{color:var(--ink);font-size:14.5px;line-height:1.6}
+  #why-admissions-leak .tan-cap{font-size:12.5px;font-weight:600;margin-bottom:6px}
+  #why-admissions-leak .tan-cap.op{color:rgba(255,255,255,.78)}
+  #why-admissions-leak .tan-cap.mut{color:var(--mut)}
+  #why-admissions-leak .tan-big{font-size:clamp(17px,1.8vw,20px);font-weight:800}
   #why-admissions-leak .tan-big.nv{color:var(--nv)}
-  #why-admissions-leak .tan-note{margin-top:9px;font-size:14px;line-height:1.5}
+  #why-admissions-leak .tan-note{margin-top:7px;font-size:13px;line-height:1.5}
   #why-admissions-leak .tan-note.lt{color:rgba(255,255,255,.72)}
-  #why-admissions-leak .tan-note.mut{color:#94a3b8}
-  #why-admissions-leak .tan-h5{color:var(--nv);font-weight:700;font-size:18px;margin-bottom:8px}
-  #why-admissions-leak .tan-sm{font-size:14px;color:#64748b;line-height:1.55}
-  #why-admissions-leak .tan-quotewrap{background:var(--nv);color:#fff;padding:clamp(26px,3.4vw,40px);border-radius:24px;box-shadow:0 24px 50px -20px rgba(25,51,93,.5)}
-  #why-admissions-leak .tan-quotewrap h4{font-weight:700;font-size:clamp(20px,2.2vw,24px);margin-bottom:16px}
-  #why-admissions-leak .tan-quote{color:rgba(255,255,255,.86);font-style:italic;line-height:1.6;font-size:clamp(16px,1.6vw,18px);margin-bottom:28px}
-  #why-admissions-leak .tan-pills{display:flex;flex-wrap:wrap;gap:12px}
-  #why-admissions-leak .tan-pill{padding:9px 20px;border-radius:999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+  #why-admissions-leak .tan-note.mut{color:var(--mut)}
+  #why-admissions-leak .tan-h5{color:var(--nv);font-weight:800;font-size:16px;margin-bottom:6px}
+  #why-admissions-leak .tan-sm{font-size:13.5px;color:var(--mut);line-height:1.55}
+  #why-admissions-leak .tan-quotewrap{background:var(--nv);color:#fff;padding:clamp(20px,3vw,32px);border-radius:16px;box-shadow:0 20px 44px -22px rgba(25,51,93,.5)}
+  #why-admissions-leak .tan-quotewrap h4{font-weight:800;font-size:clamp(18px,2vw,22px);margin-bottom:12px}
+  #why-admissions-leak .tan-quote{color:rgba(255,255,255,.86);font-style:italic;line-height:1.6;font-size:14.5px;margin-bottom:20px}
+  #why-admissions-leak .tan-pills{display:flex;flex-wrap:wrap;gap:10px}
+  #why-admissions-leak .tan-pill{padding:8px 16px;border-radius:999px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
   #why-admissions-leak .tan-pill.or{background:var(--or);color:#fff}
-  #why-admissions-leak .tan-pill.gh{background:rgba(255,255,255,.1);color:rgba(255,255,255,.85)}
-  #why-admissions-leak .tan-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
-  #why-admissions-leak .tan-stat{padding:clamp(18px,2vw,26px);background:#f8fafc;border:1px solid #f1f5f9;border-radius:24px;text-align:center}
-  #why-admissions-leak .tan-stat b{display:block;color:var(--or);font-size:clamp(28px,3.4vw,40px);font-weight:900;line-height:1}
-  #why-admissions-leak .tan-stat span{display:block;font-size:11px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-top:8px}
-  #why-admissions-leak .tan-closer{color:#64748b;text-align:center;font-style:italic;line-height:1.6}
-  #why-admissions-leak .reveal-node{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+  #why-admissions-leak .tan-pill.gh{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85)}
+  #why-admissions-leak .tan-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+  #why-admissions-leak .tan-stat{padding:clamp(14px,1.8vw,20px);background:var(--soft);border:1px solid var(--line);border-radius:16px;text-align:center}
+  #why-admissions-leak .tan-stat b{display:block;color:var(--or);font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1}
+  #why-admissions-leak .tan-stat span{display:block;font-size:10.5px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-top:7px}
+  #why-admissions-leak .tan-closer{color:var(--mut);text-align:center;font-style:italic;line-height:1.6;font-size:14px}
+  #why-admissions-leak .reveal-node{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
   #why-admissions-leak .reveal-node.is-visible{opacity:1;transform:none}
   @media(max-width:820px){
-    #why-admissions-leak .tan-row{grid-template-columns:1fr;gap:20px;margin-bottom:clamp(40px,10vw,64px)}
+    #why-admissions-leak .tan-row{grid-template-columns:1fr;gap:16px;margin-bottom:clamp(24px,7vw,38px)}
     #why-admissions-leak .tan-side{position:static;top:auto}
-    #why-admissions-leak .tan-bar{margin-bottom:16px}
+    #why-admissions-leak .tan-bar{margin-bottom:12px}
     #why-admissions-leak .tan-grid2{grid-template-columns:1fr}
-    #why-admissions-leak .tan-stats{grid-template-columns:1fr 1fr 1fr;gap:10px}
+    #why-admissions-leak .tan-stats{grid-template-columns:repeat(3,1fr);gap:8px}
   }
-  @media(prefers-reduced-motion:reduce){
-    #why-admissions-leak .reveal-node{opacity:1!important;transform:none!important}
-    #why-admissions-leak .tan-caret{animation:none}
-  }
+  @media(prefers-reduced-motion:reduce){#why-admissions-leak .reveal-node{opacity:1!important;transform:none!important}#why-admissions-leak .tan-caret{animation:none}}
 </style>
 
   <div class="tan-hero">
