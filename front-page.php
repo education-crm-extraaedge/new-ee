@@ -1029,9 +1029,9 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   /* phones: bound the launched popup as a card and pin the close (X) to the
      top-right corner so it is always visible (Book button no longer hides it) */
   .eep-window.eep-launched{
-    inset:auto!important;top:8vh!important;bottom:8vh!important;left:4vw!important;right:4vw!important;
-    width:auto!important;height:auto!important;max-width:none!important;
-    border-radius:18px!important;overflow:hidden!important;box-shadow:0 30px 80px rgba(0,0,0,.5)!important;
+    inset:0!important;top:0!important;right:0!important;bottom:0!important;left:0!important;
+    width:100vw!important;width:100dvw!important;height:100vh!important;height:100dvh!important;
+    border-radius:0!important;box-shadow:none!important;overflow:hidden!important;
   }
   .eep-window.eep-launched .eep-bar{padding-right:52px!important}
   .eep-window.eep-launched .eep-url{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -5663,19 +5663,27 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f1c30}
 .eebk-foot svg{width:19px;height:19px;color:#DE6E30}
 .eebk-foot b{color:#19335D;font-weight:800}
 @media(max-width:860px){
-  .eebk-ov{padding:16px;align-items:center}
-  .eebk{max-width:440px;border-radius:20px;min-height:auto}
-  .eebk-top{grid-template-columns:1fr;padding:26px 20px 14px;gap:8px}
+  .eebk-ov{padding:14px;align-items:center}
+  .eebk{max-width:358px;border-radius:18px;min-height:auto}
+  .eebk-top{grid-template-columns:1fr;padding:22px 18px 8px;gap:6px}
   .eebk-art{display:none}
-  .eebk-x{top:12px;right:12px;width:38px;height:38px}
-  .eebk h2{font-size:26px}
-  .eebk .lead{font-size:14.5px;margin-bottom:20px}
-  .eebk-feat{margin-bottom:12px}
-  .eebk-feat .fi{width:42px;height:42px}
-  .eebk-cta{grid-template-columns:1fr;margin:0 20px;padding:16px 18px;text-align:center;gap:12px}
-  .eebk-cta .lhs{flex-direction:column;text-align:center;gap:10px}
-  .eebk-book{width:100%}
-  .eebk-foot{padding:16px;font-size:13px}
+  .eebk-x{top:10px;right:10px;width:34px;height:34px}
+  .eebk h2{font-size:21px}
+  .eebk .lead{font-size:12.5px;line-height:1.5;margin-bottom:14px}
+  .eebk-feat{margin-bottom:10px;gap:11px}
+  .eebk-feat .fi{width:36px;height:36px;border-radius:10px}
+  .eebk-feat .fi svg{width:18px;height:18px}
+  .eebk-feat b{font-size:13.5px}
+  .eebk-feat span{font-size:11.5px}
+  .eebk-cta{grid-template-columns:1fr;margin:0 16px;padding:13px 15px;text-align:center;gap:10px}
+  .eebk-cta .lhs{flex-direction:column;text-align:center;gap:8px}
+  .eebk-cta .hs{width:42px;height:42px}
+  .eebk-cta .hs svg{width:21px;height:21px}
+  .eebk-cta .lhs b{font-size:14px}
+  .eebk-cta .lhs span{font-size:12px}
+  .eebk-book{width:100%;font-size:14.5px;padding:12px 22px}
+  .eebk-keep{font-size:12.5px;margin-top:7px}
+  .eebk-foot{padding:12px;font-size:12px}
 }
 
 .eebk-ov.on{display:flex}
