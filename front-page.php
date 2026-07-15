@@ -366,7 +366,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   <div class="hero__grid" aria-hidden="true"></div>
   <div class="container hero__in">
     <div>
-      <style>#xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);transition:opacity .4s cubic-bezier(.2,.7,.2,1),transform .4s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}#xhero .hero__rot.is-out{opacity:0!important;transform:translateY(14px)!important}#xhero .hero-caret{display:none;width:3px;height:.92em;margin-left:4px;border-radius:2px;background:var(--orange);vertical-align:-1px;animation:heroCaretBlink 1s steps(1) infinite}
+      <style>#xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);min-height:max(clamp(118px,16vh,200px),4.6em);transition:opacity .4s cubic-bezier(.2,.7,.2,1),transform .4s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}#xhero .hero__rot.is-out{opacity:0!important;transform:translateY(14px)!important}#xhero .hero-caret{display:none;width:3px;height:.92em;margin-left:4px;border-radius:2px;background:var(--orange);vertical-align:-1px;animation:heroCaretBlink 1s steps(1) infinite}
+        /* reserve space for the tallest rotating headline per width - text swaps must never push the layout (CLS) */
+        @media(max-width:390px){#xhero .hero__rot{min-height:5.9em!important}}
         @keyframes heroCaretBlink{50%{opacity:0}}
         @media(prefers-reduced-motion:reduce){#xhero .hero-caret{display:none}}#xhero .hero__rot .accent{background:linear-gradient(100deg,var(--orange),#22467c);-webkit-background-clip:text;background-clip:text;color:transparent}
         @media(prefers-reduced-motion:reduce){#xhero .hero__rot{transition:none}}
@@ -4732,7 +4734,7 @@ body{background:
 
       <div class="wa-ctas">
         <a href="#demo" class="wa-btn wa-btn--p">Get verified in 48 hrs <span class="arr">→</span></a>
-        <a href="#video" class="wa-btn wa-btn--g"><span class="play">▶</span> Watch 2-min demo</a>
+        <a href="#stories" class="wa-btn wa-btn--g"><span class="play">▶</span> Watch 2-min demo</a>
       </div>
     </div>
 
@@ -5360,7 +5362,7 @@ var prog=document.getElementById('prog');
 addEventListener('scroll',function(){var h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
 
 /* reveal */
-var rvObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rvObs.unobserve(e.target);}});},{threshold:.14});
+var rvObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rvObs.unobserve(e.target);}});},{threshold:0,rootMargin:'0px 0px -8%'});
 document.querySelectorAll('.rv').forEach(function(el){rvObs.observe(el);});
 
 /* (hero typewriter removed - now handled by the scoped #xhero hero script) */
@@ -5623,11 +5625,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}/* Anchor jumps land be
   .ee-home h3{line-height:1.3;letter-spacing:-.01em}
   .ee-home h4,.ee-home h5,.ee-home h6{line-height:1.35}
 }
-/* ---- Core Web Vitals: below-the-fold sections render lazily (faster first
-   paint, lighter main thread -> better LCP/INP). Pinned / scroll-driven
-   sections and anchor-critical blocks are excluded so their mechanics,
-   animations and deep links are untouched. ---- */
-#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,#ee-golive,#ee-switch,#ee-resources,#ee-events,#faq{content-visibility:auto;contain-intrinsic-size:auto 640px}
+/* NOTE: content-visibility:auto was evaluated for the below-fold sections but
+   rejected - the placeholder/real height mismatch shifted scroll positions and
+   broke scroll-reveal timing (the exact glitches this pass is meant to remove). */
 </style>
 <style id="ee-seamless">/* One continuous background across the homepage - no divider lines,no section seams */
 .ee-home .section-divider{display:none!important}#ecosystem,#segments,#whatsapp{display:none!important}/* ---- premium SaaS abstract background (CSS only · zero images) ---- */

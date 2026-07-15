@@ -60,7 +60,7 @@ $related   = get_post_meta($pid, '_help_related_links', true);
 .hp-breadcrumb{font-family:'Inter',sans-serif;font-size:13px;color:#64748B;margin-bottom:16px}
 .hp-breadcrumb a{color:#DE6E30;text-decoration:none;font-weight:600}
 .hp-breadcrumb span{color:#19335D;font-weight:600}
-.hp-hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(28px,3.6vw,42px);line-height:1.2;color:#19335D;font-weight:900;margin:0 0 12px;letter-spacing:-.02em}
+.hp-hero h1{font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,42px);line-height:1.2;color:#19335D;font-weight:900;margin:0 0 12px;letter-spacing:-.02em}
 .hp-hero .sub{font-size:clamp(15px,1.3vw,17px);color:#475569;line-height:1.7;margin-bottom:18px;max-width:760px}
 .hp-meta{display:flex;flex-wrap:wrap;gap:14px;font-family:'Inter',sans-serif;font-size:13px;color:#475569}
 .hp-meta span{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #E2E8F0;padding:6px 14px;border-radius:9999px;font-weight:600}
@@ -71,8 +71,8 @@ $related   = get_post_meta($pid, '_help_related_links', true);
 .hp-body{background:#fff;padding:50px 0}
 .hp-body .container{max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 280px;gap:48px}
 .hp-body article{font-family:'Inter',sans-serif;color:#19335D;line-height:1.85;font-size:16px}
-.hp-body article h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,2.6vw,28px);font-weight:800;color:#19335D;margin:32px 0 14px;scroll-margin-top:90px}
-.hp-body article h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;color:#19335D;margin:24px 0 10px}
+.hp-body article h2{font-family:'Inter',sans-serif;font-size:clamp(22px,2.6vw,28px);font-weight:800;color:#19335D;margin:32px 0 14px;scroll-margin-top:90px}
+.hp-body article h3{font-family:'Inter',sans-serif;font-size:20px;font-weight:700;color:#19335D;margin:24px 0 10px}
 .hp-body article p{color:#475569;margin-bottom:16px}
 .hp-body article ul,.hp-body article ol{margin:0 0 20px 20px;color:#475569}
 .hp-body article li{margin-bottom:8px}
@@ -84,7 +84,7 @@ $related   = get_post_meta($pid, '_help_related_links', true);
 
 .hp-aside{position:sticky;top:100px;align-self:start}
 .hp-aside-card{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:18px;padding:22px;margin-bottom:18px}
-.hp-aside-card h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:800;color:#19335D;margin:0 0 12px;text-transform:uppercase;letter-spacing:1px}
+.hp-aside-card h3{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;color:#19335D;margin:0 0 12px;text-transform:uppercase;letter-spacing:1px}
 .hp-aside-card ul{list-style:none;padding:0;margin:0}
 .hp-aside-card ul li{padding:6px 0;border-bottom:1px solid #E2E8F0;font-size:13px;font-family:'Inter',sans-serif}
 .hp-aside-card ul li:last-child{border-bottom:0}

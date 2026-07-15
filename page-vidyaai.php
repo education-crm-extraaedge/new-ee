@@ -13,7 +13,7 @@
  * Also deployable as the getvidya.ai home (where the live URL is just "/").
  * Design system:
  *   Navy #19335D / #1E3A8A · Teal/Cyan #06B6D4 · Off-white #F8FAFC ·
- *   Deep Slate #0F172A · Plus Jakarta Sans (headings) + Inter (body).
+ *   Brand navy #19335D · Inter (headings + body).
  */
 ?><!DOCTYPE html>
 <html lang="en">
@@ -34,7 +34,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"VidyaAI","applicationCategory":"BusinessApplication","operatingSystem":"Web, WhatsApp, Phone","description":"24/7 AI admission agent — VidyaGPT chat, AI voice calling and intent scoring for educational institutions.","offers":{"@type":"Offer","price":"0","priceCurrency":"INR","description":"Free demo"},"provider":{"@type":"Organization","name":"ExtraaEdge Technology Solutions Pvt. Ltd","url":"https://www.extraaedge.com/"}}
@@ -50,7 +50,7 @@
   --radius:18px; --radius-lg:24px; --maxw:1200px;
   --shadow:0 18px 50px rgba(15,23,42,.10); --shadow-sm:0 6px 20px rgba(15,23,42,.07);
   --shadow-teal:0 14px 36px rgba(6,182,212,.30);
-  --font-h:'Plus Jakarta Sans',system-ui,sans-serif; --font-b:'Inter',system-ui,sans-serif;
+  --font-h:'Inter',system-ui,sans-serif; --font-b:'Inter',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}

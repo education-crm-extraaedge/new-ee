@@ -74,7 +74,7 @@ $hero_img  = get_the_post_thumbnail_url($pid, 'full');
 .cs-hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(222,110,48,.18),transparent 50%);pointer-events:none}
 .cs-hero .container{position:relative;max-width:1240px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
 .cs-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(222,110,48,.18);color:#FBC8A8;font-family:'Inter',sans-serif;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;padding:8px 18px;border-radius:9999px;margin-bottom:18px;border:1px solid rgba(222,110,48,.32)}
-.cs-hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(30px,4vw,46px);line-height:1.15;font-weight:900;margin:0 0 14px;letter-spacing:-.02em;color:#fff}
+.cs-hero h1{font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,46px);line-height:1.15;font-weight:900;margin:0 0 14px;letter-spacing:-.02em;color:#fff}
 .cs-hero .sub{font-size:clamp(15px,1.3vw,17px);color:rgba(255,255,255,.85);line-height:1.7;margin-bottom:22px}
 .cs-client-row{display:flex;align-items:center;gap:18px;margin-bottom:24px;padding:16px 20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;backdrop-filter:blur(8px)}
 .cs-client-row img{height:46px;width:auto;max-width:140px;object-fit:contain;background:#fff;padding:6px 10px;border-radius:8px}
@@ -85,13 +85,13 @@ $hero_img  = get_the_post_thumbnail_url($pid, 'full');
 .cs-metrics-strip{background:#fff;padding:40px 0;border-bottom:1px solid #E2E8F0}
 .cs-metrics-strip .container{max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px}
 .cs-metric{text-align:center}
-.cs-metric b{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:900;color:#DE6E30;display:block;line-height:1}
+.cs-metric b{font-family:'Inter',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:900;color:#DE6E30;display:block;line-height:1}
 .cs-metric span{font-family:'Inter',sans-serif;font-size:13px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:6px;display:block}
 
 .cs-body{background:#fff;padding:60px 0}
 .cs-body .container{max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 320px;gap:48px}
 .cs-body article{font-family:'Inter',sans-serif;color:#19335D;line-height:1.85;font-size:16px}
-.cs-body article h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(24px,3vw,32px);font-weight:800;color:#19335D;margin:32px 0 14px}
+.cs-body article h2{font-family:'Inter',sans-serif;font-size:clamp(24px,3vw,32px);font-weight:800;color:#19335D;margin:32px 0 14px}
 .cs-body article p{color:#475569;margin-bottom:16px}
 .cs-body article ul{margin:0 0 20px 20px;color:#475569}
 .cs-body article a{color:#DE6E30;font-weight:600}
@@ -100,16 +100,16 @@ $hero_img  = get_the_post_thumbnail_url($pid, 'full');
 .cs-section.challenge{background:#FEF2F2;border-color:#FECACA}
 .cs-section.solution{background:#EFF6FF;border-color:#BFDBFE}
 .cs-section.outcome{background:#F0FDF4;border-color:#BBF7D0}
-.cs-section h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;color:#19335D;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.cs-section h3{font-family:'Inter',sans-serif;font-size:20px;font-weight:800;color:#19335D;margin:0 0 12px;display:flex;align-items:center;gap:10px}
 
 .cs-pullquote{background:linear-gradient(135deg,#F8FAFC 0%,#FFFFFF 100%);border-left:5px solid #DE6E30;padding:28px 32px;margin:36px 0;border-radius:0 16px 16px 0;box-shadow:0 12px 32px rgba(25,51,93,.06)}
-.cs-pullquote p{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-style:italic;color:#19335D;line-height:1.5;margin:0 0 14px;font-weight:600}
+.cs-pullquote p{font-family:'Inter',sans-serif;font-size:20px;font-style:italic;color:#19335D;line-height:1.5;margin:0 0 14px;font-weight:600}
 .cs-pullquote footer{font-family:'Inter',sans-serif;font-size:14px;color:#475569;font-weight:600}
 .cs-pullquote footer b{color:#19335D;display:block}
 
 .cs-aside{position:sticky;top:100px;align-self:start}
 .cs-aside-card{background:linear-gradient(135deg,#DE6E30 0%,#c85d20 100%);color:#fff;border-radius:24px;padding:30px;box-shadow:0 24px 60px rgba(222,110,48,.3);margin-bottom:16px}
-.cs-aside-card h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;margin:0 0 10px;color:#fff}
+.cs-aside-card h3{font-family:'Inter',sans-serif;font-size:18px;font-weight:800;margin:0 0 10px;color:#fff}
 .cs-aside-card p{font-size:14px;color:rgba(255,255,255,.95);line-height:1.6;margin-bottom:16px}
 .cs-aside-card a{display:block;background:#fff;color:#DE6E30;text-align:center;padding:14px;border-radius:12px;font-weight:700;text-decoration:none}
 .cs-aside-pdf{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:18px;padding:22px;text-align:center}

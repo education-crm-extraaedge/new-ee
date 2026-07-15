@@ -59,7 +59,7 @@ $author    = get_the_author_meta('display_name', $post->post_author);
 .nw-hero{background:#fff;padding:50px 0 30px;border-bottom:1px solid #E2E8F0}
 .nw-hero .container{max-width:840px;margin:0 auto;padding:0 24px;text-align:center}
 .nw-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(25,51,93,.06);color:#19335D;font-family:'Inter',sans-serif;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;padding:8px 18px;border-radius:9999px;margin-bottom:18px;border:1px solid rgba(25,51,93,.12)}
-.nw-hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(28px,3.8vw,44px);line-height:1.2;color:#19335D;font-weight:900;margin:0 0 14px;letter-spacing:-.02em}
+.nw-hero h1{font-family:'Inter',sans-serif;font-size:clamp(28px,3.8vw,44px);line-height:1.2;color:#19335D;font-weight:900;margin:0 0 14px;letter-spacing:-.02em}
 .nw-hero .sub{font-size:clamp(15px,1.3vw,18px);color:#475569;line-height:1.7;margin-bottom:22px}
 .nw-meta{font-family:'Inter',sans-serif;font-size:13px;color:#64748B;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
 .nw-meta b{color:#19335D;font-weight:600}
@@ -70,8 +70,8 @@ $author    = get_the_author_meta('display_name', $post->post_author);
 .nw-body{background:#fff;padding:50px 0 60px}
 .nw-body .container{max-width:760px;margin:0 auto;padding:0 24px}
 .nw-body article{font-family:'Inter',sans-serif;color:#19335D;line-height:1.85;font-size:17px}
-.nw-body article h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:800;color:#19335D;margin:34px 0 14px}
-.nw-body article h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:21px;font-weight:700;color:#19335D;margin:28px 0 12px}
+.nw-body article h2{font-family:'Inter',sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:800;color:#19335D;margin:34px 0 14px}
+.nw-body article h3{font-family:'Inter',sans-serif;font-size:21px;font-weight:700;color:#19335D;margin:28px 0 12px}
 .nw-body article p{color:#334155;margin-bottom:18px}
 .nw-body article img{max-width:100%;height:auto;border-radius:14px;margin:20px 0}
 .nw-body article blockquote{border-left:4px solid #DE6E30;margin:24px 0;padding:8px 20px;color:#475569;font-style:italic;background:#F8FAFC;border-radius:0 12px 12px 0}
@@ -82,7 +82,7 @@ $author    = get_the_author_meta('display_name', $post->post_author);
 .nw-ext a{background:#19335D;color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;padding:10px 18px;border-radius:10px;text-decoration:none}
 
 .nw-cta{background:linear-gradient(135deg,#19335D 0%,#1e3d70 100%);color:#fff;padding:50px 24px;text-align:center}
-.nw-cta h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(24px,3vw,34px);font-weight:800;margin:0 0 12px;color:#fff}
+.nw-cta h2{font-family:'Inter',sans-serif;font-size:clamp(24px,3vw,34px);font-weight:800;margin:0 0 12px;color:#fff}
 .nw-cta p{font-size:16px;color:rgba(255,255,255,.85);max-width:560px;margin:0 auto 22px}
 .nw-cta a{display:inline-block;background:#DE6E30;color:#fff;font-family:'Inter',sans-serif;font-weight:700;padding:14px 30px;border-radius:12px;text-decoration:none}
 </style>

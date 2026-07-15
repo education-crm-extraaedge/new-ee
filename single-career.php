@@ -97,7 +97,7 @@ $cta_text  = get_post_meta($pid, '_job_cta_text', true) ?: 'Apply Now';
 .cr-hero{background:linear-gradient(135deg,#F8FAFC 0%,#FFFFFF 100%);padding:60px 0 50px}
 .cr-hero .container{max-width:1100px;margin:0 auto;padding:0 24px}
 .cr-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(222,110,48,.08);color:#DE6E30;font-family:'Inter',sans-serif;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;padding:8px 18px;border-radius:9999px;margin-bottom:18px;border:1px solid rgba(222,110,48,.18)}
-.cr-hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(30px,4vw,46px);line-height:1.15;color:#19335D;font-weight:900;margin:0 0 14px;letter-spacing:-.02em}
+.cr-hero h1{font-family:'Inter',sans-serif;font-size:clamp(30px,4vw,46px);line-height:1.15;color:#19335D;font-weight:900;margin:0 0 14px;letter-spacing:-.02em}
 .cr-hero .sub{font-size:clamp(15px,1.3vw,17px);color:#475569;line-height:1.7;margin-bottom:24px;max-width:760px}
 .cr-meta-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
 .cr-pill{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #E2E8F0;color:#19335D;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;padding:8px 16px;border-radius:9999px}
@@ -107,14 +107,14 @@ $cta_text  = get_post_meta($pid, '_job_cta_text', true) ?: 'Apply Now';
 .cr-body{background:#fff;padding:60px 0}
 .cr-body .container{max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 320px;gap:48px}
 .cr-body article{font-family:'Inter',sans-serif;color:#19335D;line-height:1.8}
-.cr-body article h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,2.8vw,30px);font-weight:800;color:#19335D;margin:32px 0 14px}
+.cr-body article h2{font-family:'Inter',sans-serif;font-size:clamp(22px,2.8vw,30px);font-weight:800;color:#19335D;margin:32px 0 14px}
 .cr-body article p{font-size:16px;color:#475569;margin-bottom:16px}
 .cr-body article ul{margin:0 0 20px 20px;color:#475569}
 .cr-body article li{margin-bottom:8px}
 
 .cr-aside{position:sticky;top:100px;align-self:start}
 .cr-aside-card{background:linear-gradient(135deg,#19335D 0%,#1e3d70 100%);color:#fff;border-radius:24px;padding:32px;box-shadow:0 24px 60px rgba(25,51,93,.18)}
-.cr-aside-card h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;margin:0 0 10px;color:#fff}
+.cr-aside-card h3{font-family:'Inter',sans-serif;font-size:20px;font-weight:800;margin:0 0 10px;color:#fff}
 .cr-aside-card p{font-size:14px;color:rgba(255,255,255,.85);line-height:1.6;margin-bottom:18px}
 .cr-aside-card a{display:block;background:#DE6E30;color:#fff;text-align:center;padding:14px;border-radius:12px;font-weight:700;text-decoration:none}
 .cr-aside-card ul{list-style:none;padding:0;margin:0 0 16px;font-size:13px}

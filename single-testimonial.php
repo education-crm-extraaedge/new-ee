@@ -79,7 +79,7 @@ $photo     = get_the_post_thumbnail_url($pid, 'full');
 .ts-stars{font-size:24px;letter-spacing:4px;margin-bottom:18px}
 .ts-stars .on{color:#FBBF24}
 .ts-stars .off{color:#E2E8F0}
-.ts-quote{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,3vw,34px);line-height:1.4;color:#19335D;font-weight:700;margin:0 auto 28px;max-width:820px;font-style:italic}
+.ts-quote{font-family:'Inter',sans-serif;font-size:clamp(22px,3vw,34px);line-height:1.4;color:#19335D;font-weight:700;margin:0 auto 28px;max-width:820px;font-style:italic}
 .ts-quote:before{content:"\201C";font-size:64px;color:#DE6E30;line-height:0;vertical-align:-22px;margin-right:6px}
 .ts-author-row{display:flex;align-items:center;justify-content:center;gap:18px}
 .ts-author-row img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 6px 20px rgba(25,51,93,.18)}
@@ -93,17 +93,17 @@ $photo     = get_the_post_thumbnail_url($pid, 'full');
 .ts-body{background:#fff;padding:60px 0}
 .ts-body .container{max-width:920px;margin:0 auto;padding:0 24px}
 .ts-body article{font-family:'Inter',sans-serif;color:#19335D;line-height:1.8;font-size:17px}
-.ts-body article h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,2.8vw,30px);font-weight:800;color:#19335D;margin:32px 0 14px}
+.ts-body article h2{font-family:'Inter',sans-serif;font-size:clamp(22px,2.8vw,30px);font-weight:800;color:#19335D;margin:32px 0 14px}
 .ts-body article p{color:#475569;margin-bottom:16px}
 .ts-body article ul{margin:0 0 20px 20px;color:#475569}
 
 .ts-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin:30px 0}
 .ts-result{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:16px;padding:24px;text-align:center}
-.ts-result b{font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:900;color:#DE6E30;display:block}
+.ts-result b{font-family:'Inter',sans-serif;font-size:32px;font-weight:900;color:#DE6E30;display:block}
 .ts-result span{font-family:'Inter',sans-serif;font-size:13px;color:#475569;font-weight:600}
 
 .ts-cta{background:linear-gradient(135deg,#19335D 0%,#1e3d70 100%);color:#fff;padding:60px 24px;text-align:center}
-.ts-cta h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(24px,3vw,36px);font-weight:800;margin:0 0 14px;color:#fff}
+.ts-cta h2{font-family:'Inter',sans-serif;font-size:clamp(24px,3vw,36px);font-weight:800;margin:0 0 14px;color:#fff}
 .ts-cta p{font-size:17px;color:rgba(255,255,255,.85);max-width:580px;margin:0 auto 26px}
 .ts-cta a{display:inline-block;background:#DE6E30;color:#fff;font-family:'Inter',sans-serif;font-weight:700;padding:15px 32px;border-radius:12px;text-decoration:none}
 </style>
