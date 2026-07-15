@@ -1070,12 +1070,16 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var cards=[].slice.call(row.querySelectorAll('.flw-card'));
   var N=cards.length, dist=0, xs=[], cur=-1, tick=false;
   function measure(){
-    dist=Math.max(0,row.scrollWidth-pin.clientWidth);
-    /* x offset that centers each card in the pinned viewport */
+    /* end padding so the first AND last card can sit exactly mid-screen */
+    var pad=Math.max(18,(pin.clientWidth-cards[0].offsetWidth)/2);
+    row.style.paddingLeft=pad+'px'; row.style.paddingRight=pad+'px';
+    /* x offset that centers each card in the pinned viewport
+       (scrollWidth is unreliable with overflow:visible, so the travel
+       distance comes from the last card's own centering offset) */
     xs=cards.map(function(c){
-      var x=c.offsetLeft+c.offsetWidth/2-pin.clientWidth/2;
-      return Math.min(dist,Math.max(0,x));
+      return Math.max(0,c.offsetLeft+c.offsetWidth/2-pin.clientWidth/2);
     });
+    dist=xs[xs.length-1]||0;
     track.style.height=(pin.offsetHeight+dist)+'px';
     cur=-1; upd();
   }
