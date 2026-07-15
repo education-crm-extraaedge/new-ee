@@ -10,8 +10,7 @@ if (!defined('ABSPATH')) exit;
 
 <!--  Start Footer Section -->
 
-<!-- Plus Jakarta Sans font (only Inter + Open Sans loaded in header.php - Jakarta Sans is footer-specific) -->
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<!-- Fonts: Inter loads site-wide from header.php (design system: Inter only) -->
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -56,7 +55,7 @@ if (!defined('ABSPATH')) exit;
 
     #extraaedge-footer-engine h2,
     #extraaedge-footer-engine h3,
-    #extraaedge-footer-engine h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; margin: 0; }
+    #extraaedge-footer-engine h4 { font-family: 'Inter', sans-serif; font-weight: 800; margin: 0; }
     #extraaedge-footer-engine ul { list-style: none; padding: 0; margin: 0; }
     #extraaedge-footer-engine a { text-decoration: none; color: inherit; transition: var(--ee-transition); display: inline-block; }
 

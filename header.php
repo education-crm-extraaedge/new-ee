@@ -15,7 +15,7 @@
  *  10. Icons / manifest
  *  11. Resource hints (preconnect / dns-prefetch / preload)
  *  12. Sitewide JSON-LD (Organization + WebSite + LocalBusiness)
- *  13. Fonts (Open Sans + Poppins — existing, kept as-is)
+ *  13. Fonts (Inter — site-wide design system)
  *  14. Tailwind CDN + Lucide icons (existing)
  *  15. Inline critical CSS (existing — preserved fully)
  *  16. wp_head() — plugins + per-post extras
@@ -299,7 +299,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     <!-- ─── 11. Fonts (EXISTING — preserved exactly) ─── -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- ─── 12. Tailwind for Layout & Utils — INLINED production build (no CDN) ─── -->
     <!-- Pre-compiled, minified Tailwind (theme.extend brandOrange/brandBlue + fonts
@@ -356,7 +356,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
             background: #fff;
             border-bottom: 1px solid var(--eh-border);
             box-shadow: var(--eh-shadow-sm);
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             transition: all .3s cubic-bezier(.4,0,.2,1);
         }
         #site-header.scrolled { box-shadow: var(--eh-shadow-md); }
@@ -401,7 +401,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         #site-header .eh-mega-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; }
         #site-header .eh-mega-grid.three-col { grid-template-columns:repeat(3,1fr); }
         #site-header .eh-mega-col h4,
-        #site-header .eh-mega-col .eh-col-title { font-family:'Archivo',sans-serif; font-size:.65rem; font-weight:600; color:#94A3B8; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.55rem; display:flex; align-items:center; gap:.4rem; }
+        #site-header .eh-mega-col .eh-col-title { font-family:'Inter',sans-serif; font-size:.65rem; font-weight:600; color:#94A3B8; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.55rem; display:flex; align-items:center; gap:.4rem; }
         #site-header .eh-col-icon { width:16px; height:16px; background:linear-gradient(135deg,var(--eh-primary-light),var(--eh-accent)); border-radius:5px; display:inline-flex; align-items:center; justify-content:center; padding:3px; color:#fff; }
         #site-header .eh-col-icon .eh-svg { width:100%; height:100%; filter:brightness(0) invert(1); }
 
@@ -409,7 +409,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         #site-header .eh-featured { grid-column:span 4; background:linear-gradient(135deg,var(--eh-primary),var(--eh-primary-light)); border-radius:10px; padding:.85rem 1.1rem; color:#fff; margin-bottom:.65rem; display:flex; align-items:center; justify-content:space-between; gap:.85rem; flex-wrap:wrap; }
         #site-header .eh-featured.three-col { grid-column:span 3; }
         #site-header .eh-featured h3,
-        #site-header .eh-featured .eh-featured-title { font-family:'Archivo',sans-serif; font-size:.92rem; font-weight:800; margin-bottom:.15rem; color:#fff; display:flex; align-items:center; gap:.4rem; line-height:1.3; }
+        #site-header .eh-featured .eh-featured-title { font-family:'Inter',sans-serif; font-size:.92rem; font-weight:800; margin-bottom:.15rem; color:#fff; display:flex; align-items:center; gap:.4rem; line-height:1.3; }
         #site-header .eh-featured h3 .eh-svg,
         #site-header .eh-featured .eh-featured-title .eh-svg { width:.95rem; height:.95rem; filter:brightness(0) invert(1); }
         #site-header .eh-featured p { opacity:.9; font-size:.75rem; margin-bottom:.5rem; max-width:520px; color:#fff; line-height:1.45; }
@@ -531,7 +531,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         .ee-breadcrumb {
             background: #f8fafc;
             padding: 10px 0;
-            font-family: 'DM Sans', 'Inter', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 13px;
             border-bottom: 1px solid rgba(25, 51, 93, 0.06);
         }
@@ -583,7 +583,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
            This is the existing slide-in panel preserved 1:1 from the
            old design. The desktop rewrite stripped these rules — the
            HTML is still in place below, just needs its styling back. */
-        .menu-title { display: block; line-height: 1.25; font-family: 'Plus Jakarta Sans', 'DM Sans', sans-serif; }
+        .menu-title { display: block; line-height: 1.25; font-family: 'Inter', sans-serif; }
 
         #mobileMenu {
             background: rgba(255, 255, 255, 0.98);
@@ -647,7 +647,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         .m-icon-card .m-ico svg { width: 16px; height: 16px; }
         .m-icon-card .m-text { flex: 1; min-width: 0; }
         .m-icon-card .menu-title {
-            font-family: 'Plus Jakarta Sans', 'DM Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-weight: 700;
             font-size: 13px;
             color: #19335D;

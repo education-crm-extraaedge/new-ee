@@ -3792,7 +3792,7 @@ function ee_render_logo_marquee($args = array()) {
 .ee-logo-container{max-width:1200px;margin:0 auto;text-align:center}
 .ee-logo-header{margin-bottom:32px}
 .ee-logo-badge{display:inline-block;background:#fef3ec;color:#DE6E30;padding:6px 18px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
-.ee-logo-heading{font-family:'Poppins',sans-serif;color:#19335D;font-size:clamp(1.4rem,3vw,2.2rem);line-height:1.25;margin:0 auto 10px;max-width:800px;font-weight:700}
+.ee-logo-heading{font-family:'Inter',sans-serif;color:#19335D;font-size:clamp(1.4rem,3vw,2.2rem);line-height:1.25;margin:0 auto 10px;max-width:800px;font-weight:700}
 .ee-logo-sub{color:#6b7280;font-size:1.05rem;max-width:600px;margin:0 auto}
 /* Break the scrolling strip out of the 1200px container so logos clip
    exactly at the viewport edges — no leftover white blocks on the sides
@@ -3813,7 +3813,7 @@ function ee_render_logo_marquee($args = array()) {
 .ee-logo-card img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(100%);opacity:.7;transition:all .3s ease;font-size:0;color:transparent}
 .ee-logo-card:hover img{filter:grayscale(0%);opacity:1}
 .ee-logo-footer{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:12px}
-.ee-logo-cta{background:#DE6E30;color:#fff;text-decoration:none;padding:14px 28px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:1rem;transition:background .3s ease,transform .2s ease;box-shadow:0 4px 14px rgba(222,110,48,.3)}
+.ee-logo-cta{background:#DE6E30;color:#fff;text-decoration:none;padding:14px 28px;border-radius:8px;font-family:'Inter',sans-serif;font-size:1rem;transition:background .3s ease,transform .2s ease;box-shadow:0 4px 14px rgba(222,110,48,.3)}
 .ee-logo-cta:hover{background:#c55d28;transform:scale(1.05)}
 .ee-live-indicator{display:flex;align-items:center;gap:10px;font-size:.85rem;color:#19335D;font-weight:600}
 .ee-pulse-dot{width:8px;height:8px;background:#10b981;border-radius:50%;position:relative}
