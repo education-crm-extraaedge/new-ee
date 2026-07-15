@@ -889,164 +889,185 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </script>
 
 
-<!-- STORY 2 · BUILT FOR ADMISSION TEAMS — Admission Intelligence auto-cycling pipeline (scoped .aip-*) -->
-<section id="feature-pillars" class="aip-sec" aria-labelledby="aip-h">
-<style id="ee-aip">
-  #feature-pillars.aip-sec{--nv:#19335D;--nvd:#10233F;--or:#DE6E30;--line:rgba(255,255,255,.08);--mut:#A9BAD3;--dim:#7E92B1;
-    position:relative;background:linear-gradient(160deg,var(--nvd),var(--nv));color:#fff;
+<!-- STORY 2 · BUILT FOR ADMISSION TEAMS — Admission Intelligence pipeline timeline (scoped .flw-*) -->
+<section id="feature-pillars" class="flw-sec" aria-labelledby="flw-h">
+<style id="ee-flw">
+  #feature-pillars.flw-sec{--nv:#19335D;--nvd:#10233F;--or:#DE6E30;--or2:#E8843F;--ink:#2B3A52;--mut:#5B6B84;--line:#E4E9F1;--soft:#F7F9FC;--grn:#1E9E6A;
+    position:relative;background:#fff;color:var(--ink);
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow-x:clip;
     padding:clamp(52px,7vw,92px) 0}
-  #feature-pillars.aip-sec::before{content:"";position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(520px 260px at 88% 4%,rgba(222,110,48,.16),transparent 62%),radial-gradient(420px 240px at 4% 100%,rgba(222,110,48,.10),transparent 60%)}
-  #feature-pillars.aip-sec *{box-sizing:border-box;margin:0;padding:0}
-  #feature-pillars .aip-wrap{position:relative;max-width:1160px;margin:0 auto;padding:0 24px}
-  #feature-pillars .aip-head{max-width:760px;margin-bottom:clamp(24px,3.4vw,40px)}
-  #feature-pillars .aip-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or)}
-  #feature-pillars .aip-eyebrow::before{content:"";width:26px;height:2px;background:var(--or);border-radius:2px}
-  #feature-pillars .aip-h2{font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.16;letter-spacing:-.02em;color:#fff;margin-top:14px}
-  #feature-pillars .aip-h2 em{font-style:normal;color:var(--or)}
-  #feature-pillars .aip-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.65;color:var(--mut);margin-top:14px;max-width:640px}
-  #feature-pillars .aip-grid{display:grid;grid-template-columns:4fr 8fr;gap:clamp(14px,2vw,24px);align-items:stretch}
-  /* left: stage buttons */
-  #feature-pillars .aip-steps{display:flex;flex-direction:column;gap:12px}
-  #feature-pillars .aip-step{flex:1;min-height:62px;width:100%;text-align:left;cursor:pointer;font-family:inherit;color:#fff;
-    background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:16px;padding:14px 18px;
-    display:flex;align-items:center;gap:13px;opacity:.6;-webkit-tap-highlight-color:transparent;
-    transition:opacity .45s,border-color .45s,background .45s,box-shadow .45s}
-  #feature-pillars .aip-step:hover{opacity:1;border-color:rgba(255,255,255,.22)}
-  #feature-pillars .aip-step.on{opacity:1;background:rgba(222,110,48,.08);border-color:rgba(222,110,48,.42);box-shadow:0 0 30px rgba(222,110,48,.18)}
-  #feature-pillars .aip-snum{flex:0 0 auto;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:13px;color:var(--or);background:rgba(255,255,255,.06);border:1px solid var(--line)}
-  #feature-pillars .aip-sname{font-weight:700;font-size:14.5px;letter-spacing:-.01em;line-height:1.3}
-  /* right: processor card */
-  #feature-pillars .aip-card{position:relative;overflow:hidden;display:flex;flex-direction:column;
-    background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:20px;padding:clamp(22px,3vw,34px);
-    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-  #feature-pillars .aip-phase{display:block;color:var(--or);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
-  #feature-pillars .aip-title{font-weight:800;font-size:clamp(20px,2.4vw,27px);letter-spacing:-.01em;line-height:1.24;color:#fff}
-  #feature-pillars .aip-io{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
-  #feature-pillars .aip-box{padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06)}
-  #feature-pillars .aip-box.or{background:rgba(222,110,48,.07);border-color:rgba(222,110,48,.24)}
-  #feature-pillars .aip-klabel{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);margin-bottom:7px}
-  #feature-pillars .aip-box.or .aip-klabel{color:var(--or)}
-  #feature-pillars .aip-val{font-size:15px;font-weight:600;line-height:1.45}
-  #feature-pillars .aip-box.or .aip-val{font-weight:800}
-  #feature-pillars .aip-insight{padding:clamp(18px,2.4vw,24px);border-radius:16px;background:rgba(9,18,33,.55);border:1px solid rgba(255,255,255,.06);margin-bottom:20px}
-  #feature-pillars .aip-insight .aip-klabel{margin-bottom:10px}
-  #feature-pillars .aip-desc{font-size:14.5px;line-height:1.65;color:#C9D6E8;font-style:italic;border-left:2px solid var(--or);padding-left:14px}
-  #feature-pillars .aip-foot{margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  #feature-pillars .aip-out{font-size:12.5px;color:var(--dim)}
-  #feature-pillars .aip-out b{color:#fff;font-weight:700;margin-left:4px}
-  #feature-pillars .aip-monitor{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);white-space:nowrap}
-  #feature-pillars .aip-monitor i{width:7px;height:7px;border-radius:50%;background:#2BC98A;animation:aipPulse 1.8s ease-out infinite}
-  @keyframes aipPulse{0%{box-shadow:0 0 0 0 rgba(43,201,138,.55)}70%{box-shadow:0 0 0 8px rgba(43,201,138,0)}100%{box-shadow:0 0 0 0 rgba(43,201,138,0)}}
-  /* card content swap animation */
-  @keyframes aipFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  #feature-pillars .aip-card.aip-fade{animation:aipFade .7s cubic-bezier(.16,1,.3,1)}
-  /* scroll reveal (page pattern) */
-  #feature-pillars .aip-rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*80ms)}
-  #feature-pillars .aip-rv.in{opacity:1;transform:none}
-  @media(max-width:900px){
-    #feature-pillars .aip-grid{grid-template-columns:1fr}
-    #feature-pillars .aip-steps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    #feature-pillars .aip-step{min-height:0;padding:12px 13px;gap:10px}
-    #feature-pillars .aip-snum{width:30px;height:30px;font-size:12px}
-    #feature-pillars .aip-sname{font-size:13px}
-    #feature-pillars .aip-io{grid-template-columns:1fr;gap:10px;margin:16px 0}
+  #feature-pillars.flw-sec::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(480px 260px at 92% 0%,rgba(222,110,48,.07),transparent 62%),radial-gradient(420px 240px at 0% 100%,rgba(25,51,93,.06),transparent 60%)}
+  #feature-pillars.flw-sec *{box-sizing:border-box;margin:0;padding:0}
+  #feature-pillars .flw-wrap{position:relative;max-width:1060px;margin:0 auto;padding:0 24px}
+  /* header */
+  #feature-pillars .flw-head{max-width:760px;margin-bottom:clamp(26px,3.6vw,44px)}
+  #feature-pillars .flw-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or)}
+  #feature-pillars .flw-eyebrow::before{content:"";width:26px;height:2px;background:var(--or);border-radius:2px}
+  #feature-pillars .flw-h2{font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.16;letter-spacing:-.02em;color:var(--nv);margin-top:14px}
+  #feature-pillars .flw-h2 em{font-style:normal;color:var(--or)}
+  #feature-pillars .flw-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.65;color:var(--mut);margin-top:14px;max-width:640px}
+  #feature-pillars .flw-status{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}
+  #feature-pillars .flw-syslabel{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--nv);background:rgba(25,51,93,.06);border:1px solid rgba(25,51,93,.12);border-radius:999px;padding:7px 14px}
+  #feature-pillars .flw-monitor{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);background:rgba(30,158,106,.08);border:1px solid rgba(30,158,106,.25);border-radius:999px;padding:7px 14px}
+  #feature-pillars .flw-monitor i{width:7px;height:7px;border-radius:50%;background:#2BC98A;animation:flwPulse 1.8s ease-out infinite}
+  @keyframes flwPulse{0%{box-shadow:0 0 0 0 rgba(43,201,138,.55)}70%{box-shadow:0 0 0 8px rgba(43,201,138,0)}100%{box-shadow:0 0 0 0 rgba(43,201,138,0)}}
+  /* timeline spine */
+  #feature-pillars .flw-line{position:relative;display:flex;flex-direction:column;gap:clamp(18px,2.6vw,28px);padding-left:64px}
+  #feature-pillars .flw-line::before{content:"";position:absolute;left:23px;top:10px;bottom:10px;width:2px;border-radius:2px;
+    background:linear-gradient(180deg,var(--or) 0%,rgba(222,110,48,.35) 55%,rgba(25,51,93,.25) 100%)}
+  #feature-pillars .flw-stage{position:relative}
+  #feature-pillars .flw-node{position:absolute;left:-64px;top:22px;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
+    font-weight:800;font-size:15px;color:#fff;background:linear-gradient(150deg,var(--or2),var(--or));
+    box-shadow:0 10px 22px -8px rgba(222,110,48,.65),0 0 0 5px #fff;z-index:1}
+  /* stage card */
+  #feature-pillars .flw-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(20px,2.6vw,28px);
+    box-shadow:0 14px 40px -26px rgba(25,51,93,.3);transition:border-color .4s,box-shadow .4s,transform .4s}
+  #feature-pillars .flw-card:hover{border-color:rgba(222,110,48,.32);box-shadow:0 26px 56px -28px rgba(25,51,93,.38);transform:translateY(-3px)}
+  #feature-pillars .flw-title{font-weight:800;font-size:clamp(18px,2.2vw,23px);line-height:1.25;letter-spacing:-.01em;color:var(--nv);margin-bottom:14px}
+  #feature-pillars .flw-insight{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+  #feature-pillars .flw-klabel{display:block;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or);margin-bottom:7px}
+  #feature-pillars .flw-desc{font-size:14px;line-height:1.65;color:var(--ink);font-style:italic;border-left:2px solid var(--or);padding-left:12px}
+  /* input -> AI -> output flow strip */
+  #feature-pillars .flw-io{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:stretch}
+  #feature-pillars .flw-box{border-radius:12px;padding:12px 14px;min-width:0}
+  #feature-pillars .flw-box span{display:block;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+  #feature-pillars .flw-box b{display:block;font-size:13.5px;font-weight:700;line-height:1.35}
+  #feature-pillars .flw-box.in{background:rgba(25,51,93,.05);border:1px solid rgba(25,51,93,.12)}
+  #feature-pillars .flw-box.in span{color:var(--mut)}
+  #feature-pillars .flw-box.in b{color:var(--nv)}
+  #feature-pillars .flw-box.ai{background:rgba(222,110,48,.06);border:1px solid rgba(222,110,48,.28)}
+  #feature-pillars .flw-box.ai span{color:var(--or)}
+  #feature-pillars .flw-box.ai b{color:var(--nv)}
+  #feature-pillars .flw-box.out{background:rgba(30,158,106,.06);border:1px solid rgba(30,158,106,.25)}
+  #feature-pillars .flw-box.out span{color:var(--grn)}
+  #feature-pillars .flw-box.out b{color:var(--nv)}
+  #feature-pillars .flw-arr{align-self:center;color:var(--or);flex:0 0 auto}
+  #feature-pillars .flw-arr svg{width:16px;height:16px;display:block}
+  #feature-pillars .flw-arr .dn{display:none}
+  /* reveal */
+  #feature-pillars .flw-rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*90ms)}
+  #feature-pillars .flw-rv.in{opacity:1;transform:none}
+  @media(max-width:760px){
+    #feature-pillars .flw-line{padding-left:46px;gap:16px}
+    #feature-pillars .flw-line::before{left:16px}
+    #feature-pillars .flw-node{left:-46px;top:18px;width:34px;height:34px;font-size:12.5px;box-shadow:0 8px 18px -8px rgba(222,110,48,.65),0 0 0 4px #fff}
+    #feature-pillars .flw-card{padding:16px 14px;border-radius:16px}
+    #feature-pillars .flw-title{font-size:17px;margin-bottom:10px}
+    #feature-pillars .flw-insight{padding:12px;margin-bottom:12px}
+    #feature-pillars .flw-desc{font-size:13px}
+    #feature-pillars .flw-io{grid-template-columns:1fr;gap:6px}
+    #feature-pillars .flw-arr{justify-self:center}
+    #feature-pillars .flw-arr .rt{display:none}
+    #feature-pillars .flw-arr .dn{display:block}
+    #feature-pillars .flw-box{padding:10px 12px}
+    #feature-pillars .flw-box b{font-size:12.5px}
+    #feature-pillars .flw-status{gap:8px;margin-top:14px}
+    #feature-pillars .flw-syslabel,#feature-pillars .flw-monitor{font-size:9.5px;padding:6px 11px}
   }
   @media(prefers-reduced-motion:reduce){
-    #feature-pillars .aip-rv{opacity:1!important;transform:none!important;transition:none}
-    #feature-pillars .aip-card.aip-fade{animation:none}
-    #feature-pillars .aip-monitor i{animation:none}
-    #feature-pillars .aip-step{transition:none}
+    #feature-pillars .flw-rv{opacity:1!important;transform:none!important;transition:none}
+    #feature-pillars .flw-monitor i{animation:none}
+    #feature-pillars .flw-card{transition:none}
   }
 </style>
-  <div class="aip-wrap">
-    <div class="aip-head">
-      <span class="aip-eyebrow aip-rv">Built For Admission Teams</span>
-      <h2 class="aip-h2 aip-rv" style="--i:1" id="aip-h">Admission Intelligence: <em>The Definite Enrollment Pipeline</em></h2>
-      <p class="aip-sub aip-rv" style="--i:2">A fully automated, AI-driven engine designed to turn raw inquiry data into high-intent enrollments with surgical precision.</p>
+  <div class="flw-wrap">
+    <div class="flw-head">
+      <span class="flw-eyebrow flw-rv">Built For Admission Teams</span>
+      <h2 class="flw-h2 flw-rv" style="--i:1" id="flw-h">Admission Intelligence: <em>The Definite Enrollment Pipeline</em></h2>
+      <p class="flw-sub flw-rv" style="--i:2">A fully automated, AI-driven engine designed to turn raw inquiry data into high-intent enrollments with surgical precision.</p>
+      <div class="flw-status flw-rv" style="--i:3">
+        <span class="flw-syslabel">System Workflow</span>
+        <span class="flw-monitor"><i aria-hidden="true"></i>Active Pipeline Monitor</span>
+      </div>
     </div>
 
-    <div class="aip-grid aip-rv" style="--i:3">
-      <div class="aip-steps" role="tablist" aria-label="Pipeline stages">
-        <button type="button" class="aip-step on" role="tab" aria-selected="true" data-i="0"><span class="aip-snum">01</span><span class="aip-sname">Lead Ingestion</span></button>
-        <button type="button" class="aip-step" role="tab" aria-selected="false" data-i="1"><span class="aip-snum">02</span><span class="aip-sname">Smart Engagement</span></button>
-        <button type="button" class="aip-step" role="tab" aria-selected="false" data-i="2"><span class="aip-snum">03</span><span class="aip-sname">AI Prioritization</span></button>
-        <button type="button" class="aip-step" role="tab" aria-selected="false" data-i="3"><span class="aip-snum">04</span><span class="aip-sname">Funnel Analytics</span></button>
-      </div>
+    <div class="flw-line">
 
-      <div class="aip-card" id="aipCard">
-        <div>
-          <span class="aip-phase">System Workflow</span>
-          <h3 class="aip-title" id="aipTitle">Lead Ingestion</h3>
-        </div>
-        <div class="aip-io">
-          <div class="aip-box">
-            <div class="aip-klabel">Primary Input Data</div>
-            <div class="aip-val" id="aipInput">Omni-channel API Gateways</div>
+      <article class="flw-stage flw-rv">
+        <span class="flw-node" aria-hidden="true">01</span>
+        <div class="flw-card">
+          <h3 class="flw-title">Lead Ingestion</h3>
+          <div class="flw-insight">
+            <span class="flw-klabel">Strategic Insight</span>
+            <p class="flw-desc">We centralize your entire ecosystem. By normalizing data schemas across 50+ channels, we eliminate data silos. This ensures every prospect, regardless of origin, is immediately formatted, deduplicated, and ready for action.</p>
           </div>
-          <div class="aip-box or">
-            <div class="aip-klabel">AI Processing Engine</div>
-            <div class="aip-val" id="aipAi">Data Normalization &amp; Deduplication</div>
+          <div class="flw-io">
+            <div class="flw-box in"><span>Primary Input Data</span><b>Omni-channel API Gateways</b></div>
+            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <div class="flw-box ai"><span>AI Processing Engine</span><b>Data Normalization &amp; Deduplication</b></div>
+            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <div class="flw-box out"><span>Finalized Output</span><b>Verified Prospect Record</b></div>
           </div>
         </div>
-        <div class="aip-insight">
-          <div class="aip-klabel">Strategic Insight</div>
-          <p class="aip-desc" id="aipDesc">We centralize your entire ecosystem. By normalizing data schemas across 50+ channels, we eliminate data silos. This ensures every prospect, regardless of origin, is immediately formatted, deduplicated, and ready for action.</p>
+      </article>
+
+      <article class="flw-stage flw-rv" style="--i:1">
+        <span class="flw-node" aria-hidden="true">02</span>
+        <div class="flw-card">
+          <h3 class="flw-title">Smart Engagement</h3>
+          <div class="flw-insight">
+            <span class="flw-klabel">Strategic Insight</span>
+            <p class="flw-desc">Generic outreach is a cost, not an asset. Our system analyzes user behavior to trigger context-aware communication. Whether via WhatsApp, SMS, or Email, the message aligns perfectly with the prospect&rsquo;s current intent.</p>
+          </div>
+          <div class="flw-io">
+            <div class="flw-box in"><span>Primary Input Data</span><b>User Behavior Signals</b></div>
+            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <div class="flw-box ai"><span>AI Processing Engine</span><b>Adaptive Engagement Logic</b></div>
+            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <div class="flw-box out"><span>Finalized Output</span><b>High-Intent Dialogue</b></div>
+          </div>
         </div>
-        <div class="aip-foot">
-          <span class="aip-out">Finalized Output: <b id="aipOutput">Verified Prospect Record</b></span>
-          <span class="aip-monitor" aria-hidden="true"><i></i>Active Pipeline Monitor</span>
+      </article>
+
+      <article class="flw-stage flw-rv" style="--i:2">
+        <span class="flw-node" aria-hidden="true">03</span>
+        <div class="flw-card">
+          <h3 class="flw-title">AI Prioritization</h3>
+          <div class="flw-insight">
+            <span class="flw-klabel">Strategic Insight</span>
+            <p class="flw-desc">Your counselors should spend time closing, not sorting. We apply behavioral scoring models that analyze thousands of data points to predict who is most likely to enroll. This focuses your best human assets where they matter most.</p>
+          </div>
+          <div class="flw-io">
+            <div class="flw-box in"><span>Primary Input Data</span><b>Interaction History</b></div>
+            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <div class="flw-box ai"><span>AI Processing Engine</span><b>Predictive Scoring Models</b></div>
+            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <div class="flw-box out"><span>Finalized Output</span><b>Weighted Priority Queue</b></div>
+          </div>
         </div>
-      </div>
+      </article>
+
+      <article class="flw-stage flw-rv" style="--i:3">
+        <span class="flw-node" aria-hidden="true">04</span>
+        <div class="flw-card">
+          <h3 class="flw-title">Funnel Analytics</h3>
+          <div class="flw-insight">
+            <span class="flw-klabel">Strategic Insight</span>
+            <p class="flw-desc">Decision-making requires clarity. We provide predictive forecasting on your pipeline health. Identify bottlenecks before they impact your enrollment targets and optimize your recruitment spend with verifiable ROI data.</p>
+          </div>
+          <div class="flw-io">
+            <div class="flw-box in"><span>Primary Input Data</span><b>Pipeline/Conversion Logs</b></div>
+            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <div class="flw-box ai"><span>AI Processing Engine</span><b>Predictive ROI Analytics</b></div>
+            <span class="flw-arr" aria-hidden="true"><svg class="rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg class="dn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
+            <div class="flw-box out"><span>Finalized Output</span><b>Actionable Strategic Roadmap</b></div>
+          </div>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
 <script>
 (function(){
   var root=document.getElementById('feature-pillars'); if(!root) return;
-  var data=[
-    { title:"Lead Ingestion",
-      desc:"We centralize your entire ecosystem. By normalizing data schemas across 50+ channels, we eliminate data silos. This ensures every prospect, regardless of origin, is immediately formatted, deduplicated, and ready for action.",
-      input:"Omni-channel API Gateways", ai:"Data Normalization & Deduplication", output:"Verified Prospect Record" },
-    { title:"Smart Engagement",
-      desc:"Generic outreach is a cost, not an asset. Our system analyzes user behavior to trigger context-aware communication. Whether via WhatsApp, SMS, or Email, the message aligns perfectly with the prospect's current intent.",
-      input:"User Behavior Signals", ai:"Adaptive Engagement Logic", output:"High-Intent Dialogue" },
-    { title:"AI Prioritization",
-      desc:"Your counselors should spend time closing, not sorting. We apply behavioral scoring models that analyze thousands of data points to predict who is most likely to enroll. This focuses your best human assets where they matter most.",
-      input:"Interaction History", ai:"Predictive Scoring Models", output:"Weighted Priority Queue" },
-    { title:"Funnel Analytics",
-      desc:"Decision-making requires clarity. We provide predictive forecasting on your pipeline health. Identify bottlenecks before they impact your enrollment targets and optimize your recruitment spend with verifiable ROI data.",
-      input:"Pipeline/Conversion Logs", ai:"Predictive ROI Analytics", output:"Actionable Strategic Roadmap" }
-  ];
-  var steps=[].slice.call(root.querySelectorAll('.aip-step'));
-  var card=document.getElementById('aipCard');
-  var elT=document.getElementById('aipTitle'), elD=document.getElementById('aipDesc');
-  var elI=document.getElementById('aipInput'), elA=document.getElementById('aipAi'), elO=document.getElementById('aipOutput');
-  var RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var idx=0, timer=null, manual=false;
-  function show(i,anim){
-    idx=i; var s=data[i]; if(!s) return;
-    if(anim&&!RM&&card){ card.classList.remove('aip-fade'); void card.offsetWidth; card.classList.add('aip-fade'); }
-    if(elT)elT.textContent=s.title; if(elD)elD.textContent=s.desc;
-    if(elI)elI.textContent=s.input; if(elA)elA.textContent=s.ai; if(elO)elO.textContent=s.output;
-    steps.forEach(function(b,j){ b.classList.toggle('on',j===i); b.setAttribute('aria-selected', j===i?'true':'false'); });
-  }
-  function start(){ if(timer||RM||manual) return; timer=setInterval(function(){ show((idx+1)%data.length,true); },5000); }
-  function stop(){ if(timer){ clearInterval(timer); timer=null; } }
-  steps.forEach(function(b){
-    b.addEventListener('click',function(){ manual=true; stop(); show(+b.getAttribute('data-i')||0,true); });
-  });
-  show(0,false);
-  var rv=[].slice.call(root.querySelectorAll('.aip-rv'));
+  var rv=[].slice.call(root.querySelectorAll('.flw-rv'));
   if('IntersectionObserver' in window){
-    var vio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ start(); } else { stop(); } }); },{threshold:.25});
-    vio.observe(root);
-    var rio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } }); },{threshold:.14,rootMargin:'0px 0px -6% 0px'});
-    rv.forEach(function(el){ rio.observe(el); });
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    rv.forEach(function(el){ io.observe(el); });
   } else {
     rv.forEach(function(el){ el.classList.add('in'); });
-    start();
   }
 })();
 </script>
