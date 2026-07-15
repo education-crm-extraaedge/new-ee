@@ -788,78 +788,83 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <div class="stly-head">
       <span class="stly-eyebrow stly-rv">The Real Problem</span>
       <h2 class="stly-h2 stly-rv" style="--i:1" id="stly1-h">Every admission season, good enquiries quietly slip away</h2>
-      <p class="stly-sub stly-rv" style="--i:2">It&rsquo;s rarely a marketing problem &ndash; it&rsquo;s what happens after the enquiry. Scroll to see exactly where admissions leak, and how ExtraaEdge plugs each gap.</p>
+      <p class="stly-sub stly-rv" style="--i:2">It&rsquo;s rarely a marketing problem &ndash; it&rsquo;s what happens after the enquiry. Here&rsquo;s exactly where admissions leak, and how ExtraaEdge plugs each gap.</p>
     </div>
 
-    <div class="stly-scene" data-stly="1">
-      <div class="stly-vwrap">
-        <div class="stly-visual">
-          <div class="stly-motes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          <svg class="stly-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="stly-ring-bg" cx="22" cy="22" r="19"></circle><circle class="stly-ring-fg" cx="22" cy="22" r="19"></circle></svg>
-          <span class="stly-live" aria-hidden="true"><i></i>LIVE</span>
-          <div class="stly-vslide on" data-i="0">
-            <span class="stly-vnum">01</span>
-            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13l3.5 7v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/></svg></span>
-            <span class="stly-vlabel">The leak</span>
-            <h3 class="stly-vtitle">Leads scattered across 10+ channels</h3>
-            <p class="stly-vtext">Portals, ads, walk-ins, IVR, fairs, referrals &ndash; enquiries land everywhere and duplicates slip through.</p>
-            <div class="stly-vfix"><span class="stly-vbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Plugged</span><span>One unified inbox &ndash; every source auto-captured, deduplicated &amp; assigned.</span></div>
-          </div>
-          <div class="stly-vslide" data-i="1">
-            <span class="stly-vnum">02</span>
-            <span class="stly-vic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
-            <span class="stly-vlabel">The leak</span>
-            <h3 class="stly-vtitle">Slow first response loses the student</h3>
-            <p class="stly-vtext">Prospects apply to 4&ndash;5 institutions at once &ndash; the one that replies first usually wins.</p>
-            <div class="stly-vfix"><span class="stly-vbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Plugged</span><span>Instant 24&times;7 engagement on WhatsApp, email &amp; AI chatbot the moment an enquiry lands.</span></div>
-          </div>
-          <div class="stly-vslide" data-i="2">
-            <span class="stly-vnum">03</span>
-            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
-            <span class="stly-vlabel">The leak</span>
-            <h3 class="stly-vtitle">Counselors buried in manual follow-ups</h3>
-            <p class="stly-vtext">Hundreds of leads each &ndash; follow-ups get missed and hot students get a cold, generic call.</p>
-            <div class="stly-vfix"><span class="stly-vbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Plugged</span><span>AI-prioritized worklists tell every counselor exactly whom to call first.</span></div>
-          </div>
-          <div class="stly-vslide" data-i="3">
-            <span class="stly-vnum">04</span>
-            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span>
-            <span class="stly-vlabel">The leak</span>
-            <h3 class="stly-vtitle">No visibility into what&rsquo;s working</h3>
-            <p class="stly-vtext">Which source converts? Which counselor needs coaching? Budgets get spent on channels that never enrol.</p>
-            <div class="stly-vfix"><span class="stly-vbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Plugged</span><span>50+ ready reports &ndash; source ROI, funnel drop-offs and counselor performance in real time.</span></div>
-          </div>
+<style id="ee-rpx">
+  #why-admissions-leak .rpx-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:clamp(24px,4vw,44px)}
+  #why-admissions-leak .rpx-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 14px 40px -26px rgba(25,51,93,.3);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;display:flex;flex-direction:column}
+  #why-admissions-leak .rpx-card:hover{transform:translateY(-5px);box-shadow:0 30px 64px -30px rgba(25,51,93,.42);border-color:rgba(222,110,48,.3)}
+  #why-admissions-leak .rpx-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--or),var(--nv));transform:scaleY(0);transform-origin:top;transition:transform .75s cubic-bezier(.2,.7,.2,1) .15s}
+  #why-admissions-leak .rpx-card.in::before{transform:scaleY(1)}
+  #why-admissions-leak .rpx-leak{padding:24px 24px 20px 26px;background:linear-gradient(180deg,rgba(25,51,93,.04),transparent)}
+  #why-admissions-leak .rpx-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  #why-admissions-leak .rpx-num{font-family:'Inter',sans-serif;font-weight:800;font-size:15px;color:var(--or);width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:var(--soft);border:1px solid var(--line);flex:none}
+  #why-admissions-leak .rpx-tag{font-weight:800;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#B4571F}
+  #why-admissions-leak .rpx-title{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(17px,2vw,20px);line-height:1.28;color:var(--nv);letter-spacing:-.01em;margin-bottom:8px}
+  #why-admissions-leak .rpx-ptext{font-size:14px;line-height:1.6;color:var(--slate)}
+  #why-admissions-leak .rpx-seam{position:relative;height:1px;margin:2px 24px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 15px)}
+  #why-admissions-leak .rpx-seam::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:var(--or);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--line)}
+  #why-admissions-leak .rpx-fix{padding:18px 24px 24px 26px;margin-top:auto}
+  #why-admissions-leak .rpx-fixlabel{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--or);margin-bottom:9px}
+  #why-admissions-leak .rpx-chk{width:20px;height:20px;border-radius:6px;background:var(--tint);display:grid;place-items:center;flex:none}
+  #why-admissions-leak .rpx-chk svg{width:12px;height:12px;stroke:var(--or);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+  #why-admissions-leak .rpx-ftext{font-size:14px;line-height:1.6;color:var(--ink)}
+  #why-admissions-leak .rpx-ftext strong{color:var(--nv);font-weight:700}
+  @media(max-width:760px){#why-admissions-leak .rpx-grid{grid-template-columns:1fr;gap:14px}}
+</style>
+    <div class="rpx-grid">
+      <article class="rpx-card stly-rv" style="--i:1">
+        <div class="rpx-leak">
+          <div class="rpx-top"><span class="rpx-num">01</span><span class="rpx-tag">The leak</span></div>
+          <h3 class="rpx-title">Leads scattered across 10+ channels</h3>
+          <p class="rpx-ptext">Portals, Google &amp; Meta ads, walk-ins, IVR, education fairs, referrals &ndash; enquiries land everywhere, live in spreadsheets, and duplicates go unnoticed until it&rsquo;s too late.</p>
         </div>
-        <div class="stly-progress" aria-hidden="true">
-          <span class="stly-dot on"></span><span class="stly-dot"></span><span class="stly-dot"></span><span class="stly-dot"></span>
+        <div class="rpx-seam" aria-hidden="true"></div>
+        <div class="rpx-fix">
+          <span class="rpx-fixlabel"><span class="rpx-chk"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>Solved</span>
+          <p class="rpx-ftext"><strong>One unified inbox.</strong> Every lead source auto-captured, deduplicated and assigned in seconds &ndash; nothing enters a spreadsheet, nothing gets lost.</p>
         </div>
-      </div>
+      </article>
 
-      <div class="stly-steps">
-        <article class="stly-step is-active" data-i="0"><div class="stly-card">
-          <div class="stly-shead"><span class="stly-snum">01</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13l3.5 7v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/></svg></span><h3 class="stly-stitle">Leads scattered across 10+ channels</h3></div>
-          <p class="stly-stext">Portals, Google &amp; Meta ads, walk-ins, IVR, education fairs, referrals &ndash; enquiries land everywhere, live in spreadsheets, and duplicates go unnoticed until it&rsquo;s too late.</p>
-          <div class="stly-sfix"><span class="stly-sbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>One unified inbox.</strong> Every lead source auto-captured, deduplicated and assigned in seconds &ndash; nothing enters a spreadsheet, nothing gets lost.</p></div>
-        </div></article>
+      <article class="rpx-card stly-rv" style="--i:2">
+        <div class="rpx-leak">
+          <div class="rpx-top"><span class="rpx-num">02</span><span class="rpx-tag">The leak</span></div>
+          <h3 class="rpx-title">Slow first response loses the student</h3>
+          <p class="rpx-ptext">Prospects apply to 4&ndash;5 institutions at once. The one that responds first usually wins the conversation &ndash; and hours-long response times hand your admissions to competitors.</p>
+        </div>
+        <div class="rpx-seam" aria-hidden="true"></div>
+        <div class="rpx-fix">
+          <span class="rpx-fixlabel"><span class="rpx-chk"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>Solved</span>
+          <p class="rpx-ftext"><strong>Instant engagement, 24&times;7.</strong> Automated WhatsApp, email &amp; AI chatbot replies fire the moment an enquiry arrives &ndash; your team follows up while interest is hottest.</p>
+        </div>
+      </article>
 
-        <article class="stly-step" data-i="1"><div class="stly-card">
-          <div class="stly-shead"><span class="stly-snum">02</span><span class="stly-sic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><h3 class="stly-stitle">Slow first response loses the student</h3></div>
-          <p class="stly-stext">Prospects apply to 4&ndash;5 institutions at once. The one that responds first usually wins the conversation &ndash; and hours-long response times hand your admissions to competitors.</p>
-          <div class="stly-sfix"><span class="stly-sbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>Instant engagement, 24&times;7.</strong> Automated WhatsApp, email &amp; AI chatbot replies fire the moment an enquiry arrives &ndash; your team follows up while interest is hottest.</p></div>
-        </div></article>
+      <article class="rpx-card stly-rv" style="--i:3">
+        <div class="rpx-leak">
+          <div class="rpx-top"><span class="rpx-num">03</span><span class="rpx-tag">The leak</span></div>
+          <h3 class="rpx-title">Counselors buried in manual follow-ups</h3>
+          <p class="rpx-ptext">With hundreds of leads per counselor, follow-ups get missed, notes stay in notebooks, and high-intent students get the same generic call as cold enquiries.</p>
+        </div>
+        <div class="rpx-seam" aria-hidden="true"></div>
+        <div class="rpx-fix">
+          <span class="rpx-fixlabel"><span class="rpx-chk"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>Solved</span>
+          <p class="rpx-ftext"><strong>AI-prioritized worklists.</strong> Prediction scores and next-best-action tell every counselor exactly whom to call first &ndash; follow-up calendars make missing one nearly impossible.</p>
+        </div>
+      </article>
 
-        <article class="stly-step" data-i="2"><div class="stly-card">
-          <div class="stly-shead"><span class="stly-snum">03</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span><h3 class="stly-stitle">Counselors buried in manual follow-ups</h3></div>
-          <p class="stly-stext">With hundreds of leads per counselor, follow-ups get missed, notes stay in notebooks, and high-intent students get the same generic call as cold enquiries.</p>
-          <div class="stly-sfix"><span class="stly-sbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>AI-prioritized worklists.</strong> Prediction scores and next-best-action tell every counselor exactly whom to call first &ndash; follow-up calendars make missing one nearly impossible.</p></div>
-        </div></article>
-
-        <article class="stly-step" data-i="3"><div class="stly-card">
-          <div class="stly-shead"><span class="stly-snum">04</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span><h3 class="stly-stitle">No visibility into what&rsquo;s actually working</h3></div>
-          <p class="stly-stext">Which publisher sends leads that convert? Which counselor needs coaching? Where does the funnel drop? Without answers, budgets get spent on channels that never enrol a single student.</p>
-          <div class="stly-sfix"><span class="stly-sbadge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>Solved</span><p><strong>50+ ready reports.</strong> Source-wise ROI, funnel drop-offs, counselor performance &ndash; every marketing rupee and every follow-up, measured in real time.</p></div>
-        </div></article>
-      </div>
+      <article class="rpx-card stly-rv" style="--i:4">
+        <div class="rpx-leak">
+          <div class="rpx-top"><span class="rpx-num">04</span><span class="rpx-tag">The leak</span></div>
+          <h3 class="rpx-title">No visibility into what&rsquo;s actually working</h3>
+          <p class="rpx-ptext">Which publisher sends leads that convert? Which counselor needs coaching? Where does the funnel drop? Without answers, budgets get spent on channels that never enrol a single student.</p>
+        </div>
+        <div class="rpx-seam" aria-hidden="true"></div>
+        <div class="rpx-fix">
+          <span class="rpx-fixlabel"><span class="rpx-chk"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>Solved</span>
+          <p class="rpx-ftext"><strong>50+ ready reports.</strong> Source-wise ROI, funnel drop-offs, counselor performance &ndash; every marketing rupee and every follow-up, measured in real time.</p>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -5914,7 +5919,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 </style>
 
 <style id="ee-cro-order">
-/* CRO / lead-gen section reorder — ideal user journey, DESIGN UNCHANGED.
+/* CRO / lead-gen section reorder - ideal user journey, DESIGN UNCHANGED.
    Uses CSS order only (no markup moved) so every section keeps its exact
    design, scripts and scroll behaviour. Flow: what it is -> proof -> problem
    -> value -> how it works -> product -> differentiator -> relevance ->
