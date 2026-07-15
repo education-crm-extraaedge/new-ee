@@ -3372,6 +3372,8 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   .pstage-arw:active{transform:translateY(-50%) scale(.93)}
   /* One brain. Nine modules. - modules + numbers as tidy 3-up grids, less whitespace */
   .band{padding:16px 5vw 14px}
+  .flow{padding:20px 5vw 16px}
+  .flowline{margin-top:14px}
   .bandgrid{gap:16px}
   .modrow{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6px}
   .modpill{justify-content:center;padding:7px 6px;font-size:9.5px;text-align:center}
@@ -3746,14 +3748,21 @@ body{background:
 <script>
 (function(){
   var f=document.getElementById('eeNightFrame'); if(!f) return;
+  var mqm=window.matchMedia('(max-width:960px)');
   function fit(){
     try{
+      /* desktop uses the pinned 100% layout - never force an inline height there */
+      if(!mqm.matches){ if(f.style.height) f.style.height=''; return; }
       var d=f.contentDocument||(f.contentWindow&&f.contentWindow.document);
-      if(!d||!d.documentElement) return;
-      var h=Math.max(d.documentElement.scrollHeight, d.body?d.body.scrollHeight:0);
-      if(h>0 && Math.abs(h-parseInt(f.style.height||0,10))>2) f.style.height=h+'px';
+      if(!d||!d.body) return;
+      /* measure the body box, NOT scrollHeight: scrollHeight is floored at the
+         current iframe height, so the frame could grow but never shrink back,
+         leaving a dead empty band under the story */
+      var h=Math.ceil(d.body.getBoundingClientRect().height);
+      if(h>300 && Math.abs(h-(parseInt(f.style.height,10)||0))>2) f.style.height=h+'px';
     }catch(e){}
   }
+  if(mqm.addEventListener) mqm.addEventListener('change',fit);
   function post(m){ try{ if(f.contentWindow) f.contentWindow.postMessage(m,'*'); }catch(e){} }
   f.addEventListener('load',function(){
     fit(); setTimeout(fit,300); setTimeout(fit,1200);
