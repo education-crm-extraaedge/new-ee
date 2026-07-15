@@ -5514,7 +5514,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}/* Anchor jumps land be
   #respond-first .rf-story,#respond-first .rf-story:first-child{padding-top:12px!important;padding-bottom:12px!important}#respond-first .rf-sticky{padding-bottom:8px!important}/* -- Admission Ecosystem (#ecosystem) + every section --
      Uniform 10px top/bottom on the section wrappers so no two sections
      blur together and none carries a tall empty gap on mobile. */
-  .ee-home > section{padding-top:10px!important;padding-bottom:10px!important}.ee-home .ee-wrap,.ee-home .rf-wrap,.ee-home .ea-wrap,.ee-home .vx-head,.ee-home .vx-proof{padding-top:10px!important;padding-bottom:10px!important}/* Tighten the gap under each section's heading/intro on mobile. */
+  .ee-home > section{padding-top:10px!important;padding-bottom:10px!important}.ee-home .ee-wrap,.ee-home .rf-wrap,.ee-home .ea-wrap,.ee-home .vx-head,.ee-home .vx-proof{padding-top:10px!important;padding-bottom:10px!important}/* The story iframe section has a dark backdrop - any padding on it shows up
+     as a dark horizontal line between sections, so it gets none. */
+  .ee-home > #ee-night{padding-top:0!important;padding-bottom:0!important}/* Tighten the gap under each section's heading/intro on mobile. */
   .ee-home .intro,.ee-home .ee-head,.ee-home .sg-head,.ee-home .ci-head{margin-bottom:14px!important}
 }/* ============================================================
    PERFORMANCE - Core Web Vitals (LCP + CLS)
