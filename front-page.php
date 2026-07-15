@@ -783,91 +783,193 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </style>
 
 <!-- STORY 1 · THE REAL PROBLEM -->
-<section class="stly-sec is-white" id="why-admissions-leak" aria-labelledby="stly1-h">
-  <div class="stly-wrap">
-    <div class="stly-head">
-      <span class="stly-eyebrow stly-rv">The Real Problem</span>
-      <h2 class="stly-h2 stly-rv" style="--i:1" id="stly1-h">Every admission season, good enquiries quietly slip away</h2>
-      <p class="stly-sub stly-rv" style="--i:2">It&rsquo;s rarely a marketing problem &ndash; it&rsquo;s what happens after the enquiry. Here&rsquo;s exactly where admissions leak, and how ExtraaEdge plugs each gap.</p>
-    </div>
-
-<style id="ee-rpx">
-  #why-admissions-leak .rpx-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:clamp(24px,4vw,44px)}
-  #why-admissions-leak .rpx-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 14px 40px -26px rgba(25,51,93,.3);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;display:flex;flex-direction:column}
-  #why-admissions-leak .rpx-card:hover{transform:translateY(-5px);box-shadow:0 30px 64px -30px rgba(25,51,93,.42);border-color:rgba(222,110,48,.3)}
-  #why-admissions-leak .rpx-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--or),var(--nv));transform:scaleY(0);transform-origin:top;transition:transform .75s cubic-bezier(.2,.7,.2,1) .15s}
-  #why-admissions-leak .rpx-card.in::before{transform:scaleY(1)}
-  #why-admissions-leak .rpx-leak{padding:24px 24px 20px 26px;background:linear-gradient(180deg,rgba(25,51,93,.04),transparent)}
-  #why-admissions-leak .rpx-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-  #why-admissions-leak .rpx-num{font-family:'Inter',sans-serif;font-weight:800;font-size:15px;color:var(--or);width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:var(--soft);border:1px solid var(--line);flex:none}
-  #why-admissions-leak .rpx-tag{font-weight:800;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#B4571F}
-  #why-admissions-leak .rpx-title{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(17px,2vw,20px);line-height:1.28;color:var(--nv);letter-spacing:-.01em;margin-bottom:8px}
-  #why-admissions-leak .rpx-ptext{font-size:14px;line-height:1.6;color:var(--slate)}
-  #why-admissions-leak .rpx-seam{position:relative;height:1px;margin:2px 24px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 15px)}
-  #why-admissions-leak .rpx-seam::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:var(--or);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--line)}
-  #why-admissions-leak .rpx-fix{padding:18px 24px 24px 26px;margin-top:auto}
-  #why-admissions-leak .rpx-fixlabel{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--or);margin-bottom:9px}
-  #why-admissions-leak .rpx-chk{width:20px;height:20px;border-radius:6px;background:var(--tint);display:grid;place-items:center;flex:none}
-  #why-admissions-leak .rpx-chk svg{width:12px;height:12px;stroke:var(--or);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-  #why-admissions-leak .rpx-ftext{font-size:14px;line-height:1.6;color:var(--ink)}
-  #why-admissions-leak .rpx-ftext strong{color:var(--nv);font-weight:700}
-  @media(max-width:760px){#why-admissions-leak .rpx-grid{grid-template-columns:1fr;gap:14px}}
+<!-- ================= The Real Problem - The Admissions Narrative (scoped .tan-*) ================= -->
+<section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
+<style id="ee-tan">
+  #why-admissions-leak.tan-sec{--nv:#19335D;--or:#DE6E30;background:#f8fafc;color:#111827;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow-x:hidden}
+  #why-admissions-leak.tan-sec *{box-sizing:border-box;margin:0;padding:0}
+  #why-admissions-leak .tan-hero{min-height:52vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:clamp(48px,8vw,90px) 24px}
+  #why-admissions-leak .tan-hero-in{max-width:900px}
+  #why-admissions-leak .tan-eyebrow{color:var(--or);font-weight:700;letter-spacing:.3em;text-transform:uppercase;font-size:12px;margin-bottom:22px}
+  #why-admissions-leak .tan-title{font-weight:800;color:var(--nv);font-size:clamp(38px,6.2vw,72px);line-height:1.05;letter-spacing:-.02em;margin-bottom:26px;min-height:1.1em}
+  #why-admissions-leak .tan-caret{color:var(--or);animation:tanBlink 1s steps(1) infinite;font-weight:300}
+  @keyframes tanBlink{50%{opacity:0}}
+  #why-admissions-leak .tan-lead{font-size:clamp(16px,1.9vw,20px);color:#64748b;max-width:640px;margin:0 auto;line-height:1.6;font-weight:500}
+  #why-admissions-leak .tan-main{max-width:1200px;margin:0 auto;padding:0 24px clamp(48px,8vw,120px)}
+  #why-admissions-leak .tan-row{display:grid;grid-template-columns:4fr 8fr;gap:clamp(28px,4vw,48px);align-items:start;margin-bottom:clamp(48px,9vw,150px)}
+  #why-admissions-leak .tan-side{position:sticky;top:120px;align-self:flex-start}
+  #why-admissions-leak .tan-bar{width:64px;height:4px;background:var(--or);margin-bottom:28px;border-radius:2px}
+  #why-admissions-leak .tan-h3{font-size:clamp(24px,2.6vw,30px);font-weight:700;color:var(--nv);letter-spacing:-.01em}
+  #why-admissions-leak .tan-side-sub{color:#64748b;margin-top:8px;font-weight:500}
+  #why-admissions-leak .tan-bento{background:#fff;border:1px solid #e5e7eb;border-radius:32px;padding:clamp(24px,3vw,40px);transition:border-color .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1)}
+  #why-admissions-leak .tan-bento:hover{border-color:rgba(222,110,48,.3);box-shadow:0 30px 60px -12px rgba(25,51,93,.08)}
+  #why-admissions-leak .tan-grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  #why-admissions-leak .tan-col2{grid-column:1 / -1}
+  #why-admissions-leak .tan-panel{border-radius:24px;padding:clamp(22px,2.4vw,32px)}
+  #why-admissions-leak .tan-soft{background:#f8fafc;border:1px solid #f1f5f9}
+  #why-admissions-leak .tan-white{background:#fff;border:1px solid #f1f5f9;transition:background .3s}
+  #why-admissions-leak .tan-white:hover{background:#f8fafc}
+  #why-admissions-leak .tan-navy{background:var(--nv);color:#fff}
+  #why-admissions-leak .tan-klabel{color:var(--or);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
+  #why-admissions-leak .tan-chal{color:#334155;font-size:clamp(16px,1.5vw,18px);line-height:1.6}
+  #why-admissions-leak .tan-cap{font-size:14px;font-weight:500;margin-bottom:8px}
+  #why-admissions-leak .tan-cap.op{color:rgba(255,255,255,.8)}
+  #why-admissions-leak .tan-cap.mut{color:#64748b}
+  #why-admissions-leak .tan-big{font-size:clamp(20px,2vw,24px);font-weight:700}
+  #why-admissions-leak .tan-big.nv{color:var(--nv)}
+  #why-admissions-leak .tan-note{margin-top:9px;font-size:14px;line-height:1.5}
+  #why-admissions-leak .tan-note.lt{color:rgba(255,255,255,.72)}
+  #why-admissions-leak .tan-note.mut{color:#94a3b8}
+  #why-admissions-leak .tan-h5{color:var(--nv);font-weight:700;font-size:18px;margin-bottom:8px}
+  #why-admissions-leak .tan-sm{font-size:14px;color:#64748b;line-height:1.55}
+  #why-admissions-leak .tan-quotewrap{background:var(--nv);color:#fff;padding:clamp(26px,3.4vw,40px);border-radius:24px;box-shadow:0 24px 50px -20px rgba(25,51,93,.5)}
+  #why-admissions-leak .tan-quotewrap h4{font-weight:700;font-size:clamp(20px,2.2vw,24px);margin-bottom:16px}
+  #why-admissions-leak .tan-quote{color:rgba(255,255,255,.86);font-style:italic;line-height:1.6;font-size:clamp(16px,1.6vw,18px);margin-bottom:28px}
+  #why-admissions-leak .tan-pills{display:flex;flex-wrap:wrap;gap:12px}
+  #why-admissions-leak .tan-pill{padding:9px 20px;border-radius:999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+  #why-admissions-leak .tan-pill.or{background:var(--or);color:#fff}
+  #why-admissions-leak .tan-pill.gh{background:rgba(255,255,255,.1);color:rgba(255,255,255,.85)}
+  #why-admissions-leak .tan-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+  #why-admissions-leak .tan-stat{padding:clamp(18px,2vw,26px);background:#f8fafc;border:1px solid #f1f5f9;border-radius:24px;text-align:center}
+  #why-admissions-leak .tan-stat b{display:block;color:var(--or);font-size:clamp(28px,3.4vw,40px);font-weight:900;line-height:1}
+  #why-admissions-leak .tan-stat span{display:block;font-size:11px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-top:8px}
+  #why-admissions-leak .tan-closer{color:#64748b;text-align:center;font-style:italic;line-height:1.6}
+  #why-admissions-leak .reveal-node{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+  #why-admissions-leak .reveal-node.is-visible{opacity:1;transform:none}
+  @media(max-width:820px){
+    #why-admissions-leak .tan-row{grid-template-columns:1fr;gap:20px;margin-bottom:clamp(40px,10vw,64px)}
+    #why-admissions-leak .tan-side{position:static;top:auto}
+    #why-admissions-leak .tan-bar{margin-bottom:16px}
+    #why-admissions-leak .tan-grid2{grid-template-columns:1fr}
+    #why-admissions-leak .tan-stats{grid-template-columns:1fr 1fr 1fr;gap:10px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    #why-admissions-leak .reveal-node{opacity:1!important;transform:none!important}
+    #why-admissions-leak .tan-caret{animation:none}
+  }
 </style>
-    <div class="rpx-grid">
-      <article class="rpx-card stly-rv" style="--i:1">
-        <div class="rpx-leak">
-          <div class="rpx-top"><span class="rpx-num">01</span><span class="rpx-tag">The leak</span></div>
-          <h3 class="rpx-title">Leads scattered across 10+ channels</h3>
-          <p class="rpx-ptext">Portals, Google &amp; Meta ads, walk-ins, IVR, education fairs, referrals &ndash; enquiries land everywhere, live in spreadsheets, and duplicates go unnoticed until it&rsquo;s too late.</p>
-        </div>
-        <div class="rpx-seam" aria-hidden="true"></div>
-        <div class="rpx-fix">
-          <span class="rpx-fixlabel"><span class="rpx-chk"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>Solved</span>
-          <p class="rpx-ftext"><strong>One unified inbox.</strong> Every lead source auto-captured, deduplicated and assigned in seconds &ndash; nothing enters a spreadsheet, nothing gets lost.</p>
-        </div>
-      </article>
 
-      <article class="rpx-card stly-rv" style="--i:2">
-        <div class="rpx-leak">
-          <div class="rpx-top"><span class="rpx-num">02</span><span class="rpx-tag">The leak</span></div>
-          <h3 class="rpx-title">Slow first response loses the student</h3>
-          <p class="rpx-ptext">Prospects apply to 4&ndash;5 institutions at once. The one that responds first usually wins the conversation &ndash; and hours-long response times hand your admissions to competitors.</p>
-        </div>
-        <div class="rpx-seam" aria-hidden="true"></div>
-        <div class="rpx-fix">
-          <span class="rpx-fixlabel"><span class="rpx-chk"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>Solved</span>
-          <p class="rpx-ftext"><strong>Instant engagement, 24&times;7.</strong> Automated WhatsApp, email &amp; AI chatbot replies fire the moment an enquiry arrives &ndash; your team follows up while interest is hottest.</p>
-        </div>
-      </article>
-
-      <article class="rpx-card stly-rv" style="--i:3">
-        <div class="rpx-leak">
-          <div class="rpx-top"><span class="rpx-num">03</span><span class="rpx-tag">The leak</span></div>
-          <h3 class="rpx-title">Counselors buried in manual follow-ups</h3>
-          <p class="rpx-ptext">With hundreds of leads per counselor, follow-ups get missed, notes stay in notebooks, and high-intent students get the same generic call as cold enquiries.</p>
-        </div>
-        <div class="rpx-seam" aria-hidden="true"></div>
-        <div class="rpx-fix">
-          <span class="rpx-fixlabel"><span class="rpx-chk"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>Solved</span>
-          <p class="rpx-ftext"><strong>AI-prioritized worklists.</strong> Prediction scores and next-best-action tell every counselor exactly whom to call first &ndash; follow-up calendars make missing one nearly impossible.</p>
-        </div>
-      </article>
-
-      <article class="rpx-card stly-rv" style="--i:4">
-        <div class="rpx-leak">
-          <div class="rpx-top"><span class="rpx-num">04</span><span class="rpx-tag">The leak</span></div>
-          <h3 class="rpx-title">No visibility into what&rsquo;s actually working</h3>
-          <p class="rpx-ptext">Which publisher sends leads that convert? Which counselor needs coaching? Where does the funnel drop? Without answers, budgets get spent on channels that never enrol a single student.</p>
-        </div>
-        <div class="rpx-seam" aria-hidden="true"></div>
-        <div class="rpx-fix">
-          <span class="rpx-fixlabel"><span class="rpx-chk"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>Solved</span>
-          <p class="rpx-ftext"><strong>50+ ready reports.</strong> Source-wise ROI, funnel drop-offs, counselor performance &ndash; every marketing rupee and every follow-up, measured in real time.</p>
-        </div>
-      </article>
+  <div class="tan-hero">
+    <div class="tan-hero-in">
+      <p class="tan-eyebrow">The Admission Funnel Leak</p>
+      <h1 class="tan-title" id="tan-h"><span id="tanType"></span><span class="tan-caret" aria-hidden="true">|</span></h1>
+      <p class="tan-lead">Admissions aren&rsquo;t lost at the marketing top-of-funnel; they evaporate in the gap between enquiry and engagement.</p>
     </div>
   </div>
+
+  <div class="tan-main">
+
+    <section class="tan-row reveal-node">
+      <div class="tan-side">
+        <div class="tan-bar"></div>
+        <h3 class="tan-h3">Scattered Chaos</h3>
+        <p class="tan-side-sub">The Operational Tax</p>
+      </div>
+      <div class="tan-bento tan-grid2">
+        <div class="tan-panel tan-soft tan-col2">
+          <h4 class="tan-klabel">The Operational Challenge</h4>
+          <p class="tan-chal">Leads are fragmented across 10+ disparate sources. Without a single source of truth, teams rely on manual spreadsheet data entry, creating an &ldquo;operational tax&rdquo; that slows response times to a crawl.</p>
+        </div>
+        <div class="tan-panel tan-navy">
+          <p class="tan-cap op">Automated Capture</p>
+          <p class="tan-big">10+ Source Integration</p>
+          <p class="tan-note lt">Unified digital inbox ensures no lead is left behind.</p>
+        </div>
+        <div class="tan-panel tan-white">
+          <p class="tan-cap mut">Conflict Resolution</p>
+          <p class="tan-big nv">Real-time Deduplication</p>
+          <p class="tan-note mut">Prevents lead collisions and maintains clean data integrity.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tan-row reveal-node">
+      <div class="tan-side">
+        <div class="tan-bar"></div>
+        <h3 class="tan-h3">Latency Trap</h3>
+        <p class="tan-side-sub">Speed-to-Lead Gap</p>
+      </div>
+      <div class="tan-bento tan-grid2">
+        <div class="tan-panel tan-soft tan-col2">
+          <h4 class="tan-klabel">The Strategic Challenge</h4>
+          <p class="tan-chal">Prospects apply to multiple institutions simultaneously. Research confirms that response time is the #1 predictor of conversion. A slow follow-up means your prospect is already in a conversation with your competitor.</p>
+        </div>
+        <div class="tan-panel tan-white">
+          <h5 class="tan-h5">Instant Activation</h5>
+          <p class="tan-sm">Triggered WhatsApp and email replies fire within milliseconds of lead arrival, capturing attention at the peak of interest.</p>
+        </div>
+        <div class="tan-panel tan-white">
+          <h5 class="tan-h5">AI Continuity</h5>
+          <p class="tan-sm">24&times;7 intelligent bot qualification ensures zero gaps in conversation coverage, even outside office hours.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tan-row reveal-node">
+      <div class="tan-side">
+        <div class="tan-bar"></div>
+        <h3 class="tan-h3">Counselor Fatigue</h3>
+        <p class="tan-side-sub">Workload Inefficiency</p>
+      </div>
+      <div class="tan-bento">
+        <h4 class="tan-klabel">The ExtraaEdge Strategy</h4>
+        <div class="tan-quotewrap" style="margin-top:16px">
+          <h4>AI-Prioritized Focus</h4>
+          <p class="tan-quote">&ldquo;Stop the spray-and-pray approach. Our predictive AI ranks leads by intent, providing a Next-Best-Action worklist that tells your team exactly who to call, ensuring your best assets speak to your most promising prospects.&rdquo;</p>
+          <div class="tan-pills">
+            <span class="tan-pill or">Predictive Scoring</span>
+            <span class="tan-pill gh">Worklist Automation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tan-row reveal-node">
+      <div class="tan-side">
+        <div class="tan-bar"></div>
+        <h3 class="tan-h3">Blind Spots</h3>
+        <p class="tan-side-sub">Attribution Intelligence</p>
+      </div>
+      <div class="tan-bento">
+        <h4 class="tan-klabel" style="margin-bottom:26px">The CFO&rsquo;s Dashboard</h4>
+        <div class="tan-stats">
+          <div class="tan-stat"><b>50+</b><span>Ready Reports</span></div>
+          <div class="tan-stat"><b>100%</b><span>Attribution</span></div>
+          <div class="tan-stat"><b>ROI</b><span>Predictability</span></div>
+        </div>
+        <p class="tan-closer">&ldquo;Gain full, granular visibility into which marketing channels actually drive enrollment vs. those that just generate low-intent clicks.&rdquo;</p>
+      </div>
+    </section>
+
+  </div>
 </section>
+<script>
+(function(){
+  var root=document.getElementById('why-admissions-leak'); if(!root) return;
+  var el=document.getElementById('tanType');
+  var txt='Good enquiries quietly slip away.';
+  var started=false;
+  var RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function typeStart(){ if(started||!el) return; started=true;
+    if(RM){ el.textContent=txt; return; }
+    var i=0; (function t(){ if(i<txt.length){ el.textContent+=txt.charAt(i++); setTimeout(t,70); } })();
+  }
+  function fillNow(){ if(!started&&el){ started=true; el.textContent=txt; } }
+  if('IntersectionObserver' in window){
+    if(el){ var hero=root.querySelector('.tan-hero');
+      var to=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)typeStart();});},{threshold:.4});
+      to.observe(hero);
+    }
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');fillNow();io.unobserve(e.target);}});},{threshold:.15});
+    [].slice.call(root.querySelectorAll('.reveal-node')).forEach(function(n){io.observe(n);});
+  } else {
+    if(el) el.textContent=txt;
+    [].slice.call(root.querySelectorAll('.reveal-node')).forEach(function(n){n.classList.add('is-visible');});
+  }
+})();
+</script>
+
 
 <!-- STORY 2 · BUILT FOR ADMISSION TEAMS -->
 <section class="stly-sec is-soft" id="feature-pillars" aria-labelledby="stly2-h">
