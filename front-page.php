@@ -2582,22 +2582,11 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     line-height: 1.65;
     color: #5a6b85;
   }#ee-teams .ee-teams-grid{
-    /* one horizontal line - swipe/scroll to explore every team */
-    display: flex !important;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 16px;
-    margin-top: clamp(28px, 4vw, 44px);
-    padding-bottom: 14px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(222,110,48,.55) rgba(25,52,93,.08);
-  }#ee-teams .ee-teams-grid::-webkit-scrollbar{ height: 6px; }
-  #ee-teams .ee-teams-grid::-webkit-scrollbar-track{ background: rgba(25,52,93,.08); border-radius: 3px; }
-  #ee-teams .ee-teams-grid::-webkit-scrollbar-thumb{ background: rgba(222,110,48,.55); border-radius: 3px; }
-  #ee-teams .ee-card{
-    flex: 0 0 clamp(230px, 24vw, 300px);
-    scroll-snap-align: start;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: clamp(40px, 5vw, 60px);
+  }#ee-teams .ee-card{
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -2668,7 +2657,14 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     transform: translateY(0);
   }#ee-teams .ee-card-arrow svg,#ee-teams .ee-card-arrow img.eeimg{ display: block; }
 
-  @media (max-width: 560px){#ee-teams .ee-card{ flex-basis: 74vw; padding: 20px 18px; }
+  @media (max-width: 900px){#ee-teams .ee-teams-grid{
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px){#ee-teams .ee-teams-grid{
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }#ee-teams .ee-card{ padding: 22px 20px; }
   }
   @media (prefers-reduced-motion: reduce){#ee-teams .ee-card,#ee-teams .ee-card::before,#ee-teams .ee-card-arrow{ transition: none; }
   }
@@ -2745,7 +2741,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   position:relative; padding:clamp(64px,8vw,104px) 0; background:transparent;
   font-family:'Inter',system-ui,-apple-system,sans-serif; color:var(--ink);
   -webkit-font-smoothing:antialiased;
-}#ee-solutions *{box-sizing:border-box;}#ee-solutions .ee-container{max-width:1240px;margin:0 auto;padding:0 24px;}#ee-solutions .ee-head{max-width:740px;margin:0 0 clamp(32px,4.4vw,52px);}#ee-solutions .ee-eyebrow{
+}#ee-solutions *{box-sizing:border-box;}#ee-solutions .ee-container{max-width:1240px;margin:0 auto;padding:0 24px;}#ee-solutions .ee-head{max-width:740px;margin:0 0 clamp(28px,3.6vw,44px);}#ee-solutions .ee-eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
   color:var(--orange);margin:0 0 16px;
@@ -2756,80 +2752,82 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   font-family:'Poppins','Inter',sans-serif;font-weight:600;
   font-size:clamp(28px,4vw,40px);line-height:1.12;letter-spacing:-.02em;
   margin:0 0 14px;color:var(--navy);
-}#ee-solutions .ee-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:var(--muted);margin:0;}/* ---- unique split tab-panel (pure CSS radio tabs) ---- */
-#ee-solutions .sol-wrap{
-  display:grid;grid-template-columns:minmax(280px,1fr) 1.45fr;
-  gap:clamp(16px,2vw,26px);align-items:stretch;
-}#ee-solutions .sol-radio{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}/* left rail of tabs */
-#ee-solutions .sol-tabs{display:flex;flex-direction:column;gap:12px;}#ee-solutions .sol-tab{
-  position:relative;display:flex;align-items:center;gap:16px;cursor:pointer;
-  background:#fff;border:1px solid var(--hair);border-radius:16px;
-  padding:18px 20px;color:var(--ink);
-  box-shadow:0 1px 2px rgba(15,32,58,.04);
-  transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s,border-color .3s,background .3s;
-}#ee-solutions .sol-tab::before{
-  content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;
-  background:linear-gradient(180deg,var(--orange),var(--orange2));
-  transform:scaleY(0);transform-origin:top;transition:transform .35s ease;
-}#ee-solutions .sol-tab:hover{border-color:rgba(222,110,48,.3);transform:translateY(-2px);}#ee-solutions .sol-num{
-  font-family:'Poppins','Inter',sans-serif;font-weight:700;font-size:13px;
-  color:var(--orange);letter-spacing:.04em;flex-shrink:0;
-}#ee-solutions .sol-ico{
-  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
-  width:46px;height:46px;border-radius:13px;
-  background:linear-gradient(160deg,rgba(34,70,124,.1),rgba(222,110,48,.12));
-  border:1px solid var(--hair);color:var(--navy2);transition:color .3s,background .3s;
-}#ee-solutions .sol-ico svg,#ee-solutions .sol-ico img.eeimg{width:23px;height:23px;}#ee-solutions .sol-tt{display:flex;flex-direction:column;gap:3px;min-width:0;}#ee-solutions .sol-tt b{
-  font-family:'Poppins','Inter',sans-serif;font-weight:600;font-size:16px;
-  letter-spacing:-.01em;color:var(--ink);line-height:1.2;
-}#ee-solutions .sol-tt span{font-size:13px;color:var(--muted);line-height:1.35;}#ee-solutions .sol-arrow{margin-left:auto;color:var(--muted);opacity:0;transform:translateX(-4px);transition:opacity .3s,transform .3s;flex-shrink:0;}#ee-solutions .sol-arrow svg,#ee-solutions .sol-arrow img.eeimg{width:18px;height:18px;}/* active tab states (driven by checked radios) */
-#ee-solutions #solr1:checked ~ .sol-tabs label[for="solr1"],#ee-solutions #solr2:checked ~ .sol-tabs label[for="solr2"],#ee-solutions #solr3:checked ~ .sol-tabs label[for="solr3"]{
-  background:linear-gradient(135deg,#fff, #fff7f1);
-  border-color:rgba(222,110,48,.4);
-  box-shadow:0 18px 38px -22px rgba(25,52,93,.5);transform:translateY(-2px);
-}#ee-solutions #solr1:checked ~ .sol-tabs label[for="solr1"]::before,#ee-solutions #solr2:checked ~ .sol-tabs label[for="solr2"]::before,#ee-solutions #solr3:checked ~ .sol-tabs label[for="solr3"]::before{transform:scaleY(1);}#ee-solutions #solr1:checked ~ .sol-tabs label[for="solr1"] .sol-ico,#ee-solutions #solr2:checked ~ .sol-tabs label[for="solr2"] .sol-ico,#ee-solutions #solr3:checked ~ .sol-tabs label[for="solr3"] .sol-ico{
-  color:#fff;background:linear-gradient(160deg,var(--orange),var(--orange2));border-color:transparent;
-}#ee-solutions #solr1:checked ~ .sol-tabs label[for="solr1"] .sol-arrow,#ee-solutions #solr2:checked ~ .sol-tabs label[for="solr2"] .sol-arrow,#ee-solutions #solr3:checked ~ .sol-tabs label[for="solr3"] .sol-arrow{opacity:1;transform:translateX(0);color:var(--orange);}#ee-solutions .sol-radio:focus-visible ~ .sol-tabs label{outline:none;}#ee-solutions #solr1:focus-visible ~ .sol-tabs label[for="solr1"],#ee-solutions #solr2:focus-visible ~ .sol-tabs label[for="solr2"],#ee-solutions #solr3:focus-visible ~ .sol-tabs label[for="solr3"]{outline:2px solid var(--orange);outline-offset:3px;}/* right detail panel */
-#ee-solutions .sol-panels{position:relative;}#ee-solutions .sol-panel{
-  position:relative;display:none;height:100%;
-  background:linear-gradient(165deg,#0f2547,#19345d 55%,#22467c);
-  border-radius:22px;padding:clamp(26px,3vw,40px);overflow:hidden;color:#fff;
-  box-shadow:0 30px 70px -30px rgba(25,52,93,.6);
-  animation:eesolIn .45s cubic-bezier(.2,.7,.2,1);
+}#ee-solutions .ee-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:var(--muted);margin:0;}
+/* ---- category-wise bento grid ---- */
+#ee-solutions .solb-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,1.6vw,18px);}
+#ee-solutions .solb-card{position:relative;display:flex;flex-direction:column;border-radius:22px;padding:clamp(20px,2.6vw,30px);overflow:hidden;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;}
+#ee-solutions .solb-card:hover{transform:translateY(-4px);}
+#ee-solutions .solb-a{grid-column:span 7;background:linear-gradient(165deg,#0f2547,#19345d 55%,#22467c);color:#fff;
+  box-shadow:0 30px 70px -30px rgba(25,52,93,.6);}
+#ee-solutions .solb-a::after{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(222,110,48,.5),transparent 65%);filter:blur(10px);pointer-events:none;}
+#ee-solutions .solb-b{grid-column:span 5;background:#fff;border:1px solid var(--hair);
+  box-shadow:0 1px 2px rgba(15,32,58,.04),0 14px 34px -22px rgba(15,32,58,.28);}
+#ee-solutions .solb-b:hover{border-color:rgba(222,110,48,.35);box-shadow:0 24px 48px -24px rgba(25,52,93,.35);}
+#ee-solutions .solb-c{grid-column:span 8;background:var(--bg);border:1px solid var(--hair);
+  box-shadow:0 1px 2px rgba(15,32,58,.04),0 14px 34px -22px rgba(15,32,58,.22);}
+#ee-solutions .solb-c:hover{border-color:rgba(222,110,48,.35);}
+#ee-solutions .solb-d{grid-column:span 4;background:linear-gradient(150deg,var(--orange2),var(--orange) 70%,#C2541C);color:#fff;
+  box-shadow:0 24px 50px -22px rgba(222,110,48,.65);justify-content:center;align-items:flex-start;}
+#ee-solutions .solb-d::after{content:"";position:absolute;left:-60px;bottom:-70px;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.3),transparent 65%);pointer-events:none;}
+#ee-solutions .solb-ghost{position:absolute;right:14px;bottom:-24px;font-family:'Poppins','Inter',sans-serif;
+  font-weight:800;font-size:clamp(96px,12vw,150px);line-height:.8;pointer-events:none;user-select:none;color:rgba(25,52,93,.05);}
+#ee-solutions .solb-a .solb-ghost{color:rgba(255,255,255,.05);}
+#ee-solutions .solb-tag{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;font-size:11.5px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:6px 14px 6px 10px;margin:0 0 14px;position:relative;z-index:1;
+  color:var(--navy);background:rgba(25,52,93,.06);border:1px solid rgba(25,52,93,.12);}
+#ee-solutions .solb-a .solb-tag{color:#ffd9c2;background:rgba(222,110,48,.18);border-color:rgba(222,110,48,.35);}
+#ee-solutions .solb-tag img.eeimg,#ee-solutions .solb-tag svg{width:16px;height:16px;}
+#ee-solutions .solb-card h3{font-family:'Poppins','Inter',sans-serif;font-weight:700;font-size:clamp(19px,2.2vw,24px);
+  line-height:1.22;letter-spacing:-.01em;margin:0 0 8px;position:relative;z-index:1;color:var(--navy);}
+#ee-solutions .solb-a h3,#ee-solutions .solb-d h3{color:#fff;}
+#ee-solutions .solb-desc{font-size:14px;line-height:1.55;color:var(--muted);margin:0 0 18px;max-width:52ch;position:relative;z-index:1;}
+#ee-solutions .solb-a .solb-desc{color:rgba(255,255,255,.78);}
+#ee-solutions .solb-d .solb-desc{color:rgba(255,255,255,.9);}
+#ee-solutions .solb-links{display:flex;flex-direction:column;gap:9px;margin-top:auto;position:relative;z-index:1;}
+#ee-solutions .solb-c .solb-links{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+#ee-solutions .solb-link{display:flex;align-items:center;gap:12px;text-decoration:none;border-radius:13px;padding:11px 14px;
+  background:#fff;border:1px solid var(--hair);color:var(--ink);
+  transition:background .25s,border-color .25s,transform .25s,box-shadow .25s;}
+#ee-solutions .solb-link:hover{border-color:rgba(222,110,48,.5);transform:translateX(4px);box-shadow:0 10px 22px -14px rgba(25,52,93,.4);}
+#ee-solutions .solb-link:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}
+#ee-solutions .solb-a .solb-link{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:#fff;}
+#ee-solutions .solb-a .solb-link:hover{background:rgba(255,255,255,.12);border-color:rgba(222,110,48,.5);}
+#ee-solutions .solb-chk{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:28px;height:28px;border-radius:9px;
+  background:linear-gradient(160deg,var(--orange),var(--orange2));color:#fff;}
+#ee-solutions .solb-chk img.eeimg,#ee-solutions .solb-chk svg{width:15px;height:15px;}
+#ee-solutions .solb-lt{display:flex;flex-direction:column;gap:2px;min-width:0;}
+#ee-solutions .solb-lt b{font-family:'Poppins','Inter',sans-serif;font-weight:600;font-size:14.5px;line-height:1.2;}
+#ee-solutions .solb-lt span{font-size:12.5px;line-height:1.35;color:var(--muted);}
+#ee-solutions .solb-a .solb-lt span{color:rgba(255,255,255,.62);}
+#ee-solutions .solb-arr{margin-left:auto;flex-shrink:0;color:var(--muted);transition:color .25s,transform .25s;}
+#ee-solutions .solb-a .solb-arr{color:rgba(255,255,255,.5);}
+#ee-solutions .solb-arr img.eeimg,#ee-solutions .solb-arr svg{width:16px;height:16px;}
+#ee-solutions .solb-link:hover .solb-arr{color:var(--orange);transform:translateX(3px);}
+#ee-solutions .solb-a .solb-link:hover .solb-arr{color:#fff;}
+#ee-solutions .solb-cta{display:inline-flex;align-items:center;gap:9px;position:relative;z-index:1;margin-top:18px;
+  background:#fff;color:var(--orange);font-weight:700;font-size:14.5px;padding:12px 22px;border-radius:999px;text-decoration:none;
+  box-shadow:0 14px 28px -12px rgba(15,32,58,.4);transition:transform .25s,box-shadow .25s;}
+#ee-solutions .solb-cta svg,#ee-solutions .solb-cta img.eeimg{width:16px;height:16px;transition:transform .25s;}
+#ee-solutions .solb-cta:hover{transform:translateY(-2px);}
+#ee-solutions .solb-cta:hover svg{transform:translateX(3px);}
+@media (max-width:900px){
+  #ee-solutions .solb-a,#ee-solutions .solb-b,#ee-solutions .solb-c,#ee-solutions .solb-d{grid-column:span 12;}
+  #ee-solutions .solb-c .solb-links{grid-template-columns:1fr;}
 }
-@keyframes eesolIn{from{opacity:0;transform:translateY(10px) scale(.99);}to{opacity:1;transform:none;}}#ee-solutions #solr1:checked ~ .sol-panels #solp1,#ee-solutions #solr2:checked ~ .sol-panels #solp2,#ee-solutions #solr3:checked ~ .sol-panels #solp3{display:block;}#ee-solutions .sol-panel::after{
-  content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:50%;
-  background:radial-gradient(circle,rgba(222,110,48,.5),transparent 65%);filter:blur(10px);pointer-events:none;
-}#ee-solutions .sol-ghost{
-  position:absolute;right:18px;bottom:-30px;font-family:'Poppins','Inter',sans-serif;
-  font-weight:800;font-size:clamp(120px,18vw,210px);line-height:.8;
-  color:rgba(255,255,255,.05);pointer-events:none;user-select:none;
-}#ee-solutions .sol-ptag{
-  display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;color:#ffd9c2;
-  background:rgba(222,110,48,.18);border:1px solid rgba(222,110,48,.35);
-  border-radius:999px;padding:6px 13px;margin:0 0 16px;position:relative;z-index:1;
-}#ee-solutions .sol-panel h3{
-  font-family:'Poppins','Inter',sans-serif;font-weight:700;font-size:clamp(21px,2.4vw,27px);
-  line-height:1.2;letter-spacing:-.01em;margin:0 0 8px;color:#fff;position:relative;z-index:1;
-}#ee-solutions .sol-panel .sol-desc{font-size:15px;line-height:1.55;color:rgba(255,255,255,.78);margin:0 0 22px;max-width:46ch;position:relative;z-index:1;}#ee-solutions .sol-list{display:flex;flex-direction:column;gap:10px;margin:0 0 24px;position:relative;z-index:1;}#ee-solutions .sol-item{
-  display:flex;align-items:center;gap:14px;text-decoration:none;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-  border-radius:13px;padding:13px 16px;color:#fff;
-  transition:background .25s,border-color .25s,transform .25s;
-}#ee-solutions .sol-item:hover{background:rgba(255,255,255,.12);border-color:rgba(222,110,48,.5);transform:translateX(4px);}#ee-solutions .sol-item:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}#ee-solutions .sol-chk{
-  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
-  width:30px;height:30px;border-radius:9px;background:linear-gradient(160deg,var(--orange),var(--orange2));color:#fff;
-}#ee-solutions .sol-chk svg,#ee-solutions .sol-chk img.eeimg{width:16px;height:16px;}#ee-solutions .sol-itxt{display:flex;flex-direction:column;gap:2px;min-width:0;}#ee-solutions .sol-itxt b{font-family:'Poppins','Inter',sans-serif;font-weight:600;font-size:15px;line-height:1.2;color:#fff;}#ee-solutions .sol-itxt span{font-size:12.5px;color:rgba(255,255,255,.62);line-height:1.3;}#ee-solutions .sol-iarr{margin-left:auto;color:rgba(255,255,255,.5);flex-shrink:0;transition:color .25s,transform .25s;}#ee-solutions .sol-iarr svg,#ee-solutions .sol-iarr img.eeimg{width:17px;height:17px;}#ee-solutions .sol-item:hover .sol-iarr{color:#fff;transform:translateX(3px);}#ee-solutions .sol-cta{
-  display:inline-flex;align-items:center;gap:9px;position:relative;z-index:1;
-  background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;
-  font-weight:700;font-size:15px;padding:13px 24px;border-radius:999px;text-decoration:none;
-  box-shadow:0 14px 28px -10px rgba(222,110,48,.6);transition:transform .25s,box-shadow .25s;
-}#ee-solutions .sol-cta svg,#ee-solutions .sol-cta img.eeimg{width:17px;height:17px;transition:transform .25s;}#ee-solutions .sol-cta:hover{transform:translateY(-2px);box-shadow:0 20px 36px -10px rgba(222,110,48,.7);}#ee-solutions .sol-cta:hover svg,#ee-solutions .sol-cta:hover img.eeimg{transform:translateX(4px);}
-
-@media (max-width:900px){#ee-solutions .sol-wrap{grid-template-columns:1fr;gap:14px;}#ee-solutions .sol-tabs{flex-direction:row;flex-wrap:wrap;}#ee-solutions .sol-tab{flex:1 1 200px;}#ee-solutions .sol-tt span{display:none;}
+@media (max-width:560px){
+  #ee-solutions .ee-container{padding:0 18px;}
+  #ee-solutions .solb-card{padding:18px 16px;border-radius:18px;}
+  #ee-solutions .solb-card h3{font-size:18px;}
+  #ee-solutions .solb-desc{font-size:13px;margin-bottom:14px;}
+  #ee-solutions .solb-link{padding:10px 12px;}
+  #ee-solutions .solb-lt b{font-size:13.5px;}
+  #ee-solutions .solb-lt span{font-size:12px;}
 }
-@media (max-width:560px){#ee-solutions .ee-container{padding:0 18px;}#ee-solutions .sol-tab{flex:1 1 100%;padding:14px 16px;gap:12px;}#ee-solutions .sol-tt span{display:block;}#ee-solutions .sol-num{display:none;}#ee-solutions .sol-panel{padding:24px 20px;border-radius:18px;}
+@media (prefers-reduced-motion:reduce){
+  #ee-solutions .solb-card,#ee-solutions .solb-link,#ee-solutions .solb-cta{transition:none;}
 }
 </style>
 <section id="ee-solutions" aria-label="Solutions">
@@ -2837,73 +2835,54 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     <div class="ee-head">
       <p class="ee-eyebrow">Solutions</p>
       <h2>Solutions for every admissions motion</h2>
-      <p class="ee-sub">From first enquiry to confirmed enrolment, ExtraaEdge brings the right workflow to every stage of your admissions journey. Pick a motion - see exactly what&rsquo;s inside.</p>
+      <p class="ee-sub">From first enquiry to confirmed enrolment, ExtraaEdge brings the right workflow to every stage of your admissions journey - explore each category below.</p>
     </div>
 
-    <div class="sol-wrap">
-      <input type="radio" name="ee-sol-tab" id="solr1" class="sol-radio" checked aria-label="Admission Solutions">
-      <input type="radio" name="ee-sol-tab" id="solr2" class="sol-radio" aria-label="Study Abroad">
-      <input type="radio" name="ee-sol-tab" id="solr3" class="sol-radio" aria-label="Recruitment and Lead Management">
+    <div class="solb-grid">
 
-      <div class="sol-tabs" role="tablist">
-        <label for="solr1" class="sol-tab">
-          <span class="sol-num">01</span>
-          <span class="sol-ico" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-01.svg" alt="" loading="lazy" decoding="async"></span>
-          <span class="sol-tt"><b>Admission Solutions</b><span>Run your core admissions engine</span></span>
-          <span class="sol-arrow" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-        </label>
-        <label for="solr2" class="sol-tab">
-          <span class="sol-num">02</span>
-          <span class="sol-ico" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-03.svg" alt="" loading="lazy" decoding="async"></span>
-          <span class="sol-tt"><b>Study Abroad</b><span>Overseas education counselling</span></span>
-          <span class="sol-arrow" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-        </label>
-        <label for="solr3" class="sol-tab">
-          <span class="sol-num">03</span>
-          <span class="sol-ico" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-04.svg" alt="" loading="lazy" decoding="async"></span>
-          <span class="sol-tt"><b>Recruitment &amp; Lead Management</b><span>Fill the funnel, never lose a lead</span></span>
-          <span class="sol-arrow" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-        </label>
-      </div>
-
-      <div class="sol-panels">
-        <div class="sol-panel" id="solp1" role="tabpanel">
-          <span class="sol-ghost" aria-hidden="true">01</span>
-          <span class="sol-ptag">Admission Solutions</span>
-          <h3>Run your core admissions engine end-to-end</h3>
-          <p class="sol-desc">Capture, qualify, convert and enrol - one connected pipeline from first enquiry to fee paid.</p>
-          <div class="sol-list">
-            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Admission Management</b><span>Track every applicant in one live pipeline</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Enrollment Management</b><span>Move offers to enrolled &amp; fee-paid, faster</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Walk-in Management</b><span>Log, assign &amp; follow up every campus visit</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          </div>
+      <article class="solb-card solb-a">
+        <span class="solb-ghost" aria-hidden="true">01</span>
+        <span class="solb-tag"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-01.svg" alt="" loading="lazy" decoding="async">Admission Solutions</span>
+        <h3>Run your core admissions engine end-to-end</h3>
+        <p class="solb-desc">Capture, qualify, convert and enrol - one connected pipeline from first enquiry to fee paid.</p>
+        <div class="solb-links">
+          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Admission Management</b><span>Track every applicant in one live pipeline</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Enrollment Management</b><span>Move offers to enrolled &amp; fee-paid, faster</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Walk-in Management</b><span>Log, assign &amp; follow up every campus visit</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
         </div>
+      </article>
 
-        <div class="sol-panel" id="solp2" role="tabpanel">
-          <span class="sol-ghost" aria-hidden="true">02</span>
-          <span class="sol-ptag">Study Abroad</span>
-          <h3>Purpose-built for overseas education counselling</h3>
-          <p class="sol-desc">Manage country, course and intake journeys - with full visibility over agents and consultants.</p>
-          <div class="sol-list">
-            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Study Abroad CRM</b><span>Country, course &amp; intake pipelines in one place</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Education Agents</b><span>Onboard &amp; track sub-agents with clear visibility</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Education Consultants</b><span>Counsellor workflows for visa, docs &amp; apps</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          </div>
+      <article class="solb-card solb-b">
+        <span class="solb-ghost" aria-hidden="true">02</span>
+        <span class="solb-tag"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-03.svg" alt="" loading="lazy" decoding="async">Study Abroad</span>
+        <h3>Purpose-built for overseas education counselling</h3>
+        <p class="solb-desc">Manage country, course and intake journeys - with full visibility over agents and consultants.</p>
+        <div class="solb-links">
+          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Study Abroad CRM</b><span>Country, course &amp; intake pipelines in one place</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Education Agents</b><span>Onboard &amp; track sub-agents with clear visibility</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Education Consultants</b><span>Counsellor workflows for visa, docs &amp; apps</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
         </div>
+      </article>
 
-        <div class="sol-panel" id="solp3" role="tabpanel">
-          <span class="sol-ghost" aria-hidden="true">03</span>
-          <span class="sol-ptag">Recruitment &amp; Lead Management</span>
-          <h3>Fill your funnel - and never let a lead go cold</h3>
-          <p class="sol-desc">Source, score, route and nurture every enquiry automatically, from first touch to enrolled.</p>
-          <div class="sol-list">
-            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Student Recruitment</b><span>Source verified enquiries from every channel</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Lead Management</b><span>Score, route &amp; prioritise leads automatically</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Lead Nurturing</b><span>Automated drips across WhatsApp, email &amp; SMS</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-            <a class="sol-item" href="#demo"><span class="sol-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="sol-itxt"><b>Enrollment CRM</b><span>One CRM from first touch to enrolled</span></span><span class="sol-iarr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          </div>
+      <article class="solb-card solb-c">
+        <span class="solb-ghost" aria-hidden="true">03</span>
+        <span class="solb-tag"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-04.svg" alt="" loading="lazy" decoding="async">Recruitment &amp; Lead Management</span>
+        <h3>Fill your funnel - and never let a lead go cold</h3>
+        <p class="solb-desc">Source, score, route and nurture every enquiry automatically, from first touch to enrolled.</p>
+        <div class="solb-links">
+          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Student Recruitment</b><span>Source verified enquiries from every channel</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Lead Management</b><span>Score, route &amp; prioritise leads automatically</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Lead Nurturing</b><span>Automated drips across WhatsApp, email &amp; SMS</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Enrollment CRM</b><span>One CRM from first touch to enrolled</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
         </div>
-      </div>
+      </article>
+
+      <aside class="solb-card solb-d">
+        <h3>Not sure which solution fits?</h3>
+        <p class="solb-desc">Tell us your admissions motion - we&rsquo;ll map the right workflow live on your own funnel in a 45-minute demo.</p>
+        <a class="solb-cta" href="#demo">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+      </aside>
+
     </div>
   </div>
 </section>
@@ -5857,9 +5836,6 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
     gap:12px!important;
   }
   /* Solutions: show all solution cards as a 2-up grid */
-  #ee-solutions .sol-tabs{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
-  #ee-solutions .sol-tab{flex:none!important;min-width:0!important;flex-direction:column!important;text-align:center;align-items:center;justify-content:center}
-  #ee-solutions .sol-tab .sol-arrow{display:none!important}
   /* The admissions platform: hide the live spotlight preview on phones,
      show only the products grid */
   #ee-products .eep-spot{display:none!important}
@@ -5894,7 +5870,6 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   #ee-resources .ee-r-link{font-size:11.5px!important}
 
   /* Solutions tabs as cards */
-  #ee-solutions .sol-tab{padding:14px 12px!important}
   #ee-solutions .sol-tt b{font-size:13.5px!important}
   #ee-solutions .sol-tt span{font-size:11.5px!important;line-height:1.35!important}
   #ee-solutions .sol-ico{width:38px!important;height:38px!important}
