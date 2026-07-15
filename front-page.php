@@ -1005,7 +1005,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 }.eep-window.eep-launched .eep-close{
   display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;
   background:rgba(255,255,255,.14);color:#fff;border:0;font-size:15px;line-height:1;cursor:pointer;flex:0 0 auto;
-}.eep-window.eep-launched .eep-expand{display:none !important;}body.eep-lock{overflow:hidden;}
+}.eep-window.eep-launched .eep-expand{display:none !important;}html.eep-lock,body.eep-lock{overflow:hidden!important;overscroll-behavior:none;touch-action:none;}
+body.eep-lock{position:fixed;left:0;right:0;width:100%;}
+body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,.74);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);z-index:2147482999;}
 
 /* ---- desktop / tablet: keep the inline demo + a "Full screen" button ---- */
 @media(min-width:861px){#ee-platform:not(.eep-launched) .eep-expand{
@@ -1027,9 +1029,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   /* phones: bound the launched popup as a card and pin the close (X) to the
      top-right corner so it is always visible (Book button no longer hides it) */
   .eep-window.eep-launched{
-    inset:12px!important;top:12px!important;right:12px!important;bottom:12px!important;left:12px!important;
+    inset:auto!important;top:8vh!important;bottom:8vh!important;left:4vw!important;right:4vw!important;
     width:auto!important;height:auto!important;max-width:none!important;
-    border-radius:16px!important;overflow:hidden!important;
+    border-radius:18px!important;overflow:hidden!important;box-shadow:0 30px 80px rgba(0,0,0,.5)!important;
   }
   .eep-window.eep-launched .eep-bar{padding-right:52px!important}
   .eep-window.eep-launched .eep-url{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -1726,6 +1728,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var closeBtn=document.getElementById('eepClose');
   var winEl=sec.querySelector('.eep-window');
   var winHome=null, winNext=null;   /* remembers where the window lived so we can put it back */
+  var _lockY=0;   /* saved scroll position while the background is locked */
   function loadFrame(){
     if(fr && !fr.getAttribute('srcdoc')){
       var doc=fr.getAttribute('data-srcdoc');
@@ -1762,12 +1765,20 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       document.body.appendChild(winEl);
     }
     winEl.classList.add('eep-launched');
+    /* lock the background so the home page can't scroll behind the popup
+       (position:fixed + saved scroll offset is the iOS-safe method) */
+    _lockY=window.pageYOffset||document.documentElement.scrollTop||0;
+    document.documentElement.classList.add('eep-lock');
     document.body.classList.add('eep-lock');
+    document.body.style.top=(-_lockY)+'px';
     fitFrame(); setTimeout(fitFrame,60);
   }
   function closeExp(){
     if(winEl) winEl.classList.remove('eep-launched');
+    document.documentElement.classList.remove('eep-lock');
     document.body.classList.remove('eep-lock');
+    document.body.style.top='';
+    window.scrollTo(0,_lockY);
     /* put the window back exactly where it came from */
     if(winEl && winHome){ winHome.insertBefore(winEl, winNext); winHome=null; winNext=null; }
     fitFrame();
