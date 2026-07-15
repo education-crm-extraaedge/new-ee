@@ -962,6 +962,23 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   #feature-pillars .flw-dot.on{background:var(--or);transform:scale(1.35);box-shadow:0 0 0 4px rgba(222,110,48,.16)}
   #feature-pillars .flw-hint{display:none;text-align:center;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);padding-bottom:18px}
   #feature-pillars:not(.flw-on) .flw-hint{display:block}
+  /* desktop: bigger boxes that fill the pinned viewport */
+  @media(min-width:900px){
+    #feature-pillars.flw-on .flw-pin{height:calc(100vh - 90px);height:calc(100svh - 90px);justify-content:center;padding:0}
+    #feature-pillars .flw-card{flex-basis:min(58vw,660px);padding:28px 32px;border-radius:24px}
+    #feature-pillars .flw-chead{gap:14px;margin-bottom:16px}
+    #feature-pillars .flw-node{width:48px;height:48px;font-size:16px}
+    #feature-pillars .flw-title{font-size:26px}
+    #feature-pillars .flw-insight{padding:18px 20px;margin-bottom:16px}
+    #feature-pillars .flw-klabel{font-size:11px;margin-bottom:8px}
+    #feature-pillars .flw-desc{font-size:15px;line-height:1.65;padding-left:14px}
+    #feature-pillars .flw-io{gap:7px}
+    #feature-pillars .flw-box{padding:14px 18px;border-radius:13px}
+    #feature-pillars .flw-box span{font-size:10.5px;margin-bottom:5px}
+    #feature-pillars .flw-box b{font-size:15.5px}
+    #feature-pillars .flw-arr svg{width:16px;height:16px}
+    #feature-pillars .flw-dots{padding:16px 0 0}
+  }
   @media(max-width:760px){
     #feature-pillars.flw-on .flw-pin{top:72px}
     #feature-pillars .flw-card{flex-basis:84vw;padding:15px 14px;border-radius:16px}
@@ -1081,7 +1098,10 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       return Math.max(0,c.offsetLeft+c.offsetWidth/2-pin.clientWidth/2);
     });
     dist=xs[xs.length-1]||0;
-    track.style.height=(pin.offsetHeight+dist)+'px';
+    /* short scroll-step per card, so the section ends quickly and the
+       content below it comes into view without endless scrolling */
+    var step=window.innerWidth>=900?300:260;
+    track.style.height=(pin.offsetHeight+step*N)+'px';
     cur=-1; upd();
   }
   function setActive(i){
