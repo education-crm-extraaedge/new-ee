@@ -920,7 +920,12 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   /* ---- pinned scrollytelling mode (JS adds .flw-on): page scroll slides the boxes sideways ---- */
   #feature-pillars.flw-on .flw-pin{position:sticky;top:90px;height:calc(100vh - 90px);height:calc(100svh - 90px);
     display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:0}
-  #feature-pillars.flw-on .flw-row{overflow:visible;scroll-snap-type:none;will-change:transform;padding-bottom:0}
+  #feature-pillars.flw-on .flw-row{overflow:visible;scroll-snap-type:none;will-change:transform;padding-bottom:0;
+    transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  /* one box in focus at a time - the rest blur out */
+  #feature-pillars.flw-on .flw-card{transition:filter .5s ease,opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1),border-color .4s,box-shadow .4s}
+  #feature-pillars.flw-on .flw-card:not(.on){filter:blur(3px);opacity:.42;transform:scale(.94);pointer-events:none}
+  #feature-pillars.flw-on .flw-card.on{border-color:rgba(222,110,48,.32);box-shadow:0 26px 56px -28px rgba(25,51,93,.38)}
   /* stage card */
   #feature-pillars .flw-card{position:relative;flex:0 0 min(86vw,470px);scroll-snap-align:center;
     background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(18px,2.2vw,26px);
@@ -1062,21 +1067,31 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(RM||!track||!pin||!row) return;          /* fallback stays a native swipe rail */
   root.classList.add('flw-on');
-  var dist=0,tick=false;
+  var cards=[].slice.call(row.querySelectorAll('.flw-card'));
+  var N=cards.length, dist=0, xs=[], cur=-1, tick=false;
   function measure(){
     dist=Math.max(0,row.scrollWidth-pin.clientWidth);
+    /* x offset that centers each card in the pinned viewport */
+    xs=cards.map(function(c){
+      var x=c.offsetLeft+c.offsetWidth/2-pin.clientWidth/2;
+      return Math.min(dist,Math.max(0,x));
+    });
     track.style.height=(pin.offsetHeight+dist)+'px';
-    upd();
+    cur=-1; upd();
+  }
+  function setActive(i){
+    cur=i;
+    row.style.transform='translate3d('+(-xs[i])+'px,0,0)';
+    cards.forEach(function(c,j){c.classList.toggle('on',j===i);});
+    dots.forEach(function(d,j){d.classList.toggle('on',j===i);});
   }
   function upd(){
     tick=false;
     var total=track.offsetHeight-pin.offsetHeight;
     var p= total>0 ? Math.min(1,Math.max(0,-track.getBoundingClientRect().top/total)) : 0;
-    row.style.transform='translate3d('+(-p*dist)+'px,0,0)';
-    if(dots.length){
-      var i=Math.min(dots.length-1,Math.round(p*(dots.length-1)));
-      dots.forEach(function(d,j){d.classList.toggle('on',j===i);});
-    }
+    /* quantize scroll progress to one card per step - the row eases to it */
+    var i=Math.min(N-1,Math.floor(p*N+0.0001));
+    if(i!==cur) setActive(i);
   }
   function onScroll(){ if(!tick){tick=true;requestAnimationFrame(upd);} }
   window.addEventListener('scroll',onScroll,{passive:true});
