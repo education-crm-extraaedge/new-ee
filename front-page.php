@@ -673,114 +673,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <a href="#demo" style="display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;color:#19345d;border:1.5px solid rgba(25,52,93,.18);background:#fff;border-radius:999px;padding:11px 24px;text-decoration:none;transition:all .2s ease" onmouseover="this.style.borderColor='#DE6E30';this.style.color='#DE6E30'" onmouseout="this.style.borderColor='rgba(25,52,93,.18)';this.style.color='#19345d'">View More Clients <span aria-hidden="true">&rarr;</span></a>
   </div>
 </section>
-<!-- ============================================================
-     Scroll-based storytelling: The Real Problem + Feature Pillars
-     Sticky premium visual + step-by-step reveal. Mobile-first.
-     Brand: #DE6E30 / #19335D on white, Inter. Scoped .stly-*
-     ============================================================ -->
-<style id="ee-story-sections">
-  .stly-sec{--or:#DE6E30;--ord:#C55A20;--tint:#FBEFE7;--nv:#19335D;--nvd:#10233F;--ink:#2B3A52;--slate:#5B6B84;--line:#E4E9F1;--soft:#F7F9FC;--green:#1E9E6A;
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--ink);box-sizing:border-box}
-  .stly-sec *,.stly-sec *::before,.stly-sec *::after{box-sizing:inherit;margin:0;padding:0}
-  .stly-sec.is-white{background:#fff}
-  .stly-sec.is-soft{background:var(--soft)}
-  .stly-wrap{max-width:1160px;margin:0 auto;padding:0 24px}
-  .stly-head{max-width:720px;margin-bottom:clamp(20px,3vw,36px)}
-  .stly-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or)}
-  .stly-eyebrow::before{content:"";width:26px;height:2px;background:var(--or);border-radius:2px}
-  .stly-h2{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.16;letter-spacing:-.02em;color:var(--nv);margin-top:14px}
-  .stly-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.65;color:var(--slate);margin-top:14px;max-width:640px}
-  /* reveal */
-  .stly-rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*80ms)}
-  .stly-rv.in{opacity:1;transform:none}
-  /* scene: sticky visual + scrolling steps */
-  .stly-scene{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(28px,4vw,64px);align-items:start}
-  .stly-vwrap{position:sticky;top:100px;height:calc(100vh - 132px);min-height:440px;display:flex;flex-direction:column;gap:16px}
-  .stly-visual{position:relative;flex:1;border-radius:26px;overflow:hidden;background:linear-gradient(155deg,var(--nv),var(--nvd));box-shadow:0 34px 76px -32px rgba(25,51,93,.55)}
-  .stly-visual::before{content:"";position:absolute;inset:0;background:radial-gradient(460px 240px at 88% 6%,rgba(222,110,48,.30),transparent 62%),radial-gradient(360px 220px at 6% 96%,rgba(222,110,48,.14),transparent 60%);pointer-events:none}
-  .stly-vslide{position:absolute;inset:0;padding:clamp(26px,3vw,42px);display:flex;flex-direction:column;justify-content:center;gap:14px;color:#fff;opacity:0;transform:translateY(26px) scale(.98);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1);pointer-events:none}
-  .stly-vslide.on{opacity:1;transform:none}
-  .stly-vnum{position:absolute;top:clamp(20px,2.4vw,30px);right:clamp(24px,3vw,36px);font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(52px,7vw,86px);line-height:1;letter-spacing:-.04em;color:rgba(255,255,255,.12)}
-  .stly-vic{width:62px;height:62px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(150deg,#E8843F,var(--or));box-shadow:0 14px 30px -10px var(--or)}
-  .stly-vic svg{width:29px;height:29px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .stly-vbig{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(38px,5.4vw,62px);line-height:1;letter-spacing:-.03em;color:#fff}
-  .stly-vbig em{font-style:normal;color:var(--or)}
-  .stly-vlabel{font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--or)}
-  .stly-vtitle{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(20px,2.4vw,27px);line-height:1.24;letter-spacing:-.01em}
-  .stly-vtext{font-size:14px;line-height:1.6;color:rgba(255,255,255,.8)}
-  .stly-vfix{margin-top:8px;padding-top:15px;border-top:1px solid rgba(255,255,255,.15);display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.92)}
-  .stly-vbadge{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#8ff0c4;background:rgba(30,158,106,.22);border-radius:999px;padding:4px 10px;margin-top:1px}
-  .stly-vbadge svg{width:12px;height:12px;stroke:#8ff0c4;fill:none;stroke-width:3}
-  .stly-progress{display:flex;gap:9px;justify-content:center;align-items:center}
-  .stly-dot{width:9px;height:9px;border-radius:50%;background:var(--line);transition:transform .3s,background .3s,box-shadow .3s;cursor:pointer}
-  .stly-dot.on{background:var(--or);transform:scale(1.35);box-shadow:0 0 0 4px rgba(222,110,48,.16)}
-  /* steps */
-  .stly-steps{display:flex;flex-direction:column}
-  .stly-step{min-height:64vh;display:flex;flex-direction:column;justify-content:center;padding:18px 0}
-  .stly-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(24px,3vw,34px);box-shadow:0 14px 40px -26px rgba(25,51,93,.3);transition:box-shadow .45s,transform .45s,border-color .45s,opacity .45s}
-  .stly-shead{display:flex;align-items:center;gap:13px;margin-bottom:14px}
-  .stly-snum{flex:0 0 auto;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-weight:800;font-size:15px;color:var(--or);background:var(--soft);border:1px solid var(--line)}
-  .stly-sic{flex:0 0 auto;width:44px;height:44px;border-radius:12px;background:var(--tint);display:grid;place-items:center}
-  .stly-sic svg{width:22px;height:22px;stroke:var(--or);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .stly-stitle{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(18px,2vw,22px);line-height:1.3;color:var(--nv);letter-spacing:-.01em}
-  .stly-stext{font-size:14.5px;line-height:1.65;color:var(--slate)}
-  .stly-sfix{margin-top:16px;padding-top:15px;border-top:1px dashed var(--line);display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.55;color:var(--ink)}
-  .stly-sfix strong{color:var(--nv);font-weight:700}
-  .stly-sbadge{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--green);background:rgba(30,158,106,.1);border-radius:999px;padding:4px 10px;margin-top:1px}
-  .stly-sbadge svg{width:12px;height:12px;stroke:var(--green);fill:none;stroke-width:3}
-  .stly-schip{display:inline-flex;align-items:baseline;gap:7px;margin-top:16px;font-size:13.5px;color:var(--slate)}
-  .stly-schip b{font-family:'Inter',sans-serif;font-weight:800;font-size:19px;color:var(--or)}
-  /* desktop: dim non-active steps, lift the active card */
-  @media(min-width:901px){
-    .stly-step{opacity:.4;transform:scale(.985);transition:opacity .45s,transform .45s}
-    .stly-step.is-active{opacity:1;transform:none}
-    .stly-step.is-active .stly-card{box-shadow:0 30px 64px -30px rgba(25,51,93,.42);border-color:rgba(222,110,48,.32)}
-  }
-  /* mobile-first: single column, no sticky visual, reveal each step */
-  @media(max-width:900px){
-    .stly-scene{grid-template-columns:1fr;gap:0}
-    .stly-vwrap{display:none}
-    .stly-step{min-height:0;padding:0 0 14px;opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
-    .stly-step.in{opacity:1;transform:none}
-  }
-  @media(prefers-reduced-motion:reduce){
-    .stly-sec *{transition:none!important;animation:none!important}
-    .stly-rv,.stly-step{opacity:1!important;transform:none!important}
-    .stly-vslide{transition:none!important}
-  }
 
-  /* ---- advanced/modern layer: 3D parallax, motes, progress ring, live, shine ---- */
-  .stly-vwrap{perspective:1000px}
-  .stly-visual{transform-style:preserve-3d;transition:transform .2s ease-out}
-  .stly-vslide{transform-style:preserve-3d}
-  .stly-vnum{transform:translateZ(24px)}
-  .stly-vic{transform:translateZ(48px)}
-  .stly-vtitle,.stly-vbig{transform:translateZ(26px)}
-  .stly-vtext,.stly-vfix{transform:translateZ(14px)}
-  .stly-motes{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-  .stly-motes i{position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(222,110,48,.55);opacity:.4;animation:stlyFloat 9s ease-in-out infinite}
-  .stly-motes i:nth-child(1){left:14%;top:24%}
-  .stly-motes i:nth-child(2){left:78%;top:32%;width:4px;background:rgba(255,255,255,.5);animation-delay:-2s}
-  .stly-motes i:nth-child(3){left:30%;top:72%;animation-delay:-4s}
-  .stly-motes i:nth-child(4){left:66%;top:80%;width:3px;background:rgba(255,255,255,.45);animation-delay:-6s}
-  .stly-motes i:nth-child(5){left:88%;top:62%;animation-delay:-1s}
-  .stly-motes i:nth-child(6){left:8%;top:54%;width:3px;background:rgba(255,255,255,.4);animation-delay:-3s}
-  @keyframes stlyFloat{0%,100%{transform:translateY(0) translateX(0);opacity:.2}50%{transform:translateY(-16px) translateX(6px);opacity:.65}}
-  .stly-ring{position:absolute;top:clamp(20px,2.4vw,30px);left:clamp(24px,3vw,36px);width:44px;height:44px;transform:rotate(-90deg);z-index:3}
-  .stly-ring circle{fill:none;stroke-width:3;stroke-linecap:round}
-  .stly-ring-bg{stroke:rgba(255,255,255,.16)}
-  .stly-ring-fg{stroke:var(--or);stroke-dasharray:119.4;stroke-dashoffset:119.4;transition:stroke-dashoffset .12s linear}
-  .stly-live{position:absolute;bottom:clamp(20px,2.4vw,28px);left:clamp(24px,3vw,36px);z-index:3;display:inline-flex;align-items:center;gap:7px;font:800 10px/1 'Inter',sans-serif;letter-spacing:.16em;color:rgba(255,255,255,.72)}
-  .stly-live i{width:7px;height:7px;border-radius:50%;background:#2BC98A;animation:stlyPulse 1.8s ease-out infinite}
-  @keyframes stlyPulse{0%{box-shadow:0 0 0 0 rgba(43,201,138,.55)}70%{box-shadow:0 0 0 8px rgba(43,201,138,0)}100%{box-shadow:0 0 0 0 rgba(43,201,138,0)}}
-  .stly-card{overflow:hidden}
-  .stly-card::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(222,110,48,.12),transparent);transform:skewX(-18deg);opacity:0;pointer-events:none}
-  @media(min-width:901px){.stly-step.is-active .stly-card::after{animation:stlyShine 1.1s ease-out}}
-  @keyframes stlyShine{0%{left:-60%;opacity:1}100%{left:130%;opacity:0}}
-  .stly-card::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--or),var(--nv));transform:scaleY(.12);transform-origin:top;transition:transform .55s cubic-bezier(.2,.7,.2,1);opacity:.9}
-  .stly-step.is-active .stly-card::before,.stly-step.in .stly-card::before{transform:scaleY(1)}
-  @media(prefers-reduced-motion:reduce){.stly-motes i,.stly-live i{animation:none!important}.stly-ring-fg{transition:none!important}.stly-visual{transform:none!important}}
-</style>
 
 <!-- STORY 1 · THE REAL PROBLEM -->
 <!-- ================= The Real Problem - The Admissions Narrative (scoped .tan-*) ================= -->
@@ -967,127 +860,165 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </script>
 
 
-<!-- STORY 2 · BUILT FOR ADMISSION TEAMS -->
-<section class="stly-sec is-soft" id="feature-pillars" aria-labelledby="stly2-h">
-  <div class="stly-wrap">
-    <div class="stly-head">
-      <span class="stly-eyebrow stly-rv">Built For Admission Teams</span>
-      <h2 class="stly-h2 stly-rv" style="--i:1" id="stly2-h">Everything your team needs, from first enquiry to enrolment</h2>
-      <p class="stly-sub stly-rv" style="--i:2">Four pillars power every high-performing admission team on ExtraaEdge. Scroll through the whole story, one pillar at a time.</p>
+<!-- STORY 2 · BUILT FOR ADMISSION TEAMS — Admission Intelligence auto-cycling pipeline (scoped .aip-*) -->
+<section id="feature-pillars" class="aip-sec" aria-labelledby="aip-h">
+<style id="ee-aip">
+  #feature-pillars.aip-sec{--nv:#19335D;--nvd:#10233F;--or:#DE6E30;--line:rgba(255,255,255,.08);--mut:#A9BAD3;--dim:#7E92B1;
+    position:relative;background:linear-gradient(160deg,var(--nvd),var(--nv));color:#fff;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow-x:clip;
+    padding:clamp(52px,7vw,92px) 0}
+  #feature-pillars.aip-sec::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(520px 260px at 88% 4%,rgba(222,110,48,.16),transparent 62%),radial-gradient(420px 240px at 4% 100%,rgba(222,110,48,.10),transparent 60%)}
+  #feature-pillars.aip-sec *{box-sizing:border-box;margin:0;padding:0}
+  #feature-pillars .aip-wrap{position:relative;max-width:1160px;margin:0 auto;padding:0 24px}
+  #feature-pillars .aip-head{max-width:760px;margin-bottom:clamp(24px,3.4vw,40px)}
+  #feature-pillars .aip-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or)}
+  #feature-pillars .aip-eyebrow::before{content:"";width:26px;height:2px;background:var(--or);border-radius:2px}
+  #feature-pillars .aip-h2{font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.16;letter-spacing:-.02em;color:#fff;margin-top:14px}
+  #feature-pillars .aip-h2 em{font-style:normal;color:var(--or)}
+  #feature-pillars .aip-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.65;color:var(--mut);margin-top:14px;max-width:640px}
+  #feature-pillars .aip-grid{display:grid;grid-template-columns:4fr 8fr;gap:clamp(14px,2vw,24px);align-items:stretch}
+  /* left: stage buttons */
+  #feature-pillars .aip-steps{display:flex;flex-direction:column;gap:12px}
+  #feature-pillars .aip-step{flex:1;min-height:62px;width:100%;text-align:left;cursor:pointer;font-family:inherit;color:#fff;
+    background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:16px;padding:14px 18px;
+    display:flex;align-items:center;gap:13px;opacity:.6;-webkit-tap-highlight-color:transparent;
+    transition:opacity .45s,border-color .45s,background .45s,box-shadow .45s}
+  #feature-pillars .aip-step:hover{opacity:1;border-color:rgba(255,255,255,.22)}
+  #feature-pillars .aip-step.on{opacity:1;background:rgba(222,110,48,.08);border-color:rgba(222,110,48,.42);box-shadow:0 0 30px rgba(222,110,48,.18)}
+  #feature-pillars .aip-snum{flex:0 0 auto;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:13px;color:var(--or);background:rgba(255,255,255,.06);border:1px solid var(--line)}
+  #feature-pillars .aip-sname{font-weight:700;font-size:14.5px;letter-spacing:-.01em;line-height:1.3}
+  /* right: processor card */
+  #feature-pillars .aip-card{position:relative;overflow:hidden;display:flex;flex-direction:column;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:20px;padding:clamp(22px,3vw,34px);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  #feature-pillars .aip-phase{display:block;color:var(--or);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+  #feature-pillars .aip-title{font-weight:800;font-size:clamp(20px,2.4vw,27px);letter-spacing:-.01em;line-height:1.24;color:#fff}
+  #feature-pillars .aip-io{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+  #feature-pillars .aip-box{padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06)}
+  #feature-pillars .aip-box.or{background:rgba(222,110,48,.07);border-color:rgba(222,110,48,.24)}
+  #feature-pillars .aip-klabel{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);margin-bottom:7px}
+  #feature-pillars .aip-box.or .aip-klabel{color:var(--or)}
+  #feature-pillars .aip-val{font-size:15px;font-weight:600;line-height:1.45}
+  #feature-pillars .aip-box.or .aip-val{font-weight:800}
+  #feature-pillars .aip-insight{padding:clamp(18px,2.4vw,24px);border-radius:16px;background:rgba(9,18,33,.55);border:1px solid rgba(255,255,255,.06);margin-bottom:20px}
+  #feature-pillars .aip-insight .aip-klabel{margin-bottom:10px}
+  #feature-pillars .aip-desc{font-size:14.5px;line-height:1.65;color:#C9D6E8;font-style:italic;border-left:2px solid var(--or);padding-left:14px}
+  #feature-pillars .aip-foot{margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  #feature-pillars .aip-out{font-size:12.5px;color:var(--dim)}
+  #feature-pillars .aip-out b{color:#fff;font-weight:700;margin-left:4px}
+  #feature-pillars .aip-monitor{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);white-space:nowrap}
+  #feature-pillars .aip-monitor i{width:7px;height:7px;border-radius:50%;background:#2BC98A;animation:aipPulse 1.8s ease-out infinite}
+  @keyframes aipPulse{0%{box-shadow:0 0 0 0 rgba(43,201,138,.55)}70%{box-shadow:0 0 0 8px rgba(43,201,138,0)}100%{box-shadow:0 0 0 0 rgba(43,201,138,0)}}
+  /* card content swap animation */
+  @keyframes aipFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  #feature-pillars .aip-card.aip-fade{animation:aipFade .7s cubic-bezier(.16,1,.3,1)}
+  /* scroll reveal (page pattern) */
+  #feature-pillars .aip-rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*80ms)}
+  #feature-pillars .aip-rv.in{opacity:1;transform:none}
+  @media(max-width:900px){
+    #feature-pillars .aip-grid{grid-template-columns:1fr}
+    #feature-pillars .aip-steps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    #feature-pillars .aip-step{min-height:0;padding:12px 13px;gap:10px}
+    #feature-pillars .aip-snum{width:30px;height:30px;font-size:12px}
+    #feature-pillars .aip-sname{font-size:13px}
+    #feature-pillars .aip-io{grid-template-columns:1fr;gap:10px;margin:16px 0}
+  }
+  @media(prefers-reduced-motion:reduce){
+    #feature-pillars .aip-rv{opacity:1!important;transform:none!important;transition:none}
+    #feature-pillars .aip-card.aip-fade{animation:none}
+    #feature-pillars .aip-monitor i{animation:none}
+    #feature-pillars .aip-step{transition:none}
+  }
+</style>
+  <div class="aip-wrap">
+    <div class="aip-head">
+      <span class="aip-eyebrow aip-rv">Built For Admission Teams</span>
+      <h2 class="aip-h2 aip-rv" style="--i:1" id="aip-h">Admission Intelligence: <em>The Definite Enrollment Pipeline</em></h2>
+      <p class="aip-sub aip-rv" style="--i:2">A fully automated, AI-driven engine designed to turn raw inquiry data into high-intent enrollments with surgical precision.</p>
     </div>
 
-    <div class="stly-scene" data-stly="2">
-      <div class="stly-vwrap">
-        <div class="stly-visual">
-          <div class="stly-motes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          <svg class="stly-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="stly-ring-bg" cx="22" cy="22" r="19"></circle><circle class="stly-ring-fg" cx="22" cy="22" r="19"></circle></svg>
-          <span class="stly-live" aria-hidden="true"><i></i>LIVE</span>
-          <div class="stly-vslide on" data-i="0">
-            <span class="stly-vnum">01</span>
-            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></span>
-            <div class="stly-vbig"><em>0</em> leads lost</div>
-            <h3 class="stly-vtitle">Lead capture &amp; integrations</h3>
-            <p class="stly-vtext">Every enquiry from every source auto-captured, deduplicated &amp; assigned &ndash; across 50+ native integrations.</p>
-          </div>
-          <div class="stly-vslide" data-i="1">
-            <span class="stly-vnum">02</span>
-            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 20l1.5-5.5a8.5 8.5 0 1 1 16.5-3z"/></svg></span>
-            <div class="stly-vbig">Under <em>60s</em></div>
-            <h3 class="stly-vtitle">Personalized communication</h3>
-            <p class="stly-vtext">Trigger-based WhatsApp, email, SMS &amp; calls &ndash; the first response fires the moment interest is hottest.</p>
-          </div>
-          <div class="stly-vslide" data-i="2">
-            <span class="stly-vnum">03</span>
-            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 5.2L20 8l-4 4 1 5.6L12 15l-5 2.6L8 12 4 8l5.6-.8z"/></svg></span>
-            <div class="stly-vbig"><em>37%</em> higher</div>
-            <h3 class="stly-vtitle">AI lead scoring</h3>
-            <p class="stly-vtext">Prediction scores rank every prospect by likelihood to enrol &ndash; counselors work the hottest first.</p>
-          </div>
-          <div class="stly-vslide" data-i="3">
-            <span class="stly-vnum">04</span>
-            <span class="stly-vic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7" rx="1"/><rect x="12" y="6" width="3" height="11" rx="1"/><rect x="17" y="13" width="3" height="4" rx="1"/></svg></span>
-            <div class="stly-vbig"><em>50+</em> reports</div>
-            <h3 class="stly-vtitle">Analytics &amp; reporting</h3>
-            <p class="stly-vtext">Source ROI, funnel drop-offs and counselor performance &ndash; every decision backed by real numbers.</p>
-          </div>
-        </div>
-        <div class="stly-progress" aria-hidden="true">
-          <span class="stly-dot on"></span><span class="stly-dot"></span><span class="stly-dot"></span><span class="stly-dot"></span>
-        </div>
+    <div class="aip-grid aip-rv" style="--i:3">
+      <div class="aip-steps" role="tablist" aria-label="Pipeline stages">
+        <button type="button" class="aip-step on" role="tab" aria-selected="true" data-i="0"><span class="aip-snum">01</span><span class="aip-sname">Lead Ingestion</span></button>
+        <button type="button" class="aip-step" role="tab" aria-selected="false" data-i="1"><span class="aip-snum">02</span><span class="aip-sname">Smart Engagement</span></button>
+        <button type="button" class="aip-step" role="tab" aria-selected="false" data-i="2"><span class="aip-snum">03</span><span class="aip-sname">AI Prioritization</span></button>
+        <button type="button" class="aip-step" role="tab" aria-selected="false" data-i="3"><span class="aip-snum">04</span><span class="aip-sname">Funnel Analytics</span></button>
       </div>
 
-      <div class="stly-steps">
-        <article class="stly-step is-active" data-i="0"><div class="stly-card">
-          <div class="stly-shead"><span class="stly-snum">01</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></span><h3 class="stly-stitle">Capture every lead, from every channel</h3></div>
-          <p class="stly-stext">Connect ads, forms, portals, publishers and IVR once &ndash; every enquiry lands in one funnel, source-tracked, deduplicated and auto-assigned. Never copy-paste a lead again.</p>
-          <span class="stly-schip"><b>0</b> leads lost &middot; <b>50+</b> native integrations</span>
-        </div></article>
-
-        <article class="stly-step" data-i="1"><div class="stly-card">
-          <div class="stly-shead"><span class="stly-snum">02</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 20l1.5-5.5a8.5 8.5 0 1 1 16.5-3z"/></svg></span><h3 class="stly-stitle">Reach every prospect on the channel they use</h3></div>
-          <p class="stly-stext">Generic bulk blasts get ignored. Trigger-based, personalized journeys across WhatsApp, email, SMS, calls and video keep prospects engaged from enquiry to enrolment.</p>
-          <span class="stly-schip">Under <b>60s</b> first response &middot; 24&times;7</span>
-        </div></article>
-
-        <article class="stly-step" data-i="2"><div class="stly-card">
-          <div class="stly-shead"><span class="stly-snum">03</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 5.2L20 8l-4 4 1 5.6L12 15l-5 2.6L8 12 4 8l5.6-.8z"/></svg></span><h3 class="stly-stitle">Let AI tell your team whom to call first</h3></div>
-          <p class="stly-stext">Not all leads are equal. Prediction scores rank every prospect by likelihood to enrol, so your counselors spend their day on students who are actually going to join.</p>
-          <span class="stly-schip"><b>37%</b> higher conversions</span>
-        </div></article>
-
-        <article class="stly-step" data-i="3"><div class="stly-card">
-          <div class="stly-shead"><span class="stly-snum">04</span><span class="stly-sic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7" rx="1"/><rect x="12" y="6" width="3" height="11" rx="1"/><rect x="17" y="13" width="3" height="4" rx="1"/></svg></span><h3 class="stly-stitle">Measure every rupee, counselor and funnel stage</h3></div>
-          <p class="stly-stext">Stop deciding on gut feel. 50+ ready-made reports show which sources convert, where prospects drop off, and who on your team needs coaching.</p>
-          <span class="stly-schip"><b>50+</b> ready reports</span>
-        </div></article>
+      <div class="aip-card" id="aipCard">
+        <div>
+          <span class="aip-phase">System Workflow</span>
+          <h3 class="aip-title" id="aipTitle">Lead Ingestion</h3>
+        </div>
+        <div class="aip-io">
+          <div class="aip-box">
+            <div class="aip-klabel">Primary Input Data</div>
+            <div class="aip-val" id="aipInput">Omni-channel API Gateways</div>
+          </div>
+          <div class="aip-box or">
+            <div class="aip-klabel">AI Processing Engine</div>
+            <div class="aip-val" id="aipAi">Data Normalization &amp; Deduplication</div>
+          </div>
+        </div>
+        <div class="aip-insight">
+          <div class="aip-klabel">Strategic Insight</div>
+          <p class="aip-desc" id="aipDesc">We centralize your entire ecosystem. By normalizing data schemas across 50+ channels, we eliminate data silos. This ensures every prospect, regardless of origin, is immediately formatted, deduplicated, and ready for action.</p>
+        </div>
+        <div class="aip-foot">
+          <span class="aip-out">Finalized Output: <b id="aipOutput">Verified Prospect Record</b></span>
+          <span class="aip-monitor" aria-hidden="true"><i></i>Active Pipeline Monitor</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
 <script>
 (function(){
-  var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function countUp(el){
-    if(el.getAttribute('data-done')) return;
-    var raw=(el.textContent||'').trim(), m=raw.match(/^(\d+)(.*)$/); if(!m) return;
-    el.setAttribute('data-done','1');
-    var target=parseInt(m[1],10), suf=m[2]||'';
-    if(RM||target<=0){ el.textContent=target+suf; return; }
-    var start=null;
-    function step(t){ if(!start)start=t; var p=Math.min(1,(t-start)/850); var v=Math.round(target*(1-Math.pow(1-p,3))); el.textContent=v+suf; if(p<1)requestAnimationFrame(step); }
-    requestAnimationFrame(step);
+  var root=document.getElementById('feature-pillars'); if(!root) return;
+  var data=[
+    { title:"Lead Ingestion",
+      desc:"We centralize your entire ecosystem. By normalizing data schemas across 50+ channels, we eliminate data silos. This ensures every prospect, regardless of origin, is immediately formatted, deduplicated, and ready for action.",
+      input:"Omni-channel API Gateways", ai:"Data Normalization & Deduplication", output:"Verified Prospect Record" },
+    { title:"Smart Engagement",
+      desc:"Generic outreach is a cost, not an asset. Our system analyzes user behavior to trigger context-aware communication. Whether via WhatsApp, SMS, or Email, the message aligns perfectly with the prospect's current intent.",
+      input:"User Behavior Signals", ai:"Adaptive Engagement Logic", output:"High-Intent Dialogue" },
+    { title:"AI Prioritization",
+      desc:"Your counselors should spend time closing, not sorting. We apply behavioral scoring models that analyze thousands of data points to predict who is most likely to enroll. This focuses your best human assets where they matter most.",
+      input:"Interaction History", ai:"Predictive Scoring Models", output:"Weighted Priority Queue" },
+    { title:"Funnel Analytics",
+      desc:"Decision-making requires clarity. We provide predictive forecasting on your pipeline health. Identify bottlenecks before they impact your enrollment targets and optimize your recruitment spend with verifiable ROI data.",
+      input:"Pipeline/Conversion Logs", ai:"Predictive ROI Analytics", output:"Actionable Strategic Roadmap" }
+  ];
+  var steps=[].slice.call(root.querySelectorAll('.aip-step'));
+  var card=document.getElementById('aipCard');
+  var elT=document.getElementById('aipTitle'), elD=document.getElementById('aipDesc');
+  var elI=document.getElementById('aipInput'), elA=document.getElementById('aipAi'), elO=document.getElementById('aipOutput');
+  var RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var idx=0, timer=null, manual=false;
+  function show(i,anim){
+    idx=i; var s=data[i]; if(!s) return;
+    if(anim&&!RM&&card){ card.classList.remove('aip-fade'); void card.offsetWidth; card.classList.add('aip-fade'); }
+    if(elT)elT.textContent=s.title; if(elD)elD.textContent=s.desc;
+    if(elI)elI.textContent=s.input; if(elA)elA.textContent=s.ai; if(elO)elO.textContent=s.output;
+    steps.forEach(function(b,j){ b.classList.toggle('on',j===i); b.setAttribute('aria-selected', j===i?'true':'false'); });
   }
-  function initScene(scene){
-    var steps=[].slice.call(scene.querySelectorAll('.stly-step'));
-    var slides=[].slice.call(scene.querySelectorAll('.stly-vslide'));
-    var dots=[].slice.call(scene.querySelectorAll('.stly-dot'));
-    if(!steps.length) return;
-    function setActive(i){
-      steps.forEach(function(s,j){s.classList.toggle('is-active',j===i);});
-      slides.forEach(function(s,j){ var on=j===i; s.classList.toggle('on',on); if(on){ var n=s.querySelector('.stly-vbig em'); if(n)countUp(n); } });
-      dots.forEach(function(d,j){d.classList.toggle('on',j===i);});
-    }
-    if('IntersectionObserver' in window){
-      var aio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)setActive(+e.target.getAttribute('data-i'));});},{rootMargin:'-45% 0px -45% 0px',threshold:0});
-      steps.forEach(function(s){aio.observe(s);});
-    }
-    dots.forEach(function(d,i){ d.addEventListener('click',function(){ steps[i].scrollIntoView({behavior:'smooth',block:'center'}); }); });
-    var ring=scene.querySelector('.stly-ring-fg'), C=119.4;
-    function onScroll(){ if(!ring)return; var r=scene.getBoundingClientRect(), vh=window.innerHeight||1, total=r.height-vh; var p= total>0 ? Math.min(1,Math.max(0,-r.top/total)) : 0; ring.style.strokeDashoffset=C*(1-p); }
-    window.addEventListener('scroll',onScroll,{passive:true}); window.addEventListener('resize',onScroll,{passive:true}); onScroll();
-    var visual=scene.querySelector('.stly-visual'), vwrap=scene.querySelector('.stly-vwrap');
-    if(visual && vwrap && !RM && window.matchMedia && window.matchMedia('(hover:hover)').matches){
-      vwrap.addEventListener('mousemove',function(e){ var b=visual.getBoundingClientRect(); var px=(e.clientX-b.left)/b.width-0.5, py=(e.clientY-b.top)/b.height-0.5; visual.style.transform='rotateX('+(-py*6)+'deg) rotateY('+(px*8)+'deg)'; });
-      vwrap.addEventListener('mouseleave',function(){ visual.style.transform=''; });
-    }
+  function start(){ if(timer||RM||manual) return; timer=setInterval(function(){ show((idx+1)%data.length,true); },5000); }
+  function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+  steps.forEach(function(b){
+    b.addEventListener('click',function(){ manual=true; stop(); show(+b.getAttribute('data-i')||0,true); });
+  });
+  show(0,false);
+  var rv=[].slice.call(root.querySelectorAll('.aip-rv'));
+  if('IntersectionObserver' in window){
+    var vio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ start(); } else { stop(); } }); },{threshold:.25});
+    vio.observe(root);
+    var rio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } }); },{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+    rv.forEach(function(el){ rio.observe(el); });
+  } else {
+    rv.forEach(function(el){ el.classList.add('in'); });
+    start();
   }
-  [].slice.call(document.querySelectorAll('.stly-scene')).forEach(initScene);
-  var rv=document.querySelectorAll('#why-admissions-leak .stly-rv, #feature-pillars .stly-rv, #why-admissions-leak .stly-step, #feature-pillars .stly-step');
-  if('IntersectionObserver' in window && rv.length){
-    var rio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in'); [].slice.call(e.target.querySelectorAll('.stly-schip b')).forEach(countUp); rio.unobserve(e.target);}});},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
-    [].slice.call(rv).forEach(function(el){rio.observe(el);});
-  } else { [].slice.call(rv).forEach(function(el){el.classList.add('in');}); }
 })();
 </script>
 
