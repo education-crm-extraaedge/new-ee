@@ -1156,7 +1156,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
                             <div class="m-ico" aria-hidden="true"><i data-lucide="info"></i></div>
                             <div class="m-text"><span class="menu-title">About Us</span><p>Our story and mission.</p></div>
                         </a>
-                        <a href="/customers/" class="m-icon-card" title="Customers">
+                        <a href="/customer-success-stories/" class="m-icon-card" title="Customers">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="users"></i></div>
                             <div class="m-text"><span class="menu-title">Customers</span><p>Success stories.</p></div>
                         </a>

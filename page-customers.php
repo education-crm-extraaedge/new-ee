@@ -1,6 +1,6 @@
 <?php
 /**
- * page-customers.php — /customers/ Customer Success Stories landing.
+ * page-customers.php — /customer-success-stories/ Customer Success Stories landing.
  * Wired via the template_redirect override in functions.php.
  * Content comes from WP Admin → 👥 Customers.
  * @package ExtraaEdge
@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) exit;
 add_action('wp_head', function () {
     $title = 'Customer Success Stories | ExtraaEdge';
     $desc  = 'Customer success stories from institutions that scaled admissions and enrollment with ExtraaEdge.';
-    $url   = home_url($_SERVER['REQUEST_URI'] ?? '/customers/');
+    $url   = home_url($_SERVER['REQUEST_URI'] ?? '/customer-success-stories/');
     echo '<meta name="description" content="' . esc_attr($desc) . '">' . "\n";
     echo '<meta name="theme-color" content="#19335D">' . "\n";
     echo '<meta property="og:title" content="' . esc_attr($title) . '">' . "\n";

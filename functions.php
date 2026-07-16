@@ -3107,7 +3107,7 @@ function ee_site_editor_welcome() {
         array('blog-form', '📥', 'Blog · Lead Form',   'Inline lead form shown inside blog posts',                admin_url('admin.php?page=ee-blog-form')),
         array('sol',       '🧩', 'Solutions Page',     'Cards across Admission / Study Abroad / Recruitment',     admin_url('admin.php?page=ee-solutions')),
         array('res',       '🧰', 'Resources Page',     'Header dropdown + /resources/ cards',                     admin_url('admin.php?page=ee-resources-menu')),
-        array('cust',      '👥', 'Customer Stories',   'Cards on /customers/, video + thumbnails',                admin_url('admin.php?page=ee-customers')),
+        array('cust',      '👥', 'Customer Stories',   'Cards on /customer-success-stories/, video + thumbnails',                admin_url('admin.php?page=ee-customers')),
         array('prod',      '🛍', 'Products Menu',      'Header → Products dropdown banners',                      admin_url('admin.php?page=ee-products-menu')),
         array('seo',       '🌐', 'SEO & Tracking',     'GA4, Tag Manager, sitewide tracking scripts',             admin_url('options-general.php?page=ee-tracking')),
         array('ebook',     '📚', 'E-books',            'Manage every white-paper / e-book page',                  admin_url('edit.php?post_type=ebook')),
@@ -3584,7 +3584,7 @@ function ee_resources_menu_render_admin() {
 
 /* ═════════════════════════════════════════════
  * 👥 CUSTOMER STORIES — page settings + stories repeater
- * Powers /customers/ via page-customers.php.
+ * Powers /customer-success-stories/ via page-customers.php.
  * ═════════════════════════════════════════════ */
 function ee_customers_categories() {
     return array(
@@ -3978,13 +3978,21 @@ function ee_get_header_top_labels() {
 
 function ee_get_company_menu_items() {
     $items = get_option('ee_company_menu_items', null);
-    if (is_array($items) && !empty($items)) return $items;
+    if (is_array($items) && !empty($items)) {
+        /* /customers/ moved to /customer-success-stories/ - normalize admin-saved menus */
+        foreach ($items as &$it) {
+            $p = rtrim((string) parse_url($it['url'] ?? '', PHP_URL_PATH), '/');
+            if ($p === '/customers' || $p === '/customer') $it['url'] = home_url('/customer-success-stories/');
+        }
+        unset($it);
+        return $items;
+    }
     return array(
         array('title' => 'About ExtraaEdge',      'url' => home_url('/about-us/'),               'desc' => 'Our story & mission',                                              'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/info-circle.svg'),
         array('title' => 'Team',                  'url' => home_url('/team/'),                   'desc' => 'Find out more about the people helping your admissions teams win', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/users.svg'),
         array('title' => 'Careers',               'url' => home_url('/careers/'),                'desc' => 'Interested in working with us? Check out our open positions',      'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/briefcase.svg'),
         array('title' => 'Investors & Advisors',  'url' => home_url('/investors-and-advisors/'), 'desc' => 'People and organisations deeply aligned with our mission',         'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/dollar-sign.svg'),
-        array('title' => 'Customers',             'url' => home_url('/customers/'),              'desc' => 'Learn more about our happy customers from your segment',           'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg'),
+        array('title' => 'Customers',             'url' => home_url('/customer-success-stories/'),              'desc' => 'Learn more about our happy customers from your segment',           'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg'),
         array('title' => 'Become a Partner',      'url' => home_url('/become-a-partner/'),       'desc' => 'Interested in partnering with us? Fill your details',              'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg'),
         array('title' => 'Contact Us',            'url' => home_url('/get-in-touch/'),           'desc' => 'Get in touch',                                                     'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/envelope.svg'),
         array('title' => 'Privacy & Legal',       'url' => home_url('/privacy-policy/'),         'desc' => 'Policies & terms',                                                 'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/lock.svg'),
@@ -4478,7 +4486,7 @@ function ee_customers_render_admin() {
     <div class="wrap">
         <h1 style="display:flex;align-items:center;gap:10px;"><span style="font-size:26px">👥</span> Customer Success Stories</h1>
         <p class="description" style="max-width:780px;font-size:13.5px;line-height:1.6;">
-            Manage every story shown on <code><?php echo esc_url(home_url('/customers/')); ?></code>.
+            Manage every story shown on <code><?php echo esc_url(home_url('/customer-success-stories/')); ?></code>.
         </p>
         <?php if (!empty($_GET['updated'])): ?>
             <div class="notice notice-success is-dismissible"><p>Customer Stories saved.</p></div>
@@ -4526,7 +4534,7 @@ function ee_customers_render_admin() {
 
             <div class="eecu-card">
                 <h2>📚 Stories</h2>
-                <p class="eecu-tip">✦ Each story is one card on <code>/customers/</code>. Pick a category — chips auto-show only categories with stories. Choose <strong>Excerpt</strong> for a paragraph card or <strong>"Loves ExtraaEdge for"</strong> for a bullet list.</p>
+                <p class="eecu-tip">✦ Each story is one card on <code>/customer-success-stories/</code>. Pick a category — chips auto-show only categories with stories. Choose <strong>Excerpt</strong> for a paragraph card or <strong>"Loves ExtraaEdge for"</strong> for a bullet list.</p>
 
                 <div id="eecu-stories">
                     <?php foreach ($rows as $i => $r):
@@ -6423,8 +6431,7 @@ add_action('template_redirect', function () {
         'company'    => array('file' => 'page-company.php',    'title' => 'Company'),
         'solutions'  => array('file' => 'page-solution.php',   'title' => 'Solutions'),
         'resources'  => array('file' => 'page-resources.php',  'title' => 'Resources'),
-        'customers'  => array('file' => 'page-customers.php',  'title' => 'Customer Success Stories'),
-        'customer'   => array('file' => 'page-customers.php',  'title' => 'Customer Success Stories'),
+        'customer-success-stories' => array('file' => 'page-customers.php', 'title' => 'Customer Success Stories'),
         'vidyaai'    => array('file' => 'page-vidyaai.php',     'title' => 'VidyaAI — The 24/7 AI Admission Agent'),
     );
 
@@ -6441,9 +6448,11 @@ add_action('template_redirect', function () {
     /* Retire duplicate singular URLs — 301 to the canonical plural page so
        existing links and SEO are preserved while only one page exists. */
     $ee_singular_redirects = array(
-        'solution' => '/solutions/',
-        'industry' => '/industries/',
-        'resource' => '/resources/',
+        'solution'  => '/solutions/',
+        'industry'  => '/industries/',
+        'resource'  => '/resources/',
+        'customer'  => '/customer-success-stories/',
+        'customers' => '/customer-success-stories/',
     );
     if (isset($ee_singular_redirects[$path])) {
         wp_safe_redirect(home_url($ee_singular_redirects[$path]), 301);

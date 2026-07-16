@@ -291,7 +291,7 @@ get_header();
 
       <li itemprop="item" itemscope itemtype="https://schema.org/WebPage" style="display:contents;">
         <meta itemprop="position" content="2" />
-        <a class="ee-co-v1__card ee-co-v1__reveal" href="https://www.extraaedge.com/customers/" aria-label="Customers – Our happy customers" itemprop="url" style="transition-delay:.1s">
+        <a class="ee-co-v1__card ee-co-v1__reveal" href="https://www.extraaedge.com/customer-success-stories/" aria-label="Customers – Our happy customers" itemprop="url" style="transition-delay:.1s">
           <div class="ee-co-v1__icon" aria-hidden="true">
             <img src="https://www.extraaedge.com/wp-content/uploads/2022/06/value.png" alt="" width="26" height="26" loading="lazy" decoding="async">
           </div>
@@ -376,7 +376,7 @@ get_header();
   "url": "<?php echo esc_url(home_url('/company/')); ?>",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "About",                "url": "https://www.extraaedge.com/about-us/" },
-    { "@type": "ListItem", "position": 2, "name": "Customers",            "url": "https://www.extraaedge.com/customers/" },
+    { "@type": "ListItem", "position": 2, "name": "Customers",            "url": "https://www.extraaedge.com/customer-success-stories/" },
     { "@type": "ListItem", "position": 3, "name": "Careers",              "url": "https://www.extraaedge.com/careers/" },
     { "@type": "ListItem", "position": 4, "name": "Investor & Advisors",  "url": "https://www.extraaedge.com/investors-and-advisors/" },
     { "@type": "ListItem", "position": 5, "name": "Team",                 "url": "https://www.extraaedge.com/team/" },
