@@ -2453,7 +2453,12 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     font-weight:700; font-size:15.5px; text-decoration:none; box-shadow:0 14px 30px -12px rgba(222,110,48,.7), inset 0 1px 0 rgba(255,255,255,.22);
     transition:transform .2s ease, box-shadow .2s ease; }#ee-vidya-suite .vsx-cta-btn:hover{ transform:translateY(-2px); }#ee-vidya-suite .vsx-cta-btn:focus-visible{ outline:2px solid #fff; outline-offset:3px; }#ee-vidya-suite .vsx-cta-btn svg,#ee-vidya-suite .vsx-cta-btn img.eeimg{ width:18px; height:18px; }#ee-vidya-suite .vsx-cta-btn svg *,#ee-vidya-suite .vsx-cta-btn img.eeimg *{ stroke:#fff; }/* ================= PINNED HORIZONTAL MODE (desktop,JS on) ================= */
   #ee-vidya-suite.vsx-on .vsx-track{ height:calc(min(100vh,820px)*3.2); }#ee-vidya-suite.vsx-on .vsx-sticky{ position:sticky; top:0; height:min(100vh,820px); min-height:0; margin-top:0; margin-bottom:0; border-radius:0; max-width:none;
-    display:flex; flex-direction:column; justify-content:center; }#ee-vidya-suite.vsx-on .vsx-stage{ overflow:hidden; }#ee-vidya-suite.vsx-on .vsx-rail{ overflow:visible; scroll-snap-type:none; padding-bottom:0; flex-wrap:nowrap; will-change:transform; }#ee-vidya-suite.vsx-on .vsx-card{ flex:0 0 clamp(320px,30vw,420px); }#ee-vidya-suite.vsx-on .vsx-inner{ max-width:1280px; margin:0 auto; width:100%; padding:0 24px; }
+    display:flex; flex-direction:column; justify-content:center; }#ee-vidya-suite.vsx-on .vsx-stage{ overflow:hidden; }#ee-vidya-suite.vsx-on .vsx-rail{ overflow:visible; scroll-snap-type:none; padding-bottom:0; flex-wrap:nowrap; will-change:transform; }#ee-vidya-suite.vsx-on .vsx-card{ flex:0 0 clamp(320px,30vw,420px); }
+  @media (max-width:900px){
+    #ee-vidya-suite.vsx-on .vsx-sticky{ top:64px; height:auto; min-height:0; justify-content:flex-start; padding:10px 0 16px; }
+    #ee-vidya-suite.vsx-on .vsx-track{ height:calc(min(100vh,740px)*2.6); }
+  }
+  #ee-vidya-suite.vsx-on .vsx-inner{ max-width:1280px; margin:0 auto; width:100%; padding:0 24px; }
 
   /* ---- responsive (carousel mode) ---- */
   @media (max-width:900px){#ee-vidya-suite .vsx-sticky{ border-radius:22px; }
@@ -3314,12 +3319,12 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 </script>
 
 <!-- ===================== EE · WHILE YOUR CAMPUS SLEEPS (admission operating system story) ===================== -->
-<style>#ee-night{position:relative;width:100%;background:#0f2444}
+<style>#ee-night{position:relative;width:100%;background:#fff}
 /* scroll-driven storytelling: tall track + sticky pinned viewport.
    Pin sits BELOW the sticky site header (≈90px) so the story isn't hidden. */
 #ee-night .een-track{position:relative;height:calc(min(100vh,870px)*3.4)}
 #ee-night .een-pin{position:sticky;top:90px;height:min(calc(100vh - 90px),780px);overflow:hidden}
-#ee-night iframe{display:block;width:100%;height:100%;border:0;background:#0f2444}
+#ee-night iframe{display:block;width:100%;height:100%;border:0;background:#fff}
 /* phones: no pinning - keep the normal auto-play + side-arrow story */
 /* phones: the same scroll-driven pinning, just under the shorter mobile header */
 @media(max-width:960px){
