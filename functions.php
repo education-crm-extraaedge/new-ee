@@ -6989,12 +6989,16 @@ add_action('template_redirect', function () {
     add_filter('wp_robots', function ($r) { $r['noindex'] = true; $r['nofollow'] = true; return $r; });
     add_action('wp_head', function () use ($id) { ?>
 <style id="ee-section-embed">
-/* isolate one section: hide chrome + every other section */
+/* isolate one section: hide chrome + every other section.
+   The :not(#id) keeps this rule's specificity above the Home Builder's
+   per-section `body .ee-home>#id{display:block!important}` rows - without
+   it a saved builder layout re-shows every section inside embeds. */
 body.ee-embed-mode #site-header,body.ee-embed-mode footer,body.ee-embed-mode #extraaedge-footer-engine,
 body.ee-embed-mode #prog,body.ee-embed-mode #ee-toc,body.ee-embed-mode #ee-sticky,
-body.ee-embed-mode .eebk-overlay{display:none!important}
-body.ee-embed-mode .ee-home>section{display:none!important}
-body.ee-embed-mode .ee-home>#<?php echo esc_html($id); ?>{display:block!important;order:1!important;padding-top:0!important}
+body.ee-embed-mode #wpadminbar,body.ee-embed-mode .eebk-overlay{display:none!important}
+html{margin-top:0!important}
+body.ee-embed-mode .ee-home>section:not(#<?php echo esc_html($id); ?>){display:none!important}
+body.ee-embed-mode .ee-home>#<?php echo esc_html($id); ?>{display:block!important;order:1!important;padding-top:0!important;padding-bottom:0!important}
 body.ee-embed-mode{background:#fff!important}
 /* scroll-driven sections flatten to their simple modes inside embeds */
 body.ee-embed-mode #ee-night .een-track{height:auto!important}
@@ -7008,7 +7012,7 @@ body.ee-embed-mode #ee-vidya-suite .vsx-rail{scrollbar-width:thin}
 body.ee-embed-mode #ee-vidya-suite .vsx-rail::-webkit-scrollbar{display:block;height:6px}
 body.ee-embed-mode #ee-vidya-suite .vsx-rail::-webkit-scrollbar-thumb{background:rgba(222,110,48,.55);border-radius:3px}
 </style>
-    <?php }, 100);
+    <?php }, 9999);
 
     /* per-instance text overrides (?ee_txt_h/_s/_e) - applied to the section's
        heading, its intro paragraph and its eyebrow label */
