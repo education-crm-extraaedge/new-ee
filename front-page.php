@@ -5359,18 +5359,23 @@ body{background:
       <div class="demo-right">
         <h3>Get your free demo</h3>
         <p class="sub2"><span class="ping" style="display:inline-block;vertical-align:middle"></span> We'll reach out within the hour · 500+ institutions trust us</p>
-        <form class="demo-form" id="demoForm" novalidate>
-          <input type="text" placeholder="Your full name *" required aria-label="Your full name" />
-          <input type="text" placeholder="Institute / organisation *" required aria-label="Institute name" />
-          <input type="tel" placeholder="WhatsApp number *" required aria-label="WhatsApp number" />
-          <input type="email" placeholder="Work email *" required aria-label="Work email" />
-          <select required aria-label="Monthly enquiry volume">
-            <option value="" disabled selected>Monthly enquiry volume</option>
-            <option>Under 1,000</option><option>1,000 – 5,000</option><option>5,000 – 20,000</option><option>20,000+</option>
-          </select>
-          <button type="submit" class="btn btn-primary btn-lg">Book My Free Demo →</button>
-        </form>
-        <div class="demo-ok" id="demoOk">🎉 Thank you! Our admissions expert will reach out within the hour.</div>
+        <!-- the same live demo form as the hero - its own isolated document, so both
+             instances of the widget mount and submit independently -->
+        <iframe id="eeDemoFormFrame" title="Book a demo form" loading="lazy" scrolling="no"
+          style="display:block;width:100%;border:0;min-height:560px;overflow:hidden"
+          srcdoc="<!DOCTYPE html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap' rel='stylesheet'><style>*{box-sizing:border-box}body{margin:0;font-family:Inter,-apple-system,sans-serif;background:#fff}#ee-form-7 form{display:block;width:100%}#ee-form-7 form>div,#ee-form-7 form>div>div{display:block;width:100%;max-width:100%;float:none;margin-bottom:12px}#ee-form-7 h1,#ee-form-7 h2,#ee-form-7 h3,#ee-form-7 h4{display:none}#ee-form-7 p{line-height:1.45;margin:0 0 14px;font-size:13px;color:#5B6B84}#ee-form-7 label{display:block;color:#19345d;font-weight:600;font-size:13px;margin:0 0 6px;text-align:left}#ee-form-7 input[type=text],#ee-form-7 input[type=email],#ee-form-7 input[type=tel],#ee-form-7 input[type=url],#ee-form-7 input[type=number],#ee-form-7 select,#ee-form-7 textarea{display:block;background:#fff;color:#19345d;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px;font-size:14px;font-family:Inter,sans-serif;width:100%;transition:border-color .2s,box-shadow .2s}#ee-form-7 input:focus,#ee-form-7 select:focus,#ee-form-7 textarea:focus{outline:none;border-color:#DE6E30;box-shadow:0 0 0 3px rgba(222,110,48,.12)}#ee-form-7 input::placeholder,#ee-form-7 textarea::placeholder{color:#94a2b8;opacity:1}#ee-form-7 input[type=submit],#ee-form-7 button[type=submit]{display:block;background:#DE6E30;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:700;font-family:Inter,sans-serif;width:100%;cursor:pointer;transition:all .3s;box-shadow:0 8px 20px rgba(222,110,48,.25)}#ee-form-7 input[type=submit]:hover,#ee-form-7 button[type=submit]:hover{background:#c85d20}#ee-form-7 input[type=checkbox]{display:inline-block;width:15px;height:15px;min-width:15px;flex:0 0 auto;margin:2px 8px 0 0;accent-color:#DE6E30;vertical-align:top}#ee-form-7 label:has(input[type=checkbox]),#ee-form-7 div:has(>input[type=checkbox]),#ee-form-7 p:has(>input[type=checkbox]){display:flex;align-items:flex-start;gap:8px;font-size:12px;font-weight:500;line-height:1.55;color:#5B6B84;text-align:left;margin:2px 0 12px}#ee-form-7 label:has(input[type=checkbox]) a,#ee-form-7 div:has(>input[type=checkbox]) a{color:#DE6E30;text-decoration:underline;font-weight:600}#ee-form-7 .iti{position:relative;display:block;width:100%}#ee-form-7 .iti input[type=tel]{padding-left:96px;width:100%}#ee-form-7 .iti__flag-container{position:absolute;top:0;bottom:0;left:0;z-index:2;display:flex;align-items:center}#ee-form-7 .iti__selected-flag{height:100%;padding:0 8px 0 14px;background:transparent;border-right:1px solid rgba(25,52,93,.10);display:flex;align-items:center;gap:6px}#ee-form-7 .iti__selected-dial-code{color:#19345d;font-weight:700;font-size:.95rem}#ee-form-7 .iti__country-list{position:absolute;z-index:5;background:#fff;color:#19345d}</style></head><body><div id='ee-form-7'></div><script async src='https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js'></script></body></html>"></iframe>
+        <script>
+        (function(){
+          var f=document.getElementById('eeDemoFormFrame'); if(!f) return;
+          function fit(){ try{ var d=f.contentDocument; if(!d||!d.body) return;
+            var h=Math.ceil(d.body.getBoundingClientRect().height)+10;
+            if(h>220 && Math.abs(h-(parseInt(f.style.height,10)||0))>4) f.style.height=h+'px';
+          }catch(e){} }
+          f.addEventListener('load',function(){ fit(); setTimeout(fit,600); setTimeout(fit,1800);
+            try{ new ResizeObserver(function(){ fit(); }).observe(f.contentDocument.body); }catch(e){}
+          });
+        })();
+        </script>
         <p class="demo-trust">🔒 Your data is safe - ISO 27001 &amp; GDPR compliant. No spam, ever.</p>
       </div>
     </div>
