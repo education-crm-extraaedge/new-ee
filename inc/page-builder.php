@@ -1,28 +1,32 @@
 <?php
 /**
- * 🏗️ EE Page Builder — a lightweight, Elementor-style element builder.
+ * 🏗️ EE Page Builder v2 — a Wix/Canva-style visual builder for non-coders.
  *
- * Non-coders assemble pages from ready-made elements (hero, heading, text,
- * image, text+image, features, stats, FAQ, CTA, button, spacer, divider and
- * any homepage section) in a drag-and-drop admin screen. The layout is saved
- * as JSON in post meta and rendered server-side inside the theme's normal
- * header/footer with the site design system (Inter · #19335D · #DE6E30 ·
- * white) baked in, so every page built with it automatically matches the
- * brand.
+ * What non-coders get:
+ *  - A live WYSIWYG canvas: the page renders EXACTLY as the frontend while
+ *    you edit (same PHP renderer via ajax — single source of truth).
+ *  - Click any element on the canvas to select it; click its text to type
+ *    directly into the page (inline editing).
+ *  - Desktop / tablet / mobile preview switch, undo/redo (Ctrl+Z),
+ *    duplicate/delete/reorder, WP media-library image picker,
+ *    one-click starter templates, copy/paste (export/import) of layouts.
+ *  - 17 ready-made elements + every element has Background (white/soft/navy)
+ *    and Spacing controls. Everything is locked to the design system
+ *    (Inter · #19335D · #DE6E30 · white) and fully responsive.
  *
- * - Admin:   ExtraaEdge Site → 🏗️ Page Builder
- * - Storage: _ee_pb_json (elements) + _ee_pb_on (enable flag) per page
- * - Render:  template_include → page-builder-canvas.php when _ee_pb_on
+ * Admin:   ExtraaEdge Site → 🏗️ Page Builder
+ * Storage: _ee_pb_json + _ee_pb_on per page
+ * Render:  template_include → page-builder-canvas.php when _ee_pb_on
  *
  * @package ExtraaEdge
  */
 if (!defined('ABSPATH')) exit;
 
 /* =========================================================================
- * 1. Element registry — every element the palette offers.
- *    type => [label, emoji, fields]; each field:
+ * 1. Element registry.
+ *    type => [label, emoji, fields]; field:
  *    key => [label, input(text|textarea|url|select|number|check), default,
- *            options(for select), hint]
+ *            options(for select)]
  * ========================================================================= */
 function ee_pb_elements() {
     $sections = function_exists('ee_home_sections_registry') ? ee_home_sections_registry() : array();
@@ -43,7 +47,7 @@ function ee_pb_elements() {
             'align' => array('Alignment', 'select', 'center', array('center' => 'Center', 'left' => 'Left')),
         )),
         'text' => array('Text', '📄', array(
-            'content' => array('Paragraph text', 'textarea', 'Write your paragraph here.'),
+            'content' => array('Paragraph text (blank line = new paragraph)', 'textarea', 'Write your paragraph here.'),
             'align'   => array('Alignment', 'select', 'left', array('left' => 'Left', 'center' => 'Center')),
         )),
         'image' => array('Image', '🖼️', array(
@@ -68,6 +72,24 @@ function ee_pb_elements() {
         )),
         'stats' => array('Stats Row', '📊', array(
             'items' => array('Stats — one per line: Number | Label', 'textarea', "500+ | Institutions\n18M+ | Leads managed\n3.4x | Enrollment growth"),
+        )),
+        'testimonial' => array('Testimonial', '💬', array(
+            'quote'  => array('Quote', 'textarea', 'ExtraaEdge transformed how our admission team works.'),
+            'name'   => array('Name', 'text', 'Jane Doe'),
+            'role'   => array('Role · Institute', 'text', 'Director · Example University'),
+            'avatar' => array('Photo URL (optional)', 'url', ''),
+        )),
+        'video' => array('YouTube Video', '▶️', array(
+            'url'     => array('YouTube link or video ID', 'text', ''),
+            'heading' => array('Heading (optional)', 'text', ''),
+        )),
+        'logos' => array('Logo Strip', '🏛️', array(
+            'heading' => array('Heading (optional)', 'text', 'Trusted by leading institutions'),
+            'items'   => array('Logo image URLs — one per line', 'textarea', ''),
+        )),
+        'pricing' => array('Pricing Cards', '💳', array(
+            'heading' => array('Heading (optional)', 'text', 'Simple pricing'),
+            'items'   => array("Plans — one per line:\nName | Price | feature; feature; feature | Button text | Button link | featured", 'textarea', "Starter | ₹4,999/mo | Lead management; WhatsApp; Email | Get started | /book-demo/\nGrowth | ₹9,999/mo | Everything in Starter; AI scoring; Voice agent | Get started | /book-demo/ | featured\nEnterprise | Custom | Everything in Growth; SSO; Dedicated support | Talk to us | /book-demo/"),
         )),
         'faq' => array('FAQ Accordion', '❓', array(
             'heading' => array('Heading (optional)', 'text', 'Frequently asked questions'),
@@ -98,18 +120,27 @@ function ee_pb_elements() {
     );
 }
 
+/** Style controls every element gets (Wix-style section settings). */
+function ee_pb_style_fields() {
+    return array(
+        '_bg'  => array('Background', 'select', 'white', array('white' => 'White', 'soft' => 'Soft grey', 'navy' => 'Navy (dark)')),
+        '_pad' => array('Spacing', 'select', 'm', array('s' => 'Compact', 'm' => 'Normal', 'l' => 'Spacious')),
+    );
+}
+
 /* =========================================================================
  * 2. Sanitize a submitted layout — only known elements/fields survive.
  * ========================================================================= */
 function ee_pb_sanitize_items($raw) {
-    $reg = ee_pb_elements();
-    $out = array();
+    $reg   = ee_pb_elements();
+    $style = ee_pb_style_fields();
+    $out   = array();
     if (!is_array($raw)) return $out;
     foreach (array_slice($raw, 0, 200) as $item) {
         $t = isset($item['t']) ? sanitize_key($item['t']) : '';
         if (!isset($reg[$t])) continue;
         $s = array();
-        foreach ($reg[$t][2] as $key => $field) {
+        foreach (array_merge($reg[$t][2], $style) as $key => $field) {
             $v = isset($item['s'][$key]) ? $item['s'][$key] : $field[2];
             switch ($field[1]) {
                 case 'url':      $v = esc_url_raw(trim((string) $v)); break;
@@ -119,7 +150,7 @@ function ee_pb_sanitize_items($raw) {
                     $opts = isset($field[3]) ? $field[3] : array();
                     if (!isset($opts[$v])) { $v = $field[2]; }
                     break;
-                case 'textarea': $v = sanitize_textarea_field(mb_substr((string) $v, 0, 6000)); break;
+                case 'textarea': $v = sanitize_textarea_field(mb_substr((string) $v, 0, 8000)); break;
                 default:         $v = sanitize_text_field(mb_substr((string) $v, 0, 600));
             }
             $s[$key] = $v;
@@ -130,29 +161,38 @@ function ee_pb_sanitize_items($raw) {
 }
 
 /* =========================================================================
- * 3. Frontend renderer — brand-locked, fully escaped output.
+ * 3. Renderer — brand-locked, fully escaped, shared by frontend + preview.
  * ========================================================================= */
 function ee_pb_split_lines($txt) {
     $rows = array();
     foreach (preg_split('/\r?\n/', (string) $txt) as $line) {
         $line = trim($line);
         if ($line === '') continue;
-        $parts = array_map('trim', explode('|', $line, 2));
-        $rows[] = array($parts[0], isset($parts[1]) ? $parts[1] : '');
+        $rows[] = array_map('trim', explode('|', $line));
     }
     return $rows;
 }
 
-function ee_pb_render_page($items) {
-    static $css_done = false;
-    $html = '';
-    if (!$css_done) {
-        $css_done = true;
-        $html .= '<style id="ee-pb-css">
+/** Escapes a value; in preview mode wraps it so it is inline-editable. */
+function ee_pb_txt($val, $key, $preview) {
+    $out = esc_html($val);
+    return $preview ? '<span data-edit="' . esc_attr($key) . '">' . $out . '</span>' : $out;
+}
+
+function ee_pb_css() {
+    return '<style id="ee-pb-css">
 .eepb{font-family:\'Inter\',-apple-system,BlinkMacSystemFont,sans-serif;color:#19335D;background:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}
 .eepb *{box-sizing:border-box}
 .eepb .pbw{max-width:1140px;margin:0 auto;padding:0 22px}
 .eepb .pb-el{padding:26px 0}
+.eepb .pb-wrap.pad-s .pb-el{padding:10px 0}
+.eepb .pb-wrap.pad-l .pb-el{padding:52px 0}
+.eepb .pb-wrap.bg-soft{background:#f5f7fb}
+.eepb .pb-wrap.bg-navy{background:linear-gradient(135deg,#19335D,#20406e)}
+.eepb .pb-wrap.bg-navy h1,.eepb .pb-wrap.bg-navy h2,.eepb .pb-wrap.bg-navy h3,.eepb .pb-wrap.bg-navy summary{color:#fff!important}
+.eepb .pb-wrap.bg-navy p,.eepb .pb-wrap.bg-navy .pb-feat span,.eepb .pb-wrap.bg-navy .pb-stat span{color:rgba(255,255,255,.78)!important}
+.eepb .pb-wrap.bg-navy .pb-feat,.eepb .pb-wrap.bg-navy .pb-stat,.eepb .pb-wrap.bg-navy .pb-faq details,.eepb .pb-wrap.bg-navy .pb-price{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16)}
+.eepb .pb-wrap.bg-navy .pb-feat b,.eepb .pb-wrap.bg-navy .pb-price b.nm{color:#fff}
 .eepb .ta-center{text-align:center}.eepb .ta-left{text-align:left}
 .eepb h1,.eepb h2,.eepb h3{font-weight:800;letter-spacing:-.02em;line-height:1.15;color:#19335D;margin:0}
 .eepb .pb-h1{font-size:clamp(32px,4.6vw,52px)}.eepb .pb-h2{font-size:clamp(26px,3.2vw,38px)}.eepb .pb-h3{font-size:clamp(20px,2.4vw,26px)}
@@ -179,13 +219,33 @@ function ee_pb_render_page($items) {
 .eepb .pb-feat:hover{transform:translateY(-3px);box-shadow:0 16px 34px -16px rgba(25,51,93,.22)}
 .eepb .pb-feat b{display:block;font-size:16.5px;font-weight:800;color:#19335D;margin-bottom:7px}
 .eepb .pb-feat span{font-size:14px;color:rgba(25,51,93,.72);line-height:1.55}
-.eepb .pb-feats-h{margin-bottom:22px}
+.eepb .pb-feats-h,.eepb .pb-sec-h{margin-bottom:22px;text-align:center}
 .eepb .pb-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
 .eepb .pb-stat{flex:1 1 180px;max-width:260px;text-align:center;background:#fff;border:1px solid #e7ecf3;border-radius:16px;padding:24px 16px}
 .eepb .pb-stat b{display:block;font-size:clamp(30px,3.4vw,42px);font-weight:800;color:#DE6E30;line-height:1.05}
 .eepb .pb-stat span{display:block;margin-top:7px;font-size:13.5px;font-weight:600;color:rgba(25,51,93,.75)}
+.eepb .pb-testi{max-width:720px;margin:0 auto;text-align:center}
+.eepb .pb-testi .q{font-size:clamp(18px,2.2vw,23px);font-weight:600;line-height:1.5;color:#19335D}
+.eepb .pb-testi .q::before{content:"\201C";color:#DE6E30;font-weight:800}
+.eepb .pb-testi .q::after{content:"\201D";color:#DE6E30;font-weight:800}
+.eepb .pb-testi .who{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:18px}
+.eepb .pb-testi img{width:46px;height:46px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px #DE6E30}
+.eepb .pb-testi b{font-weight:800;font-size:15px}
+.eepb .pb-testi i{font-style:normal;font-size:12.5px;color:rgba(25,51,93,.6);display:block;margin-top:2px}
+.eepb .pb-video{position:relative;max-width:860px;margin:0 auto;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#0d1c33}
+.eepb .pb-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.eepb .pb-logos{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:34px}
+.eepb .pb-logos img{height:34px;width:auto;object-fit:contain}
+.eepb .pb-prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;max-width:980px;margin:0 auto}
+.eepb .pb-price{background:#fff;border:1px solid #e7ecf3;border-radius:18px;padding:26px 22px;display:flex;flex-direction:column;text-align:center}
+.eepb .pb-price.hot{border-color:#DE6E30;box-shadow:0 18px 40px -18px rgba(222,110,48,.4);position:relative}
+.eepb .pb-price.hot::before{content:"POPULAR";position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#DE6E30;color:#fff;font-size:10px;font-weight:800;letter-spacing:.08em;padding:3px 12px;border-radius:99px}
+.eepb .pb-price b.nm{font-size:16px;font-weight:800;color:#19335D}
+.eepb .pb-price .pr{font-size:clamp(24px,2.6vw,32px);font-weight:800;color:#DE6E30;margin:10px 0 14px}
+.eepb .pb-price ul{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:8px;flex:1}
+.eepb .pb-price li{font-size:13.5px;color:rgba(25,51,93,.75)}
+.eepb .pb-price li::before{content:"\2713  ";color:#DE6E30;font-weight:800}
 .eepb .pb-faq{max-width:760px;margin:0 auto}
-.eepb .pb-faq-h{margin-bottom:18px}
 .eepb .pb-faq details{border:1px solid #e7ecf3;border-radius:12px;background:#fff;margin-bottom:10px;overflow:hidden}
 .eepb .pb-faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 18px;font-weight:700;font-size:15.5px;color:#19335D}
 .eepb .pb-faq summary::-webkit-details-marker{display:none}
@@ -205,56 +265,71 @@ function ee_pb_render_page($items) {
 @media(max-width:560px){
   .eepb .pb-feats.cols-2,.eepb .pb-feats.cols-3,.eepb .pb-feats.cols-4{grid-template-columns:1fr}
   .eepb .pb-el{padding:18px 0}
+  .eepb .pb-logos{gap:20px}
+  .eepb .pb-logos img{height:26px}
 }
 </style>';
-    }
-    $html .= '<div class="eepb">';
-    foreach ((array) $items as $item) {
-        $t = $item['t']; $s = $item['s'];
-        $html .= ee_pb_render_el($t, $s);
-    }
-    $html .= '</div>';
-    return $html;
 }
 
-function ee_pb_render_el($t, $s) {
+function ee_pb_render_page($items, $preview = false) {
+    $html = ee_pb_css() . '<div class="eepb">';
+    foreach (array_values((array) $items) as $i => $item) {
+        $el = ee_pb_render_el($item['t'], $item['s'], $preview);
+        if ($preview) {
+            $s   = $item['s'];
+            $bg  = isset($s['_bg']) ? $s['_bg'] : 'white';
+            $pad = isset($s['_pad']) ? $s['_pad'] : 'm';
+            $html .= '<div class="pb-wrap pbp-item bg-' . esc_attr($bg) . ' pad-' . esc_attr($pad) . '" data-i="' . $i . '">' . $el . '</div>';
+        } else {
+            $s   = $item['s'];
+            $bg  = isset($s['_bg']) ? $s['_bg'] : 'white';
+            $pad = isset($s['_pad']) ? $s['_pad'] : 'm';
+            $html .= '<div class="pb-wrap bg-' . esc_attr($bg) . ' pad-' . esc_attr($pad) . '">' . $el . '</div>';
+        }
+    }
+    return $html . '</div>';
+}
+
+function ee_pb_render_el($t, $s, $pv = false) {
     $g = function ($k) use ($s) { return isset($s[$k]) ? $s[$k] : ''; };
     switch ($t) {
 
         case 'hero':
             $al = $g('align') === 'left' ? 'ta-left' : 'ta-center';
             $o  = '<section class="pb-el pb-hero ' . esc_attr($al) . '"><div class="pbw">';
-            if ($g('eyebrow') !== '') $o .= '<span class="pb-eyebrow">' . esc_html($g('eyebrow')) . '</span>';
-            $o .= '<h1 class="pb-h1">' . esc_html($g('heading')) . '</h1>';
-            if ($g('sub') !== '') $o .= '<p class="sub">' . esc_html($g('sub')) . '</p>';
-            if ($g('btn_text') !== '') $o .= '<div class="act"><a class="pb-btn pb-btn--solid" href="' . esc_url($g('btn_link')) . '">' . esc_html($g('btn_text')) . ' →</a></div>';
+            if ($g('eyebrow') !== '') $o .= '<span class="pb-eyebrow">' . ee_pb_txt($g('eyebrow'), 'eyebrow', $pv) . '</span>';
+            $o .= '<h1 class="pb-h1">' . ee_pb_txt($g('heading'), 'heading', $pv) . '</h1>';
+            if ($g('sub') !== '') $o .= '<p class="sub">' . ee_pb_txt($g('sub'), 'sub', $pv) . '</p>';
+            if ($g('btn_text') !== '') $o .= '<div class="act"><a class="pb-btn pb-btn--solid" href="' . esc_url($g('btn_link')) . '">' . ee_pb_txt($g('btn_text'), 'btn_text', $pv) . ' →</a></div>';
             return $o . '</div></section>';
 
         case 'heading':
             $lv = in_array($g('level'), array('h1', 'h2', 'h3'), true) ? $g('level') : 'h2';
             $al = $g('align') === 'left' ? 'ta-left' : 'ta-center';
-            return '<div class="pb-el ' . esc_attr($al) . '"><div class="pbw"><' . $lv . ' class="pb-' . $lv . '">' . esc_html($g('text')) . '</' . $lv . '></div></div>';
+            return '<div class="pb-el ' . esc_attr($al) . '"><div class="pbw"><' . $lv . ' class="pb-' . $lv . '">' . ee_pb_txt($g('text'), 'text', $pv) . '</' . $lv . '></div></div>';
 
         case 'text':
             $al = $g('align') === 'center' ? 'ta-center' : 'ta-left';
             $paras = '';
-            foreach (preg_split('/\r?\n\r?\n?/', (string) $g('content')) as $p) {
+            foreach (preg_split('/\r?\n\r?\n/', (string) $g('content')) as $p) {
                 $p = trim($p);
-                if ($p !== '') $paras .= '<p style="margin-bottom:12px">' . esc_html($p) . '</p>';
+                if ($p !== '') $paras .= '<p style="margin-bottom:12px">' . nl2br(esc_html($p)) . '</p>';
             }
             return '<div class="pb-el ' . esc_attr($al) . '"><div class="pbw" style="max-width:820px">' . $paras . '</div></div>';
 
         case 'image':
-            if ($g('url') === '') return '';
+            if ($g('url') === '') return $pv ? '<div class="pb-el ta-center"><div class="pbw" style="border:2px dashed #c9d4e4;border-radius:14px;padding:34px;color:#8a9bb5;font-weight:600">🖼️ Choose an image in the settings panel →</div></div>' : '';
             $w  = in_array($g('width'), array('100', '75', '50'), true) ? $g('width') : '100';
             $al = $g('align') === 'left' ? '' : 'margin-left:auto;margin-right:auto;';
             $r  = $g('rounded') ? ' pb-img--rounded' : '';
             return '<div class="pb-el"><div class="pbw"><img class="pb-img' . $r . '" style="width:' . $w . '%;' . $al . '" src="' . esc_url($g('url')) . '" alt="' . esc_attr($g('alt')) . '" loading="lazy" decoding="async"></div></div>';
 
         case 'textimg':
-            $img = $g('image') !== '' ? '<div class="vis"><img src="' . esc_url($g('image')) . '" alt="' . esc_attr($g('heading')) . '" loading="lazy" decoding="async"></div>' : '';
-            $txt = '<div class="txt"><h2 class="pb-h2">' . esc_html($g('heading')) . '</h2><p>' . esc_html($g('content')) . '</p>';
-            if ($g('btn_text') !== '') $txt .= '<div class="act"><a class="pb-btn pb-btn--solid" href="' . esc_url($g('btn_link')) . '">' . esc_html($g('btn_text')) . ' →</a></div>';
+            $img = $g('image') !== ''
+                ? '<div class="vis"><img src="' . esc_url($g('image')) . '" alt="' . esc_attr($g('heading')) . '" loading="lazy" decoding="async"></div>'
+                : ($pv ? '<div class="vis" style="border:2px dashed #c9d4e4;border-radius:14px;padding:44px;text-align:center;color:#8a9bb5;font-weight:600">🖼️ Add an image URL</div>' : '');
+            $txt = '<div class="txt"><h2 class="pb-h2">' . ee_pb_txt($g('heading'), 'heading', $pv) . '</h2><p>' . ee_pb_txt($g('content'), 'content', $pv) . '</p>';
+            if ($g('btn_text') !== '') $txt .= '<div class="act"><a class="pb-btn pb-btn--solid" href="' . esc_url($g('btn_link')) . '">' . ee_pb_txt($g('btn_text'), 'btn_text', $pv) . ' →</a></div>';
             $txt .= '</div>';
             $inner = $g('image_pos') === 'left' ? $img . $txt : $txt . $img;
             return '<div class="pb-el"><div class="pbw"><div class="pb-textimg">' . $inner . '</div></div></div>';
@@ -262,38 +337,95 @@ function ee_pb_render_el($t, $s) {
         case 'features':
             $cols = in_array($g('cols'), array('2', '3', '4'), true) ? $g('cols') : '3';
             $o = '<div class="pb-el"><div class="pbw">';
-            if ($g('heading') !== '') $o .= '<h2 class="pb-h2 pb-feats-h ta-center" style="text-align:center">' . esc_html($g('heading')) . '</h2>';
+            if ($g('heading') !== '') $o .= '<h2 class="pb-h2 pb-feats-h">' . ee_pb_txt($g('heading'), 'heading', $pv) . '</h2>';
             $o .= '<div class="pb-feats cols-' . $cols . '">';
             foreach (ee_pb_split_lines($g('items')) as $row) {
-                $o .= '<div class="pb-feat"><b>' . esc_html($row[0]) . '</b><span>' . esc_html($row[1]) . '</span></div>';
+                $o .= '<div class="pb-feat"><b>' . esc_html($row[0]) . '</b><span>' . esc_html(isset($row[1]) ? $row[1] : '') . '</span></div>';
             }
             return $o . '</div></div></div>';
 
         case 'stats':
             $o = '<div class="pb-el"><div class="pbw"><div class="pb-stats">';
             foreach (ee_pb_split_lines($g('items')) as $row) {
-                $o .= '<div class="pb-stat"><b>' . esc_html($row[0]) . '</b><span>' . esc_html($row[1]) . '</span></div>';
+                $o .= '<div class="pb-stat"><b>' . esc_html($row[0]) . '</b><span>' . esc_html(isset($row[1]) ? $row[1] : '') . '</span></div>';
+            }
+            return $o . '</div></div></div>';
+
+        case 'testimonial':
+            $o = '<div class="pb-el"><div class="pbw"><div class="pb-testi">';
+            $o .= '<div class="q">' . ee_pb_txt($g('quote'), 'quote', $pv) . '</div>';
+            $o .= '<div class="who">';
+            if ($g('avatar') !== '') $o .= '<img src="' . esc_url($g('avatar')) . '" alt="' . esc_attr($g('name')) . '" loading="lazy">';
+            $o .= '<span style="text-align:left"><b>' . ee_pb_txt($g('name'), 'name', $pv) . '</b><i>' . ee_pb_txt($g('role'), 'role', $pv) . '</i></span>';
+            return $o . '</div></div></div></div>';
+
+        case 'video':
+            $raw = trim((string) $g('url'));
+            $id  = '';
+            if ($raw !== '') {
+                if (preg_match('#(?:youtu\.be/|v=|/embed/|/shorts/)([A-Za-z0-9_-]{6,20})#', $raw, $m)) $id = $m[1];
+                elseif (preg_match('#^[A-Za-z0-9_-]{6,20}$#', $raw)) $id = $raw;
+            }
+            $o = '<div class="pb-el"><div class="pbw">';
+            if ($g('heading') !== '') $o .= '<h2 class="pb-h2 pb-sec-h">' . ee_pb_txt($g('heading'), 'heading', $pv) . '</h2>';
+            if ($id === '') {
+                $o .= $pv ? '<div style="border:2px dashed #c9d4e4;border-radius:14px;padding:44px;text-align:center;color:#8a9bb5;font-weight:600">▶️ Paste a YouTube link in the settings panel →</div>' : '';
+            } else {
+                $o .= '<div class="pb-video"><iframe src="https://www.youtube-nocookie.com/embed/' . esc_attr($id) . '?rel=0&amp;modestbranding=1" title="Video" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';
+            }
+            return $o . '</div></div>';
+
+        case 'logos':
+            $o = '<div class="pb-el"><div class="pbw">';
+            if ($g('heading') !== '') $o .= '<h2 class="pb-h3 pb-sec-h" style="font-size:clamp(15px,1.6vw,18px);letter-spacing:.05em;text-transform:uppercase;color:rgba(25,51,93,.55)">' . ee_pb_txt($g('heading'), 'heading', $pv) . '</h2>';
+            $o .= '<div class="pb-logos">';
+            $any = false;
+            foreach (ee_pb_split_lines($g('items')) as $row) {
+                $u = $row[0];
+                if ($u === '') continue;
+                $any = true;
+                $o .= '<img src="' . esc_url($u) . '" alt="" loading="lazy" decoding="async">';
+            }
+            if (!$any && $pv) $o .= '<div style="border:2px dashed #c9d4e4;border-radius:14px;padding:24px 44px;color:#8a9bb5;font-weight:600">🏛️ Add logo image URLs (one per line)</div>';
+            return $o . '</div></div></div>';
+
+        case 'pricing':
+            $o = '<div class="pb-el"><div class="pbw">';
+            if ($g('heading') !== '') $o .= '<h2 class="pb-h2 pb-sec-h">' . ee_pb_txt($g('heading'), 'heading', $pv) . '</h2>';
+            $o .= '<div class="pb-prices">';
+            foreach (ee_pb_split_lines($g('items')) as $row) {
+                $hot = isset($row[5]) && stripos($row[5], 'feat') !== false;
+                $o .= '<div class="pb-price' . ($hot ? ' hot' : '') . '"><b class="nm">' . esc_html($row[0]) . '</b><div class="pr">' . esc_html(isset($row[1]) ? $row[1] : '') . '</div><ul>';
+                foreach (explode(';', isset($row[2]) ? $row[2] : '') as $f) {
+                    $f = trim($f);
+                    if ($f !== '') $o .= '<li>' . esc_html($f) . '</li>';
+                }
+                $o .= '</ul>';
+                $bt = isset($row[3]) ? $row[3] : '';
+                $bl = isset($row[4]) ? $row[4] : '#';
+                if ($bt !== '') $o .= '<a class="pb-btn ' . ($hot ? 'pb-btn--solid' : 'pb-btn--outline') . '" style="justify-content:center" href="' . esc_url($bl) . '">' . esc_html($bt) . '</a>';
+                $o .= '</div>';
             }
             return $o . '</div></div></div>';
 
         case 'faq':
             $o = '<div class="pb-el"><div class="pbw"><div class="pb-faq">';
-            if ($g('heading') !== '') $o .= '<h2 class="pb-h2 pb-faq-h" style="text-align:center">' . esc_html($g('heading')) . '</h2>';
+            if ($g('heading') !== '') $o .= '<h2 class="pb-h2 pb-sec-h">' . ee_pb_txt($g('heading'), 'heading', $pv) . '</h2>';
             foreach (ee_pb_split_lines($g('items')) as $row) {
-                $o .= '<details><summary>' . esc_html($row[0]) . '</summary><div class="a">' . esc_html($row[1]) . '</div></details>';
+                $o .= '<details><summary>' . esc_html($row[0]) . '</summary><div class="a">' . esc_html(isset($row[1]) ? $row[1] : '') . '</div></details>';
             }
             return $o . '</div></div></div>';
 
         case 'cta':
-            $o = '<div class="pb-el"><div class="pbw"><div class="pb-cta"><h2 class="pb-h2">' . esc_html($g('heading')) . '</h2>';
-            if ($g('sub') !== '') $o .= '<p>' . esc_html($g('sub')) . '</p>';
-            if ($g('btn_text') !== '') $o .= '<div class="act"><a class="pb-btn pb-btn--solid" href="' . esc_url($g('btn_link')) . '">' . esc_html($g('btn_text')) . ' →</a></div>';
+            $o = '<div class="pb-el"><div class="pbw"><div class="pb-cta"><h2 class="pb-h2">' . ee_pb_txt($g('heading'), 'heading', $pv) . '</h2>';
+            if ($g('sub') !== '') $o .= '<p>' . ee_pb_txt($g('sub'), 'sub', $pv) . '</p>';
+            if ($g('btn_text') !== '') $o .= '<div class="act"><a class="pb-btn pb-btn--solid" href="' . esc_url($g('btn_link')) . '">' . ee_pb_txt($g('btn_text'), 'btn_text', $pv) . ' →</a></div>';
             return $o . '</div></div></div>';
 
         case 'button':
             $st = $g('style') === 'outline' ? 'pb-btn--outline' : 'pb-btn--solid';
             $al = $g('align') === 'left' ? 'ta-left' : 'ta-center';
-            return '<div class="pb-el ' . esc_attr($al) . '"><div class="pbw"><a class="pb-btn ' . $st . '" href="' . esc_url($g('link')) . '">' . esc_html($g('text')) . ' →</a></div></div>';
+            return '<div class="pb-el ' . esc_attr($al) . '"><div class="pbw"><a class="pb-btn ' . $st . '" href="' . esc_url($g('link')) . '">' . ee_pb_txt($g('text'), 'text', $pv) . ' →</a></div></div>';
 
         case 'spacer':
             return '<div aria-hidden="true" style="height:' . (int) $g('height') . 'px"></div>';
@@ -302,6 +434,11 @@ function ee_pb_render_el($t, $s) {
             return '<div class="pb-el" style="padding:8px 0"><div class="pbw"><hr class="pb-divider"></div></div>';
 
         case 'homesec':
+            if ($pv) {
+                $reg = function_exists('ee_home_sections_registry') ? ee_home_sections_registry() : array();
+                $nm  = isset($reg[$g('section')]) ? $reg[$g('section')][0] : $g('section');
+                return '<div class="pb-el ta-center"><div class="pbw" style="border:2px dashed #DE6E30;border-radius:14px;padding:34px;background:#fff7f2"><b style="color:#19335D">🏠 Homepage section: ' . esc_html($nm) . '</b><br><span style="font-size:13px;color:#8a9bb5">Shows the real section on the live page (use 👁 View).</span></div></div>';
+            }
             $sc = '[ee_section id="' . esc_attr($g('section')) . '"';
             foreach (array('heading', 'sub', 'eyebrow') as $k) {
                 if ($g($k) !== '') $sc .= ' ' . $k . '="' . esc_attr($g($k)) . '"';
@@ -313,7 +450,7 @@ function ee_pb_render_el($t, $s) {
 }
 
 /* =========================================================================
- * 4. Frontend hookup — builder pages render through the canvas template.
+ * 4. Frontend hookup + live-preview ajax (same renderer).
  * ========================================================================= */
 add_filter('template_include', function ($template) {
     if (!is_page()) return $template;
@@ -323,14 +460,21 @@ add_filter('template_include', function ($template) {
     return $t ?: $template;
 }, 60);
 
-/** Data accessor used by the canvas template. */
 function ee_pb_get_items($pid) {
     $items = get_post_meta($pid, '_ee_pb_json', true);
     return is_array($items) ? $items : array();
 }
 
+add_action('wp_ajax_ee_pb_preview', function () {
+    if (!current_user_can('manage_options')) wp_die('', '', 403);
+    check_ajax_referer('ee_pb_prev', 'nonce');
+    $raw = json_decode(wp_unslash($_POST['pb_json'] ?? '[]'), true);
+    echo ee_pb_render_page(ee_pb_sanitize_items($raw), true);
+    wp_die();
+});
+
 /* =========================================================================
- * 5. Save handler.
+ * 5. Save / create / duplicate handlers.
  * ========================================================================= */
 add_action('admin_post_ee_pb_save', function () {
     if (!current_user_can('manage_options')) wp_die('Not allowed');
@@ -345,7 +489,6 @@ add_action('admin_post_ee_pb_save', function () {
     exit;
 });
 
-/** Create a fresh page from the list screen and jump into the builder. */
 add_action('admin_post_ee_pb_new', function () {
     if (!current_user_can('manage_options')) wp_die('Not allowed');
     check_admin_referer('ee_pb_new');
@@ -359,11 +502,32 @@ add_action('admin_post_ee_pb_new', function () {
     exit;
 });
 
+add_action('admin_post_ee_pb_duplicate', function () {
+    if (!current_user_can('manage_options')) wp_die('Not allowed');
+    check_admin_referer('ee_pb_duplicate');
+    $src = isset($_GET['post']) ? (int) $_GET['post'] : 0;
+    if (!$src || get_post_type($src) !== 'page') wp_die('Bad page');
+    $pid = wp_insert_post(array(
+        'post_title'  => get_the_title($src) . ' (copy)',
+        'post_type'   => 'page',
+        'post_status' => 'draft',
+    ));
+    if (is_wp_error($pid) || !$pid) wp_die('Could not duplicate');
+    update_post_meta($pid, '_ee_pb_on', get_post_meta($src, '_ee_pb_on', true));
+    update_post_meta($pid, '_ee_pb_json', ee_pb_get_items($src));
+    wp_safe_redirect(admin_url('admin.php?page=ee-page-builder&post=' . $pid));
+    exit;
+});
+
 /* =========================================================================
  * 6. Admin UI.
  * ========================================================================= */
 add_action('admin_menu', function () {
     add_submenu_page('ee-site', 'Page Builder', '🏗️ Page Builder', 'manage_options', 'ee-page-builder', 'ee_pb_render_admin');
+});
+
+add_action('admin_enqueue_scripts', function ($hook) {
+    if (strpos((string) $hook, 'ee-page-builder') !== false) wp_enqueue_media();
 });
 
 function ee_pb_render_admin() {
@@ -377,11 +541,11 @@ function ee_pb_render_admin() {
 function ee_pb_render_list() {
     $pages = get_pages(array('sort_column' => 'post_title', 'number' => 300));
     ?>
-    <div class="wrap" style="max-width:860px">
+    <div class="wrap" style="max-width:900px">
       <h1>🏗️ Page Builder</h1>
-      <p style="font-size:14px;color:#50575e;max-width:70ch">Build pages from ready-made elements — hero, text, images, feature cards, stats, FAQ, CTA and even whole homepage sections. Everything automatically follows the site design (Inter · navy · orange · white).</p>
+      <p style="font-size:14px;color:#50575e;max-width:74ch">Design pages visually — what you see in the editor is exactly what visitors get. Click any element on the canvas to edit it, type directly into the text, switch to mobile preview, undo with Ctrl+Z. Everything follows the site design automatically.</p>
 
-      <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="background:#fff;border:1px solid #dcdcde;border-left:4px solid #DE6E30;border-radius:8px;padding:14px 18px;margin:16px 0;display:flex;gap:10px;align-items:center;max-width:640px">
+      <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="background:#fff;border:1px solid #dcdcde;border-left:4px solid #DE6E30;border-radius:8px;padding:14px 18px;margin:16px 0;display:flex;gap:10px;align-items:center;max-width:660px">
         <?php wp_nonce_field('ee_pb_new'); ?>
         <input type="hidden" name="action" value="ee_pb_new">
         <b style="color:#19335D;white-space:nowrap">➕ New page:</b>
@@ -389,8 +553,8 @@ function ee_pb_render_list() {
         <button class="button button-primary">Create &amp; open builder</button>
       </form>
 
-      <table class="widefat striped" style="max-width:840px">
-        <thead><tr><th>Page</th><th style="width:120px">Builder</th><th style="width:220px"></th></tr></thead>
+      <table class="widefat striped" style="max-width:880px">
+        <thead><tr><th>Page</th><th style="width:110px">Builder</th><th style="width:300px"></th></tr></thead>
         <tbody>
         <?php foreach ($pages as $p) : $on = get_post_meta($p->ID, '_ee_pb_on', true); ?>
           <tr>
@@ -398,6 +562,7 @@ function ee_pb_render_list() {
             <td><?php echo $on ? '<span style="color:#1a7f37;font-weight:700">● On</span>' : '<span style="color:#8a8f98">Off</span>'; ?></td>
             <td>
               <a class="button" href="<?php echo esc_url(admin_url('admin.php?page=ee-page-builder&post=' . $p->ID)); ?>">Edit with builder</a>
+              <a class="button" href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=ee_pb_duplicate&post=' . $p->ID), 'ee_pb_duplicate')); ?>">Duplicate</a>
               <a class="button" href="<?php echo esc_url(get_permalink($p->ID)); ?>" target="_blank" rel="noopener">View</a>
             </td>
           </tr>
@@ -408,25 +573,70 @@ function ee_pb_render_list() {
     <?php
 }
 
-/** Screen 2 — the builder itself. */
+/** Starter templates (arrays of elements, defaults filled client-side). */
+function ee_pb_templates() {
+    return array(
+        'landing' => array('🚀 Landing page', array(
+            array('t' => 'hero', 's' => array()),
+            array('t' => 'logos', 's' => array()),
+            array('t' => 'features', 's' => array()),
+            array('t' => 'textimg', 's' => array()),
+            array('t' => 'stats', 's' => array('_bg' => 'soft')),
+            array('t' => 'testimonial', 's' => array()),
+            array('t' => 'faq', 's' => array()),
+            array('t' => 'cta', 's' => array()),
+        )),
+        'product' => array('📦 Product page', array(
+            array('t' => 'hero', 's' => array()),
+            array('t' => 'textimg', 's' => array()),
+            array('t' => 'textimg', 's' => array('image_pos' => 'left')),
+            array('t' => 'features', 's' => array('_bg' => 'soft')),
+            array('t' => 'video', 's' => array()),
+            array('t' => 'pricing', 's' => array()),
+            array('t' => 'cta', 's' => array()),
+        )),
+        'story' => array('💬 Story / Case study', array(
+            array('t' => 'hero', 's' => array()),
+            array('t' => 'stats', 's' => array()),
+            array('t' => 'text', 's' => array()),
+            array('t' => 'image', 's' => array()),
+            array('t' => 'testimonial', 's' => array('_bg' => 'soft')),
+            array('t' => 'cta', 's' => array()),
+        )),
+    );
+}
+
+/** Screen 2 — the visual builder. */
 function ee_pb_render_editor($pid) {
     $reg   = ee_pb_elements();
     $items = ee_pb_get_items($pid);
     $on    = (bool) get_post_meta($pid, '_ee_pb_on', true);
-    /* schema for the JS: type => {label, icon, fields:{key:{label,input,def,options}}} */
     $schema = array();
     foreach ($reg as $t => $def) {
         $fields = array();
         foreach ($def[2] as $k => $f) {
             $fields[$k] = array('label' => $f[0], 'input' => $f[1], 'def' => $f[2], 'options' => isset($f[3]) ? $f[3] : null);
         }
+        foreach (ee_pb_style_fields() as $k => $f) {
+            $fields[$k] = array('label' => $f[0], 'input' => $f[1], 'def' => $f[2], 'options' => $f[3]);
+        }
         $schema[$t] = array('label' => $def[0], 'icon' => $def[1], 'fields' => $fields);
     }
+    $templates = array();
+    foreach (ee_pb_templates() as $key => $tpl) { $templates[$key] = array('label' => $tpl[0], 'items' => $tpl[1]); }
     ?>
-    <div class="wrap" style="max-width:1400px">
+    <div class="wrap" style="max-width:none;margin-right:10px">
       <h1 style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">🏗️ <?php echo esc_html(get_the_title($pid)); ?>
         <a class="button" href="<?php echo esc_url(admin_url('admin.php?page=ee-page-builder')); ?>">← All pages</a>
-        <a class="button" href="<?php echo esc_url(get_permalink($pid)); ?>" target="_blank" rel="noopener">👁 View page</a>
+        <a class="button" href="<?php echo esc_url(get_permalink($pid)); ?>" target="_blank" rel="noopener">👁 View live</a>
+        <span style="flex:1"></span>
+        <span class="eepb-dev">
+          <button type="button" class="button dev on" data-w="100%">🖥 Desktop</button>
+          <button type="button" class="button dev" data-w="768px">📲 Tablet</button>
+          <button type="button" class="button dev" data-w="390px">📱 Mobile</button>
+        </span>
+        <button type="button" class="button" id="eepbUndo" title="Ctrl+Z">↩ Undo</button>
+        <button type="button" class="button" id="eepbRedo" title="Ctrl+Shift+Z">↪ Redo</button>
       </h1>
       <?php if (!empty($_GET['saved'])) : ?><div class="notice notice-success is-dismissible"><p>Saved! The live page is updated (purge your site cache if you use one).</p></div><?php endif; ?>
 
@@ -438,79 +648,151 @@ function ee_pb_render_editor($pid) {
         <p style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
           <label style="font-weight:600"><input type="checkbox" name="pb_on" value="1" <?php checked($on); ?>> Render this page with the builder</label>
           <button class="button button-primary button-large">💾 Save page</button>
+          <button type="button" class="button" id="eepbExport">⬆ Copy layout</button>
+          <button type="button" class="button" id="eepbImport">⬇ Paste layout</button>
         </p>
 
         <div class="eepb-admin">
-          <div class="eepb-palette">
-            <h3>Elements</h3>
-            <div id="eepbPal"></div>
-            <p class="hint">Click an element to add it. Drag rows in the middle column to reorder.</p>
+          <div class="eepb-left">
+            <div class="eepb-box">
+              <h3>Elements</h3>
+              <div id="eepbPal"></div>
+            </div>
+            <div class="eepb-box">
+              <h3>Templates</h3>
+              <div id="eepbTpl"></div>
+              <p class="hint">One click inserts a full page skeleton — then click any text on the canvas and type.</p>
+            </div>
           </div>
-          <div class="eepb-canvas">
-            <h3>Page layout</h3>
-            <ul id="eepbCanvas"></ul>
-            <p class="hint" id="eepbEmpty">No elements yet — add some from the left.</p>
+
+          <div class="eepb-mid">
+            <div class="eepb-canvas-frame" id="eepbFrameWrap">
+              <iframe id="eepbFrame" title="Live preview"></iframe>
+            </div>
           </div>
-          <div class="eepb-settings">
-            <h3>Settings</h3>
-            <div id="eepbSettings"><p class="hint">Select an element to edit its content.</p></div>
+
+          <div class="eepb-right">
+            <div class="eepb-box">
+              <h3>Layers</h3>
+              <ul id="eepbLayers"></ul>
+              <p class="hint" id="eepbEmpty">No elements yet — add from the left or pick a template.</p>
+            </div>
+            <div class="eepb-box">
+              <h3>Settings</h3>
+              <div id="eepbSettings"><p class="hint">Click an element on the canvas to edit it.</p></div>
+            </div>
           </div>
         </div>
       </form>
 
       <style>
-        .eepb-admin{display:grid;grid-template-columns:230px minmax(320px,1fr) 360px;gap:16px;align-items:start}
-        .eepb-admin h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:#50575e}
-        .eepb-palette,.eepb-canvas,.eepb-settings{background:#fff;border:1px solid #dcdcde;border-radius:10px;padding:14px}
-        .eepb-palette button.pal{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:#f6f7f7;border:1px solid #dcdcde;border-radius:8px;padding:9px 11px;margin-bottom:7px;cursor:pointer;font-weight:600;color:#19335D;font-size:13px}
-        .eepb-palette button.pal:hover{border-color:#DE6E30;background:#fff7f2}
-        #eepbCanvas{margin:0;min-height:60px}
-        #eepbCanvas li{display:flex;align-items:center;gap:10px;background:#f6f7f7;border:1px solid #dcdcde;border-radius:8px;padding:10px 12px;margin-bottom:8px;cursor:grab}
-        #eepbCanvas li.sel{border-color:#DE6E30;background:#fff7f2;box-shadow:0 0 0 1px #DE6E30}
-        #eepbCanvas li.dragging{opacity:.45}
-        #eepbCanvas li .nm{font-weight:700;color:#19335D;font-size:13px;flex:none}
-        #eepbCanvas li .sum{color:#8a8f98;font-size:12px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-        #eepbCanvas li .ops{display:flex;gap:4px;flex:none}
-        #eepbCanvas li .ops button{border:0;background:none;cursor:pointer;font-size:14px;padding:2px 4px;color:#50575e}
-        #eepbCanvas li .ops button:hover{color:#DE6E30}
-        .eepb-settings label{display:block;font-weight:600;font-size:12.5px;color:#19335D;margin:12px 0 4px}
-        .eepb-settings input[type=text],.eepb-settings input[type=url],.eepb-settings input[type=number],.eepb-settings select,.eepb-settings textarea{width:100%}
-        .eepb-settings textarea{min-height:110px;font-family:Menlo,Consolas,monospace;font-size:12px}
+        .eepb-admin{display:grid;grid-template-columns:210px minmax(420px,1fr) 330px;gap:14px;align-items:start}
+        .eepb-box{background:#fff;border:1px solid #dcdcde;border-radius:10px;padding:12px;margin-bottom:14px}
+        .eepb-box h3{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#50575e}
+        #eepbPal button.pal,#eepbTpl button.pal{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:#f6f7f7;border:1px solid #dcdcde;border-radius:8px;padding:8px 10px;margin-bottom:6px;cursor:pointer;font-weight:600;color:#19335D;font-size:12.5px}
+        #eepbPal button.pal:hover,#eepbTpl button.pal:hover{border-color:#DE6E30;background:#fff7f2}
+        .eepb-canvas-frame{background:#e8ebf0;border:1px solid #dcdcde;border-radius:12px;padding:16px;display:flex;justify-content:center;min-height:70vh}
+        #eepbFrame{width:100%;max-width:100%;height:calc(100vh - 220px);min-height:560px;border:0;background:#fff;border-radius:8px;box-shadow:0 10px 30px rgba(15,30,60,.12);transition:width .25s ease}
+        .eepb-dev .dev.on{background:#19335D;color:#fff;border-color:#19335D}
+        #eepbLayers{margin:0;min-height:30px}
+        #eepbLayers li{display:flex;align-items:center;gap:8px;background:#f6f7f7;border:1px solid #dcdcde;border-radius:8px;padding:7px 9px;margin-bottom:6px;cursor:grab;font-size:12.5px}
+        #eepbLayers li.sel{border-color:#DE6E30;background:#fff7f2;box-shadow:0 0 0 1px #DE6E30}
+        #eepbLayers li.dragging{opacity:.45}
+        #eepbLayers li .nm{font-weight:700;color:#19335D;flex:none}
+        #eepbLayers li .sum{color:#8a8f98;font-size:11.5px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        #eepbLayers li .ops{display:flex;gap:2px;flex:none}
+        #eepbLayers li .ops button{border:0;background:none;cursor:pointer;font-size:13px;padding:1px 3px;color:#50575e}
+        #eepbLayers li .ops button:hover{color:#DE6E30}
+        .eepb-right label{display:block;font-weight:600;font-size:12.5px;color:#19335D;margin:11px 0 4px}
+        .eepb-right input[type=text],.eepb-right input[type=url],.eepb-right input[type=number],.eepb-right select,.eepb-right textarea{width:100%}
+        .eepb-right textarea{min-height:100px;font-family:Menlo,Consolas,monospace;font-size:12px}
+        .eepb-right .imgpick{display:flex;gap:6px}
+        .eepb-right .imgpick input{flex:1}
         .hint{color:#8a8f98;font-size:12px}
+        @media(max-width:1280px){.eepb-admin{grid-template-columns:190px 1fr 300px}}
       </style>
 
       <script>
       (function(){
         var SCHEMA = <?php echo wp_json_encode($schema); ?>;
+        var TPL    = <?php echo wp_json_encode($templates); ?>;
         var state  = <?php echo wp_json_encode(array_values($items)); ?>;
-        var sel = -1;
+        var AJAX   = <?php echo wp_json_encode(admin_url('admin-ajax.php')); ?>;
+        var NONCE  = <?php echo wp_json_encode(wp_create_nonce('ee_pb_prev')); ?>;
+        var sel = -1, editing = false, prevT = null;
+        var undoStack = [], redoStack = [];
+
         var pal = document.getElementById('eepbPal'),
-            canvas = document.getElementById('eepbCanvas'),
+            tplBox = document.getElementById('eepbTpl'),
+            layers = document.getElementById('eepbLayers'),
             settings = document.getElementById('eepbSettings'),
             empty = document.getElementById('eepbEmpty'),
-            jsonInp = document.getElementById('eepbJson');
+            jsonInp = document.getElementById('eepbJson'),
+            frame = document.getElementById('eepbFrame');
 
+        function defaults(t){
+          var s = {};
+          Object.keys(SCHEMA[t].fields).forEach(function(k){ s[k] = SCHEMA[t].fields[k].def; });
+          return s;
+        }
+        function snapshot(){
+          undoStack.push(JSON.stringify(state));
+          if (undoStack.length > 60) undoStack.shift();
+          redoStack.length = 0;
+        }
+        function restore(str){
+          editing = false;
+          state = JSON.parse(str);
+          if (sel >= state.length) sel = state.length - 1;
+          sync(); drawLayers(); drawSettings(); preview();
+        }
+        function undo(){ if (!undoStack.length) return; redoStack.push(JSON.stringify(state)); restore(undoStack.pop()); }
+        function redo(){ if (!redoStack.length) return; undoStack.push(JSON.stringify(state)); restore(redoStack.pop()); }
+        document.getElementById('eepbUndo').addEventListener('click', undo);
+        document.getElementById('eepbRedo').addEventListener('click', redo);
+        document.addEventListener('keydown', function(e){
+          if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); }
+        });
+
+        function sync(){ jsonInp.value = JSON.stringify(state); }
+
+        /* ---- palette + templates ---- */
         Object.keys(SCHEMA).forEach(function(t){
           var b = document.createElement('button');
           b.type = 'button'; b.className = 'pal';
           b.innerHTML = '<span>' + SCHEMA[t].icon + '</span> ' + SCHEMA[t].label;
           b.addEventListener('click', function(){
-            var s = {};
-            Object.keys(SCHEMA[t].fields).forEach(function(k){ s[k] = SCHEMA[t].fields[k].def; });
-            state.push({t:t, s:s});
+            editing = false; snapshot();
+            state.push({t: t, s: defaults(t)});
             sel = state.length - 1;
-            draw();
+            sync(); drawLayers(); drawSettings(); preview();
           });
           pal.appendChild(b);
         });
+        Object.keys(TPL).forEach(function(k){
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'pal';
+          b.textContent = TPL[k].label;
+          b.addEventListener('click', function(){
+            editing = false; snapshot();
+            TPL[k].items.forEach(function(it){
+              var s = defaults(it.t);
+              Object.keys(it.s || {}).forEach(function(kk){ s[kk] = it.s[kk]; });
+              state.push({t: it.t, s: s});
+            });
+            sel = state.length - 1;
+            sync(); drawLayers(); drawSettings(); preview();
+          });
+          tplBox.appendChild(b);
+        });
 
+        /* ---- layers column ---- */
         function summary(it){
           var s = it.s || {};
-          return s.heading || s.text || s.content || s.section || s.items || '';
+          return s.heading || s.text || s.content || s.quote || s.section || s.items || '';
         }
-
-        function draw(){
-          canvas.innerHTML = '';
+        function drawLayers(){
+          layers.innerHTML = '';
           empty.style.display = state.length ? 'none' : '';
           state.forEach(function(it, i){
             var li = document.createElement('li');
@@ -525,32 +807,31 @@ function ee_pb_render_editor($pid) {
               + '<button type="button" data-op="dup" title="Duplicate">⧉</button>'
               + '<button type="button" data-op="del" title="Delete">✕</button>'
               + '</span>';
-            li.querySelector('.sum').textContent = String(summary(it)).slice(0, 60);
-            canvas.appendChild(li);
+            li.querySelector('.sum').textContent = String(summary(it)).slice(0, 40);
+            layers.appendChild(li);
           });
-          drawSettings();
-          jsonInp.value = JSON.stringify(state);
         }
-
-        canvas.addEventListener('click', function(e){
+        layers.addEventListener('click', function(e){
+          editing = false;                    /* leaving canvas typing mode */
           var li = e.target.closest('li'); if (!li) return;
           var i = parseInt(li.dataset.i, 10);
-          var op = e.target.closest('button') ? e.target.closest('button').dataset.op : null;
+          var opBtn = e.target.closest('button');
+          var op = opBtn ? opBtn.dataset.op : null;
+          if (op) snapshot();
           if (op === 'del') { state.splice(i, 1); if (sel >= state.length) sel = state.length - 1; }
           else if (op === 'dup') { state.splice(i + 1, 0, JSON.parse(JSON.stringify(state[i]))); sel = i + 1; }
           else if (op === 'up' && i > 0) { var a = state.splice(i, 1)[0]; state.splice(i - 1, 0, a); sel = i - 1; }
-          else if (op === 'down' && i < state.length - 1) { var b = state.splice(i, 1)[0]; state.splice(i + 1, 0, b); sel = i + 1; }
-          else { sel = i; }
-          draw();
+          else if (op === 'down' && i < state.length - 1) { var b2 = state.splice(i, 1)[0]; state.splice(i + 1, 0, b2); sel = i + 1; }
+          else { sel = i; drawLayers(); drawSettings(); mark(); return; }
+          sync(); drawLayers(); drawSettings(); preview();
         });
-
         var dragI = null;
-        canvas.addEventListener('dragstart', function(e){
+        layers.addEventListener('dragstart', function(e){
           var li = e.target.closest('li'); if (!li) return;
-          dragI = parseInt(li.dataset.i, 10); li.classList.add('dragging');
+          dragI = parseInt(li.dataset.i, 10); li.classList.add('dragging'); snapshot();
         });
-        canvas.addEventListener('dragend', function(){ dragI = null; draw(); });
-        canvas.addEventListener('dragover', function(e){
+        layers.addEventListener('dragend', function(){ dragI = null; sync(); drawLayers(); preview(); });
+        layers.addEventListener('dragover', function(e){
           e.preventDefault();
           var li = e.target.closest('li'); if (!li || dragI === null) return;
           var i = parseInt(li.dataset.i, 10);
@@ -558,14 +839,21 @@ function ee_pb_render_editor($pid) {
           var m = state.splice(dragI, 1)[0];
           state.splice(i, 0, m);
           sel = i; dragI = i;
-          draw();
-          var rows = canvas.querySelectorAll('li');
+          drawLayers();
+          var rows = layers.querySelectorAll('li');
           if (rows[i]) rows[i].classList.add('dragging');
         });
 
+        /* Interacting with the panel means canvas typing is over — without
+           this, a missed iframe blur leaves `editing` stuck and the live
+           preview stops refreshing. */
+        settings.addEventListener('focusin', function(){ editing = false; });
+        settings.addEventListener('mousedown', function(){ editing = false; });
+
+        /* ---- settings panel ---- */
         function drawSettings(){
           settings.innerHTML = '';
-          if (sel < 0 || !state[sel]) { settings.innerHTML = '<p class="hint">Select an element to edit its content.</p>'; return; }
+          if (sel < 0 || !state[sel]) { settings.innerHTML = '<p class="hint">Click an element on the canvas to edit it.</p>'; return; }
           var it = state[sel], sch = SCHEMA[it.t];
           if (!sch) return;
           var head = document.createElement('p');
@@ -576,7 +864,7 @@ function ee_pb_render_editor($pid) {
             var lab = document.createElement('label');
             lab.textContent = f.label;
             settings.appendChild(lab);
-            var inp;
+            var inp, wrap = null;
             if (f.input === 'textarea') { inp = document.createElement('textarea'); }
             else if (f.input === 'select') {
               inp = document.createElement('select');
@@ -590,21 +878,143 @@ function ee_pb_render_editor($pid) {
             else { inp = document.createElement('input'); inp.type = (f.input === 'number' ? 'number' : 'text'); }
             if (f.input === 'check') { inp.checked = !!it.s[k]; }
             else { inp.value = (it.s[k] !== undefined ? it.s[k] : f.def); }
+            inp.addEventListener('focus', function(){ snapshot(); });
             inp.addEventListener('input', function(){
+              editing = false;              /* settings edit = not typing on canvas */
               it.s[k] = (f.input === 'check') ? (inp.checked ? '1' : '') : inp.value;
-              jsonInp.value = JSON.stringify(state);
-              var row = canvas.querySelector('li[data-i="' + sel + '"] .sum');
-              if (row) row.textContent = String(summary(it)).slice(0, 60);
+              sync();
+              var row = layers.querySelector('li[data-i="' + sel + '"] .sum');
+              if (row) row.textContent = String(summary(it)).slice(0, 40);
+              preview();
             });
-            settings.appendChild(inp);
+            if (f.input === 'url' && window.wp && wp.media) {
+              wrap = document.createElement('div'); wrap.className = 'imgpick';
+              var pick = document.createElement('button');
+              pick.type = 'button'; pick.className = 'button'; pick.textContent = '📁';
+              pick.title = 'Choose from Media Library';
+              pick.addEventListener('click', function(){
+                var fr2 = wp.media({title: 'Choose image', multiple: false, library: {type: 'image'}});
+                fr2.on('select', function(){
+                  var att = fr2.state().get('selection').first().toJSON();
+                  inp.value = att.url;
+                  inp.dispatchEvent(new Event('input'));
+                });
+                fr2.open();
+              });
+              wrap.appendChild(inp); wrap.appendChild(pick);
+              settings.appendChild(wrap);
+            } else {
+              settings.appendChild(inp);
+            }
           });
         }
 
-        document.getElementById('eepbForm').addEventListener('submit', function(){
-          jsonInp.value = JSON.stringify(state);
+        /* ---- live WYSIWYG preview (rendered by the same PHP as the site) ---- */
+        function preview(){
+          if (editing) return;                       /* don't yank the caret */
+          clearTimeout(prevT);
+          prevT = setTimeout(function(){
+            var fd = new FormData();
+            fd.append('action', 'ee_pb_preview');
+            fd.append('nonce', NONCE);
+            fd.append('pb_json', JSON.stringify(state));
+            fetch(AJAX, {method: 'POST', credentials: 'same-origin', body: fd})
+              .then(function(r){ return r.text(); })
+              .then(function(html){
+                frame.srcdoc = '<!DOCTYPE html><html><head><meta charset="utf-8">'
+                  + '<meta name="viewport" content="width=device-width, initial-scale=1">'
+                  + '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">'
+                  + '<style>body{margin:0}'
+                  + '.pbp-item{position:relative;cursor:pointer}'
+                  + '.pbp-item:hover{outline:2px dashed rgba(222,110,48,.6);outline-offset:-2px}'
+                  + '.pbp-item.on{outline:2px solid #DE6E30;outline-offset:-2px}'
+                  + '[data-edit]{outline:none;border-radius:3px}'
+                  + '[data-edit]:hover{box-shadow:0 0 0 1px rgba(222,110,48,.5)}'
+                  + '[data-edit]:focus{box-shadow:0 0 0 2px #DE6E30;background:rgba(222,110,48,.05)}'
+                  + '</style></head><body>' + html + '</body></html>';
+              });
+          }, 320);
+        }
+
+        function mark(){
+          try {
+            var d = frame.contentDocument; if (!d) return;
+            d.querySelectorAll('.pbp-item').forEach(function(el){
+              el.classList.toggle('on', parseInt(el.dataset.i, 10) === sel);
+            });
+          } catch (e) {}
+        }
+
+        frame.addEventListener('load', function(){
+          try {
+            var d = frame.contentDocument; if (!d) return;
+            /* click an element on the canvas -> select it */
+            d.addEventListener('click', function(e){
+              var item = e.target.closest('.pbp-item');
+              if (e.target.closest('a')) e.preventDefault();
+              if (!item) return;
+              sel = parseInt(item.dataset.i, 10);
+              drawLayers(); drawSettings(); mark();
+            });
+            /* type directly into the page */
+            d.querySelectorAll('[data-edit]').forEach(function(el){
+              el.setAttribute('contenteditable', 'true');
+              el.setAttribute('spellcheck', 'false');
+              el.addEventListener('focus', function(){ editing = true; snapshot(); });
+              el.addEventListener('input', function(){
+                var item = el.closest('.pbp-item'); if (!item) return;
+                var i = parseInt(item.dataset.i, 10), k = el.getAttribute('data-edit');
+                if (state[i]) { state[i].s[k] = el.textContent; sync();
+                  var row = layers.querySelector('li[data-i="' + i + '"] .sum');
+                  if (row) row.textContent = String(summary(state[i])).slice(0, 40);
+                  if (i === sel) {
+                    var inps = settings.querySelectorAll('input,textarea,select');
+                    /* refresh matching settings input without re-rendering */
+                    inps.forEach(function(inp){ /* labels precede inputs in DOM order; cheap sync on blur instead */ });
+                  }
+                }
+              });
+              el.addEventListener('blur', function(){
+                editing = false;
+                drawSettings(); preview();
+              });
+            });
+            mark();
+          } catch (e) {}
         });
 
-        draw();
+        /* ---- device preview ---- */
+        document.querySelectorAll('.eepb-dev .dev').forEach(function(b){
+          b.addEventListener('click', function(){
+            document.querySelectorAll('.eepb-dev .dev').forEach(function(x){ x.classList.remove('on'); });
+            b.classList.add('on');
+            frame.style.width = b.dataset.w;
+          });
+        });
+
+        /* ---- export / import ---- */
+        document.getElementById('eepbExport').addEventListener('click', function(){
+          var txt = JSON.stringify(state);
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(txt).then(function(){ alert('Layout copied! Paste it into another page with "Paste layout".'); });
+          } else { window.prompt('Copy this layout JSON:', txt); }
+        });
+        document.getElementById('eepbImport').addEventListener('click', function(){
+          var txt = window.prompt('Paste a layout JSON here (it will be ADDED after the current elements):');
+          if (!txt) return;
+          try {
+            var arr = JSON.parse(txt);
+            if (!Array.isArray(arr)) throw new Error('not a layout');
+            snapshot();
+            arr.forEach(function(it){ if (it && it.t && SCHEMA[it.t]) state.push({t: it.t, s: it.s || defaults(it.t)}); });
+            sync(); drawLayers(); drawSettings(); preview();
+          } catch (e) { alert('That does not look like a layout JSON.'); }
+        });
+
+        document.getElementById('eepbForm').addEventListener('submit', function(){ sync(); });
+
+        /* boot */
+        sync(); drawLayers(); drawSettings(); preview();
       })();
       </script>
     </div>
