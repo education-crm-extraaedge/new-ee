@@ -153,6 +153,7 @@ function ee_pb_sanitize_items($raw) {
                     $v = mb_substr((string) $v, 0, 500000);
                     $v = preg_replace('#<style id="__eepb_pv_fix">.*?</style>#s', '', $v);
                     $v = preg_replace('#<script id="__eepb_rescue">.*?</script>#s', '', $v);
+                    $v = preg_replace('#<script id="__eepb_secmount">.*?</script>#s', '', $v);
                     $v = str_replace(array(' contenteditable="true"', " contenteditable='true'", ' spellcheck="false"', '__eepb_sel', '__eepb_hov'), '', $v);
                     break;
                 case 'url':      $v = esc_url_raw(trim((string) $v)); break;
@@ -477,9 +478,23 @@ setTimeout(function(){try{var els=document.body.getElementsByTagName("*"),hid=0;
 for(var i=0;i<els.length&&hid<6;i++){var cs=getComputedStyle(els[i]);if(cs.opacity==="0"||cs.visibility==="hidden"){hid++;}}
 if(hid>=3){var st=document.createElement("style");st.textContent="*{opacity:1!important;visibility:visible!important;transform:none!important}";document.head.appendChild(st);}}catch(e){}},1600);
 })();</script>';
+            /* Homepage-section markers (inserted from the inspector) become
+               real same-origin /ee-embed/ iframes on the live page. Render-
+               time only - never stored in the code. */
+            $secmount = '<script id="__eepb_secmount">(function(){
+function fit(f){try{var d=f.contentDocument;if(!d||!d.body)return;var h=Math.ceil(d.body.getBoundingClientRect().height)+4;if(h>120&&Math.abs(h-(parseInt(f.style.height,10)||0))>6)f.style.height=h+"px";}catch(e){}}
+function boot(){[].slice.call(document.querySelectorAll(".__eepb_sec")).forEach(function(m){
+var id=m.getAttribute("data-sec");if(!id)return;
+var f=document.createElement("iframe");
+f.src="/ee-embed/"+id+"/";f.setAttribute("scrolling","no");f.setAttribute("title","Homepage section");
+f.style.cssText="display:block;width:100%;border:0;min-height:320px;overflow:hidden";
+f.addEventListener("load",function(){fit(f);setTimeout(function(){fit(f);},700);setTimeout(function(){fit(f);},1800);try{new ResizeObserver(function(){fit(f);}).observe(f.contentDocument.body);}catch(e){}});
+m.parentNode.replaceChild(f,m);});}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",boot);}else{boot();}
+})();</script>';
             $o = '<iframe class="eepb-htmlfr" title="Embedded page section" loading="lazy" scrolling="no"'
                . ' sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"'
-               . ' srcdoc="' . esc_attr($code . $rescue) . '"'
+               . ' srcdoc="' . esc_attr($code . $rescue . $secmount) . '"'
                . ' style="display:block;width:100%;border:0;min-height:320px;overflow:hidden"></iframe>';
             if (!$fit_done) {
                 $fit_done = true;
@@ -761,6 +776,8 @@ function ee_pb_render_editor($pid) {
         #eepbLayers li{display:flex;align-items:center;gap:8px;background:#f6f7f7;border:1px solid #dcdcde;border-radius:8px;padding:7px 9px;margin-bottom:6px;cursor:grab;font-size:12.5px}
         #eepbLayers li.sel{border-color:#DE6E30;background:#fff7f2;box-shadow:0 0 0 1px #DE6E30}
         #eepbLayers li.dragging{opacity:.45}
+        #eepbLayers li.sub{margin-left:20px;padding:5px 9px;font-size:11.5px;background:#fff;cursor:pointer;border-style:dashed}
+        #eepbLayers li.sub:hover{border-color:#DE6E30;background:#fff7f2}
         #eepbLayers li .nm{font-weight:700;color:#19335D;flex:none}
         #eepbLayers li .sum{color:#8a8f98;font-size:11.5px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         #eepbLayers li .ops{display:flex;gap:2px;flex:none}
@@ -878,12 +895,38 @@ function ee_pb_render_editor($pid) {
               + '</span>';
             li.querySelector('.sum').textContent = String(summary(it)).slice(0, 40);
             layers.appendChild(li);
+            /* pasted-HTML pages list their inner sections as sub-layers —
+               click one to jump to it on the canvas and edit it */
+            if (it.t === 'html' && subSecs[i] && subSecs[i].length) {
+              subSecs[i].forEach(function(ss, j){
+                if (!ss.el || !ss.el.isConnected) return;
+                var sli = document.createElement('li');
+                sli.className = 'sub';
+                sli.dataset.i = i; sli.dataset.j = j;
+                sli.innerHTML = '<span>↳</span><span class="sum"></span>';
+                sli.querySelector('.sum').textContent = ss.label;
+                layers.appendChild(sli);
+              });
+            }
           });
         }
         layers.addEventListener('click', function(e){
           editing = false;                    /* leaving canvas typing mode */
           var li = e.target.closest('li'); if (!li) return;
           var i = parseInt(li.dataset.i, 10);
+          /* sub-layer (a section inside a pasted page): jump + inspect */
+          if (li.dataset.j !== undefined) {
+            var ss = (subSecs[i] || [])[parseInt(li.dataset.j, 10)];
+            if (ss && ss.el && ss.el.isConnected && htmlFrames[i]) {
+              clearInSel();
+              sel = i;
+              inSel = { el: ss.el, nd: ss.el.ownerDocument, nf: htmlFrames[i], i: i };
+              ss.el.classList.add('__eepb_sel');
+              drawLayers(); drawInspector(); mark();
+              scrollCanvasTo(i, ss.el);
+            }
+            return;
+          }
           var opBtn = e.target.closest('button');
           var op = opBtn ? opBtn.dataset.op : null;
           if (op) snapshot();
@@ -891,7 +934,7 @@ function ee_pb_render_editor($pid) {
           else if (op === 'dup') { state.splice(i + 1, 0, JSON.parse(JSON.stringify(state[i]))); sel = i + 1; }
           else if (op === 'up' && i > 0) { var a = state.splice(i, 1)[0]; state.splice(i - 1, 0, a); sel = i - 1; }
           else if (op === 'down' && i < state.length - 1) { var b2 = state.splice(i, 1)[0]; state.splice(i + 1, 0, b2); sel = i + 1; }
-          else { sel = i; drawLayers(); drawSettings(); mark(); return; }
+          else { clearInSel(); sel = i; drawLayers(); drawSettings(); mark(); scrollCanvasTo(i); return; }
           sync(); drawLayers(); drawSettings(); preview();
         });
         var dragI = null;
@@ -925,13 +968,46 @@ function ee_pb_render_editor($pid) {
          * spacing) or duplicate/hide/delete it — all changes serialize
          * straight back into the stored HTML.
          * ================================================================= */
-        var inSel = null;   /* {el, nd, nf, i} — the selected inner element */
+        var inSel = null;        /* {el, nd, nf, i} — the selected inner element */
+        var htmlFrames = {};     /* item index -> nested iframe (pasted pages) */
+        var subSecs = {};        /* item index -> [{el, label}] top-level sections */
+
+        function buildSubs(i, nd){
+          var list = [];
+          try {
+            [].slice.call(nd.body.children).forEach(function(ch){
+              if (!ch.tagName) return;
+              var tg = ch.tagName;
+              if (tg === 'SCRIPT' || tg === 'STYLE' || tg === 'LINK' || tg === 'META') return;
+              if (ch.id && ch.id.indexOf('__eepb') === 0) return;
+              var h = ch.querySelector ? ch.querySelector('h1,h2,h3,h4') : null;
+              var label = (h && h.textContent.trim()) || (ch.classList.contains('__eepb_sec') ? '🏠 ' + (ch.getAttribute('data-sec') || 'section') : '') || ch.id || tg.toLowerCase() + (ch.className && typeof ch.className === 'string' ? '.' + ch.className.split(' ')[0] : '');
+              list.push({ el: ch, label: String(label).slice(0, 34) });
+            });
+          } catch (e) {}
+          subSecs[i] = list;
+        }
+        function scrollCanvasTo(i, subEl){
+          try {
+            var w = frame.contentWindow, doc = frame.contentDocument;
+            var item = doc.querySelector('.pbp-item[data-i="' + i + '"]'); if (!item) return;
+            var y;
+            if (subEl && htmlFrames[i]) {
+              var r = htmlFrames[i].getBoundingClientRect();
+              y = w.scrollY + r.top + subEl.getBoundingClientRect().top - 24;
+            } else {
+              y = w.scrollY + item.getBoundingClientRect().top - 16;
+            }
+            w.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+          } catch (e) {}
+        }
 
         function saveHtml(i, nd){
           try {
             var clone = nd.documentElement.cloneNode(true);
             var fx = clone.querySelector('#__eepb_pv_fix'); if (fx) fx.remove();
             var rs = clone.querySelector('#__eepb_rescue'); if (rs) rs.remove();
+            var sm = clone.querySelector('#__eepb_secmount'); if (sm) sm.remove();
             clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck'); });
             clone.querySelectorAll('.__eepb_sel, .__eepb_hov').forEach(function(el){
               el.classList.remove('__eepb_sel', '__eepb_hov');
@@ -940,8 +1016,8 @@ function ee_pb_render_editor($pid) {
             if (state[i]) {
               state[i].s.code = '<!DOCTYPE html>\n' + clone.outerHTML;
               sync();
-              var row = layers.querySelector('li[data-i="' + i + '"] .sum');
-              if (row) row.textContent = String(summary(state[i])).slice(0, 40);
+              buildSubs(i, nd);
+              drawLayers();
             }
           } catch (e) {}
         }
@@ -1100,6 +1176,30 @@ function ee_pb_render_editor($pid) {
             settings.appendChild(href);
           }
 
+          /* --- insert a homepage section into the pasted page --- */
+          lab('Insert a homepage section after this element');
+          var rowS = document.createElement('div'); rowS.className = 'eepb-insp-row';
+          var ssel = document.createElement('select');
+          var sopts = (SCHEMA.homesec && SCHEMA.homesec.fields.section.options) || {};
+          Object.keys(sopts).forEach(function(sv){
+            var op = document.createElement('option'); op.value = sv; op.textContent = sopts[sv]; ssel.appendChild(op);
+          });
+          var sbtn = document.createElement('button'); sbtn.type = 'button'; sbtn.className = 'button'; sbtn.textContent = '➕';
+          sbtn.title = 'Insert this homepage section after the selected element';
+          sbtn.addEventListener('click', function(){
+            snapshot();
+            var m = nd.createElement('div');
+            m.className = '__eepb_sec';
+            m.setAttribute('data-sec', ssel.value);
+            m.setAttribute('style', 'border:2px dashed #DE6E30;border-radius:12px;padding:26px;text-align:center;font:600 14px Inter,Arial,sans-serif;color:#19335D;background:#fff7f2;margin:14px 0');
+            m.textContent = '🏠 ' + (sopts[ssel.value] || ssel.value) + ' — homepage section (the real section shows on the live page)';
+            el.after(m);
+            save();
+            scrollCanvasTo(i, m);
+          });
+          rowS.appendChild(ssel); rowS.appendChild(sbtn);
+          settings.appendChild(rowS);
+
           /* --- actions --- */
           var act = document.createElement('div'); act.className = 'eepb-act';
           function actBtn(txt, title, fn){
@@ -1236,6 +1336,7 @@ function ee_pb_render_editor($pid) {
         frame.addEventListener('load', function(){
           try {
             var d = frame.contentDocument; if (!d) return;
+            htmlFrames = {}; subSecs = {};   /* fresh render, fresh refs */
             /* click an element on the canvas -> select it */
             d.addEventListener('click', function(e){
               var item = e.target.closest('.pbp-item');
@@ -1277,6 +1378,9 @@ function ee_pb_render_editor($pid) {
               function wire2(){
                 try {
                   var nd = nf.contentDocument; if (!nd || !nd.body || idx < 0) return;
+                  htmlFrames[idx] = nf;
+                  buildSubs(idx, nd);
+                  drawLayers();
                   refit(nf);
                   nd.body.setAttribute('contenteditable', 'true');
                   nd.body.setAttribute('spellcheck', 'false');
