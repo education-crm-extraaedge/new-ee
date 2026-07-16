@@ -6707,3 +6707,215 @@ $ee_home_editor = __DIR__ . '/inc/home-editor.php';
 if (file_exists($ee_home_editor)) {
     require_once $ee_home_editor;
 }
+
+/* =========================================================================
+ * 🏗 HOME BUILDER — Elementor-style section arranger for the homepage.
+ * Non-coders reorder / show / hide the existing front-page sections from
+ * WP Admin → ExtraaEdge Site → 🏗 Home Builder. No code, no markup changes:
+ * the saved layout is applied purely with CSS order + display on .ee-home,
+ * so every section keeps its own design, scripts and scroll behaviour.
+ * ========================================================================= */
+
+/** Every arrangeable homepage section: id => [label, description]. */
+function ee_home_sections_registry() {
+    return array(
+        'xhero'                => array('Hero',                        'Main banner, headline, demo form'),
+        'trusted-institutions' => array('Trusted Institutions',        '500+ institution logos strip'),
+        'why-admissions-leak'  => array('The Admission Funnel Leak',   'Problem story (typewriter + cards)'),
+        'feature-pillars'      => array('Built For Admission Teams',   'Admission Intelligence pipeline (scroll cards)'),
+        'ee-night'             => array('The Admission Operating System', 'While-your-campus-sleeps story'),
+        'ee-platform'          => array('Explore The Platform',        'AI product-led interactive demo'),
+        'ee-products'          => array('The Admissions Platform',     'Products grid'),
+        'ee-vidya-suite'       => array('Agentic AI Suite',            'Vidya AI cards (pinned slide)'),
+        'ee-teams'             => array('One Platform, Every Team',    'Team cards grid'),
+        'ee-solutions'         => array('Solutions',                   'Category-wise bento grid'),
+        'ee-ind'               => array('Industries',                  'Industries we serve cards'),
+        'stories'              => array('Customer Impact Stories',     'Video testimonials'),
+        'ee-cro'               => array('Why Switch / ROI',            'ROI value section'),
+        'integrations'         => array('Integrations',                'One platform, infinite connections'),
+        'security'             => array('Enterprise-Grade Trust',      'Security & compliance items'),
+        'ee-golive'            => array('Go-Live Plan',                'Fast onboarding timeline'),
+        'ee-switch'            => array('Switching Is Easy',           'Migration reassurance'),
+        'ee-resources'         => array('Resources',                   'Blogs / ebooks / news cards'),
+        'ee-events'            => array('Events & Webinars',           'Upcoming events cards'),
+        'faq'                  => array('FAQ',                         'Frequently asked questions'),
+        'whatsapp'             => array('WhatsApp Marketing',          'Retired section (hidden by default)'),
+        'segments'             => array('Segments',                    'Retired section (hidden by default)'),
+        'ecosystem'            => array('Admission Ecosystem',         'Retired section (hidden by default)'),
+    );
+}
+
+/** Default layout = the current hand-tuned order; retired sections start off. */
+function ee_home_layout_default() {
+    $off = array('whatsapp', 'segments', 'ecosystem');
+    $out = array();
+    foreach (ee_home_sections_registry() as $id => $meta) {
+        $out[] = array('id' => $id, 'on' => !in_array($id, $off, true));
+    }
+    return $out;
+}
+
+/** Saved layout (validated against the registry) or null when untouched. */
+function ee_get_home_layout() {
+    $saved = get_option('ee_home_layout', null);
+    if (!is_array($saved) || empty($saved)) return null;
+    $reg = ee_home_sections_registry();
+    $out = array(); $seen = array();
+    foreach ($saved as $row) {
+        $id = isset($row['id']) ? sanitize_key($row['id']) : '';
+        if (!$id || !isset($reg[$id]) || isset($seen[$id])) continue;
+        $seen[$id] = true;
+        $out[] = array('id' => $id, 'on' => !empty($row['on']));
+    }
+    /* sections added to the theme after the layout was saved appear at the end */
+    foreach (ee_home_layout_default() as $row) {
+        if (!isset($seen[$row['id']])) $out[] = $row;
+    }
+    return $out;
+}
+
+/* ---- front-end: apply the saved layout (CSS only, prints in <head>).
+   `body .ee-home>#id` outranks both the inline ee-cro-order block and the
+   ee-seamless display:none rules, so the builder always wins. ---- */
+add_action('wp_head', function () {
+    if (!is_front_page()) return;
+    $layout = ee_get_home_layout();
+    if ($layout === null) return;               /* untouched -> theme defaults */
+    $css = ''; $i = 10;
+    foreach ($layout as $row) {
+        $id = $row['id'];
+        if ($row['on']) { $css .= "body .ee-home>#{$id}{order:{$i};display:block!important}"; $i += 10; }
+        else            { $css .= "body .ee-home>#{$id}{display:none!important}"; }
+    }
+    echo '<style id="ee-home-layout">' . $css . '</style>' . "\n";
+}, 99);
+
+/* ---- admin page ---- */
+add_action('admin_menu', function () {
+    add_submenu_page('ee-site', 'Home Builder', '🏗 Home Builder', 'manage_options', 'ee-home-builder', 'ee_home_builder_render_admin');
+});
+
+function ee_home_builder_render_admin() {
+    if (!current_user_can('manage_options')) return;
+    $layout = ee_get_home_layout();
+    if ($layout === null) $layout = ee_home_layout_default();
+    $reg    = ee_home_sections_registry();
+    $saved  = isset($_GET['saved']);
+    $reset  = isset($_GET['reset']);
+    ?>
+    <div class="wrap" style="max-width:820px">
+      <h1 style="display:flex;align-items:center;gap:10px">🏗 Home Builder
+        <a class="button" style="margin-left:auto" href="<?php echo esc_url(home_url('/')); ?>" target="_blank" rel="noopener">View Homepage ↗</a>
+      </h1>
+      <p style="font-size:14px;color:#50575e;max-width:64ch">Drag sections to change their order on the homepage. Use the toggle to show or hide a section. Nothing here touches code — every section keeps its exact design and animations.</p>
+      <?php if ($saved) : ?><div class="notice notice-success is-dismissible"><p>Layout saved — the homepage now uses your order.</p></div><?php endif; ?>
+      <?php if ($reset) : ?><div class="notice notice-info is-dismissible"><p>Layout reset to the theme default.</p></div><?php endif; ?>
+
+      <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" id="eehbForm">
+        <?php wp_nonce_field('ee_home_layout_save'); ?>
+        <input type="hidden" name="action" value="ee_save_home_layout">
+        <input type="hidden" name="layout_json" id="eehbJson" value="">
+
+        <style>
+          #eehbList{list-style:none;margin:18px 0;padding:0;max-width:760px}
+          #eehbList li{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #dcdcde;border-radius:10px;
+            padding:12px 16px;margin-bottom:8px;cursor:grab;transition:box-shadow .15s,border-color .15s,opacity .2s}
+          #eehbList li:hover{border-color:#DE6E30;box-shadow:0 2px 10px rgba(25,51,93,.08)}
+          #eehbList li.dragging{opacity:.45;cursor:grabbing}
+          #eehbList .eehb-grip{font-size:17px;color:#8c8f94;cursor:grab;user-select:none}
+          #eehbList .eehb-num{flex:0 0 auto;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+            font-weight:700;font-size:12px;color:#DE6E30;background:#fdf0e7}
+          #eehbList .eehb-tx b{display:block;font-size:14px;color:#19335D}
+          #eehbList .eehb-tx span{font-size:12px;color:#7a7f86}
+          #eehbList li.off .eehb-tx b,#eehbList li.off .eehb-tx span{opacity:.45;text-decoration:line-through}
+          #eehbList .eehb-sw{margin-left:auto;position:relative;width:42px;height:24px;flex:0 0 auto}
+          #eehbList .eehb-sw input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer;z-index:2}
+          #eehbList .eehb-sw i{position:absolute;inset:0;border-radius:999px;background:#c3c4c7;transition:background .2s}
+          #eehbList .eehb-sw i::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s}
+          #eehbList .eehb-sw input:checked + i{background:#19335D}
+          #eehbList .eehb-sw input:checked + i::after{left:21px}
+        </style>
+
+        <ul id="eehbList">
+          <?php foreach ($layout as $n => $row) : $id = $row['id']; if (!isset($reg[$id])) continue; ?>
+          <li draggable="true" data-id="<?php echo esc_attr($id); ?>" class="<?php echo $row['on'] ? '' : 'off'; ?>">
+            <span class="eehb-grip" aria-hidden="true">⠿</span>
+            <span class="eehb-num"><?php echo (int) ($n + 1); ?></span>
+            <span class="eehb-tx"><b><?php echo esc_html($reg[$id][0]); ?></b><span><?php echo esc_html($reg[$id][1]); ?></span></span>
+            <label class="eehb-sw" title="Show / hide this section">
+              <input type="checkbox" <?php checked($row['on']); ?>><i></i>
+            </label>
+          </li>
+          <?php endforeach; ?>
+        </ul>
+
+        <p style="display:flex;gap:10px;align-items:center">
+          <button type="submit" class="button button-primary button-hero">Save Layout</button>
+          <button type="submit" class="button" name="reset" value="1" onclick="return confirm('Reset the homepage to the theme default order?');">Reset to Default</button>
+        </p>
+      </form>
+
+      <script>
+      (function(){
+        var list=document.getElementById('eehbList'), form=document.getElementById('eehbForm');
+        var dragEl=null;
+        function renumber(){ [].slice.call(list.querySelectorAll('.eehb-num')).forEach(function(n,i){ n.textContent=i+1; }); }
+        list.addEventListener('dragstart',function(e){ dragEl=e.target.closest('li'); if(dragEl)dragEl.classList.add('dragging'); });
+        list.addEventListener('dragend',function(){ if(dragEl)dragEl.classList.remove('dragging'); dragEl=null; renumber(); });
+        list.addEventListener('dragover',function(e){
+          e.preventDefault();
+          var li=e.target.closest('li'); if(!li||li===dragEl||!dragEl) return;
+          var r=li.getBoundingClientRect();
+          list.insertBefore(dragEl, (e.clientY - r.top) > r.height/2 ? li.nextSibling : li);
+        });
+        list.addEventListener('change',function(e){
+          var li=e.target.closest('li'); if(li) li.classList.toggle('off', !e.target.checked);
+        });
+        form.addEventListener('submit',function(){
+          var out=[].slice.call(list.querySelectorAll('li')).map(function(li){
+            return { id: li.getAttribute('data-id'), on: li.querySelector('input[type=checkbox]').checked };
+          });
+          document.getElementById('eehbJson').value=JSON.stringify(out);
+        });
+      })();
+      </script>
+    </div>
+    <?php
+}
+
+/* ---- save handler ---- */
+add_action('admin_post_ee_save_home_layout', function () {
+    if (!current_user_can('manage_options')) wp_die('Forbidden');
+    check_admin_referer('ee_home_layout_save');
+
+    if (!empty($_POST['reset'])) {
+        delete_option('ee_home_layout');
+        ee_home_layout_flush_caches();
+        wp_safe_redirect(admin_url('admin.php?page=ee-home-builder&reset=1'));
+        exit;
+    }
+
+    $raw  = json_decode(wp_unslash($_POST['layout_json'] ?? ''), true);
+    $reg  = ee_home_sections_registry();
+    $out  = array(); $seen = array();
+    if (is_array($raw)) {
+        foreach ($raw as $row) {
+            $id = isset($row['id']) ? sanitize_key($row['id']) : '';
+            if (!$id || !isset($reg[$id]) || isset($seen[$id])) continue;
+            $seen[$id] = true;
+            $out[] = array('id' => $id, 'on' => !empty($row['on']));
+        }
+    }
+    if ($out) update_option('ee_home_layout', $out);
+    ee_home_layout_flush_caches();
+    wp_safe_redirect(admin_url('admin.php?page=ee-home-builder&saved=1'));
+    exit;
+});
+
+/** The new layout must show up instantly — bust the common page caches. */
+function ee_home_layout_flush_caches() {
+    if (function_exists('rocket_clean_domain'))   { rocket_clean_domain(); }
+    if (function_exists('w3tc_pgcache_flush'))    { w3tc_pgcache_flush(); }
+    if (class_exists('LiteSpeed\\Purge'))         { do_action('litespeed_purge_all'); }
+    if (function_exists('wp_cache_clean_cache'))  { @wp_cache_clean_cache($GLOBALS['cache_path'] ?? ''); }
+}
