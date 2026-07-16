@@ -1088,7 +1088,8 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(RM||!track||!pin||!row) return;          /* fallback stays a native swipe rail */
   /* deep zoom-out: a pin lost in a huge viewport just makes white space -
      the native swipe rail serves those viewports instead */
-  function tooTall(){ return window.innerHeight>=1150; }
+  var EMB=document.body&&document.body.className.indexOf('ee-embed-mode')!==-1;
+  function tooTall(){ return EMB||window.innerHeight>=1150; }
   function setMode(){
     var want=!tooTall();
     if(want && !root.classList.contains('flw-on')){ root.classList.add('flw-on'); measure(); }
@@ -2609,7 +2610,8 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
       rail.style.transform='';
       window.removeEventListener('scroll', onScroll);
     }
-    function evaluate(){ (!reduce && window.innerHeight<1150) ? enable() : disable(); }
+    var vEMB=document.body&&document.body.className.indexOf('ee-embed-mode')!==-1;
+    function evaluate(){ (!reduce && !vEMB && window.innerHeight<1150) ? enable() : disable(); }
 
     evaluate();
     window.addEventListener('resize', function(){ evaluate(); recalc(); }, {passive:true});
@@ -3805,7 +3807,7 @@ body{background:
   var mq=window.matchMedia('(max-width:960px)');
   function update(){
     ticking=false;
-    if(window.innerHeight>=1200) return;  /* deep zoom-out keeps auto-play */
+    if(window.innerHeight>=1200||document.body.className.indexOf('ee-embed-mode')!==-1) return;  /* deep zoom-out + embeds keep auto-play */
     var pinEl=track.querySelector('.een-pin');
     var total=track.offsetHeight - (pinEl?pinEl.offsetHeight:(window.innerHeight||document.documentElement.clientHeight));
     if(total<=0) return;
@@ -3833,7 +3835,7 @@ body{background:
   function fit(){
     try{
       /* desktop uses the pinned 100% layout - never force an inline height there */
-      if(window.innerHeight<1200){ if(f.style.height) f.style.height=''; return; }
+      if(window.innerHeight<1200&&document.body.className.indexOf('ee-embed-mode')===-1){ if(f.style.height) f.style.height=''; return; }
       var d=f.contentDocument||(f.contentWindow&&f.contentWindow.document);
       if(!d||!d.body) return;
       /* measure the body box, NOT scrollHeight: scrollHeight is floored at the

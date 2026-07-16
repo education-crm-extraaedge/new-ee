@@ -6919,3 +6919,136 @@ function ee_home_layout_flush_caches() {
     if (class_exists('LiteSpeed\\Purge'))         { do_action('litespeed_purge_all'); }
     if (function_exists('wp_cache_clean_cache'))  { @wp_cache_clean_cache($GLOBALS['cache_path'] ?? ''); }
 }
+
+/* =========================================================================
+ * 🧩 SECTION ANYWHERE — drop any homepage section on any page with a
+ * shortcode: [ee_section id="feature-pillars"]. Works in the classic
+ * editor, Gutenberg (Shortcode block) and page builders. The section
+ * renders through a same-origin embed of the homepage with everything
+ * except that one section hidden, so its design, styles and scripts stay
+ * pixel-identical without duplicating any code. Scroll-driven sections
+ * automatically use their simple fallback inside embeds.
+ * ========================================================================= */
+
+/** [ee_section id="..."] -> auto-sized same-origin iframe of that section. */
+add_shortcode('ee_section', function ($atts) {
+    $atts = shortcode_atts(array('id' => ''), $atts, 'ee_section');
+    $id   = sanitize_key($atts['id']);
+    $reg  = ee_home_sections_registry();
+    if (!$id || !isset($reg[$id])) {
+        return current_user_can('manage_options')
+            ? '<p style="color:#ba1a1a;font-family:Inter,sans-serif">[ee_section] unknown id "' . esc_html($id) . '" — see ExtraaEdge Site → 🧩 Section Anywhere for valid ids.</p>'
+            : '';
+    }
+    $src = add_query_arg('ee_section_embed', $id, home_url('/'));
+    ee_section_embed_print_fit_script();
+    return '<iframe class="ee-sec-embed" title="' . esc_attr($reg[$id][0]) . '" loading="lazy" scrolling="no"'
+         . ' style="display:block;width:100%;border:0;min-height:320px;overflow:hidden"'
+         . ' src="' . esc_url($src) . '"></iframe>';
+});
+
+/** One fit script per page: sizes every .ee-sec-embed to its content. */
+function ee_section_embed_print_fit_script() {
+    static $done = false;
+    if ($done) return;
+    $done = true;
+    add_action('wp_footer', function () { ?>
+<script>
+(function(){
+  function wire(f){
+    function fit(){ try{ var d=f.contentDocument; if(!d||!d.body) return;
+      var h=Math.ceil(d.body.getBoundingClientRect().height)+4;
+      if(h>120 && Math.abs(h-(parseInt(f.style.height,10)||0))>4) f.style.height=h+'px';
+    }catch(e){} }
+    f.addEventListener('load',function(){ fit(); setTimeout(fit,600); setTimeout(fit,1800);
+      try{ new ResizeObserver(function(){ fit(); }).observe(f.contentDocument.body); }catch(e){}
+    });
+    if(f.contentDocument&&f.contentDocument.readyState==='complete'){ f.dispatchEvent(new Event('load')); }
+  }
+  [].slice.call(document.querySelectorAll('.ee-sec-embed')).forEach(wire);
+})();
+</script>
+    <?php }, 99);
+}
+
+/* ---- the embed endpoint: /?ee_section_embed=ID renders the homepage with
+   only that section visible and all site chrome hidden ---- */
+add_action('template_redirect', function () {
+    $id = isset($_GET['ee_section_embed']) ? sanitize_key($_GET['ee_section_embed']) : '';
+    if (!$id) return;
+    $reg = ee_home_sections_registry();
+    if (!isset($reg[$id])) { status_header(404); exit; }
+
+    add_filter('body_class', function ($c) { $c[] = 'ee-embed-mode'; return $c; });
+    add_filter('wp_robots', function ($r) { $r['noindex'] = true; $r['nofollow'] = true; return $r; });
+    add_action('wp_head', function () use ($id) { ?>
+<style id="ee-section-embed">
+/* isolate one section: hide chrome + every other section */
+body.ee-embed-mode #site-header,body.ee-embed-mode footer,body.ee-embed-mode #extraaedge-footer-engine,
+body.ee-embed-mode #prog,body.ee-embed-mode #ee-toc,body.ee-embed-mode #ee-sticky,
+body.ee-embed-mode .eebk-overlay{display:none!important}
+body.ee-embed-mode .ee-home>section{display:none!important}
+body.ee-embed-mode .ee-home>#<?php echo esc_html($id); ?>{display:block!important;order:1!important;padding-top:0!important}
+body.ee-embed-mode{background:#fff!important}
+/* scroll-driven sections flatten to their simple modes inside embeds */
+body.ee-embed-mode #ee-night .een-track{height:auto!important}
+body.ee-embed-mode #ee-night .een-pin{position:static!important;height:auto!important;overflow:visible!important}
+body.ee-embed-mode #ee-night iframe{height:auto;min-height:640px}
+body.ee-embed-mode #feature-pillars .flw-track{height:auto!important}
+body.ee-embed-mode #feature-pillars .flw-pin{position:static!important;height:auto!important}
+body.ee-embed-mode #ee-vidya-suite .vsx-track{height:auto!important}
+body.ee-embed-mode #ee-vidya-suite .vsx-sticky{position:static!important;height:auto!important}
+body.ee-embed-mode #ee-vidya-suite .vsx-rail{scrollbar-width:thin}
+body.ee-embed-mode #ee-vidya-suite .vsx-rail::-webkit-scrollbar{display:block;height:6px}
+body.ee-embed-mode #ee-vidya-suite .vsx-rail::-webkit-scrollbar-thumb{background:rgba(222,110,48,.55);border-radius:3px}
+</style>
+    <?php }, 100);
+
+    /* render the homepage template regardless of the requested URL */
+    add_filter('template_include', function () {
+        $t = locate_template('front-page.php');
+        return $t ?: get_index_template();
+    }, 999);
+});
+
+/* ---- admin reference: every section with its copy-paste shortcode ---- */
+add_action('admin_menu', function () {
+    add_submenu_page('ee-site', 'Section Anywhere', '🧩 Section Anywhere', 'manage_options', 'ee-section-anywhere', 'ee_section_anywhere_render_admin');
+});
+
+function ee_section_anywhere_render_admin() {
+    if (!current_user_can('manage_options')) return;
+    $reg = ee_home_sections_registry();
+    ?>
+    <div class="wrap" style="max-width:860px">
+      <h1>🧩 Section Anywhere</h1>
+      <p style="font-size:14px;color:#50575e;max-width:70ch">Copy a shortcode and paste it into any page or post (Shortcode block in the editor). The section renders there exactly as on the homepage — same design, same animations. Long scroll-driven sections show their simple version inside other pages.</p>
+      <style>
+        .eesa-table{border-collapse:collapse;width:100%;max-width:820px;background:#fff;border:1px solid #dcdcde;border-radius:10px;overflow:hidden}
+        .eesa-table td{padding:11px 14px;border-top:1px solid #eee;vertical-align:middle}
+        .eesa-table tr:first-child td{border-top:0}
+        .eesa-name b{display:block;font-size:13.5px;color:#19335D}
+        .eesa-name span{font-size:12px;color:#7a7f86}
+        .eesa-code{font:600 12.5px/1 Menlo,Consolas,monospace;background:#f6f7f7;border:1px solid #dcdcde;border-radius:7px;padding:8px 10px;white-space:nowrap}
+        .eesa-copy{cursor:pointer}
+      </style>
+      <table class="eesa-table"><tbody>
+        <?php foreach ($reg as $id => $meta) : $sc = '[ee_section id="' . $id . '"]'; ?>
+        <tr>
+          <td class="eesa-name"><b><?php echo esc_html($meta[0]); ?></b><span><?php echo esc_html($meta[1]); ?></span></td>
+          <td style="width:1%"><code class="eesa-code"><?php echo esc_html($sc); ?></code></td>
+          <td style="width:1%"><button type="button" class="button eesa-copy" data-sc="<?php echo esc_attr($sc); ?>">Copy</button></td>
+        </tr>
+        <?php endforeach; ?>
+      </tbody></table>
+      <script>
+      document.addEventListener('click',function(e){
+        var b=e.target.closest('.eesa-copy'); if(!b) return;
+        navigator.clipboard.writeText(b.getAttribute('data-sc')).then(function(){
+          b.textContent='Copied ✓'; setTimeout(function(){ b.textContent='Copy'; },1400);
+        });
+      });
+      </script>
+    </div>
+    <?php
+}
