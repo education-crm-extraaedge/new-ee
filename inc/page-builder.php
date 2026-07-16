@@ -154,6 +154,8 @@ function ee_pb_sanitize_items($raw) {
                     $v = preg_replace('#<style id="__eepb_pv_fix">.*?</style>#s', '', $v);
                     $v = preg_replace('#<script id="__eepb_rescue">.*?</script>#s', '', $v);
                     $v = preg_replace('#<script id="__eepb_secmount">.*?</script>#s', '', $v);
+                    $v = preg_replace('#<div class="__eepb_addrow">.*?</div>#s', '', $v);
+                    $v = preg_replace('#<div class="__eepb_menu">.*?</div>#s', '', $v);
                     $v = str_replace(array(' contenteditable="true"', " contenteditable='true'", ' spellcheck="false"', '__eepb_sel', '__eepb_hov'), '', $v);
                     break;
                 case 'url':      $v = esc_url_raw(trim((string) $v)); break;
@@ -461,7 +463,13 @@ function ee_pb_render_el($t, $s, $pv = false) {
                    The injected style is stripped again on serialize. */
                 $code_pv = $code . '<style id="__eepb_pv_fix">*{opacity:1!important;visibility:visible!important;transform:none!important;animation:none!important;transition:none!important}
 .__eepb_hov{outline:2px dashed rgba(222,110,48,.6)!important;outline-offset:-2px!important;cursor:pointer!important}
-.__eepb_sel{outline:2px solid #DE6E30!important;outline-offset:-2px!important}</style>';
+.__eepb_sel{outline:2px solid #DE6E30!important;outline-offset:-2px!important}
+.__eepb_addrow{display:flex!important;justify-content:center!important;padding:5px 0!important;background:transparent!important;outline:none!important}
+.__eepb_addbtn{width:34px!important;height:34px!important;border-radius:50%!important;background:#DE6E30!important;color:#fff!important;font:800 20px/1 Arial,sans-serif!important;border:0!important;cursor:pointer!important;box-shadow:0 4px 12px rgba(222,110,48,.5)!important;transition:transform .15s!important}
+.__eepb_addbtn:hover{transform:scale(1.12)!important}
+.__eepb_menu{position:absolute!important;z-index:2147483647!important;background:#fff!important;border:1px solid #dcdcde!important;border-radius:10px!important;box-shadow:0 16px 40px rgba(15,30,60,.3)!important;max-height:320px!important;overflow:auto!important;min-width:260px!important;font-family:Inter,Arial,sans-serif!important;padding:4px!important}
+.__eepb_menu button{display:block!important;width:100%!important;text-align:left!important;padding:9px 13px!important;border:0!important;background:#fff!important;cursor:pointer!important;font:600 13px/1.3 Inter,Arial,sans-serif!important;color:#19335D!important;border-radius:7px!important}
+.__eepb_menu button:hover{background:#fff7f2!important;color:#DE6E30!important}</style>';
                 return '<div class="pbp-chip">📥 Pasted HTML page — click any text inside to edit it · select/delete via Layers</div>'
                      . '<iframe class="eepb-htmlpv" sandbox="allow-same-origin" srcdoc="' . esc_attr($code_pv) . '" style="display:block;width:100%;border:0;min-height:320px;overflow:hidden"></iframe>';
             }
@@ -980,6 +988,7 @@ function ee_pb_render_editor($pid) {
               var tg = ch.tagName;
               if (tg === 'SCRIPT' || tg === 'STYLE' || tg === 'LINK' || tg === 'META') return;
               if (ch.id && ch.id.indexOf('__eepb') === 0) return;
+              if (ch.classList && (ch.classList.contains('__eepb_addrow') || ch.classList.contains('__eepb_menu'))) return;
               var h = ch.querySelector ? ch.querySelector('h1,h2,h3,h4') : null;
               var label = (h && h.textContent.trim()) || (ch.classList.contains('__eepb_sec') ? '🏠 ' + (ch.getAttribute('data-sec') || 'section') : '') || ch.id || tg.toLowerCase() + (ch.className && typeof ch.className === 'string' ? '.' + ch.className.split(' ')[0] : '');
               list.push({ el: ch, label: String(label).slice(0, 34) });
@@ -987,6 +996,69 @@ function ee_pb_render_editor($pid) {
           } catch (e) {}
           subSecs[i] = list;
         }
+        /* "+" buttons between the pasted page's sections: click one to pick
+           a homepage section and drop it right there. Editor-only UI —
+           stripped from every save. */
+        function addInsertUI(i, nd, nf){
+          try {
+            nd.querySelectorAll('.__eepb_addrow, .__eepb_menu').forEach(function(x){ x.remove(); });
+            var kids = [].slice.call(nd.body.children).filter(function(ch){
+              var tg = ch.tagName;
+              if (!tg || tg === 'SCRIPT' || tg === 'STYLE' || tg === 'LINK' || tg === 'META') return false;
+              if (ch.id && ch.id.indexOf('__eepb') === 0) return false;
+              return true;
+            });
+            function openMenu(row){
+              var old = nd.querySelector('.__eepb_menu'); if (old) old.remove();
+              var menu = nd.createElement('div'); menu.className = '__eepb_menu';
+              menu.setAttribute('contenteditable', 'false');
+              var sopts = (SCHEMA.homesec && SCHEMA.homesec.fields.section.options) || {};
+              Object.keys(sopts).forEach(function(sv){
+                var it = nd.createElement('button'); it.type = 'button';
+                it.textContent = '🏠 ' + sopts[sv];
+                it.addEventListener('click', function(ev){
+                  ev.preventDefault(); ev.stopPropagation();
+                  snapshot();
+                  var m = nd.createElement('div');
+                  m.className = '__eepb_sec';
+                  m.setAttribute('data-sec', sv);
+                  m.setAttribute('style', 'border:2px dashed #DE6E30;border-radius:12px;padding:26px;text-align:center;font:600 14px Inter,Arial,sans-serif;color:#19335D;background:#fff7f2;margin:14px 0');
+                  m.textContent = '🏠 ' + (sopts[sv] || sv) + ' — homepage section (the real section shows on the live page)';
+                  row.after(m);
+                  menu.remove();
+                  saveHtml(i, nd);
+                  addInsertUI(i, nd, nf);
+                  refit(nf);
+                });
+                menu.appendChild(it);
+              });
+              var r = row.getBoundingClientRect();
+              menu.style.left = Math.max(8, r.left + r.width / 2 - 130) + 'px';
+              menu.style.top = (r.bottom + 4) + 'px';
+              nd.body.appendChild(menu);
+              setTimeout(function(){
+                nd.addEventListener('click', function closer(e2){
+                  if (!e2.target.closest || !e2.target.closest('.__eepb_menu')) {
+                    menu.remove();
+                    nd.removeEventListener('click', closer, true);
+                  }
+                }, true);
+              }, 0);
+            }
+            function mkRow(refEl, before){
+              var row = nd.createElement('div'); row.className = '__eepb_addrow';
+              row.setAttribute('contenteditable', 'false');
+              var btn = nd.createElement('button'); btn.type = 'button'; btn.className = '__eepb_addbtn';
+              btn.textContent = '+'; btn.title = 'Add one of your sections here';
+              btn.addEventListener('click', function(ev){ ev.preventDefault(); ev.stopPropagation(); openMenu(row); });
+              row.appendChild(btn);
+              if (before) { refEl.parentNode.insertBefore(row, refEl); } else { refEl.after(row); }
+            }
+            if (kids.length) mkRow(kids[0], true);
+            kids.forEach(function(ch){ mkRow(ch, false); });
+          } catch (e) {}
+        }
+
         function scrollCanvasTo(i, subEl){
           try {
             var w = frame.contentWindow, doc = frame.contentDocument;
@@ -1008,6 +1080,7 @@ function ee_pb_render_editor($pid) {
             var fx = clone.querySelector('#__eepb_pv_fix'); if (fx) fx.remove();
             var rs = clone.querySelector('#__eepb_rescue'); if (rs) rs.remove();
             var sm = clone.querySelector('#__eepb_secmount'); if (sm) sm.remove();
+            clone.querySelectorAll('.__eepb_addrow, .__eepb_menu').forEach(function(el){ el.remove(); });
             clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck'); });
             clone.querySelectorAll('.__eepb_sel, .__eepb_hov').forEach(function(el){
               el.classList.remove('__eepb_sel', '__eepb_hov');
@@ -1195,6 +1268,7 @@ function ee_pb_render_editor($pid) {
             m.textContent = '🏠 ' + (sopts[ssel.value] || ssel.value) + ' — homepage section (the real section shows on the live page)';
             el.after(m);
             save();
+            addInsertUI(i, nd, nf);
             scrollCanvasTo(i, m);
           });
           rowS.appendChild(ssel); rowS.appendChild(sbtn);
@@ -1381,6 +1455,7 @@ function ee_pb_render_editor($pid) {
                   htmlFrames[idx] = nf;
                   buildSubs(idx, nd);
                   drawLayers();
+                  addInsertUI(idx, nd, nf);
                   refit(nf);
                   nd.body.setAttribute('contenteditable', 'true');
                   nd.body.setAttribute('spellcheck', 'false');
@@ -1392,6 +1467,7 @@ function ee_pb_render_editor($pid) {
                   nd.addEventListener('mouseover', function(e){
                     var t = e.target;
                     if (!t || !t.classList || t === nd.body || t === nd.documentElement) return;
+                    if (t.closest && (t.closest('.__eepb_addrow') || t.closest('.__eepb_menu'))) return;
                     t.classList.add('__eepb_hov');
                   });
                   nd.addEventListener('mouseout', function(e){
@@ -1399,6 +1475,7 @@ function ee_pb_render_editor($pid) {
                   });
                   nd.addEventListener('click', function(e){
                     var t = e.target;
+                    if (t && t.closest && (t.closest('.__eepb_addrow') || t.closest('.__eepb_menu'))) return;
                     if (t && t.closest && t.closest('a')) e.preventDefault();
                     if (!t || !t.classList || t === nd.documentElement) return;
                     if (t === nd.body) return;
