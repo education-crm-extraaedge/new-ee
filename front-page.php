@@ -1785,7 +1785,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     {v:'workflow',sel:'#wfGrid',t:'Automation working for you',b:'Follow-ups and WhatsApp journeys run automatically in the background.'},
     {v:'mgmt',sel:'.demo-cta',t:'Want this on your funnel?',b:'Lead capture → calling → WhatsApp → conversion - all in one window. Book a demo.'}
   ];
-  var tIdx=-1, tTimer=null, tRun=false, TDUR=6500;
+  var tIdx=-1, tTimer=null, tRun=false, TDUR=6500, tBooked=false;
   TSTEPS.forEach(function(_,i){var a=document.createElement('b');a.addEventListener('click',function(){tGo(i);});tipDots.appendChild(a);var b=document.createElement('b');b.addEventListener('click',function(){tGo(i);});ddots.appendChild(b);});
   function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
   function tPlace(i){
@@ -1815,7 +1815,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
       }, tReduce?60:380);
     },120);
   }
-  function tGo(i){ clearTimeout(tTimer); if(i>=TSTEPS.length){ tStop(); return; } tIdx=i; tPlace(i); if(tRun &amp;&amp; !tReduce){ tTimer=setTimeout(function(){ tGo(tIdx+1); }, TDUR); } }
+  function tGo(i){ clearTimeout(tTimer); if(i>=TSTEPS.length){ tStop(); if(!tBooked){ tBooked=true; setTimeout(openBookModal,400); } return; } tIdx=i; tPlace(i); if(tRun &amp;&amp; !tReduce){ tTimer=setTimeout(function(){ tGo(tIdx+1); }, TDUR); } }
   function tStart(){ tRun=true; document.body.classList.add('tour-on'); playBtn.innerHTML=PAUSE; lbl.textContent='Auto-playing…'; tGo(tIdx<0?0:tIdx); }
   function tStop(){ tRun=false; clearTimeout(tTimer); document.body.classList.remove('tour-on'); playBtn.innerHTML=PLAY; lbl.textContent='Product tour'; }
   window.__laxmiStopTour=tStop;
@@ -1823,7 +1823,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   playBtn.addEventListener('click',function(){ tRun?tStop():tStart(); });
   tDock.querySelector('.restart').addEventListener('click',function(){ tIdx=-1; tStart(); });
   tDock.querySelector('.close').addEventListener('click',tStop);
-  tTip.querySelector('.nx').addEventListener('click',function(){ tGo(tIdx+1); });
+  tTip.querySelector('.nx').addEventListener('click',function(){ if(tIdx===TSTEPS.length-1){ tStop(); tBooked=true; openBookModal(); } else { tGo(tIdx+1); } });
   tTip.querySelector('.sk').addEventListener('click',tStop);
   var tResizeT=null;
   window.addEventListener('resize',function(){ if(tRun){ clearTimeout(tResizeT); tResizeT=setTimeout(function(){ tPlace(tIdx); },150); } });
