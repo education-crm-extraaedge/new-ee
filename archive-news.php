@@ -56,10 +56,15 @@ if ($q->have_posts()) {
 }
 $sections = array_keys($sections);
 sort($sections);
-$featured = $items ? $items[0] : null;
-$trending = array_slice($items, 1, 3);
-$latest   = array_slice($items, 4);
-if (!$latest && $items) $latest = array_slice($items, 1);
+$paged      = max(1, (int) get_query_var('paged'), (int) get_query_var('page'));
+$featured   = ($items && $paged === 1) ? $items[0] : null;
+$trending   = $paged === 1 ? array_slice($items, 1, 3) : array();
+$latest_all = array_slice($items, 4);
+if (!$latest_all && $items) $latest_all = array_slice($items, 1);
+$per_page   = 6;
+$total_pg   = max(1, (int) ceil(count($latest_all) / $per_page));
+$paged      = min($paged, $total_pg);
+$latest     = array_slice($latest_all, ($paged - 1) * $per_page, $per_page);
 
 get_header();
 
@@ -124,6 +129,13 @@ $slug = function ($s) { return sanitize_title($s); };
 .nwx .nwx-read{display:inline-flex;align-items:center;gap:5px;font:600 13px/1 'Inter',sans-serif;color:var(--or)}
 .nwx .nwx-read svg{width:14px;height:14px;stroke:var(--or);transition:transform .25s}
 .nwx .nwx-card:hover .nwx-read svg{transform:translateX(3px)}
+/* pagination */
+.nwx .nwx-pag{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:26px;flex-wrap:wrap}
+.nwx .nwx-pg{display:grid;place-items:center;min-width:40px;height:40px;padding:0 12px;border:1px solid var(--line);border-radius:12px;
+  font:700 14px/1 'Inter',sans-serif;color:var(--nv);background:#fff;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.nwx a.nwx-pg:hover{border-color:var(--or);color:var(--or);transform:translateY(-1px)}
+.nwx .nwx-pg.on{background:var(--nv);border-color:var(--nv);color:#fff}
+.nwx .nwx-pg-arr{color:var(--or)}
 /* newsletter */
 .nwx .nwx-news{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:var(--soft);
   border:1px solid var(--line);border-radius:18px;padding:clamp(22px,3vw,40px)}
@@ -211,8 +223,8 @@ $slug = function ($s) { return sanitize_title($s); };
     <?php endif; ?>
 
     <?php if ($latest) : ?>
-    <section class="nwx-rv" aria-label="Latest articles">
-      <h3 class="nwx-sec">Latest Articles</h3>
+    <section class="nwx-rv" aria-label="Latest news">
+      <h3 class="nwx-sec">Latest News</h3>
       <div class="nwx-grid" id="nwxGrid">
         <?php foreach ($latest as $it) : ?>
         <a class="nwx-card nwx-item" data-cat="<?php echo esc_attr($slug($it['sec'])); ?>" href="<?php echo esc_url($it['url']); ?>">
@@ -237,6 +249,23 @@ $slug = function ($s) { return sanitize_title($s); };
         </a>
         <?php endforeach; ?>
       </div>
+      <?php if ($total_pg > 1) : ?>
+      <nav class="nwx-pag" aria-label="News pages">
+        <?php if ($paged > 1) : ?>
+          <a class="nwx-pg nwx-pg-arr" href="<?php echo esc_url(get_pagenum_link($paged - 1)); ?>" aria-label="Previous page">&larr;</a>
+        <?php endif; ?>
+        <?php for ($p = 1; $p <= $total_pg; $p++) : ?>
+          <?php if ($p === $paged) : ?>
+            <span class="nwx-pg on" aria-current="page"><?php echo (int) $p; ?></span>
+          <?php else : ?>
+            <a class="nwx-pg" href="<?php echo esc_url(get_pagenum_link($p)); ?>"><?php echo (int) $p; ?></a>
+          <?php endif; ?>
+        <?php endfor; ?>
+        <?php if ($paged < $total_pg) : ?>
+          <a class="nwx-pg nwx-pg-arr" href="<?php echo esc_url(get_pagenum_link($paged + 1)); ?>" aria-label="Next page">&rarr;</a>
+        <?php endif; ?>
+      </nav>
+      <?php endif; ?>
     </section>
     <?php endif; ?>
 
