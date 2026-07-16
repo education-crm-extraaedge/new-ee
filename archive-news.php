@@ -56,15 +56,10 @@ if ($q->have_posts()) {
 }
 $sections = array_keys($sections);
 sort($sections);
-$paged      = max(1, (int) get_query_var('paged'), (int) get_query_var('page'));
-$featured   = ($items && $paged === 1) ? $items[0] : null;
-$trending   = $paged === 1 ? array_slice($items, 1, 3) : array();
-$latest_all = array_slice($items, 4);
-if (!$latest_all && $items) $latest_all = array_slice($items, 1);
-$per_page   = 6;
-$total_pg   = max(1, (int) ceil(count($latest_all) / $per_page));
-$paged      = min($paged, $total_pg);
-$latest     = array_slice($latest_all, ($paged - 1) * $per_page, $per_page);
+$featured = $items ? $items[0] : null;
+$trending = array_slice($items, 1, 3);
+$latest   = array_slice($items, 4);
+if (!$latest && $items) $latest = array_slice($items, 1);
 
 get_header();
 
@@ -129,11 +124,12 @@ $slug = function ($s) { return sanitize_title($s); };
 .nwx .nwx-read{display:inline-flex;align-items:center;gap:5px;font:600 13px/1 'Inter',sans-serif;color:var(--or)}
 .nwx .nwx-read svg{width:14px;height:14px;stroke:var(--or);transition:transform .25s}
 .nwx .nwx-card:hover .nwx-read svg{transform:translateX(3px)}
-/* pagination */
+/* pagination (client-side - the URL always stays /news/) */
+.nwx .nwx-hide{display:none!important}
 .nwx .nwx-pag{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:26px;flex-wrap:wrap}
-.nwx .nwx-pg{display:grid;place-items:center;min-width:40px;height:40px;padding:0 12px;border:1px solid var(--line);border-radius:12px;
+.nwx .nwx-pg{display:grid;place-items:center;min-width:40px;height:40px;padding:0 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;
   font:700 14px/1 'Inter',sans-serif;color:var(--nv);background:#fff;transition:background .2s,color .2s,border-color .2s,transform .2s}
-.nwx a.nwx-pg:hover{border-color:var(--or);color:var(--or);transform:translateY(-1px)}
+.nwx button.nwx-pg:hover{border-color:var(--or);color:var(--or);transform:translateY(-1px)}
 .nwx .nwx-pg.on{background:var(--nv);border-color:var(--nv);color:#fff}
 .nwx .nwx-pg-arr{color:var(--or)}
 /* newsletter */
@@ -249,23 +245,7 @@ $slug = function ($s) { return sanitize_title($s); };
         </a>
         <?php endforeach; ?>
       </div>
-      <?php if ($total_pg > 1) : ?>
-      <nav class="nwx-pag" aria-label="News pages">
-        <?php if ($paged > 1) : ?>
-          <a class="nwx-pg nwx-pg-arr" href="<?php echo esc_url(get_pagenum_link($paged - 1)); ?>" aria-label="Previous page">&larr;</a>
-        <?php endif; ?>
-        <?php for ($p = 1; $p <= $total_pg; $p++) : ?>
-          <?php if ($p === $paged) : ?>
-            <span class="nwx-pg on" aria-current="page"><?php echo (int) $p; ?></span>
-          <?php else : ?>
-            <a class="nwx-pg" href="<?php echo esc_url(get_pagenum_link($p)); ?>"><?php echo (int) $p; ?></a>
-          <?php endif; ?>
-        <?php endfor; ?>
-        <?php if ($paged < $total_pg) : ?>
-          <a class="nwx-pg nwx-pg-arr" href="<?php echo esc_url(get_pagenum_link($paged + 1)); ?>" aria-label="Next page">&rarr;</a>
-        <?php endif; ?>
-      </nav>
-      <?php endif; ?>
+      <nav class="nwx-pag" id="nwxPag" aria-label="News pages"></nav>
     </section>
     <?php endif; ?>
 
@@ -287,6 +267,39 @@ $slug = function ($s) { return sanitize_title($s); };
 <script>
 (function(){
   var root=document.querySelector('.nwx'); if(!root) return;
+  /* Latest News pager - 6 cards per page, URL stays /news/ */
+  (function(){
+    var grid=document.getElementById('nwxGrid'), pag=document.getElementById('nwxPag');
+    if(!grid||!pag) return;
+    var cards=[].slice.call(grid.querySelectorAll('.nwx-card'));
+    var PER=6, pages=Math.ceil(cards.length/PER), cur=1;
+    if(pages<=1){ pag.style.display='none'; return; }
+    function show(p){
+      cur=Math.min(Math.max(1,p),pages);
+      cards.forEach(function(c,i){ c.classList.toggle('nwx-hide', Math.floor(i/PER)+1!==cur); });
+      render();
+      grid.parentElement.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    function btn(label,go,extra,disabled){
+      var b=document.createElement('button'); b.type='button';
+      b.className='nwx-pg'+(extra||''); b.innerHTML=label;
+      if(disabled){ b.disabled=true; b.style.opacity='.4'; b.style.cursor='default'; }
+      else b.addEventListener('click',function(){ show(go); });
+      return b;
+    }
+    function render(){
+      pag.innerHTML='';
+      pag.appendChild(btn('&larr;',cur-1,' nwx-pg-arr',cur===1));
+      for(var p=1;p<=pages;p++){
+        var b=btn(String(p),p,cur===p?' on':'',false);
+        if(cur===p)b.setAttribute('aria-current','page');
+        pag.appendChild(b);
+      }
+      pag.appendChild(btn('&rarr;',cur+1,' nwx-pg-arr',cur===pages));
+    }
+    cards.forEach(function(c,i){ c.classList.toggle('nwx-hide', i>=PER); });
+    render();
+  })();
   /* newsletter */
   var nf=document.getElementById('nwxNews');
   if(nf)nf.addEventListener('submit',function(e){
