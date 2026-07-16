@@ -3417,10 +3417,10 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   @keyframes mfade{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
   /* a real phone: fit the whole screen, don't cut off the chat */
   .phone{width:min(296px,80vw)}
-  @media(max-height:760px){.phone{transform:scale(.86);transform-origin:top center}}
-  @media(max-height:660px){.phone{transform:scale(.76);transform-origin:top center}}
-  @media(max-height:600px){.phone{transform:scale(.68);transform-origin:top center}}
-  @media(max-height:540px){.phone{transform:scale(.6);transform-origin:top center}}
+  @media(max-height:760px){.phone{transform:scale(.76);transform-origin:top center}}
+  @media(max-height:660px){.phone{transform:scale(.68);transform-origin:top center}}
+  @media(max-height:600px){.phone{transform:scale(.6);transform-origin:top center}}
+  @media(max-height:540px){.phone{transform:scale(.54);transform-origin:top center}}
   .phone .screen{height:auto!important;min-height:420px}
   .wbody{overflow:visible!important}
   .evcap{margin-top:16px;max-width:88vw}
