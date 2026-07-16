@@ -602,12 +602,33 @@ add_action('init', 'extraaedge_register_cpts');
    Permalinks → Save to make /solutions/<slug>/ URLs resolve. Bump
    EE_CPT_REWRITE_VER below any time a CPT slug changes and the flush
    will fire once after the deploy reaches the site. */
-define('EE_CPT_REWRITE_VER', '2026-06-02-1');
+define('EE_CPT_REWRITE_VER', '2026-07-16-1');
 add_action('init', function () {
     if (get_option('ee_cpt_rewrite_ver') === EE_CPT_REWRITE_VER) return;
     flush_rewrite_rules(false);
     update_option('ee_cpt_rewrite_ver', EE_CPT_REWRITE_VER);
 }, 99);
+
+/* /news/ must always render the news listing template. If a static Page with
+   the slug 'news' exists (it wins the URL over the CPT archive on some
+   permalink setups), route it to archive-news.php too — the template runs
+   its own WP_Query over the news CPT, so it renders identically. */
+add_filter('template_include', function ($tpl) {
+    if (is_page('news')) {
+        $t = locate_template('archive-news.php');
+        if ($t) return $t;
+    }
+    return $tpl;
+});
+
+/* Publishing or updating a News post must show up on /news/ immediately —
+   bust the common page caches the moment a news item is saved. */
+add_action('save_post_news', function () {
+    if (function_exists('rocket_clean_domain'))   { rocket_clean_domain(); }
+    if (function_exists('w3tc_pgcache_flush'))    { w3tc_pgcache_flush(); }
+    if (class_exists('LiteSpeed\\Purge'))         { do_action('litespeed_purge_all'); }
+    if (function_exists('wp_cache_clean_cache'))  { @wp_cache_clean_cache($GLOBALS['cache_path'] ?? ''); }
+});
 
 /* Hide the WordPress admin toolbar on the public front-end for logged-in
    users so the bar (or its raw HTML when admin-bar.css fails) does not
