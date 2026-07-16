@@ -73,18 +73,8 @@ $slug = function ($s) { return sanitize_title($s); };
 .nwx *{box-sizing:border-box;margin:0;padding:0}
 .nwx a{text-decoration:none;color:inherit}
 .nwx .nwx-wrap{max-width:1280px;margin:0 auto;padding:clamp(28px,4vw,56px) 24px clamp(40px,5vw,72px);display:flex;flex-direction:column;gap:clamp(28px,4vw,52px)}
-/* header + chips */
+/* header */
 .nwx h1{font-weight:800;font-size:clamp(30px,4.4vw,48px);line-height:1.14;letter-spacing:-.02em;color:var(--nv)}
-.nwx .nwx-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}
-.nwx .nwx-chip{cursor:pointer;font:600 13px/1 'Inter',sans-serif;letter-spacing:.02em;color:var(--mut);
-  background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 18px;transition:background .2s,color .2s,border-color .2s}
-.nwx .nwx-chip:hover{background:var(--soft)}
-.nwx .nwx-chip.on{background:var(--nv);border-color:var(--nv);color:#fff}
-.nwx .nwx-search{position:relative;margin-left:auto}
-.nwx .nwx-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--mut)}
-.nwx .nwx-search input{width:min(64vw,256px);padding:10px 14px 10px 36px;border:1px solid var(--line);border-radius:10px;
-  font:400 14px/1.4 'Inter',sans-serif;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
-.nwx .nwx-search input:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(222,110,48,.12)}
 /* featured */
 .nwx .nwx-feat{display:grid;grid-template-columns:1.05fr .95fr;background:var(--nv);border-radius:22px;overflow:hidden;min-height:420px;
   box-shadow:0 30px 70px -30px rgba(25,51,93,.55)}
@@ -147,9 +137,6 @@ $slug = function ($s) { return sanitize_title($s); };
   font:700 14px/1 'Inter',sans-serif;transition:background .2s,transform .2s;white-space:nowrap}
 .nwx .nwx-nform button:hover{background:#22467c;transform:translateY(-1px)}
 .nwx .nwx-nok{display:none;font:700 14px/1.5 'Inter',sans-serif;color:#1E9E6A}
-/* filter/search state + empty */
-.nwx .nwx-hide{display:none!important}
-.nwx .nwx-empty{display:none;text-align:center;color:var(--mut);font-size:15px;padding:26px 0}
 /* reveal */
 .nwx .nwx-rv{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
 .nwx .nwx-rv.in{opacity:1;transform:none}
@@ -162,8 +149,6 @@ $slug = function ($s) { return sanitize_title($s); };
   .nwx .nwx-feat-im{order:-1;height:200px;min-height:0}
   .nwx .nwx-feat-im::before{background:linear-gradient(0deg,var(--nv) 0%,transparent 55%)}
   .nwx .nwx-trend,.nwx .nwx-grid{grid-template-columns:1fr}
-  .nwx .nwx-search{margin-left:0;width:100%}
-  .nwx .nwx-search input{width:100%}
   .nwx .nwx-nform{width:100%}
 }
 @media(prefers-reduced-motion:reduce){
@@ -177,16 +162,6 @@ $slug = function ($s) { return sanitize_title($s); };
 
     <header class="nwx-rv in">
       <h1>Latest Updates &amp; Insights</h1>
-      <div class="nwx-bar" role="tablist" aria-label="News categories">
-        <button type="button" class="nwx-chip on" data-cat="*">All News</button>
-        <?php foreach ($sections as $sec) : ?>
-        <button type="button" class="nwx-chip" data-cat="<?php echo esc_attr($slug($sec)); ?>"><?php echo esc_html($sec); ?></button>
-        <?php endforeach; ?>
-        <div class="nwx-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-          <input type="text" id="nwxSearch" placeholder="Search" aria-label="Search news">
-        </div>
-      </div>
     </header>
 
     <?php if (!$items) : ?>
@@ -262,7 +237,6 @@ $slug = function ($s) { return sanitize_title($s); };
         </a>
         <?php endforeach; ?>
       </div>
-      <p class="nwx-empty" id="nwxEmpty">No articles match your filter.</p>
     </section>
     <?php endif; ?>
 
@@ -284,31 +258,6 @@ $slug = function ($s) { return sanitize_title($s); };
 <script>
 (function(){
   var root=document.querySelector('.nwx'); if(!root) return;
-  /* chips + search filter over every card (trending + latest) */
-  var chips=[].slice.call(root.querySelectorAll('.nwx-chip'));
-  var itemsEls=[].slice.call(root.querySelectorAll('.nwx-item'));
-  var search=document.getElementById('nwxSearch');
-  var empty=document.getElementById('nwxEmpty');
-  var cat='*';
-  function apply(){
-    var q=(search&&search.value?search.value:'').trim().toLowerCase();
-    var shown=0;
-    itemsEls.forEach(function(el){
-      var okCat=cat==='*'||el.getAttribute('data-cat')===cat;
-      var okQ=!q||el.textContent.toLowerCase().indexOf(q)!==-1;
-      var ok=okCat&&okQ;
-      el.classList.toggle('nwx-hide',!ok);
-      if(ok)shown++;
-    });
-    if(empty)empty.style.display=shown?'none':'block';
-  }
-  chips.forEach(function(c){
-    c.addEventListener('click',function(){
-      chips.forEach(function(x){x.classList.remove('on');});
-      c.classList.add('on'); cat=c.getAttribute('data-cat'); apply();
-    });
-  });
-  if(search)search.addEventListener('input',apply);
   /* newsletter */
   var nf=document.getElementById('nwxNews');
   if(nf)nf.addEventListener('submit',function(e){
