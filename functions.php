@@ -3287,7 +3287,19 @@ function ee_get_products_quick_links() {
 /* Top-level admin menu — 🧰 Resources Menu */
 function ee_get_resources_menu_items() {
     $items = get_option('ee_resources_menu_items', null);
-    if (is_array($items) && !empty($items)) return $items;
+    if (is_array($items) && !empty($items)) {
+        /* The /news/ listing must always be reachable from the header dropdown
+           and the footer Resources column, even if an admin-saved menu predates it. */
+        $has_news = false;
+        foreach ($items as $it) {
+            if (stripos(($it['title'] ?? '') . ' ' . ($it['url'] ?? ''), 'news') !== false) { $has_news = true; break; }
+        }
+        if (!$has_news) {
+            $news = array('title' => 'News & Media', 'url' => home_url('/news/'), 'desc' => 'Get up to speed with the latest news about ExtraaEdge.', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/bullhorn.svg', 'color_a' => '#DC2626', 'color_b' => '#FB7185');
+            array_splice($items, max(0, count($items) - 1), 0, array($news));
+        }
+        return $items;
+    }
     return array(
         array('title' => 'Blogs',        'url' => home_url('/blog/'),                          'desc' => 'Discover the latest admissions nuggets to improve your admissions process efficiency.',  'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/newspaper.svg',        'color_a' => '#DE6E30', 'color_b' => '#F7B267'),
         array('title' => 'Ebooks',       'url' => home_url('/ebooks/'),                        'desc' => 'Get the industry-relevant guides that will help you scale your admissions.',              'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/book-open.svg',        'color_a' => '#19335D', 'color_b' => '#3E6BB0'),
