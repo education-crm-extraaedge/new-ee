@@ -76,14 +76,15 @@ get_header();
 .ee-sol .card::before{content:"";position:absolute;inset:auto -40% -60% auto;width:240px;height:240px;border-radius:999px;background:radial-gradient(circle,var(--orange-glow),transparent 65%);opacity:0;transition:opacity .4s var(--ease);z-index:-1}
 .ee-sol .card:hover{transform:translateY(-4px);border-color:#D6DEEB;box-shadow:var(--shadow-md)}
 .ee-sol .card:hover::before{opacity:1}
-.ee-sol .card:hover .card-ico{transform:scale(1.06) rotate(-3deg)}
 .ee-sol .card:hover .card-cta{color:var(--orange)}
 .ee-sol .card:hover .card-cta svg{transform:translateX(3px)}
 .ee-sol .card.hidden{display:none}
 .ee-sol .card.featured{border-color:var(--orange-soft);background:linear-gradient(180deg,#FFFAF6 0%,#fff 60%)}
 .ee-sol .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.ee-sol .card-ico{width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,var(--blue-soft),#f4f7fc);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--blue);transition:transform .35s var(--ease);flex-shrink:0}
-.ee-sol .card.accent .card-ico{background:linear-gradient(135deg,#fef0e3,#fff5ec);color:var(--orange);border-color:#FBD9BD}
+/* Card icons sit flat on the card — no floating tile behind the image. */
+.ee-sol .card-ico{width:48px;height:48px;background:transparent;border:0;display:flex;align-items:center;justify-content:center;color:var(--blue);flex-shrink:0}
+.ee-sol .card-ico svg{width:28px;height:28px}
+.ee-sol .card.accent .card-ico{color:var(--orange)}
 .ee-sol .badge{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
 .ee-sol .badge.popular{background:var(--orange-soft);color:var(--orange)}
 .ee-sol .badge.new{background:var(--green-soft);color:var(--green)}

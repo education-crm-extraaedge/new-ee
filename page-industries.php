@@ -395,31 +395,20 @@ get_header();
     opacity: 1;
 }
 
+/* Icons sit directly on the card — no floating tile (no box, border,
+   shadow or hover lift around the image). */
 .ee-crm-module .ee-icon-wrap {
     width: 72px;
     height: 72px;
-    border-radius: var(--radius-md);
-    background: #ffffff;
-    border: 1.5px solid var(--c-border);
+    background: transparent;
+    border: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 22px;
-    overflow: hidden;
-    isolation: isolate;
-    transition:
-        background var(--t-med),
-        border-color var(--t-med),
-        box-shadow var(--t-med);
     position: relative;
     z-index: 2;
     flex-shrink: 0;
-}
-
-.ee-crm-module .ee-card:hover .ee-icon-wrap {
-    background: #fff7f0;
-    border-color: rgba(222, 110, 48, 0.50);
-    box-shadow: 0 12px 28px rgba(222, 110, 48, 0.18);
 }
 
 .ee-crm-module .ee-icon-wrap img {
@@ -429,10 +418,6 @@ get_header();
     max-height: 95%;
     object-fit: contain;
     display: block;
-    transition: transform var(--t-med);
-}
-.ee-crm-module .ee-card:hover .ee-icon-wrap img {
-    transform: scale(1.08);
 }
 
 .ee-crm-module .ee-card-number {

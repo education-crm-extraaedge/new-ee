@@ -121,10 +121,9 @@ get_header();
 .ecrm-sidebar-link:hover{background:#fff;border-color:var(--clr-orange-light);color:var(--clr-orange);transform:translateX(2px)}
 .ecrm-sidebar-link.is-active{background:#fff;border-color:var(--clr-orange);color:var(--clr-orange);box-shadow:0 4px 14px rgba(222,110,48,.14)}
 .ecrm-sidebar-link.is-active::before{content:"";position:absolute;left:-21px;top:50%;transform:translateY(-50%);width:3px;height:22px;background:var(--clr-orange);border-radius:0 3px 3px 0}
-.ecrm-sidebar-ico{width:34px;height:34px;flex-shrink:0;background:var(--clr-orange-ultra);border-radius:9px;display:flex;align-items:center;justify-content:center;padding:7px;transition:all .22s ease}
-.ecrm-sidebar-link.is-active .ecrm-sidebar-ico,.ecrm-sidebar-link:hover .ecrm-sidebar-ico{background:var(--clr-orange);box-shadow:0 4px 10px rgba(222,110,48,.30)}
-.ecrm-sidebar-ico img{width:100%;height:100%;object-fit:contain;transition:filter .22s ease}
-.ecrm-sidebar-link.is-active .ecrm-sidebar-ico img,.ecrm-sidebar-link:hover .ecrm-sidebar-ico img{filter:brightness(0) invert(1)}
+/* Sidebar icons sit flat on the page — no chip behind the image. */
+.ecrm-sidebar-ico{width:34px;height:34px;flex-shrink:0;background:transparent;display:flex;align-items:center;justify-content:center;padding:4px}
+.ecrm-sidebar-ico img{width:100%;height:100%;object-fit:contain}
 .ecrm-sidebar-label{flex:1;min-width:0}
 .ecrm-sidebar-count{margin-left:auto;font-size:.72rem;font-weight:700;color:#B6C0CE;background:#F3F5F8;padding:2px 8px;border-radius:99px}
 .ecrm-sidebar-link.is-active .ecrm-sidebar-count,.ecrm-sidebar-link:hover .ecrm-sidebar-count{color:var(--clr-orange);background:var(--clr-orange-ultra)}
@@ -163,10 +162,11 @@ get_header();
 .ecrm-card:hover::before,.ecrm-card:focus-visible::before{transform:scaleX(1)}
 .ecrm-card:focus-visible{outline:2px solid var(--clr-orange);outline-offset:3px}
 .ecrm-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
-.ecrm-card-icon{width:58px;height:58px;border-radius:15px;background:linear-gradient(135deg,var(--clr-orange-ultra),#fff);border:1px solid var(--clr-orange-light);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;isolation:isolate;transition:transform .3s,box-shadow .3s}
-.ecrm-card:hover .ecrm-card-icon,.ecrm-card:focus-visible .ecrm-card-icon{transform:scale(1.06) rotate(-3deg);box-shadow:0 10px 22px rgba(222,110,48,.18)}
+/* Product icons sit flat on the card — no floating tile, border, shadow
+   or hover lift around the image. */
+.ecrm-card-icon{width:58px;height:58px;background:transparent;border:0;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ecrm-card-logo{width:90%;height:90%;max-width:90%;max-height:90%;object-fit:contain}
-.ecrm-card-logo-fallback{width:100%;height:100%;background:linear-gradient(135deg,var(--clr-orange),var(--clr-navy));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.3rem}
+.ecrm-card-logo-fallback{width:100%;height:100%;border-radius:15px;background:linear-gradient(135deg,var(--clr-orange),var(--clr-navy));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.3rem}
 .ecrm-card-num{font-size:.8rem;font-weight:800;color:#DDE3EC;letter-spacing:.06em;transition:color .3s}
 .ecrm-card:hover .ecrm-card-num,.ecrm-card:focus-visible .ecrm-card-num{color:var(--clr-orange-light)}
 .ecrm-card-badge{font-size:.6rem;font-weight:700;padding:.22rem .5rem;border-radius:5px;text-transform:uppercase;letter-spacing:.05em;color:#fff;line-height:1.2;white-space:nowrap}
