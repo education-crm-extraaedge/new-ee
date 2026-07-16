@@ -6940,15 +6940,20 @@ add_shortcode('ee_section', function ($atts) {
             ? '<p style="color:#ba1a1a;font-family:Inter,sans-serif">[ee_section] unknown id "' . esc_html($id) . '" — see ExtraaEdge Site → 🧩 Section Anywhere for valid ids.</p>'
             : '';
     }
-    $src = add_query_arg('ee_section_embed', $id, home_url('/'));
-    /* per-instance text overrides: this page's copy of the section shows this
-       text; the homepage and every other page keep their own */
-    foreach (array('heading' => 'ee_txt_h', 'sub' => 'ee_txt_s', 'eyebrow' => 'ee_txt_e') as $att => $qv) {
+    /* path-based endpoint: page caches treat every section as its own URL
+       (query-string embeds get served the cached homepage by some cache plugins) */
+    $src = home_url('/ee-embed/' . $id . '/');
+    /* per-instance text overrides ride as data-attributes; the parent page
+       applies them into the (same-origin) embed after it loads - fully
+       cache-proof, and only this page's copy of the section changes */
+    $data = '';
+    foreach (array('heading' => 'h', 'sub' => 's', 'eyebrow' => 'e') as $att => $k) {
         $v = trim((string) $atts[$att]);
-        if ($v !== '') $src = add_query_arg($qv, rawurlencode(mb_substr($v, 0, 400)), $src);
+        if ($v !== '') $data .= ' data-txt-' . $k . '="' . esc_attr(mb_substr($v, 0, 400)) . '"';
     }
     ee_section_embed_print_fit_script();
     return '<iframe class="ee-sec-embed" title="' . esc_attr($reg[$id][0]) . '" loading="lazy" scrolling="no"'
+         . ' data-sec="' . esc_attr($id) . '"' . $data
          . ' style="display:block;width:100%;border:0;min-height:320px;overflow:hidden"'
          . ' src="' . esc_url($src) . '"></iframe>';
 });
@@ -6962,11 +6967,21 @@ function ee_section_embed_print_fit_script() {
 <script>
 (function(){
   function wire(f){
+    function txt(){ try{ var d=f.contentDocument; if(!d) return;
+      var S=d.getElementById(f.getAttribute('data-sec')||''); if(!S) return;
+      var H=f.getAttribute('data-txt-h'), SU=f.getAttribute('data-txt-s'), E=f.getAttribute('data-txt-e');
+      var h=S.querySelector('h1,h2');
+      if(H && h) h.textContent=H;
+      if(SU){ var p=null;
+        if(h){ p=(h.nextElementSibling&&h.nextElementSibling.tagName==='P')?h.nextElementSibling:(h.parentElement?h.parentElement.querySelector('p'):null); }
+        if(!p) p=S.querySelector('p'); if(p) p.textContent=SU; }
+      if(E){ var e=S.querySelector('[class*="eyebrow"],[class*="kick"],[class*="klabel"]'); if(e) e.textContent=E; }
+    }catch(e){} }
     function fit(){ try{ var d=f.contentDocument; if(!d||!d.body) return;
       var h=Math.ceil(d.body.getBoundingClientRect().height)+4;
       if(h>120 && Math.abs(h-(parseInt(f.style.height,10)||0))>4) f.style.height=h+'px';
     }catch(e){} }
-    f.addEventListener('load',function(){ fit(); setTimeout(fit,600); setTimeout(fit,1800);
+    f.addEventListener('load',function(){ txt(); fit(); setTimeout(function(){txt();fit();},600); setTimeout(function(){txt();fit();},1800);
       try{ new ResizeObserver(function(){ fit(); }).observe(f.contentDocument.body); }catch(e){}
     });
     if(f.contentDocument&&f.contentDocument.readyState==='complete'){ f.dispatchEvent(new Event('load')); }
@@ -6981,65 +6996,62 @@ function ee_section_embed_print_fit_script() {
    only that section visible and all site chrome hidden ---- */
 add_action('template_redirect', function () {
     $id = isset($_GET['ee_section_embed']) ? sanitize_key($_GET['ee_section_embed']) : '';
+    if (!$id) {
+        $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
+        if (preg_match('#(?:^|/)ee-embed/([a-z0-9_-]+)$#', $path, $m)) $id = sanitize_key($m[1]);
+    }
     if (!$id) return;
     $reg = ee_home_sections_registry();
     if (!isset($reg[$id])) { status_header(404); exit; }
 
+    /* the path isn't a registered rewrite - stop WP treating it as a 404 */
+    global $wp_query;
+    if ($wp_query) { $wp_query->is_404 = false; }
+    status_header(200);
+
     add_filter('body_class', function ($c) { $c[] = 'ee-embed-mode'; return $c; });
     add_filter('wp_robots', function ($r) { $r['noindex'] = true; $r['nofollow'] = true; return $r; });
+    /* The theme's header.php never prints a <body> tag (the browser opens one
+       implicitly), so the body_class filter above never reaches the page.
+       Stamp the class on <html> from the head - it exists before any content -
+       and mirror it onto <body> for scripts that look there. */
+    add_action('wp_head', function () { ?>
+<script>document.documentElement.className+=' ee-embed-mode';
+document.addEventListener('DOMContentLoaded',function(){document.body.className+=' ee-embed-mode';});</script>
+    <?php }, 1);
     add_action('wp_head', function () use ($id) { ?>
 <style id="ee-section-embed">
-/* isolate one section: hide chrome + every other section.
-   The :not(#id) keeps this rule's specificity above the Home Builder's
-   per-section `body .ee-home>#id{display:block!important}` rows - without
-   it a saved builder layout re-shows every section inside embeds. */
+/* isolate one section: hide chrome + every other section. Selectors carry
+   .ee-embed-mode twice (html + descendant) so they win regardless of whether
+   the class landed on <html> or <body>, and the :not(#id) keeps specificity
+   above the Home Builder's per-section `body .ee-home>#id{display:block
+   !important}` rows - without it a saved builder layout re-shows every
+   section inside embeds. */
+html.ee-embed-mode #site-header,html.ee-embed-mode footer,html.ee-embed-mode #extraaedge-footer-engine,
+html.ee-embed-mode #prog,html.ee-embed-mode #ee-toc,html.ee-embed-mode #ee-sticky,
+html.ee-embed-mode #wpadminbar,html.ee-embed-mode .eebk-overlay,
 body.ee-embed-mode #site-header,body.ee-embed-mode footer,body.ee-embed-mode #extraaedge-footer-engine,
 body.ee-embed-mode #prog,body.ee-embed-mode #ee-toc,body.ee-embed-mode #ee-sticky,
 body.ee-embed-mode #wpadminbar,body.ee-embed-mode .eebk-overlay{display:none!important}
 html{margin-top:0!important}
+html.ee-embed-mode .ee-home>section:not(#<?php echo esc_html($id); ?>),
 body.ee-embed-mode .ee-home>section:not(#<?php echo esc_html($id); ?>){display:none!important}
+html.ee-embed-mode .ee-home>#<?php echo esc_html($id); ?>,
 body.ee-embed-mode .ee-home>#<?php echo esc_html($id); ?>{display:block!important;order:1!important;padding-top:0!important;padding-bottom:0!important}
-body.ee-embed-mode{background:#fff!important}
+html.ee-embed-mode,html.ee-embed-mode body,body.ee-embed-mode{background:#fff!important}
 /* scroll-driven sections flatten to their simple modes inside embeds */
-body.ee-embed-mode #ee-night .een-track{height:auto!important}
-body.ee-embed-mode #ee-night .een-pin{position:static!important;height:auto!important;overflow:visible!important}
-body.ee-embed-mode #ee-night iframe{height:auto;min-height:640px}
-body.ee-embed-mode #feature-pillars .flw-track{height:auto!important}
-body.ee-embed-mode #feature-pillars .flw-pin{position:static!important;height:auto!important}
-body.ee-embed-mode #ee-vidya-suite .vsx-track{height:auto!important}
-body.ee-embed-mode #ee-vidya-suite .vsx-sticky{position:static!important;height:auto!important}
-body.ee-embed-mode #ee-vidya-suite .vsx-rail{scrollbar-width:thin}
-body.ee-embed-mode #ee-vidya-suite .vsx-rail::-webkit-scrollbar{display:block;height:6px}
-body.ee-embed-mode #ee-vidya-suite .vsx-rail::-webkit-scrollbar-thumb{background:rgba(222,110,48,.55);border-radius:3px}
+.ee-embed-mode #ee-night .een-track{height:auto!important}
+.ee-embed-mode #ee-night .een-pin{position:static!important;height:auto!important;overflow:visible!important}
+.ee-embed-mode #ee-night iframe{height:auto;min-height:640px}
+.ee-embed-mode #feature-pillars .flw-track{height:auto!important}
+.ee-embed-mode #feature-pillars .flw-pin{position:static!important;height:auto!important}
+.ee-embed-mode #ee-vidya-suite .vsx-track{height:auto!important}
+.ee-embed-mode #ee-vidya-suite .vsx-sticky{position:static!important;height:auto!important}
+.ee-embed-mode #ee-vidya-suite .vsx-rail{scrollbar-width:thin}
+.ee-embed-mode #ee-vidya-suite .vsx-rail::-webkit-scrollbar{display:block;height:6px}
+.ee-embed-mode #ee-vidya-suite .vsx-rail::-webkit-scrollbar-thumb{background:rgba(222,110,48,.55);border-radius:3px}
 </style>
     <?php }, 9999);
-
-    /* per-instance text overrides (?ee_txt_h/_s/_e) - applied to the section's
-       heading, its intro paragraph and its eyebrow label */
-    $txt = array(
-        'h' => isset($_GET['ee_txt_h']) ? sanitize_text_field(rawurldecode(wp_unslash($_GET['ee_txt_h']))) : '',
-        's' => isset($_GET['ee_txt_s']) ? sanitize_text_field(rawurldecode(wp_unslash($_GET['ee_txt_s']))) : '',
-        'e' => isset($_GET['ee_txt_e']) ? sanitize_text_field(rawurldecode(wp_unslash($_GET['ee_txt_e']))) : '',
-    );
-    if ($txt['h'] !== '' || $txt['s'] !== '' || $txt['e'] !== '') {
-        add_action('wp_footer', function () use ($id, $txt) { ?>
-<script>
-(function(){
-  var S=document.getElementById(<?php echo wp_json_encode($id); ?>); if(!S) return;
-  var T=<?php echo wp_json_encode($txt); ?>;
-  var h=S.querySelector('h1,h2');
-  if(T.h && h) h.textContent=T.h;
-  if(T.s){
-    var p=null;
-    if(h){ p=(h.nextElementSibling&&h.nextElementSibling.tagName==='P')?h.nextElementSibling:(h.parentElement?h.parentElement.querySelector('p'):null); }
-    if(!p) p=S.querySelector('p');
-    if(p) p.textContent=T.s;
-  }
-  if(T.e){ var e=S.querySelector('[class*="eyebrow"],[class*="kick"],[class*="klabel"]'); if(e) e.textContent=T.e; }
-})();
-</script>
-        <?php }, 999);
-    }
 
     /* render the homepage template regardless of the requested URL */
     add_filter('template_include', function () {
