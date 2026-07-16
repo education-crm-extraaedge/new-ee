@@ -147,8 +147,14 @@ function ee_pb_sanitize_items($raw) {
             $v = isset($item['s'][$key]) ? $item['s'][$key] : $field[2];
             switch ($field[1]) {
                 /* raw pasted HTML — admin-only save path (like WP's Custom
-                   HTML widget); rendered inside a sandboxed iframe */
-                case 'code':     $v = mb_substr((string) $v, 0, 500000); break;
+                   HTML widget); rendered inside a sandboxed iframe. Scrub any
+                   editing scaffolding that older builds baked into the code. */
+                case 'code':
+                    $v = mb_substr((string) $v, 0, 500000);
+                    $v = preg_replace('#<style id="__eepb_pv_fix">.*?</style>#s', '', $v);
+                    $v = preg_replace('#<script id="__eepb_rescue">.*?</script>#s', '', $v);
+                    $v = str_replace(array(' contenteditable="true"', " contenteditable='true'", ' spellcheck="false"'), '', $v);
+                    break;
                 case 'url':      $v = esc_url_raw(trim((string) $v)); break;
                 case 'number':   $v = (string) max(0, min(400, (int) $v)); break;
                 case 'check':    $v = $v ? '1' : ''; break;
@@ -447,14 +453,31 @@ function ee_pb_render_el($t, $s, $pv = false) {
             if ($pv) {
                 /* sandbox WITHOUT allow-scripts: the DOM stays exactly the
                    parsed markup, so canvas text edits serialize faithfully
-                   (inert <script> tags are preserved in the markup). */
+                   (inert <script> tags are preserved in the markup).
+                   Scroll-reveal pages start content at opacity:0 and rely on
+                   JS to show it - with scripts off that leaves only the
+                   backgrounds, so force everything visible while editing.
+                   The injected style is stripped again on serialize. */
+                $code_pv = $code . '<style id="__eepb_pv_fix">*{opacity:1!important;visibility:visible!important;transform:none!important;animation:none!important;transition:none!important}</style>';
                 return '<div class="pbp-chip">📥 Pasted HTML page — click any text inside to edit it · select/delete via Layers</div>'
-                     . '<iframe class="eepb-htmlpv" sandbox="allow-same-origin" srcdoc="' . esc_attr($code) . '" style="display:block;width:100%;border:0;min-height:320px;overflow:hidden"></iframe>';
+                     . '<iframe class="eepb-htmlpv" sandbox="allow-same-origin" srcdoc="' . esc_attr($code_pv) . '" style="display:block;width:100%;border:0;min-height:320px;overflow:hidden"></iframe>';
             }
             static $fit_done = false;
+            /* Rescue for scroll-reveal pages: the iframe is content-height so
+               it never scrolls, and reveal libraries that only listen to
+               scroll leave everything at opacity:0. Fire scroll/resize once
+               loaded; if lots of content is still invisible after 1.6s,
+               force-show it. Render-time only - never stored in the code. */
+            $rescue = '<script id="__eepb_rescue">(function(){function kick(){try{window.dispatchEvent(new Event("scroll"));window.dispatchEvent(new Event("resize"));document.dispatchEvent(new Event("scroll"));}catch(e){}}
+if(document.readyState==="complete"){kick();}else{window.addEventListener("load",kick);}
+setTimeout(kick,500);
+setTimeout(function(){try{var els=document.body.getElementsByTagName("*"),hid=0;
+for(var i=0;i<els.length&&hid<6;i++){var cs=getComputedStyle(els[i]);if(cs.opacity==="0"||cs.visibility==="hidden"){hid++;}}
+if(hid>=3){var st=document.createElement("style");st.textContent="*{opacity:1!important;visibility:visible!important;transform:none!important}";document.head.appendChild(st);}}catch(e){}},1600);
+})();</script>';
             $o = '<iframe class="eepb-htmlfr" title="Embedded page section" loading="lazy" scrolling="no"'
                . ' sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"'
-               . ' srcdoc="' . esc_attr($code) . '"'
+               . ' srcdoc="' . esc_attr($code . $rescue) . '"'
                . ' style="display:block;width:100%;border:0;min-height:320px;overflow:hidden"></iframe>';
             if (!$fit_done) {
                 $fit_done = true;
@@ -1038,7 +1061,14 @@ function ee_pb_render_editor($pid) {
                     var item = nf.closest('.pbp-item'); if (!item) return;
                     var i = parseInt(item.dataset.i, 10);
                     if (!state[i]) return;
-                    state[i].s.code = '<!DOCTYPE html>\n' + nd.documentElement.outerHTML;
+                    /* serialize WITHOUT the editing scaffolding: the injected
+                       force-visible style and the contenteditable attributes
+                       must never end up in the saved page */
+                    var clone = nd.documentElement.cloneNode(true);
+                    var fx = clone.querySelector('#__eepb_pv_fix'); if (fx) fx.remove();
+                    var rs = clone.querySelector('#__eepb_rescue'); if (rs) rs.remove();
+                    clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck'); });
+                    state[i].s.code = '<!DOCTYPE html>\n' + clone.outerHTML;
                     sync();
                     var row = layers.querySelector('li[data-i="' + i + '"] .sum');
                     if (row) row.textContent = String(summary(state[i])).slice(0, 40);
