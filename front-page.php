@@ -3308,7 +3308,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 <style>#ee-night{position:relative;width:100%;background:#0f2444}
 /* scroll-driven storytelling: tall track + sticky pinned viewport.
    Pin sits BELOW the sticky site header (≈90px) so the story isn't hidden. */
-#ee-night .een-track{position:relative;height:640vh}
+#ee-night .een-track{position:relative;height:440vh}
 #ee-night .een-pin{position:sticky;top:90px;height:calc(100vh - 90px);overflow:hidden}
 #ee-night iframe{display:block;width:100%;height:100%;border:0;background:#0f2444}
 /* phones: no pinning - keep the normal auto-play + side-arrow story */
@@ -3763,6 +3763,15 @@ body{background:
       userPaused=true; setPaused(true);
       var gi=parseInt(e.data.slice(8),10); if(!isNaN(gi))go(gi);
     }
+    else if(typeof e.data==='string'&amp;&amp;e.data.indexOf('ee-prog-')===0){
+      /* desktop: the tail of the pinned scroll slides the whole story up so the
+         flow timeline + modules band are fully visible before the pin releases */
+      if(window.matchMedia('(max-width:960px)').matches) return;
+      var x=parseFloat(e.data.slice(8)); if(isNaN(x)) return;
+      var m=document.documentElement.scrollHeight-window.innerHeight;
+      var t=x<=0.74?0:(x-0.74)/0.26;
+      document.body.style.transform=m>0?'translateY('+(-Math.round(t*m))+'px)':'';
+    }
   });
 
   render(0);
@@ -3792,8 +3801,14 @@ body{background:
     if(total<=0) return;
     var top=track.getBoundingClientRect().top;
     var p=Math.min(1,Math.max(0, -top/total));
-    var i=Math.min(N-1, Math.floor(p*N + 0.0001));
+    /* first 74% of the track plays the 6 story steps; the last 26% slides the
+       story up inside the frame so the flow timeline + "One brain. Nine
+       modules." band are also fully shown on desktop */
+    var STORY=0.74;
+    var sp=Math.min(1,p/STORY);
+    var i=Math.min(N-1, Math.floor(sp*N + 0.0001));
     if(i!==last){ last=i; try{ frame.contentWindow.postMessage('ee-goto-'+i,'*'); }catch(e){} }
+    try{ frame.contentWindow.postMessage('ee-prog-'+p.toFixed(4),'*'); }catch(e){}
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
   window.addEventListener('scroll',onScroll,{passive:true});
