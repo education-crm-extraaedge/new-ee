@@ -2455,8 +2455,10 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   #ee-vidya-suite.vsx-on .vsx-track{ height:calc(min(100vh,820px)*3.2); }#ee-vidya-suite.vsx-on .vsx-sticky{ position:sticky; top:0; height:min(100vh,820px); min-height:0; margin-top:0; margin-bottom:0; border-radius:0; max-width:none;
     display:flex; flex-direction:column; justify-content:center; }#ee-vidya-suite.vsx-on .vsx-stage{ overflow:hidden; }#ee-vidya-suite.vsx-on .vsx-rail{ overflow:visible; scroll-snap-type:none; padding-bottom:0; flex-wrap:nowrap; will-change:transform; }#ee-vidya-suite.vsx-on .vsx-card{ flex:0 0 clamp(320px,30vw,420px); }
   @media (max-width:900px){
-    #ee-vidya-suite.vsx-on .vsx-sticky{ top:64px; height:auto; min-height:0; justify-content:flex-start; padding:10px 0 16px; }
-    #ee-vidya-suite.vsx-on .vsx-track{ height:calc(min(100vh,740px)*2.6); }
+    #ee-vidya-suite.vsx-on{ background:radial-gradient(120% 60% at 85% 0%, #21457a 0%, var(--vn) 42%, var(--vn2) 100%); }
+    #ee-vidya-suite.vsx-on .vsx-sticky{ top:64px; height:auto; min-height:0; justify-content:flex-start; padding:10px 0 16px;
+      margin:0; border-radius:0!important; border:0; box-shadow:none; background:transparent; }
+    #ee-vidya-suite.vsx-on .vsx-track{ height:calc(min(100vh,740px)*2.2); }
   }
   #ee-vidya-suite.vsx-on .vsx-inner{ max-width:1280px; margin:0 auto; width:100%; padding:0 24px; }
 
@@ -3415,6 +3417,10 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   @keyframes mfade{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
   /* a real phone: fit the whole screen, don't cut off the chat */
   .phone{width:min(296px,80vw)}
+  @media(max-height:760px){.phone{transform:scale(.86);transform-origin:top center}}
+  @media(max-height:660px){.phone{transform:scale(.76);transform-origin:top center}}
+  @media(max-height:600px){.phone{transform:scale(.68);transform-origin:top center}}
+  @media(max-height:540px){.phone{transform:scale(.6);transform-origin:top center}}
   .phone .screen{height:auto!important;min-height:420px}
   .wbody{overflow:visible!important}
   .evcap{margin-top:16px;max-width:88vw}
