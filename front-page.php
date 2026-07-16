@@ -2416,12 +2416,6 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     font-size:clamp(23px,3.3vw,40px); line-height:1.14; letter-spacing:-.02em; margin:0 auto 12px; max-width:none; }#ee-vidya-suite h2 .vsx-h2b{ display:block; }#ee-vidya-suite .vsx-head{ text-align:center; }#ee-vidya-suite .vsx-lead{ font-size:clamp(14px,1.6vw,16.5px); line-height:1.6; color:#c2d0e4; margin:0 auto; max-width:68ch; }/* ---- stage / rail ---- */
   #ee-vidya-suite .vsx-stage{ margin-top:clamp(22px,3vw,38px); position:relative; }
   #ee-vidya-suite .vsx-arw{ display:none; }
-  @media (max-width:900px){
-    #ee-vidya-suite .vsx-arw{ display:flex; align-items:center; justify-content:center; position:absolute; top:46%; transform:translateY(-50%); z-index:6; width:28px; height:28px; border-radius:50%; border:1px solid rgba(255,255,255,.24); background:rgba(15,28,48,.55); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); color:#fff; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,.28); }
-    #ee-vidya-suite .vsx-arw svg{ width:13px; height:13px; }
-    #ee-vidya-suite .vsx-arw.vsx-prev{ left:2px; }
-    #ee-vidya-suite .vsx-arw.vsx-next{ right:2px; }
-  }
   /* per-card CTA - small pill pinned top-right of every agent card */
   #ee-vidya-suite .vsx-card-cta{ position:absolute; top:16px; right:16px; z-index:5; display:inline-flex; align-items:center; gap:5px;
     padding:7px 13px; border-radius:999px; background:linear-gradient(135deg,#E8843F,#DE6E30); color:#fff; text-decoration:none;
@@ -2458,7 +2452,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     padding:15px 24px; border-radius:14px; background:linear-gradient(135deg,var(--or2),var(--or)); color:#fff;
     font-weight:700; font-size:15.5px; text-decoration:none; box-shadow:0 14px 30px -12px rgba(222,110,48,.7), inset 0 1px 0 rgba(255,255,255,.22);
     transition:transform .2s ease, box-shadow .2s ease; }#ee-vidya-suite .vsx-cta-btn:hover{ transform:translateY(-2px); }#ee-vidya-suite .vsx-cta-btn:focus-visible{ outline:2px solid #fff; outline-offset:3px; }#ee-vidya-suite .vsx-cta-btn svg,#ee-vidya-suite .vsx-cta-btn img.eeimg{ width:18px; height:18px; }#ee-vidya-suite .vsx-cta-btn svg *,#ee-vidya-suite .vsx-cta-btn img.eeimg *{ stroke:#fff; }/* ================= PINNED HORIZONTAL MODE (desktop,JS on) ================= */
-  #ee-vidya-suite.vsx-on .vsx-track{ height:calc(min(100vh,820px)*3.2); }#ee-vidya-suite.vsx-on .vsx-sticky{ position:sticky; top:0; height:min(100vh,820px); min-height:680px; margin-top:0; margin-bottom:0; border-radius:0; max-width:none;
+  #ee-vidya-suite.vsx-on .vsx-track{ height:calc(min(100vh,820px)*3.2); }#ee-vidya-suite.vsx-on .vsx-sticky{ position:sticky; top:0; height:min(100vh,820px); min-height:0; margin-top:0; margin-bottom:0; border-radius:0; max-width:none;
     display:flex; flex-direction:column; justify-content:center; }#ee-vidya-suite.vsx-on .vsx-stage{ overflow:hidden; }#ee-vidya-suite.vsx-on .vsx-rail{ overflow:visible; scroll-snap-type:none; padding-bottom:0; flex-wrap:nowrap; will-change:transform; }#ee-vidya-suite.vsx-on .vsx-card{ flex:0 0 clamp(320px,30vw,420px); }#ee-vidya-suite.vsx-on .vsx-inner{ max-width:1280px; margin:0 auto; width:100%; padding:0 24px; }
 
   /* ---- responsive (carousel mode) ---- */
@@ -2608,7 +2602,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
       rail.style.transform='';
       window.removeEventListener('scroll', onScroll);
     }
-    function evaluate(){ (mq.matches && !reduce && window.innerHeight<1150) ? enable() : disable(); }
+    function evaluate(){ (!reduce && window.innerHeight<1150) ? enable() : disable(); }
 
     evaluate();
     window.addEventListener('resize', function(){ evaluate(); recalc(); }, {passive:true});
@@ -3327,11 +3321,17 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 #ee-night .een-pin{position:sticky;top:90px;height:min(calc(100vh - 90px),780px);overflow:hidden}
 #ee-night iframe{display:block;width:100%;height:100%;border:0;background:#0f2444}
 /* phones: no pinning - keep the normal auto-play + side-arrow story */
-@media(max-width:960px),(min-height:1200px){
-  #ee-night .een-track{height:auto}
-  #ee-night .een-pin{position:static;height:auto;overflow:visible}
-  #ee-night iframe{height:auto;min-height:640px}
+/* phones: the same scroll-driven pinning, just under the shorter mobile header */
+@media(max-width:960px){
+  #ee-night .een-pin{top:72px;height:min(calc(100vh - 72px),740px)}
   /* any sizing slack around the story must never show as a dark band between sections */
+  #ee-night,#ee-night iframe{background:#fff}
+}
+/* deep zoom-out: static autoplay block */
+@media(min-height:1200px){
+  #ee-night .een-track{height:auto!important}
+  #ee-night .een-pin{position:static!important;height:auto!important;overflow:visible}
+  #ee-night iframe{height:auto;min-height:640px}
   #ee-night,#ee-night iframe{background:#fff}
 }
 </style>
@@ -3371,7 +3371,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 .flow{position:relative;z-index:1;padding:44px 4vw 40px;border-top:1px solid var(--hair);transition:border-color 1.2s}.flow h2{text-align:center;font-size:clamp(20px,2.6vw,30px);font-weight:800}.flowline{display:flex;align-items:flex-start;justify-content:space-between;max-width:1080px;margin:28px auto 0;position:relative}.flowline::before{content:&quot;&quot;;position:absolute;left:3%;right:3%;top:17px;height:2px;background:var(--hair);transition:background 1.2s}.fnode{position:relative;flex:1;text-align:center;min-width:0}.fnode .fdot{width:36px;height:36px;border-radius:50%;margin:0 auto 8px;background:var(--bg);border:2px solid var(--hair);display:flex;align-items:center;justify-content:center;position:relative;transition:background 1.2s,border-color .3s}.fnode .fdot svg,.fnode .fdot img.eeimg{width:16px;height:16px}.fnode b{font:600 10.5px/1.3 Inter;color:var(--fg);display:block;transition:color 1.2s}.fnode span{font:600 9px/1 ui-monospace,Menlo,monospace;color:var(--faint);display:block;margin-top:3px;transition:color 1.2s}.fnode.hot .fdot{border-color:var(--orange);box-shadow:0 0 0 5px rgba(222,110,48,.14)}/* ============ FOOTER BANDS ============ */
 .band{position:relative;z-index:1;padding:38px 4vw;border-top:1px solid var(--hair);transition:border-color 1.2s}.bandgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:34px;max-width:1080px;margin:0 auto;align-items:center}.modrow{display:flex;flex-wrap:wrap;gap:7px}.modpill{display:flex;align-items:center;gap:6px;border:1px solid var(--hair);border-radius:999px;padding:7px 12px;font:600 10.5px/1 Inter;color:var(--fg);background:var(--panel);transition:color 1.2s,border-color 1.2s,background 1.2s}.modpill svg,.modpill img.eeimg{width:12px;height:12px;flex:none}.bandgrid h2{font-size:clamp(20px,2.4vw,28px);font-weight:800;line-height:1.15}.bandgrid .bp{color:var(--sub);font-size:12.5px;line-height:1.55;margin-top:8px;transition:color 1.2s}.numrow{display:flex;gap:26px;flex-wrap:wrap;margin-top:6px}.num .nv{font:800 clamp(30px,3.6vw,44px)/1 'Inter',sans-serif;color:var(--orange)}.num .nd{margin-top:6px;font-size:10.5px;color:var(--sub);max-width:16ch;line-height:1.5;transition:color 1.2s}.ctaband{display:flex;align-items:center;justify-content:space-between;gap:22px;max-width:1080px;margin:0 auto;flex-wrap:wrap}.ctaband h2{font-size:clamp(22px,2.8vw,34px);font-weight:800;line-height:1.15}.ctaband p{color:var(--sub);font-size:12.5px;margin-top:6px;transition:color 1.2s}.cta{display:inline-block;background:linear-gradient(90deg,var(--orange2),var(--orange));color:#fff;font:700 14.5px/1 'Inter',sans-serif;text-decoration:none;border-radius:12px;padding:16px 28px;box-shadow:0 12px 30px rgba(222,110,48,.4);transition:transform .15s,box-shadow .15s;white-space:nowrap}.cta:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(222,110,48,.5)}.trust{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px}.trust span{font:600 9.5px/1 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:6px;transition:color 1.2s}.trust span::before{content:&quot;&quot;;width:4px;height:4px;border-radius:50%;background:var(--orange2)}
 
-@media (max-width:960px){.player{grid-template-columns:1fr;gap:14px;padding:18px 5vw 16px;align-items:start;min-height:0}.pleft h1{font-size:26px}.steps{flex-direction:row;gap:5px;margin-top:14px}.step{flex:1;padding:0;height:4px;border-radius:3px;background:var(--hair);border:none;overflow:hidden}.step .tno,.step .tt,.step .tm{display:none}.step .pbar{position:static;opacity:1;height:100%;background:transparent}.step.done .pbar i{width:100%!important}.stage{height:640px;max-width:100%}.bandgrid{grid-template-columns:1fr;gap:20px}.flowline{flex-wrap:wrap;gap:14px 0}.flowline::before{display:none}.fnode{flex:0 0 33%}.ctaband{justify-content:center;text-align:center}
+@media (max-width:960px){.player{grid-template-columns:1fr;gap:10px;padding:14px 5vw 12px;align-items:start;min-height:0}.pleft h1{font-size:21px}.pleft .lede{display:none}.steps{flex-direction:row;gap:5px;margin-top:14px}.step{flex:1;padding:0;height:4px;border-radius:3px;background:var(--hair);border:none;overflow:hidden}.step .tno,.step .tt,.step .tm{display:none}.step .pbar{position:static;opacity:1;height:100%;background:transparent}.step.done .pbar i{width:100%!important}.stage{height:640px;max-width:100%}.bandgrid{grid-template-columns:1fr;gap:20px}.flowline{flex-wrap:wrap;gap:14px 0}.flowline::before{display:none}.fnode{flex:0 0 33%}.ctaband{justify-content:center;text-align:center}
 }
 @media (max-width:380px){.phone{width:290px}.phone .screen{height:520px}.appwin{width:100%}.stage{height:580px}
 }
@@ -3397,20 +3397,20 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 .mnow .mt{font:600 11px/1 ui-monospace,Menlo,monospace;color:var(--orange);flex:none}
 @media(max-width:960px){
   .pleft,.pright{min-width:0}
-  .mnow{display:flex}
+  .mnow{display:none!important}
   /* nicer tappable segment track */
   .steps{gap:6px;margin-top:16px}
   .step{height:5px;border-radius:3px}
   .step.on{box-shadow:none}
   /* stage sizes to the active shot - no clipping, minimal dead space */
-  .stage{height:auto!important;min-height:540px!important;max-width:100%!important;display:flex;align-items:center;justify-content:center;padding:4px 0}
+  .stage{height:auto!important;min-height:440px!important;max-width:100%!important;display:flex;align-items:center;justify-content:center;padding:4px 0}
   .shot{position:relative!important;inset:auto!important;opacity:1;transform:none;display:none!important;width:100%;transition:none}
   .shot{min-width:0}
   .shot.on{display:flex!important;animation:mfade .5s cubic-bezier(.23,1,.32,1) both}
   @keyframes mfade{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
   /* a real phone: fit the whole screen, don't cut off the chat */
-  .phone{width:min(330px,86vw)}
-  .phone .screen{height:auto!important;min-height:480px}
+  .phone{width:min(296px,80vw)}
+  .phone .screen{height:auto!important;min-height:420px}
   .wbody{overflow:visible!important}
   .evcap{margin-top:16px;max-width:88vw}
   .appwin{width:100%!important;max-width:100%!important}
@@ -3751,21 +3751,7 @@ body{background:
   /* On phones, move the prev/next buttons onto the stage as left/right
      side arrows (same pattern as the Agentic AI Suite carousel). */
   var mqSide=window.matchMedia('(max-width:960px)');
-  function placeArrows(){
-    if(!prevBtn||!nextBtn) return;
-    if(mqSide.matches){
-      prevBtn.classList.add('pstage-arw','pstage-prev');
-      nextBtn.classList.add('pstage-arw','pstage-next');
-      stage.insertBefore(prevBtn,stage.firstChild); stage.appendChild(nextBtn);
-    } else {
-      prevBtn.classList.remove('pstage-arw','pstage-prev');
-      nextBtn.classList.remove('pstage-arw','pstage-next');
-      var pc=document.querySelector('.pctrl');
-      if(pc){ pc.insertBefore(prevBtn,pc.firstChild); if(playBtn) pc.insertBefore(nextBtn,playBtn.nextSibling); else pc.appendChild(nextBtn); }
-    }
-  }
-  placeArrows();
-  if(mqSide.addEventListener) mqSide.addEventListener('change',placeArrows);
+  /* side arrows removed - scrolling drives the story on every device */
   stage.addEventListener('mouseenter',()=>{if(!reduce)setPaused(true)});
   stage.addEventListener('mouseleave',()=>{if(!reduce&amp;&amp;!userPaused)setPaused(false)});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)setPaused(true)});
@@ -3778,9 +3764,8 @@ body{background:
       var gi=parseInt(e.data.slice(8),10); if(!isNaN(gi))go(gi);
     }
     else if(typeof e.data==='string'&amp;&amp;e.data.indexOf('ee-prog-')===0){
-      /* desktop: the tail of the pinned scroll slides the whole story up so the
+      /* the tail of the pinned scroll slides the whole story up so the
          flow timeline + modules band are fully visible before the pin releases */
-      if(window.matchMedia('(max-width:960px)').matches) return;
       var x=parseFloat(e.data.slice(8)); if(isNaN(x)) return;
       var m=document.documentElement.scrollHeight-window.innerHeight;
       var t=x<=0.74?0:(x-0.74)/0.26;
@@ -3809,7 +3794,7 @@ body{background:
   var mq=window.matchMedia('(max-width:960px)');
   function update(){
     ticking=false;
-    if(mq.matches||window.innerHeight>=1200) return;  /* phones + deep zoom-out keep auto-play */
+    if(window.innerHeight>=1200) return;  /* deep zoom-out keeps auto-play */
     var pinEl=track.querySelector('.een-pin');
     var total=track.offsetHeight - (pinEl?pinEl.offsetHeight:(window.innerHeight||document.documentElement.clientHeight));
     if(total<=0) return;
@@ -3837,7 +3822,7 @@ body{background:
   function fit(){
     try{
       /* desktop uses the pinned 100% layout - never force an inline height there */
-      if(!mqm.matches && window.innerHeight<1200){ if(f.style.height) f.style.height=''; return; }
+      if(window.innerHeight<1200){ if(f.style.height) f.style.height=''; return; }
       var d=f.contentDocument||(f.contentWindow&&f.contentWindow.document);
       if(!d||!d.body) return;
       /* measure the body box, NOT scrollHeight: scrollHeight is floored at the
