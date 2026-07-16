@@ -1132,10 +1132,6 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
                             <div class="m-ico" aria-hidden="true"><i data-lucide="monitor"></i></div>
                             <div class="m-text"><span class="menu-title">Webinars</span><p>Live sessions on trends.</p></div>
                         </a>
-                        <a href="/case-studies/" class="m-icon-card" title="Case Studies">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="award"></i></div>
-                            <div class="m-text"><span class="menu-title">Case Studies</span><p>How institutions grow.</p></div>
-                        </a>
                         <a href="/news/" class="m-icon-card" title="News and Media">
                             <div class="m-ico" aria-hidden="true"><i data-lucide="newspaper"></i></div>
                             <div class="m-text"><span class="menu-title">News &amp; Media</span><p>Latest updates from ExtraaEdge.</p></div>

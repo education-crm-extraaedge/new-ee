@@ -3309,6 +3309,12 @@ function ee_get_products_quick_links() {
 function ee_get_resources_menu_items() {
     $items = get_option('ee_resources_menu_items', null);
     if (is_array($items) && !empty($items)) {
+        /* Case Studies is retired from the Resources menu - drop it from
+           admin-saved menus too (header dropdown + footer both render this list). */
+        $items = array_values(array_filter($items, function ($it) {
+            return stripos(($it['title'] ?? '') . ' ' . ($it['url'] ?? ''), 'case-stud') === false
+                && stripos(($it['title'] ?? ''), 'case stud') === false;
+        }));
         /* The /news/ listing must always be reachable from the header dropdown
            and the footer Resources column, even if an admin-saved menu predates it. */
         $has_news = false;
@@ -3325,7 +3331,6 @@ function ee_get_resources_menu_items() {
         array('title' => 'Blogs',        'url' => home_url('/blog/'),                          'desc' => 'Discover the latest admissions nuggets to improve your admissions process efficiency.',  'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/newspaper.svg',        'color_a' => '#DE6E30', 'color_b' => '#F7B267'),
         array('title' => 'Ebooks',       'url' => home_url('/ebooks/'),                        'desc' => 'Get the industry-relevant guides that will help you scale your admissions.',              'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/book-open.svg',        'color_a' => '#19335D', 'color_b' => '#3E6BB0'),
         array('title' => 'Webinars',     'url' => home_url('/webinars/'),                      'desc' => 'Join our live sessions and learn the latest admissions trends from leading experts.',     'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/video.svg',            'color_a' => '#7C3AED', 'color_b' => '#C084FC'),
-        array('title' => 'Case Studies', 'url' => home_url('/testimonials-and-case-studies/'), 'desc' => 'Find out how our top customers grow using our admissions platform.',                     'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/star.svg',             'color_a' => '#0E9F6E', 'color_b' => '#6EE7B7'),
         array('title' => 'News & Media', 'url' => home_url('/news/'),                          'desc' => 'Get up to speed with the latest news about ExtraaEdge.',                                  'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/bullhorn.svg',         'color_a' => '#DC2626', 'color_b' => '#FB7185'),
         array('title' => 'Help Center',  'url' => home_url('/help/'),                          'desc' => 'Documentation, step-by-step guides, and FAQs to get the most out of the platform.',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/question-circle.svg',  'color_a' => '#0891B2', 'color_b' => '#67E8F9'),
     );
