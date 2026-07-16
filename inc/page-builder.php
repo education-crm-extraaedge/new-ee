@@ -153,7 +153,7 @@ function ee_pb_sanitize_items($raw) {
                     $v = mb_substr((string) $v, 0, 500000);
                     $v = preg_replace('#<style id="__eepb_pv_fix">.*?</style>#s', '', $v);
                     $v = preg_replace('#<script id="__eepb_rescue">.*?</script>#s', '', $v);
-                    $v = str_replace(array(' contenteditable="true"', " contenteditable='true'", ' spellcheck="false"'), '', $v);
+                    $v = str_replace(array(' contenteditable="true"', " contenteditable='true'", ' spellcheck="false"', '__eepb_sel', '__eepb_hov'), '', $v);
                     break;
                 case 'url':      $v = esc_url_raw(trim((string) $v)); break;
                 case 'number':   $v = (string) max(0, min(400, (int) $v)); break;
@@ -458,7 +458,9 @@ function ee_pb_render_el($t, $s, $pv = false) {
                    JS to show it - with scripts off that leaves only the
                    backgrounds, so force everything visible while editing.
                    The injected style is stripped again on serialize. */
-                $code_pv = $code . '<style id="__eepb_pv_fix">*{opacity:1!important;visibility:visible!important;transform:none!important;animation:none!important;transition:none!important}</style>';
+                $code_pv = $code . '<style id="__eepb_pv_fix">*{opacity:1!important;visibility:visible!important;transform:none!important;animation:none!important;transition:none!important}
+.__eepb_hov{outline:2px dashed rgba(222,110,48,.6)!important;outline-offset:-2px!important;cursor:pointer!important}
+.__eepb_sel{outline:2px solid #DE6E30!important;outline-offset:-2px!important}</style>';
                 return '<div class="pbp-chip">📥 Pasted HTML page — click any text inside to edit it · select/delete via Layers</div>'
                      . '<iframe class="eepb-htmlpv" sandbox="allow-same-origin" srcdoc="' . esc_attr($code_pv) . '" style="display:block;width:100%;border:0;min-height:320px;overflow:hidden"></iframe>';
             }
@@ -769,6 +771,11 @@ function ee_pb_render_editor($pid) {
         .eepb-right textarea{min-height:100px;font-family:Menlo,Consolas,monospace;font-size:12px}
         .eepb-right .imgpick{display:flex;gap:6px}
         .eepb-right .imgpick input{flex:1}
+        .eepb-insp-row{display:flex;gap:6px;align-items:center}
+        .eepb-insp-row input[type=color]{width:52px;height:32px;padding:2px;flex:none}
+        .eepb-insp-row input[type=number],.eepb-insp-row input[type=text]{flex:1;min-width:0}
+        .eepb-insp-row select{flex:1;min-width:0}
+        .eepb-act{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
         .hint{color:#8a8f98;font-size:12px}
         @media(max-width:1280px){.eepb-admin{grid-template-columns:190px 1fr 300px}}
       </style>
@@ -912,6 +919,223 @@ function ee_pb_render_editor($pid) {
         settings.addEventListener('focusin', function(){ editing = false; });
         settings.addEventListener('mousedown', function(){ editing = false; });
 
+        /* =================================================================
+         * Inspector for pasted-HTML blocks: click ANY element inside the
+         * pasted page to restyle it (colors, font, size, image, link,
+         * spacing) or duplicate/hide/delete it — all changes serialize
+         * straight back into the stored HTML.
+         * ================================================================= */
+        var inSel = null;   /* {el, nd, nf, i} — the selected inner element */
+
+        function saveHtml(i, nd){
+          try {
+            var clone = nd.documentElement.cloneNode(true);
+            var fx = clone.querySelector('#__eepb_pv_fix'); if (fx) fx.remove();
+            var rs = clone.querySelector('#__eepb_rescue'); if (rs) rs.remove();
+            clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck'); });
+            clone.querySelectorAll('.__eepb_sel, .__eepb_hov').forEach(function(el){
+              el.classList.remove('__eepb_sel', '__eepb_hov');
+              if (!el.getAttribute('class')) el.removeAttribute('class');
+            });
+            if (state[i]) {
+              state[i].s.code = '<!DOCTYPE html>\n' + clone.outerHTML;
+              sync();
+              var row = layers.querySelector('li[data-i="' + i + '"] .sum');
+              if (row) row.textContent = String(summary(state[i])).slice(0, 40);
+            }
+          } catch (e) {}
+        }
+        function refit(nf){
+          try {
+            var nd = nf.contentDocument; if (!nd || !nd.body) return;
+            var h = Math.max(nd.documentElement.getBoundingClientRect().height, nd.body.getBoundingClientRect().height, nd.documentElement.scrollHeight);
+            nf.style.height = Math.max(320, Math.min(Math.ceil(h) + 4, 20000)) + 'px';
+          } catch (e) {}
+        }
+        function rgb2hex(c){
+          var m = /rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(c || '');
+          if (!m) return '#000000';
+          return '#' + [m[1], m[2], m[3]].map(function(n){ return ('0' + parseInt(n, 10).toString(16)).slice(-2); }).join('');
+        }
+        function elPath(el){
+          var parts = [], n = el, hops = 0;
+          while (n && n.tagName && n.tagName !== 'BODY' && hops < 3) { parts.unshift(n.tagName.toLowerCase()); n = n.parentElement; hops++; }
+          return parts.join(' › ') || el.tagName.toLowerCase();
+        }
+        function clearInSel(){
+          if (inSel && inSel.el && inSel.el.classList) inSel.el.classList.remove('__eepb_sel');
+          inSel = null;
+        }
+
+        function drawInspector(){
+          if (!inSel || !inSel.el || !inSel.el.isConnected) { clearInSel(); drawSettings(); return; }
+          var el = inSel.el, nd = inSel.nd, nf = inSel.nf, i = inSel.i;
+          var tag = el.tagName.toLowerCase();
+          var snapped = false;
+          function snapOnce(){ if (!snapped) { snapped = true; snapshot(); } }
+          function save(){ saveHtml(i, nd); refit(nf); }
+          function lab(t){ var l = document.createElement('label'); l.textContent = t; settings.appendChild(l); return l; }
+
+          settings.innerHTML = '';
+          var head = document.createElement('p');
+          head.innerHTML = '<b>🎯 ' + elPath(el) + '</b><br><span class="hint">Type directly on the page to change text. Style it below.</span>';
+          settings.appendChild(head);
+
+          /* --- colors --- */
+          function colorCtl(label, prop){
+            lab(label);
+            var row = document.createElement('div'); row.className = 'eepb-insp-row';
+            var c = document.createElement('input'); c.type = 'color';
+            c.value = rgb2hex(getComputedStyle(el)[prop === 'background' ? 'backgroundColor' : prop]);
+            c.addEventListener('mousedown', snapOnce); c.addEventListener('focus', snapOnce);
+            c.addEventListener('input', function(){ el.style[prop] = c.value; save(); });
+            var x = document.createElement('button'); x.type = 'button'; x.className = 'button'; x.textContent = '✕'; x.title = 'Remove this color (back to original)';
+            x.addEventListener('click', function(){ snapOnce(); el.style[prop] = ''; save(); });
+            row.appendChild(c); row.appendChild(x); settings.appendChild(row);
+          }
+          colorCtl('Text color', 'color');
+          colorCtl('Background color', 'background');
+
+          /* --- font --- */
+          lab('Font');
+          var fsel = document.createElement('select');
+          [['', 'Original (as designed)'], ["'Inter',sans-serif", 'Inter (site font)'], ['Arial,Helvetica,sans-serif', 'Arial'], ['Georgia,serif', 'Georgia'], ["'Times New Roman',serif", 'Times New Roman'], ['Verdana,sans-serif', 'Verdana'], ["'Trebuchet MS',sans-serif", 'Trebuchet MS'], ["'Courier New',monospace", 'Courier New'], ['system-ui,sans-serif', 'System UI']].forEach(function(o){
+            var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; fsel.appendChild(op);
+          });
+          fsel.value = el.style.fontFamily || '';
+          fsel.addEventListener('mousedown', snapOnce);
+          fsel.addEventListener('change', function(){
+            snapOnce();
+            el.style.fontFamily = fsel.value;
+            if (fsel.value.indexOf('Inter') !== -1 && !nd.getElementById('__eepb_inter')) {
+              var lk = nd.createElement('link'); lk.id = '__eepb_inter'; lk.rel = 'stylesheet';
+              lk.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap';
+              (nd.head || nd.body).appendChild(lk);   /* kept in the saved page on purpose */
+            }
+            save();
+          });
+          settings.appendChild(fsel);
+
+          /* --- size / weight / align --- */
+          lab('Font size (px) — leave empty for original');
+          var fs = document.createElement('input'); fs.type = 'number'; fs.min = '8'; fs.max = '120';
+          fs.value = el.style.fontSize ? parseInt(el.style.fontSize, 10) : '';
+          fs.placeholder = parseInt(getComputedStyle(el).fontSize, 10);
+          fs.addEventListener('focus', snapOnce);
+          fs.addEventListener('input', function(){ el.style.fontSize = fs.value ? fs.value + 'px' : ''; save(); });
+          settings.appendChild(fs);
+
+          lab('Weight & alignment');
+          var row2 = document.createElement('div'); row2.className = 'eepb-insp-row';
+          var w = document.createElement('select');
+          [['', 'Weight'], ['400', 'Normal'], ['600', 'Semi-bold'], ['700', 'Bold'], ['800', 'Extra-bold']].forEach(function(o){
+            var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; w.appendChild(op);
+          });
+          w.value = el.style.fontWeight || '';
+          w.addEventListener('mousedown', snapOnce);
+          w.addEventListener('change', function(){ el.style.fontWeight = w.value; save(); });
+          row2.appendChild(w);
+          [['left', '⬅'], ['center', '↔'], ['right', '➡']].forEach(function(a){
+            var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'button'; btn.textContent = a[1]; btn.title = 'Align ' + a[0];
+            btn.addEventListener('click', function(){ snapOnce(); el.style.textAlign = a[0]; save(); });
+            row2.appendChild(btn);
+          });
+          settings.appendChild(row2);
+
+          /* --- spacing --- */
+          lab('Inside spacing / rounded corners (px)');
+          var row3 = document.createElement('div'); row3.className = 'eepb-insp-row';
+          var pad = document.createElement('input'); pad.type = 'number'; pad.min = '0'; pad.max = '200'; pad.placeholder = 'padding';
+          pad.value = el.style.padding ? parseInt(el.style.padding, 10) : '';
+          pad.addEventListener('focus', snapOnce);
+          pad.addEventListener('input', function(){ el.style.padding = pad.value ? pad.value + 'px' : ''; save(); });
+          var rad = document.createElement('input'); rad.type = 'number'; rad.min = '0'; rad.max = '80'; rad.placeholder = 'corners';
+          rad.value = el.style.borderRadius ? parseInt(el.style.borderRadius, 10) : '';
+          rad.addEventListener('focus', snapOnce);
+          rad.addEventListener('input', function(){ el.style.borderRadius = rad.value ? rad.value + 'px' : ''; save(); });
+          row3.appendChild(pad); row3.appendChild(rad); settings.appendChild(row3);
+
+          /* --- image / logo --- */
+          if (tag === 'img') {
+            lab('Image / logo URL');
+            var row4 = document.createElement('div'); row4.className = 'eepb-insp-row';
+            var src = document.createElement('input'); src.type = 'text'; src.value = el.getAttribute('src') || '';
+            src.addEventListener('focus', snapOnce);
+            src.addEventListener('input', function(){ el.setAttribute('src', src.value); save(); });
+            row4.appendChild(src);
+            if (window.wp && wp.media) {
+              var pk = document.createElement('button'); pk.type = 'button'; pk.className = 'button'; pk.textContent = '📁';
+              pk.addEventListener('click', function(){
+                var mfr = wp.media({title: 'Choose image', multiple: false, library: {type: 'image'}});
+                mfr.on('select', function(){
+                  snapOnce();
+                  var att = mfr.state().get('selection').first().toJSON();
+                  src.value = att.url; el.setAttribute('src', att.url); save();
+                });
+                mfr.open();
+              });
+              row4.appendChild(pk);
+            }
+            settings.appendChild(row4);
+            lab('Alt text (SEO)');
+            var alt = document.createElement('input'); alt.type = 'text'; alt.value = el.getAttribute('alt') || '';
+            alt.addEventListener('focus', snapOnce);
+            alt.addEventListener('input', function(){ el.setAttribute('alt', alt.value); save(); });
+            settings.appendChild(alt);
+            lab('Image width (%) — empty for original');
+            var iw = document.createElement('input'); iw.type = 'number'; iw.min = '5'; iw.max = '100';
+            iw.value = el.style.width && el.style.width.indexOf('%') !== -1 ? parseInt(el.style.width, 10) : '';
+            iw.addEventListener('focus', snapOnce);
+            iw.addEventListener('input', function(){ el.style.width = iw.value ? iw.value + '%' : ''; save(); });
+            settings.appendChild(iw);
+          }
+
+          /* --- link --- */
+          var aEl = (tag === 'a') ? el : (el.closest ? el.closest('a') : null);
+          if (aEl) {
+            lab('Link URL (button / link target)');
+            var href = document.createElement('input'); href.type = 'text'; href.value = aEl.getAttribute('href') || '';
+            href.addEventListener('focus', snapOnce);
+            href.addEventListener('input', function(){ aEl.setAttribute('href', href.value); save(); });
+            settings.appendChild(href);
+          }
+
+          /* --- actions --- */
+          var act = document.createElement('div'); act.className = 'eepb-act';
+          function actBtn(txt, title, fn){
+            var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'button'; btn.textContent = txt; btn.title = title;
+            btn.addEventListener('click', fn); act.appendChild(btn);
+          }
+          actBtn('⬆ Select parent', 'Select the section around this element', function(){
+            var p = el.parentElement;
+            if (!p || p === nd.documentElement) return;
+            el.classList.remove('__eepb_sel');
+            inSel.el = p;
+            p.classList.add('__eepb_sel');
+            drawInspector();
+          });
+          actBtn('⧉ Duplicate', 'Duplicate this element/section', function(){
+            snapshot();
+            var c = el.cloneNode(true);
+            c.classList.remove('__eepb_sel', '__eepb_hov');
+            el.after(c); save();
+          });
+          actBtn(el.style.display === 'none' ? '👁 Show' : '🙈 Hide', 'Hide/show (undo with Ctrl+Z)', function(){
+            snapshot();
+            el.style.display = (el.style.display === 'none') ? '' : 'none';
+            save(); drawInspector();
+          });
+          actBtn('🗑 Delete', 'Delete this element/section (undo with Ctrl+Z)', function(){
+            snapshot();
+            el.remove(); save();
+            clearInSel(); drawSettings();
+          });
+          actBtn('{ } Code', 'Show the raw HTML of this whole block', function(){
+            clearInSel(); drawSettings();
+          });
+          settings.appendChild(act);
+        }
+
         /* ---- settings panel ---- */
         function drawSettings(){
           settings.innerHTML = '';
@@ -1017,6 +1241,7 @@ function ee_pb_render_editor($pid) {
               var item = e.target.closest('.pbp-item');
               if (e.target.closest('a')) e.preventDefault();
               if (!item) return;
+              clearInSel();                     /* leaving the HTML inspector */
               sel = parseInt(item.dataset.i, 10);
               drawLayers(); drawSettings(); mark();
             });
@@ -1043,37 +1268,44 @@ function ee_pb_render_editor($pid) {
                 drawSettings(); preview();
               });
             });
-            /* pasted-HTML blocks: fit their height, then let the user type
-               straight into the page — edits serialize back into the stored
-               HTML (scripts are inert in the sandboxed preview, so the DOM
-               is exactly the parsed markup) */
+            /* pasted-HTML blocks: fit height, inline text editing AND the
+               click-anything inspector (colors, fonts, images, links,
+               spacing, duplicate/hide/delete) */
             d.querySelectorAll('iframe.eepb-htmlpv').forEach(function(nf){
+              var item = nf.closest('.pbp-item');
+              var idx = item ? parseInt(item.dataset.i, 10) : -1;
               function wire2(){
                 try {
-                  var nd = nf.contentDocument; if (!nd || !nd.body) return;
-                  var h = Math.max(nd.documentElement.getBoundingClientRect().height, nd.body.getBoundingClientRect().height, nd.documentElement.scrollHeight);
-                  nf.style.height = Math.max(320, Math.min(Math.ceil(h) + 4, 20000)) + 'px';
+                  var nd = nf.contentDocument; if (!nd || !nd.body || idx < 0) return;
+                  refit(nf);
                   nd.body.setAttribute('contenteditable', 'true');
                   nd.body.setAttribute('spellcheck', 'false');
                   var snapped = false;
                   nd.addEventListener('focusin', function(){ editing = true; if (!snapped) { snapped = true; snapshot(); } });
-                  nd.addEventListener('input', function(){
-                    var item = nf.closest('.pbp-item'); if (!item) return;
-                    var i = parseInt(item.dataset.i, 10);
-                    if (!state[i]) return;
-                    /* serialize WITHOUT the editing scaffolding: the injected
-                       force-visible style and the contenteditable attributes
-                       must never end up in the saved page */
-                    var clone = nd.documentElement.cloneNode(true);
-                    var fx = clone.querySelector('#__eepb_pv_fix'); if (fx) fx.remove();
-                    var rs = clone.querySelector('#__eepb_rescue'); if (rs) rs.remove();
-                    clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck'); });
-                    state[i].s.code = '<!DOCTYPE html>\n' + clone.outerHTML;
-                    sync();
-                    var row = layers.querySelector('li[data-i="' + i + '"] .sum');
-                    if (row) row.textContent = String(summary(state[i])).slice(0, 40);
+                  nd.addEventListener('input', function(){ saveHtml(idx, nd); });
+                  nd.addEventListener('focusout', function(){ editing = false; snapped = false; });
+                  /* hover outline + click-to-inspect */
+                  nd.addEventListener('mouseover', function(e){
+                    var t = e.target;
+                    if (!t || !t.classList || t === nd.body || t === nd.documentElement) return;
+                    t.classList.add('__eepb_hov');
                   });
-                  nd.addEventListener('focusout', function(){ editing = false; snapped = false; drawSettings(); });
+                  nd.addEventListener('mouseout', function(e){
+                    if (e.target && e.target.classList) e.target.classList.remove('__eepb_hov');
+                  });
+                  nd.addEventListener('click', function(e){
+                    var t = e.target;
+                    if (t && t.closest && t.closest('a')) e.preventDefault();
+                    if (!t || !t.classList || t === nd.documentElement) return;
+                    if (t === nd.body) return;
+                    clearInSel();
+                    t.classList.remove('__eepb_hov');
+                    inSel = { el: t, nd: nd, nf: nf, i: idx };
+                    t.classList.add('__eepb_sel');
+                    sel = idx;
+                    drawLayers();
+                    drawInspector();
+                  }, true);
                 } catch (e) {}
               }
               if (nf.contentDocument && nf.contentDocument.readyState === 'complete') { wire2(); }
