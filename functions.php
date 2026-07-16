@@ -6932,7 +6932,7 @@ function ee_home_layout_flush_caches() {
 
 /** [ee_section id="..."] -> auto-sized same-origin iframe of that section. */
 add_shortcode('ee_section', function ($atts) {
-    $atts = shortcode_atts(array('id' => ''), $atts, 'ee_section');
+    $atts = shortcode_atts(array('id' => '', 'heading' => '', 'sub' => '', 'eyebrow' => ''), $atts, 'ee_section');
     $id   = sanitize_key($atts['id']);
     $reg  = ee_home_sections_registry();
     if (!$id || !isset($reg[$id])) {
@@ -6941,6 +6941,12 @@ add_shortcode('ee_section', function ($atts) {
             : '';
     }
     $src = add_query_arg('ee_section_embed', $id, home_url('/'));
+    /* per-instance text overrides: this page's copy of the section shows this
+       text; the homepage and every other page keep their own */
+    foreach (array('heading' => 'ee_txt_h', 'sub' => 'ee_txt_s', 'eyebrow' => 'ee_txt_e') as $att => $qv) {
+        $v = trim((string) $atts[$att]);
+        if ($v !== '') $src = add_query_arg($qv, rawurlencode(mb_substr($v, 0, 400)), $src);
+    }
     ee_section_embed_print_fit_script();
     return '<iframe class="ee-sec-embed" title="' . esc_attr($reg[$id][0]) . '" loading="lazy" scrolling="no"'
          . ' style="display:block;width:100%;border:0;min-height:320px;overflow:hidden"'
@@ -7004,6 +7010,33 @@ body.ee-embed-mode #ee-vidya-suite .vsx-rail::-webkit-scrollbar-thumb{background
 </style>
     <?php }, 100);
 
+    /* per-instance text overrides (?ee_txt_h/_s/_e) - applied to the section's
+       heading, its intro paragraph and its eyebrow label */
+    $txt = array(
+        'h' => isset($_GET['ee_txt_h']) ? sanitize_text_field(rawurldecode(wp_unslash($_GET['ee_txt_h']))) : '',
+        's' => isset($_GET['ee_txt_s']) ? sanitize_text_field(rawurldecode(wp_unslash($_GET['ee_txt_s']))) : '',
+        'e' => isset($_GET['ee_txt_e']) ? sanitize_text_field(rawurldecode(wp_unslash($_GET['ee_txt_e']))) : '',
+    );
+    if ($txt['h'] !== '' || $txt['s'] !== '' || $txt['e'] !== '') {
+        add_action('wp_footer', function () use ($id, $txt) { ?>
+<script>
+(function(){
+  var S=document.getElementById(<?php echo wp_json_encode($id); ?>); if(!S) return;
+  var T=<?php echo wp_json_encode($txt); ?>;
+  var h=S.querySelector('h1,h2');
+  if(T.h && h) h.textContent=T.h;
+  if(T.s){
+    var p=null;
+    if(h){ p=(h.nextElementSibling&&h.nextElementSibling.tagName==='P')?h.nextElementSibling:(h.parentElement?h.parentElement.querySelector('p'):null); }
+    if(!p) p=S.querySelector('p');
+    if(p) p.textContent=T.s;
+  }
+  if(T.e){ var e=S.querySelector('[class*="eyebrow"],[class*="kick"],[class*="klabel"]'); if(e) e.textContent=T.e; }
+})();
+</script>
+        <?php }, 999);
+    }
+
     /* render the homepage template regardless of the requested URL */
     add_filter('template_include', function () {
         $t = locate_template('front-page.php');
@@ -7023,6 +7056,11 @@ function ee_section_anywhere_render_admin() {
     <div class="wrap" style="max-width:860px">
       <h1>🧩 Section Anywhere</h1>
       <p style="font-size:14px;color:#50575e;max-width:70ch">Copy a shortcode and paste it into any page or post (Shortcode block in the editor). The section renders there exactly as on the homepage — same design, same animations. Long scroll-driven sections show their simple version inside other pages.</p>
+      <div style="background:#fff;border:1px solid #dcdcde;border-left:4px solid #DE6E30;border-radius:8px;padding:14px 18px;max-width:790px;margin:14px 0">
+        <b style="color:#19335D">✏️ Edit the text per page (optional)</b>
+        <p style="margin:6px 0 8px;font-size:13px;color:#50575e">Add <code>heading</code>, <code>sub</code> or <code>eyebrow</code> to the shortcode — only that page's copy changes, the homepage stays as-is:</p>
+        <code style="display:block;font:600 12.5px/1.6 Menlo,Consolas,monospace;background:#f6f7f7;border:1px solid #dcdcde;border-radius:7px;padding:10px 12px">[ee_section id="feature-pillars" heading="Your own headline here" sub="Your own intro paragraph here." eyebrow="Your label"]</code>
+      </div>
       <style>
         .eesa-table{border-collapse:collapse;width:100%;max-width:820px;background:#fff;border:1px solid #dcdcde;border-radius:10px;overflow:hidden}
         .eesa-table td{padding:11px 14px;border-top:1px solid #eee;vertical-align:middle}
