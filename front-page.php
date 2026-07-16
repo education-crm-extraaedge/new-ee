@@ -261,7 +261,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 
 <!-- ===================== EE · QUICK TABLE OF CONTENTS (scoped #ee-toc) ===================== -->
 <style>/* keep anchored jumps clear of any sticky chrome */
-  #xhero,#trusted-institutions,#ee-platform,#ee-products,#ee-vidya-suite,#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#ee-night,#integrations,#security,#ee-golive,#ee-resources,#ee-events,#faq{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
+  #xhero,#trusted-institutions,#ee-platform,#ee-products,#ee-vidya-suite,#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#ee-night,#integrations,#security,#ee-golive,#ee-resources,#ee-events,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
   #ee-toc .eetoc-fab{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:99990;
     display:flex;align-items:center;gap:8px;height:46px;padding:0 15px 0 13px;border:0;cursor:pointer;
     background:linear-gradient(135deg,#22406e,#19345d);color:#fff;border-radius:999px;
@@ -381,7 +381,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
         <span class="chip"><i>&#128737;</i> ISO 27001 &middot; GDPR-ready</span>
       </div>
       <div class="hero__cta reveal d5">
-        <a href="#demo" class="btn btn-primary" id="magnet">Book a Demo <span class="arr">&rarr;</span><span class="shine"></span></a>
+        <a href="#admission-form" class="btn btn-primary" id="magnet">Book a Demo <span class="arr">&rarr;</span><span class="shine"></span></a>
         <span class="cta-note">No credit card &middot; Personalised to your institution</span>
       </div>
       <div class="stats reveal d6">
@@ -676,7 +676,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     </div>
   </div>
   <div style="text-align:center;margin-top:26px">
-    <a href="#demo" style="display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;color:#19345d;border:1.5px solid rgba(25,52,93,.18);background:#fff;border-radius:999px;padding:11px 24px;text-decoration:none;transition:all .2s ease" onmouseover="this.style.borderColor='#DE6E30';this.style.color='#DE6E30'" onmouseout="this.style.borderColor='rgba(25,52,93,.18)';this.style.color='#19345d'">View More Clients <span aria-hidden="true">&rarr;</span></a>
+    <a href="#admission-form" style="display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;color:#19345d;border:1.5px solid rgba(25,52,93,.18);background:#fff;border-radius:999px;padding:11px 24px;text-decoration:none;transition:all .2s ease" onmouseover="this.style.borderColor='#DE6E30';this.style.color='#DE6E30'" onmouseout="this.style.borderColor='rgba(25,52,93,.18)';this.style.color='#19345d'">View More Clients <span aria-hidden="true">&rarr;</span></a>
   </div>
 </section>
 
@@ -2079,7 +2079,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
           <h3 class="eep-spot-title" id="eepSpotTitle"></h3>
           <p class="eep-spot-desc" id="eepSpotDesc"></p>
           <div class="eep-spot-tags" id="eepSpotTags"></div>
-          <a class="eep-spot-cta" id="eepSpotCta" href="#demo">See it in action <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-02.svg" alt="" loading="lazy" decoding="async"></a>
+          <a class="eep-spot-cta" id="eepSpotCta" href="#admission-form">See it in action <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-02.svg" alt="" loading="lazy" decoding="async"></a>
         </div>
       </aside>
 
@@ -2136,55 +2136,55 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 
     /* ---- products ---- */
     var P = [
-      {id:'vidya', t:'VidyaAI', badge:'New', cat:'ai', ic:'spark', img:'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg', href:'#demo',
+      {id:'vidya', t:'VidyaAI', badge:'New', cat:'ai', ic:'spark', img:'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg', href:'#admission-form',
         d:'Your AI admissions copilot - drafts replies, scores intent and rings visitors live.',
         l:'The AI layer across your whole funnel. It drafts counsellor replies, scores every lead by intent, and can call a website visitor the moment they show interest - the live experience competitors do not offer.',
         tags:['Drafts replies','Scores lead intent','Rings visitors live']},
-      {id:'edu-crm', t:'Education CRM', cat:'platform', ic:'crm', href:'#demo',
+      {id:'edu-crm', t:'Education CRM', cat:'platform', ic:'crm', href:'#admission-form',
         d:'Unify every enquiry, counsellor and campus on one purpose-built platform.',
         l:'Built for admissions, not retrofitted from sales. One view of every enquiry, every counsellor and every campus - so nothing slips between teams.',
         tags:['360° enquiry view','Counsellor workflows','Multi-campus ready']},
-      {id:'mob-crm', t:'Mobile CRM', badge:'New', cat:'platform', ic:'phone', href:'#demo',
+      {id:'mob-crm', t:'Mobile CRM', badge:'New', cat:'platform', ic:'phone', href:'#admission-form',
         d:'Run admissions from your pocket - call, follow up and close on the go.',
         l:'Your full pipeline on mobile. Counsellors call, log and follow up from anywhere, with reminders that keep every lead moving.',
         tags:['Call from your phone','Push reminders','Works on the move']},
-      {id:'core-crm', t:'Core CRM', cat:'platform', ic:'gear', href:'#demo',
+      {id:'core-crm', t:'Core CRM', cat:'platform', ic:'gear', href:'#admission-form',
         d:'The reliable engine for pipelines, tasks and workflows that never drops a lead.',
         l:'The dependable core underneath it all - pipelines, tasks and automation tuned so a lead is never forgotten or double-handled.',
         tags:['Smart pipelines','Task automation','Zero lead leakage']},
-      {id:'app-mgmt', t:'Application Management', cat:'admissions', ic:'doc', href:'#demo',
+      {id:'app-mgmt', t:'Application Management', cat:'admissions', ic:'doc', href:'#admission-form',
         d:'Track every application stage with automated nudges so no form stalls.',
         l:'See where every applicant is, in real time. Automated nudges restart stalled forms before they go cold.',
         tags:['Stage tracking','Auto nudges','Status alerts']},
-      {id:'ams', t:'Admission Management System', cat:'admissions', ic:'shield', href:'#demo',
+      {id:'ams', t:'Admission Management System', cat:'admissions', ic:'shield', href:'#admission-form',
         d:'Orchestrate fees, documents and approvals end-to-end in one auditable flow.',
         l:'Run the whole admission cycle - fees, documents, approvals - in one place, with a complete audit trail for every decision.',
         tags:['Fees & documents','Approval flows','Full audit trail']},
-      {id:'online-adm', t:'Online Admissions', cat:'admissions', ic:'globe', href:'#demo',
+      {id:'online-adm', t:'Online Admissions', cat:'admissions', ic:'globe', href:'#admission-form',
         d:'Let applicants apply and pay from anywhere with a frictionless journey.',
         l:'A clean, mobile-first apply-and-pay flow that students finish - fewer drop-offs, more completed applications.',
         tags:['Apply anywhere','Integrated payments','Frictionless forms']},
-      {id:'chatbot', t:'Education AI Chatbot', cat:'ai', ic:'chat', href:'#demo',
+      {id:'chatbot', t:'Education AI Chatbot', cat:'ai', ic:'chat', href:'#admission-form',
         d:'Answer student questions 24/7 and capture qualified enquiries while you sleep.',
         l:'An always-on assistant that answers questions on your site and WhatsApp, qualifies interest, and hands warm leads to counsellors.',
         tags:['24/7 answers','Qualifies enquiries','Site + WhatsApp']},
-      {id:'waba', t:'WhatsApp Business API', cat:'engage', ic:'whatsapp', href:'#demo',
+      {id:'waba', t:'WhatsApp Business API', cat:'engage', ic:'whatsapp', href:'#admission-form',
         d:'Reach families on their favourite channel with verified, automated conversations.',
         l:'Meet families where they already are. Verified WhatsApp with automated replies and broadcast campaigns that actually get read.',
         tags:['Verified sender','Automated replies','Broadcast campaigns']},
-      {id:'ivr', t:'IVR System', cat:'engage', ic:'call', href:'#demo',
+      {id:'ivr', t:'IVR System', cat:'engage', ic:'call', href:'#admission-form',
         d:'Route, record and track every call so no enquiry rings out unanswered.',
         l:'Smart call routing with recording and missed-call capture - every ring becomes a tracked, followed-up enquiry.',
         tags:['Smart call routing','Call recording','Missed-call capture']},
-      {id:'mkt-auto', t:'Marketing Automation', cat:'grow', ic:'send', href:'#demo',
+      {id:'mkt-auto', t:'Marketing Automation', cat:'grow', ic:'send', href:'#admission-form',
         d:'Launch multi-channel campaigns that fill your funnel on autopilot.',
         l:'Build journeys once and let them run - email, SMS and WhatsApp triggered by what each prospect does.',
         tags:['Multi-channel drips','Triggered journeys','Campaign analytics']},
-      {id:'nurture', t:'Lead Nurturing', cat:'grow', ic:'heart', href:'#demo',
+      {id:'nurture', t:'Lead Nurturing', cat:'grow', ic:'heart', href:'#admission-form',
         d:'Warm every prospect with timely, personalised drips until they enrol.',
         l:'Keep undecided prospects engaged with personalised, behaviour-based drips that bring them back to apply.',
         tags:['Personalised drips','Behaviour triggers','Re-engagement']},
-      {id:'analytics', t:'Analytics Dashboard', cat:'grow', ic:'bars', href:'#demo',
+      {id:'analytics', t:'Analytics Dashboard', cat:'grow', ic:'bars', href:'#admission-form',
         d:'See conversion, cost and counsellor performance in real time, in one view.',
         l:'Know what is working at a glance - funnels, cost per enrolment and counsellor scorecards, live and in one place.',
         tags:['Real-time funnels','Cost per enrol','Counsellor scorecards']}
@@ -2502,7 +2502,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
           <div class="vsx-rail" id="vsxRail">
 
             <article class="vsx-card" style="--ca:#2274ee">
-              <a class="vsx-card-cta" href="#demo" aria-label="Book a demo">Demo <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="vsx-card-cta" href="#admission-form" aria-label="Book a demo">Demo <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>Vidya GPT</h3>
               <p class="vsx-desc">Your 24×7 AI chat counsellor that answers every query and never sleeps.</p>
@@ -2515,7 +2515,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
             </article>
 
             <article class="vsx-card" style="--ca:#DE6E30">
-              <a class="vsx-card-cta" href="#demo" aria-label="Book a demo">Demo <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="vsx-card-cta" href="#admission-form" aria-label="Book a demo">Demo <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>Vidya Pulse</h3>
               <p class="vsx-desc">Real-time lead intent scoring that surfaces your hottest prospects first.</p>
@@ -2528,7 +2528,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
             </article>
 
             <article class="vsx-card" style="--ca:#8bb7fa">
-              <a class="vsx-card-cta" href="#demo" aria-label="Book a demo">Demo <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="vsx-card-cta" href="#admission-form" aria-label="Book a demo">Demo <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>Vidyaai Voice Agent</h3>
               <p class="vsx-desc">Calls and qualifies leads with natural conversations in 10+ languages.</p>
@@ -2541,7 +2541,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
             </article>
 
             <article class="vsx-card" style="--ca:#3474d3">
-              <a class="vsx-card-cta" href="#demo" aria-label="Book a demo">Demo <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="vsx-card-cta" href="#admission-form" aria-label="Book a demo">Demo <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>VidyaWABA GPT</h3>
               <p class="vsx-desc">Automated WhatsApp Business engagement that nurtures leads at scale.</p>
@@ -2554,7 +2554,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
             </article>
 
             <article class="vsx-card" style="--ca:#fb8124">
-              <a class="vsx-card-cta" href="#demo" aria-label="Book a demo">Demo <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="vsx-card-cta" href="#admission-form" aria-label="Book a demo">Demo <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-work.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
               <h3>Vidya Work</h3>
               <p class="vsx-desc">Autonomous workflow and follow-up automation that runs your busywork.</p>
@@ -2771,7 +2771,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     </div>
 
     <div class="ee-teams-grid">
-      <a class="ee-card" href="#demo">
+      <a class="ee-card" href="#admission-form">
         <span class="ee-chip" aria-hidden="true">&#127919;</span>
         <h3 class="ee-card-title">Marketing Teams</h3>
         <p class="ee-card-benefit">Capture every inquiry across channels and track which campaigns actually drive enrolled students, not just clicks.</p>
@@ -2780,7 +2780,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
         </span>
       </a>
 
-      <a class="ee-card" href="#demo">
+      <a class="ee-card" href="#admission-form">
         <span class="ee-chip" aria-hidden="true">&#128222;</span>
         <h3 class="ee-card-title">Admissions Teams</h3>
         <p class="ee-card-benefit">Prioritize hot leads with smart scoring and automated follow-ups so no prospective student slips through the cracks.</p>
@@ -2789,7 +2789,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
         </span>
       </a>
 
-      <a class="ee-card" href="#demo">
+      <a class="ee-card" href="#admission-form">
         <span class="ee-chip" aria-hidden="true">&#128172;</span>
         <h3 class="ee-card-title">Counseling Teams</h3>
         <p class="ee-card-benefit">Give counselors a full applicant history so every call, message, and meeting moves students closer to confirmation.</p>
@@ -2798,7 +2798,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
         </span>
       </a>
 
-      <a class="ee-card" href="#demo">
+      <a class="ee-card" href="#admission-form">
         <span class="ee-chip ee-chip--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="" loading="lazy" decoding="async"></span>
         <h3 class="ee-card-title">Vidya AI Agents</h3>
         <p class="ee-card-benefit">Engage and qualify applicants instantly, around the clock, answering queries and booking counseling slots on autopilot.</p>
@@ -2807,7 +2807,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
         </span>
       </a>
 
-      <a class="ee-card" href="#demo">
+      <a class="ee-card" href="#admission-form">
         <span class="ee-chip" aria-hidden="true">&#128202;</span>
         <h3 class="ee-card-title">Leadership &amp; Analytics</h3>
         <p class="ee-card-benefit">See the full funnel in real time, from source to enrollment, and forecast intake with dashboards built for decisions.</p>
@@ -2816,7 +2816,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
         </span>
       </a>
 
-      <a class="ee-card" href="#demo">
+      <a class="ee-card" href="#admission-form">
         <span class="ee-chip" aria-hidden="true">&#128179;</span>
         <h3 class="ee-card-title">Finance &amp; Operations</h3>
         <p class="ee-card-benefit">Streamline fee collection, payment links, and reconciliation so confirmed admissions convert to paid enrollments faster.</p>
@@ -2939,9 +2939,9 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
         <h3>Run your core admissions engine end-to-end</h3>
         <p class="solb-desc">Capture, qualify, convert and enrol - one connected pipeline from first enquiry to fee paid.</p>
         <div class="solb-links">
-          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Admission Management</b><span>Track every applicant in one live pipeline</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Enrollment Management</b><span>Move offers to enrolled &amp; fee-paid, faster</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Walk-in Management</b><span>Log, assign &amp; follow up every campus visit</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Admission Management</b><span>Track every applicant in one live pipeline</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Enrollment Management</b><span>Move offers to enrolled &amp; fee-paid, faster</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Walk-in Management</b><span>Log, assign &amp; follow up every campus visit</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
         </div>
       </article>
 
@@ -2951,9 +2951,9 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
         <h3>Purpose-built for overseas education counselling</h3>
         <p class="solb-desc">Manage country, course and intake journeys - with full visibility over agents and consultants.</p>
         <div class="solb-links">
-          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Study Abroad CRM</b><span>Country, course &amp; intake pipelines in one place</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Education Agents</b><span>Onboard &amp; track sub-agents with clear visibility</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Education Consultants</b><span>Counsellor workflows for visa, docs &amp; apps</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Study Abroad CRM</b><span>Country, course &amp; intake pipelines in one place</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Education Agents</b><span>Onboard &amp; track sub-agents with clear visibility</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Education Consultants</b><span>Counsellor workflows for visa, docs &amp; apps</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
         </div>
       </article>
 
@@ -2963,17 +2963,17 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
         <h3>Fill your funnel - and never let a lead go cold</h3>
         <p class="solb-desc">Source, score, route and nurture every enquiry automatically, from first touch to enrolled.</p>
         <div class="solb-links">
-          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Student Recruitment</b><span>Source verified enquiries from every channel</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Lead Management</b><span>Score, route &amp; prioritise leads automatically</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Lead Nurturing</b><span>Automated drips across WhatsApp, email &amp; SMS</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#demo"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Enrollment CRM</b><span>One CRM from first touch to enrolled</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Student Recruitment</b><span>Source verified enquiries from every channel</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Lead Management</b><span>Score, route &amp; prioritise leads automatically</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Lead Nurturing</b><span>Automated drips across WhatsApp, email &amp; SMS</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Enrollment CRM</b><span>One CRM from first touch to enrolled</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
         </div>
       </article>
 
       <aside class="solb-card solb-d">
         <h3>Not sure which solution fits?</h3>
         <p class="solb-desc">Tell us your admissions motion - we&rsquo;ll map the right workflow live on your own funnel in a 45-minute demo.</p>
-        <a class="solb-cta" href="#demo">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+        <a class="solb-cta" href="#admission-form">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
       </aside>
 
     </div>
@@ -3064,56 +3064,56 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     </div>
 
     <div class="spx-grid">
-      <a class="spx-card" href="#demo" style="--g1:#E8843F;--g2:#DE6E30">
+      <a class="spx-card" href="#admission-form" style="--g1:#E8843F;--g2:#DE6E30">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
         <h3>EdTech</h3>
         <p>You buy leads by the thousand - every enquiry has to convert.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
+      <a class="spx-card" href="#admission-form" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 2-2h10v16H7a2 2 0 0 0-2 2z"/><path d="M17 3v16"/></svg></span>
         <h3>Coaching &amp; Training</h3>
         <p>Batches fill on deadlines - every enquiry counts.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#E8843F;--g2:#DE6E30">
+      <a class="spx-card" href="#admission-form" style="--g1:#E8843F;--g2:#DE6E30">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M10 21v-6h4v6"/></svg></span>
         <h3>K-12 Schools</h3>
         <p>Parents take months to choose - trust wins the seat.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
+      <a class="spx-card" href="#admission-form" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.6 5.6L21 9.3l-4.6 4.3 1.1 6.1L12 17l-5.5 2.7 1-6.1L3 9.3l6.4-.7z"/></svg></span>
         <h3>Preschools &amp; Playschools</h3>
         <p>It&rsquo;s their first school - reassurance closes the admission.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#E8843F;--g2:#DE6E30">
+      <a class="spx-card" href="#admission-form" style="--g1:#E8843F;--g2:#DE6E30">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
         <h3>Online Degree Programmes</h3>
         <p>You compete nationally for every learner.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
+      <a class="spx-card" href="#admission-form" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.3 3 3 6 3s6-1.7 6-3v-5"/></svg></span>
         <h3>Higher Education</h3>
         <p>Many programmes, many counsellors - one admissions engine.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#E8843F;--g2:#DE6E30">
+      <a class="spx-card" href="#admission-form" style="--g1:#E8843F;--g2:#DE6E30">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span>
         <h3>Study Abroad Consultants</h3>
         <p>A single student journey can run for a year.</p>
         <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="spx-card" href="#demo" style="--g1:#2A4E85;--g2:#19335D">
+      <a class="spx-card" href="#admission-form" style="--g1:#2A4E85;--g2:#19335D">
         <span class="spx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 15l6-6M10 6l1-1a4 4 0 0 1 6 6l-1 1M14 18l-1 1a4 4 0 0 1-6-6l1-1"/></svg></span>
         <h3>Channel Partners</h3>
         <p>Your partners send leads - you need to see every one.</p>
@@ -3270,7 +3270,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
           <div><b id="roNew">496</b><span>With ExtraaEdge</span></div>
           <div><b>+40%</b><span>Conversion lift</span></div>
         </div>
-        <a href="#demo" class="cta">Get my detailed ROI report &rarr;</a>
+        <a href="#admission-form" class="cta">Get my detailed ROI report &rarr;</a>
         <div class="fine">Projection based on a typical +40% conversion lift. Book a demo for numbers on your real funnel.</div>
       </div>
     </div>
@@ -3279,7 +3279,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 <div id="ee-sticky" aria-hidden="true">
   <div class="sw">
     <div class="txt">🎓 <b>Fill more seats this cycle.</b><span class="hide"> See ExtraaEdge on your funnel in 30 minutes.</span></div>
-    <div class="sp"><a href="#demo" class="go">Book a Free Demo &rarr;</a><button class="x" aria-label="Dismiss" id="eeStickyX">&times;</button></div>
+    <div class="sp"><a href="#admission-form" class="go">Book a Free Demo &rarr;</a><button class="x" aria-label="Dismiss" id="eeStickyX">&times;</button></div>
   </div>
 </div>
 <script>
@@ -4441,7 +4441,7 @@ body{background:
           <h3>Built to Adapt &amp; Scale</h3>
           <p>Integrates seamlessly with ads, websites, ERP and communication tools. Scales with your institute's growth.</p>
           <div class="ee-chips"><span class="ee-chip">Custom Workflows</span><span class="ee-chip">API Ecosystem</span><span class="ee-chip">Global Scaling</span></div>
-          <a href="#demo" class="ee-cta">Book a Demo <span aria-hidden="true">&#8594;</span></a>
+          <a href="#admission-form" class="ee-cta">Book a Demo <span aria-hidden="true">&#8594;</span></a>
         </article>
       </div>
       <div class="ee-sticky">
@@ -4758,7 +4758,7 @@ body{background:
       </div>
 
       <div class="wa-ctas">
-        <a href="#demo" class="wa-btn wa-btn--p">Get verified in 48 hrs <span class="arr">→</span></a>
+        <a href="#admission-form" class="wa-btn wa-btn--p">Get verified in 48 hrs <span class="arr">→</span></a>
         <a href="#stories" class="wa-btn wa-btn--g"><span class="play">▶</span> Watch 2-min demo</a>
       </div>
     </div>
@@ -4981,7 +4981,7 @@ body{background:
           <li><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> Run both in parallel - <b>zero downtime</b></li>
           <li><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> 1:1 onboarding &amp; counsellor training included</li>
         </ul>
-        <a href="#demo" class="cta">Get a free migration plan &rarr;</a>
+        <a href="#admission-form" class="cta">Get a free migration plan &rarr;</a>
       </div>
       <div class="swr">
         <div class="gain">What you gain on day one</div>
@@ -5070,7 +5070,7 @@ body{background:
     </div>
     <div class="ee-r-grid">
 
-      <a class="ee-r-card" href="#demo">
+      <a class="ee-r-card" href="#admission-form">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-01.svg" alt="" loading="lazy" decoding="async">
         </span>
@@ -5079,7 +5079,7 @@ body{background:
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#demo">
+      <a class="ee-r-card" href="#admission-form">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-03.svg" alt="" loading="lazy" decoding="async">
         </span>
@@ -5088,7 +5088,7 @@ body{background:
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#demo">
+      <a class="ee-r-card" href="#admission-form">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-04.svg" alt="" loading="lazy" decoding="async">
         </span>
@@ -5097,7 +5097,7 @@ body{background:
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#demo">
+      <a class="ee-r-card" href="#admission-form">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-05.svg" alt="" loading="lazy" decoding="async">
         </span>
@@ -5106,7 +5106,7 @@ body{background:
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#demo">
+      <a class="ee-r-card" href="#admission-form">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-06.svg" alt="" loading="lazy" decoding="async">
         </span>
@@ -5115,7 +5115,7 @@ body{background:
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#demo">
+      <a class="ee-r-card" href="#admission-form">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-07.svg" alt="" loading="lazy" decoding="async">
         </span>
@@ -5124,7 +5124,7 @@ body{background:
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#demo">
+      <a class="ee-r-card" href="#admission-form">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-08.svg" alt="" loading="lazy" decoding="async">
         </span>
@@ -5133,7 +5133,7 @@ body{background:
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#demo">
+      <a class="ee-r-card" href="#admission-form">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-09.svg" alt="" loading="lazy" decoding="async">
         </span>
@@ -5142,7 +5142,7 @@ body{background:
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#demo">
+      <a class="ee-r-card" href="#admission-form">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-10.svg" alt="" loading="lazy" decoding="async">
         </span>
@@ -5151,7 +5151,7 @@ body{background:
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#demo">
+      <a class="ee-r-card" href="#admission-form">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-11.svg" alt="" loading="lazy" decoding="async">
         </span>
@@ -5250,7 +5250,7 @@ body{background:
 
     <div class="ee-e-grid">
 
-      <a class="ee-e-card" href="#demo">
+      <a class="ee-e-card" href="#admission-form">
         <div class="ee-e-top">
           <div class="ee-e-date"><span class="d">12</span><span class="m">Jul</span><span class="y">2026</span></div>
           <span class="ee-e-tag"><span class="dot"></span>Webinar</span>
@@ -5260,7 +5260,7 @@ body{background:
         <span class="ee-e-link">Register free <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-e-card" href="#demo">
+      <a class="ee-e-card" href="#admission-form">
         <div class="ee-e-top">
           <div class="ee-e-date"><span class="d">29</span><span class="m">Jul</span><span class="y">2026</span></div>
           <span class="ee-e-tag"><span class="dot"></span>Workshop</span>
@@ -5270,7 +5270,7 @@ body{background:
         <span class="ee-e-link">Register free <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-e-card" href="#demo">
+      <a class="ee-e-card" href="#admission-form">
         <div class="ee-e-top">
           <div class="ee-e-date"><span class="d">14</span><span class="m">Aug</span><span class="y">2026</span></div>
           <span class="ee-e-tag is-live"><span class="dot"></span>Live Event</span>
@@ -5285,7 +5285,7 @@ body{background:
     <h3 class="ee-e-odhead">webinars you can watch right now</h3>
     <div class="ee-e-odgrid">
 
-      <a class="ee-e-od" href="#demo">
+      <a class="ee-e-od" href="#admission-form">
         <span class="ee-e-play" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/events-icon-01.svg" alt="" loading="lazy" decoding="async"></span>
         <span class="ee-e-od-body">
           <span class="ee-e-od-title">Cutting Lead Response Time to Under 5 Minutes</span>
@@ -5293,7 +5293,7 @@ body{background:
         </span>
       </a>
 
-      <a class="ee-e-od" href="#demo">
+      <a class="ee-e-od" href="#admission-form">
         <span class="ee-e-play" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/events-icon-01.svg" alt="" loading="lazy" decoding="async"></span>
         <span class="ee-e-od-body">
           <span class="ee-e-od-title">Personalizing Outreach at Scale with AI</span>
@@ -5301,7 +5301,7 @@ body{background:
         </span>
       </a>
 
-      <a class="ee-e-od" href="#demo">
+      <a class="ee-e-od" href="#admission-form">
         <span class="ee-e-play" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/events-icon-01.svg" alt="" loading="lazy" decoding="async"></span>
         <span class="ee-e-od-body">
           <span class="ee-e-od-title">Measuring True ROI Across Your Admissions Funnel</span>
@@ -5337,50 +5337,7 @@ body{background:
 </section>
 
 <!-- ===================== LEAD MAGNET ===================== -->
-<!-- ===================== FINAL CTA · VALUE + FORM ===================== -->
-<section class="sec" id="demo">
-  <div class="container">
-    <div class="demo-grid rv">
-      <!-- value side -->
-      <div class="demo-left">
-        <h2>Ready to convert more students, automatically?</h2>
-        <p class="s">Book a free 45-minute demo. We'll map ExtraaEdge to your exact admission funnel - and show the conversion lift live with data from your sector.</p>
-        <ul class="dchecks">
-          <li><span class="ck">✓</span><div><b>A live walk-through of VidyaAI</b> - lead scoring, AI calling, WhatsApp &amp; follow-up automation working on your use case.</div></li>
-          <li><span class="ck">✓</span><div><b>Your personalised ROI model</b> - exactly how many extra admissions you can expect this cycle.</div></li>
-          <li><span class="ck">✓</span><div><b>A 14-day go-live plan</b> - migration, integrations and counsellor onboarding mapped out.</div></li>
-          <li><span class="ck">✓</span><div><b>No obligation, no credit card</b> - just answers and a clear path to more enrolments.</div></li>
-        </ul>
-        <div class="dbadges">
-          <div class="drating"><span class="st">★★★★★</span> 4.7/5 on G2 &amp; Capterra</div>
-        </div>
-      </div>
-      <!-- form side -->
-      <div class="demo-right">
-        <h3>Get your free demo</h3>
-        <p class="sub2"><span class="ping" style="display:inline-block;vertical-align:middle"></span> We'll reach out within the hour · 500+ institutions trust us</p>
-        <!-- the same live demo form as the hero - its own isolated document, so both
-             instances of the widget mount and submit independently -->
-        <iframe id="eeDemoFormFrame" title="Book a demo form" loading="lazy" scrolling="no"
-          style="display:block;width:100%;border:0;min-height:560px;overflow:hidden"
-          srcdoc="<!DOCTYPE html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap' rel='stylesheet'><style>*{box-sizing:border-box}body{margin:0;font-family:Inter,-apple-system,sans-serif;background:#fff}#ee-form-7 form{display:block;width:100%}#ee-form-7 form>div,#ee-form-7 form>div>div{display:block;width:100%;max-width:100%;float:none;margin-bottom:12px}#ee-form-7 h1,#ee-form-7 h2,#ee-form-7 h3,#ee-form-7 h4{display:none}#ee-form-7 p{line-height:1.45;margin:0 0 14px;font-size:13px;color:#5B6B84}#ee-form-7 label{display:block;color:#19345d;font-weight:600;font-size:13px;margin:0 0 6px;text-align:left}#ee-form-7 input[type=text],#ee-form-7 input[type=email],#ee-form-7 input[type=tel],#ee-form-7 input[type=url],#ee-form-7 input[type=number],#ee-form-7 select,#ee-form-7 textarea{display:block;background:#fff;color:#19345d;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px;font-size:14px;font-family:Inter,sans-serif;width:100%;transition:border-color .2s,box-shadow .2s}#ee-form-7 input:focus,#ee-form-7 select:focus,#ee-form-7 textarea:focus{outline:none;border-color:#DE6E30;box-shadow:0 0 0 3px rgba(222,110,48,.12)}#ee-form-7 input::placeholder,#ee-form-7 textarea::placeholder{color:#94a2b8;opacity:1}#ee-form-7 input[type=submit],#ee-form-7 button[type=submit]{display:block;background:#DE6E30;color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:700;font-family:Inter,sans-serif;width:100%;cursor:pointer;transition:all .3s;box-shadow:0 8px 20px rgba(222,110,48,.25)}#ee-form-7 input[type=submit]:hover,#ee-form-7 button[type=submit]:hover{background:#c85d20}#ee-form-7 input[type=checkbox]{display:inline-block;width:15px;height:15px;min-width:15px;flex:0 0 auto;margin:2px 8px 0 0;accent-color:#DE6E30;vertical-align:top}#ee-form-7 label:has(input[type=checkbox]),#ee-form-7 div:has(>input[type=checkbox]),#ee-form-7 p:has(>input[type=checkbox]){display:flex;align-items:flex-start;gap:8px;font-size:12px;font-weight:500;line-height:1.55;color:#5B6B84;text-align:left;margin:2px 0 12px}#ee-form-7 label:has(input[type=checkbox]) a,#ee-form-7 div:has(>input[type=checkbox]) a{color:#DE6E30;text-decoration:underline;font-weight:600}#ee-form-7 .iti{position:relative;display:block;width:100%}#ee-form-7 .iti input[type=tel]{padding-left:96px;width:100%}#ee-form-7 .iti__flag-container{position:absolute;top:0;bottom:0;left:0;z-index:2;display:flex;align-items:center}#ee-form-7 .iti__selected-flag{height:100%;padding:0 8px 0 14px;background:transparent;border-right:1px solid rgba(25,52,93,.10);display:flex;align-items:center;gap:6px}#ee-form-7 .iti__selected-dial-code{color:#19345d;font-weight:700;font-size:.95rem}#ee-form-7 .iti__country-list{position:absolute;z-index:5;background:#fff;color:#19345d}</style></head><body><div id='ee-form-7'></div><script async src='https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js'></script></body></html>"></iframe>
-        <script>
-        (function(){
-          var f=document.getElementById('eeDemoFormFrame'); if(!f) return;
-          function fit(){ try{ var d=f.contentDocument; if(!d||!d.body) return;
-            var h=Math.ceil(d.body.getBoundingClientRect().height)+10;
-            if(h>220 && Math.abs(h-(parseInt(f.style.height,10)||0))>4) f.style.height=h+'px';
-          }catch(e){} }
-          f.addEventListener('load',function(){ fit(); setTimeout(fit,600); setTimeout(fit,1800);
-            try{ new ResizeObserver(function(){ fit(); }).observe(f.contentDocument.body); }catch(e){}
-          });
-        })();
-        </script>
-        <p class="demo-trust">🔒 Your data is safe - ISO 27001 &amp; GDPR compliant. No spam, ever.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- (final CTA section removed - every Book-a-Demo link goes to the hero form #admission-form) -->
 </div>
 
 <script>
@@ -6119,7 +6076,6 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 .ee-home>#ee-resources{order:210}         /* Nurture */
 .ee-home>#ee-events{order:220}            /* Nurture */
 .ee-home>#faq{order:230}                  /* Final objections */
-.ee-home>#demo{order:240}                 /* Convert */
 </style>
 
 <?php get_footer(); ?>
