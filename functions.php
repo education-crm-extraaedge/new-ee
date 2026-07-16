@@ -7106,3 +7106,9 @@ function ee_section_anywhere_render_admin() {
     </div>
     <?php
 }
+
+/* =========================================================================
+ * 🏗️ PAGE BUILDER — Elementor-style element builder for non-coders.
+ * Admin: ExtraaEdge Site → 🏗️ Page Builder. Full module in inc/.
+ * ========================================================================= */
+require_once get_template_directory() . '/inc/page-builder.php';
