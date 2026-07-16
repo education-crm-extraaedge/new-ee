@@ -563,9 +563,9 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .features-grid{display:flex;gap:14px;justify-content:center;align-items:stretch;flex-wrap:wrap;padding:0 24px}
 .feat-card{flex:1 1 180px;max-width:220px;background:var(--white);border:1px solid rgba(25,51,93,.08);border-radius:16px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:var(--transition)}
 .feat-card:hover{transform:translateY(-10px);border-color:var(--orange);box-shadow:0 20px 40px rgba(222,110,48,.12)}
-.feat-img-wrap{width:100%;height:100px;background:var(--off-white);border-radius:10px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(25,51,93,.03)}
-.feat-img{max-width:90%;max-height:90%;object-fit:contain;transition:var(--transition)}
-.feat-card:hover .feat-img{transform:scale(1.08)}
+/* Feature images sit flat — no tile behind the image, no hover zoom. */
+.feat-img-wrap{width:100%;height:100px;background:transparent;border:0;margin-bottom:12px;display:flex;align-items:center;justify-content:center}
+.feat-img{max-width:90%;max-height:90%;object-fit:contain}
 .feat-title{font-family:var(--font-h);font-weight:700;font-size:13px;color:var(--blue);display:flex;flex-direction:column;align-items:center;gap:8px;transition:.3s}
 .feat-card:hover .feat-title{color:var(--orange)}
 .feat-dot{width:6px;height:6px;background:var(--orange);border-radius:50%;position:relative}

@@ -346,9 +346,9 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .features-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
 .feat-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-l);padding:18px;display:flex;flex-direction:column;text-align:center;transition:var(--t);box-shadow:var(--sh-1)}
 .feat-card:hover{transform:translateY(-8px);box-shadow:var(--sh-3)}
-.feat-img-wrap{width:100%;height:112px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);margin-bottom:15px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.feat-img{max-width:88%;max-height:88%;object-fit:contain;transition:var(--t)}
-.feat-card:hover .feat-img{transform:scale(1.07)}
+/* Feature images sit flat — no tile behind the image, no hover zoom. */
+.feat-img-wrap{width:100%;height:112px;background:transparent;border:0;margin-bottom:15px;display:flex;align-items:center;justify-content:center}
+.feat-img{max-width:88%;max-height:88%;object-fit:contain}
 .feat-title{font-weight:700;font-size:13px;color:var(--blue);display:flex;flex-direction:column;align-items:center;gap:8px;line-height:1.35;transition:.3s}
 .feat-card:hover .feat-title{color:var(--orange-deep)}
 .feat-dot{width:6px;height:6px;background:var(--orange);border-radius:50%}
