@@ -3155,53 +3155,41 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
       <p class="cis-lead">Real admissions leaders and the stories behind them. See how institutions grow with ExtraaEdge.</p>
     </div>
 
-    <div class="cis-grid">
+    <div class="cis-rail" role="list">
 
-      <article class="cis-card">
+      <article class="cis-card" role="listitem">
         <div class="cis-video" data-yt="3SHgLf1GFgk" role="button" tabindex="0" aria-label="Play video testimonial: Silky Jain Marwah, Tula's Institute">
           <img src="https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg" alt="Silky Jain Marwah, Executive Director, Tula's Institute - ExtraaEdge CRM review" loading="lazy" decoding="async">
           <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
           <span class="cis-dur">&#9654; 2 min</span>
         </div>
-        <div class="cis-body">
-          <div class="cis-stars" aria-label="Rated 5 out of 5 stars"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"></div>
-          <p class="cis-quote"><span>ExtraaEdge is an incredibly dynamic and trustworthy platform that truly understands our needs. Most changes we require are implemented in a very short span of time, and creating reports on our own has been a game-changer.</span></p>
-          <div class="cis-author">
-            <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Silky-Jain-Marwah.webp" alt="Silky Jain Marwah" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">SJ</span></span>
-            <div><div class="cis-aname">Silky Jain Marwah</div><div class="cis-arole">Executive Director &middot; Tula's Institute</div></div>
-          </div>
+        <div class="cis-foot">
+          <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Silky-Jain-Marwah.webp" alt="Silky Jain Marwah" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">SJ</span></span>
+          <div class="cis-meta"><div class="cis-aname">Silky Jain Marwah</div><div class="cis-arole">Executive Director &middot; Tula's Institute</div></div>
         </div>
       </article>
 
-      <article class="cis-card">
+      <article class="cis-card" role="listitem">
         <div class="cis-video" data-yt="dWLdQ8E3FOU" role="button" tabindex="0" aria-label="Play video testimonial: Pranay Rupani, Annapurna College of Film &amp; Media">
           <img src="https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg" alt="Pranay Rupani, Head of Admissions &amp; Marketing, Annapurna College of Film &amp; Media - ExtraaEdge CRM review" loading="lazy" decoding="async">
           <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
           <span class="cis-dur">&#9654; 2 min</span>
         </div>
-        <div class="cis-body">
-          <div class="cis-stars" aria-label="Rated 5 out of 5 stars"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"></div>
-          <p class="cis-quote"><span>A true game-changer for us at Annapurna College. From seamless WhatsApp integrations to automated workflows, our entire lead journey is now streamlined and measurable. The team's dedication makes them indispensable.</span></p>
-          <div class="cis-author">
-            <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/Pranay-sir-02.webp" alt="Pranay Rupani" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">PR</span></span>
-            <div><div class="cis-aname">Pranay Rupani</div><div class="cis-arole">Head of Admissions &amp; Marketing &middot; Annapurna College of Film &amp; Media</div></div>
-          </div>
+        <div class="cis-foot">
+          <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/Pranay-sir-02.webp" alt="Pranay Rupani" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">PR</span></span>
+          <div class="cis-meta"><div class="cis-aname">Pranay Rupani</div><div class="cis-arole">Head of Admissions &amp; Marketing &middot; Annapurna College of Film &amp; Media</div></div>
         </div>
       </article>
 
-      <article class="cis-card">
+      <article class="cis-card" role="listitem">
         <div class="cis-video" data-yt="yfK83D2SKps" role="button" tabindex="0" aria-label="Play video testimonial: K. Nirmala Devi, Indian Academy Group">
           <img src="https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg" alt="K. Nirmala Devi, Assistant Manager, Indian Academy Group - ExtraaEdge CRM review" loading="lazy" decoding="async">
           <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
           <span class="cis-dur">&#9654; 2 min</span>
         </div>
-        <div class="cis-body">
-          <div class="cis-stars" aria-label="Rated 5 out of 5 stars"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-01.svg" alt="" loading="lazy" decoding="async"></div>
-          <p class="cis-quote"><span>Very user-friendly and fully customizable to our needs. Tracking the lead journey is smooth, and the technical team is accessible anytime - they resolve issues immediately without any delays.</span></p>
-          <div class="cis-author">
-            <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Nirmala-Devi.webp" alt="K. Nirmala Devi" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">KN</span></span>
-            <div><div class="cis-aname">K. Nirmala Devi</div><div class="cis-arole">Assistant Manager &middot; Indian Academy Group</div></div>
-          </div>
+        <div class="cis-foot">
+          <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Nirmala-Devi.webp" alt="K. Nirmala Devi" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">KN</span></span>
+          <div class="cis-meta"><div class="cis-aname">K. Nirmala Devi</div><div class="cis-arole">Assistant Manager &middot; Indian Academy Group</div></div>
         </div>
       </article>
 
@@ -3234,6 +3222,16 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     v.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}});
   });
   root.querySelectorAll('.cis-av img').forEach(function(a){a.addEventListener('error',function(){a.closest('.cis-av').classList.add('noimg');},{once:true});});
+  /* cards rise in only when the section is reached; the hidden state exists
+     only once JS confirms it can also remove it (cis-anim), so no-JS/embed
+     renders always show the cards */
+  try{
+    root.classList.add('cis-anim');
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(x){ if(x.isIntersecting){ root.classList.add('in'); io.disconnect(); } });
+    },{threshold:.12});
+    io.observe(root);
+  }catch(e){ root.classList.add('in'); }
 })();
 </script>
 
@@ -3969,11 +3967,68 @@ body{background:
 </style>
 
 <!-- ===================== CRM Impact Stories (scoped #stories) ===================== -->
-<style id="cis-style">#stories{--cis-navy:#19345d;--cis-orange:#DE6E30;background:linear-gradient(180deg,#ffffff 0%,#fbf8f5 100%);font-family:'Inter',sans-serif;color:var(--cis-navy);overflow:hidden}#stories .cis-wrap{max-width:1200px;margin:0 auto;padding:38px 24px}#stories .cis-head{text-align:center;max-width:720px;margin:0 auto}#stories .cis-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cis-orange);background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.18);padding:7px 16px;border-radius:99px}#stories .cis-eyebrow .d{width:7px;height:7px;border-radius:50%;background:var(--cis-orange);box-shadow:0 0 8px rgba(222,110,48,.6);animation:cisPulse 2.2s infinite}
-@keyframes cisPulse{0%,100%{opacity:1}50%{opacity:.35}}#stories .cis-title{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(28px,4.4vw,50px);line-height:1.1;letter-spacing:-.025em;margin:16px 0 12px}#stories .cis-title em{font-style:normal;color:var(--cis-orange);position:relative;white-space:nowrap}#stories .cis-title em::after{content:"";position:absolute;left:0;right:0;bottom:.02em;height:.16em;background:rgba(222,110,48,.22);border-radius:99px;z-index:-1}#stories .cis-lead{font-size:clamp(15px,1.6vw,17.5px);line-height:1.6;color:rgba(25,52,93,.66);max-width:600px;margin:0 auto}#stories .cis-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 12px;margin:22px auto 0;max-width:780px}#stories .cis-chip{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--cis-navy);background:#fff;border:1px solid rgba(25,52,93,.1);box-shadow:0 4px 14px rgba(25,52,93,.05);padding:9px 15px;border-radius:99px}#stories .cis-chip svg,#stories .cis-chip img.eeimg{width:15px;height:15px;fill:#f5a623}#stories .cis-chip b{font-weight:800}#stories .cis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1140px;margin:38px auto 0;justify-content:center}#stories .cis-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid rgba(25,52,93,.1);border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(25,52,93,.06);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s;animation:cisRise .6s both}
-@keyframes cisRise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}#stories .cis-card:nth-child(2){animation-delay:.1s}#stories .cis-card:nth-child(3){animation-delay:.2s}#stories .cis-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--cis-orange),#f1a877);transform:scaleX(0);transform-origin:left;transition:transform .4s;z-index:3}#stories .cis-card:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(25,52,93,.14);border-color:rgba(222,110,48,.4)}#stories .cis-card:hover::before{transform:scaleX(1)}#stories .cis-video{position:relative;aspect-ratio:16/9;background:#0d1c33;cursor:pointer;overflow:hidden}#stories .cis-video img{width:100%;height:100%;object-fit:cover;transition:transform .5s}#stories .cis-card:hover .cis-video img{transform:scale(1.06)}#stories .cis-video::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,28,51,.04),rgba(13,28,51,.42));pointer-events:none}#stories .cis-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;z-index:2;transition:.3s;box-shadow:0 8px 24px rgba(0,0,0,.25)}#stories .cis-play svg,#stories .cis-play img.eeimg{width:24px;height:24px;fill:var(--cis-orange);margin-left:3px}#stories .cis-card:hover .cis-play{background:var(--cis-orange);transform:translate(-50%,-50%) scale(1.1)}#stories .cis-card:hover .cis-play svg,#stories .cis-card:hover .cis-play img.eeimg{fill:#fff}#stories .cis-dur{position:absolute;bottom:12px;right:12px;z-index:2;font-size:12px;font-weight:600;color:#fff;background:rgba(13,28,51,.72);padding:4px 10px;border-radius:99px}#stories .cis-video.playing img,#stories .cis-video.playing::after,#stories .cis-video.playing .cis-play,#stories .cis-video.playing .cis-dur{display:none}#stories .cis-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}#stories .cis-body{display:flex;flex-direction:column;gap:14px;padding:22px 22px 24px;flex:1}#stories .cis-stars{display:flex;gap:3px}#stories .cis-stars svg,#stories .cis-stars img.eeimg{width:17px;height:17px;fill:#f5a623}#stories .cis-quote{font-size:15px;line-height:1.65;color:rgba(25,52,93,.82);flex:1;position:relative;margin:0}#stories .cis-quote::before{content:"\201C";font-family:'Inter',sans-serif;color:rgba(222,110,48,.22);font-size:3.4em;line-height:0;position:absolute;top:.42em;left:-3px;z-index:0}#stories .cis-quote span{position:relative;z-index:1}#stories .cis-author{display:flex;align-items:center;gap:13px;padding-top:16px;border-top:1px solid rgba(25,52,93,.08)}#stories .cis-av{position:relative;width:48px;height:48px;flex:none}#stories .cis-av img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 0 0 2px var(--cis-orange)}#stories .cis-av .fb{display:none;width:48px;height:48px;border-radius:50%;background:var(--cis-orange);color:#fff;font-weight:800;font-size:16px;place-items:center;border:2px solid #fff;box-shadow:0 0 0 2px var(--cis-orange)}#stories .cis-av.noimg img{display:none}#stories .cis-av.noimg .fb{display:grid}#stories .cis-aname{font-weight:700;font-size:15px;color:var(--cis-navy)}#stories .cis-arole{font-size:12.5px;color:rgba(25,52,93,.6);margin-top:2px;line-height:1.4}#stories .cis-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:36px}#stories .cis-btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:15px;padding:14px 28px;border-radius:99px;text-decoration:none;transition:.25s}#stories .cis-btn svg,#stories .cis-btn img.eeimg{width:18px;height:18px;fill:currentColor}#stories .cis-btn.primary{background:var(--cis-orange);color:#fff;box-shadow:0 10px 26px rgba(222,110,48,.3)}#stories .cis-btn.primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(222,110,48,.4)}#stories .cis-btn.ghost{background:#fff;color:var(--cis-navy);border:1.5px solid rgba(25,52,93,.18)}#stories .cis-btn.ghost:hover{border-color:var(--cis-orange);color:var(--cis-orange)}
-@media(prefers-reduced-motion:reduce){#stories .cis-card{animation:none}#stories .cis-eyebrow .d{animation:none}}
-@media(max-width:600px){#stories .cis-wrap{padding:26px 18px}}
+<style id="cis-style">/* Salesforce-style customer video band: navy canvas, white-framed
+   video cards, avatar + name strip. Scoped to #stories. */
+section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845 100%)!important;font-family:'Inter',sans-serif;overflow:hidden}
+#stories .cis-wrap{max-width:1240px;margin:0 auto;padding:54px 24px 58px}
+#stories .cis-head{text-align:center;max-width:780px;margin:0 auto 36px}
+#stories .cis-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:7px 16px;border-radius:99px}
+#stories .cis-eyebrow .d{width:7px;height:7px;border-radius:50%;background:#DE6E30;box-shadow:0 0 8px rgba(222,110,48,.7);animation:cisPulse 2.2s infinite}
+@keyframes cisPulse{0%,100%{opacity:1}50%{opacity:.35}}
+#stories .cis-title{font-weight:800;font-size:clamp(28px,4.4vw,50px);line-height:1.1;letter-spacing:-.025em;margin:16px 0 12px;color:#fff}
+#stories .cis-title em{font-style:normal;color:#DE6E30;position:relative;white-space:nowrap}
+#stories .cis-title em::after{content:"";position:absolute;left:0;right:0;bottom:.02em;height:.16em;background:rgba(222,110,48,.3);border-radius:99px;z-index:-1}
+#stories .cis-lead{font-size:clamp(15px,1.6vw,17.5px);line-height:1.6;color:rgba(255,255,255,.74);max-width:620px;margin:0 auto}
+/* ---- the card rail: 3-up on desktop, swipe rail on phones ---- */
+#stories .cis-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;max-width:1200px;margin:0 auto}
+#stories .cis-card{background:#fff;border-radius:22px;padding:10px 10px 0;box-shadow:0 20px 46px -14px rgba(4,12,26,.55);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+#stories .cis-card:hover{transform:translateY(-6px);box-shadow:0 30px 62px -14px rgba(4,12,26,.65)}
+#stories .cis-video{position:relative;aspect-ratio:16/10;border-radius:15px;overflow:hidden;background:#0d1c33;cursor:pointer}
+#stories .cis-video img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+#stories .cis-card:hover .cis-video img{transform:scale(1.05)}
+#stories .cis-video::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,28,51,0) 55%,rgba(13,28,51,.34));pointer-events:none}
+#stories .cis-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;z-index:2;transition:.3s;box-shadow:0 10px 28px rgba(0,0,0,.35)}
+#stories .cis-play svg,#stories .cis-play img.eeimg{width:26px;height:26px;fill:#DE6E30;margin-left:3px}
+#stories .cis-card:hover .cis-play{background:#DE6E30;transform:translate(-50%,-50%) scale(1.08)}
+#stories .cis-card:hover .cis-play svg,#stories .cis-card:hover .cis-play img.eeimg{fill:#fff;filter:brightness(0) invert(1)}
+#stories .cis-dur{position:absolute;bottom:12px;right:12px;z-index:2;font-size:12px;font-weight:600;color:#fff;background:rgba(13,28,51,.72);padding:4px 10px;border-radius:99px}
+#stories .cis-video.playing img,#stories .cis-video.playing::after,#stories .cis-video.playing .cis-play,#stories .cis-video.playing .cis-dur{display:none}
+#stories .cis-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* ---- white footer strip: avatar + name + role (the Salesforce logo row) ---- */
+#stories .cis-foot{display:flex;align-items:center;gap:12px;padding:14px 10px 16px}
+#stories .cis-av{position:relative;width:44px;height:44px;flex:none}
+#stories .cis-av img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 0 0 2px #DE6E30}
+#stories .cis-av .fb{display:none;width:44px;height:44px;border-radius:50%;background:#DE6E30;color:#fff;font-weight:800;font-size:15px;place-items:center;border:2px solid #fff;box-shadow:0 0 0 2px #DE6E30}
+#stories .cis-av.noimg img{display:none}
+#stories .cis-av.noimg .fb{display:grid}
+#stories .cis-meta{min-width:0}
+#stories .cis-aname{font-weight:800;font-size:15px;color:#19335D;line-height:1.25}
+#stories .cis-arole{font-size:12.5px;color:rgba(25,51,93,.62);margin-top:2px;line-height:1.4}
+#stories .cis-cta{display:flex;justify-content:center;margin-top:38px}
+#stories .cis-btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:15px;padding:14px 28px;border-radius:99px;text-decoration:none;transition:.25s}
+#stories .cis-btn svg,#stories .cis-btn img.eeimg{width:18px;height:18px;fill:currentColor}
+#stories .cis-btn.primary{background:#DE6E30;color:#fff;box-shadow:0 10px 26px rgba(222,110,48,.4)}
+#stories .cis-btn.primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(222,110,48,.5)}
+/* ---- reveal: cards rise in when the section is reached (JS-gated) ---- */
+#stories.cis-anim .cis-card{opacity:0;transform:translateY(26px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
+#stories.cis-anim .cis-card:nth-child(2){transition-delay:.1s}
+#stories.cis-anim .cis-card:nth-child(3){transition-delay:.2s}
+#stories.cis-anim.in .cis-card{opacity:1;transform:none;transition-property:opacity,transform,box-shadow}
+#stories.cis-anim.in .cis-card:hover{transform:translateY(-6px)}
+@media(prefers-reduced-motion:reduce){#stories .cis-eyebrow .d{animation:none}#stories.cis-anim .cis-card{opacity:1!important;transform:none!important;transition:none}}
+/* ---- phones + small tablets: swipe rail with a peeking next card ---- */
+@media(max-width:960px){
+  #stories .cis-rail{display:flex;overflow-x:auto;gap:14px;padding:4px 4px 12px;margin:0;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  #stories .cis-rail::-webkit-scrollbar{display:none}
+  #stories .cis-card{flex:0 0 46%;min-width:300px;scroll-snap-align:center}
+}
+@media(max-width:640px){
+  #stories .cis-wrap{padding:30px 14px 34px}
+  #stories .cis-head{margin-bottom:22px}
+  #stories .cis-card{flex-basis:82%;min-width:0}
+  #stories .cis-play{width:54px;height:54px}
+  #stories .cis-cta{margin-top:22px}
+}
 </style>
 
 
@@ -5947,9 +6002,6 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   #ee-products .eep-chip{width:34px!important;height:34px!important}
   #ee-products .eep-chip svg,#ee-products .eep-chip img.eeimg{width:18px!important;height:18px!important}
 
-  /* CRM Impact Stories: trust stats as a 2-up grid */
-  #stories .cis-trust{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;max-width:420px!important}
-  #stories .cis-chip{justify-content:center;text-align:center;font-size:12px!important;padding:10px 8px!important}
 
   /* Hero stats: smaller boxes + numbers */
   #xhero .stats{gap:9px!important;max-width:100%!important;margin-top:24px!important}
