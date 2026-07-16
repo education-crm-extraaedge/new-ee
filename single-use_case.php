@@ -369,8 +369,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .feature-icon{width:26px;height:26px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .feature-icon svg{width:14px;height:14px;fill:#fff}
 .feature-text{font-family:var(--font-b);font-size:15px;font-weight:600;color:var(--blue);line-height:1.5}
-@keyframes float-ud{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
-.float-anim{animation:float-ud 6s ease-in-out infinite}
+.float-anim{position:relative}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .section-divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--gray-200),transparent)}
@@ -578,7 +577,8 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .alt-h2{font-family:var(--font-h);font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--blue);line-height:1.2;margin-bottom:14px}
 .alt-desc{font-size:16px;line-height:1.75;color:var(--gray-600);margin-bottom:20px}
 .alt-h3{font-family:var(--font-h);font-size:20px;font-weight:600;color:var(--blue);margin-bottom:16px;line-height:1.4}
-.alt-img{width:100%;height:auto;border-radius:20px;box-shadow:var(--shadow-xl);display:block}
+/* Section images sit flat on the background — no floating shadow or motion. */
+.alt-img{width:100%;height:auto;border-radius:20px;display:block}
 
 .bottom-cta{background:var(--white);padding:40px 0;overflow:hidden}
 .bottom-cta-inner{max-width:1240px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:48px;flex-wrap:wrap}

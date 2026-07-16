@@ -366,10 +366,10 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .feature-icon{width:24px;height:24px;background:var(--grad-o);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;box-shadow:0 6px 14px -6px rgba(222,110,48,.7)}
 .feature-icon svg{width:13px;height:13px;fill:#fff}
 .feature-text{font-size:14.5px;font-weight:500;color:var(--ink-soft);line-height:1.55}
-.alt-img{width:100%;height:auto;border-radius:20px;box-shadow:var(--sh-3);display:block}
+/* Section images sit flat on the background — no floating shadow or motion. */
+.alt-img{width:100%;height:auto;border-radius:20px;display:block}
 .alt-frame{position:relative}
-.float-anim{position:relative;animation:floatUD 6.5s ease-in-out infinite}
-@keyframes floatUD{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.float-anim{position:relative}
 .products-inner{display:flex;align-items:center;gap:58px;flex-wrap:wrap}
 .products-content{flex:1;min-width:300px}
 .products-h2{font-weight:800;font-size:clamp(28px,3.7vw,46px);letter-spacing:-.04em;line-height:1.08;margin-bottom:18px;color:var(--blue)}

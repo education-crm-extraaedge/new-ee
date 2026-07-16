@@ -193,10 +193,10 @@ body.ee-solution-page strong{font-weight:700;color:var(--ink)}
 .feature-icon{width:24px;height:24px;background:var(--grad-o);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;box-shadow:0 6px 14px -6px rgba(222,110,48,.7)}
 .feature-icon svg{width:13px;height:13px;fill:#fff}
 .feature-text{font-size:14.5px;font-weight:500;color:var(--ink-soft);line-height:1.55}
-.alt-img{width:100%;height:auto;border-radius:20px;box-shadow:var(--sh-3);display:block}
+/* Section images sit flat on the background — no floating shadow or motion. */
+.alt-img{width:100%;height:auto;border-radius:20px;display:block}
 .float-badge{position:absolute;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);padding:10px 16px;border:1px solid var(--line);border-radius:var(--r-pill);display:flex;align-items:center;gap:9px;font-weight:700;font-size:11.5px;color:var(--blue);z-index:4;white-space:nowrap;box-shadow:var(--sh-2)}
-@keyframes floatUD{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-.float-anim{position:relative;animation:floatUD 6.5s ease-in-out infinite}
+.float-anim{position:relative}
 .addon-section{padding:40px 0;background:#fff;position:relative}
 .addon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative;z-index:1}
 .addon-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;box-shadow:var(--sh-1);transition:var(--t);position:relative;overflow:hidden}
