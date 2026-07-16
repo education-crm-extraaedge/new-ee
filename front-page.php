@@ -2413,7 +2413,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     background:rgba(34,116,238,.1); border:1px solid rgba(34,116,238,.28); color:#bdd6fb;
     font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:16px; }#ee-vidya-suite .vsx-eyebrow i{ width:7px; height:7px; border-radius:50%; background:var(--cy); box-shadow:0 0 0 4px rgba(34,116,238,.18); animation:vsxBlink 1.8s ease-in-out infinite; }
   @keyframes vsxBlink{0%,100%{opacity:1}50%{opacity:.3} }#ee-vidya-suite h2{ font-family:'Inter',sans-serif; font-weight:700; color:#fff;
-    font-size:clamp(23px,3.3vw,40px); line-height:1.1; letter-spacing:-.02em; margin:0 0 12px; max-width:18ch; }#ee-vidya-suite .vsx-lead{ font-size:clamp(14px,1.6vw,16.5px); line-height:1.6; color:#c2d0e4; margin:0; max-width:62ch; }/* ---- stage / rail ---- */
+    font-size:clamp(23px,3.3vw,40px); line-height:1.14; letter-spacing:-.02em; margin:0 auto 12px; max-width:none; }#ee-vidya-suite h2 .vsx-h2b{ display:block; }#ee-vidya-suite .vsx-head{ text-align:center; }#ee-vidya-suite .vsx-lead{ font-size:clamp(14px,1.6vw,16.5px); line-height:1.6; color:#c2d0e4; margin:0 auto; max-width:68ch; }/* ---- stage / rail ---- */
   #ee-vidya-suite .vsx-stage{ margin-top:clamp(22px,3vw,38px); position:relative; }
   #ee-vidya-suite .vsx-arw{ display:none; }
   @media (max-width:900px){
@@ -2491,7 +2491,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
       <div class="vsx-inner">
         <header class="vsx-head">
           <span class="vsx-eyebrow"><i></i> Agentic AI Suite</span>
-          <h2>Meet Vidya AI, the Agentic AI Suite Built for Smarter Admissions</h2>
+          <h2>Meet Vidya AI, the Agentic AI Suite <span class="vsx-h2b">Built for Smarter Admissions</span></h2>
           <p class="vsx-lead">Vidya AI is your always-on AI workforce that engages every prospective student, qualifies leads instantly, automates follow-ups, supports counselors, and accelerates enrollments - so your teams can focus on building meaningful student relationships instead of repetitive tasks.</p>
         </header>
 
@@ -3501,7 +3501,6 @@ body{background:
         <svg id=&quot;icplay&quot; width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; style=&quot;display:none&quot;><path d=&quot;M7 4l13 8-13 8V4z&quot;/></svg>
       </button>
       <button class=&quot;pbtn&quot; id=&quot;pnext&quot; aria-label=&quot;Next step&quot;><svg width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.4&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 6l6 6-6 6&quot;/></svg></button>
-      <span>Auto-playing · click any step to jump</span>
     </div>
   </div>
 
