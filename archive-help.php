@@ -178,10 +178,15 @@ get_header();
 .hcx-tile:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(25,51,93,.08)}
 .hcx-tile svg{width:30px;height:30px}
 .hcx-tile span{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--mut);line-height:1.3}
-/* category cards */
+/* category cards — bento grid: card size follows article count */
 .hcx-main{padding:clamp(44px,6vw,80px) 0 20px}
-.hcx-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,3vw,32px)}
-.hcx-card{background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:24px;padding:clamp(24px,3.4vw,40px);display:flex;gap:clamp(18px,2.6vw,32px);transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s;scroll-margin-top:90px}
+.hcx-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-flow:dense;gap:clamp(14px,2.2vw,24px)}
+.hcx-card{grid-column:span 2}
+.hcx-card.lg{grid-column:span 4}
+.hcx-card.lg .hcx-links{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
+.hcx-card.sm{background:color-mix(in srgb,var(--ac) 5%,#fff);border-color:color-mix(in srgb,var(--ac) 16%,transparent)}
+.hcx-cnt{position:absolute;top:16px;right:16px;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--ac);background:color-mix(in srgb,var(--ac) 10%,#fff);border:1px solid color-mix(in srgb,var(--ac) 22%,transparent);padding:4px 10px;border-radius:999px;pointer-events:none}
+.hcx-card{position:relative;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:24px;padding:clamp(22px,3vw,34px);display:flex;flex-direction:column;gap:clamp(14px,2vw,20px);transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s;scroll-margin-top:90px}
 .hcx-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(25,51,93,.08)}
 .hcx-card.hide{display:none}
 .hcx-card.flash{box-shadow:0 0 0 3px var(--ac),0 10px 30px rgba(25,51,93,.12)}
@@ -214,16 +219,22 @@ get_header();
 .hcx-btn.line{background:#fff;color:var(--nv);border:2px solid var(--nv)}
 .hcx-btn.line:hover{background:rgba(25,51,93,.05);color:var(--nv)}
 /* responsive */
-@media(max-width:1100px){.hcx-quick .grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:1100px){
+  .hcx-quick .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .hcx-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .hcx-card,.hcx-card.sm{grid-column:span 2}
+  .hcx-card.lg{grid-column:span 4}
+}
 @media(max-width:860px){
   .hcx-grid{grid-template-columns:1fr}
+  .hcx-card,.hcx-card.lg,.hcx-card.sm{grid-column:span 1}
+  .hcx-card.lg .hcx-links{grid-template-columns:1fr;gap:14px}
   .hcx-hero .w{flex-direction:column;text-align:center}
   .hcx-hero-txt{max-width:none}
   .hcx-search{margin:0 auto}
 }
 @media(max-width:600px){
   .hcx-quick .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .hcx-card{flex-direction:column;gap:16px}
   .hcx-support{flex-direction:column;align-items:flex-start}
   .hcx-support .lhs{flex-direction:column;align-items:flex-start}
   .hcx-support .act,.hcx-support .act .hcx-btn{width:100%;justify-content:center}
@@ -285,8 +296,11 @@ get_header();
         <?php $hcx_i = 0; foreach ($hcx_groups as $cat => $items) :
             list($ac, $ico) = $hcx_look($cat, $hcx_i);
             $hcx_i++;
+            $hcx_n  = count($items);
+            $hcx_sz = $hcx_n >= 5 ? 'lg' : ($hcx_n >= 3 ? 'md' : 'sm');
         ?>
-        <article class="hcx-card" id="cat-<?php echo esc_attr($hcx_slug($cat)); ?>" style="--ac:<?php echo esc_attr($ac); ?>">
+        <article class="hcx-card <?php echo esc_attr($hcx_sz); ?>" id="cat-<?php echo esc_attr($hcx_slug($cat)); ?>" style="--ac:<?php echo esc_attr($ac); ?>">
+          <span class="hcx-cnt"><?php echo esc_html($hcx_n . ' article' . ($hcx_n === 1 ? '' : 's')); ?></span>
           <div class="hcx-ic" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><?php echo $ico; ?></svg>
           </div>
@@ -377,6 +391,8 @@ get_header();
         if (hit) inCard++;
       });
       card.classList.toggle('hide', inCard === 0);
+      var badge = card.querySelector('.hcx-cnt');
+      if (badge) badge.textContent = inCard + ' article' + (inCard === 1 ? '' : 's');
       visible += inCard;
     });
     if (empty) empty.classList.toggle('show', visible === 0);
