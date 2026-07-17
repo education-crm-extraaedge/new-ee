@@ -3236,6 +3236,21 @@ function ee_help_page_render() {
             </table>
             <?php submit_button('Save Help Page'); ?>
         </form>
+
+        <hr style="margin:28px 0">
+        <h2>⚡ Starter articles (one click)</h2>
+        <?php if (isset($_GET['seeded'])) : ?>
+            <div class="notice notice-success" style="margin-left:0"><p>
+                Created <strong><?php echo (int) $_GET['seeded']; ?></strong> new help article(s)<?php if (!empty($_GET['skipped'])) : ?>, skipped <strong><?php echo (int) $_GET['skipped']; ?></strong> that already existed<?php endif; ?>.
+                <a href="<?php echo esc_url(home_url('/help/')); ?>" target="_blank">View /help/ →</a>
+            </p></div>
+        <?php endif; ?>
+        <p style="max-width:720px;color:#475569">Creates the standard ExtraaEdge CRM help structure — 8 categories (Adding Leads, Managing Leads, Activities Tracking, Calling Leads, Lead Follow Ups, Bulk Activities, Admin Settings, My Account) with all their articles — as published Help posts with placeholder content. Open each article afterwards and add its real steps, screenshots, and videos. Articles that already exist (same title) are never touched, so this button is safe to press again.</p>
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+            <input type="hidden" name="action" value="ee_help_seed">
+            <?php wp_nonce_field('ee_help_seed'); ?>
+            <?php submit_button('Create starter articles', 'secondary', 'submit', false); ?>
+        </form>
     </div>
     <script>
     jQuery(function ($) {
@@ -3251,6 +3266,48 @@ function ee_help_page_render() {
     </script>
     <?php
 }
+add_action('admin_post_ee_help_seed', function () {
+    if (!current_user_can('manage_options')) wp_die('Not allowed');
+    check_admin_referer('ee_help_seed');
+    $seed = array(
+        'Adding Leads'        => array('Quick Add Lead Form', 'Lead form', 'Bulk Upload', 'Direct lead flow from online sources', 'Leads FAQ'),
+        'Managing Leads'      => array('Search Lead', 'Update lead details', 'Refer a lead', 'Update lead status'),
+        'Activities Tracking' => array('Messaging leads', 'Send WhatsApp message to a lead', 'Send SMS to a lead', 'Send SMS to all leads', 'Email leads', 'Send Email to a lead', 'Send Email to all leads'),
+        'Calling Leads'       => array('Calling using IVR', 'Calling using ExtraaEdge Web Application'),
+        'Lead Follow Ups'     => array('Add Followup', 'Pending Followup'),
+        'Bulk Activities'     => array('Sort Leads', 'Download Leads', 'Refer All Leads', 'Filter Leads'),
+        'Admin Settings'      => array('Add new email templates'),
+        'My Account'          => array('Forgot Password'),
+    );
+    /* existing titles → never duplicate */
+    $existing = array();
+    foreach (get_posts(array('post_type' => 'help', 'post_status' => 'any', 'numberposts' => -1)) as $p) {
+        $existing[mb_strtolower(trim($p->post_title))] = true;
+    }
+    $created = 0;
+    $skipped = 0;
+    $order   = 0;
+    foreach ($seed as $cat => $titles) {
+        foreach ($titles as $title) {
+            $order++;
+            if (isset($existing[mb_strtolower($title)])) { $skipped++; continue; }
+            $pid = wp_insert_post(array(
+                'post_type'    => 'help',
+                'post_status'  => 'publish',
+                'post_title'   => $title,
+                'post_content' => '<p>Content coming soon — edit this article to add the steps, screenshots, and videos for <strong>' . esc_html($title) . '</strong>.</p>',
+                'menu_order'   => $order,
+            ));
+            if ($pid && !is_wp_error($pid)) {
+                update_post_meta($pid, '_help_category', $cat);
+                update_post_meta($pid, '_help_difficulty', 'beginner');
+                $created++;
+            }
+        }
+    }
+    wp_safe_redirect(add_query_arg(array('post_type' => 'help', 'page' => 'ee-help-page', 'seeded' => $created, 'skipped' => $skipped), admin_url('edit.php')));
+    exit;
+});
 
 // ══════════════════════════════════════════════════════════
 // G5. SOLUTIONS MENU HELPER — admin-editable list (no CPT needed)

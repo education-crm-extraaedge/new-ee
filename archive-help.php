@@ -77,6 +77,18 @@ $hcx_slug = function ($name) { return sanitize_title($name); };
 
 /* accent colors + icons cycle per category (mockup palette) */
 $hcx_accents = array('#DE6E30', '#4CAF50', '#673AB7', '#2196F3', '#E91E63', '#009688', '#9C27B0', '#19335D');
+/* known CRM categories keep the exact color + icon from the approved
+   mockup (icon value = index into $hcx_icons); anything else cycles */
+$hcx_cat_map = array(
+    'adding leads'        => array('#19335D', 0),
+    'managing leads'      => array('#4CAF50', 1),
+    'activities tracking' => array('#673AB7', 2),
+    'calling leads'       => array('#DE6E30', 3),
+    'lead follow ups'     => array('#DE6E30', 4),
+    'bulk activities'     => array('#19335D', 5),
+    'admin settings'      => array('#009688', 6),
+    'my account'          => array('#673AB7', 7),
+);
 $hcx_icons = array(
     '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/>',
     '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
@@ -87,6 +99,13 @@ $hcx_icons = array(
     '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
     '<circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/>',
 );
+$hcx_look = function ($cat, $i) use ($hcx_cat_map, $hcx_accents, $hcx_icons) {
+    $k = mb_strtolower(trim($cat));
+    if (isset($hcx_cat_map[$k])) {
+        return array($hcx_cat_map[$k][0], $hcx_icons[$hcx_cat_map[$k][1]]);
+    }
+    return array($hcx_accents[$i % count($hcx_accents)], $hcx_icons[$i % count($hcx_icons)]);
+};
 
 /* ---- SEO ---- */
 add_action('wp_head', function () use ($hcx_groups, $hcx_total) {
@@ -240,8 +259,7 @@ get_header();
     <div class="w">
       <div class="grid" style="--qcols:<?php echo max(2, min(7, count($hcx_groups))); ?>">
         <?php foreach ($hcx_groups as $cat => $items) :
-            $ac  = $hcx_accents[$hcx_i % count($hcx_accents)];
-            $ico = $hcx_icons[$hcx_i % count($hcx_icons)];
+            list($ac, $ico) = $hcx_look($cat, $hcx_i);
             $hcx_i++;
         ?>
         <button class="hcx-tile" type="button" data-go="cat-<?php echo esc_attr($hcx_slug($cat)); ?>">
@@ -259,8 +277,7 @@ get_header();
       <?php if ($hcx_rich !== '') : ?><div class="hcx-rich"><?php echo $hcx_rich; ?></div><?php endif; ?>
       <div class="hcx-grid" id="hcxGrid">
         <?php $hcx_i = 0; foreach ($hcx_groups as $cat => $items) :
-            $ac  = $hcx_accents[$hcx_i % count($hcx_accents)];
-            $ico = $hcx_icons[$hcx_i % count($hcx_icons)];
+            list($ac, $ico) = $hcx_look($cat, $hcx_i);
             $hcx_i++;
         ?>
         <article class="hcx-card" id="cat-<?php echo esc_attr($hcx_slug($cat)); ?>" style="--ac:<?php echo esc_attr($ac); ?>">
