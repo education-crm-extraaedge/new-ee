@@ -1,11 +1,18 @@
 <?php
 /**
- * single-help.php — Help / Knowledge Base article
- * Schema: TechArticle
+ * single-help.php — Help / Knowledge Base article (Help Center design).
+ *
+ * Navy gradient hero with breadcrumb + meta chips, glass article card
+ * with styled steps/screenshots, sticky sidebar ("In this category"
+ * from _help_category meta, related links, support card), prev/next
+ * within the category. Everything the editor writes in the normal
+ * WordPress editor (text, images, videos) renders styled here.
+ *
  * Custom fields:
  *   _seo_title, _seo_description, _seo_keywords, _og_image
  *   _help_subtitle, _help_category, _help_difficulty (beginner|intermediate|advanced)
  *   _help_reading_time, _help_related_links (one per line: label|url)
+ *
  * @package ExtraaEdge
  */
 if (!defined('ABSPATH')) exit;
@@ -41,6 +48,16 @@ add_action('wp_head', function () {
         'mainEntityOfPage' => array('@type' => 'WebPage', '@id' => $url),
     );
     echo "\n<script type=\"application/ld+json\">" . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
+    $crumbs = array(
+        '@context'        => 'https://schema.org',
+        '@type'           => 'BreadcrumbList',
+        'itemListElement' => array(
+            array('@type' => 'ListItem', 'position' => 1, 'name' => 'Help Center', 'item' => home_url('/help/')),
+            array('@type' => 'ListItem', 'position' => 2, 'name' => $category, 'item' => home_url('/help/#cat-' . sanitize_title($category))),
+            array('@type' => 'ListItem', 'position' => 3, 'name' => get_the_title($pid)),
+        ),
+    );
+    echo '<script type="application/ld+json">' . wp_json_encode($crumbs, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
 });
 
 get_header();
@@ -52,77 +69,217 @@ $category  = get_post_meta($pid, '_help_category', true) ?: 'General';
 $diff      = get_post_meta($pid, '_help_difficulty', true) ?: 'beginner';
 $read_time = get_post_meta($pid, '_help_reading_time', true);
 $related   = get_post_meta($pid, '_help_related_links', true);
+
+/* auto reading time when the meta is blank */
+if (!$read_time) {
+    $words = str_word_count(wp_strip_all_tags(get_post_field('post_content', $pid)));
+    $read_time = max(1, (int) ceil($words / 200));
+}
+
+/* category accent — same palette as the /help/ archive */
+$hsx_cat_map = array(
+    'overview'            => '#19335D',
+    'adding leads'        => '#DE6E30',
+    'managing leads'      => '#4CAF50',
+    'activities tracking' => '#673AB7',
+    'messaging leads'     => '#2196F3',
+    'email leads'         => '#E91E63',
+    'calling leads'       => '#DE6E30',
+    'lead follow ups'     => '#9C27B0',
+    'bulk activities'     => '#19335D',
+    'admin settings'      => '#009688',
+    'my account'          => '#673AB7',
+);
+$accent = isset($hsx_cat_map[mb_strtolower(trim($category))]) ? $hsx_cat_map[mb_strtolower(trim($category))] : '#DE6E30';
+
+/* siblings in the same category (for the sidebar + prev/next) */
+$siblings = get_posts(array(
+    'post_type'      => 'help',
+    'post_status'    => 'publish',
+    'posts_per_page' => -1,
+    'orderby'        => 'menu_order date',
+    'order'          => 'ASC',
+    'meta_key'       => '_help_category',
+    'meta_value'     => $category,
+));
+$prev = null;
+$next = null;
+foreach ($siblings as $i => $s) {
+    if ((int) $s->ID === (int) $pid) {
+        if ($i > 0) $prev = $siblings[$i - 1];
+        if ($i < count($siblings) - 1) $next = $siblings[$i + 1];
+        break;
+    }
+}
+$cat_url = home_url('/help/#cat-' . sanitize_title($category));
 ?>
 
-<style>
-.hp-hero{background:linear-gradient(135deg,#F8FAFC 0%,#FFFFFF 100%);padding:50px 0 30px;border-bottom:1px solid #E2E8F0}
-.hp-hero .container{max-width:1100px;margin:0 auto;padding:0 24px}
-.hp-breadcrumb{font-family:'Inter',sans-serif;font-size:13px;color:#64748B;margin-bottom:16px}
-.hp-breadcrumb a{color:#DE6E30;text-decoration:none;font-weight:600}
-.hp-breadcrumb span{color:#19335D;font-weight:600}
-.hp-hero h1{font-family:'Inter',sans-serif;font-size:clamp(28px,3.6vw,42px);line-height:1.2;color:#19335D;font-weight:900;margin:0 0 12px;letter-spacing:-.02em}
-.hp-hero .sub{font-size:clamp(15px,1.3vw,17px);color:#475569;line-height:1.7;margin-bottom:18px;max-width:760px}
-.hp-meta{display:flex;flex-wrap:wrap;gap:14px;font-family:'Inter',sans-serif;font-size:13px;color:#475569}
-.hp-meta span{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #E2E8F0;padding:6px 14px;border-radius:9999px;font-weight:600}
-.hp-diff-beginner{color:#16A34A!important;background:rgba(22,163,74,.08)!important;border-color:rgba(22,163,74,.18)!important}
-.hp-diff-intermediate{color:#D97706!important;background:rgba(217,119,6,.08)!important;border-color:rgba(217,119,6,.18)!important}
-.hp-diff-advanced{color:#DC2626!important;background:rgba(220,38,38,.08)!important;border-color:rgba(220,38,38,.18)!important}
-
-.hp-body{background:#fff;padding:50px 0}
-.hp-body .container{max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 280px;gap:48px}
-.hp-body article{font-family:'Inter',sans-serif;color:#19335D;line-height:1.85;font-size:16px}
-.hp-body article h2{font-family:'Inter',sans-serif;font-size:clamp(22px,2.6vw,28px);font-weight:800;color:#19335D;margin:32px 0 14px;scroll-margin-top:90px}
-.hp-body article h3{font-family:'Inter',sans-serif;font-size:20px;font-weight:700;color:#19335D;margin:24px 0 10px}
-.hp-body article p{color:#475569;margin-bottom:16px}
-.hp-body article ul,.hp-body article ol{margin:0 0 20px 20px;color:#475569}
-.hp-body article li{margin-bottom:8px}
-.hp-body article code{background:#F1F5F9;color:#DE6E30;padding:2px 8px;border-radius:6px;font-size:14px;font-family:'Courier New',monospace}
-.hp-body article pre{background:#0F172A;color:#E2E8F0;padding:20px;border-radius:12px;overflow-x:auto;margin:18px 0;font-size:14px}
-.hp-body article pre code{background:transparent;color:inherit;padding:0}
-.hp-body article a{color:#DE6E30;font-weight:600}
-.hp-body article blockquote{border-left:4px solid #DE6E30;background:#FEF7F2;padding:14px 20px;margin:20px 0;border-radius:0 12px 12px 0;color:#475569}
-
-.hp-aside{position:sticky;top:100px;align-self:start}
-.hp-aside-card{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:18px;padding:22px;margin-bottom:18px}
-.hp-aside-card h3{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;color:#19335D;margin:0 0 12px;text-transform:uppercase;letter-spacing:1px}
-.hp-aside-card ul{list-style:none;padding:0;margin:0}
-.hp-aside-card ul li{padding:6px 0;border-bottom:1px solid #E2E8F0;font-size:13px;font-family:'Inter',sans-serif}
-.hp-aside-card ul li:last-child{border-bottom:0}
-.hp-aside-card a{color:#19335D;text-decoration:none;font-weight:600;display:block}
-.hp-aside-card a:hover{color:#DE6E30}
-.hp-feedback{background:linear-gradient(135deg,#19335D,#1e3d70);color:#fff;border-radius:18px;padding:22px;text-align:center}
-.hp-feedback p{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.85);margin:0 0 12px}
-.hp-feedback a{background:#DE6E30;color:#fff;display:inline-block;padding:10px 18px;border-radius:10px;font-weight:700;text-decoration:none;font-size:13px}
-
-@media(max-width:900px){.hp-body .container{grid-template-columns:1fr;gap:32px}.hp-aside{position:relative;top:0}}
+<style id="hsx-style">
+.hsx{--nv:#19335D;--or:#DE6E30;--ac:<?php echo esc_html($accent); ?>;--bg:#f8f9ff;--line:rgba(0,0,0,.05);--mut:#44474f;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#0b1c30;background:var(--bg)}
+.hsx *{box-sizing:border-box}
+.hsx .w{max-width:1280px;margin:0 auto;padding:0 clamp(16px,3.5vw,40px)}
+.hsx a{text-decoration:none}
+/* hero */
+.hsx-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#19335D 0%,#2A4E8C 100%);padding:clamp(36px,5vw,56px) 0 clamp(44px,6vw,64px)}
+.hsx-hero::before{content:"";position:absolute;top:-80px;right:-80px;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.05);filter:blur(64px)}
+.hsx-hero .w{position:relative;z-index:2}
+.hsx-crumb{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(211,228,254,.75);margin-bottom:16px}
+.hsx-crumb a{color:rgba(211,228,254,.9)}
+.hsx-crumb a:hover{color:#fff}
+.hsx-crumb .sep{opacity:.5}
+.hsx-crumb .cur{color:#fff}
+.hsx-hero h1{font-size:clamp(26px,3.6vw,40px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#fff;margin:0 0 10px;max-width:860px}
+.hsx-hero .sub{font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:rgba(211,228,254,.9);margin:0 0 18px;max-width:760px}
+.hsx-meta{display:flex;flex-wrap:wrap;gap:10px}
+.hsx-chip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;letter-spacing:.02em;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.16)}
+.hsx-chip.cat{background:var(--ac);border-color:var(--ac)}
+.hsx-chip svg{width:14px;height:14px}
+/* layout */
+.hsx-body{padding:clamp(28px,4.5vw,56px) 0 clamp(48px,7vw,80px)}
+.hsx-body .w{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:clamp(20px,3vw,40px);align-items:start}
+.hsx-article{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3.4vw,44px);min-width:0}
+/* content typography */
+.hsx-content{font-size:16px;line-height:1.75;color:var(--mut);overflow-wrap:break-word}
+.hsx-content h2{font-size:clamp(21px,2.4vw,26px);line-height:1.3;font-weight:700;color:var(--nv);margin:30px 0 12px;scroll-margin-top:90px}
+.hsx-content h3{font-size:clamp(17.5px,2vw,20px);line-height:1.35;font-weight:700;color:var(--nv);margin:26px 0 10px}
+.hsx-content h2:first-child,.hsx-content h3:first-child,.hsx-content p:first-child{margin-top:0}
+.hsx-content p{margin:0 0 15px}
+.hsx-content ul,.hsx-content ol{margin:0 0 16px;padding-left:22px}
+.hsx-content li{margin-bottom:7px}
+.hsx-content a{color:var(--or);font-weight:600}
+.hsx-content a:hover{text-decoration:underline}
+.hsx-content strong{color:var(--nv)}
+.hsx-content img{max-width:100%;height:auto;border-radius:12px;border:1px solid var(--line);display:block;margin:6px 0}
+.hsx-content figure{margin:14px 0 20px}
+.hsx-content figure.hlp-shot img,.hsx-content .wp-block-image img{box-shadow:0 8px 26px rgba(25,51,93,.08)}
+.hsx-content figcaption{font-size:13px;color:#747780;margin-top:8px;text-align:center}
+.hsx-content iframe,.hsx-content video{width:100%;max-width:100%;aspect-ratio:16/9;height:auto;border-radius:12px;border:0;display:block;margin:14px 0 20px}
+.hsx-content blockquote{border-left:4px solid var(--ac);background:color-mix(in srgb,var(--ac) 6%,#fff);padding:14px 20px;margin:18px 0;border-radius:0 12px 12px 0}
+.hsx-content table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px}
+.hsx-content th,.hsx-content td{border:1px solid #e3e6ef;padding:10px 12px;text-align:left}
+.hsx-content th{background:#eff4ff;color:var(--nv)}
+.hsx-content code{background:#f1f4fb;color:var(--or);padding:2px 8px;border-radius:6px;font-size:14px}
+/* prev / next */
+.hsx-pn{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:clamp(26px,4vw,40px);padding-top:clamp(20px,3vw,28px);border-top:1px solid #e8ebf4}
+.hsx-pn a{display:flex;flex-direction:column;gap:5px;border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px 18px;transition:border-color .2s,box-shadow .2s}
+.hsx-pn a:hover{border-color:var(--ac);box-shadow:0 8px 22px rgba(25,51,93,.08)}
+.hsx-pn .lbl{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a8f9b}
+.hsx-pn .ttl{font-size:14.5px;font-weight:600;color:var(--nv);line-height:1.4}
+.hsx-pn a.next{text-align:right;align-items:flex-end}
+.hsx-pn .ghost{visibility:hidden}
+/* sidebar */
+.hsx-aside{position:sticky;top:96px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.hsx-card{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:20px;padding:22px}
+.hsx-card h3{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--nv);margin:0 0 14px}
+.hsx-card h3 .dot{width:10px;height:10px;border-radius:3px;background:var(--ac);flex:none}
+.hsx-card ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.hsx-card li{border-bottom:1px solid #eef1f8}
+.hsx-card li:last-child{border-bottom:0}
+.hsx-card li a{display:block;padding:9px 2px;font-size:14px;font-weight:600;color:var(--mut);line-height:1.45;transition:color .2s}
+.hsx-card li a:hover{color:var(--ac)}
+.hsx-card li.now a{color:var(--ac);position:relative;padding-left:14px}
+.hsx-card li.now a::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:var(--ac)}
+.hsx-card .all{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13px;font-weight:700;color:var(--or)}
+.hsx-card .all:hover{text-decoration:underline}
+.hsx-help{background:linear-gradient(135deg,#19335D,#2A4E8C);border:0;color:#fff;text-align:center}
+.hsx-help .agent{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.hsx-help .agent svg{width:26px;height:26px;color:#fff}
+.hsx-help p{font-size:13.5px;line-height:1.55;color:rgba(211,228,254,.9);margin:0 0 14px}
+.hsx-help a{display:block;font-size:13.5px;font-weight:700;padding:12px 16px;border-radius:10px;margin-top:8px}
+.hsx-help a.solid{background:var(--or);color:#fff}
+.hsx-help a.solid:hover{filter:brightness(1.08)}
+.hsx-help a.line{border:1.5px solid rgba(255,255,255,.4);color:#fff}
+.hsx-help a.line:hover{background:rgba(255,255,255,.08)}
+/* responsive */
+@media(max-width:980px){
+  .hsx-body .w{grid-template-columns:1fr}
+  .hsx-aside{position:static}
+}
+@media(max-width:600px){
+  .hsx-pn{grid-template-columns:1fr}
+  .hsx-pn a.next{text-align:left;align-items:flex-start}
+  .hsx-pn .ghost{display:none}
+}
+@media(prefers-reduced-motion:reduce){.hsx-pn a,.hsx-card li a{transition:none}}
 </style>
 
-<main id="main-content" role="main">
-  <section class="hp-hero" aria-labelledby="help-heading">
-    <div class="container">
-      <div class="hp-breadcrumb">
-        <a href="/help/">Help Center</a> › <span><?php echo esc_html($category); ?></span>
-      </div>
-      <h1 id="help-heading"><?php the_title(); ?></h1>
+<main id="main-content" class="hsx" role="main">
+
+  <section class="hsx-hero">
+    <div class="w">
+      <nav class="hsx-crumb" aria-label="Breadcrumb">
+        <a href="<?php echo esc_url(home_url('/help/')); ?>">Help Center</a>
+        <span class="sep">›</span>
+        <a href="<?php echo esc_url($cat_url); ?>"><?php echo esc_html($category); ?></a>
+        <span class="sep">›</span>
+        <span class="cur"><?php the_title(); ?></span>
+      </nav>
+      <h1><?php the_title(); ?></h1>
       <?php if ($subtitle) : ?><p class="sub"><?php echo esc_html($subtitle); ?></p><?php endif; ?>
-      <div class="hp-meta">
-        <span>📂 <?php echo esc_html($category); ?></span>
-        <span class="hp-diff-<?php echo esc_attr(strtolower($diff)); ?>">📊 <?php echo esc_html(ucfirst($diff)); ?></span>
-        <?php if ($read_time) : ?><span>⏱ <?php echo esc_html($read_time); ?> min read</span><?php endif; ?>
-        <span>🔄 Updated <?php echo esc_html(get_the_modified_date('M j, Y', $pid)); ?></span>
+      <div class="hsx-meta">
+        <a class="hsx-chip cat" href="<?php echo esc_url($cat_url); ?>">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <?php echo esc_html($category); ?>
+        </a>
+        <span class="hsx-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <?php echo esc_html(ucfirst($diff)); ?>
+        </span>
+        <span class="hsx-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 13.5"/></svg>
+          <?php echo esc_html($read_time); ?> min read
+        </span>
+        <span class="hsx-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><polyline points="21 3 21 9 15 9"/></svg>
+          Updated <?php echo esc_html(get_the_modified_date('M j, Y', $pid)); ?>
+        </span>
       </div>
     </div>
   </section>
 
-  <section class="hp-body">
-    <div class="container">
-      <article itemscope itemtype="https://schema.org/TechArticle">
-        <?php the_content(); ?>
+  <section class="hsx-body">
+    <div class="w">
+
+      <article class="hsx-article" itemscope itemtype="https://schema.org/TechArticle">
+        <div class="hsx-content" itemprop="articleBody">
+          <?php the_content(); ?>
+        </div>
+        <?php if ($prev || $next) : ?>
+        <nav class="hsx-pn" aria-label="More in <?php echo esc_attr($category); ?>">
+          <?php if ($prev) : ?>
+          <a href="<?php echo esc_url(get_permalink($prev)); ?>">
+            <span class="lbl">← Previous</span>
+            <span class="ttl"><?php echo esc_html(get_the_title($prev)); ?></span>
+          </a>
+          <?php else : ?><span class="ghost"></span><?php endif; ?>
+          <?php if ($next) : ?>
+          <a class="next" href="<?php echo esc_url(get_permalink($next)); ?>">
+            <span class="lbl">Next →</span>
+            <span class="ttl"><?php echo esc_html(get_the_title($next)); ?></span>
+          </a>
+          <?php endif; ?>
+        </nav>
+        <?php endif; ?>
       </article>
-      <aside class="hp-aside" role="complementary">
+
+      <aside class="hsx-aside" role="complementary">
+        <?php if (count($siblings) > 1) : ?>
+        <div class="hsx-card">
+          <h3><span class="dot"></span>In <?php echo esc_html($category); ?></h3>
+          <ul>
+            <?php foreach ($siblings as $s) : ?>
+            <li<?php echo ((int) $s->ID === (int) $pid) ? ' class="now"' : ''; ?>>
+              <a href="<?php echo esc_url(get_permalink($s)); ?>"><?php echo esc_html(get_the_title($s)); ?></a>
+            </li>
+            <?php endforeach; ?>
+          </ul>
+          <a class="all" href="<?php echo esc_url(home_url('/help/')); ?>">← All help articles</a>
+        </div>
+        <?php endif; ?>
+
         <?php if ($related) : ?>
-        <div class="hp-aside-card">
-          <h3>Related Articles</h3>
+        <div class="hsx-card">
+          <h3><span class="dot"></span>Related Articles</h3>
           <ul>
             <?php foreach (explode("\n", trim($related)) as $line) :
               $line = trim($line);
@@ -130,18 +287,29 @@ $related   = get_post_meta($pid, '_help_related_links', true);
               $parts = array_map('trim', explode('|', $line, 2));
               if (count($parts) < 2) continue;
             ?>
-              <li><a href="<?php echo esc_url($parts[1]); ?>">→ <?php echo esc_html($parts[0]); ?></a></li>
+            <li><a href="<?php echo esc_url($parts[1]); ?>"><?php echo esc_html($parts[0]); ?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>
         <?php endif; ?>
-        <div class="hp-feedback">
+
+        <div class="hsx-card hsx-help">
+          <div class="agent" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
           <p>Still need help? Our team responds within 24 hours.</p>
-          <a href="/contact-us/" rel="nofollow">💬 Contact Support</a>
+          <a class="solid" href="<?php echo esc_url(home_url('/contact-us/')); ?>">Email Support</a>
+          <a class="line" href="<?php echo esc_url(home_url('/book-demo/')); ?>">Live Chat</a>
         </div>
       </aside>
+
     </div>
   </section>
+
+  <?php if (current_user_can('edit_post', $pid)) : ?>
+  <a href="<?php echo esc_url(get_edit_post_link($pid)); ?>" style="position:fixed;right:18px;bottom:18px;z-index:9999;background:#19335D;color:#fff;font:600 13px/1 'Inter',sans-serif;padding:12px 18px;border-radius:999px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.25)">✏️ Edit this article</a>
+  <?php endif; ?>
+
 </main>
 
 <?php endwhile; get_footer(); ?>

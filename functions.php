@@ -3245,7 +3245,7 @@ function ee_help_page_render() {
                 <a href="<?php echo esc_url(home_url('/help/')); ?>" target="_blank">View /help/ →</a>
             </p></div>
         <?php endif; ?>
-        <p style="max-width:720px;color:#475569">Creates the standard ExtraaEdge CRM help structure — 8 categories (Adding Leads, Managing Leads, Activities Tracking, Calling Leads, Lead Follow Ups, Bulk Activities, Admin Settings, My Account) with all their articles — as published Help posts with placeholder content. Open each article afterwards and add its real steps, screenshots, and videos. Articles that already exist (same title) are never touched, so this button is safe to press again.</p>
+        <p style="max-width:720px;color:#475569">Creates the full ExtraaEdge CRM help library — 10 categories (Overview, Adding Leads, Managing Leads, Messaging Leads, Email Leads, Calling Leads, Lead Follow Ups, Bulk Activities, Admin Settings, My Account) with 31 articles including their real steps and screenshots — as published Help posts. Each article stays fully editable afterwards (text, images, videos) from Help → All Help. Articles that already have their own content are never overwritten, so this button is safe to press again.</p>
         <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
             <input type="hidden" name="action" value="ee_help_seed">
             <?php wp_nonce_field('ee_help_seed'); ?>
@@ -3266,36 +3266,290 @@ function ee_help_page_render() {
     </script>
     <?php
 }
+/**
+ * Real ExtraaEdge CRM help content: category => list of [title, html].
+ * Used by the one-click seeder; articles stay fully editable afterwards.
+ */
+function ee_help_seed_data() {
+    $im = function ($f) {
+        return '<figure class="hlp-shot"><img src="https://www.extraaedge.com/wp-content/uploads/' . $f . '" alt="" loading="lazy"></figure>';
+    };
+    return array(
+        'Overview' => array(
+            array('Lead List',
+                '<p>Lead List section gives you access to all leads of your admission/sales funnel.</p>'
+                . '<p><em>The funnel names / lead stages are customised as per your requirement.</em></p>'
+                . '<p>From Lead List you will be able to:</p>'
+                . '<ul><li>Jump on your admission funnel/sales funnel</li><li>Perform bulk tasks such as Send Email, Send SMS, Download leads, Refer a lead, etc.</li><li>Sort the list as per your requirement</li></ul>'
+                . $im('2022/01/NXDhlXKKDu7KY_tpoIAB1dH66ibZBDqVVw.png')),
+            array('Application List',
+                '<p>Application List section gives you access to all leads who have filled up the application form on your website.</p>'
+                . '<p>This section gives you a list of all leads which are in different stages of your application submission process.</p>'
+                . '<p>The list helps you in further nurturing your leads based on their stage.</p>'
+                . $im('2022/03/j6cXFn1hJGlz3pR9b_fUiluTYJa8nQITwg.png')),
+            array('My Followups',
+                '<p>You will be able to track all your followup activities. This will help you to quickly overview your Done, Missed and Planned activities in a selected date range.</p>'
+                . '<ul><li>You will be able to add the next followup activity.</li><li>You will be able to update the lead status, add a followup comment, etc.</li></ul>'
+                . '<p>We have added a few features which will help you in managing your followup activities:</p>'
+                . '<ul><li>Add Followup</li><li>Pending Followups</li><li>Edit/Update Followups</li><li>Followup Notifications</li></ul>'
+                . $im('2022/03/8Zb72ykNRBW9gKxFTikCP-rSEkDlwIWfwQ.png')
+                . $im('2022/03/KceUXOuxGn6WPwXOvC9TBLSnea_kxKOCAA.png')),
+            array('Marketing',
+                '<p>Marketing section gives you a list of all your marketing campaigns.</p>'
+                . '<p>From the Marketing section you will be able to:</p>'
+                . '<ul><li>Review performance of all marketing campaigns</li><li>View the list of leads generated from the campaign</li><li>Edit the campaign</li><li>Stop the campaign</li></ul>'
+                . $im('2022/03/9bgAs4lOqMHY8IUqohI_XT9i7rnpEtoo1w.png')),
+            array('Fail Leads',
+                '<p>While adding leads through bulk upload in the system, there might be chances of a few mistakes. You will find all such leads in this section with the reasons why these leads failed to get uploaded.</p>'
+                . '<p>You need to do the corrections in your Excel file and re-upload the leads data using the bulk upload functionality.</p>'
+                . '<p><strong>How this helps:</strong> This helps you find out the reasons for failure. Also, you know which leads are not part of your CRM.</p>'),
+            array('Reports',
+                '<p>We provide real-time analytics and customized reports. This provides information to make data-driven decisions. These reports include insights like:</p>'
+                . '<ul><li>Conversion ratios</li><li>Team Performance</li><li>ROI on Marketing spend, and many more reports as per your requirement.</li></ul>'
+                . '<p>Feel free to reach <a href="mailto:help@theextraaedge.com">help@theextraaedge.com</a> if you need a customized report.</p>'),
+        ),
+        'Adding Leads' => array(
+            array('Quick Add Lead Form',
+                '<p>Quick Add can be used to add a lead quickly in the CRM with minimum details. This helps counsellors capture leads while they are communicating with leads.</p>'
+                . '<p>To add a lead, follow the steps below:</p>'
+                . '<p><strong>Step 1:</strong> Click on the + icon from the top toolbar.</p>'
+                . $im('2022/03/Fb-wHXc7vZLlOP2lX60doHGOzQT4zoUXig.png')
+                . '<p><strong>Step 2:</strong> Fill up the Quick Add form. (Make sure you fill up all the mandatory fields.)</p>'
+                . $im('2022/03/I2ZhEV-hUvZW35CDcMtucjvrQtzMYSA8Jw.png')
+                . '<p><strong>Step 3:</strong> Click on <strong>Save and Add More</strong>.</p>'
+                . '<p>While adding the lead, you can choose if you wish to send a welcome email and/or SMS to a lead.</p>'),
+            array('Lead form',
+                '<p>You can add a single lead using the Lead form. You need to have the required information of a lead with you.</p>'
+                . '<p><strong>Step 1:</strong> Click on the + icon at the bottom left side of the screen.</p>'
+                . $im('2022/03/CV7emiSL5S9eM8Kdx6twIGh6In4sbF-9Lg.png')
+                . '<p><strong>Step 2:</strong> Fill up the lead details.</p>'
+                . $im('2022/03/dgu2-kPFcjWphRfoNJeiE54uWZnX6XS0_w.png')
+                . '<p><strong>Step 3:</strong> Click on <strong>ADD LEAD</strong>.</p>'),
+            array('Bulk Upload',
+                '<p>Leads come from various sources and you might be maintaining data in other systems like Excel files. You can upload your leads data into the CRM using the bulk upload function.</p>'
+                . '<p><strong>Step 1:</strong> Click on the Bulk Upload icon at the bottom right of your screen, below the Add Lead icon.</p>'
+                . '<p><strong>Step 2:</strong> Download the template (.CSV format). You need to add your data in the same format only.</p>'
+                . '<p><strong>Step 3:</strong> Once the data is ready, add the required data in the Upload Leads panel.</p>'
+                . $im('2022/03/FtGR5fSCiz-q0yAzpGK09VgVgbgwMgDP2Q-162x300.png')
+                . '<p><strong>Step 4:</strong> Upload the file using the Choose File button.</p>'
+                . '<p><strong>Step 5:</strong> Click on <strong>UPLOAD LEADS</strong>.</p>'),
+            array('Direct lead flow from online sources',
+                '<p>We help you integrate with all your online sources so that leads automatically flow into the system and we achieve zero leakage with faster response time.</p>'
+                . '<p>Auto capturing helps you focus more on your conversions rather than managing your lead data manually.</p>'
+                . '<p>We can integrate with various online channels like:</p>'
+                . '<ul><li>Google Ads</li><li>Facebook</li><li>LinkedIn</li><li>Instagram</li><li>Website / Landing pages</li><li>Other sources like Justdial, Shiksha, Collegedunia, etc.</li></ul>'
+                . '<p>Get in touch with us at <a href="mailto:help@theextraaedge.com">help@theextraaedge.com</a> if you wish to integrate your online sources with ExtraaEdge.</p>'),
+            array('Leads FAQ',
+                '<p><strong>Q: Can the leads be auto referred?</strong><br>A: Yes, leads can be auto referred as per your requirement. Request you to get in touch with us if you wish to refer leads automatically.</p>'
+                . '<p><strong>Q: Will the message and call go from the same registered number?</strong><br>A: Yes, the call or message will go from the same registered number.</p>'
+                . '<p><strong>Q: Apart from name, number and email ID, can we search for a lead?</strong><br>A: Please reach out to us at <a href="mailto:help@theextraaedge.com">help@theextraaedge.com</a> for details.</p>'
+                . '<p><strong>Q: Can the welcome message be different for each course?</strong><br>A: Please reach out to us at <a href="mailto:help@theextraaedge.com">help@theextraaedge.com</a> for details.</p>'
+                . '<p><strong>Q: Can I add more funnels?</strong><br>A: You can not add more funnels on your own. But we are here for you — reach out to us if you wish to add more funnels.</p>'
+                . '<p><strong>Q: In Bulk Upload, can we change the template?</strong><br>A: No, you can not change the template.</p>'),
+        ),
+        'Managing Leads' => array(
+            array('Search Lead',
+                '<p>You can easily find your lead in your large database.</p>'
+                . '<p><strong>Step 1:</strong> Type the Name, Number or Email ID of a lead in the search bar.</p>'
+                . $im('2022/03/mFGf-j_bGVFwB05SprVsGpn-N9nyaz1noQ.png')
+                . '<p><strong>Step 2:</strong> Click on the Search icon or just press the Enter key.</p>'),
+            array('Update lead details',
+                '<p>You can update or add more details of a lead whenever you need.</p>'
+                . '<p><strong>Step 1:</strong> Click on the lead name.</p>'
+                . $im('2022/03/B4bAGe5XWu6phsacBBS-z5EVzlipd7fM9A-300x55.png')
+                . '<p><strong>Step 2:</strong> Update the lead details.</p>'
+                . $im('2022/03/ElWhZJSEFd0KhCNDeK1Y5z58FmyVZcOzCA.png')
+                . '<p><strong>Step 3:</strong> Click on <strong>UPDATE LEAD</strong>.</p>'),
+            array('Refer a lead',
+                '<p>A counselor can refer/transfer a lead to another counselor in the team.</p>'
+                . '<p><strong>Step 1:</strong> Click on the three dots in the action menu.</p>'
+                . '<p><strong>Step 2:</strong> Click on <strong>Refer Lead</strong>.</p>'
+                . $im('2022/03/gyVPat-Lp3Q6NO0IZHIGWkQjah7WlUPk_A.png')
+                . '<p><strong>Step 3:</strong> Add to whom you want to refer and your comments.</p>'
+                . $im('2022/03/6NZto0cYFqiolnKIKd60JF_zh_1wyLjrSw.png')
+                . '<p><strong>Step 4:</strong> Click on <strong>REFER</strong>.</p>'),
+            array('Update lead status',
+                '<p>As a lead moves ahead in your admission process, you can change the status of the lead. This gives you a clear picture of your admissions.</p>'
+                . '<p><strong>Step 1:</strong> Click on Status in the lead information section.</p>'
+                . $im('2022/03/n3l2rk8ErSk0NXVxag9JW-vn4hCFDl2mKQ.png')
+                . '<p><strong>Step 2:</strong> Select the Status and select the Reason.</p>'
+                . $im('2022/03/aW0zzxT_NoxEXAHq0l39VMeldChEwOeWcw.png')
+                . '<p><strong>Step 3:</strong> Click on <strong>UPDATE</strong>.</p>'),
+            array('Activities Tracking',
+                '<p>Good news — you can keep track of all activities done by the counselor and lead responses in one place.</p>'
+                . '<p>You will be able to track:</p>'
+                . '<ul><li>Counselor Followups</li><li>Lead Response</li><li>Lead re-inquired count</li></ul>'
+                . $im('2022/03/Yf2QiFbFhfODX27Sqp4AdAjQ1gq7kahccA.png')
+                . '<h3>Counselor Followups</h3><p>You have access to all activities the counselor has done for the lead.</p>'
+                . $im('2022/03/oyiqe8f3cC9THLAFrb-WgDyha3oOXgyzoA.png')
+                . '<h3>Lead Response</h3>'
+                . $im('2022/03/mXbJU-XUkh1MLaTe9r9b8ZvIfRLVKyElDA.png')
+                . '<h3>Lead Re-Inquired Count</h3>'
+                . $im('2022/03/tGOp5jfx5THTEOhvO7cQ-KoP-s3XPR30dw.png')),
+        ),
+        'Messaging Leads' => array(
+            array('Send WhatsApp message to a lead',
+                '<p>You will be able to send WhatsApp messages as well.</p>'
+                . '<p><strong>Step 1:</strong> Click on the WhatsApp icon from the action menu.</p>'
+                . '<p><strong>Step 2:</strong> This redirects you to Web WhatsApp. You need to keep Web WhatsApp active.</p>'
+                . '<p><strong>Step 3:</strong> You will be able to continue the conversation with a lead without even adding the lead to your phone contact list.</p>'),
+            array('Send SMS to a lead',
+                '<p>If you want to send an SMS to your lead, follow the steps below:</p>'
+                . '<p><strong>Step 1:</strong> Click on the lead\'s mobile number.</p>'
+                . $im('2022/03/DgrwP3CH4muuyeskC3DiobFWjYqphu7Cxg.png')
+                . '<p><strong>Step 2:</strong> An SMS panel will open on the right-hand side. You need to select:</p>'
+                . '<ul><li>Who you want to send to</li><li>A ready message from a template, or type your custom message</li><li>Promotional or Transactional route</li><li>Sender ID</li></ul>'
+                . $im('2022/03/cWR7OqSxmdWZRg2vSoR6_A_ftTFGWbgXng.png')
+                . '<p><strong>Step 3:</strong> Click on <strong>SEND SMS</strong>.</p>'),
+            array('Send SMS to all leads',
+                '<p>You will be able to send SMS to all leads of the list you filtered or created.</p>'
+                . '<p><strong>Step 1:</strong> Click on the Send SMS To All icon.</p>'
+                . $im('2022/03/xpnlAuvbtV5Cj8nso9g1fP3cYOz6y2d7FA.png')
+                . '<p><strong>Step 2:</strong> Click on Send SMS from the confirmation dialog box.</p>'
+                . $im('2022/03/SD3BjmgTF8Bnz9F8dBsjYZe8tyFapFwqXg.png')
+                . '<p><strong>Step 3:</strong> An SMS panel will open on the right-hand side.</p>'
+                . '<ul><li>Select whom you wish to send the message</li><li>Select the message template or create your own message</li><li>Select Promotional or Transactional route</li><li>Select Sender ID</li></ul>'
+                . $im('2022/03/pH03INyxrJYjLKc77AqphlygBa8AmXhtTg.png')
+                . '<p><strong>Step 4:</strong> Click on <strong>SEND SMS</strong>.</p>'),
+        ),
+        'Email Leads' => array(
+            array('Send Email to a lead',
+                '<p>If you want to send an email, follow the steps below:</p>'
+                . '<p><strong>Step 1:</strong> Click on the lead\'s email address.</p>'
+                . $im('2022/03/t2bKA5_wOUGXZyJGbz4DZtr9cRmQc7W1VQ.png')
+                . '<p><strong>Step 2:</strong> An Email panel will open on the right-hand side. You need to:</p>'
+                . '<ul><li>Select which email ID you want to send to</li><li>Choose an email template</li><li>Update the subject line if you wish</li><li>Review the email by clicking on the email icon below the subject</li></ul>'
+                . '<p><strong>Step 3:</strong> Click on <strong>SEND EMAIL</strong>.</p>'),
+            array('Send Email to all leads',
+                '<p>You can send an email to all the leads which are part of the list you selected/created.</p>'
+                . '<p><strong>Step 1:</strong> Click on the Send Email To All icon.</p>'
+                . $im('2022/03/CfUQ-hh8OchUluQT6zfa9T2f9tgPRL_4PQ.png')
+                . '<p><strong>Step 2:</strong> Click on Send Email from the confirmation dialog box.</p>'
+                . $im('2022/03/atMLDKyzyxFevXbLBVBdiVoTLHswSmpovA.png')
+                . '<p><strong>Step 3:</strong> An Email panel will open on the right-hand side.</p>'
+                . '<ul><li>Select whom you wish to send the email</li><li>Select the Email Template</li><li>Update the Subject line</li></ul>'
+                . $im('2022/03/gcHv4LzV-8XVVJ5smbbglpl-ZL4UXu3FNA.png')),
+        ),
+        'Calling Leads' => array(
+            array('Calling using IVR',
+                '<p>If your account and agent ID are mapped in CRM settings, you will be able to call a lead from the CRM.</p>'
+                . '<p><strong>Step 1:</strong> Click on the Call icon from the action menu.</p>'
+                . $im('2022/03/LFOzCvaxdGQu7wmpkhOIeaSDr9mLvMyNxw.png')
+                . '<p><strong>Step 2:</strong> Click on Yes to proceed with the call. The call will be automatically connected from the device to that lead.</p>'
+                . $im('2022/03/EyyT24_MGDbviWVf1LTo19D98PCOP4LCDQ.png')),
+            array('Calling using ExtraaEdge Web Application',
+                '<p>You can call your leads from the ExtraaEdge Web Application. This call will be connected through your mobile device.</p>'
+                . '<p><strong>Please note:</strong> You need to install the ExtraaEdge Mobile application and you must be logged in to access this functionality.</p>'
+                . '<p><strong>Step 1:</strong> Click on the Call icon from the action menu.</p>'
+                . $im('2022/03/d6__2jxjTjn9p8kLyNeRVjwR_V2TXhP-Jg.png')
+                . '<p><strong>Step 2:</strong> Click on Yes to proceed with the call. The call will be automatically connected from the device to that lead.</p>'),
+        ),
+        'Lead Follow Ups' => array(
+            array('Add Followup',
+                '<p>While working on various leads at a time, it may be difficult for a counselor to remember the next followup activity for a lead. With the help of the Add Followup function, you will be able to add the next activity.</p>'
+                . '<p><strong>Step 1:</strong> Click on the three dots in the action menu of the lead.</p>'
+                . '<p><strong>Step 2:</strong> Click on <strong>Add Followup</strong>.</p>'
+                . $im('2022/03/0jOwf2kR00QfqEbb2D02dOqPCOy-i-r0Sg.png')
+                . '<p><strong>Step 3:</strong> Add followup details, like Followup type, Next Action Date and Comments.</p>'
+                . $im('2022/03/RijDtgGTgxY6Pd8dZW0Acx-VHft60Ow4rQ.png')
+                . '<p><strong>Step 4:</strong> Click on <strong>ADD FOLLOWUP</strong>.</p>'),
+            array('Pending Followup',
+                '<p>We will remind you about your missed followup activities. On the top bar, you will find the number of pending activities.</p>'
+                . '<p><strong>Step 1:</strong> Click on the bell icon.</p>'
+                . $im('2022/03/yfAqsLcYtnhKwKyxOlDrjc-4bcr40UdicQ.png')
+                . '<p><strong>Step 2:</strong> You will get a list of all pending activities with all details.</p>'
+                . $im('2022/03/v7AS5WQl3-oB1Th5OsiX5iooSzEd0NQ7cA.png')
+                . '<ul><li>Click on the lead name if you wish to update it.</li><li>Click on the date if you wish to update the followup activity.</li></ul>'),
+        ),
+        'Bulk Activities' => array(
+            array('Sort Leads',
+                '<p>The Sort function helps you rearrange the list as per your preference. There are 4 ways in which you can sort your leads:</p>'
+                . '<ul><li>Creation date</li><li>Modification date</li><li>Next action date</li><li>Re-enquiry date</li></ul>'
+                . '<p><strong>Step 1:</strong> Click on the Sort icon.</p>'
+                . '<p><strong>Step 2:</strong> Select the sorting criteria.</p>'
+                . $im('2022/03/tod2e9FAn9t3fcFSGd5BpPYuQN152go9QQ.png')),
+            array('Download Leads',
+                '<p>You will be able to download leads in Excel format.</p>'
+                . '<p><strong>Step 1:</strong> Click on the Download All Leads icon.</p>'
+                . $im('2022/03/2df3Ih-47pQX-JZszXqSHynX3Wbpn_jLDQ.png')
+                . '<p><strong>Step 2:</strong> Click on Download from the confirmation box.</p>'
+                . $im('2022/03/7d8FojiE6iJd2b3SHfU-U7GojT68wIExwA.png')
+                . '<p>You will receive an email with the lead data, and you will get a confirmation notification.</p>'
+                . $im('2022/03/sjgevGsLLMwmxAER99GHjVhYP5UiZdg4KQ.png')),
+            array('Refer All Leads',
+                '<p>You can refer all leads of a list to another counselor in your team.</p>'
+                . '<p><strong>Step 1:</strong> Click on the Refer All Leads icon.</p>'
+                . $im('2022/03/XKwJ2_3ReHBf5rIYAfMqrHOzwvjb2nwCrg.png')
+                . '<p><strong>Step 2:</strong> Click on Refer from the confirmation dialog box.</p>'
+                . $im('2022/03/X8YeEY1TKZ1wcz9HuXKLCc_M84qlKOCu-A.png')
+                . '<p><strong>Step 3:</strong> Select the user you wish to refer to and add a comment.</p>'
+                . $im('2022/03/ZmsTPqo2CIagbIwRKI2Dhhl6Xx72sRA_oA.png')
+                . '<p><strong>Step 4:</strong> Click on <strong>REFER</strong>.</p>'),
+            array('Filter Leads',
+                '<p>You can apply multiple filters as per your requirement.</p>'
+                . '<p><strong>Step 1:</strong> Click on the Filters icon.</p>'
+                . $im('2022/03/BDpVs9o9A-DKRY7pN8Bbjo_pzE-e7nED5w.png')
+                . '<p><strong>Step 2:</strong> The filter panel will open. Apply your filters.</p>'
+                . $im('2022/03/2K5wCetEvP4NUWuTSiex3DMHp_cmv7h_Fg.png')
+                . '<p><strong>Step 3:</strong> Click on <strong>APPLY FILTER</strong>.</p>'
+                . '<p>Also, you can save this list for future reference. To save, click on <strong>Save Filter List</strong>.</p>'),
+        ),
+        'Admin Settings' => array(
+            array('Add new email templates',
+                '<p>If you are an admin, you will be able to add a new email template.</p>'
+                . '<p><strong>Step 1:</strong> Click on the Settings tab.</p>'
+                . '<p><strong>Step 2:</strong> Click on the Email Templates tab.</p>'
+                . '<p><strong>Step 3:</strong> Click on the Add Email Template icon at the bottom right.</p>'
+                . '<p><strong>Step 4:</strong> An email builder popup will appear to create an email template.</p>'
+                . '<ul><li>You need to give a name to the template and add an email subject line.</li><li>You can use variables to add dynamic details in the email.</li><li>You can add an attachment to the email.</li><li>Once you are ready with the email, you can test the template by sending the email to your own email ID.</li></ul>'
+                . '<p><strong>Step 5:</strong> If everything is as per your expectations, click on <strong>PUBLISH</strong>.</p>'
+                . '<p>You can use this template as you need — to send an email to a lead or in your marketing campaigns.</p>'),
+        ),
+        'My Account' => array(
+            array('Forgot Password',
+                '<p>Can\'t remember your password? No worries — it\'s easy to reset your password.</p>'
+                . '<p><strong>Step 1:</strong> Go to your login page.</p>'
+                . '<p><strong>Step 2:</strong> Click on Update/Forgot Password.</p>'
+                . '<p><strong>Step 3:</strong> Type your email ID and click on <strong>SUBMIT</strong>.</p>'
+                . '<p><strong>Step 4:</strong> Check your inbox. You will receive an email with a reset password link.</p>'
+                . '<p><strong>Step 5:</strong> Click on the link to set a new password. You can use this new password to access your ExtraaEdge account.</p>'),
+        ),
+    );
+}
 add_action('admin_post_ee_help_seed', function () {
     if (!current_user_can('manage_options')) wp_die('Not allowed');
     check_admin_referer('ee_help_seed');
-    $seed = array(
-        'Adding Leads'        => array('Quick Add Lead Form', 'Lead form', 'Bulk Upload', 'Direct lead flow from online sources', 'Leads FAQ'),
-        'Managing Leads'      => array('Search Lead', 'Update lead details', 'Refer a lead', 'Update lead status'),
-        'Activities Tracking' => array('Messaging leads', 'Send WhatsApp message to a lead', 'Send SMS to a lead', 'Send SMS to all leads', 'Email leads', 'Send Email to a lead', 'Send Email to all leads'),
-        'Calling Leads'       => array('Calling using IVR', 'Calling using ExtraaEdge Web Application'),
-        'Lead Follow Ups'     => array('Add Followup', 'Pending Followup'),
-        'Bulk Activities'     => array('Sort Leads', 'Download Leads', 'Refer All Leads', 'Filter Leads'),
-        'Admin Settings'      => array('Add new email templates'),
-        'My Account'          => array('Forgot Password'),
-    );
-    /* existing titles → never duplicate */
+    /* existing titles → update category/order; fill content only if still placeholder */
     $existing = array();
     foreach (get_posts(array('post_type' => 'help', 'post_status' => 'any', 'numberposts' => -1)) as $p) {
-        $existing[mb_strtolower(trim($p->post_title))] = true;
+        $existing[mb_strtolower(trim($p->post_title))] = $p;
     }
     $created = 0;
     $skipped = 0;
     $order   = 0;
-    foreach ($seed as $cat => $titles) {
-        foreach ($titles as $title) {
+    foreach (ee_help_seed_data() as $cat => $articles) {
+        foreach ($articles as $art) {
+            list($title, $html) = $art;
             $order++;
-            if (isset($existing[mb_strtolower($title)])) { $skipped++; continue; }
+            $key = mb_strtolower($title);
+            if (isset($existing[$key])) {
+                $p = $existing[$key];
+                update_post_meta($p->ID, '_help_category', $cat);
+                wp_update_post(array('ID' => $p->ID, 'menu_order' => $order));
+                /* placeholder from an earlier seed run → replace with real content */
+                if (strpos($p->post_content, 'Content coming soon') !== false) {
+                    wp_update_post(array('ID' => $p->ID, 'post_content' => $html));
+                    $created++;
+                } else {
+                    $skipped++;
+                }
+                continue;
+            }
             $pid = wp_insert_post(array(
                 'post_type'    => 'help',
                 'post_status'  => 'publish',
                 'post_title'   => $title,
-                'post_content' => '<p>Content coming soon — edit this article to add the steps, screenshots, and videos for <strong>' . esc_html($title) . '</strong>.</p>',
+                'post_content' => $html,
                 'menu_order'   => $order,
             ));
             if ($pid && !is_wp_error($pid)) {

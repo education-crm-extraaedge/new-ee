@@ -80,11 +80,14 @@ $hcx_accents = array('#DE6E30', '#4CAF50', '#673AB7', '#2196F3', '#E91E63', '#00
 /* known CRM categories keep the exact color + icon from the approved
    mockup (icon value = index into $hcx_icons); anything else cycles */
 $hcx_cat_map = array(
-    'adding leads'        => array('#19335D', 0),
+    'overview'            => array('#19335D', 8),
+    'adding leads'        => array('#DE6E30', 0),
     'managing leads'      => array('#4CAF50', 1),
     'activities tracking' => array('#673AB7', 2),
+    'messaging leads'     => array('#2196F3', 10),
+    'email leads'         => array('#E91E63', 9),
     'calling leads'       => array('#DE6E30', 3),
-    'lead follow ups'     => array('#DE6E30', 4),
+    'lead follow ups'     => array('#9C27B0', 4),
     'bulk activities'     => array('#19335D', 5),
     'admin settings'      => array('#009688', 6),
     'my account'          => array('#673AB7', 7),
@@ -98,6 +101,9 @@ $hcx_icons = array(
     '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
     '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
     '<circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/>',
+    '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>',
+    '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
 );
 $hcx_look = function ($cat, $i) use ($hcx_cat_map, $hcx_accents, $hcx_icons) {
     $k = mb_strtolower(trim($cat));
