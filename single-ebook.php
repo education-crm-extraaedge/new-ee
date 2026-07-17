@@ -130,7 +130,7 @@ if ($chapters) {
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --orange:#DE6E30; --orange-700:#C25A22; --orange-100:#FBE6D6; --orange-50:#FDF4EC;
@@ -138,9 +138,11 @@ if ($chapters) {
   --ink:#0B1A33; --body:#2A384E; --muted:#5A6880; --muted-2:#909CB0;
   --line:#E8EDF4; --line-strong:#D5DEEA; --paper:#FFFFFF; --paper-2:#FBFCFE;
   --green:#1A9E5F; --red:#D9534F;
-  --mono:'IBM Plex Mono', ui-monospace, monospace;
+  /* Inter-only — the site design system (labels keep their spaced-caps
+     voice via letter-spacing, not a second typeface) */
+  --mono:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --serif:'Newsreader', Georgia, serif;
+  --serif:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --ease:cubic-bezier(.2,.7,.2,1); --ease-out:cubic-bezier(.16,1,.3,1);
   --maxw:1240px;
 }
@@ -151,14 +153,14 @@ body.ee-ebook-body.lock{overflow:hidden}
 body.ee-ebook-body a{text-decoration:none;color:inherit}
 body.ee-ebook-body button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .ee-ebook .tnum{font-variant-numeric:tabular-nums}
-.ee-ebook .wrap{max-width:var(--maxw);margin:0 auto;padding:0 44px;position:relative}
+.ee-ebook .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(18px,4vw,44px);position:relative}
 .ee-ebook .grain{position:fixed;inset:0;z-index:120;pointer-events:none;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .ee-ebook .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--orange),#f0a25e);width:0;z-index:130;transition:width .08s linear}
 
 /* NAVBAR */
 .ee-ebook .nav{position:fixed;top:0;left:0;right:0;z-index:110;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .4s var(--ease-out)}
 .ee-ebook .nav.show{transform:none}
-.ee-ebook .nav-in{max-width:var(--maxw);margin:0 auto;padding:0 44px;height:62px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.ee-ebook .nav-in{max-width:var(--maxw);margin:0 auto;padding:0 clamp(14px,4vw,44px);height:62px;display:flex;align-items:center;justify-content:space-between;gap:14px}
 .ee-ebook .brand{display:flex;align-items:center;gap:12px;min-width:0}
 .ee-ebook .brand .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;letter-spacing:-.01em;color:var(--ink);white-space:nowrap}
 .ee-ebook .brand .logo .x{color:var(--muted-2);font-weight:400}
@@ -184,7 +186,7 @@ body.ee-ebook-body button{font-family:inherit;cursor:pointer;border:0;background
 .ee-ebook .issue{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:24px}
 .ee-ebook .issue .pill{border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px;color:rgba(255,255,255,.84)}
 .ee-ebook .issue .ln{flex:0 0 30px;height:1px;background:rgba(255,255,255,.25)}
-.ee-ebook .hero h1{font-size:clamp(34px,4.6vw,52px);line-height:1.03;font-weight:700;letter-spacing:-.035em;margin:0 0 20px;color:#fff}
+.ee-ebook .hero h1{font-size:clamp(29px,4.6vw,52px);line-height:1.03;font-weight:700;letter-spacing:-.035em;margin:0 0 20px;color:#fff}
 .ee-ebook .hero h1 em{font-style:normal;color:var(--orange)}
 .ee-ebook .hero .sub{font-size:17.5px;line-height:1.6;color:rgba(255,255,255,.78);margin:0 0 26px;max-width:560px}
 .ee-ebook .hero .by{display:flex;gap:10px;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);flex-wrap:wrap;margin-bottom:26px}
@@ -244,7 +246,7 @@ body.ee-ebook-body button{font-family:inherit;cursor:pointer;border:0;background
 /* MODAL */
 .ee-ebook .modal-bg{position:fixed;inset:0;z-index:150;background:rgba(11,26,51,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
 .ee-ebook .modal-bg.show{opacity:1;pointer-events:auto}
-.ee-ebook .modal-card{background:var(--paper);border-radius:18px;overflow:hidden;max-width:460px;width:100%;box-shadow:0 60px 120px -40px rgba(0,0,0,.6);transform:scale(.96) translateY(8px);transition:transform .35s var(--ease-out);max-height:calc(100vh - 48px);overflow-y:auto;position:relative}
+.ee-ebook .modal-card{background:var(--paper);border-radius:18px;overflow:hidden;max-width:460px;width:100%;box-shadow:0 60px 120px -40px rgba(0,0,0,.6);transform:scale(.96) translateY(8px);transition:transform .35s var(--ease-out);max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);overflow-y:auto;position:relative}
 .ee-ebook .modal-bg.show .modal-card{transform:none}
 .ee-ebook .modal-close{position:absolute;top:18px;right:20px;width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:5;cursor:pointer;border:0}
 .ee-ebook .modal-close:hover{background:rgba(255,255,255,.22)}
@@ -253,7 +255,7 @@ body.ee-ebook-body button{font-family:inherit;cursor:pointer;border:0;background
 .ee-ebook .intro{padding:72px 0;border-bottom:1px solid var(--line)}
 .ee-ebook .intro .wrap{max-width:860px}
 .ee-ebook .intro p{font-size:17px;line-height:1.78;color:var(--body);margin:0 0 18px}
-.ee-ebook .intro p.lead{font-family:var(--serif);font-size:24px;line-height:1.5;color:var(--ink);margin-bottom:22px}
+.ee-ebook .intro p.lead{font-size:clamp(19px,2.6vw,24px);line-height:1.5;font-weight:600;letter-spacing:-.015em;color:var(--ink);margin-bottom:22px}
 .ee-ebook .intro b,.ee-ebook .intro strong{font-weight:600;color:var(--ink)}
 .ee-ebook .term{color:var(--orange);font-weight:600}
 
@@ -313,6 +315,7 @@ body.ee-ebook-body button{font-family:inherit;cursor:pointer;border:0;background
 .ee-ebook .article ol li::before{content:counter(ol,decimal-leading-zero);position:absolute;left:0;top:1px;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--orange);background:var(--orange-50);border:1px solid var(--orange-100);width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center}
 .ee-ebook .article a{color:var(--orange);text-decoration:underline;text-underline-offset:3px}
 .ee-ebook .article table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13.5px;border:1px solid var(--line-strong);border-radius:14px;overflow:hidden}
+@media (max-width:760px){.ee-ebook .article table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:normal}}
 .ee-ebook .article th{background:var(--blue);color:#fff;padding:12px 14px;text-align:left}
 .ee-ebook .article td{padding:12px 14px;border-top:1px solid var(--line);color:var(--body)}
 .ee-ebook .divider-d{height:1px;background:var(--line);margin:52px 0}
@@ -323,14 +326,14 @@ body.ee-ebook-body button{font-family:inherit;cursor:pointer;border:0;background
 .ee-ebook .takeaway .tx{font-size:13.5px;line-height:1.55;color:var(--ink)}
 .ee-ebook .takeaway .tx b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:3px;font-weight:600}
 .ee-ebook .pull{margin:32px 0;padding:4px 0 4px 26px;border-left:3px solid var(--orange)}
-.ee-ebook .pull p{font-family:var(--serif);font-size:23px;line-height:1.45;color:var(--ink);margin:0;font-style:italic;font-weight:500}
+.ee-ebook .pull p{font-size:clamp(18px,2.4vw,23px);line-height:1.45;color:var(--ink);margin:0;font-weight:600;letter-spacing:-.015em}
 .ee-ebook .callout{margin:30px 0;border:1px solid var(--line-strong);border-radius:16px;overflow:hidden;box-shadow:0 18px 40px -28px rgba(11,26,51,.3)}
 .ee-ebook .callout .ch{background:var(--blue-900);color:#fff;padding:13px 22px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
 .ee-ebook .callout .ch .pp{width:7px;height:7px;border-radius:999px;background:var(--orange)}
 .ee-ebook .callout .cbody{padding:24px;background:var(--paper-2)}
 .ee-ebook .statbox{margin:30px 0;display:flex;align-items:center;gap:26px;background:linear-gradient(135deg,var(--blue-900),var(--blue));border-radius:16px;padding:30px 34px;color:#fff;flex-wrap:wrap;position:relative;overflow:hidden}
 .ee-ebook .statbox::after{content:"";position:absolute;right:-30px;top:-30px;width:180px;height:180px;border-radius:999px;background:radial-gradient(circle,rgba(222,110,48,.4),transparent 65%)}
-.ee-ebook .statbox .big{font-size:54px;font-weight:700;letter-spacing:-.03em;color:var(--orange);line-height:1;font-variant-numeric:tabular-nums;position:relative;z-index:1}
+.ee-ebook .statbox .big{font-size:clamp(36px,6vw,54px);font-weight:700;letter-spacing:-.03em;color:var(--orange);line-height:1;font-variant-numeric:tabular-nums;position:relative;z-index:1}
 .ee-ebook .statbox .lab{font-size:14.5px;line-height:1.5;color:rgba(255,255,255,.86);max-width:360px;position:relative;z-index:1}
 .ee-ebook .statbox .lab b{color:#fff}
 .ee-ebook .note{margin:26px 0;background:var(--orange-50);border:1px solid var(--orange-100);border-radius:14px;padding:20px 24px}
@@ -425,23 +428,72 @@ body.ee-ebook-body button{font-family:inherit;cursor:pointer;border:0;background
 .ee-ebook .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
 .ee-ebook .reveal.in{opacity:1;transform:none}
 
+/* ---- mobile chapters: floating pill + slide-up drawer (the sidebar
+   TOC disappears under 1040px — without this, phones lose chapter
+   navigation and the download button entirely) ---- */
+.ee-ebook .tocfab{position:fixed;left:18px;bottom:22px;z-index:95;display:none;align-items:center;gap:8px;background:var(--blue-900);color:#fff;font-size:13px;font-weight:600;padding:12px 18px;border-radius:999px;box-shadow:0 18px 36px -14px rgba(11,26,51,.6);border:0;cursor:pointer}
+.ee-ebook .tocfab .n{font-size:11px;color:var(--orange);font-weight:800}
+.ee-ebook .drawer-bg{position:fixed;inset:0;z-index:140;background:rgba(11,26,51,.5);opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
+.ee-ebook .drawer-bg.show{opacity:1;pointer-events:auto}
+.ee-ebook .drawer{position:fixed;left:0;right:0;bottom:0;z-index:145;background:var(--paper);border-radius:20px 20px 0 0;box-shadow:0 -30px 70px -20px rgba(11,26,51,.4);max-height:min(78vh,78dvh);display:flex;flex-direction:column;transform:translateY(105%);transition:transform .38s var(--ease-out);padding-bottom:env(safe-area-inset-bottom)}
+.ee-ebook .drawer.show{transform:none}
+.ee-ebook .drawer .dh{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px;border-bottom:1px solid var(--line)}
+.ee-ebook .drawer .dh b{font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.ee-ebook .drawer .dh .rt{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);font-weight:700}
+.ee-ebook .drawer .dclose{width:32px;height:32px;border-radius:9px;background:var(--blue-50);color:var(--ink);display:flex;align-items:center;justify-content:center;border:0;cursor:pointer;font-size:14px}
+.ee-ebook .drawer ul{list-style:none;margin:0;padding:10px 12px;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+.ee-ebook .drawer a{display:flex;align-items:center;gap:10px;padding:13px 12px;border-radius:10px;font-size:14px;font-weight:600;color:var(--ink);line-height:1.35}
+.ee-ebook .drawer a:active{background:var(--orange-50)}
+.ee-ebook .drawer a .num{font-size:11px;color:var(--orange);font-weight:800;min-width:22px}
+.ee-ebook .drawer .ddl{margin:10px 16px 16px;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:var(--orange);color:#fff;border-radius:12px;font-size:14px;font-weight:700;border:0;cursor:pointer;box-shadow:0 12px 26px -14px rgba(222,110,48,.7)}
+
 @media (max-width:1080px){
   .ee-ebook .hero-grid{grid-template-columns:1fr;gap:36px}
+  .ee-ebook .form-card{max-width:520px}
 }
 @media (max-width:1040px){
   .ee-ebook .reader-grid{grid-template-columns:1fr;gap:0}
   .ee-ebook .toc{display:none}
+  .ee-ebook .tocfab{display:inline-flex}
   .ee-ebook .sc-result-grid,.ee-ebook .bands,.ee-ebook .stack{grid-template-columns:1fr}
+  .ee-ebook .reader{padding:56px 0 80px}
 }
 @media (max-width:600px){
-  .ee-ebook .wrap, .ee-ebook .nav-in{padding-left:22px;padding-right:22px}
-  .ee-ebook .hero{padding:68px 0 56px}
-  .ee-ebook .hero-meta{flex-wrap:wrap}
-  .ee-ebook .hero-meta .m{flex:1 1 40%;border-right:0}
+  .ee-ebook .hero{padding:64px 0 46px}
+  .ee-ebook .hero-cta .btn{flex:1 1 100%;justify-content:center}
+  .ee-ebook .hero-meta{display:grid;grid-template-columns:1fr 1fr;max-width:none}
+  .ee-ebook .hero-meta .m{border-right:0;border-top:1px solid rgba(255,255,255,.12)}
+  .ee-ebook .hero-meta .m:nth-child(-n+2){border-top:0}
+  .ee-ebook .hero-meta .m:nth-child(odd){border-right:1px solid rgba(255,255,255,.12)}
+  .ee-ebook .nav-mid{display:none}
   .ee-ebook .nav-act .nav-btn.ghost{display:none}
-  .ee-ebook .sc-row{flex-direction:column;align-items:flex-start;gap:11px}
+  .ee-ebook .intro{padding:52px 0}
+  .ee-ebook .authors{padding:48px 0}
+  .ee-ebook .author{padding:22px}
+  .ee-ebook .author .ah{flex-direction:row;gap:14px}
+  .ee-ebook .author .portrait{width:60px;height:60px;font-size:17px}
+  .ee-ebook .statbox{padding:24px;gap:16px}
+  .ee-ebook .sc-row{flex-direction:column;align-items:flex-start;gap:11px;padding:14px 18px}
+  .ee-ebook .sc-opts{width:100%}
+  .ee-ebook .sc-opts button{flex:1;height:44px}
+  .ee-ebook .sc-head,.ee-ebook .sc-result{padding:20px 18px}
+  .ee-ebook .sc-cat{padding:10px 18px}
   .ee-ebook .sc-catbar{grid-template-columns:96px 1fr 38px}
-  .ee-ebook .modal-bg{padding:14px}
+  .ee-ebook .final{padding:64px 0}
+  .ee-ebook .final .btn{width:100%;justify-content:center}
+  .ee-ebook .modal-bg{padding:0;align-items:flex-end}
+  .ee-ebook .modal-card{max-width:none;border-radius:20px 20px 0 0;max-height:92vh;max-height:92dvh}
+  .ee-ebook .fab{bottom:20px;right:16px}
+  .ee-ebook .divider-d{margin:40px 0}
+}
+@media (max-width:380px){
+  .ee-ebook .hero h1{font-size:27px}
+  .ee-ebook .grid2{grid-template-columns:1fr;gap:11px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ee-ebook .reveal{opacity:1;transform:none;transition:none}
+  .ee-ebook .nav,.ee-ebook .drawer,.ee-ebook .modal-card{transition:none}
 }
 @media print{
   .ee-ebook .nav,.ee-ebook .progress,.ee-ebook .toc,.ee-ebook .fab,.ee-ebook .toast,.ee-ebook .hero-cta,.ee-ebook .toc-dl,.ee-ebook .modal-bg,.ee-ebook .form-card{display:none!important}
@@ -682,6 +734,21 @@ body.ee-ebook-body button{font-family:inherit;cursor:pointer;border:0;background
   </div>
 </div>
 
+<?php if ($toc): ?>
+<!-- mobile chapters: pill + slide-up drawer (sidebar TOC is hidden < 1040px) -->
+<button class="tocfab" id="tocFab" type="button">☰ Chapters <span class="n tnum"><?php echo count($toc); ?></span></button>
+<div class="drawer-bg" id="drawerBg"></div>
+<div class="drawer" id="drawer" role="dialog" aria-label="Chapters">
+  <div class="dh"><b>Contents</b><span class="rt" id="drawerRt"></span><button class="dclose" id="drawerClose" type="button" aria-label="Close">✕</button></div>
+  <ul>
+    <?php foreach ($toc as $t): ?>
+      <li><a href="#<?php echo esc_attr($t['id']); ?>"><span class="num tnum"><?php echo esc_html(preg_replace('/[^0-9A-Za-z]/', '', substr($t['num'], 0, 4))); ?></span> <?php echo esc_html($t['h']); ?></a></li>
+    <?php endforeach; ?>
+  </ul>
+  <button class="ddl" id="drawerDl" type="button">⬇ Download PDF</button>
+</div>
+<?php endif; ?>
+
 <button class="fab" id="fab" type="button" title="Back to top">↑</button>
 <div class="toast" id="toast"><span class="tk">✓</span><span id="toastMsg">Ready</span></div>
 </div>
@@ -794,6 +861,22 @@ body.ee-ebook-body button{font-family:inherit;cursor:pointer;border:0;background
   function closeModal(){ modal.classList.remove('show'); document.body.classList.remove('lock'); }
   document.getElementById('dlOpen').addEventListener('click', openModal);
   document.getElementById('tocDl').addEventListener('click', openModal);
+
+  // mobile chapters drawer
+  const drawer = document.getElementById('drawer');
+  const drawerBg = document.getElementById('drawerBg');
+  if (drawer) {
+    const dOpen  = () => { drawer.classList.add('show'); drawerBg.classList.add('show'); document.body.classList.add('lock'); };
+    const dClose = () => { drawer.classList.remove('show'); drawerBg.classList.remove('show'); document.body.classList.remove('lock'); };
+    document.getElementById('tocFab').addEventListener('click', dOpen);
+    document.getElementById('drawerClose').addEventListener('click', dClose);
+    drawerBg.addEventListener('click', dClose);
+    drawer.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', dClose));
+    const dDl = document.getElementById('drawerDl');
+    if (dDl) dDl.addEventListener('click', () => { dClose(); openModal(); });
+    const dRt = document.getElementById('drawerRt'); if (dRt) dRt.textContent = totalMin + ' min read';
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && drawer.classList.contains('show')) dClose(); });
+  }
   document.getElementById('modalClose').addEventListener('click', closeModal);
   modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
