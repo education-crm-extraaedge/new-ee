@@ -3131,6 +3131,127 @@ add_action('save_post_help', function ($post_id) {
     if (isset($_POST['help_related_links'])) update_post_meta($post_id, '_help_related_links', sanitize_textarea_field(wp_unslash($_POST['help_related_links'])));
 });
 
+// ── Help Center page settings: every text/image/video on /help/ is
+//    editable from Help → Page Settings, no code needed ──
+function ee_help_page_sanitize($in) {
+    $in  = is_array($in) ? $in : array();
+    $out = array();
+    foreach (array('hero_title', 'search_ph', 'support_title', 'b1_label', 'b2_label') as $k) {
+        $out[$k] = isset($in[$k]) ? sanitize_text_field($in[$k]) : '';
+    }
+    foreach (array('hero_sub', 'support_text') as $k) {
+        $out[$k] = isset($in[$k]) ? sanitize_textarea_field($in[$k]) : '';
+    }
+    foreach (array('hero_image', 'hero_video', 'b1_url', 'b2_url') as $k) {
+        $out[$k] = isset($in[$k]) ? esc_url_raw(trim($in[$k])) : '';
+    }
+    /* rich section: allow post markup + video embeds */
+    $allowed           = wp_kses_allowed_html('post');
+    $allowed['iframe'] = array('src' => true, 'width' => true, 'height' => true, 'frameborder' => true, 'allow' => true, 'allowfullscreen' => true, 'title' => true, 'style' => true, 'class' => true, 'loading' => true, 'referrerpolicy' => true);
+    $allowed['video']  = array('src' => true, 'controls' => true, 'poster' => true, 'width' => true, 'height' => true, 'style' => true, 'class' => true, 'preload' => true, 'muted' => true, 'loop' => true, 'autoplay' => true, 'playsinline' => true);
+    $allowed['source'] = array('src' => true, 'type' => true);
+    $out['extra_content'] = isset($in['extra_content']) ? wp_kses($in['extra_content'], $allowed) : '';
+    return $out;
+}
+add_action('admin_init', function () {
+    register_setting('ee_help_page_group', 'ee_help_page_settings', array('sanitize_callback' => 'ee_help_page_sanitize'));
+});
+add_action('admin_menu', function () {
+    add_submenu_page('edit.php?post_type=help', 'Help Page Settings', '🎨 Page Settings', 'manage_options', 'ee-help-page', 'ee_help_page_render');
+});
+add_action('admin_enqueue_scripts', function ($hook) {
+    if ($hook === 'help_page_ee-help-page') wp_enqueue_media();
+});
+function ee_help_page_render() {
+    if (!current_user_can('manage_options')) return;
+    $o = get_option('ee_help_page_settings', array());
+    $v = function ($k, $d = '') use ($o) { return isset($o[$k]) && $o[$k] !== '' ? $o[$k] : $d; };
+    ?>
+    <div class="wrap">
+        <h1>🎨 Help Center Page Settings</h1>
+        <p style="max-width:720px;color:#475569">Everything on <a href="<?php echo esc_url(home_url('/help/')); ?>" target="_blank"><code>/help/</code></a> that isn't an article is edited here — headings, search text, hero image or video, an optional extra section (text, images, videos), and the support band. Leave any field blank to use the default. Articles themselves are managed under <strong>Help → All Help</strong>.</p>
+        <form method="post" action="options.php">
+            <?php settings_fields('ee_help_page_group'); ?>
+            <h2>Hero (top blue band)</h2>
+            <table class="form-table" role="presentation">
+                <tr>
+                    <th><label>Main heading</label></th>
+                    <td><input type="text" class="large-text" name="ee_help_page_settings[hero_title]" value="<?php echo esc_attr($v('hero_title')); ?>" placeholder="ExtraaEdge CRM Help Center"></td>
+                </tr>
+                <tr>
+                    <th><label>Sub-heading</label></th>
+                    <td><textarea class="large-text" rows="2" name="ee_help_page_settings[hero_sub]" placeholder="Find guides and answers to help you manage leads and grow your admissions."><?php echo esc_textarea($v('hero_sub')); ?></textarea></td>
+                </tr>
+                <tr>
+                    <th><label>Search box placeholder</label></th>
+                    <td><input type="text" class="regular-text" name="ee_help_page_settings[search_ph]" value="<?php echo esc_attr($v('search_ph')); ?>" placeholder="Search for help articles..."></td>
+                </tr>
+                <tr>
+                    <th><label>Hero image (right side)</label></th>
+                    <td>
+                        <input type="url" class="regular-text" id="ee-help-hero-img" name="ee_help_page_settings[hero_image]" value="<?php echo esc_attr($v('hero_image')); ?>" placeholder="https://...jpg / .png">
+                        <button type="button" class="button" id="ee-help-hero-img-pick">📁 Choose from Media Library</button>
+                        <p class="description">Shown in the glass tile on the right of the hero (desktop). Blank = default book icon.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>Hero video (right side)</label></th>
+                    <td>
+                        <input type="url" class="regular-text" name="ee_help_page_settings[hero_video]" value="<?php echo esc_attr($v('hero_video')); ?>" placeholder="https://www.youtube.com/watch?v=... or https://...mp4">
+                        <p class="description">YouTube, Vimeo, or a direct .mp4 link. When set, the video replaces the hero image/icon.</p>
+                    </td>
+                </tr>
+            </table>
+            <h2>Extra section (text, images &amp; videos)</h2>
+            <p class="description" style="margin-bottom:8px">Optional. Appears between the quick-link tiles and the category cards. Use <strong>Add Media</strong> to insert images or upload a video; paste a YouTube link on its own line to embed it.</p>
+            <?php wp_editor(
+                isset($o['extra_content']) ? $o['extra_content'] : '',
+                'eehelpextra',
+                array('textarea_name' => 'ee_help_page_settings[extra_content]', 'media_buttons' => true, 'textarea_rows' => 10)
+            ); ?>
+            <h2>"Need more help?" band (bottom)</h2>
+            <table class="form-table" role="presentation">
+                <tr>
+                    <th><label>Heading</label></th>
+                    <td><input type="text" class="regular-text" name="ee_help_page_settings[support_title]" value="<?php echo esc_attr($v('support_title')); ?>" placeholder="Need more help?"></td>
+                </tr>
+                <tr>
+                    <th><label>Text</label></th>
+                    <td><textarea class="large-text" rows="2" name="ee_help_page_settings[support_text]" placeholder="If you can't find what you're looking for, please contact your administrator or reach out to our support team."><?php echo esc_textarea($v('support_text')); ?></textarea></td>
+                </tr>
+                <tr>
+                    <th><label>Button 1 (dark)</label></th>
+                    <td>
+                        <input type="text" name="ee_help_page_settings[b1_label]" value="<?php echo esc_attr($v('b1_label')); ?>" placeholder="Email Support">
+                        <input type="url" class="regular-text" name="ee_help_page_settings[b1_url]" value="<?php echo esc_attr($v('b1_url')); ?>" placeholder="/contact-us/">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>Button 2 (outline)</label></th>
+                    <td>
+                        <input type="text" name="ee_help_page_settings[b2_label]" value="<?php echo esc_attr($v('b2_label')); ?>" placeholder="Live Chat">
+                        <input type="url" class="regular-text" name="ee_help_page_settings[b2_url]" value="<?php echo esc_attr($v('b2_url')); ?>" placeholder="/book-demo/">
+                    </td>
+                </tr>
+            </table>
+            <?php submit_button('Save Help Page'); ?>
+        </form>
+    </div>
+    <script>
+    jQuery(function ($) {
+        $('#ee-help-hero-img-pick').on('click', function (e) {
+            e.preventDefault();
+            var frame = wp.media({ title: 'Choose hero image', multiple: false, library: { type: 'image' } });
+            frame.on('select', function () {
+                $('#ee-help-hero-img').val(frame.state().get('selection').first().toJSON().url);
+            });
+            frame.open();
+        });
+    });
+    </script>
+    <?php
+}
+
 // ══════════════════════════════════════════════════════════
 // G5. SOLUTIONS MENU HELPER — admin-editable list (no CPT needed)
 // ══════════════════════════════════════════════════════════

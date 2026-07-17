@@ -13,6 +13,39 @@
  */
 if (!defined('ABSPATH')) exit;
 
+/* ---- editable page settings (Help → Page Settings) with defaults ---- */
+$hcx_opt = get_option('ee_help_page_settings', array());
+$hcx_t = function ($k, $d = '') use ($hcx_opt) {
+    return (isset($hcx_opt[$k]) && trim((string) $hcx_opt[$k]) !== '') ? $hcx_opt[$k] : $d;
+};
+
+/* hero video: YouTube / Vimeo / direct file → embed markup */
+$hcx_embed = function ($url) {
+    $url = trim((string) $url);
+    if ($url === '') return '';
+    if (preg_match('~(?:youtube\.com/(?:watch\?v=|embed/|shorts/)|youtu\.be/)([A-Za-z0-9_-]{6,20})~', $url, $m)) {
+        return '<iframe src="https://www.youtube-nocookie.com/embed/' . esc_attr($m[1]) . '" title="Help Center video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+    }
+    if (preg_match('~vimeo\.com/(?:video/)?(\d+)~', $url, $m)) {
+        return '<iframe src="https://player.vimeo.com/video/' . esc_attr($m[1]) . '" title="Help Center video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+    }
+    if (preg_match('~\.(mp4|webm|ogv|ogg)(\?.*)?$~i', $url)) {
+        return '<video controls preload="metadata" src="' . esc_url($url) . '"></video>';
+    }
+    return '';
+};
+$hcx_video_html = $hcx_embed($hcx_t('hero_video'));
+$hcx_hero_img   = $hcx_t('hero_image');
+
+/* extra rich section (text/images/videos from the admin editor) */
+$hcx_rich = trim((string) $hcx_t('extra_content'));
+if ($hcx_rich !== '') {
+    if (!empty($GLOBALS['wp_embed']) && is_object($GLOBALS['wp_embed'])) {
+        $hcx_rich = $GLOBALS['wp_embed']->autoembed($hcx_rich);
+    }
+    $hcx_rich = do_shortcode(wpautop($hcx_rich));
+}
+
 /* ---- gather every published help article, grouped by category ---- */
 $hcx_q = new WP_Query(array(
     'post_type'      => 'help',
@@ -96,8 +129,23 @@ get_header();
 .hcx-hero-art{display:none;flex:0 0 30%;aspect-ratio:1/1;background:rgba(255,255,255,.05);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.1);border-radius:24px;position:relative;align-items:center;justify-content:center}
 .hcx-hero-art .book{width:120px;height:120px;color:rgba(255,255,255,.2);animation:hcxPulse 2.4s ease-in-out infinite}
 .hcx-hero-art .badge{position:absolute;top:44px;right:44px;width:38px;height:38px;color:var(--or)}
+.hcx-hero-art.media{padding:0;overflow:hidden}
+.hcx-hero-art.media img{width:100%;height:100%;object-fit:cover;display:block}
+.hcx-hero-art.video{aspect-ratio:16/9;flex:0 0 42%}
+.hcx-hero-art.video iframe,.hcx-hero-art.video video{width:100%;height:100%;border:0;display:block}
 @keyframes hcxPulse{0%,100%{opacity:1}50%{opacity:.5}}
 @media(min-width:1024px){.hcx-hero-art{display:flex}}
+/* editable rich section (text / images / videos from admin) */
+.hcx-rich{background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3.2vw,40px);margin:0 0 clamp(24px,4vw,40px);color:var(--mut);font-size:16px;line-height:1.65;overflow-wrap:break-word}
+.hcx-rich h1,.hcx-rich h2,.hcx-rich h3,.hcx-rich h4{color:var(--nv);line-height:1.3;margin:0 0 12px}
+.hcx-rich h2{font-size:clamp(20px,2.4vw,26px)}
+.hcx-rich h3{font-size:clamp(17px,2vw,20px)}
+.hcx-rich p{margin:0 0 14px}
+.hcx-rich p:last-child{margin-bottom:0}
+.hcx-rich a{color:var(--or);font-weight:600}
+.hcx-rich img{max-width:100%;height:auto;border-radius:12px}
+.hcx-rich iframe,.hcx-rich video{width:100%;max-width:100%;aspect-ratio:16/9;height:auto;border-radius:12px;border:0;display:block}
+.hcx-rich ul,.hcx-rich ol{margin:0 0 14px;padding-left:22px}
 /* quick tiles (overlap the hero) */
 .hcx-quick{position:relative;z-index:20;margin-top:-64px}
 .hcx-quick .grid{display:grid;grid-template-columns:repeat(var(--qcols,7),minmax(0,1fr));gap:16px}
@@ -164,19 +212,25 @@ get_header();
   <section class="hcx-hero">
     <div class="w">
       <div class="hcx-hero-txt">
-        <h1>ExtraaEdge CRM Help Center</h1>
-        <p>Find guides and answers to help you manage leads and grow your admissions.</p>
+        <h1><?php echo esc_html($hcx_t('hero_title', 'ExtraaEdge CRM Help Center')); ?></h1>
+        <p><?php echo esc_html($hcx_t('hero_sub', 'Find guides and answers to help you manage leads and grow your admissions.')); ?></p>
         <div class="hcx-search" id="hcxSearch">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-          <input type="search" id="hcxQ" placeholder="Search for help articles..." autocomplete="off" aria-label="Search help articles">
+          <input type="search" id="hcxQ" placeholder="<?php echo esc_attr($hcx_t('search_ph', 'Search for help articles...')); ?>" autocomplete="off" aria-label="Search help articles">
           <button class="x" id="hcxX" type="button" aria-label="Clear search">✕</button>
         </div>
         <div class="hcx-count" id="hcxCount" aria-live="polite"></div>
       </div>
+      <?php if ($hcx_video_html) : ?>
+      <div class="hcx-hero-art media video"><?php echo $hcx_video_html; ?></div>
+      <?php elseif ($hcx_hero_img) : ?>
+      <div class="hcx-hero-art media" aria-hidden="true"><img src="<?php echo esc_url($hcx_hero_img); ?>" alt="" loading="lazy"></div>
+      <?php else : ?>
       <div class="hcx-hero-art" aria-hidden="true">
         <svg class="book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="16" y2="7"/><line x1="9" y1="11" x2="14" y2="11"/></svg>
         <svg class="badge" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-2h2zm1.07-5.25-.9.92A1.49 1.49 0 0 0 13 14h-2v-.5a3 3 0 0 1 .88-2.12l1.24-1.26a1.46 1.46 0 0 0 .38-1A1.5 1.5 0 0 0 10.5 9H8.5a3.5 3.5 0 0 1 7 0 2.89 2.89 0 0 1-.93 2.75z"/></svg>
       </div>
+      <?php endif; ?>
     </div>
   </section>
 
@@ -202,6 +256,7 @@ get_header();
   <!-- category cards with article link lists -->
   <section class="hcx-main">
     <div class="w">
+      <?php if ($hcx_rich !== '') : ?><div class="hcx-rich"><?php echo $hcx_rich; ?></div><?php endif; ?>
       <div class="hcx-grid" id="hcxGrid">
         <?php $hcx_i = 0; foreach ($hcx_groups as $cat => $items) :
             $ac  = $hcx_accents[$hcx_i % count($hcx_accents)];
@@ -231,6 +286,7 @@ get_header();
     <?php else : ?>
   <section class="hcx-main">
     <div class="w">
+      <?php if ($hcx_rich !== '') : ?><div class="hcx-rich"><?php echo $hcx_rich; ?></div><?php endif; ?>
       <div class="hcx-empty show" style="display:block"><b>Help articles are coming soon.</b>Meanwhile, our team is one click away.</div>
     <?php endif; ?>
 
@@ -241,18 +297,18 @@ get_header();
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
           </div>
           <div>
-            <h3>Need more help?</h3>
-            <p>If you can't find what you're looking for, please contact your administrator or reach out to our support team.</p>
+            <h3><?php echo esc_html($hcx_t('support_title', 'Need more help?')); ?></h3>
+            <p><?php echo esc_html($hcx_t('support_text', "If you can't find what you're looking for, please contact your administrator or reach out to our support team.")); ?></p>
           </div>
         </div>
         <div class="act">
-          <a class="hcx-btn solid" href="<?php echo esc_url(home_url('/contact-us/')); ?>">
+          <a class="hcx-btn solid" href="<?php echo esc_url($hcx_t('b1_url', home_url('/contact-us/'))); ?>">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-            Email Support
+            <?php echo esc_html($hcx_t('b1_label', 'Email Support')); ?>
           </a>
-          <a class="hcx-btn line" href="<?php echo esc_url(home_url('/book-demo/')); ?>">
+          <a class="hcx-btn line" href="<?php echo esc_url($hcx_t('b2_url', home_url('/book-demo/'))); ?>">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            Live Chat
+            <?php echo esc_html($hcx_t('b2_label', 'Live Chat')); ?>
           </a>
         </div>
       </div>
