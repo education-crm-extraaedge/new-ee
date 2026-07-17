@@ -3054,6 +3054,83 @@ add_action('save_post_use_case', function ($post_id) {
     if (isset($_POST['usecase_short_desc'])) update_post_meta($post_id, '_usecase_short_desc', sanitize_textarea_field(wp_unslash($_POST['usecase_short_desc'])));
 });
 
+// ── Help article settings: category drives grouping on /help/ ──
+add_action('add_meta_boxes', function () {
+    add_meta_box(
+        'help_article_settings',
+        '❓ Help Article Settings (category, difficulty, reading time)',
+        function ($post) {
+            wp_nonce_field('help_article_meta', 'help_article_meta_nonce');
+            $category  = get_post_meta($post->ID, '_help_category',      true);
+            $subtitle  = get_post_meta($post->ID, '_help_subtitle',      true);
+            $diff      = get_post_meta($post->ID, '_help_difficulty',    true) ?: 'beginner';
+            $read_time = get_post_meta($post->ID, '_help_reading_time',  true);
+            $related   = get_post_meta($post->ID, '_help_related_links', true);
+            /* existing categories as suggestions so names stay consistent */
+            global $wpdb;
+            $existing = $wpdb->get_col($wpdb->prepare(
+                "SELECT DISTINCT pm.meta_value FROM {$wpdb->postmeta} pm
+                 INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+                 WHERE pm.meta_key = %s AND pm.meta_value <> ''
+                   AND p.post_type = 'help' AND p.post_status = 'publish'
+                 ORDER BY pm.meta_value",
+                '_help_category'
+            ));
+            ?>
+            <style>
+                .hlp-row { margin-bottom: 16px; }
+                .hlp-row label { display:block; font-weight:600; margin-bottom:5px; color:#1d2327; font-size:13px; }
+                .hlp-row input, .hlp-row select, .hlp-row textarea { width:100%; padding:8px; border:1px solid #ddd; border-radius:4px; font-size:13px; font-family:inherit; }
+                .hlp-row textarea { resize:vertical; min-height:70px; }
+                .hlp-row .hint { color:#646970; font-size:12px; margin-top:4px; font-style:italic; }
+            </style>
+            <div class="hlp-row">
+                <label>Category (groups this article on the /help/ page)</label>
+                <input type="text" name="help_category" value="<?php echo esc_attr($category); ?>" list="help-cat-list" placeholder="Getting Started / Lead List / Reports ...">
+                <datalist id="help-cat-list">
+                    <?php foreach ($existing as $c) : ?><option value="<?php echo esc_attr($c); ?>"></option><?php endforeach; ?>
+                </datalist>
+                <p class="hint">Type the same name for articles that belong together — each unique name becomes its own card and quick-link tile on /help/. Blank = "General".</p>
+            </div>
+            <div class="hlp-row">
+                <label>Subtitle (short line under the title on the article page)</label>
+                <input type="text" name="help_subtitle" value="<?php echo esc_attr($subtitle); ?>" placeholder="Step-by-step guide to importing your leads.">
+            </div>
+            <div class="hlp-row">
+                <label>Difficulty</label>
+                <select name="help_difficulty">
+                    <?php foreach (array('beginner' => 'Beginner', 'intermediate' => 'Intermediate', 'advanced' => 'Advanced') as $k => $lbl) : ?>
+                        <option value="<?php echo esc_attr($k); ?>" <?php selected($diff, $k); ?>><?php echo esc_html($lbl); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="hlp-row">
+                <label>Reading time (minutes)</label>
+                <input type="number" name="help_reading_time" value="<?php echo esc_attr($read_time); ?>" min="1" max="60" placeholder="5">
+            </div>
+            <div class="hlp-row">
+                <label>Related links (one per line: Label|URL)</label>
+                <textarea name="help_related_links" rows="3" placeholder="How to import leads|/help/import-leads/&#10;Lead scoring guide|/help/lead-scoring/"><?php echo esc_textarea($related); ?></textarea>
+                <p class="hint">Shown as "Related articles" at the bottom of this article.</p>
+            </div>
+            <?php
+        },
+        'help',
+        'normal',
+        'high'
+    );
+});
+add_action('save_post_help', function ($post_id) {
+    if (!isset($_POST['help_article_meta_nonce']) || !wp_verify_nonce($_POST['help_article_meta_nonce'], 'help_article_meta')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+    if (isset($_POST['help_category']))      update_post_meta($post_id, '_help_category',      sanitize_text_field(wp_unslash($_POST['help_category'])));
+    if (isset($_POST['help_subtitle']))      update_post_meta($post_id, '_help_subtitle',      sanitize_text_field(wp_unslash($_POST['help_subtitle'])));
+    if (isset($_POST['help_difficulty']))    update_post_meta($post_id, '_help_difficulty',    in_array($_POST['help_difficulty'], array('beginner', 'intermediate', 'advanced'), true) ? $_POST['help_difficulty'] : 'beginner');
+    if (isset($_POST['help_reading_time']))  update_post_meta($post_id, '_help_reading_time',  ($n = absint($_POST['help_reading_time'])) ? min($n, 60) : '');
+    if (isset($_POST['help_related_links'])) update_post_meta($post_id, '_help_related_links', sanitize_textarea_field(wp_unslash($_POST['help_related_links'])));
+});
+
 // ══════════════════════════════════════════════════════════
 // G5. SOLUTIONS MENU HELPER — admin-editable list (no CPT needed)
 // ══════════════════════════════════════════════════════════
