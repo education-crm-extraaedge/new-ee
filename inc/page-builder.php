@@ -594,8 +594,48 @@ add_action('admin_post_ee_pb_save', function () {
        so the stored value is byte-identical to what was edited. */
     update_post_meta($pid, '_ee_pb_json', wp_slash(ee_pb_sanitize_items($raw)));
     update_post_meta($pid, '_ee_pb_on', empty($_POST['pb_on']) ? '' : '1');
+
+    /* ---- SEO panel: writes the SAME meta keys the theme header already
+       outputs (title/description/canonical/OG/Twitter/robots), so there is
+       exactly one source of truth and zero duplicate tags. ---- */
+    $seo_err = '';
+    if (isset($_POST['seo']) && is_array($_POST['seo'])) {
+        $seo = wp_unslash($_POST['seo']);
+        $txt = function ($k, $len = 200) use ($seo) { return isset($seo[$k]) ? sanitize_text_field(mb_substr((string) $seo[$k], 0, $len)) : ''; };
+        update_post_meta($pid, '_seo_title',           $txt('title', 120));
+        update_post_meta($pid, '_seo_description',     $txt('desc', 320));
+        update_post_meta($pid, '_canonical_url',       esc_url_raw($seo['canonical'] ?? ''));
+        $rb = isset($seo['robots']) ? $seo['robots'] : '';
+        if (!in_array($rb, array('', 'noindex,follow', 'noindex,nofollow'), true)) $rb = '';
+        update_post_meta($pid, '_robots',              $rb);
+        update_post_meta($pid, '_og_title',            $txt('og_title', 120));
+        update_post_meta($pid, '_og_description',      $txt('og_desc', 320));
+        update_post_meta($pid, '_og_image',            esc_url_raw($seo['og_image'] ?? ''));
+        $tw = isset($seo['twitter']) ? $seo['twitter'] : 'summary_large_image';
+        update_post_meta($pid, '_twitter_card',        in_array($tw, array('summary', 'summary_large_image'), true) ? $tw : 'summary_large_image');
+        update_post_meta($pid, '_ee_seo_breadcrumbs',  empty($seo['breadcrumbs']) ? '' : '1');
+        update_post_meta($pid, '_ee_seo_redirect',     esc_url_raw($seo['redirect'] ?? ''));
+        /* page-specific JSON-LD: only stored when it is valid JSON */
+        $sc = trim((string) ($seo['schema'] ?? ''));
+        if ($sc === '') { update_post_meta($pid, '_ee_seo_schema', ''); }
+        elseif (json_decode($sc) !== null) { update_post_meta($pid, '_ee_seo_schema', wp_slash(mb_substr($sc, 0, 20000))); }
+        else { $seo_err = 'schema'; }
+        /* custom head tags: only <meta …> / <link …> lines survive */
+        $cm = '';
+        foreach (preg_split('/\r?\n/', (string) ($seo['custom'] ?? '')) as $ln) {
+            $ln = trim($ln);
+            if ($ln !== '' && preg_match('#^<(meta|link)\s[^>]*/?>$#i', $ln)) $cm .= $ln . "\n";
+        }
+        update_post_meta($pid, '_ee_seo_custom', wp_slash($cm));
+        /* URL slug */
+        $slug = sanitize_title($seo['slug'] ?? '');
+        if ($slug && $slug !== get_post_field('post_name', $pid)) {
+            wp_update_post(array('ID' => $pid, 'post_name' => $slug));
+        }
+    }
+
     if (function_exists('ee_home_layout_flush_caches')) ee_home_layout_flush_caches();
-    wp_safe_redirect(admin_url('admin.php?page=ee-page-builder&post=' . $pid . '&saved=1'));
+    wp_safe_redirect(admin_url('admin.php?page=ee-page-builder&post=' . $pid . '&saved=1' . ($seo_err ? '&seoerr=' . $seo_err : '')));
     exit;
 });
 
@@ -628,6 +668,58 @@ add_action('admin_post_ee_pb_duplicate', function () {
     wp_safe_redirect(admin_url('admin.php?page=ee-page-builder&post=' . $pid));
     exit;
 });
+
+/* =========================================================================
+ * 5b. SEO frontend — the theme header already outputs title / description /
+ * canonical / OG / Twitter / robots from the meta keys the panel writes.
+ * These hooks add what the theme does not cover, builder pages only.
+ * ========================================================================= */
+function ee_pb_builder_page_id() {
+    if (!is_page()) return 0;
+    $pid = get_queried_object_id();
+    return ($pid && get_post_meta($pid, '_ee_pb_on', true)) ? $pid : 0;
+}
+
+/* 301 redirect (runs before anything renders) */
+add_action('template_redirect', function () {
+    $pid = ee_pb_builder_page_id(); if (!$pid) return;
+    $to = get_post_meta($pid, '_ee_seo_redirect', true);
+    if ($to) { wp_redirect(esc_url_raw($to), 301); exit; }
+}, 1);
+
+/* page-specific JSON-LD + custom head tags + breadcrumb schema */
+add_action('wp_head', function () {
+    $pid = ee_pb_builder_page_id(); if (!$pid) return;
+    $schema = get_post_meta($pid, '_ee_seo_schema', true);
+    if ($schema && json_decode($schema) !== null) {
+        echo '<script type="application/ld+json">' . $schema . '</script>' . "\n";
+    }
+    if (get_post_meta($pid, '_ee_seo_breadcrumbs', true)) {
+        $crumbs = array(
+            array('@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url('/')),
+            array('@type' => 'ListItem', 'position' => 2, 'name' => get_the_title($pid), 'item' => get_permalink($pid)),
+        );
+        echo '<script type="application/ld+json">' . wp_json_encode(array('@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => $crumbs)) . '</script>' . "\n";
+    }
+    $custom = get_post_meta($pid, '_ee_seo_custom', true);
+    if ($custom) {
+        /* stored pre-filtered to <meta>/<link> lines only */
+        echo $custom;
+    }
+}, 4);
+
+/* noindex pages stay out of the XML sitemap (crawl budget) */
+add_filter('wp_sitemaps_posts_query_args', function ($args, $post_type) {
+    if ($post_type !== 'page') return $args;
+    $ex = get_posts(array(
+        'post_type'   => 'page',
+        'fields'      => 'ids',
+        'numberposts' => -1,
+        'meta_query'  => array(array('key' => '_robots', 'value' => 'noindex', 'compare' => 'LIKE')),
+    ));
+    if ($ex) $args['post__not_in'] = array_merge(isset($args['post__not_in']) ? (array) $args['post__not_in'] : array(), $ex);
+    return $args;
+}, 10, 2);
 
 /* =========================================================================
  * 6. Admin UI.
@@ -750,6 +842,7 @@ function ee_pb_render_editor($pid) {
       </h1>
       <?php if (!empty($_GET['saved'])) : ?><div class="notice notice-success is-dismissible"><p>Saved! The live page is updated (purge your site cache if you use one).</p></div><?php endif; ?>
       <?php if (!empty($_GET['err'])) : ?><div class="notice notice-error"><p><b>Save did not go through</b> — the layout data didn't reach the server intact (this can happen with very large pasted pages on strict servers). Your previously saved layout is untouched. Try saving again; if it keeps failing, ask your host to raise <code>post_max_size</code> / ModSecurity body limits.</p></div><?php endif; ?>
+      <?php if (!empty($_GET['seoerr'])) : ?><div class="notice notice-error"><p><b>Schema (JSON-LD) was not saved</b> — it is not valid JSON. Everything else saved fine. Fix the JSON and save again.</p></div><?php endif; ?>
 
       <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" id="eepbForm">
         <?php wp_nonce_field('ee_pb_save'); ?>
@@ -759,9 +852,53 @@ function ee_pb_render_editor($pid) {
         <p style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
           <label style="font-weight:600"><input type="checkbox" name="pb_on" value="1" <?php checked($on); ?>> Render this page with the builder</label>
           <button class="button button-primary button-large">💾 Save page</button>
-          <button type="button" class="button" id="eepbExport">⬆ Copy layout</button>
-          <button type="button" class="button" id="eepbImport">⬇ Paste layout</button>
+          <button type="button" class="button" id="eepbExport">⎘ Copy all</button>
+          <button type="button" class="button" id="eepbImport">⬇ Paste</button>
+          <span class="hint">Copy any section with ⎘ (layers / inspector) and paste it on any other page — design travels with it.</span>
         </p>
+
+        <?php
+          $sg = function ($k) use ($pid) { return get_post_meta($pid, $k, true); };
+        ?>
+        <details class="eepb-seo"<?php echo !empty($_GET['seoerr']) ? ' open' : ''; ?>>
+          <summary>🔍 SEO — meta title, description, slug, robots, Open Graph, schema &amp; more</summary>
+          <div class="eepb-seo-grid">
+            <div><label>Meta title <span class="cnt" data-for="seo-title" data-max="60"></span></label>
+              <input type="text" id="seo-title" name="seo[title]" value="<?php echo esc_attr($sg('_seo_title')); ?>" placeholder="<?php echo esc_attr(get_the_title($pid)); ?>"></div>
+            <div><label>URL slug</label>
+              <input type="text" name="seo[slug]" value="<?php echo esc_attr(get_post_field('post_name', $pid)); ?>"></div>
+            <div class="full"><label>Meta description <span class="cnt" data-for="seo-desc" data-max="160"></span></label>
+              <textarea id="seo-desc" name="seo[desc]" rows="2"><?php echo esc_textarea($sg('_seo_description')); ?></textarea></div>
+            <div><label>Canonical URL (empty = this page)</label>
+              <input type="text" name="seo[canonical]" value="<?php echo esc_attr($sg('_canonical_url')); ?>" placeholder="<?php echo esc_attr(get_permalink($pid)); ?>"></div>
+            <div><label>Robots</label>
+              <select name="seo[robots]">
+                <option value="">index, follow (default)</option>
+                <option value="noindex,follow"<?php selected($sg('_robots'), 'noindex,follow'); ?>>noindex, follow</option>
+                <option value="noindex,nofollow"<?php selected($sg('_robots'), 'noindex,nofollow'); ?>>noindex, nofollow</option>
+              </select></div>
+            <div><label>Open Graph title (social share)</label>
+              <input type="text" name="seo[og_title]" value="<?php echo esc_attr($sg('_og_title')); ?>"></div>
+            <div><label>Open Graph description</label>
+              <input type="text" name="seo[og_desc]" value="<?php echo esc_attr($sg('_og_description')); ?>"></div>
+            <div><label>Share image (OG/Twitter, 1200×630)</label>
+              <span class="eepb-insp-row"><input type="text" id="seo-ogimg" name="seo[og_image]" value="<?php echo esc_attr($sg('_og_image')); ?>"><button type="button" class="button" id="seoOgPick">📁</button></span></div>
+            <div><label>Twitter card</label>
+              <select name="seo[twitter]">
+                <option value="summary_large_image"<?php selected($sg('_twitter_card') ?: 'summary_large_image', 'summary_large_image'); ?>>Large image</option>
+                <option value="summary"<?php selected($sg('_twitter_card'), 'summary'); ?>>Summary</option>
+              </select></div>
+            <div><label>Breadcrumbs (visible + schema)</label>
+              <label style="text-transform:none;font-size:13px;font-weight:500"><input type="checkbox" name="seo[breadcrumbs]" value="1"<?php checked($sg('_ee_seo_breadcrumbs'), '1'); ?>> Show Home › <?php echo esc_html(get_the_title($pid)); ?></label></div>
+            <div><label>301 redirect this page to (careful!)</label>
+              <input type="text" name="seo[redirect]" value="<?php echo esc_attr($sg('_ee_seo_redirect')); ?>" placeholder="https://…"></div>
+            <div class="full"><label>Schema markup — JSON-LD (validated on save)</label>
+              <textarea name="seo[schema]" rows="4" placeholder='{"@context":"https://schema.org","@type":"FAQPage", … }'><?php echo esc_textarea($sg('_ee_seo_schema')); ?></textarea></div>
+            <div class="full"><label>Custom head tags — one per line, only &lt;meta …&gt; / &lt;link …&gt; allowed</label>
+              <textarea name="seo[custom]" rows="2" placeholder='&lt;meta name="author" content="ExtraaEdge"&gt;'><?php echo esc_textarea($sg('_ee_seo_custom')); ?></textarea></div>
+          </div>
+          <p class="hint" style="margin:8px 0 0">Automatic: XML sitemap (noindex pages excluded), single canonical + OG + Twitter tags via the theme (no duplicates), image <b>alt text</b> per image in the inspector, <b>H1–H6</b> via the Heading element sizes, internal links via the inspector's Link URL field.</p>
+        </details>
 
         <div class="eepb-admin">
           <div class="eepb-left">
@@ -823,6 +960,17 @@ function ee_pb_render_editor($pid) {
         .eepb-right textarea{min-height:100px;font-family:Menlo,Consolas,monospace;font-size:12px}
         .eepb-right .imgpick{display:flex;gap:6px}
         .eepb-right .imgpick input{flex:1}
+        .eepb-seo{background:#fff;border:1px solid #dcdcde;border-radius:10px;padding:0;margin:0 0 14px;max-width:1100px}
+        .eepb-seo summary{cursor:pointer;font-weight:700;color:#19335D;padding:12px 16px;font-size:13px}
+        .eepb-seo[open] summary{border-bottom:1px solid #eee}
+        .eepb-seo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:14px 16px}
+        .eepb-seo-grid .full{grid-column:1 / -1}
+        .eepb-seo-grid label{display:block;font-weight:600;font-size:10.5px;color:#50575e;margin:0 0 3px;text-transform:uppercase;letter-spacing:.03em}
+        .eepb-seo-grid input[type=text],.eepb-seo-grid select,.eepb-seo-grid textarea{width:100%}
+        .eepb-seo-grid textarea{font-family:Menlo,Consolas,monospace;font-size:12px}
+        .eepb-seo-grid .cnt{font-weight:500;text-transform:none;letter-spacing:0}
+        .eepb-seo-grid .cnt.over{color:#c02b2b;font-weight:700}
+        @media(max-width:1100px){.eepb-seo-grid{grid-template-columns:1fr 1fr}}
         .eepb-right{position:sticky;top:40px;max-height:calc(100vh - 56px);overflow:auto}
         .eepb-grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px 10px;margin-top:2px}
         .eepb-grid2 label{display:block;font-weight:600;font-size:10.5px;color:#50575e;margin:0 0 3px;text-transform:uppercase;letter-spacing:.03em}
@@ -948,6 +1096,7 @@ function ee_pb_render_editor($pid) {
               + '<span class="ops">'
               + '<button type="button" data-op="up" title="Move up">▲</button>'
               + '<button type="button" data-op="down" title="Move down">▼</button>'
+              + '<button type="button" data-op="copy" title="Copy — paste it on any other page">⎘</button>'
               + '<button type="button" data-op="dup" title="Duplicate">⧉</button>'
               + '<button type="button" data-op="del" title="Delete">✕</button>'
               + '</span>';
@@ -965,7 +1114,7 @@ function ee_pb_render_editor($pid) {
                   sli.className = 'sub on';
                 }
                 sli.dataset.i = i; sli.dataset.j = j;
-                sli.innerHTML = '<span>↳</span><span class="sum"></span><span class="ops"><button type="button" data-op="sdel" title="Delete this section">✕</button></span>';
+                sli.innerHTML = '<span>↳</span><span class="sum"></span><span class="ops"><button type="button" data-op="scopy" title="Copy this section — paste it on any other page">⎘</button><button type="button" data-op="sdel" title="Delete this section">✕</button></span>';
                 sli.querySelector('.sum').textContent = ss.label;
                 layers.appendChild(sli);
               });
@@ -982,6 +1131,10 @@ function ee_pb_render_editor($pid) {
             var ss = (subSecs[i] || [])[parseInt(li.dataset.j, 10)];
             if (!ss || !ss.el || !ss.el.isConnected || !htmlFrames[i]) return;
             var sOp = e.target.closest('button');
+            if (sOp && sOp.dataset.op === 'scopy') {
+              clipPut([portableSection(ss.el, ss.el.ownerDocument)], 'Section copied');
+              return;
+            }
             if (sOp && sOp.dataset.op === 'sdel') {
               snapshot();
               var ndoc = ss.el.ownerDocument;
@@ -1003,6 +1156,7 @@ function ee_pb_render_editor($pid) {
           }
           var opBtn = e.target.closest('button');
           var op = opBtn ? opBtn.dataset.op : null;
+          if (op === 'copy') { clipPut([JSON.parse(JSON.stringify(state[i]))], 'Element copied'); return; }
           if (op) snapshot();
           if (op === 'del') { state.splice(i, 1); if (sel >= state.length) sel = state.length - 1; }
           else if (op === 'dup') { state.splice(i + 1, 0, JSON.parse(JSON.stringify(state[i]))); sel = i + 1; }
@@ -1062,6 +1216,45 @@ function ee_pb_render_editor($pid) {
           } catch (e) {}
           subSecs[i] = list;
         }
+        /* =================================================================
+         * Cross-page clipboard: copy any element (or any section inside a
+         * pasted page) on one page, paste it on ANY other page's builder.
+         * Sections are made portable by bundling their page's stylesheets,
+         * so design + responsiveness + fonts travel with them.
+         * ================================================================= */
+        function clipPut(items, label){
+          try {
+            localStorage.setItem('eepb_clip', JSON.stringify(items));
+            alert((label || 'Copied') + ' ✓ — open ANY page in the Page Builder and click "⬇ Paste" to drop it there (works across pages).');
+          } catch (e) { alert('Copy failed — the section may be too large for the browser clipboard.'); }
+        }
+        function clipGet(){
+          try {
+            var raw = localStorage.getItem('eepb_clip');
+            var arr = raw ? JSON.parse(raw) : null;
+            return Array.isArray(arr) ? arr : null;
+          } catch (e) { return null; }
+        }
+        function portableSection(el, nd){
+          var heads = '';
+          try {
+            nd.querySelectorAll('head style, head link[rel="stylesheet"]').forEach(function(h){
+              if (h.id && h.id.indexOf('__eepb') === 0) return;
+              heads += h.outerHTML;
+            });
+          } catch (e) {}
+          var c = el.cloneNode(true);
+          try {
+            c.classList && c.classList.remove('__eepb_sel', '__eepb_hov');
+            c.querySelectorAll && c.querySelectorAll('.__eepb_sel, .__eepb_hov').forEach(function(x){ x.classList.remove('__eepb_sel', '__eepb_hov'); });
+            c.querySelectorAll && c.querySelectorAll('.__eepb_addrow, .__eepb_menu').forEach(function(x){ x.remove(); });
+            c.removeAttribute && c.removeAttribute('contenteditable');
+          } catch (e) {}
+          var code = '<!DOCTYPE html>\n<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
+                   + heads + '</head><body style="margin:0">' + c.outerHTML + '</body></html>';
+          return { t: 'html', s: { code: code, _bg: 'white', _pad: 'm' } };
+        }
+
         /* "+" buttons between the pasted page's sections: click one to pick
            a homepage section and drop it right there. Editor-only UI —
            stripped from every save. */
@@ -1387,6 +1580,9 @@ function ee_pb_render_editor($pid) {
             drawLayers();          /* keep the active-section highlight in sync */
             drawInspector();
           });
+          actBtn('\u2398 Copy', 'Copy this element/section \u2014 paste it on any other page', function(){
+            clipPut([portableSection(el, nd)], 'Section copied');
+          });
           actBtn('\u29C9 Duplicate', 'Duplicate this element/section', function(){
             snapshot();
             var c = el.cloneNode(true);
@@ -1606,24 +1802,48 @@ function ee_pb_render_editor($pid) {
 
         /* ---- export / import ---- */
         document.getElementById('eepbExport').addEventListener('click', function(){
-          var txt = JSON.stringify(state);
+          clipPut(JSON.parse(JSON.stringify(state)), 'Whole layout copied');
           if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(txt).then(function(){ alert('Layout copied! Paste it into another page with "Paste layout".'); });
-          } else { window.prompt('Copy this layout JSON:', txt); }
+            navigator.clipboard.writeText(JSON.stringify(state)).catch(function(){});
+          }
         });
         document.getElementById('eepbImport').addEventListener('click', function(){
-          var txt = window.prompt('Paste a layout JSON here (it will be ADDED after the current elements):');
-          if (!txt) return;
-          try {
-            var arr = JSON.parse(txt);
-            if (!Array.isArray(arr)) throw new Error('not a layout');
-            snapshot();
-            arr.forEach(function(it){ if (it && it.t && SCHEMA[it.t]) state.push({t: it.t, s: it.s || defaults(it.t)}); });
-            sync(); drawLayers(); drawSettings(); preview();
-          } catch (e) { alert('That does not look like a layout JSON.'); }
+          var arr = clipGet();     /* cross-page clipboard first… */
+          if (!arr) {              /* …fallback: paste JSON by hand */
+            var txt = window.prompt('Nothing copied yet — paste a layout JSON here:');
+            if (!txt) return;
+            try { arr = JSON.parse(txt); } catch (e) { alert('That does not look like a layout JSON.'); return; }
+          }
+          if (!Array.isArray(arr)) { alert('Nothing to paste.'); return; }
+          snapshot();
+          var n = 0;
+          arr.forEach(function(it){ if (it && it.t && SCHEMA[it.t]) { state.push({t: it.t, s: it.s || defaults(it.t)}); n++; } });
+          sel = state.length - 1;
+          sync(); drawLayers(); drawSettings(); preview();
         });
 
         document.getElementById('eepbForm').addEventListener('submit', function(){ sync(); });
+
+        /* ---- SEO panel: live character counters + share-image picker ---- */
+        document.querySelectorAll('.eepb-seo .cnt').forEach(function(c){
+          var inp = document.getElementById(c.dataset.for), max = parseInt(c.dataset.max, 10);
+          if (!inp) return;
+          function upd(){
+            var n = inp.value.length;
+            c.textContent = '(' + n + '/' + max + ')';
+            c.classList.toggle('over', n > max);
+          }
+          inp.addEventListener('input', upd); upd();
+        });
+        var ogPick = document.getElementById('seoOgPick');
+        if (ogPick) ogPick.addEventListener('click', function(){
+          if (!(window.wp && wp.media)) return;
+          var mfr = wp.media({title: 'Choose share image', multiple: false, library: {type: 'image'}});
+          mfr.on('select', function(){
+            document.getElementById('seo-ogimg').value = mfr.state().get('selection').first().toJSON().url;
+          });
+          mfr.open();
+        });
 
         /* boot */
         sync(); drawLayers(); drawSettings(); preview();

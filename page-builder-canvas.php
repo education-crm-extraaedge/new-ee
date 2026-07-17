@@ -15,6 +15,13 @@ $ee_pb_pid   = get_queried_object_id();
 $ee_pb_items = function_exists('ee_pb_get_items') ? ee_pb_get_items($ee_pb_pid) : array();
 ?>
 <main id="main-content">
+<?php if (get_post_meta($ee_pb_pid, '_ee_seo_breadcrumbs', true)) : ?>
+<nav aria-label="Breadcrumb" style="max-width:1140px;margin:0 auto;padding:14px 22px 0;font:500 13px/1.4 'Inter',-apple-system,sans-serif;color:rgba(25,51,93,.65)">
+  <a href="<?php echo esc_url(home_url('/')); ?>" style="color:#19335D;text-decoration:none">Home</a>
+  <span aria-hidden="true"> › </span>
+  <span style="color:#DE6E30;font-weight:600"><?php echo esc_html(get_the_title($ee_pb_pid)); ?></span>
+</nav>
+<?php endif; ?>
 <?php
 if ($ee_pb_items) {
     echo ee_pb_render_page($ee_pb_items); // escaped element-by-element in the renderer
