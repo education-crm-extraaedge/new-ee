@@ -2670,6 +2670,12 @@ function ee_get_industry_menu_items($limit = 0) {
         );
     }
 
+    /* Page-Builder pages assigned to the "industries" category join the
+       menu, the footer column and the /industries/ grid automatically. */
+    if (function_exists('ee_pb_pages_in_category')) {
+        foreach (ee_pb_pages_in_category('industries') as $bp) { $items[] = $bp; }
+    }
+
     $cache = $items;
     return $limit > 0 ? array_slice($items, 0, $limit) : $items;
 }
@@ -2813,6 +2819,12 @@ function ee_get_product_menu_items($limit = 0) {
             array('title' => 'WhatsApp API & Bot',    'desc' => 'Engage prospects through personalized, one-on-one WhatsApp conversations at scale.',                     'url' => '/products/whatsapp-api/',                  'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/WhatsApp_API_icon.png',          'column' => 'communication', 'badge' => 'none',    'order' => 1),
             array('title' => 'IVR System',            'desc' => 'Route, record, and track all counselor calls within a centralized, analytics-ready system.',             'url' => '/products/ivr/',                           'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/IVR_SYSTEM_icon.png',            'column' => 'communication', 'badge' => 'none',    'order' => 2),
         );
+    }
+
+    /* Page-Builder pages assigned to the "products" category join the menu,
+       the footer column and the /products/ grid automatically. */
+    if (function_exists('ee_pb_pages_in_category')) {
+        foreach (ee_pb_pages_in_category('products') as $bp) { $items[] = $bp; }
     }
 
     /* Sort each item by its in-column "order" field (then by name) so the
@@ -2984,6 +2996,11 @@ function ee_get_usecase_items($limit = 0) {
             array('title' => 'For Counselors',    'desc' => 'Increase your counselors efficiency by mapping the entire student journey with timely follow-ups.',        'url' => '/use-cases/admission-counselors/', 'icon' => 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/For_consolers_crm_icon.png',          'lucide' => 'user-check'),
         );
     }
+    /* Page-Builder pages in the "use-cases" category join automatically. */
+    if (function_exists('ee_pb_pages_in_category')) {
+        foreach (ee_pb_pages_in_category('use-cases') as $bp) { $items[] = $bp; }
+    }
+
     $cache = $items;
     return $limit > 0 ? array_slice($items, 0, $limit) : $items;
 }
@@ -3057,6 +3074,11 @@ function ee_get_solution_items() {
     $saved = get_option('ee_solution_items', array());
     if (is_array($saved) && (!empty($saved['admission']) || !empty($saved['study_abroad']) || !empty($saved['recruitment']))) {
         $cache = array_merge(array('admission' => array(), 'study_abroad' => array(), 'recruitment' => array()), $saved);
+        if (function_exists('ee_pb_pages_in_category')) {
+            foreach (ee_pb_pages_in_category('solutions') as $bp) {
+                $cache['admission'][] = array('title' => $bp['title'], 'desc' => $bp['short_desc'] !== '' ? $bp['short_desc'] : $bp['desc'], 'url' => $bp['url'], 'icon' => 'file');
+            }
+        }
         return $cache;
     }
 
@@ -3078,6 +3100,11 @@ function ee_get_solution_items() {
             array('title' => 'Enrollment CRM',         'desc' => 'Boost enrollment',                 'url' => '/crm-enrollment-management/',             'icon' => 'chart-line'),
         ),
     );
+    if (function_exists('ee_pb_pages_in_category')) {
+        foreach (ee_pb_pages_in_category('solutions') as $bp) {
+            $cache['admission'][] = array('title' => $bp['title'], 'desc' => $bp['short_desc'] !== '' ? $bp['short_desc'] : $bp['desc'], 'url' => $bp['url'], 'icon' => 'file');
+        }
+    }
     return $cache;
 }
 

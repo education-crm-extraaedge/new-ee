@@ -341,6 +341,27 @@ get_header();
         </div>
       </div>
 
+      <?php $ee_pb_sol = function_exists('ee_pb_pages_in_category') ? ee_pb_pages_in_category('solutions') : array(); ?>
+      <?php if ($ee_pb_sol) : ?>
+      <div class="category-block" data-cat="custom">
+        <div class="cat-header">
+          <div class="left">
+            <div class="cat-num">04</div>
+            <div><h3>More Solutions</h3><div class="desc">Purpose-built pages from our team</div></div>
+          </div>
+          <div class="right"><strong><?php echo count($ee_pb_sol); ?></strong> pages</div>
+        </div>
+        <div class="cards">
+          <?php foreach ($ee_pb_sol as $c) : ?>
+          <a href="<?php echo esc_url($c['url']); ?>" class="card" data-cat="custom">
+            <div><h4><?php echo esc_html($c['title']); ?></h4><p class="lead"><?php echo esc_html($c['desc']); ?></p></div>
+            <div class="card-bottom"><span class="card-cta">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div>
+          </a>
+          <?php endforeach; ?>
+        </div>
+      </div>
+      <?php endif; ?>
+
     </div>
 
     <div class="help-card">

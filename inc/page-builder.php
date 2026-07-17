@@ -632,6 +632,33 @@ add_action('admin_post_ee_pb_save', function () {
         if ($slug && $slug !== get_post_field('post_name', $pid)) {
             wp_update_post(array('ID' => $pid, 'post_name' => $slug));
         }
+        /* Category: puts the category into the URL (/products/slug/) by
+           parenting the page under a placeholder page with that slug (the
+           listing route still owns the parent URL itself), and tags the
+           page so the menu helpers pick it up. */
+        $cat = isset($seo['category']) ? sanitize_key($seo['category']) : '';
+        if (in_array($cat, array('', 'products', 'solutions', 'industries', 'use-cases'), true)) {
+            update_post_meta($pid, '_ee_pb_category', $cat);
+            $parent = 0;
+            if ($cat !== '') {
+                $pp = get_page_by_path($cat, OBJECT, 'page');
+                if ($pp) {
+                    $parent = (int) $pp->ID;
+                } else {
+                    $ppid = wp_insert_post(array(
+                        'post_type'    => 'page',
+                        'post_status'  => 'publish',
+                        'post_title'   => ucwords(str_replace('-', ' ', $cat)),
+                        'post_name'    => $cat,
+                        'post_content' => '',
+                    ));
+                    if ($ppid && !is_wp_error($ppid)) $parent = (int) $ppid;
+                }
+            }
+            if ((int) get_post_field('post_parent', $pid) !== $parent) {
+                wp_update_post(array('ID' => $pid, 'post_parent' => $parent));
+            }
+        }
     }
 
     if (function_exists('ee_home_layout_flush_caches')) ee_home_layout_flush_caches();
@@ -674,6 +701,46 @@ add_action('admin_post_ee_pb_duplicate', function () {
  * canonical / OG / Twitter / robots from the meta keys the panel writes.
  * These hooks add what the theme does not cover, builder pages only.
  * ========================================================================= */
+/**
+ * Published builder pages assigned to a category (products / solutions /
+ * industries / use-cases). The menu helpers in functions.php append these,
+ * so the pages automatically appear in the header mega-menus, the footer
+ * columns and the category listing pages.
+ */
+function ee_pb_pages_in_category($cat) {
+    static $cache = array();
+    $cat = sanitize_key($cat);
+    if ($cat === '') return array();
+    if (isset($cache[$cat])) return $cache[$cat];
+    $ids = get_posts(array(
+        'post_type'   => 'page',
+        'post_status' => 'publish',
+        'numberposts' => 50,
+        'fields'      => 'ids',
+        'meta_key'    => '_ee_pb_category',
+        'meta_value'  => $cat,
+        'orderby'     => 'menu_order title',
+        'order'       => 'ASC',
+    ));
+    $out = array();
+    foreach ($ids as $id) {
+        $d = get_post_meta($id, '_seo_description', true);
+        $out[] = array(
+            'title'      => get_the_title($id),
+            'desc'       => $d !== '' ? $d : 'Learn more about ' . get_the_title($id) . '.',
+            'short_desc' => $d !== '' ? wp_trim_words($d, 9, '…') : '',
+            'url'        => str_replace(home_url(), '', get_permalink($id)) ?: get_permalink($id),
+            'icon'       => '',
+            'lucide'     => 'file',
+            'column'     => 'featured',
+            'badge'      => 'none',
+            'order'      => 99,
+            'tags'       => array(),
+        );
+    }
+    return $cache[$cat] = $out;
+}
+
 function ee_pb_builder_page_id() {
     if (!is_page()) return 0;
     $pid = get_queried_object_id();
@@ -867,6 +934,15 @@ function ee_pb_render_editor($pid) {
               <input type="text" id="seo-title" name="seo[title]" value="<?php echo esc_attr($sg('_seo_title')); ?>" placeholder="<?php echo esc_attr(get_the_title($pid)); ?>"></div>
             <div><label>URL slug</label>
               <input type="text" name="seo[slug]" value="<?php echo esc_attr(get_post_field('post_name', $pid)); ?>"></div>
+            <div><label>Category (URL prefix + menus + listing page)</label>
+              <?php $pbcat = get_post_meta($pid, '_ee_pb_category', true); ?>
+              <select name="seo[category]">
+                <option value="">None — /slug/</option>
+                <option value="products"<?php selected($pbcat, 'products'); ?>>Products — /products/slug/</option>
+                <option value="solutions"<?php selected($pbcat, 'solutions'); ?>>Solutions — /solutions/slug/</option>
+                <option value="industries"<?php selected($pbcat, 'industries'); ?>>Industries — /industries/slug/</option>
+                <option value="use-cases"<?php selected($pbcat, 'use-cases'); ?>>Use Cases — /use-cases/slug/</option>
+              </select></div>
             <div class="full"><label>Meta description <span class="cnt" data-for="seo-desc" data-max="160"></span></label>
               <textarea id="seo-desc" name="seo[desc]" rows="2"><?php echo esc_textarea($sg('_seo_description')); ?></textarea></div>
             <div><label>Canonical URL (empty = this page)</label>
