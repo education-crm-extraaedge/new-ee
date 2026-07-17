@@ -1109,6 +1109,8 @@ function ee_pb_render_editor($pid) {
         }
         function restore(str){
           editing = false;
+          Object.keys(saveT).forEach(function(k){ clearTimeout(saveT[k]); });
+          savePend = {};
           state = JSON.parse(str);
           if (sel >= state.length) sel = state.length - 1;
           sync(); drawLayers(); drawSettings(); preview();
@@ -1216,7 +1218,7 @@ function ee_pb_render_editor($pid) {
               var ndoc = ss.el.ownerDocument;
               if (inSel && (inSel.el === ss.el || (ss.el.contains && ss.el.contains(inSel.el)))) clearInSel();
               ss.el.remove();
-              saveHtml(i, ndoc);
+              saveHtmlNow(i, ndoc);
               addInsertUI(i, ndoc, htmlFrames[i]);
               refit(htmlFrames[i]);
               drawSettings();
@@ -1232,7 +1234,7 @@ function ee_pb_render_editor($pid) {
           }
           var opBtn = e.target.closest('button');
           var op = opBtn ? opBtn.dataset.op : null;
-          if (op === 'copy') { clipPut([JSON.parse(JSON.stringify(state[i]))], 'Element copied'); return; }
+          if (op === 'copy') { saveFlush(); clipPut([JSON.parse(JSON.stringify(state[i]))], 'Element copied'); return; }
           if (op) snapshot();
           if (op === 'del') { state.splice(i, 1); if (sel >= state.length) sel = state.length - 1; }
           else if (op === 'dup') { state.splice(i + 1, 0, JSON.parse(JSON.stringify(state[i]))); sel = i + 1; }
@@ -1361,7 +1363,7 @@ function ee_pb_render_editor($pid) {
                   m.textContent = '🏠 ' + (sopts[sv] || sv) + ' — homepage section (the real section shows on the live page)';
                   row.after(m);
                   menu.remove();
-                  saveHtml(i, nd);
+                  saveHtmlNow(i, nd);
                   addInsertUI(i, nd, nf);
                   refit(nf);
                 });
@@ -1409,7 +1411,24 @@ function ee_pb_render_editor($pid) {
           } catch (e) {}
         }
 
+        /* Serializing a whole pasted page on EVERY keystroke makes typing
+           laggy - apply changes instantly, serialize 350ms after the pause. */
+        var saveT = {}, savePend = {};
         function saveHtml(i, nd){
+          savePend[i] = nd;
+          clearTimeout(saveT[i]);
+          saveT[i] = setTimeout(function(){ saveHtmlNow(i, nd); }, 350);
+        }
+        function saveFlush(){
+          Object.keys(savePend).forEach(function(k){
+            if (savePend[k]) { clearTimeout(saveT[k]); saveHtmlNow(parseInt(k, 10), savePend[k]); }
+          });
+        }
+        function saveHtmlNow(i, nd){
+          savePend[i] = null;
+          /* the canvas re-rendered since this was queued - the doc is dead,
+             serializing it would clobber newer state (e.g. right after undo) */
+          if (htmlFrames[i] && htmlFrames[i].contentDocument !== nd) return;
           try {
             var clone = nd.documentElement.cloneNode(true);
             var fx = clone.querySelector('#__eepb_pv_fix'); if (fx) fx.remove();
@@ -1633,7 +1652,7 @@ function ee_pb_render_editor($pid) {
             m.setAttribute('style', 'border:2px dashed #DE6E30;border-radius:12px;padding:26px;text-align:center;font:600 14px Inter,Arial,sans-serif;color:#19335D;background:#fff7f2;margin:14px 0');
             m.textContent = '\uD83C\uDFE0 ' + (sopts[ssel.value] || ssel.value) + ' \u2014 homepage section (the real section shows on the live page)';
             el.after(m);
-            save();
+            saveHtmlNow(i, nd); refit(nf);
             addInsertUI(i, nd, nf);
             scrollCanvasTo(i, m);
           });
@@ -1663,16 +1682,16 @@ function ee_pb_render_editor($pid) {
             snapshot();
             var c = el.cloneNode(true);
             c.classList.remove('__eepb_sel', '__eepb_hov');
-            el.after(c); save(); addInsertUI(i, nd, nf);
+            el.after(c); saveHtmlNow(i, nd); refit(nf); addInsertUI(i, nd, nf);
           });
           actBtn(el.style.display === 'none' ? '\uD83D\uDC41 Show' : '\uD83D\uDE48 Hide', 'Hide/show (undo with Ctrl+Z)', function(){
             snapshot();
             el.style.display = (el.style.display === 'none') ? '' : 'none';
-            save(); drawInspector();
+            saveHtmlNow(i, nd); refit(nf); drawInspector();
           });
           actBtn('\uD83D\uDDD1 Delete', 'Delete (undo with Ctrl+Z)', function(){
             snapshot();
-            el.remove(); save(); addInsertUI(i, nd, nf);
+            el.remove(); saveHtmlNow(i, nd); refit(nf); addInsertUI(i, nd, nf);
             clearInSel(); drawSettings();
           });
           actBtn('{ } Code', 'Show the raw HTML of this whole block', function(){
@@ -1742,20 +1761,25 @@ function ee_pb_render_editor($pid) {
         }
 
         /* ---- live WYSIWYG preview (rendered by the same PHP as the site) ---- */
+        var prevScroll = 0, lastPayload = '';
         function preview(){
           if (editing) return;                       /* don't yank the caret */
           clearTimeout(prevT);
           prevT = setTimeout(function(){
+            var payload = JSON.stringify(state);
+            if (payload === lastPayload) return;     /* nothing changed - no flicker */
+            lastPayload = payload;
+            try { prevScroll = frame.contentWindow.scrollY || 0; } catch (e) { prevScroll = 0; }
             var fd = new FormData();
             fd.append('action', 'ee_pb_preview');
             fd.append('nonce', NONCE);
-            fd.append('pb_json', JSON.stringify(state));
+            fd.append('pb_json', payload);
             fetch(AJAX, {method: 'POST', credentials: 'same-origin', body: fd})
               .then(function(r){ return r.text(); })
               .then(function(html){
                 frame.srcdoc = '<!DOCTYPE html><html><head><meta charset="utf-8">'
                   + '<meta name="viewport" content="width=device-width, initial-scale=1">'
-                  + '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">'
+                  + '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media=&quot;all&quot;">'
                   + '<style>body{margin:0}'
                   + '.pbp-chip{position:sticky;top:0;z-index:50;background:#19335D;color:#fff;font:600 11.5px/1.4 Inter,sans-serif;padding:6px 12px;letter-spacing:.02em}'
                   + '.pbp-item{position:relative;cursor:pointer}'
@@ -1766,7 +1790,7 @@ function ee_pb_render_editor($pid) {
                   + '[data-edit]:focus{box-shadow:0 0 0 2px #DE6E30;background:rgba(222,110,48,.05)}'
                   + '</style></head><body>' + html + '</body></html>';
               });
-          }, 320);
+          }, 450);
         }
 
         function mark(){
@@ -1778,94 +1802,111 @@ function ee_pb_render_editor($pid) {
           } catch (e) {}
         }
 
-        frame.addEventListener('load', function(){
+        /* Canvas wiring runs off a readiness poller, NOT the iframe load
+           event: a slow/blocked font or image request inside the preview
+           keeps 'load' from ever firing, which used to leave the whole
+           canvas dead (no inline editing, no + buttons, no fit). The
+           poller wires each new document exactly once as soon as its DOM
+           exists, regardless of hanging subresources. */
+        function wireCanvas(){
           try {
-            var d = frame.contentDocument; if (!d) return;
-            htmlFrames = {}; subSecs = {};   /* fresh render, fresh refs */
-            /* click an element on the canvas -> select it */
-            d.addEventListener('click', function(e){
-              var item = e.target.closest('.pbp-item');
-              if (e.target.closest('a')) e.preventDefault();
-              if (!item) return;
-              clearInSel();                     /* leaving the HTML inspector */
-              sel = parseInt(item.dataset.i, 10);
-              drawLayers(); drawSettings(); mark();
-            });
-            /* type directly into the page */
-            d.querySelectorAll('[data-edit]').forEach(function(el){
-              el.setAttribute('contenteditable', 'true');
-              el.setAttribute('spellcheck', 'false');
-              el.addEventListener('focus', function(){ editing = true; snapshot(); });
-              el.addEventListener('input', function(){
-                var item = el.closest('.pbp-item'); if (!item) return;
-                var i = parseInt(item.dataset.i, 10), k = el.getAttribute('data-edit');
-                if (state[i]) { state[i].s[k] = el.textContent; sync();
-                  var row = layers.querySelector('li[data-i="' + i + '"] .sum');
-                  if (row) row.textContent = String(summary(state[i])).slice(0, 40);
-                  if (i === sel) {
-                    var inps = settings.querySelectorAll('input,textarea,select');
-                    /* refresh matching settings input without re-rendering */
-                    inps.forEach(function(inp){ /* labels precede inputs in DOM order; cheap sync on blur instead */ });
+            var d = frame.contentDocument; if (!d || !d.body) return;
+
+            if (!d.__eepbMain && d.querySelector('.eepb')) {
+              d.__eepbMain = true;
+              htmlFrames = {}; subSecs = {};   /* fresh render, fresh refs */
+              if (prevScroll) {
+                try { frame.contentWindow.scrollTo(0, prevScroll); } catch (e) {}
+                setTimeout(function(){ try { frame.contentWindow.scrollTo(0, prevScroll); } catch (e) {} }, 250);
+              }
+              /* click an element on the canvas -> select it */
+              d.addEventListener('click', function(e){
+                var item = e.target.closest('.pbp-item');
+                if (e.target.closest('a')) e.preventDefault();
+                if (!item) return;
+                clearInSel();                     /* leaving the HTML inspector */
+                sel = parseInt(item.dataset.i, 10);
+                drawLayers(); drawSettings(); mark();
+              });
+              /* type directly into the page */
+              d.querySelectorAll('[data-edit]').forEach(function(el){
+                el.setAttribute('contenteditable', 'true');
+                el.setAttribute('spellcheck', 'false');
+                el.addEventListener('focus', function(){ editing = true; snapshot(); });
+                el.addEventListener('input', function(){
+                  var item = el.closest('.pbp-item'); if (!item) return;
+                  var i = parseInt(item.dataset.i, 10), k = el.getAttribute('data-edit');
+                  if (state[i]) { state[i].s[k] = el.textContent; sync();
+                    var row = layers.querySelector('li[data-i="' + i + '"] .sum');
+                    if (row) row.textContent = String(summary(state[i])).slice(0, 40);
                   }
-                }
+                });
+                el.addEventListener('blur', function(){
+                  editing = false;
+                  drawSettings(); preview();
+                });
               });
-              el.addEventListener('blur', function(){
-                editing = false;
-                drawSettings(); preview();
-              });
-            });
-            /* pasted-HTML blocks: fit height, inline text editing AND the
-               click-anything inspector (colors, fonts, images, links,
-               spacing, duplicate/hide/delete) */
+              mark();
+            }
+
+            if (!d.__eepbMain) return;
+            /* pasted-HTML blocks: wire each nested document once, as soon
+               as its DOM is parsed (fit + inline editing + inspector) */
             d.querySelectorAll('iframe.eepb-htmlpv').forEach(function(nf){
+              var nd = nf.contentDocument;
+              if (!nd || !nd.body) return;
+              if (!nd.body.children.length && nd.readyState !== 'complete') return;
+              if (nd.__eepbW) return;
+              nd.__eepbW = true;
               var item = nf.closest('.pbp-item');
               var idx = item ? parseInt(item.dataset.i, 10) : -1;
-              function wire2(){
-                try {
-                  var nd = nf.contentDocument; if (!nd || !nd.body || idx < 0) return;
-                  htmlFrames[idx] = nf;
-                  buildSubs(idx, nd);
+              if (idx < 0) return;
+              try {
+                htmlFrames[idx] = nf;
+                buildSubs(idx, nd);
+                drawLayers();
+                addInsertUI(idx, nd, nf);
+                refit(nf);
+                /* the canvas only reaches full height once this block is
+                   fitted - re-apply the preserved scroll position now */
+                if (prevScroll) { try { frame.contentWindow.scrollTo(0, prevScroll); } catch (e) {} }
+                setTimeout(function(){ refit(nf); }, 700);   /* late images */
+                nd.body.setAttribute('contenteditable', 'true');
+                nd.body.setAttribute('spellcheck', 'false');
+                var snapped = false;
+                nd.addEventListener('focusin', function(){ editing = true; if (!snapped) { snapped = true; snapshot(); } });
+                nd.addEventListener('input', function(){ saveHtml(idx, nd); });
+                nd.addEventListener('focusout', function(){ editing = false; snapped = false; });
+                /* hover outline + click-to-inspect */
+                nd.addEventListener('mouseover', function(e){
+                  var t = e.target;
+                  if (!t || !t.classList || t === nd.body || t === nd.documentElement) return;
+                  if (t.closest && (t.closest('.__eepb_addrow') || t.closest('.__eepb_menu'))) return;
+                  t.classList.add('__eepb_hov');
+                });
+                nd.addEventListener('mouseout', function(e){
+                  if (e.target && e.target.classList) e.target.classList.remove('__eepb_hov');
+                });
+                nd.addEventListener('click', function(e){
+                  var t = e.target;
+                  if (t && t.closest && (t.closest('.__eepb_addrow') || t.closest('.__eepb_menu'))) return;
+                  if (t && t.closest && t.closest('a')) e.preventDefault();
+                  if (!t || !t.classList || t === nd.documentElement) return;
+                  if (t === nd.body) return;
+                  clearInSel();
+                  t.classList.remove('__eepb_hov');
+                  inSel = { el: t, nd: nd, nf: nf, i: idx };
+                  t.classList.add('__eepb_sel');
+                  sel = idx;
                   drawLayers();
-                  addInsertUI(idx, nd, nf);
-                  refit(nf);
-                  nd.body.setAttribute('contenteditable', 'true');
-                  nd.body.setAttribute('spellcheck', 'false');
-                  var snapped = false;
-                  nd.addEventListener('focusin', function(){ editing = true; if (!snapped) { snapped = true; snapshot(); } });
-                  nd.addEventListener('input', function(){ saveHtml(idx, nd); });
-                  nd.addEventListener('focusout', function(){ editing = false; snapped = false; });
-                  /* hover outline + click-to-inspect */
-                  nd.addEventListener('mouseover', function(e){
-                    var t = e.target;
-                    if (!t || !t.classList || t === nd.body || t === nd.documentElement) return;
-                    if (t.closest && (t.closest('.__eepb_addrow') || t.closest('.__eepb_menu'))) return;
-                    t.classList.add('__eepb_hov');
-                  });
-                  nd.addEventListener('mouseout', function(e){
-                    if (e.target && e.target.classList) e.target.classList.remove('__eepb_hov');
-                  });
-                  nd.addEventListener('click', function(e){
-                    var t = e.target;
-                    if (t && t.closest && (t.closest('.__eepb_addrow') || t.closest('.__eepb_menu'))) return;
-                    if (t && t.closest && t.closest('a')) e.preventDefault();
-                    if (!t || !t.classList || t === nd.documentElement) return;
-                    if (t === nd.body) return;
-                    clearInSel();
-                    t.classList.remove('__eepb_hov');
-                    inSel = { el: t, nd: nd, nf: nf, i: idx };
-                    t.classList.add('__eepb_sel');
-                    sel = idx;
-                    drawLayers();
-                    drawInspector();
-                  }, true);
-                } catch (e) {}
-              }
-              if (nf.contentDocument && nf.contentDocument.readyState === 'complete') { wire2(); }
-              nf.addEventListener('load', wire2);
+                  drawInspector();
+                }, true);
+              } catch (e) {}
             });
-            mark();
-          } catch (e) {}
-        });
+          } catch (e) { try { console.error('EEPB canvas wiring failed:', e); } catch (e2) {} }
+        }
+        frame.addEventListener('load', wireCanvas);
+        setInterval(wireCanvas, 300);
 
         /* ---- device preview ---- */
         document.querySelectorAll('.eepb-dev .dev').forEach(function(b){
@@ -1878,6 +1919,7 @@ function ee_pb_render_editor($pid) {
 
         /* ---- export / import ---- */
         document.getElementById('eepbExport').addEventListener('click', function(){
+          saveFlush();
           clipPut(JSON.parse(JSON.stringify(state)), 'Whole layout copied');
           if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(JSON.stringify(state)).catch(function(){});
@@ -1898,7 +1940,7 @@ function ee_pb_render_editor($pid) {
           sync(); drawLayers(); drawSettings(); preview();
         });
 
-        document.getElementById('eepbForm').addEventListener('submit', function(){ sync(); });
+        document.getElementById('eepbForm').addEventListener('submit', function(){ saveFlush(); sync(); });
 
         /* ---- SEO panel: live character counters + share-image picker ---- */
         document.querySelectorAll('.eepb-seo .cnt').forEach(function(c){
