@@ -384,6 +384,10 @@ get_header();
   }
   q.addEventListener('input', apply);
   if (xBtn) xBtn.addEventListener('click', function(){ q.value = ''; apply(); q.focus(); });
+
+  /* deep link: /help/?q=whatsapp pre-fills and runs the search */
+  var pre = new URLSearchParams(location.search).get('q');
+  if (pre) { q.value = pre; apply(); }
 })();
 </script>
 

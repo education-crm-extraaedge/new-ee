@@ -69,6 +69,30 @@ $category  = get_post_meta($pid, '_help_category', true) ?: 'General';
 $diff      = get_post_meta($pid, '_help_difficulty', true) ?: 'beginner';
 $read_time = get_post_meta($pid, '_help_reading_time', true);
 $related   = get_post_meta($pid, '_help_related_links', true);
+$video     = get_post_meta($pid, '_help_video', true);
+
+/* shared Help Center page settings (support card texts/buttons) */
+$hsx_opt = get_option('ee_help_page_settings', array());
+$hsx_t = function ($k, $d = '') use ($hsx_opt) {
+    return (isset($hsx_opt[$k]) && trim((string) $hsx_opt[$k]) !== '') ? $hsx_opt[$k] : $d;
+};
+
+/* article video: YouTube / Vimeo / direct file → embed markup */
+$hsx_embed = function ($url) {
+    $url = trim((string) $url);
+    if ($url === '') return '';
+    if (preg_match('~(?:youtube\.com/(?:watch\?v=|embed/|shorts/)|youtu\.be/)([A-Za-z0-9_-]{6,20})~', $url, $m)) {
+        return '<iframe src="https://www.youtube-nocookie.com/embed/' . esc_attr($m[1]) . '" title="Article video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+    }
+    if (preg_match('~vimeo\.com/(?:video/)?(\d+)~', $url, $m)) {
+        return '<iframe src="https://player.vimeo.com/video/' . esc_attr($m[1]) . '" title="Article video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+    }
+    if (preg_match('~\.(mp4|webm|ogv|ogg)(\?.*)?$~i', $url)) {
+        return '<video controls preload="metadata" src="' . esc_url($url) . '"></video>';
+    }
+    return '';
+};
+$video_html = $hsx_embed($video);
 
 /* auto reading time when the meta is blank */
 if (!$read_time) {
@@ -141,7 +165,7 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
 /* content typography */
 .hsx-content{font-size:16px;line-height:1.75;color:var(--mut);overflow-wrap:break-word}
 .hsx-content h2{font-size:clamp(21px,2.4vw,26px);line-height:1.3;font-weight:700;color:var(--nv);margin:30px 0 12px;scroll-margin-top:90px}
-.hsx-content h3{font-size:clamp(17.5px,2vw,20px);line-height:1.35;font-weight:700;color:var(--nv);margin:26px 0 10px}
+.hsx-content h3{font-size:clamp(17.5px,2vw,20px);line-height:1.35;font-weight:700;color:var(--nv);margin:26px 0 10px;scroll-margin-top:90px}
 .hsx-content h2:first-child,.hsx-content h3:first-child,.hsx-content p:first-child{margin-top:0}
 .hsx-content p{margin:0 0 15px}
 .hsx-content ul,.hsx-content ol{margin:0 0 16px;padding-left:22px}
@@ -149,7 +173,14 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
 .hsx-content a{color:var(--or);font-weight:600}
 .hsx-content a:hover{text-decoration:underline}
 .hsx-content strong{color:var(--nv)}
-.hsx-content img{max-width:100%;height:auto;border-radius:12px;border:1px solid var(--line);display:block;margin:6px 0}
+.hsx-content img{max-width:100%;height:auto;border-radius:12px;border:1px solid var(--line);display:block;margin:6px 0;cursor:zoom-in}
+.hsx-video{margin:0 0 clamp(18px,3vw,26px)}
+.hsx-video iframe,.hsx-video video{width:100%;max-width:100%;aspect-ratio:16/9;height:auto;border-radius:14px;border:0;display:block}
+/* screenshot lightbox */
+.hsx-lb{position:fixed;inset:0;z-index:99999;background:rgba(8,16,32,.92);display:none;align-items:center;justify-content:center;padding:4vw;cursor:zoom-out}
+.hsx-lb.open{display:flex}
+.hsx-lb img{max-width:100%;max-height:100%;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.hsx-lb button{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:#fff;font-size:16px;cursor:pointer}
 .hsx-content figure{margin:14px 0 20px}
 .hsx-content figure.hlp-shot img,.hsx-content .wp-block-image img{box-shadow:0 8px 26px rgba(25,51,93,.08)}
 .hsx-content figcaption{font-size:13px;color:#747780;margin-top:8px;text-align:center}
@@ -241,6 +272,7 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
     <div class="w">
 
       <article class="hsx-article" itemscope itemtype="https://schema.org/TechArticle">
+        <?php if ($video_html) : ?><div class="hsx-video"><?php echo $video_html; ?></div><?php endif; ?>
         <div class="hsx-content" itemprop="articleBody">
           <?php the_content(); ?>
         </div>
@@ -263,6 +295,10 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
       </article>
 
       <aside class="hsx-aside" role="complementary">
+        <div class="hsx-card" id="hsxToc" hidden>
+          <h3><span class="dot"></span>On this page</h3>
+          <ul id="hsxTocL"></ul>
+        </div>
         <?php if (count($siblings) > 1) : ?>
         <div class="hsx-card">
           <h3><span class="dot"></span>In <?php echo esc_html($category); ?></h3>
@@ -297,9 +333,9 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
           <div class="agent" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
           </div>
-          <p>Still need help? Our team responds within 24 hours.</p>
-          <a class="solid" href="<?php echo esc_url(home_url('/contact-us/')); ?>">Email Support</a>
-          <a class="line" href="<?php echo esc_url(home_url('/book-demo/')); ?>">Live Chat</a>
+          <p><?php echo esc_html($hsx_t('support_text', 'Still need help? Our team responds within 24 hours.')); ?></p>
+          <a class="solid" href="<?php echo esc_url($hsx_t('b1_url', home_url('/contact-us/'))); ?>"><?php echo esc_html($hsx_t('b1_label', 'Email Support')); ?></a>
+          <a class="line" href="<?php echo esc_url($hsx_t('b2_url', home_url('/book-demo/'))); ?>"><?php echo esc_html($hsx_t('b2_label', 'Live Chat')); ?></a>
         </div>
       </aside>
 
@@ -311,5 +347,49 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
   <?php endif; ?>
 
 </main>
+
+<script>
+(function(){
+  /* "On this page" — auto-built from the article's h2/h3 headings */
+  var hs = document.querySelectorAll('.hsx-content h2, .hsx-content h3');
+  var toc = document.getElementById('hsxToc');
+  var list = document.getElementById('hsxTocL');
+  if (toc && list && hs.length >= 2) {
+    hs.forEach(function(h, i){
+      if (!h.id) h.id = 'sec-' + i + '-' + (h.textContent || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      if (h.tagName === 'H3') li.style.paddingLeft = '12px';
+      li.appendChild(a);
+      list.appendChild(li);
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + h.id);
+      });
+    });
+    toc.hidden = false;
+  }
+
+  /* screenshot lightbox — click any article image to zoom */
+  var lb = document.createElement('div');
+  lb.className = 'hsx-lb';
+  lb.innerHTML = '<img alt=""><button type="button" aria-label="Close">✕</button>';
+  document.body.appendChild(lb);
+  var lbi = lb.querySelector('img');
+  function lbClose(){ lb.classList.remove('open'); document.documentElement.style.overflow = ''; }
+  document.querySelectorAll('.hsx-content img').forEach(function(im){
+    im.addEventListener('click', function(){
+      lbi.src = im.currentSrc || im.src;
+      lb.classList.add('open');
+      document.documentElement.style.overflow = 'hidden';
+    });
+  });
+  lb.addEventListener('click', lbClose);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') lbClose(); });
+})();
+</script>
 
 <?php endwhile; get_footer(); ?>

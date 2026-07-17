@@ -3097,6 +3097,11 @@ add_action('add_meta_boxes', function () {
                 <input type="text" name="help_subtitle" value="<?php echo esc_attr($subtitle); ?>" placeholder="Step-by-step guide to importing your leads.">
             </div>
             <div class="hlp-row">
+                <label>Video URL (optional — video player shows at the top of the article)</label>
+                <input type="url" name="help_video" value="<?php echo esc_attr(get_post_meta($post->ID, '_help_video', true)); ?>" placeholder="https://www.youtube.com/watch?v=... or https://...mp4">
+                <p class="hint">YouTube, Vimeo, or a direct .mp4 link. You can also insert videos anywhere in the article content with Add Media.</p>
+            </div>
+            <div class="hlp-row">
                 <label>Difficulty</label>
                 <select name="help_difficulty">
                     <?php foreach (array('beginner' => 'Beginner', 'intermediate' => 'Intermediate', 'advanced' => 'Advanced') as $k => $lbl) : ?>
@@ -3126,6 +3131,7 @@ add_action('save_post_help', function ($post_id) {
     if (!current_user_can('edit_post', $post_id)) return;
     if (isset($_POST['help_category']))      update_post_meta($post_id, '_help_category',      sanitize_text_field(wp_unslash($_POST['help_category'])));
     if (isset($_POST['help_subtitle']))      update_post_meta($post_id, '_help_subtitle',      sanitize_text_field(wp_unslash($_POST['help_subtitle'])));
+    if (isset($_POST['help_video']))         update_post_meta($post_id, '_help_video',         esc_url_raw(trim(wp_unslash($_POST['help_video']))));
     if (isset($_POST['help_difficulty']))    update_post_meta($post_id, '_help_difficulty',    in_array($_POST['help_difficulty'], array('beginner', 'intermediate', 'advanced'), true) ? $_POST['help_difficulty'] : 'beginner');
     if (isset($_POST['help_reading_time']))  update_post_meta($post_id, '_help_reading_time',  ($n = absint($_POST['help_reading_time'])) ? min($n, 60) : '');
     if (isset($_POST['help_related_links'])) update_post_meta($post_id, '_help_related_links', sanitize_textarea_field(wp_unslash($_POST['help_related_links'])));
