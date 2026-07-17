@@ -28,4 +28,9 @@ if ($ee_pb_items) {
 }
 ?>
 </main>
+<?php if (current_user_can('manage_options')) : ?>
+<!-- one-click jump from the published page back into the builder (admins only) -->
+<a href="<?php echo esc_url(admin_url('admin.php?page=ee-page-builder&post=' . $ee_pb_pid)); ?>"
+   style="position:fixed;right:18px;bottom:18px;z-index:2147483000;background:#DE6E30;color:#fff;font:700 14px/1 'Inter',-apple-system,sans-serif;padding:13px 20px;border-radius:999px;text-decoration:none;box-shadow:0 10px 26px rgba(222,110,48,.5)">✏️ Edit this page</a>
+<?php endif; ?>
 <?php get_footer(); ?>

@@ -796,6 +796,11 @@ function ee_pb_render_editor($pid) {
         .eepb-right textarea{min-height:100px;font-family:Menlo,Consolas,monospace;font-size:12px}
         .eepb-right .imgpick{display:flex;gap:6px}
         .eepb-right .imgpick input{flex:1}
+        .eepb-right{position:sticky;top:40px;max-height:calc(100vh - 56px);overflow:auto}
+        .eepb-grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px 10px;margin-top:2px}
+        .eepb-grid2 label{display:block;font-weight:600;font-size:10.5px;color:#50575e;margin:0 0 3px;text-transform:uppercase;letter-spacing:.03em}
+        .eepb-grid2 input[type=number],.eepb-grid2 select,.eepb-grid2 input[type=text]{width:100%}
+        .eepb-grid2 .button{padding:0 8px;min-height:28px}
         .eepb-insp-row{display:flex;gap:6px;align-items:center}
         .eepb-insp-row input[type=color]{width:52px;height:32px;padding:2px;flex:none}
         .eepb-insp-row input[type=number],.eepb-insp-row input[type=text]{flex:1;min-width:0}
@@ -1123,32 +1128,50 @@ function ee_pb_render_editor($pid) {
           var snapped = false;
           function snapOnce(){ if (!snapped) { snapped = true; snapshot(); } }
           function save(){ saveHtml(i, nd); refit(nf); }
-          function lab(t){ var l = document.createElement('label'); l.textContent = t; settings.appendChild(l); return l; }
 
           settings.innerHTML = '';
           var head = document.createElement('p');
-          head.innerHTML = '<b>🎯 ' + elPath(el) + '</b><br><span class="hint">Type directly on the page to change text. Style it below.</span>';
+          head.style.margin = '0 0 8px';
+          head.innerHTML = '<b>🎯 ' + elPath(el) + '</b> <span class="hint">— type on the page to edit text</span>';
           settings.appendChild(head);
 
-          /* --- colors --- */
-          function colorCtl(label, prop){
-            lab(label);
-            var row = document.createElement('div'); row.className = 'eepb-insp-row';
+          /* compact 2-column grid: everything visible without scrolling */
+          var grid = document.createElement('div'); grid.className = 'eepb-grid2';
+          settings.appendChild(grid);
+          function cell(labelTxt, node, full){
+            var c = document.createElement('div');
+            if (full) c.style.gridColumn = '1 / -1';
+            var l = document.createElement('label'); l.textContent = labelTxt;
+            c.appendChild(l); c.appendChild(node);
+            grid.appendChild(c);
+          }
+          function colorInp(prop){
+            var wrap = document.createElement('div'); wrap.className = 'eepb-insp-row';
             var c = document.createElement('input'); c.type = 'color';
             c.value = rgb2hex(getComputedStyle(el)[prop === 'background' ? 'backgroundColor' : prop]);
             c.addEventListener('mousedown', snapOnce); c.addEventListener('focus', snapOnce);
             c.addEventListener('input', function(){ el.style[prop] = c.value; save(); });
-            var x = document.createElement('button'); x.type = 'button'; x.className = 'button'; x.textContent = '✕'; x.title = 'Remove this color (back to original)';
+            var x = document.createElement('button'); x.type = 'button'; x.className = 'button'; x.textContent = '\u2715'; x.title = 'Back to original';
             x.addEventListener('click', function(){ snapOnce(); el.style[prop] = ''; save(); });
-            row.appendChild(c); row.appendChild(x); settings.appendChild(row);
+            wrap.appendChild(c); wrap.appendChild(x);
+            return wrap;
           }
-          colorCtl('Text color', 'color');
-          colorCtl('Background color', 'background');
+          function numInp(get, set, min, max, step, ph){
+            var n = document.createElement('input'); n.type = 'number';
+            n.min = min; n.max = max; if (step) n.step = step;
+            n.value = get(); n.placeholder = ph || '';
+            n.addEventListener('focus', snapOnce);
+            n.addEventListener('input', function(){ set(n.value); save(); });
+            return n;
+          }
 
-          /* --- font --- */
-          lab('Font');
+          /* colors */
+          cell('Text color', colorInp('color'));
+          cell('Background', colorInp('background'));
+
+          /* font + size */
           var fsel = document.createElement('select');
-          [['', 'Original (as designed)'], ["'Inter',sans-serif", 'Inter (site font)'], ['Arial,Helvetica,sans-serif', 'Arial'], ['Georgia,serif', 'Georgia'], ["'Times New Roman',serif", 'Times New Roman'], ['Verdana,sans-serif', 'Verdana'], ["'Trebuchet MS',sans-serif", 'Trebuchet MS'], ["'Courier New',monospace", 'Courier New'], ['system-ui,sans-serif', 'System UI']].forEach(function(o){
+          [['', 'Original'], ["'Inter',sans-serif", 'Inter (site font)'], ['Arial,Helvetica,sans-serif', 'Arial'], ['Georgia,serif', 'Georgia'], ["'Times New Roman',serif", 'Times New Roman'], ['Verdana,sans-serif', 'Verdana'], ["'Trebuchet MS',sans-serif", 'Trebuchet MS'], ["'Courier New',monospace", 'Courier New'], ['system-ui,sans-serif', 'System UI']].forEach(function(o){
             var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; fsel.appendChild(op);
           });
           fsel.value = el.style.fontFamily || '';
@@ -1159,61 +1182,80 @@ function ee_pb_render_editor($pid) {
             if (fsel.value.indexOf('Inter') !== -1 && !nd.getElementById('__eepb_inter')) {
               var lk = nd.createElement('link'); lk.id = '__eepb_inter'; lk.rel = 'stylesheet';
               lk.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap';
-              (nd.head || nd.body).appendChild(lk);   /* kept in the saved page on purpose */
+              (nd.head || nd.body).appendChild(lk);
             }
             save();
           });
-          settings.appendChild(fsel);
+          cell('Font', fsel);
+          cell('Size (px)', numInp(
+            function(){ return el.style.fontSize ? parseInt(el.style.fontSize, 10) : ''; },
+            function(v){ el.style.fontSize = v ? v + 'px' : ''; },
+            8, 120, 1, parseInt(getComputedStyle(el).fontSize, 10)));
 
-          /* --- size / weight / align --- */
-          lab('Font size (px) — leave empty for original');
-          var fs = document.createElement('input'); fs.type = 'number'; fs.min = '8'; fs.max = '120';
-          fs.value = el.style.fontSize ? parseInt(el.style.fontSize, 10) : '';
-          fs.placeholder = parseInt(getComputedStyle(el).fontSize, 10);
-          fs.addEventListener('focus', snapOnce);
-          fs.addEventListener('input', function(){ el.style.fontSize = fs.value ? fs.value + 'px' : ''; save(); });
-          settings.appendChild(fs);
-
-          lab('Weight & alignment');
-          var row2 = document.createElement('div'); row2.className = 'eepb-insp-row';
+          /* weight + align */
           var w = document.createElement('select');
-          [['', 'Weight'], ['400', 'Normal'], ['600', 'Semi-bold'], ['700', 'Bold'], ['800', 'Extra-bold']].forEach(function(o){
+          [['', 'Original'], ['400', 'Normal'], ['600', 'Semi-bold'], ['700', 'Bold'], ['800', 'Extra-bold']].forEach(function(o){
             var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; w.appendChild(op);
           });
           w.value = el.style.fontWeight || '';
           w.addEventListener('mousedown', snapOnce);
           w.addEventListener('change', function(){ el.style.fontWeight = w.value; save(); });
-          row2.appendChild(w);
-          [['left', '⬅'], ['center', '↔'], ['right', '➡']].forEach(function(a){
+          cell('Weight', w);
+          var alRow = document.createElement('div'); alRow.className = 'eepb-insp-row';
+          [['left', '\u2B05'], ['center', '\u2194'], ['right', '\u27A1']].forEach(function(a){
             var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'button'; btn.textContent = a[1]; btn.title = 'Align ' + a[0];
             btn.addEventListener('click', function(){ snapOnce(); el.style.textAlign = a[0]; save(); });
-            row2.appendChild(btn);
+            alRow.appendChild(btn);
           });
-          settings.appendChild(row2);
+          cell('Align', alRow);
 
-          /* --- spacing --- */
-          lab('Inside spacing / rounded corners (px)');
-          var row3 = document.createElement('div'); row3.className = 'eepb-insp-row';
-          var pad = document.createElement('input'); pad.type = 'number'; pad.min = '0'; pad.max = '200'; pad.placeholder = 'padding';
-          pad.value = el.style.padding ? parseInt(el.style.padding, 10) : '';
-          pad.addEventListener('focus', snapOnce);
-          pad.addEventListener('input', function(){ el.style.padding = pad.value ? pad.value + 'px' : ''; save(); });
-          var rad = document.createElement('input'); rad.type = 'number'; rad.min = '0'; rad.max = '80'; rad.placeholder = 'corners';
-          rad.value = el.style.borderRadius ? parseInt(el.style.borderRadius, 10) : '';
-          rad.addEventListener('focus', snapOnce);
-          rad.addEventListener('input', function(){ el.style.borderRadius = rad.value ? rad.value + 'px' : ''; save(); });
-          row3.appendChild(pad); row3.appendChild(rad); settings.appendChild(row3);
+          /* spacing */
+          cell('Inside space', numInp(
+            function(){ return el.style.padding ? parseInt(el.style.padding, 10) : ''; },
+            function(v){ el.style.padding = v ? v + 'px' : ''; }, 0, 200, 1, 'padding'));
+          cell('Outside space', numInp(
+            function(){ return el.style.margin ? parseInt(el.style.margin, 10) : ''; },
+            function(v){ el.style.margin = v ? v + 'px' : ''; }, 0, 200, 1, 'margin'));
+          cell('Corners (px)', numInp(
+            function(){ return el.style.borderRadius ? parseInt(el.style.borderRadius, 10) : ''; },
+            function(v){ el.style.borderRadius = v ? v + 'px' : ''; }, 0, 80, 1, '0'));
 
-          /* --- image / logo --- */
+          /* border: width + color together */
+          var bRow = document.createElement('div'); bRow.className = 'eepb-insp-row';
+          var bw = document.createElement('input'); bw.type = 'number'; bw.min = '0'; bw.max = '12'; bw.placeholder = '0';
+          bw.value = el.style.borderWidth ? parseInt(el.style.borderWidth, 10) : '';
+          var bc = document.createElement('input'); bc.type = 'color';
+          bc.value = rgb2hex(getComputedStyle(el).borderColor);
+          function setBorder(){ var n = parseInt(bw.value, 10) || 0; el.style.border = n > 0 ? n + 'px solid ' + bc.value : ''; save(); }
+          bw.addEventListener('focus', snapOnce); bw.addEventListener('input', setBorder);
+          bc.addEventListener('mousedown', snapOnce); bc.addEventListener('input', setBorder);
+          bRow.appendChild(bw); bRow.appendChild(bc);
+          cell('Border', bRow);
+
+          /* line height + opacity + shadow */
+          cell('Line height', numInp(
+            function(){ return el.style.lineHeight || ''; },
+            function(v){ el.style.lineHeight = v || ''; }, 0.8, 3, 0.1, '1.5'));
+          cell('Opacity %', numInp(
+            function(){ return el.style.opacity ? Math.round(parseFloat(el.style.opacity) * 100) : ''; },
+            function(v){ el.style.opacity = (v && v < 100) ? (v / 100) : ''; }, 10, 100, 5, '100'));
+          var shWrap = document.createElement('div'); shWrap.className = 'eepb-insp-row';
+          var sh = document.createElement('input'); sh.type = 'checkbox';
+          sh.checked = !!el.style.boxShadow;
+          sh.addEventListener('change', function(){ snapOnce(); el.style.boxShadow = sh.checked ? '0 14px 34px rgba(15,30,60,.18)' : ''; save(); });
+          var shl = document.createElement('span'); shl.textContent = ' soft shadow'; shl.style.fontSize = '12px';
+          shWrap.appendChild(sh); shWrap.appendChild(shl);
+          cell('Shadow', shWrap);
+
+          /* image / logo */
           if (tag === 'img') {
-            lab('Image / logo URL');
-            var row4 = document.createElement('div'); row4.className = 'eepb-insp-row';
+            var rowI = document.createElement('div'); rowI.className = 'eepb-insp-row';
             var src = document.createElement('input'); src.type = 'text'; src.value = el.getAttribute('src') || '';
             src.addEventListener('focus', snapOnce);
             src.addEventListener('input', function(){ el.setAttribute('src', src.value); save(); });
-            row4.appendChild(src);
+            rowI.appendChild(src);
             if (window.wp && wp.media) {
-              var pk = document.createElement('button'); pk.type = 'button'; pk.className = 'button'; pk.textContent = '📁';
+              var pk = document.createElement('button'); pk.type = 'button'; pk.className = 'button'; pk.textContent = '\uD83D\uDCC1';
               pk.addEventListener('click', function(){
                 var mfr = wp.media({title: 'Choose image', multiple: false, library: {type: 'image'}});
                 mfr.on('select', function(){
@@ -1223,41 +1265,35 @@ function ee_pb_render_editor($pid) {
                 });
                 mfr.open();
               });
-              row4.appendChild(pk);
+              rowI.appendChild(pk);
             }
-            settings.appendChild(row4);
-            lab('Alt text (SEO)');
+            cell('Image / logo URL', rowI, true);
             var alt = document.createElement('input'); alt.type = 'text'; alt.value = el.getAttribute('alt') || '';
             alt.addEventListener('focus', snapOnce);
             alt.addEventListener('input', function(){ el.setAttribute('alt', alt.value); save(); });
-            settings.appendChild(alt);
-            lab('Image width (%) — empty for original');
-            var iw = document.createElement('input'); iw.type = 'number'; iw.min = '5'; iw.max = '100';
-            iw.value = el.style.width && el.style.width.indexOf('%') !== -1 ? parseInt(el.style.width, 10) : '';
-            iw.addEventListener('focus', snapOnce);
-            iw.addEventListener('input', function(){ el.style.width = iw.value ? iw.value + '%' : ''; save(); });
-            settings.appendChild(iw);
+            cell('Alt text (SEO)', alt);
+            cell('Width (%)', numInp(
+              function(){ return el.style.width && el.style.width.indexOf('%') !== -1 ? parseInt(el.style.width, 10) : ''; },
+              function(v){ el.style.width = v ? v + '%' : ''; }, 5, 100, 1, 'auto'));
           }
 
-          /* --- link --- */
+          /* link */
           var aEl = (tag === 'a') ? el : (el.closest ? el.closest('a') : null);
           if (aEl) {
-            lab('Link URL (button / link target)');
             var href = document.createElement('input'); href.type = 'text'; href.value = aEl.getAttribute('href') || '';
             href.addEventListener('focus', snapOnce);
             href.addEventListener('input', function(){ aEl.setAttribute('href', href.value); save(); });
-            settings.appendChild(href);
+            cell('Link URL', href, true);
           }
 
-          /* --- insert a homepage section into the pasted page --- */
-          lab('Insert a homepage section after this element');
+          /* insert a homepage section */
           var rowS = document.createElement('div'); rowS.className = 'eepb-insp-row';
           var ssel = document.createElement('select');
           var sopts = (SCHEMA.homesec && SCHEMA.homesec.fields.section.options) || {};
           Object.keys(sopts).forEach(function(sv){
             var op = document.createElement('option'); op.value = sv; op.textContent = sopts[sv]; ssel.appendChild(op);
           });
-          var sbtn = document.createElement('button'); sbtn.type = 'button'; sbtn.className = 'button'; sbtn.textContent = '➕';
+          var sbtn = document.createElement('button'); sbtn.type = 'button'; sbtn.className = 'button'; sbtn.textContent = '\u2795';
           sbtn.title = 'Insert this homepage section after the selected element';
           sbtn.addEventListener('click', function(){
             snapshot();
@@ -1265,22 +1301,23 @@ function ee_pb_render_editor($pid) {
             m.className = '__eepb_sec';
             m.setAttribute('data-sec', ssel.value);
             m.setAttribute('style', 'border:2px dashed #DE6E30;border-radius:12px;padding:26px;text-align:center;font:600 14px Inter,Arial,sans-serif;color:#19335D;background:#fff7f2;margin:14px 0');
-            m.textContent = '🏠 ' + (sopts[ssel.value] || ssel.value) + ' — homepage section (the real section shows on the live page)';
+            m.textContent = '\uD83C\uDFE0 ' + (sopts[ssel.value] || ssel.value) + ' \u2014 homepage section (the real section shows on the live page)';
             el.after(m);
             save();
             addInsertUI(i, nd, nf);
             scrollCanvasTo(i, m);
           });
           rowS.appendChild(ssel); rowS.appendChild(sbtn);
-          settings.appendChild(rowS);
+          cell('Add homepage section after this', rowS, true);
 
-          /* --- actions --- */
+          /* actions */
           var act = document.createElement('div'); act.className = 'eepb-act';
+          act.style.gridColumn = '1 / -1';
           function actBtn(txt, title, fn){
             var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'button'; btn.textContent = txt; btn.title = title;
             btn.addEventListener('click', fn); act.appendChild(btn);
           }
-          actBtn('⬆ Select parent', 'Select the section around this element', function(){
+          actBtn('\u2B06 Parent', 'Select the section around this element', function(){
             var p = el.parentElement;
             if (!p || p === nd.documentElement) return;
             el.classList.remove('__eepb_sel');
@@ -1288,26 +1325,26 @@ function ee_pb_render_editor($pid) {
             p.classList.add('__eepb_sel');
             drawInspector();
           });
-          actBtn('⧉ Duplicate', 'Duplicate this element/section', function(){
+          actBtn('\u29C9 Duplicate', 'Duplicate this element/section', function(){
             snapshot();
             var c = el.cloneNode(true);
             c.classList.remove('__eepb_sel', '__eepb_hov');
-            el.after(c); save();
+            el.after(c); save(); addInsertUI(i, nd, nf);
           });
-          actBtn(el.style.display === 'none' ? '👁 Show' : '🙈 Hide', 'Hide/show (undo with Ctrl+Z)', function(){
+          actBtn(el.style.display === 'none' ? '\uD83D\uDC41 Show' : '\uD83D\uDE48 Hide', 'Hide/show (undo with Ctrl+Z)', function(){
             snapshot();
             el.style.display = (el.style.display === 'none') ? '' : 'none';
             save(); drawInspector();
           });
-          actBtn('🗑 Delete', 'Delete this element/section (undo with Ctrl+Z)', function(){
+          actBtn('\uD83D\uDDD1 Delete', 'Delete (undo with Ctrl+Z)', function(){
             snapshot();
-            el.remove(); save();
+            el.remove(); save(); addInsertUI(i, nd, nf);
             clearInSel(); drawSettings();
           });
           actBtn('{ } Code', 'Show the raw HTML of this whole block', function(){
             clearInSel(); drawSettings();
           });
-          settings.appendChild(act);
+          grid.appendChild(act);
         }
 
         /* ---- settings panel ---- */
