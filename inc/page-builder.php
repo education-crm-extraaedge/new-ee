@@ -151,11 +151,18 @@ function ee_pb_sanitize_items($raw) {
                    editing scaffolding that older builds baked into the code. */
                 case 'code':
                     $v = mb_substr((string) $v, 0, 500000);
-                    $v = preg_replace('#<style id="__eepb_pv_fix">.*?</style>#s', '', $v);
-                    $v = preg_replace('#<script id="__eepb_rescue">.*?</script>#s', '', $v);
-                    $v = preg_replace('#<script id="__eepb_secmount">.*?</script>#s', '', $v);
-                    $v = preg_replace('#<div class="__eepb_addrow">.*?</div>#s', '', $v);
-                    $v = preg_replace('#<div class="__eepb_menu">.*?</div>#s', '', $v);
+                    /* preg_replace returns NULL on PCRE limits for huge
+                       inputs — never let that nuke the pasted page */
+                    foreach (array(
+                        '#<style id="__eepb_pv_fix">.*?</style>#s',
+                        '#<script id="__eepb_rescue">.*?</script>#s',
+                        '#<script id="__eepb_secmount">.*?</script>#s',
+                        '#<div class="__eepb_addrow">.*?</div>#s',
+                        '#<div class="__eepb_menu">.*?</div>#s',
+                    ) as $rx) {
+                        $tmp = preg_replace($rx, '', $v);
+                        if ($tmp !== null) $v = $tmp;
+                    }
                     $v = str_replace(array(' contenteditable="true"', " contenteditable='true'", ' spellcheck="false"', '__eepb_sel', '__eepb_hov'), '', $v);
                     break;
                 case 'url':      $v = esc_url_raw(trim((string) $v)); break;
@@ -548,7 +555,13 @@ add_filter('template_include', function ($template) {
 
 function ee_pb_get_items($pid) {
     $items = get_post_meta($pid, '_ee_pb_json', true);
-    return is_array($items) ? $items : array();
+    if (is_array($items)) return $items;
+    /* resilience: if a plugin/migration stored it as a JSON string */
+    if (is_string($items) && $items !== '') {
+        $dec = json_decode($items, true);
+        if (is_array($dec)) return $dec;
+    }
+    return array();
 }
 
 add_action('wp_ajax_ee_pb_preview', function () {
@@ -567,8 +580,19 @@ add_action('admin_post_ee_pb_save', function () {
     check_admin_referer('ee_pb_save');
     $pid = isset($_POST['pb_post']) ? (int) $_POST['pb_post'] : 0;
     if (!$pid || get_post_type($pid) !== 'page') wp_die('Bad page');
-    $raw = json_decode(wp_unslash($_POST['pb_json'] ?? '[]'), true);
-    update_post_meta($pid, '_ee_pb_json', ee_pb_sanitize_items($raw));
+    $in  = wp_unslash($_POST['pb_json'] ?? '');
+    $raw = json_decode($in, true);
+    /* NEVER wipe a saved layout because the payload failed to arrive/parse
+       (huge pasted pages can be truncated by server limits) — bounce back
+       with an error instead of saving an empty layout. */
+    if (!is_array($raw)) {
+        wp_safe_redirect(admin_url('admin.php?page=ee-page-builder&post=' . $pid . '&err=1'));
+        exit;
+    }
+    /* wp_slash: update_post_meta unslashes its input, which silently EATS
+       backslashes inside pasted code (JS strings, CSS escapes) — slash it
+       so the stored value is byte-identical to what was edited. */
+    update_post_meta($pid, '_ee_pb_json', wp_slash(ee_pb_sanitize_items($raw)));
     update_post_meta($pid, '_ee_pb_on', empty($_POST['pb_on']) ? '' : '1');
     if (function_exists('ee_home_layout_flush_caches')) ee_home_layout_flush_caches();
     wp_safe_redirect(admin_url('admin.php?page=ee-page-builder&post=' . $pid . '&saved=1'));
@@ -600,7 +624,7 @@ add_action('admin_post_ee_pb_duplicate', function () {
     ));
     if (is_wp_error($pid) || !$pid) wp_die('Could not duplicate');
     update_post_meta($pid, '_ee_pb_on', get_post_meta($src, '_ee_pb_on', true));
-    update_post_meta($pid, '_ee_pb_json', ee_pb_get_items($src));
+    update_post_meta($pid, '_ee_pb_json', wp_slash(ee_pb_get_items($src)));
     wp_safe_redirect(admin_url('admin.php?page=ee-page-builder&post=' . $pid));
     exit;
 });
@@ -725,6 +749,7 @@ function ee_pb_render_editor($pid) {
         <button type="button" class="button" id="eepbRedo" title="Ctrl+Shift+Z">↪ Redo</button>
       </h1>
       <?php if (!empty($_GET['saved'])) : ?><div class="notice notice-success is-dismissible"><p>Saved! The live page is updated (purge your site cache if you use one).</p></div><?php endif; ?>
+      <?php if (!empty($_GET['err'])) : ?><div class="notice notice-error"><p><b>Save did not go through</b> — the layout data didn't reach the server intact (this can happen with very large pasted pages on strict servers). Your previously saved layout is untouched. Try saving again; if it keeps failing, ask your host to raise <code>post_max_size</code> / ModSecurity body limits.</p></div><?php endif; ?>
 
       <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" id="eepbForm">
         <?php wp_nonce_field('ee_pb_save'); ?>
@@ -812,11 +837,29 @@ function ee_pb_render_editor($pid) {
         @media(max-width:1280px){.eepb-admin{grid-template-columns:190px 1fr 300px}}
       </style>
 
+      <?php
+        /* The saved layout ships in an inert JSON block, not inline JS: a
+           pasted page can contain anything, and if encoding hiccuped the
+           old inline form produced a syntax error that killed the whole
+           editor (layout looked "lost"). Fallbacks guarantee the editor
+           always boots with the best available state. */
+        $ee_pb_state_json = wp_json_encode(array_values($items));
+        if ($ee_pb_state_json === false && defined('JSON_INVALID_UTF8_SUBSTITUTE')) {
+            $ee_pb_state_json = json_encode(array_values($items), JSON_INVALID_UTF8_SUBSTITUTE);
+        }
+        if (!is_string($ee_pb_state_json) || $ee_pb_state_json === '') $ee_pb_state_json = '[]';
+        $ee_pb_state_json = str_replace('</script', '<\\/script', $ee_pb_state_json);
+      ?>
+      <script type="application/json" id="eepbState"><?php echo $ee_pb_state_json; ?></script>
       <script>
       (function(){
         var SCHEMA = <?php echo wp_json_encode($schema); ?>;
         var TPL    = <?php echo wp_json_encode($templates); ?>;
-        var state  = <?php echo wp_json_encode(array_values($items)); ?>;
+        var state  = [];
+        try {
+          state = JSON.parse(document.getElementById('eepbState').textContent || '[]');
+          if (!Array.isArray(state)) state = [];
+        } catch (e) { state = []; }
         var AJAX   = <?php echo wp_json_encode(admin_url('admin-ajax.php')); ?>;
         var NONCE  = <?php echo wp_json_encode(wp_create_nonce('ee_pb_prev')); ?>;
         var sel = -1, editing = false, prevT = null;
