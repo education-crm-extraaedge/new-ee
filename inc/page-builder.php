@@ -786,6 +786,8 @@ function ee_pb_render_editor($pid) {
         #eepbLayers li.dragging{opacity:.45}
         #eepbLayers li.sub{margin-left:20px;padding:5px 9px;font-size:11.5px;background:#fff;cursor:pointer;border-style:dashed}
         #eepbLayers li.sub:hover{border-color:#DE6E30;background:#fff7f2}
+        #eepbLayers li.sub.on{border-color:#DE6E30;border-style:solid;background:#fff7f2;box-shadow:0 0 0 1px #DE6E30}
+        #eepbLayers li.sub .ops{margin-left:auto}
         #eepbLayers li .nm{font-weight:700;color:#19335D;flex:none}
         #eepbLayers li .sum{color:#8a8f98;font-size:11.5px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         #eepbLayers li .ops{display:flex;gap:2px;flex:none}
@@ -915,8 +917,12 @@ function ee_pb_render_editor($pid) {
                 if (!ss.el || !ss.el.isConnected) return;
                 var sli = document.createElement('li');
                 sli.className = 'sub';
+                /* highlight the section the user is currently working in */
+                if (inSel && inSel.i === i && inSel.el && (inSel.el === ss.el || (ss.el.contains && ss.el.contains(inSel.el)))) {
+                  sli.className = 'sub on';
+                }
                 sli.dataset.i = i; sli.dataset.j = j;
-                sli.innerHTML = '<span>↳</span><span class="sum"></span>';
+                sli.innerHTML = '<span>↳</span><span class="sum"></span><span class="ops"><button type="button" data-op="sdel" title="Delete this section">✕</button></span>';
                 sli.querySelector('.sum').textContent = ss.label;
                 layers.appendChild(sli);
               });
@@ -927,17 +933,29 @@ function ee_pb_render_editor($pid) {
           editing = false;                    /* leaving canvas typing mode */
           var li = e.target.closest('li'); if (!li) return;
           var i = parseInt(li.dataset.i, 10);
-          /* sub-layer (a section inside a pasted page): jump + inspect */
+          /* sub-layer (a section inside a pasted page): jump + inspect,
+             or delete it straight from the layers list */
           if (li.dataset.j !== undefined) {
             var ss = (subSecs[i] || [])[parseInt(li.dataset.j, 10)];
-            if (ss && ss.el && ss.el.isConnected && htmlFrames[i]) {
-              clearInSel();
-              sel = i;
-              inSel = { el: ss.el, nd: ss.el.ownerDocument, nf: htmlFrames[i], i: i };
-              ss.el.classList.add('__eepb_sel');
-              drawLayers(); drawInspector(); mark();
-              scrollCanvasTo(i, ss.el);
+            if (!ss || !ss.el || !ss.el.isConnected || !htmlFrames[i]) return;
+            var sOp = e.target.closest('button');
+            if (sOp && sOp.dataset.op === 'sdel') {
+              snapshot();
+              var ndoc = ss.el.ownerDocument;
+              if (inSel && (inSel.el === ss.el || (ss.el.contains && ss.el.contains(inSel.el)))) clearInSel();
+              ss.el.remove();
+              saveHtml(i, ndoc);
+              addInsertUI(i, ndoc, htmlFrames[i]);
+              refit(htmlFrames[i]);
+              drawSettings();
+              return;
             }
+            clearInSel();
+            sel = i;
+            inSel = { el: ss.el, nd: ss.el.ownerDocument, nf: htmlFrames[i], i: i };
+            ss.el.classList.add('__eepb_sel');
+            drawLayers(); drawInspector(); mark();
+            scrollCanvasTo(i, ss.el);
             return;
           }
           var opBtn = e.target.closest('button');
@@ -1323,6 +1341,7 @@ function ee_pb_render_editor($pid) {
             el.classList.remove('__eepb_sel');
             inSel.el = p;
             p.classList.add('__eepb_sel');
+            drawLayers();          /* keep the active-section highlight in sync */
             drawInspector();
           });
           actBtn('\u29C9 Duplicate', 'Duplicate this element/section', function(){

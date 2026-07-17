@@ -7112,3 +7112,21 @@ function ee_section_anywhere_render_admin() {
  * Admin: ExtraaEdge Site → 🏗️ Page Builder. Full module in inc/.
  * ========================================================================= */
 require_once get_template_directory() . '/inc/page-builder.php';
+
+/* =========================================================================
+ * 🙂 NATIVE EMOJI — WordPress swaps every emoji for an image loaded from
+ * the s.w.org CDN; when that CDN is unreachable the whole admin (and any
+ * emoji on the site) shows broken-image icons. Modern OSes render emoji
+ * natively, so drop the swap everywhere.
+ * ========================================================================= */
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('admin_print_scripts', 'print_emoji_detection_script');
+remove_action('wp_print_styles', 'print_emoji_styles');
+remove_action('admin_print_styles', 'print_emoji_styles');
+remove_filter('the_content_feed', 'wp_staticize_emoji');
+remove_filter('comment_text_rss', 'wp_staticize_emoji');
+remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+add_filter('tiny_mce_plugins', function ($plugins) {
+    return is_array($plugins) ? array_diff($plugins, array('wpemoji')) : $plugins;
+});
+add_filter('emoji_svg_url', '__return_false');
