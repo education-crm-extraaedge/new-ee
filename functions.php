@@ -3076,6 +3076,10 @@ add_action('add_meta_boxes', function () {
                  ORDER BY pm.meta_value",
                 '_help_category'
             ));
+            /* categories created in Help → Page Settings (no articles yet) suggest too */
+            foreach ((array) get_option('ee_help_categories', array()) as $hr) {
+                if (!empty($hr['name']) && !in_array($hr['name'], $existing, true)) $existing[] = $hr['name'];
+            }
             ?>
             <style>
                 .hlp-row { margin-bottom: 16px; }
@@ -3145,7 +3149,7 @@ function ee_help_page_sanitize($in) {
     foreach (array(
         'hero_title', 'search_ph', 'support_title', 'b1_label', 'b2_label', 'empty_soon', 'empty_search',
         'empty_soon2', 'empty_search2', 'lbl_badge_one', 'lbl_badge_many', 'lbl_found_one', 'lbl_found_many',
-        'lbl_home', 'lbl_read', 'lbl_updated', 'lbl_onpage', 'lbl_incat', 'lbl_related', 'lbl_all', 'lbl_prev', 'lbl_next',
+        'lbl_home', 'lbl_read', 'lbl_updated', 'lbl_onpage', 'lbl_incat', 'lbl_related', 'lbl_all', 'lbl_prev', 'lbl_next', 'lbl_empty_cat',
     ) as $k) {
         $out[$k] = isset($in[$k]) ? sanitize_text_field($in[$k]) : '';
     }
@@ -3177,7 +3181,8 @@ function ee_help_cats_sanitize($in) {
         $label = sanitize_text_field($row['label'] ?? '');
         /* label identical to the key is no rename — keep option clean */
         if (mb_strtolower(trim($label)) === mb_strtolower(trim($row['name']))) $label = '';
-        $out[] = array('name' => sanitize_text_field($row['name']), 'label' => $label, 'color' => $color, 'icon' => $icon, 'order' => $order);
+        $icon_url = esc_url_raw(trim((string) ($row['icon_url'] ?? '')));
+        $out[] = array('name' => sanitize_text_field($row['name']), 'label' => $label, 'color' => $color, 'icon' => $icon, 'icon_url' => $icon_url, 'order' => $order);
     }
     return $out;
 }
@@ -3268,35 +3273,54 @@ function ee_help_page_render() {
             foreach ((array) get_option('ee_help_categories', array()) as $r) {
                 if (!empty($r['name'])) $hlp_saved[mb_strtolower(trim($r['name']))] = $r;
             }
+            /* saved-only categories (created here, no articles yet) join the list */
+            $hlp_all = $hlp_known;
+            foreach ($hlp_saved as $sk => $sr) {
+                $hit = false;
+                foreach ($hlp_all as $n) { if (mb_strtolower(trim($n)) === $sk) { $hit = true; break; } }
+                if (!$hit) $hlp_all[] = $sr['name'];
+            }
             $hlp_defaults = ee_help_cat_defaults();
             $hlp_accents  = array('#DE6E30', '#4CAF50', '#673AB7', '#2196F3', '#E91E63', '#009688', '#9C27B0', '#19335D');
             $hlp_icon_lbl = array('Add person', 'Team', 'Bar chart', 'Phone', 'Calendar check', 'Layers', 'Settings gear', 'Person', 'Grid', 'Mail', 'Chat bubble');
             /* show rows in effective front-end order */
-            if ($hlp_known) {
-                $hlp_ord = array();
-                foreach ($hlp_known as $hi => $hn) {
-                    $sv = $hlp_saved[mb_strtolower($hn)] ?? null;
-                    $hlp_ord[$hn] = ($sv && $sv['order'] !== '') ? (int) $sv['order'] : 1000 + $hi;
-                }
-                usort($hlp_known, function ($a, $b) use ($hlp_ord) { return $hlp_ord[$a] <=> $hlp_ord[$b]; });
+            $hlp_ord = array();
+            foreach ($hlp_all as $hi => $hn) {
+                $sv = $hlp_saved[mb_strtolower(trim($hn))] ?? null;
+                $hlp_ord[$hn] = ($sv && $sv['order'] !== '') ? (int) $sv['order'] : 1000 + $hi;
+            }
+            usort($hlp_all, function ($a, $b) use ($hlp_ord) { return $hlp_ord[$a] <=> $hlp_ord[$b]; });
             ?>
-            <table class="widefat striped" style="max-width:920px;margin-bottom:12px">
-                <thead><tr><th>Category (from articles)</th><th style="width:200px">Shown as (rename)</th><th style="width:90px">Color</th><th style="width:180px">Icon</th><th style="width:80px">Order</th></tr></thead>
+            <table class="widefat striped" style="max-width:1100px;margin-bottom:12px" id="hlpCatTable">
+                <thead><tr><th style="min-width:150px">Category</th><th style="width:170px">Shown as (rename)</th><th style="width:150px">Color</th><th style="width:150px">Icon</th><th style="width:260px">Custom icon image (optional)</th><th style="width:70px">Order</th></tr></thead>
                 <tbody>
-                <?php foreach ($hlp_known as $hi => $hn) :
-                    $key = mb_strtolower($hn);
-                    $sv  = $hlp_saved[$key] ?? array();
+                <?php foreach ($hlp_all as $hi => $hn) :
+                    $key    = mb_strtolower(trim($hn));
+                    $sv     = $hlp_saved[$key] ?? array();
+                    $in_use = in_array($hn, $hlp_known, true);
                     $dc  = $hlp_defaults[$key][0] ?? $hlp_accents[$hi % count($hlp_accents)];
                     $di  = $hlp_defaults[$key][1] ?? ($hi % 11);
                     $col = !empty($sv['color']) ? $sv['color'] : $dc;
                     $ico = (isset($sv['icon']) && $sv['icon'] !== '') ? (int) $sv['icon'] : (int) $di;
                     $ord = (isset($sv['order']) && $sv['order'] !== '') ? (int) $sv['order'] : $hi + 1;
                     $lbl = !empty($sv['label']) ? $sv['label'] : '';
+                    $iur = !empty($sv['icon_url']) ? $sv['icon_url'] : '';
                 ?>
                 <tr>
-                    <td><strong><?php echo esc_html($hn); ?></strong><input type="hidden" name="ee_help_categories[<?php echo (int) $hi; ?>][name]" value="<?php echo esc_attr($hn); ?>"></td>
+                    <td>
+                        <?php if ($in_use) : ?>
+                            <strong><?php echo esc_html($hn); ?></strong>
+                            <input type="hidden" name="ee_help_categories[<?php echo (int) $hi; ?>][name]" value="<?php echo esc_attr($hn); ?>">
+                        <?php else : ?>
+                            <input type="text" name="ee_help_categories[<?php echo (int) $hi; ?>][name]" value="<?php echo esc_attr($hn); ?>" style="width:100%">
+                            <small style="color:#8a8f9b">new — no articles yet</small>
+                        <?php endif; ?>
+                    </td>
                     <td><input type="text" name="ee_help_categories[<?php echo (int) $hi; ?>][label]" value="<?php echo esc_attr($lbl); ?>" placeholder="<?php echo esc_attr($hn); ?>" style="width:100%"></td>
-                    <td><input type="color" name="ee_help_categories[<?php echo (int) $hi; ?>][color]" value="<?php echo esc_attr($col); ?>" style="width:56px;height:32px;padding:2px;cursor:pointer"></td>
+                    <td style="white-space:nowrap">
+                        <input type="color" class="hlp-col" name="ee_help_categories[<?php echo (int) $hi; ?>][color]" value="<?php echo esc_attr($col); ?>" style="width:44px;height:30px;padding:2px;cursor:pointer;vertical-align:middle">
+                        <input type="text" class="hlp-colhex" value="<?php echo esc_attr($col); ?>" maxlength="7" style="width:72px;vertical-align:middle" aria-label="Hex color code">
+                    </td>
                     <td>
                         <select name="ee_help_categories[<?php echo (int) $hi; ?>][icon]">
                             <?php foreach ($hlp_icon_lbl as $ii => $il) : ?>
@@ -3304,14 +3328,19 @@ function ee_help_page_render() {
                             <?php endforeach; ?>
                         </select>
                     </td>
-                    <td><input type="number" name="ee_help_categories[<?php echo (int) $hi; ?>][order]" value="<?php echo (int) $ord; ?>" min="1" max="99" style="width:64px"></td>
+                    <td style="white-space:nowrap">
+                        <input type="url" name="ee_help_categories[<?php echo (int) $hi; ?>][icon_url]" value="<?php echo esc_attr($iur); ?>" placeholder="https://...png / .svg" style="width:calc(100% - 40px);vertical-align:middle">
+                        <button type="button" class="button hlp-ico-pick" title="Choose from Media Library" style="vertical-align:middle">📁</button>
+                    </td>
+                    <td><input type="number" name="ee_help_categories[<?php echo (int) $hi; ?>][order]" value="<?php echo (int) $ord; ?>" min="1" max="99" style="width:60px"></td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
-            <?php } else { ?>
-                <p><em>No help articles yet — publish articles (or use the starter button below) and the categories will show up here.</em></p>
-            <?php } ?>
+            <p style="margin:0 0 4px">
+                <button type="button" class="button" id="hlpAddCat">➕ Add new category</button>
+                <span class="description" style="margin-left:8px">New categories show on /help/ right away (with "coming soon") and appear in every article's Category suggestions. When a custom icon image is set, it replaces the built-in icon.</span>
+            </p>
 
             <h2>Other texts</h2>
             <table class="form-table" role="presentation">
@@ -3346,6 +3375,7 @@ function ee_help_page_render() {
                         'lbl_all'        => array('"All help articles" link',             '← All help articles'),
                         'lbl_prev'       => array('Previous-article label',               '← Previous'),
                         'lbl_next'       => array('Next-article label',                   'Next →'),
+                        'lbl_empty_cat'  => array('Empty-category card text',             'Articles coming soon.'),
                     );
                     foreach ($hlp_labels as $lk => $lv) : ?>
                     <tr>
@@ -3408,6 +3438,44 @@ function ee_help_page_render() {
                 $('#ee-help-hero-img').val(frame.state().get('selection').first().toJSON().url);
             });
             frame.open();
+        });
+
+        /* category icon image picker (per row) */
+        $(document).on('click', '.hlp-ico-pick', function (e) {
+            e.preventDefault();
+            var $inp = $(this).closest('td').find('input[type="url"]');
+            var frame = wp.media({ title: 'Choose category icon', multiple: false, library: { type: 'image' } });
+            frame.on('select', function () {
+                $inp.val(frame.state().get('selection').first().toJSON().url);
+            });
+            frame.open();
+        });
+
+        /* color picker <-> hex code text, both ways */
+        $(document).on('input', '.hlp-col', function () {
+            $(this).siblings('.hlp-colhex').val($(this).val());
+        });
+        $(document).on('input', '.hlp-colhex', function () {
+            var v = $(this).val().trim();
+            if (/^#[0-9a-fA-F]{6}$/.test(v)) $(this).siblings('.hlp-col').val(v);
+        });
+
+        /* add a brand-new category row */
+        var hlpIdx = $('#hlpCatTable tbody tr').length;
+        var hlpIcons = <?php echo wp_json_encode(array('Add person', 'Team', 'Bar chart', 'Phone', 'Calendar check', 'Layers', 'Settings gear', 'Person', 'Grid', 'Mail', 'Chat bubble')); ?>;
+        $('#hlpAddCat').on('click', function () {
+            var i = hlpIdx++;
+            var opts = hlpIcons.map(function (l, n) { return '<option value="' + n + '">' + l + '</option>'; }).join('');
+            $('#hlpCatTable tbody').append(
+                '<tr>' +
+                '<td><input type="text" name="ee_help_categories[' + i + '][name]" value="" placeholder="New category name" style="width:100%"><small style="color:#8a8f9b">new — no articles yet</small></td>' +
+                '<td><input type="text" name="ee_help_categories[' + i + '][label]" value="" placeholder="(same as name)" style="width:100%"></td>' +
+                '<td style="white-space:nowrap"><input type="color" class="hlp-col" name="ee_help_categories[' + i + '][color]" value="#DE6E30" style="width:44px;height:30px;padding:2px;cursor:pointer;vertical-align:middle"> <input type="text" class="hlp-colhex" value="#DE6E30" maxlength="7" style="width:72px;vertical-align:middle"></td>' +
+                '<td><select name="ee_help_categories[' + i + '][icon]">' + opts + '</select></td>' +
+                '<td style="white-space:nowrap"><input type="url" name="ee_help_categories[' + i + '][icon_url]" value="" placeholder="https://...png / .svg" style="width:calc(100% - 40px);vertical-align:middle"> <button type="button" class="button hlp-ico-pick" title="Choose from Media Library" style="vertical-align:middle">📁</button></td>' +
+                '<td><input type="number" name="ee_help_categories[' + i + '][order]" value="' + i + '" min="1" max="99" style="width:60px"></td>' +
+                '</tr>'
+            );
         });
     });
     </script>

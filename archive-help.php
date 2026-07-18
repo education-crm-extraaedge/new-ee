@@ -78,6 +78,14 @@ $hcx_cat_over = array();
 foreach ((array) get_option('ee_help_categories', array()) as $hcx_row) {
     if (!empty($hcx_row['name'])) $hcx_cat_over[mb_strtolower(trim($hcx_row['name']))] = $hcx_row;
 }
+/* categories created in admin with no articles yet still get a card */
+foreach ($hcx_cat_over as $hcx_ok => $hcx_ov) {
+    $hcx_hit = false;
+    foreach ($hcx_groups as $gk => $gv) {
+        if (mb_strtolower(trim($gk)) === $hcx_ok) { $hcx_hit = true; break; }
+    }
+    if (!$hcx_hit) $hcx_groups[$hcx_ov['name']] = array();
+}
 if ($hcx_cat_over && $hcx_groups) {
     $hcx_ord = array();
     $hcx_pos = 0;
@@ -129,22 +137,32 @@ $hcx_icons = array(
 $hcx_look = function ($cat, $i) use ($hcx_cat_map, $hcx_accents, $hcx_icons, $hcx_cat_over) {
     $k = mb_strtolower(trim($cat));
     $color = null;
-    $icon  = null;
-    /* 1) admin override wins */
+    $paths = null;
+    $img   = '';
+    /* 1) admin override wins (custom icon image beats everything) */
     if (isset($hcx_cat_over[$k])) {
         $ov = $hcx_cat_over[$k];
         if (!empty($ov['color'])) $color = $ov['color'];
-        if (isset($ov['icon']) && $ov['icon'] !== '' && isset($hcx_icons[(int) $ov['icon']])) $icon = $hcx_icons[(int) $ov['icon']];
+        if (!empty($ov['icon_url'])) $img = $ov['icon_url'];
+        if (isset($ov['icon']) && $ov['icon'] !== '' && isset($hcx_icons[(int) $ov['icon']])) $paths = $hcx_icons[(int) $ov['icon']];
     }
     /* 2) built-in map for known CRM categories */
     if (isset($hcx_cat_map[$k])) {
         if ($color === null) $color = $hcx_cat_map[$k][0];
-        if ($icon === null)  $icon = $hcx_icons[$hcx_cat_map[$k][1]];
+        if ($paths === null) $paths = $hcx_icons[$hcx_cat_map[$k][1]];
     }
     /* 3) cycling palette fallback */
     if ($color === null) $color = $hcx_accents[$i % count($hcx_accents)];
-    if ($icon === null)  $icon = $hcx_icons[$i % count($hcx_icons)];
-    return array($color, $icon);
+    if ($paths === null) $paths = $hcx_icons[$i % count($hcx_icons)];
+    /* ready-to-print icon markup: tile (colored stroke) + card (inherits) */
+    if ($img !== '') {
+        $tile = '<img src="' . esc_url($img) . '" alt="" loading="lazy">';
+        $card = $tile;
+    } else {
+        $tile = '<svg viewBox="0 0 24 24" fill="none" stroke="' . esc_attr($color) . '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' . $paths . '</svg>';
+        $card = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' . $paths . '</svg>';
+    }
+    return array($color, $tile, $card);
 };
 
 /* ---- SEO ---- */
@@ -227,6 +245,9 @@ get_header();
 .hcx-ic{width:64px;height:64px;border-radius:16px;background:color-mix(in srgb,var(--ac) 10%,#fff);color:var(--ac);display:flex;align-items:center;justify-content:center;flex:none;transition:background .3s,color .3s}
 .hcx-card:hover .hcx-ic{background:var(--ac);color:#fff}
 .hcx-ic svg{width:30px;height:30px}
+.hcx-ic img{width:32px;height:32px;object-fit:contain;border-radius:6px}
+.hcx-tile img{width:30px;height:30px;object-fit:contain}
+.hcx-none{font-size:14px;color:#8a8f9b;font-style:italic;margin:0}
 .hcx-body{min-width:0;flex:1}
 .hcx-card h2{font-size:clamp(19px,2.2vw,24px);line-height:1.3;font-weight:600;letter-spacing:-.01em;color:var(--ac);margin:0 0 clamp(14px,2vw,24px)}
 .hcx-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
@@ -310,11 +331,11 @@ get_header();
     <div class="w">
       <div class="grid" style="--qcols:<?php echo max(2, min(7, count($hcx_groups))); ?>">
         <?php foreach ($hcx_groups as $cat => $items) :
-            list($ac, $ico) = $hcx_look($cat, $hcx_i);
+            list($ac, $tile_ico, $card_ico) = $hcx_look($cat, $hcx_i);
             $hcx_i++;
         ?>
         <button class="hcx-tile" type="button" data-go="cat-<?php echo esc_attr($hcx_slug($cat)); ?>">
-          <svg viewBox="0 0 24 24" fill="none" stroke="<?php echo esc_attr($ac); ?>" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><?php echo $ico; ?></svg>
+          <?php echo $tile_ico; ?>
           <span><?php echo esc_html($hcx_disp($cat)); ?></span>
         </button>
         <?php endforeach; ?>
@@ -328,7 +349,7 @@ get_header();
       <?php if ($hcx_rich !== '') : ?><div class="hcx-rich"><?php echo $hcx_rich; ?></div><?php endif; ?>
       <div class="hcx-grid" id="hcxGrid">
         <?php $hcx_i = 0; foreach ($hcx_groups as $cat => $items) :
-            list($ac, $ico) = $hcx_look($cat, $hcx_i);
+            list($ac, $tile_ico, $card_ico) = $hcx_look($cat, $hcx_i);
             $hcx_i++;
             $hcx_n  = count($items);
             $hcx_sz = $hcx_n >= 5 ? 'lg' : ($hcx_n >= 3 ? 'md' : 'sm');
@@ -336,10 +357,13 @@ get_header();
         <article class="hcx-card <?php echo esc_attr($hcx_sz); ?>" id="cat-<?php echo esc_attr($hcx_slug($cat)); ?>" style="--ac:<?php echo esc_attr($ac); ?>">
           <span class="hcx-cnt"><?php echo esc_html(str_replace('{count}', $hcx_n, $hcx_t($hcx_n === 1 ? 'lbl_badge_one' : 'lbl_badge_many', '{count} article' . ($hcx_n === 1 ? '' : 's')))); ?></span>
           <div class="hcx-ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><?php echo $ico; ?></svg>
+            <?php echo $card_ico; ?>
           </div>
           <div class="hcx-body">
             <h2><?php echo esc_html($hcx_disp($cat)); ?></h2>
+            <?php if (!$items) : ?>
+            <p class="hcx-none"><?php echo esc_html($hcx_t('lbl_empty_cat', 'Articles coming soon.')); ?></p>
+            <?php endif; ?>
             <ul class="hcx-links">
               <?php foreach ($items as $a) : ?>
               <li data-s="<?php echo esc_attr(mb_strtolower($a['title'] . ' ' . $cat . ' ' . $hcx_disp($cat))); ?>">
@@ -432,7 +456,7 @@ get_header();
         li.classList.toggle('hide', !hit);
         if (hit) inCard++;
       });
-      card.classList.toggle('hide', inCard === 0);
+      card.classList.toggle('hide', term !== '' && inCard === 0);
       var badge = card.querySelector('.hcx-cnt');
       if (badge) badge.textContent = (inCard === 1 ? L.b1 : L.bm).replace('{count}', inCard);
       visible += inCard;
