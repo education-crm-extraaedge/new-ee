@@ -3142,7 +3142,11 @@ add_action('save_post_help', function ($post_id) {
 function ee_help_page_sanitize($in) {
     $in  = is_array($in) ? $in : array();
     $out = array();
-    foreach (array('hero_title', 'search_ph', 'support_title', 'b1_label', 'b2_label', 'empty_soon', 'empty_search') as $k) {
+    foreach (array(
+        'hero_title', 'search_ph', 'support_title', 'b1_label', 'b2_label', 'empty_soon', 'empty_search',
+        'empty_soon2', 'empty_search2', 'lbl_badge_one', 'lbl_badge_many', 'lbl_found_one', 'lbl_found_many',
+        'lbl_home', 'lbl_read', 'lbl_updated', 'lbl_onpage', 'lbl_incat', 'lbl_related', 'lbl_all', 'lbl_prev', 'lbl_next',
+    ) as $k) {
         $out[$k] = isset($in[$k]) ? sanitize_text_field($in[$k]) : '';
     }
     foreach (array('hero_sub', 'support_text') as $k) {
@@ -3315,6 +3319,37 @@ function ee_help_page_render() {
                     <td><input type="text" class="large-text" name="ee_help_page_settings[empty_search]" value="<?php echo esc_attr($v('empty_search')); ?>" placeholder="No articles match your search."></td>
                 </tr>
             </table>
+
+            <details style="margin:18px 0 24px;max-width:820px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px 18px">
+                <summary style="cursor:pointer;font-weight:600;font-size:14px">🏷️ Advanced: small labels on both help pages (optional — for other languages or different wording)</summary>
+                <p class="description" style="margin:10px 0 4px">Leave blank to keep the default English text. <code>{count}</code> is replaced with the live number.</p>
+                <table class="form-table" role="presentation">
+                    <?php
+                    $hlp_labels = array(
+                        'empty_soon2'    => array('Second line under "Coming soon"',      'Meanwhile, our team is one click away.'),
+                        'empty_search2'  => array('Second line under "No results"',       'Try a different word, or browse the categories above.'),
+                        'lbl_badge_one'  => array('Card badge (1 article)',               '{count} article'),
+                        'lbl_badge_many' => array('Card badge (many articles)',           '{count} articles'),
+                        'lbl_found_one'  => array('Search counter (1 result)',            '{count} article found'),
+                        'lbl_found_many' => array('Search counter (many results)',        '{count} articles found'),
+                        'lbl_home'       => array('Breadcrumb home (article page)',       'Help Center'),
+                        'lbl_read'       => array('Reading-time chip suffix',             'min read'),
+                        'lbl_updated'    => array('Updated chip prefix',                  'Updated'),
+                        'lbl_onpage'     => array('"On this page" sidebar heading',       'On this page'),
+                        'lbl_incat'      => array('Sidebar heading prefix ("In …")',      'In'),
+                        'lbl_related'    => array('"Related Articles" sidebar heading',   'Related Articles'),
+                        'lbl_all'        => array('"All help articles" link',             '← All help articles'),
+                        'lbl_prev'       => array('Previous-article label',               '← Previous'),
+                        'lbl_next'       => array('Next-article label',                   'Next →'),
+                    );
+                    foreach ($hlp_labels as $lk => $lv) : ?>
+                    <tr>
+                        <th style="padding:8px 10px 8px 0"><label style="font-weight:500"><?php echo esc_html($lv[0]); ?></label></th>
+                        <td style="padding:8px 0"><input type="text" class="regular-text" name="ee_help_page_settings[<?php echo esc_attr($lk); ?>]" value="<?php echo esc_attr($v($lk)); ?>" placeholder="<?php echo esc_attr($lv[1]); ?>"></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </table>
+            </details>
 
             <h2>"Need more help?" band (bottom)</h2>
             <table class="form-table" role="presentation">

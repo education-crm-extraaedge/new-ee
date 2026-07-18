@@ -329,7 +329,7 @@ get_header();
             $hcx_sz = $hcx_n >= 5 ? 'lg' : ($hcx_n >= 3 ? 'md' : 'sm');
         ?>
         <article class="hcx-card <?php echo esc_attr($hcx_sz); ?>" id="cat-<?php echo esc_attr($hcx_slug($cat)); ?>" style="--ac:<?php echo esc_attr($ac); ?>">
-          <span class="hcx-cnt"><?php echo esc_html($hcx_n . ' article' . ($hcx_n === 1 ? '' : 's')); ?></span>
+          <span class="hcx-cnt"><?php echo esc_html(str_replace('{count}', $hcx_n, $hcx_t($hcx_n === 1 ? 'lbl_badge_one' : 'lbl_badge_many', '{count} article' . ($hcx_n === 1 ? '' : 's')))); ?></span>
           <div class="hcx-ic" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><?php echo $ico; ?></svg>
           </div>
@@ -348,12 +348,12 @@ get_header();
         </article>
         <?php endforeach; ?>
       </div>
-      <div class="hcx-empty" id="hcxEmpty"><b><?php echo esc_html($hcx_t('empty_search', 'No articles match your search.')); ?></b>Try a different word, or browse the categories above.</div>
+      <div class="hcx-empty" id="hcxEmpty"><b><?php echo esc_html($hcx_t('empty_search', 'No articles match your search.')); ?></b><?php echo esc_html($hcx_t('empty_search2', 'Try a different word, or browse the categories above.')); ?></div>
     <?php else : ?>
   <section class="hcx-main">
     <div class="w">
       <?php if ($hcx_rich !== '') : ?><div class="hcx-rich"><?php echo $hcx_rich; ?></div><?php endif; ?>
-      <div class="hcx-empty show" style="display:block"><b><?php echo esc_html($hcx_t('empty_soon', 'Help articles are coming soon.')); ?></b>Meanwhile, our team is one click away.</div>
+      <div class="hcx-empty show" style="display:block"><b><?php echo esc_html($hcx_t('empty_soon', 'Help articles are coming soon.')); ?></b><?php echo esc_html($hcx_t('empty_soon2', 'Meanwhile, our team is one click away.')); ?></div>
     <?php endif; ?>
 
       <!-- support band -->
@@ -385,6 +385,14 @@ get_header();
 
 <script>
 (function(){
+  /* editable label templates ({count} = live number) */
+  var L = <?php echo str_replace('</script', '<\\/script', wp_json_encode(array(
+      'b1' => $hcx_t('lbl_badge_one', '{count} article'),
+      'bm' => $hcx_t('lbl_badge_many', '{count} articles'),
+      'f1' => $hcx_t('lbl_found_one', '{count} article found'),
+      'fm' => $hcx_t('lbl_found_many', '{count} articles found'),
+  ))); ?>;
+
   /* quick tiles -> smooth scroll to the category card + brief highlight */
   document.querySelectorAll('.hcx-tile[data-go]').forEach(function(t){
     t.addEventListener('click', function(){
@@ -421,11 +429,11 @@ get_header();
       });
       card.classList.toggle('hide', inCard === 0);
       var badge = card.querySelector('.hcx-cnt');
-      if (badge) badge.textContent = inCard + ' article' + (inCard === 1 ? '' : 's');
+      if (badge) badge.textContent = (inCard === 1 ? L.b1 : L.bm).replace('{count}', inCard);
       visible += inCard;
     });
     if (empty) empty.classList.toggle('show', visible === 0);
-    if (cnt) cnt.textContent = term !== '' ? (visible + ' article' + (visible === 1 ? '' : 's') + ' found') : '';
+    if (cnt) cnt.textContent = term !== '' ? (visible === 1 ? L.f1 : L.fm).replace('{count}', visible) : '';
   }
   q.addEventListener('input', apply);
   if (xBtn) xBtn.addEventListener('click', function(){ q.value = ''; apply(); q.focus(); });

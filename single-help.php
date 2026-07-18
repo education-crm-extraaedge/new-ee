@@ -246,7 +246,7 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
   <section class="hsx-hero">
     <div class="w">
       <nav class="hsx-crumb" aria-label="Breadcrumb">
-        <a href="<?php echo esc_url(home_url('/help/')); ?>">Help Center</a>
+        <a href="<?php echo esc_url(home_url('/help/')); ?>"><?php echo esc_html($hsx_t('lbl_home', 'Help Center')); ?></a>
         <span class="sep">›</span>
         <a href="<?php echo esc_url($cat_url); ?>"><?php echo esc_html($category); ?></a>
         <span class="sep">›</span>
@@ -265,11 +265,11 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
         </span>
         <span class="hsx-chip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 13.5"/></svg>
-          <?php echo esc_html($read_time); ?> min read
+          <?php echo esc_html($read_time . ' ' . $hsx_t('lbl_read', 'min read')); ?>
         </span>
         <span class="hsx-chip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><polyline points="21 3 21 9 15 9"/></svg>
-          Updated <?php echo esc_html(get_the_modified_date('M j, Y', $pid)); ?>
+          <?php echo esc_html($hsx_t('lbl_updated', 'Updated') . ' ' . get_the_modified_date('M j, Y', $pid)); ?>
         </span>
       </div>
     </div>
@@ -287,13 +287,13 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
         <nav class="hsx-pn" aria-label="More in <?php echo esc_attr($category); ?>">
           <?php if ($prev) : ?>
           <a href="<?php echo esc_url(get_permalink($prev)); ?>">
-            <span class="lbl">← Previous</span>
+            <span class="lbl"><?php echo esc_html($hsx_t('lbl_prev', '← Previous')); ?></span>
             <span class="ttl"><?php echo esc_html(get_the_title($prev)); ?></span>
           </a>
           <?php else : ?><span class="ghost"></span><?php endif; ?>
           <?php if ($next) : ?>
           <a class="next" href="<?php echo esc_url(get_permalink($next)); ?>">
-            <span class="lbl">Next →</span>
+            <span class="lbl"><?php echo esc_html($hsx_t('lbl_next', 'Next →')); ?></span>
             <span class="ttl"><?php echo esc_html(get_the_title($next)); ?></span>
           </a>
           <?php endif; ?>
@@ -303,12 +303,12 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
 
       <aside class="hsx-aside" role="complementary">
         <div class="hsx-card" id="hsxToc" hidden>
-          <h3><span class="dot"></span>On this page</h3>
+          <h3><span class="dot"></span><?php echo esc_html($hsx_t('lbl_onpage', 'On this page')); ?></h3>
           <ul id="hsxTocL"></ul>
         </div>
         <?php if (count($siblings) > 1) : ?>
         <div class="hsx-card">
-          <h3><span class="dot"></span>In <?php echo esc_html($category); ?></h3>
+          <h3><span class="dot"></span><?php echo esc_html($hsx_t('lbl_incat', 'In') . ' ' . $category); ?></h3>
           <ul>
             <?php foreach ($siblings as $s) : ?>
             <li<?php echo ((int) $s->ID === (int) $pid) ? ' class="now"' : ''; ?>>
@@ -316,13 +316,13 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
             </li>
             <?php endforeach; ?>
           </ul>
-          <a class="all" href="<?php echo esc_url(home_url('/help/')); ?>">← All help articles</a>
+          <a class="all" href="<?php echo esc_url(home_url('/help/')); ?>"><?php echo esc_html($hsx_t('lbl_all', '← All help articles')); ?></a>
         </div>
         <?php endif; ?>
 
         <?php if ($related) : ?>
         <div class="hsx-card">
-          <h3><span class="dot"></span>Related Articles</h3>
+          <h3><span class="dot"></span><?php echo esc_html($hsx_t('lbl_related', 'Related Articles')); ?></h3>
           <ul>
             <?php foreach (explode("\n", trim($related)) as $line) :
               $line = trim($line);
