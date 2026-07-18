@@ -3174,7 +3174,10 @@ function ee_help_cats_sanitize($in) {
         $icon  = ($row['icon'] ?? '') === '' ? '' : (string) min(10, max(0, (int) $row['icon']));
         $order = trim((string) ($row['order'] ?? ''));
         $order = $order === '' ? '' : (string) max(1, min(99, (int) $order));
-        $out[] = array('name' => sanitize_text_field($row['name']), 'color' => $color, 'icon' => $icon, 'order' => $order);
+        $label = sanitize_text_field($row['label'] ?? '');
+        /* label identical to the key is no rename — keep option clean */
+        if (mb_strtolower(trim($label)) === mb_strtolower(trim($row['name']))) $label = '';
+        $out[] = array('name' => sanitize_text_field($row['name']), 'label' => $label, 'color' => $color, 'icon' => $icon, 'order' => $order);
     }
     return $out;
 }
@@ -3252,7 +3255,7 @@ function ee_help_page_render() {
                 array('textarea_name' => 'ee_help_page_settings[extra_content]', 'media_buttons' => true, 'textarea_rows' => 10)
             ); ?>
             <h2>Category look &amp; order</h2>
-            <p class="description" style="margin-bottom:8px">Color, icon, and position of every category card on /help/. New categories appear here automatically after you publish an article in them (rename a category by editing its articles' Category field).</p>
+            <p class="description" style="margin-bottom:8px">Name, color, icon, and position of every category card on /help/. <strong>Shown as</strong> renames the category everywhere on the site (cards, tiles, article pages) — articles keep using the original name in their Category field, so nothing breaks. New categories appear here automatically after you publish an article in them.</p>
             <?php
             /* categories currently in use, in the order the page shows them */
             $hlp_known = array();
@@ -3277,8 +3280,8 @@ function ee_help_page_render() {
                 }
                 usort($hlp_known, function ($a, $b) use ($hlp_ord) { return $hlp_ord[$a] <=> $hlp_ord[$b]; });
             ?>
-            <table class="widefat striped" style="max-width:760px;margin-bottom:12px">
-                <thead><tr><th>Category</th><th style="width:90px">Color</th><th style="width:180px">Icon</th><th style="width:80px">Order</th></tr></thead>
+            <table class="widefat striped" style="max-width:920px;margin-bottom:12px">
+                <thead><tr><th>Category (from articles)</th><th style="width:200px">Shown as (rename)</th><th style="width:90px">Color</th><th style="width:180px">Icon</th><th style="width:80px">Order</th></tr></thead>
                 <tbody>
                 <?php foreach ($hlp_known as $hi => $hn) :
                     $key = mb_strtolower($hn);
@@ -3288,9 +3291,11 @@ function ee_help_page_render() {
                     $col = !empty($sv['color']) ? $sv['color'] : $dc;
                     $ico = (isset($sv['icon']) && $sv['icon'] !== '') ? (int) $sv['icon'] : (int) $di;
                     $ord = (isset($sv['order']) && $sv['order'] !== '') ? (int) $sv['order'] : $hi + 1;
+                    $lbl = !empty($sv['label']) ? $sv['label'] : '';
                 ?>
                 <tr>
                     <td><strong><?php echo esc_html($hn); ?></strong><input type="hidden" name="ee_help_categories[<?php echo (int) $hi; ?>][name]" value="<?php echo esc_attr($hn); ?>"></td>
+                    <td><input type="text" name="ee_help_categories[<?php echo (int) $hi; ?>][label]" value="<?php echo esc_attr($lbl); ?>" placeholder="<?php echo esc_attr($hn); ?>" style="width:100%"></td>
                     <td><input type="color" name="ee_help_categories[<?php echo (int) $hi; ?>][color]" value="<?php echo esc_attr($col); ?>" style="width:56px;height:32px;padding:2px;cursor:pointer"></td>
                     <td>
                         <select name="ee_help_categories[<?php echo (int) $hi; ?>][icon]">

@@ -48,12 +48,22 @@ add_action('wp_head', function () {
         'mainEntityOfPage' => array('@type' => 'WebPage', '@id' => $url),
     );
     echo "\n<script type=\"application/ld+json\">" . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
+    /* admin rename + home label also apply to the breadcrumb schema */
+    $cat_lbl = $category;
+    foreach ((array) get_option('ee_help_categories', array()) as $r) {
+        if (!empty($r['name']) && mb_strtolower(trim($r['name'])) === mb_strtolower(trim($category)) && !empty($r['label'])) {
+            $cat_lbl = $r['label'];
+            break;
+        }
+    }
+    $hp_opt   = get_option('ee_help_page_settings', array());
+    $home_lbl = !empty($hp_opt['lbl_home']) ? $hp_opt['lbl_home'] : 'Help Center';
     $crumbs = array(
         '@context'        => 'https://schema.org',
         '@type'           => 'BreadcrumbList',
         'itemListElement' => array(
-            array('@type' => 'ListItem', 'position' => 1, 'name' => 'Help Center', 'item' => home_url('/help/')),
-            array('@type' => 'ListItem', 'position' => 2, 'name' => $category, 'item' => home_url('/help/#cat-' . sanitize_title($category))),
+            array('@type' => 'ListItem', 'position' => 1, 'name' => $home_lbl, 'item' => home_url('/help/')),
+            array('@type' => 'ListItem', 'position' => 2, 'name' => $cat_lbl, 'item' => home_url('/help/#cat-' . sanitize_title($category))),
             array('@type' => 'ListItem', 'position' => 3, 'name' => get_the_title($pid)),
         ),
     );
@@ -115,10 +125,12 @@ $hsx_cat_map = array(
     'my account'          => '#673AB7',
 );
 $accent = isset($hsx_cat_map[mb_strtolower(trim($category))]) ? $hsx_cat_map[mb_strtolower(trim($category))] : '#DE6E30';
-/* admin override from Help → Page Settings wins */
+/* admin override from Help → Page Settings wins (color + display name) */
+$cat_label = $category;
 foreach ((array) get_option('ee_help_categories', array()) as $hsx_row) {
-    if (!empty($hsx_row['name']) && mb_strtolower(trim($hsx_row['name'])) === mb_strtolower(trim($category)) && !empty($hsx_row['color'])) {
-        $accent = $hsx_row['color'];
+    if (!empty($hsx_row['name']) && mb_strtolower(trim($hsx_row['name'])) === mb_strtolower(trim($category))) {
+        if (!empty($hsx_row['color'])) $accent = $hsx_row['color'];
+        if (!empty($hsx_row['label'])) $cat_label = $hsx_row['label'];
         break;
     }
 }
@@ -248,7 +260,7 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
       <nav class="hsx-crumb" aria-label="Breadcrumb">
         <a href="<?php echo esc_url(home_url('/help/')); ?>"><?php echo esc_html($hsx_t('lbl_home', 'Help Center')); ?></a>
         <span class="sep">›</span>
-        <a href="<?php echo esc_url($cat_url); ?>"><?php echo esc_html($category); ?></a>
+        <a href="<?php echo esc_url($cat_url); ?>"><?php echo esc_html($cat_label); ?></a>
         <span class="sep">›</span>
         <span class="cur"><?php the_title(); ?></span>
       </nav>
@@ -257,7 +269,7 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
       <div class="hsx-meta">
         <a class="hsx-chip cat" href="<?php echo esc_url($cat_url); ?>">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-          <?php echo esc_html($category); ?>
+          <?php echo esc_html($cat_label); ?>
         </a>
         <span class="hsx-chip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -284,7 +296,7 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
           <?php the_content(); ?>
         </div>
         <?php if ($prev || $next) : ?>
-        <nav class="hsx-pn" aria-label="More in <?php echo esc_attr($category); ?>">
+        <nav class="hsx-pn" aria-label="More in <?php echo esc_attr($cat_label); ?>">
           <?php if ($prev) : ?>
           <a href="<?php echo esc_url(get_permalink($prev)); ?>">
             <span class="lbl"><?php echo esc_html($hsx_t('lbl_prev', '← Previous')); ?></span>
@@ -308,7 +320,7 @@ $cat_url = home_url('/help/#cat-' . sanitize_title($category));
         </div>
         <?php if (count($siblings) > 1) : ?>
         <div class="hsx-card">
-          <h3><span class="dot"></span><?php echo esc_html($hsx_t('lbl_incat', 'In') . ' ' . $category); ?></h3>
+          <h3><span class="dot"></span><?php echo esc_html($hsx_t('lbl_incat', 'In') . ' ' . $cat_label); ?></h3>
           <ul>
             <?php foreach ($siblings as $s) : ?>
             <li<?php echo ((int) $s->ID === (int) $pid) ? ' class="now"' : ''; ?>>

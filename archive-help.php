@@ -90,6 +90,11 @@ if ($hcx_cat_over && $hcx_groups) {
 }
 
 $hcx_slug = function ($name) { return sanitize_title($name); };
+/* display name: admin "Shown as" rename wins over the raw meta value */
+$hcx_disp = function ($cat) use ($hcx_cat_over) {
+    $k = mb_strtolower(trim($cat));
+    return (isset($hcx_cat_over[$k]) && !empty($hcx_cat_over[$k]['label'])) ? $hcx_cat_over[$k]['label'] : $cat;
+};
 
 /* accent colors + icons cycle per category (mockup palette) */
 $hcx_accents = array('#DE6E30', '#4CAF50', '#673AB7', '#2196F3', '#E91E63', '#009688', '#9C27B0', '#19335D');
@@ -310,7 +315,7 @@ get_header();
         ?>
         <button class="hcx-tile" type="button" data-go="cat-<?php echo esc_attr($hcx_slug($cat)); ?>">
           <svg viewBox="0 0 24 24" fill="none" stroke="<?php echo esc_attr($ac); ?>" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><?php echo $ico; ?></svg>
-          <span><?php echo esc_html($cat); ?></span>
+          <span><?php echo esc_html($hcx_disp($cat)); ?></span>
         </button>
         <?php endforeach; ?>
       </div>
@@ -334,10 +339,10 @@ get_header();
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><?php echo $ico; ?></svg>
           </div>
           <div class="hcx-body">
-            <h2><?php echo esc_html($cat); ?></h2>
+            <h2><?php echo esc_html($hcx_disp($cat)); ?></h2>
             <ul class="hcx-links">
               <?php foreach ($items as $a) : ?>
-              <li data-s="<?php echo esc_attr(mb_strtolower($a['title'] . ' ' . $cat)); ?>">
+              <li data-s="<?php echo esc_attr(mb_strtolower($a['title'] . ' ' . $cat . ' ' . $hcx_disp($cat))); ?>">
                 <a href="<?php echo esc_url($a['url']); ?>"><?php echo esc_html($a['title']); ?>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </a>
