@@ -3182,7 +3182,8 @@ function ee_help_cats_sanitize($in) {
         /* label identical to the key is no rename — keep option clean */
         if (mb_strtolower(trim($label)) === mb_strtolower(trim($row['name']))) $label = '';
         $icon_url = esc_url_raw(trim((string) ($row['icon_url'] ?? '')));
-        $out[] = array('name' => sanitize_text_field($row['name']), 'label' => $label, 'color' => $color, 'icon' => $icon, 'icon_url' => $icon_url, 'order' => $order);
+        $hide     = !empty($row['hide']) ? '1' : '';
+        $out[] = array('name' => sanitize_text_field($row['name']), 'label' => $label, 'color' => $color, 'icon' => $icon, 'icon_url' => $icon_url, 'order' => $order, 'hide' => $hide);
     }
     return $out;
 }
@@ -3292,7 +3293,7 @@ function ee_help_page_render() {
             usort($hlp_all, function ($a, $b) use ($hlp_ord) { return $hlp_ord[$a] <=> $hlp_ord[$b]; });
             ?>
             <table class="widefat striped" style="max-width:1100px;margin-bottom:12px" id="hlpCatTable">
-                <thead><tr><th style="min-width:150px">Category</th><th style="width:170px">Shown as (rename)</th><th style="width:150px">Color</th><th style="width:150px">Icon</th><th style="width:260px">Custom icon image (optional)</th><th style="width:70px">Order</th></tr></thead>
+                <thead><tr><th style="min-width:150px">Category</th><th style="width:170px">Shown as (rename)</th><th style="width:150px">Color</th><th style="width:150px">Icon</th><th style="width:260px">Custom icon image (optional)</th><th style="width:70px">Order</th><th style="width:90px">Remove</th></tr></thead>
                 <tbody>
                 <?php foreach ($hlp_all as $hi => $hn) :
                     $key    = mb_strtolower(trim($hn));
@@ -3305,6 +3306,7 @@ function ee_help_page_render() {
                     $ord = (isset($sv['order']) && $sv['order'] !== '') ? (int) $sv['order'] : $hi + 1;
                     $lbl = !empty($sv['label']) ? $sv['label'] : '';
                     $iur = !empty($sv['icon_url']) ? $sv['icon_url'] : '';
+                    $hid = !empty($sv['hide']);
                 ?>
                 <tr>
                     <td>
@@ -3333,13 +3335,22 @@ function ee_help_page_render() {
                         <button type="button" class="button hlp-ico-pick" title="Choose from Media Library" style="vertical-align:middle">📁</button>
                     </td>
                     <td><input type="number" name="ee_help_categories[<?php echo (int) $hi; ?>][order]" value="<?php echo (int) $ord; ?>" min="1" max="99" style="width:60px"></td>
+                    <td style="text-align:center">
+                        <?php if ($in_use) : ?>
+                            <label title="Hide this category (and its articles) from the /help/ page — articles stay published">
+                                <input type="checkbox" name="ee_help_categories[<?php echo (int) $hi; ?>][hide]" value="1" <?php checked($hid); ?>> Hide
+                            </label>
+                        <?php else : ?>
+                            <button type="button" class="button hlp-row-del" title="Delete this category">🗑</button>
+                        <?php endif; ?>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
             <p style="margin:0 0 4px">
                 <button type="button" class="button" id="hlpAddCat">➕ Add new category</button>
-                <span class="description" style="margin-left:8px">New categories show on /help/ right away (with "coming soon") and appear in every article's Category suggestions. When a custom icon image is set, it replaces the built-in icon.</span>
+                <span class="description" style="margin-left:8px">New categories show on /help/ right away (with "coming soon") and appear in every article's Category suggestions. When a custom icon image is set, it replaces the built-in icon. 🗑 deletes a new category; <strong>Hide</strong> removes an article-backed category from /help/ without touching its articles (untick to bring it back). Save to apply.</span>
             </p>
 
             <h2>Other texts</h2>
@@ -3474,8 +3485,14 @@ function ee_help_page_render() {
                 '<td><select name="ee_help_categories[' + i + '][icon]">' + opts + '</select></td>' +
                 '<td style="white-space:nowrap"><input type="url" name="ee_help_categories[' + i + '][icon_url]" value="" placeholder="https://...png / .svg" style="width:calc(100% - 40px);vertical-align:middle"> <button type="button" class="button hlp-ico-pick" title="Choose from Media Library" style="vertical-align:middle">📁</button></td>' +
                 '<td><input type="number" name="ee_help_categories[' + i + '][order]" value="' + i + '" min="1" max="99" style="width:60px"></td>' +
+                '<td style="text-align:center"><button type="button" class="button hlp-row-del" title="Delete this category">🗑</button></td>' +
                 '</tr>'
             );
+        });
+
+        /* delete a category row (new categories only; applies on Save) */
+        $(document).on('click', '.hlp-row-del', function () {
+            $(this).closest('tr').remove();
         });
     });
     </script>

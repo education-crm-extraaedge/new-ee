@@ -86,6 +86,14 @@ foreach ($hcx_cat_over as $hcx_ok => $hcx_ov) {
     }
     if (!$hcx_hit) $hcx_groups[$hcx_ov['name']] = array();
 }
+/* admin-hidden categories are removed from the page (articles stay published) */
+foreach (array_keys($hcx_groups) as $gk) {
+    $ok = mb_strtolower(trim($gk));
+    if (isset($hcx_cat_over[$ok]) && !empty($hcx_cat_over[$ok]['hide'])) {
+        $hcx_total -= count($hcx_groups[$gk]);
+        unset($hcx_groups[$gk]);
+    }
+}
 if ($hcx_cat_over && $hcx_groups) {
     $hcx_ord = array();
     $hcx_pos = 0;
