@@ -73,6 +73,22 @@ if ($hcx_q->have_posts()) {
 $hcx_total = 0;
 foreach ($hcx_groups as $g) { $hcx_total += count($g); }
 
+/* admin-managed category overrides (Help → Page Settings): color/icon/order */
+$hcx_cat_over = array();
+foreach ((array) get_option('ee_help_categories', array()) as $hcx_row) {
+    if (!empty($hcx_row['name'])) $hcx_cat_over[mb_strtolower(trim($hcx_row['name']))] = $hcx_row;
+}
+if ($hcx_cat_over && $hcx_groups) {
+    $hcx_ord = array();
+    $hcx_pos = 0;
+    foreach ($hcx_groups as $k => $v) {
+        $ov = isset($hcx_cat_over[mb_strtolower(trim($k))]) ? $hcx_cat_over[mb_strtolower(trim($k))] : null;
+        $hcx_ord[$k] = ($ov && isset($ov['order']) && $ov['order'] !== '') ? (int) $ov['order'] : 1000 + $hcx_pos;
+        $hcx_pos++;
+    }
+    uksort($hcx_groups, function ($a, $b) use ($hcx_ord) { return $hcx_ord[$a] <=> $hcx_ord[$b]; });
+}
+
 $hcx_slug = function ($name) { return sanitize_title($name); };
 
 /* accent colors + icons cycle per category (mockup palette) */
@@ -105,12 +121,25 @@ $hcx_icons = array(
     '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>',
     '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
 );
-$hcx_look = function ($cat, $i) use ($hcx_cat_map, $hcx_accents, $hcx_icons) {
+$hcx_look = function ($cat, $i) use ($hcx_cat_map, $hcx_accents, $hcx_icons, $hcx_cat_over) {
     $k = mb_strtolower(trim($cat));
-    if (isset($hcx_cat_map[$k])) {
-        return array($hcx_cat_map[$k][0], $hcx_icons[$hcx_cat_map[$k][1]]);
+    $color = null;
+    $icon  = null;
+    /* 1) admin override wins */
+    if (isset($hcx_cat_over[$k])) {
+        $ov = $hcx_cat_over[$k];
+        if (!empty($ov['color'])) $color = $ov['color'];
+        if (isset($ov['icon']) && $ov['icon'] !== '' && isset($hcx_icons[(int) $ov['icon']])) $icon = $hcx_icons[(int) $ov['icon']];
     }
-    return array($hcx_accents[$i % count($hcx_accents)], $hcx_icons[$i % count($hcx_icons)]);
+    /* 2) built-in map for known CRM categories */
+    if (isset($hcx_cat_map[$k])) {
+        if ($color === null) $color = $hcx_cat_map[$k][0];
+        if ($icon === null)  $icon = $hcx_icons[$hcx_cat_map[$k][1]];
+    }
+    /* 3) cycling palette fallback */
+    if ($color === null) $color = $hcx_accents[$i % count($hcx_accents)];
+    if ($icon === null)  $icon = $hcx_icons[$i % count($hcx_icons)];
+    return array($color, $icon);
 };
 
 /* ---- SEO ---- */
@@ -319,12 +348,12 @@ get_header();
         </article>
         <?php endforeach; ?>
       </div>
-      <div class="hcx-empty" id="hcxEmpty"><b>No articles match your search.</b>Try a different word, or browse the categories above.</div>
+      <div class="hcx-empty" id="hcxEmpty"><b><?php echo esc_html($hcx_t('empty_search', 'No articles match your search.')); ?></b>Try a different word, or browse the categories above.</div>
     <?php else : ?>
   <section class="hcx-main">
     <div class="w">
       <?php if ($hcx_rich !== '') : ?><div class="hcx-rich"><?php echo $hcx_rich; ?></div><?php endif; ?>
-      <div class="hcx-empty show" style="display:block"><b>Help articles are coming soon.</b>Meanwhile, our team is one click away.</div>
+      <div class="hcx-empty show" style="display:block"><b><?php echo esc_html($hcx_t('empty_soon', 'Help articles are coming soon.')); ?></b>Meanwhile, our team is one click away.</div>
     <?php endif; ?>
 
       <!-- support band -->

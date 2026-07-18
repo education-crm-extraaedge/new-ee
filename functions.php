@@ -3142,7 +3142,7 @@ add_action('save_post_help', function ($post_id) {
 function ee_help_page_sanitize($in) {
     $in  = is_array($in) ? $in : array();
     $out = array();
-    foreach (array('hero_title', 'search_ph', 'support_title', 'b1_label', 'b2_label') as $k) {
+    foreach (array('hero_title', 'search_ph', 'support_title', 'b1_label', 'b2_label', 'empty_soon', 'empty_search') as $k) {
         $out[$k] = isset($in[$k]) ? sanitize_text_field($in[$k]) : '';
     }
     foreach (array('hero_sub', 'support_text') as $k) {
@@ -3159,8 +3159,40 @@ function ee_help_page_sanitize($in) {
     $out['extra_content'] = isset($in['extra_content']) ? wp_kses($in['extra_content'], $allowed) : '';
     return $out;
 }
+/** Per-category look & order rows: {name, color, icon(0-10), order}. */
+function ee_help_cats_sanitize($in) {
+    $out = array();
+    if (!is_array($in)) return $out;
+    foreach ($in as $row) {
+        if (!is_array($row) || trim((string) ($row['name'] ?? '')) === '') continue;
+        $color = trim((string) ($row['color'] ?? ''));
+        if ($color !== '' && !preg_match('/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/', $color)) $color = '';
+        $icon  = ($row['icon'] ?? '') === '' ? '' : (string) min(10, max(0, (int) $row['icon']));
+        $order = trim((string) ($row['order'] ?? ''));
+        $order = $order === '' ? '' : (string) max(1, min(99, (int) $order));
+        $out[] = array('name' => sanitize_text_field($row['name']), 'color' => $color, 'icon' => $icon, 'order' => $order);
+    }
+    return $out;
+}
+/** Built-in category defaults (mirrors the archive template's map). */
+function ee_help_cat_defaults() {
+    return array(
+        'overview'            => array('#19335D', 8),
+        'adding leads'        => array('#DE6E30', 0),
+        'managing leads'      => array('#4CAF50', 1),
+        'activities tracking' => array('#673AB7', 2),
+        'messaging leads'     => array('#2196F3', 10),
+        'email leads'         => array('#E91E63', 9),
+        'calling leads'       => array('#DE6E30', 3),
+        'lead follow ups'     => array('#9C27B0', 4),
+        'bulk activities'     => array('#19335D', 5),
+        'admin settings'      => array('#009688', 6),
+        'my account'          => array('#673AB7', 7),
+    );
+}
 add_action('admin_init', function () {
     register_setting('ee_help_page_group', 'ee_help_page_settings', array('sanitize_callback' => 'ee_help_page_sanitize'));
+    register_setting('ee_help_page_group', 'ee_help_categories', array('sanitize_callback' => 'ee_help_cats_sanitize'));
 });
 add_action('admin_menu', function () {
     add_submenu_page('edit.php?post_type=help', 'Help Page Settings', '🎨 Page Settings', 'manage_options', 'ee-help-page', 'ee_help_page_render');
@@ -3215,6 +3247,75 @@ function ee_help_page_render() {
                 'eehelpextra',
                 array('textarea_name' => 'ee_help_page_settings[extra_content]', 'media_buttons' => true, 'textarea_rows' => 10)
             ); ?>
+            <h2>Category look &amp; order</h2>
+            <p class="description" style="margin-bottom:8px">Color, icon, and position of every category card on /help/. New categories appear here automatically after you publish an article in them (rename a category by editing its articles' Category field).</p>
+            <?php
+            /* categories currently in use, in the order the page shows them */
+            $hlp_known = array();
+            foreach (get_posts(array('post_type' => 'help', 'post_status' => 'publish', 'numberposts' => -1, 'orderby' => 'menu_order date', 'order' => 'ASC')) as $hp) {
+                $hc = trim((string) get_post_meta($hp->ID, '_help_category', true));
+                if ($hc === '') $hc = 'General';
+                if (!in_array($hc, $hlp_known, true)) $hlp_known[] = $hc;
+            }
+            $hlp_saved = array();
+            foreach ((array) get_option('ee_help_categories', array()) as $r) {
+                if (!empty($r['name'])) $hlp_saved[mb_strtolower(trim($r['name']))] = $r;
+            }
+            $hlp_defaults = ee_help_cat_defaults();
+            $hlp_accents  = array('#DE6E30', '#4CAF50', '#673AB7', '#2196F3', '#E91E63', '#009688', '#9C27B0', '#19335D');
+            $hlp_icon_lbl = array('Add person', 'Team', 'Bar chart', 'Phone', 'Calendar check', 'Layers', 'Settings gear', 'Person', 'Grid', 'Mail', 'Chat bubble');
+            /* show rows in effective front-end order */
+            if ($hlp_known) {
+                $hlp_ord = array();
+                foreach ($hlp_known as $hi => $hn) {
+                    $sv = $hlp_saved[mb_strtolower($hn)] ?? null;
+                    $hlp_ord[$hn] = ($sv && $sv['order'] !== '') ? (int) $sv['order'] : 1000 + $hi;
+                }
+                usort($hlp_known, function ($a, $b) use ($hlp_ord) { return $hlp_ord[$a] <=> $hlp_ord[$b]; });
+            ?>
+            <table class="widefat striped" style="max-width:760px;margin-bottom:12px">
+                <thead><tr><th>Category</th><th style="width:90px">Color</th><th style="width:180px">Icon</th><th style="width:80px">Order</th></tr></thead>
+                <tbody>
+                <?php foreach ($hlp_known as $hi => $hn) :
+                    $key = mb_strtolower($hn);
+                    $sv  = $hlp_saved[$key] ?? array();
+                    $dc  = $hlp_defaults[$key][0] ?? $hlp_accents[$hi % count($hlp_accents)];
+                    $di  = $hlp_defaults[$key][1] ?? ($hi % 11);
+                    $col = !empty($sv['color']) ? $sv['color'] : $dc;
+                    $ico = (isset($sv['icon']) && $sv['icon'] !== '') ? (int) $sv['icon'] : (int) $di;
+                    $ord = (isset($sv['order']) && $sv['order'] !== '') ? (int) $sv['order'] : $hi + 1;
+                ?>
+                <tr>
+                    <td><strong><?php echo esc_html($hn); ?></strong><input type="hidden" name="ee_help_categories[<?php echo (int) $hi; ?>][name]" value="<?php echo esc_attr($hn); ?>"></td>
+                    <td><input type="color" name="ee_help_categories[<?php echo (int) $hi; ?>][color]" value="<?php echo esc_attr($col); ?>" style="width:56px;height:32px;padding:2px;cursor:pointer"></td>
+                    <td>
+                        <select name="ee_help_categories[<?php echo (int) $hi; ?>][icon]">
+                            <?php foreach ($hlp_icon_lbl as $ii => $il) : ?>
+                                <option value="<?php echo (int) $ii; ?>" <?php selected($ico, $ii); ?>><?php echo esc_html($il); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                    <td><input type="number" name="ee_help_categories[<?php echo (int) $hi; ?>][order]" value="<?php echo (int) $ord; ?>" min="1" max="99" style="width:64px"></td>
+                </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?php } else { ?>
+                <p><em>No help articles yet — publish articles (or use the starter button below) and the categories will show up here.</em></p>
+            <?php } ?>
+
+            <h2>Other texts</h2>
+            <table class="form-table" role="presentation">
+                <tr>
+                    <th><label>"Coming soon" message (shown when there are no articles)</label></th>
+                    <td><input type="text" class="large-text" name="ee_help_page_settings[empty_soon]" value="<?php echo esc_attr($v('empty_soon')); ?>" placeholder="Help articles are coming soon."></td>
+                </tr>
+                <tr>
+                    <th><label>"No results" message (shown when a search finds nothing)</label></th>
+                    <td><input type="text" class="large-text" name="ee_help_page_settings[empty_search]" value="<?php echo esc_attr($v('empty_search')); ?>" placeholder="No articles match your search."></td>
+                </tr>
+            </table>
+
             <h2>"Need more help?" band (bottom)</h2>
             <table class="form-table" role="presentation">
                 <tr>

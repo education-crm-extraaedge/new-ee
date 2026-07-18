@@ -115,6 +115,13 @@ $hsx_cat_map = array(
     'my account'          => '#673AB7',
 );
 $accent = isset($hsx_cat_map[mb_strtolower(trim($category))]) ? $hsx_cat_map[mb_strtolower(trim($category))] : '#DE6E30';
+/* admin override from Help → Page Settings wins */
+foreach ((array) get_option('ee_help_categories', array()) as $hsx_row) {
+    if (!empty($hsx_row['name']) && mb_strtolower(trim($hsx_row['name'])) === mb_strtolower(trim($category)) && !empty($hsx_row['color'])) {
+        $accent = $hsx_row['color'];
+        break;
+    }
+}
 
 /* siblings in the same category (for the sidebar + prev/next) */
 $siblings = get_posts(array(
