@@ -390,7 +390,10 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 /* Lead form in sidebar — wraps the configurable form rendered by
    ee_render_blog_form() so the embed code or the built-in form
    inherits the right look. */
-.ee-right-sidebar .ee-blog-lead{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:20px;box-shadow:var(--b-shadow-sm);}
+.ee-right-sidebar .ee-blog-lead{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:20px;box-shadow:var(--b-shadow-sm);color-scheme:light;}
+.ee-right-sidebar .ee-blog-lead input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]),
+.ee-right-sidebar .ee-blog-lead select, .ee-right-sidebar .ee-blog-lead textarea{background:#fff !important;color:#1F2937 !important;border:1px solid #D1D5DB !important;border-radius:8px !important;}
+.ee-right-sidebar .ee-blog-lead input::placeholder, .ee-right-sidebar .ee-blog-lead textarea::placeholder{color:#9CA3AF !important;}
 .ee-right-sidebar .ee-blog-lead h2{font-size:15px;font-weight:700;color:var(--b-blue);margin:0 0 4px;text-transform:none;letter-spacing:0;line-height:1.35;}
 .ee-right-sidebar .ee-blog-form input,
 .ee-right-sidebar .ee-blog-form textarea{width:100%;border:1px solid var(--b-border);border-radius:var(--b-radius-sm);padding:9px 11px;font-size:13.5px;font-family:inherit;outline:none;transition:all var(--b-transition);margin-bottom:10px;background:#fff;color:var(--b-text);box-sizing:border-box;}

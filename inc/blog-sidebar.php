@@ -214,8 +214,9 @@ li.open > .ee-blog-side-sub { display:block; }
     font-size:13.5px; font-weight:700; transition:all var(--b-transition);
     box-shadow:var(--b-shadow-sm); letter-spacing:.3px;
 }
+.ee-blog-explore, .ee-blog-explore:hover { text-decoration:none !important; }
 .ee-blog-explore:hover {
-    background:linear-gradient(135deg, var(--b-blue) 0%, #0f1f3d 100%);
+    background:linear-gradient(135deg, #c85a1f 0%, #a94b18 100%);
     color:#fff; transform:translateX(4px); box-shadow:var(--b-shadow-md);
 }
 
@@ -245,7 +246,16 @@ li.open > .ee-blog-side-sub { display:block; }
 .ee-blog-lead {
     background:var(--b-white); border:1px solid var(--b-border); border-radius:var(--b-radius);
     padding:22px; box-shadow:var(--b-shadow-md);
+    color-scheme:light;
 }
+/* Embedded demo-form widgets inherit the browser's dark form theme in
+   Chrome dark mode — force light controls so they match the card. */
+.ee-blog-lead input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]),
+.ee-blog-lead select, .ee-blog-lead textarea {
+    background:#fff !important; color:#1F2937 !important;
+    border:1px solid #D1D5DB !important; border-radius:8px !important;
+}
+.ee-blog-lead input::placeholder, .ee-blog-lead textarea::placeholder { color:#9CA3AF !important; }
 .ee-blog-lead h2 {
     font-size:17px; font-weight:700; color:var(--b-blue); margin:0 0 18px;
     line-height:1.4; letter-spacing:-.3px;
