@@ -75,7 +75,22 @@ $ee_open_parent = ($ee_current_cat && (int) $ee_current_cat->parent) ? (int) $ee
 }
 .ee-blog-wrap { max-width:1280px; margin:0 auto; padding:0 24px; display:grid; grid-template-columns:280px 1fr 280px; gap:32px; align-items:start; }
 @media (max-width:1100px){ .ee-blog-wrap{ grid-template-columns:240px 1fr; } .ee-blog-side-r{ display:none; } }
-@media (max-width:820px){ .ee-blog-wrap{ grid-template-columns:1fr; } }
+@media (max-width:820px){
+    .ee-blog-wrap{ grid-template-columns:1fr; gap:20px; }
+    .ee-blog-page{ padding:24px 0 44px; }
+    /* Category tree becomes a tap-to-open accordion so posts appear
+       right away instead of below a 19-item list. */
+    .ee-blog-page .ee-blog-side{ position:static; }
+    .ee-blog-page .ee-blog-side h2{ cursor:pointer; user-select:none; }
+    .ee-blog-page .ee-blog-side h2::after{ content:'\25BE'; margin-left:auto; font-size:15px; transition:transform .2s ease; }
+    .ee-blog-page .ee-blog-side.open h2::after{ transform:rotate(180deg); }
+    .ee-blog-page .ee-blog-side .ee-blog-side-list{ display:none; }
+    .ee-blog-page .ee-blog-side.open .ee-blog-side-list{ display:block; }
+    .ee-blog-card{ padding:18px; }
+    .ee-blog-card-thumb img{ height:170px; }
+    .ee-blog-heading{ margin-bottom:16px; }
+    .ee-blog-pagi .page-numbers, .ee-blog-pagi a, .ee-blog-pagi span{ padding:7px 11px; font-size:12.5px; }
+}
 
 /* Sticky left sidebar: all WP categories */
 .ee-blog-side {
@@ -350,6 +365,15 @@ li.open > .ee-blog-side-sub { display:block; }
 </aside>
 <script>
 (function(){
+    /* mobile: tap the sidebar header to open/close the category tree */
+    var side = document.querySelector('.ee-blog-side');
+    var head = side ? side.querySelector('h2') : null;
+    if (head) {
+        head.addEventListener('click', function(){
+            if (window.matchMedia('(max-width:820px)').matches) side.classList.toggle('open');
+        });
+    }
+
     document.querySelectorAll('.ee-blog-side .ee-sub-t').forEach(function(btn){
         btn.addEventListener('click', function(e){
             e.preventDefault();
