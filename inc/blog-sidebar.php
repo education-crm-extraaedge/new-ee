@@ -17,8 +17,8 @@ if (!defined('ABSPATH')) exit;
    assigned category automatically. */
 $ee_blog_cats = get_categories(array(
     'hide_empty' => false,
-    'orderby'    => 'count',
-    'order'      => 'DESC',
+    'orderby'    => 'name',
+    'order'      => 'ASC',
 ));
 
 /* Hide WordPress's default "Uncategorized" bucket — clutter. */
@@ -28,6 +28,40 @@ $ee_blog_cats = array_filter($ee_blog_cats, function ($c) {
 
 /* Current category context (null on the /blog/ landing). */
 $ee_current_cat = (isset($GLOBALS['ee_blog_active_cat']) && $GLOBALS['ee_blog_active_cat']) ? $GLOBALS['ee_blog_active_cat'] : null;
+
+/* ── Build the tree: top-level categories with their children, ordered by
+   the ee_cat_order term meta the seeder writes (Posts → 🗂️ Blog
+   Categories); unseeded categories fall to the end alphabetically. ── */
+$ee_cat_ord = function ($c) {
+    $o = function_exists('get_term_meta') ? get_term_meta($c->term_id, 'ee_cat_order', true) : '';
+    return $o === '' ? 999 : (int) $o;
+};
+$ee_cat_tops = array();
+$ee_cat_kids = array();
+foreach ($ee_blog_cats as $c) {
+    if ((int) $c->parent) {
+        $ee_cat_kids[(int) $c->parent][] = $c;
+    } else {
+        $ee_cat_tops[] = $c;
+    }
+}
+$ee_cat_sort = function ($a, $b) use ($ee_cat_ord) {
+    $d = $ee_cat_ord($a) <=> $ee_cat_ord($b);
+    return $d !== 0 ? $d : strcasecmp($a->name, $b->name);
+};
+usort($ee_cat_tops, $ee_cat_sort);
+foreach ($ee_cat_kids as $pk => $list) {
+    usort($list, $ee_cat_sort);
+    $ee_cat_kids[$pk] = $list;
+}
+/* parent badge = its own posts + all child posts */
+$ee_cat_agg = function ($c) use ($ee_cat_kids) {
+    $n = (int) $c->count;
+    foreach ($ee_cat_kids[(int) $c->term_id] ?? array() as $k) { $n += (int) $k->count; }
+    return $n;
+};
+/* the parent of the active child stays expanded */
+$ee_open_parent = ($ee_current_cat && (int) $ee_current_cat->parent) ? (int) $ee_current_cat->parent : 0;
 ?>
 <style>
 .ee-blog-page {
@@ -88,6 +122,24 @@ $ee_current_cat = (isset($GLOBALS['ee_blog_active_cat']) && $GLOBALS['ee_blog_ac
 .ee-blog-side-list a:hover .ee-blog-side-count {
     background:var(--b-orange); color:#fff; border-color:var(--b-orange);
 }
+
+/* Sub-category tree (parent → children) */
+.ee-blog-side-row { display:flex; align-items:stretch; gap:2px; }
+.ee-blog-side-row a { flex:1; min-width:0; }
+.ee-sub-t {
+    flex:none; width:32px; border:0; background:transparent; cursor:pointer;
+    color:var(--b-muted); font-size:13px; border-radius:8px; line-height:1;
+    transition:all var(--b-transition);
+}
+.ee-sub-t:hover { background:var(--b-blue-light); color:var(--b-blue); }
+li.open > .ee-blog-side-row .ee-sub-t { transform:rotate(90deg); color:var(--b-orange); }
+.ee-blog-side-sub {
+    list-style:none; padding:2px 0 4px; margin:0 0 2px 16px; display:none;
+    border-left:2px solid var(--b-border);
+}
+li.open > .ee-blog-side-sub { display:block; }
+.ee-blog-side-sub li { margin:0 0 2px 6px; }
+.ee-blog-side-sub a { padding:8px 12px; font-size:13.5px; font-weight:500; }
 
 /* Page heading */
 .ee-blog-heading {
@@ -247,19 +299,54 @@ $ee_current_cat = (isset($GLOBALS['ee_blog_active_cat']) && $GLOBALS['ee_blog_ac
                 <span class="ee-blog-side-count"><?php echo (int) wp_count_posts()->publish; ?></span>
             </a>
         </li>
-        <?php foreach ($ee_blog_cats as $cat) :
+        <?php foreach ($ee_cat_tops as $cat) :
             /* Clean URL: /blog/{slug}/ — handled by the extended
                template_redirect router in functions.php. Falls back
                to the ?bcat= query string if a host's rewrite rules
                aren't refreshed (Settings → Permalinks → Save). */
             $cat_link = esc_url(trailingslashit(home_url('/blog/' . $cat->slug)));
+            $kids     = $ee_cat_kids[(int) $cat->term_id] ?? array();
+            $is_act   = ($ee_current_cat && (int) $ee_current_cat->term_id === (int) $cat->term_id);
+            $is_open  = $kids && ($is_act || (int) $cat->term_id === $ee_open_parent);
         ?>
-        <li>
-            <a href="<?php echo $cat_link; ?>" class="<?php echo ($ee_current_cat && $ee_current_cat->term_id === $cat->term_id) ? 'active' : ''; ?>">
-                <span><?php echo esc_html($cat->name); ?></span>
-                <span class="ee-blog-side-count"><?php echo (int) $cat->count; ?></span>
-            </a>
+        <li class="<?php echo $kids ? 'ee-has-sub' : ''; ?><?php echo $is_open ? ' open' : ''; ?>">
+            <div class="ee-blog-side-row">
+                <a href="<?php echo $cat_link; ?>" class="<?php echo $is_act ? 'active' : ''; ?>">
+                    <span><?php echo esc_html($cat->name); ?></span>
+                    <span class="ee-blog-side-count"><?php echo (int) $ee_cat_agg($cat); ?></span>
+                </a>
+                <?php if ($kids) : ?>
+                <button type="button" class="ee-sub-t" aria-expanded="<?php echo $is_open ? 'true' : 'false'; ?>" aria-label="Show sub-categories of <?php echo esc_attr($cat->name); ?>">▸</button>
+                <?php endif; ?>
+            </div>
+            <?php if ($kids) : ?>
+            <ul class="ee-blog-side-sub">
+                <?php foreach ($kids as $kid) :
+                    $kid_link = esc_url(trailingslashit(home_url('/blog/' . $kid->slug)));
+                    $kid_act  = ($ee_current_cat && (int) $ee_current_cat->term_id === (int) $kid->term_id);
+                ?>
+                <li>
+                    <a href="<?php echo $kid_link; ?>" class="<?php echo $kid_act ? 'active' : ''; ?>">
+                        <span><?php echo esc_html($kid->name); ?></span>
+                        <span class="ee-blog-side-count"><?php echo (int) $kid->count; ?></span>
+                    </a>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php endif; ?>
         </li>
         <?php endforeach; ?>
     </ul>
 </aside>
+<script>
+(function(){
+    document.querySelectorAll('.ee-blog-side .ee-sub-t').forEach(function(btn){
+        btn.addEventListener('click', function(e){
+            e.preventDefault();
+            var li = btn.closest('li');
+            li.classList.toggle('open');
+            btn.setAttribute('aria-expanded', li.classList.contains('open') ? 'true' : 'false');
+        });
+    });
+})();
+</script>
