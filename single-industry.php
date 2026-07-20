@@ -568,7 +568,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 
 .features-section{background:var(--white);padding:40px 0}
 .features-header{text-align:center;margin-bottom:24px}
-.features-h2{font-family:var(--font-h);font-weight:800;font-size:clamp(1.8rem,4vw,2.4rem);color:var(--blue);letter-spacing:-.02em}
+.features-h2{font-family:var(--font-h);font-weight:800;font-size:clamp(17px,2.2vw,22px);color:var(--blue);letter-spacing:-.02em}html body #main-content h2.features-h2.features-h2{font-size:clamp(17px,2.2vw,22px)!important}
 .features-grid{display:flex;gap:14px;justify-content:center;align-items:stretch;flex-wrap:wrap;padding:0 24px}
 .feat-card{flex:1 1 180px;max-width:220px;background:var(--white);border:1px solid rgba(25,51,93,.08);border-radius:16px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:var(--transition)}
 .feat-card:hover{transform:translateY(-10px);border-color:var(--orange);box-shadow:0 20px 40px rgba(222,110,48,.12)}
