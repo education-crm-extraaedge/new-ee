@@ -148,10 +148,12 @@ while (have_posts()) : the_post();
 }
 .ee-blog-page a{color:var(--b-blue);text-decoration:none;transition:color var(--b-transition);}
 .ee-blog-page a:hover{color:var(--b-orange);}
-.ee-blog-page { border:0 !important; }
+.ee-blog-page { border:0 !important; outline:0 !important; }
 .ee-blog-page hr { display:none !important; }
 .ee-blog-page + * { border-top:0 !important; }
-body > main { border:0 !important; box-shadow:none !important; }
+body > main { border:0 !important; outline:0 !important; box-shadow:none !important; }
+#main-content { border:0 !important; outline:0 !important; box-shadow:none !important; }
+.ee-blog-page article, .ee-blog-page section, .ee-blog-page > div { outline:0 !important; }
 html.ee-thin-scroll, html.ee-thin-scroll body { scrollbar-width: thin; scrollbar-color: rgba(25,51,93,.18) transparent; }
 html.ee-thin-scroll body::-webkit-scrollbar { width:8px; }
 html.ee-thin-scroll body::-webkit-scrollbar-track { background:transparent; }
@@ -583,7 +585,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-modal-trust{font-size:11.5px;color:var(--b-muted);text-align:center;margin-top:12px;}
 
 /* ── C. End-of-article CTA card ── */
-.ee-end-cta{margin:36px 0 24px;display:none;}
+.ee-end-cta{max-width:1080px;margin:36px auto 24px;padding:0 20px;display:none;border:0 !important;outline:0 !important;box-shadow:none !important;}
 .ee-end-cta.ee-show{display:block;animation:eeFadeUp .5s cubic-bezier(.4,0,.2,1);}
 @keyframes eeFadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 .ee-end-cta-inner{background:linear-gradient(180deg,#fff 0%,#FFF8F3 100%);color:var(--b-text);border:2px solid var(--b-orange);border-radius:var(--b-radius-lg);padding:34px 36px 28px;text-align:center;box-shadow:0 12px 40px rgba(222,110,48,.16);position:relative;overflow:hidden;}
