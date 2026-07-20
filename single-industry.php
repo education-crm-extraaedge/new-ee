@@ -404,7 +404,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .trust-rating span{font-weight:400;font-size:12px;color:var(--gray-400);margin-left:6px}
 .compliance-row{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
 .compliance-item{display:flex;align-items:center;gap:10px;font-family:var(--font-h);font-size:11px;font-weight:700;color:var(--gray-600)}
-.compliance-item img{height:28px;width:auto;object-fit:contain}
+.compliance-item img{height:40px;width:auto;object-fit:contain}
 .hero-form-aside{position:sticky;top:20px;z-index:3}
 .hero-form-card{background:var(--white);border-radius:var(--radius-xl);padding:clamp(24px,3vw,40px);box-shadow:var(--shadow-xl);border:1px solid rgba(25,51,93,.06);position:relative}
 .hero-form-card::before{content:"Convert more students. Automatically.";position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;padding:6px 20px;border-radius:var(--radius-full);font-family:var(--font-h);font-size:10px;font-weight:800;text-transform:uppercase;white-space:nowrap;letter-spacing:1px;box-shadow:0 8px 16px rgba(222,110,48,.25)}
@@ -685,7 +685,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 @media(max-width:1200px){.toc-zone-wrapper{display:block}.toc-column{display:none}.toc-content-column{width:100%}}
 @media(max-width:1150px){.hero-layout{grid-template-columns:1fr;text-align:center;gap:30px}.hero-desc,.hero-badge{margin-left:auto;margin-right:auto}.proof-bar{border-left:0;border-top:5px solid var(--orange);border-radius:var(--radius-md);text-align:left}.cta-row,.tag-row,.compliance-row{justify-content:center}.hero-form-card{max-width:520px;margin:0 auto}.edu-crm-layout{grid-template-columns:1fr;padding:20px 20px;gap:30px}.flow-panel{position:relative;top:0}}
 @media(max-width:1024px){.alt-layout{flex-direction:column;text-align:center;padding:20px 20px;gap:30px}.alt-visual{order:-1!important;margin-bottom:20px;width:100%}.feature-item{text-align:left}.feat-card{flex:0 1 calc(33.33% - 16px);max-width:none}.bottom-cta-inner{flex-direction:column;gap:30px}.cta-h3{margin-left:auto;margin-right:auto}.ai-demo-inner{grid-template-columns:1fr;gap:30px}.ai-cta-content{text-align:center}.ai-cta-sub,.btn-cta-rounded{margin-left:auto;margin-right:auto}.ai-trust{justify-content:center}.testi-cards{grid-template-columns:1fr}}
-@media(max-width:768px){.hero{padding:30px 0}.hero-layout{padding:20px 18px 30px}.stats-grid{grid-template-columns:1fr 1fr}.feat-card{flex:0 1 100%;max-width:none}.features-grid{flex-direction:column}.btn-primary,.btn-secondary{width:100%;text-align:center}.cta-row{flex-direction:column}.float-badge{display:none}.product-grid{grid-template-columns:1fr}.growth-card{flex-direction:column;text-align:center}.compliance-item{width:100%;justify-content:center}.logo-section{padding:24px 12px}.btn-rounded{width:100%}.testi-metrics{grid-template-columns:1fr 1fr}.faq-trigger{padding:16px 18px}.faq-q{font-size:15px}.faq-inner{padding:0 18px 20px}.edu-crm-section,.features-section,.alt-section,.bottom-cta,.testimonials-section,.ai-demo-section,.faq-section{padding:28px 0}}
+@media(max-width:768px){.hero{padding:30px 0}.hero-layout{padding:20px 18px 30px}.stats-grid{grid-template-columns:repeat(3,1fr);gap:8px}.stat-card{padding:12px 6px}.stat-num{font-size:20px}.stat-label{font-size:7.5px;letter-spacing:.3px}.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px}.feat-card{max-width:none;padding:12px 8px}.feat-title{font-size:12px}.hero-badge{white-space:nowrap;max-width:100%;overflow:hidden;font-size:clamp(7.5px,2.3vw,10px);letter-spacing:.4px;padding:8px 12px;gap:6px}.secure-label{white-space:nowrap;font-size:clamp(8px,2.4vw,10px);letter-spacing:1px}.btn-primary,.btn-secondary{width:100%;text-align:center}.cta-row{flex-direction:column}.float-badge{display:none}.product-grid{grid-template-columns:1fr}.growth-card{flex-direction:column;text-align:center}.compliance-row{flex-wrap:nowrap;justify-content:center;gap:16px}.logo-section{padding:24px 12px}.btn-rounded{width:100%}.testi-metrics{grid-template-columns:1fr 1fr}.faq-trigger{padding:16px 18px}.faq-q{font-size:15px}.faq-inner{padding:0 18px 20px}.edu-crm-section,.features-section,.alt-section,.bottom-cta,.testimonials-section,.ai-demo-section,.faq-section{padding:28px 0}}
 @media(max-width:480px){.stats-grid{grid-template-columns:1fr}.hero-h1{font-size:30px}.testi-metrics{grid-template-columns:1fr}}
 </style>
 
@@ -714,7 +714,18 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <?php if($trust_rating || !empty($compliance)): ?>
         <footer class="trust-bar reveal">
           <?php if($trust_rating): ?><div class="trust-rating"><span aria-hidden="true">&#9733;</span> Rated <?php echo esc_html($trust_rating); ?>/5 by Education Leaders <?php if($trust_text): ?><span>(<?php echo esc_html($trust_text); ?>)</span><?php endif; ?></div><?php endif; ?>
-          <?php if(!empty($compliance)): ?><div class="compliance-row"><?php foreach($compliance as $comp): ?><div class="compliance-item"><?php if(!empty($comp['image'])): ?><img src="<?php echo esc_url($comp['image']); ?>" alt="<?php echo esc_attr($comp['text'] ?: 'Compliance badge'); ?>" width="28" height="28" loading="lazy" decoding="async"><?php endif; ?><span><?php echo esc_html($comp['text']); ?></span></div><?php endforeach; ?></div><?php endif; ?>
+          <?php if(!empty($compliance)): ?><div class="compliance-row"><?php foreach($compliance as $comp):
+            /* icons only — map known badges to the branded SVG set when no image is set */
+            $ctext = trim((string)($comp['text'] ?? ''));
+            $cimg  = trim((string)($comp['image'] ?? ''));
+            if ($cimg === '') {
+                $lk = strtolower($ctext);
+                if (strpos($lk, 'gdpr') !== false)      $cimg = 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-gdpr-compliant.svg';
+                elseif (strpos($lk, 'iso') !== false)   $cimg = 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-iso-27001-certified.svg';
+                elseif (strpos($lk, 'ccpa') !== false)  $cimg = 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-ccpa-compliant.svg';
+            }
+            if ($cimg === '') continue;
+          ?><div class="compliance-item"><img src="<?php echo esc_url($cimg); ?>" alt="<?php echo esc_attr($ctext ?: 'Compliance badge'); ?>" width="40" height="40" loading="lazy" decoding="async"></div><?php endforeach; ?></div><?php endif; ?>
         </footer>
         <?php endif; ?>
       </article>
