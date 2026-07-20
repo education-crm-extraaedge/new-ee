@@ -42,10 +42,6 @@ get_header();
             $cat_desc = category_description();
             if ($cat_desc) : ?>
             <div class="ee-blog-intro"><?php echo $cat_desc; ?></div>
-            <?php else : ?>
-            <div class="ee-blog-intro">
-                <p>Showing <span><?php echo (int) $wp_query->found_posts; ?> articles</span> in <strong><?php single_cat_title(); ?></strong>. Click any title to read the full post.</p>
-            </div>
             <?php endif; ?>
 
             <?php if (have_posts()) : ?>
@@ -54,21 +50,28 @@ get_header();
                     $primary = !empty($cats) ? $cats[0] : null;
                 ?>
                 <article class="ee-blog-card">
-                    <h3 class="ee-blog-card-title">
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                    </h3>
-                    <div class="ee-blog-card-date">
-                        Posted On <span><?php echo esc_html(get_the_date()); ?></span>
-                        <?php if ($primary) : ?>
-                            · <a href="<?php echo esc_url(get_category_link($primary->term_id)); ?>" style="color:var(--b-blue);text-decoration:none;font-weight:600;"><?php echo esc_html($primary->name); ?></a>
-                        <?php endif; ?>
+                    <div class="ee-blog-card-body">
+                        <h3 class="ee-blog-card-title">
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h3>
+                        <div class="ee-blog-card-date">
+                            Posted On <span><?php echo esc_html(get_the_date()); ?></span>
+                            <?php if ($primary) : ?>
+                                · <a href="<?php echo esc_url(get_category_link($primary->term_id)); ?>" style="color:var(--b-blue);text-decoration:none;font-weight:600;"><?php echo esc_html($primary->name); ?></a>
+                            <?php endif; ?>
+                        </div>
+                        <p class="ee-blog-card-excerpt">
+                            <?php echo esc_html(get_the_excerpt() ?: wp_trim_words(strip_shortcodes(get_the_content()), 30, '…')); ?>
+                        </p>
+                        <a href="<?php the_permalink(); ?>" class="ee-blog-explore">
+                            Read More <i class="fa fa-arrow-right"></i>
+                        </a>
                     </div>
-                    <p class="ee-blog-card-excerpt">
-                        <?php echo esc_html(get_the_excerpt() ?: wp_trim_words(strip_shortcodes(get_the_content()), 30, '…')); ?>
-                    </p>
-                    <a href="<?php the_permalink(); ?>" class="ee-blog-explore">
-                        Read More <i class="fa fa-arrow-right"></i>
+                    <?php if (has_post_thumbnail()) : ?>
+                    <a class="ee-blog-card-thumb" href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true">
+                        <?php the_post_thumbnail('medium_large', array('loading' => 'lazy')); ?>
                     </a>
+                    <?php endif; ?>
                 </article>
                 <?php endwhile; ?>
 

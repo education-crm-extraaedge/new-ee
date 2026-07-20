@@ -162,6 +162,23 @@ li.open > .ee-blog-side-sub { display:block; }
     box-shadow:var(--b-shadow-lg); border-color:var(--b-orange); transform:translateY(-3px);
 }
 .ee-blog-card:hover::before { transform:scaleY(1); }
+/* body left, featured image right */
+.ee-blog-card { display:flex; gap:22px; align-items:stretch; }
+.ee-blog-card-body { flex:1; min-width:0; }
+.ee-blog-card-thumb {
+    flex:0 0 250px; align-self:center; display:block; border-radius:10px; overflow:hidden;
+    border:1px solid var(--b-border); background:var(--b-bg);
+}
+.ee-blog-card-thumb img {
+    width:100%; height:175px; object-fit:cover; display:block;
+    transition:transform .35s cubic-bezier(.4,0,.2,1);
+}
+.ee-blog-card:hover .ee-blog-card-thumb img { transform:scale(1.05); }
+@media (max-width:640px){
+    .ee-blog-card { flex-direction:column-reverse; gap:16px; }
+    .ee-blog-card-thumb { flex:none; width:100%; align-self:auto; }
+    .ee-blog-card-thumb img { height:180px; }
+}
 .ee-blog-card-title a {
     color:var(--b-blue); font-size:20px; font-weight:700; text-decoration:none;
     line-height:1.3; display:block; margin-bottom:10px; letter-spacing:-.3px;
