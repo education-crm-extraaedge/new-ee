@@ -148,7 +148,8 @@ while (have_posts()) : the_post();
 }
 .ee-blog-page a{color:var(--b-blue);text-decoration:none;transition:color var(--b-transition);}
 .ee-blog-page a:hover{color:var(--b-orange);}
-.ee-blog-page { border:0 !important; outline:0 !important; }
+body { background:#fff !important; }
+.ee-blog-page { border:0 !important; outline:0 !important; display:flow-root; }
 .ee-blog-page hr { display:none !important; }
 .ee-blog-page + * { border-top:0 !important; }
 body > main { border:0 !important; outline:0 !important; box-shadow:none !important; }
@@ -987,12 +988,11 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
         .ee-toc-actions button{background:#F4F6FB;border:0;border-radius:10px;padding:9px 6px;font-size:11.5px;font-weight:700;color:var(--b-blue);}
         .ee-toc-actions button:hover{background:var(--b-blue);color:#fff;border:0;transform:translateY(-1px);}
         .ee-toc-cta{margin:12px 14px 14px;}
+        .ee-toc-fab-pct{display:none !important;}
         </style>
         <aside class="ee-toc-sidebar" id="ee-toc-sidebar" aria-label="Table of Contents">
             <div class="ee-toc-head">
                 <div class="ee-toc-heading">On this page</div>
-                <span class="ee-toc-pct" id="ee-toc-pct">0%</span>
-                <span class="ee-toc-time" id="ee-toc-time"><?php echo esc_html($read_time); ?></span>
                 <button type="button" class="ee-toc-mobile-close" id="ee-toc-mobile-close" aria-label="Close TOC">×</button>
             </div>
 
@@ -1028,17 +1028,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 </span>
             </a>
         </aside>
-        <script>
-        /* mirror the reading-progress bar into the header % chip */
-        (function(){
-            var f = document.getElementById('ee-toc-bar-fill');
-            var p = document.getElementById('ee-toc-pct');
-            if (!f || !p || !window.MutationObserver) return;
-            new MutationObserver(function(){
-                p.textContent = Math.round(parseFloat(f.style.width) || 0) + '%';
-            }).observe(f, { attributes: true, attributeFilter: ['style'] });
-        })();
-        </script>
+
 
         <!-- Mobile TOC FAB + Backdrop -->
         <button type="button" class="ee-toc-fab" id="ee-toc-fab" aria-label="Open table of contents">
@@ -1676,7 +1666,6 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                     '<span class="ee-toc-num"></span>' +
                     '<span class="ee-toc-text">' + h.textContent + '</span>' +
                     '<svg class="ee-toc-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l9-9"/></svg>' +
-                    '<span class="ee-toc-time-mini">' + time + '</span>' +
                     '<svg class="ee-toc-chev" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6l-6 6"/></svg>';
                 li.appendChild(a);
                 currentH2Li = li;
@@ -1686,8 +1675,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             } else {
                 // H3 — nest under last H2
                 a.innerHTML =
-                    '<span class="ee-toc-text">' + h.textContent + '</span>' +
-                    '<span class="ee-toc-time-mini">' + time + '</span>';
+                    '<span class="ee-toc-text">' + h.textContent + '</span>';
                 li.appendChild(a);
                 if (currentH2Li) {
                     if (!currentChildren) {
@@ -1703,6 +1691,28 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 }
             }
         });
+
+        /* FAQ section (rendered after the article body) gets its own
+           numbered TOC entry so readers can jump straight to it. */
+        var faqSec = document.getElementById('ee-faq-section');
+        if (faqSec) {
+            var faqH = faqSec.querySelector('h2');
+            if (faqH) {
+                if (!faqH.id) faqH.id = 'ee-faqs';
+                var fli = document.createElement('li');
+                var fa  = document.createElement('a');
+                fa.href = '#' + faqH.id;
+                fa.className = 'ee-toc-link';
+                fa.dataset.label = 'faq frequently asked questions';
+                fa.innerHTML =
+                    '<span class="ee-toc-num"></span>' +
+                    '<span class="ee-toc-text">' + faqH.textContent + '</span>' +
+                    '<svg class="ee-toc-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l9-9"/></svg>';
+                fli.appendChild(fa);
+                toc.appendChild(fli);
+                sectionItems.push({ id: faqH.id, link: fa, li: fli, isH3: false, parentLi: null });
+            }
+        }
 
         // Chevron click on H2 with children → toggle expand
         toc.addEventListener('click', function(e){
@@ -1787,7 +1797,9 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     var tocProg   = document.getElementById('ee-toc-progress');
     var tocBack   = document.getElementById('ee-toc-back');
     var tocLinks  = toc ? toc.querySelectorAll('.ee-toc-link') : [];
-    var sections  = body ? body.querySelectorAll('h2[id], h3[id]') : [];
+    var sections  = body ? Array.prototype.slice.call(body.querySelectorAll('h2[id], h3[id]')) : [];
+    var eeFaqHead = document.querySelector('#ee-faq-section h2[id]');
+    if (eeFaqHead) sections.push(eeFaqHead);
 
     function onScroll(){
         var h = document.documentElement;
