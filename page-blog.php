@@ -105,7 +105,16 @@ get_header();
                             <?php endif; ?>
                         </div>
                         <p class="ee-blog-card-excerpt">
-                            <?php echo esc_html(get_the_excerpt() ?: wp_trim_words(strip_shortcodes(get_the_content()), 30, '…')); ?>
+                            <?php
+                            /* first 160 characters only, cut on a word boundary, then … */
+                            $ee_x = get_the_excerpt() ?: strip_shortcodes(get_the_content());
+                            $ee_x = trim(preg_replace('/\s+/u', ' ', wp_strip_all_tags($ee_x)));
+                            if (mb_strlen($ee_x) > 160) {
+                                $ee_x = mb_substr($ee_x, 0, 160);
+                                $ee_x = preg_replace('/\s+\S*$/u', '', $ee_x) . '…';
+                            }
+                            echo esc_html($ee_x);
+                            ?>
                         </p>
                         <a href="<?php the_permalink(); ?>" class="ee-blog-explore">
                             Read More <i class="fa fa-arrow-right"></i>
