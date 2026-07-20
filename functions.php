@@ -1314,31 +1314,52 @@ function ee_blog_meta_box_render($post) {
         </div>
     </div>
 
-    <div class="eebm-section">
-        <h3>❓ FAQ items</h3>
-        <div id="eebm-faqs">
-            <?php if (!empty($faqs)) : foreach ($faqs as $i => $faq) : ?>
-                <div class="eebm-faq">
-                    <button type="button" class="rm" onclick="this.closest('.eebm-faq').remove();">✕ Remove</button>
-                    <div class="eebm-row" style="margin-top:0;">
-                        <label>Question</label>
-                        <input type="text" name="ee_blog_faqs[<?php echo $i; ?>][q]" value="<?php echo esc_attr($faq['q'] ?? ''); ?>">
-                    </div>
-                    <div class="eebm-row" style="margin-bottom:0;">
-                        <label>Answer</label>
-                        <textarea name="ee_blog_faqs[<?php echo $i; ?>][a]" rows="2"><?php echo esc_textarea($faq['a'] ?? ''); ?></textarea>
-                    </div>
+    <?php
+}
+
+/* ── ❓ FAQ — its own prominent meta box so editors can't miss it.
+   Same ee_blog_faqs field names, so the existing save handler and
+   the FAQPage JSON-LD output in single.php keep working as-is. ── */
+add_action('add_meta_boxes', function () {
+    add_meta_box('ee_blog_faq', '❓ FAQ — shows on the post + Google/AI search (FAQPage schema)', 'ee_blog_faq_box_render', 'post', 'normal', 'high');
+});
+function ee_blog_faq_box_render($post) {
+    $faqs = get_post_meta($post->ID, '_ee_blog_faqs', true);
+    if (!is_array($faqs)) $faqs = array();
+    wp_nonce_field('ee_blog_meta_save', 'ee_blog_faq_nonce');
+    ?>
+    <style>
+        #ee_blog_faq .eebm-faq     { background:#fff; border:1px solid #e2e8f0; border-radius:6px; padding:12px 14px; margin-bottom:10px; position:relative; }
+        #ee_blog_faq .eebm-faq .rm { position:absolute; right:8px; top:8px; background:transparent; border:1px solid #fecaca; color:#b91c1c; padding:3px 9px; border-radius:4px; cursor:pointer; font-size:11px; }
+        #ee_blog_faq .eebm-row     { margin:10px 0; }
+        #ee_blog_faq .eebm-row label { display:block; font-weight:600; font-size:12.5px; margin-bottom:4px; color:#1d2327; }
+        #ee_blog_faq .eebm-row input, #ee_blog_faq .eebm-row textarea { width:100%; padding:7px 9px; border:1px solid #ddd; border-radius:4px; font-size:13px; font-family:inherit; }
+        #ee_blog_faq .eebm-add     { background:#19335D; color:#fff; border:0; border-radius:5px; padding:8px 16px; cursor:pointer; font-size:12.5px; font-weight:600; }
+        #ee_blog_faq .hint         { color:#646970; font-size:12px; font-style:italic; margin:10px 0 0; }
+    </style>
+    <p style="margin:4px 0 12px;font-size:12.5px;color:#475569;line-height:1.55;">Add question–answer pairs below. They appear as a collapsible <strong>FAQ section</strong> at the end of this post <em>and</em> are emitted as <strong>FAQPage JSON-LD schema</strong> — the format Google, ChatGPT, Gemini and other AI crawlers read for rich results and answers.</p>
+    <div id="eebm-faqs">
+        <?php if (!empty($faqs)) : foreach ($faqs as $i => $faq) : ?>
+            <div class="eebm-faq">
+                <button type="button" class="rm" onclick="this.closest('.eebm-faq').remove();">✕ Remove</button>
+                <div class="eebm-row" style="margin-top:0;">
+                    <label>Question</label>
+                    <input type="text" name="ee_blog_faqs[<?php echo $i; ?>][q]" value="<?php echo esc_attr($faq['q'] ?? ''); ?>">
                 </div>
-            <?php endforeach; endif; ?>
-        </div>
-        <button type="button" class="eebm-add" onclick="eebmAddFaq()">+ Add FAQ</button>
-        <p class="hint">Each FAQ gets its own collapsible row on the blog page (and is emitted as FAQPage JSON-LD for Google).</p>
+                <div class="eebm-row" style="margin-bottom:0;">
+                    <label>Answer</label>
+                    <textarea name="ee_blog_faqs[<?php echo $i; ?>][a]" rows="2"><?php echo esc_textarea($faq['a'] ?? ''); ?></textarea>
+                </div>
+            </div>
+        <?php endforeach; endif; ?>
     </div>
+    <button type="button" class="eebm-add" onclick="eebmAddFaq()">+ Add FAQ</button>
+    <p class="hint">Tip: 3–6 FAQs works best. Write answers in plain language, 1–3 sentences each.</p>
 
     <script>
     function eebmAddFaq() {
         var box  = document.getElementById('eebm-faqs');
-        var idx  = box.children.length;
+        var idx  = box.children.length + 100; /* offset avoids index clashes after removals */
         var node = document.createElement('div');
         node.className = 'eebm-faq';
         node.innerHTML = ''
@@ -1346,13 +1367,16 @@ function ee_blog_meta_box_render($post) {
             + '<div class="eebm-row" style="margin-top:0;"><label>Question</label><input type="text" name="ee_blog_faqs['+idx+'][q]"></div>'
             + '<div class="eebm-row" style="margin-bottom:0;"><label>Answer</label><textarea name="ee_blog_faqs['+idx+'][a]" rows="2"></textarea></div>';
         box.appendChild(node);
+        node.querySelector('input').focus();
     }
     </script>
     <?php
 }
 
 add_action('save_post_post', function ($post_id) {
-    if (!isset($_POST['ee_blog_meta_nonce']) || !wp_verify_nonce($_POST['ee_blog_meta_nonce'], 'ee_blog_meta_save')) return;
+    $ee_nonce_ok = (isset($_POST['ee_blog_meta_nonce']) && wp_verify_nonce($_POST['ee_blog_meta_nonce'], 'ee_blog_meta_save'))
+                || (isset($_POST['ee_blog_faq_nonce']) && wp_verify_nonce($_POST['ee_blog_faq_nonce'], 'ee_blog_meta_save'));
+    if (!$ee_nonce_ok) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (!current_user_can('edit_post', $post_id)) return;
 
