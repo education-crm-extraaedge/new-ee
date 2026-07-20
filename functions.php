@@ -614,10 +614,14 @@ add_action('init', function () {
    bump, sets the permalink structure and flushes rewrites. Old
    /blog/{post-slug}/ links 301 via the extended /blog/ router below;
    bare /{post-slug}/ links are 301-guessed by WP's canonical redirect. */
-define('EE_PERMALINK_VER', '2026-07-20-category');
+define('EE_PERMALINK_VER', '2026-07-20-category-2');
 add_action('init', function () {
     if (get_option('ee_permalink_ver') === EE_PERMALINK_VER) return;
-    update_option('permalink_structure', '/%category%/%postname%/');
+    /* set_permalink_structure updates BOTH the option and the live
+       $wp_rewrite object — updating the option alone makes the flush
+       below regenerate rules from the stale structure (404s). */
+    global $wp_rewrite;
+    $wp_rewrite->set_permalink_structure('/%category%/%postname%/');
     flush_rewrite_rules(false);
     update_option('ee_permalink_ver', EE_PERMALINK_VER);
 }, 98);
