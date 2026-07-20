@@ -94,16 +94,17 @@ get_header();
                     $primary = !empty($cats) ? $cats[0] : null;
                 ?>
                 <article class="ee-blog-card">
+                    <h3 class="ee-blog-card-title">
+                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    </h3>
+                    <div class="ee-blog-card-date">
+                        Posted On <span><?php echo esc_html(get_the_date()); ?></span>
+                        <?php if ($primary) : ?>
+                            · <a href="<?php echo esc_url(get_category_link($primary->term_id)); ?>" style="color:var(--b-blue);text-decoration:none;font-weight:600;"><?php echo esc_html($primary->name); ?></a>
+                        <?php endif; ?>
+                    </div>
+                    <div class="ee-blog-card-row">
                     <div class="ee-blog-card-body">
-                        <h3 class="ee-blog-card-title">
-                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                        </h3>
-                        <div class="ee-blog-card-date">
-                            Posted On <span><?php echo esc_html(get_the_date()); ?></span>
-                            <?php if ($primary) : ?>
-                                · <a href="<?php echo esc_url(get_category_link($primary->term_id)); ?>" style="color:var(--b-blue);text-decoration:none;font-weight:600;"><?php echo esc_html($primary->name); ?></a>
-                            <?php endif; ?>
-                        </div>
                         <p class="ee-blog-card-excerpt">
                             <?php
                             /* first 160 characters only, cut on a word boundary, then … */
@@ -125,6 +126,7 @@ get_header();
                         <?php the_post_thumbnail('medium_large', array('loading' => 'lazy')); ?>
                     </a>
                     <?php endif; ?>
+                    </div>
                 </article>
                 <?php endwhile; wp_reset_postdata(); ?>
 
