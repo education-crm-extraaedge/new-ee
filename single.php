@@ -954,9 +954,42 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
     <div class="ee-blog-wrap">
 
+        <style id="ee-toc-redesign">
+        /* ── TOC redesign: navy gradient header, timeline dots, pill filter ── */
+        .ee-toc-sidebar{padding:0;border:1px solid rgba(25,51,93,.08);border-radius:18px;box-shadow:0 10px 30px rgba(25,51,93,.08);}
+        .ee-toc-head{background:linear-gradient(135deg,#19335D 0%,#2A4E8C 100%);padding:15px 16px 13px;margin-bottom:0;border-bottom:0;}
+        .ee-toc-heading{color:#fff !important;}
+        .ee-toc-heading::before{background:var(--b-orange);}
+        .ee-toc-pct{font-size:11px;font-weight:800;color:#fff;opacity:.95;background:rgba(255,255,255,.14);padding:3px 8px;border-radius:20px;letter-spacing:.03em;}
+        .ee-toc-time{background:var(--b-orange);color:#fff;}
+        .ee-toc-mobile-close{background:rgba(255,255,255,.16) !important;color:#fff !important;}
+        .ee-toc-bar{margin-bottom:0;height:5px;background:rgba(25,51,93,.08);border-radius:0;}
+        .ee-toc-bar-fill{border-radius:0 3px 3px 0;}
+        .ee-toc-filter{margin:12px 14px 8px;}
+        .ee-toc-filter input{border-radius:999px;background:#F4F6FB;border-color:transparent;padding:8px 12px 8px 30px;}
+        .ee-toc-filter input:focus{border-color:var(--b-orange);background:#fff;box-shadow:0 0 0 3px rgba(222,110,48,.12);}
+        .ee-toc-filter svg{left:11px;}
+        .ee-toc-scroll{padding:2px 14px 6px;}
+        .ee-toc-rail{padding-left:22px;}
+        .ee-toc-rail::before{left:6px;}
+        .ee-toc-progress{left:6px;}
+        .ee-toc-list > li{margin-bottom:2px;}
+        .ee-toc-list > li > .ee-toc-link{font-size:13px;padding:8px 10px;border-radius:10px;}
+        .ee-toc-list > li > .ee-toc-link .ee-toc-num{display:none;}
+        .ee-toc-list > li > .ee-toc-link::before{content:"";position:absolute;left:-20.5px;top:50%;transform:translateY(-50%);width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid #C9D2E2;transition:all .2s;}
+        .ee-toc-list > li > .ee-toc-link.ee-active::before{border-color:var(--b-orange);background:var(--b-orange);box-shadow:0 0 0 4px rgba(222,110,48,.16);}
+        .ee-toc-list > li.ee-completed > .ee-toc-link::before{border-color:#10B981;background:#10B981;}
+        .ee-toc-link.ee-active{background:linear-gradient(135deg,rgba(222,110,48,.14),rgba(222,110,48,.05));}
+        .ee-toc-link.ee-active::after{display:none;}
+        .ee-toc-actions{margin-top:6px;padding:10px 14px 0;border-top:1px solid var(--b-border);gap:8px;}
+        .ee-toc-actions button{background:#F4F6FB;border:0;border-radius:10px;padding:9px 6px;font-size:11.5px;font-weight:700;color:var(--b-blue);}
+        .ee-toc-actions button:hover{background:var(--b-blue);color:#fff;border:0;transform:translateY(-1px);}
+        .ee-toc-cta{margin:12px 14px 14px;}
+        </style>
         <aside class="ee-toc-sidebar" id="ee-toc-sidebar" aria-label="Table of Contents">
             <div class="ee-toc-head">
                 <div class="ee-toc-heading">On this page</div>
+                <span class="ee-toc-pct" id="ee-toc-pct">0%</span>
                 <span class="ee-toc-time" id="ee-toc-time"><?php echo esc_html($read_time); ?></span>
                 <button type="button" class="ee-toc-mobile-close" id="ee-toc-mobile-close" aria-label="Close TOC">×</button>
             </div>
@@ -993,6 +1026,17 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 </span>
             </a>
         </aside>
+        <script>
+        /* mirror the reading-progress bar into the header % chip */
+        (function(){
+            var f = document.getElementById('ee-toc-bar-fill');
+            var p = document.getElementById('ee-toc-pct');
+            if (!f || !p || !window.MutationObserver) return;
+            new MutationObserver(function(){
+                p.textContent = Math.round(parseFloat(f.style.width) || 0) + '%';
+            }).observe(f, { attributes: true, attributeFilter: ['style'] });
+        })();
+        </script>
 
         <!-- Mobile TOC FAB + Backdrop -->
         <button type="button" class="ee-toc-fab" id="ee-toc-fab" aria-label="Open table of contents">
