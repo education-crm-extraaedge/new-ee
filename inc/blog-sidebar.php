@@ -54,12 +54,6 @@ foreach ($ee_cat_kids as $pk => $list) {
     usort($list, $ee_cat_sort);
     $ee_cat_kids[$pk] = $list;
 }
-/* parent badge = its own posts + all child posts */
-$ee_cat_agg = function ($c) use ($ee_cat_kids) {
-    $n = (int) $c->count;
-    foreach ($ee_cat_kids[(int) $c->term_id] ?? array() as $k) { $n += (int) $k->count; }
-    return $n;
-};
 /* the parent of the active child stays expanded */
 $ee_open_parent = ($ee_current_cat && (int) $ee_current_cat->parent) ? (int) $ee_current_cat->parent : 0;
 ?>
@@ -113,15 +107,6 @@ $ee_open_parent = ($ee_current_cat && (int) $ee_current_cat->parent) ? (int) $ee
 }
 .ee-blog-side-list a:hover::before,
 .ee-blog-side-list a.active::before { transform:scaleY(1); }
-.ee-blog-side-count {
-    font-size:11px; font-weight:700; padding:2px 8px;
-    background:var(--b-bg); color:var(--b-muted); border-radius:99px;
-    border:1px solid var(--b-border); white-space:nowrap;
-}
-.ee-blog-side-list a.active .ee-blog-side-count,
-.ee-blog-side-list a:hover .ee-blog-side-count {
-    background:var(--b-orange); color:#fff; border-color:var(--b-orange);
-}
 
 /* Sub-category tree (parent → children) */
 .ee-blog-side-row { display:flex; align-items:stretch; gap:2px; }
@@ -296,7 +281,6 @@ li.open > .ee-blog-side-sub { display:block; }
         <li>
             <a href="<?php echo esc_url(home_url('/blog/')); ?>" class="<?php echo $ee_current_cat === null ? 'active' : ''; ?>">
                 <span>All Categories</span>
-                <span class="ee-blog-side-count"><?php echo (int) wp_count_posts()->publish; ?></span>
             </a>
         </li>
         <?php foreach ($ee_cat_tops as $cat) :
@@ -313,7 +297,6 @@ li.open > .ee-blog-side-sub { display:block; }
             <div class="ee-blog-side-row">
                 <a href="<?php echo $cat_link; ?>" class="<?php echo $is_act ? 'active' : ''; ?>">
                     <span><?php echo esc_html($cat->name); ?></span>
-                    <span class="ee-blog-side-count"><?php echo (int) $ee_cat_agg($cat); ?></span>
                 </a>
                 <?php if ($kids) : ?>
                 <button type="button" class="ee-sub-t" aria-expanded="<?php echo $is_open ? 'true' : 'false'; ?>" aria-label="Show sub-categories of <?php echo esc_attr($cat->name); ?>">▸</button>
@@ -328,7 +311,6 @@ li.open > .ee-blog-side-sub { display:block; }
                 <li>
                     <a href="<?php echo $kid_link; ?>" class="<?php echo $kid_act ? 'active' : ''; ?>">
                         <span><?php echo esc_html($kid->name); ?></span>
-                        <span class="ee-blog-side-count"><?php echo (int) $kid->count; ?></span>
                     </a>
                 </li>
                 <?php endforeach; ?>
