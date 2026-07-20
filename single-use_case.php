@@ -838,7 +838,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     <?php if(!empty($features)): ?>
     <section class="features-section" id="features" aria-labelledby="features-heading">
       <div class="container">
-        <?php if($features_h2): ?><header class="features-header reveal"><h2 id="features-heading" class="features-h2"><?php echo esc_html($features_h2); ?></h2></header><?php endif; ?>
+        <?php if($features_h2): ?><header class="features-header reveal"><h2 id="features-heading" class="features-h2" style="font-size:clamp(17px,2.2vw,22px) !important;line-height:1.25 !important;"><?php echo esc_html($features_h2); ?></h2></header><?php endif; ?>
         <div class="features-grid reveal" role="list">
           <?php foreach($features as $feature): ?>
           <article class="feat-card" role="listitem">
