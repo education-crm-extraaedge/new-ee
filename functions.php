@@ -1305,7 +1305,7 @@ function ee_blog_meta_box_render($post) {
         <div class="eebm-grid">
             <div class="eebm-row">
                 <label>CTA text</label>
-                <input type="text" name="ee_blog[banner_cta_text]" value="<?php echo esc_attr($f('banner_cta_text', 'Book a Free Demo')); ?>">
+                <input type="text" name="ee_blog[banner_cta_text]" value="<?php echo esc_attr($f('banner_cta_text', 'Book Demo Now')); ?>">
             </div>
             <div class="eebm-row">
                 <label>CTA URL</label>

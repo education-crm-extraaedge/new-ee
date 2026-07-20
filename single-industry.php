@@ -722,7 +722,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
       <?php if($form_embed): ?>
       <aside class="hero-form-aside reveal" id="admission-form" aria-labelledby="form-heading">
         <div class="hero-form-card">
-          <h2 id="form-heading" class="visually-hidden">Book a Free Demo</h2>
+          <h2 id="form-heading" class="visually-hidden">Book Demo Now</h2>
           <?php echo wp_kses($form_embed, array('script'=>array('src'=>array(),'async'=>array(),'defer'=>array(),'type'=>array(),'charset'=>array(),'id'=>array()),'div'=>array('id'=>array(),'class'=>array(),'style'=>array()),'form'=>array('action'=>array(),'method'=>array(),'id'=>array(),'class'=>array()),'input'=>array('type'=>array(),'name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'required'=>array(),'value'=>array()),'textarea'=>array('name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'rows'=>array()),'select'=>array('name'=>array(),'id'=>array(),'class'=>array()),'option'=>array('value'=>array(),'selected'=>array()),'button'=>array('type'=>array(),'id'=>array(),'class'=>array()),'label'=>array('for'=>array(),'class'=>array()),'iframe'=>array('src'=>array(),'width'=>array(),'height'=>array(),'frameborder'=>array(),'loading'=>array(),'title'=>array()),'a'=>array('href'=>array(),'target'=>array(),'class'=>array(),'rel'=>array()),'p'=>array('class'=>array()),'span'=>array('class'=>array()),'br'=>array())); ?>
           <p class="secure-label" aria-label="Secure data transmission"><span aria-hidden="true">&#128274;</span> Secure Data Transmission Active</p>
         </div>

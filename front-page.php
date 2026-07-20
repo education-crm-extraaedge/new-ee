@@ -3279,7 +3279,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 <div id="ee-sticky" aria-hidden="true">
   <div class="sw">
     <div class="txt">🎓 <b>Fill more seats this cycle.</b><span class="hide"> See ExtraaEdge on your funnel in 30 minutes.</span></div>
-    <div class="sp"><a href="#admission-form" class="go">Book a Free Demo &rarr;</a><button class="x" aria-label="Dismiss" id="eeStickyX">&times;</button></div>
+    <div class="sp"><a href="#admission-form" class="go">Book Demo Now &rarr;</a><button class="x" aria-label="Dismiss" id="eeStickyX">&times;</button></div>
   </div>
 </div>
 <script>

@@ -114,7 +114,7 @@ while (have_posts()) : the_post();
     $banner_badge = $f('banner_badge', 'ExtraaEdge');
     $banner_title = $f('banner_title', 'All-in-One CRM for Education');
     $banner_desc  = $f('banner_desc', 'Unify SMS, WhatsApp, email, and calls. Convert more leads with intelligent automation built for admissions teams.');
-    $banner_cta_text = $f('banner_cta_text', 'Book a Free Demo');
+    $banner_cta_text = $f('banner_cta_text', 'Book Demo Now');
     $banner_cta_url  = $f('banner_cta_url', '/book-demo/');
 
     /* Ad banner — when image URL is set it replaces the stat cards. */
@@ -986,7 +986,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             <a href="/book-demo/" class="ee-toc-cta">
                 <span class="ee-toc-cta-emoji">🚀</span>
                 <span>
-                    <strong>Book a free demo</strong>
+                    <strong>Book Demo Now</strong>
                     <small>20-min · No deck · No pitch</small>
                 </span>
             </a>
@@ -1338,7 +1338,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                 <div class="ee-promo-card ee-promo-orange">
                     <h3>Need a Smarter Admissions Process?</h3>
                     <p>Customise your entire admission workflow — funnels, reports, automations &amp; AI journeys built for your institution.</p>
-                    <a class="ee-promo-btn" href="/book-demo/">Book a Free Demo <?php echo ee_icon('ti-arrow-right'); ?></a>
+                    <a class="ee-promo-btn" href="/book-demo/">Book Demo Now <?php echo ee_icon('ti-arrow-right'); ?></a>
                 </div>
             </div>
 
@@ -1448,7 +1448,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             <strong>Ready to lift admissions conversions?</strong>
             <span>Book a free 20-min demo with our CRM specialists.</span>
         </div>
-        <a href="/book-demo/" class="ee-stick-cta-btn">Book a Free Demo <?php echo ee_icon('ti-arrow-right'); ?></a>
+        <a href="/book-demo/" class="ee-stick-cta-btn">Book Demo Now <?php echo ee_icon('ti-arrow-right'); ?></a>
         <button type="button" class="ee-stick-cta-close" id="ee-stick-cta-close" aria-label="Dismiss">×</button>
     </div>
 

@@ -64,7 +64,7 @@ $quote     = get_post_meta($pid, '_cs_quote', true);
 $q_author  = get_post_meta($pid, '_cs_quote_author', true);
 $q_role    = get_post_meta($pid, '_cs_quote_role', true);
 $pdf_url   = get_post_meta($pid, '_cs_pdf_url', true);
-$cta_text  = get_post_meta($pid, '_cs_cta_text', true) ?: 'Book a Free Demo';
+$cta_text  = get_post_meta($pid, '_cs_cta_text', true) ?: 'Book Demo Now';
 $cta_url   = get_post_meta($pid, '_cs_cta_url', true) ?: '/book-demo/';
 $hero_img  = get_the_post_thumbnail_url($pid, 'full');
 ?>

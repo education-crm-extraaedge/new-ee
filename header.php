@@ -1180,7 +1180,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
         <!-- Mobile Bottom Actions -->
         <div class="p-6 bg-white border-t border-slate-100">
-            <a href="/book-demo/" class="block bg-brandBlue py-4 rounded-xl font-bold text-white shadow-lg shadow-brandBlue/20 text-center" aria-label="Book a free demo">Book Demo</a>
+            <a href="/book-demo/" class="block bg-brandBlue py-4 rounded-xl font-bold text-white shadow-lg shadow-brandBlue/20 text-center" aria-label="Book Demo Now">Book Demo</a>
         </div>
     </div>
 

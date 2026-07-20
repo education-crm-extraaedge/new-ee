@@ -266,7 +266,7 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 .hero-form-aside{width:100%}
 .hero-form-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r-l);padding:clamp(26px,3vw,42px);box-shadow:var(--sh-3)}
 .hero-form-card::after{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;background:linear-gradient(140deg,rgba(222,110,48,.5),transparent 40%,transparent 60%,rgba(25,51,93,.4));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55}
-.hero-form-card::before{content:"Book a Free Demo";position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--grad-o);color:#fff;padding:7px 20px;border-radius:var(--r-pill);font-weight:700;font-size:11px;letter-spacing:.04em;white-space:nowrap;box-shadow:var(--sh-o)}
+.hero-form-card::before{content:"Book Demo Now";position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--grad-o);color:#fff;padding:7px 20px;border-radius:var(--r-pill);font-weight:700;font-size:11px;letter-spacing:.04em;white-space:nowrap;box-shadow:var(--sh-o)}
 .secure-label{text-align:center;margin-top:18px;font-size:10.5px;color:var(--ink-mute);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 .logos{background:var(--white);padding:clamp(56px,7vw,86px) 0;overflow:hidden;border-top:1px solid var(--line)}
 .logos-head{text-align:center;max-width:700px;margin:0 auto 44px;padding:0 24px}

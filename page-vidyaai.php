@@ -164,7 +164,7 @@ section{position:relative;padding:64px 0}
       <h1>The <span class="g">24/7 AI agent</span> that turns every enquiry into an enrolment.</h1>
       <p class="hero-sub">VidyaAI answers, qualifies and follows up with every student across WhatsApp, web and phone — in 95+ languages — and hands your counsellors only hot, ready-to-enrol leads.</p>
       <div class="hero-cta">
-        <a href="#demo" class="btn btn-primary">Book a Free Demo <span>&rarr;</span></a>
+        <a href="#demo" class="btn btn-primary">Book Demo Now <span>&rarr;</span></a>
         <a href="#vidyagpt" class="btn btn-ghost"><span>&#9654;</span> See VidyaAI live</a>
       </div>
       <p class="hero-note">No credit card · Personalised to your institution</p>
