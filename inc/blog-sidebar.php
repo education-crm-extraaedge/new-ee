@@ -240,6 +240,7 @@ li.open > .ee-blog-side-sub { display:block; }
     box-shadow:var(--b-shadow-md); border-color:var(--b-blue);
 }
 .ee-blog-social a i { font-size:22px; }
+.ee-blog-social a img { width:24px; height:24px; object-fit:contain; display:block; }
 
 .ee-blog-lead {
     background:var(--b-white); border:1px solid var(--b-border); border-radius:var(--b-radius);
