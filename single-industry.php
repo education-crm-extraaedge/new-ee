@@ -304,6 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-20-mobile -->\n";
 ?>
 
 <style>
