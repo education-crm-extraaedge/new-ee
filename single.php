@@ -1389,19 +1389,19 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                     <div class="ee-compliance-logos">
                         <!-- GDPR — EU-blue circular badge with yellow ring of stars + yellow "GDPR" -->
                         <span class="ee-cert-badge ee-cert-gdpr" aria-label="GDPR compliant">
-                            <img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-gdpr-compliant.svg" alt="GDPR compliant" loading="lazy" style="height:48px;width:auto;display:block">
+                            <?php echo ee_cert_badge_svg('gdpr', 48); ?>
                             <span class="ee-cert-label">GDPR<small>Compliant</small></span>
                         </span>
 
                         <!-- CCPA — California-blue shield with bold white "CCPA" -->
                         <span class="ee-cert-badge ee-cert-ccpa" aria-label="CCPA compliant">
-                            <img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-ccpa-compliant.svg" alt="CCPA compliant" loading="lazy" style="height:48px;width:auto;display:block">
+                            <?php echo ee_cert_badge_svg('ccpa', 48); ?>
                             <span class="ee-cert-label">CCPA<small>Compliant</small></span>
                         </span>
 
                         <!-- ISO 27001 — Navy circular medallion with orange ring -->
                         <span class="ee-cert-badge ee-cert-iso" aria-label="ISO 27001 certified">
-                            <img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-iso-27001-certified.svg" alt="ISO 27001 certified" loading="lazy" style="height:48px;width:auto;display:block">
+                            <?php echo ee_cert_badge_svg('iso', 48); ?>
                             <span class="ee-cert-label">ISO 27001<small>Certified</small></span>
                         </span>
                     </div>
@@ -1424,11 +1424,11 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
     <div class="ee-floating-contact" role="region" aria-label="Quick contact">
         <a class="ee-float-btn ee-float-whatsapp" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="WhatsApp">
-            <span class="ee-float-icon-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-fab-whatsapp.svg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+            <span class="ee-float-icon-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-fab-whatsapp.svg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block" onerror="this.style.display='none';var s=this.nextElementSibling;if(s)s.style.display='block';"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;width:100%;height:100%;"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9z"/><path d="M9 10c0 .55.45 1 1 1s1-.45 1-1V9c0-.55-.45-1-1-1s-1 .45-1 1c0 2.76 2.24 5 5 5 .55 0 1-.45 1-1s-.45-1-1-1"/></svg></span>
             <span class="ee-float-label"><small>Chat on</small><strong>WhatsApp</strong></span>
         </a>
         <a class="ee-float-btn ee-float-call" href="tel:+918956982897" aria-label="Call us">
-            <span class="ee-float-icon-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-fab-call-us.svg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+            <span class="ee-float-icon-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-fab-call-us.svg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block" onerror="this.style.display='none';var s=this.nextElementSibling;if(s)s.style.display='block';"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;width:100%;height:100%;"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
             <span class="ee-float-label"><small>Call us</small><strong>+91 89569 82897</strong></span>
         </a>
     </div>

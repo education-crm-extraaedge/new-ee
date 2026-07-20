@@ -716,17 +716,21 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <footer class="trust-bar reveal">
           <?php if($trust_rating): ?><div class="trust-rating"><span aria-hidden="true">&#9733;</span> Rated <?php echo esc_html($trust_rating); ?>/5 by Education Leaders <?php if($trust_text): ?><span>(<?php echo esc_html($trust_text); ?>)</span><?php endif; ?></div><?php endif; ?>
           <?php if(!empty($compliance)): ?><div class="compliance-row"><?php foreach($compliance as $comp):
-            /* icons only — map known badges to the branded SVG set when no image is set */
+            /* icons only — self-contained inline SVG badges so they render
+               even when the uploads CDN is unreachable; an editor-set image
+               still wins, with the inline badge as its onerror fallback */
             $ctext = trim((string)($comp['text'] ?? ''));
             $cimg  = trim((string)($comp['image'] ?? ''));
-            if ($cimg === '') {
-                $lk = strtolower($ctext);
-                if (strpos($lk, 'gdpr') !== false)      $cimg = 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-gdpr-compliant.svg';
-                elseif (strpos($lk, 'iso') !== false)   $cimg = 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-iso-27001-certified.svg';
-                elseif (strpos($lk, 'ccpa') !== false)  $cimg = 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-ccpa-compliant.svg';
+            $ckey  = ee_cert_badge_key($ctext);
+            if ($cimg === '' && $ckey === 'generic' && $ctext === '') continue;
+          ?><div class="compliance-item" role="img" aria-label="<?php echo esc_attr($ctext ?: 'Compliance badge'); ?>"><?php
+            if ($cimg !== '') {
+                echo '<img src="' . esc_url($cimg) . '" alt="" width="40" height="40" loading="lazy" decoding="async" onerror="this.style.display=\'none\';var s=this.nextElementSibling;if(s)s.style.display=\'block\';">';
+                echo str_replace('style="display:block;', 'style="display:none;', ee_cert_badge_svg($ckey, 40));
+            } else {
+                echo ee_cert_badge_svg($ckey, 40);
             }
-            if ($cimg === '') continue;
-          ?><div class="compliance-item"><img src="<?php echo esc_url($cimg); ?>" alt="<?php echo esc_attr($ctext ?: 'Compliance badge'); ?>" width="40" height="40" loading="lazy" decoding="async"></div><?php endforeach; ?></div><?php endif; ?>
+          ?></div><?php endforeach; ?></div><?php endif; ?>
         </footer>
         <?php endif; ?>
       </article>

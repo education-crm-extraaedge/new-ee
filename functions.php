@@ -6613,9 +6613,22 @@ function ee_quick_nav_render_icon($name, $size = '1em') {
         'ti-file-text'       => 'ee-icon-save-pdf.svg',
     );
     if (isset($ee_icon_files[$name])) {
-        return '<img class="ee-qn-svg ee-qn-img" src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/' . $ee_icon_files[$name] . '" '
-             . 'alt="" loading="lazy" aria-hidden="true" '
-             . 'style="width:' . esc_attr($s) . ';height:' . esc_attr($s) . ';vertical-align:middle;flex-shrink:0;object-fit:contain;">';
+        /* Branded file first; if the file 404s or the CDN is unreachable
+           the onerror handler reveals the bundled inline SVG so the icon
+           is never a broken-image square. */
+        $body = isset($paths[$name]) ? $paths[$name] : '<circle cx="12" cy="12" r="9"/>';
+        $fb   = '<svg class="ee-qn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+              . 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" '
+              . 'style="display:none;width:100%;height:100%;">' . $body . '</svg>';
+        return '<span class="ee-qn-io" aria-hidden="true" '
+             . 'style="display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;flex-shrink:0;'
+             . 'width:' . esc_attr($s) . ';height:' . esc_attr($s) . ';">'
+             . '<img class="ee-qn-svg ee-qn-img" src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/' . $ee_icon_files[$name] . '" '
+             . 'alt="" loading="lazy" '
+             . 'style="width:100%;height:100%;object-fit:contain;display:block;" '
+             . 'onerror="this.style.display=\'none\';var s=this.nextElementSibling;if(s)s.style.display=\'block\';">'
+             . $fb
+             . '</span>';
     }
 
     $body = isset($paths[$name]) ? $paths[$name] : '<circle cx="12" cy="12" r="9"/>';
@@ -6627,6 +6640,50 @@ function ee_quick_nav_render_icon($name, $size = '1em') {
 /* Short alias used liberally in templates. */
 if (!function_exists('ee_icon')) {
     function ee_icon($name, $size = '1em') { return ee_quick_nav_render_icon($name, $size); }
+}
+
+/**
+ * Compliance / certification badges as self-contained inline SVGs.
+ * No webfonts, no external files — these render everywhere, including
+ * hosts where the uploads CDN is unreachable or hotlink-protected.
+ * Keys: gdpr | iso | ccpa | anything else → generic check seal.
+ */
+function ee_cert_badge_key($text) {
+    $lk = strtolower((string) $text);
+    if (strpos($lk, 'gdpr') !== false) return 'gdpr';
+    if (strpos($lk, 'iso')  !== false) return 'iso';
+    if (strpos($lk, 'ccpa') !== false) return 'ccpa';
+    return 'generic';
+}
+function ee_cert_badge_svg($key, $size = 40) {
+    $s    = (int) $size;
+    $head = '<svg viewBox="0 0 48 48" width="' . $s . '" height="' . $s . '" aria-hidden="true" style="display:block;flex-shrink:0;">';
+    $font = 'font-family="Inter,Arial,sans-serif"';
+    switch ($key) {
+        case 'gdpr': /* EU-blue disc, ring of 12 gold stars, gold GDPR */
+            return $head
+                 . '<circle cx="24" cy="24" r="23" fill="#003399"/>'
+                 . '<circle cx="24" cy="24" r="17.5" fill="none" stroke="#FFCC00" stroke-width="2.6" stroke-dasharray="0.01 9.15" stroke-linecap="round"/>'
+                 . '<text x="24" y="27.5" text-anchor="middle" ' . $font . ' font-size="9.5" font-weight="800" fill="#FFCC00" letter-spacing=".5">GDPR</text>'
+                 . '</svg>';
+        case 'iso': /* navy medallion, orange inner ring, ISO 27001 */
+            return $head
+                 . '<circle cx="24" cy="24" r="23" fill="#19335D"/>'
+                 . '<circle cx="24" cy="24" r="19" fill="none" stroke="#DE6E30" stroke-width="2"/>'
+                 . '<text x="24" y="21.5" text-anchor="middle" ' . $font . ' font-size="8.5" font-weight="800" fill="#fff" letter-spacing=".5">ISO</text>'
+                 . '<text x="24" y="31" text-anchor="middle" ' . $font . ' font-size="7.5" font-weight="700" fill="#fff" letter-spacing=".5">27001</text>'
+                 . '</svg>';
+        case 'ccpa': /* navy shield, white CCPA, orange check */
+            return $head
+                 . '<path d="M24 3l16.5 6v13.2c0 10.4-7 18.1-16.5 22.8C14.5 40.3 7.5 32.6 7.5 22.2V9z" fill="#19335D"/>'
+                 . '<text x="24" y="23.5" text-anchor="middle" ' . $font . ' font-size="8.5" font-weight="800" fill="#fff" letter-spacing=".5">CCPA</text>'
+                 . '<path d="M18.5 30l3.5 3.5 8-8" stroke="#DE6E30" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+                 . '</svg>';
+    }
+    return $head
+         . '<circle cx="24" cy="24" r="23" fill="#19335D"/>'
+         . '<path d="M15 25l6 6 12-13" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+         . '</svg>';
 }
 
 function ee_quick_nav_colors() {

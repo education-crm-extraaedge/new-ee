@@ -105,12 +105,12 @@ get_header();
         <aside class="ee-blog-side-r" aria-label="Sidebar">
             <div class="ee-blog-social">
                 <ul>
-                    <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo urlencode(get_category_link($ee_current_cat->term_id)); ?>" target="_blank" rel="noopener"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-linkedin.svg" alt="" loading="lazy"> <span>LinkedIn</span></a></li>
-                    <li><a href="https://api.whatsapp.com/send?text=<?php echo urlencode(get_category_link($ee_current_cat->term_id)); ?>" target="_blank" rel="noopener"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-whatsapp.svg" alt="" loading="lazy"> <span>WhatsApp</span></a></li>
-                    <li><a href="mailto:?subject=<?php echo urlencode(single_cat_title('', false)); ?>&body=<?php echo urlencode(get_category_link($ee_current_cat->term_id)); ?>"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-email.svg" alt="" loading="lazy"> <span>E-mail</span></a></li>
-                    <li><a href="#" class="ee-soc-copy" data-url="<?php echo esc_attr(get_category_link($ee_current_cat->term_id)); ?>"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-copy-link.svg" alt="" loading="lazy"> <span>Copy Link</span></a></li>
-                    <li><a href="javascript:window.print()"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-print.svg" alt="" loading="lazy"> <span>Print</span></a></li>
-                    <li><a href="javascript:window.print()"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-save-pdf.svg" alt="" loading="lazy"> <span>Save PDF</span></a></li>
+                    <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo urlencode(get_category_link($ee_current_cat->term_id)); ?>" target="_blank" rel="noopener"><?php echo ee_icon('ti-brand-linkedin', 24); ?> <span>LinkedIn</span></a></li>
+                    <li><a href="https://api.whatsapp.com/send?text=<?php echo urlencode(get_category_link($ee_current_cat->term_id)); ?>" target="_blank" rel="noopener"><?php echo ee_icon('ti-brand-whatsapp', 24); ?> <span>WhatsApp</span></a></li>
+                    <li><a href="mailto:?subject=<?php echo urlencode(single_cat_title('', false)); ?>&body=<?php echo urlencode(get_category_link($ee_current_cat->term_id)); ?>"><?php echo ee_icon('ti-mail', 24); ?> <span>E-mail</span></a></li>
+                    <li><a href="#" class="ee-soc-copy" data-url="<?php echo esc_attr(get_category_link($ee_current_cat->term_id)); ?>"><?php echo ee_icon('ti-link', 24); ?> <span>Copy Link</span></a></li>
+                    <li><a href="javascript:window.print()"><?php echo ee_icon('ti-printer', 24); ?> <span>Print</span></a></li>
+                    <li><a href="javascript:window.print()"><?php echo ee_icon('ti-file-text', 24); ?> <span>Save PDF</span></a></li>
                 </ul>
                 <script>
                 document.querySelectorAll('.ee-soc-copy').forEach(function(b){
