@@ -609,18 +609,37 @@ add_action('init', function () {
     update_option('ee_cpt_rewrite_ver', EE_CPT_REWRITE_VER);
 }, 99);
 
-/* One-shot: single blog posts live at /%postname%/ — drop the /blog/
-   prefix from post URLs. Old /blog/{post-slug}/ links 301 to the new
-   address via the extended /blog/ router below, so nothing breaks. */
+/* One-shot (versioned): blog posts live at /{category}/{post-name}/ —
+   e.g. /education-crm/crm-admission-software/. Runs once per version
+   bump, sets the permalink structure and flushes rewrites. Old
+   /blog/{post-slug}/ links 301 via the extended /blog/ router below;
+   bare /{post-slug}/ links are 301-guessed by WP's canonical redirect. */
+define('EE_PERMALINK_VER', '2026-07-20-category');
 add_action('init', function () {
-    if (get_option('ee_permalinks_no_blog') === '1') return;
-    $ps = (string) get_option('permalink_structure');
-    if (strpos($ps, '%postname%') !== false && strpos($ps, 'blog') !== false) {
-        update_option('permalink_structure', '/%postname%/');
-        flush_rewrite_rules(false);
-    }
-    update_option('ee_permalinks_no_blog', '1');
+    if (get_option('ee_permalink_ver') === EE_PERMALINK_VER) return;
+    update_option('permalink_structure', '/%category%/%postname%/');
+    flush_rewrite_rules(false);
+    update_option('ee_permalink_ver', EE_PERMALINK_VER);
 }, 98);
+
+/* Safety net for /{category}/{post-name}/ URLs whose category slug is
+   also a CPT slug (help, webinars, news, ...): the CPT single rewrite
+   rule wins the match, finds no CPT entry, and would 404 — if a blog
+   post with that name exists, hand the request to the post instead. */
+add_filter('request', function ($qv) {
+    foreach (array('help', 'webinar', 'ebook', 'news', 'career', 'testimonial', 'case_study', 'product', 'industry', 'use_case', 'solution') as $pt) {
+        if (empty($qv[$pt]) || !is_string($qv[$pt])) continue;
+        $slug = sanitize_title($qv[$pt]);
+        if ($slug === '') continue;
+        $cpt_hit = get_posts(array('name' => $slug, 'post_type' => $pt, 'post_status' => 'any', 'numberposts' => 1, 'fields' => 'ids'));
+        if ($cpt_hit) continue;
+        $post_hit = get_posts(array('name' => $slug, 'post_type' => 'post', 'post_status' => 'publish', 'numberposts' => 1, 'fields' => 'ids'));
+        if ($post_hit) {
+            return array('name' => $slug);
+        }
+    }
+    return $qv;
+});
 
 /* /news/ must always render the news listing template. If a static Page with
    the slug 'news' exists (it wins the URL over the CPT archive on some
