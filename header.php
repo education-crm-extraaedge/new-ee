@@ -1421,5 +1421,20 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         })();
     </script>
 
+<style id="ee-global-heading-scale">
+/* ── Global heading scale: every page's main headings match the home page ──
+   H1 = home hero size, H2/H3 vars available for templates. Page-builder
+   pages (.eepb) keep their pasted designs untouched. */
+:root{
+    --ee-h1:clamp(38px,5.2vw,64px);
+    --ee-h2:clamp(26px,3.4vw,38px);
+    --ee-h3:clamp(18px,2vw,22px);
+}
+html body #main-content h1:not(.eepb *):not(.ee-blog-embed *){
+    font-size:var(--ee-h1) !important;
+    line-height:1.12 !important;
+    letter-spacing:-.02em !important;
+}
+</style>
 <!-- Main content landmark — required so the skip-to-content link has a target and screen readers/SEO recognise the primary content area. Closed in footer.php. -->
 <main id="main-content" role="main">
