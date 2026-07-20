@@ -297,7 +297,7 @@ li.open > .ee-blog-side-sub { display:block; }
     <ul class="ee-blog-side-list">
         <li>
             <a href="<?php echo esc_url(home_url('/blog/')); ?>" class="<?php echo $ee_current_cat === null ? 'active' : ''; ?>">
-                <span>All Categories</span>
+                <span>Latest Blogs</span>
             </a>
         </li>
         <?php foreach ($ee_cat_tops as $cat) :
