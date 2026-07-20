@@ -609,6 +609,19 @@ add_action('init', function () {
     update_option('ee_cpt_rewrite_ver', EE_CPT_REWRITE_VER);
 }, 99);
 
+/* One-shot: single blog posts live at /%postname%/ — drop the /blog/
+   prefix from post URLs. Old /blog/{post-slug}/ links 301 to the new
+   address via the extended /blog/ router below, so nothing breaks. */
+add_action('init', function () {
+    if (get_option('ee_permalinks_no_blog') === '1') return;
+    $ps = (string) get_option('permalink_structure');
+    if (strpos($ps, '%postname%') !== false && strpos($ps, 'blog') !== false) {
+        update_option('permalink_structure', '/%postname%/');
+        flush_rewrite_rules(false);
+    }
+    update_option('ee_permalinks_no_blog', '1');
+}, 98);
+
 /* /news/ must always render the news listing template. If a static Page with
    the slug 'news' exists (it wins the URL over the CPT archive on some
    permalink setups), route it to archive-news.php too — the template runs
@@ -7348,6 +7361,14 @@ add_action('template_redirect', function () {
                         set_query_var('paged', (int) $parts[3]);
                     }
                     $ee_custom_routes[$path] = array('file' => 'page-blog.php', 'title' => $cat->name);
+                } elseif ($slug) {
+                    /* Not a category → legacy /blog/{post-slug}/ URL from the
+                       old permalink structure. 301 to the new /{post-slug}/. */
+                    $ee_old_post = get_posts(array('name' => $slug, 'post_type' => 'post', 'post_status' => 'publish', 'numberposts' => 1));
+                    if ($ee_old_post) {
+                        wp_safe_redirect(get_permalink($ee_old_post[0]), 301);
+                        exit;
+                    }
                 }
             }
         }
