@@ -1831,6 +1831,24 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             });
         }
 
+        /* Keep the active heading visible inside the TOC's own scroll
+           area — when it drifts near/past the edges, re-centre it.
+           Skipped while the visitor's cursor is over the TOC so their
+           own scrolling is never fought. */
+        if (activeLink) {
+            var tocSc = document.querySelector('.ee-toc-scroll');
+            if (tocSc && tocSc.scrollHeight > tocSc.clientHeight + 4 && !tocSc.matches(':hover')) {
+                var scR = tocSc.getBoundingClientRect();
+                var lkR = activeLink.getBoundingClientRect();
+                if (lkR.top < scR.top + 10 || lkR.bottom > scR.bottom - 10) {
+                    tocSc.scrollTo({
+                        top: tocSc.scrollTop + (lkR.top - scR.top) - (tocSc.clientHeight / 2) + (lkR.height / 2),
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }
+
         /* Per-section progress rail on the TOC. Fills down to active. */
         if (tocProg && activeLink && toc) {
             var rail    = toc.parentElement; // .ee-toc-rail
