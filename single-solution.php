@@ -344,10 +344,7 @@ body.ee-solution-page strong{font-weight:700;color:var(--ink)}
 </main>
 
 <?php
-/* Logos: global home strip — one place to manage them. */
-if (function_exists('ee_render_logo_marquee')) {
-    ee_render_logo_marquee();
-}
+/* Logo strip removed site-wide (2026-07) — see functions.php note. */
 
 /* Post-content fallback — if the editor only filled the main WordPress
    content box (no custom content sections), show that copy so the page

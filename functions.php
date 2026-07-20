@@ -4714,15 +4714,9 @@ function ee_render_logo_marquee($args = array()) {
     <?php
 }
 
-/* Auto-inject on every page before the footer, unless hidden.
-   Skip the home page — front-page.php already renders its own logo wall,
-   so injecting here would duplicate it. */
-add_action('ee_before_footer', function () {
-    if (is_front_page() || is_home()) return;
-    if (function_exists('ee_should_hide_logos') && !ee_should_hide_logos()) {
-        ee_render_logo_marquee();
-    }
-});
+/* Logo-marquee auto-inject removed (2026-07): the strip no longer renders
+   on inner pages before the footer. ee_render_logo_marquee() is kept so it
+   can be called explicitly from a template if it is ever wanted back. */
 
 function ee_get_book_demo_cta() {
     $s = get_option('ee_book_demo_cta', array());

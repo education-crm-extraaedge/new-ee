@@ -605,16 +605,7 @@ body.ee-product-page strong{font-weight:700;color:var(--ink)}
 </main>
 <!-- END: Hero Section -->
 
-<!-- START: Trusted Institutions / Logo Strip (editable via Home Editor → logos) -->
-<?php
-/* Logo strip — render the SAME global strip the home page uses so the
-   editor only manages logos in one place (Home Editor → logos). Reading
-   the per-post _logos meta has been retired here. */
-if (function_exists('ee_render_logo_marquee')) {
-    ee_render_logo_marquee();
-}
-?>
-<!-- END: Trusted Institutions / Logo Strip -->
+<?php /* Logo strip removed site-wide (2026-07) — see functions.php note. */ ?>
 
 <!-- START: TOC Zone (sticky index + all content sections) -->
 <div class="toc-zone-wrapper" id="toc-zone-wrapper">
