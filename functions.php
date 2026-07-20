@@ -6559,10 +6559,42 @@ function ee_quick_nav_render_icon($name, $size = '1em') {
     $paths = ee_quick_nav_svg_paths();
     $name  = trim((string) $name);
     if (strpos($name, 'ti-') !== 0) $name = 'ti-' . ltrim($name, '- ');
-    $body  = isset($paths[$name]) ? $paths[$name] : '<circle cx="12" cy="12" r="9"/>';
     /* "1em" lets the icon size with the surrounding text. Numeric
        values fall back to "Npx". */
     $s = is_numeric($size) ? ((int) $size) . 'px' : (string) $size;
+
+    /* Branded icon files (uploads/2026/blog-page-icons) replace the
+       generic inline Tabler strokes wherever a file exists for the
+       name; everything else keeps the inline SVG fallback below. */
+    static $ee_icon_files = array(
+        'ti-home'            => 'ee-icon-home.svg',
+        'ti-package'         => 'ee-icon-products.svg',
+        'ti-building'        => 'ee-icon-industries.svg',
+        'ti-bulb'            => 'ee-icon-solutions.svg',
+        'ti-quote'           => 'ee-icon-testimonials.svg',
+        'ti-book'            => 'ee-icon-resources.svg',
+        'ti-mail'            => 'ee-icon-email.svg',
+        'ti-brand-facebook'  => 'ee-icon-facebook.svg',
+        'ti-brand-x'         => 'ee-icon-twitter-x.svg',
+        'ti-brand-twitter'   => 'ee-icon-twitter-x.svg',
+        'ti-brand-linkedin'  => 'ee-icon-linkedin.svg',
+        'ti-brand-whatsapp'  => 'ee-icon-whatsapp.svg',
+        'ti-link'            => 'ee-icon-copy-link.svg',
+        'ti-share-3'         => 'ee-icon-share.svg',
+        'ti-phone'           => 'ee-icon-call-us.svg',
+        'ti-phone-call'      => 'ee-icon-call-us.svg',
+        'ti-printer'         => 'ee-icon-print.svg',
+        'ti-rocket'          => 'ee-icon-book-demo.svg',
+        'ti-calendar-check'  => 'ee-icon-book-demo.svg',
+        'ti-file-text'       => 'ee-icon-save-pdf.svg',
+    );
+    if (isset($ee_icon_files[$name])) {
+        return '<img class="ee-qn-svg ee-qn-img" src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/' . $ee_icon_files[$name] . '" '
+             . 'alt="" loading="lazy" aria-hidden="true" '
+             . 'style="width:' . esc_attr($s) . ';height:' . esc_attr($s) . ';vertical-align:middle;flex-shrink:0;object-fit:contain;">';
+    }
+
+    $body = isset($paths[$name]) ? $paths[$name] : '<circle cx="12" cy="12" r="9"/>';
     return '<svg class="ee-qn-svg" viewBox="0 0 24 24" width="' . esc_attr($s) . '" height="' . esc_attr($s) . '" '
          . 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" '
          . 'aria-hidden="true" style="vertical-align:middle;flex-shrink:0;">' . $body . '</svg>';

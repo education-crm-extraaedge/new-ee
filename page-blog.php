@@ -161,11 +161,25 @@ get_header();
         <aside class="ee-blog-side-r" aria-label="Sidebar">
             <div class="ee-blog-social">
                 <ul>
-                    <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo urlencode(home_url('/blog/')); ?>" target="_blank" rel="noopener"><i class="fa fa-linkedin" style="color:#0077B5"></i> Share</a></li>
-                    <li><a href="mailto:?subject=ExtraaEdge%20Blog&body=<?php echo urlencode(home_url('/blog/')); ?>"><i class="fa fa-envelope-o" style="color:#3174F1"></i> E-mail</a></li>
-                    <li><a href="javascript:window.print()"><i class="fa fa-print" style="color:#666"></i> Print</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/blog/feed/')); ?>"><i class="fa fa-rss" style="color:#F26522"></i> RSS</a></li>
+                    <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo urlencode(home_url('/blog/')); ?>" target="_blank" rel="noopener"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-linkedin.svg" alt="" loading="lazy"> <span>LinkedIn</span></a></li>
+                    <li><a href="https://api.whatsapp.com/send?text=<?php echo urlencode(home_url('/blog/')); ?>" target="_blank" rel="noopener"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-whatsapp.svg" alt="" loading="lazy"> <span>WhatsApp</span></a></li>
+                    <li><a href="mailto:?subject=ExtraaEdge%20Blog&body=<?php echo urlencode(home_url('/blog/')); ?>"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-email.svg" alt="" loading="lazy"> <span>E-mail</span></a></li>
+                    <li><a href="#" class="ee-soc-copy" data-url="<?php echo esc_attr(home_url('/blog/')); ?>"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-copy-link.svg" alt="" loading="lazy"> <span>Copy Link</span></a></li>
+                    <li><a href="javascript:window.print()"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-print.svg" alt="" loading="lazy"> <span>Print</span></a></li>
+                    <li><a href="javascript:window.print()"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-icon-save-pdf.svg" alt="" loading="lazy"> <span>Save PDF</span></a></li>
                 </ul>
+                <script>
+                document.querySelectorAll('.ee-soc-copy').forEach(function(b){
+                    b.addEventListener('click', function(e){
+                        e.preventDefault();
+                        var u = b.getAttribute('data-url');
+                        (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).then(function(){
+                            b.querySelector('span').textContent = 'Copied!';
+                            setTimeout(function(){ b.querySelector('span').textContent = 'Copy Link'; }, 1800);
+                        }).catch(function(){ window.prompt('Copy this link:', u); });
+                    });
+                });
+                </script>
             </div>
             <?php ee_render_blog_form(); ?>
         </aside>

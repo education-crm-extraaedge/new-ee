@@ -639,6 +639,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-book-bubble{position:fixed;right:20px;bottom:160px;background:#fff;color:var(--b-orange) !important;border:2px solid var(--b-orange);text-decoration:none;padding:9px 18px 9px 14px;border-radius:50px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;box-shadow:0 8px 22px rgba(222,110,48,.18);z-index:990;transition:all var(--b-transition);}
 .ee-book-bubble:hover{background:var(--b-orange-light);color:var(--b-orange-dark) !important;border-color:var(--b-orange-dark);transform:translateY(-2px) scale(1.04);box-shadow:0 12px 28px rgba(222,110,48,.25);}
 .ee-book-bubble svg{color:inherit;width:18px;height:18px;}
+.ee-book-bubble img.ee-qn-img{width:18px !important;height:18px !important;}
+.ee-float-btn .ee-float-icon-wrap{overflow:hidden;background:transparent !important;}
 @media (max-width:820px){
     .ee-book-bubble{right:14px;bottom:154px;padding:9px 14px 9px 12px;font-size:12.5px;}
     .ee-book-bubble svg{width:16px;height:16px;}
@@ -1348,39 +1350,19 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                     <div class="ee-compliance-logos">
                         <!-- GDPR — EU-blue circular badge with yellow ring of stars + yellow "GDPR" -->
                         <span class="ee-cert-badge ee-cert-gdpr" aria-label="GDPR compliant">
-                            <svg viewBox="0 0 80 80" width="48" height="48" aria-hidden="true">
-                                <circle cx="40" cy="40" r="38" fill="#003399"/>
-                                <g fill="#FFCC00">
-                                    <circle cx="40" cy="9"  r="2"/><circle cx="56" cy="13" r="2"/>
-                                    <circle cx="67" cy="24" r="2"/><circle cx="71" cy="40" r="2"/>
-                                    <circle cx="67" cy="56" r="2"/><circle cx="56" cy="67" r="2"/>
-                                    <circle cx="40" cy="71" r="2"/><circle cx="24" cy="67" r="2"/>
-                                    <circle cx="13" cy="56" r="2"/><circle cx="9"  cy="40" r="2"/>
-                                    <circle cx="13" cy="24" r="2"/><circle cx="24" cy="13" r="2"/>
-                                </g>
-                                <text x="40" y="46" text-anchor="middle" fill="#FFCC00" font-family="Arial Black, Arial, sans-serif" font-size="16" font-weight="900">GDPR</text>
-                            </svg>
+                            <img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-gdpr-compliant.svg" alt="GDPR compliant" loading="lazy" style="height:48px;width:auto;display:block">
                             <span class="ee-cert-label">GDPR<small>Compliant</small></span>
                         </span>
 
                         <!-- CCPA — California-blue shield with bold white "CCPA" -->
                         <span class="ee-cert-badge ee-cert-ccpa" aria-label="CCPA compliant">
-                            <svg viewBox="0 0 80 80" width="48" height="48" aria-hidden="true">
-                                <path d="M40 4 L72 17 V44 C72 60 58 72 40 76 C22 72 8 60 8 44 V17 Z" fill="#005EB8"/>
-                                <path d="M40 4 L72 17 V44 C72 60 58 72 40 76 C22 72 8 60 8 44 V17 Z" fill="none" stroke="#fff" stroke-width="1.5" stroke-opacity=".5"/>
-                                <text x="40" y="48" text-anchor="middle" fill="#fff" font-family="Arial Black, Arial, sans-serif" font-size="15" font-weight="900">CCPA</text>
-                            </svg>
+                            <img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-ccpa-compliant.svg" alt="CCPA compliant" loading="lazy" style="height:48px;width:auto;display:block">
                             <span class="ee-cert-label">CCPA<small>Compliant</small></span>
                         </span>
 
                         <!-- ISO 27001 — Navy circular medallion with orange ring -->
                         <span class="ee-cert-badge ee-cert-iso" aria-label="ISO 27001 certified">
-                            <svg viewBox="0 0 80 80" width="48" height="48" aria-hidden="true">
-                                <circle cx="40" cy="40" r="38" fill="#19335D"/>
-                                <circle cx="40" cy="40" r="32" fill="none" stroke="#DE6E30" stroke-width="2"/>
-                                <text x="40" y="36" text-anchor="middle" fill="#fff" font-family="Arial Black, Arial, sans-serif" font-size="13" font-weight="900">ISO</text>
-                                <text x="40" y="54" text-anchor="middle" fill="#DE6E30" font-family="Arial Black, Arial, sans-serif" font-size="11" font-weight="900">27001</text>
-                            </svg>
+                            <img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-iso-27001-certified.svg" alt="ISO 27001 certified" loading="lazy" style="height:48px;width:auto;display:block">
                             <span class="ee-cert-label">ISO 27001<small>Certified</small></span>
                         </span>
                     </div>
@@ -1403,11 +1385,11 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
     <div class="ee-floating-contact" role="region" aria-label="Quick contact">
         <a class="ee-float-btn ee-float-whatsapp" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="WhatsApp">
-            <span class="ee-float-icon-wrap"><?php echo ee_icon('ti-brand-whatsapp'); ?></span>
+            <span class="ee-float-icon-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-fab-whatsapp.svg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block"></span>
             <span class="ee-float-label"><small>Chat on</small><strong>WhatsApp</strong></span>
         </a>
         <a class="ee-float-btn ee-float-call" href="tel:+918956982897" aria-label="Call us">
-            <span class="ee-float-icon-wrap"><?php echo ee_icon('ti-phone-call'); ?></span>
+            <span class="ee-float-icon-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-fab-call-us.svg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block"></span>
             <span class="ee-float-label"><small>Call us</small><strong>+91 89569 82897</strong></span>
         </a>
     </div>
