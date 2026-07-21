@@ -231,12 +231,15 @@ if (!defined('ABSPATH')) exit;
                 <div class="ee-link-item"><i class="fa-solid fa-handshake"></i><a href="tel:+919028065511">9028065511</a></div>
                 <div class="ee-link-item"><i class="fa-solid fa-headset"></i><a href="tel:+918956982897">8956982897</a></div>
             </div>
+            <?php /* HR card is careers-only — hidden on every other page */
+            if (is_page('careers') || is_post_type_archive('career') || is_singular('career')) : ?>
             <div class="ee-glass-card ee-reveal">
                 <span class="ee-label">Talent</span>
                 <h3 class="ee-card-title">Openings & HR</h3>
                 <div class="ee-link-item"><i class="fa-solid fa-user-plus"></i><a href="tel:+918956755927">8956755927</a></div>
                 <div class="ee-link-item"><i class="fa-brands fa-whatsapp"></i><a href="https://api.whatsapp.com/send/?phone=918956982897&text=Hi" target="_blank" rel="noopener">Chat with HR</a></div>
             </div>
+            <?php endif; ?>
         </div>
     </section>
 
