@@ -422,7 +422,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
         /* Dropdown link rows */
         #site-header .eh-dl { display:flex; align-items:flex-start; gap:.55rem; padding:.42rem .5rem; color:var(--eh-text-dark); text-decoration:none; border-radius:7px; transition:all .15s ease; margin-bottom:.1rem; position:relative; }
-        #site-header .eh-dl:hover { background:#F8FAFC; transform:translateX(2px); }
+        #site-header .eh-dl:hover { background:#F8FAFC; transform:translateX(2px) scale(1.05); box-shadow:0 6px 18px rgba(25,51,93,.10); }
         #site-header .eh-dl:hover .eh-dl-title { color:#19335D; }
         #site-header .eh-dl:hover .eh-dl-desc  { color:#64748B; }
         #site-header .eh-dl-icon { width:28px; height:28px; background:linear-gradient(135deg,var(--eh-bg-subtle),#E8EEF3); border-radius:7px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:.9rem; padding:4px; transition:all .2s ease; color:var(--eh-primary); overflow:hidden; }
