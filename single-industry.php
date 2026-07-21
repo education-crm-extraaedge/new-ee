@@ -304,7 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
-/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-badge-full -->\n";
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-hdrhide -->\n";
 ?>
 
 <style>
@@ -1197,4 +1197,26 @@ window.addEventListener('scroll', function(){
 })();
 </script>
 
+<style id="ee-hdr-autohide">
+#site-header{transition:transform .3s cubic-bezier(.4,0,.2,1)!important;will-change:transform}
+#site-header.ee-hdr-away{transform:translateY(-110%)!important;box-shadow:none!important}
+</style>
+<script>
+/* Self-contained header auto-hide for this template — works even if the
+   theme header's own hide script is older or missing. */
+(function(){
+  var h = document.getElementById('site-header') || document.querySelector('header');
+  if (!h) return;
+  var lastY = window.scrollY || 0, tick = false;
+  window.addEventListener('scroll', function(){
+    if (tick) return; tick = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY || 0;
+      if (y > lastY && y > 200) { h.classList.add('ee-hdr-away'); }
+      else { h.classList.remove('ee-hdr-away'); }
+      lastY = y; tick = false;
+    });
+  }, { passive: true });
+})();
+</script>
 <?php get_footer(); ?>
