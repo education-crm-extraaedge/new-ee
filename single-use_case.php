@@ -357,11 +357,11 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .green-dot{width:8px;height:8px;background:#10B981;border-radius:50%;position:relative;flex-shrink:0}
 .green-dot::after{content:'';position:absolute;inset:0;background:#10B981;border-radius:50%;animation:pulse-ring 2s ease-out infinite}
 .float-badge{position:absolute;background:rgba(255,255,255,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);padding:10px 18px;border-radius:var(--radius-full);box-shadow:var(--shadow-md);display:flex;align-items:center;gap:8px;font-family:var(--font-h);font-size:11px;font-weight:700;color:var(--blue);border:1px solid rgba(222,110,48,.18);z-index:4;white-space:nowrap}
-.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#fff;font-family:var(--font-h);font-weight:700;font-size:15px;padding:16px 36px;border-radius:var(--radius-md);transition:var(--transition);box-shadow:0 8px 24px rgba(222,110,48,.30);border:2px solid transparent}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#fff;font-family:var(--font-h);font-weight:700;font-size:14px;padding:12px 26px;border-radius:var(--radius-md);transition:var(--transition);box-shadow:0 8px 24px rgba(222,110,48,.30);border:2px solid transparent}
 .btn-primary:hover,.btn-primary:focus{transform:translateY(-3px);box-shadow:0 16px 36px rgba(222,110,48,.40);background:#c85d20}
-.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--blue);font-family:var(--font-h);font-weight:700;font-size:15px;padding:16px 36px;border-radius:var(--radius-md);transition:var(--transition);border:2px solid var(--blue)}
+.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--blue);font-family:var(--font-h);font-weight:700;font-size:14px;padding:12px 26px;border-radius:var(--radius-md);transition:var(--transition);border:2px solid var(--blue)}
 .btn-secondary:hover,.btn-secondary:focus{background:var(--blue);color:#fff;transform:translateY(-3px)}
-.btn-rounded{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#fff;font-family:var(--font-h);font-weight:700;font-size:15px;padding:18px 48px;border-radius:var(--radius-full);transition:var(--transition);box-shadow:0 8px 24px rgba(222,110,48,.30)}
+.btn-rounded{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#fff;font-family:var(--font-h);font-weight:700;font-size:14px;padding:12px 26px;border-radius:var(--radius-full);transition:var(--transition);box-shadow:0 8px 24px rgba(222,110,48,.30);border:2px solid transparent}
 .btn-rounded:hover,.btn-rounded:focus{transform:translateY(-3px);box-shadow:0 16px 36px rgba(222,110,48,.40);background:#c85d20}
 .feature-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
 .feature-item{display:flex;align-items:flex-start;gap:14px;background:var(--off-white);padding:14px 18px;border-radius:var(--radius-md);border-left:4px solid var(--gray-200);transition:var(--transition)}
@@ -641,7 +641,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .ai-cta-h2{font-family:var(--font-h);font-size:clamp(32px,4.5vw,50px);font-weight:700;line-height:1.15;margin-bottom:16px;color:var(--blue)}
 .ai-cta-sub{font-size:clamp(16px,2vw,19px);line-height:1.7;margin-bottom:28px;color:var(--gray-600);max-width:540px}
 .ai-cta-actions{display:flex;flex-direction:column;gap:16px}
-.btn-cta-rounded{display:inline-block;background:var(--orange);color:#fff;padding:18px 44px;font-family:var(--font-h);font-size:17px;font-weight:700;border-radius:var(--radius-full);transition:var(--transition);box-shadow:0 12px 30px rgba(222,110,48,.30);width:fit-content}
+.btn-cta-rounded{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#fff;padding:12px 26px;font-family:var(--font-h);font-size:14px;font-weight:700;border:2px solid transparent;border-radius:var(--radius-full);transition:var(--transition);box-shadow:0 12px 30px rgba(222,110,48,.30);width:fit-content}
 .btn-cta-rounded:hover,.btn-cta-rounded:focus{transform:translateY(-5px);box-shadow:0 20px 40px rgba(222,110,48,.45);background:#c75c24}
 .ai-trust{display:flex;align-items:center;gap:10px;font-family:var(--font-h);font-size:13px;font-weight:600;color:var(--gray-600)}
 .ai-story-engine{position:relative;height:520px;display:flex;justify-content:center;align-items:center}
@@ -891,7 +891,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
           <?php if($bottom_label): ?><div class="cta-label-wrap"><span class="pulse-dot" aria-hidden="true"></span><?php echo esc_html($bottom_label); ?></div><?php endif; ?>
           <?php if($bottom_h2): ?><h2 id="bottom-cta-heading" class="cta-h2"><?php echo esc_html($bottom_h2); ?></h2><?php endif; ?>
           <?php if($bottom_h3): ?><p class="cta-h3"><?php echo ee_inline_links($bottom_h3); ?></p><?php endif; ?>
-          <?php if($bottom_cta_text): ?><a href="<?php echo esc_url($bottom_cta_url ?: '#admission-form'); ?>" class="btn-primary" style="font-size:17px;padding:18px 40px" aria-label="<?php echo esc_attr($bottom_cta_text); ?>"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg><?php echo esc_html($bottom_cta_text); ?></a><?php endif; ?>
+          <?php if($bottom_cta_text): ?><a href="<?php echo esc_url($bottom_cta_url ?: '#admission-form'); ?>" class="btn-primary" aria-label="<?php echo esc_attr($bottom_cta_text); ?>"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg><?php echo esc_html($bottom_cta_text); ?></a><?php endif; ?>
         </div>
         <?php if(!empty($products)): ?>
         <aside class="cta-visual-card reveal" role="complementary">
