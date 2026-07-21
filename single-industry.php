@@ -304,7 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
-/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-btns -->\n";
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-bottomcta -->\n";
 ?>
 
 <style>
@@ -591,13 +591,13 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 /* Section images sit flat on the background — no floating shadow or motion. */
 .alt-img{width:100%;height:auto;border-radius:20px;display:block}
 
-.bottom-cta{background:var(--white);padding:40px 0;overflow:hidden}
-.bottom-cta-inner{max-width:1240px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:48px;flex-wrap:wrap}
-.cta-content{flex:1;min-width:300px}
+.bottom-cta{background:var(--white);padding:40px 0;overflow:hidden}.bottom-cta .btn-primary{font-size:13px;padding:9px 20px;width:auto}
+.bottom-cta-inner{max-width:1240px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;align-items:center;gap:32px;text-align:center}
+.cta-content{flex:none;width:100%;max-width:760px;min-width:0}
 .cta-label-wrap{display:inline-flex;align-items:center;gap:10px;background:var(--orange-pale);color:var(--orange);font-family:var(--font-h);font-size:13px;font-weight:600;padding:8px 18px;border-radius:var(--radius-full);margin-bottom:18px;border:1px solid rgba(222,110,48,.15)}
 .cta-h2{font-family:var(--font-h);font-size:clamp(30px,4vw,48px);color:var(--blue);margin-bottom:16px;line-height:1.1;font-weight:800}
 .cta-h3{font-family:var(--font-b);font-size:clamp(16px,1.8vw,19px);color:var(--gray-600);margin-bottom:28px;font-weight:400;max-width:560px;line-height:1.7}
-.cta-visual-card{flex:1;min-width:340px;background:var(--white);border:1px solid var(--gray-200);padding:32px;border-radius:var(--radius-xl);box-shadow:var(--shadow-xl)}
+.cta-visual-card{flex:none;width:100%;max-width:640px;min-width:0;margin:0 auto;background:var(--white);border:1px solid var(--gray-200);padding:32px;border-radius:var(--radius-xl);box-shadow:var(--shadow-xl)}
 .featured-label{font-family:var(--font-h);font-size:11px;font-weight:800;color:var(--gray-400);letter-spacing:3px;margin-bottom:18px;text-align:center;text-transform:uppercase}
 .product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .product-item{background:var(--off-white);padding:18px;border-radius:16px;border:1px solid var(--gray-200);display:flex;flex-direction:column;transition:var(--transition)}
