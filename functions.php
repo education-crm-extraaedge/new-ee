@@ -7294,9 +7294,18 @@ remove_action('wp_head', 'feed_links_extra', 3);
 remove_action('wp_head', 'print_emoji_detection_script', 7);
 remove_action('wp_print_styles', 'print_emoji_styles');
 /* Dashboard too: stop WP swapping admin-screen emoji for CDN images
-   (cdn.jsdelivr.net twemoji svgs) — native OS emoji render instead. */
+   (cdn.jsdelivr.net twemoji svgs) — native OS emoji render instead.
+   Re-run late on init as well, in case a plugin re-registers the hooks. */
 remove_action('admin_print_scripts', 'print_emoji_detection_script');
 remove_action('admin_print_styles', 'print_emoji_styles');
+add_action('init', function () {
+    remove_action('admin_print_scripts', 'print_emoji_detection_script');
+    remove_action('admin_print_styles', 'print_emoji_styles');
+    remove_action('wp_head', 'print_emoji_detection_script', 7);
+    remove_action('wp_print_styles', 'print_emoji_styles');
+    remove_filter('the_content_feed', 'wp_staticize_emoji');
+    remove_filter('comment_text_rss', 'wp_staticize_emoji');
+}, 99);
 add_filter('the_generator', '__return_empty_string');
 add_filter('emoji_svg_url', '__return_false');
 
