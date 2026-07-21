@@ -1313,6 +1313,8 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
             var hdr = document.getElementById('site-header');
             if (!hdr) return;
             var isPost   = document.body.classList.contains('single-post') ||
+                           document.body.classList.contains('single-industry') ||
+                           document.body.classList.contains('single-use_case') ||
                            document.body.classList.contains('ee-singular') &&
                            document.body.classList.contains('single');
             var lastY    = window.scrollY || 0;
