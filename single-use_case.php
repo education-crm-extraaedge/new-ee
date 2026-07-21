@@ -508,7 +508,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 #ee-form-7 .iti { width: 100% !important; display: block !important; position: relative; }
 .hero-form-card .iti input[type="tel"],
 #ee-form-7 .iti input[type="tel"] {
-    padding-left: 78px !important;
+    padding-left: 96px !important;
     width: 100% !important;
 }
 .hero-form-card .iti__flag-container,

@@ -304,7 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
-/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-pill -->\n";
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-phone -->\n";
 ?>
 
 <style>
@@ -509,7 +509,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 #ee-form-7 .iti { width: 100% !important; display: block !important; position: relative; }
 .hero-form-card .iti input[type="tel"],
 #ee-form-7 .iti input[type="tel"] {
-    padding-left: 78px !important;
+    padding-left: 96px !important;
     width: 100% !important;
 }
 .hero-form-card .iti__flag-container,
