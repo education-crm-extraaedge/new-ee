@@ -304,7 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
-/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-badges -->\n";
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-badges2 -->\n";
 ?>
 
 <style>
@@ -726,9 +726,9 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
           <?php /* no compliance rows saved? default to the branded badge set */
           if (empty($compliance)) {
               $compliance = array(
-                  array('text' => 'GDPR Compliant',      'image' => 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-gdpr-compliant.svg'),
-                  array('text' => 'CCPA Compliant',      'image' => 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-ccpa-compliant.svg'),
-                  array('text' => 'ISO 27001 Certified', 'image' => 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-iso-27001-certified.svg'),
+                  array('text' => 'GDPR Compliant'),
+                  array('text' => 'CCPA Compliant'),
+                  array('text' => 'ISO 27001 Certified'),
               );
           }
           ?>
@@ -741,7 +741,10 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
             $ckey  = ee_cert_badge_key($ctext);
             if ($cimg === '' && $ckey === 'generic' && $ctext === '') continue;
           ?><div class="compliance-item" role="img" aria-label="<?php echo esc_attr($ctext ?: 'Compliance badge'); ?>"><?php
-            if ($cimg !== '') {
+            if ($ckey !== 'generic') {
+                /* known badge — bundled SVG renders correctly everywhere */
+                echo ee_cert_badge_svg($ckey, 40);
+            } elseif ($cimg !== '') {
                 echo '<img src="' . esc_url($cimg) . '" alt="" width="40" height="40" loading="lazy" decoding="async" onerror="this.style.display=\'none\';var s=this.nextElementSibling;if(s)s.style.display=\'block\';">';
                 echo str_replace('style="display:block;', 'style="display:none;', ee_cert_badge_svg($ckey, 40));
             } else {
