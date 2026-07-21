@@ -304,7 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
-/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-aidemo-hide -->\n";
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-testimore -->\n";
 ?>
 
 <style>
@@ -618,7 +618,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .testi-metric:hover{border-color:var(--orange);transform:translateY(-8px);box-shadow:var(--shadow-md)}
 .testi-metric-val{display:block;font-family:var(--font-h);font-size:38px;font-weight:900;color:var(--orange);margin-bottom:4px}
 .testi-metric-lab{font-family:var(--font-h);font-size:11px;font-weight:700;color:var(--gray-600);text-transform:uppercase;letter-spacing:1px}
-.testi-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr));gap:24px}
+.testi-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr));gap:24px}.testi-more{text-align:center;margin-top:28px}.testi-more .btn-primary{width:auto;display:inline-flex}
 .testi-card{background:#fff;border-radius:24px;overflow:hidden;border:1px solid rgba(25,51,93,.05);box-shadow:var(--shadow-xl);display:flex;flex-direction:column;transition:var(--transition)}
 .testi-card:hover{transform:translateY(-12px) scale(1.01);box-shadow:0 40px 70px -15px rgba(25,51,93,.18)}
 .vid-wrap{width:100%;aspect-ratio:16/9;background:#000;position:relative;cursor:pointer;overflow:hidden}
@@ -951,6 +951,13 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
           </article>
           <?php endforeach; ?>
         </div>
+        <?php
+        /* "Watch more" CTA — editors can override via _testi_more_text /
+           _testi_more_url meta; defaults link to the testimonials archive */
+        $testi_more_text = get_post_meta($pid, '_testi_more_text', true) ?: 'Watch More Success Stories';
+        $testi_more_url  = get_post_meta($pid, '_testi_more_url',  true) ?: (get_post_type_archive_link('testimonial') ?: home_url('/testimonials/'));
+        ?>
+        <div class="testi-more reveal"><a href="<?php echo esc_url($testi_more_url); ?>" class="btn-primary" aria-label="<?php echo esc_attr($testi_more_text); ?>"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3" fill="currentColor" stroke="none"/></svg><?php echo esc_html($testi_more_text); ?></a></div>
       </div>
     </section>
     <div class="section-divider" role="separator" aria-hidden="true"></div>
