@@ -304,7 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
-/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-flow -->\n";
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-gercenter -->\n";
 ?>
 
 <style>
@@ -553,7 +553,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .edu-crm-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:start;padding:0 24px}
 .edu-crm-h2{font-family:var(--font-h);font-size:clamp(2rem,4.5vw,2.8rem);margin-bottom:20px;line-height:1.1;color:var(--blue);font-weight:800}
 .edu-crm-p{font-size:1.05rem;line-height:1.75;margin-bottom:16px;color:var(--gray-600);text-align:justify}
-.growth-card{background:var(--blue);color:#fff;padding:16px 18px;border-radius:var(--radius-lg);margin-top:20px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.growth-card{background:var(--blue);color:#fff;padding:16px 18px;border-radius:var(--radius-lg);margin:20px auto 0;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;grid-column:1/-1;width:100%;max-width:860px}
 .growth-card::after{content:'';position:absolute;top:-50%;right:-10%;width:200px;height:200px;background:var(--orange);opacity:.12;border-radius:50%}
 .growth-val{font-family:var(--font-h);font-size:1.6rem;font-weight:900;color:var(--orange);line-height:1;flex-shrink:0}
 .growth-text{font-size:.8rem;opacity:.9;line-height:1.55}
@@ -825,7 +825,6 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
             <?php if($educrm_p1): ?><p class="edu-crm-p reveal"><?php echo ee_inline_links($educrm_p1); ?></p><?php endif; ?>
             <?php if($educrm_p2): ?><p class="edu-crm-p reveal"><?php echo ee_inline_links($educrm_p2); ?></p><?php endif; ?>
             <?php if($educrm_p3): ?><p class="edu-crm-p reveal"><?php echo ee_inline_links($educrm_p3); ?></p><?php endif; ?>
-            <?php if($growth_val || $growth_text): ?><aside class="growth-card reveal" role="complementary"><?php if($growth_val): ?><div class="growth-val"><?php echo esc_html($growth_val); ?></div><?php endif; ?><?php if($growth_text): ?><div class="growth-text"><?php echo ee_inline_links($growth_text); ?></div><?php endif; ?></aside><?php endif; ?>
           </article>
           <?php if(!empty($flow_steps)): ?>
           <aside class="flow-panel reveal" id="flow-zone" role="complementary" aria-label="Admission processing flow">
@@ -840,6 +839,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
             </ol>
           </aside>
           <?php endif; ?>
+          <?php if($growth_val || $growth_text): ?><aside class="growth-card reveal" role="complementary"><?php if($growth_val): ?><div class="growth-val"><?php echo esc_html($growth_val); ?></div><?php endif; ?><?php if($growth_text): ?><div class="growth-text"><?php echo ee_inline_links($growth_text); ?></div><?php endif; ?></aside><?php endif; ?>
         </div>
       </div>
     </section>
