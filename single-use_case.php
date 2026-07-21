@@ -701,7 +701,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .ee-float-nav a:hover{color:var(--tile-fg);transform:translateY(-2px)}
 .ee-float-nav a:hover .ee-fn-ico{transform:scale(1.06);background:#FDF0E7;border-color:var(--orange);color:var(--orange);box-shadow:0 6px 14px rgba(222,110,48,.18)}
 .ee-float-nav a span{display:block;white-space:nowrap}
-@media(max-width:1200px){.ee-float-nav{display:none!important}}
+@media(max-width:820px){.ee-float-nav{display:none!important}}
 @media(max-width:1200px){.toc-zone-wrapper{display:block}.toc-column{display:none}.toc-content-column{width:100%}}
 @media(max-width:1150px){.hero-layout{grid-template-columns:minmax(0,1fr);text-align:center;gap:30px}.hero-desc,.hero-badge{margin-left:auto;margin-right:auto}.proof-bar{border-left:0;border-top:5px solid var(--orange);border-radius:var(--radius-md);text-align:left}.cta-row,.tag-row,.compliance-row{justify-content:center}.hero-form-card{max-width:520px;margin:0 auto}.edu-crm-layout{grid-template-columns:minmax(0,1fr);padding:20px 20px;gap:30px}.edu-crm-layout>*,.hero-layout>*{min-width:0}.flow-panel{position:relative;top:0}}
 @media(max-width:1024px){.alt-layout{flex-direction:column;text-align:center;padding:20px 20px;gap:30px}.alt-content{order:1!important}.alt-visual{order:2!important;margin-top:16px;margin-bottom:0;width:100%}.feature-item{text-align:left}.feat-card{flex:0 1 calc(25% - 12px);max-width:none}.bottom-cta-inner{flex-direction:column;gap:26px;align-items:center;text-align:center}.cta-content{width:100%}.cta-visual-card{flex:none;width:100%;max-width:640px;min-width:0;margin:0 auto}.cta-h3{margin-left:auto;margin-right:auto}.ai-demo-inner{grid-template-columns:minmax(0,1fr);gap:30px}.ai-demo-inner>*,.testi-cards>*,.alt-layout>*{min-width:0;max-width:100%}.ai-cta-content{text-align:center}.ai-cta-sub,.btn-cta-rounded{margin-left:auto;margin-right:auto}.ai-trust{justify-content:center}.testi-cards{grid-template-columns:minmax(0,1fr)}}
@@ -1230,8 +1230,8 @@ if (!empty($eqn_items)) : ?>
   function upd(){
     var y = window.scrollY || 0;
     var nearFooter = false;
-    if (footer) { nearFooter = footer.getBoundingClientRect().top < window.innerHeight * .9; }
-    nav.classList.toggle('ee-visible', y > 700 && !nearFooter);
+    if (footer) { nearFooter = footer.getBoundingClientRect().top < window.innerHeight * .35; }
+    nav.classList.toggle('ee-visible', y > 300 && !nearFooter);
   }
   window.addEventListener('scroll', upd, { passive: true });
   upd();
