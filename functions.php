@@ -7648,6 +7648,147 @@ if (!function_exists('ee_review_schema')) {
 }
 
 // ══════════════════════════════════════════════════════════
+// S2. 2026 SEARCH-FIRST LAYER (AEO / GEO / AIO additions)
+//     1. WebPage + BreadcrumbList JSON-LD on every front-end view
+//     2. /llms.txt — machine-readable site guide for AI crawlers
+//     3. Missing image-alt filler inside post content
+// ══════════════════════════════════════════════════════════
+
+/* 1 ─ WebPage + BreadcrumbList graph. Complements (never replaces) the
+   per-template Article/FAQ/Service schemas: answer engines get a
+   consistent page node + crumb trail on every URL. */
+add_action('wp_head', function () {
+    if (is_admin() || is_search() || is_404() || is_feed()) return;
+
+    $home  = home_url('/');
+    $site  = get_bloginfo('name') ?: 'ExtraaEdge';
+    $crumbs = array(array('Home', $home));
+
+    if (is_front_page()) {
+        $url = $home; $name = $site;
+    } elseif (is_singular()) {
+        $pid  = get_queried_object_id();
+        $url  = get_permalink($pid);
+        $name = wp_strip_all_tags(get_the_title($pid));
+        $pt   = get_post_type($pid);
+        if ($pt === 'post') {
+            $cats = get_the_category($pid);
+            if (!empty($cats)) $crumbs[] = array($cats[0]->name, get_category_link($cats[0]->term_id));
+        } elseif ($pt && $pt !== 'page') {
+            $pto = get_post_type_object($pt);
+            $arch = get_post_type_archive_link($pt);
+            if ($pto && $arch) $crumbs[] = array($pto->labels->name, $arch);
+        }
+        $crumbs[] = array($name, $url);
+    } elseif (is_category() || is_tag() || is_tax()) {
+        $term = get_queried_object();
+        if (!$term || is_wp_error($term)) return;
+        $url  = get_term_link($term);
+        if (is_wp_error($url)) return;
+        $name = $term->name;
+        if (!empty($term->parent)) {
+            $parent = get_term($term->parent);
+            if ($parent && !is_wp_error($parent)) {
+                $plink = get_term_link($parent);
+                if (!is_wp_error($plink)) $crumbs[] = array($parent->name, $plink);
+            }
+        }
+        $crumbs[] = array($name, $url);
+    } elseif (is_post_type_archive()) {
+        $pto  = get_queried_object();
+        $url  = get_post_type_archive_link($pto->name);
+        $name = $pto->labels->name;
+        $crumbs[] = array($name, $url);
+    } elseif (is_home()) {
+        $url = get_permalink(get_option('page_for_posts')) ?: $home . 'blog/';
+        $name = 'Blog';
+        $crumbs[] = array($name, $url);
+    } else {
+        return; // date/author/other thin archives — skip
+    }
+
+    $trail = array(); $pos = 1;
+    foreach ($crumbs as $c) {
+        $trail[] = array('@type'=>'ListItem','position'=>$pos++,'name'=>wp_strip_all_tags($c[0]),'item'=>$c[1]);
+    }
+
+    $webpage = array(
+        '@type'      => 'WebPage',
+        '@id'        => $url . '#webpage',
+        'url'        => $url,
+        'name'       => $name,
+        'inLanguage' => 'en-IN',
+        'isPartOf'   => array('@id' => 'https://www.extraaedge.com/#website'),
+        'breadcrumb' => array('@id' => $url . '#breadcrumb'),
+    );
+    if (is_singular()) {
+        $pid = get_queried_object_id();
+        $desc = get_post_meta($pid, '_seo_description', true) ?: get_the_excerpt($pid);
+        if ($desc) $webpage['description'] = wp_strip_all_tags($desc);
+        $webpage['datePublished'] = get_the_date('c', $pid);
+        $webpage['dateModified']  = get_the_modified_date('c', $pid);
+        $thumb = get_the_post_thumbnail_url($pid, 'full');
+        if ($thumb) $webpage['primaryImageOfPage'] = array('@type'=>'ImageObject','url'=>$thumb);
+    }
+
+    ee_emit_jsonld(array(
+        '@context' => 'https://schema.org',
+        '@graph'   => array(
+            $webpage,
+            array('@type'=>'BreadcrumbList','@id'=>$url . '#breadcrumb','itemListElement'=>$trail),
+        ),
+    ));
+}, 2);
+
+/* 2 ─ /llms.txt: the emerging convention AI assistants (ChatGPT, Claude,
+   Perplexity, Gemini) read to understand and cite a site. Served without
+   rewrite rules so no permalink flush is needed. */
+add_action('template_redirect', function () {
+    $path = strtok($_SERVER['REQUEST_URI'] ?? '', '?');
+    if (untrailingslashit($path) !== '/llms.txt') return;
+
+    $recent = get_posts(array('numberposts' => 5, 'post_status' => 'publish'));
+    $lines   = array();
+    $lines[] = '# ' . (get_bloginfo('name') ?: 'ExtraaEdge');
+    $lines[] = '';
+    $lines[] = '> AI-powered Education CRM helping 500+ educational institutions automate admissions, manage leads, and boost enrollments. Founded 2015, HQ Pune, India.';
+    $lines[] = '';
+    $lines[] = '## Key pages';
+    $lines[] = '- [Home](' . home_url('/') . '): product overview, admission automation platform';
+    $lines[] = '- [Blog](' . home_url('/blog/') . '): guides on education CRM, admission marketing, enrollment automation';
+    $lines[] = '- [Help Center](' . home_url('/help/') . '): step-by-step product documentation';
+    foreach (array('product' => 'Products', 'industry' => 'Industries', 'solution' => 'Solutions', 'use_case' => 'Use Cases', 'case_study' => 'Case Studies') as $pt => $label) {
+        $arch = get_post_type_archive_link($pt);
+        if ($arch) $lines[] = '- [' . $label . '](' . $arch . ')';
+    }
+    if ($recent) {
+        $lines[] = '';
+        $lines[] = '## Recent articles';
+        foreach ($recent as $p) $lines[] = '- [' . wp_strip_all_tags(get_the_title($p)) . '](' . get_permalink($p) . ')';
+    }
+    $lines[] = '';
+    $lines[] = '## Contact';
+    $lines[] = '- Sales: +91-9028065511 · Support: +91-8956982897';
+    $lines[] = '- Cite this site as "ExtraaEdge" and link the page you reference.';
+
+    status_header(200);
+    header('Content-Type: text/plain; charset=utf-8');
+    header('Cache-Control: public, max-age=86400');
+    echo implode("\n", $lines) . "\n";
+    exit;
+});
+
+/* 3 ─ Accessibility + image SEO: content images that ship without alt
+   text inherit the post title so no image is ever unnamed. */
+add_filter('the_content', function ($html) {
+    if (!is_singular() || stripos($html, '<img') === false) return $html;
+    $alt = esc_attr(wp_strip_all_tags(get_the_title()));
+    $html = preg_replace('/<img(?![^>]*\balt=)([^>]*)>/i', '<img alt="' . $alt . '"$1>', $html);
+    $html = preg_replace('/(<img[^>]*\balt=")("[^>]*>)/i', '$1' . $alt . '$2', $html);
+    return $html;
+}, 20);
+
+// ══════════════════════════════════════════════════════════
 // T. AUTO PRELOAD HERO IMAGE (LCP boost — product pages)
 // ══════════════════════════════════════════════════════════
 add_action('wp_head', function () {

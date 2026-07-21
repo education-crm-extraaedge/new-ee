@@ -32,19 +32,32 @@ add_action('wp_head', function () use ($pid, $f, $faqs) {
     /* Article schema */
     $article = array(
         '@context'      => 'https://schema.org',
-        '@type'         => 'Article',
+        '@type'         => 'BlogPosting',
         'headline'      => $title,
         'description'   => wp_strip_all_tags($excerpt),
         'mainEntityOfPage' => array('@type' => 'WebPage', '@id' => get_permalink($pid)),
-        'author'        => array('@type' => 'Person', 'name' => get_the_author_meta('display_name', get_post_field('post_author', $pid))),
+        'author'        => array(
+            '@type' => 'Person',
+            'name'  => get_the_author_meta('display_name', get_post_field('post_author', $pid)),
+            'url'   => get_author_posts_url(get_post_field('post_author', $pid)),
+        ),
         'publisher'     => array(
             '@type' => 'Organization',
+            '@id'   => 'https://www.extraaedge.com/#organization',
             'name'  => get_bloginfo('name'),
             'logo'  => array('@type' => 'ImageObject', 'url' => 'https://www.extraaedge.com/assets/logo.png'),
         ),
         'datePublished' => get_the_date('c', $pid),
         'dateModified'  => get_the_modified_date('c', $pid),
+        'inLanguage'    => 'en-IN',
+        'wordCount'     => str_word_count(wp_strip_all_tags(get_post_field('post_content', $pid))),
+        'speakable'     => array(
+            '@type'       => 'SpeakableSpecification',
+            'cssSelector' => array('.ee-blog-title', '.ee-blog-body p:first-of-type'),
+        ),
     );
+    $ee_cats = get_the_category($pid);
+    if (!empty($ee_cats)) $article['articleSection'] = $ee_cats[0]->name;
     if ($img) $article['image'] = $img;
     echo "\n<script type=\"application/ld+json\">" . wp_json_encode($article, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
 

@@ -38,7 +38,7 @@ $ee_site_tag    = get_bloginfo('description') ?: 'AI-Powered Education CRM for A
 $ee_home_url    = home_url('/');
 $ee_is_singular = is_singular();
 $ee_post_id     = $ee_is_singular ? get_queried_object_id() : 0;
-$ee_canonical   = $ee_is_singular ? (get_post_meta($ee_post_id, '_canonical_url', true) ?: get_permalink($ee_post_id)) : ($ee_home_url . ltrim($_SERVER['REQUEST_URI'] ?? '', '/'));
+$ee_canonical   = $ee_is_singular ? (get_post_meta($ee_post_id, '_canonical_url', true) ?: get_permalink($ee_post_id)) : ($ee_home_url . ltrim(strtok($_SERVER['REQUEST_URI'] ?? '', '?'), '/'));
 $ee_seo_desc    = $ee_is_singular ? (get_post_meta($ee_post_id, '_seo_description', true) ?: $ee_site_tag) : $ee_site_tag;
 $ee_og_image    = $ee_is_singular ? (get_post_meta($ee_post_id, '_og_image', true) ?: get_the_post_thumbnail_url($ee_post_id, 'full')) : '';
 if (!$ee_og_image) $ee_og_image = 'https://www.extraaedge.com/wp-content/uploads/2024/12/extraaedge-og-default.png';
@@ -90,6 +90,8 @@ if ($ee_is_home) {
         if ($pm_tw_card)   $ee_tw_card_type  = $pm_tw_card;
     }
 }
+/* Thin/utility pages must never compete in the index (crawl budget + dupes). */
+if (is_search() || is_404()) $ee_robots_meta = 'noindex, follow';
 
 /* ── Bullet-proof page title ──
    Resolve the <title> string ourselves so the page always has a
