@@ -326,7 +326,7 @@ a{text-decoration:none;color:inherit;transition:var(--transition)}
 button{font-family:inherit;border:none;cursor:pointer;background:none}
 .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 
-.toc-zone-wrapper{display:grid;grid-template-columns:var(--toc-width) 1fr;align-items:start;width:100%;position:relative}.toc-zone-wrapper>.toc-content-column{min-width:0}
+.toc-zone-wrapper{display:grid;grid-template-columns:1fr var(--toc-width);align-items:start;width:100%;position:relative}.toc-zone-wrapper>.toc-column{order:2}.toc-zone-wrapper>.toc-content-column{order:1;min-width:0}
 .toc-column{position:sticky;top:100px;align-self:start;padding:20px 12px 20px 16px;max-height:calc(100vh - 120px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--orange) transparent}
 .toc-column::-webkit-scrollbar{width:3px}
 .toc-column::-webkit-scrollbar-thumb{background:var(--orange);border-radius:10px}
