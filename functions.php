@@ -8289,3 +8289,205 @@ add_filter('tiny_mce_plugins', function ($plugins) {
     return is_array($plugins) ? array_diff($plugins, array('wpemoji')) : $plugins;
 });
 add_filter('emoji_svg_url', '__return_false');
+
+// ══════════════════════════════════════════════════════════════════════════
+// PRODUCTS LANDING PAGE SETTINGS (/products/) — non-coder editable
+// Every text, the four category rows (label / icon slug / description /
+// order / hide) and the CTA block live in the ee_products_page_settings
+// option, edited at Products → 🛠 Products Page.
+// Icon slugs accept three forms:
+//   ti-star            → bundled inline Tabler SVG (always renders)
+//   star               → https://www.extraaedge.com/wp-content/uploads/icons/star.svg
+//   https://…/x.svg    → used as-is
+// ══════════════════════════════════════════════════════════════════════════
+function ee_products_page_defaults() {
+    return array(
+        'seo_title'   => 'Education CRM Products — Convert More Students, Automatically | ExtraaEdge',
+        'seo_desc'    => 'Education CRM platform with AI chatbots, application management, and WhatsApp integration. Automate admissions, boost conversions, and scale enrollment 24/7.',
+        'eyebrow'     => 'The ExtraaEdge Platform',
+        'h1'          => 'Every tool your admissions team needs,',
+        'h1_accent'   => 'in one place.',
+        'intro_sub'   => '',
+        'side_eyebrow'=> 'Browse',
+        'side_title'  => 'Product categories',
+        'side_cta_strong' => 'Talk to an expert',
+        'side_cta_text'   => 'Pick the right modules for your admissions team.',
+        'side_cta_btn'    => 'Book a Demo →',
+        'side_cta_url'    => '/book-demo/',
+        'empty_tag'   => 'Coming soon',
+        'empty_tpl'   => 'New {category} products will appear here as they launch.',
+        'card_link'   => 'Explore module',
+        'big_badge'   => 'Start Free — No Commitment',
+        'big_title'   => 'Ready to transform your admissions?',
+        'big_sub'     => 'Join 550+ institutions already converting more inquiries into enrollments — on autopilot. See results in your first 30 days.',
+        'big_btn1'    => 'Start Your Free Demo',
+        'big_url1'    => '/book-demo/',
+        'big_btn2'    => 'Watch Demo',
+        'big_url2'    => '/resources/',
+        'trust'       => "No credit card required\nPersonalized onboarding\nCancel anytime\nSetup in 48 hours",
+        'cats'        => array(
+            'featured'      => array('label' => 'Featured',      'icon' => 'star',     'desc' => 'Our most popular admissions tools, used by 500+ institutions.', 'order' => 1, 'hide' => 0),
+            'core'          => array('label' => 'Core CRM',      'icon' => 'bullseye', 'desc' => 'Manage the entire admissions lifecycle end-to-end.',            'order' => 2, 'hide' => 0),
+            'communication' => array('label' => 'Communication', 'icon' => 'comments', 'desc' => 'Reach every prospect on the channel they prefer.',              'order' => 3, 'hide' => 0),
+            'automation'    => array('label' => 'Automation',    'icon' => 'bolt',     'desc' => 'Smart workflows that work while you sleep.',                    'order' => 4, 'hide' => 0),
+        ),
+    );
+}
+
+function ee_products_page_get() {
+    $d = ee_products_page_defaults();
+    $o = get_option('ee_products_page_settings', array());
+    if (!is_array($o)) $o = array();
+    $out = array_merge($d, $o);
+    /* cats merge per-row so newly added fields keep defaults */
+    $cats = $d['cats'];
+    if (!empty($o['cats']) && is_array($o['cats'])) {
+        foreach ($cats as $k => $row) {
+            if (isset($o['cats'][$k]) && is_array($o['cats'][$k])) {
+                $cats[$k] = array_merge($row, $o['cats'][$k]);
+            }
+        }
+    }
+    $out['cats'] = $cats;
+    return $out;
+}
+
+/* Resolve a category icon slug to markup (see forms above). */
+function ee_products_cat_icon($slug, $size = 34) {
+    $slug = trim((string) $slug);
+    $s    = (int) $size;
+    if ($slug === '') $slug = 'ti-circle';
+    if (function_exists('ee_quick_nav_render_icon') && strpos($slug, 'ti-') === 0) {
+        return ee_quick_nav_render_icon($slug, $s);
+    }
+    $url = (strpos($slug, 'http') === 0)
+        ? $slug
+        : 'https://www.extraaedge.com/wp-content/uploads/icons/' . rawurlencode($slug) . '.svg';
+    return '<img src="' . esc_url($url) . '" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block;" '
+         . 'onerror="this.style.display=\'none\';var s=this.nextElementSibling;if(s)s.style.display=\'flex\';">'
+         . '<span style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">'
+         . (function_exists('ee_quick_nav_render_icon') ? ee_quick_nav_render_icon('ti-circle', $s) : '')
+         . '</span>';
+}
+
+/* ── Admin page: Products → 🛠 Products Page ── */
+add_action('admin_menu', function () {
+    add_submenu_page(
+        'edit.php?post_type=product',
+        'Products Page Settings',
+        '🛠 Products Page',
+        'manage_options',
+        'ee-products-page',
+        'ee_products_page_render_admin'
+    );
+});
+
+function ee_products_page_render_admin() {
+    if (!current_user_can('manage_options')) return;
+    $o = ee_products_page_get();
+    $txt = function ($k, $label, $wide = false) use ($o) {
+        echo '<tr><th style="text-align:left;padding:6px 12px 6px 0;white-space:nowrap;">' . esc_html($label) . '</th>'
+           . '<td><input type="text" name="' . esc_attr($k) . '" value="' . esc_attr($o[$k]) . '" class="' . ($wide ? 'large-text' : 'regular-text') . '"></td></tr>';
+    };
+    ?>
+    <div class="wrap">
+        <h1>🛠 Products Page (/products/)</h1>
+        <p>Ya page varcha pratyek text, category chi order/icons ani CTA ithun edit hoto — code la hath na lavta.</p>
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+            <?php wp_nonce_field('ee_products_page_save'); ?>
+            <input type="hidden" name="action" value="ee_products_page_save">
+
+            <h2>Hero / Intro</h2>
+            <table><tbody>
+                <?php $txt('eyebrow', 'Eyebrow (small orange label)'); ?>
+                <?php $txt('h1', 'Heading (navy part)', true); ?>
+                <?php $txt('h1_accent', 'Heading highlight (orange part)'); ?>
+                <?php $txt('intro_sub', 'Intro sub-text (optional)', true); ?>
+            </tbody></table>
+
+            <h2>Category look &amp; order</h2>
+            <p class="description">Icon slug: <code>ti-star</code> (built-in, nehmi disto) · <code>star</code> (uploads/icons/star.svg) · kinva full <code>https://…svg</code> URL. Products already tya tya category la 🏷 Product Card Settings madhun jodlele aahet.</p>
+            <table class="widefat striped" style="max-width:900px">
+                <thead><tr><th>Category</th><th>Shown as</th><th>Icon slug</th><th>Description</th><th style="width:70px">Order</th><th style="width:60px">Hide</th></tr></thead>
+                <tbody>
+                <?php foreach ($o['cats'] as $k => $c) : ?>
+                    <tr>
+                        <td><strong><?php echo esc_html(ucfirst($k)); ?></strong></td>
+                        <td><input type="text" name="cats[<?php echo esc_attr($k); ?>][label]" value="<?php echo esc_attr($c['label']); ?>"></td>
+                        <td><input type="text" name="cats[<?php echo esc_attr($k); ?>][icon]" value="<?php echo esc_attr($c['icon']); ?>" placeholder="ti-star / star / https://…"></td>
+                        <td><input type="text" name="cats[<?php echo esc_attr($k); ?>][desc]" value="<?php echo esc_attr($c['desc']); ?>" class="regular-text"></td>
+                        <td><input type="number" name="cats[<?php echo esc_attr($k); ?>][order]" value="<?php echo (int) $c['order']; ?>" style="width:60px"></td>
+                        <td style="text-align:center"><input type="checkbox" name="cats[<?php echo esc_attr($k); ?>][hide]" value="1" <?php checked(!empty($c['hide'])); ?>></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <h2>Sidebar</h2>
+            <table><tbody>
+                <?php $txt('side_eyebrow', 'Sidebar eyebrow'); ?>
+                <?php $txt('side_title', 'Sidebar title'); ?>
+                <?php $txt('side_cta_strong', 'Sidebar CTA heading'); ?>
+                <?php $txt('side_cta_text', 'Sidebar CTA text', true); ?>
+                <?php $txt('side_cta_btn', 'Sidebar CTA button label'); ?>
+                <?php $txt('side_cta_url', 'Sidebar CTA button URL'); ?>
+            </tbody></table>
+
+            <h2>Cards &amp; empty categories</h2>
+            <table><tbody>
+                <?php $txt('card_link', 'Card link label (e.g. Explore module)'); ?>
+                <?php $txt('empty_tag', 'Empty category tag'); ?>
+                <?php $txt('empty_tpl', 'Empty category text ({category} = naav)', true); ?>
+            </tbody></table>
+
+            <h2>Bottom CTA</h2>
+            <table><tbody>
+                <?php $txt('big_badge', 'Badge'); ?>
+                <?php $txt('big_title', 'Title', true); ?>
+                <?php $txt('big_sub', 'Subtitle', true); ?>
+                <?php $txt('big_btn1', 'Primary button label'); ?>
+                <?php $txt('big_url1', 'Primary button URL'); ?>
+                <?php $txt('big_btn2', 'Secondary button label'); ?>
+                <?php $txt('big_url2', 'Secondary button URL'); ?>
+            </tbody></table>
+            <p><label><strong>Trust bullets</strong> (ek per line)<br>
+                <textarea name="trust" rows="4" class="large-text"><?php echo esc_textarea($o['trust']); ?></textarea></label></p>
+
+            <h2>SEO</h2>
+            <table><tbody>
+                <?php $txt('seo_title', 'Meta title', true); ?>
+                <?php $txt('seo_desc', 'Meta description', true); ?>
+            </tbody></table>
+
+            <?php submit_button('Save Products Page'); ?>
+        </form>
+    </div>
+    <?php
+}
+
+add_action('admin_post_ee_products_page_save', function () {
+    if (!current_user_can('manage_options')) wp_die('Nope');
+    check_admin_referer('ee_products_page_save');
+    $d = ee_products_page_defaults();
+    $clean = array();
+    foreach ($d as $k => $def) {
+        if ($k === 'cats' || $k === 'trust') continue;
+        $clean[$k] = isset($_POST[$k]) ? sanitize_text_field(wp_unslash($_POST[$k])) : $def;
+    }
+    $clean['trust'] = isset($_POST['trust']) ? sanitize_textarea_field(wp_unslash($_POST['trust'])) : $d['trust'];
+    $cats = array();
+    foreach ($d['cats'] as $k => $row) {
+        $in = isset($_POST['cats'][$k]) && is_array($_POST['cats'][$k]) ? wp_unslash($_POST['cats'][$k]) : array();
+        $cats[$k] = array(
+            'label' => isset($in['label']) && $in['label'] !== '' ? sanitize_text_field($in['label']) : $row['label'],
+            'icon'  => isset($in['icon'])  ? sanitize_text_field($in['icon'])  : $row['icon'],
+            'desc'  => isset($in['desc'])  ? sanitize_text_field($in['desc'])  : $row['desc'],
+            'order' => isset($in['order']) ? (int) $in['order'] : $row['order'],
+            'hide'  => empty($in['hide']) ? 0 : 1,
+        );
+    }
+    $clean['cats'] = $cats;
+    update_option('ee_products_page_settings', $clean, false);
+    wp_safe_redirect(add_query_arg('updated', '1', admin_url('edit.php?post_type=product&page=ee-products-page')));
+    exit;
+});

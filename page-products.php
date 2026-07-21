@@ -14,11 +14,14 @@
 if (!defined('ABSPATH')) exit;
 
 $ee_products = function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items() : array();
+$PS = function_exists('ee_products_page_get') ? ee_products_page_get() : array();
+$PSget = function ($k, $fb = '') use ($PS) { return isset($PS[$k]) && $PS[$k] !== '' ? $PS[$k] : $fb; };
 
 /* SEO meta tags — emitted via wp_head() */
 add_action('wp_head', function () {
-    $title = 'Education CRM Products — Convert More Students, Automatically | ExtraaEdge';
-    $desc  = 'Education CRM platform with AI chatbots, application management, and WhatsApp integration. Automate admissions, boost conversions, and scale enrollment 24/7.';
+    $ps    = function_exists('ee_products_page_get') ? ee_products_page_get() : array();
+    $title = !empty($ps['seo_title']) ? $ps['seo_title'] : 'Education CRM Products — Convert More Students, Automatically | ExtraaEdge';
+    $desc  = !empty($ps['seo_desc'])  ? $ps['seo_desc']  : 'Education CRM platform with AI chatbots, application management, and WhatsApp integration. Automate admissions, boost conversions, and scale enrollment 24/7.';
     $url   = home_url($_SERVER['REQUEST_URI'] ?? '/products/');
     echo '<meta name="description" content="' . esc_attr($desc) . '">' . "\n";
     echo '<meta name="keywords" content="Education CRM, admissions automation, student enrollment software, AI chatbot education, WhatsApp bot admissions, IVR education">' . "\n";
@@ -236,44 +239,59 @@ get_header();
            landing page mirrors the header mega-menu structure: Featured,
            Core CRM, Communication, Automation. Editors assign each
            Product to a column in WP Admin → 🏷 Product Card Settings. */
-        $ee_pcols = array(
-            'featured'      => array('label' => 'Featured',      'icon' => 'star',     'desc' => 'Our most popular admissions tools, used by 500+ institutions.'),
-            'core'          => array('label' => 'Core CRM',      'icon' => 'bullseye', 'desc' => 'Manage the entire admissions lifecycle end-to-end.'),
-            'communication' => array('label' => 'Communication', 'icon' => 'comments', 'desc' => 'Reach every prospect on the channel they prefer.'),
-            'automation'    => array('label' => 'Automation',    'icon' => 'bolt',     'desc' => 'Smart workflows that work while you sleep.'),
-        );
-        $ee_grouped = array('featured'=>array(),'core'=>array(),'communication'=>array(),'automation'=>array());
+        /* Category rows come from Products → 🛠 Products Page (label,
+           icon slug, description, order, hide) — non-coder editable. */
+        $ee_cat_rows = isset($PS['cats']) && is_array($PS['cats']) ? $PS['cats'] : array();
+        if (empty($ee_cat_rows)) {
+            $ee_cat_rows = array(
+                'featured'      => array('label' => 'Featured',      'icon' => 'star',     'desc' => 'Our most popular admissions tools, used by 500+ institutions.', 'order' => 1, 'hide' => 0),
+                'core'          => array('label' => 'Core CRM',      'icon' => 'bullseye', 'desc' => 'Manage the entire admissions lifecycle end-to-end.',            'order' => 2, 'hide' => 0),
+                'communication' => array('label' => 'Communication', 'icon' => 'comments', 'desc' => 'Reach every prospect on the channel they prefer.',              'order' => 3, 'hide' => 0),
+                'automation'    => array('label' => 'Automation',    'icon' => 'bolt',     'desc' => 'Smart workflows that work while you sleep.',                    'order' => 4, 'hide' => 0),
+            );
+        }
+        uasort($ee_cat_rows, function ($a, $b) { return ((int)($a['order'] ?? 0)) <=> ((int)($b['order'] ?? 0)); });
+        $ee_pcols = array();
+        foreach ($ee_cat_rows as $k => $r) {
+            if (!empty($r['hide'])) continue;
+            $ee_pcols[$k] = $r;
+        }
+        $ee_grouped = array_fill_keys(array_keys($ee_pcols), array());
+        $ee_first_col = array_key_first($ee_grouped) ?: 'featured';
         foreach ($ee_products as $p) {
-            $col = isset($p['column']) ? $p['column'] : 'featured';
-            if ($col === 'hidden' || !isset($ee_grouped[$col])) $col = 'featured';
+            $col = isset($p['column']) ? $p['column'] : $ee_first_col;
+            if ($col === 'hidden') continue;
+            if (!isset($ee_grouped[$col])) $col = $ee_first_col;
+            if (!isset($ee_grouped[$col])) continue;
             $ee_grouped[$col][] = $p;
         }
         $ee_card_pos = 1;
         ?>
 
         <div class="ecrm-intro ecrm-anim ecrm-anim-fade">
-            <span class="ecrm-intro-eyebrow">The ExtraaEdge Platform</span>
-            <h1>Every tool your admissions team needs, <span class="g">in one place.</span></h1>
+            <span class="ecrm-intro-eyebrow"><?php echo esc_html($PSget('eyebrow', 'The ExtraaEdge Platform')); ?></span>
+            <h1><?php echo esc_html($PSget('h1', 'Every tool your admissions team needs,')); ?> <span class="g"><?php echo esc_html($PSget('h1_accent', 'in one place.')); ?></span></h1>
+            <?php if ($PSget('intro_sub')) : ?><p><?php echo esc_html($PSget('intro_sub')); ?></p><?php endif; ?>
         </div>
 
         <div class="ecrm-shell">
 
             <aside class="ecrm-sidebar" aria-label="Product categories">
-                <span class="ecrm-sidebar-eyebrow">Browse</span>
-                <h2 class="ecrm-sidebar-title">Product categories</h2>
+                <span class="ecrm-sidebar-eyebrow"><?php echo esc_html($PSget('side_eyebrow', 'Browse')); ?></span>
+                <h2 class="ecrm-sidebar-title"><?php echo esc_html($PSget('side_title', 'Product categories')); ?></h2>
                 <nav class="ecrm-sidebar-nav" id="ecrm-sidebar-nav">
                     <?php foreach ($ee_pcols as $ee_sk => $ee_sm) : ?>
                     <a href="#ecrm-section-<?php echo esc_attr($ee_sk); ?>" class="ecrm-sidebar-link" data-target="ecrm-section-<?php echo esc_attr($ee_sk); ?>">
-                        <span class="ecrm-sidebar-ico"><img src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $ee_sm['icon'] . '.svg'); ?>" alt=""></span>
+                        <span class="ecrm-sidebar-ico"><?php echo function_exists('ee_products_cat_icon') ? ee_products_cat_icon($ee_sm['icon'], 26) : '<img src="' . esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $ee_sm['icon'] . '.svg') . '" alt="">'; ?></span>
                         <span class="ecrm-sidebar-label"><?php echo esc_html($ee_sm['label']); ?></span>
                         <span class="ecrm-sidebar-count"><?php echo (int) count($ee_grouped[$ee_sk]); ?></span>
                     </a>
                     <?php endforeach; ?>
                 </nav>
                 <div class="ecrm-sidebar-cta">
-                    <strong>Talk to an expert</strong>
-                    <p>Pick the right modules for your admissions team.</p>
-                    <a href="/book-demo/" class="ecrm-sidebar-cta-btn">Book a Demo →</a>
+                    <strong><?php echo esc_html($PSget('side_cta_strong', 'Talk to an expert')); ?></strong>
+                    <p><?php echo esc_html($PSget('side_cta_text', 'Pick the right modules for your admissions team.')); ?></p>
+                    <a href="<?php echo esc_url($PSget('side_cta_url', '/book-demo/')); ?>" class="ecrm-sidebar-cta-btn"><?php echo esc_html($PSget('side_cta_btn', 'Book a Demo →')); ?></a>
                 </div>
             </aside>
 
@@ -289,8 +307,8 @@ get_header();
 
             <?php if (empty($ee_col_items)) : ?>
                 <div class="ecrm-cat-empty">
-                    <span class="ecrm-cat-empty-tag">Coming soon</span>
-                    <p>New <strong><?php echo esc_html($ee_col_meta['label']); ?></strong> products will appear here as they launch.</p>
+                    <span class="ecrm-cat-empty-tag"><?php echo esc_html($PSget('empty_tag', 'Coming soon')); ?></span>
+                    <p><?php echo wp_kses_post(str_replace('{category}', '<strong>' . esc_html($ee_col_meta['label']) . '</strong>', esc_html($PSget('empty_tpl', 'New {category} products will appear here as they launch.')))); ?></p>
                 </div>
             <?php else : ?>
             <div class="ecrm-grid" role="list" aria-label="<?php echo esc_attr($ee_col_meta['label']); ?> products">
@@ -329,7 +347,7 @@ get_header();
                                 <h3 class="ecrm-card-title" itemprop="name"><?php echo esc_html($p['title']); ?></h3>
                                 <p class="ecrm-card-desc"><?php echo esc_html($p['desc']); ?></p>
                                 <span class="ecrm-card-link" aria-hidden="true">
-                                    Explore module
+                                    <?php echo esc_html($PSget('card_link', 'Explore module')); ?>
                                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                         <path d="M2 7H12M8 3L12 7L8 11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
@@ -349,21 +367,22 @@ get_header();
         <div class="ecrm-cta-outer ecrm-anim ecrm-anim-fade ecrm-d7">
             <div class="ecrm-cta-box" role="region" aria-labelledby="ecrm-cta-title">
                 <div class="ecrm-cta-inner">
-                    <span class="ecrm-cta-badge">Start Free — No Commitment</span>
-                    <h2 id="ecrm-cta-title" class="ecrm-cta-title">Ready to transform your admissions?</h2>
-                    <p class="ecrm-cta-subtitle">Join 550+ institutions already converting more inquiries into enrollments — on autopilot. See results in your first 30 days.</p>
+                    <span class="ecrm-cta-badge"><?php echo esc_html($PSget('big_badge', 'Start Free — No Commitment')); ?></span>
+                    <h2 id="ecrm-cta-title" class="ecrm-cta-title"><?php echo esc_html($PSget('big_title', 'Ready to transform your admissions?')); ?></h2>
+                    <p class="ecrm-cta-subtitle"><?php echo esc_html($PSget('big_sub', 'Join 550+ institutions already converting more inquiries into enrollments — on autopilot. See results in your first 30 days.')); ?></p>
                     <div class="ecrm-cta-actions">
-                        <a href="/book-demo/" class="ecrm-btn-primary" aria-label="Start your free demo of Education CRM">
+                        <a href="<?php echo esc_url($PSget('big_url1', '/book-demo/')); ?>" class="ecrm-btn-primary" aria-label="<?php echo esc_attr($PSget('big_btn1', 'Start Your Free Demo')); ?>">
                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2L16 9L9 16M16 9H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            Start Your Free Demo
+                            <?php echo esc_html($PSget('big_btn1', 'Start Your Free Demo')); ?>
                         </a>
-                        <a href="/resources/" class="ecrm-btn-secondary" aria-label="Watch a product demo video">
+                        <a href="<?php echo esc_url($PSget('big_url2', '/resources/')); ?>" class="ecrm-btn-secondary" aria-label="<?php echo esc_attr($PSget('big_btn2', 'Watch Demo')); ?>">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 5.5L11 8L6.5 10.5V5.5Z" fill="currentColor"/></svg>
-                            Watch Demo
+                            <?php echo esc_html($PSget('big_btn2', 'Watch Demo')); ?>
                         </a>
                     </div>
                     <div class="ecrm-cta-trust" aria-label="No-risk guarantees">
-                        <?php foreach (array('No credit card required','Personalized onboarding','Cancel anytime','Setup in 48 hours') as $bullet) : ?>
+                        <?php $ee_bullets = array_filter(array_map('trim', explode("\n", (string) $PSget('trust', "No credit card required\nPersonalized onboarding\nCancel anytime\nSetup in 48 hours"))));
+                        foreach ($ee_bullets as $bullet) : ?>
                             <span class="ecrm-cta-trust-item">
                                 <svg class="ecrm-cta-trust-icon" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7L5 11L13 3" stroke="#93C5FD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 <?php echo esc_html($bullet); ?>
