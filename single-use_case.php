@@ -837,10 +837,6 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
               </li>
               <?php endforeach; ?>
             </ol>
-            <div class="data-log" id="data-log" aria-hidden="true">
-              <div class="log-line">&gt; Initiating CRM Admission Core...</div>
-              <div class="log-line">&gt; Listening for new inquiries...</div>
-            </div>
           </aside>
           <?php endif; ?>
         </div>
@@ -1106,23 +1102,13 @@ window.addEventListener('scroll', function(){
 (function(){
   var fz = document.getElementById('flow-zone');
   var steps = document.querySelectorAll('#flow-stack .flow-step');
-  var log = document.getElementById('data-log');
   if(!fz || !steps.length) return;
-  var cur = 0, iv = null, hov = false;
-  var msgs = ["Lead ID #8821 captured via Website","Auto-SMS sent to Student: 'Welcome...'","WhatsApp nurtured: Course details delivered","Transcript uploaded: AI verification passed","Fee Payment detected: INR 45,000 received","Offer Letter Released: ID #EDU-991","Counselor assigned for onboarding..."];
-  function addLog(){
-    if(!log) return;
-    var l = document.createElement('div'); l.className = 'log-line';
-    l.textContent = '> ' + msgs[Math.floor(Math.random()*msgs.length)];
-    log.appendChild(l);
-    if(log.childNodes.length > 5) log.removeChild(log.firstChild);
-    log.scrollTop = log.scrollHeight;
-  }
-  function run(){ if(!hov) return; steps.forEach(function(s){ s.classList.remove('active'); }); steps[cur].classList.add('active'); if(Math.random() > .4) addLog(); cur = (cur+1) % steps.length; }
-  fz.addEventListener('mouseenter', function(){ hov = true; if(!iv){ iv = setInterval(run, 1600); run(); } });
-  fz.addEventListener('mouseleave', function(){ hov = false; clearInterval(iv); iv = null; steps.forEach(function(s){ s.classList.remove('active'); }); cur = 0; });
-  steps.forEach(function(s, i){ s.addEventListener('click', function(){ cur = i; steps.forEach(function(x){ x.classList.remove('active'); }); s.classList.add('active'); addLog(); }); });
-  if('ontouchstart' in window){ hov = true; iv = setInterval(run, 2000); }
+  /* runs continuously — hover/cursor never pauses or resets the cycle */
+  var cur = 0;
+  function run(){ steps.forEach(function(s){ s.classList.remove('active'); }); steps[cur].classList.add('active'); cur = (cur+1) % steps.length; }
+  run();
+  setInterval(run, 1600);
+  steps.forEach(function(s, i){ s.addEventListener('click', function(){ cur = i; run(); }); });
 })();
 
 (function(){
