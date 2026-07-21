@@ -304,7 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
-/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-20-alt-order -->\n";
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-badges -->\n";
 ?>
 
 <style>
@@ -723,6 +723,15 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <?php if($trust_rating || !empty($compliance)): ?>
         <footer class="trust-bar reveal">
           <?php if($trust_rating): ?><div class="trust-rating"><span aria-hidden="true">&#9733;</span> Rated <?php echo esc_html($trust_rating); ?>/5 by Education Leaders <?php if($trust_text): ?><span>(<?php echo esc_html($trust_text); ?>)</span><?php endif; ?></div><?php endif; ?>
+          <?php /* no compliance rows saved? default to the branded badge set */
+          if (empty($compliance)) {
+              $compliance = array(
+                  array('text' => 'GDPR Compliant',      'image' => 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-gdpr-compliant.svg'),
+                  array('text' => 'CCPA Compliant',      'image' => 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-ccpa-compliant.svg'),
+                  array('text' => 'ISO 27001 Certified', 'image' => 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/ee-badge-iso-27001-certified.svg'),
+              );
+          }
+          ?>
           <?php if(!empty($compliance)): ?><div class="compliance-row"><?php foreach($compliance as $comp):
             /* icons only — self-contained inline SVG badges so they render
                even when the uploads CDN is unreachable; an editor-set image
