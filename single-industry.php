@@ -304,7 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
-/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-toc-right2 -->\n";
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-rail-always -->\n";
 ?>
 
 <style>
@@ -694,8 +694,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .faq-inner strong{color:var(--blue);font-weight:700}
 
 /* ── Floating quick-nav rail (same as blog pages; items from 🧭 Blog Quick Nav admin) ── */
-.ee-float-nav{position:fixed;left:18px;top:50%;transform:translate(-24px,-50%);display:flex;flex-direction:column;gap:10px;padding:14px 10px;background:#fff;border:1px solid #E2E8F0;border-radius:20px;box-shadow:0 10px 40px rgba(15,32,64,.10),0 2px 6px rgba(15,32,64,.04);z-index:990;opacity:0;pointer-events:none;transition:opacity .35s cubic-bezier(.4,0,.2,1),transform .35s cubic-bezier(.4,0,.2,1)}
-.ee-float-nav.ee-visible{opacity:1;pointer-events:auto;transform:translate(0,-50%)}
+.ee-float-nav{position:fixed;left:18px;top:50%;transform:translate(0,-50%);display:flex;flex-direction:column;gap:10px;padding:14px 10px;background:#fff;border:1px solid #E2E8F0;border-radius:20px;box-shadow:0 10px 40px rgba(15,32,64,.10),0 2px 6px rgba(15,32,64,.04);z-index:990;opacity:1;pointer-events:auto}
 .ee-float-nav a{--tile-bg:#EEF2F8;--tile-fg:#19335D;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:8px 4px 6px;width:72px;border-radius:14px;font-size:10.5px;font-weight:700;color:#5B6B84;text-decoration:none;text-align:center;line-height:1.15;transition:all .25s cubic-bezier(.4,0,.2,1);position:relative}
 .ee-float-nav a .ee-fn-ico{width:44px;height:44px;border-radius:13px;background:#fff;color:var(--tile-fg);border:1px solid #E2E8F0;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;transition:all .25s cubic-bezier(.4,0,.2,1);flex-shrink:0}
 .ee-float-nav a .ee-fn-ico .ee-qn-svg{display:block;color:inherit}
@@ -1223,21 +1222,6 @@ if (!empty($eqn_items)) : ?>
         </a>
     <?php endforeach; ?>
 </aside>
-<script>
-(function(){
-  var nav = document.getElementById('ee-float-nav');
-  if (!nav) return;
-  var footer = document.querySelector('footer');
-  function upd(){
-    var y = window.scrollY || 0;
-    var nearFooter = false;
-    if (footer) { nearFooter = footer.getBoundingClientRect().top < window.innerHeight * .35; }
-    nav.classList.toggle('ee-visible', y > 300 && !nearFooter);
-  }
-  window.addEventListener('scroll', upd, { passive: true });
-  upd();
-})();
-</script>
 <?php endif; ?>
 <style id="ee-hdr-autohide">
 #site-header{transition:transform .3s cubic-bezier(.4,0,.2,1)!important;will-change:transform}
