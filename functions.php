@@ -3928,6 +3928,9 @@ add_action('admin_menu', function () {
 }, 1);
 
 function ee_site_editor_welcome() {
+    /* Emoji-free output: strip pictographs from everything this screen
+       prints so no converted-image squares can appear. */
+    ob_start(function ($html) { return ee_strip_admin_emoji_html($html); });
     $cards = array(
         array('home',      '🏠', 'Home Page',          'Hero copy, logos, sections, CTAs',                        admin_url('admin.php?page=ee-home-editor')),
         array('hf',        '🧱', 'Header &amp; Footer','Book Demo, Company menu, social, copyright',              admin_url('admin.php?page=ee-header-footer')),
@@ -7306,6 +7309,36 @@ add_action('init', function () {
     remove_filter('the_content_feed', 'wp_staticize_emoji');
     remove_filter('comment_text_rss', 'wp_staticize_emoji');
 }, 99);
+
+/* Strip emoji pictographs from every admin menu / submenu label so the
+   sidebar never shows converted-image squares, whatever the emoji
+   script state. Plain arrows (→) are intentionally left alone. */
+function ee_strip_admin_emoji($s) {
+    $s = preg_replace('/[\x{1F000}-\x{1FAFF}\x{2600}-\x{27BF}\x{2B00}-\x{2BFF}\x{2934}\x{2935}\x{FE0F}\x{200D}]/u', '', (string) $s);
+    return trim(preg_replace('/\s{2,}/', ' ', $s));
+}
+/* HTML-safe variant: emoji removed, whitespace left alone, and icon
+   boxes that end up empty are dropped entirely. */
+function ee_strip_admin_emoji_html($html) {
+    $html = preg_replace('/[\x{1F000}-\x{1FAFF}\x{2600}-\x{27BF}\x{2B00}-\x{2BFF}\x{2934}\x{2935}\x{FE0F}\x{200D}]/u', '', (string) $html);
+    $html = preg_replace('/<span class="ico">\s*<\/span>/', '', $html);
+    return $html;
+}
+add_action('admin_menu', function () {
+    global $menu, $submenu;
+    if (is_array($menu)) {
+        foreach ($menu as $i => $m) {
+            if (isset($m[0]) && is_string($m[0])) $menu[$i][0] = ee_strip_admin_emoji($m[0]);
+        }
+    }
+    if (is_array($submenu)) {
+        foreach ($submenu as $parent => $items) {
+            foreach ($items as $i => $m) {
+                if (isset($m[0]) && is_string($m[0])) $submenu[$parent][$i][0] = ee_strip_admin_emoji($m[0]);
+            }
+        }
+    }
+}, 99999);
 add_filter('the_generator', '__return_empty_string');
 add_filter('emoji_svg_url', '__return_false');
 
