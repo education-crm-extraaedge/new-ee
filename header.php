@@ -427,7 +427,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         #site-header .eh-dl:hover .eh-dl-desc  { color:#64748B; }
         #site-header .eh-dl-icon { width:28px; height:28px; background:linear-gradient(135deg,var(--eh-bg-subtle),#E8EEF3); border-radius:7px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:.9rem; padding:4px; transition:all .2s ease; color:var(--eh-primary); overflow:hidden; }
         #site-header .eh-dl-icon .eh-svg { width:100%; height:100%; }
-        #site-header .eh-dl:hover .eh-dl-icon { background:linear-gradient(135deg,var(--eh-primary),var(--eh-accent)); transform:scale(1.05); }
+        #site-header .eh-dl:hover .eh-dl-icon { background:#fff; transform:scale(1.05); }
         /* Icons are full-colour gradient tiles now — never invert them on
            hover (invert used to flatten the whole tile to a white square,
            which read as the icon disappearing). */
