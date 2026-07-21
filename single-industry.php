@@ -304,7 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
-/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-badges2 -->\n";
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-badges3 -->\n";
 ?>
 
 <style>
@@ -723,13 +723,13 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <?php if($trust_rating || !empty($compliance)): ?>
         <footer class="trust-bar reveal">
           <?php if($trust_rating): ?><div class="trust-rating"><span aria-hidden="true">&#9733;</span> Rated <?php echo esc_html($trust_rating); ?>/5 by Education Leaders <?php if($trust_text): ?><span>(<?php echo esc_html($trust_text); ?>)</span><?php endif; ?></div><?php endif; ?>
-          <?php /* no compliance rows saved? default to the branded badge set */
-          if (empty($compliance)) {
-              $compliance = array(
-                  array('text' => 'GDPR Compliant'),
-                  array('text' => 'CCPA Compliant'),
-                  array('text' => 'ISO 27001 Certified'),
-              );
+          <?php /* the core trio (GDPR / CCPA / ISO) always shows — editor rows
+             stay first, any missing member of the trio is appended */
+          if (!is_array($compliance)) $compliance = array();
+          $hcx_have = array();
+          foreach ($compliance as $hcx_c) { $hcx_have[ee_cert_badge_key(is_array($hcx_c) ? ($hcx_c['text'] ?? '') : '')] = true; }
+          foreach (array('gdpr' => 'GDPR Compliant', 'ccpa' => 'CCPA Compliant', 'iso' => 'ISO 27001 Certified') as $hcx_k => $hcx_lbl) {
+              if (empty($hcx_have[$hcx_k])) $compliance[] = array('text' => $hcx_lbl);
           }
           ?>
           <?php if(!empty($compliance)): ?><div class="compliance-row"><?php foreach($compliance as $comp):
