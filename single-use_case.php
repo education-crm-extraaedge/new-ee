@@ -399,9 +399,11 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .tag{background:var(--gray-100);color:var(--blue);font-family:var(--font-h);font-size:10px;font-weight:700;padding:7px 14px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px;transition:var(--transition)}
 .tag:hover{background:var(--orange-pale);color:var(--orange)}
 .cta-row{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap}
-.trust-bar{border-top:1px solid var(--gray-200);padding-top:20px}
-.trust-rating{font-family:var(--font-h);font-weight:800;font-size:14px;color:var(--blue);margin-bottom:14px}
-.trust-rating span{font-weight:400;font-size:12px;color:var(--gray-400);margin-left:6px}
+.trust-bar{border-top:1px solid var(--gray-200);padding-top:20px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.trust-rating{font-family:var(--font-h);font-weight:800;font-size:14px;color:var(--blue);margin-bottom:0}
+.trust-rating .trust-star{font-weight:400;color:var(--orange)}
+.trust-rating .trust-sub{display:block;font-weight:400;font-size:12px;color:var(--gray-400);margin:4px 0 0}
+.trust-bar .compliance-row{margin:0}
 .compliance-row{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
 .compliance-item{display:flex;align-items:center;gap:10px;font-family:var(--font-h);font-size:11px;font-weight:700;color:var(--gray-600)}
 .compliance-item img{height:40px;width:auto;object-fit:contain}
@@ -721,7 +723,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         </div>
         <?php if($trust_rating || !empty($compliance)): ?>
         <footer class="trust-bar reveal">
-          <?php if($trust_rating): ?><div class="trust-rating"><span aria-hidden="true">&#9733;</span> Rated <?php echo esc_html($trust_rating); ?>/5 by Education Leaders <?php if($trust_text): ?><span>(<?php echo esc_html($trust_text); ?>)</span><?php endif; ?></div><?php endif; ?>
+          <?php if($trust_rating): $trust_text_clean = trim((string)$trust_text, "() \t"); ?><div class="trust-rating"><span class="trust-star" aria-hidden="true">&#9733;</span> Rated <?php echo esc_html($trust_rating); ?>/5 by Education Leaders<?php if($trust_text_clean): ?><span class="trust-sub">(<?php echo esc_html($trust_text_clean); ?>)</span><?php endif; ?></div><?php endif; ?>
           <?php /* the core trio (GDPR / CCPA / ISO) always shows — editor rows
              stay first, any missing member of the trio is appended */
           if (!is_array($compliance)) $compliance = array();
