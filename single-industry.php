@@ -304,7 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
-/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-tocskin -->\n";
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-quicknav -->\n";
 ?>
 
 <style>
@@ -338,10 +338,10 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .toc-header{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(25,51,93,.10)}
 .toc-icon{width:22px;height:22px;background:linear-gradient(135deg,var(--orange),var(--orange-light));border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(222,110,48,.30)}
 .toc-icon svg{width:12px;height:12px;fill:#fff}
-.toc-title{font-family:var(--font-h);font-size:9px;font-weight:800;color:var(--blue);letter-spacing:1px;text-transform:uppercase}
+.toc-title{font-family:var(--font-h);font-size:10px;font-weight:800;color:var(--blue);letter-spacing:1px;text-transform:uppercase}
 .toc-list{list-style:none;display:flex;flex-direction:column;gap:1px}
 .toc-item{position:relative}
-.toc-link{display:flex;align-items:center;gap:6px;padding:5px 7px;font-family:var(--font-b);font-size:10px;font-weight:500;color:rgba(71,85,105,.9);border-radius:8px;transition:all .25s var(--ease);position:relative;line-height:1.3}
+.toc-link{display:flex;align-items:center;gap:7px;padding:6px 8px;font-family:var(--font-b);font-size:11px;font-weight:500;color:rgba(71,85,105,.9);border-radius:8px;transition:all .25s var(--ease);position:relative;line-height:1.3}
 .toc-link .toc-num{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(241,245,249,.8);color:var(--gray-400);font-size:9px;font-weight:700;flex-shrink:0;transition:.25s}
 .toc-link::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:0;background:var(--orange);border-radius:2px;transition:height .25s var(--ease)}
 .toc-link:hover{color:var(--blue);background:rgba(222,110,48,.10);padding-left:12px}
@@ -693,19 +693,16 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .faq-inner a{color:var(--orange);text-decoration:underline}
 .faq-inner strong{color:var(--blue);font-weight:700}
 
-/* ── Blog-style TOC skin: navy header + timeline dots (matches single.php) ── */
-.toc-wrapper{background:#fff;border:1px solid rgba(25,51,93,.10);border-radius:16px;box-shadow:0 12px 32px rgba(25,51,93,.10);overflow:hidden;padding:0 0 10px}
-.toc-header{background:var(--blue);padding:12px 16px;display:flex;align-items:center;gap:9px;margin-bottom:8px;border-bottom:0}
-.toc-title{color:#fff;font-size:10px;letter-spacing:1.6px}
-.toc-icon{background:rgba(255,255,255,.16)}
-.toc-list{padding:2px 10px 4px;position:relative}
-.toc-list::before{content:'';position:absolute;left:21px;top:10px;bottom:10px;width:2px;background:#E2E8F0;border-radius:2px}
-.toc-link .toc-num,.toc-num{display:none!important}
-.toc-link{position:relative;padding:7px 8px 7px 28px;font-size:11px}
-.toc-link::before{content:'';position:absolute;left:8px;top:50%;transform:translateY(-50%);width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid #CBD5E1;z-index:1;transition:.25s;opacity:1}
-.toc-link:hover::before{height:9px;border-color:var(--orange)}
-.toc-link.active{padding-left:28px}
-.toc-link.active::before{height:9px;background:var(--orange);border-color:var(--orange);box-shadow:0 0 0 4px rgba(222,110,48,.18)}
+/* ── Floating quick-nav rail (same as blog pages; items from 🧭 Blog Quick Nav admin) ── */
+.ee-float-nav{position:fixed;left:18px;top:50%;transform:translate(-24px,-50%);display:flex;flex-direction:column;gap:10px;padding:14px 10px;background:#fff;border:1px solid #E2E8F0;border-radius:20px;box-shadow:0 10px 40px rgba(15,32,64,.10),0 2px 6px rgba(15,32,64,.04);z-index:990;opacity:0;pointer-events:none;transition:opacity .35s cubic-bezier(.4,0,.2,1),transform .35s cubic-bezier(.4,0,.2,1)}
+.ee-float-nav.ee-visible{opacity:1;pointer-events:auto;transform:translate(0,-50%)}
+.ee-float-nav a{--tile-bg:#EEF2F8;--tile-fg:#19335D;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:8px 4px 6px;width:72px;border-radius:14px;font-size:10.5px;font-weight:700;color:#5B6B84;text-decoration:none;text-align:center;line-height:1.15;transition:all .25s cubic-bezier(.4,0,.2,1);position:relative}
+.ee-float-nav a .ee-fn-ico{width:44px;height:44px;border-radius:13px;background:#fff;color:var(--tile-fg);border:1px solid #E2E8F0;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;transition:all .25s cubic-bezier(.4,0,.2,1);flex-shrink:0}
+.ee-float-nav a .ee-fn-ico .ee-qn-svg{display:block;color:inherit}
+.ee-float-nav a:hover{color:var(--tile-fg);transform:translateY(-2px)}
+.ee-float-nav a:hover .ee-fn-ico{transform:scale(1.06);background:#FDF0E7;border-color:var(--orange);color:var(--orange);box-shadow:0 6px 14px rgba(222,110,48,.18)}
+.ee-float-nav a span{display:block;white-space:nowrap}
+@media(max-width:1200px){.ee-float-nav{display:none!important}}
 @media(max-width:1200px){.toc-zone-wrapper{display:block}.toc-column{display:none}.toc-content-column{width:100%}}
 @media(max-width:1150px){.hero-layout{grid-template-columns:minmax(0,1fr);text-align:center;gap:30px}.hero-desc,.hero-badge{margin-left:auto;margin-right:auto}.proof-bar{border-left:0;border-top:5px solid var(--orange);border-radius:var(--radius-md);text-align:left}.cta-row,.tag-row,.compliance-row{justify-content:center}.hero-form-card{max-width:520px;margin:0 auto}.edu-crm-layout{grid-template-columns:minmax(0,1fr);padding:20px 20px;gap:30px}.edu-crm-layout>*,.hero-layout>*{min-width:0}.flow-panel{position:relative;top:0}}
 @media(max-width:1024px){.alt-layout{flex-direction:column;text-align:center;padding:20px 20px;gap:30px}.alt-content{order:1!important}.alt-visual{order:2!important;margin-top:16px;margin-bottom:0;width:100%}.feature-item{text-align:left}.feat-card{flex:0 1 calc(25% - 12px);max-width:none}.bottom-cta-inner{flex-direction:column;gap:26px;align-items:center;text-align:center}.cta-content{width:100%}.cta-visual-card{flex:none;width:100%;max-width:640px;min-width:0;margin:0 auto}.cta-h3{margin-left:auto;margin-right:auto}.ai-demo-inner{grid-template-columns:minmax(0,1fr);gap:30px}.ai-demo-inner>*,.testi-cards>*,.alt-layout>*{min-width:0;max-width:100%}.ai-cta-content{text-align:center}.ai-cta-sub,.btn-cta-rounded{margin-left:auto;margin-right:auto}.ai-trust{justify-content:center}.testi-cards{grid-template-columns:minmax(0,1fr)}}
@@ -1210,6 +1207,38 @@ window.addEventListener('scroll', function(){
 })();
 </script>
 
+<?php
+/* Floating quick-nav rail — same items/icons as the blog pages */
+$eqn_items  = function_exists('ee_get_quick_nav_items') ? ee_get_quick_nav_items() : array();
+$eqn_colors = function_exists('ee_quick_nav_colors')    ? ee_quick_nav_colors()    : array();
+if (!empty($eqn_items)) : ?>
+<aside class="ee-float-nav" id="ee-float-nav" aria-label="Quick navigation">
+    <?php foreach ($eqn_items as $it) :
+        $c = isset($eqn_colors[$it['color']]) ? $eqn_colors[$it['color']] : array('bg' => '#EEF2F8', 'fg' => '#19335D');
+        $icon = $it['icon'] ?: 'ti-circle';
+    ?>
+        <a href="<?php echo esc_url($it['url']); ?>" style="--tile-bg:<?php echo esc_attr($c['bg']); ?>;--tile-fg:<?php echo esc_attr($c['fg']); ?>;">
+            <span class="ee-fn-ico"><?php echo function_exists('ee_quick_nav_render_icon') ? ee_quick_nav_render_icon($icon, 22) : ''; ?></span>
+            <span><?php echo esc_html($it['label']); ?></span>
+        </a>
+    <?php endforeach; ?>
+</aside>
+<script>
+(function(){
+  var nav = document.getElementById('ee-float-nav');
+  if (!nav) return;
+  var footer = document.querySelector('footer');
+  function upd(){
+    var y = window.scrollY || 0;
+    var nearFooter = false;
+    if (footer) { nearFooter = footer.getBoundingClientRect().top < window.innerHeight * .9; }
+    nav.classList.toggle('ee-visible', y > 700 && !nearFooter);
+  }
+  window.addEventListener('scroll', upd, { passive: true });
+  upd();
+})();
+</script>
+<?php endif; ?>
 <style id="ee-hdr-autohide">
 #site-header{transition:transform .3s cubic-bezier(.4,0,.2,1)!important;will-change:transform}
 #site-header.ee-hdr-away{transform:translateY(-110%)!important;box-shadow:none!important}
