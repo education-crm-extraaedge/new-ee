@@ -896,10 +896,10 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <?php if(!empty($products)): ?>
         <aside class="cta-visual-card reveal" role="complementary">
           <p class="featured-label">Featured Apps</p>
-          <div class="product-grid">
+          <div class="product-grid" style="display:grid;grid-template-columns:repeat(2,1fr);">
             <?php foreach($products as $product): if(!empty($product['title'])): ?>
             <a href="<?php echo esc_url($product['url'] ?: '#'); ?>" class="product-item" rel="noopener" aria-label="<?php echo esc_attr($product['title']); ?> product page">
-              <?php if(!empty($product['logo'])): ?><div class="product-logo"><img src="<?php echo esc_url($product['logo']); ?>" alt="<?php echo esc_attr($product['title']); ?>" loading="lazy" decoding="async" width="44" height="44"></div><?php endif; ?>
+              <?php if(!empty($product['logo'])): ?><div class="product-logo"><img src="<?php echo esc_url($product['logo']); ?>" alt="<?php echo esc_attr($product['title']); ?>" loading="lazy" decoding="async" width="44" height="44" onerror="this.parentNode.style.display='none';"></div><?php endif; ?>
               <h3><?php echo esc_html($product['title']); ?></h3>
               <span class="product-view-link">View Product &#8594;</span>
             </a>
