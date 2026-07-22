@@ -54,7 +54,7 @@ add_action('wp_head', function () {
 
 get_header();
 ?>
-<!-- pxp-products v2026-07-22-eep -->
+<!-- pxp-products v2026-07-22-eep2 -->
 <style>#ee-products{
     --navy:#19345d; --ink:#0f203a; --orange:#DE6E30; --orange-2:#E8843F;
     --line:rgba(25,52,93,.10); --muted:#5a6b85;
@@ -159,9 +159,7 @@ html body #main-content #ee-products .eep-head-l h1{font-size:clamp(30px,4.4vw,4
 
     <div class="eep-head">
       <div class="eep-head-l">
-        <span class="eep-eyebrow"><span class="eep-dot" aria-hidden="true"></span>The admissions platform</span>
-        <h1>One platform. <span class="eep-accent">Every admissions tool.</span></h1>
-        <p class="eep-sub">From first enquiry to enrolled - explore the suite. Tap or hover any product to see it come alive.</p>
+        <h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0">ExtraaEdge Products — Education CRM &amp; Admissions Platform</h1>
       </div>
       <div class="eep-search" id="eepSearch">
         <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-01.svg" alt="" loading="lazy" decoding="async">
