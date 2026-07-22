@@ -54,7 +54,7 @@ add_action('wp_head', function () {
 
 get_header();
 ?>
-<!-- pxp-products v2026-07-22-eep3 -->
+<!-- pxp-products v2026-07-22-eep4 -->
 <style>#ee-products{
     --navy:#19345d; --ink:#0f203a; --orange:#DE6E30; --orange-2:#E8843F;
     --line:rgba(25,52,93,.10); --muted:#5a6b85;
@@ -152,6 +152,20 @@ get_header();
   @media(prefers-reduced-motion:reduce){#ee-products *{ animation-duration:.001s !important; animation-iteration-count:1 !important; transition-duration:.001s !important; }
   }
 html body #main-content #ee-products .eep-head-l h1{font-size:clamp(30px,4.4vw,46px)!important;line-height:1.06!important;letter-spacing:-.022em!important}
+
+  /* ── Mobile: no spotlight (Core platform panel), compact 2-up card grid ── */
+  @media(max-width:767px){
+    #ee-products .eep-spot{display:none!important}
+    #ee-products .eep-main{grid-template-columns:1fr!important}
+    #ee-products .eep-grid{grid-template-columns:repeat(2,1fr)!important;gap:9px!important}
+    #ee-products .eep-card{padding:12px 10px!important;border-radius:13px}
+    #ee-products .eep-chip{width:32px!important;height:32px!important;border-radius:9px!important}
+    #ee-products .eep-chip svg{width:16px;height:16px}
+    #ee-products .eep-card-title{font-size:12.5px!important;line-height:1.25}
+    #ee-products .eep-card-desc{font-size:10.5px!important;line-height:1.45!important}
+    #ee-products .eep-card-cat{font-size:8px!important;letter-spacing:.06em!important}
+    #ee-products .eep-card-foot{margin-top:8px!important}
+  }
 </style>
 
 <section id="ee-products" aria-label="Our products">
