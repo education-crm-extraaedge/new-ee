@@ -54,7 +54,7 @@ add_action('wp_head', function () {
 
 get_header();
 ?>
-<!-- pxp-products v2026-07-22-eep2 -->
+<!-- pxp-products v2026-07-22-eep3 -->
 <style>#ee-products{
     --navy:#19345d; --ink:#0f203a; --orange:#DE6E30; --orange-2:#E8843F;
     --line:rgba(25,52,93,.10); --muted:#5a6b85;
@@ -160,11 +160,6 @@ html body #main-content #ee-products .eep-head-l h1{font-size:clamp(30px,4.4vw,4
     <div class="eep-head">
       <div class="eep-head-l">
         <h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0">ExtraaEdge Products — Education CRM &amp; Admissions Platform</h1>
-      </div>
-      <div class="eep-search" id="eepSearch">
-        <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-01.svg" alt="" loading="lazy" decoding="async">
-        <input type="text" id="eepInput" placeholder="Search products…" aria-label="Search products" autocomplete="off">
-        <button class="eep-clear" id="eepClear" aria-label="Clear search">&times;</button>
       </div>
     </div>
 
@@ -438,14 +433,17 @@ html body #main-content #ee-products .eep-head-l h1{font-size:clamp(30px,4.4vw,4
 
     var input=document.getElementById('eepInput'), searchWrap=document.getElementById('eepSearch'),
         clearBtn=document.getElementById('eepClear');
-    input.addEventListener('input', function(){
-      curQ=input.value.trim().toLowerCase();
-      searchWrap.classList.toggle('has-val', curQ.length>0);
-      apply(); pauseRotate();
-    });
-    clearBtn.addEventListener('click', function(){ input.value=''; curQ=''; searchWrap.classList.remove('has-val'); apply(); input.focus(); });
-    document.getElementById('eepReset').addEventListener('click', function(){
-      input.value=''; curQ=''; curCat='all'; searchWrap.classList.remove('has-val');
+    if (input) {
+      input.addEventListener('input', function(){
+        curQ=input.value.trim().toLowerCase();
+        if (searchWrap) searchWrap.classList.toggle('has-val', curQ.length>0);
+        apply(); pauseRotate();
+      });
+    }
+    if (clearBtn) clearBtn.addEventListener('click', function(){ if(input){input.value='';} curQ=''; if(searchWrap)searchWrap.classList.remove('has-val'); apply(); if(input)input.focus(); });
+    var resetBtn=document.getElementById('eepReset');
+    if (resetBtn) resetBtn.addEventListener('click', function(){
+      if(input){input.value='';} curQ=''; curCat='all'; if(searchWrap)searchWrap.classList.remove('has-val');
       filtersEl.querySelectorAll('.eep-pill').forEach(function(p){ p.setAttribute('aria-pressed', p.dataset.cat==='all'?'true':'false'); });
       apply();
     });
