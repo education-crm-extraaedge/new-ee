@@ -6598,22 +6598,22 @@ function ee_quick_nav_render_icon($name, $size = '1em') {
         'ti-package'         => 'ee-icon-products.svg',
         'ti-building'        => 'ee-icon-industries.svg',
         'ti-bulb'            => 'ee-icon-solutions.svg',
-        'ti-quote'           => 'ee-icon-testimonials.svg',
-        'ti-book'            => 'ee-icon-resources.svg',
-        'ti-mail'            => 'ee-icon-email.svg',
+        'ti-quote'           => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/customer-stories.svg',
+        'ti-book'            => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/guides.svg',
+        'ti-mail'            => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/e-mail.svg',
         'ti-brand-facebook'  => 'ee-icon-facebook.svg',
         'ti-brand-x'         => 'ee-icon-twitter-x.svg',
         'ti-brand-twitter'   => 'ee-icon-twitter-x.svg',
-        'ti-brand-linkedin'  => 'ee-icon-linkedin.svg',
-        'ti-brand-whatsapp'  => 'ee-icon-whatsapp.svg',
-        'ti-link'            => 'ee-icon-copy-link.svg',
+        'ti-brand-linkedin'  => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/linkedin.svg',
+        'ti-brand-whatsapp'  => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/whatsapp.svg',
+        'ti-link'            => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/copy-link.svg',
         'ti-share-3'         => 'ee-icon-share.svg',
-        'ti-phone'           => 'ee-icon-call-us.svg',
-        'ti-phone-call'      => 'ee-icon-call-us.svg',
-        'ti-printer'         => 'ee-icon-print.svg',
+        'ti-phone'           => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/call.svg',
+        'ti-phone-call'      => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/call.svg',
+        'ti-printer'         => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/print.svg',
         'ti-rocket'          => 'ee-icon-book-demo.svg',
         'ti-calendar-check'  => 'ee-icon-book-demo.svg',
-        'ti-file-text'       => 'ee-icon-save-pdf.svg',
+        'ti-file-text'       => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/save-pdf.svg',
     );
     if (isset($ee_icon_files[$name])) {
         /* Branded file first; if the file 404s or the CDN is unreachable
@@ -6626,7 +6626,7 @@ function ee_quick_nav_render_icon($name, $size = '1em') {
         return '<span class="ee-qn-io" aria-hidden="true" '
              . 'style="display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;flex-shrink:0;'
              . 'width:' . esc_attr($s) . ';height:' . esc_attr($s) . ';">'
-             . '<img class="ee-qn-svg ee-qn-img" src="https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/' . $ee_icon_files[$name] . '" '
+             . '<img class="ee-qn-svg ee-qn-img" src="' . (strpos($ee_icon_files[$name], 'http') === 0 ? $ee_icon_files[$name] : 'https://www.extraaedge.com/wp-content/uploads/2026/blog-page-icons/' . $ee_icon_files[$name]) . '" '
              . 'alt="" loading="lazy" '
              . 'style="width:100%;height:100%;object-fit:contain;display:block;" '
              . 'onerror="this.style.display=\'none\';var s=this.nextElementSibling;if(s)s.style.display=\'block\';">'
