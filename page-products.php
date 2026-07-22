@@ -54,7 +54,7 @@ add_action('wp_head', function () {
 
 get_header();
 ?>
-<!-- pxp-products v2026-07-22-eep4 -->
+<!-- pxp-products v2026-07-22-eep5 -->
 <style>#ee-products{
     --navy:#19345d; --ink:#0f203a; --orange:#DE6E30; --orange-2:#E8843F;
     --line:rgba(25,52,93,.10); --muted:#5a6b85;
@@ -272,6 +272,30 @@ html body #main-content #ee-products .eep-head-l h1{font-size:clamp(30px,4.4vw,4
         d:'Reach families on their favourite channel with verified, automated conversations.',
         l:'Meet families where they already are. Verified WhatsApp with automated replies and broadcast campaigns that actually get read.',
         tags:['Verified sender','Automated replies','Broadcast campaigns']},
+      {id:'vidya-ai', t:'Vidya AI', badge:'Coming Soon', cat:'ai', ic:'spark', href:'/vidyaai/',
+        d:'Your AI admissions copilot - drafts replies, scores intent and rings visitors live.',
+        l:'The AI layer across your whole funnel. It drafts counsellor replies, scores every lead by intent, and can call a website visitor the moment they show interest.',
+        tags:['Drafts replies','Scores lead intent','Rings visitors live']},
+      {id:'vidya-gpt', t:'Vidya GPT', badge:'Coming Soon', cat:'ai', ic:'chat', href:'/vidyaai/',
+        d:'Your 24x7 AI chat counsellor that answers every query and never sleeps.',
+        l:'A conversational AI counsellor trained on your programmes - it answers every student query instantly, day or night, and hands warm leads to your team.',
+        tags:['24x7 answers','Trained on your courses','Instant hand-off']},
+      {id:'vidya-pulse', t:'Vidya Pulse', badge:'Coming Soon', cat:'ai', ic:'bars', href:'/vidyaai/',
+        d:'Real-time lead intent scoring that surfaces your hottest prospects first.',
+        l:'Every click, reply and visit feeds a live intent score - so counsellors always call the students most likely to enrol next.',
+        tags:['Live intent scores','Hot-lead alerts','Priority calling']},
+      {id:'vidya-voice', t:'Vidyaai Voice Agent', badge:'Coming Soon', cat:'ai', ic:'call', href:'/vidyaai/',
+        d:'Calls and qualifies leads with natural conversations in 10+ languages.',
+        l:'An AI voice agent that rings enquiries within seconds, speaks naturally in 10+ languages, qualifies interest and books counsellor slots.',
+        tags:['10+ languages','Instant callback','Auto qualification']},
+      {id:'vidya-waba', t:'VidyaWABA GPT', badge:'Coming Soon', cat:'ai', ic:'whatsapp', href:'/vidyaai/',
+        d:'Automated WhatsApp Business engagement that nurtures leads at scale.',
+        l:'GPT-powered WhatsApp conversations on your verified number - answers, nudges and follow-ups that keep every lead warm at scale.',
+        tags:['Verified WhatsApp','GPT replies','Scale nurturing']},
+      {id:'vidya-work', t:'Vidya Work', badge:'Coming Soon', cat:'ai', ic:'gear', href:'/vidyaai/',
+        d:'Autonomous workflow and follow-up automation that runs your busywork.',
+        l:'Agentic automation for the admissions back office - it assigns tasks, chases documents and closes loops without anyone lifting a finger.',
+        tags:['Auto task assignment','Document chasing','Zero busywork']},
       {id:'chatbot', t:'Education Chatbot', cat:'ai', ic:'chat', href:'/products/chatbot-for-education/',
         d:'Answer student questions 24/7 and capture qualified enquiries while you sleep.',
         l:'An always-on assistant that answers questions on your site and WhatsApp, qualifies interest, and hands warm leads to counsellors.',
