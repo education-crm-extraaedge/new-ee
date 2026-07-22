@@ -8371,6 +8371,10 @@ function ee_products_page_defaults() {
         'big_btn2'    => 'Watch Demo',
         'big_url2'    => '/resources/',
         'trust'       => "No credit card required\nPersonalized onboarding\nCancel anytime\nSetup in 48 hours",
+        'metrics'     => "500+|Institutions Onboard\n10M+|Enquiries Managed\n1M+|Admissions Leads",
+        'integrations'=> "Google, Meta, WhatsApp, Zoom, Microsoft, Payment Gateways, LMS, ERP, REST API, Webhooks",
+        'integr_count'=> '50+ Integrations',
+        'faq'         => "What is included in the ExtraaEdge platform?|Every module on this page — CRM, admission management, communication and automation — works on one shared student database.\nCan I start with one product and add more later?|Yes. Most institutions start with Education CRM and switch on modules like WhatsApp API or Marketing Automation as they scale.\nHow long does deployment take?|Typical go-live is 48 hours to 2 weeks depending on integrations, with hands-on onboarding included.\nDoes it work on mobile?|Yes — counsellors get a full Mobile CRM app, and every applicant-facing flow is mobile-first.\nIs my data secure?|The platform is GDPR and CCPA compliant and ISO 27001 certified, with role-based access control.",
         'cats'        => array(
             'featured'      => array('label' => 'Featured',      'icon' => 'star',     'desc' => 'Our most popular admissions tools, used by 500+ institutions.', 'order' => 1, 'hide' => 0),
             'core'          => array('label' => 'Core CRM',      'icon' => 'bullseye', 'desc' => 'Manage the entire admissions lifecycle end-to-end.',            'order' => 2, 'hide' => 0),
@@ -8499,6 +8503,16 @@ function ee_products_page_render_admin() {
             <p><label><strong>Trust bullets</strong> (ek per line)<br>
                 <textarea name="trust" rows="4" class="large-text"><?php echo esc_textarea($o['trust']); ?></textarea></label></p>
 
+            <h2>Metrics, Integrations &amp; FAQ</h2>
+            <p><label><strong>Success metrics</strong> (ek per line: <code>500+|Institutions Onboard</code>)<br>
+                <textarea name="metrics" rows="3" class="large-text"><?php echo esc_textarea($o['metrics']); ?></textarea></label></p>
+            <table><tbody>
+                <?php $txt('integrations', 'Integration names (comma separated)', true); ?>
+                <?php $txt('integr_count', 'Integrations count label'); ?>
+            </tbody></table>
+            <p><label><strong>FAQ</strong> (ek per line: <code>Prashna|Uttar</code>)<br>
+                <textarea name="faq" rows="6" class="large-text"><?php echo esc_textarea($o['faq']); ?></textarea></label></p>
+
             <h2>SEO</h2>
             <table><tbody>
                 <?php $txt('seo_title', 'Meta title', true); ?>
@@ -8521,6 +8535,9 @@ add_action('admin_post_ee_products_page_save', function () {
         $clean[$k] = isset($_POST[$k]) ? sanitize_text_field(wp_unslash($_POST[$k])) : $def;
     }
     $clean['trust'] = isset($_POST['trust']) ? sanitize_textarea_field(wp_unslash($_POST['trust'])) : $d['trust'];
+    foreach (array('metrics', 'faq') as $ta) {
+        $clean[$ta] = isset($_POST[$ta]) ? sanitize_textarea_field(wp_unslash($_POST[$ta])) : $d[$ta];
+    }
     $cats = array();
     foreach ($d['cats'] as $k => $row) {
         $in = isset($_POST['cats'][$k]) && is_array($_POST['cats'][$k]) ? wp_unslash($_POST['cats'][$k]) : array();
