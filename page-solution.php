@@ -20,8 +20,30 @@ add_action('wp_head', function () {
     echo '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">' . "\n";
 }, 5);
 
+/* Resolve a solutions-grid card to a real published post so clicks never
+   fall into WP's 404 redirect-guesser. Tries the solution CPT first, then
+   a page, then any product/use_case with the same slug; if nothing exists
+   the card safely stays on /solutions/. */
+if (!function_exists('ee_sol_find_url')) {
+    function ee_sol_find_url(array $slugs) {
+        foreach (array('solution', 'page', 'product', 'use_case') as $pt) {
+            foreach ($slugs as $slug) {
+                $found = get_posts(array(
+                    'name'        => $slug,
+                    'post_type'   => $pt,
+                    'post_status' => 'publish',
+                    'numberposts' => 1,
+                ));
+                if ($found) return get_permalink($found[0]);
+            }
+        }
+        return home_url('/solutions/');
+    }
+}
+
 get_header();
 ?>
+<!-- ee-solutions-tpl v2026-07-22-cardlinks -->
 <style>
 .ee-sol{
   --orange:#DE6E30;--orange-2:#c8601f;--orange-soft:#FBE6D6;--orange-50:#FFF6EE;--orange-glow:rgba(222,110,48,.18);
@@ -186,7 +208,7 @@ get_header();
         </div>
         <div class="cards">
 
-          <a href="<?php echo esc_url(home_url('/admission-management/')); ?>" class="card featured accent" data-cat="admissions">
+          <a href="<?php echo esc_url(ee_sol_find_url(array('admission-management-software','admission-management','admission-management-system'))); ?>" class="card featured accent" data-cat="admissions">
             <div class="card-top">
               <div class="card-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
               <span class="badge popular">★ Most Popular</span>
@@ -200,7 +222,7 @@ get_header();
             <div class="card-bottom"><span class="card-cta">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div>
           </a>
 
-          <a href="<?php echo esc_url(home_url('/enrollment-management/')); ?>" class="card" data-cat="admissions">
+          <a href="<?php echo esc_url(ee_sol_find_url(array('enrollment-management-software','enrollment-management','crm-enrollment-management'))); ?>" class="card" data-cat="admissions">
             <div class="card-top">
               <div class="card-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
               <span class="badge enterprise">Enterprise</span>
@@ -214,7 +236,7 @@ get_header();
             <div class="card-bottom"><span class="card-cta">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div>
           </a>
 
-          <a href="<?php echo esc_url(home_url('/walk-in-management/')); ?>" class="card" data-cat="admissions">
+          <a href="<?php echo esc_url(ee_sol_find_url(array('walk-in-management-system','walk-in-management'))); ?>" class="card" data-cat="admissions">
             <div class="card-top">
               <div class="card-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 7-8 12-8 12s-8-5-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
             </div>
@@ -240,7 +262,7 @@ get_header();
         </div>
         <div class="cards">
 
-          <a href="<?php echo esc_url(home_url('/study-abroad-crm/')); ?>" class="card" data-cat="abroad">
+          <a href="<?php echo esc_url(ee_sol_find_url(array('study-abroad-crm','study-abroad-management-software'))); ?>" class="card" data-cat="abroad">
             <div class="card-top"><div class="card-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div></div>
             <div><h4>Study Abroad CRM</h4><p class="lead">Purpose-built CRM for international student recruitment — visa tracking, country pipelines, and university partnerships.</p></div>
             <div class="features-row">
@@ -251,7 +273,7 @@ get_header();
             <div class="card-bottom"><span class="card-cta">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div>
           </a>
 
-          <a href="<?php echo esc_url(home_url('/education-agents/')); ?>" class="card accent" data-cat="abroad">
+          <a href="<?php echo esc_url(ee_sol_find_url(array('education-agents','education-agent-crm'))); ?>" class="card accent" data-cat="abroad">
             <div class="card-top">
               <div class="card-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
               <span class="badge new">● New</span>
@@ -265,7 +287,7 @@ get_header();
             <div class="card-bottom"><span class="card-cta">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div>
           </a>
 
-          <a href="<?php echo esc_url(home_url('/education-consultants/')); ?>" class="card" data-cat="abroad">
+          <a href="<?php echo esc_url(ee_sol_find_url(array('education-consultants','oversea-education-consultant-software'))); ?>" class="card" data-cat="abroad">
             <div class="card-top"><div class="card-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div></div>
             <div><h4>Education Consultants</h4><p class="lead">Scale your consulting business with student lifecycle tools, automated follow-ups, and white-labeled client experiences.</p></div>
             <div class="features-row">
@@ -289,7 +311,7 @@ get_header();
         </div>
         <div class="cards col-4">
 
-          <a href="<?php echo esc_url(home_url('/student-recruitment/')); ?>" class="card" data-cat="recruitment">
+          <a href="<?php echo esc_url(ee_sol_find_url(array('student-recruitment-software','student-recruitment'))); ?>" class="card" data-cat="recruitment">
             <div class="card-top"><div class="card-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v6m0 6v6"/><path d="M21 12h-6m-6 0H3"/><circle cx="12" cy="12" r="3"/></svg></div></div>
             <div><h4>Student Recruitment</h4><p class="lead">Attract top-quality students across channels with targeted outreach and campaign analytics.</p></div>
             <div class="features-row">
@@ -299,7 +321,7 @@ get_header();
             <div class="card-bottom"><span class="card-cta">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div>
           </a>
 
-          <a href="<?php echo esc_url(home_url('/lead-management/')); ?>" class="card accent" data-cat="recruitment">
+          <a href="<?php echo esc_url(ee_sol_find_url(array('lead-management','centralised-lead-management'))); ?>" class="card accent" data-cat="recruitment">
             <div class="card-top">
               <div class="card-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
               <span class="badge popular">★ Popular</span>
@@ -312,7 +334,7 @@ get_header();
             <div class="card-bottom"><span class="card-cta">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div>
           </a>
 
-          <a href="<?php echo esc_url(home_url('/lead-nurturing/')); ?>" class="card" data-cat="recruitment">
+          <a href="<?php echo esc_url(ee_sol_find_url(array('lead-nurturing','strategic-lead-nurturing'))); ?>" class="card" data-cat="recruitment">
             <div class="card-top">
               <div class="card-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
               <span class="badge ai">AI-Powered</span>
@@ -325,7 +347,7 @@ get_header();
             <div class="card-bottom"><span class="card-cta">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div>
           </a>
 
-          <a href="<?php echo esc_url(home_url('/enrollment-crm/')); ?>" class="card" data-cat="recruitment">
+          <a href="<?php echo esc_url(ee_sol_find_url(array('enrollment-crm','crm-enrollment-management','university-crm'))); ?>" class="card" data-cat="recruitment">
             <div class="card-top">
               <div class="card-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
               <span class="badge enterprise">Enterprise</span>
