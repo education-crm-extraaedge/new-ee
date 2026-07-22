@@ -1,119 +1,18 @@
 <?php
 /**
- * /products/ — enterprise SaaS products experience.
+ * /products/ — "The admissions platform" experience (same design as the
+ * home page section: live spotlight preview, search, category filters).
  *
- * 12-section premium landing (hero + search, featured, categories, all
- * products with live filter/sort, ecosystem, why-us, comparison,
- * integrations, metrics, testimonials, FAQ, final CTA) rendered ONLY from
- * existing data:
- *   • Products   → ee_get_product_menu_items()  (Product CPT + Card Settings)
- *   • Page copy  → ee_products_page_get()       (Products → Products Page admin)
- *   • Quotes     → latest 'testimonial' posts (section skipped when none)
- *
- * Brand: #19335D / #DE6E30 on white, Inter only, 24/16/14 radii, soft
- * shadows, 1320px shell, IO-driven fade-ups. No external dependencies.
+ * The 15 consolidated core products below map to their canonical URLs per
+ * the SEO architecture (keyword landing pages roll up to these).
+ * Section markup/CSS/JS is a 1:1 port of front-page.php's #ee-products.
  */
 if (!defined('ABSPATH')) exit;
 
-$ee_products = function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items() : array();
-$PS    = function_exists('ee_products_page_get') ? ee_products_page_get() : array();
-$PSget = function ($k, $fb = '') use ($PS) { return isset($PS[$k]) && $PS[$k] !== '' ? $PS[$k] : $fb; };
-
-/* ── Category rows (label / icon slug / desc / order / hide) ── */
-$ee_cat_rows = isset($PS['cats']) && is_array($PS['cats']) ? $PS['cats'] : array();
-if (empty($ee_cat_rows)) {
-    $ee_cat_rows = array(
-        'featured'      => array('label' => 'Featured',      'icon' => 'star',     'desc' => 'Our most popular admissions tools, used by 500+ institutions.', 'order' => 1, 'hide' => 0),
-        'core'          => array('label' => 'Core CRM',      'icon' => 'bullseye', 'desc' => 'Manage the entire admissions lifecycle end-to-end.',            'order' => 2, 'hide' => 0),
-        'communication' => array('label' => 'Communication', 'icon' => 'comments', 'desc' => 'Reach every prospect on the channel they prefer.',              'order' => 3, 'hide' => 0),
-        'automation'    => array('label' => 'Automation',    'icon' => 'bolt',     'desc' => 'Smart workflows that work while you sleep.',                    'order' => 4, 'hide' => 0),
-    );
-}
-uasort($ee_cat_rows, function ($a, $b) { return ((int)($a['order'] ?? 0)) <=> ((int)($b['order'] ?? 0)); });
-$ee_pcols = array();
-foreach ($ee_cat_rows as $k => $r) { if (empty($r['hide'])) $ee_pcols[$k] = $r; }
-
-/* ── Normalise products for PHP + JS ── */
-$ee_first_col = array_key_first($ee_pcols) ?: 'featured';
-$ee_items = array();
-foreach ($ee_products as $i => $p) {
-    $col = isset($p['column']) ? $p['column'] : $ee_first_col;
-    if ($col === 'hidden') continue;
-    if (!isset($ee_pcols[$col])) $col = $ee_first_col;
-    if (!isset($ee_pcols[$col])) continue;
-    $badge = isset($p['badge']) && $p['badge'] !== 'none' ? $p['badge'] : '';
-    $ee_items[] = array(
-        'id'    => sanitize_title($p['title']) ?: 'p' . $i,
-        't'     => $p['title'],
-        'd'     => $p['desc'],
-        'url'   => $p['url'],
-        'icon'  => isset($p['icon']) ? $p['icon'] : '',
-        'cat'   => $col,
-        'catL'  => $ee_pcols[$col]['label'],
-        'badge' => $badge,
-        'ord'   => $i,
-    );
-}
-$ee_total = count($ee_items);
-
-/* Featured = badged products (fallback: first three). */
-$ee_featured = array_values(array_filter($ee_items, function ($p) { return $p['badge'] !== ''; }));
-if (empty($ee_featured)) $ee_featured = array_slice($ee_items, 0, 3);
-$ee_featured = array_slice($ee_featured, 0, 6);
-
-/* Per-category counts. */
-$ee_counts = array_fill_keys(array_keys($ee_pcols), 0);
-foreach ($ee_items as $p) { $ee_counts[$p['cat']]++; }
-
-/* Ecosystem chain — only products that actually exist, in journey order. */
-$ee_eco_want = array('Education CRM', 'Admission Management System', 'Application Management', 'Marketing Automation', 'Vidya', 'Analytics');
-$ee_eco = array();
-foreach ($ee_eco_want as $want) {
-    foreach ($ee_items as $p) {
-        if (stripos($p['t'], $want) !== false) { $ee_eco[] = $p; break; }
-    }
-}
-
-/* Comparison — major products present on the page. */
-$ee_cmp_pick = array('Education CRM', 'Vidya', 'Mobile CRM', 'Marketing Automation', 'Analytics');
-$ee_cmp = array();
-foreach ($ee_cmp_pick as $want) {
-    foreach ($ee_items as $p) {
-        if (stripos($p['t'], $want) !== false) { $ee_cmp[] = $p; break; }
-    }
-}
-$ee_cmp = array_slice($ee_cmp, 0, 5);
-$ee_cmp_flag = function ($title, $row) {
-    $t = strtolower($title);
-    switch ($row) {
-        case 'ai':        return (strpos($t, 'vidya') !== false || strpos($t, 'ai') !== false || strpos($t, 'education crm') !== false);
-        case 'mobile':    return (strpos($t, 'mobile') !== false || strpos($t, 'education crm') !== false);
-        case 'analytics': return (strpos($t, 'analytics') !== false || strpos($t, 'education crm') !== false || strpos($t, 'marketing') !== false);
-        default:          return true; /* automation / integrations / scalability — platform-wide */
-    }
-};
-
-/* Metrics / integrations / FAQ (editable in the Products Page admin). */
-$ee_metrics = array();
-foreach (array_filter(array_map('trim', explode("\n", (string) $PSget('metrics', "500+|Institutions Onboard\n10M+|Enquiries Managed\n1M+|Admissions Leads")))) as $line) {
-    $bits = array_map('trim', explode('|', $line, 2));
-    if ($bits[0] !== '') $ee_metrics[] = array($bits[0], isset($bits[1]) ? $bits[1] : '');
-}
-$ee_integr = array_filter(array_map('trim', explode(',', (string) $PSget('integrations', 'Google, Meta, WhatsApp, Zoom, Microsoft, Payment Gateways, LMS, ERP, REST API, Webhooks'))));
-$ee_faqs = array();
-foreach (array_filter(array_map('trim', explode("\n", (string) $PSget('faq', '')))) as $line) {
-    $bits = array_map('trim', explode('|', $line, 2));
-    if ($bits[0] !== '' && !empty($bits[1])) $ee_faqs[] = array('q' => $bits[0], 'a' => $bits[1]);
-}
-
-/* Testimonials — real posts only; section skipped when empty. */
-$ee_quotes = get_posts(array('post_type' => 'testimonial', 'numberposts' => 3, 'post_status' => 'publish'));
-
-/* ── SEO head: meta + ItemList + FAQ schema ── */
-add_action('wp_head', function () use ($ee_items, $ee_faqs) {
-    $ps    = function_exists('ee_products_page_get') ? ee_products_page_get() : array();
-    $title = !empty($ps['seo_title']) ? $ps['seo_title'] : 'Education CRM Products — Convert More Students, Automatically | ExtraaEdge';
-    $desc  = !empty($ps['seo_desc'])  ? $ps['seo_desc']  : 'Education CRM platform with AI chatbots, application management, and WhatsApp integration. Automate admissions, boost conversions, and scale enrollment 24/7.';
+/* SEO head: meta + ItemList schema for the 15 core products. */
+add_action('wp_head', function () {
+    $title = 'Education CRM Products — One Platform, Every Admissions Tool | ExtraaEdge';
+    $desc  = 'Explore the ExtraaEdge admissions platform: Education CRM, Application & Admission Management, Mobile CRM, WhatsApp API, Education Chatbot, IVR and more.';
     $url   = home_url($_SERVER['REQUEST_URI'] ?? '/products/');
     echo '<meta name="description" content="' . esc_attr($desc) . '">' . "\n";
     echo '<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">' . "\n";
@@ -123,709 +22,482 @@ add_action('wp_head', function () use ($ee_items, $ee_faqs) {
     echo '<meta property="og:url" content="' . esc_url($url) . '">' . "\n";
     echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
 
+    $core = array(
+        array('Education CRM',                 '/products/education-crm/'),
+        array('Application Management System', '/products/application-management-system/'),
+        array('Admission Management System',   '/admission-management-software/'),
+        array('Enrollment Management System',  '/enrollment-management-software/'),
+        array('Mobile CRM',                    '/products/mobile-crm/'),
+        array('WhatsApp API',                  '/products/whatsapp-api/'),
+        array('Education Chatbot',             '/products/chatbot-for-education/'),
+        array('IVR',                           '/products/ivr/'),
+        array('Student Recruitment Software',  '/student-recruitment-software/'),
+        array('Walk-in Management System',     '/walk-in-management-system/'),
+        array('Study Abroad CRM',              '/study-abroad-crm/'),
+        array('University CRM',                '/university-crm/'),
+        array('School CRM',                    '/school-crm/'),
+        array('Coaching CRM',                  '/coaching-crm/'),
+        array('Higher Education CRM',          '/industries/higher-education-crm/'),
+    );
     $li = array();
-    foreach ($ee_items as $i => $p) {
-        $li[] = array('@type' => 'ListItem', 'position' => $i + 1, 'name' => $p['t'], 'url' => home_url($p['url']), 'description' => $p['d']);
+    foreach ($core as $i => $p) {
+        $li[] = array('@type' => 'ListItem', 'position' => $i + 1, 'name' => $p[0], 'url' => home_url($p[1]));
     }
-    if ($li) {
-        echo "\n<script type=\"application/ld+json\">" . wp_json_encode(array(
-            '@context' => 'https://schema.org', '@type' => 'ItemList',
-            'name' => 'Education CRM Product Modules',
-            'numberOfItems' => count($li), 'itemListElement' => $li,
-        ), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
-    }
-    if ($ee_faqs) {
-        $main = array();
-        foreach ($ee_faqs as $f) {
-            $main[] = array('@type' => 'Question', 'name' => $f['q'], 'acceptedAnswer' => array('@type' => 'Answer', 'text' => $f['a']));
-        }
-        echo "<script type=\"application/ld+json\">" . wp_json_encode(array('@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $main), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
-    }
+    echo "\n<script type=\"application/ld+json\">" . wp_json_encode(array(
+        '@context' => 'https://schema.org', '@type' => 'ItemList',
+        'name' => 'ExtraaEdge Admissions Platform Products',
+        'numberOfItems' => count($li), 'itemListElement' => $li,
+    ), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "</script>\n";
+
     add_filter('pre_get_document_title', function () use ($title) { return $title; }, 99);
 }, 1);
 
 get_header();
-
-/* Category icon helper (ti-slug / file slug / URL, inline fallback). */
-$ee_cat_ico = function ($slug, $size = 26) {
-    return function_exists('ee_products_cat_icon') ? ee_products_cat_icon($slug, $size) : '';
-};
-$ee_badge_label = function ($b) {
-    $map = array('popular' => 'Most Popular', 'new' => 'New', 'trending' => 'Trending', 'hot' => 'Best Seller');
-    return isset($map[$b]) ? $map[$b] : ucfirst($b);
-};
 ?>
-<!-- pxp-products v2026-07-22 -->
-<style>
-/* ═══════════ /products/ — premium SaaS experience (scoped .pxp) ═══════════ */
-.pxp{
-  --pb:#19335D; --po:#DE6E30;
-  --tint-b:#EEF3FA; --tint-o:#FDF0E7; --line:#E6EBF2;
-  --ink:#19335D; --ink-soft:#4C5F7C; --ink-mute:#7C8BA3;
-  --r-card:24px; --r-btn:16px; --r-in:14px;
-  --sh-1:0 2px 10px rgba(25,51,93,.05);
-  --sh-2:0 12px 34px rgba(25,51,93,.09);
-  --sh-3:0 20px 50px rgba(25,51,93,.12);
-  background:#fff; color:var(--ink-soft);
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  font-size:18px; line-height:1.6;
-  overflow:clip;
-}
-.pxp *{box-sizing:border-box}
-.pxp .wrapx{max-width:1320px;margin:0 auto;padding:0 24px}
-.pxp section{padding:60px 0}
-@media(min-width:768px){.pxp section{padding:80px 0}}
-@media(min-width:1100px){.pxp section{padding:120px 0}}
-.pxp .sec-head{max-width:760px;margin:0 auto 44px;text-align:center}
-.pxp .kick{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--po);margin-bottom:14px}
-.pxp .kick::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--po);box-shadow:0 0 0 4px var(--tint-o)}
-.pxp h2{font-size:clamp(28px,3.4vw,42px);font-weight:800;color:var(--pb);line-height:1.15;letter-spacing:-.02em;margin:0 0 12px}
-.pxp .sec-sub{font-size:18px;color:var(--ink-soft);margin:0}
-.pxp .small{font-size:15px}
-.pxp a{text-decoration:none}
-.pxp :focus-visible{outline:2.5px solid var(--po);outline-offset:3px;border-radius:6px}
+<!-- pxp-products v2026-07-22-eep -->
+<style>#ee-products{
+    --navy:#19345d; --ink:#0f203a; --orange:#DE6E30; --orange-2:#E8843F;
+    --line:rgba(25,52,93,.10); --muted:#5a6b85;
+    position:relative;
+    padding:clamp(60px,8vw,108px) 0;
+    background:
+      radial-gradient(1100px 480px at 88% -6%, rgba(222,110,48,.06), transparent 60%),
+      radial-gradient(900px 460px at 8% 104%, rgba(25,52,93,.06), transparent 60%),
+      #F6F8FC;
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }#ee-products *{box-sizing:border-box;}#ee-products .eep-wrap{ max-width:1280px; margin:0 auto; padding:0 24px; }/* ---------- Header ---------- */
+  #ee-products .eep-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin-bottom:clamp(26px,3vw,38px); }#ee-products .eep-head-l{ max-width:660px; }#ee-products .eep-eyebrow{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:7px 14px 7px 11px; border-radius:999px;
+    background:rgba(222,110,48,.08); border:1px solid rgba(222,110,48,.2);
+    color:#C45A20; font-size:11.5px; font-weight:600; letter-spacing:.13em; text-transform:uppercase;
+    margin-bottom:18px;
+  }#ee-products .eep-eyebrow .eep-dot{ width:7px; height:7px; border-radius:50%; background:var(--orange); box-shadow:0 0 0 4px rgba(222,110,48,.16); animation:eepPulse 2.6s ease-in-out infinite; }
+  @keyframes eepPulse{0%,100%{box-shadow:0 0 0 3px rgba(222,110,48,.18);}50%{box-shadow:0 0 0 6px rgba(222,110,48,0);} }#ee-products h2, #ee-products .eep-head-l h1{
+    font-family:'Inter',sans-serif; font-weight:700;
+    font-size:clamp(30px,4.4vw,46px); line-height:1.06; letter-spacing:-.022em;
+    margin:0 0 14px; color:var(--navy);
+  }#ee-products h2 .eep-accent{
+    background:linear-gradient(120deg,var(--orange-2),var(--orange)); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }#ee-products .eep-sub{ font-size:clamp(15px,1.7vw,17.5px); line-height:1.55; color:var(--muted); margin:0; }/* ---------- Search ---------- */
+  #ee-products .eep-search{ position:relative; flex:0 0 auto; width:min(300px,100%); }#ee-products .eep-search svg,#ee-products .eep-search img.eeimg{ position:absolute; left:14px; top:50%; transform:translateY(-50%); width:17px; height:17px; pointer-events:none; }#ee-products .eep-search svg *,#ee-products .eep-search img.eeimg *{ stroke:#8697b0; }#ee-products .eep-search input{
+    width:100%; height:46px; padding:0 38px 0 40px;
+    border:1px solid var(--line); border-radius:12px; background:#fff;
+    font-family:inherit; font-size:14px; color:var(--ink);
+    box-shadow:0 1px 2px rgba(25,52,93,.04); transition:border-color .2s ease, box-shadow .2s ease;
+  }#ee-products .eep-search input::placeholder{ color:#9aa8bd; }#ee-products .eep-search input:focus{ outline:none; border-color:rgba(222,110,48,.5); box-shadow:0 0 0 4px rgba(222,110,48,.12); }#ee-products .eep-clear{ position:absolute; right:8px; top:50%; transform:translateY(-50%); display:none; width:24px; height:24px; border:0; border-radius:7px; background:rgba(25,52,93,.06); color:var(--navy); cursor:pointer; font-size:14px; line-height:1; }#ee-products .eep-search.has-val .eep-clear{ display:grid; place-items:center; }/* ---------- Filter pills ---------- */
+  #ee-products .eep-filters{ display:flex; gap:9px; flex-wrap:wrap; margin-bottom:clamp(22px,2.6vw,30px); }#ee-products .eep-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:9px 16px; border-radius:999px; cursor:pointer;
+    border:1px solid var(--line); background:#fff; color:var(--navy);
+    font-family:inherit; font-size:13.5px; font-weight:600; letter-spacing:.005em;
+    transition:transform .18s ease, border-color .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
+  }#ee-products .eep-pill .eep-count{ font-size:11px; font-weight:700; padding:1px 7px; border-radius:999px; background:rgba(25,52,93,.07); color:var(--navy); transition:background .2s ease,color .2s ease; }#ee-products .eep-pill:hover{ transform:translateY(-1px); border-color:rgba(222,110,48,.35); }#ee-products .eep-pill[aria-pressed="true"]{ background:linear-gradient(135deg,var(--orange-2),var(--orange)); border-color:transparent; color:#fff; box-shadow:0 8px 18px -10px rgba(222,110,48,.7); }#ee-products .eep-pill[aria-pressed="true"] .eep-count{ background:rgba(255,255,255,.24); color:#fff; }#ee-products .eep-pill:focus-visible{ outline:2px solid var(--orange); outline-offset:3px; }/* ---------- Main split ---------- */
+  #ee-products .eep-main{ display:grid; grid-template-columns:minmax(0,380px) minmax(0,1fr); gap:24px; align-items:start; }/* ---------- Spotlight (signature) ---------- */
+  #ee-products .eep-spot{
+    --acc:#5c9af6; --acc-soft:rgba(92,154,246,.18);
+    position:sticky; top:100px;
+    border-radius:22px; overflow:hidden; isolation:isolate;
+    background:linear-gradient(165deg,#1b355c 0%,#13294a 55%,#0e203b 100%);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 30px 60px -30px rgba(11,26,48,.75), inset 0 1px 0 rgba(255,255,255,.06);
+    color:#EAF0FA;
+    min-height:520px; display:flex; flex-direction:column;
+    transition:--acc .4s ease;
+  }#ee-products .eep-spot::before{ /* accent glow keyed to active category */
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(520px 320px at 78% -8%, var(--acc-soft), transparent 62%);
+    transition:background .45s ease;
+  }#ee-products .eep-spot::after{ /* fine grid texture */
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.5;
+    background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:30px 30px; mask-image:radial-gradient(420px 300px at 75% 0%, #000, transparent 75%);
+  }#ee-products .eep-spot-top{ position:relative; z-index:2; padding:20px 22px 6px; display:flex; align-items:center; justify-content:space-between; gap:10px; }#ee-products .eep-spot-tag{ display:inline-flex; align-items:center; gap:7px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#aebcd2; }#ee-products .eep-spot-tag i{ width:8px; height:8px; border-radius:50%; background:var(--acc); box-shadow:0 0 0 4px var(--acc-soft); }#ee-products .eep-live{ display:inline-flex; align-items:center; gap:6px; font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#7fa7e3; }#ee-products .eep-live b{ width:6px; height:6px; border-radius:50%; background:#3474d3; animation:eepBlink 1.4s ease-in-out infinite; }
+  @keyframes eepBlink{0%,100%{opacity:1;}50%{opacity:.25;} }/* stage = animated scene */
+  #ee-products .eep-stage{ position:relative; z-index:2; margin:8px 18px 4px; height:188px; border-radius:16px; background:rgba(8,20,38,.45); border:1px solid rgba(255,255,255,.07); overflow:hidden; display:grid; place-items:center; padding:16px; }#ee-products .eep-stage .eep-scene{ width:100%; height:100%; opacity:0; animation:eepSceneIn .5s ease forwards; }
+  @keyframes eepSceneIn{from{opacity:0; transform:translateY(8px);}to{opacity:1; transform:none;} }/* spotlight text */
+  #ee-products .eep-spot-body{ position:relative; z-index:2; padding:16px 22px 22px; display:flex; flex-direction:column; gap:12px; flex:1; }#ee-products .eep-spot-icon{ width:48px; height:48px; border-radius:13px; display:grid; place-items:center; background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 60%,#0b1a30)); box-shadow:0 10px 22px -10px var(--acc), inset 0 1px 0 rgba(255,255,255,.25); }#ee-products .eep-spot-icon svg,#ee-products .eep-spot-icon img.eeimg{ width:25px; height:25px; }#ee-products .eep-spot-icon svg *,#ee-products .eep-spot-icon img.eeimg *{ stroke:#fff; }#ee-products .eep-spot-title{ font-family:'Inter',sans-serif; font-size:21px; font-weight:600; letter-spacing:-.01em; color:#fff; margin:2px 0 0; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }#ee-products .eep-spot-title .eep-new{ font-family:'Inter',sans-serif; font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 8px; border-radius:999px; background:var(--acc); color:#0c1a30; }#ee-products .eep-spot-desc{ font-size:14px; line-height:1.6; color:#c2d0e4; margin:0; }#ee-products .eep-spot-tags{ display:flex; flex-wrap:wrap; gap:7px; margin-top:2px; }#ee-products .eep-spot-tags span{ font-size:11.5px; font-weight:500; color:#dfe7f4; padding:5px 11px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); }#ee-products .eep-spot-cta{ margin-top:auto; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:13px 20px; border-radius:12px; background:linear-gradient(135deg,var(--orange-2),var(--orange)); color:#fff; font-weight:600; font-size:14.5px; text-decoration:none; box-shadow:0 12px 26px -12px rgba(222,110,48,.7), inset 0 1px 0 rgba(255,255,255,.22); transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; }#ee-products .eep-spot-cta:hover{ transform:translateY(-2px); filter:saturate(1.05); }#ee-products .eep-spot-cta:focus-visible{ outline:2px solid #fff; outline-offset:3px; }#ee-products .eep-spot-cta svg,#ee-products .eep-spot-cta img.eeimg{ width:16px; height:16px; }#ee-products .eep-spot-cta svg *,#ee-products .eep-spot-cta img.eeimg *{ stroke:#fff; }/* ---------- Grid ---------- */
+  #ee-products .eep-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }#ee-products .eep-card{
+    position:relative; display:flex; flex-direction:column; gap:11px;
+    padding:18px 17px; background:#fff; border:1px solid var(--line); border-radius:15px;
+    text-decoration:none; color:inherit; cursor:pointer;
+    box-shadow:0 1px 2px rgba(25,52,93,.04);
+    transition:transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s ease, border-color .22s ease;
+  }#ee-products .eep-card::before{ content:""; position:absolute; left:0; top:14px; bottom:14px; width:3px; border-radius:0 3px 3px 0; background:var(--cardacc,var(--orange)); opacity:0; transform:scaleY(.4); transform-origin:center; transition:opacity .22s ease, transform .22s ease; }#ee-products .eep-card:hover,#ee-products .eep-card.is-active{ transform:translateY(-4px); border-color:rgba(222,110,48,.3); box-shadow:0 20px 38px -22px rgba(25,52,93,.4); }#ee-products .eep-card.is-active::before,#ee-products .eep-card:hover::before{ opacity:1; transform:scaleY(1); }#ee-products .eep-card:focus-visible{ outline:2px solid var(--orange); outline-offset:3px; }#ee-products .eep-card-top{ display:flex; align-items:center; gap:11px; }#ee-products .eep-chip{ flex:0 0 auto; width:40px; height:40px; border-radius:11px; display:grid; place-items:center; background:linear-gradient(135deg, color-mix(in srgb,var(--cardacc,#DE6E30) 88%,#fff), var(--cardacc,#DE6E30)); box-shadow:0 6px 14px -7px var(--cardacc,rgba(222,110,48,.6)), inset 0 1px 0 rgba(255,255,255,.3); }#ee-products .eep-chip svg,#ee-products .eep-chip img.eeimg{ width:21px; height:21px; }#ee-products .eep-chip svg *,#ee-products .eep-chip img.eeimg *{ stroke:#fff; }/* product icon shown as a logo image */
+  #ee-products .eep-chip:has(img.eep-ic-img),#ee-products .eep-spot-icon:has(img.eep-ic-img){ background:transparent; padding:0; overflow:hidden; box-shadow:none; }#ee-products .eep-ic-img{ width:100%; height:100%; object-fit:cover; display:block; border-radius:inherit; }#ee-products .eep-card-title{ font-family:'Inter',sans-serif; font-size:14.5px; font-weight:600; line-height:1.25; letter-spacing:-.01em; color:var(--navy); display:flex; align-items:center; gap:7px; flex-wrap:wrap; }#ee-products .eep-badge{ font-size:9px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#fff; background:var(--orange); padding:2px 6px; border-radius:999px; }#ee-products .eep-card-desc{ font-size:12.5px; line-height:1.5; color:var(--muted); margin:0; }#ee-products .eep-card-foot{ margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:8px; }#ee-products .eep-card-cat{ font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--cardacc,#C45A20); opacity:.85; }#ee-products .eep-card-go{ display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; color:var(--navy); opacity:0; transform:translateX(-4px); transition:opacity .2s ease, transform .2s ease; }#ee-products .eep-card-go svg,#ee-products .eep-card-go img.eeimg{ width:13px; height:13px; }#ee-products .eep-card-go svg *,#ee-products .eep-card-go img.eeimg *{ stroke:var(--orange); }#ee-products .eep-card:hover .eep-card-go,#ee-products .eep-card:focus-visible .eep-card-go,#ee-products .eep-card.is-active .eep-card-go{ opacity:1; transform:none; }/* filtered out */
+  #ee-products .eep-card[hidden]{ display:none; }/* empty state */
+  #ee-products .eep-empty{ grid-column:1/-1; display:none; flex-direction:column; align-items:center; text-align:center; gap:10px; padding:48px 20px; border:1px dashed var(--line); border-radius:15px; color:var(--muted); }#ee-products .eep-empty.show{ display:flex; }#ee-products .eep-empty svg,#ee-products .eep-empty img.eeimg{ width:34px; height:34px; opacity:.5; }#ee-products .eep-empty svg *,#ee-products .eep-empty img.eeimg *{ stroke:var(--navy); }#ee-products .eep-empty b{ color:var(--navy); font-family:'Inter',sans-serif; font-size:16px; }#ee-products .eep-empty button{ margin-top:4px; padding:9px 16px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--navy); font-family:inherit; font-weight:600; font-size:13px; cursor:pointer; }#ee-products .eep-empty button:hover{ border-color:rgba(222,110,48,.4); }/* ---------- Scene animation bits ---------- */
+  #ee-products .sc{ font-size:11px; color:#cdd9ec; }/* AI scene */
+  #ee-products .sc-ai{ display:flex; flex-direction:column; gap:8px; justify-content:center; }#ee-products .sc-bub{ max-width:78%; padding:8px 11px; border-radius:12px; font-size:11.5px; line-height:1.35; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08); opacity:0; transform:translateY(6px); animation:eepBub .5s ease forwards; }#ee-products .sc-bub.me{ align-self:flex-end; background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 55%,#10274a)); border-color:transparent; color:#fff; }#ee-products .sc-bub.b2{ animation-delay:.5s; }#ee-products .sc-bub.b3{ animation-delay:1.05s; }
+  @keyframes eepBub{to{opacity:1; transform:none;} }#ee-products .sc-type{ display:inline-flex; gap:4px; align-self:flex-start; padding:9px 12px; border-radius:12px; background:rgba(255,255,255,.08); opacity:0; animation:eepBub .4s 1.55s ease forwards; }#ee-products .sc-type i{ width:5px; height:5px; border-radius:50%; background:#aebbcf; animation:eepDot 1.1s infinite; }#ee-products .sc-type i:nth-child(2){ animation-delay:.18s; }#ee-products .sc-type i:nth-child(3){ animation-delay:.36s; }
+  @keyframes eepDot{0%,60%,100%{transform:translateY(0); opacity:.5;}30%{transform:translateY(-4px); opacity:1;} }#ee-products .sc-wave{ display:inline-flex; align-items:flex-end; gap:3px; height:18px; margin-left:6px; }#ee-products .sc-wave span{ width:3px; background:var(--acc); border-radius:2px; animation:eepWave 1s ease-in-out infinite; }#ee-products .sc-wave span:nth-child(2){animation-delay:.12s}#ee-products .sc-wave span:nth-child(3){animation-delay:.24s}#ee-products .sc-wave span:nth-child(4){animation-delay:.36s}#ee-products .sc-wave span:nth-child(5){animation-delay:.48s}
+  @keyframes eepWave{0%,100%{height:5px;}50%{height:17px;} }/* Platform / kanban scene */
+  #ee-products .sc-kan{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; align-content:center; width:100%; }#ee-products .sc-col{ background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.07); border-radius:9px; padding:7px 6px; display:flex; flex-direction:column; gap:6px; min-height:118px; }#ee-products .sc-col h6{ margin:0 0 1px; font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#9fb1cc; }#ee-products .sc-lead{ height:18px; border-radius:6px; background:rgba(255,255,255,.1); }#ee-products .sc-lead.live{ background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 50%,#0c2140)); animation:eepHop 4s ease-in-out infinite; }
+  @keyframes eepHop{0%,18%{transform:translateX(0);}33%,52%{transform:translateX(calc(100% + 14px));}67%,86%{transform:translateX(calc(200% + 28px));}100%{transform:translateX(0);} }/* Admissions scene */
+  #ee-products .sc-adm{ width:100%; display:flex; flex-direction:column; gap:9px; justify-content:center; }#ee-products .sc-prog{ height:8px; border-radius:999px; background:rgba(255,255,255,.1); overflow:hidden; }#ee-products .sc-prog i{ display:block; height:100%; width:20%; border-radius:999px; background:linear-gradient(90deg,var(--acc),color-mix(in srgb,var(--acc) 55%,#fff)); animation:eepFill 4s ease-in-out infinite; }
+  @keyframes eepFill{0%{width:12%;}45%{width:100%;}60%{width:100%;}100%{width:12%;} }#ee-products .sc-row{ display:flex; align-items:center; gap:9px; font-size:11px; color:#c7d4e8; }#ee-products .sc-tick{ width:18px; height:18px; border-radius:6px; border:1.5px solid rgba(255,255,255,.25); display:grid; place-items:center; flex:0 0 auto; }#ee-products .sc-tick.on{ background:var(--acc); border-color:transparent; }#ee-products .sc-tick svg,#ee-products .sc-tick img.eeimg{ width:11px; height:11px; opacity:0; }#ee-products .sc-tick.on svg,#ee-products .sc-tick.on img.eeimg{ opacity:1; }#ee-products .sc-tick svg *,#ee-products .sc-tick img.eeimg *{ stroke:#0c1a30; }#ee-products .sc-r1 .sc-tick{ animation:eepOn .1s 1s forwards; }#ee-products .sc-r2 .sc-tick{ animation:eepOn .1s 1.8s forwards; }#ee-products .sc-r3 .sc-tick{ animation:eepOn .1s 2.6s forwards; }
+  @keyframes eepOn{to{ background:var(--acc); border-color:transparent; } }#ee-products .sc-r1 .sc-tick svg,#ee-products .sc-r1 .sc-tick img.eeimg,#ee-products .sc-r2 .sc-tick svg,#ee-products .sc-r2 .sc-tick img.eeimg,#ee-products .sc-r3 .sc-tick svg,#ee-products .sc-r3 .sc-tick img.eeimg{ animation:eepShow .1s forwards; }#ee-products .sc-r1 .sc-tick svg,#ee-products .sc-r1 .sc-tick img.eeimg{ animation-delay:1s; }#ee-products .sc-r2 .sc-tick svg,#ee-products .sc-r2 .sc-tick img.eeimg{ animation-delay:1.8s; }#ee-products .sc-r3 .sc-tick svg,#ee-products .sc-r3 .sc-tick img.eeimg{ animation-delay:2.6s; }
+  @keyframes eepShow{to{opacity:1;} }/* Engage scene */
+  #ee-products .sc-eng{ display:flex; flex-direction:column; gap:8px; justify-content:center; width:100%; }#ee-products .sc-msg{ display:flex; align-items:center; gap:8px; opacity:0; transform:translateX(-8px); animation:eepBub .5s ease forwards; }#ee-products .sc-msg.m2{ animation-delay:.6s; }#ee-products .sc-msg.m3{ animation-delay:1.2s; flex-direction:row-reverse; }#ee-products .sc-msg .av{ width:22px; height:22px; border-radius:50%; flex:0 0 auto; background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 50%,#0c2140)); }#ee-products .sc-msg .tx{ flex:1; height:13px; border-radius:6px; background:rgba(255,255,255,.1); }#ee-products .sc-msg.m3 .tx{ background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 55%,#10274a)); max-width:60%; }#ee-products .sc-verified{ align-self:center; display:inline-flex; align-items:center; gap:6px; font-size:10.5px; font-weight:600; color:#a9c3e9; margin-top:2px; opacity:0; animation:eepBub .5s 1.7s forwards; }#ee-products .sc-verified svg,#ee-products .sc-verified img.eeimg{ width:14px; height:14px; }#ee-products .sc-verified svg *,#ee-products .sc-verified img.eeimg *{ stroke:#3474d3; }/* Grow scene */
+  #ee-products .sc-grow{ display:flex; align-items:flex-end; justify-content:space-between; gap:9px; height:100%; padding:6px 4px; width:100%; }#ee-products .sc-bar{ flex:1; border-radius:6px 6px 0 0; background:linear-gradient(180deg,var(--acc),color-mix(in srgb,var(--acc) 45%,#0c2140)); height:14%; transform-origin:bottom; animation:eepGrow 2.4s ease-in-out infinite; }#ee-products .sc-bar:nth-child(1){--h:40%;}#ee-products .sc-bar:nth-child(2){--h:62%;}#ee-products .sc-bar:nth-child(3){--h:50%;}#ee-products .sc-bar:nth-child(4){--h:82%;}#ee-products .sc-bar:nth-child(5){--h:96%;}#ee-products .sc-bar:nth-child(2){animation-delay:.12s}#ee-products .sc-bar:nth-child(3){animation-delay:.24s}#ee-products .sc-bar:nth-child(4){animation-delay:.36s}#ee-products .sc-bar:nth-child(5){animation-delay:.48s}
+  @keyframes eepGrow{0%{height:14%;}55%,100%{height:var(--h);} }
 
-/* buttons */
-.pxp .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:13px 30px;border-radius:var(--r-btn);font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;transition:transform .22s ease,box-shadow .22s ease,background .22s ease;position:relative;overflow:hidden;border:1.5px solid transparent}
-.pxp .btn-solid{background:var(--po);color:#fff}
-.pxp .btn-solid:hover{background:#C85D20;transform:translateY(-2px);box-shadow:0 12px 28px rgba(222,110,48,.28)}
-.pxp .btn-line{background:#fff;color:var(--pb);border-color:var(--pb)}
-.pxp .btn-line:hover{background:var(--tint-b);transform:translateY(-2px)}
-.pxp .btn .rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);transform:scale(0);animation:pxp-rip .55s ease-out forwards;pointer-events:none}
-@keyframes pxp-rip{to{transform:scale(3);opacity:0}}
-
-/* reveal */
-.pxp .rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
-.pxp .rv.on{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.pxp .rv{opacity:1;transform:none;transition:none}.pxp *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
-/* ── S1 hero ── */
-.pxp-hero{padding:64px 0 40px!important;background:
-  radial-gradient(60% 46% at 12% 0%,var(--tint-o) 0%,rgba(253,240,231,0) 62%),
-  radial-gradient(52% 40% at 92% 8%,var(--tint-b) 0%,rgba(238,243,250,0) 60%),#fff}
-.pxp-hero .wrapx{text-align:center;max-width:900px}
-.pxp-hero h1{font-size:clamp(34px,5vw,56px);font-weight:800;color:var(--pb);letter-spacing:-.025em;line-height:1.12;margin:14px 0 16px}
-.pxp-hero h1 em{font-style:normal;color:var(--po)}
-.pxp-hero .hero-sub{font-size:18px;max-width:620px;margin:0 auto 30px}
-.pxp-count{display:inline-flex;align-items:center;gap:8px;background:var(--tint-b);color:var(--pb);font-size:15px;font-weight:700;padding:8px 18px;border-radius:100px;margin-bottom:8px}
-.pxp-count b{color:var(--po)}
-.pxp-search{display:flex;align-items:center;gap:10px;max-width:560px;margin:0 auto 20px;background:#fff;border:1.5px solid var(--line);border-radius:var(--r-in);padding:6px 8px 6px 18px;box-shadow:var(--sh-1);transition:border-color .2s,box-shadow .2s}
-.pxp-search:focus-within{border-color:var(--po);box-shadow:0 0 0 4px rgba(222,110,48,.10)}
-.pxp-search svg{width:20px;height:20px;color:var(--ink-mute);flex-shrink:0}
-.pxp-search input{flex:1;min-width:0;border:0;outline:0;font:inherit;font-size:16px;color:var(--pb);background:transparent;padding:10px 0}
-.pxp-search input::placeholder{color:var(--ink-mute)}
-.pxp-search .clr{border:0;background:var(--tint-b);color:var(--pb);width:36px;height:36px;border-radius:10px;font-size:18px;cursor:pointer;display:none}
-.pxp-search.has .clr{display:block}
-
-/* chips (hero + sticky) */
-.pxp-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.pxp-chip{border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);font:inherit;font-size:15px;font-weight:600;padding:11px 20px;min-height:48px;border-radius:100px;cursor:pointer;transition:all .2s ease}
-.pxp-chip:hover{border-color:var(--po);color:var(--po)}
-.pxp-chip.on{background:var(--pb);border-color:var(--pb);color:#fff}
-.pxp-stickychips{position:sticky;top:64px;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 0;display:none}
-.pxp-stickychips.show{display:block}
-.pxp-stickychips .pxp-chips{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;padding:0 24px}
-.pxp-stickychips .pxp-chips::-webkit-scrollbar{display:none}
-.pxp-stickychips .pxp-chip{flex:0 0 auto;min-height:42px;padding:8px 16px}
-
-/* ── S2 featured ── */
-.pxp-feat-grid{display:grid;grid-template-columns:1fr;gap:22px}
-@media(min-width:700px){.pxp-feat-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1080px){.pxp-feat-grid{grid-template-columns:repeat(3,1fr)}}
-.pxp-feat{position:relative;display:flex;flex-direction:column;background:linear-gradient(180deg,#fff 0%,#FBFCFE 100%);border:1px solid var(--line);border-radius:var(--r-card);padding:30px;box-shadow:var(--sh-1);transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease}
-.pxp-feat:hover{transform:translateY(-6px) scale(1.02);box-shadow:var(--sh-3);border-color:rgba(222,110,48,.35)}
-.pxp-feat .fbadge{position:absolute;top:22px;right:22px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--po);background:var(--tint-o);padding:5px 12px;border-radius:100px}
-.pxp-ico{width:58px;height:58px;border-radius:16px;background:var(--tint-b);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:transform .3s ease;flex-shrink:0}
-.pxp-feat:hover .pxp-ico,.pxp-card:hover .pxp-ico{transform:rotate(-6deg) scale(1.06)}
-.pxp-ico img{width:60%;height:60%;object-fit:contain}
-.pxp-ico .fallback{font-weight:800;font-size:20px;color:var(--pb)}
-.pxp-feat h3,.pxp-card h3{font-size:22px;font-weight:700;color:var(--pb);letter-spacing:-.01em;margin:0 0 8px}
-.pxp-feat p{font-size:15px;margin:0 0 16px}
-.pxp-benefits{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:8px}
-.pxp-benefits li{display:flex;gap:9px;align-items:flex-start;font-size:15px;color:var(--ink-soft)}
-.pxp-benefits svg{width:17px;height:17px;color:var(--po);flex-shrink:0;margin-top:3px}
-.pxp-cta-row{display:flex;gap:10px;margin-top:auto;flex-wrap:wrap}
-.pxp-mini{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:48px;padding:10px 20px;border-radius:var(--r-btn);font-size:15px;font-weight:700;transition:all .2s ease;border:1.5px solid transparent}
-.pxp-mini.a{background:var(--pb);color:#fff}
-.pxp-mini.a:hover{background:#12264a;transform:translateY(-2px)}
-.pxp-mini.b{color:var(--po);border-color:rgba(222,110,48,.4);background:#fff}
-.pxp-mini.b:hover{background:var(--tint-o)}
-
-/* ── S3 categories ── */
-.pxp-cat-grid{display:grid;grid-template-columns:1fr;gap:18px}
-@media(min-width:640px){.pxp-cat-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1080px){.pxp-cat-grid{grid-template-columns:repeat(4,1fr)}}
-.pxp-catcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r-card);padding:26px;box-shadow:var(--sh-1);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;color:inherit}
-.pxp-catcard:hover{transform:translateY(-5px);box-shadow:var(--sh-2);border-color:rgba(25,51,93,.25)}
-.pxp-catcard .cico{width:48px;height:48px;border-radius:14px;background:var(--tint-o);display:flex;align-items:center;justify-content:center}
-.pxp-catcard .cico img,.pxp-catcard .cico svg{max-width:24px;max-height:24px}
-.pxp-catcard h3{font-size:19px;font-weight:700;color:var(--pb);margin:0;display:flex;align-items:center;gap:10px}
-.pxp-catcard .cnt{font-size:12px;font-weight:800;color:var(--pb);background:var(--tint-b);padding:3px 10px;border-radius:100px}
-.pxp-catcard p{font-size:15px;margin:0}
-.pxp-catcard .go{font-size:15px;font-weight:700;color:var(--po);display:inline-flex;align-items:center;gap:6px;margin-top:auto;position:relative}
-.pxp-catcard .go::after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;background:var(--po);transition:width .25s ease}
-.pxp-catcard:hover .go::after{width:100%}
-
-/* ── S4 all products ── */
-.pxp-tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:26px}
-.pxp-sort{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink-soft)}
-.pxp-sort select{font:inherit;font-size:15px;font-weight:600;color:var(--pb);border:1.5px solid var(--line);border-radius:var(--r-in);padding:11px 14px;background:#fff;min-height:48px;cursor:pointer}
-.pxp-grid{display:grid;grid-template-columns:1fr;gap:20px}
-@media(min-width:640px){.pxp-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1080px){.pxp-grid{grid-template-columns:repeat(3,1fr)}}
-.pxp-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--r-card);padding:26px;box-shadow:var(--sh-1);transition:transform .26s ease,box-shadow .26s ease}
-.pxp-card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:linear-gradient(120deg,rgba(222,110,48,.6),rgba(25,51,93,.4));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s ease;pointer-events:none}
-.pxp-card:hover{transform:translateY(-6px);box-shadow:0 18px 44px rgba(222,110,48,.13),var(--sh-2)}
-.pxp-card:hover::before{opacity:1}
-.pxp-card .rowtop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-.pxp-card .catb{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--pb);background:var(--tint-b);padding:5px 11px;border-radius:100px;white-space:nowrap}
-.pxp-card .catb.hot{color:var(--po);background:var(--tint-o)}
-.pxp-card p{font-size:15px;margin:0 0 14px}
-.pxp-card .caps{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 20px}
-.pxp-card .caps span{font-size:12.5px;font-weight:600;color:var(--ink-soft);background:#F4F7FB;border:1px solid var(--line);padding:4px 11px;border-radius:100px}
-.pxp-none{display:none;text-align:center;padding:50px 20px;background:var(--tint-b);border-radius:var(--r-card)}
-.pxp-none b{display:block;font-size:19px;color:var(--pb);margin-bottom:6px}
-.pxp-none button{margin-top:14px}
-
-/* ── S5 ecosystem ── */
-.pxp-eco{background:linear-gradient(180deg,#fff 0%,var(--tint-b) 130%)}
-.pxp-eco-flow{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;max-width:1100px;margin:0 auto}
-.pxp-eco-node{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 20px;box-shadow:var(--sh-1);text-align:center;min-width:170px;flex:0 1 auto;transition:transform .22s,box-shadow .22s}
-.pxp-eco-node:hover{transform:translateY(-4px);box-shadow:var(--sh-2)}
-.pxp-eco-node b{display:block;font-size:15.5px;color:var(--pb)}
-.pxp-eco-node span{font-size:12.5px;color:var(--ink-mute)}
-.pxp-eco-arrow{display:flex;align-items:center;color:var(--po);flex:0 0 auto}
-.pxp-eco-arrow svg{width:22px;height:22px}
-@media(max-width:700px){.pxp-eco-flow{flex-direction:column;align-items:center}.pxp-eco-arrow svg{transform:rotate(90deg)}}
-
-/* ── S6 why ── */
-.pxp-why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-@media(min-width:768px){.pxp-why-grid{grid-template-columns:repeat(3,1fr);gap:18px}}
-@media(min-width:1080px){.pxp-why-grid{grid-template-columns:repeat(4,1fr)}}
-.pxp-why{background:#fff;border:1px solid var(--line);border-radius:var(--r-card);padding:24px 20px;text-align:center;box-shadow:var(--sh-1);transition:transform .24s ease,border-color .24s ease}
-.pxp-why:hover{transform:translateY(-4px) scale(1.02);border-color:rgba(222,110,48,.4)}
-.pxp-why .wi{width:46px;height:46px;margin:0 auto 12px;border-radius:14px;background:var(--tint-o);color:var(--po);display:flex;align-items:center;justify-content:center}
-.pxp-why .wi svg{width:22px;height:22px}
-.pxp-why b{display:block;font-size:16px;color:var(--pb);margin-bottom:5px}
-.pxp-why span{font-size:13.5px;color:var(--ink-soft);line-height:1.5}
-
-/* ── S7 comparison ── */
-.pxp-cmp-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-card);box-shadow:var(--sh-1)}
-.pxp-cmp{width:100%;min-width:760px;border-collapse:collapse;background:#fff;font-size:15px}
-.pxp-cmp th,.pxp-cmp td{padding:16px 18px;text-align:center;border-bottom:1px solid var(--line)}
-.pxp-cmp thead th{background:var(--tint-b);color:var(--pb);font-size:15px;font-weight:800}
-.pxp-cmp thead th:first-child{text-align:left}
-.pxp-cmp tbody th{text-align:left;font-weight:700;color:var(--pb);white-space:nowrap}
-.pxp-cmp tbody tr:last-child th,.pxp-cmp tbody tr:last-child td{border-bottom:0}
-.pxp-cmp .yes{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--tint-o);color:var(--po);align-items:center;justify-content:center}
-.pxp-cmp .yes svg{width:14px;height:14px}
-.pxp-cmp .dash{color:#C3CDDB;font-weight:700}
-.pxp-cmp td.bf{font-size:13.5px;color:var(--ink-soft);max-width:180px}
-
-/* ── S8 integrations ── */
-.pxp-int-badge{display:block;text-align:center;font-size:15px;font-weight:800;color:var(--po);margin-bottom:22px;letter-spacing:.06em;text-transform:uppercase}
-.pxp-int-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:900px;margin:0 auto}
-.pxp-int{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:100px;padding:12px 22px;min-height:48px;font-size:15px;font-weight:600;color:var(--pb);box-shadow:var(--sh-1);transition:transform .2s,border-color .2s}
-.pxp-int:hover{transform:translateY(-3px);border-color:rgba(222,110,48,.45)}
-.pxp-int i{width:8px;height:8px;border-radius:50%;background:var(--po);flex-shrink:0}
-
-/* ── S9 metrics ── */
-.pxp-met-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:1000px;margin:0 auto}
-@media(min-width:700px){.pxp-met-grid{grid-template-columns:repeat(3,1fr)}}
-.pxp-metcard{background:#fff;border:1px solid var(--line);border-radius:var(--r-card);padding:34px 24px;text-align:center;box-shadow:var(--sh-1)}
-.pxp-metcard b{display:block;font-size:clamp(34px,4vw,48px);font-weight:800;color:var(--po);letter-spacing:-.02em;line-height:1.1}
-.pxp-metcard span{font-size:15px;font-weight:600;color:var(--pb)}
-
-/* ── S10 testimonials ── */
-.pxp-quote-grid{display:grid;grid-template-columns:1fr;gap:20px}
-@media(min-width:860px){.pxp-quote-grid{grid-template-columns:repeat(3,1fr)}}
-.pxp-quote{background:#fff;border:1px solid var(--line);border-radius:var(--r-card);padding:28px;box-shadow:var(--sh-1);display:flex;flex-direction:column;gap:14px}
-.pxp-quote .stars{color:var(--po);letter-spacing:2px;font-size:15px}
-.pxp-quote blockquote{margin:0;font-size:15.5px;color:var(--ink-soft);line-height:1.65;flex:1}
-.pxp-quote .who b{display:block;font-size:15px;color:var(--pb)}
-.pxp-quote .who span{font-size:13px;color:var(--ink-mute)}
-
-/* ── S11 FAQ ── */
-.pxp-faq{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
-.pxp-faq-item{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:border-color .2s}
-.pxp-faq-item.open{border-color:rgba(222,110,48,.45)}
-.pxp-faq-q{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;background:none;border:0;font:inherit;font-size:17px;font-weight:700;color:var(--pb);text-align:left;padding:19px 22px;cursor:pointer;min-height:48px}
-.pxp-faq-q svg{width:18px;height:18px;color:var(--po);flex-shrink:0;transition:transform .25s ease}
-.pxp-faq-item.open .pxp-faq-q svg{transform:rotate(45deg)}
-.pxp-faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
-.pxp-faq-a p{margin:0;padding:0 22px 20px;font-size:15.5px;color:var(--ink-soft)}
-
-/* ── S12 final CTA ── */
-.pxp-final .box{background:linear-gradient(135deg,var(--tint-b) 0%,#fff 55%,var(--tint-o) 130%);border:1px solid var(--line);border-radius:32px;padding:56px 26px;text-align:center;box-shadow:var(--sh-2)}
-@media(min-width:768px){.pxp-final .box{padding:76px 60px}}
-.pxp-final h2{margin-bottom:14px}
-.pxp-final p{max-width:560px;margin:0 auto 30px}
-.pxp-final .acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.pxp-final .bullets{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-top:26px}
-.pxp-final .bullets span{display:inline-flex;align-items:center;gap:7px;font-size:14px;color:var(--ink-soft);font-weight:500}
-.pxp-final .bullets svg{width:15px;height:15px;color:var(--po)}
+  /* ---------- Responsive ---------- */
+  @media(max-width:980px){#ee-products .eep-main{ grid-template-columns:1fr; }#ee-products .eep-spot{ position:static; min-height:auto; }#ee-products .eep-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+  @media(max-width:620px){#ee-products .eep-head{ align-items:stretch; }#ee-products .eep-search{ width:100%; }#ee-products .eep-filters{ flex-wrap:nowrap; overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }#ee-products .eep-filters::-webkit-scrollbar{ display:none; }#ee-products .eep-pill{ flex:0 0 auto; }#ee-products .eep-grid{ grid-template-columns:repeat(2,1fr); gap:10px; }#ee-products .eep-card{ padding:15px 13px; }#ee-products .eep-card-go{ opacity:1; transform:none; }
+  }
+  @media(prefers-reduced-motion:reduce){#ee-products *{ animation-duration:.001s !important; animation-iteration-count:1 !important; transition-duration:.001s !important; }
+  }
+html body #main-content #ee-products .eep-head-l h1{font-size:clamp(30px,4.4vw,46px)!important;line-height:1.06!important;letter-spacing:-.022em!important}
 </style>
 
-<main class="pxp" id="pxp-top">
+<section id="ee-products" aria-label="Our products">
+  <div class="eep-wrap">
 
-  <!-- ═══ S1 · HERO ═══ -->
-  <section class="pxp-hero" aria-labelledby="pxp-h1">
-    <div class="wrapx">
-      <span class="kick"><?php echo esc_html($PSget('eyebrow', 'The ExtraaEdge Platform')); ?></span>
-      <h1 id="pxp-h1">Products Built For <em>Modern Education Institutions</em></h1>
-      <p class="hero-sub"><?php echo esc_html($PSget('intro_sub', 'Every module below runs on one shared student database — start anywhere, add anything, nothing breaks.')); ?></p>
-
-      <form class="pxp-search" id="pxpSearch" role="search" aria-label="Search products" onsubmit="return false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M21 21l-6-6"/></svg>
-        <input type="search" id="pxpQ" placeholder="Search products…" autocomplete="off" aria-label="Search products">
-        <button type="button" class="clr" id="pxpClr" aria-label="Clear search">&times;</button>
-      </form>
-
-      <div class="pxp-chips" id="pxpChips" role="group" aria-label="Filter products by category">
-        <button type="button" class="pxp-chip on" data-cat="all">All</button>
-        <?php foreach ($ee_pcols as $ck => $cm) : ?>
-        <button type="button" class="pxp-chip" data-cat="<?php echo esc_attr($ck); ?>"><?php echo esc_html($cm['label']); ?></button>
-        <?php endforeach; ?>
+    <div class="eep-head">
+      <div class="eep-head-l">
+        <span class="eep-eyebrow"><span class="eep-dot" aria-hidden="true"></span>The admissions platform</span>
+        <h1>One platform. <span class="eep-accent">Every admissions tool.</span></h1>
+        <p class="eep-sub">From first enquiry to enrolled - explore the suite. Tap or hover any product to see it come alive.</p>
       </div>
-
-      <p style="margin:22px 0 0"><span class="pxp-count"><b><?php echo (int) $ee_total; ?></b> Products</span></p>
+      <div class="eep-search" id="eepSearch">
+        <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-01.svg" alt="" loading="lazy" decoding="async">
+        <input type="text" id="eepInput" placeholder="Search products…" aria-label="Search products" autocomplete="off">
+        <button class="eep-clear" id="eepClear" aria-label="Clear search">&times;</button>
+      </div>
     </div>
-  </section>
 
-  <!-- sticky chips (appear once the hero scrolls away) -->
-  <div class="pxp-stickychips" id="pxpSticky">
-    <div class="pxp-chips">
-      <button type="button" class="pxp-chip on" data-cat="all">All</button>
-      <?php foreach ($ee_pcols as $ck => $cm) : ?>
-      <button type="button" class="pxp-chip" data-cat="<?php echo esc_attr($ck); ?>"><?php echo esc_html($cm['label']); ?></button>
-      <?php endforeach; ?>
+    <div class="eep-filters" id="eepFilters" role="group" aria-label="Filter products by category"></div>
+
+    <div class="eep-main">
+      <!-- Spotlight -->
+      <aside class="eep-spot" id="eepSpot" aria-live="polite">
+        <div class="eep-spot-top">
+          <span class="eep-spot-tag"><i></i><span id="eepSpotCat">AI &amp; automation</span></span>
+          <span class="eep-live"><b></b>Live preview</span>
+        </div>
+        <div class="eep-stage"><div class="eep-scene" id="eepScene"></div></div>
+        <div class="eep-spot-body">
+          <div class="eep-spot-icon" id="eepSpotIcon"></div>
+          <h3 class="eep-spot-title" id="eepSpotTitle"></h3>
+          <p class="eep-spot-desc" id="eepSpotDesc"></p>
+          <div class="eep-spot-tags" id="eepSpotTags"></div>
+          <a class="eep-spot-cta" id="eepSpotCta" href="#admission-form">See it in action <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-02.svg" alt="" loading="lazy" decoding="async"></a>
+        </div>
+      </aside>
+
+      <!-- Grid -->
+      <div class="eep-grid" id="eepGrid">
+        <div class="eep-empty" id="eepEmpty">
+          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-03.svg" alt="" loading="lazy" decoding="async">
+          <b>No products match that</b>
+          <span>Try a different word, or clear your search.</span>
+          <button id="eepReset" type="button">Reset filters</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ═══ S2 · FEATURED ═══ -->
-  <?php if (!empty($ee_featured)) : ?>
-  <section aria-labelledby="pxp-feat-h">
-    <div class="wrapx">
-      <div class="sec-head rv">
-        <span class="kick">Start Here</span>
-        <h2 id="pxp-feat-h">Featured Products</h2>
-        <p class="sec-sub">The modules institutions pick first — proven, popular, fast to deploy.</p>
-      </div>
-      <div class="pxp-feat-grid">
-        <?php foreach ($ee_featured as $fi => $p) : $initial = strtoupper(mb_substr($p['t'], 0, 1)); ?>
-        <article class="pxp-feat rv" style="transition-delay:<?php echo ($fi % 3) * 90; ?>ms">
-          <?php if ($p['badge']) : ?><span class="fbadge"><?php echo esc_html($ee_badge_label($p['badge'])); ?></span><?php endif; ?>
-          <div class="pxp-ico" aria-hidden="true">
-            <?php if ($p['icon']) : ?><img src="<?php echo esc_url($p['icon']); ?>" alt="" loading="lazy" decoding="async" onerror="this.outerHTML='<span class=&quot;fallback&quot;><?php echo esc_js($initial); ?></span>'">
-            <?php else : ?><span class="fallback"><?php echo esc_html($initial); ?></span><?php endif; ?>
-          </div>
-          <h3><?php echo esc_html($p['t']); ?></h3>
-          <p><?php echo esc_html($p['d']); ?></p>
-          <ul class="pxp-benefits">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg><?php echo esc_html($ee_pcols[$p['cat']]['desc']); ?></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Works with every other module on this page</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Hands-on onboarding &amp; dedicated success team</li>
-          </ul>
-          <div class="pxp-cta-row">
-            <a class="pxp-mini a" href="<?php echo esc_url($p['url']); ?>">Learn More</a>
-            <a class="pxp-mini b" href="<?php echo esc_url($PSget('side_cta_url', '/book-demo/')); ?>">View Demo</a>
-          </div>
-        </article>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
+  <script>
+  (function(){
+    var root = document.getElementById('ee-products');
+    if(!root) return;
 
-  <!-- ═══ S3 · CATEGORIES ═══ -->
-  <section style="background:var(--tint-b)" aria-labelledby="pxp-cat-h">
-    <div class="wrapx">
-      <div class="sec-head rv">
-        <span class="kick"><?php echo esc_html($PSget('side_eyebrow', 'Browse')); ?></span>
-        <h2 id="pxp-cat-h">Browse By Category</h2>
-        <p class="sec-sub"><?php echo esc_html($PSget('side_title', 'Product categories')); ?> — pick a lane, see what fits.</p>
-      </div>
-      <div class="pxp-cat-grid">
-        <?php foreach ($ee_pcols as $ck => $cm) : ?>
-        <a class="pxp-catcard rv" href="#all-products" data-jump="<?php echo esc_attr($ck); ?>">
-          <span class="cico" aria-hidden="true"><?php echo $ee_cat_ico($cm['icon'], 24); ?></span>
-          <h3><?php echo esc_html($cm['label']); ?> <span class="cnt"><?php echo (int) $ee_counts[$ck]; ?></span></h3>
-          <p><?php echo esc_html($cm['desc']); ?></p>
-          <span class="go">Explore <?php echo esc_html($cm['label']); ?> →</span>
-        </a>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
+    /* ---- icons ---- */
+    var IC = {
+      crm:'<svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke-width="1.6"/><path d="M3.5 19c.6-3.1 2.8-5 5.5-5s4.9 1.9 5.5 5" stroke-width="1.6" stroke-linecap="round"/><path d="M16 8h5M16 12h4" stroke-width="1.6" stroke-linecap="round"/></svg>',
+      spark:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8L18 14z" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+      phone:'<svg viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="18" rx="2.4" stroke-width="1.6"/><path d="M11 18h2" stroke-width="1.6" stroke-linecap="round"/></svg>',
+      gear:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke-width="1.6"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke-width="1.6" stroke-linecap="round"/></svg>',
+      doc:'<svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7a2 2 0 01-2-2V5a2 2 0 012-2z" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4h4M9 13h6M9 16.5h4" stroke-width="1.6" stroke-linecap="round"/></svg>',
+      shield:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      globe:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M3 12h18M12 3c2.5 2.4 3.8 5.6 3.8 9S14.5 18.6 12 21c-2.5-2.4-3.8-5.6-3.8-9S9.5 5.4 12 3z" stroke-width="1.5"/></svg>',
+      chat:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 10h.01M12 10h.01M15 10h.01" stroke-width="2" stroke-linecap="round"/></svg>',
+      whatsapp:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 19l1.3-3.9A8 8 0 1112 20a8 8 0 01-3.9-1L4 19z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 11c0 2 2 4 4 4l1-1.4c.3-.4-.1-.9-.6-1l-1.4-.4-.6.8c-.9-.4-1.7-1.2-2.1-2.1l.8-.6c.3-.5-.1-1.3-1-1.5C9 8.8 9 9.8 9 11z" stroke-width="1.4" stroke-linejoin="round"/></svg>',
+      call:'<svg viewBox="0 0 24 24" fill="none"><path d="M5 4h3l1.5 4-2 1.4a12 12 0 005.6 5.6l1.4-2L18.5 18v3a1 1 0 01-1.1 1A15 15 0 013 6.6 1 1 0 014.1 5.5L5 4z" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+      send:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 8l13-4-2 16-4-3-2.5 2.5L8 16 4 8z" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 16l9-12" stroke-width="1.5" stroke-linecap="round"/></svg>',
+      heart:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 21c4.5-2 7-5.2 7-9.5C19 7 16 4 12 4S5 7 5 11.5C5 15.8 7.5 19 12 21z" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 12.5a2.2 2.2 0 100-4.4 2.2 2.2 0 000 4.4z" stroke-width="1.5"/></svg>',
+      bars:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 20V4M4 20h16" stroke-width="1.6" stroke-linecap="round"/><path d="M8 16v-4M12 16V8M16 16v-6M20 16v-9" stroke-width="1.8" stroke-linecap="round"/></svg>'
+    };
 
-  <!-- ═══ S4 · ALL PRODUCTS ═══ -->
-  <section id="all-products" aria-labelledby="pxp-all-h" style="scroll-margin-top:110px">
-    <div class="wrapx">
-      <div class="sec-head rv">
-        <span class="kick">The Full Suite</span>
-        <h2 id="pxp-all-h">All Products</h2>
-        <p class="sec-sub">Live search, category filters and sorting — find your module in seconds.</p>
-      </div>
-      <div class="pxp-tools">
-        <span class="small" id="pxpShowing" aria-live="polite"></span>
-        <label class="pxp-sort">Sort
-          <select id="pxpSort" aria-label="Sort products">
-            <option value="default">Recommended</option>
-            <option value="az">Alphabetical (A–Z)</option>
-            <option value="popular">Popular first</option>
-            <option value="newest">Newest first</option>
-          </select>
-        </label>
-      </div>
-      <div class="pxp-grid" id="pxpGrid" role="list"></div>
-      <div class="pxp-none" id="pxpNone">
-        <b>No products match that</b>
-        <span class="small">Try a different word, or clear the filters.</span><br>
-        <button type="button" class="btn btn-line" id="pxpReset">Reset filters</button>
-      </div>
-    </div>
-  </section>
+    /* ---- categories ---- (accent only shows inside the dark spotlight) */
+    var CATS = {
+      ai:        { label:'AI & automation', acc:'#5c9af6', scene:'ai'   },
+      platform:  { label:'Core platform',   acc:'#F2935A', scene:'kan'  },
+      admissions:{ label:'Admissions',      acc:'#5b96ef', scene:'adm'  },
+      engage:    { label:'Engage',          acc:'#2564c2', scene:'eng'  },
+      grow:      { label:'Grow',            acc:'#F2B441', scene:'grow' }
+    };
+    var FILTERS = [
+      {id:'all', label:'All'},
+      {id:'ai', label:'AI & automation'},
+      {id:'platform', label:'Core platform'},
+      {id:'admissions', label:'Admissions'},
+      {id:'engage', label:'Engage'}
+    ];
 
-  <!-- ═══ S5 · ECOSYSTEM ═══ -->
-  <?php if (count($ee_eco) >= 3) : ?>
-  <section class="pxp-eco" aria-labelledby="pxp-eco-h">
-    <div class="wrapx">
-      <div class="sec-head rv">
-        <span class="kick">Better Together</span>
-        <h2 id="pxp-eco-h">The Product Ecosystem</h2>
-        <p class="sec-sub">One student record flows through every module — no exports, no re-typing, no lost context.</p>
-      </div>
-      <div class="pxp-eco-flow rv">
-        <?php foreach ($ee_eco as $i => $p) : ?>
-          <?php if ($i > 0) : ?><span class="pxp-eco-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><?php endif; ?>
-          <a class="pxp-eco-node" href="<?php echo esc_url($p['url']); ?>"><b><?php echo esc_html($p['t']); ?></b><span><?php echo esc_html($p['catL']); ?></span></a>
-        <?php endforeach; ?>
-        <span class="pxp-eco-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        <span class="pxp-eco-node"><b>Student Success</b><span>The outcome</span></span>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
+    /* ---- products ---- */
+    var P = [
+      {id:'edu-crm', t:'Education CRM', badge:'Popular', cat:'platform', ic:'crm', href:'/products/education-crm/',
+        d:'Unify every enquiry, counsellor and campus on one purpose-built platform.',
+        l:'Built for admissions, not retrofitted from sales. One view of every enquiry, every counsellor and every campus - so nothing slips between teams.',
+        tags:['360\u00b0 enquiry view','Counsellor workflows','Multi-campus ready']},
+      {id:'app-mgmt', t:'Application Management System', cat:'admissions', ic:'doc', href:'/products/application-management-system/',
+        d:'Track every application stage with automated nudges so no form stalls.',
+        l:'See where every applicant is, in real time. Automated nudges restart stalled forms before they go cold.',
+        tags:['Stage tracking','Auto nudges','Status alerts']},
+      {id:'ams', t:'Admission Management System', cat:'admissions', ic:'shield', href:'/admission-management-software/',
+        d:'Orchestrate fees, documents and approvals end-to-end in one auditable flow.',
+        l:'Run the whole admission cycle - fees, documents, approvals - in one place, with a complete audit trail for every decision.',
+        tags:['Fees & documents','Approval flows','Full audit trail']},
+      {id:'ems', t:'Enrollment Management System', cat:'admissions', ic:'shield', href:'/enrollment-management-software/',
+        d:'Convert offers into confirmed enrolments with fees, docs and seats tracked.',
+        l:'From offer letter to first day - fee plans, document checklists and seat allocation tracked in one auditable flow.',
+        tags:['Seat allocation','Fee plans','Document checklists']},
+      {id:'mob-crm', t:'Mobile CRM', badge:'New', cat:'platform', ic:'phone', href:'/products/mobile-crm/',
+        d:'Run admissions from your pocket - call, follow up and close on the go.',
+        l:'Your full pipeline on mobile. Counsellors call, log and follow up from anywhere, with reminders that keep every lead moving.',
+        tags:['Call from your phone','Push reminders','Works on the move']},
+      {id:'waba', t:'WhatsApp API', cat:'engage', ic:'whatsapp', href:'/products/whatsapp-api/',
+        d:'Reach families on their favourite channel with verified, automated conversations.',
+        l:'Meet families where they already are. Verified WhatsApp with automated replies and broadcast campaigns that actually get read.',
+        tags:['Verified sender','Automated replies','Broadcast campaigns']},
+      {id:'chatbot', t:'Education Chatbot', cat:'ai', ic:'chat', href:'/products/chatbot-for-education/',
+        d:'Answer student questions 24/7 and capture qualified enquiries while you sleep.',
+        l:'An always-on assistant that answers questions on your site and WhatsApp, qualifies interest, and hands warm leads to counsellors.',
+        tags:['24/7 answers','Qualifies enquiries','Site + WhatsApp']},
+      {id:'ivr', t:'IVR', cat:'engage', ic:'call', href:'/products/ivr/',
+        d:'Route, record and track every call so no enquiry rings out unanswered.',
+        l:'Smart call routing with recording and missed-call capture - every ring becomes a tracked, followed-up enquiry.',
+        tags:['Smart call routing','Call recording','Missed-call capture']},
+      {id:'srs', t:'Student Recruitment Software', cat:'admissions', ic:'globe', href:'/student-recruitment-software/',
+        d:'Plan outreach, manage agents and measure every recruitment channel.',
+        l:'Run fairs, school visits and agent networks with clear attribution - know exactly which channel fills your seats.',
+        tags:['Agent management','Event outreach','Channel attribution']},
+      {id:'walkin', t:'Walk-in Management System', cat:'admissions', ic:'doc', href:'/walk-in-management-system/',
+        d:'Turn campus walk-ins into tracked, followed-up enquiries instantly.',
+        l:'Front-desk capture for walk-in visitors - instant lead creation, counsellor hand-off and same-day follow-up reminders.',
+        tags:['Front-desk capture','Instant hand-off','Same-day follow-up']},
+      {id:'abroad-crm', t:'Study Abroad CRM', cat:'platform', ic:'globe', href:'/study-abroad-crm/',
+        d:'Built for overseas consultants - courses, countries and commissions in one flow.',
+        l:'Manage applicants across countries, universities and intakes, with agent commissions and document workflows built in.',
+        tags:['Multi-country intakes','University shortlists','Commission tracking']},
+      {id:'univ-crm', t:'University CRM', cat:'platform', ic:'crm', href:'/university-crm/',
+        d:'Multi-department admissions for universities - one platform, every faculty.',
+        l:'Departments, programmes and campuses on one system, with role-based access and university-grade reporting.',
+        tags:['Multi-department','Role-based access','Programme-wise funnels']},
+      {id:'school-crm', t:'School CRM', cat:'platform', ic:'crm', href:'/school-crm/',
+        d:'Parent-first admissions for schools - enquiry to enrolment without paperwork.',
+        l:'Built around parent conversations - sibling linking, visit scheduling and fee collection in one friendly flow.',
+        tags:['Parent journeys','Visit scheduling','Sibling linking']},
+      {id:'coaching-crm', t:'Coaching CRM', cat:'platform', ic:'crm', href:'/coaching-crm/',
+        d:'High-volume batch admissions for coaching institutes, minus the chaos.',
+        l:'Handle thousands of enquiries per intake - batch allocation, counselling slots and fee reminders on autopilot.',
+        tags:['Batch allocation','High-volume intake','Fee reminders']},
+      {id:'he-crm', t:'Higher Education CRM', badge:'Popular', cat:'platform', ic:'crm', href:'/industries/higher-education-crm/',
+        d:'Purpose-built CRM for colleges and universities to scale admissions 2X.',
+        l:'The complete higher-education stack - lead capture to enrolment with AI nurturing, tuned to college workflows.',
+        tags:['2X conversions','AI nurturing','College workflows']}
+    ];
 
-  <!-- ═══ S6 · WHY ═══ -->
-  <section aria-labelledby="pxp-why-h" style="padding-top:0">
-    <div class="wrapx">
-      <div class="sec-head rv">
-        <span class="kick">Why ExtraaEdge</span>
-        <h2 id="pxp-why-h">Why Choose Our Platform</h2>
-      </div>
-      <div class="pxp-why-grid">
-        <?php
-        $ee_why = array(
-            array('AI Powered',      'Intent scoring, drafted replies and 24/7 answers built in.',            '<path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z"/>'),
-            array('Automation',      'Follow-ups, nudges and campaigns run while your team sleeps.',           '<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>'),
-            array('Fast Deployment', 'Go live in as little as 48 hours with hands-on onboarding.',             '<path d="M13 3L4 14h6l-1 7 9-11h-6z"/>'),
-            array('Cloud Based',     'Nothing to install — secure access from any device, anywhere.',          '<path d="M6 18a4 4 0 010-8 6 6 0 0111.6 1.6A3.5 3.5 0 0117 18H6z"/>'),
-            array('Secure',          'GDPR &amp; CCPA compliant, ISO 27001 certified, role-based access.',     '<path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5z"/><path d="M9 12l2 2 4-4"/>'),
-            array('Integrations',    'Portals, telephony, payments, ERPs — connected out of the box.',         '<path d="M9 7H6a3 3 0 000 6h3M15 7h3a3 3 0 010 6h-3M8 10h8"/>'),
-            array('Scalable',        'From one campus to fifty — same platform, same speed.',                  '<path d="M3 17l6-6 4 4 8-8M14 7h7v7"/>'),
-            array('24x7 Support',    'A dedicated success manager plus round-the-clock help.',                 '<path d="M4 12a8 8 0 0116 0v5a2 2 0 01-2 2h-2v-6h4M4 12v5a2 2 0 002 2h2v-6H4"/>'),
-        );
-        foreach ($ee_why as $wi => $w) : ?>
-        <div class="pxp-why rv" style="transition-delay:<?php echo ($wi % 4) * 70; ?>ms">
-          <span class="wi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><?php echo $w[2]; ?></svg></span>
-          <b><?php echo esc_html($w[0]); ?></b>
-          <span><?php echo wp_kses_post($w[1]); ?></span>
-        </div>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ S7 · COMPARISON ═══ -->
-  <?php if (count($ee_cmp) >= 3) : ?>
-  <section aria-labelledby="pxp-cmp-h" style="padding-top:0">
-    <div class="wrapx">
-      <div class="sec-head rv">
-        <span class="kick">Pick Your Fit</span>
-        <h2 id="pxp-cmp-h">Product Comparison</h2>
-        <p class="sec-sub">A quick look at how the major modules line up.</p>
-      </div>
-      <div class="pxp-cmp-scroll rv">
-        <table class="pxp-cmp">
-          <thead><tr><th scope="col">Capability</th>
-            <?php foreach ($ee_cmp as $p) : ?><th scope="col"><?php echo esc_html($p['t']); ?></th><?php endforeach; ?>
-          </tr></thead>
-          <tbody>
-            <tr><th scope="row">Best For</th>
-              <?php foreach ($ee_cmp as $p) : ?><td class="bf"><?php echo esc_html(wp_trim_words($p['d'], 8, '…')); ?></td><?php endforeach; ?>
-            </tr>
-            <?php
-            $ee_rows = array('Automation' => 'automation', 'AI' => 'ai', 'Mobile' => 'mobile', 'Analytics' => 'analytics', 'Integrations' => 'integrations', 'Scalability' => 'scalability');
-            $tick = '<span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>';
-            foreach ($ee_rows as $lbl => $key) : ?>
-            <tr><th scope="row"><?php echo esc_html($lbl); ?></th>
-              <?php foreach ($ee_cmp as $p) : ?>
-              <td><?php echo $ee_cmp_flag($p['t'], $key) ? $tick : '<span class="dash" aria-label="Not a primary focus">—</span>'; ?></td>
-              <?php endforeach; ?>
-            </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
-
-  <!-- ═══ S8 · INTEGRATIONS ═══ -->
-  <?php if (!empty($ee_integr)) : ?>
-  <section style="background:var(--tint-b)" aria-labelledby="pxp-int-h">
-    <div class="wrapx">
-      <div class="sec-head rv">
-        <span class="kick">Plays Well With Others</span>
-        <h2 id="pxp-int-h">Integrations</h2>
-        <span class="pxp-int-badge"><?php echo esc_html($PSget('integr_count', '50+ Integrations')); ?></span>
-      </div>
-      <div class="pxp-int-grid rv">
-        <?php foreach ($ee_integr as $ig) : ?>
-        <span class="pxp-int"><i aria-hidden="true"></i><?php echo esc_html($ig); ?></span>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
-
-  <!-- ═══ S9 · METRICS ═══ -->
-  <?php if (!empty($ee_metrics)) : ?>
-  <section aria-labelledby="pxp-met-h">
-    <div class="wrapx">
-      <div class="sec-head rv">
-        <span class="kick">Customer Success</span>
-        <h2 id="pxp-met-h">Institutions Grow With Us</h2>
-      </div>
-      <div class="pxp-met-grid">
-        <?php foreach ($ee_metrics as $mi => $m) : ?>
-        <div class="pxp-metcard rv" style="transition-delay:<?php echo $mi * 90; ?>ms">
-          <b class="pxp-counter" data-final="<?php echo esc_attr($m[0]); ?>"><?php echo esc_html($m[0]); ?></b>
-          <span><?php echo esc_html($m[1]); ?></span>
-        </div>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
-
-  <!-- ═══ S10 · TESTIMONIALS ═══ -->
-  <?php if (!empty($ee_quotes)) : ?>
-  <section aria-labelledby="pxp-quo-h" style="padding-top:0">
-    <div class="wrapx">
-      <div class="sec-head rv">
-        <span class="kick">Loved By Admissions Teams</span>
-        <h2 id="pxp-quo-h">Customer Testimonials</h2>
-      </div>
-      <div class="pxp-quote-grid">
-        <?php foreach ($ee_quotes as $q) :
-            $quote = wp_strip_all_tags($q->post_excerpt ?: $q->post_content);
-            if (mb_strlen($quote) > 220) $quote = mb_substr($quote, 0, 220) . '…';
-            $role = get_post_meta($q->ID, '_role', true) ?: get_post_meta($q->ID, '_designation', true);
-        ?>
-        <figure class="pxp-quote rv">
-          <span class="stars" aria-label="Rated 5 out of 5">★★★★★</span>
-          <blockquote>“<?php echo esc_html($quote); ?>”</blockquote>
-          <figcaption class="who"><b><?php echo esc_html(get_the_title($q)); ?></b><?php if ($role) : ?><span><?php echo esc_html($role); ?></span><?php endif; ?></figcaption>
-        </figure>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
-
-  <!-- ═══ S11 · FAQ ═══ -->
-  <?php if (!empty($ee_faqs)) : ?>
-  <section aria-labelledby="pxp-faq-h" style="padding-top:0">
-    <div class="wrapx">
-      <div class="sec-head rv">
-        <span class="kick">Good To Know</span>
-        <h2 id="pxp-faq-h">Frequently Asked Questions</h2>
-      </div>
-      <div class="pxp-faq" id="pxpFaq">
-        <?php foreach ($ee_faqs as $fi => $f) : ?>
-        <div class="pxp-faq-item">
-          <button type="button" class="pxp-faq-q" aria-expanded="false" aria-controls="pxp-fa-<?php echo (int) $fi; ?>">
-            <?php echo esc_html($f['q']); ?>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </button>
-          <div class="pxp-faq-a" id="pxp-fa-<?php echo (int) $fi; ?>" role="region"><p><?php echo esc_html($f['a']); ?></p></div>
-        </div>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
-
-  <!-- ═══ S12 · FINAL CTA ═══ -->
-  <section class="pxp-final" aria-labelledby="pxp-cta-h" style="padding-top:0">
-    <div class="wrapx">
-      <div class="box rv">
-        <span class="kick"><?php echo esc_html($PSget('big_badge', 'Start Free — No Commitment')); ?></span>
-        <h2 id="pxp-cta-h"><?php echo esc_html($PSget('big_title', 'Ready To Transform Your Admissions?')); ?></h2>
-        <p><?php echo esc_html($PSget('big_sub', 'Join 550+ institutions already converting more inquiries into enrollments — on autopilot.')); ?></p>
-        <div class="acts">
-          <a class="btn btn-solid" href="<?php echo esc_url($PSget('big_url1', '/book-demo/')); ?>"><?php echo esc_html($PSget('big_btn1', 'Book Demo')); ?></a>
-          <a class="btn btn-line" href="<?php echo esc_url($PSget('big_url2', '/contact/')); ?>"><?php echo esc_html($PSget('big_btn2', 'Talk To Expert')); ?></a>
-        </div>
-        <div class="bullets">
-          <?php $ee_bullets = array_filter(array_map('trim', explode("\n", (string) $PSget('trust', "No credit card required\nPersonalized onboarding\nCancel anytime\nSetup in 48 hours"))));
-          foreach ($ee_bullets as $bullet) : ?>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg><?php echo esc_html($bullet); ?></span>
-          <?php endforeach; ?>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<script>
-(function () {
-  var root = document.getElementById('pxp-top');
-  if (!root) return;
-
-  /* ---- data (from PHP — existing products only) ---- */
-  var P = <?php echo wp_json_encode(array_values($ee_items), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>;
-  var CATL = <?php echo wp_json_encode(array_map(function ($c) { return $c['label']; }, $ee_pcols), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>;
-  var DEMO_URL = <?php echo wp_json_encode($PSget('side_cta_url', '/book-demo/')); ?>;
-  var badgeRank = { hot: 0, popular: 1, trending: 2, 'new': 3, '': 9 };
-
-  var state = { q: '', cat: 'all', sort: 'default' };
-  var grid = document.getElementById('pxpGrid');
-  var none = document.getElementById('pxpNone');
-  var showing = document.getElementById('pxpShowing');
-
-  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-
-  function card(p) {
-    var initial = esc((p.t || '?').charAt(0).toUpperCase());
-    var ico = p.icon
-      ? '<img src="' + esc(p.icon) + '" alt="" loading="lazy" decoding="async" onerror="this.outerHTML=\'<span class=&quot;fallback&quot;>' + initial + '</span>\'">'
-      : '<span class="fallback">' + initial + '</span>';
-    var caps = (p.d || '').split(/[,.]/).map(function (s) { return s.trim(); }).filter(function (s) { return s.length > 2 && s.length < 34; }).slice(0, 3);
-    var capsHtml = caps.length ? '<div class="caps">' + caps.map(function (c) { return '<span>' + esc(c) + '</span>'; }).join('') + '</div>' : '';
-    var badge = p.badge ? '<span class="catb hot">' + esc(p.badge).toUpperCase() + '</span>' : '<span class="catb">' + esc(CATL[p.cat] || '') + '</span>';
-    return '<article class="pxp-card" role="listitem">' +
-      '<div class="rowtop"><div class="pxp-ico" aria-hidden="true">' + ico + '</div>' + badge + '</div>' +
-      '<h3>' + esc(p.t) + '</h3><p>' + esc(p.d) + '</p>' + capsHtml +
-      '<div class="pxp-cta-row"><a class="pxp-mini a" href="' + esc(p.url) + '">Learn More</a>' +
-      '<a class="pxp-mini b" href="' + esc(DEMO_URL) + '">View Demo</a></div></article>';
-  }
-
-  function apply() {
-    var q = state.q.toLowerCase();
-    var list = P.filter(function (p) {
-      if (state.cat !== 'all' && p.cat !== state.cat) return false;
-      if (q && (p.t + ' ' + p.d + ' ' + (CATL[p.cat] || '')).toLowerCase().indexOf(q) === -1) return false;
-      return true;
-    });
-    if (state.sort === 'az') list.sort(function (a, b) { return a.t.localeCompare(b.t); });
-    else if (state.sort === 'popular') list.sort(function (a, b) { return (badgeRank[a.badge] !== undefined ? badgeRank[a.badge] : 9) - (badgeRank[b.badge] !== undefined ? badgeRank[b.badge] : 9) || a.ord - b.ord; });
-    else if (state.sort === 'newest') list.sort(function (a, b) { return b.ord - a.ord; });
-    else list.sort(function (a, b) { return a.ord - b.ord; });
-
-    grid.innerHTML = list.map(card).join('');
-    none.style.display = list.length ? 'none' : 'block';
-    if (showing) showing.textContent = 'Showing ' + list.length + ' of ' + P.length + ' products';
-  }
-  apply();
-
-  /* ---- search ---- */
-  var qEl = document.getElementById('pxpQ'), sForm = document.getElementById('pxpSearch');
-  qEl.addEventListener('input', function () {
-    state.q = qEl.value.trim();
-    sForm.classList.toggle('has', state.q !== '');
-    apply();
-  });
-  document.getElementById('pxpClr').addEventListener('click', function () {
-    qEl.value = ''; state.q = ''; sForm.classList.remove('has'); apply(); qEl.focus();
-  });
-
-  /* ---- chips (hero + sticky stay in sync) ---- */
-  function setCat(cat) {
-    state.cat = cat;
-    document.querySelectorAll('.pxp-chip').forEach(function (c) { c.classList.toggle('on', c.getAttribute('data-cat') === cat); });
-    apply();
-  }
-  document.querySelectorAll('.pxp-chip').forEach(function (c) {
-    c.addEventListener('click', function () {
-      setCat(c.getAttribute('data-cat'));
-      var all = document.getElementById('all-products');
-      if (all && all.getBoundingClientRect().top > window.innerHeight * .8) all.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-  document.querySelectorAll('.pxp-catcard').forEach(function (cc) {
-    cc.addEventListener('click', function () { setCat(cc.getAttribute('data-jump')); });
-  });
-  document.getElementById('pxpReset').addEventListener('click', function () {
-    qEl.value = ''; state.q = ''; sForm.classList.remove('has'); setCat('all');
-  });
-  document.getElementById('pxpSort').addEventListener('change', function (e) { state.sort = e.target.value; apply(); });
-
-  /* sticky chips appear after the hero */
-  var hero = root.querySelector('.pxp-hero'), sticky = document.getElementById('pxpSticky');
-  window.addEventListener('scroll', function () {
-    if (!hero || !sticky) return;
-    var allEl = document.getElementById('all-products');
-    sticky.classList.toggle('show', hero.getBoundingClientRect().bottom < 0 && allEl && allEl.getBoundingClientRect().bottom > 200);
-  }, { passive: true });
-
-  /* ---- reveal on scroll ---- */
-  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
-  }, { threshold: .12, rootMargin: '0px 0px -30px 0px' }) : null;
-  root.querySelectorAll('.rv').forEach(function (el) { io ? io.observe(el) : el.classList.add('on'); });
-  /* safety net: never leave content hidden if IO misbehaves */
-  setTimeout(function () { root.querySelectorAll('.rv:not(.on)').forEach(function (el) { el.classList.add('on'); }); }, 3000);
-
-  /* ---- counters ---- */
-  function animateCounter(el) {
-    var final = el.getAttribute('data-final') || '';
-    var m = final.match(/^([\d,.]+)(.*)$/);
-    if (!m) return;
-    var target = parseFloat(m[1].replace(/,/g, '')), suffix = m[2];
-    if (!isFinite(target)) return;
-    var start = null, dur = 1600;
-    function step(ts) {
-      if (!start) start = ts;
-      var k = Math.min(1, (ts - start) / dur);
-      k = 1 - Math.pow(1 - k, 3);
-      el.textContent = Math.round(target * k).toLocaleString() + suffix;
-      if (k < 1) requestAnimationFrame(step); else el.textContent = final;
+    /* ---- scene builders ---- */
+    function scene(type){
+      switch(type){
+        case 'ai': return '<div class="sc-ai">'+
+          '<div class="sc-bub">Hi! Is the fee structure available?</div>'+
+          '<div class="sc-bub me b2">Yes - sharing it now. Shall I call you to walk through it?</div>'+
+          '<div class="sc-bub b3" style="display:flex;align-items:center;gap:6px">Calling you<span class="sc-wave"><span></span><span></span><span></span><span></span><span></span></span></div>'+
+          '<div class="sc-type"><i></i><i></i><i></i></div></div>';
+        case 'kan': return '<div class="sc-kan">'+
+          '<div class="sc-col"><h6>New</h6><div class="sc-lead live"></div><div class="sc-lead"></div></div>'+
+          '<div class="sc-col"><h6>Engaged</h6><div class="sc-lead"></div></div>'+
+          '<div class="sc-col"><h6>Enrolled</h6><div class="sc-lead"></div><div class="sc-lead"></div></div></div>';
+        case 'adm': var tk='<svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          return '<div class="sc-adm"><div class="sc-prog"><i></i></div>'+
+          '<div class="sc-row sc-r1"><span class="sc-tick">'+tk+'</span>Documents verified</div>'+
+          '<div class="sc-row sc-r2"><span class="sc-tick">'+tk+'</span>Fee received</div>'+
+          '<div class="sc-row sc-r3"><span class="sc-tick">'+tk+'</span>Offer approved</div></div>';
+        case 'eng': return '<div class="sc-eng">'+
+          '<div class="sc-msg"><span class="av"></span><span class="tx"></span></div>'+
+          '<div class="sc-msg m2"><span class="av"></span><span class="tx"></span></div>'+
+          '<div class="sc-msg m3"><span class="av"></span><span class="tx"></span></div>'+
+          '<div class="sc-verified"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified business · delivered</div></div>';
+        case 'grow': return '<div class="sc-grow"><span class="sc-bar"></span><span class="sc-bar"></span><span class="sc-bar"></span><span class="sc-bar"></span><span class="sc-bar"></span></div>';
+      }
+      return '';
     }
-    requestAnimationFrame(step);
-  }
-  var cio = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) { animateCounter(e.target); cio.unobserve(e.target); } });
-  }, { threshold: .5 }) : null;
-  root.querySelectorAll('.pxp-counter').forEach(function (el) { if (cio) cio.observe(el); });
 
-  /* ---- FAQ accordion ---- */
-  root.querySelectorAll('.pxp-faq-q').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var item = btn.parentElement, panel = item.querySelector('.pxp-faq-a');
-      var open = item.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0';
+    /* ---- build filter pills ---- */
+    var counts = {all:P.length};
+    P.forEach(function(p){ counts[p.cat]=(counts[p.cat]||0)+1; });
+    var filtersEl = document.getElementById('eepFilters');
+    FILTERS.forEach(function(f,i){
+      var b=document.createElement('button');
+      b.className='eep-pill'; b.type='button'; b.dataset.cat=f.id;
+      b.setAttribute('aria-pressed', i===0?'true':'false');
+      b.innerHTML=f.label+' <span class="eep-count">'+(counts[f.id]||0)+'</span>';
+      filtersEl.appendChild(b);
     });
-  });
 
-  /* ---- button ripple ---- */
-  root.querySelectorAll('.btn').forEach(function (b) {
-    b.addEventListener('click', function (e) {
-      var r = b.getBoundingClientRect(), d = Math.max(r.width, r.height);
-      var s = document.createElement('span');
-      s.className = 'rip';
-      s.style.width = s.style.height = d + 'px';
-      s.style.left = (e.clientX - r.left - d / 2) + 'px';
-      s.style.top = (e.clientY - r.top - d / 2) + 'px';
-      b.appendChild(s);
-      setTimeout(function () { s.remove(); }, 600);
+    /* brand logo per product; falls back to the glyph icon if none is mapped */
+    var LOGO_BASE='';
+    var LOGO={ 'vidya':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdfdmlkeWFhaSIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0VGOUM1NyIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjREU2RTMwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjQjg1NDIwIi8+PC9saW5lYXJHcmFkaWVudD4KPHJhZGlhbEdyYWRpZW50IGlkPSJnbG93X3ZpZHlhYWkiIGN4PSI4MiUiIGN5PSIxNiUiIHI9IjcwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTkzMzVEIiBzdG9wLW9wYWNpdHk9Ii4zOCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzE5MzM1RCIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJnbF92aWR5YWFpIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX3ZpZHlhYWkpIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsb3dfdmlkeWFhaSkiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xfdmlkeWFhaSkiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0xMiAyLjVsMi4yIDYuMSA2LjMgMi4yLTYuMyAyLjJMMTIgMTkuM2wtMi4yLTYuMy02LjMtMi4yIDYuMy0yLjJ6Ii8+PC9nPgo8L3N2Zz4=','edu-crm':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdfZWR1Y2F0aW9uY3JtIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMkU1NDhGIi8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiMxOTMzNUQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwRTFGM0IiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9Imdsb3dfZWR1Y2F0aW9uY3JtIiBjeD0iODIlIiBjeT0iMTYlIiByPSI3MCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0RFNkUzMCIgc3RvcC1vcGFjaXR5PSIuMzgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNERTZFMzAiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ2xfZWR1Y2F0aW9uY3JtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX2VkdWNhdGlvbmNybSkiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xvd19lZHVjYXRpb25jcm0pIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsX2VkdWNhdGlvbmNybSkiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjkiIGN5PSI4IiByPSIzIi8+PHBhdGggZD0iTTMuNSAxOWE1LjUgNS41IDAgMCAxIDExIDAiLz48cGF0aCBkPSJNMTYgOGg1TTE2IDEyaDVNMTYgMTZoMyIvPjwvZz4KPC9zdmc+','mob-crm':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdfbW9iaWxlY3JtIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjRUY5QzU3Ii8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiNERTZFMzAiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNCODU0MjAiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9Imdsb3dfbW9iaWxlY3JtIiBjeD0iODIlIiBjeT0iMTYlIiByPSI3MCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE5MzM1RCIgc3RvcC1vcGFjaXR5PSIuMzgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxOTMzNUQiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ2xfbW9iaWxlY3JtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX21vYmlsZWNybSkiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xvd19tb2JpbGVjcm0pIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsX21vYmlsZWNybSkiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxyZWN0IHg9IjciIHk9IjIuNSIgd2lkdGg9IjEwIiBoZWlnaHQ9IjE5IiByeD0iMi42Ii8+PHBhdGggZD0iTTEwLjUgMTguNWgzIi8+PC9nPgo8L3N2Zz4=','core-crm':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdfY29yZWNybSIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzJFNTQ4RiIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTkzMzVEIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMEUxRjNCIi8+PC9saW5lYXJHcmFkaWVudD4KPHJhZGlhbEdyYWRpZW50IGlkPSJnbG93X2NvcmVjcm0iIGN4PSI4MiUiIGN5PSIxNiUiIHI9IjcwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjREU2RTMwIiBzdG9wLW9wYWNpdHk9Ii4zOCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0RFNkUzMCIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJnbF9jb3JlY3JtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX2NvcmVjcm0pIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsb3dfY29yZWNybSkiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xfY29yZWNybSkiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiLz48cGF0aCBkPSJNMTIgM3YzTTEyIDE4djNNMyAxMmgzTTE4IDEyaDNNNS42IDUuNmwyLjEgMi4xTTE2LjMgMTYuM2wyLjEgMi4xTTE4LjQgNS42bC0yLjEgMi4xTTcuNyAxNi4zbC0yLjEgMi4xIi8+PC9nPgo8L3N2Zz4=','app-mgmt':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdfYXBwbGljYXRpb25tYW5hZ2VtZW50IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjRUY5QzU3Ii8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiNERTZFMzAiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNCODU0MjAiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9Imdsb3dfYXBwbGljYXRpb25tYW5hZ2VtZW50IiBjeD0iODIlIiBjeT0iMTYlIiByPSI3MCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE5MzM1RCIgc3RvcC1vcGFjaXR5PSIuMzgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxOTMzNUQiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ2xfYXBwbGljYXRpb25tYW5hZ2VtZW50IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX2FwcGxpY2F0aW9ubWFuYWdlbWVudCkiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xvd19hcHBsaWNhdGlvbm1hbmFnZW1lbnQpIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsX2FwcGxpY2F0aW9ubWFuYWdlbWVudCkiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxyZWN0IHg9IjUiIHk9IjMiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxOCIgcng9IjIuNCIvPjxwYXRoIGQ9Ik05IDhoNk05IDEyaDZNOSAxNmg0Ii8+PC9nPgo8L3N2Zz4=','ams':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdfYWRtaXNzaW9ubWFuYWdlbWVudHN5c3RlbSIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzJFNTQ4RiIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTkzMzVEIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMEUxRjNCIi8+PC9saW5lYXJHcmFkaWVudD4KPHJhZGlhbEdyYWRpZW50IGlkPSJnbG93X2FkbWlzc2lvbm1hbmFnZW1lbnRzeXN0ZW0iIGN4PSI4MiUiIGN5PSIxNiUiIHI9IjcwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjREU2RTMwIiBzdG9wLW9wYWNpdHk9Ii4zOCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0RFNkUzMCIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJnbF9hZG1pc3Npb25tYW5hZ2VtZW50c3lzdGVtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX2FkbWlzc2lvbm1hbmFnZW1lbnRzeXN0ZW0pIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsb3dfYWRtaXNzaW9ubWFuYWdlbWVudHN5c3RlbSkiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xfYWRtaXNzaW9ubWFuYWdlbWVudHN5c3RlbSkiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0xMiAzbDcgM3Y1YzAgNS0zIDgtNyAxMC00LTItNy01LTctMTBWNnoiLz48cGF0aCBkPSJNOSAxMS41bDIgMiA0LTQuMiIvPjwvZz4KPC9zdmc+','online-adm':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9Imdfb25saW5lYWRtaXNzaW9ucyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0VGOUM1NyIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjREU2RTMwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjQjg1NDIwIi8+PC9saW5lYXJHcmFkaWVudD4KPHJhZGlhbEdyYWRpZW50IGlkPSJnbG93X29ubGluZWFkbWlzc2lvbnMiIGN4PSI4MiUiIGN5PSIxNiUiIHI9IjcwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTkzMzVEIiBzdG9wLW9wYWNpdHk9Ii4zOCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzE5MzM1RCIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJnbF9vbmxpbmVhZG1pc3Npb25zIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX29ubGluZWFkbWlzc2lvbnMpIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsb3dfb25saW5lYWRtaXNzaW9ucykiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xfb25saW5lYWRtaXNzaW9ucykiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjguNiIvPjxwYXRoIGQ9Ik0zLjQgMTJoMTcuMk0xMiAzLjRjMi42IDIuNiAyLjYgMTQuNiAwIDE3LjJNMTIgMy40Yy0yLjYgMi42LTIuNiAxNC42IDAgMTcuMiIvPjwvZz4KPC9zdmc+','chatbot':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdfZWR1Y2F0aW9uYWljaGF0Ym90IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMkU1NDhGIi8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiMxOTMzNUQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwRTFGM0IiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9Imdsb3dfZWR1Y2F0aW9uYWljaGF0Ym90IiBjeD0iODIlIiBjeT0iMTYlIiByPSI3MCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0RFNkUzMCIgc3RvcC1vcGFjaXR5PSIuMzgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNERTZFMzAiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ2xfZWR1Y2F0aW9uYWljaGF0Ym90IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX2VkdWNhdGlvbmFpY2hhdGJvdCkiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xvd19lZHVjYXRpb25haWNoYXRib3QpIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsX2VkdWNhdGlvbmFpY2hhdGJvdCkiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik00IDVoMTZ2MTFIOWwtNCA0VjV6Ii8+PHBhdGggZD0iTTEyIDguMmwuOCAyIDIgLjgtMiAuOEwxMiAxNGwtLjgtMi0yLS44IDItLjh6IiBzdHJva2Utd2lkdGg9IjEuNCIvPjwvZz4KPC9zdmc+','waba':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9Imdfd2hhdHNhcHBidXNpbmVzc2FwaSIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0VGOUM1NyIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjREU2RTMwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjQjg1NDIwIi8+PC9saW5lYXJHcmFkaWVudD4KPHJhZGlhbEdyYWRpZW50IGlkPSJnbG93X3doYXRzYXBwYnVzaW5lc3NhcGkiIGN4PSI4MiUiIGN5PSIxNiUiIHI9IjcwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTkzMzVEIiBzdG9wLW9wYWNpdHk9Ii4zOCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzE5MzM1RCIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJnbF93aGF0c2FwcGJ1c2luZXNzYXBpIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX3doYXRzYXBwYnVzaW5lc3NhcGkpIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsb3dfd2hhdHNhcHBidXNpbmVzc2FwaSkiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xfd2hhdHNhcHBidXNpbmVzc2FwaSkiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0zLjYgMjAuNGwxLjUtNC4zQTguMiA4LjIgMCAxIDEgMTIgMjAuMmE4LjIgOC4yIDAgMCAxLTQuMi0xLjJ6Ii8+PHBhdGggZD0iTTguNiA5LjRjMCAzLjIgMi44IDYgNiA2IC42IDAgMS4yLS41IDEuMi0xLjIgMC0uMy0uMi0uNy0uNi0uOWwtMS43LS43Yy0uNC0uMS0uOCAwLTEgLjNsLS40LjVjLTEuMS0uNS0yLTEuNC0yLjUtMi41bC41LS40Yy4zLS4yLjQtLjcuMy0xbC0uNy0xLjdjLS4yLS40LS41LS42LS45LS42LS43IDAtMS4yLjYtMS4yIDEuMnoiIHN0cm9rZS13aWR0aD0iMS40Ii8+PC9nPgo8L3N2Zz4=','ivr':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdfaXZyc3lzdGVtIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMkU1NDhGIi8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiMxOTMzNUQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwRTFGM0IiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9Imdsb3dfaXZyc3lzdGVtIiBjeD0iODIlIiBjeT0iMTYlIiByPSI3MCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0RFNkUzMCIgc3RvcC1vcGFjaXR5PSIuMzgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNERTZFMzAiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ2xfaXZyc3lzdGVtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX2l2cnN5c3RlbSkiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xvd19pdnJzeXN0ZW0pIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsX2l2cnN5c3RlbSkiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik01IDRoNGwyIDUtMi41IDEuNWExMiAxMiAwIDAgMCA1IDVMMTYgMTNsNSAydjRhMiAyIDAgMCAxLTIgMkExNiAxNiAwIDAgMSAzIDZhMiAyIDAgMCAxIDItMnoiLz48L2c+Cjwvc3ZnPg==','mkt-auto':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdfbWFya2V0aW5nYXV0b21hdGlvbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0VGOUM1NyIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjREU2RTMwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjQjg1NDIwIi8+PC9saW5lYXJHcmFkaWVudD4KPHJhZGlhbEdyYWRpZW50IGlkPSJnbG93X21hcmtldGluZ2F1dG9tYXRpb24iIGN4PSI4MiUiIGN5PSIxNiUiIHI9IjcwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTkzMzVEIiBzdG9wLW9wYWNpdHk9Ii4zOCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzE5MzM1RCIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJnbF9tYXJrZXRpbmdhdXRvbWF0aW9uIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX21hcmtldGluZ2F1dG9tYXRpb24pIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsb3dfbWFya2V0aW5nYXV0b21hdGlvbikiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xfbWFya2V0aW5nYXV0b21hdGlvbikiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0yMSAzTDMgMTAuNWw3IDIuNSAyLjUgN3oiLz48cGF0aCBkPSJNMjEgM2wtOSAxMCIvPjwvZz4KPC9zdmc+','nurture':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdfbGVhZG51cnR1cmluZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzJFNTQ4RiIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTkzMzVEIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMEUxRjNCIi8+PC9saW5lYXJHcmFkaWVudD4KPHJhZGlhbEdyYWRpZW50IGlkPSJnbG93X2xlYWRudXJ0dXJpbmciIGN4PSI4MiUiIGN5PSIxNiUiIHI9IjcwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjREU2RTMwIiBzdG9wLW9wYWNpdHk9Ii4zOCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0RFNkUzMCIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJnbF9sZWFkbnVydHVyaW5nIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX2xlYWRudXJ0dXJpbmcpIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsb3dfbGVhZG51cnR1cmluZykiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xfbGVhZG51cnR1cmluZykiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0xMiAyMC4zcy03LjItNC42LTcuMi05LjhBMy42IDMuNiAwIDAgMSAxMiA4LjJhMy42IDMuNiAwIDAgMSA3LjIgMi4zYzAgNS4yLTcuMiA5LjgtNy4yIDkuOHoiLz48L2c+Cjwvc3ZnPg==','analytics':'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdfYW5hbHl0aWNzZGFzaGJvYXJkIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjRUY5QzU3Ii8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiNERTZFMzAiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNCODU0MjAiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9Imdsb3dfYW5hbHl0aWNzZGFzaGJvYXJkIiBjeD0iODIlIiBjeT0iMTYlIiByPSI3MCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE5MzM1RCIgc3RvcC1vcGFjaXR5PSIuMzgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxOTMzNUQiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ2xfYW5hbHl0aWNzZGFzaGJvYXJkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii4yMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxNyIgZmlsbD0idXJsKCNnX2FuYWx5dGljc2Rhc2hib2FyZCkiLz4KPHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU4IiBoZWlnaHQ9IjU4IiByeD0iMTciIGZpbGw9InVybCgjZ2xvd19hbmFseXRpY3NkYXNoYm9hcmQpIi8+CjxyZWN0IHg9IjMiIHk9IjMiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1OCIgcng9IjE3IiBmaWxsPSJ1cmwoI2dsX2FuYWx5dGljc2Rhc2hib2FyZCkiLz4KPHJlY3QgeD0iMy43NSIgeT0iMy43NSIgd2lkdGg9IjU2LjUiIGhlaWdodD0iNTYuNSIgcng9IjE2LjI1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgxLjUpIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik00IDIwVjEwTTEwIDIwVjRNMTYgMjB2LThNMjEuNSAyMGgtMTkiLz48L2c+Cjwvc3ZnPg==' };
+    function ico(p){ var u=p.img||(LOGO[p.id]?LOGO_BASE+LOGO[p.id]:''); return u ? '<img class="eep-ic-img" src="'+u+'" alt="" loading="lazy" decoding="async">' : IC[p.ic]; }
+
+    /* ---- build cards ---- */
+    var grid = document.getElementById('eepGrid');
+    var emptyEl = document.getElementById('eepEmpty');
+    P.forEach(function(p){
+      var c = CATS[p.cat];
+      var a=document.createElement('a');
+      a.className='eep-card'; a.href=p.href; a.dataset.id=p.id; a.dataset.cat=p.cat;
+      a.dataset.search=(p.t+' '+p.d+' '+p.tags.join(' ')+' '+c.label).toLowerCase();
+      a.style.setProperty('--cardacc', c.acc);
+      a.innerHTML=''+
+        '<div class="eep-card-top"><span class="eep-chip" aria-hidden="true">'+ico(p)+'</span>'+
+        '<span class="eep-card-title">'+p.t+(p.badge?' <span class="eep-badge">'+p.badge+'</span>':'')+'</span></div>'+
+        '<p class="eep-card-desc">'+p.d+'</p>'+
+        '<div class="eep-card-foot"><span class="eep-card-cat">'+c.label+'</span>'+
+        '<span class="eep-card-go" aria-label="Learn more"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>';
+      grid.insertBefore(a, emptyEl);
     });
-  });
-})();
-</script>
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.eep-card'));
 
+    /* ---- spotlight refs ---- */
+    var spot=document.getElementById('eepSpot'), sCat=document.getElementById('eepSpotCat'),
+        sIcon=document.getElementById('eepSpotIcon'), sTitle=document.getElementById('eepSpotTitle'),
+        sDesc=document.getElementById('eepSpotDesc'), sTags=document.getElementById('eepSpotTags'),
+        sCta=document.getElementById('eepSpotCta'), sScene=document.getElementById('eepScene');
+    var activeId=null;
+
+    function setActive(id, fromUser){
+      var p=P.filter(function(x){return x.id===id;})[0]; if(!p) return;
+      activeId=id;
+      var c=CATS[p.cat];
+      spot.style.setProperty('--acc', c.acc);
+      spot.style.setProperty('--acc-soft', hexA(c.acc,.18));
+      sCat.textContent=c.label;
+      sIcon.innerHTML=ico(p);
+      sTitle.innerHTML=p.t+(p.badge?' <span class="eep-new">'+p.badge+'</span>':'');
+      sDesc.textContent=p.l;
+      sTags.innerHTML=p.tags.map(function(t){return '<span>'+t+'</span>';}).join('');
+      sCta.setAttribute('href', p.href);
+      sScene.innerHTML=''; // restart scene animation
+      void sScene.offsetWidth;
+      sScene.innerHTML=scene(c.scene);
+      cards.forEach(function(cd){ cd.classList.toggle('is-active', cd.dataset.id===id); });
+      if(fromUser) pauseRotate();
+    }
+    function hexA(hex,a){ var h=hex.replace('#',''); var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+
+    /* ---- hover / focus updates spotlight ---- */
+    var canHover = !!(window.matchMedia && window.matchMedia('(hover: hover)').matches);
+    cards.forEach(function(cd){
+      cd.addEventListener('mouseenter', function(){ setActive(cd.dataset.id, true); });
+      cd.addEventListener('focus', function(){ setActive(cd.dataset.id, true); });
+      /* Touch / no-hover devices: first tap previews the product in the
+         spotlight (and brings it into view); a second tap on the already
+         active card follows the link. Keeps desktop hover+click unchanged. */
+      cd.addEventListener('click', function(e){
+        if(canHover) return;                 // desktop: let the link work normally
+        if(cd.dataset.id === activeId) return; // already previewed → allow navigation
+        e.preventDefault();
+        setActive(cd.dataset.id, true);
+        try{ spot.scrollIntoView({behavior:'smooth', block:'center'}); }
+        catch(_){ spot.scrollIntoView(); }
+      });
+    });
+
+    /* ---- filtering + search ---- */
+    var curCat='all', curQ='';
+    function apply(){
+      var shown=0, firstVisible=null;
+      cards.forEach(function(cd){
+        var okCat = curCat==='all' || cd.dataset.cat===curCat;
+        var okQ = !curQ || cd.dataset.search.indexOf(curQ)>-1;
+        var vis = okCat && okQ;
+        cd.hidden = !vis;
+        if(vis){ shown++; if(!firstVisible) firstVisible=cd; }
+      });
+      emptyEl.classList.toggle('show', shown===0);
+      // keep spotlight pointing at something visible
+      if(shown>0){
+        var stillVisible = cards.some(function(cd){ return cd.dataset.id===activeId && !cd.hidden; });
+        if(!stillVisible && firstVisible) setActive(firstVisible.dataset.id);
+        rebuildRotation();
+      }
+    }
+
+    filtersEl.addEventListener('click', function(e){
+      var b=e.target.closest('.eep-pill'); if(!b) return;
+      curCat=b.dataset.cat;
+      filtersEl.querySelectorAll('.eep-pill').forEach(function(p){ p.setAttribute('aria-pressed', p===b?'true':'false'); });
+      apply(); pauseRotate();
+    });
+
+    var input=document.getElementById('eepInput'), searchWrap=document.getElementById('eepSearch'),
+        clearBtn=document.getElementById('eepClear');
+    input.addEventListener('input', function(){
+      curQ=input.value.trim().toLowerCase();
+      searchWrap.classList.toggle('has-val', curQ.length>0);
+      apply(); pauseRotate();
+    });
+    clearBtn.addEventListener('click', function(){ input.value=''; curQ=''; searchWrap.classList.remove('has-val'); apply(); input.focus(); });
+    document.getElementById('eepReset').addEventListener('click', function(){
+      input.value=''; curQ=''; curCat='all'; searchWrap.classList.remove('has-val');
+      filtersEl.querySelectorAll('.eep-pill').forEach(function(p){ p.setAttribute('aria-pressed', p.dataset.cat==='all'?'true':'false'); });
+      apply();
+    });
+
+    /* ---- idle auto-rotation through featured products ---- */
+    var FEATURED=['vidya','edu-crm','analytics','waba','app-mgmt'];
+    var rotePool=[], roteIdx=0, roteTimer=null, idleTimer=null;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    function rebuildRotation(){
+      rotePool = FEATURED.filter(function(id){
+        var cd=cards.filter(function(c){return c.dataset.id===id;})[0];
+        return cd && !cd.hidden;
+      });
+      if(rotePool.length===0){
+        rotePool = cards.filter(function(c){return !c.hidden;}).map(function(c){return c.dataset.id;});
+      }
+    }
+    function startRotate(){
+      if(reduce) return;
+      stopRotate(); rebuildRotation();
+      roteTimer=setInterval(function(){
+        if(rotePool.length===0) return;
+        roteIdx=(roteIdx+1)%rotePool.length;
+        // skip if it lands on current
+        if(rotePool[roteIdx]===activeId && rotePool.length>1) roteIdx=(roteIdx+1)%rotePool.length;
+        setActive(rotePool[roteIdx]);
+      }, 3600);
+    }
+    function stopRotate(){ if(roteTimer){ clearInterval(roteTimer); roteTimer=null; } }
+    function pauseRotate(){
+      stopRotate();
+      if(idleTimer) clearTimeout(idleTimer);
+      idleTimer=setTimeout(startRotate, 6000); // resume after 6s of no interaction
+    }
+    // stop rotation while the user is inside the section
+    root.addEventListener('mouseenter', stopRotate);
+    root.addEventListener('mouseleave', function(){ pauseRotate(); });
+
+    /* ---- init ---- */
+    setActive('vidya');
+    apply();
+    // begin idle rotation only when section scrolls into view
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(ents){
+        ents.forEach(function(en){ if(en.isIntersecting){ startRotate(); io.disconnect(); } });
+      }, {threshold:.25});
+      io.observe(root);
+    } else { startRotate(); }
+  })();
+  </script>
+</section>
 <?php get_footer();
