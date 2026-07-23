@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-23-v3icons -->
+<!-- ee-front-tpl v2026-07-23-scrollchain -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -2391,11 +2391,16 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   // (Single listener only — attaching this on both the container AND
   // document would fire twice per gesture and double-skip sections.)
   function handleWheel(e) {
-    e.preventDefault();
-    if (isAnimating) return;
     var delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
     if (Math.abs(delta) < 2) return;
-    goTo(activeIndex + (delta > 0 ? 1 : -1));
+    var next = activeIndex + (delta > 0 ? 1 : -1);
+    // At the first/last panel, scrolling further out of range is left
+    // un-intercepted so the browser's native scroll-chaining hands the
+    // gesture to the outer page instead of trapping it in this widget.
+    if (next < 0 || next > panelCount - 1) return;
+    e.preventDefault();
+    if (isAnimating) return;
+    goTo(next);
   }
   scrollContainer.addEventListener(&quot;wheel&quot;, handleWheel, { passive: false });
   // Keyboard arrow support
