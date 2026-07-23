@@ -513,7 +513,13 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
             #site-header .eh-quick-grid { grid-template-columns:repeat(2,1fr); }
         }
         @media (max-width:1023.98px){
-            #site-header .eh-nav, #site-header .eh-cta { display:none; }
+            #site-header .eh-nav { display:none; }
+            /* Book Demo stays visible in the mobile top bar — compact, next to the hamburger */
+            #site-header .eh-cta { padding:.42rem .75rem; font-size:.72rem; gap:.25rem; white-space:nowrap; }
+            #site-header .eh-cta svg { width:12px; height:12px; }
+        }
+        @media (max-width:400px){
+            #site-header .eh-cta { padding:.38rem .6rem; font-size:.66rem; }
         }
         @media (min-width:1024px){
             #site-header .ee-mobile-btn { display:none !important; }

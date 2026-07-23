@@ -309,7 +309,7 @@ add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
 if (function_exists('ee_layout_sides_css')) ee_layout_sides_css(); /* per-page form/TOC/rail side */
-/* deployment marker */ echo "\n<!-- ee-product-tpl v2026-07-23-fabs -->\n";
+/* deployment marker */ echo "\n<!-- ee-product-tpl v2026-07-23-fabs2 -->\n";
 ?>
 
 <style>
@@ -1277,13 +1277,13 @@ body.ee-hdr-hidden .ee-float-nav{opacity:1!important;visibility:visible!importan
 <!-- ============ FLOATING ACTIONS: TOC sheet + WhatsApp + Call ============ -->
 <style id="ee-fabs-css">
 .ee-fabs{position:fixed;right:14px;bottom:16px;display:flex;flex-direction:column;gap:10px;z-index:996}
-.ee-fab{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:0;cursor:pointer;box-shadow:0 10px 26px rgba(15,32,64,.22);transition:transform .2s;text-decoration:none}
-.ee-fab:hover{transform:translateY(-2px)}
-.ee-fab img{width:26px;height:26px;display:block}
+.ee-fab{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;cursor:pointer;box-shadow:0 10px 26px rgba(15,32,64,.3),0 0 0 1px rgba(15,32,64,.06);transition:transform .2s,box-shadow .2s;text-decoration:none}
+.ee-fab:hover,.ee-fab:focus-visible{transform:translateY(-2px) scale(1.05);box-shadow:0 14px 32px rgba(15,32,64,.38),0 0 0 1px rgba(15,32,64,.08)}
+.ee-fab img{width:24px;height:24px;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.15))}
 .ee-fab svg{width:22px;height:22px}
 .ee-fab-toc{background:#19335D;color:#fff;display:none}
 .ee-fab-wa{background:#25D366}
-.ee-fab-call{background:#22467c}
+.ee-fab-call{background:#DE6E30}
 @media(max-width:1200px){.ee-fab-toc{display:flex}}
 .ee-toc-backdrop{position:fixed;inset:0;background:rgba(10,20,40,.45);opacity:0;visibility:hidden;transition:opacity .25s;z-index:997}
 .ee-toc-backdrop.open{opacity:1;visibility:visible}
