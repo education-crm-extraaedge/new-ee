@@ -8654,21 +8654,38 @@ function ee_eep_listing_render($post) {
     $hide_menu = (get_post_meta($post->ID, '_eep_hide_menu', true) === '1');
     echo '<p style="margin:6px 0"><label><input type="checkbox" name="_eep_show_menu" value="1" ' . checked(!$hide_menu, true, false) . '> <strong>Show in menu bar</strong><br><span class="ee-hint">Products mega menu in the header (on by default). Icon/column/desc come from the Product Card Settings box below; blank icon falls back to the Icon field here.</span></label></p>';
 
-    echo '<label class="ee-b">Category</label><select name="_eep_cat">';
+    echo '<label class="ee-b">Category</label><select name="_eep_cat" id="ee-eep-cat-sel">';
     foreach ($cats as $ck => $cl) {
         echo '<option value="' . esc_attr($ck) . '" ' . selected($cat ?: 'platform', $ck, false) . '>' . esc_html($cl) . '</option>';
     }
+    echo '<option value="__new">+ Add new category…</option>';
     echo '</select>';
-    echo '<label class="ee-b">…or add a NEW category</label><input type="text" name="_eep_new_cat" value="" placeholder="e.g. Finance &amp; Fees">';
-    echo '<p class="ee-hint">Type a name here and Update — the category is created, gets its own filter chip, and this product moves into it. (Manage all under Products → Listing Categories &amp; Badges.)</p>';
+    echo '<div id="ee-eep-newcat-wrap"><label class="ee-b">New category name</label><input type="text" name="_eep_new_cat" value="" placeholder="e.g. Finance &amp; Fees">';
+    echo '<p class="ee-hint">Update केल्यावर category तयार होते, home + /products/ वर तिचा filter chip येतो आणि हा product तिच्यात जातो. (Manage: Products → Listing Categories &amp; Badges.)</p></div>';
 
-    echo '<label class="ee-b">Badge</label><input type="text" name="_eep_badge" list="ee-eep-badge-list" value="' . $v('_eep_badge') . '" placeholder="Popular / New / Coming Soon">';
-    echo '<datalist id="ee-eep-badge-list">';
-    foreach (ee_eep_badges() as $bg) echo '<option value="' . esc_attr($bg) . '">';
-    echo '</datalist>';
-    echo '<p class="ee-hint">Type anything — a new badge is saved to the suggestions automatically.</p>';
-    echo '<label class="ee-b">…or add a NEW badge</label><input type="text" name="_eep_new_badge" value="" placeholder="e.g. Early Access">';
-    echo '<p class="ee-hint">Type a name here and Update — the badge is created, added to the suggestions for every product, and set on this product.</p>';
+    $badge   = (string) get_post_meta($post->ID, '_eep_badge', true);
+    $badges  = ee_eep_badges();
+    if ($badge !== '' && !in_array($badge, $badges, true)) $badges[] = $badge;
+    echo '<label class="ee-b">Badge</label><select name="_eep_badge" id="ee-eep-badge-sel">';
+    echo '<option value="">— No badge —</option>';
+    foreach ($badges as $bg) {
+        echo '<option value="' . esc_attr($bg) . '" ' . selected($badge, $bg, false) . '>' . esc_html($bg) . '</option>';
+    }
+    echo '<option value="__new">+ Add new badge…</option>';
+    echo '</select>';
+    echo '<div id="ee-eep-newbadge-wrap"><label class="ee-b">New badge name</label><input type="text" name="_eep_new_badge" value="" placeholder="e.g. Early Access">';
+    echo '<p class="ee-hint">Update केल्यावर badge तयार होतो, सगळ्या products च्या suggestions मध्ये जातो आणि या product वर लागतो.</p></div>';
+
+    echo '<script>(function(){
+      function wire(selId, wrapId){
+        var s=document.getElementById(selId), w=document.getElementById(wrapId);
+        if(!s||!w) return;
+        function t(){ w.style.display = (s.value==="__new") ? "" : "none"; }
+        s.addEventListener("change", t); t();
+      }
+      wire("ee-eep-cat-sel","ee-eep-newcat-wrap");
+      wire("ee-eep-badge-sel","ee-eep-newbadge-wrap");
+    })();</script>';
     echo '<label class="ee-b">Icon</label><input type="text" name="_eep_icon" value="' . $v('_eep_icon') . '" placeholder="education-crm">';
     echo '<p class="ee-hint">Slug from uploads/2026/home-page (education-crm, mobile-crm, …) or a full https:// URL. Blank = generic icon.</p>';
     echo '<label class="ee-b">Card description (1 line)</label><textarea name="_eep_desc" rows="2">' . esc_textarea(get_post_meta($post->ID, '_eep_desc', true)) . '</textarea>';
@@ -8694,6 +8711,7 @@ add_action('save_post_product', function ($post_id) {
     $texts = array('_eep_cat', '_eep_badge', '_eep_icon', '_eep_tags', '_eep_url', '_eep_order');
     foreach ($texts as $k) {
         $val = isset($_POST[$k]) ? sanitize_text_field(wp_unslash($_POST[$k])) : '';
+        if ($val === '__new') continue; /* "+ Add new…" chosen — the blocks below store the real value */
         if ($val !== '') update_post_meta($post_id, $k, $val);
         else delete_post_meta($post_id, $k);
     }
