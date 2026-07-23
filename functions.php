@@ -2004,6 +2004,7 @@ function product_all_settings_callback($post) {
         <li><a href="#" data-tab="tab-aidemo">🤖 AI Demo</a></li>
         <li><a href="#" data-tab="tab-faq">❓ FAQ</a></li>
         <li><a href="#" data-tab="tab-toc">🗂️ TOC</a></li>
+        <li><a href="#" data-tab="tab-listing">🧩 Listing</a></li>
     </ul>
 
     <div id="tab-seo"          class="product-tab-content active"><?php product_seo_fields($post); ?></div>
@@ -2017,6 +2018,11 @@ function product_all_settings_callback($post) {
     <div id="tab-aidemo"       class="product-tab-content"><?php product_aidemo_fields($post); ?></div>
     <div id="tab-faq"          class="product-tab-content"><?php product_faq_fields($post); ?></div>
     <div id="tab-toc"          class="product-tab-content"><?php product_toc_fields($post); ?></div>
+    <div id="tab-listing"      class="product-tab-content">
+        <h3>🧩 Where does this product appear?</h3>
+        <p style="color:#666;margin:4px 0 14px">Home page "The admissions platform" section, the /products/ page and the header mega menu. Categories &amp; badge suggestions are managed under <b>Products → Listing Categories &amp; Badges</b>.</p>
+        <div id="ee_eep_listing" style="max-width:520px"><?php ee_eep_listing_render($post); ?></div>
+    </div>
 </div>
     <?php
 }
@@ -8631,10 +8637,9 @@ function ee_eep_collect($ctx) {
     return $out;
 }
 
-/* ---- metabox on the product edit screen ---- */
-add_action('add_meta_boxes', function () {
-    add_meta_box('ee_eep_listing', 'Platform Listing — Home page & /products/', 'ee_eep_listing_render', 'product', 'side', 'high');
-});
+/* Fields render inside the 🧩 Listing tab of the main product settings
+   box (product_all_settings_callback) — no separate side metabox, so the
+   inputs exist only once on the screen. */
 
 function ee_eep_listing_render($post) {
     wp_nonce_field('ee_eep_listing', 'ee_eep_listing_nonce');
