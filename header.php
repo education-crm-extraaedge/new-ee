@@ -366,6 +366,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         #site-header.eh-hidden { transform: translateY(-110%); box-shadow: none; }
 
         #site-header .eh-content { max-width:1280px; margin:0 auto; padding:0 1.25rem; display:flex; align-items:center; justify-content:space-between; gap:.75rem; height:72px; }
+        #site-header .eh-actions { display:flex; align-items:center; gap:.6rem; }
 
         /* Logo */
         #site-header .eh-logo { display:flex; align-items:center; gap:.65rem; text-decoration:none; flex-shrink:0; transition:transform .3s ease; }
@@ -1023,14 +1024,16 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
                 </div>
             </nav>
 
-            <!-- CTA -->
-            <?php $eh_cta = function_exists('ee_get_book_demo_cta') ? ee_get_book_demo_cta() : array('text' => 'Book Demo', 'url' => 'https://www.extraaedge.com/book-a-demo/'); ?>
-            <a href="<?php echo esc_url($eh_cta['url']); ?>" class="eh-cta"><?php echo esc_html($eh_cta['text']); ?>
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-            </a>
+            <!-- CTA + hamburger — grouped so Book Demo always sits tight against the 3-line icon on the right, never floating in the middle when the nav links are hidden on mobile -->
+            <div class="eh-actions">
+                <?php $eh_cta = function_exists('ee_get_book_demo_cta') ? ee_get_book_demo_cta() : array('text' => 'Book Demo', 'url' => 'https://www.extraaedge.com/book-a-demo/'); ?>
+                <a href="<?php echo esc_url($eh_cta['url']); ?>" class="eh-cta"><?php echo esc_html($eh_cta['text']); ?>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
 
-            <!-- Mobile hamburger — opens the existing slide-in #mobileMenu below -->
-            <button id="openMobileBtn" class="lg:hidden p-2 text-brandBlue ee-mobile-btn" aria-label="Open mobile menu" aria-controls="mobileMenu" aria-expanded="false"><i data-lucide="menu" aria-hidden="true"></i></button>
+                <!-- Mobile hamburger — opens the existing slide-in #mobileMenu below -->
+                <button id="openMobileBtn" class="lg:hidden p-2 text-brandBlue ee-mobile-btn" aria-label="Open mobile menu" aria-controls="mobileMenu" aria-expanded="false"><i data-lucide="menu" aria-hidden="true"></i></button>
+            </div>
 
         </div>
     </header>
