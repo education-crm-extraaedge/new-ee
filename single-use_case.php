@@ -1241,11 +1241,24 @@ body.ee-hdr-hidden .ee-float-nav{opacity:1!important;visibility:visible!importan
     if (tick) return; tick = true;
     requestAnimationFrame(function(){
       var y = window.scrollY || 0;
-      if (y > lastY && y > 200) { h.classList.add('ee-hdr-away'); document.body.classList.add('ee-hdr-hidden'); }
-      else { h.classList.remove('ee-hdr-away'); document.body.classList.remove('ee-hdr-hidden'); }
+      if (y > lastY && y > 200) { h.classList.add('ee-hdr-away'); }
+      else { h.classList.remove('ee-hdr-away'); }
       lastY = y; tick = false;
     });
   }, { passive: true });
+
+  /* The rail mirrors the header's REAL state: header.php hides it with
+     .eh-hidden, this template with .ee-hdr-away — watch both, so the
+     rail can never show while the menu bar is on screen. */
+  function eeSyncRail(){
+    document.body.classList.toggle('ee-hdr-hidden',
+      h.classList.contains('ee-hdr-away') || h.classList.contains('eh-hidden'));
+  }
+  if (window.MutationObserver) {
+    new MutationObserver(eeSyncRail).observe(h, { attributes: true, attributeFilter: ['class'] });
+  }
+  window.addEventListener('scroll', function(){ requestAnimationFrame(eeSyncRail); }, { passive: true });
+  eeSyncRail();
 })();
 </script>
 <?php get_footer(); ?>
