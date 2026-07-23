@@ -2123,13 +2123,16 @@ function product_hero_fields($post) {
 </div>
 <button type="button" class="add-item-btn" onclick="jQuery('#proofs-container').append('<div class=\'repeater-item\'><span class=\'remove-item\' onclick=\'jQuery(this).parent().remove();\'>✕</span><input type=\'text\' name=\'hero_proofs[]\' style=\'width:100%;\' /></div>')">+ Add Proof</button>
 
-<h4>Stats Grid (3 Stats)</h4>
-<?php foreach ($stats as $i => $stat) : ?>
-<div class="repeater-item"><h4>Stat <?php echo ($i + 1); ?></h4>
+<h4>Stats Grid</h4>
+<div id="stats-container">
+<?php $ee_stats_list = !empty($stats) ? $stats : array_fill(0, 3, array('number'=>'','label'=>'')); foreach ($ee_stats_list as $i => $stat) : ?>
+<div class="repeater-item"><h4>Stat <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
 <div class="field-group"><label>Number</label><input type="text" name="stats[<?php echo $i; ?>][number]" value="<?php echo esc_attr($stat['number']); ?>" placeholder="2X"></div>
 <div class="field-group"><label>Label</label><input type="text" name="stats[<?php echo $i; ?>][label]"  value="<?php echo esc_attr($stat['label']);  ?>" placeholder="Higher Conversion Rates"></div>
 </div>
 <?php endforeach; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#stats-container .repeater-item').length;jQuery('#stats-container').append('<div class=\'repeater-item\'><h4>Stat '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Number</label><input type=\'text\' name=\'stats['+idx+'][number]\' placeholder=\'2X\' /></div><div class=\'field-group\'><label>Label</label><input type=\'text\' name=\'stats['+idx+'][label]\' /></div></div>')">+ Add More Stats</button>
 
 <div class="field-group"><label>Result Badge</label><input type="text" name="result_badge" value="<?php echo esc_attr($f('result_badge')); ?>" placeholder="Increase Admissions by 2X..."></div>
 
@@ -2301,14 +2304,17 @@ function product_bottom_fields($post) {
 <div class="field-group"><label>CTA Button Text</label>      <input type="text" name="bottom_cta_text" value="<?php echo esc_attr($f('bottom_cta_text')); ?>"></div>
 <div class="field-group"><label>CTA Button URL</label>       <input type="text" name="bottom_cta_url"  value="<?php echo esc_attr($f('bottom_cta_url'));  ?>"></div>
 
-<h4>Product Cards (4 products)</h4>
-<?php for ($i = 0; $i < 4; $i++) : $p = isset($products[$i]) ? $products[$i] : array('logo'=>'','title'=>'','url'=>''); ?>
-<div class="repeater-item"><h4>Product <?php echo ($i + 1); ?></h4>
+<h4>Product Cards</h4>
+<div id="bottomprods-container">
+<?php $ee_bp_list = !empty($products) ? $products : array_fill(0, 4, array('logo'=>'','title'=>'','url'=>'')); foreach ($ee_bp_list as $i => $p) : ?>
+<div class="repeater-item"><h4>Product <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
 <div class="field-group"><label>Logo URL</label>   <input type="url"  name="products[<?php echo $i; ?>][logo]"  value="<?php echo esc_attr($p['logo']);  ?>" style="width:100%;"></div>
 <div class="field-group"><label>Title</label>      <input type="text" name="products[<?php echo $i; ?>][title]" value="<?php echo esc_attr($p['title']); ?>" style="width:100%;"></div>
 <div class="field-group"><label>Product URL</label><input type="url"  name="products[<?php echo $i; ?>][url]"   value="<?php echo esc_attr($p['url']);   ?>" style="width:100%;"></div>
 </div>
-<?php endfor; ?>
+<?php endforeach; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#bottomprods-container .repeater-item').length;jQuery('#bottomprods-container').append('<div class=\'repeater-item\'><h4>Product '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Logo URL</label><input type=\'url\' name=\'products['+idx+'][logo]\' style=\'width:100%;\' /></div><div class=\'field-group\'><label>Title</label><input type=\'text\' name=\'products['+idx+'][title]\' style=\'width:100%;\' /></div><div class=\'field-group\'><label>Product URL</label><input type=\'url\' name=\'products['+idx+'][url]\' style=\'width:100%;\' /></div></div>')">+ Add More Products</button>
     <?php
 }
 
@@ -2323,15 +2329,18 @@ function product_testimonials_fields($post) {
 <div class="field-group"><label>Title</label>   <input type="text" name="testi_title"   value="<?php echo esc_attr($f('testi_title'));   ?>"></div>
 <div class="field-group"><label>Subtitle</label><textarea            name="testi_sub" rows="2"><?php echo esc_textarea($f('testi_sub')); ?></textarea></div>
 
-<h4>Metrics (4 metric cards)</h4>
-<?php for ($i = 0; $i < 4; $i++) : $m = isset($metrics[$i]) ? $metrics[$i] : array('target'=>'','suffix'=>'','label'=>'','locale'=>''); ?>
-<div class="repeater-item"><h4>Metric <?php echo ($i + 1); ?></h4>
+<h4>Metrics (metric cards)</h4>
+<div id="metrics-container">
+<?php $ee_mx_list = !empty($metrics) ? $metrics : array_fill(0, 4, array('target'=>'','suffix'=>'','label'=>'','locale'=>'')); foreach ($ee_mx_list as $i => $m) : ?>
+<div class="repeater-item"><h4>Metric <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
 <div class="field-group"><label>Value (animated target)</label><input type="text" name="metrics[<?php echo $i; ?>][target]" value="<?php echo esc_attr($m['target']); ?>" placeholder="500"></div>
 <div class="field-group"><label>Suffix (e.g., +, X, %)</label> <input type="text" name="metrics[<?php echo $i; ?>][suffix]" value="<?php echo esc_attr($m['suffix']); ?>" placeholder="+"></div>
 <div class="field-group"><label>Label</label>                  <input type="text" name="metrics[<?php echo $i; ?>][label]"  value="<?php echo esc_attr($m['label']);  ?>" placeholder="Happy Customers"></div>
 <div class="field-group"><label><input type="checkbox" name="metrics[<?php echo $i; ?>][locale]" value="true" <?php checked($m['locale'],'true'); ?>> Use locale formatting (commas)</label></div>
 </div>
-<?php endfor; ?>
+<?php endforeach; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#metrics-container .repeater-item').length;jQuery('#metrics-container').append('<div class=\'repeater-item\'><h4>Metric '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Value (animated target)</label><input type=\'text\' name=\'metrics['+idx+'][target]\' placeholder=\'500\' /></div><div class=\'field-group\'><label>Suffix</label><input type=\'text\' name=\'metrics['+idx+'][suffix]\' placeholder=\'+\' /></div><div class=\'field-group\'><label>Label</label><input type=\'text\' name=\'metrics['+idx+'][label]\' /></div><div class=\'field-group\'><label><input type=\'checkbox\' name=\'metrics['+idx+'][locale]\' value=\'true\'> Use locale formatting</label></div></div>')">+ Add More Metrics</button>
 
 <h4>Testimonial Cards</h4>
 <div id="testimonials-container">
@@ -2364,14 +2373,17 @@ function product_aidemo_fields($post) {
 <div class="field-group"><label>Trust Text</label>             <input type="text" name="aidemo_trust"      value="<?php echo esc_attr($f('aidemo_trust'));      ?>"></div>
 <div class="field-group"><label>Expert Center Image URL</label><input type="url"  name="aidemo_expert_img" value="<?php echo esc_attr($f('aidemo_expert_img')); ?>"></div>
 
-<h4>Workflow Nodes (6 nodes)</h4>
-<?php for ($i = 0; $i < 6; $i++) : $n = isset($workflow_nodes[$i]) ? $workflow_nodes[$i] : array('num'=>($i + 1),'title'=>'','sub'=>''); ?>
-<div class="repeater-item"><h4>Node <?php echo ($i + 1); ?></h4>
+<h4>Workflow Nodes</h4>
+<div id="wfnodes-container">
+<?php $ee_wf_list = !empty($workflow_nodes) ? $workflow_nodes : array(); if (empty($ee_wf_list)) { for ($ee_k = 0; $ee_k < 6; $ee_k++) $ee_wf_list[] = array('num'=>($ee_k + 1),'title'=>'','sub'=>''); } foreach ($ee_wf_list as $i => $n) : ?>
+<div class="repeater-item"><h4>Node <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
 <div class="field-group"><label>Number</label>  <input type="text" name="workflow_nodes[<?php echo $i; ?>][num]"   value="<?php echo esc_attr($n['num']);   ?>" style="width:50px;"></div>
 <div class="field-group"><label>Title</label>   <input type="text" name="workflow_nodes[<?php echo $i; ?>][title]" value="<?php echo esc_attr($n['title']); ?>"></div>
 <div class="field-group"><label>Subtitle</label><input type="text" name="workflow_nodes[<?php echo $i; ?>][sub]"   value="<?php echo esc_attr($n['sub']);   ?>"></div>
 </div>
-<?php endfor; ?>
+<?php endforeach; ?>
+</div>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#wfnodes-container .repeater-item').length;jQuery('#wfnodes-container').append('<div class=\'repeater-item\'><h4>Node '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Number</label><input type=\'text\' name=\'workflow_nodes['+idx+'][num]\' value=\''+(idx+1)+'\' style=\'width:50px;\' /></div><div class=\'field-group\'><label>Title</label><input type=\'text\' name=\'workflow_nodes['+idx+'][title]\' /></div><div class=\'field-group\'><label>Subtitle</label><input type=\'text\' name=\'workflow_nodes['+idx+'][sub]\' /></div></div>')">+ Add More Nodes</button>
     <?php
 }
 
