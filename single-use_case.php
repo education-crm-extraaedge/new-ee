@@ -304,6 +304,7 @@ function usecase_seo_meta_tags() {
 add_action('wp_head', 'usecase_seo_meta_tags');
 
 get_header();
+if (function_exists('ee_layout_sides_css')) ee_layout_sides_css(); /* per-page form/TOC/rail side */
 ?>
 
 <style>

@@ -8839,3 +8839,66 @@ add_action('admin_post_ee_eep_tax_save', function () {
     wp_safe_redirect(add_query_arg('updated', '1', admin_url('edit.php?post_type=product&page=ee-eep-taxonomy')));
     exit;
 });
+
+/* =====================================================================
+   PAGE LAYOUT SIDES — per-page custom fields that move the hero form,
+   the TOC column and the floating icon rail to the left or right side.
+   Applies to the four twin templates: product, industry, use_case,
+   solution. Defaults keep today's layout (form right, TOC right,
+   rail left), so existing pages don't change until an editor flips one.
+   ===================================================================== */
+add_action('add_meta_boxes', function () {
+    foreach (array('product', 'industry', 'use_case', 'solution') as $pt) {
+        add_meta_box('ee_layout_sides', 'Layout — Form / TOC / Rail side', 'ee_layout_sides_render', $pt, 'side', 'default');
+    }
+});
+
+function ee_layout_sides_render($post) {
+    wp_nonce_field('ee_layout_sides', 'ee_layout_sides_nonce');
+    $fields = array(
+        '_ee_form_side' => array('Hero form',            'right', array('right' => 'Right (default)', 'left' => 'Left')),
+        '_ee_toc_side'  => array('TOC (Contents box)',   'right', array('right' => 'Right (default)', 'left' => 'Left')),
+        '_ee_rail_side' => array('Icon rail (quick nav)', 'left',  array('left' => 'Left (default)', 'right' => 'Right')),
+    );
+    foreach ($fields as $key => $cfg) {
+        list($label, $def, $opts) = $cfg;
+        $cur = get_post_meta($post->ID, $key, true) ?: $def;
+        echo '<p style="margin:8px 0 2px"><strong>' . esc_html($label) . '</strong></p><select name="' . esc_attr($key) . '" style="width:100%">';
+        foreach ($opts as $ok => $ol) {
+            echo '<option value="' . esc_attr($ok) . '" ' . selected($cur, $ok, false) . '>' . esc_html($ol) . '</option>';
+        }
+        echo '</select>';
+    }
+    echo '<p style="color:#666;font-size:11px;margin-top:8px">Mobile view is not affected — columns stack there anyway.</p>';
+}
+
+add_action('save_post', function ($post_id) {
+    if (!isset($_POST['ee_layout_sides_nonce']) || !wp_verify_nonce($_POST['ee_layout_sides_nonce'], 'ee_layout_sides')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+    if (!in_array(get_post_type($post_id), array('product', 'industry', 'use_case', 'solution'), true)) return;
+    $allowed = array('_ee_form_side' => array('left', 'right'), '_ee_toc_side' => array('left', 'right'), '_ee_rail_side' => array('left', 'right'));
+    foreach ($allowed as $k => $ok_vals) {
+        $val = isset($_POST[$k]) ? sanitize_text_field(wp_unslash($_POST[$k])) : '';
+        if (in_array($val, $ok_vals, true)) update_post_meta($post_id, $k, $val);
+        else delete_post_meta($post_id, $k);
+    }
+});
+
+/* Templates call this right after get_header() — emits the CSS overrides
+   for any non-default side choices on the current post. */
+function ee_layout_sides_css() {
+    $id = get_the_ID();
+    if (!$id) return;
+    $css = '';
+    if (get_post_meta($id, '_ee_form_side', true) === 'left') {
+        $css .= '@media(min-width:1151px){.hero-layout{grid-template-columns:.9fr 1.1fr}.hero-layout>.hero-form-aside{order:-1}}';
+    }
+    if (get_post_meta($id, '_ee_toc_side', true) === 'left') {
+        $css .= '@media(min-width:1201px){.toc-zone-wrapper{grid-template-columns:var(--toc-width) 1fr}.toc-zone-wrapper>.toc-column{order:0}}';
+    }
+    if (get_post_meta($id, '_ee_rail_side', true) === 'right') {
+        $css .= '.ee-float-nav{left:auto;right:18px}';
+    }
+    if ($css) echo '<style id="ee-layout-side">' . $css . '</style>';
+}

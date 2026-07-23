@@ -304,6 +304,7 @@ function industry_seo_meta_tags() {
 add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
+if (function_exists('ee_layout_sides_css')) ee_layout_sides_css(); /* per-page form/TOC/rail side */
 /* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-21-rail-always -->\n";
 ?>
 
