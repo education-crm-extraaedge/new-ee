@@ -4947,7 +4947,7 @@ function ee_get_book_demo_cta() {
     $s = get_option('ee_book_demo_cta', array());
     return wp_parse_args(is_array($s) ? $s : array(), array(
         'text' => 'Book Demo',
-        'url'  => home_url('/book-demo/'),
+        'url'  => 'https://www.extraaedge.com/book-a-demo/',
     ));
 }
 

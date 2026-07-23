@@ -1238,11 +1238,6 @@ body.ee-hdr-hidden .ee-float-nav{opacity:1!important;visibility:visible!importan
 @media(max-width:820px){
   #site-header.ee-hdr-away,#site-header.eh-hidden{transform:none!important;box-shadow:0 1px 0 rgba(15,32,64,.06)!important}
 }
-/* MOBILE/TABLET: TOC (Contents) box content chya var visible */
-@media(max-width:1200px){
-  .toc-zone-wrapper .toc-column{display:block!important;position:static!important;order:0;width:100%;max-width:100%;max-height:none!important;overflow:visible!important;padding:0 18px 4px;margin:14px 0 4px}
-  .toc-zone-wrapper .toc-column .toc-wrapper{position:static}
-}
 </style>
 <script>
 /* Self-contained header auto-hide for this template — works even if the
@@ -1273,6 +1268,64 @@ body.ee-hdr-hidden .ee-float-nav{opacity:1!important;visibility:visible!importan
   }
   window.addEventListener('scroll', function(){ requestAnimationFrame(eeSyncRail); }, { passive: true });
   eeSyncRail();
+})();
+</script>
+
+<!-- ============ FLOATING ACTIONS: TOC sheet + WhatsApp + Call ============ -->
+<style id="ee-fabs-css">
+.ee-fabs{position:fixed;right:14px;bottom:16px;display:flex;flex-direction:column;gap:10px;z-index:996}
+.ee-fab{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:0;cursor:pointer;box-shadow:0 10px 26px rgba(15,32,64,.22);transition:transform .2s;text-decoration:none}
+.ee-fab:hover{transform:translateY(-2px)}
+.ee-fab img{width:26px;height:26px;display:block}
+.ee-fab svg{width:22px;height:22px}
+.ee-fab-toc{background:#19335D;color:#fff;display:none}
+.ee-fab-wa{background:#25D366}
+.ee-fab-call{background:#22467c}
+@media(max-width:1200px){.ee-fab-toc{display:flex}}
+.ee-toc-backdrop{position:fixed;inset:0;background:rgba(10,20,40,.45);opacity:0;visibility:hidden;transition:opacity .25s;z-index:997}
+.ee-toc-backdrop.open{opacity:1;visibility:visible}
+.ee-toc-sheet{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:18px 18px 0 0;box-shadow:0 -14px 40px rgba(15,32,64,.25);transform:translateY(105%);transition:transform .3s cubic-bezier(.3,.8,.3,1);z-index:998;max-height:72vh;display:flex;flex-direction:column}
+.ee-toc-sheet.open{transform:none}
+.ee-toc-sheet-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px;font:700 15px/1 Inter,system-ui,sans-serif;color:#19335D;border-bottom:1px solid #EDF1F7}
+.ee-toc-sheet-head button{border:0;background:#F1F5FA;color:#19335D;width:32px;height:32px;border-radius:50%;font-size:15px;cursor:pointer}
+.ee-toc-sheet-body{overflow-y:auto;padding:8px 18px 24px}
+.ee-toc-sheet-body .toc-wrapper{position:static!important;box-shadow:none!important}
+</style>
+<div class="ee-fabs">
+  <button type="button" class="ee-fab ee-fab-toc" id="eeFabToc" aria-label="Open table of contents" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg>
+  </button>
+  <a class="ee-fab ee-fab-wa" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/whatsapp.svg" alt="" loading="lazy" decoding="async" onerror="this.outerHTML='<svg viewBox=\'0 0 24 24\' fill=\'#fff\'><path d=\'M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-2.7-.8-4.8-3-6-5.2-.5-1-.9-2.1-.5-3 .2-.4.7-1.3 1.3-1.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.4 0 .7.6 1 1.7 2 2.9 2.6.3.1.5.1.7-.1l.7-.8c.2-.2.4-.3.6-.2l2 .9c.3.2.4.5.1 1.5z\'/></svg>'">
+  </a>
+  <a class="ee-fab ee-fab-call" href="tel:918956982897" aria-label="Call us">
+    <img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/call.svg" alt="" loading="lazy" decoding="async" onerror="this.outerHTML='<svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'#fff\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z\'/></svg>'">
+  </a>
+</div>
+<div class="ee-toc-backdrop" id="eeTocBackdrop"></div>
+<div class="ee-toc-sheet" id="eeTocSheet" role="dialog" aria-modal="true" aria-label="Table of contents">
+  <div class="ee-toc-sheet-head">Contents <button type="button" id="eeTocClose" aria-label="Close">&#10005;</button></div>
+  <div class="ee-toc-sheet-body" id="eeTocSheetBody"></div>
+</div>
+<script>
+(function(){
+  var fab=document.getElementById('eeFabToc'), sheet=document.getElementById('eeTocSheet'),
+      back=document.getElementById('eeTocBackdrop'), body=document.getElementById('eeTocSheetBody'),
+      closeBtn=document.getElementById('eeTocClose'), home=null, moved=false;
+  if(!fab||!sheet) return;
+  function openSheet(){
+    var t=document.getElementById('toc');
+    if(t && !moved){ home=t.parentNode; body.appendChild(t); moved=true; }
+    sheet.classList.add('open'); back.classList.add('open'); fab.setAttribute('aria-expanded','true');
+  }
+  function closeSheet(){ sheet.classList.remove('open'); back.classList.remove('open'); fab.setAttribute('aria-expanded','false'); }
+  fab.addEventListener('click', function(){ sheet.classList.contains('open') ? closeSheet() : openSheet(); });
+  closeBtn.addEventListener('click', closeSheet);
+  back.addEventListener('click', closeSheet);
+  body.addEventListener('click', function(e){ if(e.target.closest('a')) closeSheet(); });
+  window.addEventListener('resize', function(){
+    if(moved && home && window.innerWidth>1200){ var t=document.getElementById('toc'); if(t){ home.appendChild(t); moved=false; closeSheet(); } }
+  });
 })();
 </script>
 <?php get_footer(); ?>
