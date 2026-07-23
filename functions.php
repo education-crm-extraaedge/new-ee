@@ -8554,3 +8554,134 @@ add_action('admin_post_ee_products_page_save', function () {
     wp_safe_redirect(add_query_arg('updated', '1', admin_url('edit.php?post_type=product&page=ee-products-page')));
     exit;
 });
+
+/* =====================================================================
+   PLATFORM LISTING — per-product custom fields that control where a
+   product appears: the home page "The admissions platform" section
+   and/or the /products/ page. Editors flag a product post and it shows
+   up automatically; when no product is flagged the templates fall back
+   to their built-in default lists, so nothing breaks.
+   Fields (post meta on the 'product' CPT):
+     _eep_show_home      '1' → show in home "The admissions platform"
+     _eep_show_products  '1' → show on /products/
+     _eep_cat            ai | platform | admissions | engage | grow
+     _eep_badge          small card badge, e.g. "Popular", "Coming Soon"
+     _eep_icon           icon slug from uploads/2026/home-page (e.g.
+                         education-crm) or a full https:// URL
+     _eep_desc           one-line card description
+     _eep_long           longer spotlight text (falls back to _eep_desc)
+     _eep_tags           comma-separated chips, e.g. "Fees, Approvals"
+     _eep_url            link override (falls back to the post permalink)
+     _eep_order          sort position (small number = first)
+   ===================================================================== */
+function ee_eep_icon_url($v) {
+    $v = trim((string) $v);
+    if ($v === '') return '';
+    if (preg_match('#^(https?:)?//#', $v) || $v[0] === '/') return $v;
+    return 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/' . sanitize_title(preg_replace('/\.svg$/i', '', $v)) . '.svg';
+}
+
+function ee_eep_collect($ctx) {
+    $key   = ($ctx === 'home') ? '_eep_show_home' : '_eep_show_products';
+    $posts = get_posts(array(
+        'post_type'   => 'product',
+        'post_status' => 'publish',
+        'numberposts' => -1,
+        'meta_key'    => $key,
+        'meta_value'  => '1',
+    ));
+    if (!$posts) return array();
+
+    $valid_cats = array('ai', 'platform', 'admissions', 'engage', 'grow');
+    $out = array();
+    foreach ($posts as $p) {
+        $cat  = get_post_meta($p->ID, '_eep_cat', true);
+        if (!in_array($cat, $valid_cats, true)) $cat = 'platform';
+        $desc = trim((string) get_post_meta($p->ID, '_eep_desc', true));
+        if ($desc === '') $desc = wp_strip_all_tags(get_the_excerpt($p));
+        $long = trim((string) get_post_meta($p->ID, '_eep_long', true));
+        if ($long === '') $long = $desc;
+        $tags = array_values(array_filter(array_map('trim', explode(',', (string) get_post_meta($p->ID, '_eep_tags', true)))));
+        $url  = trim((string) get_post_meta($p->ID, '_eep_url', true));
+        if ($url === '') $url = get_permalink($p);
+
+        $out[] = array(
+            'id'    => $p->post_name,
+            't'     => get_the_title($p),
+            'badge' => (string) get_post_meta($p->ID, '_eep_badge', true),
+            'cat'   => $cat,
+            'ic'    => 'crm',
+            'href'  => $url,
+            'img'   => ee_eep_icon_url(get_post_meta($p->ID, '_eep_icon', true)),
+            'd'     => $desc,
+            'l'     => $long,
+            'tags'  => $tags,
+            '_ord'  => (int) get_post_meta($p->ID, '_eep_order', true),
+        );
+    }
+    usort($out, function ($a, $b) {
+        if ($a['_ord'] !== $b['_ord']) return $a['_ord'] <=> $b['_ord'];
+        return strcasecmp($a['t'], $b['t']);
+    });
+    foreach ($out as &$e) unset($e['_ord']);
+    return $out;
+}
+
+/* ---- metabox on the product edit screen ---- */
+add_action('add_meta_boxes', function () {
+    add_meta_box('ee_eep_listing', 'Platform Listing — Home page & /products/', 'ee_eep_listing_render', 'product', 'side', 'high');
+});
+
+function ee_eep_listing_render($post) {
+    wp_nonce_field('ee_eep_listing', 'ee_eep_listing_nonce');
+    $v = function ($k) use ($post) { return esc_attr(get_post_meta($post->ID, $k, true)); };
+    $cat  = get_post_meta($post->ID, '_eep_cat', true);
+    $cats = array(
+        'ai'         => 'AI & automation',
+        'platform'   => 'Core platform',
+        'admissions' => 'Admissions',
+        'engage'     => 'Engage',
+        'grow'       => 'Grow',
+    );
+    echo '<style>#ee_eep_listing label.ee-b{display:block;margin:8px 0 3px;font-weight:600}#ee_eep_listing input[type=text],#ee_eep_listing input[type=number],#ee_eep_listing textarea,#ee_eep_listing select{width:100%}#ee_eep_listing .ee-hint{color:#666;font-size:11px;margin:2px 0 0}</style>';
+
+    echo '<p style="margin:6px 0"><label><input type="checkbox" name="_eep_show_home" value="1" ' . checked(get_post_meta($post->ID, '_eep_show_home', true), '1', false) . '> <strong>Show on Home page</strong><br><span class="ee-hint">"The admissions platform" section</span></label></p>';
+    echo '<p style="margin:6px 0"><label><input type="checkbox" name="_eep_show_products" value="1" ' . checked(get_post_meta($post->ID, '_eep_show_products', true), '1', false) . '> <strong>Show on /products/ page</strong></label></p>';
+
+    echo '<label class="ee-b">Category</label><select name="_eep_cat">';
+    foreach ($cats as $ck => $cl) {
+        echo '<option value="' . esc_attr($ck) . '" ' . selected($cat ?: 'platform', $ck, false) . '>' . esc_html($cl) . '</option>';
+    }
+    echo '</select>';
+
+    echo '<label class="ee-b">Badge</label><input type="text" name="_eep_badge" value="' . $v('_eep_badge') . '" placeholder="Popular / New / Coming Soon">';
+    echo '<label class="ee-b">Icon</label><input type="text" name="_eep_icon" value="' . $v('_eep_icon') . '" placeholder="education-crm">';
+    echo '<p class="ee-hint">Slug from uploads/2026/home-page (education-crm, mobile-crm, …) or a full https:// URL. Blank = generic icon.</p>';
+    echo '<label class="ee-b">Card description (1 line)</label><textarea name="_eep_desc" rows="2">' . esc_textarea(get_post_meta($post->ID, '_eep_desc', true)) . '</textarea>';
+    echo '<label class="ee-b">Spotlight text (longer)</label><textarea name="_eep_long" rows="3">' . esc_textarea(get_post_meta($post->ID, '_eep_long', true)) . '</textarea>';
+    echo '<label class="ee-b">Tags (comma separated)</label><input type="text" name="_eep_tags" value="' . $v('_eep_tags') . '" placeholder="Fees & documents, Approval flows">';
+    echo '<label class="ee-b">Link override</label><input type="text" name="_eep_url" value="' . $v('_eep_url') . '" placeholder="Blank = this product\'s own URL">';
+    echo '<label class="ee-b">Sort order</label><input type="number" name="_eep_order" value="' . $v('_eep_order') . '" placeholder="0">';
+}
+
+add_action('save_post_product', function ($post_id) {
+    if (!isset($_POST['ee_eep_listing_nonce']) || !wp_verify_nonce($_POST['ee_eep_listing_nonce'], 'ee_eep_listing')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    foreach (array('_eep_show_home', '_eep_show_products') as $cb) {
+        if (!empty($_POST[$cb])) update_post_meta($post_id, $cb, '1');
+        else delete_post_meta($post_id, $cb);
+    }
+    $texts = array('_eep_cat', '_eep_badge', '_eep_icon', '_eep_tags', '_eep_url', '_eep_order');
+    foreach ($texts as $k) {
+        $val = isset($_POST[$k]) ? sanitize_text_field(wp_unslash($_POST[$k])) : '';
+        if ($val !== '') update_post_meta($post_id, $k, $val);
+        else delete_post_meta($post_id, $k);
+    }
+    foreach (array('_eep_desc', '_eep_long') as $k) {
+        $val = isset($_POST[$k]) ? sanitize_textarea_field(wp_unslash($_POST[$k])) : '';
+        if ($val !== '') update_post_meta($post_id, $k, $val);
+        else delete_post_meta($post_id, $k);
+    }
+});

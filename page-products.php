@@ -54,7 +54,7 @@ add_action('wp_head', function () {
 
 get_header();
 ?>
-<!-- pxp-products v2026-07-22-icons -->
+<!-- pxp-products v2026-07-22-dynprods -->
 <style>#ee-products{
     --navy:#19345d; --ink:#0f203a; --orange:#DE6E30; --orange-2:#E8843F;
     --line:rgba(25,52,93,.10); --muted:#5a6b85;
@@ -247,7 +247,10 @@ html body #main-content #ee-products .eep-head-l h1{font-size:clamp(30px,4.4vw,4
     ];
 
     /* ---- products ---- */
-    var P = [
+    /* products flagged in wp-admin (Platform Listing metabox) take over;
+       the hardcoded list below is only the fallback when none are flagged */
+    var DYNP = <?php echo wp_json_encode(function_exists('ee_eep_collect') ? ee_eep_collect('products') : array()); ?>;
+    var P = (DYNP && DYNP.length) ? DYNP : [
       {id:'edu-crm', t:'Education CRM', badge:'Popular', cat:'platform', ic:'crm', href:'/products/education-crm/', img:'https://www.extraaedge.com/wp-content/uploads/2026/home-page/education-crm.svg',
         d:'Unify every enquiry, counsellor and campus on one purpose-built platform.',
         l:'Built for admissions, not retrofitted from sales. One view of every enquiry, every counsellor and every campus - so nothing slips between teams.',
