@@ -132,7 +132,7 @@ $toc_items   = get_post_meta($pid, '_toc_items', true) ?: array();
 
 // SEO META INJECTED INTO wp_head()
 function industry_seo_meta_tags() {
-    if (!is_singular('industry')) return;
+    if (!is_singular('product')) return;
     global $post;
     $pid           = $post->ID;
     $seo_title     = get_post_meta($pid, '_seo_title', true) ?: get_the_title();
@@ -163,6 +163,8 @@ function industry_seo_meta_tags() {
     ?>
 
     <?php if($seo_keywords): ?><meta name="keywords" content="<?php echo esc_attr($seo_keywords); ?>"><?php endif; ?>
+
+    <?php $ee_ai_summary = get_post_meta($pid, '_ai_summary', true); if($ee_ai_summary): ?><meta name="abstract" content="<?php echo esc_attr($ee_ai_summary); ?>"><?php endif; ?>
 
     <?php
     // ─── SoftwareApplication / Product schema (with image + aggregateRating) ───
@@ -307,7 +309,7 @@ add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
 if (function_exists('ee_layout_sides_css')) ee_layout_sides_css(); /* per-page form/TOC/rail side */
-/* deployment marker */ echo "\n<!-- ee-product-tpl v2026-07-23-secflips -->\n";
+/* deployment marker */ echo "\n<!-- ee-product-tpl v2026-07-23-seo26 -->\n";
 ?>
 
 <style>

@@ -162,6 +162,8 @@ function usecase_seo_meta_tags() {
 
     <?php if($seo_keywords): ?><meta name="keywords" content="<?php echo esc_attr($seo_keywords); ?>"><?php endif; ?>
 
+    <?php $ee_ai_summary = get_post_meta($pid, '_ai_summary', true); if($ee_ai_summary): ?><meta name="abstract" content="<?php echo esc_attr($ee_ai_summary); ?>"><?php endif; ?>
+
     <?php
     // ─── SoftwareApplication / Product schema (with image + aggregateRating) ───
     $feature_list = array();

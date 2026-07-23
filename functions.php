@@ -1992,21 +1992,26 @@ function product_all_settings_callback($post) {
     wp_nonce_field('product_meta_box', 'product_meta_box_nonce');
     ?>
 <div class="product-tabs-wrapper">
-    <ul class="product-tabs">
-        <li><a href="#" data-tab="tab-seo" class="active">🔍 SEO</a></li>
-        <li><a href="#" data-tab="tab-hero">🎯 Hero</a></li>
-        <li><a href="#" data-tab="tab-logos">🏢 Logos</a></li>
-        <li><a href="#" data-tab="tab-educrm">📚 Education CRM</a></li>
-        <li><a href="#" data-tab="tab-features">⭐ Features</a></li>
-        <li><a href="#" data-tab="tab-sections">📑 Sections</a></li>
-        <li><a href="#" data-tab="tab-bottom">🎁 Bottom CTA</a></li>
-        <li><a href="#" data-tab="tab-testimonials">💬 Testimonials</a></li>
-        <li><a href="#" data-tab="tab-aidemo">🤖 AI Demo</a></li>
-        <li><a href="#" data-tab="tab-faq">❓ FAQ</a></li>
-        <li><a href="#" data-tab="tab-toc">🗂️ TOC</a></li>
-        <li><a href="#" data-tab="tab-listing">🧩 Listing</a></li>
-        <li><a href="#" data-tab="tab-card">🏷 Card</a></li>
+    <?php
+    wp_enqueue_script('jquery-ui-sortable');
+    $ee_tab_defs = array(
+        'seo' => '🔍 SEO', 'hero' => '🎯 Hero', 'logos' => '🏢 Logos', 'educrm' => '📚 Definition',
+        'features' => '⭐ Features', 'sections' => '📑 Sections', 'bottom' => '🎁 Bottom CTA',
+        'testimonials' => '💬 Testimonials', 'aidemo' => '🤖 AI Demo', 'faq' => '❓ FAQ',
+        'toc' => '🗂️ TOC', 'listing' => '🧩 Listing', 'card' => '🏷 Card',
+    );
+    $ee_saved = array_filter(explode(',', (string) get_option('ee_pagesettings_tab_order', '')));
+    $ee_order = array();
+    foreach ($ee_saved as $ee_slug) if (isset($ee_tab_defs[$ee_slug]) && !in_array($ee_slug, $ee_order, true)) $ee_order[] = $ee_slug;
+    foreach ($ee_tab_defs as $ee_slug => $ee_lbl) if (!in_array($ee_slug, $ee_order, true)) $ee_order[] = $ee_slug;
+    ?>
+    <p style="margin:4px 0 6px;color:#646970;font-size:12px">↔ Tabs drag karun kuthlyahi order madhye lava — order Update kelyavar save hoto (sagLya pages sathi).</p>
+    <ul class="product-tabs" id="ee-product-tabs">
+        <?php foreach ($ee_order as $ee_i => $ee_slug) : ?>
+        <li data-slug="<?php echo esc_attr($ee_slug); ?>" style="cursor:grab"><a href="#" data-tab="tab-<?php echo esc_attr($ee_slug); ?>" class="<?php echo $ee_i === 0 ? 'active' : ''; ?>"><?php echo $ee_tab_defs[$ee_slug]; ?></a></li>
+        <?php endforeach; ?>
     </ul>
+    <input type="hidden" name="ee_tabs_order" id="ee-tabs-order" value="<?php echo esc_attr(implode(',', $ee_order)); ?>">
 
     <div id="tab-seo"          class="product-tab-content active"><?php product_seo_fields($post); ?></div>
     <div id="tab-hero"         class="product-tab-content"><?php product_hero_fields($post); ?></div>
@@ -2029,6 +2034,27 @@ function product_all_settings_callback($post) {
         <?php product_card_fields($post); ?>
     </div>
 </div>
+<script>
+jQuery(function($){
+    /* saved order: first tab opens by default */
+    var $first = $('#ee-product-tabs li a').first();
+    if ($first.length) {
+        var t = $first.attr('data-tab');
+        $('.product-tab-content').removeClass('active').filter('#' + t).addClass('active');
+        $('#ee-product-tabs a').removeClass('active');
+        $first.addClass('active');
+    }
+    /* drag & drop reorder — saved on Update via #ee-tabs-order */
+    if ($.fn.sortable) {
+        $('#ee-product-tabs').sortable({
+            distance: 8, tolerance: 'pointer',
+            update: function(){
+                $('#ee-tabs-order').val($('#ee-product-tabs li').map(function(){ return $(this).data('slug'); }).get().join(','));
+            }
+        });
+    }
+});
+</script>
     <?php
 }
 
@@ -2054,6 +2080,21 @@ function product_seo_fields($post) {
 <div class="field-group"><label>Twitter Card Type</label><input type="text" name="twitter_card" value="<?php echo esc_attr($f('twitter_card')); ?>" placeholder="summary_large_image"></div>
 <div class="field-group"><label>Twitter Title</label><input type="text" name="twitter_title" value="<?php echo esc_attr($f('twitter_title')); ?>"></div>
 <div class="field-group"><label>Twitter Description</label><textarea name="twitter_desc" rows="2"><?php echo esc_textarea($f('twitter_desc')); ?></textarea></div>
+<div class="field-group"><label>Twitter Image URL</label><input type="url" name="twitter_image" value="<?php echo esc_attr($f('twitter_image')); ?>" placeholder="Blank = OG Image"></div>
+
+<h4>🚀 Advanced SEO 2026 — AEO / GEO / AI Search</h4>
+<div class="field-group"><label>Robots (indexing)</label>
+<select name="robots">
+<option value="" <?php selected($f('robots'),''); ?>>Default — index, follow</option>
+<option value="index, follow" <?php selected($f('robots'),'index, follow'); ?>>index, follow (explicit)</option>
+<option value="noindex, follow" <?php selected($f('robots'),'noindex, follow'); ?>>noindex, follow</option>
+<option value="index, nofollow" <?php selected($f('robots'),'index, nofollow'); ?>>index, nofollow</option>
+<option value="noindex, nofollow" <?php selected($f('robots'),'noindex, nofollow'); ?>>noindex, nofollow</option>
+</select><p class="field-help">Google/Bing la he page index karayche ki nahi.</p></div>
+<div class="field-group"><label>Focus Keyword (primary)</label><input type="text" name="focus_keyword" value="<?php echo esc_attr($f('focus_keyword')); ?>" placeholder="education crm software"><p class="field-help">Keywords box rikama asel tr ha keywords meta mhanun jato.</p></div>
+<div class="field-group"><label>OG Title (social share heading)</label><input type="text" name="og_title" value="<?php echo esc_attr($f('og_title')); ?>" placeholder="Blank = Page Title"></div>
+<div class="field-group"><label>OG Description (social share text)</label><textarea name="og_description" rows="2" placeholder="Blank = Meta Description"><?php echo esc_textarea($f('og_description')); ?></textarea></div>
+<div class="field-group"><label>AI Answer Summary (AEO/GEO)</label><textarea name="ai_summary" rows="3" placeholder="40-60 shabdat ya page che thet uttar — Google AI Overviews, ChatGPT, Perplexity yancya sathi."><?php echo esc_textarea($f('ai_summary')); ?></textarea><p class="field-help">&lt;meta name="abstract"&gt; mhanun page var jato — AI search engines ha summary thet vaparu shaktat.</p></div>
     <?php
 }
 
@@ -5849,7 +5890,7 @@ function product_save_meta_box_data($post_id) {
     if (!in_array(get_post_type($post_id), array('product', 'industry', 'use_case', 'solution'), true)) return;
 
     // ─── SEO ───
-    $seo_fields = array('seo_title','seo_description','seo_keywords','og_image','canonical_url','schema_type','twitter_card','twitter_title','twitter_desc');
+    $seo_fields = array('seo_title','seo_description','seo_keywords','og_image','canonical_url','schema_type','twitter_card','twitter_title','twitter_desc','og_title','og_description','twitter_image','focus_keyword','ai_summary');
     foreach ($seo_fields as $field) {
         if (isset($_POST[$field])) {
             update_post_meta($post_id, '_' . $field, sanitize_text_field(wp_unslash($_POST[$field])));
@@ -5862,6 +5903,29 @@ function product_save_meta_box_data($post_id) {
         if (isset($_POST[$field])) {
             update_post_meta($post_id, '_' . $field, sanitize_textarea_field(wp_unslash($_POST[$field])));
         }
+    }
+
+    // ─── ADVANCED SEO 2026 ───
+    if (isset($_POST['robots'])) {
+        $ee_rb = sanitize_text_field(wp_unslash($_POST['robots']));
+        if (in_array($ee_rb, array('', 'index, follow', 'noindex, follow', 'index, nofollow', 'noindex, nofollow'), true)) {
+            if ($ee_rb === '') delete_post_meta($post_id, '_robots');
+            else update_post_meta($post_id, '_robots', $ee_rb);
+        }
+    }
+    /* header.php reads _twitter_description — keep it in sync with the tab's twitter_desc box */
+    if (isset($_POST['twitter_desc'])) {
+        update_post_meta($post_id, '_twitter_description', sanitize_textarea_field(wp_unslash($_POST['twitter_desc'])));
+    }
+    /* focus keyword powers the keywords meta when the keywords box is empty */
+    if (!empty($_POST['focus_keyword']) && empty($_POST['seo_keywords'])) {
+        update_post_meta($post_id, '_seo_keywords', sanitize_text_field(wp_unslash($_POST['focus_keyword'])));
+    }
+
+    // ─── PAGE SETTINGS TAB ORDER (global, drag & drop) ───
+    if (isset($_POST['ee_tabs_order'])) {
+        $ee_slugs = array_filter(array_map('sanitize_key', explode(',', (string) wp_unslash($_POST['ee_tabs_order']))));
+        if ($ee_slugs) update_option('ee_pagesettings_tab_order', implode(',', $ee_slugs), false);
     }
 
     // ─── FORM EMBED ───

@@ -162,6 +162,8 @@ function industry_seo_meta_tags() {
 
     <?php if($seo_keywords): ?><meta name="keywords" content="<?php echo esc_attr($seo_keywords); ?>"><?php endif; ?>
 
+    <?php $ee_ai_summary = get_post_meta($pid, '_ai_summary', true); if($ee_ai_summary): ?><meta name="abstract" content="<?php echo esc_attr($ee_ai_summary); ?>"><?php endif; ?>
+
     <?php
     // ─── SoftwareApplication / Product schema (with image + aggregateRating) ───
     $feature_list = array();
@@ -305,7 +307,7 @@ add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
 if (function_exists('ee_layout_sides_css')) ee_layout_sides_css(); /* per-page form/TOC/rail side */
-/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-23-secflips -->\n";
+/* deployment marker */ echo "\n<!-- ee-industry-tpl v2026-07-23-seo26 -->\n";
 ?>
 
 <style>
