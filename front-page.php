@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-23-herogap -->
+<!-- ee-front-tpl v2026-07-23-toc-left -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -263,14 +263,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 <!-- ===================== EE · QUICK TABLE OF CONTENTS (scoped #ee-toc) ===================== -->
 <style>/* keep anchored jumps clear of any sticky chrome */
   #xhero,#trusted-institutions,#ee-platform,#ee-products,#ee-vidya-suite,#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#ee-night,#integrations,#security,#ee-golive,#ee-resources,#ee-events,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
-  #ee-toc .eetoc-fab{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:99990;
+  #ee-toc .eetoc-fab{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:99990;
     display:flex;align-items:center;gap:8px;height:46px;padding:0 15px 0 13px;border:0;cursor:pointer;
     background:linear-gradient(135deg,#22406e,#19345d);color:#fff;border-radius:999px;
     box-shadow:0 14px 30px -10px rgba(25,52,93,.55),0 0 0 1px rgba(255,255,255,.06) inset;
     transition:transform .18s ease,box-shadow .18s ease;-webkit-tap-highlight-color:transparent}#ee-toc .eetoc-fab:hover{transform:translateY(-50%) scale(1.04);box-shadow:0 18px 40px -12px rgba(25,52,93,.65)}#ee-toc .eetoc-fab svg,#ee-toc .eetoc-fab img.eeimg{width:18px;height:18px;flex:none}#ee-toc .eetoc-fab-tx{font-size:13px;font-weight:700;letter-spacing:.01em;white-space:nowrap}/* backdrop */
   #ee-toc .eetoc-backdrop{position:fixed;inset:0;z-index:99991;background:rgba(9,21,38,.42);
     opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease;backdrop-filter:blur(2px)}#ee-toc.open .eetoc-backdrop{opacity:1;visibility:visible}/* panel */
-  #ee-toc .eetoc-panel{position:fixed;right:16px;top:50%;transform:translateY(-50%) translateX(14px) scale(.98);
+  #ee-toc .eetoc-panel{position:fixed;left:16px;top:50%;transform:translateY(-50%) translateX(-14px) scale(.98);
     z-index:99992;width:296px;max-width:calc(100vw - 32px);max-height:80vh;display:flex;flex-direction:column;
     background:#fff;border-radius:18px;border:1px solid #EAEDF3;overflow:hidden;
     box-shadow:0 40px 90px -30px rgba(15,29,50,.5),0 0 0 1px rgba(25,52,93,.04);
