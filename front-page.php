@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-23-leadprocess -->
+<!-- ee-front-tpl v2026-07-23-storytelling -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -687,1988 +687,381 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
 <style>
 #feature-pillars.ee-lead-process{padding:clamp(48px,7vw,88px) 0}
-#feature-pillars .ee-lp-head{max-width:1240px;margin:0 auto clamp(20px,3vw,32px);padding:0 24px}
-#feature-pillars .ee-lp-frame{width:100%;border:0;display:block;height:min(760px,88vh);background:#f4f5f7;border-radius:20px}
-@media(max-width:600px){#feature-pillars .ee-lp-frame{height:min(820px,92vh);border-radius:14px}}
+#feature-pillars .ee-lp-frame{width:100%;border:0;display:block;height:900px;background:#F7F8FB;border-radius:22px}
+@media(max-width:600px){#feature-pillars .ee-lp-frame{height:1040px;border-radius:16px}}
 </style>
-<section id="feature-pillars" class="flw-sec ee-lead-process" aria-labelledby="flw-h">
-  <div class="ee-lp-head flw-wrap flw-head">
-    <span class="flw-eyebrow">Built For Admission Teams</span>
-    <h2 class="flw-h2" id="flw-h">Admission Intelligence: <em>The Definite Enrollment Pipeline</em></h2>
-    <p class="flw-sub">A fully automated, AI-driven engine designed to turn raw inquiry data into high-intent enrollments with surgical precision.</p>
-  </div>
-  <iframe class="ee-lp-frame" title="Admission intelligence pipeline: lead ingestion, smart engagement, AI prioritization, funnel analytics" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
+<section id="feature-pillars" class="flw-sec ee-lead-process" aria-label="Admission intelligence journey">
+  <iframe class="ee-lp-frame" title="Follow one enquiry from click to confirmed seat: lead ingestion, smart engagement, AI prioritization, funnel analytics" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
 <meta charset=&quot;UTF-8&quot;>
-<title>Lead Ingestion Process</title>
+<title>Admission Intelligence Journey</title>
 <style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Arial, sans-serif;
-    background: #f4f5f7;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+  :root{
+    --navy:#19335D; --navy2:#22467c; --orange:#DE6E30; --orange2:#E8843F;
+    --blue:#2B62C9; --violet:#7C5CFF; --green:#1AA35C;
+    --ink:#0f203a; --muted:#5a6b85; --faint:#94a3b8;
+    --bg:#F7F8FB; --line:rgba(25,52,93,.10);
   }
-  .scroll-container {
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    width: 100vw;
-    height: 100vh;
-    scrollbar-width: none;
-  }
-  .scroll-container::-webkit-scrollbar { display: none; }
-  .scroll-panel {
-    flex: 0 0 100vw;
-    width: 100vw;
-    height: 100vh;
-    scroll-snap-align: start;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    padding: 40px 20px;
-    overflow-y: auto;
-  }
-  .nav-dots {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    z-index: 50;
-  }
-  .nav-dots button {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: none;
-    background: #d3cfc4;
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .nav-dots button.active {
-    background: #d84b1e;
-    transform: scale(1.25);
-  }
-  .nav-arrow {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid #e2ddd2;
-    color: #6b6b68;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 50;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  }
-  .nav-arrow svg { width: 20px; height: 20px; }
-  .nav-arrow.prev { left: 20px; }
-  .nav-arrow.next { right: 20px; }
-  .nav-arrow:disabled { opacity: 0.3; cursor: default; }
-  .wrapper {
-    max-width: 640px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-  }
-  .step {
-    display: flex;
-    gap: 20px;
-  }
-  .step-marker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .circle {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: 600;
-  }
-  .circle.red { background: #d84b1e; }
-  .circle.green { background: #1a9c5c; }
-  .connector {
-    width: 2px;
-    flex: 1;
-    background: #e2c9bd;
-    margin: 4px 0;
-    min-height: 24px;
-  }
-  .card {
-    flex: 1;
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 16px;
-  }
-  .card.red-bg { background: #fdf1ec; }
-  .card.green-bg { background: #eaf7f0; }
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .card-header .label {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-  }
-  .label.red-text { color: #d84b1e; }
-  .label.green-text { color: #1a9c5c; }
-  .card-body {
-    border-top: 1px solid rgba(0,0,0,0.06);
-    padding-top: 12px;
-  }
-  .card-body p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #2c2c2a;
-    margin: 0 0 12px;
-  }
-  .info-box {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 10px 14px;
-  }
-  .info-box .info-label {
-    font-size: 11px;
-    color: #6b6b68;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin: 0 0 2px;
-  }
-  .info-box .info-value {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin: 0;
-  }
-  .check-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .check-row .check-icon {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #1a9c5c;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    flex-shrink: 0;
-  }
-  .icon {
-    width: 20px;
-    height: 20px;
-  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);font-family:'Inter',-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Arial,sans-serif;color:var(--ink);overflow-x:hidden}
+  .lp-shell{max-width:1180px;margin:0 auto;padding:clamp(28px,4vw,52px) clamp(18px,3vw,32px) clamp(36px,5vw,56px);position:relative}
 
-  @keyframes popIn {
-    0% { opacity: 0; transform: scale(0.4); }
-    60% { opacity: 1; transform: scale(1.15); }
-    100% { opacity: 1; transform: scale(1); }
-  }
-  @keyframes slideFade {
-    0% { opacity: 0; transform: translateX(24px); }
-    100% { opacity: 1; transform: translateX(0); }
-  }
-  @keyframes growLine {
-    0% { transform: scaleY(0); }
-    100% { transform: scaleY(1); }
-  }
-  @keyframes checkPop {
-    0% { opacity: 0; transform: scale(0); }
-    100% { opacity: 1; transform: scale(1); }
-  }
+  /* ---- top ---- */
+  .lp-top{max-width:760px;margin:0 auto clamp(28px,4vw,42px);text-align:center}
+  .lp-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+  .lp-eyebrow::before,.lp-eyebrow::after{content:&quot;&quot;;width:20px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--orange),var(--orange2))}
+  .lp-h1{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:0 0 12px;color:var(--navy)}
+  .lp-sub{font-size:clamp(14px,1.6vw,16px);line-height:1.6;color:var(--muted);margin:0}
 
-  .step {
-    opacity: 0;
-  }
-  .step.animate .circle {
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-  .step.animate .card {
-    animation: slideFade 0.6s ease-out forwards;
-    animation-delay: 0.15s;
-  }
-  .step.animate {
-    opacity: 1;
-  }
-  .connector {
-    transform-origin: top;
-    transform: scaleY(0);
-  }
-  .step.animate .connector {
-    animation: growLine 0.5s ease-out forwards;
-    animation-delay: 0.5s;
-  }
-  .check-row .check-icon {
-    opacity: 0;
-  }
-  .step.animate .check-icon {
-    animation: checkPop 0.4s ease-out forwards;
-    animation-delay: 1.1s;
-  }
+  /* ---- journey path ---- */
+  .lp-path{position:relative;display:flex;justify-content:space-between;align-items:center;max-width:640px;margin:0 auto clamp(30px,4vw,46px);padding:0 4px}
+  .lp-path::before{content:&quot;&quot;;position:absolute;left:22px;right:22px;top:50%;height:2px;background:var(--line);transform:translateY(-50%);z-index:0}
+  .lp-path-fill{position:absolute;left:22px;top:50%;height:2px;background:linear-gradient(90deg,var(--orange),var(--blue),var(--violet),var(--green));transform:translateY(-50%);z-index:1;width:0%;transition:width .5s cubic-bezier(.3,.8,.3,1);border-radius:2px}
+  .lp-node{position:relative;z-index:2;width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .35s,transform .35s,box-shadow .35s;flex:none}
+  .lp-node svg{width:19px;height:19px;stroke:var(--faint);transition:stroke .35s}
+  .lp-node .lp-node-n{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:800;letter-spacing:.06em;color:var(--faint);white-space:nowrap;transition:color .35s}
+  .lp-node.on{border-color:var(--stage-c,var(--orange));transform:scale(1.16);box-shadow:0 8px 20px -6px var(--stage-c,var(--orange))}
+  .lp-node.on svg{stroke:var(--stage-c,var(--orange))}
+  .lp-node.on .lp-node-n{color:var(--stage-c,var(--orange))}
+  .lp-node.done{border-color:var(--stage-c,var(--orange));background:var(--stage-c,var(--orange))}
+  .lp-node.done svg{stroke:#fff}
 
-  /* ---- Smart Engagement section ---- */
-  .se-wrapper {
-    max-width: 900px;
-    margin: 60px auto 0;
-  }
-  .se-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-  .se-badge {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f0742c, #d84b1e);
-    color: #fff;
-    font-size: 22px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .se-title h1 {
-    font-size: 32px;
-    font-weight: 800;
-    color: #1a2a4a;
-    margin: 0 0 6px;
-  }
-  .se-title p {
-    font-size: 15px;
-    color: #6b6b68;
-    margin: 0 0 8px;
-    border-bottom: 3px solid #d84b1e;
-    display: inline-block;
-    padding-bottom: 8px;
-  }
-  .se-row {
-    display: flex;
-    gap: 24px;
-    align-items: stretch;
-  }
-  .se-icon-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .se-ring {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid;
-    background: #fff;
-  }
-  .se-ring svg { width: 40px; height: 40px; }
-  .se-ring.orange { border-color: #f2a98a; color: #e2622a; }
-  .se-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
-  .se-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
-  .se-connector {
-    width: 2px;
-    flex: 1;
-    background: #ddd8ce;
-    margin: 6px 0;
-    min-height: 30px;
-    transform-origin: top;
-    transform: scaleY(0);
-  }
-  .se-chevron {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid #e2ddd2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #b8a48f;
-    font-size: 12px;
-    margin: 2px 0;
-    flex-shrink: 0;
-    opacity: 0;
-  }
-  .se-panel {
-    flex: 1;
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-  }
-  .se-panel.orange-bg { background: #fdf0e9; }
-  .se-panel.blue-bg { background: #eaf0fb; }
-  .se-panel.green-bg { background: #eaf7ee; }
-  .se-main { flex: 1; }
-  .se-panel-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .se-icon-chip {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .se-icon-chip svg { width: 16px; height: 16px; }
-  .se-icon-chip.orange { background: #e2622a; }
-  .se-icon-chip.blue { background: #2050b0; }
-  .se-icon-chip.green { background: #1a9c5c; }
-  .se-label {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .se-label.orange-text { color: #e2622a; }
-  .se-label.blue-text { color: #2050b0; }
-  .se-label.green-text { color: #1a9c5c; }
-  .se-divider {
-    border: none;
-    border-top: 1px solid rgba(0,0,0,0.07);
-    margin: 0 0 10px;
-  }
-  .se-main p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #2c2c2a;
-    margin: 0;
-  }
-  .se-side {
-    width: 220px;
-    flex-shrink: 0;
-    background: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .se-side.stack { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .se-side-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .se-side-icon svg { width: 18px; height: 18px; }
-  .se-side-icon.blue-fill { background: #2050b0; }
-  .se-side-icon.green-fill { background: #1a9c5c; }
-  .se-side-label {
-    font-size: 10px;
-    color: #8a8a86;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin: 0 0 2px;
-  }
-  .se-side-value {
-    font-size: 14px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0;
-  }
-  .se-side-sub {
-    font-size: 12px;
-    color: #6b6b68;
-    margin: 2px 0 0;
-  }
-  .se-channels {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-  }
-  .se-channel-icons {
-    display: flex;
-    gap: 10px;
-  }
-  .se-channel-icons span {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .se-channel-icons span svg { width: 16px; height: 16px; }
-  .se-channel-names {
-    font-size: 12px;
-    color: #4a4a48;
-    font-weight: 600;
-  }
-  .se-step { opacity: 0; }
-  .se-step.animate { opacity: 1; }
-  .se-step.animate .se-ring {
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-  .se-step.animate .se-panel {
-    animation: slideFade 0.6s ease-out forwards;
-    animation-delay: 0.15s;
-  }
-  .se-step.animate .se-connector {
-    animation: growLine 0.5s ease-out forwards;
-    animation-delay: 0.5s;
-  }
-  .se-step.animate .se-chevron {
-    animation: checkPop 0.3s ease-out forwards;
-    animation-delay: 0.6s;
-  }
+  /* ---- stage stack ---- */
+  .lp-stage-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center;min-height:360px;position:relative}
+  .lp-narrative{position:relative}
+  .lp-stage{position:absolute;inset:0;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;pointer-events:none}
+  .lp-stage.on{position:relative;opacity:1;transform:none;pointer-events:auto}
+  .lp-stage-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--stage-c);margin-bottom:12px}
+  .lp-stage-tag i{width:7px;height:7px;border-radius:50%;background:var(--stage-c);display:inline-block}
+  .lp-stage-h2{font-size:clamp(21px,2.6vw,28px);font-weight:800;letter-spacing:-.01em;margin:0 0 10px;color:var(--navy);line-height:1.2}
+  .lp-stage-hook{font-size:14.5px;line-height:1.65;color:var(--muted);margin:0 0 16px;max-width:46ch}
+  .lp-bullets{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:9px}
+  .lp-bullets li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:var(--ink)}
+  .lp-bullets li i{flex:none;width:18px;height:18px;border-radius:6px;background:var(--stage-soft);color:var(--stage-c);display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .lp-bullets li i svg{width:11px;height:11px}
+  .lp-stat{display:inline-flex;align-items:baseline;gap:8px;background:var(--stage-soft);border:1px solid var(--stage-line);border-radius:14px;padding:12px 18px;margin-bottom:20px}
+  .lp-stat b{font-size:22px;font-weight:800;color:var(--stage-c)}
+  .lp-stat span{font-size:12px;color:var(--muted);font-weight:600;max-width:20ch;line-height:1.35}
 
-  /* ---- AI Prioritization section ---- */
-  .p3-wrapper {
-    max-width: 900px;
-    margin: 60px auto 0;
-  }
-  .p3-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-  .p3-badge {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f0742c, #d84b1e);
-    color: #fff;
-    font-size: 22px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .p3-title h1 {
-    font-size: 32px;
-    font-weight: 800;
-    color: #1a2a4a;
-    margin: 0 0 6px;
-  }
-  .p3-title p {
-    font-size: 15px;
-    color: #6b6b68;
-    margin: 0 0 8px;
-    border-bottom: 3px solid #d84b1e;
-    display: inline-block;
-    padding-bottom: 8px;
-  }
-  .p3-row {
-    display: flex;
-    gap: 24px;
-    align-items: stretch;
-  }
-  .p3-icon-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .p3-ring {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid;
-    background: #fff;
-  }
-  .p3-ring svg { width: 40px; height: 40px; }
-  .p3-ring.orange { border-color: #f2a98a; color: #e2622a; }
-  .p3-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
-  .p3-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
-  .p3-connector {
-    width: 2px;
-    flex: 1;
-    background: #ddd8ce;
-    margin: 6px 0;
-    min-height: 30px;
-    transform-origin: top;
-    transform: scaleY(0);
-  }
-  .p3-chevron {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid #e2ddd2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #b8a48f;
-    font-size: 12px;
-    margin: 2px 0;
-    flex-shrink: 0;
-    opacity: 0;
-  }
-  .p3-panel {
-    flex: 1;
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-  }
-  .p3-panel.orange-bg { background: #fdf0e9; }
-  .p3-panel.blue-bg { background: #eaf0fb; }
-  .p3-panel.green-bg { background: #eaf7ee; }
-  .p3-main { flex: 1; }
-  .p3-panel-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .p3-icon-chip {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .p3-icon-chip svg { width: 16px; height: 16px; }
-  .p3-icon-chip.orange { background: #e2622a; }
-  .p3-icon-chip.blue { background: #2050b0; }
-  .p3-icon-chip.green { background: #1a9c5c; }
-  .p3-label {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .p3-label.orange-text { color: #e2622a; }
-  .p3-label.blue-text { color: #2050b0; }
-  .p3-label.green-text { color: #1a9c5c; }
-  .p3-divider {
-    border: none;
-    border-top: 1px solid rgba(0,0,0,0.07);
-    margin: 0 0 10px;
-  }
-  .p3-main p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #2c2c2a;
-    margin: 0;
-  }
-  .p3-side {
-    width: 240px;
-    flex-shrink: 0;
-    background: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .p3-side-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .p3-side-icon svg { width: 20px; height: 20px; }
-  .p3-side-icon.orange-fill { background: #fbdcc9; color: #e2622a; }
-  .p3-side-icon.blue-fill { background: #cfe0f7; color: #2050b0; }
-  .p3-side-icon.green-fill { background: #c7ecd4; color: #1a9c5c; }
-  .p3-side-eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin: 0 0 3px;
-  }
-  .p3-side-eyebrow.orange-text { color: #e2622a; }
-  .p3-side-eyebrow.blue-text { color: #2050b0; }
-  .p3-side-eyebrow.green-text { color: #1a9c5c; }
-  .p3-side-value {
-    font-size: 14px;
-    color: #1a1a1a;
-    margin: 0;
-    line-height: 1.4;
-  }
-  .p3-step { opacity: 0; }
-  .p3-step.animate { opacity: 1; }
-  .p3-step.animate .p3-ring {
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-  .p3-step.animate .p3-panel {
-    animation: slideFade 0.6s ease-out forwards;
-    animation-delay: 0.15s;
-  }
-  .p3-step.animate .p3-connector {
-    animation: growLine 0.5s ease-out forwards;
-    animation-delay: 0.5s;
-  }
-  .p3-step.animate .p3-chevron {
-    animation: checkPop 0.3s ease-out forwards;
-    animation-delay: 0.6s;
-  }
+  .lp-progress-row{display:flex;align-items:center;gap:12px}
+  .lp-bar{flex:1;height:4px;border-radius:4px;background:var(--line);overflow:hidden}
+  .lp-bar i{display:block;height:100%;width:0%;background:var(--stage-c);border-radius:4px}
+  .lp-bar i.run{transition:width linear}
+  .lp-play{flex:none;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,background .2s}
+  .lp-play:hover{border-color:var(--stage-c);background:var(--stage-soft)}
+  .lp-play svg{width:12px;height:12px}
 
-  /* ---- Funnel Analytics section ---- */
-  .f4-wrapper {
-    max-width: 900px;
-    margin: 60px auto 0;
-  }
-  .f4-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-  .f4-badge {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f0742c, #d84b1e);
-    color: #fff;
-    font-size: 22px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 2px solid #a6ddbb;
-  }
-  .f4-title h1 {
-    font-size: 32px;
-    font-weight: 800;
-    color: #1a2a4a;
-    margin: 0 0 6px;
-  }
-  .f4-title p {
-    font-size: 15px;
-    color: #6b6b68;
-    margin: 0 0 8px;
-    border-bottom: 3px solid #d84b1e;
-    display: inline-block;
-    padding-bottom: 8px;
-  }
-  .f4-row {
-    display: flex;
-    gap: 24px;
-    align-items: stretch;
-  }
-  .f4-icon-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .f4-ring-wrap {
-    position: relative;
-  }
-  .f4-num {
-    position: absolute;
-    top: -6px;
-    left: -6px;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    z-index: 2;
-  }
-  .f4-num.orange { background: #d84b1e; }
-  .f4-num.blue { background: #2050b0; }
-  .f4-num.green { background: #1a9c5c; }
-  .f4-ring {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid;
-    background: #fff;
-  }
-  .f4-ring svg { width: 40px; height: 40px; }
-  .f4-ring.orange { border-color: #f2a98a; color: #e2622a; }
-  .f4-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
-  .f4-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
-  .f4-connector {
-    width: 2px;
-    flex: 1;
-    background: #ddd8ce;
-    margin: 6px 0;
-    min-height: 30px;
-    transform-origin: top;
-    transform: scaleY(0);
-  }
-  .f4-chevron {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid #e2ddd2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #b8a48f;
-    font-size: 12px;
-    margin: 2px 0;
-    flex-shrink: 0;
-    opacity: 0;
-  }
-  .f4-panel {
-    flex: 1;
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-  }
-  .f4-panel.orange-bg { background: #fdf0e9; }
-  .f4-panel.blue-bg { background: #eaf0fb; }
-  .f4-panel.green-bg { background: #eaf7ee; }
-  .f4-main { flex: 1; }
-  .f4-panel-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .f4-icon-chip {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .f4-icon-chip svg { width: 16px; height: 16px; }
-  .f4-icon-chip.orange { background: #e2622a; }
-  .f4-icon-chip.blue { background: #2050b0; }
-  .f4-icon-chip.green { background: #1a9c5c; }
-  .f4-label {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .f4-label.orange-text { color: #e2622a; }
-  .f4-label.blue-text { color: #2050b0; }
-  .f4-label.green-text { color: #1a9c5c; }
-  .f4-divider {
-    border: none;
-    border-top: 1px solid rgba(0,0,0,0.07);
-    margin: 0 0 10px;
-  }
-  .f4-main p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #2c2c2a;
-    margin: 0;
-  }
-  .f4-side {
-    width: 220px;
-    flex-shrink: 0;
-    background: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .f4-side-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .f4-side-icon svg { width: 20px; height: 20px; }
-  .f4-side-icon.orange-fill { background: #fbdcc9; color: #e2622a; }
-  .f4-side-icon.blue-fill { background: #cfe0f7; color: #2050b0; }
-  .f4-side-icon.green-fill { background: #c7ecd4; color: #1a9c5c; }
-  .f4-side-eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin: 0 0 3px;
-  }
-  .f4-side-eyebrow.orange-text { color: #e2622a; }
-  .f4-side-eyebrow.blue-text { color: #2050b0; }
-  .f4-side-eyebrow.green-text { color: #1a9c5c; }
-  .f4-side-value {
-    font-size: 14px;
-    color: #1a1a1a;
-    margin: 0;
-    line-height: 1.4;
-  }
-  .f4-step { opacity: 0; }
-  .f4-step.animate { opacity: 1; }
-  .f4-step.animate .f4-ring {
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-  .f4-step.animate .f4-num {
-    animation: checkPop 0.4s ease-out forwards;
-    animation-delay: 0.35s;
-  }
-  .f4-step.animate .f4-panel {
-    animation: slideFade 0.6s ease-out forwards;
-    animation-delay: 0.15s;
-  }
-  .f4-step.animate .f4-connector {
-    animation: growLine 0.5s ease-out forwards;
-    animation-delay: 0.5s;
-  }
-  .f4-step.animate .f4-chevron {
-    animation: checkPop 0.3s ease-out forwards;
-    animation-delay: 0.6s;
-  }
+  /* ---- scene ---- */
+  .lp-scene{position:relative;height:300px;border-radius:22px;background:#fff;border:1px solid var(--line);overflow:hidden;box-shadow:0 24px 60px -30px rgba(15,29,50,.25)}
+  .lp-scene::before{content:&quot;&quot;;position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,var(--stage-soft),transparent 60%);opacity:.7;transition:background .5s}
+  .lp-scene-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .lp-scene-panel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.94);transition:opacity .5s ease,transform .5s ease;pointer-events:none}
+  .lp-scene-panel.on{opacity:1;transform:none;pointer-events:auto}
 
-  /* ---- Lead Ingestion section (revised) ---- */
-  .li-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
+  /* scene 1: channel funnel */
+  .sc-funnel{position:relative;width:220px;height:220px}
+  .sc-chip{position:absolute;width:38px;height:38px;border-radius:50%;background:#fff;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(15,29,50,.12)}
+  .sc-chip svg{width:17px;height:17px}
+  .sc-chip.c1{top:0;left:8px;color:#25D366}
+  .sc-chip.c2{top:6px;right:0;color:#2B62C9}
+  .sc-chip.c3{bottom:26px;left:-8px;color:#DE6E30}
+  .sc-chip.c4{bottom:20px;right:-4px;color:#7C5CFF}
+  .sc-dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--orange);opacity:0}
+  .sc-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--orange2));display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px -10px rgba(222,110,48,.55)}
+  .sc-core svg{width:32px;height:32px;color:#fff}
+  @keyframes flowIn{0%{opacity:0;transform:translate(var(--fx),var(--fy)) scale(.6)}15%{opacity:1}80%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(0,0) scale(.4)}}
+  .lp-scene-panel.on .sc-dot{animation:flowIn 1.8s cubic-bezier(.3,.6,.3,1) infinite}
+
+  /* scene 2: chat */
+  .sc-chat{width:230px;display:flex;flex-direction:column;gap:8px}
+  .sc-bubble{max-width:80%;padding:9px 13px;border-radius:13px;font-size:12px;line-height:1.4;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+  .sc-bubble.in{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:3px;color:var(--ink)}
+  .sc-bubble.out{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:3px}
+  .lp-scene-panel.on .sc-bubble{opacity:1;transform:none}
+  .lp-scene-panel.on .sc-bubble:nth-child(1){transition-delay:.1s}
+  .lp-scene-panel.on .sc-bubble:nth-child(2){transition-delay:.5s}
+  .lp-scene-panel.on .sc-bubble:nth-child(3){transition-delay:.9s}
+  .lp-scene-panel.on .sc-bubble:nth-child(4){transition-delay:1.3s}
+  .sc-chanrow{display:flex;gap:8px;justify-content:center;margin-top:6px}
+  .sc-chanrow span{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:.35;transition:opacity .3s,transform .3s}
+  .sc-chanrow span svg{width:14px;height:14px}
+  .lp-scene-panel.on .sc-chanrow span.a{opacity:1;transform:scale(1.12)}
+
+  /* scene 3: score dial */
+  .sc-dial-wrap{display:flex;flex-direction:column;align-items:center;gap:16px}
+  .sc-dial{position:relative;width:140px;height:140px}
+  .sc-dial svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .sc-dial circle{fill:none;stroke-width:10}
+  .sc-dial .bgc{stroke:var(--line)}
+  .sc-dial .fgc{stroke:var(--violet);stroke-linecap:round;stroke-dasharray:345;stroke-dashoffset:345;transition:stroke-dashoffset 1.4s cubic-bezier(.3,.8,.3,1)}
+  .lp-scene-panel.on .sc-dial .fgc{stroke-dashoffset:35}
+  .sc-dial-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
+  .sc-dial-num b{font-size:30px;font-weight:800;color:var(--violet)}
+  .sc-dial-num span{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+  .sc-rank{display:flex;flex-direction:column;gap:6px;width:180px}
+  .sc-rank-row{display:flex;align-items:center;gap:8px}
+  .sc-rank-row b{font-size:10.5px;color:var(--muted);width:14px}
+  .sc-rank-row .tk{flex:1;height:6px;border-radius:4px;background:var(--line);overflow:hidden}
+  .sc-rank-row .tk i{display:block;height:100%;background:var(--violet);width:0;border-radius:4px;transition:width 1s cubic-bezier(.3,.8,.3,1)}
+  .lp-scene-panel.on .sc-rank-row:nth-child(1) .tk i{width:92%;transition-delay:.3s}
+  .lp-scene-panel.on .sc-rank-row:nth-child(2) .tk i{width:64%;transition-delay:.45s}
+  .lp-scene-panel.on .sc-rank-row:nth-child(3) .tk i{width:38%;transition-delay:.6s}
+
+  /* scene 4: bar chart + roi */
+  .sc-chart{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .sc-bars{display:flex;align-items:flex-end;gap:10px;height:110px}
+  .sc-bars i{display:block;width:20px;border-radius:6px 6px 0 0;background:linear-gradient(180deg,var(--green),#0f7d43);height:0;transition:height 1s cubic-bezier(.3,.8,.3,1)}
+  .lp-scene-panel.on .sc-bars i:nth-child(1){height:38%;transition-delay:.1s}
+  .lp-scene-panel.on .sc-bars i:nth-child(2){height:55%;transition-delay:.25s}
+  .lp-scene-panel.on .sc-bars i:nth-child(3){height:47%;transition-delay:.4s}
+  .lp-scene-panel.on .sc-bars i:nth-child(4){height:78%;transition-delay:.55s}
+  .lp-scene-panel.on .sc-bars i:nth-child(5){height:100%;transition-delay:.7s}
+  .sc-roi{display:flex;align-items:baseline;gap:6px;background:#eafaf1;border:1px solid rgba(26,163,92,.25);border-radius:999px;padding:7px 16px}
+  .sc-roi b{font-size:20px;font-weight:800;color:var(--green)}
+  .sc-roi span{font-size:11.5px;font-weight:700;color:#0f7d43}
+
+  /* ---- controls ---- */
+  .lp-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:clamp(22px,3vw,32px)}
+  .lp-arrow{width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid var(--line);color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,color .2s,transform .15s}
+  .lp-arrow:hover{border-color:var(--orange);color:var(--orange)}
+  .lp-arrow:active{transform:scale(.94)}
+  .lp-arrow svg{width:16px;height:16px}
+  .lp-dots{display:flex;gap:8px}
+  .lp-dots b{width:7px;height:7px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s,transform .3s;display:block}
+  .lp-dots b.on{width:20px;border-radius:5px;background:var(--stage-c,var(--orange))}
+
+  @media(max-width:860px){
+    .lp-stage-wrap{grid-template-columns:1fr;gap:22px}
+    .lp-stage-wrap{min-height:0}
+    .lp-narrative{min-height:280px}
+    .lp-scene{height:230px;order:-1}
+    .lp-path{max-width:100%}
   }
-  .li-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-  .li-badge {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f0742c, #d84b1e);
-    color: #fff;
-    font-size: 22px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .li-title h1 {
-    font-size: 32px;
-    font-weight: 800;
-    color: #1a2a4a;
-    margin: 0 0 6px;
-  }
-  .li-title p {
-    font-size: 15px;
-    color: #6b6b68;
-    margin: 0 0 8px;
-    border-bottom: 3px solid #d84b1e;
-    display: inline-block;
-    padding-bottom: 8px;
-  }
-  .li-row {
-    display: flex;
-    gap: 24px;
-    align-items: stretch;
-  }
-  .li-icon-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .li-ring {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid;
-    background: #fff;
-  }
-  .li-ring svg { width: 40px; height: 40px; }
-  .li-ring.orange { border-color: #f2a98a; color: #e2622a; }
-  .li-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
-  .li-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
-  .li-line-seg {
-    width: 0;
-    height: 16px;
-    border-left: 2px dashed #ddd4c8;
-  }
-  .li-line-seg.grow {
-    flex: 1;
-    min-height: 20px;
-    transform-origin: top;
-    transform: scaleY(0);
-  }
-  .li-chevron {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid #e2ddd2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #e2622a;
-    font-size: 12px;
-    flex-shrink: 0;
-    opacity: 0;
-  }
-  .li-panel {
-    flex: 1;
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-  }
-  .li-panel.orange-bg { background: #fdf0e9; }
-  .li-panel.blue-bg { background: #eaf0fb; }
-  .li-panel.green-bg { background: #eaf7ee; }
-  .li-main { flex: 1; }
-  .li-panel-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .li-icon-chip {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .li-icon-chip svg { width: 16px; height: 16px; }
-  .li-icon-chip.orange { background: #e2622a; }
-  .li-icon-chip.blue { background: #2050b0; }
-  .li-icon-chip.green { background: #1a9c5c; }
-  .li-label {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .li-label.orange-text { color: #e2622a; }
-  .li-label.blue-text { color: #2050b0; }
-  .li-label.green-text { color: #1a9c5c; }
-  .li-divider {
-    border: none;
-    border-top: 1px solid rgba(0,0,0,0.07);
-    margin: 0 0 10px;
-  }
-  .li-subtitle {
-    font-size: 17px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0 0 6px;
-  }
-  .li-main p.li-body {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #4a4a48;
-    margin: 0;
-  }
-  .li-deco {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .li-deco-ring {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 2px dashed #a6ddbb;
-  }
-  .li-deco-circle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: #eaf7ee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .li-deco-circle svg { width: 30px; height: 30px; color: #1a9c5c; }
-  .li-deco-badge {
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #1a9c5c;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .li-deco-badge svg { width: 12px; height: 12px; }
-  .li-sparkle {
-    position: absolute;
-    color: #7fcf9d;
-    font-size: 12px;
-  }
-  .li-step { opacity: 0; }
-  .li-step.animate { opacity: 1; }
-  .li-step.animate .li-ring {
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-  .li-step.animate .li-panel {
-    animation: slideFade 0.6s ease-out forwards;
-    animation-delay: 0.15s;
-  }
-  .li-step.animate .li-line-seg.grow {
-    animation: growLine 0.5s ease-out forwards;
-    animation-delay: 0.5s;
-  }
-  .li-step.animate .li-chevron {
-    animation: checkPop 0.3s ease-out forwards;
-    animation-delay: 0.6s;
+  @media(prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
   }
 </style>
 </head>
 <body>
 
-<div class=&quot;scroll-container&quot; id=&quot;scrollContainer&quot;>
+<div class=&quot;lp-shell&quot; id=&quot;lpRoot&quot;>
 
-<div class=&quot;scroll-panel&quot;>
-<div class=&quot;li-wrapper&quot;>
-
-  <div class=&quot;li-header&quot;>
-    <div class=&quot;li-badge&quot;>01</div>
-    <div class=&quot;li-title&quot;>
-      <h1>Lead ingestion</h1>
-      <p>Capture. Clean. Consolidate. Convert.</p>
-    </div>
+  <div class=&quot;lp-top&quot;>
+    <span class=&quot;lp-eyebrow&quot;>Built For Admission Teams</span>
+    <h1 class=&quot;lp-h1&quot;>Follow One Enquiry From Click To Confirmed Seat</h1>
+    <p class=&quot;lp-sub&quot;>Four connected intelligence layers turn a single anonymous click into a scored, engaged, enrolled student &mdash; watch the journey unfold.</p>
   </div>
 
-  <!-- LI Step 1 -->
-  <div class=&quot;li-row li-step&quot; id=&quot;li-1&quot;>
-    <div class=&quot;li-icon-col&quot;>
-      <div class=&quot;li-ring orange&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <path d=&quot;M22 4H2l8 9v6l4 2v-8z&quot;></path>
-          <circle cx=&quot;8&quot; cy=&quot;2&quot; r=&quot;0.5&quot; fill=&quot;currentColor&quot;></circle>
-          <circle cx=&quot;12&quot; cy=&quot;1.5&quot; r=&quot;0.5&quot; fill=&quot;currentColor&quot;></circle>
-          <circle cx=&quot;16&quot; cy=&quot;2&quot; r=&quot;0.5&quot; fill=&quot;currentColor&quot;></circle>
-        </svg>
-      </div>
-      <div class=&quot;li-line-seg&quot;></div>
-      <div class=&quot;li-chevron&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; style=&quot;width:14px;height:14px;&quot;>
-          <polyline points=&quot;6 9 12 15 18 9&quot;></polyline>
-        </svg>
-      </div>
-      <div class=&quot;li-line-seg grow&quot;></div>
-    </div>
-    <div class=&quot;li-panel orange-bg&quot;>
-      <div class=&quot;li-main&quot;>
-        <div class=&quot;li-panel-header&quot;>
-          <div class=&quot;li-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <path d=&quot;M9 18h6&quot;></path>
-              <path d=&quot;M10 22h4&quot;></path>
-              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
-            </svg>
-          </div>
-          <span class=&quot;li-label orange-text&quot;>Strategic insight</span>
-        </div>
-        <hr class=&quot;li-divider&quot;>
-        <p class=&quot;li-body&quot;>We centralize your entire ecosystem. By normalizing data schemas across 50+ channels, we eliminate data silos. This ensures every prospect, regardless of origin, is immediately formatted, deduplicated, and ready for action.</p>
-      </div>
-    </div>
+  <div class=&quot;lp-path&quot; id=&quot;lpPath&quot;>
+    <div class=&quot;lp-path-fill&quot; id=&quot;lpPathFill&quot;></div>
+    <div class=&quot;lp-node&quot; data-i=&quot;0&quot;><span class=&quot;lp-node-n&quot;>Ingestion</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M22 4H2l8 9v6l4 2v-8z&quot;></path></svg></div>
+    <div class=&quot;lp-node&quot; data-i=&quot;1&quot;><span class=&quot;lp-node-n&quot;>Engagement</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M21 11.5a8.38 8.38 0 0 1-3.8 7.6 8.5 8.5 0 0 1-9.8-.7L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 8.5-8.5h.5a8.48 8.48 0 0 1 8 8v.5z&quot;></path></svg></div>
+    <div class=&quot;lp-node&quot; data-i=&quot;2&quot;><span class=&quot;lp-node-n&quot;>Prioritization</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;></circle><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;4&quot;></circle></svg></div>
+    <div class=&quot;lp-node&quot; data-i=&quot;3&quot;><span class=&quot;lp-node-n&quot;>Analytics</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><line x1=&quot;18&quot; y1=&quot;20&quot; x2=&quot;18&quot; y2=&quot;10&quot;></line><line x1=&quot;12&quot; y1=&quot;20&quot; x2=&quot;12&quot; y2=&quot;4&quot;></line><line x1=&quot;6&quot; y1=&quot;20&quot; x2=&quot;6&quot; y2=&quot;14&quot;></line></svg></div>
   </div>
 
-  <!-- LI Step 2 -->
-  <div class=&quot;li-row li-step&quot; id=&quot;li-2&quot;>
-    <div class=&quot;li-icon-col&quot;>
-      <div class=&quot;li-ring blue&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <circle cx=&quot;6&quot; cy=&quot;6&quot; r=&quot;2&quot;></circle>
-          <circle cx=&quot;18&quot; cy=&quot;6&quot; r=&quot;2&quot;></circle>
-          <circle cx=&quot;6&quot; cy=&quot;18&quot; r=&quot;2&quot;></circle>
-          <circle cx=&quot;18&quot; cy=&quot;18&quot; r=&quot;2&quot;></circle>
-          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;></circle>
-          <line x1=&quot;7.4&quot; y1=&quot;7.4&quot; x2=&quot;10&quot; y2=&quot;10&quot;></line>
-          <line x1=&quot;16.6&quot; y1=&quot;7.4&quot; x2=&quot;14&quot; y2=&quot;10&quot;></line>
-          <line x1=&quot;7.4&quot; y1=&quot;16.6&quot; x2=&quot;10&quot; y2=&quot;14&quot;></line>
-          <line x1=&quot;16.6&quot; y1=&quot;16.6&quot; x2=&quot;14&quot; y2=&quot;14&quot;></line>
-        </svg>
-      </div>
-      <div class=&quot;li-line-seg&quot;></div>
-      <div class=&quot;li-chevron&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; style=&quot;width:14px;height:14px;&quot;>
-          <polyline points=&quot;6 9 12 15 18 9&quot;></polyline>
-        </svg>
-      </div>
-      <div class=&quot;li-line-seg grow&quot;></div>
-    </div>
-    <div class=&quot;li-panel blue-bg&quot;>
-      <div class=&quot;li-main&quot;>
-        <div class=&quot;li-panel-header&quot;>
-          <div class=&quot;li-icon-chip blue&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <ellipse cx=&quot;12&quot; cy=&quot;5&quot; rx=&quot;8&quot; ry=&quot;3&quot;></ellipse>
-              <path d=&quot;M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5&quot;></path>
-              <path d=&quot;M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6&quot;></path>
-            </svg>
-          </div>
-          <span class=&quot;li-label blue-text&quot;>Primary input data</span>
-        </div>
-        <hr class=&quot;li-divider&quot;>
-        <p class=&quot;li-subtitle&quot;>Omni-channel API gateways</p>
-        <p class=&quot;li-body&quot;>Leads captured from 50+ sources through unified API connections.</p>
-      </div>
-    </div>
-  </div>
+  <div class=&quot;lp-stage-wrap&quot;>
+    <div class=&quot;lp-narrative&quot; id=&quot;lpNarrative&quot;>
 
-  <!-- LI Step 3 -->
-  <div class=&quot;li-row li-step&quot; id=&quot;li-3&quot;>
-    <div class=&quot;li-icon-col&quot;>
-      <div class=&quot;li-ring orange&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <rect x=&quot;4&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;16&quot; rx=&quot;2&quot;></rect>
-          <text x=&quot;12&quot; y=&quot;14.5&quot; text-anchor=&quot;middle&quot; font-size=&quot;7&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot; font-weight=&quot;700&quot;>AI</text>
-          <line x1=&quot;9&quot; y1=&quot;1&quot; x2=&quot;9&quot; y2=&quot;4&quot;></line>
-          <line x1=&quot;15&quot; y1=&quot;1&quot; x2=&quot;15&quot; y2=&quot;4&quot;></line>
-          <line x1=&quot;9&quot; y1=&quot;20&quot; x2=&quot;9&quot; y2=&quot;23&quot;></line>
-          <line x1=&quot;15&quot; y1=&quot;20&quot; x2=&quot;15&quot; y2=&quot;23&quot;></line>
-          <line x1=&quot;1&quot; y1=&quot;9&quot; x2=&quot;4&quot; y2=&quot;9&quot;></line>
-          <line x1=&quot;20&quot; y1=&quot;9&quot; x2=&quot;23&quot; y2=&quot;9&quot;></line>
-          <line x1=&quot;1&quot; y1=&quot;15&quot; x2=&quot;4&quot; y2=&quot;15&quot;></line>
-          <line x1=&quot;20&quot; y1=&quot;15&quot; x2=&quot;23&quot; y2=&quot;15&quot;></line>
-        </svg>
+      <div class=&quot;lp-stage on&quot; data-i=&quot;0&quot; style=&quot;--stage-c:#DE6E30;--stage-soft:#FDF0E9;--stage-line:rgba(222,110,48,.25)&quot;>
+        <span class=&quot;lp-stage-tag&quot;><i></i>Stage 01 &middot; Capture</span>
+        <h2 class=&quot;lp-stage-h2&quot;>Lead Ingestion</h2>
+        <p class=&quot;lp-stage-hook&quot;>Every enquiry, from every channel, lands in one place &mdash; instantly cleaned, deduplicated, and ready to act on.</p>
+        <ul class=&quot;lp-bullets&quot;>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>Unified API gateways across 50+ channels</li>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>Automatic schema normalization &amp; dedup</li>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>Zero manual data entry, zero silos</li>
+        </ul>
+        <div class=&quot;lp-stat&quot;><b>50+</b><span>channels unified in real time</span></div>
       </div>
-      <div class=&quot;li-line-seg&quot;></div>
-      <div class=&quot;li-chevron&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; style=&quot;width:14px;height:14px;&quot;>
-          <polyline points=&quot;6 9 12 15 18 9&quot;></polyline>
-        </svg>
-      </div>
-      <div class=&quot;li-line-seg grow&quot;></div>
-    </div>
-    <div class=&quot;li-panel orange-bg&quot;>
-      <div class=&quot;li-main&quot;>
-        <div class=&quot;li-panel-header&quot;>
-          <div class=&quot;li-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <rect x=&quot;4&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;16&quot; rx=&quot;2&quot;></rect>
-              <text x=&quot;12&quot; y=&quot;14.5&quot; text-anchor=&quot;middle&quot; font-size=&quot;7&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot; font-weight=&quot;700&quot;>AI</text>
-            </svg>
-          </div>
-          <span class=&quot;li-label orange-text&quot;>AI processing engine</span>
-        </div>
-        <hr class=&quot;li-divider&quot;>
-        <p class=&quot;li-subtitle&quot;>Data normalization &amp; deduplication</p>
-        <p class=&quot;li-body&quot;>Our AI engine cleans, standardizes, and deduplicates data to ensure accuracy and eliminate redundancies.</p>
-      </div>
-    </div>
-  </div>
 
-  <!-- LI Step 4 -->
-  <div class=&quot;li-row li-step&quot; id=&quot;li-4&quot;>
-    <div class=&quot;li-icon-col&quot;>
-      <div class=&quot;li-ring green&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <path d=&quot;M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z&quot;></path>
-          <polyline points=&quot;9 12 11 14 15 10&quot;></polyline>
-        </svg>
+      <div class=&quot;lp-stage&quot; data-i=&quot;1&quot; style=&quot;--stage-c:#2B62C9;--stage-soft:#EAF0FB;--stage-line:rgba(43,98,201,.25)&quot;>
+        <span class=&quot;lp-stage-tag&quot;><i></i>Stage 02 &middot; Engage</span>
+        <h2 class=&quot;lp-stage-h2&quot;>Smart Engagement</h2>
+        <p class=&quot;lp-stage-hook&quot;>The right message reaches the right prospect on the right channel &mdash; automatically, at the moment intent is highest.</p>
+        <ul class=&quot;lp-bullets&quot;>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>Behavior-triggered, context-aware outreach</li>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>WhatsApp, SMS &amp; Email orchestrated as one</li>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>Every reply syncs straight back to the lead</li>
+        </ul>
+        <div class=&quot;lp-stat&quot;><b>3</b><span>channels, one continuous conversation</span></div>
+      </div>
+
+      <div class=&quot;lp-stage&quot; data-i=&quot;2&quot; style=&quot;--stage-c:#7C5CFF;--stage-soft:#F1EEFF;--stage-line:rgba(124,92,255,.25)&quot;>
+        <span class=&quot;lp-stage-tag&quot;><i></i>Stage 03 &middot; Prioritize</span>
+        <h2 class=&quot;lp-stage-h2&quot;>AI Prioritization</h2>
+        <p class=&quot;lp-stage-hook&quot;>Thousands of signals distilled into one score &mdash; so counsellors spend their time closing, not sorting.</p>
+        <ul class=&quot;lp-bullets&quot;>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>Behavioral &amp; engagement scoring model</li>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>Predicts enrollment likelihood per lead</li>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>Auto-ranked, weighted priority queue</li>
+        </ul>
+        <div class=&quot;lp-stat&quot;><b>92</b><span>intent score, ready for your top counsellor</span></div>
+      </div>
+
+      <div class=&quot;lp-stage&quot; data-i=&quot;3&quot; style=&quot;--stage-c:#1AA35C;--stage-soft:#EAF7EE;--stage-line:rgba(26,163,92,.25)&quot;>
+        <span class=&quot;lp-stage-tag&quot;><i></i>Stage 04 &middot; Prove it</span>
+        <h2 class=&quot;lp-stage-h2&quot;>Funnel Analytics</h2>
+        <p class=&quot;lp-stage-hook&quot;>Every stage measured, every bottleneck surfaced &mdash; a clear, verifiable line from spend to seat.</p>
+        <ul class=&quot;lp-bullets&quot;>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>Full-funnel visibility, source to seat</li>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>Predictive forecasting &amp; bottleneck alerts</li>
+          <li><i><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;><polyline points=&quot;20 6 9 17 4 12&quot;></polyline></svg></i>Verifiable ROI on every recruitment channel</li>
+        </ul>
+        <div class=&quot;lp-stat&quot;><b>37%</b><span>higher conversion, proven with data</span></div>
+      </div>
+
+      <div class=&quot;lp-progress-row&quot;>
+        <div class=&quot;lp-bar&quot;><i id=&quot;lpBar&quot;></i></div>
+        <button class=&quot;lp-play&quot; id=&quot;lpPlay&quot; aria-label=&quot;Pause&quot;>
+          <svg id=&quot;icPause&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><rect x=&quot;6&quot; y=&quot;5&quot; width=&quot;4&quot; height=&quot;14&quot;></rect><rect x=&quot;14&quot; y=&quot;5&quot; width=&quot;4&quot; height=&quot;14&quot;></rect></svg>
+          <svg id=&quot;icPlay&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; style=&quot;display:none&quot;><path d=&quot;M8 5v14l11-7z&quot;></path></svg>
+        </button>
       </div>
     </div>
-    <div class=&quot;li-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
-      <div class=&quot;li-main&quot;>
-        <div class=&quot;li-panel-header&quot;>
-          <div class=&quot;li-icon-chip green&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <polyline points=&quot;20 6 9 17 4 12&quot;></polyline>
-            </svg>
-          </div>
-          <span class=&quot;li-label green-text&quot;>Finalized output</span>
-        </div>
-        <hr class=&quot;li-divider&quot;>
-        <p class=&quot;li-subtitle&quot;>Verified prospect record</p>
-        <p class=&quot;li-body&quot;>A clean, enriched, and verified lead record &mdash; ready for engagement.</p>
-      </div>
-      <div class=&quot;li-deco&quot;>
-        <div class=&quot;li-deco-ring&quot;></div>
-        <div class=&quot;li-deco-circle&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;></path>
-            <circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;></circle>
-          </svg>
-          <div class=&quot;li-deco-badge&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <polyline points=&quot;20 6 9 17 4 12&quot;></polyline>
-            </svg>
+
+    <div class=&quot;lp-scene&quot; id=&quot;lpScene&quot;>
+      <div class=&quot;lp-scene-inner&quot;>
+
+        <div class=&quot;lp-scene-panel on&quot; data-i=&quot;0&quot;>
+          <div class=&quot;sc-funnel&quot;>
+            <span class=&quot;sc-chip c1&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><path d=&quot;M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2z&quot;></path></svg></span>
+            <span class=&quot;sc-chip c2&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;18&quot; height=&quot;14&quot; rx=&quot;2&quot;></rect><path d=&quot;M3 7l9 6 9-6&quot;></path></svg></span>
+            <span class=&quot;sc-chip c3&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2&quot;></path></svg></span>
+            <span class=&quot;sc-chip c4&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;4&quot; width=&quot;18&quot; height=&quot;14&quot; rx=&quot;2&quot;></rect><path d=&quot;M8 21h8M12 17v4&quot;></path></svg></span>
+            <span class=&quot;sc-dot&quot; style=&quot;--fx:-70px;--fy:-70px;top:50%;left:50%;animation-delay:0s&quot;></span>
+            <span class=&quot;sc-dot&quot; style=&quot;--fx:80px;--fy:-60px;top:50%;left:50%;animation-delay:.3s&quot;></span>
+            <span class=&quot;sc-dot&quot; style=&quot;--fx:-80px;--fy:60px;top:50%;left:50%;animation-delay:.6s&quot;></span>
+            <span class=&quot;sc-dot&quot; style=&quot;--fx:70px;--fy:70px;top:50%;left:50%;animation-delay:.9s&quot;></span>
+            <span class=&quot;sc-dot&quot; style=&quot;--fx:-70px;--fy:-70px;top:50%;left:50%;animation-delay:1.2s&quot;></span>
+            <span class=&quot;sc-dot&quot; style=&quot;--fx:80px;--fy:70px;top:50%;left:50%;animation-delay:1.5s&quot;></span>
+            <div class=&quot;sc-core&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M22 4H2l8 9v6l4 2v-8z&quot;></path></svg></div>
           </div>
         </div>
-        <span class=&quot;li-sparkle&quot; style=&quot;top:-4px; left:-8px;&quot;>&#10022;</span>
-        <span class=&quot;li-sparkle&quot; style=&quot;bottom:-6px; left:-4px; font-size:9px;&quot;>&#10022;</span>
-        <span class=&quot;li-sparkle&quot; style=&quot;top:8px; right:-10px; font-size:9px;&quot;>&#10022;</span>
-      </div>
-    </div>
-  </div>
 
-</div>
-
-</div>
-</div>
-
-<div class=&quot;scroll-panel&quot;>
-<div class=&quot;se-wrapper&quot;>
-
-  <div class=&quot;se-header&quot;>
-    <div class=&quot;se-badge&quot;>02</div>
-    <div class=&quot;se-title&quot;>
-      <h1>Smart engagement</h1>
-      <p>Right message. Right channel. Right time. Every time.</p>
-    </div>
-  </div>
-
-  <!-- SE Step 1 -->
-  <div class=&quot;se-row se-step&quot; id=&quot;se-1&quot;>
-    <div class=&quot;se-icon-col&quot;>
-      <div class=&quot;se-ring orange&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;></circle>
-          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;5&quot;></circle>
-          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;1&quot;></circle>
-        </svg>
-      </div>
-      <div class=&quot;se-connector&quot;></div>
-    </div>
-    <div class=&quot;se-panel orange-bg&quot;>
-      <div class=&quot;se-main&quot;>
-        <div class=&quot;se-panel-header&quot;>
-          <div class=&quot;se-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <path d=&quot;M9 18h6&quot;></path>
-              <path d=&quot;M10 22h4&quot;></path>
-              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
-            </svg>
+        <div class=&quot;lp-scene-panel&quot; data-i=&quot;1&quot;>
+          <div class=&quot;sc-chat&quot;>
+            <div class=&quot;sc-bubble in&quot;>Hi! I'm interested in the MBA program.</div>
+            <div class=&quot;sc-bubble out&quot;>Great choice! Here's our brochure + next intake dates 📄</div>
+            <div class=&quot;sc-bubble in&quot;>What's the fee structure?</div>
+            <div class=&quot;sc-bubble out&quot;>Sending details now, and booking you a counsellor call ✅</div>
+            <div class=&quot;sc-chanrow&quot;>
+              <span class=&quot;a&quot; style=&quot;background:rgba(37,211,102,.14);color:#1DA851&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><path d=&quot;M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2z&quot;></path></svg></span>
+              <span style=&quot;background:rgba(43,98,201,.12);color:#2B62C9&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;18&quot; height=&quot;14&quot; rx=&quot;2&quot;></rect><path d=&quot;M3 7l9 6 9-6&quot;></path></svg></span>
+              <span style=&quot;background:rgba(124,92,255,.12);color:#7C5CFF&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2&quot;></path></svg></span>
+            </div>
           </div>
-          <span class=&quot;se-label orange-text&quot;>Strategic insight</span>
         </div>
-        <hr class=&quot;se-divider&quot;>
-        <p>Generic outreach is a cost, not an asset. Our system analyzes user behavior to trigger context-aware communication. Whether via WhatsApp, SMS, or Email, the message aligns perfectly with the prospect's current intent.</p>
-      </div>
-      <div class=&quot;se-side&quot;>
-        <div class=&quot;se-side-icon blue-fill&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;></path>
-            <circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;></circle>
-            <path d=&quot;M23 21v-2a4 4 0 0 0-3-3.87&quot;></path>
-            <path d=&quot;M16 3.13a4 4 0 0 1 0 7.75&quot;></path>
-          </svg>
-        </div>
-        <div>
-          <p class=&quot;se-side-label&quot;>Primary input data</p>
-          <p class=&quot;se-side-value&quot;>User behavior signals</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- SE Step 2 -->
-  <div class=&quot;se-row se-step&quot; id=&quot;se-2&quot;>
-    <div class=&quot;se-icon-col&quot;>
-      <div class=&quot;se-ring blue&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <path d=&quot;M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-2 2.8 3 3 0 0 0 2 2.8V15a3 3 0 0 0 3 3&quot;></path>
-          <path d=&quot;M15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 2 2.8 3 3 0 0 1-2 2.8V15a3 3 0 0 1-3 3&quot;></path>
-          <path d=&quot;M9 4v14&quot;></path>
-          <path d=&quot;M15 4v14&quot;></path>
-          <rect x=&quot;10.5&quot; y=&quot;10&quot; width=&quot;3&quot; height=&quot;3&quot;></rect>
-        </svg>
-      </div>
-      <div class=&quot;se-connector&quot;></div>
-    </div>
-    <div class=&quot;se-panel blue-bg&quot;>
-      <div class=&quot;se-main&quot;>
-        <div class=&quot;se-panel-header&quot;>
-          <div class=&quot;se-icon-chip blue&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;></circle>
-              <path d=&quot;M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z&quot;></path>
-            </svg>
+        <div class=&quot;lp-scene-panel&quot; data-i=&quot;2&quot;>
+          <div class=&quot;sc-dial-wrap&quot;>
+            <div class=&quot;sc-dial&quot;>
+              <svg viewBox=&quot;0 0 120 120&quot;><circle class=&quot;bgc&quot; cx=&quot;60&quot; cy=&quot;60&quot; r=&quot;55&quot;></circle><circle class=&quot;fgc&quot; cx=&quot;60&quot; cy=&quot;60&quot; r=&quot;55&quot;></circle></svg>
+              <div class=&quot;sc-dial-num&quot;><b>92</b><span>Intent Score</span></div>
+            </div>
+            <div class=&quot;sc-rank&quot;>
+              <div class=&quot;sc-rank-row&quot;><b>01</b><div class=&quot;tk&quot;><i></i></div></div>
+              <div class=&quot;sc-rank-row&quot;><b>02</b><div class=&quot;tk&quot;><i></i></div></div>
+              <div class=&quot;sc-rank-row&quot;><b>03</b><div class=&quot;tk&quot;><i></i></div></div>
+            </div>
           </div>
-          <span class=&quot;se-label blue-text&quot;>AI processing engine</span>
         </div>
-        <hr class=&quot;se-divider&quot;>
-        <p>Our AI engine interprets behavioral patterns, intent signals, and engagement history to determine the optimal message, channel, and timing for each prospect.</p>
-      </div>
-      <div class=&quot;se-side stack&quot;>
-        <div style=&quot;display:flex;align-items:center;gap:10px;width:100%;&quot;>
-          <div class=&quot;se-side-icon blue-fill&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <rect x=&quot;4&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;16&quot; rx=&quot;2&quot;></rect>
-              <rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;6&quot; height=&quot;6&quot;></rect>
-            </svg>
+
+        <div class=&quot;lp-scene-panel&quot; data-i=&quot;3&quot;>
+          <div class=&quot;sc-chart&quot;>
+            <div class=&quot;sc-bars&quot;><i></i><i></i><i></i><i></i><i></i></div>
+            <div class=&quot;sc-roi&quot;><b>37%</b><span>higher conversion</span></div>
           </div>
-          <p class=&quot;se-side-value&quot; style=&quot;margin:0;&quot;>AI processing engine</p>
         </div>
-        <p class=&quot;se-side-sub&quot;>Adaptive engagement logic</p>
+
       </div>
     </div>
   </div>
 
-  <!-- SE Step 3 -->
-  <div class=&quot;se-row se-step&quot; id=&quot;se-3&quot;>
-    <div class=&quot;se-icon-col&quot;>
-      <div class=&quot;se-ring orange&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <path d=&quot;M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z&quot;></path>
-        </svg>
-      </div>
-      <div class=&quot;se-connector&quot;></div>
+  <div class=&quot;lp-controls&quot;>
+    <button class=&quot;lp-arrow&quot; id=&quot;lpPrev&quot; aria-label=&quot;Previous stage&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><polyline points=&quot;15 18 9 12 15 6&quot;></polyline></svg></button>
+    <div class=&quot;lp-dots&quot; id=&quot;lpDots&quot;>
+      <b class=&quot;on&quot; data-i=&quot;0&quot;></b><b data-i=&quot;1&quot;></b><b data-i=&quot;2&quot;></b><b data-i=&quot;3&quot;></b>
     </div>
-    <div class=&quot;se-panel orange-bg&quot;>
-      <div class=&quot;se-main&quot;>
-        <div class=&quot;se-panel-header&quot;>
-          <div class=&quot;se-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <line x1=&quot;22&quot; y1=&quot;2&quot; x2=&quot;11&quot; y2=&quot;13&quot;></line>
-              <polygon points=&quot;22 2 15 22 11 13 2 9 22 2&quot;></polygon>
-            </svg>
-          </div>
-          <span class=&quot;se-label orange-text&quot;>Engagement in action</span>
-        </div>
-        <hr class=&quot;se-divider&quot;>
-        <p>The right message is delivered through the right channel automatically&mdash;ensuring timely, relevant, and personalized engagement at scale.</p>
-      </div>
-      <div class=&quot;se-side&quot; style=&quot;flex-direction:column;&quot;>
-        <div class=&quot;se-channels&quot;>
-          <div class=&quot;se-channel-icons&quot;>
-            <span style=&quot;background:#25d366;&quot;>
-              <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;#fff&quot;><path d=&quot;M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20z&quot;></path></svg>
-            </span>
-            <span style=&quot;background:#2196f3;&quot;>
-              <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;#fff&quot;><path d=&quot;M4 4h16v12H7l-3 3V4z&quot;></path></svg>
-            </span>
-            <span style=&quot;background:#7c3aed;&quot;>
-              <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;18&quot; height=&quot;14&quot; rx=&quot;2&quot;></rect><path d=&quot;M3 7l9 6 9-6&quot;></path></svg>
-            </span>
-          </div>
-          <div class=&quot;se-channel-names&quot;>WhatsApp &middot; SMS &middot; Email</div>
-        </div>
-      </div>
-    </div>
+    <button class=&quot;lp-arrow&quot; id=&quot;lpNext&quot; aria-label=&quot;Next stage&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><polyline points=&quot;9 18 15 12 9 6&quot;></polyline></svg></button>
   </div>
 
-  <!-- SE Step 4 -->
-  <div class=&quot;se-row se-step&quot; id=&quot;se-4&quot;>
-    <div class=&quot;se-icon-col&quot;>
-      <div class=&quot;se-ring green&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <path d=&quot;M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z&quot;></path>
-          <polyline points=&quot;9 12 11 14 15 10&quot;></polyline>
-        </svg>
-      </div>
-    </div>
-    <div class=&quot;se-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
-      <div class=&quot;se-main&quot;>
-        <div class=&quot;se-panel-header&quot;>
-          <div class=&quot;se-icon-chip green&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <polyline points=&quot;20 6 9 17 4 12&quot;></polyline>
-            </svg>
-          </div>
-          <span class=&quot;se-label green-text&quot;>Finalized output</span>
-        </div>
-        <hr class=&quot;se-divider&quot;>
-        <p>Meaningful, high-intent conversations that drive deeper engagement and higher conversion.</p>
-      </div>
-      <div class=&quot;se-side&quot;>
-        <div class=&quot;se-side-icon green-fill&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;></path>
-            <circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;></circle>
-          </svg>
-        </div>
-        <p class=&quot;se-side-value&quot;>High-intent dialogue</p>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-</div>
-</div>
-
-<div class=&quot;scroll-panel&quot;>
-<div class=&quot;p3-wrapper&quot;>
-
-  <div class=&quot;p3-header&quot;>
-    <div class=&quot;p3-badge&quot;>03</div>
-    <div class=&quot;p3-title&quot;>
-      <h1>AI prioritization</h1>
-      <p>Focus on the right prospects. At the right time.</p>
-    </div>
-  </div>
-
-  <!-- P3 Step 1 -->
-  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-1&quot;>
-    <div class=&quot;p3-icon-col&quot;>
-      <div class=&quot;p3-ring orange&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;></circle>
-          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;5&quot;></circle>
-          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;1&quot;></circle>
-        </svg>
-      </div>
-      <div class=&quot;p3-connector&quot;></div>
-    </div>
-    <div class=&quot;p3-panel orange-bg&quot;>
-      <div class=&quot;p3-main&quot;>
-        <div class=&quot;p3-panel-header&quot;>
-          <div class=&quot;p3-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <path d=&quot;M9 18h6&quot;></path>
-              <path d=&quot;M10 22h4&quot;></path>
-              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
-            </svg>
-          </div>
-          <span class=&quot;p3-label orange-text&quot;>Strategic insight</span>
-        </div>
-        <hr class=&quot;p3-divider&quot;>
-        <p>Your counselors should spend time closing, not sorting. We apply behavioral scoring models that analyze thousands of data points to predict who is most likely to enroll. This focuses your best human assets where they matter most.</p>
-      </div>
-      <div class=&quot;p3-side&quot;>
-        <div class=&quot;p3-side-icon orange-fill&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <line x1=&quot;18&quot; y1=&quot;20&quot; x2=&quot;18&quot; y2=&quot;10&quot;></line>
-            <line x1=&quot;12&quot; y1=&quot;20&quot; x2=&quot;12&quot; y2=&quot;4&quot;></line>
-            <line x1=&quot;6&quot; y1=&quot;20&quot; x2=&quot;6&quot; y2=&quot;14&quot;></line>
-          </svg>
-        </div>
-        <div>
-          <p class=&quot;p3-side-eyebrow orange-text&quot;>Why it matters</p>
-          <p class=&quot;p3-side-value&quot;>Spend less time sorting, more time closing.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- P3 Step 2 -->
-  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-2&quot;>
-    <div class=&quot;p3-icon-col&quot;>
-      <div class=&quot;p3-ring blue&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h9&quot;></path>
-          <polyline points=&quot;14 2 14 8 20 8&quot;></polyline>
-          <circle cx=&quot;17&quot; cy=&quot;17&quot; r=&quot;4&quot;></circle>
-          <polyline points=&quot;17 15.5 17 17 18.5 17.5&quot;></polyline>
-        </svg>
-      </div>
-      <div class=&quot;p3-connector&quot;></div>
-    </div>
-    <div class=&quot;p3-panel blue-bg&quot;>
-      <div class=&quot;p3-main&quot;>
-        <div class=&quot;p3-panel-header&quot;>
-          <div class=&quot;p3-icon-chip blue&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <ellipse cx=&quot;12&quot; cy=&quot;5&quot; rx=&quot;8&quot; ry=&quot;3&quot;></ellipse>
-              <path d=&quot;M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5&quot;></path>
-              <path d=&quot;M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6&quot;></path>
-            </svg>
-          </div>
-          <span class=&quot;p3-label blue-text&quot;>Primary input data</span>
-        </div>
-        <hr class=&quot;p3-divider&quot;>
-        <p>We analyze every touchpoint and engagement signal &mdash; calls, emails, messages, form fills, website behavior, and more.</p>
-      </div>
-      <div class=&quot;p3-side&quot;>
-        <div class=&quot;p3-side-icon blue-fill&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;></path>
-            <circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;></circle>
-            <path d=&quot;M23 21v-2a4 4 0 0 0-3-3.87&quot;></path>
-            <path d=&quot;M16 3.13a4 4 0 0 1 0 7.75&quot;></path>
-          </svg>
-        </div>
-        <div>
-          <p class=&quot;p3-side-eyebrow blue-text&quot;>Data source</p>
-          <p class=&quot;p3-side-value&quot;>Interaction history</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- P3 Step 3 -->
-  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-3&quot;>
-    <div class=&quot;p3-icon-col&quot;>
-      <div class=&quot;p3-ring orange&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <path d=&quot;M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-2 2.8 3 3 0 0 0 2 2.8V15a3 3 0 0 0 3 3&quot;></path>
-          <path d=&quot;M15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 2 2.8 3 3 0 0 1-2 2.8V15a3 3 0 0 1-3 3&quot;></path>
-          <path d=&quot;M9 4v14&quot;></path>
-          <path d=&quot;M15 4v14&quot;></path>
-          <rect x=&quot;10.5&quot; y=&quot;10&quot; width=&quot;3&quot; height=&quot;3&quot;></rect>
-        </svg>
-      </div>
-      <div class=&quot;p3-connector&quot;></div>
-    </div>
-    <div class=&quot;p3-panel orange-bg&quot;>
-      <div class=&quot;p3-main&quot;>
-        <div class=&quot;p3-panel-header&quot;>
-          <div class=&quot;p3-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;></circle>
-              <path d=&quot;M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z&quot;></path>
-            </svg>
-          </div>
-          <span class=&quot;p3-label orange-text&quot;>AI processing engine</span>
-        </div>
-        <hr class=&quot;p3-divider&quot;>
-        <p>Our predictive scoring models evaluate intent, engagement, and fitment to estimate enrollment probability for each prospect.</p>
-      </div>
-      <div class=&quot;p3-side&quot;>
-        <div class=&quot;p3-side-icon orange-fill&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <rect x=&quot;5&quot; y=&quot;7&quot; width=&quot;14&quot; height=&quot;12&quot; rx=&quot;2&quot;></rect>
-            <circle cx=&quot;9&quot; cy=&quot;12&quot; r=&quot;1&quot;></circle>
-            <circle cx=&quot;15&quot; cy=&quot;12&quot; r=&quot;1&quot;></circle>
-            <path d=&quot;M9 3v4&quot;></path>
-            <path d=&quot;M15 3v4&quot;></path>
-          </svg>
-        </div>
-        <div>
-          <p class=&quot;p3-side-eyebrow orange-text&quot;>How it works</p>
-          <p class=&quot;p3-side-value&quot;>Machine learning models score and rank prospects.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- P3 Step 4 -->
-  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-4&quot;>
-    <div class=&quot;p3-icon-col&quot;>
-      <div class=&quot;p3-ring green&quot;>
-        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-          <path d=&quot;M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z&quot;></path>
-          <polygon points=&quot;12 8 13 10.5 15.5 10.5 13.5 12 14.5 14.5 12 13 9.5 14.5 10.5 12 8.5 10.5 11 10.5&quot;></polygon>
-        </svg>
-      </div>
-    </div>
-    <div class=&quot;p3-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
-      <div class=&quot;p3-main&quot;>
-        <div class=&quot;p3-panel-header&quot;>
-          <div class=&quot;p3-icon-chip green&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <polyline points=&quot;20 6 9 17 4 12&quot;></polyline>
-            </svg>
-          </div>
-          <span class=&quot;p3-label green-text&quot;>Finalized output</span>
-        </div>
-        <hr class=&quot;p3-divider&quot;>
-        <p>Prospects are ranked by likelihood to enrol, so your team can focus on high-potential opportunities first.</p>
-      </div>
-      <div class=&quot;p3-side&quot;>
-        <div class=&quot;p3-side-icon green-fill&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <path d=&quot;M8 21h8&quot;></path>
-            <path d=&quot;M12 17v4&quot;></path>
-            <path d=&quot;M7 4h10v5a5 5 0 0 1-10 0V4z&quot;></path>
-            <path d=&quot;M7 6H4a2 2 0 0 0 2 4&quot;></path>
-            <path d=&quot;M17 6h3a2 2 0 0 1-2 4&quot;></path>
-          </svg>
-        </div>
-        <div>
-          <p class=&quot;p3-side-eyebrow green-text&quot;>Output</p>
-          <p class=&quot;p3-side-value&quot;>Weighted priority queue</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-</div>
-</div>
-
-<div class=&quot;scroll-panel&quot;>
-<div class=&quot;f4-wrapper&quot;>
-
-  <div class=&quot;f4-header&quot;>
-    <div class=&quot;f4-badge&quot;>04</div>
-    <div class=&quot;f4-title&quot;>
-      <h1>Funnel analytics</h1>
-      <p>See what works. Fix what doesn't. Maximize every opportunity.</p>
-    </div>
-  </div>
-
-  <!-- F4 Step 1 -->
-  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-1&quot;>
-    <div class=&quot;f4-icon-col&quot;>
-      <div class=&quot;f4-ring-wrap&quot;>
-        <span class=&quot;f4-num orange&quot;>01</span>
-        <div class=&quot;f4-ring orange&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <line x1=&quot;18&quot; y1=&quot;20&quot; x2=&quot;18&quot; y2=&quot;10&quot;></line>
-            <line x1=&quot;12&quot; y1=&quot;20&quot; x2=&quot;12&quot; y2=&quot;4&quot;></line>
-            <line x1=&quot;6&quot; y1=&quot;20&quot; x2=&quot;6&quot; y2=&quot;14&quot;></line>
-            <polyline points=&quot;3 8 9 3 13 6 21 2&quot;></polyline>
-          </svg>
-        </div>
-      </div>
-      <div class=&quot;f4-connector&quot;></div>
-    </div>
-    <div class=&quot;f4-panel orange-bg&quot;>
-      <div class=&quot;f4-main&quot;>
-        <div class=&quot;f4-panel-header&quot;>
-          <div class=&quot;f4-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <path d=&quot;M9 18h6&quot;></path>
-              <path d=&quot;M10 22h4&quot;></path>
-              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
-            </svg>
-          </div>
-          <span class=&quot;f4-label orange-text&quot;>Strategic insight</span>
-        </div>
-        <hr class=&quot;f4-divider&quot;>
-        <p>Decision-making requires clarity. We provide predictive forecasting on your pipeline health. Identify bottlenecks before they impact your enrollment targets and optimize your recruitment spend with verifiable ROI data.</p>
-      </div>
-      <div class=&quot;f4-side&quot;>
-        <div class=&quot;f4-side-icon orange-fill&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <line x1=&quot;18&quot; y1=&quot;20&quot; x2=&quot;18&quot; y2=&quot;10&quot;></line>
-            <line x1=&quot;12&quot; y1=&quot;20&quot; x2=&quot;12&quot; y2=&quot;4&quot;></line>
-            <line x1=&quot;6&quot; y1=&quot;20&quot; x2=&quot;6&quot; y2=&quot;14&quot;></line>
-          </svg>
-        </div>
-        <div>
-          <p class=&quot;f4-side-eyebrow orange-text&quot;>Focus</p>
-          <p class=&quot;f4-side-value&quot;>Predict. Prevent. Perform.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- F4 Step 2 -->
-  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-2&quot;>
-    <div class=&quot;f4-icon-col&quot;>
-      <div class=&quot;f4-ring-wrap&quot;>
-        <span class=&quot;f4-num blue&quot;>02</span>
-        <div class=&quot;f4-ring blue&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;12&quot; height=&quot;16&quot; rx=&quot;2&quot;></rect>
-            <path d=&quot;M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1&quot;></path>
-            <line x1=&quot;9&quot; y1=&quot;10&quot; x2=&quot;15&quot; y2=&quot;10&quot;></line>
-            <line x1=&quot;9&quot; y1=&quot;14&quot; x2=&quot;13&quot; y2=&quot;14&quot;></line>
-          </svg>
-        </div>
-      </div>
-      <div class=&quot;f4-connector&quot;></div>
-    </div>
-    <div class=&quot;f4-panel blue-bg&quot;>
-      <div class=&quot;f4-main&quot;>
-        <div class=&quot;f4-panel-header&quot;>
-          <div class=&quot;f4-icon-chip blue&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <ellipse cx=&quot;12&quot; cy=&quot;5&quot; rx=&quot;8&quot; ry=&quot;3&quot;></ellipse>
-              <path d=&quot;M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5&quot;></path>
-              <path d=&quot;M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6&quot;></path>
-            </svg>
-          </div>
-          <span class=&quot;f4-label blue-text&quot;>Primary input data</span>
-        </div>
-        <hr class=&quot;f4-divider&quot;>
-        <p>We consolidate data from every stage of your funnel &mdash; leads, activities, engagements, conversions, and outcomes &mdash; for complete visibility.</p>
-      </div>
-      <div class=&quot;f4-side&quot;>
-        <div class=&quot;f4-side-icon blue-fill&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;></path>
-            <circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;></circle>
-            <path d=&quot;M23 21v-2a4 4 0 0 0-3-3.87&quot;></path>
-            <path d=&quot;M16 3.13a4 4 0 0 1 0 7.75&quot;></path>
-          </svg>
-        </div>
-        <div>
-          <p class=&quot;f4-side-eyebrow blue-text&quot;>Data source</p>
-          <p class=&quot;f4-side-value&quot;>Pipeline/conversion logs</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- F4 Step 3 -->
-  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-3&quot;>
-    <div class=&quot;f4-icon-col&quot;>
-      <div class=&quot;f4-ring-wrap&quot;>
-        <span class=&quot;f4-num orange&quot;>03</span>
-        <div class=&quot;f4-ring orange&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <rect x=&quot;6&quot; y=&quot;6&quot; width=&quot;12&quot; height=&quot;12&quot; rx=&quot;2&quot;></rect>
-            <text x=&quot;12&quot; y=&quot;14&quot; text-anchor=&quot;middle&quot; font-size=&quot;6&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot; font-weight=&quot;700&quot;>AI</text>
-            <line x1=&quot;9&quot; y1=&quot;2&quot; x2=&quot;9&quot; y2=&quot;6&quot;></line>
-            <line x1=&quot;15&quot; y1=&quot;2&quot; x2=&quot;15&quot; y2=&quot;6&quot;></line>
-            <line x1=&quot;9&quot; y1=&quot;18&quot; x2=&quot;9&quot; y2=&quot;22&quot;></line>
-            <line x1=&quot;15&quot; y1=&quot;18&quot; x2=&quot;15&quot; y2=&quot;22&quot;></line>
-            <line x1=&quot;2&quot; y1=&quot;9&quot; x2=&quot;6&quot; y2=&quot;9&quot;></line>
-            <line x1=&quot;18&quot; y1=&quot;9&quot; x2=&quot;22&quot; y2=&quot;9&quot;></line>
-            <line x1=&quot;2&quot; y1=&quot;15&quot; x2=&quot;6&quot; y2=&quot;15&quot;></line>
-            <line x1=&quot;18&quot; y1=&quot;15&quot; x2=&quot;22&quot; y2=&quot;15&quot;></line>
-          </svg>
-        </div>
-      </div>
-      <div class=&quot;f4-connector&quot;></div>
-    </div>
-    <div class=&quot;f4-panel orange-bg&quot;>
-      <div class=&quot;f4-main&quot;>
-        <div class=&quot;f4-panel-header&quot;>
-          <div class=&quot;f4-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <rect x=&quot;4&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;16&quot; rx=&quot;2&quot;></rect>
-              <text x=&quot;12&quot; y=&quot;14.5&quot; text-anchor=&quot;middle&quot; font-size=&quot;7&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot; font-weight=&quot;700&quot;>AI</text>
-            </svg>
-          </div>
-          <span class=&quot;f4-label orange-text&quot;>AI processing engine</span>
-        </div>
-        <hr class=&quot;f4-divider&quot;>
-        <p>Our AI engine analyzes patterns, predicts outcomes, and calculates ROI across campaigns, channels, and stages of your funnel.</p>
-      </div>
-      <div class=&quot;f4-side&quot;>
-        <div class=&quot;f4-side-icon orange-fill&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;></circle>
-            <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;5&quot;></circle>
-            <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;1&quot;></circle>
-          </svg>
-        </div>
-        <div>
-          <p class=&quot;f4-side-eyebrow orange-text&quot;>Analysis</p>
-          <p class=&quot;f4-side-value&quot;>Predictive ROI analytics</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- F4 Step 4 -->
-  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-4&quot;>
-    <div class=&quot;f4-icon-col&quot;>
-      <div class=&quot;f4-ring-wrap&quot;>
-        <span class=&quot;f4-num green&quot;>04</span>
-        <div class=&quot;f4-ring green&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <path d=&quot;M6 4v6&quot;></path>
-            <path d=&quot;M6 4l6 2-6 2&quot;></path>
-            <path d=&quot;M6 10c0 4-4 4-4 8&quot;></path>
-            <circle cx=&quot;3&quot; cy=&quot;19&quot; r=&quot;1.5&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot;></circle>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div class=&quot;f4-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
-      <div class=&quot;f4-main&quot;>
-        <div class=&quot;f4-panel-header&quot;>
-          <div class=&quot;f4-icon-chip green&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <polyline points=&quot;20 6 9 17 4 12&quot;></polyline>
-            </svg>
-          </div>
-          <span class=&quot;f4-label green-text&quot;>Finalized output</span>
-        </div>
-        <hr class=&quot;f4-divider&quot;>
-        <p>Get a clear, actionable roadmap with recommendations to improve performance, increase conversions, and achieve your enrollment goals.</p>
-      </div>
-      <div class=&quot;f4-side&quot;>
-        <div class=&quot;f4-side-icon green-fill&quot;>
-          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-            <path d=&quot;M6 4v6&quot;></path>
-            <path d=&quot;M6 4l6 2-6 2&quot;></path>
-            <path d=&quot;M6 10c0 4-4 4-4 8&quot;></path>
-            <circle cx=&quot;3&quot; cy=&quot;19&quot; r=&quot;1.5&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot;></circle>
-          </svg>
-        </div>
-        <div>
-          <p class=&quot;f4-side-eyebrow green-text&quot;>Output</p>
-          <p class=&quot;f4-side-value&quot;>Actionable strategic roadmap</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-</div>
-
-</div>
-
-<button class=&quot;nav-arrow prev&quot; id=&quot;prevBtn&quot; aria-label=&quot;Previous section&quot;>
-  <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><polyline points=&quot;15 18 9 12 15 6&quot;></polyline></svg>
-</button>
-<button class=&quot;nav-arrow next&quot; id=&quot;nextBtn&quot; aria-label=&quot;Next section&quot;>
-  <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><polyline points=&quot;9 18 15 12 9 6&quot;></polyline></svg>
-</button>
-<div class=&quot;nav-dots&quot; id=&quot;navDots&quot;>
-  <button class=&quot;active&quot; data-i=&quot;0&quot; aria-label=&quot;Go to section 1&quot;></button>
-  <button data-i=&quot;1&quot; aria-label=&quot;Go to section 2&quot;></button>
-  <button data-i=&quot;2&quot; aria-label=&quot;Go to section 3&quot;></button>
-  <button data-i=&quot;3&quot; aria-label=&quot;Go to section 4&quot;></button>
 </div>
 
 <script>
-  var scrollContainer = document.getElementById(&quot;scrollContainer&quot;);
-  var dots = document.querySelectorAll(&quot;#navDots button&quot;);
-  var prevBtn = document.getElementById(&quot;prevBtn&quot;);
-  var nextBtn = document.getElementById(&quot;nextBtn&quot;);
-  var panelCount = 4;
-  var activeIndex = 0;
-  var isAnimating = false;
+(function(){
+  var N = 4, DUR = 6000;
+  var cur = 0, playing = true, elapsed = 0, last = null, raf = null;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function updateUI() {
-    dots.forEach(function (d, idx) { d.classList.toggle(&quot;active&quot;, idx === activeIndex); });
-    prevBtn.disabled = activeIndex === 0;
-    nextBtn.disabled = activeIndex === panelCount - 1;
+  var nodes  = [].slice.call(document.querySelectorAll('.lp-node'));
+  var stages = [].slice.call(document.querySelectorAll('.lp-stage'));
+  var scenes = [].slice.call(document.querySelectorAll('.lp-scene-panel'));
+  var dots   = [].slice.call(document.querySelectorAll('#lpDots b'));
+  var pathFill = document.getElementById('lpPathFill');
+  var bar = document.getElementById('lpBar');
+  var playBtn = document.getElementById('lpPlay');
+  var icPlay = document.getElementById('icPlay'), icPause = document.getElementById('icPause');
+
+  var COLORS = ['#DE6E30','#2B62C9','#7C5CFF','#1AA35C'];
+
+  function render(i){
+    nodes.forEach(function(n, j){
+      n.style.setProperty('--stage-c', COLORS[j]);
+      n.classList.toggle('on', j === i);
+      n.classList.toggle('done', j < i);
+    });
+    stages.forEach(function(s, j){ s.classList.toggle('on', j === i); });
+    scenes.forEach(function(s, j){ s.classList.toggle('on', j === i); });
+    dots.forEach(function(d, j){
+      d.classList.toggle('on', j === i);
+      if (j === i) d.style.background = COLORS[i];
+    });
+    pathFill.style.width = (i / (N - 1) * 100) + '%';
   }
 
-  function goTo(i) {
-    i = Math.max(0, Math.min(panelCount - 1, i));
-    if (i === activeIndex && scrollContainer.scrollLeft > 0) {
-      // still snap in case of drift
+  function go(i, resetTimer){
+    if (resetTimer === undefined) resetTimer = true;
+    cur = (i + N) % N;
+    render(cur);
+    if (resetTimer) { elapsed = 0; bar.style.width = '0%'; }
+  }
+
+  function tick(t){
+    if (!last) last = t;
+    var dt = t - last; last = t;
+    if (playing && !reduce) {
+      elapsed += dt;
+      var pct = Math.min(100, elapsed / DUR * 100);
+      bar.style.width = pct + '%';
+      if (elapsed >= DUR) { go(cur + 1); }
     }
-    activeIndex = i;
-    isAnimating = true;
-    scrollContainer.scrollTo({ left: i * scrollContainer.clientWidth, behavior: &quot;smooth&quot; });
-    updateUI();
-    window.clearTimeout(goTo._t);
-    goTo._t = window.setTimeout(function () { isAnimating = false; }, 650);
+    raf = requestAnimationFrame(tick);
+  }
+  raf = requestAnimationFrame(tick);
+
+  function setPlaying(p){
+    playing = p;
+    icPlay.style.display = p ? 'none' : '';
+    icPause.style.display = p ? '' : 'none';
+    playBtn.setAttribute('aria-label', p ? 'Pause' : 'Play');
   }
 
-  dots.forEach(function (d) {
-    d.addEventListener(&quot;click&quot;, function () { goTo(parseInt(d.dataset.i, 10)); });
-  });
-  prevBtn.addEventListener(&quot;click&quot;, function () { goTo(activeIndex - 1); });
-  nextBtn.addEventListener(&quot;click&quot;, function () { goTo(activeIndex + 1); });
+  playBtn.addEventListener('click', function(){ setPlaying(!playing); });
+  document.getElementById('lpPrev').addEventListener('click', function(){ setPlaying(false); go(cur - 1); });
+  document.getElementById('lpNext').addEventListener('click', function(){ setPlaying(false); go(cur + 1); });
+  nodes.forEach(function(n){ n.addEventListener('click', function(){ setPlaying(false); go(parseInt(n.dataset.i, 10)); }); });
+  dots.forEach(function(d){ d.addEventListener('click', function(){ setPlaying(false); go(parseInt(d.dataset.i, 10)); }); });
 
-  // Keep activeIndex in sync if the user drags the scrollbar or swipes directly
-  scrollContainer.addEventListener(&quot;scroll&quot;, function () {
-    window.clearTimeout(scrollContainer._t);
-    scrollContainer._t = window.setTimeout(function () {
-      if (isAnimating) return;
-      activeIndex = Math.round(scrollContainer.scrollLeft / scrollContainer.clientWidth);
-      updateUI();
-    }, 100);
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight') { setPlaying(false); go(cur + 1); }
+    if (e.key === 'ArrowLeft')  { setPlaying(false); go(cur - 1); }
   });
 
-  // Convert normal (vertical) mouse wheel / trackpad scrolling into a jump
-  // to the next/previous section, one section per gesture.
-  function handleWheel(e) {
-    e.preventDefault();
-    if (isAnimating) return;
-    var delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-    if (Math.abs(delta) < 2) return;
-    goTo(activeIndex + (delta > 0 ? 1 : -1));
-  }
-  scrollContainer.addEventListener(&quot;wheel&quot;, handleWheel, { passive: false });
-  document.addEventListener(&quot;wheel&quot;, handleWheel, { passive: false });
-
-  // Keyboard arrow support
-  document.addEventListener(&quot;keydown&quot;, function (e) {
-    if (e.key === &quot;ArrowRight&quot; || e.key === &quot;ArrowDown&quot;) goTo(activeIndex + 1);
-    if (e.key === &quot;ArrowLeft&quot; || e.key === &quot;ArrowUp&quot;) goTo(activeIndex - 1);
-  });
-
-  updateUI();
-</script>
-
-<script>
-  var panelGroups = [
-    [&quot;li-1&quot;, &quot;li-2&quot;, &quot;li-3&quot;, &quot;li-4&quot;],
-    [&quot;se-1&quot;, &quot;se-2&quot;, &quot;se-3&quot;, &quot;se-4&quot;],
-    [&quot;p3-1&quot;, &quot;p3-2&quot;, &quot;p3-3&quot;, &quot;p3-4&quot;],
-    [&quot;f4-1&quot;, &quot;f4-2&quot;, &quot;f4-3&quot;, &quot;f4-4&quot;]
-  ];
-  var played = [false, false, false, false];
-
-  function playGroup(idx) {
-    if (played[idx]) return;
-    played[idx] = true;
-    panelGroups[idx].forEach(function (id, i) {
-      setTimeout(function () {
-        var el = document.getElementById(id);
-        if (el) el.classList.add(&quot;animate&quot;);
-      }, i * 700 + 100);
-    });
-  }
-
-  // Play the first section immediately on load
-  playGroup(0);
-
-  // Play each subsequent section the moment its panel scrolls into view
-  var panels = document.querySelectorAll(&quot;.scroll-panel&quot;);
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        var idx = Array.prototype.indexOf.call(panels, entry.target);
-        playGroup(idx);
-      }
-    });
-  }, { root: scrollContainer, threshold: 0.5 });
-  panels.forEach(function (p) { observer.observe(p); });
+  if (reduce) { bar.style.width = '0%'; setPlaying(false); }
+  render(0);
+})();
 </script>
 
 </body>
