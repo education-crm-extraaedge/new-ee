@@ -438,9 +438,9 @@ if (!defined('ABSPATH')) exit;
 <?php if (!is_singular('post')): /* blog posts (single.php) already ship their own complete
    WhatsApp/Call/TOC floating system with a reading-progress badge —
    rendering this one too would show two overlapping stacks. */ ?>
-<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-07-23-fabs-spacing2 ============ -->
+<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-07-23-fabs-gap14 ============ -->
 <style id="ee-fabs-css">
-.ee-fabs{position:fixed;right:14px;bottom:16px;display:flex;flex-direction:column;gap:28px;z-index:996}
+.ee-fabs{position:fixed;right:14px;bottom:16px;display:flex;flex-direction:column;gap:14px;z-index:996}
 .ee-fab{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;cursor:pointer;box-shadow:0 6px 14px rgba(15,32,64,.28);transition:transform .2s,box-shadow .2s;text-decoration:none}
 .ee-fab:hover,.ee-fab:focus-visible{transform:translateY(-2px) scale(1.05);box-shadow:0 10px 22px rgba(15,32,64,.34)}
 .ee-fab img{width:24px;height:24px;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.15))}
