@@ -307,7 +307,7 @@ add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
 if (function_exists('ee_layout_sides_css')) ee_layout_sides_css(); /* per-page form/TOC/rail side */
-/* deployment marker */ echo "\n<!-- ee-product-tpl v2026-07-23-rail-sync -->\n";
+/* deployment marker */ echo "\n<!-- ee-product-tpl v2026-07-23-secflips -->\n";
 ?>
 
 <style>
@@ -831,7 +831,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     <?php if($educrm_h2 || $educrm_p1): ?>
     <section class="edu-crm-section" id="what-is-education-crm" aria-labelledby="edu-crm-heading">
       <div class="container">
-        <div class="edu-crm-layout">
+        <div class="edu-crm-layout<?php echo get_post_meta($pid, '_educrm_visual_side', true) === 'left' ? ' ee-flip' : ''; ?>">
           <article>
             <?php if($educrm_h2): ?><h2 id="edu-crm-heading" class="edu-crm-h2 reveal"><?php echo esc_html($educrm_h2); ?></h2><?php endif; ?>
             <?php if($educrm_p1): ?><p class="edu-crm-p reveal"><?php echo ee_inline_links($educrm_p1); ?></p><?php endif; ?>
@@ -899,7 +899,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 
     <?php if($bottom_h2 || !empty($products)): ?>
     <section class="bottom-cta" id="products" aria-labelledby="bottom-cta-heading">
-      <div class="bottom-cta-inner">
+      <div class="bottom-cta-inner<?php echo get_post_meta($pid, '_bottom_visual_side', true) === 'left' ? ' ee-flip' : ''; ?>">
         <div class="cta-content reveal">
           <?php if($bottom_label): ?><div class="cta-label-wrap"><span class="pulse-dot" aria-hidden="true"></span><?php echo esc_html($bottom_label); ?></div><?php endif; ?>
           <?php if($bottom_h2): ?><h2 id="bottom-cta-heading" class="cta-h2"><?php echo esc_html($bottom_h2); ?></h2><?php endif; ?>
@@ -977,7 +977,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 
     <?php if($aidemo_h2): ?>
     <section class="ai-demo-section" id="demo" aria-labelledby="ai-cta-heading">
-      <div class="ai-demo-inner">
+      <div class="ai-demo-inner<?php echo get_post_meta($pid, '_aidemo_visual_side', true) === 'left' ? ' ee-flip' : ''; ?>">
         <div class="ai-cta-content reveal">
           <h2 id="ai-cta-heading" class="ai-cta-h2"><?php echo esc_html($aidemo_h2); ?></h2>
           <?php if($aidemo_sub): ?><p class="ai-cta-sub"><?php echo ee_inline_links($aidemo_sub); ?></p><?php endif; ?>
@@ -1229,6 +1229,9 @@ if (!empty($eqn_items)) : ?>
 <style id="ee-hdr-autohide">
 #site-header{transition:transform .3s cubic-bezier(.4,0,.2,1)!important;will-change:transform}
 #site-header.ee-hdr-away{transform:translateY(-110%)!important;box-shadow:none!important}
+/* per-section visual side flips (Page Settings tabs) */
+@media(min-width:1151px){.edu-crm-layout.ee-flip>article{order:2}.edu-crm-layout.ee-flip>:not(article){order:1}}
+@media(min-width:1025px){.ai-demo-inner.ee-flip>.ai-cta-content{order:2}.ai-demo-inner.ee-flip>:not(.ai-cta-content){order:1}.bottom-cta-inner.ee-flip>.cta-content{order:2}.bottom-cta-inner.ee-flip>.cta-visual-card{order:1}}
 /* icon rail shows ONLY while the menu bar is hidden */
 .ee-float-nav{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:opacity .3s ease,visibility .3s ease}
 body.ee-hdr-hidden .ee-float-nav{opacity:1!important;visibility:visible!important;pointer-events:auto!important}
