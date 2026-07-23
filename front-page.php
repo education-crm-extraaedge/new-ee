@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-23-toc-style -->
+<!-- ee-front-tpl v2026-07-23-toc-icon -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -289,7 +289,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 </style>
 <div id="ee-toc">
   <button type="button" class="eetoc-fab" id="eetocFab" aria-label="Open table of contents" aria-expanded="false" aria-controls="eetocPanel">
-    <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/page-icon-01.svg" alt="" loading="lazy" decoding="async">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg>
     <span class="eetoc-fab-tx">Contents</span>
   </button>
   <div class="eetoc-backdrop" id="eetocBackdrop" aria-hidden="true"></div>
