@@ -8659,12 +8659,14 @@ function ee_eep_listing_render($post) {
         echo '<option value="' . esc_attr($ck) . '" ' . selected($cat ?: 'platform', $ck, false) . '>' . esc_html($cl) . '</option>';
     }
     echo '</select>';
+    echo '<label class="ee-b">…or add a NEW category</label><input type="text" name="_eep_new_cat" value="" placeholder="e.g. Finance &amp; Fees">';
+    echo '<p class="ee-hint">Type a name here and Update — the category is created, gets its own filter chip, and this product moves into it. (Manage all under Products → Listing Categories &amp; Badges.)</p>';
 
     echo '<label class="ee-b">Badge</label><input type="text" name="_eep_badge" list="ee-eep-badge-list" value="' . $v('_eep_badge') . '" placeholder="Popular / New / Coming Soon">';
     echo '<datalist id="ee-eep-badge-list">';
     foreach (ee_eep_badges() as $bg) echo '<option value="' . esc_attr($bg) . '">';
     echo '</datalist>';
-    echo '<p class="ee-hint">Add more suggestions under Products → Listing Categories &amp; Badges.</p>';
+    echo '<p class="ee-hint">Type anything — a new badge is saved to the suggestions automatically.</p>';
     echo '<label class="ee-b">Icon</label><input type="text" name="_eep_icon" value="' . $v('_eep_icon') . '" placeholder="education-crm">';
     echo '<p class="ee-hint">Slug from uploads/2026/home-page (education-crm, mobile-crm, …) or a full https:// URL. Blank = generic icon.</p>';
     echo '<label class="ee-b">Card description (1 line)</label><textarea name="_eep_desc" rows="2">' . esc_textarea(get_post_meta($post->ID, '_eep_desc', true)) . '</textarea>';
@@ -8692,6 +8694,27 @@ add_action('save_post_product', function ($post_id) {
         $val = isset($_POST[$k]) ? sanitize_text_field(wp_unslash($_POST[$k])) : '';
         if ($val !== '') update_post_meta($post_id, $k, $val);
         else delete_post_meta($post_id, $k);
+    }
+
+    /* inline "add a NEW category": create it (once) and move this product into it */
+    $new_cat = isset($_POST['_eep_new_cat']) ? sanitize_text_field(wp_unslash($_POST['_eep_new_cat'])) : '';
+    if ($new_cat !== '') {
+        $slug = sanitize_title($new_cat);
+        if ($slug !== '') {
+            if (!array_key_exists($slug, ee_eep_all_cats())) {
+                $raw = trim((string) get_option('ee_eep_cats_raw', ''));
+                $raw .= ($raw === '' ? '' : "\n") . $slug . ' | ' . $new_cat;
+                update_option('ee_eep_cats_raw', $raw, false);
+            }
+            update_post_meta($post_id, '_eep_cat', $slug);
+        }
+    }
+
+    /* a badge typed by hand joins the suggestion list automatically */
+    $badge = (string) get_post_meta($post_id, '_eep_badge', true);
+    if ($badge !== '' && !in_array($badge, ee_eep_badges(), true)) {
+        $braw = trim((string) get_option('ee_eep_badges_raw', "Popular\nNew\nComing Soon"));
+        update_option('ee_eep_badges_raw', $braw . ($braw === '' ? '' : "\n") . $badge, false);
     }
     foreach (array('_eep_desc', '_eep_long') as $k) {
         $val = isset($_POST[$k]) ? sanitize_textarea_field(wp_unslash($_POST[$k])) : '';
