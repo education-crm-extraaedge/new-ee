@@ -54,7 +54,7 @@ add_action('wp_head', function () {
 
 get_header();
 ?>
-<!-- pxp-products v2026-07-22-dynprods -->
+<!-- pxp-products v2026-07-23-cats -->
 <style>#ee-products{
     --navy:#19345d; --ink:#0f203a; --orange:#DE6E30; --orange-2:#E8843F;
     --line:rgba(25,52,93,.10); --muted:#5a6b85;
@@ -367,6 +367,22 @@ html body #main-content #ee-products .eep-head-l h1{font-size:clamp(30px,4.4vw,4
     /* ---- build filter pills ---- */
     var counts = {all:P.length};
     P.forEach(function(p){ counts[p.cat]=(counts[p.cat]||0)+1; });
+    /* merge admin-defined categories (Products → Listing Categories & Badges):
+       same slug overrides label/colour; brand-new slugs get their own filter
+       chip automatically once at least one product uses them */
+    var XCATS = <?php echo wp_json_encode(function_exists('ee_eep_all_cats') ? ee_eep_all_cats() : array()); ?>;
+    if (XCATS && !Array.isArray(XCATS)) {
+      Object.keys(XCATS).forEach(function(k){
+        if (CATS[k]) { CATS[k].label = XCATS[k].label; CATS[k].acc = XCATS[k].acc; }
+        else CATS[k] = { label: XCATS[k].label, acc: XCATS[k].acc, scene: 'kan' };
+      });
+      FILTERS.forEach(function(f){ if (f.id !== 'all' && CATS[f.id]) f.label = CATS[f.id].label; });
+      Object.keys(XCATS).forEach(function(k){
+        var used = P.some(function(p){ return p.cat === k; });
+        if (used && !FILTERS.some(function(f){ return f.id === k; })) FILTERS.push({ id: k, label: XCATS[k].label });
+      });
+    }
+
     var filtersEl = document.getElementById('eepFilters');
     FILTERS.forEach(function(f,i){
       var b=document.createElement('button');

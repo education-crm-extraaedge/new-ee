@@ -8592,7 +8592,7 @@ function ee_eep_collect($ctx) {
     ));
     if (!$posts) return array();
 
-    $valid_cats = array('ai', 'platform', 'admissions', 'engage', 'grow');
+    $valid_cats = function_exists('ee_eep_all_cats') ? array_keys(ee_eep_all_cats()) : array('ai', 'platform', 'admissions', 'engage', 'grow');
     $out = array();
     foreach ($posts as $p) {
         $cat  = get_post_meta($p->ID, '_eep_cat', true);
@@ -8636,13 +8636,8 @@ function ee_eep_listing_render($post) {
     wp_nonce_field('ee_eep_listing', 'ee_eep_listing_nonce');
     $v = function ($k) use ($post) { return esc_attr(get_post_meta($post->ID, $k, true)); };
     $cat  = get_post_meta($post->ID, '_eep_cat', true);
-    $cats = array(
-        'ai'         => 'AI & automation',
-        'platform'   => 'Core platform',
-        'admissions' => 'Admissions',
-        'engage'     => 'Engage',
-        'grow'       => 'Grow',
-    );
+    $cats = array();
+    foreach (ee_eep_all_cats() as $ck => $cc) $cats[$ck] = $cc['label'];
     echo '<style>#ee_eep_listing label.ee-b{display:block;margin:8px 0 3px;font-weight:600}#ee_eep_listing input[type=text],#ee_eep_listing input[type=number],#ee_eep_listing textarea,#ee_eep_listing select{width:100%}#ee_eep_listing .ee-hint{color:#666;font-size:11px;margin:2px 0 0}</style>';
 
     echo '<p style="margin:6px 0"><label><input type="checkbox" name="_eep_show_home" value="1" ' . checked(get_post_meta($post->ID, '_eep_show_home', true), '1', false) . '> <strong>Show on Home page</strong><br><span class="ee-hint">"The admissions platform" section</span></label></p>';
@@ -8654,7 +8649,11 @@ function ee_eep_listing_render($post) {
     }
     echo '</select>';
 
-    echo '<label class="ee-b">Badge</label><input type="text" name="_eep_badge" value="' . $v('_eep_badge') . '" placeholder="Popular / New / Coming Soon">';
+    echo '<label class="ee-b">Badge</label><input type="text" name="_eep_badge" list="ee-eep-badge-list" value="' . $v('_eep_badge') . '" placeholder="Popular / New / Coming Soon">';
+    echo '<datalist id="ee-eep-badge-list">';
+    foreach (ee_eep_badges() as $bg) echo '<option value="' . esc_attr($bg) . '">';
+    echo '</datalist>';
+    echo '<p class="ee-hint">Add more suggestions under Products → Listing Categories &amp; Badges.</p>';
     echo '<label class="ee-b">Icon</label><input type="text" name="_eep_icon" value="' . $v('_eep_icon') . '" placeholder="education-crm">';
     echo '<p class="ee-hint">Slug from uploads/2026/home-page (education-crm, mobile-crm, …) or a full https:// URL. Blank = generic icon.</p>';
     echo '<label class="ee-b">Card description (1 line)</label><textarea name="_eep_desc" rows="2">' . esc_textarea(get_post_meta($post->ID, '_eep_desc', true)) . '</textarea>';
@@ -8684,4 +8683,96 @@ add_action('save_post_product', function ($post_id) {
         if ($val !== '') update_post_meta($post_id, $k, $val);
         else delete_post_meta($post_id, $k);
     }
+});
+
+/* =====================================================================
+   PLATFORM LISTING — editable Categories & Badges.
+   Products → Listing Categories & Badges lets editors add new category
+   chips and badge suggestions without touching code. Custom categories
+   merge into the built-in five (same slug = label/colour override) and
+   automatically get their own filter chip on the home section and the
+   /products/ page once at least one product uses them.
+   ===================================================================== */
+function ee_eep_custom_cats() {
+    $out = array();
+    foreach (preg_split('/[\r\n]+/', (string) get_option('ee_eep_cats_raw', '')) as $line) {
+        $line = trim($line);
+        if ($line === '') continue;
+        $bits = array_map('trim', explode('|', $line));
+        $slug = sanitize_title($bits[0]);
+        if ($slug === '') continue;
+        $label = (isset($bits[1]) && $bits[1] !== '') ? $bits[1] : ucwords(str_replace('-', ' ', $slug));
+        $acc   = (isset($bits[2]) && preg_match('/^#[0-9a-fA-F]{3,8}$/', $bits[2])) ? $bits[2] : '#5c9af6';
+        $out[$slug] = array('label' => $label, 'acc' => $acc);
+    }
+    return $out;
+}
+
+function ee_eep_all_cats() {
+    $cats = array(
+        'ai'         => array('label' => 'AI & automation', 'acc' => '#5c9af6'),
+        'platform'   => array('label' => 'Core platform',   'acc' => '#F2935A'),
+        'admissions' => array('label' => 'Admissions',      'acc' => '#5b96ef'),
+        'engage'     => array('label' => 'Engage',          'acc' => '#2564c2'),
+        'grow'       => array('label' => 'Grow',            'acc' => '#F2B441'),
+    );
+    foreach (ee_eep_custom_cats() as $k => $v) $cats[$k] = $v;
+    return $cats;
+}
+
+function ee_eep_badges() {
+    $out = array();
+    foreach (preg_split('/[\r\n]+/', (string) get_option('ee_eep_badges_raw', "Popular\nNew\nComing Soon")) as $line) {
+        $line = trim($line);
+        if ($line !== '') $out[] = $line;
+    }
+    return array_values(array_unique($out));
+}
+
+/* ---- admin page: Products → Listing Categories & Badges ---- */
+add_action('admin_menu', function () {
+    add_submenu_page(
+        'edit.php?post_type=product',
+        'Listing Categories & Badges',
+        'Listing Categories & Badges',
+        'manage_options',
+        'ee-eep-taxonomy',
+        'ee_eep_tax_page_render'
+    );
+});
+
+function ee_eep_tax_page_render() {
+    $cats_raw   = get_option('ee_eep_cats_raw', '');
+    $badges_raw = get_option('ee_eep_badges_raw', "Popular\nNew\nComing Soon");
+    echo '<div class="wrap"><h1>Listing Categories &amp; Badges</h1>';
+    if (!empty($_GET['updated'])) echo '<div class="notice notice-success is-dismissible"><p>Saved.</p></div>';
+    echo '<p>These feed the <strong>Platform Listing</strong> box on every product, the home page "The admissions platform" section and the /products/ page. New categories get their own filter chip automatically once a product uses them.</p>';
+    echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
+    wp_nonce_field('ee_eep_tax_save', 'ee_eep_tax_nonce');
+    echo '<input type="hidden" name="action" value="ee_eep_tax_save">';
+
+    echo '<h2>Custom categories</h2>';
+    echo '<p>One per line: <code>slug | Label | #colour</code> &nbsp;(label and colour optional). Using a built-in slug (ai, platform, admissions, engage, grow) renames/recolours that chip.</p>';
+    echo '<textarea name="ee_eep_cats_raw" rows="8" class="large-text code" placeholder="finance | Finance &amp; Fees | #2BC98A">' . esc_textarea($cats_raw) . '</textarea>';
+
+    echo '<h2>Badge suggestions</h2>';
+    echo '<p>One per line. These appear as suggestions in the Badge field on each product (free typing still works).</p>';
+    echo '<textarea name="ee_eep_badges_raw" rows="6" class="large-text code">' . esc_textarea($badges_raw) . '</textarea>';
+
+    echo '<p><button class="button button-primary">Save</button></p></form>';
+
+    echo '<h2>Built-in categories</h2><table class="widefat striped" style="max-width:560px"><thead><tr><th>Slug</th><th>Label</th><th>Colour</th></tr></thead><tbody>';
+    foreach (ee_eep_all_cats() as $k => $c) {
+        echo '<tr><td><code>' . esc_html($k) . '</code></td><td>' . esc_html($c['label']) . '</td><td><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;background:' . esc_attr($c['acc']) . '"></span> ' . esc_html($c['acc']) . '</td></tr>';
+    }
+    echo '</tbody></table></div>';
+}
+
+add_action('admin_post_ee_eep_tax_save', function () {
+    if (!current_user_can('manage_options')) wp_die('Nope');
+    if (!isset($_POST['ee_eep_tax_nonce']) || !wp_verify_nonce($_POST['ee_eep_tax_nonce'], 'ee_eep_tax_save')) wp_die('Bad nonce');
+    update_option('ee_eep_cats_raw', sanitize_textarea_field(wp_unslash($_POST['ee_eep_cats_raw'] ?? '')), false);
+    update_option('ee_eep_badges_raw', sanitize_textarea_field(wp_unslash($_POST['ee_eep_badges_raw'] ?? '')), false);
+    wp_safe_redirect(add_query_arg('updated', '1', admin_url('edit.php?post_type=product&page=ee-eep-taxonomy')));
+    exit;
 });
