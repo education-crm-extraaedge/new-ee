@@ -315,7 +315,7 @@ add_action('wp_head', 'industry_seo_meta_tags');
 
 get_header();
 if (function_exists('ee_layout_sides_css')) ee_layout_sides_css(); /* per-page form/TOC/rail side */
-/* deployment marker */ echo "\n<!-- ee-solution-tpl v2026-07-23-seo26 -->\n";
+/* deployment marker */ echo "\n<!-- ee-solution-tpl v2026-07-23-mobtoc -->\n";
 ?>
 
 <style>
@@ -1316,6 +1316,15 @@ if (!empty($eqn_items)) : ?>
 /* icon rail shows ONLY while the menu bar is hidden */
 .ee-float-nav{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:opacity .3s ease,visibility .3s ease}
 body.ee-hdr-hidden .ee-float-nav{opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+/* MOBILE: menu bar kadhihi hide hot nahi — donhi hide-classes neutralized */
+@media(max-width:820px){
+  #site-header.ee-hdr-away,#site-header.eh-hidden{transform:none!important;box-shadow:0 1px 0 rgba(15,32,64,.06)!important}
+}
+/* MOBILE/TABLET: TOC (Contents) box content chya var visible */
+@media(max-width:1200px){
+  .toc-zone-wrapper .toc-column{display:block!important;position:static!important;order:0;width:100%;max-width:100%;max-height:none!important;overflow:visible!important;padding:0 18px 4px;margin:14px 0 4px}
+  .toc-zone-wrapper .toc-column .toc-wrapper{position:static}
+}
 </style>
 <script>
 /* Self-contained header auto-hide for this template — works even if the
