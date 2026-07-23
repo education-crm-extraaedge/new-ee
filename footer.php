@@ -435,6 +435,9 @@ if (!defined('ABSPATH')) exit;
 
 <!-- End Footer Section -->
 
+<?php if (!is_singular('post')): /* blog posts (single.php) already ship their own complete
+   WhatsApp/Call/TOC floating system with a reading-progress badge —
+   rendering this one too would show two overlapping stacks. */ ?>
 <!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-07-23-fabs-sitewide ============ -->
 <style id="ee-fabs-css">
 .ee-fabs{position:fixed;right:14px;bottom:16px;display:flex;flex-direction:column;gap:10px;z-index:996}
@@ -473,6 +476,10 @@ if (!defined('ABSPATH')) exit;
 </div>
 <script>
 (function(){
+  /* belt-and-suspenders: if any old/cached markup or a theme override ever
+     leaves a second floating-action stack in the DOM, keep only the first. */
+  var allStacks = document.querySelectorAll('.ee-fabs');
+  for (var i = 1; i < allStacks.length; i++) allStacks[i].remove();
   var fab=document.getElementById('eeFabToc'), sheet=document.getElementById('eeTocSheet'),
       back=document.getElementById('eeTocBackdrop'), body=document.getElementById('eeTocSheetBody'),
       closeBtn=document.getElementById('eeTocClose'), home=null, moved=false;
@@ -496,6 +503,7 @@ if (!defined('ABSPATH')) exit;
   });
 })();
 </script>
+<?php endif; ?>
 
 <?php wp_footer(); ?>
 </body>
