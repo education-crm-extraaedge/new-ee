@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-23-cats -->
+<!-- ee-front-tpl v2026-07-23-herogap -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -369,7 +369,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     <div>
       <style>#xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);min-height:max(clamp(118px,16vh,200px),4.6em);transition:opacity .4s cubic-bezier(.2,.7,.2,1),transform .4s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}#xhero .hero__rot.is-out{opacity:0!important;transform:translateY(14px)!important}#xhero .hero-caret{display:none;width:3px;height:.92em;margin-left:4px;border-radius:2px;background:var(--orange);vertical-align:-1px;animation:heroCaretBlink 1s steps(1) infinite}
         /* reserve space for the tallest rotating headline per width - text swaps must never push the layout (CLS) */
-        @media(max-width:390px){#xhero .hero__rot{min-height:5.9em!important}}
+        @media(max-width:390px){#xhero .hero__rot{min-height:4.7em!important}}
         @keyframes heroCaretBlink{50%{opacity:0}}
         @media(prefers-reduced-motion:reduce){#xhero .hero-caret{display:none}}#xhero .hero__rot .accent{background:linear-gradient(100deg,var(--orange),#22467c);-webkit-background-clip:text;background-clip:text;color:transparent}
         @media(prefers-reduced-motion:reduce){#xhero .hero__rot{transition:none}}
