@@ -2005,6 +2005,7 @@ function product_all_settings_callback($post) {
         <li><a href="#" data-tab="tab-faq">❓ FAQ</a></li>
         <li><a href="#" data-tab="tab-toc">🗂️ TOC</a></li>
         <li><a href="#" data-tab="tab-listing">🧩 Listing</a></li>
+        <li><a href="#" data-tab="tab-card">🏷 Card</a></li>
     </ul>
 
     <div id="tab-seo"          class="product-tab-content active"><?php product_seo_fields($post); ?></div>
@@ -2022,6 +2023,10 @@ function product_all_settings_callback($post) {
         <h3>🧩 Where does this product appear?</h3>
         <p style="color:#666;margin:4px 0 14px">Home page "The admissions platform" section, the /products/ page and the header mega menu. Categories &amp; badge suggestions are managed under <b>Products → Listing Categories &amp; Badges</b>.</p>
         <div id="ee_eep_listing" style="max-width:520px"><?php ee_eep_listing_render($post); ?></div>
+    </div>
+    <div id="tab-card"         class="product-tab-content">
+        <h3>🏷 Product Card (mega menu column, icon, badge, description)</h3>
+        <?php product_card_fields($post); ?>
     </div>
 </div>
     <?php
@@ -2909,13 +2914,10 @@ function ee_get_product_menu_items($limit = 0) {
     return $limit > 0 ? array_slice($items, 0, $limit) : $items;
 }
 
-/* Product CPT meta box — same idea as the Industry card settings.
-   Lets the non-coder set per-product card icon + short description shown on /products/. */
-add_action('add_meta_boxes', function () {
-    add_meta_box(
-        'product_card_settings',
-        '🏷 Product Card Settings (icon, column, badge, description)',
-        function ($post) {
+/* Product Card fields — rendered as the 🏷 Card tab inside the main
+   product settings box (product_all_settings_callback); the standalone
+   metabox is gone so the inputs exist only once on the screen. */
+function product_card_fields($post) {
             wp_nonce_field('product_card_meta', 'product_card_meta_nonce');
             $icon   = get_post_meta($post->ID, '_product_card_icon', true);
             $desc   = get_post_meta($post->ID, '_product_card_desc', true);
@@ -2988,12 +2990,7 @@ add_action('add_meta_boxes', function () {
                 <p class="hint">Falls back to the post Excerpt when blank.</p>
             </div>
             <?php
-        },
-        'product',
-        'normal',
-        'high'
-    );
-});
+}
 add_action('save_post_product', function ($post_id) {
     if (!isset($_POST['product_card_meta_nonce']) || !wp_verify_nonce($_POST['product_card_meta_nonce'], 'product_card_meta')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
