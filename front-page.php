@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-23-toc-icon -->
+<!-- ee-front-tpl v2026-07-23-leadprocess -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -685,400 +685,1995 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <!-- STORY 1 · THE REAL PROBLEM -->
 <!-- ================= The Real Problem - The Admissions Narrative (scoped .tan-*) ================= -->
 <section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
-<style id="ee-tan">
-  #why-admissions-leak.tan-sec{--nv:#19335D;--or:#DE6E30;--mut:#5B6B84;--ink:#2B3A52;--line:#E4E9F1;--soft:#F7F9FC;
-    background:#fff;color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow-x:clip}
-  #why-admissions-leak.tan-sec *{box-sizing:border-box;margin:0;padding:0}
-  #why-admissions-leak .tan-hero{max-width:760px;margin:0 auto;text-align:center;padding:8px 24px clamp(22px,4vw,38px)}
-  #why-admissions-leak .tan-eyebrow{color:var(--or);font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:12px;margin-bottom:14px}
-  #why-admissions-leak .tan-title{font-weight:800;color:var(--nv);font-size:clamp(26px,3.6vw,40px);line-height:1.18;letter-spacing:-.02em;margin-bottom:14px;min-height:1.2em}
-  #why-admissions-leak .tan-caret{color:var(--or);animation:tanBlink 1s steps(1) infinite;font-weight:400}
-  @keyframes tanBlink{50%{opacity:0}}
-  #why-admissions-leak .tan-lead{font-size:clamp(15px,1.6vw,17px);color:var(--mut);max-width:600px;margin:0 auto;line-height:1.65;font-weight:500}
-  #why-admissions-leak .tan-main{max-width:1100px;margin:0 auto;padding:clamp(6px,2vw,18px) 24px clamp(22px,4vw,40px)}
-  #why-admissions-leak .tan-row{display:grid;grid-template-columns:4fr 8fr;gap:clamp(22px,3vw,40px);align-items:start;margin-bottom:clamp(26px,4vw,52px)}
-  #why-admissions-leak .tan-side{position:sticky;top:100px;align-self:flex-start}
-  #why-admissions-leak .tan-bar{width:52px;height:3px;background:var(--or);margin-bottom:16px;border-radius:2px}
-  #why-admissions-leak .tan-h3{font-size:clamp(19px,2.2vw,24px);font-weight:800;color:var(--nv);letter-spacing:-.01em}
-  #why-admissions-leak .tan-side-sub{color:var(--mut);margin-top:6px;font-weight:600;font-size:13.5px}
-  #why-admissions-leak .tan-bento{background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(18px,2.4vw,28px);box-shadow:0 14px 40px -26px rgba(25,51,93,.28);transition:border-color .4s,box-shadow .4s}
-  #why-admissions-leak .tan-bento:hover{border-color:rgba(222,110,48,.28);box-shadow:0 26px 56px -28px rgba(25,51,93,.35)}
-  #why-admissions-leak .tan-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  #why-admissions-leak .tan-col2{grid-column:1 / -1}
-  #why-admissions-leak .tan-panel{border-radius:16px;padding:clamp(16px,2vw,22px)}
-  #why-admissions-leak .tan-soft{background:var(--soft);border:1px solid var(--line)}
-  #why-admissions-leak .tan-white{background:#fff;border:1px solid var(--line);transition:background .3s}
-  #why-admissions-leak .tan-white:hover{background:var(--soft)}
-  #why-admissions-leak .tan-navy{background:var(--nv);color:#fff}
-  #why-admissions-leak .tan-klabel{color:var(--or);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
-  #why-admissions-leak .tan-chal{color:var(--ink);font-size:14.5px;line-height:1.6}
-  #why-admissions-leak .tan-cap{font-size:12.5px;font-weight:600;margin-bottom:6px}
-  #why-admissions-leak .tan-cap.op{color:rgba(255,255,255,.78)}
-  #why-admissions-leak .tan-cap.mut{color:var(--mut)}
-  #why-admissions-leak .tan-big{font-size:clamp(17px,1.8vw,20px);font-weight:800}
-  #why-admissions-leak .tan-big.nv{color:var(--nv)}
-  #why-admissions-leak .tan-note{margin-top:7px;font-size:13px;line-height:1.5}
-  #why-admissions-leak .tan-note.lt{color:rgba(255,255,255,.72)}
-  #why-admissions-leak .tan-note.mut{color:var(--mut)}
-  #why-admissions-leak .tan-h5{color:var(--nv);font-weight:800;font-size:16px;margin-bottom:6px}
-  #why-admissions-leak .tan-sm{font-size:13.5px;color:var(--mut);line-height:1.55}
-  #why-admissions-leak .tan-quotewrap{background:var(--nv);color:#fff;padding:clamp(20px,3vw,32px);border-radius:16px;box-shadow:0 20px 44px -22px rgba(25,51,93,.5)}
-  #why-admissions-leak .tan-quotewrap h4{font-weight:800;font-size:clamp(18px,2vw,22px);margin-bottom:12px}
-  #why-admissions-leak .tan-quote{color:rgba(255,255,255,.86);font-style:italic;line-height:1.6;font-size:14.5px;margin-bottom:20px}
-  #why-admissions-leak .tan-pills{display:flex;flex-wrap:wrap;gap:10px}
-  #why-admissions-leak .tan-pill{padding:8px 16px;border-radius:999px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
-  #why-admissions-leak .tan-pill.or{background:var(--or);color:#fff}
-  #why-admissions-leak .tan-pill.gh{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85)}
-  #why-admissions-leak .tan-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
-  #why-admissions-leak .tan-stat{padding:clamp(14px,1.8vw,20px);background:var(--soft);border:1px solid var(--line);border-radius:16px;text-align:center}
-  #why-admissions-leak .tan-stat b{display:block;color:var(--or);font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1}
-  #why-admissions-leak .tan-stat span{display:block;font-size:10.5px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-top:7px}
-  #why-admissions-leak .tan-closer{color:var(--mut);text-align:center;font-style:italic;line-height:1.6;font-size:14px}
-  #why-admissions-leak .reveal-node{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
-  #why-admissions-leak .reveal-node.is-visible{opacity:1;transform:none}
-  @media(max-width:820px){
-    #why-admissions-leak .tan-row{grid-template-columns:1fr;gap:12px;margin-bottom:clamp(18px,5vw,28px)}
-    #why-admissions-leak .tan-side{position:static;top:auto}
-    #why-admissions-leak .tan-bar{margin-bottom:10px;width:40px}
-    #why-admissions-leak .tan-grid2{grid-template-columns:1fr;gap:8px}
-    #why-admissions-leak .tan-stats{grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-    /* compact boxes on phones - all info visible without oversized cards */
-    #why-admissions-leak .tan-hero{padding:4px 18px 18px}
-    #why-admissions-leak .tan-title{font-size:clamp(22px,6.4vw,28px);margin-bottom:10px}
-    #why-admissions-leak .tan-lead{font-size:13.5px;line-height:1.6}
-    #why-admissions-leak .tan-eyebrow{font-size:11px;margin-bottom:10px}
-    #why-admissions-leak .tan-main{padding:4px 16px 20px}
-    #why-admissions-leak .tan-h3{font-size:17px}
-    #why-admissions-leak .tan-side-sub{font-size:12px;margin-top:3px}
-    #why-admissions-leak .tan-bento{padding:12px;border-radius:16px}
-    #why-admissions-leak .tan-panel{padding:13px 14px;border-radius:12px}
-    #why-admissions-leak .tan-klabel{font-size:10px;margin-bottom:6px}
-    #why-admissions-leak .tan-chal{font-size:13px;line-height:1.55}
-    #why-admissions-leak .tan-cap{font-size:11.5px;margin-bottom:4px}
-    #why-admissions-leak .tan-big{font-size:15.5px}
-    #why-admissions-leak .tan-note{font-size:12px;margin-top:5px}
-    #why-admissions-leak .tan-h5{font-size:14.5px;margin-bottom:4px}
-    #why-admissions-leak .tan-sm{font-size:12.5px}
-    #why-admissions-leak .tan-quotewrap{padding:16px;border-radius:12px}
-    #why-admissions-leak .tan-quotewrap h4{font-size:16px;margin-bottom:8px}
-    #why-admissions-leak .tan-quote{font-size:13px;margin-bottom:14px}
-    #why-admissions-leak .tan-pill{padding:6px 12px;font-size:9.5px}
-    #why-admissions-leak .tan-stat{padding:10px 8px;border-radius:12px}
-    #why-admissions-leak .tan-stat b{font-size:21px}
-    #why-admissions-leak .tan-stat span{font-size:9px;margin-top:5px}
-    #why-admissions-leak .tan-closer{font-size:12.5px}
-  }
-  @media(prefers-reduced-motion:reduce){#why-admissions-leak .reveal-node{opacity:1!important;transform:none!important}#why-admissions-leak .tan-caret{animation:none}}
+<style>
+#feature-pillars.ee-lead-process{padding:clamp(48px,7vw,88px) 0}
+#feature-pillars .ee-lp-head{max-width:1240px;margin:0 auto clamp(20px,3vw,32px);padding:0 24px}
+#feature-pillars .ee-lp-frame{width:100%;border:0;display:block;height:min(760px,88vh);background:#f4f5f7;border-radius:20px}
+@media(max-width:600px){#feature-pillars .ee-lp-frame{height:min(820px,92vh);border-radius:14px}}
 </style>
-
-  <div class="tan-hero">
-    <div class="tan-hero-in">
-      <p class="tan-eyebrow">The Admission Funnel Leak</p>
-      <h2 class="tan-title" id="tan-h"><span id="tanType"></span><span class="tan-caret" aria-hidden="true">|</span></h2>
-      <p class="tan-lead">Admissions aren&rsquo;t lost at the marketing top-of-funnel; they evaporate in the gap between enquiry and engagement.</p>
-    </div>
-  </div>
-
-  <div class="tan-main">
-
-    <section class="tan-row reveal-node">
-      <div class="tan-side">
-        <div class="tan-bar"></div>
-        <h3 class="tan-h3">Scattered Chaos</h3>
-        <p class="tan-side-sub">The Operational Tax</p>
-      </div>
-      <div class="tan-bento tan-grid2">
-        <div class="tan-panel tan-soft tan-col2">
-          <h4 class="tan-klabel">The Operational Challenge</h4>
-          <p class="tan-chal">Leads are fragmented across 10+ disparate sources. Without a single source of truth, teams rely on manual spreadsheet data entry, creating an &ldquo;operational tax&rdquo; that slows response times to a crawl.</p>
-        </div>
-        <div class="tan-panel tan-navy">
-          <p class="tan-cap op">Automated Capture</p>
-          <p class="tan-big">10+ Source Integration</p>
-          <p class="tan-note lt">Unified digital inbox ensures no lead is left behind.</p>
-        </div>
-        <div class="tan-panel tan-white">
-          <p class="tan-cap mut">Conflict Resolution</p>
-          <p class="tan-big nv">Real-time Deduplication</p>
-          <p class="tan-note mut">Prevents lead collisions and maintains clean data integrity.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="tan-row reveal-node">
-      <div class="tan-side">
-        <div class="tan-bar"></div>
-        <h3 class="tan-h3">Latency Trap</h3>
-        <p class="tan-side-sub">Speed-to-Lead Gap</p>
-      </div>
-      <div class="tan-bento tan-grid2">
-        <div class="tan-panel tan-soft tan-col2">
-          <h4 class="tan-klabel">The Strategic Challenge</h4>
-          <p class="tan-chal">Prospects apply to multiple institutions simultaneously. Research confirms that response time is the #1 predictor of conversion. A slow follow-up means your prospect is already in a conversation with your competitor.</p>
-        </div>
-        <div class="tan-panel tan-white">
-          <h5 class="tan-h5">Instant Activation</h5>
-          <p class="tan-sm">Triggered WhatsApp and email replies fire within milliseconds of lead arrival, capturing attention at the peak of interest.</p>
-        </div>
-        <div class="tan-panel tan-white">
-          <h5 class="tan-h5">AI Continuity</h5>
-          <p class="tan-sm">24&times;7 intelligent bot qualification ensures zero gaps in conversation coverage, even outside office hours.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="tan-row reveal-node">
-      <div class="tan-side">
-        <div class="tan-bar"></div>
-        <h3 class="tan-h3">Counselor Fatigue</h3>
-        <p class="tan-side-sub">Workload Inefficiency</p>
-      </div>
-      <div class="tan-bento">
-        <h4 class="tan-klabel">The ExtraaEdge Strategy</h4>
-        <div class="tan-quotewrap" style="margin-top:16px">
-          <h4>AI-Prioritized Focus</h4>
-          <p class="tan-quote">&ldquo;Stop the spray-and-pray approach. Our predictive AI ranks leads by intent, providing a Next-Best-Action worklist that tells your team exactly who to call, ensuring your best assets speak to your most promising prospects.&rdquo;</p>
-          <div class="tan-pills">
-            <span class="tan-pill or">Predictive Scoring</span>
-            <span class="tan-pill gh">Worklist Automation</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="tan-row reveal-node">
-      <div class="tan-side">
-        <div class="tan-bar"></div>
-        <h3 class="tan-h3">Blind Spots</h3>
-        <p class="tan-side-sub">Attribution Intelligence</p>
-      </div>
-      <div class="tan-bento">
-        <h4 class="tan-klabel" style="margin-bottom:26px">The CFO&rsquo;s Dashboard</h4>
-        <div class="tan-stats">
-          <div class="tan-stat"><b>50+</b><span>Ready Reports</span></div>
-          <div class="tan-stat"><b>100%</b><span>Attribution</span></div>
-          <div class="tan-stat"><b>ROI</b><span>Predictability</span></div>
-        </div>
-        <p class="tan-closer">&ldquo;Gain full, granular visibility into which marketing channels actually drive enrollment vs. those that just generate low-intent clicks.&rdquo;</p>
-      </div>
-    </section>
-
-  </div>
-</section>
-<script>
-(function(){
-  var root=document.getElementById('why-admissions-leak'); if(!root) return;
-  var el=document.getElementById('tanType');
-  var txt='Good enquiries quietly slip away.';
-  var started=false;
-  var RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function typeStart(){ if(started||!el) return; started=true;
-    if(RM){ el.textContent=txt; return; }
-    var i=0; (function t(){ if(i<txt.length){ el.textContent+=txt.charAt(i++); setTimeout(t,70); } })();
-  }
-  function fillNow(){ if(!started&&el){ started=true; el.textContent=txt; } }
-  if('IntersectionObserver' in window){
-    if(el){ var hero=root.querySelector('.tan-hero');
-      var to=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)typeStart();});},{threshold:.4});
-      to.observe(hero);
-    }
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');fillNow();io.unobserve(e.target);}});},{threshold:.15});
-    [].slice.call(root.querySelectorAll('.reveal-node')).forEach(function(n){io.observe(n);});
-  } else {
-    if(el) el.textContent=txt;
-    [].slice.call(root.querySelectorAll('.reveal-node')).forEach(function(n){n.classList.add('is-visible');});
-  }
-})();
-</script>
-
-
-<!-- STORY 2 · BUILT FOR ADMISSION TEAMS — Admission Intelligence horizontal scrollytelling (scoped .flw-*) -->
-<section id="feature-pillars" class="flw-sec" aria-labelledby="flw-h">
-<style id="ee-flw">
-  #feature-pillars.flw-sec{--nv:#19335D;--nvd:#10233F;--or:#DE6E30;--or2:#E8843F;--ink:#2B3A52;--mut:#5B6B84;--line:#E4E9F1;--soft:#F7F9FC;--grn:#1E9E6A;
-    position:relative;background:#fff;color:var(--ink);
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow-x:clip;
-    padding:clamp(40px,5vw,64px) 0 0}
-  #feature-pillars.flw-sec *{box-sizing:border-box;margin:0;padding:0}
-  #feature-pillars .flw-wrap{position:relative;max-width:1060px;margin:0 auto;padding:0 24px}
-  /* header (scrolls away normally, then the cards pin) */
-  #feature-pillars .flw-head{max-width:760px;margin-bottom:clamp(10px,1.6vw,18px)}
-  #feature-pillars .flw-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or)}
-  #feature-pillars .flw-eyebrow::before{content:"";width:26px;height:2px;background:var(--or);border-radius:2px}
-  #feature-pillars .flw-h2{font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.16;letter-spacing:-.02em;color:var(--nv);margin-top:14px}
-  #feature-pillars .flw-h2 em{font-style:normal;color:var(--or)}
-  #feature-pillars .flw-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.65;color:var(--mut);margin-top:14px;max-width:640px}
-  #feature-pillars .flw-status{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px}
-  #feature-pillars .flw-syslabel{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--nv);background:rgba(25,51,93,.06);border:1px solid rgba(25,51,93,.12);border-radius:999px;padding:7px 14px}
-  #feature-pillars .flw-monitor{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);background:rgba(30,158,106,.08);border:1px solid rgba(30,158,106,.25);border-radius:999px;padding:7px 14px}
-  #feature-pillars .flw-monitor i{width:7px;height:7px;border-radius:50%;background:#2BC98A;animation:flwPulse 1.8s ease-out infinite}
-  @keyframes flwPulse{0%{box-shadow:0 0 0 0 rgba(43,201,138,.55)}70%{box-shadow:0 0 0 8px rgba(43,201,138,0)}100%{box-shadow:0 0 0 0 rgba(43,201,138,0)}}
-  /* ---- default / fallback: native swipe rail ---- */
-  #feature-pillars .flw-track{position:relative}
-  #feature-pillars .flw-pin{padding:0 0 12px}
-  #feature-pillars .flw-row{display:flex;gap:clamp(14px,1.8vw,22px);align-items:stretch;overflow-x:auto;
-    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-    padding:6px max(24px,calc((100vw - 1060px)/2 + 24px)) 16px}
-  #feature-pillars .flw-row::-webkit-scrollbar{display:none}
-  /* ---- pinned scrollytelling mode (JS adds .flw-on): page scroll slides the boxes sideways ---- */
-  /* pin hugs its content - no viewport-height centering, so no dead space above/below the card */
-  #feature-pillars.flw-on .flw-pin{position:sticky;top:90px;height:auto;
-    display:flex;flex-direction:column;justify-content:flex-start;overflow:hidden;padding:4px 0 8px}
-  #feature-pillars.flw-on .flw-row{overflow:visible;scroll-snap-type:none;will-change:transform;padding-bottom:0;
-    transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-  /* one box in focus at a time - the rest blur out */
-  #feature-pillars.flw-on .flw-card{transition:filter .5s ease,opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1),border-color .4s,box-shadow .4s}
-  #feature-pillars.flw-on .flw-card:not(.on){filter:blur(3px);opacity:.42;transform:scale(.94);pointer-events:none}
-  #feature-pillars.flw-on .flw-card.on{border-color:rgba(222,110,48,.32);box-shadow:0 26px 56px -28px rgba(25,51,93,.38)}
-  /* stage card */
-  #feature-pillars .flw-card{position:relative;flex:0 0 min(86vw,470px);scroll-snap-align:center;
-    background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(18px,2.2vw,26px);
-    box-shadow:0 14px 40px -26px rgba(25,51,93,.3);transition:border-color .4s,box-shadow .4s}
-  #feature-pillars .flw-card:hover{border-color:rgba(222,110,48,.32);box-shadow:0 26px 56px -28px rgba(25,51,93,.38)}
-  #feature-pillars .flw-chead{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-  #feature-pillars .flw-node{flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
-    font-weight:800;font-size:14px;color:#fff;background:linear-gradient(150deg,var(--or2),var(--or));
-    box-shadow:0 10px 22px -8px rgba(222,110,48,.65)}
-  #feature-pillars .flw-title{font-weight:800;font-size:clamp(17px,2vw,21px);line-height:1.25;letter-spacing:-.01em;color:var(--nv)}
-  #feature-pillars .flw-insight{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
-  #feature-pillars .flw-klabel{display:block;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or);margin-bottom:6px}
-  #feature-pillars .flw-desc{font-size:12.5px;line-height:1.6;color:var(--ink);font-style:italic;border-left:2px solid var(--or);padding-left:11px}
-  /* input -> AI -> output stack */
-  #feature-pillars .flw-io{display:flex;flex-direction:column;gap:5px}
-  #feature-pillars .flw-box{border-radius:11px;padding:9px 13px;min-width:0}
-  #feature-pillars .flw-box span{display:block;font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
-  #feature-pillars .flw-box b{display:block;font-size:13px;font-weight:700;line-height:1.3}
-  #feature-pillars .flw-box.in{background:rgba(25,51,93,.05);border:1px solid rgba(25,51,93,.12)}
-  #feature-pillars .flw-box.in span{color:var(--mut)}
-  #feature-pillars .flw-box.in b{color:var(--nv)}
-  #feature-pillars .flw-box.ai{background:rgba(222,110,48,.06);border:1px solid rgba(222,110,48,.28)}
-  #feature-pillars .flw-box.ai span{color:var(--or)}
-  #feature-pillars .flw-box.ai b{color:var(--nv)}
-  #feature-pillars .flw-box.out{background:rgba(30,158,106,.06);border:1px solid rgba(30,158,106,.25)}
-  #feature-pillars .flw-box.out span{color:var(--grn)}
-  #feature-pillars .flw-box.out b{color:var(--nv)}
-  #feature-pillars .flw-arr{align-self:center;color:var(--or);line-height:0}
-  #feature-pillars .flw-arr svg{width:14px;height:14px;display:block}
-  /* progress dots */
-  #feature-pillars .flw-dots{display:flex;gap:9px;justify-content:center;align-items:center;padding:12px 0 6px}
-  #feature-pillars .flw-dot{width:9px;height:9px;border-radius:50%;background:var(--line);transition:transform .3s,background .3s,box-shadow .3s}
-  #feature-pillars .flw-dot.on{background:var(--or);transform:scale(1.35);box-shadow:0 0 0 4px rgba(222,110,48,.16)}
-  #feature-pillars .flw-hint{display:none;text-align:center;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);padding-bottom:18px}
-  #feature-pillars:not(.flw-on) .flw-hint{display:block}
-  /* desktop: bigger boxes that fill the pinned viewport */
-  @media(min-width:900px){
-    #feature-pillars.flw-on .flw-pin{height:min(calc(100vh - 90px),700px);height:min(calc(100svh - 90px),700px);justify-content:center;padding:0}
-    #feature-pillars .flw-card{flex-basis:min(58vw,660px);padding:28px 32px;border-radius:24px}
-    #feature-pillars .flw-chead{gap:14px;margin-bottom:16px}
-    #feature-pillars .flw-node{width:48px;height:48px;font-size:16px}
-    #feature-pillars .flw-title{font-size:26px}
-    #feature-pillars .flw-insight{padding:18px 20px;margin-bottom:16px}
-    #feature-pillars .flw-klabel{font-size:11px;margin-bottom:8px}
-    #feature-pillars .flw-desc{font-size:15px;line-height:1.65;padding-left:14px}
-    #feature-pillars .flw-io{gap:7px}
-    #feature-pillars .flw-box{padding:14px 18px;border-radius:13px}
-    #feature-pillars .flw-box span{font-size:10.5px;margin-bottom:5px}
-    #feature-pillars .flw-box b{font-size:15.5px}
-    #feature-pillars .flw-arr svg{width:16px;height:16px}
-    #feature-pillars .flw-dots{padding:16px 0 0}
-  }
-  @media(max-width:760px){
-    #feature-pillars.flw-on .flw-pin{top:72px}
-    #feature-pillars .flw-card{flex-basis:84vw;padding:15px 14px;border-radius:16px}
-    #feature-pillars .flw-node{width:32px;height:32px;font-size:12px}
-    #feature-pillars .flw-title{font-size:16px}
-    #feature-pillars .flw-desc{font-size:12px}
-    #feature-pillars .flw-box b{font-size:12px}
-    #feature-pillars .flw-status{gap:8px;margin-top:12px}
-    #feature-pillars .flw-syslabel,#feature-pillars .flw-monitor{font-size:9.5px;padding:6px 11px}
-    #feature-pillars .flw-row{padding-left:18px;padding-right:18px}
-  }
-  @media(prefers-reduced-motion:reduce){
-    #feature-pillars .flw-monitor i{animation:none}
-    #feature-pillars .flw-card{transition:none}
-  }
-</style>
-  <div class="flw-wrap flw-head">
+<section id="feature-pillars" class="flw-sec ee-lead-process" aria-labelledby="flw-h">
+  <div class="ee-lp-head flw-wrap flw-head">
     <span class="flw-eyebrow">Built For Admission Teams</span>
     <h2 class="flw-h2" id="flw-h">Admission Intelligence: <em>The Definite Enrollment Pipeline</em></h2>
     <p class="flw-sub">A fully automated, AI-driven engine designed to turn raw inquiry data into high-intent enrollments with surgical precision.</p>
-    <div class="flw-status">
-      <span class="flw-syslabel">System Workflow</span>
-      <span class="flw-monitor"><i aria-hidden="true"></i>Active Pipeline Monitor</span>
+  </div>
+  <iframe class="ee-lp-frame" title="Admission intelligence pipeline: lead ingestion, smart engagement, AI prioritization, funnel analytics" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<title>Lead Ingestion Process</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Arial, sans-serif;
+    background: #f4f5f7;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  .scroll-container {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    width: 100vw;
+    height: 100vh;
+    scrollbar-width: none;
+  }
+  .scroll-container::-webkit-scrollbar { display: none; }
+  .scroll-panel {
+    flex: 0 0 100vw;
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 40px 20px;
+    overflow-y: auto;
+  }
+  .nav-dots {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 50;
+  }
+  .nav-dots button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: #d3cfc4;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .nav-dots button.active {
+    background: #d84b1e;
+    transform: scale(1.25);
+  }
+  .nav-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #e2ddd2;
+    color: #6b6b68;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 50;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .nav-arrow svg { width: 20px; height: 20px; }
+  .nav-arrow.prev { left: 20px; }
+  .nav-arrow.next { right: 20px; }
+  .nav-arrow:disabled { opacity: 0.3; cursor: default; }
+  .wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .step {
+    display: flex;
+    gap: 20px;
+  }
+  .step-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .circle.red { background: #d84b1e; }
+  .circle.green { background: #1a9c5c; }
+  .connector {
+    width: 2px;
+    flex: 1;
+    background: #e2c9bd;
+    margin: 4px 0;
+    min-height: 24px;
+  }
+  .card {
+    flex: 1;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .card.red-bg { background: #fdf1ec; }
+  .card.green-bg { background: #eaf7f0; }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .card-header .label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .label.red-text { color: #d84b1e; }
+  .label.green-text { color: #1a9c5c; }
+  .card-body {
+    border-top: 1px solid rgba(0,0,0,0.06);
+    padding-top: 12px;
+  }
+  .card-body p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #2c2c2a;
+    margin: 0 0 12px;
+  }
+  .info-box {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  .info-box .info-label {
+    font-size: 11px;
+    color: #6b6b68;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: 0 0 2px;
+  }
+  .info-box .info-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  .check-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .check-row .check-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #1a9c5c;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  @keyframes popIn {
+    0% { opacity: 0; transform: scale(0.4); }
+    60% { opacity: 1; transform: scale(1.15); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes slideFade {
+    0% { opacity: 0; transform: translateX(24px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes growLine {
+    0% { transform: scaleY(0); }
+    100% { transform: scaleY(1); }
+  }
+  @keyframes checkPop {
+    0% { opacity: 0; transform: scale(0); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  .step {
+    opacity: 0;
+  }
+  .step.animate .circle {
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .step.animate .card {
+    animation: slideFade 0.6s ease-out forwards;
+    animation-delay: 0.15s;
+  }
+  .step.animate {
+    opacity: 1;
+  }
+  .connector {
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+  .step.animate .connector {
+    animation: growLine 0.5s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+  .check-row .check-icon {
+    opacity: 0;
+  }
+  .step.animate .check-icon {
+    animation: checkPop 0.4s ease-out forwards;
+    animation-delay: 1.1s;
+  }
+
+  /* ---- Smart Engagement section ---- */
+  .se-wrapper {
+    max-width: 900px;
+    margin: 60px auto 0;
+  }
+  .se-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .se-badge {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f0742c, #d84b1e);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .se-title h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a2a4a;
+    margin: 0 0 6px;
+  }
+  .se-title p {
+    font-size: 15px;
+    color: #6b6b68;
+    margin: 0 0 8px;
+    border-bottom: 3px solid #d84b1e;
+    display: inline-block;
+    padding-bottom: 8px;
+  }
+  .se-row {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+  }
+  .se-icon-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .se-ring {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid;
+    background: #fff;
+  }
+  .se-ring svg { width: 40px; height: 40px; }
+  .se-ring.orange { border-color: #f2a98a; color: #e2622a; }
+  .se-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
+  .se-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
+  .se-connector {
+    width: 2px;
+    flex: 1;
+    background: #ddd8ce;
+    margin: 6px 0;
+    min-height: 30px;
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+  .se-chevron {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #e2ddd2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b8a48f;
+    font-size: 12px;
+    margin: 2px 0;
+    flex-shrink: 0;
+    opacity: 0;
+  }
+  .se-panel {
+    flex: 1;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .se-panel.orange-bg { background: #fdf0e9; }
+  .se-panel.blue-bg { background: #eaf0fb; }
+  .se-panel.green-bg { background: #eaf7ee; }
+  .se-main { flex: 1; }
+  .se-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .se-icon-chip {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .se-icon-chip svg { width: 16px; height: 16px; }
+  .se-icon-chip.orange { background: #e2622a; }
+  .se-icon-chip.blue { background: #2050b0; }
+  .se-icon-chip.green { background: #1a9c5c; }
+  .se-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .se-label.orange-text { color: #e2622a; }
+  .se-label.blue-text { color: #2050b0; }
+  .se-label.green-text { color: #1a9c5c; }
+  .se-divider {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.07);
+    margin: 0 0 10px;
+  }
+  .se-main p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #2c2c2a;
+    margin: 0;
+  }
+  .se-side {
+    width: 220px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .se-side.stack { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .se-side-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .se-side-icon svg { width: 18px; height: 18px; }
+  .se-side-icon.blue-fill { background: #2050b0; }
+  .se-side-icon.green-fill { background: #1a9c5c; }
+  .se-side-label {
+    font-size: 10px;
+    color: #8a8a86;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: 0 0 2px;
+  }
+  .se-side-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  .se-side-sub {
+    font-size: 12px;
+    color: #6b6b68;
+    margin: 2px 0 0;
+  }
+  .se-channels {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .se-channel-icons {
+    display: flex;
+    gap: 10px;
+  }
+  .se-channel-icons span {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .se-channel-icons span svg { width: 16px; height: 16px; }
+  .se-channel-names {
+    font-size: 12px;
+    color: #4a4a48;
+    font-weight: 600;
+  }
+  .se-step { opacity: 0; }
+  .se-step.animate { opacity: 1; }
+  .se-step.animate .se-ring {
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .se-step.animate .se-panel {
+    animation: slideFade 0.6s ease-out forwards;
+    animation-delay: 0.15s;
+  }
+  .se-step.animate .se-connector {
+    animation: growLine 0.5s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+  .se-step.animate .se-chevron {
+    animation: checkPop 0.3s ease-out forwards;
+    animation-delay: 0.6s;
+  }
+
+  /* ---- AI Prioritization section ---- */
+  .p3-wrapper {
+    max-width: 900px;
+    margin: 60px auto 0;
+  }
+  .p3-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .p3-badge {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f0742c, #d84b1e);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .p3-title h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a2a4a;
+    margin: 0 0 6px;
+  }
+  .p3-title p {
+    font-size: 15px;
+    color: #6b6b68;
+    margin: 0 0 8px;
+    border-bottom: 3px solid #d84b1e;
+    display: inline-block;
+    padding-bottom: 8px;
+  }
+  .p3-row {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+  }
+  .p3-icon-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .p3-ring {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid;
+    background: #fff;
+  }
+  .p3-ring svg { width: 40px; height: 40px; }
+  .p3-ring.orange { border-color: #f2a98a; color: #e2622a; }
+  .p3-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
+  .p3-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
+  .p3-connector {
+    width: 2px;
+    flex: 1;
+    background: #ddd8ce;
+    margin: 6px 0;
+    min-height: 30px;
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+  .p3-chevron {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #e2ddd2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b8a48f;
+    font-size: 12px;
+    margin: 2px 0;
+    flex-shrink: 0;
+    opacity: 0;
+  }
+  .p3-panel {
+    flex: 1;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .p3-panel.orange-bg { background: #fdf0e9; }
+  .p3-panel.blue-bg { background: #eaf0fb; }
+  .p3-panel.green-bg { background: #eaf7ee; }
+  .p3-main { flex: 1; }
+  .p3-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .p3-icon-chip {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .p3-icon-chip svg { width: 16px; height: 16px; }
+  .p3-icon-chip.orange { background: #e2622a; }
+  .p3-icon-chip.blue { background: #2050b0; }
+  .p3-icon-chip.green { background: #1a9c5c; }
+  .p3-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .p3-label.orange-text { color: #e2622a; }
+  .p3-label.blue-text { color: #2050b0; }
+  .p3-label.green-text { color: #1a9c5c; }
+  .p3-divider {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.07);
+    margin: 0 0 10px;
+  }
+  .p3-main p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #2c2c2a;
+    margin: 0;
+  }
+  .p3-side {
+    width: 240px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .p3-side-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .p3-side-icon svg { width: 20px; height: 20px; }
+  .p3-side-icon.orange-fill { background: #fbdcc9; color: #e2622a; }
+  .p3-side-icon.blue-fill { background: #cfe0f7; color: #2050b0; }
+  .p3-side-icon.green-fill { background: #c7ecd4; color: #1a9c5c; }
+  .p3-side-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: 0 0 3px;
+  }
+  .p3-side-eyebrow.orange-text { color: #e2622a; }
+  .p3-side-eyebrow.blue-text { color: #2050b0; }
+  .p3-side-eyebrow.green-text { color: #1a9c5c; }
+  .p3-side-value {
+    font-size: 14px;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.4;
+  }
+  .p3-step { opacity: 0; }
+  .p3-step.animate { opacity: 1; }
+  .p3-step.animate .p3-ring {
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .p3-step.animate .p3-panel {
+    animation: slideFade 0.6s ease-out forwards;
+    animation-delay: 0.15s;
+  }
+  .p3-step.animate .p3-connector {
+    animation: growLine 0.5s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+  .p3-step.animate .p3-chevron {
+    animation: checkPop 0.3s ease-out forwards;
+    animation-delay: 0.6s;
+  }
+
+  /* ---- Funnel Analytics section ---- */
+  .f4-wrapper {
+    max-width: 900px;
+    margin: 60px auto 0;
+  }
+  .f4-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .f4-badge {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f0742c, #d84b1e);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid #a6ddbb;
+  }
+  .f4-title h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a2a4a;
+    margin: 0 0 6px;
+  }
+  .f4-title p {
+    font-size: 15px;
+    color: #6b6b68;
+    margin: 0 0 8px;
+    border-bottom: 3px solid #d84b1e;
+    display: inline-block;
+    padding-bottom: 8px;
+  }
+  .f4-row {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+  }
+  .f4-icon-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .f4-ring-wrap {
+    position: relative;
+  }
+  .f4-num {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    z-index: 2;
+  }
+  .f4-num.orange { background: #d84b1e; }
+  .f4-num.blue { background: #2050b0; }
+  .f4-num.green { background: #1a9c5c; }
+  .f4-ring {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid;
+    background: #fff;
+  }
+  .f4-ring svg { width: 40px; height: 40px; }
+  .f4-ring.orange { border-color: #f2a98a; color: #e2622a; }
+  .f4-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
+  .f4-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
+  .f4-connector {
+    width: 2px;
+    flex: 1;
+    background: #ddd8ce;
+    margin: 6px 0;
+    min-height: 30px;
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+  .f4-chevron {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #e2ddd2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b8a48f;
+    font-size: 12px;
+    margin: 2px 0;
+    flex-shrink: 0;
+    opacity: 0;
+  }
+  .f4-panel {
+    flex: 1;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .f4-panel.orange-bg { background: #fdf0e9; }
+  .f4-panel.blue-bg { background: #eaf0fb; }
+  .f4-panel.green-bg { background: #eaf7ee; }
+  .f4-main { flex: 1; }
+  .f4-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .f4-icon-chip {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .f4-icon-chip svg { width: 16px; height: 16px; }
+  .f4-icon-chip.orange { background: #e2622a; }
+  .f4-icon-chip.blue { background: #2050b0; }
+  .f4-icon-chip.green { background: #1a9c5c; }
+  .f4-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .f4-label.orange-text { color: #e2622a; }
+  .f4-label.blue-text { color: #2050b0; }
+  .f4-label.green-text { color: #1a9c5c; }
+  .f4-divider {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.07);
+    margin: 0 0 10px;
+  }
+  .f4-main p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #2c2c2a;
+    margin: 0;
+  }
+  .f4-side {
+    width: 220px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .f4-side-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .f4-side-icon svg { width: 20px; height: 20px; }
+  .f4-side-icon.orange-fill { background: #fbdcc9; color: #e2622a; }
+  .f4-side-icon.blue-fill { background: #cfe0f7; color: #2050b0; }
+  .f4-side-icon.green-fill { background: #c7ecd4; color: #1a9c5c; }
+  .f4-side-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: 0 0 3px;
+  }
+  .f4-side-eyebrow.orange-text { color: #e2622a; }
+  .f4-side-eyebrow.blue-text { color: #2050b0; }
+  .f4-side-eyebrow.green-text { color: #1a9c5c; }
+  .f4-side-value {
+    font-size: 14px;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.4;
+  }
+  .f4-step { opacity: 0; }
+  .f4-step.animate { opacity: 1; }
+  .f4-step.animate .f4-ring {
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .f4-step.animate .f4-num {
+    animation: checkPop 0.4s ease-out forwards;
+    animation-delay: 0.35s;
+  }
+  .f4-step.animate .f4-panel {
+    animation: slideFade 0.6s ease-out forwards;
+    animation-delay: 0.15s;
+  }
+  .f4-step.animate .f4-connector {
+    animation: growLine 0.5s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+  .f4-step.animate .f4-chevron {
+    animation: checkPop 0.3s ease-out forwards;
+    animation-delay: 0.6s;
+  }
+
+  /* ---- Lead Ingestion section (revised) ---- */
+  .li-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .li-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .li-badge {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f0742c, #d84b1e);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .li-title h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a2a4a;
+    margin: 0 0 6px;
+  }
+  .li-title p {
+    font-size: 15px;
+    color: #6b6b68;
+    margin: 0 0 8px;
+    border-bottom: 3px solid #d84b1e;
+    display: inline-block;
+    padding-bottom: 8px;
+  }
+  .li-row {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+  }
+  .li-icon-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .li-ring {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid;
+    background: #fff;
+  }
+  .li-ring svg { width: 40px; height: 40px; }
+  .li-ring.orange { border-color: #f2a98a; color: #e2622a; }
+  .li-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
+  .li-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
+  .li-line-seg {
+    width: 0;
+    height: 16px;
+    border-left: 2px dashed #ddd4c8;
+  }
+  .li-line-seg.grow {
+    flex: 1;
+    min-height: 20px;
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+  .li-chevron {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #e2ddd2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e2622a;
+    font-size: 12px;
+    flex-shrink: 0;
+    opacity: 0;
+  }
+  .li-panel {
+    flex: 1;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .li-panel.orange-bg { background: #fdf0e9; }
+  .li-panel.blue-bg { background: #eaf0fb; }
+  .li-panel.green-bg { background: #eaf7ee; }
+  .li-main { flex: 1; }
+  .li-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .li-icon-chip {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .li-icon-chip svg { width: 16px; height: 16px; }
+  .li-icon-chip.orange { background: #e2622a; }
+  .li-icon-chip.blue { background: #2050b0; }
+  .li-icon-chip.green { background: #1a9c5c; }
+  .li-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .li-label.orange-text { color: #e2622a; }
+  .li-label.blue-text { color: #2050b0; }
+  .li-label.green-text { color: #1a9c5c; }
+  .li-divider {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.07);
+    margin: 0 0 10px;
+  }
+  .li-subtitle {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 6px;
+  }
+  .li-main p.li-body {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #4a4a48;
+    margin: 0;
+  }
+  .li-deco {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .li-deco-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px dashed #a6ddbb;
+  }
+  .li-deco-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #eaf7ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .li-deco-circle svg { width: 30px; height: 30px; color: #1a9c5c; }
+  .li-deco-badge {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #1a9c5c;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .li-deco-badge svg { width: 12px; height: 12px; }
+  .li-sparkle {
+    position: absolute;
+    color: #7fcf9d;
+    font-size: 12px;
+  }
+  .li-step { opacity: 0; }
+  .li-step.animate { opacity: 1; }
+  .li-step.animate .li-ring {
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .li-step.animate .li-panel {
+    animation: slideFade 0.6s ease-out forwards;
+    animation-delay: 0.15s;
+  }
+  .li-step.animate .li-line-seg.grow {
+    animation: growLine 0.5s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+  .li-step.animate .li-chevron {
+    animation: checkPop 0.3s ease-out forwards;
+    animation-delay: 0.6s;
+  }
+</style>
+</head>
+<body>
+
+<div class=&quot;scroll-container&quot; id=&quot;scrollContainer&quot;>
+
+<div class=&quot;scroll-panel&quot;>
+<div class=&quot;li-wrapper&quot;>
+
+  <div class=&quot;li-header&quot;>
+    <div class=&quot;li-badge&quot;>01</div>
+    <div class=&quot;li-title&quot;>
+      <h1>Lead ingestion</h1>
+      <p>Capture. Clean. Consolidate. Convert.</p>
     </div>
   </div>
 
-  <div class="flw-track" id="flwTrack">
-    <div class="flw-pin">
-      <div class="flw-row" id="flwRow">
-
-        <article class="flw-card">
-          <div class="flw-chead"><span class="flw-node" aria-hidden="true">01</span><h3 class="flw-title">Lead Ingestion</h3></div>
-          <div class="flw-insight">
-            <span class="flw-klabel">Strategic Insight</span>
-            <p class="flw-desc">We centralize your entire ecosystem. By normalizing data schemas across 50+ channels, we eliminate data silos. This ensures every prospect, regardless of origin, is immediately formatted, deduplicated, and ready for action.</p>
-          </div>
-          <div class="flw-io">
-            <div class="flw-box in"><span>Primary Input Data</span><b>Omni-channel API Gateways</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
-            <div class="flw-box ai"><span>AI Processing Engine</span><b>Data Normalization &amp; Deduplication</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
-            <div class="flw-box out"><span>Finalized Output</span><b>Verified Prospect Record</b></div>
-          </div>
-        </article>
-
-        <article class="flw-card">
-          <div class="flw-chead"><span class="flw-node" aria-hidden="true">02</span><h3 class="flw-title">Smart Engagement</h3></div>
-          <div class="flw-insight">
-            <span class="flw-klabel">Strategic Insight</span>
-            <p class="flw-desc">Generic outreach is a cost, not an asset. Our system analyzes user behavior to trigger context-aware communication. Whether via WhatsApp, SMS, or Email, the message aligns perfectly with the prospect&rsquo;s current intent.</p>
-          </div>
-          <div class="flw-io">
-            <div class="flw-box in"><span>Primary Input Data</span><b>User Behavior Signals</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
-            <div class="flw-box ai"><span>AI Processing Engine</span><b>Adaptive Engagement Logic</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
-            <div class="flw-box out"><span>Finalized Output</span><b>High-Intent Dialogue</b></div>
-          </div>
-        </article>
-
-        <article class="flw-card">
-          <div class="flw-chead"><span class="flw-node" aria-hidden="true">03</span><h3 class="flw-title">AI Prioritization</h3></div>
-          <div class="flw-insight">
-            <span class="flw-klabel">Strategic Insight</span>
-            <p class="flw-desc">Your counselors should spend time closing, not sorting. We apply behavioral scoring models that analyze thousands of data points to predict who is most likely to enroll. This focuses your best human assets where they matter most.</p>
-          </div>
-          <div class="flw-io">
-            <div class="flw-box in"><span>Primary Input Data</span><b>Interaction History</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
-            <div class="flw-box ai"><span>AI Processing Engine</span><b>Predictive Scoring Models</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
-            <div class="flw-box out"><span>Finalized Output</span><b>Weighted Priority Queue</b></div>
-          </div>
-        </article>
-
-        <article class="flw-card">
-          <div class="flw-chead"><span class="flw-node" aria-hidden="true">04</span><h3 class="flw-title">Funnel Analytics</h3></div>
-          <div class="flw-insight">
-            <span class="flw-klabel">Strategic Insight</span>
-            <p class="flw-desc">Decision-making requires clarity. We provide predictive forecasting on your pipeline health. Identify bottlenecks before they impact your enrollment targets and optimize your recruitment spend with verifiable ROI data.</p>
-          </div>
-          <div class="flw-io">
-            <div class="flw-box in"><span>Primary Input Data</span><b>Pipeline/Conversion Logs</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
-            <div class="flw-box ai"><span>AI Processing Engine</span><b>Predictive ROI Analytics</b></div>
-            <span class="flw-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"/></svg></span>
-            <div class="flw-box out"><span>Finalized Output</span><b>Actionable Strategic Roadmap</b></div>
-          </div>
-        </article>
-
+  <!-- LI Step 1 -->
+  <div class=&quot;li-row li-step&quot; id=&quot;li-1&quot;>
+    <div class=&quot;li-icon-col&quot;>
+      <div class=&quot;li-ring orange&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <path d=&quot;M22 4H2l8 9v6l4 2v-8z&quot;></path>
+          <circle cx=&quot;8&quot; cy=&quot;2&quot; r=&quot;0.5&quot; fill=&quot;currentColor&quot;></circle>
+          <circle cx=&quot;12&quot; cy=&quot;1.5&quot; r=&quot;0.5&quot; fill=&quot;currentColor&quot;></circle>
+          <circle cx=&quot;16&quot; cy=&quot;2&quot; r=&quot;0.5&quot; fill=&quot;currentColor&quot;></circle>
+        </svg>
       </div>
-      <div class="flw-dots" aria-hidden="true">
-        <span class="flw-dot on"></span><span class="flw-dot"></span><span class="flw-dot"></span><span class="flw-dot"></span>
+      <div class=&quot;li-line-seg&quot;></div>
+      <div class=&quot;li-chevron&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; style=&quot;width:14px;height:14px;&quot;>
+          <polyline points=&quot;6 9 12 15 18 9&quot;></polyline>
+        </svg>
+      </div>
+      <div class=&quot;li-line-seg grow&quot;></div>
+    </div>
+    <div class=&quot;li-panel orange-bg&quot;>
+      <div class=&quot;li-main&quot;>
+        <div class=&quot;li-panel-header&quot;>
+          <div class=&quot;li-icon-chip orange&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <path d=&quot;M9 18h6&quot;></path>
+              <path d=&quot;M10 22h4&quot;></path>
+              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
+            </svg>
+          </div>
+          <span class=&quot;li-label orange-text&quot;>Strategic insight</span>
+        </div>
+        <hr class=&quot;li-divider&quot;>
+        <p class=&quot;li-body&quot;>We centralize your entire ecosystem. By normalizing data schemas across 50+ channels, we eliminate data silos. This ensures every prospect, regardless of origin, is immediately formatted, deduplicated, and ready for action.</p>
       </div>
     </div>
   </div>
-  <p class="flw-hint" aria-hidden="true">Swipe to explore &rarr;</p>
+
+  <!-- LI Step 2 -->
+  <div class=&quot;li-row li-step&quot; id=&quot;li-2&quot;>
+    <div class=&quot;li-icon-col&quot;>
+      <div class=&quot;li-ring blue&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <circle cx=&quot;6&quot; cy=&quot;6&quot; r=&quot;2&quot;></circle>
+          <circle cx=&quot;18&quot; cy=&quot;6&quot; r=&quot;2&quot;></circle>
+          <circle cx=&quot;6&quot; cy=&quot;18&quot; r=&quot;2&quot;></circle>
+          <circle cx=&quot;18&quot; cy=&quot;18&quot; r=&quot;2&quot;></circle>
+          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;></circle>
+          <line x1=&quot;7.4&quot; y1=&quot;7.4&quot; x2=&quot;10&quot; y2=&quot;10&quot;></line>
+          <line x1=&quot;16.6&quot; y1=&quot;7.4&quot; x2=&quot;14&quot; y2=&quot;10&quot;></line>
+          <line x1=&quot;7.4&quot; y1=&quot;16.6&quot; x2=&quot;10&quot; y2=&quot;14&quot;></line>
+          <line x1=&quot;16.6&quot; y1=&quot;16.6&quot; x2=&quot;14&quot; y2=&quot;14&quot;></line>
+        </svg>
+      </div>
+      <div class=&quot;li-line-seg&quot;></div>
+      <div class=&quot;li-chevron&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; style=&quot;width:14px;height:14px;&quot;>
+          <polyline points=&quot;6 9 12 15 18 9&quot;></polyline>
+        </svg>
+      </div>
+      <div class=&quot;li-line-seg grow&quot;></div>
+    </div>
+    <div class=&quot;li-panel blue-bg&quot;>
+      <div class=&quot;li-main&quot;>
+        <div class=&quot;li-panel-header&quot;>
+          <div class=&quot;li-icon-chip blue&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <ellipse cx=&quot;12&quot; cy=&quot;5&quot; rx=&quot;8&quot; ry=&quot;3&quot;></ellipse>
+              <path d=&quot;M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5&quot;></path>
+              <path d=&quot;M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6&quot;></path>
+            </svg>
+          </div>
+          <span class=&quot;li-label blue-text&quot;>Primary input data</span>
+        </div>
+        <hr class=&quot;li-divider&quot;>
+        <p class=&quot;li-subtitle&quot;>Omni-channel API gateways</p>
+        <p class=&quot;li-body&quot;>Leads captured from 50+ sources through unified API connections.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LI Step 3 -->
+  <div class=&quot;li-row li-step&quot; id=&quot;li-3&quot;>
+    <div class=&quot;li-icon-col&quot;>
+      <div class=&quot;li-ring orange&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <rect x=&quot;4&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;16&quot; rx=&quot;2&quot;></rect>
+          <text x=&quot;12&quot; y=&quot;14.5&quot; text-anchor=&quot;middle&quot; font-size=&quot;7&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot; font-weight=&quot;700&quot;>AI</text>
+          <line x1=&quot;9&quot; y1=&quot;1&quot; x2=&quot;9&quot; y2=&quot;4&quot;></line>
+          <line x1=&quot;15&quot; y1=&quot;1&quot; x2=&quot;15&quot; y2=&quot;4&quot;></line>
+          <line x1=&quot;9&quot; y1=&quot;20&quot; x2=&quot;9&quot; y2=&quot;23&quot;></line>
+          <line x1=&quot;15&quot; y1=&quot;20&quot; x2=&quot;15&quot; y2=&quot;23&quot;></line>
+          <line x1=&quot;1&quot; y1=&quot;9&quot; x2=&quot;4&quot; y2=&quot;9&quot;></line>
+          <line x1=&quot;20&quot; y1=&quot;9&quot; x2=&quot;23&quot; y2=&quot;9&quot;></line>
+          <line x1=&quot;1&quot; y1=&quot;15&quot; x2=&quot;4&quot; y2=&quot;15&quot;></line>
+          <line x1=&quot;20&quot; y1=&quot;15&quot; x2=&quot;23&quot; y2=&quot;15&quot;></line>
+        </svg>
+      </div>
+      <div class=&quot;li-line-seg&quot;></div>
+      <div class=&quot;li-chevron&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; style=&quot;width:14px;height:14px;&quot;>
+          <polyline points=&quot;6 9 12 15 18 9&quot;></polyline>
+        </svg>
+      </div>
+      <div class=&quot;li-line-seg grow&quot;></div>
+    </div>
+    <div class=&quot;li-panel orange-bg&quot;>
+      <div class=&quot;li-main&quot;>
+        <div class=&quot;li-panel-header&quot;>
+          <div class=&quot;li-icon-chip orange&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <rect x=&quot;4&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;16&quot; rx=&quot;2&quot;></rect>
+              <text x=&quot;12&quot; y=&quot;14.5&quot; text-anchor=&quot;middle&quot; font-size=&quot;7&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot; font-weight=&quot;700&quot;>AI</text>
+            </svg>
+          </div>
+          <span class=&quot;li-label orange-text&quot;>AI processing engine</span>
+        </div>
+        <hr class=&quot;li-divider&quot;>
+        <p class=&quot;li-subtitle&quot;>Data normalization &amp; deduplication</p>
+        <p class=&quot;li-body&quot;>Our AI engine cleans, standardizes, and deduplicates data to ensure accuracy and eliminate redundancies.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LI Step 4 -->
+  <div class=&quot;li-row li-step&quot; id=&quot;li-4&quot;>
+    <div class=&quot;li-icon-col&quot;>
+      <div class=&quot;li-ring green&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <path d=&quot;M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z&quot;></path>
+          <polyline points=&quot;9 12 11 14 15 10&quot;></polyline>
+        </svg>
+      </div>
+    </div>
+    <div class=&quot;li-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
+      <div class=&quot;li-main&quot;>
+        <div class=&quot;li-panel-header&quot;>
+          <div class=&quot;li-icon-chip green&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <polyline points=&quot;20 6 9 17 4 12&quot;></polyline>
+            </svg>
+          </div>
+          <span class=&quot;li-label green-text&quot;>Finalized output</span>
+        </div>
+        <hr class=&quot;li-divider&quot;>
+        <p class=&quot;li-subtitle&quot;>Verified prospect record</p>
+        <p class=&quot;li-body&quot;>A clean, enriched, and verified lead record &mdash; ready for engagement.</p>
+      </div>
+      <div class=&quot;li-deco&quot;>
+        <div class=&quot;li-deco-ring&quot;></div>
+        <div class=&quot;li-deco-circle&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;></path>
+            <circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;></circle>
+          </svg>
+          <div class=&quot;li-deco-badge&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <polyline points=&quot;20 6 9 17 4 12&quot;></polyline>
+            </svg>
+          </div>
+        </div>
+        <span class=&quot;li-sparkle&quot; style=&quot;top:-4px; left:-8px;&quot;>&#10022;</span>
+        <span class=&quot;li-sparkle&quot; style=&quot;bottom:-6px; left:-4px; font-size:9px;&quot;>&#10022;</span>
+        <span class=&quot;li-sparkle&quot; style=&quot;top:8px; right:-10px; font-size:9px;&quot;>&#10022;</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+<div class=&quot;scroll-panel&quot;>
+<div class=&quot;se-wrapper&quot;>
+
+  <div class=&quot;se-header&quot;>
+    <div class=&quot;se-badge&quot;>02</div>
+    <div class=&quot;se-title&quot;>
+      <h1>Smart engagement</h1>
+      <p>Right message. Right channel. Right time. Every time.</p>
+    </div>
+  </div>
+
+  <!-- SE Step 1 -->
+  <div class=&quot;se-row se-step&quot; id=&quot;se-1&quot;>
+    <div class=&quot;se-icon-col&quot;>
+      <div class=&quot;se-ring orange&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;></circle>
+          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;5&quot;></circle>
+          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;1&quot;></circle>
+        </svg>
+      </div>
+      <div class=&quot;se-connector&quot;></div>
+    </div>
+    <div class=&quot;se-panel orange-bg&quot;>
+      <div class=&quot;se-main&quot;>
+        <div class=&quot;se-panel-header&quot;>
+          <div class=&quot;se-icon-chip orange&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <path d=&quot;M9 18h6&quot;></path>
+              <path d=&quot;M10 22h4&quot;></path>
+              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
+            </svg>
+          </div>
+          <span class=&quot;se-label orange-text&quot;>Strategic insight</span>
+        </div>
+        <hr class=&quot;se-divider&quot;>
+        <p>Generic outreach is a cost, not an asset. Our system analyzes user behavior to trigger context-aware communication. Whether via WhatsApp, SMS, or Email, the message aligns perfectly with the prospect's current intent.</p>
+      </div>
+      <div class=&quot;se-side&quot;>
+        <div class=&quot;se-side-icon blue-fill&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;></path>
+            <circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;></circle>
+            <path d=&quot;M23 21v-2a4 4 0 0 0-3-3.87&quot;></path>
+            <path d=&quot;M16 3.13a4 4 0 0 1 0 7.75&quot;></path>
+          </svg>
+        </div>
+        <div>
+          <p class=&quot;se-side-label&quot;>Primary input data</p>
+          <p class=&quot;se-side-value&quot;>User behavior signals</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SE Step 2 -->
+  <div class=&quot;se-row se-step&quot; id=&quot;se-2&quot;>
+    <div class=&quot;se-icon-col&quot;>
+      <div class=&quot;se-ring blue&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <path d=&quot;M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-2 2.8 3 3 0 0 0 2 2.8V15a3 3 0 0 0 3 3&quot;></path>
+          <path d=&quot;M15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 2 2.8 3 3 0 0 1-2 2.8V15a3 3 0 0 1-3 3&quot;></path>
+          <path d=&quot;M9 4v14&quot;></path>
+          <path d=&quot;M15 4v14&quot;></path>
+          <rect x=&quot;10.5&quot; y=&quot;10&quot; width=&quot;3&quot; height=&quot;3&quot;></rect>
+        </svg>
+      </div>
+      <div class=&quot;se-connector&quot;></div>
+    </div>
+    <div class=&quot;se-panel blue-bg&quot;>
+      <div class=&quot;se-main&quot;>
+        <div class=&quot;se-panel-header&quot;>
+          <div class=&quot;se-icon-chip blue&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;></circle>
+              <path d=&quot;M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z&quot;></path>
+            </svg>
+          </div>
+          <span class=&quot;se-label blue-text&quot;>AI processing engine</span>
+        </div>
+        <hr class=&quot;se-divider&quot;>
+        <p>Our AI engine interprets behavioral patterns, intent signals, and engagement history to determine the optimal message, channel, and timing for each prospect.</p>
+      </div>
+      <div class=&quot;se-side stack&quot;>
+        <div style=&quot;display:flex;align-items:center;gap:10px;width:100%;&quot;>
+          <div class=&quot;se-side-icon blue-fill&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <rect x=&quot;4&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;16&quot; rx=&quot;2&quot;></rect>
+              <rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;6&quot; height=&quot;6&quot;></rect>
+            </svg>
+          </div>
+          <p class=&quot;se-side-value&quot; style=&quot;margin:0;&quot;>AI processing engine</p>
+        </div>
+        <p class=&quot;se-side-sub&quot;>Adaptive engagement logic</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SE Step 3 -->
+  <div class=&quot;se-row se-step&quot; id=&quot;se-3&quot;>
+    <div class=&quot;se-icon-col&quot;>
+      <div class=&quot;se-ring orange&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <path d=&quot;M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z&quot;></path>
+        </svg>
+      </div>
+      <div class=&quot;se-connector&quot;></div>
+    </div>
+    <div class=&quot;se-panel orange-bg&quot;>
+      <div class=&quot;se-main&quot;>
+        <div class=&quot;se-panel-header&quot;>
+          <div class=&quot;se-icon-chip orange&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <line x1=&quot;22&quot; y1=&quot;2&quot; x2=&quot;11&quot; y2=&quot;13&quot;></line>
+              <polygon points=&quot;22 2 15 22 11 13 2 9 22 2&quot;></polygon>
+            </svg>
+          </div>
+          <span class=&quot;se-label orange-text&quot;>Engagement in action</span>
+        </div>
+        <hr class=&quot;se-divider&quot;>
+        <p>The right message is delivered through the right channel automatically&mdash;ensuring timely, relevant, and personalized engagement at scale.</p>
+      </div>
+      <div class=&quot;se-side&quot; style=&quot;flex-direction:column;&quot;>
+        <div class=&quot;se-channels&quot;>
+          <div class=&quot;se-channel-icons&quot;>
+            <span style=&quot;background:#25d366;&quot;>
+              <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;#fff&quot;><path d=&quot;M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20z&quot;></path></svg>
+            </span>
+            <span style=&quot;background:#2196f3;&quot;>
+              <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;#fff&quot;><path d=&quot;M4 4h16v12H7l-3 3V4z&quot;></path></svg>
+            </span>
+            <span style=&quot;background:#7c3aed;&quot;>
+              <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;18&quot; height=&quot;14&quot; rx=&quot;2&quot;></rect><path d=&quot;M3 7l9 6 9-6&quot;></path></svg>
+            </span>
+          </div>
+          <div class=&quot;se-channel-names&quot;>WhatsApp &middot; SMS &middot; Email</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SE Step 4 -->
+  <div class=&quot;se-row se-step&quot; id=&quot;se-4&quot;>
+    <div class=&quot;se-icon-col&quot;>
+      <div class=&quot;se-ring green&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <path d=&quot;M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z&quot;></path>
+          <polyline points=&quot;9 12 11 14 15 10&quot;></polyline>
+        </svg>
+      </div>
+    </div>
+    <div class=&quot;se-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
+      <div class=&quot;se-main&quot;>
+        <div class=&quot;se-panel-header&quot;>
+          <div class=&quot;se-icon-chip green&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <polyline points=&quot;20 6 9 17 4 12&quot;></polyline>
+            </svg>
+          </div>
+          <span class=&quot;se-label green-text&quot;>Finalized output</span>
+        </div>
+        <hr class=&quot;se-divider&quot;>
+        <p>Meaningful, high-intent conversations that drive deeper engagement and higher conversion.</p>
+      </div>
+      <div class=&quot;se-side&quot;>
+        <div class=&quot;se-side-icon green-fill&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;></path>
+            <circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;></circle>
+          </svg>
+        </div>
+        <p class=&quot;se-side-value&quot;>High-intent dialogue</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+<div class=&quot;scroll-panel&quot;>
+<div class=&quot;p3-wrapper&quot;>
+
+  <div class=&quot;p3-header&quot;>
+    <div class=&quot;p3-badge&quot;>03</div>
+    <div class=&quot;p3-title&quot;>
+      <h1>AI prioritization</h1>
+      <p>Focus on the right prospects. At the right time.</p>
+    </div>
+  </div>
+
+  <!-- P3 Step 1 -->
+  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-1&quot;>
+    <div class=&quot;p3-icon-col&quot;>
+      <div class=&quot;p3-ring orange&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;></circle>
+          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;5&quot;></circle>
+          <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;1&quot;></circle>
+        </svg>
+      </div>
+      <div class=&quot;p3-connector&quot;></div>
+    </div>
+    <div class=&quot;p3-panel orange-bg&quot;>
+      <div class=&quot;p3-main&quot;>
+        <div class=&quot;p3-panel-header&quot;>
+          <div class=&quot;p3-icon-chip orange&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <path d=&quot;M9 18h6&quot;></path>
+              <path d=&quot;M10 22h4&quot;></path>
+              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
+            </svg>
+          </div>
+          <span class=&quot;p3-label orange-text&quot;>Strategic insight</span>
+        </div>
+        <hr class=&quot;p3-divider&quot;>
+        <p>Your counselors should spend time closing, not sorting. We apply behavioral scoring models that analyze thousands of data points to predict who is most likely to enroll. This focuses your best human assets where they matter most.</p>
+      </div>
+      <div class=&quot;p3-side&quot;>
+        <div class=&quot;p3-side-icon orange-fill&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <line x1=&quot;18&quot; y1=&quot;20&quot; x2=&quot;18&quot; y2=&quot;10&quot;></line>
+            <line x1=&quot;12&quot; y1=&quot;20&quot; x2=&quot;12&quot; y2=&quot;4&quot;></line>
+            <line x1=&quot;6&quot; y1=&quot;20&quot; x2=&quot;6&quot; y2=&quot;14&quot;></line>
+          </svg>
+        </div>
+        <div>
+          <p class=&quot;p3-side-eyebrow orange-text&quot;>Why it matters</p>
+          <p class=&quot;p3-side-value&quot;>Spend less time sorting, more time closing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3 Step 2 -->
+  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-2&quot;>
+    <div class=&quot;p3-icon-col&quot;>
+      <div class=&quot;p3-ring blue&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h9&quot;></path>
+          <polyline points=&quot;14 2 14 8 20 8&quot;></polyline>
+          <circle cx=&quot;17&quot; cy=&quot;17&quot; r=&quot;4&quot;></circle>
+          <polyline points=&quot;17 15.5 17 17 18.5 17.5&quot;></polyline>
+        </svg>
+      </div>
+      <div class=&quot;p3-connector&quot;></div>
+    </div>
+    <div class=&quot;p3-panel blue-bg&quot;>
+      <div class=&quot;p3-main&quot;>
+        <div class=&quot;p3-panel-header&quot;>
+          <div class=&quot;p3-icon-chip blue&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <ellipse cx=&quot;12&quot; cy=&quot;5&quot; rx=&quot;8&quot; ry=&quot;3&quot;></ellipse>
+              <path d=&quot;M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5&quot;></path>
+              <path d=&quot;M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6&quot;></path>
+            </svg>
+          </div>
+          <span class=&quot;p3-label blue-text&quot;>Primary input data</span>
+        </div>
+        <hr class=&quot;p3-divider&quot;>
+        <p>We analyze every touchpoint and engagement signal &mdash; calls, emails, messages, form fills, website behavior, and more.</p>
+      </div>
+      <div class=&quot;p3-side&quot;>
+        <div class=&quot;p3-side-icon blue-fill&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;></path>
+            <circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;></circle>
+            <path d=&quot;M23 21v-2a4 4 0 0 0-3-3.87&quot;></path>
+            <path d=&quot;M16 3.13a4 4 0 0 1 0 7.75&quot;></path>
+          </svg>
+        </div>
+        <div>
+          <p class=&quot;p3-side-eyebrow blue-text&quot;>Data source</p>
+          <p class=&quot;p3-side-value&quot;>Interaction history</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3 Step 3 -->
+  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-3&quot;>
+    <div class=&quot;p3-icon-col&quot;>
+      <div class=&quot;p3-ring orange&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <path d=&quot;M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-2 2.8 3 3 0 0 0 2 2.8V15a3 3 0 0 0 3 3&quot;></path>
+          <path d=&quot;M15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 2 2.8 3 3 0 0 1-2 2.8V15a3 3 0 0 1-3 3&quot;></path>
+          <path d=&quot;M9 4v14&quot;></path>
+          <path d=&quot;M15 4v14&quot;></path>
+          <rect x=&quot;10.5&quot; y=&quot;10&quot; width=&quot;3&quot; height=&quot;3&quot;></rect>
+        </svg>
+      </div>
+      <div class=&quot;p3-connector&quot;></div>
+    </div>
+    <div class=&quot;p3-panel orange-bg&quot;>
+      <div class=&quot;p3-main&quot;>
+        <div class=&quot;p3-panel-header&quot;>
+          <div class=&quot;p3-icon-chip orange&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;></circle>
+              <path d=&quot;M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z&quot;></path>
+            </svg>
+          </div>
+          <span class=&quot;p3-label orange-text&quot;>AI processing engine</span>
+        </div>
+        <hr class=&quot;p3-divider&quot;>
+        <p>Our predictive scoring models evaluate intent, engagement, and fitment to estimate enrollment probability for each prospect.</p>
+      </div>
+      <div class=&quot;p3-side&quot;>
+        <div class=&quot;p3-side-icon orange-fill&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <rect x=&quot;5&quot; y=&quot;7&quot; width=&quot;14&quot; height=&quot;12&quot; rx=&quot;2&quot;></rect>
+            <circle cx=&quot;9&quot; cy=&quot;12&quot; r=&quot;1&quot;></circle>
+            <circle cx=&quot;15&quot; cy=&quot;12&quot; r=&quot;1&quot;></circle>
+            <path d=&quot;M9 3v4&quot;></path>
+            <path d=&quot;M15 3v4&quot;></path>
+          </svg>
+        </div>
+        <div>
+          <p class=&quot;p3-side-eyebrow orange-text&quot;>How it works</p>
+          <p class=&quot;p3-side-value&quot;>Machine learning models score and rank prospects.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3 Step 4 -->
+  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-4&quot;>
+    <div class=&quot;p3-icon-col&quot;>
+      <div class=&quot;p3-ring green&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+          <path d=&quot;M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z&quot;></path>
+          <polygon points=&quot;12 8 13 10.5 15.5 10.5 13.5 12 14.5 14.5 12 13 9.5 14.5 10.5 12 8.5 10.5 11 10.5&quot;></polygon>
+        </svg>
+      </div>
+    </div>
+    <div class=&quot;p3-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
+      <div class=&quot;p3-main&quot;>
+        <div class=&quot;p3-panel-header&quot;>
+          <div class=&quot;p3-icon-chip green&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <polyline points=&quot;20 6 9 17 4 12&quot;></polyline>
+            </svg>
+          </div>
+          <span class=&quot;p3-label green-text&quot;>Finalized output</span>
+        </div>
+        <hr class=&quot;p3-divider&quot;>
+        <p>Prospects are ranked by likelihood to enrol, so your team can focus on high-potential opportunities first.</p>
+      </div>
+      <div class=&quot;p3-side&quot;>
+        <div class=&quot;p3-side-icon green-fill&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <path d=&quot;M8 21h8&quot;></path>
+            <path d=&quot;M12 17v4&quot;></path>
+            <path d=&quot;M7 4h10v5a5 5 0 0 1-10 0V4z&quot;></path>
+            <path d=&quot;M7 6H4a2 2 0 0 0 2 4&quot;></path>
+            <path d=&quot;M17 6h3a2 2 0 0 1-2 4&quot;></path>
+          </svg>
+        </div>
+        <div>
+          <p class=&quot;p3-side-eyebrow green-text&quot;>Output</p>
+          <p class=&quot;p3-side-value&quot;>Weighted priority queue</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+<div class=&quot;scroll-panel&quot;>
+<div class=&quot;f4-wrapper&quot;>
+
+  <div class=&quot;f4-header&quot;>
+    <div class=&quot;f4-badge&quot;>04</div>
+    <div class=&quot;f4-title&quot;>
+      <h1>Funnel analytics</h1>
+      <p>See what works. Fix what doesn't. Maximize every opportunity.</p>
+    </div>
+  </div>
+
+  <!-- F4 Step 1 -->
+  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-1&quot;>
+    <div class=&quot;f4-icon-col&quot;>
+      <div class=&quot;f4-ring-wrap&quot;>
+        <span class=&quot;f4-num orange&quot;>01</span>
+        <div class=&quot;f4-ring orange&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <line x1=&quot;18&quot; y1=&quot;20&quot; x2=&quot;18&quot; y2=&quot;10&quot;></line>
+            <line x1=&quot;12&quot; y1=&quot;20&quot; x2=&quot;12&quot; y2=&quot;4&quot;></line>
+            <line x1=&quot;6&quot; y1=&quot;20&quot; x2=&quot;6&quot; y2=&quot;14&quot;></line>
+            <polyline points=&quot;3 8 9 3 13 6 21 2&quot;></polyline>
+          </svg>
+        </div>
+      </div>
+      <div class=&quot;f4-connector&quot;></div>
+    </div>
+    <div class=&quot;f4-panel orange-bg&quot;>
+      <div class=&quot;f4-main&quot;>
+        <div class=&quot;f4-panel-header&quot;>
+          <div class=&quot;f4-icon-chip orange&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <path d=&quot;M9 18h6&quot;></path>
+              <path d=&quot;M10 22h4&quot;></path>
+              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
+            </svg>
+          </div>
+          <span class=&quot;f4-label orange-text&quot;>Strategic insight</span>
+        </div>
+        <hr class=&quot;f4-divider&quot;>
+        <p>Decision-making requires clarity. We provide predictive forecasting on your pipeline health. Identify bottlenecks before they impact your enrollment targets and optimize your recruitment spend with verifiable ROI data.</p>
+      </div>
+      <div class=&quot;f4-side&quot;>
+        <div class=&quot;f4-side-icon orange-fill&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <line x1=&quot;18&quot; y1=&quot;20&quot; x2=&quot;18&quot; y2=&quot;10&quot;></line>
+            <line x1=&quot;12&quot; y1=&quot;20&quot; x2=&quot;12&quot; y2=&quot;4&quot;></line>
+            <line x1=&quot;6&quot; y1=&quot;20&quot; x2=&quot;6&quot; y2=&quot;14&quot;></line>
+          </svg>
+        </div>
+        <div>
+          <p class=&quot;f4-side-eyebrow orange-text&quot;>Focus</p>
+          <p class=&quot;f4-side-value&quot;>Predict. Prevent. Perform.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- F4 Step 2 -->
+  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-2&quot;>
+    <div class=&quot;f4-icon-col&quot;>
+      <div class=&quot;f4-ring-wrap&quot;>
+        <span class=&quot;f4-num blue&quot;>02</span>
+        <div class=&quot;f4-ring blue&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;12&quot; height=&quot;16&quot; rx=&quot;2&quot;></rect>
+            <path d=&quot;M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1&quot;></path>
+            <line x1=&quot;9&quot; y1=&quot;10&quot; x2=&quot;15&quot; y2=&quot;10&quot;></line>
+            <line x1=&quot;9&quot; y1=&quot;14&quot; x2=&quot;13&quot; y2=&quot;14&quot;></line>
+          </svg>
+        </div>
+      </div>
+      <div class=&quot;f4-connector&quot;></div>
+    </div>
+    <div class=&quot;f4-panel blue-bg&quot;>
+      <div class=&quot;f4-main&quot;>
+        <div class=&quot;f4-panel-header&quot;>
+          <div class=&quot;f4-icon-chip blue&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <ellipse cx=&quot;12&quot; cy=&quot;5&quot; rx=&quot;8&quot; ry=&quot;3&quot;></ellipse>
+              <path d=&quot;M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5&quot;></path>
+              <path d=&quot;M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6&quot;></path>
+            </svg>
+          </div>
+          <span class=&quot;f4-label blue-text&quot;>Primary input data</span>
+        </div>
+        <hr class=&quot;f4-divider&quot;>
+        <p>We consolidate data from every stage of your funnel &mdash; leads, activities, engagements, conversions, and outcomes &mdash; for complete visibility.</p>
+      </div>
+      <div class=&quot;f4-side&quot;>
+        <div class=&quot;f4-side-icon blue-fill&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;></path>
+            <circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;></circle>
+            <path d=&quot;M23 21v-2a4 4 0 0 0-3-3.87&quot;></path>
+            <path d=&quot;M16 3.13a4 4 0 0 1 0 7.75&quot;></path>
+          </svg>
+        </div>
+        <div>
+          <p class=&quot;f4-side-eyebrow blue-text&quot;>Data source</p>
+          <p class=&quot;f4-side-value&quot;>Pipeline/conversion logs</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- F4 Step 3 -->
+  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-3&quot;>
+    <div class=&quot;f4-icon-col&quot;>
+      <div class=&quot;f4-ring-wrap&quot;>
+        <span class=&quot;f4-num orange&quot;>03</span>
+        <div class=&quot;f4-ring orange&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <rect x=&quot;6&quot; y=&quot;6&quot; width=&quot;12&quot; height=&quot;12&quot; rx=&quot;2&quot;></rect>
+            <text x=&quot;12&quot; y=&quot;14&quot; text-anchor=&quot;middle&quot; font-size=&quot;6&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot; font-weight=&quot;700&quot;>AI</text>
+            <line x1=&quot;9&quot; y1=&quot;2&quot; x2=&quot;9&quot; y2=&quot;6&quot;></line>
+            <line x1=&quot;15&quot; y1=&quot;2&quot; x2=&quot;15&quot; y2=&quot;6&quot;></line>
+            <line x1=&quot;9&quot; y1=&quot;18&quot; x2=&quot;9&quot; y2=&quot;22&quot;></line>
+            <line x1=&quot;15&quot; y1=&quot;18&quot; x2=&quot;15&quot; y2=&quot;22&quot;></line>
+            <line x1=&quot;2&quot; y1=&quot;9&quot; x2=&quot;6&quot; y2=&quot;9&quot;></line>
+            <line x1=&quot;18&quot; y1=&quot;9&quot; x2=&quot;22&quot; y2=&quot;9&quot;></line>
+            <line x1=&quot;2&quot; y1=&quot;15&quot; x2=&quot;6&quot; y2=&quot;15&quot;></line>
+            <line x1=&quot;18&quot; y1=&quot;15&quot; x2=&quot;22&quot; y2=&quot;15&quot;></line>
+          </svg>
+        </div>
+      </div>
+      <div class=&quot;f4-connector&quot;></div>
+    </div>
+    <div class=&quot;f4-panel orange-bg&quot;>
+      <div class=&quot;f4-main&quot;>
+        <div class=&quot;f4-panel-header&quot;>
+          <div class=&quot;f4-icon-chip orange&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <rect x=&quot;4&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;16&quot; rx=&quot;2&quot;></rect>
+              <text x=&quot;12&quot; y=&quot;14.5&quot; text-anchor=&quot;middle&quot; font-size=&quot;7&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot; font-weight=&quot;700&quot;>AI</text>
+            </svg>
+          </div>
+          <span class=&quot;f4-label orange-text&quot;>AI processing engine</span>
+        </div>
+        <hr class=&quot;f4-divider&quot;>
+        <p>Our AI engine analyzes patterns, predicts outcomes, and calculates ROI across campaigns, channels, and stages of your funnel.</p>
+      </div>
+      <div class=&quot;f4-side&quot;>
+        <div class=&quot;f4-side-icon orange-fill&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;></circle>
+            <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;5&quot;></circle>
+            <circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;1&quot;></circle>
+          </svg>
+        </div>
+        <div>
+          <p class=&quot;f4-side-eyebrow orange-text&quot;>Analysis</p>
+          <p class=&quot;f4-side-value&quot;>Predictive ROI analytics</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- F4 Step 4 -->
+  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-4&quot;>
+    <div class=&quot;f4-icon-col&quot;>
+      <div class=&quot;f4-ring-wrap&quot;>
+        <span class=&quot;f4-num green&quot;>04</span>
+        <div class=&quot;f4-ring green&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <path d=&quot;M6 4v6&quot;></path>
+            <path d=&quot;M6 4l6 2-6 2&quot;></path>
+            <path d=&quot;M6 10c0 4-4 4-4 8&quot;></path>
+            <circle cx=&quot;3&quot; cy=&quot;19&quot; r=&quot;1.5&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot;></circle>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class=&quot;f4-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
+      <div class=&quot;f4-main&quot;>
+        <div class=&quot;f4-panel-header&quot;>
+          <div class=&quot;f4-icon-chip green&quot;>
+            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+              <polyline points=&quot;20 6 9 17 4 12&quot;></polyline>
+            </svg>
+          </div>
+          <span class=&quot;f4-label green-text&quot;>Finalized output</span>
+        </div>
+        <hr class=&quot;f4-divider&quot;>
+        <p>Get a clear, actionable roadmap with recommendations to improve performance, increase conversions, and achieve your enrollment goals.</p>
+      </div>
+      <div class=&quot;f4-side&quot;>
+        <div class=&quot;f4-side-icon green-fill&quot;>
+          <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
+            <path d=&quot;M6 4v6&quot;></path>
+            <path d=&quot;M6 4l6 2-6 2&quot;></path>
+            <path d=&quot;M6 10c0 4-4 4-4 8&quot;></path>
+            <circle cx=&quot;3&quot; cy=&quot;19&quot; r=&quot;1.5&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot;></circle>
+          </svg>
+        </div>
+        <div>
+          <p class=&quot;f4-side-eyebrow green-text&quot;>Output</p>
+          <p class=&quot;f4-side-value&quot;>Actionable strategic roadmap</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+</div>
+
+<button class=&quot;nav-arrow prev&quot; id=&quot;prevBtn&quot; aria-label=&quot;Previous section&quot;>
+  <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><polyline points=&quot;15 18 9 12 15 6&quot;></polyline></svg>
+</button>
+<button class=&quot;nav-arrow next&quot; id=&quot;nextBtn&quot; aria-label=&quot;Next section&quot;>
+  <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><polyline points=&quot;9 18 15 12 9 6&quot;></polyline></svg>
+</button>
+<div class=&quot;nav-dots&quot; id=&quot;navDots&quot;>
+  <button class=&quot;active&quot; data-i=&quot;0&quot; aria-label=&quot;Go to section 1&quot;></button>
+  <button data-i=&quot;1&quot; aria-label=&quot;Go to section 2&quot;></button>
+  <button data-i=&quot;2&quot; aria-label=&quot;Go to section 3&quot;></button>
+  <button data-i=&quot;3&quot; aria-label=&quot;Go to section 4&quot;></button>
+</div>
+
+<script>
+  var scrollContainer = document.getElementById(&quot;scrollContainer&quot;);
+  var dots = document.querySelectorAll(&quot;#navDots button&quot;);
+  var prevBtn = document.getElementById(&quot;prevBtn&quot;);
+  var nextBtn = document.getElementById(&quot;nextBtn&quot;);
+  var panelCount = 4;
+  var activeIndex = 0;
+  var isAnimating = false;
+
+  function updateUI() {
+    dots.forEach(function (d, idx) { d.classList.toggle(&quot;active&quot;, idx === activeIndex); });
+    prevBtn.disabled = activeIndex === 0;
+    nextBtn.disabled = activeIndex === panelCount - 1;
+  }
+
+  function goTo(i) {
+    i = Math.max(0, Math.min(panelCount - 1, i));
+    if (i === activeIndex && scrollContainer.scrollLeft > 0) {
+      // still snap in case of drift
+    }
+    activeIndex = i;
+    isAnimating = true;
+    scrollContainer.scrollTo({ left: i * scrollContainer.clientWidth, behavior: &quot;smooth&quot; });
+    updateUI();
+    window.clearTimeout(goTo._t);
+    goTo._t = window.setTimeout(function () { isAnimating = false; }, 650);
+  }
+
+  dots.forEach(function (d) {
+    d.addEventListener(&quot;click&quot;, function () { goTo(parseInt(d.dataset.i, 10)); });
+  });
+  prevBtn.addEventListener(&quot;click&quot;, function () { goTo(activeIndex - 1); });
+  nextBtn.addEventListener(&quot;click&quot;, function () { goTo(activeIndex + 1); });
+
+  // Keep activeIndex in sync if the user drags the scrollbar or swipes directly
+  scrollContainer.addEventListener(&quot;scroll&quot;, function () {
+    window.clearTimeout(scrollContainer._t);
+    scrollContainer._t = window.setTimeout(function () {
+      if (isAnimating) return;
+      activeIndex = Math.round(scrollContainer.scrollLeft / scrollContainer.clientWidth);
+      updateUI();
+    }, 100);
+  });
+
+  // Convert normal (vertical) mouse wheel / trackpad scrolling into a jump
+  // to the next/previous section, one section per gesture.
+  function handleWheel(e) {
+    e.preventDefault();
+    if (isAnimating) return;
+    var delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+    if (Math.abs(delta) < 2) return;
+    goTo(activeIndex + (delta > 0 ? 1 : -1));
+  }
+  scrollContainer.addEventListener(&quot;wheel&quot;, handleWheel, { passive: false });
+  document.addEventListener(&quot;wheel&quot;, handleWheel, { passive: false });
+
+  // Keyboard arrow support
+  document.addEventListener(&quot;keydown&quot;, function (e) {
+    if (e.key === &quot;ArrowRight&quot; || e.key === &quot;ArrowDown&quot;) goTo(activeIndex + 1);
+    if (e.key === &quot;ArrowLeft&quot; || e.key === &quot;ArrowUp&quot;) goTo(activeIndex - 1);
+  });
+
+  updateUI();
+</script>
+
+<script>
+  var panelGroups = [
+    [&quot;li-1&quot;, &quot;li-2&quot;, &quot;li-3&quot;, &quot;li-4&quot;],
+    [&quot;se-1&quot;, &quot;se-2&quot;, &quot;se-3&quot;, &quot;se-4&quot;],
+    [&quot;p3-1&quot;, &quot;p3-2&quot;, &quot;p3-3&quot;, &quot;p3-4&quot;],
+    [&quot;f4-1&quot;, &quot;f4-2&quot;, &quot;f4-3&quot;, &quot;f4-4&quot;]
+  ];
+  var played = [false, false, false, false];
+
+  function playGroup(idx) {
+    if (played[idx]) return;
+    played[idx] = true;
+    panelGroups[idx].forEach(function (id, i) {
+      setTimeout(function () {
+        var el = document.getElementById(id);
+        if (el) el.classList.add(&quot;animate&quot;);
+      }, i * 700 + 100);
+    });
+  }
+
+  // Play the first section immediately on load
+  playGroup(0);
+
+  // Play each subsequent section the moment its panel scrolls into view
+  var panels = document.querySelectorAll(&quot;.scroll-panel&quot;);
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var idx = Array.prototype.indexOf.call(panels, entry.target);
+        playGroup(idx);
+      }
+    });
+  }, { root: scrollContainer, threshold: 0.5 });
+  panels.forEach(function (p) { observer.observe(p); });
+</script>
+
+</body>
+</html>
+"></iframe>
 </section>
 <script>
 (function(){
