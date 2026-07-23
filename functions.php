@@ -8887,15 +8887,23 @@ add_action('save_post', function ($post_id) {
 function ee_layout_sides_css() {
     $id = get_the_ID();
     if (!$id) return;
+    /* !important throughout: the templates' own <style> blocks come later
+       in the document, so without it they would win on equal specificity
+       and the flip would silently do nothing. Also echoed again at
+       wp_footer so the rules land after every template style block. */
     $css = '';
     if (get_post_meta($id, '_ee_form_side', true) === 'left') {
-        $css .= '@media(min-width:1151px){.hero-layout{grid-template-columns:.9fr 1.1fr}.hero-layout>.hero-form-aside{order:-1}}';
+        $css .= '@media(min-width:1151px){.hero-layout{grid-template-columns:.9fr 1.1fr !important}.hero-layout>.hero-form-aside{order:-1 !important}}';
     }
     if (get_post_meta($id, '_ee_toc_side', true) === 'left') {
-        $css .= '@media(min-width:1201px){.toc-zone-wrapper{grid-template-columns:var(--toc-width) 1fr}.toc-zone-wrapper>.toc-column{order:0}}';
+        $css .= '@media(min-width:1201px){.toc-zone-wrapper{grid-template-columns:var(--toc-width) 1fr !important}.toc-zone-wrapper>.toc-column{order:0 !important}.toc-zone-wrapper>.toc-content-column{order:1 !important}}';
     }
     if (get_post_meta($id, '_ee_rail_side', true) === 'right') {
-        $css .= '.ee-float-nav{left:auto;right:18px}';
+        $css .= '@media(min-width:821px){.ee-float-nav{left:auto !important;right:18px !important}}';
     }
-    if ($css) echo '<style id="ee-layout-side">' . $css . '</style>';
+    if ($css === '') return;
+    echo '<style class="ee-layout-side">' . $css . '</style>';
+    add_action('wp_footer', function () use ($css) {
+        echo '<style class="ee-layout-side">' . $css . '</style>';
+    }, 99);
 }
