@@ -8667,6 +8667,8 @@ function ee_eep_listing_render($post) {
     foreach (ee_eep_badges() as $bg) echo '<option value="' . esc_attr($bg) . '">';
     echo '</datalist>';
     echo '<p class="ee-hint">Type anything — a new badge is saved to the suggestions automatically.</p>';
+    echo '<label class="ee-b">…or add a NEW badge</label><input type="text" name="_eep_new_badge" value="" placeholder="e.g. Early Access">';
+    echo '<p class="ee-hint">Type a name here and Update — the badge is created, added to the suggestions for every product, and set on this product.</p>';
     echo '<label class="ee-b">Icon</label><input type="text" name="_eep_icon" value="' . $v('_eep_icon') . '" placeholder="education-crm">';
     echo '<p class="ee-hint">Slug from uploads/2026/home-page (education-crm, mobile-crm, …) or a full https:// URL. Blank = generic icon.</p>';
     echo '<label class="ee-b">Card description (1 line)</label><textarea name="_eep_desc" rows="2">' . esc_textarea(get_post_meta($post->ID, '_eep_desc', true)) . '</textarea>';
@@ -8709,6 +8711,11 @@ add_action('save_post_product', function ($post_id) {
             update_post_meta($post_id, '_eep_cat', $slug);
         }
     }
+
+    /* explicit "add a NEW badge" field: set it on this product, then the
+       auto-collect below adds it to the suggestion list */
+    $new_badge = isset($_POST['_eep_new_badge']) ? sanitize_text_field(wp_unslash($_POST['_eep_new_badge'])) : '';
+    if ($new_badge !== '') update_post_meta($post_id, '_eep_badge', $new_badge);
 
     /* a badge typed by hand joins the suggestion list automatically */
     $badge = (string) get_post_meta($post_id, '_eep_badge', true);
