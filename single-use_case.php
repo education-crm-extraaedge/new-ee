@@ -1226,6 +1226,9 @@ if (!empty($eqn_items)) : ?>
 <style id="ee-hdr-autohide">
 #site-header{transition:transform .3s cubic-bezier(.4,0,.2,1)!important;will-change:transform}
 #site-header.ee-hdr-away{transform:translateY(-110%)!important;box-shadow:none!important}
+/* icon rail shows ONLY while the menu bar is hidden */
+.ee-float-nav{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:opacity .3s ease,visibility .3s ease}
+body.ee-hdr-hidden .ee-float-nav{opacity:1!important;visibility:visible!important;pointer-events:auto!important}
 </style>
 <script>
 /* Self-contained header auto-hide for this template — works even if the
@@ -1238,8 +1241,8 @@ if (!empty($eqn_items)) : ?>
     if (tick) return; tick = true;
     requestAnimationFrame(function(){
       var y = window.scrollY || 0;
-      if (y > lastY && y > 200) { h.classList.add('ee-hdr-away'); }
-      else { h.classList.remove('ee-hdr-away'); }
+      if (y > lastY && y > 200) { h.classList.add('ee-hdr-away'); document.body.classList.add('ee-hdr-hidden'); }
+      else { h.classList.remove('ee-hdr-away'); document.body.classList.remove('ee-hdr-hidden'); }
       lastY = y; tick = false;
     });
   }, { passive: true });
