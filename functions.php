@@ -2855,13 +2855,17 @@ function ee_get_product_menu_items($limit = 0) {
         while ($q->have_posts()) {
             $q->the_post();
             $pid       = get_the_ID();
+            if (get_post_meta($pid, '_eep_hide_menu', true) === '1') continue;
             $meta_desc = get_post_meta($pid, '_product_card_desc', true);
+            if (!$meta_desc) $meta_desc = get_post_meta($pid, '_eep_desc', true);
             $desc      = $meta_desc ?: (get_the_excerpt() ?: wp_trim_words(get_the_content(), 24, '…'));
+            $icon      = get_post_meta($pid, '_product_card_icon', true);
+            if (!$icon && function_exists('ee_eep_icon_url')) $icon = ee_eep_icon_url(get_post_meta($pid, '_eep_icon', true));
             $items[]   = array(
                 'title'  => get_the_title(),
                 'desc'   => $desc,
                 'url'    => str_replace(home_url(), '', get_permalink($pid)) ?: get_permalink($pid),
-                'icon'   => get_post_meta($pid, '_product_card_icon',   true),
+                'icon'   => $icon,
                 'column' => get_post_meta($pid, '_product_card_column', true) ?: 'featured',
                 'badge'  => get_post_meta($pid, '_product_card_badge',  true) ?: 'none',
                 'order'  => (int) get_post_meta($pid, '_product_card_order', true),
@@ -8642,6 +8646,8 @@ function ee_eep_listing_render($post) {
 
     echo '<p style="margin:6px 0"><label><input type="checkbox" name="_eep_show_home" value="1" ' . checked(get_post_meta($post->ID, '_eep_show_home', true), '1', false) . '> <strong>Show on Home page</strong><br><span class="ee-hint">"The admissions platform" section</span></label></p>';
     echo '<p style="margin:6px 0"><label><input type="checkbox" name="_eep_show_products" value="1" ' . checked(get_post_meta($post->ID, '_eep_show_products', true), '1', false) . '> <strong>Show on /products/ page</strong></label></p>';
+    $hide_menu = (get_post_meta($post->ID, '_eep_hide_menu', true) === '1');
+    echo '<p style="margin:6px 0"><label><input type="checkbox" name="_eep_show_menu" value="1" ' . checked(!$hide_menu, true, false) . '> <strong>Show in menu bar</strong><br><span class="ee-hint">Products mega menu in the header (on by default). Icon/column/desc come from the Product Card Settings box below; blank icon falls back to the Icon field here.</span></label></p>';
 
     echo '<label class="ee-b">Category</label><select name="_eep_cat">';
     foreach ($cats as $ck => $cl) {
@@ -8672,6 +8678,10 @@ add_action('save_post_product', function ($post_id) {
         if (!empty($_POST[$cb])) update_post_meta($post_id, $cb, '1');
         else delete_post_meta($post_id, $cb);
     }
+    /* inverse flag: menu visibility is ON by default, so only the
+       opt-out is stored — existing products keep showing untouched */
+    if (empty($_POST['_eep_show_menu'])) update_post_meta($post_id, '_eep_hide_menu', '1');
+    else delete_post_meta($post_id, '_eep_hide_menu');
     $texts = array('_eep_cat', '_eep_badge', '_eep_icon', '_eep_tags', '_eep_url', '_eep_order');
     foreach ($texts as $k) {
         $val = isset($_POST[$k]) ? sanitize_text_field(wp_unslash($_POST[$k])) : '';
