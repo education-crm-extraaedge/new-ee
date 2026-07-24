@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-crmnolazy -->
+<!-- ee-front-tpl v2026-07-24-navcarousel -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -751,18 +751,36 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         }
         .animate-glow { animation: pulseGlow 4s infinite ease-in-out; }
 
-        /* ---------- NEW: Core Capabilities nav is sticky on ALL screen sizes ---------- */
-        #navCard {
-            max-height: calc(100vh - 1rem);
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+        /* ---------- NEW: Core Capabilities nav shows one centered module at a
+           time - neighbors above/below blur out, matching progress through
+           the story cards on the right ---------- */
+        .nav-viewport {
+            position: relative;
+            height: 258px;
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%);
         }
-        @media (min-width: 1024px) {
-            #navCard { max-height: calc(100vh - 8rem); }
+        .nav-track {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            transition: transform .45s cubic-bezier(.4,0,.2,1);
+            will-change: transform;
         }
-        #navCard::-webkit-scrollbar { display: none; width: 0; }
+        .nav-track .feature-nav-item {
+            margin-bottom: 8px;
+            transition: filter .45s ease, opacity .45s ease, transform .3s ease, border-color .3s ease, background-color .3s ease;
+        }
+        .nav-track .feature-nav-item.nav-near {
+            filter: blur(1.5px);
+            opacity: .55;
+        }
+        .nav-track .feature-nav-item.nav-far {
+            filter: blur(3px);
+            opacity: .22;
+        }
 
         /* ---------- NEW: Scroll-reveal for story cards ---------- */
         .story-card {
@@ -865,11 +883,14 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
                 <!-- LEFT COLUMN: Sticky Navigation & Story Index (Desktop) -->
                 <div class=&quot;lg:col-span-5 sticky top-3 lg:top-28 z-20&quot;>
-                    <div id=&quot;navCard&quot; class=&quot;bg-white/95 backdrop-blur-md p-2 sm:p-4 rounded-2xl border border-slate-100 shadow-figma space-y-2&quot;>
+                    <div id=&quot;navCard&quot; class=&quot;bg-white/95 backdrop-blur-md p-2 sm:p-4 rounded-2xl border border-slate-100 shadow-figma&quot;>
 
                         <div class=&quot;px-4 py-3 border-b border-slate-100 mb-2&quot;>
                             <span class=&quot;text-sm sm:text-base font-bold text-brand-navy&quot;>Powerful Admission CRM with Simplicity</span>
                         </div>
+
+                        <div class=&quot;nav-viewport&quot;>
+                        <div class=&quot;nav-track&quot; id=&quot;navTrack&quot;>
 
                         <!-- Navigation Item 1: VidyaAI -->
                         <button onclick=&quot;scrollToSection('vidyaai')&quot; id=&quot;nav-vidyaai&quot; aria-current=&quot;true&quot; class=&quot;feature-nav-item active w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
@@ -975,6 +996,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
                             </div>
                             <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
                         </button>
+
+                        </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1236,8 +1260,32 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('.story-card');
-            const navItems = document.querySelectorAll('.feature-nav-item');
-            const navCard = document.getElementById('navCard');
+            const navItems = Array.from(document.querySelectorAll('.feature-nav-item'));
+            const navViewport = document.querySelector('.nav-viewport');
+            const navTrack = document.getElementById('navTrack');
+
+            // ---------- Center the active module in the nav window, blur its neighbors ----------
+            function setActiveNav(activeId) {
+                const activeIndex = navItems.findIndex(item => item.id === `nav-${activeId}`);
+                navItems.forEach((item, i) => {
+                    const isActive = i === activeIndex;
+                    item.classList.toggle('active', isActive);
+                    item.setAttribute('aria-current', isActive ? 'true' : 'false');
+                    const dist = activeIndex === -1 ? 99 : Math.abs(i - activeIndex);
+                    item.classList.toggle('nav-near', dist === 1);
+                    item.classList.toggle('nav-far', dist >= 2);
+                });
+                if (activeIndex > -1 && navViewport && navTrack) {
+                    const activeItem = navItems[activeIndex];
+                    const itemCenter = activeItem.offsetTop + activeItem.offsetHeight / 2;
+                    const viewportH = navViewport.clientHeight;
+                    const trackH = navTrack.scrollHeight;
+                    let y = viewportH / 2 - itemCenter;
+                    const minY = Math.min(0, viewportH - trackH); // clamp so we never reveal blank space past the first/last item
+                    y = Math.max(minY, Math.min(0, y));
+                    navTrack.style.transform = `translateY(${Math.round(y)}px)`;
+                }
+            }
 
             // ---------- Active state sync on the always-sticky Core Capabilities nav ----------
             const activeObserverOptions = {
@@ -1248,25 +1296,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
             const activeObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const activeId = entry.target.getAttribute('id');
-
-                        navItems.forEach(item => {
-                            const isActive = item.id === `nav-${activeId}`;
-                            item.classList.toggle('active', isActive);
-                            item.setAttribute('aria-current', isActive ? 'true' : 'false');
-                        });
-
-                        // keep the active nav row scrolled into view inside the sticky card
-                        // (relevant on short mobile screens where navCard itself scrolls)
-                        const activeNavItem = document.getElementById(`nav-${activeId}`);
-                        if (activeNavItem && navCard) {
-                            const cardRect = navCard.getBoundingClientRect();
-                            const itemRect = activeNavItem.getBoundingClientRect();
-                            const isOutOfView = itemRect.top < cardRect.top || itemRect.bottom > cardRect.bottom;
-                            if (isOutOfView) {
-                                activeNavItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                            }
-                        }
+                        setActiveNav(entry.target.getAttribute('id'));
                     }
                 });
             }, activeObserverOptions);
@@ -1281,15 +1311,19 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
                 if (!lastSection) return;
                 const atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 4);
                 if (!atBottom) return;
-                const activeId = lastSection.getAttribute('id');
-                navItems.forEach(item => {
-                    const isActive = item.id === `nav-${activeId}`;
-                    item.classList.toggle('active', isActive);
-                    item.setAttribute('aria-current', isActive ? 'true' : 'false');
-                });
+                setActiveNav(lastSection.getAttribute('id'));
             }
             window.addEventListener('scroll', checkBottom, { passive: true });
+
+            // initial centered position (VidyaAI Intelligence starts active)
+            setActiveNav('vidyaai');
             checkBottom();
+
+            // re-center on resize (item positions shift with responsive font sizes)
+            window.addEventListener('resize', () => {
+                const current = navItems.find(item => item.classList.contains('active'));
+                if (current) setActiveNav(current.id.replace('nav-', ''));
+            }, { passive: true });
 
             // ---------- Reveal-on-scroll for story cards ----------
             const revealObserver = new IntersectionObserver((entries) => {
