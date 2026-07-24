@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-crmasis -->
+<!-- ee-front-tpl v2026-07-24-nopillars -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -744,126 +744,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   .lp2-story{transition:none}
 }
 </style>
-<section id="feature-pillars" class="lp2-sec" aria-label="Admission intelligence journey">
-  <div class="lp2-head">
-    <p class="lp2-eyebrow">Built for admission teams</p>
-    <h2 class="lp2-h2">One enquiry. Four systems working as one.</h2>
-    <p class="lp2-sub">Scroll to follow a single lead from first click to a confirmed seat.</p>
-  </div>
-  <div class="lp2-wrap" id="lp2Wrap">
-    <div class="lp2-pin">
-      <div class="lp2-nav" id="lp2Nav">
-        <button type="button" class="lp2-navbtn on" data-i="0" style="--lp2-accent:#DE6E30"><b>01</b><span>Lead Ingestion</span></button>
-        <button type="button" class="lp2-navbtn" data-i="1" style="--lp2-accent:#2B62C9"><b>02</b><span>Smart Engagement</span></button>
-        <button type="button" class="lp2-navbtn" data-i="2" style="--lp2-accent:#7C5CFF"><b>03</b><span>AI Prioritization</span></button>
-        <button type="button" class="lp2-navbtn" data-i="3" style="--lp2-accent:#1AA35C"><b>04</b><span>Funnel Analytics</span></button>
-      </div>
-      <div class="lp2-progress"><div class="lp2-progress-fill" id="lp2Fill"></div></div>
-      <div class="lp2-stage" id="lp2Stage">
-
-        <div class="lp2-story on" data-i="0" style="--lp2-accent:#DE6E30">
-          <div class="lp2-story-head">
-            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/mail-flag.svg" alt=""></div>
-            <div class="lp2-story-title"><h3>Lead Ingestion</h3><p>Capture. Clean. Consolidate. Convert.</p></div>
-          </div>
-          <div class="lp2-steps">
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
-              <div class="lp2-step-txt"><b>Strategic insight</b><p>We centralize every channel into one clean, de-duplicated pipeline.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/network-nodes.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Primary input data</b><p>Omni-channel API gateways capture leads from every source.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/ee-icon-ai-chip-simple.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>AI processing engine</b><p>AI normalizes and deduplicates data automatically.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Finalized output</b><p>A clean, verified prospect record &mdash; ready for engagement.</p></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lp2-story" data-i="1" style="--lp2-accent:#2B62C9">
-          <div class="lp2-story-head">
-            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/users-team.svg" alt=""></div>
-            <div class="lp2-story-title"><h3>Smart Engagement</h3><p>Right message. Right channel. Right time.</p></div>
-          </div>
-          <div class="lp2-steps">
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
-              <div class="lp2-step-txt"><b>Strategic insight</b><p>Context-aware outreach replaces generic, one-size-fits-all messaging.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/settings-gear.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>AI processing engine</b><p>AI reads behavior and intent to choose the optimal channel.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/send-arrow.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Engagement in action</b><p>Messages go out automatically via WhatsApp, SMS or Email.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Finalized output</b><p>High-intent conversations that drive deeper engagement.</p></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lp2-story" data-i="2" style="--lp2-accent:#7C5CFF">
-          <div class="lp2-story-head">
-            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/trophy.svg" alt=""></div>
-            <div class="lp2-story-title"><h3>AI Prioritization</h3><p>Focus on the right prospects, at the right time.</p></div>
-          </div>
-          <div class="lp2-steps">
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
-              <div class="lp2-step-txt"><b>Strategic insight</b><p>Behavioral scoring focuses your team on who's likely to enrol.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/file-clock.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Primary input data</b><p>Every touchpoint &mdash; calls, emails, forms, site visits &mdash; is analyzed.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/settings-gear.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>AI processing engine</b><p>Predictive models rank prospects by enrollment probability.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Finalized output</b><p>A weighted priority queue for your counselors.</p></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lp2-story" data-i="3" style="--lp2-accent:#1AA35C">
-          <div class="lp2-story-head">
-            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/bar-chart-trend.svg" alt=""></div>
-            <div class="lp2-story-title"><h3>Funnel Analytics</h3><p>See what works. Fix what doesn't.</p></div>
-          </div>
-          <div class="lp2-steps">
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
-              <div class="lp2-step-txt"><b>Strategic insight</b><p>Predictive forecasting flags pipeline bottlenecks before they hurt targets.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/document-lines.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Primary input data</b><p>Leads, activities, conversions and outcomes &mdash; unified.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/ee-icon-ai-chip-simple.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>AI processing engine</b><p>AI calculates ROI across every campaign and channel.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/rocket.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Finalized output</b><p>An actionable roadmap to boost conversions.</p></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
 </section>
 
 <style>/* ===== AI Product-Led Experience: launch + full-screen overlay (all devices) ===== */
