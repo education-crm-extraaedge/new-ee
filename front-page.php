@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-navfix -->
+<!-- ee-front-tpl v2026-07-24-seamless -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -686,8 +686,8 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
 <style>
 #powerful-crm{padding:clamp(40px,6vw,72px) 0}
-#powerful-crm .vcrm-frame{width:100%;border:0;display:block;height:1000px;background:#fff;border-radius:22px;box-shadow:0 20px 50px rgba(25,51,93,.08);overflow:hidden}
-@media(max-width:600px){#powerful-crm .vcrm-frame{height:820px;border-radius:16px}}
+#powerful-crm .vcrm-frame{width:100%;border:0;display:block;height:1000px;background:#fff;overflow:hidden}
+@media(max-width:600px){#powerful-crm .vcrm-frame{height:820px}}
 </style>
 <section id="powerful-crm" aria-label="Powerful admission CRM, module by module">
   <iframe class="vcrm-frame" id="vcrmFrame" title="VidyaAI - powerful admission CRM with simplicity: core capabilities" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
@@ -5917,7 +5917,7 @@ body.ee-home{
     background-repeat:no-repeat,no-repeat!important;
     background-attachment:scroll,scroll!important;
   }
-}#ee-platform,#ee-os,#trusted-institutions,#platform,#respond-first,#ams,#stories,#segments,#ecosystem,#integrations,#whatsapp,#security,#faq,#demo,#ee-cro,.ee-home .sec,.ee-home .sec--soft,.ee-home .logo-section,.ee-home .ci-sec,.ee-home .rf-bp,.ee-home .ea-bp,.ee-home .ee-bp,.ee-home .wa-sec{
+}#ee-platform,#ee-os,#trusted-institutions,#platform,#respond-first,#ams,#stories,#segments,#ecosystem,#integrations,#whatsapp,#security,#faq,#demo,#ee-cro,#powerful-crm,.ee-home .sec,.ee-home .sec--soft,.ee-home .logo-section,.ee-home .ci-sec,.ee-home .rf-bp,.ee-home .ea-bp,.ee-home .ee-bp,.ee-home .wa-sec{
   background:transparent!important;border-top:0!important;border-bottom:0!important
 }
 </style>
