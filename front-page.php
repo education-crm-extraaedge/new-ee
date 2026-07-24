@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-scrollfix -->
+<!-- ee-front-tpl v2026-07-24-crmnolazy -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -690,7 +690,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 @media(max-width:600px){#powerful-crm .vcrm-frame{height:820px}}
 </style>
 <section id="powerful-crm" aria-label="Powerful admission CRM, module by module">
-  <iframe class="vcrm-frame" id="vcrmFrame" title="VidyaAI - powerful admission CRM with simplicity: core capabilities" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
+  <iframe class="vcrm-frame" id="vcrmFrame" title="VidyaAI - powerful admission CRM with simplicity: core capabilities" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot; class=&quot;scroll-smooth&quot;>
 <head>
     <meta charset=&quot;UTF-8&quot;>
