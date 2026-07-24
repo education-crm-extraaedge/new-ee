@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-noscrollbar -->
+<!-- ee-front-tpl v2026-07-24-frameclip -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -686,7 +686,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
 <style>
 #powerful-crm{padding:clamp(40px,6vw,72px) 0}
-#powerful-crm .vcrm-frame{width:100%;border:0;display:block;height:1000px;background:#fff;border-radius:22px;box-shadow:0 20px 50px rgba(25,51,93,.08)}
+#powerful-crm .vcrm-frame{width:100%;border:0;display:block;height:1000px;background:#fff;border-radius:22px;box-shadow:0 20px 50px rgba(25,51,93,.08);overflow:hidden}
 @media(max-width:600px){#powerful-crm .vcrm-frame{height:820px;border-radius:16px}}
 </style>
 <section id="powerful-crm" aria-label="Powerful admission CRM, module by module">
