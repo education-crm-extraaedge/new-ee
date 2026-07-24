@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-seamless -->
+<!-- ee-front-tpl v2026-07-24-scrollfix -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5960,10 +5960,23 @@ body.ee-home{ background:#ffffff!important; }/* remove all graphic background mo
     window.scrollTo({top:Math.round(current), left:0, behavior:'instant'});  // 'instant' so CSS smooth doesn't double-animate
     if(running) requestAnimationFrame(step);
   }
+  /* a native/programmatic smooth-scroll (TOC link, "jump to section", card
+     spotlight, deep-link, etc.) fires a burst of 'scroll' events on its own -
+     if a wheel arrives mid-animation we must NOT hijack it, or this eased
+     scroll fights the still-moving native one every frame and the page
+     visibly stutters/refuses to continue where the user expects */
+  var externalScrollActive=false, externalScrollTimer=null;
+  function markExternalScroll(){
+    if(running) return;
+    externalScrollActive=true;
+    clearTimeout(externalScrollTimer);
+    externalScrollTimer=setTimeout(function(){ externalScrollActive=false; },120);
+  }
   function onWheel(e){
     if(e.ctrlKey || e.deltaMode!==0) return;                      // pinch-zoom / line|page mode -> native
     if(Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;           // horizontal intent -> native
     if(innerScrollable(e.target, e.deltaY)) return;               // inner scroller -> native
+    if(externalScrollActive) return;                              // a native smooth-scroll is still in flight -> native
     var mx=maxScroll();
     if(!running){ current=target=(window.scrollY||window.pageYOffset||0); }
     var nt=Math.max(0, Math.min(mx, target + e.deltaY));
@@ -5973,7 +5986,8 @@ body.ee-home{ background:#ffffff!important; }/* remove all graphic background mo
     if(!running){ running=true; requestAnimationFrame(step); }
   }
   /* keep our target in sync with any non-wheel scrolling (scrollbar drag, keys, anchor jumps) */
-  window.addEventListener('scroll', function(){ if(!running){ current=target=(window.scrollY||window.pageYOffset||0); } }, {passive:true});
+  window.addEventListener('scroll', function(){ markExternalScroll(); if(!running){ current=target=(window.scrollY||window.pageYOffset||0); } }, {passive:true});
+  if('onscrollend' in window){ window.addEventListener('scrollend', function(){ externalScrollActive=false; }); }
   window.addEventListener('wheel', onWheel, {passive:false});
 })();
 </script>
