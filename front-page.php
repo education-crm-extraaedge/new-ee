@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-devicefixes -->
+<!-- ee-front-tpl v2026-07-24-navfix -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -687,7 +687,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <style>
 #powerful-crm{padding:clamp(40px,6vw,72px) 0}
 #powerful-crm .vcrm-frame{width:100%;border:0;display:block;height:1000px;background:#fff;border-radius:22px;box-shadow:0 20px 50px rgba(25,51,93,.08);overflow:hidden}
-@media(max-width:600px){#powerful-crm .vcrm-frame{height:2200px;border-radius:16px}}
+@media(max-width:600px){#powerful-crm .vcrm-frame{height:820px;border-radius:16px}}
 </style>
 <section id="powerful-crm" aria-label="Powerful admission CRM, module by module">
   <iframe class="vcrm-frame" id="vcrmFrame" title="VidyaAI - powerful admission CRM with simplicity: core capabilities" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
@@ -1272,6 +1272,25 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
             }, activeObserverOptions);
             sections.forEach(section => activeObserver.observe(section));
 
+            // ---------- Force the last module active once scrolled to the very bottom ----------
+            // (the observer's rootMargin trims a band off the viewport; the final
+            // section has nothing after it to scroll past, so it can never cross
+            // into that band before scrolling naturally stops)
+            const lastSection = sections[sections.length - 1];
+            function checkBottom() {
+                if (!lastSection) return;
+                const atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 4);
+                if (!atBottom) return;
+                const activeId = lastSection.getAttribute('id');
+                navItems.forEach(item => {
+                    const isActive = item.id === `nav-${activeId}`;
+                    item.classList.toggle('active', isActive);
+                    item.setAttribute('aria-current', isActive ? 'true' : 'false');
+                });
+            }
+            window.addEventListener('scroll', checkBottom, { passive: true });
+            checkBottom();
+
             // ---------- Reveal-on-scroll for story cards ----------
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1329,29 +1348,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </html>
 "></iframe>
 </section>
-<script>
-/* Powerful CRM iframe: auto-fit height to its own content instead of a
-   guessed fixed value - the layout stacks to a single column under 1024px,
-   so mobile actually needs MORE height than desktop, not less. */
-(function(){
-  var f=document.getElementById('vcrmFrame'); if(!f) return;
-  function getDoc(){ try{ return f.contentDocument||(f.contentWindow&&f.contentWindow.document); }catch(e){ return null; } }
-  var lastH=0;
-  function fit(){
-    var d=getDoc(); if(!d||!d.body) return;
-    var h=Math.max(d.documentElement.scrollHeight, d.body.scrollHeight);
-    if(h>0 && h!==lastH){ lastH=h; f.style.height=h+'px'; }
-  }
-  /* loading="lazy" iframes don't reliably fire their own load event the
-     moment the srcdoc content is actually parsed (seen inconsistently
-     across viewport sizes) - poll for the real content height instead of
-     depending on that event alone. */
-  var tries=0;
-  var poll=setInterval(function(){ fit(); tries++; if(tries>30) clearInterval(poll); },300);
-  f.addEventListener('load',function(){ fit(); setTimeout(fit,150); setTimeout(fit,500); setTimeout(fit,1200); });
-  window.addEventListener('resize',function(){ setTimeout(fit,80); },{passive:true});
-})();
-</script>
 
 <style>/* ===== AI Product-Led Experience: launch + full-screen overlay (all devices) ===== */
 #ee-platform .eep-mlaunch{display:none;}#ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}/* ---- full-screen experience overlay - the window is relocated to <body> on
