@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-powerfulcrm -->
+<!-- ee-front-tpl v2026-07-24-nobfat -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -299,7 +299,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <li><a href="#xhero" data-t="xhero"><i>01</i><span>Top</span></a></li>
       <li><a href="#trusted-institutions" data-t="trusted-institutions"><i>02</i><span>Broad Client Base</span></a></li>
       <li><a href="#why-admissions-leak" data-t="why-admissions-leak"><i>03</i><span>Where admissions leak</span></a></li>
-      <li><a href="#feature-pillars" data-t="feature-pillars"><i>04</i><span>Feature pillars</span></a></li>
       <li><a href="#ee-night" data-t="ee-night"><i>05</i><span>The Admission Operating System</span></a></li>
       <li><a href="#ee-platform" data-t="ee-platform"><i>06</i><span>AI Product-Led Experience</span></a></li>
       <li><a href="#ee-products" data-t="ee-products"><i>07</i><span>The admissions platform</span></a></li>
@@ -685,234 +684,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <!-- STORY 1 · THE REAL PROBLEM -->
 <!-- ================= The Real Problem - The Admissions Narrative (scoped .tan-*) ================= -->
 <section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
-<style>
-.lp2-sec{padding:clamp(48px,7vw,88px) 0 0}
-.lp2-head{max-width:760px;margin:0 auto 28px;padding:0 20px;text-align:center}
-.lp2-eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#DE6E30;margin:0 0 10px}
-.lp2-h2{font-size:clamp(24px,3.4vw,38px);font-weight:800;color:#0f203a;margin:0 0 10px;line-height:1.15}
-.lp2-sub{font-size:15px;color:#5a6b85;margin:0}
-
-.lp2-wrap{position:relative;height:340vh}
-.lp2-pin{position:sticky;top:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;overflow:hidden}
-
-.lp2-nav{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;justify-content:center}
-.lp2-navbtn{display:flex;align-items:center;gap:8px;border:1.5px solid rgba(15,32,58,.12);background:#fff;border-radius:999px;padding:8px 16px 8px 10px;cursor:pointer;font-family:inherit;transition:border-color .25s,background .25s}
-.lp2-navbtn b{width:22px;height:22px;border-radius:50%;background:#eef1f6;color:#5a6b85;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .25s,color .25s}
-.lp2-navbtn span{font-size:12.5px;font-weight:700;color:#5a6b85;white-space:nowrap}
-.lp2-navbtn.on{border-color:var(--lp2-accent,#DE6E30);background:rgba(222,110,48,.06)}
-.lp2-navbtn.on b{background:var(--lp2-accent,#DE6E30);color:#fff}
-.lp2-navbtn.on span{color:#0f203a}
-
-.lp2-progress{width:min(600px,90%);height:3px;background:rgba(15,32,58,.08);border-radius:3px;margin-bottom:28px;overflow:hidden;flex-shrink:0}
-.lp2-progress-fill{height:100%;width:25%;background:linear-gradient(90deg,#DE6E30,#E8843F);border-radius:3px;transition:width .4s cubic-bezier(.65,0,.35,1)}
-
-.lp2-stage{display:grid;width:min(980px,94%)}
-.lp2-story{grid-area:1/1;opacity:0;transform:translateY(18px);pointer-events:none;transition:opacity .5s ease,transform .5s ease}
-.lp2-story.on{opacity:1;transform:translateY(0);pointer-events:auto}
-
-.lp2-story-head{display:flex;align-items:center;gap:16px;margin-bottom:22px;justify-content:center;text-align:left}
-.lp2-badge{width:54px;height:54px;border-radius:50%;background:#fff;border:2.5px solid var(--lp2-accent,#DE6E30);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.lp2-badge img.eeimg{width:26px;height:26px}
-.lp2-story-title h3{font-size:24px;font-weight:800;color:#0f203a;margin:0 0 2px}
-.lp2-story-title p{font-size:13.5px;color:#5a6b85;margin:0}
-
-.lp2-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.lp2-step{background:#F7F8FB;border:1px solid rgba(15,32,58,.07);border-radius:14px;padding:16px 14px;display:flex;flex-direction:column;gap:10px}
-.lp2-step-ic{width:38px;height:38px;border-radius:10px;background:var(--lp2-accent,#DE6E30);display:flex;align-items:center;justify-content:center;color:#fff}
-.lp2-step-ic svg,.lp2-step-ic img.eeimg{width:19px;height:19px}
-.lp2-step-txt b{display:block;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--lp2-accent,#DE6E30);margin:0 0 5px}
-.lp2-step-txt p{font-size:12.5px;line-height:1.5;color:#3b4a63;margin:0}
-
-@media(max-width:900px){
-  .lp2-steps{grid-template-columns:1fr 1fr;gap:10px}
-}
-@media(max-width:600px){
-  .lp2-pin{padding:16px}
-  .lp2-navbtn{padding:0;width:30px;height:30px;justify-content:center;border-radius:50%}
-  .lp2-navbtn span{display:none}
-  .lp2-nav{gap:10px;margin-bottom:16px}
-  .lp2-progress{margin-bottom:18px}
-  .lp2-steps{grid-template-columns:1fr;gap:8px}
-  .lp2-step{flex-direction:row;align-items:center;padding:10px 12px}
-  .lp2-step-ic{width:32px;height:32px;flex-shrink:0}
-  .lp2-step-ic svg,.lp2-step-ic img.eeimg{width:16px;height:16px}
-  .lp2-story-head{gap:12px;margin-bottom:14px}
-  .lp2-badge{width:44px;height:44px}
-  .lp2-badge img.eeimg{width:21px;height:21px}
-  .lp2-story-title h3{font-size:19px}
-}
-@media (prefers-reduced-motion: reduce){
-  .lp2-story{transition:none}
-}
-</style>
-<section id="feature-pillars" class="lp2-sec" aria-label="Admission intelligence journey">
-  <div class="lp2-head">
-    <p class="lp2-eyebrow">Built for admission teams</p>
-    <h2 class="lp2-h2">One enquiry. Four systems working as one.</h2>
-    <p class="lp2-sub">Scroll to follow a single lead from first click to a confirmed seat.</p>
-  </div>
-  <div class="lp2-wrap" id="lp2Wrap">
-    <div class="lp2-pin">
-      <div class="lp2-nav" id="lp2Nav">
-        <button type="button" class="lp2-navbtn on" data-i="0" style="--lp2-accent:#DE6E30"><b>01</b><span>Lead Ingestion</span></button>
-        <button type="button" class="lp2-navbtn" data-i="1" style="--lp2-accent:#2B62C9"><b>02</b><span>Smart Engagement</span></button>
-        <button type="button" class="lp2-navbtn" data-i="2" style="--lp2-accent:#7C5CFF"><b>03</b><span>AI Prioritization</span></button>
-        <button type="button" class="lp2-navbtn" data-i="3" style="--lp2-accent:#1AA35C"><b>04</b><span>Funnel Analytics</span></button>
-      </div>
-      <div class="lp2-progress"><div class="lp2-progress-fill" id="lp2Fill"></div></div>
-      <div class="lp2-stage" id="lp2Stage">
-
-        <div class="lp2-story on" data-i="0" style="--lp2-accent:#DE6E30">
-          <div class="lp2-story-head">
-            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/mail-flag.svg" alt=""></div>
-            <div class="lp2-story-title"><h3>Lead Ingestion</h3><p>Capture. Clean. Consolidate. Convert.</p></div>
-          </div>
-          <div class="lp2-steps">
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
-              <div class="lp2-step-txt"><b>Strategic insight</b><p>We centralize every channel into one clean, de-duplicated pipeline.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/network-nodes.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Primary input data</b><p>Omni-channel API gateways capture leads from every source.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/ee-icon-ai-chip-simple.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>AI processing engine</b><p>AI normalizes and deduplicates data automatically.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Finalized output</b><p>A clean, verified prospect record &mdash; ready for engagement.</p></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lp2-story" data-i="1" style="--lp2-accent:#2B62C9">
-          <div class="lp2-story-head">
-            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/users-team.svg" alt=""></div>
-            <div class="lp2-story-title"><h3>Smart Engagement</h3><p>Right message. Right channel. Right time.</p></div>
-          </div>
-          <div class="lp2-steps">
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
-              <div class="lp2-step-txt"><b>Strategic insight</b><p>Context-aware outreach replaces generic, one-size-fits-all messaging.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/settings-gear.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>AI processing engine</b><p>AI reads behavior and intent to choose the optimal channel.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/send-arrow.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Engagement in action</b><p>Messages go out automatically via WhatsApp, SMS or Email.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Finalized output</b><p>High-intent conversations that drive deeper engagement.</p></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lp2-story" data-i="2" style="--lp2-accent:#7C5CFF">
-          <div class="lp2-story-head">
-            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/trophy.svg" alt=""></div>
-            <div class="lp2-story-title"><h3>AI Prioritization</h3><p>Focus on the right prospects, at the right time.</p></div>
-          </div>
-          <div class="lp2-steps">
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
-              <div class="lp2-step-txt"><b>Strategic insight</b><p>Behavioral scoring focuses your team on who's likely to enrol.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/file-clock.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Primary input data</b><p>Every touchpoint &mdash; calls, emails, forms, site visits &mdash; is analyzed.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/settings-gear.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>AI processing engine</b><p>Predictive models rank prospects by enrollment probability.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Finalized output</b><p>A weighted priority queue for your counselors.</p></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lp2-story" data-i="3" style="--lp2-accent:#1AA35C">
-          <div class="lp2-story-head">
-            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/bar-chart-trend.svg" alt=""></div>
-            <div class="lp2-story-title"><h3>Funnel Analytics</h3><p>See what works. Fix what doesn't.</p></div>
-          </div>
-          <div class="lp2-steps">
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
-              <div class="lp2-step-txt"><b>Strategic insight</b><p>Predictive forecasting flags pipeline bottlenecks before they hurt targets.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/document-lines.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Primary input data</b><p>Leads, activities, conversions and outcomes &mdash; unified.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/ee-icon-ai-chip-simple.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>AI processing engine</b><p>AI calculates ROI across every campaign and channel.</p></div>
-            </div>
-            <div class="lp2-step">
-              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/rocket.svg" alt=""></div>
-              <div class="lp2-step-txt"><b>Finalized output</b><p>An actionable roadmap to boost conversions.</p></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-<script>
-(function(){
-  var wrap = document.getElementById('lp2Wrap');
-  if (!wrap) return;
-  var stories = [].slice.call(document.querySelectorAll('.lp2-story'));
-  var navbtns = [].slice.call(document.querySelectorAll('.lp2-navbtn'));
-  var fill = document.getElementById('lp2Fill');
-  var N = stories.length;
-  var cur = -1;
-
-  function setActive(i){
-    i = Math.max(0, Math.min(N - 1, i));
-    if (i === cur) return;
-    cur = i;
-    stories.forEach(function(s, j){ s.classList.toggle('on', j === i); });
-    navbtns.forEach(function(b, j){ b.classList.toggle('on', j === i); });
-    if (fill) fill.style.width = (((i + 1) / N) * 100) + '%';
-  }
-
-  function onScroll(){
-    var vh = window.innerHeight;
-    var total = wrap.offsetHeight - vh;
-    if (total <= 0) { setActive(0); return; }
-    var scrolled = -wrap.getBoundingClientRect().top;
-    var progress = Math.min(1, Math.max(0, scrolled / total));
-    setActive(Math.min(N - 1, Math.floor(progress * N)));
-  }
-
-  var ticking = false;
-  window.addEventListener('scroll', function(){
-    if (!ticking){ ticking = true; requestAnimationFrame(function(){ onScroll(); ticking = false; }); }
-  }, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
-
-  navbtns.forEach(function(b){
-    b.addEventListener('click', function(){
-      var i = parseInt(b.dataset.i, 10);
-      var total = wrap.offsetHeight - window.innerHeight;
-      var top = wrap.getBoundingClientRect().top + window.scrollY + (total * (i / N)) + 8;
-      window.scrollTo({ top: top, behavior: 'smooth' });
-    });
-  });
-
-  onScroll();
-})();
-</script>
-
 <style>
 #powerful-crm{padding:clamp(40px,6vw,72px) 0}
 #powerful-crm .vcrm-frame{width:100%;border:0;display:block;height:1000px;background:#fff;border-radius:22px;box-shadow:0 20px 50px rgba(25,51,93,.08)}
@@ -6634,7 +6405,6 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 .ee-home>#xhero{order:10}                 /* What it is + primary CTA */
 .ee-home>#trusted-institutions{order:20}  /* Instant social proof */
 .ee-home>#why-admissions-leak{order:30}   /* The problem */
-.ee-home>#feature-pillars{order:40}       /* The value, at a glance */
 .ee-home>#powerful-crm{order:45}          /* The full CRM, module by module */
 .ee-home>#ee-night{order:50}              /* How it works, end to end */
 .ee-home>#ee-platform{order:60}           /* See the product */
