@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-23-lp2story -->
+<!-- ee-front-tpl v2026-07-24-powerfulcrm -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -912,6 +912,752 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   onScroll();
 })();
 </script>
+
+<style>
+#powerful-crm{padding:clamp(40px,6vw,72px) 0}
+#powerful-crm .vcrm-frame{width:100%;border:0;display:block;height:1000px;background:#fff;border-radius:22px;box-shadow:0 20px 50px rgba(25,51,93,.08)}
+@media(max-width:600px){#powerful-crm .vcrm-frame{height:820px;border-radius:16px}}
+</style>
+<section id="powerful-crm" aria-label="Powerful admission CRM, module by module">
+  <iframe class="vcrm-frame" title="VidyaAI - powerful admission CRM with simplicity: core capabilities" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot; class=&quot;scroll-smooth&quot;>
+<head>
+    <meta charset=&quot;UTF-8&quot;>
+    <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+    <title>VidyaAI - Powerful Admission CRM with Simplicity</title>
+    <!-- Tailwind CSS CDN -->
+    <script src=&quot;https://cdn.tailwindcss.com&quot;></script>
+    <!-- Google Fonts Inter -->
+    <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+    <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+    <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap&quot; rel=&quot;stylesheet&quot;>
+    <!-- FontAwesome Icons -->
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css&quot;>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#DE6E30',
+                            navy: '#19335D',
+                            navyLight: '#244579',
+                            orangeLight: '#FFF4EE',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'figma': '0 20px 50px rgba(25, 51, 93, 0.08)',
+                        'figma-hover': '0 30px 60px rgba(222, 110, 48, 0.12)',
+                        'glow': '0 0 25px rgba(222, 110, 48, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #19335D;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #DE6E30; }
+
+        .gradient-text-navy {
+            background: linear-gradient(135deg, #19335D 0%, #244579 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-text-orange {
+            background: linear-gradient(135deg, #DE6E30 0%, #F38C52 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(25, 51, 93, 0.08);
+        }
+
+        /* Image transition effects */
+        .story-img-container { transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        .feature-nav-item.active { border-color: #DE6E30; background-color: #FFF4EE; }
+        .feature-nav-item.active .nav-icon { color: #DE6E30; transform: scale(1.1); }
+        .feature-nav-item.active .nav-title { color: #19335D; font-weight: 700; }
+        .feature-nav-item.active .nav-indicator { height: 100%; background-color: #DE6E30; }
+
+        /* Pulse glow animation */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.03); }
+        }
+        .animate-glow { animation: pulseGlow 4s infinite ease-in-out; }
+
+        /* ---------- NEW: Scroll progress bar ---------- */
+        #scrollProgress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #DE6E30, #F38C52);
+            z-index: 60;
+            transition: width 0.1s linear;
+        }
+
+        /* ---------- NEW: Core Capabilities nav is sticky on ALL screen sizes ---------- */
+        #navCard {
+            max-height: calc(100vh - 1rem);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        @media (min-width: 1024px) {
+            #navCard { max-height: calc(100vh - 8rem); }
+        }
+        #navCard::-webkit-scrollbar { width: 5px; }
+        #navCard::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 3px; }
+
+        /* ---------- NEW: Scroll-reveal for story cards ---------- */
+        .story-card {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+        }
+        .story-card.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ---------- NEW: Sub-feature card stagger ---------- */
+        .story-card .grid > div {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .story-card.in-view .grid > div {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .story-card.in-view .grid > div:nth-child(1) { transition-delay: 0.05s; }
+        .story-card.in-view .grid > div:nth-child(2) { transition-delay: 0.12s; }
+        .story-card.in-view .grid > div:nth-child(3) { transition-delay: 0.19s; }
+        .story-card.in-view .grid > div:nth-child(4) { transition-delay: 0.26s; }
+
+        /* ---------- NEW: Accessible focus states ---------- */
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid #DE6E30;
+            outline-offset: 2px;
+            border-radius: 8px;
+        }
+
+        /* ---------- NEW: Back-to-top / jump button ---------- */
+        #jumpToNav {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 55;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(12px) scale(0.9);
+            transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+        }
+        #jumpToNav.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+
+        /* ---------- NEW: image skeleton shimmer while loading ---------- */
+        .img-skeleton {
+            position: relative;
+            background: linear-gradient(90deg, #f1f5f9 25%, #f8fafc 37%, #f1f5f9 63%);
+            background-size: 400% 100%;
+            animation: shimmer 1.4s ease infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 100% 50%; }
+            100% { background-position: 0 50%; }
+        }
+        .story-img-container img { opacity: 0; transition: opacity 0.4s ease; }
+        .story-img-container img.loaded { opacity: 1; }
+
+        /* ---------- NEW: hover/focus info tooltips on feature pills ---------- */
+        .pill-wrap { position: relative; }
+        .feature-tooltip {
+            text-align: left;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .pill-wrap:hover .feature-tooltip,
+        .pill-wrap:focus-within .feature-tooltip,
+        .pill-wrap.tooltip-open .feature-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Respect reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .story-card,
+            .story-card .grid > div,
+            #jumpToNav,
+            .animate-glow,
+            html { transition: none !important; animation: none !important; }
+            .story-card { opacity: 1; transform: none; }
+            .story-card .grid > div { opacity: 1; transform: none; }
+        }
+
+        @media (max-width: 1023px) {
+            /* keep first card visible immediately on mobile so page never looks empty before JS runs */
+            .story-card:first-of-type { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body class=&quot;bg-white text-brand-navy antialiased&quot;>
+
+    <!-- NEW: scroll progress bar -->
+    <div id=&quot;scrollProgress&quot;></div>
+
+    <main class=&quot;w-full relative py-12 lg:py-24 bg-white overflow-hidden&quot;>
+
+        <!-- Background Architectural Grid & Subtle Blobs -->
+        <div class=&quot;absolute inset-0 pointer-events-none opacity-40&quot;>
+            <div class=&quot;absolute top-0 right-1/4 w-96 h-96 bg-brand-orange/10 rounded-full blur-3xl animate-glow&quot;></div>
+            <div class=&quot;absolute bottom-1/3 left-10 w-[500px] h-[500px] bg-brand-navy/5 rounded-full blur-3xl&quot;></div>
+            <div class=&quot;absolute inset-0&quot; style=&quot;background-image: radial-gradient(#19335D 0.75px, transparent 0.75px); background-size: 24px 24px; opacity: 0.07;&quot;></div>
+        </div>
+
+        <div class=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10&quot;>
+
+            <!-- Hero Narrative Header -->
+            <div class=&quot;text-center max-w-3xl mx-auto mb-16 lg:mb-24 space-y-4&quot;>
+                <div class=&quot;inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-orangeLight border border-brand-orange/20 text-brand-orange font-semibold text-xs uppercase tracking-wider shadow-sm&quot;>
+                    <span class=&quot;w-2 h-2 rounded-full bg-brand-orange animate-ping&quot;></span>
+                    Next-Gen Admission Engine
+                </div>
+                <h1 class=&quot;text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-brand-navy leading-tight&quot;>
+                    Unified Admission Intelligence with <span class=&quot;gradient-text-orange&quot;>Effortless Simplicity</span>
+                </h1>
+                <p class=&quot;text-base sm:text-lg text-slate-600 font-normal leading-relaxed&quot;>
+                    Transform prospective student interactions into enrolments with an all-in-one AI platform engineered for modern education teams.
+                </p>
+            </div>
+
+            <!-- Sticky Scrolling Storytelling Layout -->
+            <div class=&quot;grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start relative&quot;>
+
+                <!-- LEFT COLUMN: Sticky Navigation & Story Index (Desktop) -->
+                <div class=&quot;lg:col-span-5 sticky top-3 lg:top-28 z-20&quot;>
+                    <div id=&quot;navCard&quot; class=&quot;bg-white/95 backdrop-blur-md p-2 sm:p-4 rounded-2xl border border-slate-100 shadow-figma space-y-2&quot;>
+
+                        <div class=&quot;px-4 py-3 border-b border-slate-100 mb-2 flex items-center justify-between&quot;>
+                            <span class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400&quot;>Core Capabilities</span>
+                            <span id=&quot;moduleCounter&quot; class=&quot;text-xs font-semibold text-brand-orange bg-brand-orangeLight px-2 py-0.5 rounded-md transition-all&quot;>7 Modules</span>
+                        </div>
+
+                        <!-- Navigation Item 1: VidyaAI -->
+                        <button onclick=&quot;scrollToSection('vidyaai')&quot; id=&quot;nav-vidyaai&quot; aria-current=&quot;true&quot; class=&quot;feature-nav-item active w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-brain text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-brand-navy nav-title transition-colors&quot;>VidyaAI Intelligence</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>24x7 Assistant, Intent Scoring & Calling</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 2: Admission CRM -->
+                        <button onclick=&quot;scrollToSection('admission-crm')&quot; id=&quot;nav-admission-crm&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-users-gear text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>Admission CRM</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>Centralized Prospect Tracking</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 3: Marketing Automation -->
+                        <button onclick=&quot;scrollToSection('marketing-automation')&quot; id=&quot;nav-marketing-automation&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-bullhorn text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>Marketing Automation</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>Targeted Multichannel Campaigns</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 4: Chatbot & Live Chat -->
+                        <button onclick=&quot;scrollToSection('chatbot')&quot; id=&quot;nav-chatbot&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-comments text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>Chatbot & Live Chat</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>24/7 Automated Engagement</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 5: Application Management -->
+                        <button onclick=&quot;scrollToSection('application-mgmt')&quot; id=&quot;nav-application-mgmt&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-file-signature text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>Application System</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>Forms, Verification & GD-PI</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 6: WhatsApp Business API -->
+                        <button onclick=&quot;scrollToSection('whatsapp-api')&quot; id=&quot;nav-whatsapp-api&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-brands fa-whatsapp text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>WhatsApp API</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>Two-Way Direct Messaging</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 7: Mobile CRM -->
+                        <button onclick=&quot;scrollToSection('mobile-crm')&quot; id=&quot;nav-mobile-crm&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-mobile-screen-button text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>Mobile CRM</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>Field Tracking & Click-To-Call</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: Interactive Storytelling Stream Cards -->
+                <div class=&quot;lg:col-span-7 space-y-16 lg:space-y-24&quot;>
+
+                    <!-- ITEM 1: VidyaAI Admission Intelligence -->
+                    <div id=&quot;vidyaai&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;absolute top-0 right-0 w-32 h-32 bg-brand-orange/10 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110&quot;></div>
+
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-orange/10 text-brand-orange rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-sparkles&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-orange uppercase&quot;>AI Engine</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>VidyaAI Admission Intelligence</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Next-gen artificial intelligence engineered to elevate counselor efficiency, accelerate response velocity, and qualify student intent in real-time.
+                        </p>
+
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/vidyaai-admission-intelligence-informative-image-by-extraaedge.png&quot;
+                                 alt=&quot;VidyaAI Admission Intelligence&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=VidyaAI+Admission+Intelligence'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+
+                        <div class=&quot;grid grid-cols-1 sm:grid-cols-2 gap-4&quot;>
+                            <div class=&quot;p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-orange/30 transition-all&quot;>
+                                <div class=&quot;flex items-center gap-2 mb-1 text-brand-navy font-semibold text-sm&quot;>
+                                    <i class=&quot;fa-solid fa-headset text-brand-orange&quot;></i> AI Admission Assist
+                                </div>
+                                <p class=&quot;text-xs text-slate-600&quot;>24×7 AI that answers student queries, guides applications, and supports counselors with live context without delays.</p>
+                            </div>
+                            <div class=&quot;p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-orange/30 transition-all&quot;>
+                                <div class=&quot;flex items-center gap-2 mb-1 text-brand-navy font-semibold text-sm&quot;>
+                                    <i class=&quot;fa-solid fa-chart-line-up text-brand-orange&quot;></i> AI Lead Intent Scoring
+                                </div>
+                                <p class=&quot;text-xs text-slate-600&quot;>Automatically prioritizes high-intent leads using behavior signals so counselors focus on high conversion prospects.</p>
+                            </div>
+                            <div class=&quot;p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-orange/30 transition-all&quot;>
+                                <div class=&quot;flex items-center gap-2 mb-1 text-brand-navy font-semibold text-sm&quot;>
+                                    <i class=&quot;fa-solid fa-clock-rotate-left text-brand-orange&quot;></i> Smart Follow-up Intelligence
+                                </div>
+                                <p class=&quot;text-xs text-slate-600&quot;>AI tells your team who to follow up with, when to act, and what to do next, reducing missed opportunities.</p>
+                            </div>
+                            <div class=&quot;p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-orange/30 transition-all&quot;>
+                                <div class=&quot;flex items-center gap-2 mb-1 text-brand-navy font-semibold text-sm&quot;>
+                                    <i class=&quot;fa-solid fa-phone-volume text-brand-orange&quot;></i> AI Calling for Qualification
+                                </div>
+                                <p class=&quot;text-xs text-slate-600&quot;>Qualifies large volumes of inquiries, captures intent, and passes only serious prospects to counselors.</p>
+                            </div>
+                        </div>
+                        <div class=&quot;mt-4 p-4 rounded-xl bg-brand-navy text-white flex items-start gap-3&quot;>
+                            <i class=&quot;fa-solid fa-award text-brand-orange text-lg mt-0.5&quot;></i>
+                            <div>
+                                <h5 class=&quot;text-xs font-bold text-brand-orange uppercase&quot;>Counselor Performance Intelligence</h5>
+                                <p class=&quot;text-xs text-slate-200 mt-0.5&quot;>Clear visibility into response times, follow-ups, and conversion impact by counselor to drive focused coaching and better outcomes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 2: Admission CRM -->
+                    <div id=&quot;admission-crm&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-navy/10 text-brand-navy rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-sitemap&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-navy uppercase&quot;>Core System</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>Admission CRM</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Admission CRM software centralizes your entire admissions process, giving you real-time visibility into every prospect's journey from enquiry to enrolment. Track inquiries, manage applications, and automate follow-ups seamlessly, all from one platform. With intelligent lead prioritization, your team focuses on high-potential candidates while data-driven insights guide every decision.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/admission-crm-informative-image-by-extraaedge.png&quot;
+                                 alt=&quot;Admission CRM&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=Admission+CRM'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-filter text-brand-orange&quot;></i> Funnel Management</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>See every prospect's stage from enquiry to enrolment and spot drop-offs instantly.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-calendar-check text-brand-orange&quot;></i> Follow-Up Manager</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Auto-schedules reminders so no prospect ever slips through the cracks.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-chart-pie text-brand-orange&quot;></i> Reporting Dashboard</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Live conversion and counselor-performance reports, updated in real time.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 3: Marketing Automation -->
+                    <div id=&quot;marketing-automation&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-orange/10 text-brand-orange rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-paper-plane&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-orange uppercase&quot;>Engagement Engine</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>Marketing Automation</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Marketing automation delivers personalized emails and targeted campaigns to the right prospects at the perfect time. Integrated with your Admission CRM, it streamlines lead nurturing across multiple channels while you focus on strategy. Intelligent audience segmentation ensures every message resonates, improving engagement and conversion rates.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/marketing-automation-image-by-extraaedge.png&quot;
+                                 alt=&quot;Marketing Automation&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=Marketing+Automation'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-envelope-open-text text-brand-orange&quot;></i> Email Marketing</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Personalized drip campaigns triggered automatically by prospect behavior.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-diagram-project text-brand-orange&quot;></i> Integrated Communication Channels</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Email, SMS, and WhatsApp orchestrated from a single workflow.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-chart-line text-brand-orange&quot;></i> Campaign Analytics</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Track opens, clicks, and conversions for every campaign you run.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 4: Chatbot & Live Chat -->
+                    <div id=&quot;chatbot&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-navy/10 text-brand-navy rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-robot&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-navy uppercase&quot;>24/7 Connectivity</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>Chatbot & Live Chat</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Integrated with your Admission CRM, the chatbot ensures you never miss an inquiry with 24/7 instant responses. Handle routine queries automatically while counsellors focus on meaningful conversations. Smart routing directs prospects to the right team members based on their interests and application stage.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/chatbot-and-livechat-image-by-extraaedge.png&quot;
+                                 alt=&quot;Chatbot & Live Chat&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=Chatbot+and+Live+Chat'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-gears text-brand-orange&quot;></i> Automated Chat Workflow</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Pre-built conversation flows that qualify and route enquiries on their own.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-headset text-brand-orange&quot;></i> Live Chat Enablement</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Seamless handoff from bot to human counselor whenever it's needed.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-calendar-days text-brand-orange&quot;></i> Meeting Scheduler</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Prospects book a counselor slot directly from the chat window.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 5: Application Management System -->
+                    <div id=&quot;application-mgmt&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-orange/10 text-brand-orange rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-folder-open&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-orange uppercase&quot;>Enrolment Portal</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>Application Management System</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Application management system streamlines the entire application process for you and your prospective students. Integrated with your Admission CRM and optimized for mobile, it handles form submissions, document verification, and payments effortlessly. Intelligent status tracking keeps applicants informed while giving you actionable insights at every stage.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/application-management-sysytem-image-by-extraaedge.png&quot;
+                                 alt=&quot;Application Management System&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=Application+Management+System'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-cube text-brand-orange&quot;></i> Application Form Builder & Widgets</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Drag-and-drop forms you can embed anywhere on your site.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-video text-brand-orange&quot;></i> Video GD-PI & Counseling</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Run group discussions and interviews virtually, with recordings saved to the CRM.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-credit-card text-brand-orange&quot;></i> Payment Integration</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Secure fee collection built right into the application flow.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 6: WhatsApp Business API -->
+                    <div id=&quot;whatsapp-api&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-emerald-500/10 text-emerald-600 rounded-xl text-lg&quot;><i class=&quot;fa-brands fa-whatsapp&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-emerald-600 uppercase&quot;>Direct Channel</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>WhatsApp Business API</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            WhatsApp Business API connects you with prospects on their preferred platform. Send bulk messages, engage in personalized conversations, and drive conversions, all through your Admission CRM. Data-driven campaign optimization ensures higher open rates and faster response times for improved enrolment outcomes.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/whatsapp-business-api-image-by-extraaedge.png&quot;
+                                 alt=&quot;WhatsApp Business API&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=WhatsApp+Business+API'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-comments font-bold text-brand-orange&quot;></i> Two-way WhatsApp and live chat</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Reply to prospects directly inside WhatsApp threads, synced with the CRM.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-paper-plane text-brand-orange&quot;></i> Bulk WhatsApp & automated campaigns</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Send templated updates to thousands of prospects instantly.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-circle-check text-brand-orange&quot;></i> Verified business account</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Green-tick verified number builds instant trust with prospects.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 7: Mobile CRM -->
+                    <div id=&quot;mobile-crm&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-navy/10 text-brand-navy rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-mobile-screen&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-navy uppercase&quot;>On-the-go Productivity</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>Mobile CRM</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Our Mobile CRM empowers work-from-home and field counselors to stay productive on the go. With built-in field tracking, monitor visits, log activities, and complete follow-ups efficiently from anywhere. Real-time sync with your Admission CRM ensures every interaction is captured for intelligent reporting.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/mobaile-crm-image-by-extraaedge.png&quot;
+                                 alt=&quot;Mobile CRM&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=Mobile+CRM'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-phone text-brand-orange&quot;></i> Click-To-Call</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Dial prospects straight from the mobile app; every call logs automatically.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-location-dot text-brand-orange&quot;></i> Field Tracker</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>GPS check-in and check-out for on-ground counselor visits.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-phone-slash text-brand-orange&quot;></i> Missed Call Lead Capture</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Every missed call auto-creates a fresh lead in the CRM.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- NEW: floating jump-to-nav button (mobile + desktop) -->
+    <button id=&quot;jumpToNav&quot; onclick=&quot;scrollToTopNav()&quot; aria-label=&quot;Jump back to feature navigation&quot;
+        class=&quot;w-12 h-12 rounded-full bg-brand-navy text-white shadow-figma-hover flex items-center justify-center hover:bg-brand-orange transition-colors&quot;>
+        <i class=&quot;fa-solid fa-arrow-up text-sm&quot;></i>
+    </button>
+
+    <script>
+        // ---------- Config: single source of truth for all 7 sections ----------
+        const SECTIONS = [
+            { id: 'vidyaai',              label: 'VidyaAI Intelligence',  icon: 'fa-solid fa-brain' },
+            { id: 'admission-crm',        label: 'Admission CRM',         icon: 'fa-solid fa-users-gear' },
+            { id: 'marketing-automation', label: 'Marketing Automation',  icon: 'fa-solid fa-bullhorn' },
+            { id: 'chatbot',              label: 'Chatbot & Live Chat',   icon: 'fa-solid fa-comments' },
+            { id: 'application-mgmt',     label: 'Application System',    icon: 'fa-solid fa-file-signature' },
+            { id: 'whatsapp-api',         label: 'WhatsApp API',         icon: 'fa-brands fa-whatsapp' },
+            { id: 'mobile-crm',           label: 'Mobile CRM',           icon: 'fa-solid fa-mobile-screen-button' },
+        ];
+
+        // Smooth scroll to card (used by desktop nav + mobile pills)
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const yOffset = window.innerWidth < 1024 ? -70 : -100;
+                const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+                history.replaceState(null, '', `#${id}`);
+            }
+        }
+
+        function scrollToTopNav() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.story-card');
+            const navItems = document.querySelectorAll('.feature-nav-item');
+            const moduleCounter = document.getElementById('moduleCounter');
+            const navCard = document.getElementById('navCard');
+            const jumpBtn = document.getElementById('jumpToNav');
+            const scrollProgress = document.getElementById('scrollProgress');
+
+            // ---------- Active state sync on the always-sticky Core Capabilities nav ----------
+            const activeObserverOptions = {
+                root: null,
+                rootMargin: '-20% 0px -50% 0px',
+                threshold: 0.1
+            };
+            const activeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const activeId = entry.target.getAttribute('id');
+                        const activeIndex = SECTIONS.findIndex(s => s.id === activeId);
+
+                        navItems.forEach(item => {
+                            const isActive = item.id === `nav-${activeId}`;
+                            item.classList.toggle('active', isActive);
+                            item.setAttribute('aria-current', isActive ? 'true' : 'false');
+                        });
+
+                        // keep the active nav row scrolled into view inside the sticky card
+                        // (relevant on short mobile screens where navCard itself scrolls)
+                        const activeNavItem = document.getElementById(`nav-${activeId}`);
+                        if (activeNavItem && navCard) {
+                            const cardRect = navCard.getBoundingClientRect();
+                            const itemRect = activeNavItem.getBoundingClientRect();
+                            const isOutOfView = itemRect.top < cardRect.top || itemRect.bottom > cardRect.bottom;
+                            if (isOutOfView) {
+                                activeNavItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }
+                        }
+
+                        if (moduleCounter && activeIndex > -1) {
+                            moduleCounter.textContent = `${activeIndex + 1} of ${SECTIONS.length}`;
+                        }
+                    }
+                });
+            }, activeObserverOptions);
+            sections.forEach(section => activeObserver.observe(section));
+
+            // ---------- Reveal-on-scroll for story cards ----------
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+            sections.forEach(section => revealObserver.observe(section));
+
+            // ---------- Scroll progress bar + jump-to-nav button visibility ----------
+            let ticking = false;
+            function updateOnScroll() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                scrollProgress.style.width = `${pct}%`;
+                jumpBtn.classList.toggle('visible', scrollTop > 600);
+                ticking = false;
+            }
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateOnScroll);
+                    ticking = true;
+                }
+            }, { passive: true });
+            updateOnScroll();
+
+            // ---------- Keyboard navigation: Left/Right arrows jump between sections ----------
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                const activeNav = document.querySelector('.feature-nav-item.active');
+                if (!activeNav) return;
+                const currentId = activeNav.id.replace('nav-', '');
+                const idx = SECTIONS.findIndex(s => s.id === currentId);
+                if (e.key === 'ArrowRight' && idx < SECTIONS.length - 1 && (e.altKey || e.metaKey)) {
+                    scrollToSection(SECTIONS[idx + 1].id);
+                } else if (e.key === 'ArrowLeft' && idx > 0 && (e.altKey || e.metaKey)) {
+                    scrollToSection(SECTIONS[idx - 1].id);
+                }
+            });
+
+            // ---------- Tap-to-toggle tooltips (robust fallback for touch devices) ----------
+            const pillWraps = document.querySelectorAll('.pill-wrap');
+            pillWraps.forEach(wrap => {
+                wrap.addEventListener('click', (e) => {
+                    const alreadyOpen = wrap.classList.contains('tooltip-open');
+                    pillWraps.forEach(w => w.classList.remove('tooltip-open'));
+                    if (!alreadyOpen) wrap.classList.add('tooltip-open');
+                    e.stopPropagation();
+                });
+            });
+            document.addEventListener('click', () => {
+                pillWraps.forEach(w => w.classList.remove('tooltip-open'));
+            });
+
+            // ---------- Deep-link support: open directly to a section via #hash ----------
+            if (window.location.hash) {
+                const targetId = window.location.hash.replace('#', '');
+                if (SECTIONS.some(s => s.id === targetId)) {
+                    setTimeout(() => scrollToSection(targetId), 150);
+                }
+            }
+        });
+    </script>
+
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</body>
+</html>
+"></iframe>
+</section>
 
 <style>/* ===== AI Product-Led Experience: launch + full-screen overlay (all devices) ===== */
 #ee-platform .eep-mlaunch{display:none;}#ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}/* ---- full-screen experience overlay - the window is relocated to <body> on
@@ -5889,6 +6635,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 .ee-home>#trusted-institutions{order:20}  /* Instant social proof */
 .ee-home>#why-admissions-leak{order:30}   /* The problem */
 .ee-home>#feature-pillars{order:40}       /* The value, at a glance */
+.ee-home>#powerful-crm{order:45}          /* The full CRM, module by module */
 .ee-home>#ee-night{order:50}              /* How it works, end to end */
 .ee-home>#ee-platform{order:60}           /* See the product */
 .ee-home>#ee-products{order:70}           /* Full platform / modules */
