@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-23-scrollchain -->
+<!-- ee-front-tpl v2026-07-23-lp2story -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -686,1774 +686,232 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <!-- ================= The Real Problem - The Admissions Narrative (scoped .tan-*) ================= -->
 <section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
 <style>
-#feature-pillars.ee-lead-process{padding:clamp(48px,7vw,88px) 0}
-#feature-pillars .ee-lp-frame{width:100%;border:0;display:block;height:900px;background:#F7F8FB;border-radius:22px}
-@media(max-width:600px){#feature-pillars .ee-lp-frame{height:720px;border-radius:16px}}
+.lp2-sec{padding:clamp(48px,7vw,88px) 0 0}
+.lp2-head{max-width:760px;margin:0 auto 28px;padding:0 20px;text-align:center}
+.lp2-eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#DE6E30;margin:0 0 10px}
+.lp2-h2{font-size:clamp(24px,3.4vw,38px);font-weight:800;color:#0f203a;margin:0 0 10px;line-height:1.15}
+.lp2-sub{font-size:15px;color:#5a6b85;margin:0}
+
+.lp2-wrap{position:relative;height:340vh}
+.lp2-pin{position:sticky;top:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;overflow:hidden}
+
+.lp2-nav{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;justify-content:center}
+.lp2-navbtn{display:flex;align-items:center;gap:8px;border:1.5px solid rgba(15,32,58,.12);background:#fff;border-radius:999px;padding:8px 16px 8px 10px;cursor:pointer;font-family:inherit;transition:border-color .25s,background .25s}
+.lp2-navbtn b{width:22px;height:22px;border-radius:50%;background:#eef1f6;color:#5a6b85;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .25s,color .25s}
+.lp2-navbtn span{font-size:12.5px;font-weight:700;color:#5a6b85;white-space:nowrap}
+.lp2-navbtn.on{border-color:var(--lp2-accent,#DE6E30);background:rgba(222,110,48,.06)}
+.lp2-navbtn.on b{background:var(--lp2-accent,#DE6E30);color:#fff}
+.lp2-navbtn.on span{color:#0f203a}
+
+.lp2-progress{width:min(600px,90%);height:3px;background:rgba(15,32,58,.08);border-radius:3px;margin-bottom:28px;overflow:hidden;flex-shrink:0}
+.lp2-progress-fill{height:100%;width:25%;background:linear-gradient(90deg,#DE6E30,#E8843F);border-radius:3px;transition:width .4s cubic-bezier(.65,0,.35,1)}
+
+.lp2-stage{display:grid;width:min(980px,94%)}
+.lp2-story{grid-area:1/1;opacity:0;transform:translateY(18px);pointer-events:none;transition:opacity .5s ease,transform .5s ease}
+.lp2-story.on{opacity:1;transform:translateY(0);pointer-events:auto}
+
+.lp2-story-head{display:flex;align-items:center;gap:16px;margin-bottom:22px;justify-content:center;text-align:left}
+.lp2-badge{width:54px;height:54px;border-radius:50%;background:#fff;border:2.5px solid var(--lp2-accent,#DE6E30);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lp2-badge img.eeimg{width:26px;height:26px}
+.lp2-story-title h3{font-size:24px;font-weight:800;color:#0f203a;margin:0 0 2px}
+.lp2-story-title p{font-size:13.5px;color:#5a6b85;margin:0}
+
+.lp2-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.lp2-step{background:#F7F8FB;border:1px solid rgba(15,32,58,.07);border-radius:14px;padding:16px 14px;display:flex;flex-direction:column;gap:10px}
+.lp2-step-ic{width:38px;height:38px;border-radius:10px;background:var(--lp2-accent,#DE6E30);display:flex;align-items:center;justify-content:center;color:#fff}
+.lp2-step-ic svg,.lp2-step-ic img.eeimg{width:19px;height:19px}
+.lp2-step-txt b{display:block;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--lp2-accent,#DE6E30);margin:0 0 5px}
+.lp2-step-txt p{font-size:12.5px;line-height:1.5;color:#3b4a63;margin:0}
+
+@media(max-width:900px){
+  .lp2-steps{grid-template-columns:1fr 1fr;gap:10px}
+}
+@media(max-width:600px){
+  .lp2-pin{padding:16px}
+  .lp2-navbtn{padding:0;width:30px;height:30px;justify-content:center;border-radius:50%}
+  .lp2-navbtn span{display:none}
+  .lp2-nav{gap:10px;margin-bottom:16px}
+  .lp2-progress{margin-bottom:18px}
+  .lp2-steps{grid-template-columns:1fr;gap:8px}
+  .lp2-step{flex-direction:row;align-items:center;padding:10px 12px}
+  .lp2-step-ic{width:32px;height:32px;flex-shrink:0}
+  .lp2-step-ic svg,.lp2-step-ic img.eeimg{width:16px;height:16px}
+  .lp2-story-head{gap:12px;margin-bottom:14px}
+  .lp2-badge{width:44px;height:44px}
+  .lp2-badge img.eeimg{width:21px;height:21px}
+  .lp2-story-title h3{font-size:19px}
+}
+@media (prefers-reduced-motion: reduce){
+  .lp2-story{transition:none}
+}
 </style>
-<section id="feature-pillars" class="flw-sec ee-lead-process" aria-label="Admission intelligence journey">
-  <iframe class="ee-lp-frame" title="Follow one enquiry from click to confirmed seat: lead ingestion, smart engagement, AI prioritization, funnel analytics" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
-<html lang=&quot;en&quot;>
-<head>
-<meta charset=&quot;UTF-8&quot;>
-<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
-<title>Lead Ingestion Process</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-  * { -webkit-tap-highlight-color: transparent; }
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Arial, sans-serif;
-    background: #f4f5f7;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-  .scroll-container {
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    width: 100vw;
-    height: 100vh;
-    scrollbar-width: none;
-  }
-  .scroll-container::-webkit-scrollbar { display: none; }
-  .scroll-panel {
-    flex: 0 0 100vw;
-    width: 100vw;
-    height: 100vh;
-    scroll-snap-align: start;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    padding: 40px 20px;
-    overflow-y: auto;
-  }
-  /* ---- Progress + wayfinding ---- */
-  .progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: rgba(0,0,0,0.06);
-    z-index: 60;
-  }
-  .progress-fill {
-    height: 100%;
-    width: 25%;
-    background: linear-gradient(90deg, #f0742c, #d84b1e);
-    transition: width 0.5s cubic-bezier(0.65,0,0.35,1);
-  }
-  .section-counter {
-    position: fixed;
-    bottom: 26px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: #a8a49a;
-    z-index: 50;
-    font-variant-numeric: tabular-nums;
-    background: rgba(255,255,255,0.7);
-    padding: 4px 12px;
-    border-radius: 20px;
-  }
-  .wrapper {
-    max-width: 640px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-  }
-  .step {
-    display: flex;
-    gap: 20px;
-  }
-  .step-marker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .circle {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: 600;
-  }
-  .circle.red { background: #d84b1e; }
-  .circle.green { background: #1a9c5c; }
-  .connector {
-    width: 2px;
-    flex: 1;
-    background: #e2c9bd;
-    margin: 4px 0;
-    min-height: 24px;
-  }
-  .card {
-    flex: 1;
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 16px;
-  }
-  .card.red-bg { background: #fdf1ec; }
-  .card.green-bg { background: #eaf7f0; }
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .card-header .label {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-  }
-  .label.red-text { color: #d84b1e; }
-  .label.green-text { color: #1a9c5c; }
-  .card-body {
-    border-top: 1px solid rgba(0,0,0,0.06);
-    padding-top: 12px;
-  }
-  .card-body p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #2c2c2a;
-    margin: 0 0 12px;
-  }
-  .info-box {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 10px 14px;
-  }
-  .info-box .info-label {
-    font-size: 11px;
-    color: #6b6b68;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin: 0 0 2px;
-  }
-  .info-box .info-value {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin: 0;
-  }
-  .check-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .check-row .check-icon {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #1a9c5c;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    flex-shrink: 0;
-  }
-  .icon {
-    width: 20px;
-    height: 20px;
-  }
-  @keyframes popIn {
-    0% { opacity: 0; transform: scale(0.4); }
-    60% { opacity: 1; transform: scale(1.15); }
-    100% { opacity: 1; transform: scale(1); }
-  }
-  @keyframes slideFade {
-    0% { opacity: 0; transform: translateX(24px); }
-    100% { opacity: 1; transform: translateX(0); }
-  }
-  @keyframes growLine {
-    0% { transform: scaleY(0); }
-    100% { transform: scaleY(1); }
-  }
-  @keyframes checkPop {
-    0% { opacity: 0; transform: scale(0); }
-    100% { opacity: 1; transform: scale(1); }
-  }
-  @keyframes headerReveal {
-    0% { opacity: 0; transform: translateY(-14px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes floatBadge {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-  }
-  .step {
-    opacity: 0;
-  }
-  .step.animate .circle {
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-  .step.animate .card {
-    animation: slideFade 0.6s ease-out forwards;
-    animation-delay: 0.15s;
-  }
-  .step.animate {
-    opacity: 1;
-  }
-  .connector {
-    transform-origin: top;
-    transform: scaleY(0);
-  }
-  .step.animate .connector {
-    animation: growLine 0.5s ease-out forwards;
-    animation-delay: 0.5s;
-  }
-  .check-row .check-icon {
-    opacity: 0;
-  }
-  .step.animate .check-icon {
-    animation: checkPop 0.4s ease-out forwards;
-    animation-delay: 1.1s;
-  }
-  /* ---- Section headers (shared reveal + gentle badge float) ---- */
-  .li-header, .se-header, .p3-header, .f4-header {
-    opacity: 0;
-  }
-  .li-header.animate, .se-header.animate, .p3-header.animate, .f4-header.animate {
-    animation: headerReveal 0.7s ease-out forwards;
-  }
-  .li-header.animate .li-badge,
-  .se-header.animate .se-badge,
-  .p3-header.animate .p3-badge,
-  .f4-header.animate .f4-badge {
-    animation: headerReveal 0.7s ease-out forwards, floatBadge 3s ease-in-out 0.9s infinite;
-  }
-  /* ---- Smart Engagement section ---- */
-  .se-wrapper {
-    max-width: 900px;
-    margin: 60px auto 0;
-  }
-  .se-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-  .se-badge {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: #ffffff;
-    border: 3px solid #19335D;
-    color: #19335D;
-    font-size: 22px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .se-badge svg, .se-badge img.eeimg { width: 30px; height: 30px; }
-  .se-title h1 {
-    font-size: 32px;
-    font-weight: 800;
-    color: #1a2a4a;
-    margin: 0 0 6px;
-  }
-  .se-title p {
-    font-size: 15px;
-    color: #6b6b68;
-    margin: 0 0 8px;
-    border-bottom: 3px solid #d84b1e;
-    display: inline-block;
-    padding-bottom: 8px;
-  }
-  .se-row {
-    display: flex;
-    gap: 24px;
-    align-items: stretch;
-  }
-  .se-icon-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .se-ring {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid;
-    background: #fff;
-  }
-  .se-ring svg, .se-ring img.eeimg { width: 40px; height: 40px; }
-  .se-ring.orange { border-color: #f2a98a; color: #e2622a; }
-  .se-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
-  .se-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
-  .se-connector {
-    width: 2px;
-    flex: 1;
-    background: #ddd8ce;
-    margin: 6px 0;
-    min-height: 30px;
-    transform-origin: top;
-    transform: scaleY(0);
-  }
-  .se-chevron {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid #e2ddd2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #b8a48f;
-    font-size: 12px;
-    margin: 2px 0;
-    flex-shrink: 0;
-    opacity: 0;
-  }
-  .se-panel {
-    flex: 1;
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-  }
-  .se-panel.orange-bg { background: #fdf0e9; }
-  .se-panel.blue-bg { background: #eaf0fb; }
-  .se-panel.green-bg { background: #eaf7ee; }
-  .se-main { flex: 1; }
-  .se-panel-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .se-icon-chip {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .se-icon-chip svg, .se-icon-chip img.eeimg { width: 16px; height: 16px; }
-  .se-icon-chip.orange { background: #e2622a; }
-  .se-icon-chip.blue { background: #2050b0; }
-  .se-icon-chip.green { background: #1a9c5c; }
-  .se-label {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .se-label.orange-text { color: #e2622a; }
-  .se-label.blue-text { color: #2050b0; }
-  .se-label.green-text { color: #1a9c5c; }
-  .se-divider {
-    border: none;
-    border-top: 1px solid rgba(0,0,0,0.07);
-    margin: 0 0 10px;
-  }
-  .se-main p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #2c2c2a;
-    margin: 0;
-  }
-  .se-side {
-    width: 220px;
-    flex-shrink: 0;
-    background: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .se-side.stack { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .se-side-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .se-side-icon svg, .se-side-icon img.eeimg { width: 18px; height: 18px; }
-  .se-side-icon.blue-fill { background: #2050b0; }
-  .se-side-icon.green-fill { background: #1a9c5c; }
-  .se-side-label {
-    font-size: 10px;
-    color: #8a8a86;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin: 0 0 2px;
-  }
-  .se-side-value {
-    font-size: 14px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0;
-  }
-  .se-side-sub {
-    font-size: 12px;
-    color: #6b6b68;
-    margin: 2px 0 0;
-  }
-  .se-channels {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-  }
-  .se-channel-icons {
-    display: flex;
-    gap: 10px;
-  }
-  .se-channel-icons span {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .se-channel-icons span svg, .se-channel-icons span img.eeimg { width: 16px; height: 16px; }
-  .se-channel-names {
-    font-size: 12px;
-    color: #4a4a48;
-    font-weight: 600;
-  }
-  .se-step { opacity: 0; }
-  .se-step.animate { opacity: 1; }
-  .se-step.animate .se-ring {
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-  .se-step.animate .se-panel {
-    animation: slideFade 0.6s ease-out forwards;
-    animation-delay: 0.15s;
-  }
-  .se-step.animate .se-connector {
-    animation: growLine 0.5s ease-out forwards;
-    animation-delay: 0.5s;
-  }
-  .se-step.animate .se-chevron {
-    animation: checkPop 0.3s ease-out forwards;
-    animation-delay: 0.6s;
-  }
-  /* ---- AI Prioritization section ---- */
-  .p3-wrapper {
-    max-width: 900px;
-    margin: 60px auto 0;
-  }
-  .p3-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-  .p3-badge {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: #ffffff;
-    border: 3px solid #DE6E30;
-    color: #DE6E30;
-    font-size: 22px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .p3-badge svg, .p3-badge img.eeimg { width: 30px; height: 30px; }
-  .p3-title h1 {
-    font-size: 32px;
-    font-weight: 800;
-    color: #1a2a4a;
-    margin: 0 0 6px;
-  }
-  .p3-title p {
-    font-size: 15px;
-    color: #6b6b68;
-    margin: 0 0 8px;
-    border-bottom: 3px solid #d84b1e;
-    display: inline-block;
-    padding-bottom: 8px;
-  }
-  .p3-row {
-    display: flex;
-    gap: 24px;
-    align-items: stretch;
-  }
-  .p3-icon-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .p3-ring {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid;
-    background: #fff;
-  }
-  .p3-ring svg, .p3-ring img.eeimg { width: 40px; height: 40px; }
-  .p3-ring.orange { border-color: #f2a98a; color: #e2622a; }
-  .p3-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
-  .p3-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
-  .p3-connector {
-    width: 2px;
-    flex: 1;
-    background: #ddd8ce;
-    margin: 6px 0;
-    min-height: 30px;
-    transform-origin: top;
-    transform: scaleY(0);
-  }
-  .p3-chevron {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid #e2ddd2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #b8a48f;
-    font-size: 12px;
-    margin: 2px 0;
-    flex-shrink: 0;
-    opacity: 0;
-  }
-  .p3-panel {
-    flex: 1;
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-  }
-  .p3-panel.orange-bg { background: #fdf0e9; }
-  .p3-panel.blue-bg { background: #eaf0fb; }
-  .p3-panel.green-bg { background: #eaf7ee; }
-  .p3-main { flex: 1; }
-  .p3-panel-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .p3-icon-chip {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .p3-icon-chip svg, .p3-icon-chip img.eeimg { width: 16px; height: 16px; }
-  .p3-icon-chip.orange { background: #e2622a; }
-  .p3-icon-chip.blue { background: #2050b0; }
-  .p3-icon-chip.green { background: #1a9c5c; }
-  .p3-label {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .p3-label.orange-text { color: #e2622a; }
-  .p3-label.blue-text { color: #2050b0; }
-  .p3-label.green-text { color: #1a9c5c; }
-  .p3-divider {
-    border: none;
-    border-top: 1px solid rgba(0,0,0,0.07);
-    margin: 0 0 10px;
-  }
-  .p3-main p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #2c2c2a;
-    margin: 0;
-  }
-  .p3-side {
-    width: 240px;
-    flex-shrink: 0;
-    background: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .p3-side-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .p3-side-icon svg, .p3-side-icon img.eeimg { width: 20px; height: 20px; }
-  .p3-side-icon.orange-fill { background: #fbdcc9; color: #e2622a; }
-  .p3-side-icon.blue-fill { background: #cfe0f7; color: #2050b0; }
-  .p3-side-icon.green-fill { background: #c7ecd4; color: #1a9c5c; }
-  .p3-side-eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin: 0 0 3px;
-  }
-  .p3-side-eyebrow.orange-text { color: #e2622a; }
-  .p3-side-eyebrow.blue-text { color: #2050b0; }
-  .p3-side-eyebrow.green-text { color: #1a9c5c; }
-  .p3-side-value {
-    font-size: 14px;
-    color: #1a1a1a;
-    margin: 0;
-    line-height: 1.4;
-  }
-  .p3-step { opacity: 0; }
-  .p3-step.animate { opacity: 1; }
-  .p3-step.animate .p3-ring {
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-  .p3-step.animate .p3-panel {
-    animation: slideFade 0.6s ease-out forwards;
-    animation-delay: 0.15s;
-  }
-  .p3-step.animate .p3-connector {
-    animation: growLine 0.5s ease-out forwards;
-    animation-delay: 0.5s;
-  }
-  .p3-step.animate .p3-chevron {
-    animation: checkPop 0.3s ease-out forwards;
-    animation-delay: 0.6s;
-  }
-  /* ---- Funnel Analytics section ---- */
-  .f4-wrapper {
-    max-width: 900px;
-    margin: 60px auto 0;
-  }
-  .f4-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-  .f4-badge {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: #ffffff;
-    color: #19335D;
-    font-size: 22px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 3px solid #19335D;
-  }
-  .f4-badge svg, .f4-badge img.eeimg { width: 30px; height: 30px; }
-  .f4-title h1 {
-    font-size: 32px;
-    font-weight: 800;
-    color: #1a2a4a;
-    margin: 0 0 6px;
-  }
-  .f4-title p {
-    font-size: 15px;
-    color: #6b6b68;
-    margin: 0 0 8px;
-    border-bottom: 3px solid #d84b1e;
-    display: inline-block;
-    padding-bottom: 8px;
-  }
-  .f4-row {
-    display: flex;
-    gap: 24px;
-    align-items: stretch;
-  }
-  .f4-icon-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .f4-ring-wrap {
-    position: relative;
-  }
-  .f4-num {
-    position: absolute;
-    top: -6px;
-    left: -6px;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    z-index: 2;
-  }
-  .f4-num.orange { background: #d84b1e; }
-  .f4-num.blue { background: #2050b0; }
-  .f4-num.green { background: #1a9c5c; }
-  .f4-ring {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid;
-    background: #fff;
-  }
-  .f4-ring svg, .f4-ring img.eeimg { width: 40px; height: 40px; }
-  .f4-ring.orange { border-color: #f2a98a; color: #e2622a; }
-  .f4-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
-  .f4-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
-  .f4-connector {
-    width: 2px;
-    flex: 1;
-    background: #ddd8ce;
-    margin: 6px 0;
-    min-height: 30px;
-    transform-origin: top;
-    transform: scaleY(0);
-  }
-  .f4-chevron {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid #e2ddd2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #b8a48f;
-    font-size: 12px;
-    margin: 2px 0;
-    flex-shrink: 0;
-    opacity: 0;
-  }
-  .f4-panel {
-    flex: 1;
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-  }
-  .f4-panel.orange-bg { background: #fdf0e9; }
-  .f4-panel.blue-bg { background: #eaf0fb; }
-  .f4-panel.green-bg { background: #eaf7ee; }
-  .f4-main { flex: 1; }
-  .f4-panel-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .f4-icon-chip {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .f4-icon-chip svg, .f4-icon-chip img.eeimg { width: 16px; height: 16px; }
-  .f4-icon-chip.orange { background: #e2622a; }
-  .f4-icon-chip.blue { background: #2050b0; }
-  .f4-icon-chip.green { background: #1a9c5c; }
-  .f4-label {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .f4-label.orange-text { color: #e2622a; }
-  .f4-label.blue-text { color: #2050b0; }
-  .f4-label.green-text { color: #1a9c5c; }
-  .f4-divider {
-    border: none;
-    border-top: 1px solid rgba(0,0,0,0.07);
-    margin: 0 0 10px;
-  }
-  .f4-main p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #2c2c2a;
-    margin: 0;
-  }
-  .f4-side {
-    width: 220px;
-    flex-shrink: 0;
-    background: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .f4-side-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .f4-side-icon svg, .f4-side-icon img.eeimg { width: 20px; height: 20px; }
-  .f4-side-icon.orange-fill { background: #fbdcc9; color: #e2622a; }
-  .f4-side-icon.blue-fill { background: #cfe0f7; color: #2050b0; }
-  .f4-side-icon.green-fill { background: #c7ecd4; color: #1a9c5c; }
-  .f4-side-eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin: 0 0 3px;
-  }
-  .f4-side-eyebrow.orange-text { color: #e2622a; }
-  .f4-side-eyebrow.blue-text { color: #2050b0; }
-  .f4-side-eyebrow.green-text { color: #1a9c5c; }
-  .f4-side-value {
-    font-size: 14px;
-    color: #1a1a1a;
-    margin: 0;
-    line-height: 1.4;
-  }
-  .f4-step { opacity: 0; }
-  .f4-step.animate { opacity: 1; }
-  .f4-step.animate .f4-ring {
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-  .f4-step.animate .f4-panel {
-    animation: slideFade 0.6s ease-out forwards;
-    animation-delay: 0.15s;
-  }
-  .f4-step.animate .f4-connector {
-    animation: growLine 0.5s ease-out forwards;
-    animation-delay: 0.5s;
-  }
-  .f4-step.animate .f4-chevron {
-    animation: checkPop 0.3s ease-out forwards;
-    animation-delay: 0.6s;
-  }
-  /* ---- Lead Ingestion section (revised) ---- */
-  .li-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .li-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-  .li-badge {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: #ffffff;
-    border: 3px solid #DE6E30;
-    color: #DE6E30;
-    font-size: 22px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .li-badge svg, .li-badge img.eeimg { width: 30px; height: 30px; }
-  .li-title h1 {
-    font-size: 32px;
-    font-weight: 800;
-    color: #1a2a4a;
-    margin: 0 0 6px;
-  }
-  .li-title p {
-    font-size: 15px;
-    color: #6b6b68;
-    margin: 0 0 8px;
-    border-bottom: 3px solid #d84b1e;
-    display: inline-block;
-    padding-bottom: 8px;
-  }
-  .li-row {
-    display: flex;
-    gap: 24px;
-    align-items: stretch;
-  }
-  .li-icon-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .li-ring {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid;
-    background: #fff;
-  }
-  .li-ring svg, .li-ring img.eeimg { width: 40px; height: 40px; }
-  .li-ring.orange { border-color: #f2a98a; color: #e2622a; }
-  .li-ring.blue { border-color: #a9c6f2; color: #2b62c9; }
-  .li-ring.green { border-color: #a6ddbb; color: #1a9c5c; }
-  .li-line-seg {
-    width: 0;
-    height: 16px;
-    border-left: 2px dashed #ddd4c8;
-  }
-  .li-line-seg.grow {
-    flex: 1;
-    min-height: 20px;
-    transform-origin: top;
-    transform: scaleY(0);
-  }
-  .li-chevron {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid #e2ddd2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #e2622a;
-    font-size: 12px;
-    flex-shrink: 0;
-    opacity: 0;
-  }
-  .li-panel {
-    flex: 1;
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-  }
-  .li-panel.orange-bg { background: #fdf0e9; }
-  .li-panel.blue-bg { background: #eaf0fb; }
-  .li-panel.green-bg { background: #eaf7ee; }
-  .li-main { flex: 1; }
-  .li-panel-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .li-icon-chip {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .li-icon-chip svg, .li-icon-chip img.eeimg { width: 16px; height: 16px; }
-  .li-icon-chip.orange { background: #e2622a; }
-  .li-icon-chip.blue { background: #2050b0; }
-  .li-icon-chip.green { background: #1a9c5c; }
-  .li-label {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .li-label.orange-text { color: #e2622a; }
-  .li-label.blue-text { color: #2050b0; }
-  .li-label.green-text { color: #1a9c5c; }
-  .li-divider {
-    border: none;
-    border-top: 1px solid rgba(0,0,0,0.07);
-    margin: 0 0 10px;
-  }
-  .li-subtitle {
-    font-size: 17px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0 0 6px;
-  }
-  .li-main p.li-body {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #4a4a48;
-    margin: 0;
-  }
-  .li-deco {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .li-deco-ring {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 2px dashed #a6ddbb;
-  }
-  .li-deco-circle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: #eaf7ee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .li-deco-circle svg, .li-deco-circle img.eeimg { width: 30px; height: 30px; color: #1a9c5c; }
-  .li-deco-badge {
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #1a9c5c;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .li-deco-badge svg, .li-deco-badge img.eeimg { width: 12px; height: 12px; }
-  .li-sparkle {
-    position: absolute;
-    color: #7fcf9d;
-    font-size: 12px;
-  }
-  .li-step { opacity: 0; }
-  .li-step.animate { opacity: 1; }
-  .li-step.animate .li-ring {
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-  .li-step.animate .li-panel {
-    animation: slideFade 0.6s ease-out forwards;
-    animation-delay: 0.15s;
-  }
-  .li-step.animate .li-line-seg.grow {
-    animation: growLine 0.5s ease-out forwards;
-    animation-delay: 0.5s;
-  }
-  .li-step.animate .li-chevron {
-    animation: checkPop 0.3s ease-out forwards;
-    animation-delay: 0.6s;
-  }
-  @media (max-width: 720px) {
-    .li-row, .se-row, .p3-row, .f4-row { flex-direction: column; }
-    .li-icon-col, .se-icon-col, .p3-icon-col, .f4-icon-col { flex-direction: row; }
-    .li-line-seg, .li-line-seg.grow, .se-connector, .p3-connector, .f4-connector { display: none; }
-    .se-panel, .p3-panel, .f4-panel, .li-panel { flex-direction: column; }
-    .se-side, .p3-side, .f4-side { width: auto; }
-    .li-deco { display: none; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-</style>
-</head>
-<body>
-<div class=&quot;progress-bar&quot;><div class=&quot;progress-fill&quot; id=&quot;progressFill&quot;></div></div>
-<div class=&quot;scroll-container&quot; id=&quot;scrollContainer&quot;>
-<div class=&quot;scroll-panel&quot;>
-<div class=&quot;li-wrapper&quot;>
-  <div class=&quot;li-header&quot; id=&quot;li-header&quot;>
-    <div class=&quot;li-badge&quot;>
-      <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/mail-flag.svg&quot; alt=&quot;&quot;>
-    </div>
-    <div class=&quot;li-title&quot;>
-      <h1>Lead ingestion</h1>
-      <p>Capture. Clean. Consolidate. Convert.</p>
-    </div>
+<section id="feature-pillars" class="lp2-sec" aria-label="Admission intelligence journey">
+  <div class="lp2-head">
+    <p class="lp2-eyebrow">Built for admission teams</p>
+    <h2 class="lp2-h2">One enquiry. Four systems working as one.</h2>
+    <p class="lp2-sub">Scroll to follow a single lead from first click to a confirmed seat.</p>
   </div>
-  <!-- LI Step 1 -->
-  <div class=&quot;li-row li-step&quot; id=&quot;li-1&quot;>
-    <div class=&quot;li-icon-col&quot;>
-      <div class=&quot;li-ring orange&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/mail-flag-sparkle.svg&quot; alt=&quot;&quot;>
+  <div class="lp2-wrap" id="lp2Wrap">
+    <div class="lp2-pin">
+      <div class="lp2-nav" id="lp2Nav">
+        <button type="button" class="lp2-navbtn on" data-i="0" style="--lp2-accent:#DE6E30"><b>01</b><span>Lead Ingestion</span></button>
+        <button type="button" class="lp2-navbtn" data-i="1" style="--lp2-accent:#2B62C9"><b>02</b><span>Smart Engagement</span></button>
+        <button type="button" class="lp2-navbtn" data-i="2" style="--lp2-accent:#7C5CFF"><b>03</b><span>AI Prioritization</span></button>
+        <button type="button" class="lp2-navbtn" data-i="3" style="--lp2-accent:#1AA35C"><b>04</b><span>Funnel Analytics</span></button>
       </div>
-      <div class=&quot;li-line-seg&quot;></div>
-      <div class=&quot;li-chevron&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/chevron-down.svg&quot; alt=&quot;&quot; style=&quot;width:14px;height:14px;&quot;>
-      </div>
-      <div class=&quot;li-line-seg grow&quot;></div>
-    </div>
-    <div class=&quot;li-panel orange-bg&quot;>
-      <div class=&quot;li-main&quot;>
-        <div class=&quot;li-panel-header&quot;>
-          <div class=&quot;li-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <path d=&quot;M9 18h6&quot;></path>
-              <path d=&quot;M10 22h4&quot;></path>
-              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
-            </svg>
+      <div class="lp2-progress"><div class="lp2-progress-fill" id="lp2Fill"></div></div>
+      <div class="lp2-stage" id="lp2Stage">
+
+        <div class="lp2-story on" data-i="0" style="--lp2-accent:#DE6E30">
+          <div class="lp2-story-head">
+            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/mail-flag.svg" alt=""></div>
+            <div class="lp2-story-title"><h3>Lead Ingestion</h3><p>Capture. Clean. Consolidate. Convert.</p></div>
           </div>
-          <span class=&quot;li-label orange-text&quot;>Strategic insight</span>
-        </div>
-        <hr class=&quot;li-divider&quot;>
-        <p class=&quot;li-body&quot;>We centralize your entire ecosystem. By normalizing data schemas across many channels, we eliminate data silos. This ensures every prospect, regardless of origin, is immediately formatted, deduplicated, and ready for action.</p>
-      </div>
-    </div>
-  </div>
-  <!-- LI Step 2 -->
-  <div class=&quot;li-row li-step&quot; id=&quot;li-2&quot;>
-    <div class=&quot;li-icon-col&quot;>
-      <div class=&quot;li-ring blue&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/network-nodes.svg&quot; alt=&quot;&quot;>
-      </div>
-      <div class=&quot;li-line-seg&quot;></div>
-      <div class=&quot;li-chevron&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/chevron-down.svg&quot; alt=&quot;&quot; style=&quot;width:14px;height:14px;&quot;>
-      </div>
-      <div class=&quot;li-line-seg grow&quot;></div>
-    </div>
-    <div class=&quot;li-panel blue-bg&quot;>
-      <div class=&quot;li-main&quot;>
-        <div class=&quot;li-panel-header&quot;>
-          <div class=&quot;li-icon-chip blue&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/database-stack.svg&quot; alt=&quot;&quot;>
-          </div>
-          <span class=&quot;li-label blue-text&quot;>Primary input data</span>
-        </div>
-        <hr class=&quot;li-divider&quot;>
-        <p class=&quot;li-subtitle&quot;>Omni-channel API gateways</p>
-        <p class=&quot;li-body&quot;>Leads captured from many sources through unified API connections.</p>
-      </div>
-    </div>
-  </div>
-  <!-- LI Step 3 -->
-  <div class=&quot;li-row li-step&quot; id=&quot;li-3&quot;>
-    <div class=&quot;li-icon-col&quot;>
-      <div class=&quot;li-ring orange&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/ee-icon-ai-chip-full.svg&quot; alt=&quot;&quot;>
-      </div>
-      <div class=&quot;li-line-seg&quot;></div>
-      <div class=&quot;li-chevron&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/chevron-down.svg&quot; alt=&quot;&quot; style=&quot;width:14px;height:14px;&quot;>
-      </div>
-      <div class=&quot;li-line-seg grow&quot;></div>
-    </div>
-    <div class=&quot;li-panel orange-bg&quot;>
-      <div class=&quot;li-main&quot;>
-        <div class=&quot;li-panel-header&quot;>
-          <div class=&quot;li-icon-chip orange&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/ee-icon-ai-chip-simple.svg&quot; alt=&quot;&quot;>
-          </div>
-          <span class=&quot;li-label orange-text&quot;>AI processing engine</span>
-        </div>
-        <hr class=&quot;li-divider&quot;>
-        <p class=&quot;li-subtitle&quot;>Data normalization &amp; deduplication</p>
-        <p class=&quot;li-body&quot;>Our AI engine cleans, standardizes, and deduplicates data to ensure accuracy and eliminate redundancies.</p>
-      </div>
-    </div>
-  </div>
-  <!-- LI Step 4 -->
-  <div class=&quot;li-row li-step&quot; id=&quot;li-4&quot;>
-    <div class=&quot;li-icon-col&quot;>
-      <div class=&quot;li-ring green&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/shield-check.svg&quot; alt=&quot;&quot;>
-      </div>
-    </div>
-    <div class=&quot;li-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
-      <div class=&quot;li-main&quot;>
-        <div class=&quot;li-panel-header&quot;>
-          <div class=&quot;li-icon-chip green&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg&quot; alt=&quot;&quot;>
-          </div>
-          <span class=&quot;li-label green-text&quot;>Finalized output</span>
-        </div>
-        <hr class=&quot;li-divider&quot;>
-        <p class=&quot;li-subtitle&quot;>Verified prospect record</p>
-        <p class=&quot;li-body&quot;>A clean, enriched, and verified lead record &mdash; ready for engagement.</p>
-      </div>
-      <div class=&quot;li-deco&quot;>
-        <div class=&quot;li-deco-ring&quot;></div>
-        <div class=&quot;li-deco-circle&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/user-profile.svg&quot; alt=&quot;&quot;>
-          <div class=&quot;li-deco-badge&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg&quot; alt=&quot;&quot;>
+          <div class="lp2-steps">
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
+              <div class="lp2-step-txt"><b>Strategic insight</b><p>We centralize every channel into one clean, de-duplicated pipeline.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/network-nodes.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>Primary input data</b><p>Omni-channel API gateways capture leads from every source.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/ee-icon-ai-chip-simple.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>AI processing engine</b><p>AI normalizes and deduplicates data automatically.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>Finalized output</b><p>A clean, verified prospect record &mdash; ready for engagement.</p></div>
+            </div>
           </div>
         </div>
-        <span class=&quot;li-sparkle&quot; style=&quot;top:-4px; left:-8px;&quot;>&#10022;</span>
-        <span class=&quot;li-sparkle&quot; style=&quot;bottom:-6px; left:-4px; font-size:9px;&quot;>&#10022;</span>
-        <span class=&quot;li-sparkle&quot; style=&quot;top:8px; right:-10px; font-size:9px;&quot;>&#10022;</span>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-<div class=&quot;scroll-panel&quot;>
-<div class=&quot;se-wrapper&quot;>
-  <div class=&quot;se-header&quot; id=&quot;se-header&quot;>
-    <div class=&quot;se-badge&quot;>
-      <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/users-team.svg&quot; alt=&quot;&quot;>
-    </div>
-    <div class=&quot;se-title&quot;>
-      <h1>Smart engagement</h1>
-      <p>Right message. Right channel. Right time. Every time.</p>
-    </div>
-  </div>
-  <!-- SE Step 1 -->
-  <div class=&quot;se-row se-step&quot; id=&quot;se-1&quot;>
-    <div class=&quot;se-icon-col&quot;>
-      <div class=&quot;se-ring orange&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/target.svg&quot; alt=&quot;&quot;>
-      </div>
-      <div class=&quot;se-connector&quot;></div>
-    </div>
-    <div class=&quot;se-panel orange-bg&quot;>
-      <div class=&quot;se-main&quot;>
-        <div class=&quot;se-panel-header&quot;>
-          <div class=&quot;se-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <path d=&quot;M9 18h6&quot;></path>
-              <path d=&quot;M10 22h4&quot;></path>
-              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
-            </svg>
+
+        <div class="lp2-story" data-i="1" style="--lp2-accent:#2B62C9">
+          <div class="lp2-story-head">
+            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/users-team.svg" alt=""></div>
+            <div class="lp2-story-title"><h3>Smart Engagement</h3><p>Right message. Right channel. Right time.</p></div>
           </div>
-          <span class=&quot;se-label orange-text&quot;>Strategic insight</span>
-        </div>
-        <hr class=&quot;se-divider&quot;>
-        <p>Generic outreach is a cost, not an asset. Our system analyzes user behavior to trigger context-aware communication. Whether via WhatsApp, SMS, or Email, the message aligns perfectly with the prospect's current intent.</p>
-      </div>
-      <div class=&quot;se-side&quot;>
-        <div class=&quot;se-side-icon blue-fill&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/users-team.svg&quot; alt=&quot;&quot;>
-        </div>
-        <div>
-          <p class=&quot;se-side-label&quot;>Primary input data</p>
-          <p class=&quot;se-side-value&quot;>User behavior signals</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- SE Step 2 -->
-  <div class=&quot;se-row se-step&quot; id=&quot;se-2&quot;>
-    <div class=&quot;se-icon-col&quot;>
-      <div class=&quot;se-ring blue&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/brain.svg&quot; alt=&quot;&quot;>
-      </div>
-      <div class=&quot;se-connector&quot;></div>
-    </div>
-    <div class=&quot;se-panel blue-bg&quot;>
-      <div class=&quot;se-main&quot;>
-        <div class=&quot;se-panel-header&quot;>
-          <div class=&quot;se-icon-chip blue&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/settings-gear.svg&quot; alt=&quot;&quot;>
+          <div class="lp2-steps">
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
+              <div class="lp2-step-txt"><b>Strategic insight</b><p>Context-aware outreach replaces generic, one-size-fits-all messaging.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/settings-gear.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>AI processing engine</b><p>AI reads behavior and intent to choose the optimal channel.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/send-arrow.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>Engagement in action</b><p>Messages go out automatically via WhatsApp, SMS or Email.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>Finalized output</b><p>High-intent conversations that drive deeper engagement.</p></div>
+            </div>
           </div>
-          <span class=&quot;se-label blue-text&quot;>AI processing engine</span>
         </div>
-        <hr class=&quot;se-divider&quot;>
-        <p>Our AI engine interprets behavioral patterns, intent signals, and engagement history to determine the optimal message, channel, and timing for each prospect.</p>
-      </div>
-      <div class=&quot;se-side stack&quot;>
-        <div style=&quot;display:flex;align-items:center;gap:10px;width:100%;&quot;>
-          <div class=&quot;se-side-icon blue-fill&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/monitor-screen.svg&quot; alt=&quot;&quot;>
+
+        <div class="lp2-story" data-i="2" style="--lp2-accent:#7C5CFF">
+          <div class="lp2-story-head">
+            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/trophy.svg" alt=""></div>
+            <div class="lp2-story-title"><h3>AI Prioritization</h3><p>Focus on the right prospects, at the right time.</p></div>
           </div>
-          <p class=&quot;se-side-value&quot; style=&quot;margin:0;&quot;>AI processing engine</p>
-        </div>
-        <p class=&quot;se-side-sub&quot;>Adaptive engagement logic</p>
-      </div>
-    </div>
-  </div>
-  <!-- SE Step 3 -->
-  <div class=&quot;se-row se-step&quot; id=&quot;se-3&quot;>
-    <div class=&quot;se-icon-col&quot;>
-      <div class=&quot;se-ring orange&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/send-arrow.svg&quot; alt=&quot;&quot;>
-      </div>
-      <div class=&quot;se-connector&quot;></div>
-    </div>
-    <div class=&quot;se-panel orange-bg&quot;>
-      <div class=&quot;se-main&quot;>
-        <div class=&quot;se-panel-header&quot;>
-          <div class=&quot;se-icon-chip orange&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/send-arrow.svg&quot; alt=&quot;&quot;>
+          <div class="lp2-steps">
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
+              <div class="lp2-step-txt"><b>Strategic insight</b><p>Behavioral scoring focuses your team on who's likely to enrol.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/file-clock.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>Primary input data</b><p>Every touchpoint &mdash; calls, emails, forms, site visits &mdash; is analyzed.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/settings-gear.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>AI processing engine</b><p>Predictive models rank prospects by enrollment probability.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>Finalized output</b><p>A weighted priority queue for your counselors.</p></div>
+            </div>
           </div>
-          <span class=&quot;se-label orange-text&quot;>Engagement in action</span>
         </div>
-        <hr class=&quot;se-divider&quot;>
-        <p>The right message is delivered through the right channel automatically&mdash;ensuring timely, relevant, and personalized engagement at scale.</p>
-      </div>
-      <div class=&quot;se-side&quot; style=&quot;flex-direction:column;&quot;>
-        <div class=&quot;se-channels&quot;>
-          <div class=&quot;se-channel-icons&quot;>
-            <span style=&quot;background:#25d366;&quot;>
-              <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/whatsapp-fill.svg&quot; alt=&quot;&quot;>
-            </span>
-            <span style=&quot;background:#2196f3;&quot;>
-              <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/sms-fill.svg&quot; alt=&quot;&quot;>
-            </span>
-            <span style=&quot;background:#7c3aed;&quot;>
-              <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/email-fill.svg&quot; alt=&quot;&quot;>
-            </span>
+
+        <div class="lp2-story" data-i="3" style="--lp2-accent:#1AA35C">
+          <div class="lp2-story-head">
+            <div class="lp2-badge"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/bar-chart-trend.svg" alt=""></div>
+            <div class="lp2-story-title"><h3>Funnel Analytics</h3><p>See what works. Fix what doesn't.</p></div>
           </div>
-          <div class=&quot;se-channel-names&quot;>WhatsApp &middot; SMS &middot; Email</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- SE Step 4 -->
-  <div class=&quot;se-row se-step&quot; id=&quot;se-4&quot;>
-    <div class=&quot;se-icon-col&quot;>
-      <div class=&quot;se-ring green&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/shield-check.svg&quot; alt=&quot;&quot;>
-      </div>
-    </div>
-    <div class=&quot;se-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
-      <div class=&quot;se-main&quot;>
-        <div class=&quot;se-panel-header&quot;>
-          <div class=&quot;se-icon-chip green&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg&quot; alt=&quot;&quot;>
+          <div class="lp2-steps">
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z"></path></svg></div>
+              <div class="lp2-step-txt"><b>Strategic insight</b><p>Predictive forecasting flags pipeline bottlenecks before they hurt targets.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/document-lines.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>Primary input data</b><p>Leads, activities, conversions and outcomes &mdash; unified.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/ee-icon-ai-chip-simple.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>AI processing engine</b><p>AI calculates ROI across every campaign and channel.</p></div>
+            </div>
+            <div class="lp2-step">
+              <div class="lp2-step-ic"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/rocket.svg" alt=""></div>
+              <div class="lp2-step-txt"><b>Finalized output</b><p>An actionable roadmap to boost conversions.</p></div>
+            </div>
           </div>
-          <span class=&quot;se-label green-text&quot;>Finalized output</span>
         </div>
-        <hr class=&quot;se-divider&quot;>
-        <p>Meaningful, high-intent conversations that drive deeper engagement and higher conversion.</p>
-      </div>
-      <div class=&quot;se-side&quot;>
-        <div class=&quot;se-side-icon green-fill&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/user-profile.svg&quot; alt=&quot;&quot;>
-        </div>
-        <p class=&quot;se-side-value&quot;>High-intent dialogue</p>
+
       </div>
     </div>
   </div>
-</div>
-</div>
-<div class=&quot;scroll-panel&quot;>
-<div class=&quot;p3-wrapper&quot;>
-  <div class=&quot;p3-header&quot; id=&quot;p3-header&quot;>
-    <div class=&quot;p3-badge&quot;>
-      <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/trophy.svg&quot; alt=&quot;&quot;>
-    </div>
-    <div class=&quot;p3-title&quot;>
-      <h1>AI prioritization</h1>
-      <p>Focus on the right prospects. At the right time.</p>
-    </div>
-  </div>
-  <!-- P3 Step 1 -->
-  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-1&quot;>
-    <div class=&quot;p3-icon-col&quot;>
-      <div class=&quot;p3-ring orange&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/target.svg&quot; alt=&quot;&quot;>
-      </div>
-      <div class=&quot;p3-connector&quot;></div>
-    </div>
-    <div class=&quot;p3-panel orange-bg&quot;>
-      <div class=&quot;p3-main&quot;>
-        <div class=&quot;p3-panel-header&quot;>
-          <div class=&quot;p3-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <path d=&quot;M9 18h6&quot;></path>
-              <path d=&quot;M10 22h4&quot;></path>
-              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
-            </svg>
-          </div>
-          <span class=&quot;p3-label orange-text&quot;>Strategic insight</span>
-        </div>
-        <hr class=&quot;p3-divider&quot;>
-        <p>Your counselors should spend time closing, not sorting. We apply behavioral scoring models that analyze thousands of data points to predict who is most likely to enroll. This focuses your best human assets where they matter most.</p>
-      </div>
-      <div class=&quot;p3-side&quot;>
-        <div class=&quot;p3-side-icon orange-fill&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/bar-chart.svg&quot; alt=&quot;&quot;>
-        </div>
-        <div>
-          <p class=&quot;p3-side-eyebrow orange-text&quot;>Why it matters</p>
-          <p class=&quot;p3-side-value&quot;>Spend less time sorting, more time closing.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- P3 Step 2 -->
-  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-2&quot;>
-    <div class=&quot;p3-icon-col&quot;>
-      <div class=&quot;p3-ring blue&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/file-clock.svg&quot; alt=&quot;&quot;>
-      </div>
-      <div class=&quot;p3-connector&quot;></div>
-    </div>
-    <div class=&quot;p3-panel blue-bg&quot;>
-      <div class=&quot;p3-main&quot;>
-        <div class=&quot;p3-panel-header&quot;>
-          <div class=&quot;p3-icon-chip blue&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/database-stack.svg&quot; alt=&quot;&quot;>
-          </div>
-          <span class=&quot;p3-label blue-text&quot;>Primary input data</span>
-        </div>
-        <hr class=&quot;p3-divider&quot;>
-        <p>We analyze every touchpoint and engagement signal &mdash; calls, emails, messages, form fills, website behavior, and more.</p>
-      </div>
-      <div class=&quot;p3-side&quot;>
-        <div class=&quot;p3-side-icon blue-fill&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/users-team.svg&quot; alt=&quot;&quot;>
-        </div>
-        <div>
-          <p class=&quot;p3-side-eyebrow blue-text&quot;>Data source</p>
-          <p class=&quot;p3-side-value&quot;>Interaction history</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- P3 Step 3 -->
-  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-3&quot;>
-    <div class=&quot;p3-icon-col&quot;>
-      <div class=&quot;p3-ring orange&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/brain.svg&quot; alt=&quot;&quot;>
-      </div>
-      <div class=&quot;p3-connector&quot;></div>
-    </div>
-    <div class=&quot;p3-panel orange-bg&quot;>
-      <div class=&quot;p3-main&quot;>
-        <div class=&quot;p3-panel-header&quot;>
-          <div class=&quot;p3-icon-chip orange&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/settings-gear.svg&quot; alt=&quot;&quot;>
-          </div>
-          <span class=&quot;p3-label orange-text&quot;>AI processing engine</span>
-        </div>
-        <hr class=&quot;p3-divider&quot;>
-        <p>Our predictive scoring models evaluate intent, engagement, and fitment to estimate enrollment probability for each prospect.</p>
-      </div>
-      <div class=&quot;p3-side&quot;>
-        <div class=&quot;p3-side-icon orange-fill&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/robot-face.svg&quot; alt=&quot;&quot;>
-        </div>
-        <div>
-          <p class=&quot;p3-side-eyebrow orange-text&quot;>How it works</p>
-          <p class=&quot;p3-side-value&quot;>Machine learning models score and rank prospects.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- P3 Step 4 -->
-  <div class=&quot;p3-row p3-step&quot; id=&quot;p3-4&quot;>
-    <div class=&quot;p3-icon-col&quot;>
-      <div class=&quot;p3-ring green&quot;>
-        <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/shield-star.svg&quot; alt=&quot;&quot;>
-      </div>
-    </div>
-    <div class=&quot;p3-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
-      <div class=&quot;p3-main&quot;>
-        <div class=&quot;p3-panel-header&quot;>
-          <div class=&quot;p3-icon-chip green&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg&quot; alt=&quot;&quot;>
-          </div>
-          <span class=&quot;p3-label green-text&quot;>Finalized output</span>
-        </div>
-        <hr class=&quot;p3-divider&quot;>
-        <p>Prospects are ranked by likelihood to enrol, so your team can focus on high-potential opportunities first.</p>
-      </div>
-      <div class=&quot;p3-side&quot;>
-        <div class=&quot;p3-side-icon green-fill&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/trophy.svg&quot; alt=&quot;&quot;>
-        </div>
-        <div>
-          <p class=&quot;p3-side-eyebrow green-text&quot;>Output</p>
-          <p class=&quot;p3-side-value&quot;>Weighted priority queue</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-<div class=&quot;scroll-panel&quot;>
-<div class=&quot;f4-wrapper&quot;>
-  <div class=&quot;f4-header&quot; id=&quot;f4-header&quot;>
-    <div class=&quot;f4-badge&quot;>
-      <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/bar-chart-trend.svg&quot; alt=&quot;&quot;>
-    </div>
-    <div class=&quot;f4-title&quot;>
-      <h1>Funnel analytics</h1>
-      <p>See what works. Fix what doesn't. Maximize every opportunity.</p>
-    </div>
-  </div>
-  <!-- F4 Step 1 -->
-  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-1&quot;>
-    <div class=&quot;f4-icon-col&quot;>
-      <div class=&quot;f4-ring-wrap&quot;>
-        <div class=&quot;f4-ring orange&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/bar-chart-trend.svg&quot; alt=&quot;&quot;>
-        </div>
-      </div>
-      <div class=&quot;f4-connector&quot;></div>
-    </div>
-    <div class=&quot;f4-panel orange-bg&quot;>
-      <div class=&quot;f4-main&quot;>
-        <div class=&quot;f4-panel-header&quot;>
-          <div class=&quot;f4-icon-chip orange&quot;>
-            <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;>
-              <path d=&quot;M9 18h6&quot;></path>
-              <path d=&quot;M10 22h4&quot;></path>
-              <path d=&quot;M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-2.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2z&quot;></path>
-            </svg>
-          </div>
-          <span class=&quot;f4-label orange-text&quot;>Strategic insight</span>
-        </div>
-        <hr class=&quot;f4-divider&quot;>
-        <p>Decision-making requires clarity. We provide predictive forecasting on your pipeline health. Identify bottlenecks before they impact your enrollment targets and optimize your recruitment spend with verifiable ROI data.</p>
-      </div>
-      <div class=&quot;f4-side&quot;>
-        <div class=&quot;f4-side-icon orange-fill&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/bar-chart.svg&quot; alt=&quot;&quot;>
-        </div>
-        <div>
-          <p class=&quot;f4-side-eyebrow orange-text&quot;>Focus</p>
-          <p class=&quot;f4-side-value&quot;>Predict. Prevent. Perform.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- F4 Step 2 -->
-  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-2&quot;>
-    <div class=&quot;f4-icon-col&quot;>
-      <div class=&quot;f4-ring-wrap&quot;>
-        <div class=&quot;f4-ring blue&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/document-lines.svg&quot; alt=&quot;&quot;>
-        </div>
-      </div>
-      <div class=&quot;f4-connector&quot;></div>
-    </div>
-    <div class=&quot;f4-panel blue-bg&quot;>
-      <div class=&quot;f4-main&quot;>
-        <div class=&quot;f4-panel-header&quot;>
-          <div class=&quot;f4-icon-chip blue&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/database-stack.svg&quot; alt=&quot;&quot;>
-          </div>
-          <span class=&quot;f4-label blue-text&quot;>Primary input data</span>
-        </div>
-        <hr class=&quot;f4-divider&quot;>
-        <p>We consolidate data from every stage of your funnel &mdash; leads, activities, engagements, conversions, and outcomes &mdash; for complete visibility.</p>
-      </div>
-      <div class=&quot;f4-side&quot;>
-        <div class=&quot;f4-side-icon blue-fill&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/users-team.svg&quot; alt=&quot;&quot;>
-        </div>
-        <div>
-          <p class=&quot;f4-side-eyebrow blue-text&quot;>Data source</p>
-          <p class=&quot;f4-side-value&quot;>Pipeline/conversion logs</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- F4 Step 3 -->
-  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-3&quot;>
-    <div class=&quot;f4-icon-col&quot;>
-      <div class=&quot;f4-ring-wrap&quot;>
-        <div class=&quot;f4-ring orange&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/ee-icon-ai-chip-full.svg&quot; alt=&quot;&quot;>
-        </div>
-      </div>
-      <div class=&quot;f4-connector&quot;></div>
-    </div>
-    <div class=&quot;f4-panel orange-bg&quot;>
-      <div class=&quot;f4-main&quot;>
-        <div class=&quot;f4-panel-header&quot;>
-          <div class=&quot;f4-icon-chip orange&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/ee-icon-ai-chip-simple.svg&quot; alt=&quot;&quot;>
-          </div>
-          <span class=&quot;f4-label orange-text&quot;>AI processing engine</span>
-        </div>
-        <hr class=&quot;f4-divider&quot;>
-        <p>Our AI engine analyzes patterns, predicts outcomes, and calculates ROI across campaigns, channels, and stages of your funnel.</p>
-      </div>
-      <div class=&quot;f4-side&quot;>
-        <div class=&quot;f4-side-icon orange-fill&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/target.svg&quot; alt=&quot;&quot;>
-        </div>
-        <div>
-          <p class=&quot;f4-side-eyebrow orange-text&quot;>Analysis</p>
-          <p class=&quot;f4-side-value&quot;>Predictive ROI analytics</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- F4 Step 4 -->
-  <div class=&quot;f4-row f4-step&quot; id=&quot;f4-4&quot;>
-    <div class=&quot;f4-icon-col&quot;>
-      <div class=&quot;f4-ring-wrap&quot;>
-        <div class=&quot;f4-ring green&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/rocket.svg&quot; alt=&quot;&quot;>
-        </div>
-      </div>
-    </div>
-    <div class=&quot;f4-panel green-bg&quot; style=&quot;margin-bottom:0;&quot;>
-      <div class=&quot;f4-main&quot;>
-        <div class=&quot;f4-panel-header&quot;>
-          <div class=&quot;f4-icon-chip green&quot;>
-            <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/checkmark.svg&quot; alt=&quot;&quot;>
-          </div>
-          <span class=&quot;f4-label green-text&quot;>Finalized output</span>
-        </div>
-        <hr class=&quot;f4-divider&quot;>
-        <p>Get a clear, actionable roadmap with recommendations to improve performance, increase conversions, and achieve your enrollment goals.</p>
-      </div>
-      <div class=&quot;f4-side&quot;>
-        <div class=&quot;f4-side-icon green-fill&quot;>
-          <img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/built-for-admission-teams/rocket.svg&quot; alt=&quot;&quot;>
-        </div>
-        <div>
-          <p class=&quot;f4-side-eyebrow green-text&quot;>Output</p>
-          <p class=&quot;f4-side-value&quot;>Actionable strategic roadmap</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-<script>
-  var scrollContainer = document.getElementById(&quot;scrollContainer&quot;);
-  var progressFill = document.getElementById(&quot;progressFill&quot;);
-  var panelCount = 4;
-  var activeIndex = 0;
-  var isAnimating = false;
-  function updateUI() {
-    progressFill.style.width = (((activeIndex + 1) / panelCount) * 100) + &quot;%&quot;;
-  }
-  function goTo(i) {
-    i = Math.max(0, Math.min(panelCount - 1, i));
-    activeIndex = i;
-    isAnimating = true;
-    scrollContainer.scrollTo({ left: i * scrollContainer.clientWidth, behavior: &quot;smooth&quot; });
-    updateUI();
-    window.clearTimeout(goTo._t);
-    goTo._t = window.setTimeout(function () { isAnimating = false; }, 650);
-  }
-  // Keep activeIndex in sync if the user drags the scrollbar or swipes directly
-  scrollContainer.addEventListener(&quot;scroll&quot;, function () {
-    window.clearTimeout(scrollContainer._t);
-    scrollContainer._t = window.setTimeout(function () {
-      if (isAnimating) return;
-      activeIndex = Math.round(scrollContainer.scrollLeft / scrollContainer.clientWidth);
-      updateUI();
-    }, 100);
-  });
-  // Convert normal (vertical) mouse wheel / trackpad scrolling into a jump
-  // to the next/previous section, one section per gesture.
-  // (Single listener only — attaching this on both the container AND
-  // document would fire twice per gesture and double-skip sections.)
-  function handleWheel(e) {
-    var delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-    if (Math.abs(delta) < 2) return;
-    var next = activeIndex + (delta > 0 ? 1 : -1);
-    // At the first/last panel, scrolling further out of range is left
-    // un-intercepted so the browser's native scroll-chaining hands the
-    // gesture to the outer page instead of trapping it in this widget.
-    if (next < 0 || next > panelCount - 1) return;
-    e.preventDefault();
-    if (isAnimating) return;
-    goTo(next);
-  }
-  scrollContainer.addEventListener(&quot;wheel&quot;, handleWheel, { passive: false });
-  // Keyboard arrow support
-  document.addEventListener(&quot;keydown&quot;, function (e) {
-    if (e.key === &quot;ArrowRight&quot; || e.key === &quot;ArrowDown&quot;) goTo(activeIndex + 1);
-    if (e.key === &quot;ArrowLeft&quot; || e.key === &quot;ArrowUp&quot;) goTo(activeIndex - 1);
-  });
-  // Keep the snapped section aligned if the viewport resizes
-  // (e.g. mobile browser chrome collapsing, or the window being resized).
-  window.addEventListener(&quot;resize&quot;, function () {
-    scrollContainer.scrollTo({ left: activeIndex * scrollContainer.clientWidth, behavior: &quot;auto&quot; });
-  });
-  updateUI();
-</script>
-<script>
-  var panelGroups = [
-    [&quot;li-1&quot;, &quot;li-2&quot;, &quot;li-3&quot;, &quot;li-4&quot;],
-    [&quot;se-1&quot;, &quot;se-2&quot;, &quot;se-3&quot;, &quot;se-4&quot;],
-    [&quot;p3-1&quot;, &quot;p3-2&quot;, &quot;p3-3&quot;, &quot;p3-4&quot;],
-    [&quot;f4-1&quot;, &quot;f4-2&quot;, &quot;f4-3&quot;, &quot;f4-4&quot;]
-  ];
-  var headerIds = [&quot;li-header&quot;, &quot;se-header&quot;, &quot;p3-header&quot;, &quot;f4-header&quot;];
-  var played = [false, false, false, false];
-  function playGroup(idx) {
-    if (played[idx]) return;
-    played[idx] = true;
-    var headerEl = document.getElementById(headerIds[idx]);
-    if (headerEl) headerEl.classList.add(&quot;animate&quot;);
-    panelGroups[idx].forEach(function (id, i) {
-      setTimeout(function () {
-        var el = document.getElementById(id);
-        if (el) el.classList.add(&quot;animate&quot;);
-      }, i * 700 + 100);
-    });
-  }
-  // Play the first section immediately on load
-  playGroup(0);
-  // Play each subsequent section the moment its panel scrolls into view
-  var panels = document.querySelectorAll(&quot;.scroll-panel&quot;);
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        var idx = Array.prototype.indexOf.call(panels, entry.target);
-        playGroup(idx);
-      }
-    });
-  }, { root: scrollContainer, threshold: 0.5 });
-  panels.forEach(function (p) { observer.observe(p); });
-</script>
-</body>
-</html>
-"></iframe>
 </section>
+<script>
+(function(){
+  var wrap = document.getElementById('lp2Wrap');
+  if (!wrap) return;
+  var stories = [].slice.call(document.querySelectorAll('.lp2-story'));
+  var navbtns = [].slice.call(document.querySelectorAll('.lp2-navbtn'));
+  var fill = document.getElementById('lp2Fill');
+  var N = stories.length;
+  var cur = -1;
+
+  function setActive(i){
+    i = Math.max(0, Math.min(N - 1, i));
+    if (i === cur) return;
+    cur = i;
+    stories.forEach(function(s, j){ s.classList.toggle('on', j === i); });
+    navbtns.forEach(function(b, j){ b.classList.toggle('on', j === i); });
+    if (fill) fill.style.width = (((i + 1) / N) * 100) + '%';
+  }
+
+  function onScroll(){
+    var vh = window.innerHeight;
+    var total = wrap.offsetHeight - vh;
+    if (total <= 0) { setActive(0); return; }
+    var scrolled = -wrap.getBoundingClientRect().top;
+    var progress = Math.min(1, Math.max(0, scrolled / total));
+    setActive(Math.min(N - 1, Math.floor(progress * N)));
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if (!ticking){ ticking = true; requestAnimationFrame(function(){ onScroll(); ticking = false; }); }
+  }, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
+  navbtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var i = parseInt(b.dataset.i, 10);
+      var total = wrap.offsetHeight - window.innerHeight;
+      var top = wrap.getBoundingClientRect().top + window.scrollY + (total * (i / N)) + 8;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    });
+  });
+
+  onScroll();
+})();
+</script>
 
 <style>/* ===== AI Product-Led Experience: launch + full-screen overlay (all devices) ===== */
 #ee-platform .eep-mlaunch{display:none;}#ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}/* ---- full-screen experience overlay - the window is relocated to <body> on
