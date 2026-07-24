@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-navcarousel -->
+<!-- ee-front-tpl v2026-07-24-crmpin -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -685,11 +685,14 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <!-- ================= The Real Problem - The Admissions Narrative (scoped .tan-*) ================= -->
 <section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
 <style>
-#powerful-crm{padding:clamp(40px,6vw,72px) 0}
-#powerful-crm .vcrm-frame{width:100%;border:0;display:block;height:1000px;background:#fff;overflow:hidden}
-@media(max-width:600px){#powerful-crm .vcrm-frame{height:820px}}
+#powerful-crm{padding:0}
+#powerful-crm .crm-runway{position:relative}
+#powerful-crm .crm-pin{position:sticky;top:0;height:100vh;height:100dvh;width:100%;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
+#powerful-crm .vcrm-frame{width:100%;height:100%;border:0;display:block;background:#fff}
 </style>
 <section id="powerful-crm" aria-label="Powerful admission CRM, module by module">
+ <div class="crm-runway" id="crmRunway">
+ <div class="crm-pin">
   <iframe class="vcrm-frame" id="vcrmFrame" title="VidyaAI - powerful admission CRM with simplicity: core capabilities" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot; class=&quot;scroll-smooth&quot;>
 <head>
@@ -1381,7 +1384,34 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </body>
 </html>
 "></iframe>
+ </div>
+ </div>
 </section>
+<script>
+/* Powerful CRM section: pin it full-screen while the user scrolls through
+   all 7 modules, then release into the next section - the runway's extra
+   height is set to exactly match how much the iframe's own content
+   overflows a full viewport, so the pin holds for precisely as long as
+   there's more of the module list left to see. */
+(function(){
+  var runway=document.getElementById('crmRunway');
+  var frame=document.getElementById('vcrmFrame');
+  if(!runway||!frame) return;
+  function getDoc(){ try{ return frame.contentDocument||(frame.contentWindow&&frame.contentWindow.document); }catch(e){ return null; } }
+  var lastExtra=-1;
+  function measure(){
+    var d=getDoc(); if(!d||!d.body) return;
+    var vh=window.innerHeight;
+    var contentH=Math.max(d.documentElement.scrollHeight, d.body.scrollHeight);
+    var extra=Math.max(0, contentH - vh);
+    if(extra!==lastExtra){ lastExtra=extra; runway.style.height=(vh+extra)+'px'; }
+  }
+  var tries=0;
+  var poll=setInterval(function(){ measure(); tries++; if(tries>30) clearInterval(poll); },300);
+  frame.addEventListener('load', function(){ measure(); setTimeout(measure,200); setTimeout(measure,700); setTimeout(measure,1500); });
+  window.addEventListener('resize', function(){ setTimeout(measure,150); }, {passive:true});
+})();
+</script>
 
 <style>/* ===== AI Product-Led Experience: launch + full-screen overlay (all devices) ===== */
 #ee-platform .eep-mlaunch{display:none;}#ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}/* ---- full-screen experience overlay - the window is relocated to <body> on
