@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-crmicons -->
+<!-- ee-front-tpl v2026-07-24-crmclean -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -750,17 +750,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         }
         .animate-glow { animation: pulseGlow 4s infinite ease-in-out; }
 
-        /* ---------- NEW: Scroll progress bar ---------- */
-        #scrollProgress {
-            position: fixed;
-            top: 0; left: 0;
-            height: 3px;
-            width: 0%;
-            background: linear-gradient(90deg, #DE6E30, #F38C52);
-            z-index: 60;
-            transition: width 0.1s linear;
-        }
-
         /* ---------- NEW: Core Capabilities nav is sticky on ALL screen sizes ---------- */
         #navCard {
             max-height: calc(100vh - 1rem);
@@ -807,23 +796,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
             border-radius: 8px;
         }
 
-        /* ---------- NEW: Back-to-top / jump button ---------- */
-        #jumpToNav {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 55;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(12px) scale(0.9);
-            transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
-        }
-        #jumpToNav.visible {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateY(0) scale(1);
-        }
-
         /* ---------- NEW: image skeleton shimmer while loading ---------- */
         .img-skeleton {
             position: relative;
@@ -861,7 +833,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         @media (prefers-reduced-motion: reduce) {
             .story-card,
             .story-card .grid > div,
-            #jumpToNav,
             .animate-glow,
             html { transition: none !important; animation: none !important; }
             .story-card { opacity: 1; transform: none; }
@@ -875,9 +846,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     </style>
 </head>
 <body class=&quot;bg-white text-brand-navy antialiased&quot;>
-
-    <!-- NEW: scroll progress bar -->
-    <div id=&quot;scrollProgress&quot;></div>
 
     <main class=&quot;w-full relative py-12 lg:py-24 bg-white&quot;>
 
@@ -1241,12 +1209,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         </div>
     </main>
 
-    <!-- NEW: floating jump-to-nav button (mobile + desktop) -->
-    <button id=&quot;jumpToNav&quot; onclick=&quot;scrollToTopNav()&quot; aria-label=&quot;Jump back to feature navigation&quot;
-        class=&quot;w-12 h-12 rounded-full bg-brand-navy text-white shadow-figma-hover flex items-center justify-center hover:bg-brand-orange transition-colors&quot;>
-        <i class=&quot;fa-solid fa-arrow-up text-sm&quot;></i>
-    </button>
-
     <script>
         // ---------- Config: single source of truth for all 7 sections ----------
         const SECTIONS = [
@@ -1270,16 +1232,10 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
             }
         }
 
-        function scrollToTopNav() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('.story-card');
             const navItems = document.querySelectorAll('.feature-nav-item');
             const navCard = document.getElementById('navCard');
-            const jumpBtn = document.getElementById('jumpToNav');
-            const scrollProgress = document.getElementById('scrollProgress');
 
             // ---------- Active state sync on the always-sticky Core Capabilities nav ----------
             const activeObserverOptions = {
@@ -1324,24 +1280,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
                 });
             }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
             sections.forEach(section => revealObserver.observe(section));
-
-            // ---------- Scroll progress bar + jump-to-nav button visibility ----------
-            let ticking = false;
-            function updateOnScroll() {
-                const scrollTop = window.scrollY;
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-                scrollProgress.style.width = `${pct}%`;
-                jumpBtn.classList.toggle('visible', scrollTop > 600);
-                ticking = false;
-            }
-            window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    window.requestAnimationFrame(updateOnScroll);
-                    ticking = true;
-                }
-            }, { passive: true });
-            updateOnScroll();
 
             // ---------- Keyboard navigation: Left/Right arrows jump between sections ----------
             document.addEventListener('keydown', (e) => {
