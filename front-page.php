@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-crmembed -->
+<!-- ee-front-tpl v2026-07-24-crmasis -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1800,51 +1800,51 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
             overflow-x: hidden;
         }
 
-        #vidyaai-embed-root .gradient-text-navy {
+        .gradient-text-navy {
             background: linear-gradient(135deg, #19335D 0%, #244579 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        #vidyaai-embed-root .gradient-text-orange {
+        .gradient-text-orange {
             background: linear-gradient(135deg, #DE6E30 0%, #F38C52 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        #vidyaai-embed-root .glass-card {
+        .glass-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(25, 51, 93, 0.08);
         }
 
         /* Image transition effects */
-        #vidyaai-embed-root .story-img-container { transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .story-img-container { transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        #vidyaai-embed-root .feature-nav-item.active { border-color: #DE6E30; background-color: #FFF4EE; }
-        #vidyaai-embed-root .feature-nav-item.active .nav-icon { color: #DE6E30; transform: scale(1.1); }
-        #vidyaai-embed-root .feature-nav-item.active .nav-title { color: #19335D; font-weight: 700; }
-        #vidyaai-embed-root .feature-nav-item.active .nav-indicator { height: 100%; background-color: #DE6E30; }
+        .feature-nav-item.active { border-color: #DE6E30; background-color: #FFF4EE; }
+        .feature-nav-item.active .nav-icon { color: #DE6E30; transform: scale(1.1); }
+        .feature-nav-item.active .nav-title { color: #19335D; font-weight: 700; }
+        .feature-nav-item.active .nav-indicator { height: 100%; background-color: #DE6E30; }
 
         /* Pulse glow animation */
-        @keyframes vidyaaiPulseGlow {
+        @keyframes pulseGlow {
             0%, 100% { opacity: 0.4; transform: scale(1); }
             50% { opacity: 0.8; transform: scale(1.03); }
         }
-        #vidyaai-embed-root .animate-glow { animation: vidyaaiPulseGlow 4s infinite ease-in-out; }
+        .animate-glow { animation: pulseGlow 4s infinite ease-in-out; }
 
         /* ---------- NEW: Core Capabilities nav — JS-driven sticky (works even if a parent has overflow/transform) ---------- */
-        #vidyaai-embed-root #navColumn { position: relative; }
-        #vidyaai-embed-root #navCard {
+        #navColumn { position: relative; }
+        #navCard {
             max-height: calc(100vh - 2.5rem);
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
         }
-        #vidyaai-embed-root #navCard::-webkit-scrollbar { width: 5px; }
-        #vidyaai-embed-root #navCard::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 3px; }
-        #vidyaai-embed-root #navCard.js-fixed {
+        #navCard::-webkit-scrollbar { width: 5px; }
+        #navCard::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 3px; }
+        #navCard.js-fixed {
             position: fixed !important;
             z-index: 30;
         }
-        #vidyaai-embed-root #navCard.js-bottom {
+        #navCard.js-bottom {
             position: absolute !important;
             z-index: 30;
             left: 0;
@@ -1852,34 +1852,34 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
         }
 
         /* ---------- NEW: Scroll-reveal for story cards ---------- */
-        #vidyaai-embed-root .story-card {
+        .story-card {
             opacity: 0;
             transform: translateY(28px);
             transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
         }
-        #vidyaai-embed-root .story-card.in-view {
+        .story-card.in-view {
             opacity: 1;
             transform: translateY(0);
         }
 
         /* ---------- NEW: Sub-feature card stagger ---------- */
-        #vidyaai-embed-root .story-card .grid > div {
+        .story-card .grid > div {
             opacity: 0;
             transform: translateY(12px);
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
-        #vidyaai-embed-root .story-card.in-view .grid > div {
+        .story-card.in-view .grid > div {
             opacity: 1;
             transform: translateY(0);
         }
-        #vidyaai-embed-root .story-card.in-view .grid > div:nth-child(1) { transition-delay: 0.05s; }
-        #vidyaai-embed-root .story-card.in-view .grid > div:nth-child(2) { transition-delay: 0.12s; }
-        #vidyaai-embed-root .story-card.in-view .grid > div:nth-child(3) { transition-delay: 0.19s; }
-        #vidyaai-embed-root .story-card.in-view .grid > div:nth-child(4) { transition-delay: 0.26s; }
+        .story-card.in-view .grid > div:nth-child(1) { transition-delay: 0.05s; }
+        .story-card.in-view .grid > div:nth-child(2) { transition-delay: 0.12s; }
+        .story-card.in-view .grid > div:nth-child(3) { transition-delay: 0.19s; }
+        .story-card.in-view .grid > div:nth-child(4) { transition-delay: 0.26s; }
 
         /* ---------- NEW: Accessible focus states ---------- */
-        #vidyaai-embed-root button:focus-visible,
-        #vidyaai-embed-root a:focus-visible {
+        button:focus-visible,
+        a:focus-visible {
             outline: 2px solid #DE6E30;
             outline-offset: 2px;
             border-radius: 8px;
@@ -1903,30 +1903,30 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
         }
 
         /* ---------- NEW: image skeleton shimmer while loading ---------- */
-        #vidyaai-embed-root .img-skeleton {
+        .img-skeleton {
             position: relative;
             background: linear-gradient(90deg, #f1f5f9 25%, #f8fafc 37%, #f1f5f9 63%);
             background-size: 400% 100%;
-            animation: vidyaaiShimmer 1.4s ease infinite;
+            animation: shimmer 1.4s ease infinite;
         }
-        @keyframes vidyaaiShimmer {
+        @keyframes shimmer {
             0% { background-position: 100% 50%; }
             100% { background-position: 0 50%; }
         }
-        #vidyaai-embed-root .story-img-container img { opacity: 0; transition: opacity 0.4s ease; }
-        #vidyaai-embed-root .story-img-container img.loaded { opacity: 1; }
+        .story-img-container img { opacity: 0; transition: opacity 0.4s ease; }
+        .story-img-container img.loaded { opacity: 1; }
 
         /* ---------- NEW: hover/focus info tooltips on feature pills ---------- */
-        #vidyaai-embed-root .pill-wrap { position: relative; }
-        #vidyaai-embed-root .feature-tooltip {
+        .pill-wrap { position: relative; }
+        .feature-tooltip {
             text-align: left;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
-        #vidyaai-embed-root .pill-wrap:hover .feature-tooltip,
-        #vidyaai-embed-root .pill-wrap:focus-within .feature-tooltip,
-        #vidyaai-embed-root .pill-wrap.tooltip-open .feature-tooltip {
+        .pill-wrap:hover .feature-tooltip,
+        .pill-wrap:focus-within .feature-tooltip,
+        .pill-wrap.tooltip-open .feature-tooltip {
             opacity: 1;
             visibility: visible;
             transform: translateX(-50%) translateY(0);
@@ -1934,18 +1934,18 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 
         /* Respect reduced motion preference */
         @media (prefers-reduced-motion: reduce) {
-            #vidyaai-embed-root .story-card,
-            #vidyaai-embed-root .story-card .grid > div,
+            .story-card,
+            .story-card .grid > div,
             #jumpToNav,
-            #vidyaai-embed-root .animate-glow,
+            .animate-glow,
             #vidyaai-embed-root { transition: none !important; animation: none !important; }
-            #vidyaai-embed-root .story-card { opacity: 1; transform: none; }
-            #vidyaai-embed-root .story-card .grid > div { opacity: 1; transform: none; }
+            .story-card { opacity: 1; transform: none; }
+            .story-card .grid > div { opacity: 1; transform: none; }
         }
 
         @media (max-width: 1023px) {
             /* keep first card visible immediately on mobile so page never looks empty before JS runs */
-            #vidyaai-embed-root .story-card:first-of-type { opacity: 1; transform: none; }
+            .story-card:first-of-type { opacity: 1; transform: none; }
         }
     </style>
 
@@ -2323,9 +2323,8 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     </button>
 
     <script>
-    (function(){
         // ---------- Config: single source of truth for all 7 sections ----------
-        var SECTIONS = [
+        const SECTIONS = [
             { id: 'vidyaai',              label: 'VidyaAI Intelligence',  icon: 'fa-solid fa-brain' },
             { id: 'admission-crm',        label: 'Admission CRM',         icon: 'fa-solid fa-users-gear' },
             { id: 'marketing-automation', label: 'Marketing Automation',  icon: 'fa-solid fa-bullhorn' },
@@ -2335,56 +2334,57 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
             { id: 'mobile-crm',           label: 'Mobile CRM',           icon: 'fa-solid fa-mobile-screen-button' },
         ];
 
-        var root = document.getElementById('vidyaai-embed-root');
-
         // Smooth scroll to card (used by desktop nav + mobile pills)
-        window.scrollToSection = function scrollToSection(id) {
-            var element = document.getElementById(id);
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
             if (element) {
-                var yOffset = window.innerWidth < 1024 ? -70 : -100;
-                var y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                const yOffset = window.innerWidth < 1024 ? -70 : -100;
+                const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
                 window.scrollTo({ top: y, behavior: 'smooth' });
-                history.replaceState(null, '', '#' + id);
+                history.replaceState(null, '', `#${id}`);
             }
-        };
+        }
 
-        window.scrollToTopNav = function scrollToTopNav() {
+        function scrollToTopNav() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
+        }
 
-        function init() {
-            var sections = root.querySelectorAll('.story-card');
-            var navItems = root.querySelectorAll('.feature-nav-item');
-            var navCard = document.getElementById('navCard');
-            var navColumn = document.getElementById('navColumn');
-            var rightColumn = root.querySelector('.lg\\:col-span-7');
-            var jumpBtn = document.getElementById('jumpToNav');
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.story-card');
+            const navItems = document.querySelectorAll('.feature-nav-item');
+            const navCard = document.getElementById('navCard');
+            const navColumn = document.getElementById('navColumn');
+            const rightColumn = document.querySelector('.lg\\:col-span-7');
+            const jumpBtn = document.getElementById('jumpToNav');
 
             // ---------- JS-driven sticky nav card (immune to any parent overflow/transform) ----------
-            var naturalTop = 0, naturalLeft = 0, naturalWidth = 0, containerBottom = 0;
+            let naturalTop = 0, naturalLeft = 0, naturalWidth = 0, containerBottom = 0;
 
             function getTopOffset(navHeight) {
-                var vh = window.innerHeight;
-                var margin = window.innerWidth >= 1024 ? 24 : 12;
+                const vh = window.innerHeight;
+                const margin = window.innerWidth >= 1024 ? 24 : 12;
                 if (navHeight >= vh - margin * 2) {
+                    // card taller than viewport: just pin near top with a small margin
                     return margin;
                 }
+                // vertically center the card in the viewport
                 return Math.max(margin, (vh - navHeight) / 2);
             }
 
             function measureStickyBounds() {
+                // reset to normal flow before measuring so we get true natural position
                 navCard.classList.remove('js-fixed', 'js-bottom');
                 navCard.style.top = '';
                 navCard.style.left = '';
                 navCard.style.width = '';
 
-                var navColRect = navColumn.getBoundingClientRect();
+                const navColRect = navColumn.getBoundingClientRect();
                 naturalTop = navColRect.top + window.scrollY;
                 naturalLeft = navColRect.left;
                 naturalWidth = navColRect.width;
 
                 if (rightColumn) {
-                    var rightRect = rightColumn.getBoundingClientRect();
+                    const rightRect = rightColumn.getBoundingClientRect();
                     containerBottom = rightRect.bottom + window.scrollY;
                 } else {
                     containerBottom = naturalTop + navCard.offsetHeight;
@@ -2395,18 +2395,18 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 
             function updateStickyPosition() {
                 if (window.innerWidth < 640) {
+                    // on very small screens keep it simple/static to avoid layout jitter
                     navCard.classList.remove('js-fixed', 'js-bottom');
                     navCard.style.top = '';
                     navCard.style.left = '';
                     navCard.style.width = '';
-                    return;
                 }
 
-                var scrollY = window.scrollY;
-                var navHeight = navCard.offsetHeight;
-                var topOffset = getTopOffset(navHeight);
-                var stickyStartAt = naturalTop - topOffset;
-                var stickyEndAt = containerBottom - topOffset - navHeight;
+                const scrollY = window.scrollY;
+                const navHeight = navCard.offsetHeight;
+                const topOffset = getTopOffset(navHeight);
+                const stickyStartAt = naturalTop - topOffset;
+                const stickyEndAt = containerBottom - topOffset - navHeight;
 
                 if (scrollY <= stickyStartAt) {
                     navCard.classList.remove('js-fixed', 'js-bottom');
@@ -2416,22 +2416,22 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                 } else if (scrollY > stickyStartAt && scrollY <= stickyEndAt) {
                     navCard.classList.add('js-fixed');
                     navCard.classList.remove('js-bottom');
-                    navCard.style.top = topOffset + 'px';
-                    navCard.style.left = naturalLeft + 'px';
-                    navCard.style.width = naturalWidth + 'px';
+                    navCard.style.top = `${topOffset}px`;
+                    navCard.style.left = `${naturalLeft}px`;
+                    navCard.style.width = `${naturalWidth}px`;
                 } else {
                     navCard.classList.add('js-bottom');
                     navCard.classList.remove('js-fixed');
-                    navCard.style.top = (containerBottom - naturalTop - navHeight) + 'px';
+                    navCard.style.top = `${containerBottom - naturalTop - navHeight}px`;
                     navCard.style.left = '';
                     navCard.style.width = '';
                 }
             }
 
-            var stickyTicking = false;
-            window.addEventListener('scroll', function() {
+            let stickyTicking = false;
+            window.addEventListener('scroll', () => {
                 if (!stickyTicking) {
-                    window.requestAnimationFrame(function() {
+                    window.requestAnimationFrame(() => {
                         updateStickyPosition();
                         stickyTicking = false;
                     });
@@ -2439,82 +2439,71 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                 }
             }, { passive: true });
 
-            window.addEventListener('resize', function() {
+            window.addEventListener('resize', () => {
                 window.requestAnimationFrame(measureStickyBounds);
             });
 
+            // re-measure if images loading inside the right column change its height
             if (rightColumn && 'ResizeObserver' in window) {
-                var ro = new ResizeObserver(function() { window.requestAnimationFrame(measureStickyBounds); });
+                const ro = new ResizeObserver(() => window.requestAnimationFrame(measureStickyBounds));
                 ro.observe(rightColumn);
             }
 
+            // initial measure (after layout settles)
             window.requestAnimationFrame(measureStickyBounds);
             window.addEventListener('load', measureStickyBounds);
 
             // ---------- Active state sync on the always-sticky Core Capabilities nav ----------
-            var activeObserverOptions = {
+            const activeObserverOptions = {
                 root: null,
                 rootMargin: '-20% 0px -50% 0px',
                 threshold: 0.1
             };
-            var lastSection = sections[sections.length - 1];
-            function setActiveNav(activeId) {
-                navItems.forEach(function(item) {
-                    var isActive = item.id === 'nav-' + activeId;
-                    item.classList.toggle('active', isActive);
-                    item.setAttribute('aria-current', isActive ? 'true' : 'false');
-                });
-                // Only nudge the item into view inside navCard's own scroll box when
-                // navCard is actually pinned (js-fixed): when it's static (mobile) or
-                // has scrolled past (js-bottom), navCard itself is off-screen by design,
-                // and scrollIntoView here would fight the user's own page scroll.
-                var activeNavItem = document.getElementById('nav-' + activeId);
-                if (activeNavItem && navCard && navCard.classList.contains('js-fixed')) {
-                    var cardRect = navCard.getBoundingClientRect();
-                    var itemRect = activeNavItem.getBoundingClientRect();
-                    var isOutOfView = itemRect.top < cardRect.top || itemRect.bottom > cardRect.bottom;
-                    if (isOutOfView) {
-                        activeNavItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }
-                }
-            }
-            var activeObserver = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
+            const activeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        setActiveNav(entry.target.getAttribute('id'));
+                        const activeId = entry.target.getAttribute('id');
+
+                        navItems.forEach(item => {
+                            const isActive = item.id === `nav-${activeId}`;
+                            item.classList.toggle('active', isActive);
+                            item.setAttribute('aria-current', isActive ? 'true' : 'false');
+                        });
+
+                        // keep the active nav row scrolled into view inside the sticky card
+                        // (relevant on short mobile screens where navCard itself scrolls)
+                        const activeNavItem = document.getElementById(`nav-${activeId}`);
+                        if (activeNavItem && navCard) {
+                            const cardRect = navCard.getBoundingClientRect();
+                            const itemRect = activeNavItem.getBoundingClientRect();
+                            const isOutOfView = itemRect.top < cardRect.top || itemRect.bottom > cardRect.bottom;
+                            if (isOutOfView) {
+                                activeNavItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }
+                        }
                     }
                 });
             }, activeObserverOptions);
-            sections.forEach(function(section) { activeObserver.observe(section); });
-
-            // ---------- Force the last module active once scrolled to the very bottom ----------
-            function checkBottom() {
-                if (!lastSection) return;
-                var atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 4);
-                if (!atBottom) return;
-                setActiveNav(lastSection.getAttribute('id'));
-            }
-            window.addEventListener('scroll', checkBottom, { passive: true });
-            checkBottom();
+            sections.forEach(section => activeObserver.observe(section));
 
             // ---------- Reveal-on-scroll for story cards ----------
-            var revealObserver = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('in-view');
                         revealObserver.unobserve(entry.target);
                     }
                 });
             }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
-            sections.forEach(function(section) { revealObserver.observe(section); });
+            sections.forEach(section => revealObserver.observe(section));
 
             // ---------- Jump-to-nav button visibility on scroll ----------
-            var ticking = false;
+            let ticking = false;
             function updateOnScroll() {
                 jumpBtn.classList.toggle('visible', window.scrollY > 600);
                 ticking = false;
             }
-            window.addEventListener('scroll', function() {
+            window.addEventListener('scroll', () => {
                 if (!ticking) {
                     window.requestAnimationFrame(updateOnScroll);
                     ticking = true;
@@ -2523,12 +2512,12 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
             updateOnScroll();
 
             // ---------- Keyboard navigation: Left/Right arrows jump between sections ----------
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', (e) => {
                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-                var activeNav = root.querySelector('.feature-nav-item.active');
+                const activeNav = document.querySelector('.feature-nav-item.active');
                 if (!activeNav) return;
-                var currentId = activeNav.id.replace('nav-', '');
-                var idx = SECTIONS.findIndex(function(s) { return s.id === currentId; });
+                const currentId = activeNav.id.replace('nav-', '');
+                const idx = SECTIONS.findIndex(s => s.id === currentId);
                 if (e.key === 'ArrowRight' && idx < SECTIONS.length - 1 && (e.altKey || e.metaKey)) {
                     scrollToSection(SECTIONS[idx + 1].id);
                 } else if (e.key === 'ArrowLeft' && idx > 0 && (e.altKey || e.metaKey)) {
@@ -2537,39 +2526,32 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
             });
 
             // ---------- Tap-to-toggle tooltips (robust fallback for touch devices) ----------
-            var pillWraps = root.querySelectorAll('.pill-wrap');
-            pillWraps.forEach(function(wrap) {
-                wrap.addEventListener('click', function(e) {
-                    var alreadyOpen = wrap.classList.contains('tooltip-open');
-                    pillWraps.forEach(function(w) { w.classList.remove('tooltip-open'); });
+            const pillWraps = document.querySelectorAll('.pill-wrap');
+            pillWraps.forEach(wrap => {
+                wrap.addEventListener('click', (e) => {
+                    const alreadyOpen = wrap.classList.contains('tooltip-open');
+                    pillWraps.forEach(w => w.classList.remove('tooltip-open'));
                     if (!alreadyOpen) wrap.classList.add('tooltip-open');
                     e.stopPropagation();
                 });
             });
-            document.addEventListener('click', function() {
-                pillWraps.forEach(function(w) { w.classList.remove('tooltip-open'); });
+            document.addEventListener('click', () => {
+                pillWraps.forEach(w => w.classList.remove('tooltip-open'));
             });
 
             // ---------- Deep-link support: open directly to a section via #hash ----------
             if (window.location.hash) {
-                var targetId = window.location.hash.replace('#', '');
-                if (SECTIONS.some(function(s) { return s.id === targetId; })) {
-                    setTimeout(function() { scrollToSection(targetId); }, 150);
+                const targetId = window.location.hash.replace('#', '');
+                if (SECTIONS.some(s => s.id === targetId)) {
+                    setTimeout(() => scrollToSection(targetId), 150);
                 }
             }
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-    })();
+        });
     </script>
 
     <style>
-        #vidyaai-embed-root .no-scrollbar::-webkit-scrollbar { display: none; }
-        #vidyaai-embed-root .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
   </div>
 </div>
