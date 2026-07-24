@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-crmsteps -->
+<!-- ee-front-tpl v2026-07-24-crmuserv4 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -685,311 +685,816 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <!-- ================= The Real Problem - The Admissions Narrative (scoped .tan-*) ================= -->
 <section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
 <style>
-#powerful-crm{padding:0}
-#powerful-crm .crm-runway{position:relative}
-#powerful-crm .crm-pin{position:sticky;top:0;height:100vh;height:100dvh;width:100%;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
-#powerful-crm .vcrm-frame{width:100%;height:100%;border:0;display:block;background:#fff}
+#powerful-crm{padding:clamp(40px,6vw,72px) 0}
+#powerful-crm .vcrm-frame{width:100%;border:0;display:block;height:1000px;background:#fff;overflow:hidden}
+@media(max-width:600px){#powerful-crm .vcrm-frame{height:820px}}
 </style>
 <section id="powerful-crm" aria-label="Powerful admission CRM, module by module">
- <div class="crm-runway" id="crmRunway">
- <div class="crm-pin">
   <iframe class="vcrm-frame" id="vcrmFrame" title="VidyaAI - powerful admission CRM with simplicity: core capabilities" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
-<html lang=&quot;en&quot;>
+<html lang=&quot;en&quot; class=&quot;scroll-smooth&quot;>
 <head>
     <meta charset=&quot;UTF-8&quot;>
     <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
     <title>VidyaAI - Powerful Admission CRM with Simplicity</title>
+    <!-- Google Fonts Inter -->
     <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
     <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
-    <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap&quot; rel=&quot;stylesheet&quot;>
+    <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap&quot; rel=&quot;stylesheet&quot;>
+    <!-- FontAwesome Icons -->
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css&quot;>
+
+    <!-- Tailwind CSS: precompiled statically (no Play CDN, no production console warning) -->
     <style>
-        html,body{height:100%;margin:0;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;-webkit-tap-highlight-color:transparent}
-        *{box-sizing:border-box}
-        img.eeimg{width:1em;height:1em;display:inline-block;object-fit:contain;vertical-align:-0.125em}
+*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:&quot;&quot;}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:Inter,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.visible{visibility:visible}.invisible{visibility:hidden}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0}.bottom-0{bottom:0}.bottom-1\/3{bottom:33.333333%}.bottom-full{bottom:100%}.left-0{left:0}.left-1\/2{left:50%}.left-10{left:2.5rem}.right-0{right:0}.right-1\/4{right:25%}.top-0{top:0}.top-3{top:.75rem}.top-full{top:100%}.z-10{z-index:10}.z-20{z-index:20}.z-30{z-index:30}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mt-0\.5{margin-top:.125rem}.mt-4{margin-top:1rem}.line-clamp-1{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-12{height:3rem}.h-2{height:.5rem}.h-32{height:8rem}.h-96{height:24rem}.h-\[500px\]{height:500px}.h-auto{height:auto}.w-1{width:.25rem}.w-10{width:2.5rem}.w-12{width:3rem}.w-2{width:.5rem}.w-32{width:8rem}.w-52{width:13rem}.w-96{width:24rem}.w-\[500px\]{width:500px}.w-full{width:100%}.max-w-7xl{max-width:80rem}.-translate-x-1\/2{--tw-translate-x:-50%}.-translate-x-1\/2,.translate-y-1{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-1{--tw-translate-y:0.25rem}.rotate-45{--tw-rotate:45deg}.rotate-45,.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-help{cursor:help}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-3\.5{gap:.875rem}.gap-4{gap:1rem}.gap-8{gap:2rem}.space-y-16>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(4rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(4rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.scroll-smooth{scroll-behavior:smooth}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-xl{border-radius:.75rem}.rounded-r{border-top-right-radius:.25rem;border-bottom-right-radius:.25rem}.rounded-bl-full{border-bottom-left-radius:9999px}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249/var(--tw-border-opacity,1))}.border-transparent{border-color:transparent}.bg-brand-navy{--tw-bg-opacity:1;background-color:rgb(25 51 93/var(--tw-bg-opacity,1))}.bg-brand-navy\/10{background-color:rgba(25,51,93,.1)}.bg-brand-navy\/5{background-color:rgba(25,51,93,.05)}.bg-brand-orange\/10{background-color:rgba(222,110,48,.1)}.bg-emerald-500\/10{background-color:rgba(16,185,129,.1)}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-white\/95{background-color:hsla(0,0%,100%,.95)}.object-cover{-o-object-fit:cover;object-fit:cover}.p-2{padding:.5rem}.p-2\.5{padding:.625rem}.p-3\.5{padding:.875rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-3\.5{padding-left:.875rem;padding-right:.875rem}.px-4{padding-left:1rem;padding-right:1rem}.py-1\.5{padding-top:.375rem;padding-bottom:.375rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.pl-2{padding-left:.5rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-2xl{font-size:1.5rem;line-height:2rem}.text-\[11px\]{font-size:11px}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.leading-snug{line-height:1.375}.tracking-wider{letter-spacing:.05em}.text-brand-navy{--tw-text-opacity:1;color:rgb(25 51 93/var(--tw-text-opacity,1))}.text-brand-orange{--tw-text-opacity:1;color:rgb(222 110 48/var(--tw-text-opacity,1))}.text-emerald-600{--tw-text-opacity:1;color:rgb(5 150 105/var(--tw-text-opacity,1))}.text-slate-200{--tw-text-opacity:1;color:rgb(226 232 240/var(--tw-text-opacity,1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-0{opacity:0}.opacity-40{opacity:.4}.shadow-figma{--tw-shadow:0 20px 50px rgba(25,51,93,.08);--tw-shadow-colored:0 20px 50px var(--tw-shadow-color)}.shadow-figma,.shadow-figma-hover{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-figma-hover{--tw-shadow:0 30px 60px rgba(222,110,48,.12);--tw-shadow-colored:0 30px 60px var(--tw-shadow-color)}.shadow-inner{--tw-shadow:inset 0 2px 4px 0 rgba(0,0,0,.05);--tw-shadow-colored:inset 0 2px 4px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.outline{outline-style:solid}.blur{--tw-blur:blur(8px)}.blur,.blur-3xl{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.blur-3xl{--tw-blur:blur(64px)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px)}.backdrop-blur-md,.backdrop-filter{-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-200{transition-duration:.2s}.duration-300{transition-duration:.3s}.duration-500{transition-duration:.5s}.duration-700{transition-duration:.7s}.hover\:border-brand-orange\/30:hover{border-color:rgba(222,110,48,.3)}.hover\:bg-brand-orange:hover{--tw-bg-opacity:1;background-color:rgb(222 110 48/var(--tw-bg-opacity,1))}.hover\:bg-brand-orangeLight:hover{--tw-bg-opacity:1;background-color:rgb(255 244 238/var(--tw-bg-opacity,1))}.hover\:text-brand-orange:hover{--tw-text-opacity:1;color:rgb(222 110 48/var(--tw-text-opacity,1))}.hover\:shadow-figma-hover:hover{--tw-shadow:0 30px 60px rgba(222,110,48,.12);--tw-shadow-colored:0 30px 60px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.group:hover .group-hover\:translate-x-1{--tw-translate-x:0.25rem}.group:hover .group-hover\:scale-110,.group:hover .group-hover\:translate-x-1{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:scale-110{--tw-scale-x:1.1;--tw-scale-y:1.1}.group:hover .group-hover\:scale-\[1\.02\]{--tw-scale-x:1.02;--tw-scale-y:1.02;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:border-brand-orange\/30{border-color:rgba(222,110,48,.3)}.group:hover .group-hover\:bg-brand-orange\/10{background-color:rgba(222,110,48,.1)}.group:hover .group-hover\:text-brand-orange{--tw-text-opacity:1;color:rgb(222 110 48/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:p-4{padding:1rem}.sm\:p-8{padding:2rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}.sm\:text-base{font-size:1rem;line-height:1.5rem}}@media (min-width:1024px){.lg\:top-28{top:7rem}.lg\:col-span-5{grid-column:span 5/span 5}.lg\:col-span-7{grid-column:span 7/span 7}.lg\:grid-cols-12{grid-template-columns:repeat(12,minmax(0,1fr))}.lg\:gap-12{gap:3rem}.lg\:space-y-24>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(6rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(6rem*var(--tw-space-y-reverse))}.lg\:px-8{padding-left:2rem;padding-right:2rem}.lg\:py-24{padding-top:6rem;padding-bottom:6rem}}
+    </style>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #19335D;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #DE6E30; }
 
-        .crmw{position:relative;height:100%;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2.6vh,22px);padding:clamp(14px,4vw,32px) clamp(16px,5vw,40px);background:#fff;overflow:hidden}
+        .gradient-text-navy {
+            background: linear-gradient(135deg, #19335D 0%, #244579 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-text-orange {
+            background: linear-gradient(135deg, #DE6E30 0%, #F38C52 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(25, 51, 93, 0.08);
+        }
 
-        .crmw-progress{position:absolute;top:0;left:0;right:0;height:3px;background:#eef1f6;z-index:5}
-        .crmw-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#DE6E30,#F38C52);transition:width .08s linear}
+        /* Image transition effects */
+        .story-img-container { transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        .crmw-head{display:flex;flex-direction:column;align-items:center;gap:clamp(8px,1.8vh,14px);width:100%}
-        .crmw-kicker{font-size:clamp(.72rem,2.2vw,.85rem);font-weight:700;color:#19335D;text-align:center;letter-spacing:-.01em}
-        .crmw-icons{display:flex;align-items:center;justify-content:center;gap:clamp(6px,2vw,12px)}
-        .step-icon-btn{position:relative;width:clamp(26px,7vw,36px);height:clamp(26px,7vw,36px);border-radius:999px;border:2px solid #E7EBF2;background:#F8FAFC;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transition:all .35s cubic-bezier(.4,0,.2,1);flex:0 0 auto}
-        .step-icon-btn img{width:52%;height:52%;object-fit:contain;opacity:.55;transition:opacity .35s ease}
-        .step-icon-btn.done{border-color:#F3C9AE;background:#FFF4EE}
-        .step-icon-btn.done img{opacity:.8}
-        .step-icon-btn.active{border-color:#DE6E30;background:#DE6E30;transform:scale(1.18);box-shadow:0 4px 14px rgba(222,110,48,.35)}
-        .step-icon-btn.active img{opacity:1;filter:brightness(0) invert(1)}
-        .step-icon-btn:focus-visible{outline:2px solid #DE6E30;outline-offset:2px}
+        .feature-nav-item.active { border-color: #DE6E30; background-color: #FFF4EE; }
+        .feature-nav-item.active .nav-icon { color: #DE6E30; transform: scale(1.1); }
+        .feature-nav-item.active .nav-title { color: #19335D; font-weight: 700; }
+        .feature-nav-item.active .nav-indicator { height: 100%; background-color: #DE6E30; }
 
-        .crmw-stage{position:relative;width:100%;max-width:640px;min-height:clamp(280px,50vh,440px);flex:0 0 auto}
-        .step-card{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(10px,1.8vh,16px);will-change:transform,opacity;backface-visibility:hidden}
-        .step-icon-wrap{width:clamp(44px,9vw,56px);height:clamp(44px,9vw,56px);border-radius:16px;background:#FFF4EE;display:flex;align-items:center;justify-content:center}
-        .step-icon-wrap img{width:46%;height:46%;object-fit:contain}
-        .step-eyebrow{font-size:clamp(.68rem,2vw,.78rem);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#DE6E30}
-        .step-title{font-size:clamp(1.3rem,4.4vw,2.05rem);font-weight:800;color:#19335D;line-height:1.18;letter-spacing:-.01em;margin:0;max-width:560px}
-        .step-desc{font-size:clamp(.86rem,2.5vw,1rem);color:#475569;line-height:1.55;margin:0;max-width:540px}
-        .step-chips{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;max-width:560px}
-        .step-chip{display:inline-flex;align-items:center;gap:6px;background:#F8FAFC;border:1px solid #EEF1F6;padding:7px 12px;border-radius:999px;font-size:clamp(.68rem,2.1vw,.78rem);font-weight:700;color:#19335D;white-space:nowrap}
-        .step-chip img,.step-chip i{font-size:.85em;color:#DE6E30}
+        /* Pulse glow animation */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.03); }
+        }
+        .animate-glow { animation: pulseGlow 4s infinite ease-in-out; }
 
-        .crmw-foot{display:flex;flex-direction:column;align-items:center;gap:4px;min-height:20px}
-        .crmw-step-label{font-size:clamp(.7rem,2vw,.8rem);font-weight:700;color:#94A3B8;letter-spacing:.05em}
-        .crmw-hint{font-size:clamp(.72rem,2vw,.82rem);font-weight:600;color:#DE6E30;transition:opacity .4s ease}
+        /* ---------- NEW: Scroll progress bar ---------- */
+        #scrollProgress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #DE6E30, #F38C52);
+            z-index: 60;
+            transition: width 0.1s linear;
+        }
 
-        @media (prefers-reduced-motion: reduce){
-            .step-card{transition:none !important}
-            .crmw-progress-fill{transition:none !important}
-            .step-icon-btn{transition:none !important}
+        /* ---------- NEW: Core Capabilities nav — JS-driven sticky (works even if a parent has overflow/transform) ---------- */
+        #navColumn { position: relative; }
+        #navCard {
+            max-height: calc(100vh - 2.5rem);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        #navCard::-webkit-scrollbar { width: 5px; }
+        #navCard::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 3px; }
+        #navCard.js-fixed {
+            position: fixed !important;
+            z-index: 30;
+        }
+        #navCard.js-bottom {
+            position: absolute !important;
+            z-index: 30;
+            left: 0;
+            width: 100%;
+        }
+
+        /* ---------- NEW: Scroll-reveal for story cards ---------- */
+        .story-card {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+        }
+        .story-card.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ---------- NEW: Sub-feature card stagger ---------- */
+        .story-card .grid > div {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .story-card.in-view .grid > div {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .story-card.in-view .grid > div:nth-child(1) { transition-delay: 0.05s; }
+        .story-card.in-view .grid > div:nth-child(2) { transition-delay: 0.12s; }
+        .story-card.in-view .grid > div:nth-child(3) { transition-delay: 0.19s; }
+        .story-card.in-view .grid > div:nth-child(4) { transition-delay: 0.26s; }
+
+        /* ---------- NEW: Accessible focus states ---------- */
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid #DE6E30;
+            outline-offset: 2px;
+            border-radius: 8px;
+        }
+
+        /* ---------- NEW: Back-to-top / jump button ---------- */
+        #jumpToNav {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 55;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(12px) scale(0.9);
+            transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+        }
+        #jumpToNav.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+
+        /* ---------- NEW: image skeleton shimmer while loading ---------- */
+        .img-skeleton {
+            position: relative;
+            background: linear-gradient(90deg, #f1f5f9 25%, #f8fafc 37%, #f1f5f9 63%);
+            background-size: 400% 100%;
+            animation: shimmer 1.4s ease infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 100% 50%; }
+            100% { background-position: 0 50%; }
+        }
+        .story-img-container img { opacity: 0; transition: opacity 0.4s ease; }
+        .story-img-container img.loaded { opacity: 1; }
+
+        /* ---------- NEW: hover/focus info tooltips on feature pills ---------- */
+        .pill-wrap { position: relative; }
+        .feature-tooltip {
+            text-align: left;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .pill-wrap:hover .feature-tooltip,
+        .pill-wrap:focus-within .feature-tooltip,
+        .pill-wrap.tooltip-open .feature-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Respect reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .story-card,
+            .story-card .grid > div,
+            #jumpToNav,
+            .animate-glow,
+            html { transition: none !important; animation: none !important; }
+            .story-card { opacity: 1; transform: none; }
+            .story-card .grid > div { opacity: 1; transform: none; }
+        }
+
+        @media (max-width: 1023px) {
+            /* keep first card visible immediately on mobile so page never looks empty before JS runs */
+            .story-card:first-of-type { opacity: 1; transform: none; }
         }
     </style>
 </head>
-<body>
+<body class=&quot;bg-white text-brand-navy antialiased&quot;>
 
-<div class=&quot;crmw&quot; id=&quot;crmw&quot;>
-    <div class=&quot;crmw-progress&quot;><div class=&quot;crmw-progress-fill&quot; id=&quot;crmProgressFill&quot;></div></div>
+    <!-- NEW: scroll progress bar -->
+    <div id=&quot;scrollProgress&quot;></div>
 
-    <div class=&quot;crmw-head&quot;>
-        <span class=&quot;crmw-kicker&quot;>Powerful Admission CRM with Simplicity</span>
-        <div class=&quot;crmw-icons&quot; id=&quot;crmIcons&quot; role=&quot;tablist&quot; aria-label=&quot;CRM feature steps&quot;>
-            <button class=&quot;step-icon-btn&quot; data-i=&quot;0&quot; role=&quot;tab&quot; aria-label=&quot;VidyaAI Admission Intelligence&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/01-VidyaAI-Intelligence.svg&quot; alt=&quot;&quot;></button>
-            <button class=&quot;step-icon-btn&quot; data-i=&quot;1&quot; role=&quot;tab&quot; aria-label=&quot;Admission CRM&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/02-Admission-CRM.svg&quot; alt=&quot;&quot;></button>
-            <button class=&quot;step-icon-btn&quot; data-i=&quot;2&quot; role=&quot;tab&quot; aria-label=&quot;Marketing Automation&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/03-Marketing-Automation.svg&quot; alt=&quot;&quot;></button>
-            <button class=&quot;step-icon-btn&quot; data-i=&quot;3&quot; role=&quot;tab&quot; aria-label=&quot;Chatbot &amp; Live Chat&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/04-Chatbot-and-Live-Chat.svg&quot; alt=&quot;&quot;></button>
-            <button class=&quot;step-icon-btn&quot; data-i=&quot;4&quot; role=&quot;tab&quot; aria-label=&quot;Application Management System&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/05-Application-System.svg&quot; alt=&quot;&quot;></button>
-            <button class=&quot;step-icon-btn&quot; data-i=&quot;5&quot; role=&quot;tab&quot; aria-label=&quot;WhatsApp Business API&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/06-WhatsApp-API.svg&quot; alt=&quot;&quot;></button>
-            <button class=&quot;step-icon-btn&quot; data-i=&quot;6&quot; role=&quot;tab&quot; aria-label=&quot;Mobile CRM&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/07-Mobile-CRM.svg&quot; alt=&quot;&quot;></button>
+    <main class=&quot;w-full relative py-12 lg:py-24 bg-white&quot;>
+
+        <!-- Background Architectural Grid & Subtle Blobs -->
+        <div class=&quot;absolute inset-0 pointer-events-none opacity-40&quot;>
+            <div class=&quot;absolute top-0 right-1/4 w-96 h-96 bg-brand-orange/10 rounded-full blur-3xl animate-glow&quot;></div>
+            <div class=&quot;absolute bottom-1/3 left-10 w-[500px] h-[500px] bg-brand-navy/5 rounded-full blur-3xl&quot;></div>
+            <div class=&quot;absolute inset-0&quot; style=&quot;background-image: radial-gradient(#19335D 0.75px, transparent 0.75px); background-size: 24px 24px; opacity: 0.07;&quot;></div>
         </div>
-    </div>
 
-    <div class=&quot;crmw-stage&quot; id=&quot;crmStage&quot;>
+        <div class=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10&quot;>
 
-        <div class=&quot;step-card&quot; data-i=&quot;0&quot;>
-            <div class=&quot;step-icon-wrap&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/08-VidyaAI-Admission-Intelligence.svg&quot; alt=&quot;&quot;></div>
-            <span class=&quot;step-eyebrow&quot;>AI Engine</span>
-            <h2 class=&quot;step-title&quot;>VidyaAI Admission Intelligence</h2>
-            <p class=&quot;step-desc&quot;>Next-gen artificial intelligence engineered to elevate counselor efficiency, accelerate response velocity, and qualify student intent in real-time.</p>
-            <div class=&quot;step-chips&quot;>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/09-AI-Admission-Assist.svg&quot; alt=&quot;&quot;>AI Admission Assist</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/10-AI-Lead-Intent-Scoring.svg&quot; alt=&quot;&quot;>AI Lead Intent Scoring</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/11-Smart-Follow-up-Intelligence.svg&quot; alt=&quot;&quot;>Smart Follow-up Intelligence</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/12-AI-Calling-for-Qualification.svg&quot; alt=&quot;&quot;>AI Calling for Qualification</span>
+            <h2 class=&quot;text-2xl sm:text-3xl lg:text-4xl font-extrabold text-brand-navy text-center mb-10 lg:mb-14 tracking-tight&quot;>
+                Powerful Admission CRM with Simplicity
+            </h2>
+
+            <!-- Sticky Scrolling Storytelling Layout -->
+            <div class=&quot;grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start relative&quot;>
+
+                <!-- LEFT COLUMN: Sticky Navigation & Story Index (Desktop) -->
+                <div class=&quot;lg:col-span-5 z-20&quot; id=&quot;navColumn&quot;>
+                    <div id=&quot;navCard&quot; class=&quot;bg-white/95 backdrop-blur-md p-2 sm:p-4 rounded-2xl border border-slate-100 shadow-figma space-y-2&quot;>
+
+                        <div class=&quot;pt-2&quot;></div>
+
+                        <!-- Navigation Item 1: VidyaAI -->
+                        <button onclick=&quot;scrollToSection('vidyaai')&quot; id=&quot;nav-vidyaai&quot; aria-current=&quot;true&quot; class=&quot;feature-nav-item active w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-brain text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-brand-navy nav-title transition-colors&quot;>VidyaAI Intelligence</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>24x7 Assistant, Intent Scoring & Calling</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 2: Admission CRM -->
+                        <button onclick=&quot;scrollToSection('admission-crm')&quot; id=&quot;nav-admission-crm&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-users-gear text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>Admission CRM</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>Centralized Prospect Tracking</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 3: Marketing Automation -->
+                        <button onclick=&quot;scrollToSection('marketing-automation')&quot; id=&quot;nav-marketing-automation&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-bullhorn text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>Marketing Automation</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>Targeted Multichannel Campaigns</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 4: Chatbot & Live Chat -->
+                        <button onclick=&quot;scrollToSection('chatbot')&quot; id=&quot;nav-chatbot&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-comments text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>Chatbot & Live Chat</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>24/7 Automated Engagement</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 5: Application Management -->
+                        <button onclick=&quot;scrollToSection('application-mgmt')&quot; id=&quot;nav-application-mgmt&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-file-signature text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>Application System</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>Forms, Verification & GD-PI</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 6: WhatsApp Business API -->
+                        <button onclick=&quot;scrollToSection('whatsapp-api')&quot; id=&quot;nav-whatsapp-api&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-brands fa-whatsapp text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>WhatsApp API</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>Two-Way Direct Messaging</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+
+                        <!-- Navigation Item 7: Mobile CRM -->
+                        <button onclick=&quot;scrollToSection('mobile-crm')&quot; id=&quot;nav-mobile-crm&quot; class=&quot;feature-nav-item w-full text-left p-3.5 rounded-xl border border-transparent transition-all duration-300 flex items-center justify-between group relative overflow-hidden&quot;>
+                            <div class=&quot;absolute left-0 top-0 bottom-0 w-1 nav-indicator rounded-r transition-all duration-300&quot;></div>
+                            <div class=&quot;flex items-center gap-3.5 pl-2&quot;>
+                                <div class=&quot;w-10 h-10 rounded-lg bg-brand-navy/5 group-hover:bg-brand-orange/10 flex items-center justify-center text-brand-navy group-hover:text-brand-orange transition-colors nav-icon&quot;>
+                                    <i class=&quot;fa-solid fa-mobile-screen-button text-lg&quot;></i>
+                                </div>
+                                <div>
+                                    <h4 class=&quot;text-sm font-semibold text-slate-700 nav-title transition-colors&quot;>Mobile CRM</h4>
+                                    <p class=&quot;text-xs text-slate-500 line-clamp-1&quot;>Field Tracking & Click-To-Call</p>
+                                </div>
+                            </div>
+                            <i class=&quot;fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-brand-orange group-hover:translate-x-1 transition-all&quot;></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: Interactive Storytelling Stream Cards -->
+                <div class=&quot;lg:col-span-7 space-y-16 lg:space-y-24&quot;>
+
+                    <!-- ITEM 1: VidyaAI Admission Intelligence -->
+                    <div id=&quot;vidyaai&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;absolute top-0 right-0 w-32 h-32 bg-brand-orange/10 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110&quot;></div>
+
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-orange/10 text-brand-orange rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-sparkles&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-orange uppercase&quot;>AI Engine</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>VidyaAI Admission Intelligence</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Next-gen artificial intelligence engineered to elevate counselor efficiency, accelerate response velocity, and qualify student intent in real-time.
+                        </p>
+
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/vidyaai-admission-intelligence-informative-image-by-extraaedge.png&quot;
+                                 alt=&quot;VidyaAI Admission Intelligence&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=VidyaAI+Admission+Intelligence'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+
+                        <div class=&quot;grid grid-cols-1 sm:grid-cols-2 gap-4&quot;>
+                            <div class=&quot;p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-orange/30 transition-all&quot;>
+                                <div class=&quot;flex items-center gap-2 mb-1 text-brand-navy font-semibold text-sm&quot;>
+                                    <i class=&quot;fa-solid fa-headset text-brand-orange&quot;></i> AI Admission Assist
+                                </div>
+                                <p class=&quot;text-xs text-slate-600&quot;>24×7 AI that answers student queries, guides applications, and supports counselors with live context without delays.</p>
+                            </div>
+                            <div class=&quot;p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-orange/30 transition-all&quot;>
+                                <div class=&quot;flex items-center gap-2 mb-1 text-brand-navy font-semibold text-sm&quot;>
+                                    <i class=&quot;fa-solid fa-chart-line-up text-brand-orange&quot;></i> AI Lead Intent Scoring
+                                </div>
+                                <p class=&quot;text-xs text-slate-600&quot;>Automatically prioritizes high-intent leads using behavior signals so counselors focus on high conversion prospects.</p>
+                            </div>
+                            <div class=&quot;p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-orange/30 transition-all&quot;>
+                                <div class=&quot;flex items-center gap-2 mb-1 text-brand-navy font-semibold text-sm&quot;>
+                                    <i class=&quot;fa-solid fa-clock-rotate-left text-brand-orange&quot;></i> Smart Follow-up Intelligence
+                                </div>
+                                <p class=&quot;text-xs text-slate-600&quot;>AI tells your team who to follow up with, when to act, and what to do next, reducing missed opportunities.</p>
+                            </div>
+                            <div class=&quot;p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-orange/30 transition-all&quot;>
+                                <div class=&quot;flex items-center gap-2 mb-1 text-brand-navy font-semibold text-sm&quot;>
+                                    <i class=&quot;fa-solid fa-phone-volume text-brand-orange&quot;></i> AI Calling for Qualification
+                                </div>
+                                <p class=&quot;text-xs text-slate-600&quot;>Qualifies large volumes of inquiries, captures intent, and passes only serious prospects to counselors.</p>
+                            </div>
+                        </div>
+                        <div class=&quot;mt-4 p-4 rounded-xl bg-brand-navy text-white flex items-start gap-3&quot;>
+                            <i class=&quot;fa-solid fa-award text-brand-orange text-lg mt-0.5&quot;></i>
+                            <div>
+                                <h5 class=&quot;text-xs font-bold text-brand-orange uppercase&quot;>Counselor Performance Intelligence</h5>
+                                <p class=&quot;text-xs text-slate-200 mt-0.5&quot;>Clear visibility into response times, follow-ups, and conversion impact by counselor to drive focused coaching and better outcomes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 2: Admission CRM -->
+                    <div id=&quot;admission-crm&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-navy/10 text-brand-navy rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-sitemap&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-navy uppercase&quot;>Core System</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>Admission CRM</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Admission CRM software centralizes your entire admissions process, giving you real-time visibility into every prospect's journey from enquiry to enrolment. Track inquiries, manage applications, and automate follow-ups seamlessly, all from one platform. With intelligent lead prioritization, your team focuses on high-potential candidates while data-driven insights guide every decision.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/admission-crm-informative-image-by-extraaedge.png&quot;
+                                 alt=&quot;Admission CRM&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=Admission+CRM'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-filter text-brand-orange&quot;></i> Funnel Management</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>See every prospect's stage from enquiry to enrolment and spot drop-offs instantly.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-calendar-check text-brand-orange&quot;></i> Follow-Up Manager</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Auto-schedules reminders so no prospect ever slips through the cracks.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-chart-pie text-brand-orange&quot;></i> Reporting Dashboard</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Live conversion and counselor-performance reports, updated in real time.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 3: Marketing Automation -->
+                    <div id=&quot;marketing-automation&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-orange/10 text-brand-orange rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-paper-plane&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-orange uppercase&quot;>Engagement Engine</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>Marketing Automation</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Marketing automation delivers personalized emails and targeted campaigns to the right prospects at the perfect time. Integrated with your Admission CRM, it streamlines lead nurturing across multiple channels while you focus on strategy. Intelligent audience segmentation ensures every message resonates, improving engagement and conversion rates.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/marketing-automation-image-by-extraaedge.png&quot;
+                                 alt=&quot;Marketing Automation&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=Marketing+Automation'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-envelope-open-text text-brand-orange&quot;></i> Email Marketing</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Personalized drip campaigns triggered automatically by prospect behavior.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-diagram-project text-brand-orange&quot;></i> Integrated Communication Channels</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Email, SMS, and WhatsApp orchestrated from a single workflow.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-chart-line text-brand-orange&quot;></i> Campaign Analytics</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Track opens, clicks, and conversions for every campaign you run.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 4: Chatbot & Live Chat -->
+                    <div id=&quot;chatbot&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-navy/10 text-brand-navy rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-robot&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-navy uppercase&quot;>24/7 Connectivity</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>Chatbot & Live Chat</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Integrated with your Admission CRM, the chatbot ensures you never miss an inquiry with 24/7 instant responses. Handle routine queries automatically while counsellors focus on meaningful conversations. Smart routing directs prospects to the right team members based on their interests and application stage.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/chatbot-and-livechat-image-by-extraaedge.png&quot;
+                                 alt=&quot;Chatbot & Live Chat&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=Chatbot+and+Live+Chat'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-gears text-brand-orange&quot;></i> Automated Chat Workflow</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Pre-built conversation flows that qualify and route enquiries on their own.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-headset text-brand-orange&quot;></i> Live Chat Enablement</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Seamless handoff from bot to human counselor whenever it's needed.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-calendar-days text-brand-orange&quot;></i> Meeting Scheduler</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Prospects book a counselor slot directly from the chat window.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 5: Application Management System -->
+                    <div id=&quot;application-mgmt&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-orange/10 text-brand-orange rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-folder-open&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-orange uppercase&quot;>Enrolment Portal</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>Application Management System</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Application management system streamlines the entire application process for you and your prospective students. Integrated with your Admission CRM and optimized for mobile, it handles form submissions, document verification, and payments effortlessly. Intelligent status tracking keeps applicants informed while giving you actionable insights at every stage.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/application-management-sysytem-image-by-extraaedge.png&quot;
+                                 alt=&quot;Application Management System&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=Application+Management+System'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-cube text-brand-orange&quot;></i> Application Form Builder & Widgets</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Drag-and-drop forms you can embed anywhere on your site.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-video text-brand-orange&quot;></i> Video GD-PI & Counseling</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Run group discussions and interviews virtually, with recordings saved to the CRM.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-credit-card text-brand-orange&quot;></i> Payment Integration</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Secure fee collection built right into the application flow.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 6: WhatsApp Business API -->
+                    <div id=&quot;whatsapp-api&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-emerald-500/10 text-emerald-600 rounded-xl text-lg&quot;><i class=&quot;fa-brands fa-whatsapp&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-emerald-600 uppercase&quot;>Direct Channel</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>WhatsApp Business API</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            WhatsApp Business API connects you with prospects on their preferred platform. Send bulk messages, engage in personalized conversations, and drive conversions, all through your Admission CRM. Data-driven campaign optimization ensures higher open rates and faster response times for improved enrolment outcomes.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/whatsapp-business-api-image-by-extraaedge.png&quot;
+                                 alt=&quot;WhatsApp Business API&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=WhatsApp+Business+API'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-comments font-bold text-brand-orange&quot;></i> Two-way WhatsApp and live chat</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Reply to prospects directly inside WhatsApp threads, synced with the CRM.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-paper-plane text-brand-orange&quot;></i> Bulk WhatsApp & automated campaigns</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Send templated updates to thousands of prospects instantly.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-circle-check text-brand-orange&quot;></i> Verified business account</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Green-tick verified number builds instant trust with prospects.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 7: Mobile CRM -->
+                    <div id=&quot;mobile-crm&quot; class=&quot;story-card bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-figma hover:shadow-figma-hover transition-all duration-500 relative overflow-hidden group&quot;>
+                        <div class=&quot;flex items-center gap-3 mb-4&quot;>
+                            <span class=&quot;p-2.5 bg-brand-navy/10 text-brand-navy rounded-xl text-lg&quot;><i class=&quot;fa-solid fa-mobile-screen&quot;></i></span>
+                            <span class=&quot;text-xs font-bold tracking-wider text-brand-navy uppercase&quot;>On-the-go Productivity</span>
+                        </div>
+                        <h2 class=&quot;text-2xl sm:text-3xl font-bold text-brand-navy mb-4&quot;>Mobile CRM</h2>
+                        <p class=&quot;text-slate-600 text-sm sm:text-base leading-relaxed mb-6&quot;>
+                            Our Mobile CRM empowers work-from-home and field counselors to stay productive on the go. With built-in field tracking, monitor visits, log activities, and complete follow-ups efficiently from anywhere. Real-time sync with your Admission CRM ensures every interaction is captured for intelligent reporting.
+                        </p>
+                        <div class=&quot;story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton&quot;>
+                            <img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/mobaile-crm-image-by-extraaedge.png&quot;
+                                 alt=&quot;Mobile CRM&quot;
+                                 loading=&quot;lazy&quot; decoding=&quot;async&quot;
+                                 class=&quot;w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700&quot;
+                                 onload=&quot;this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;
+                                 onerror=&quot;this.src='https://placehold.co/800x450/19335D/ffffff?text=Mobile+CRM'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')&quot;>
+                        </div>
+                        <div class=&quot;pt-4 border-t border-slate-100&quot;>
+                            <h4 class=&quot;text-xs font-bold uppercase tracking-wider text-slate-400 mb-3&quot;>Popular Features</h4>
+                            <div class=&quot;flex flex-wrap gap-2&quot;>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-phone text-brand-orange&quot;></i> Click-To-Call</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Dial prospects straight from the mobile app; every call logs automatically.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-location-dot text-brand-orange&quot;></i> Field Tracker</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>GPS check-in and check-out for on-ground counselor visits.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                                <span class=&quot;relative inline-flex pill-wrap&quot;><span tabindex=&quot;0&quot; class=&quot;px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none&quot;><i class=&quot;fa-solid fa-phone-slash text-brand-orange&quot;></i> Missed Call Lead Capture</span><span class=&quot;feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover&quot;>Every missed call auto-creates a fresh lead in the CRM.<span class=&quot;absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45&quot;></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
+    </main>
 
-        <div class=&quot;step-card&quot; data-i=&quot;1&quot;>
-            <div class=&quot;step-icon-wrap&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/14-Core-System.svg&quot; alt=&quot;&quot;></div>
-            <span class=&quot;step-eyebrow&quot;>Core System</span>
-            <h2 class=&quot;step-title&quot;>Admission CRM</h2>
-            <p class=&quot;step-desc&quot;>Centralizes your entire admissions process with real-time visibility into every prospect's journey from enquiry to enrolment, with intelligent lead prioritization guiding every decision.</p>
-            <div class=&quot;step-chips&quot;>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/15-Funnel-Management.svg&quot; alt=&quot;&quot;>Funnel Management</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/16-Follow-Up-Manager.svg&quot; alt=&quot;&quot;>Follow-Up Manager</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/17-Reporting-Dashboard.svg&quot; alt=&quot;&quot;>Reporting Dashboard</span>
-            </div>
-        </div>
+    <!-- NEW: floating jump-to-nav button (mobile + desktop) -->
+    <button id=&quot;jumpToNav&quot; onclick=&quot;scrollToTopNav()&quot; aria-label=&quot;Jump back to feature navigation&quot;
+        class=&quot;w-12 h-12 rounded-full bg-brand-navy text-white shadow-figma-hover flex items-center justify-center hover:bg-brand-orange transition-colors&quot;>
+        <i class=&quot;fa-solid fa-arrow-up text-sm&quot;></i>
+    </button>
 
-        <div class=&quot;step-card&quot; data-i=&quot;2&quot;>
-            <div class=&quot;step-icon-wrap&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/18-Engagement-Engine.svg&quot; alt=&quot;&quot;></div>
-            <span class=&quot;step-eyebrow&quot;>Engagement Engine</span>
-            <h2 class=&quot;step-title&quot;>Marketing Automation</h2>
-            <p class=&quot;step-desc&quot;>Delivers personalized emails and targeted campaigns to the right prospects at the perfect time, with intelligent audience segmentation improving engagement and conversion.</p>
-            <div class=&quot;step-chips&quot;>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/19-Email-Marketing.svg&quot; alt=&quot;&quot;>Email Marketing</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/20-Integrated-Communication-Channels.svg&quot; alt=&quot;&quot;>Integrated Channels</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/21-Campaign-Analytics.svg&quot; alt=&quot;&quot;>Campaign Analytics</span>
-            </div>
-        </div>
+    <script>
+        // ---------- Config: single source of truth for all 7 sections ----------
+        const SECTIONS = [
+            { id: 'vidyaai',              label: 'VidyaAI Intelligence',  icon: 'fa-solid fa-brain' },
+            { id: 'admission-crm',        label: 'Admission CRM',         icon: 'fa-solid fa-users-gear' },
+            { id: 'marketing-automation', label: 'Marketing Automation',  icon: 'fa-solid fa-bullhorn' },
+            { id: 'chatbot',              label: 'Chatbot & Live Chat',   icon: 'fa-solid fa-comments' },
+            { id: 'application-mgmt',     label: 'Application System',    icon: 'fa-solid fa-file-signature' },
+            { id: 'whatsapp-api',         label: 'WhatsApp API',         icon: 'fa-brands fa-whatsapp' },
+            { id: 'mobile-crm',           label: 'Mobile CRM',           icon: 'fa-solid fa-mobile-screen-button' },
+        ];
 
-        <div class=&quot;step-card&quot; data-i=&quot;3&quot;>
-            <div class=&quot;step-icon-wrap&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/22-24-7-Connectivity.svg&quot; alt=&quot;&quot;></div>
-            <span class=&quot;step-eyebrow&quot;>24/7 Connectivity</span>
-            <h2 class=&quot;step-title&quot;>Chatbot &amp; Live Chat</h2>
-            <p class=&quot;step-desc&quot;>Ensures you never miss an inquiry with 24/7 instant responses; smart routing directs prospects to the right team members based on their interests and application stage.</p>
-            <div class=&quot;step-chips&quot;>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/23-Automated-Chat-Workflow.svg&quot; alt=&quot;&quot;>Automated Chat Workflow</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/24-Live-Chat-Enablement.svg&quot; alt=&quot;&quot;>Live Chat Enablement</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/25-Meeting-Scheduler.svg&quot; alt=&quot;&quot;>Meeting Scheduler</span>
-            </div>
-        </div>
-
-        <div class=&quot;step-card&quot; data-i=&quot;4&quot;>
-            <div class=&quot;step-icon-wrap&quot;><i class=&quot;fa-solid fa-folder-open&quot; style=&quot;color:#DE6E30;font-size:1.4rem&quot;></i></div>
-            <span class=&quot;step-eyebrow&quot;>Enrolment Portal</span>
-            <h2 class=&quot;step-title&quot;>Application Management System</h2>
-            <p class=&quot;step-desc&quot;>Streamlines the entire application process, optimized for mobile, handling form submissions, document verification, and payments effortlessly with intelligent status tracking.</p>
-            <div class=&quot;step-chips&quot;>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/26-Application-Form-Builder-and-Widgets.svg&quot; alt=&quot;&quot;>Form Builder &amp; Widgets</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/27-Video-GD-PI-and-Counseling.svg&quot; alt=&quot;&quot;>Video GD-PI &amp; Counseling</span>
-                <span class=&quot;step-chip&quot;><i class=&quot;fa-solid fa-credit-card&quot;></i>Payment Integration</span>
-            </div>
-        </div>
-
-        <div class=&quot;step-card&quot; data-i=&quot;5&quot;>
-            <div class=&quot;step-icon-wrap&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/28-Direct-Channel.svg&quot; alt=&quot;&quot;></div>
-            <span class=&quot;step-eyebrow&quot;>Direct Channel</span>
-            <h2 class=&quot;step-title&quot;>WhatsApp Business API</h2>
-            <p class=&quot;step-desc&quot;>Connects you with prospects on their preferred platform; send bulk messages, engage in personalized conversations, and drive conversions, all through your Admission CRM.</p>
-            <div class=&quot;step-chips&quot;>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/29-Two-way-WhatsApp-and-live-chat.svg&quot; alt=&quot;&quot;>Two-way WhatsApp Chat</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/30-Bulk-WhatsApp-and-automated-campaigns.svg&quot; alt=&quot;&quot;>Bulk &amp; Automated Campaigns</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/31-Verified-business-account.svg&quot; alt=&quot;&quot;>Verified Business Account</span>
-            </div>
-        </div>
-
-        <div class=&quot;step-card&quot; data-i=&quot;6&quot;>
-            <div class=&quot;step-icon-wrap&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/32-On-the-go-Productivity.svg&quot; alt=&quot;&quot;></div>
-            <span class=&quot;step-eyebrow&quot;>On-the-go Productivity</span>
-            <h2 class=&quot;step-title&quot;>Mobile CRM</h2>
-            <p class=&quot;step-desc&quot;>Empowers work-from-home and field counselors to stay productive on the go, with built-in field tracking and real-time sync ensuring every interaction is captured.</p>
-            <div class=&quot;step-chips&quot;>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/33-Click-To-Call.svg&quot; alt=&quot;&quot;>Click-To-Call</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/34-Field-Tracker.svg&quot; alt=&quot;&quot;>Field Tracker</span>
-                <span class=&quot;step-chip&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/35-Missed-Call-Lead-Capture.svg&quot; alt=&quot;&quot;>Missed Call Lead Capture</span>
-            </div>
-        </div>
-
-    </div>
-
-    <div class=&quot;crmw-foot&quot;>
-        <span class=&quot;crmw-step-label&quot; id=&quot;crmStepLabel&quot;>01 / 07</span>
-        <span class=&quot;crmw-hint&quot; id=&quot;crmScrollHint&quot;>Scroll to explore &darr;</span>
-    </div>
-</div>
-
-<script>
-(function(){
-    var STEPS = 7;
-    var cards = Array.prototype.slice.call(document.querySelectorAll('.step-card'));
-    var iconBtns = Array.prototype.slice.call(document.querySelectorAll('.step-icon-btn'));
-    var progressFill = document.getElementById('crmProgressFill');
-    var stepLabel = document.getElementById('crmStepLabel');
-    var hint = document.getElementById('crmScrollHint');
-    var reduceMotion = false;
-    try { reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
-    if (reduceMotion) {
-        cards.forEach(function(c){ c.style.transition = 'none'; });
-    } else {
-        cards.forEach(function(c){ c.style.transition = 'opacity .32s cubic-bezier(.4,0,.2,1), transform .32s cubic-bezier(.4,0,.2,1)'; });
-    }
-
-    function applyProgress(p){
-        if (typeof p !== 'number' || isNaN(p)) return;
-        p = Math.max(0, Math.min(STEPS - 1, p));
-        var activeIndex = Math.round(p);
-        cards.forEach(function(card, i){
-            var d = i - p;
-            var absD = Math.abs(d);
-            var opacity = Math.max(0, 1 - absD * 1.15);
-            var translate = d * 34;
-            card.style.opacity = opacity.toFixed(3);
-            card.style.transform = 'translateY(' + translate.toFixed(1) + 'px)';
-            var isActive = (i === activeIndex);
-            card.style.pointerEvents = isActive ? 'auto' : 'none';
-            card.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-        });
-        iconBtns.forEach(function(btn, i){
-            btn.classList.toggle('active', i === activeIndex);
-            btn.classList.toggle('done', i < activeIndex);
-            btn.setAttribute('aria-selected', i === activeIndex ? 'true' : 'false');
-        });
-        if (progressFill) progressFill.style.width = ((p / (STEPS - 1)) * 100).toFixed(2) + '%';
-        if (stepLabel) stepLabel.textContent = String(activeIndex + 1).padStart(2, '0') + ' / 07';
-        if (hint) hint.style.opacity = (p < 0.35) ? '1' : '0';
-    }
-
-    applyProgress(0);
-    window.__crmSetProgress = applyProgress;
-    window.__crmReady = true;
-
-    function jumpToStep(i){
-        try {
-            var fe = window.frameElement;
-            if (!fe) return;
-            var runway = null;
-            var node = fe.parentElement;
-            while (node) {
-                if (node.classList && node.classList.contains('crm-runway')) { runway = node; break; }
-                node = node.parentElement;
+        // Smooth scroll to card (used by desktop nav + mobile pills)
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const yOffset = window.innerWidth < 1024 ? -70 : -100;
+                const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+                history.replaceState(null, '', `#${id}`);
             }
-            if (!runway) return;
-            var pw = window.parent;
-            var vh = pw.innerHeight;
-            var rect = runway.getBoundingClientRect();
-            var runwayTopAbs = pw.scrollY + rect.top;
-            var total = runway.offsetHeight - vh;
-            if (total <= 0) return;
-            var target = runwayTopAbs + (total * (i / (STEPS - 1)));
-            pw.scrollTo({ top: Math.round(target), behavior: 'smooth' });
-        } catch(e) {}
-    }
+        }
 
-    iconBtns.forEach(function(btn, i){
-        btn.addEventListener('click', function(){ jumpToStep(i); });
-    });
+        function scrollToTopNav() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-    document.addEventListener('keydown', function(e){
-        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-        var current = iconBtns.findIndex(function(b){ return b.classList.contains('active'); });
-        if (current === -1) current = 0;
-        if ((e.key === 'ArrowDown' || e.key === 'ArrowRight') && current < STEPS - 1) jumpToStep(current + 1);
-        else if ((e.key === 'ArrowUp' || e.key === 'ArrowLeft') && current > 0) jumpToStep(current - 1);
-    });
-})();
-</script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.story-card');
+            const navItems = document.querySelectorAll('.feature-nav-item');
+            const navCard = document.getElementById('navCard');
+            const navColumn = document.getElementById('navColumn');
+            const rightColumn = document.querySelector('.lg\\:col-span-7');
+            const jumpBtn = document.getElementById('jumpToNav');
+            const scrollProgress = document.getElementById('scrollProgress');
 
+            // ---------- JS-driven sticky nav card (immune to any parent overflow/transform) ----------
+            let naturalTop = 0, naturalLeft = 0, naturalWidth = 0, containerBottom = 0;
+
+            function getTopOffset(navHeight) {
+                const vh = window.innerHeight;
+                const margin = window.innerWidth >= 1024 ? 24 : 12;
+                if (navHeight >= vh - margin * 2) {
+                    // card taller than viewport: just pin near top with a small margin
+                    return margin;
+                }
+                // vertically center the card in the viewport
+                return Math.max(margin, (vh - navHeight) / 2);
+            }
+
+            function measureStickyBounds() {
+                // reset to normal flow before measuring so we get true natural position
+                navCard.classList.remove('js-fixed', 'js-bottom');
+                navCard.style.top = '';
+                navCard.style.left = '';
+                navCard.style.width = '';
+
+                const navColRect = navColumn.getBoundingClientRect();
+                naturalTop = navColRect.top + window.scrollY;
+                naturalLeft = navColRect.left;
+                naturalWidth = navColRect.width;
+
+                if (rightColumn) {
+                    const rightRect = rightColumn.getBoundingClientRect();
+                    containerBottom = rightRect.bottom + window.scrollY;
+                } else {
+                    containerBottom = naturalTop + navCard.offsetHeight;
+                }
+
+                updateStickyPosition();
+            }
+
+            function updateStickyPosition() {
+                if (window.innerWidth < 640) {
+                    // on very small screens keep it simple/static to avoid layout jitter
+                    navCard.classList.remove('js-fixed', 'js-bottom');
+                    navCard.style.top = '';
+                    navCard.style.left = '';
+                    navCard.style.width = '';
+                }
+
+                const scrollY = window.scrollY;
+                const navHeight = navCard.offsetHeight;
+                const topOffset = getTopOffset(navHeight);
+                const stickyStartAt = naturalTop - topOffset;
+                const stickyEndAt = containerBottom - topOffset - navHeight;
+
+                if (scrollY <= stickyStartAt) {
+                    navCard.classList.remove('js-fixed', 'js-bottom');
+                    navCard.style.top = '';
+                    navCard.style.left = '';
+                    navCard.style.width = '';
+                } else if (scrollY > stickyStartAt && scrollY <= stickyEndAt) {
+                    navCard.classList.add('js-fixed');
+                    navCard.classList.remove('js-bottom');
+                    navCard.style.top = `${topOffset}px`;
+                    navCard.style.left = `${naturalLeft}px`;
+                    navCard.style.width = `${naturalWidth}px`;
+                } else {
+                    navCard.classList.add('js-bottom');
+                    navCard.classList.remove('js-fixed');
+                    navCard.style.top = `${containerBottom - naturalTop - navHeight}px`;
+                    navCard.style.left = '';
+                    navCard.style.width = '';
+                }
+            }
+
+            let stickyTicking = false;
+            window.addEventListener('scroll', () => {
+                if (!stickyTicking) {
+                    window.requestAnimationFrame(() => {
+                        updateStickyPosition();
+                        stickyTicking = false;
+                    });
+                    stickyTicking = true;
+                }
+            }, { passive: true });
+
+            window.addEventListener('resize', () => {
+                window.requestAnimationFrame(measureStickyBounds);
+            });
+
+            // re-measure if images loading inside the right column change its height
+            if (rightColumn && 'ResizeObserver' in window) {
+                const ro = new ResizeObserver(() => window.requestAnimationFrame(measureStickyBounds));
+                ro.observe(rightColumn);
+            }
+
+            // initial measure (after layout settles)
+            window.requestAnimationFrame(measureStickyBounds);
+            window.addEventListener('load', measureStickyBounds);
+
+            // ---------- Active state sync on the always-sticky Core Capabilities nav ----------
+            const activeObserverOptions = {
+                root: null,
+                rootMargin: '-20% 0px -50% 0px',
+                threshold: 0.1
+            };
+            const activeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const activeId = entry.target.getAttribute('id');
+
+                        navItems.forEach(item => {
+                            const isActive = item.id === `nav-${activeId}`;
+                            item.classList.toggle('active', isActive);
+                            item.setAttribute('aria-current', isActive ? 'true' : 'false');
+                        });
+
+                        // keep the active nav row scrolled into view inside the sticky card
+                        // (relevant on short mobile screens where navCard itself scrolls)
+                        const activeNavItem = document.getElementById(`nav-${activeId}`);
+                        if (activeNavItem && navCard) {
+                            const cardRect = navCard.getBoundingClientRect();
+                            const itemRect = activeNavItem.getBoundingClientRect();
+                            const isOutOfView = itemRect.top < cardRect.top || itemRect.bottom > cardRect.bottom;
+                            if (isOutOfView) {
+                                activeNavItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }
+                        }
+                    }
+                });
+            }, activeObserverOptions);
+            sections.forEach(section => activeObserver.observe(section));
+
+            // ---------- Reveal-on-scroll for story cards ----------
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+            sections.forEach(section => revealObserver.observe(section));
+
+            // ---------- Scroll progress bar + jump-to-nav button visibility ----------
+            let ticking = false;
+            function updateOnScroll() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                scrollProgress.style.width = `${pct}%`;
+                jumpBtn.classList.toggle('visible', scrollTop > 600);
+                ticking = false;
+            }
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateOnScroll);
+                    ticking = true;
+                }
+            }, { passive: true });
+            updateOnScroll();
+
+            // ---------- Keyboard navigation: Left/Right arrows jump between sections ----------
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                const activeNav = document.querySelector('.feature-nav-item.active');
+                if (!activeNav) return;
+                const currentId = activeNav.id.replace('nav-', '');
+                const idx = SECTIONS.findIndex(s => s.id === currentId);
+                if (e.key === 'ArrowRight' && idx < SECTIONS.length - 1 && (e.altKey || e.metaKey)) {
+                    scrollToSection(SECTIONS[idx + 1].id);
+                } else if (e.key === 'ArrowLeft' && idx > 0 && (e.altKey || e.metaKey)) {
+                    scrollToSection(SECTIONS[idx - 1].id);
+                }
+            });
+
+            // ---------- Tap-to-toggle tooltips (robust fallback for touch devices) ----------
+            const pillWraps = document.querySelectorAll('.pill-wrap');
+            pillWraps.forEach(wrap => {
+                wrap.addEventListener('click', (e) => {
+                    const alreadyOpen = wrap.classList.contains('tooltip-open');
+                    pillWraps.forEach(w => w.classList.remove('tooltip-open'));
+                    if (!alreadyOpen) wrap.classList.add('tooltip-open');
+                    e.stopPropagation();
+                });
+            });
+            document.addEventListener('click', () => {
+                pillWraps.forEach(w => w.classList.remove('tooltip-open'));
+            });
+
+            // ---------- Deep-link support: open directly to a section via #hash ----------
+            if (window.location.hash) {
+                const targetId = window.location.hash.replace('#', '');
+                if (SECTIONS.some(s => s.id === targetId)) {
+                    setTimeout(() => scrollToSection(targetId), 150);
+                }
+            }
+        });
+    </script>
+
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </body>
 </html>
 
 "></iframe>
- </div>
- </div>
 </section>
-<script>
-/* Powerful CRM section: full-screen sticky storytelling. The runway is
-   exactly 7 viewport-heights tall; as the user scrolls through it the pin
-   holds the section centered full-screen while the 7 feature cards inside
-   the iframe cross-fade one at a time in step with scroll position. Only
-   after the 7th card finishes does the pin release into the next section. */
-(function(){
-  var runway=document.getElementById('crmRunway');
-  var frame=document.getElementById('vcrmFrame');
-  if(!runway||!frame) return;
-  var STEPS=7;
-
-  function setRunwayHeight(){
-    var vh=window.innerHeight;
-    runway.style.height=(vh*STEPS)+'px';
-  }
-  setRunwayHeight();
-  window.addEventListener('resize', function(){ setRunwayHeight(); }, {passive:true});
-
-  var ticking=false;
-  function update(){
-    ticking=false;
-    var vh=window.innerHeight;
-    var rect=runway.getBoundingClientRect();
-    var total=runway.offsetHeight - vh;
-    if(total<=0) return;
-    var scrolled=-rect.top;
-    var progress01=Math.max(0, Math.min(1, scrolled/total));
-    var p=progress01*(STEPS-1);
-    try{
-      var cw=frame.contentWindow;
-      if(cw && typeof cw.__crmSetProgress==='function'){ cw.__crmSetProgress(p); }
-    }catch(e){}
-  }
-  function onScroll(){
-    if(!ticking){ ticking=true; requestAnimationFrame(update); }
-  }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  frame.addEventListener('load', update);
-  setTimeout(update, 300);
-  update();
-})();
-</script>
 
 <style>/* ===== AI Product-Led Experience: launch + full-screen overlay (all devices) ===== */
 #ee-platform .eep-mlaunch{display:none;}#ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}/* ---- full-screen experience overlay - the window is relocated to <body> on
