@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-24-frameclip -->
+<!-- ee-front-tpl v2026-07-24-devicefixes -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -274,7 +274,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     z-index:99992;width:296px;max-width:calc(100vw - 32px);max-height:80vh;display:flex;flex-direction:column;
     background:#fff;border-radius:18px;border:1px solid #EAEDF3;overflow:hidden;
     box-shadow:0 40px 90px -30px rgba(15,29,50,.5),0 0 0 1px rgba(25,52,93,.04);
-    opacity:0;visibility:hidden;pointer-events:none;transition:opacity .24s ease,transform .24s ease,visibility .24s ease}#ee-toc.open .eetoc-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(-50%) translateX(0) scale(1)}#ee-toc .eetoc-head{display:flex;align-items:center;justify-content:space-between;padding:15px 16px 12px;border-bottom:1px solid #F0F2F7}#ee-toc .eetoc-head b{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#DE6E30}#ee-toc .eetoc-x{width:28px;height:28px;border-radius:50%;border:0;cursor:pointer;background:#F4F6FA;color:#5a6b85;
+    opacity:0;visibility:hidden;pointer-events:none;transition:opacity .24s ease,transform .24s ease,visibility .24s ease}#ee-toc.open .eetoc-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(-50%) translateX(0) scale(1)}#ee-toc .eetoc-head{display:flex;align-items:center;justify-content:space-between;padding:15px 16px 12px;border-bottom:1px solid #F0F2F7}#ee-toc .eetoc-head b{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#DE6E30}#ee-toc .eetoc-x{width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;background:#F4F6FA;color:#5a6b85;
     font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}#ee-toc .eetoc-x:hover{background:#FDEDE2;color:#DE6E30}#ee-toc .eetoc-list{list-style:none;margin:0;padding:8px 8px 4px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}#ee-toc .eetoc-list::-webkit-scrollbar{width:7px}#ee-toc .eetoc-list::-webkit-scrollbar-thumb{background:#DDE3EC;border-radius:8px}#ee-toc .eetoc-list a{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:11px;text-decoration:none;
     color:#22324a;transition:background .16s ease,color .16s ease}#ee-toc .eetoc-list a:hover{background:#F5F7FB}#ee-toc .eetoc-list a i{flex:none;width:22px;font-size:10px;font-weight:700;font-style:normal;color:#aab4c4;
     font-variant-numeric:tabular-nums;letter-spacing:.02em;transition:color .16s ease}#ee-toc .eetoc-list a span{font-size:13px;font-weight:600;line-height:1.3}#ee-toc .eetoc-list a.active{background:linear-gradient(135deg,rgba(222,110,48,.12),rgba(222,110,48,.05));color:#C45A20}#ee-toc .eetoc-list a.active i{color:#DE6E30}#ee-toc .eetoc-cta{margin:8px 12px 14px;display:flex;align-items:center;justify-content:center;gap:8px;
@@ -687,10 +687,10 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <style>
 #powerful-crm{padding:clamp(40px,6vw,72px) 0}
 #powerful-crm .vcrm-frame{width:100%;border:0;display:block;height:1000px;background:#fff;border-radius:22px;box-shadow:0 20px 50px rgba(25,51,93,.08);overflow:hidden}
-@media(max-width:600px){#powerful-crm .vcrm-frame{height:820px;border-radius:16px}}
+@media(max-width:600px){#powerful-crm .vcrm-frame{height:2200px;border-radius:16px}}
 </style>
 <section id="powerful-crm" aria-label="Powerful admission CRM, module by module">
-  <iframe class="vcrm-frame" title="VidyaAI - powerful admission CRM with simplicity: core capabilities" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
+  <iframe class="vcrm-frame" id="vcrmFrame" title="VidyaAI - powerful admission CRM with simplicity: core capabilities" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot; class=&quot;scroll-smooth&quot;>
 <head>
     <meta charset=&quot;UTF-8&quot;>
@@ -1329,6 +1329,29 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </html>
 "></iframe>
 </section>
+<script>
+/* Powerful CRM iframe: auto-fit height to its own content instead of a
+   guessed fixed value - the layout stacks to a single column under 1024px,
+   so mobile actually needs MORE height than desktop, not less. */
+(function(){
+  var f=document.getElementById('vcrmFrame'); if(!f) return;
+  function getDoc(){ try{ return f.contentDocument||(f.contentWindow&&f.contentWindow.document); }catch(e){ return null; } }
+  var lastH=0;
+  function fit(){
+    var d=getDoc(); if(!d||!d.body) return;
+    var h=Math.max(d.documentElement.scrollHeight, d.body.scrollHeight);
+    if(h>0 && h!==lastH){ lastH=h; f.style.height=h+'px'; }
+  }
+  /* loading="lazy" iframes don't reliably fire their own load event the
+     moment the srcdoc content is actually parsed (seen inconsistently
+     across viewport sizes) - poll for the real content height instead of
+     depending on that event alone. */
+  var tries=0;
+  var poll=setInterval(function(){ fit(); tries++; if(tries>30) clearInterval(poll); },300);
+  f.addEventListener('load',function(){ fit(); setTimeout(fit,150); setTimeout(fit,500); setTimeout(fit,1200); });
+  window.addEventListener('resize',function(){ setTimeout(fit,80); },{passive:true});
+})();
+</script>
 
 <style>/* ===== AI Product-Led Experience: launch + full-screen overlay (all devices) ===== */
 #ee-platform .eep-mlaunch{display:none;}#ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}/* ---- full-screen experience overlay - the window is relocated to <body> on
@@ -3501,14 +3524,16 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   var bar=document.getElementById('ee-sticky'); 
   if(bar){
     var dismissed=false;
-    var x=document.getElementById('eeStickyX'); if(x) x.addEventListener('click',function(){dismissed=true;bar.classList.remove('show');});
-    bar.querySelector('.go').addEventListener('click',function(){bar.classList.remove('show');});
+    var x=document.getElementById('eeStickyX'); if(x) x.addEventListener('click',function(){dismissed=true;bar.classList.remove('show');document.body.classList.remove('ee-sticky-on');});
+    bar.querySelector('.go').addEventListener('click',function(){bar.classList.remove('show');document.body.classList.remove('ee-sticky-on');});
     var hero=document.getElementById('xhero'), demo=document.getElementById('demo');
     function upd(){
-      if(dismissed){bar.classList.remove('show');return;}
+      if(dismissed){bar.classList.remove('show');document.body.classList.remove('ee-sticky-on');return;}
       var y=window.pageYOffset, past=hero?(y>hero.offsetHeight*0.9):(y>500);
       var nearDemo=demo?(y+window.innerHeight > demo.offsetTop+80):false;
-      bar.classList.toggle('show', past && !nearDemo);
+      var show=past && !nearDemo;
+      bar.classList.toggle('show', show);
+      document.body.classList.toggle('ee-sticky-on', show);
     }
     window.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd,{passive:true}); upd();
   }
@@ -5188,9 +5213,12 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
   }/* ROI calculator */
   #ee-cro .roi{display:grid;grid-template-columns:1fr 1.05fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 60px -30px rgba(25,52,93,.3);overflow:hidden}#ee-cro .roi-in{padding:clamp(24px,3vw,38px)}#ee-cro .roi-in h3{font-size:20px;font-weight:800;color:var(--nv);margin:0 0 4px}#ee-cro .roi-in .sub{font-size:13px;color:var(--mut);margin:0 0 22px}#ee-cro .fld{margin-bottom:18px}#ee-cro .fld label{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;color:var(--nv);margin-bottom:7px}#ee-cro .fld label b{color:var(--or);font-weight:800}#ee-cro .fld input[type=range]{width:100%;accent-color:var(--or);height:5px}#ee-cro .fld .nums{display:flex;justify-content:space-between;font-size:10.5px;color:var(--mut);margin-top:4px}#ee-cro .roi-out{background:linear-gradient(150deg,var(--nv2),var(--nv));color:#fff;padding:clamp(24px,3vw,38px);display:flex;flex-direction:column;justify-content:center}#ee-cro .roi-out .lab{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c6d4ea}#ee-cro .roi-out .big{font-size:clamp(34px,5vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.05;background:linear-gradient(100deg,#fff,#E8843F);-webkit-background-clip:text;background-clip:text;color:transparent;margin:2px 0 0}#ee-cro .roi-out .rev{font-size:clamp(18px,2.4vw,24px);font-weight:800;margin-top:14px}#ee-cro .roi-out .rev span{color:#9fb9e0}#ee-cro .roi-out .meta{display:flex;gap:22px;margin-top:18px;flex-wrap:wrap}#ee-cro .roi-out .meta div b{display:block;font-size:19px;font-weight:800}#ee-cro .roi-out .meta div span{font-size:11px;color:#c6d4ea}#ee-cro .roi-out .cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;margin-top:24px;background:var(--or);color:#fff;font-weight:700;font-size:15px;padding:14px 24px;border-radius:12px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.6);transition:transform .2s}#ee-cro .roi-out .cta:hover{transform:translateY(-2px)}#ee-cro .roi-out .fine{font-size:10.5px;color:#9fb1cc;margin-top:12px;text-align:center}
   @media(max-width:760px){#ee-cro .roi{grid-template-columns:1fr}}/* sticky CTA bar */
-  #ee-sticky{position:fixed;left:0;right:0;bottom:0;z-index:990;transform:translateY(120%);transition:transform .4s cubic-bezier(.2,.8,.2,1);background:rgba(15,29,51,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.12);box-shadow:0 -10px 40px rgba(15,29,51,.3)}#ee-sticky.show{transform:none}#ee-sticky .sw{max-width:1140px;margin:0 auto;padding:11px 18px;display:flex;align-items:center;gap:16px}#ee-sticky .txt{color:#fff;font-size:14px;font-weight:600}#ee-sticky .txt b{color:#E8843F}#ee-sticky .sp{margin-left:auto;display:flex;align-items:center;gap:10px}#ee-sticky .go{background:var(--or,#DE6E30);color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:10px;text-decoration:none;white-space:nowrap;transition:transform .2s}#ee-sticky .go:hover{transform:translateY(-2px)}#ee-sticky .x{background:rgba(255,255,255,.12);color:#fff;border:0;width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:18px;line-height:1}#ee-sticky .x:hover{background:rgba(255,255,255,.22)}
+  #ee-sticky{position:fixed;left:0;right:0;bottom:0;z-index:990;transform:translateY(120%);transition:transform .4s cubic-bezier(.2,.8,.2,1);background:rgba(15,29,51,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.12);box-shadow:0 -10px 40px rgba(15,29,51,.3)}#ee-sticky.show{transform:none}#ee-sticky .sw{max-width:1140px;margin:0 auto;padding:11px 18px;display:flex;align-items:center;gap:16px}#ee-sticky .txt{color:#fff;font-size:14px;font-weight:600}#ee-sticky .txt b{color:#E8843F}#ee-sticky .sp{margin-left:auto;display:flex;align-items:center;gap:10px}#ee-sticky .go{background:var(--or,#DE6E30);color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:10px;text-decoration:none;white-space:nowrap;transition:transform .2s}#ee-sticky .go:hover{transform:translateY(-2px)}#ee-sticky .x{background:rgba(255,255,255,.12);color:#fff;border:0;width:38px;height:38px;border-radius:9px;cursor:pointer;font-size:18px;line-height:1}#ee-sticky .x:hover{background:rgba(255,255,255,.22)}
   @media(max-width:600px){#ee-sticky .txt{font-size:12.5px}#ee-sticky .txt .hide{display:none}#ee-sticky .sw{padding:9px 12px;gap:10px}#ee-sticky .go{padding:10px 16px;font-size:13px}}
   @media(prefers-reduced-motion:reduce){#ee-sticky{transition:none}}
+  /* lift the site-wide floating WhatsApp/Call/TOC buttons clear of this bar while it's shown - otherwise they overlap its Book Demo / dismiss buttons */
+  body.ee-sticky-on .ee-fabs{bottom:78px;transition:bottom .3s ease}
+  @media(max-width:600px){body.ee-sticky-on .ee-fabs{bottom:70px}}
 </style>
 <!-- ===================== COMPETITOR-BEATING · GO-LIVE / PRICING / SWITCH ===================== -->
 <style>#ee-golive,#ee-pricing,#ee-switch{--nv:#19345d;--nv2:#22467c;--or:#DE6E30;--mut:#5a6b85;--line:rgba(25,52,93,.1);position:relative;padding:clamp(54px,7vw,88px) 0;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}#ee-golive *,#ee-pricing *,#ee-switch *{box-sizing:border-box}.rvw{max-width:1140px;margin:0 auto;padding:0 22px}.rvh{text-align:center;max-width:680px;margin:0 auto 36px}.rvh .eb{display:inline-flex;align-items:center;gap:8px;font:700 12px/1 'Inter';letter-spacing:.13em;text-transform:uppercase;color:var(--or);margin-bottom:12px}.rvh .eb i{width:7px;height:7px;border-radius:50%;background:var(--or)}.rvh h2{font-weight:800;font-size:clamp(26px,3.8vw,42px);line-height:1.1;letter-spacing:-.03em;color:var(--nv);margin:0 0 10px}.rvh h2 em{font-style:normal;color:var(--or)}.rvh p{font-size:clamp(15px,1.6vw,17px);color:var(--mut);line-height:1.6;margin:0}/* GO-LIVE timeline */

@@ -520,7 +520,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
             #site-header .eh-cta svg { width:12px; height:12px; }
         }
         @media (max-width:400px){
-            #site-header .eh-cta { padding:.38rem .6rem; font-size:.66rem; }
+            #site-header .eh-cta { padding:.62rem .7rem; font-size:.72rem; }
         }
         @media (min-width:1024px){
             #site-header .ee-mobile-btn { display:none !important; }
