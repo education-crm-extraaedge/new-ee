@@ -2221,7 +2221,7 @@ function product_educrm_fields($post) {
     ?>
 <h3>📚 What is Education CRM Section</h3>
 <div class="field-group"><label>Main Heading (H2)</label><input type="text" name="educrm_h2" value="<?php echo esc_attr($f('educrm_h2')); ?>"></div>
-<div class="field-group"><label>Flow panel — Visual Position (desktop)</label><select name="educrm_visual_side"><option value="right" <?php selected($f('educrm_visual_side') ?: 'right', 'right'); ?>>Right (default)</option><option value="left" <?php selected($f('educrm_visual_side'), 'left'); ?>>Left</option></select><p class="field-help">Left nivdla ki visual/image davikade ani text ujvikade. Mobile view badalat nahi.</p></div>
+<div class="field-group"><label>Flow panel — Visual Position (desktop)</label><select name="educrm_visual_side"><option value="right" <?php selected($f('educrm_visual_side') ?: 'right', 'right'); ?>>Right (default)</option><option value="left" <?php selected($f('educrm_visual_side'), 'left'); ?>>Left</option></select><p class="field-help">Selecting Left puts the visual/image on the left and the text on the right. Does not change on mobile view.</p></div>
 <div class="field-group"><label>Paragraph 1</label><textarea name="educrm_p1" rows="4"><?php echo esc_textarea($f('educrm_p1')); ?></textarea></div>
 <div class="field-group"><label>Paragraph 2</label><textarea name="educrm_p2" rows="4"><?php echo esc_textarea($f('educrm_p2')); ?></textarea></div>
 <div class="field-group"><label>Paragraph 3</label><textarea name="educrm_p3" rows="4"><?php echo esc_textarea($f('educrm_p3')); ?></textarea></div>
@@ -2299,7 +2299,7 @@ function product_bottom_fields($post) {
 <h3>🎁 Bottom CTA & Products</h3>
 <div class="field-group"><label>Label</label>                <input type="text" name="bottom_label"    value="<?php echo esc_attr($f('bottom_label'));    ?>"></div>
 <div class="field-group"><label>Main Heading (H2)</label>    <input type="text" name="bottom_h2"       value="<?php echo esc_attr($f('bottom_h2'));       ?>"></div>
-<div class="field-group"><label>Products card — Visual Position (desktop)</label><select name="bottom_visual_side"><option value="right" <?php selected($f('bottom_visual_side') ?: 'right', 'right'); ?>>Right (default)</option><option value="left" <?php selected($f('bottom_visual_side'), 'left'); ?>>Left</option></select><p class="field-help">Left nivdla ki visual/image davikade ani text ujvikade. Mobile view badalat nahi.</p></div>
+<div class="field-group"><label>Products card — Visual Position (desktop)</label><select name="bottom_visual_side"><option value="right" <?php selected($f('bottom_visual_side') ?: 'right', 'right'); ?>>Right (default)</option><option value="left" <?php selected($f('bottom_visual_side'), 'left'); ?>>Left</option></select><p class="field-help">Selecting Left puts the visual/image on the left and the text on the right. Does not change on mobile view.</p></div>
 <div class="field-group"><label>Subheading (H3)</label><textarea            name="bottom_h3" rows="2"><?php echo esc_textarea($f('bottom_h3')); ?></textarea></div>
 <div class="field-group"><label>CTA Button Text</label>      <input type="text" name="bottom_cta_text" value="<?php echo esc_attr($f('bottom_cta_text')); ?>"></div>
 <div class="field-group"><label>CTA Button URL</label>       <input type="text" name="bottom_cta_url"  value="<?php echo esc_attr($f('bottom_cta_url'));  ?>"></div>
@@ -2366,7 +2366,7 @@ function product_aidemo_fields($post) {
     ?>
 <h3>🤖 AI Demo Section</h3>
 <div class="field-group"><label>Main Heading</label>           <input type="text" name="aidemo_h2"         value="<?php echo esc_attr($f('aidemo_h2'));         ?>"></div>
-<div class="field-group"><label>Demo visual — Visual Position (desktop)</label><select name="aidemo_visual_side"><option value="right" <?php selected($f('aidemo_visual_side') ?: 'right', 'right'); ?>>Right (default)</option><option value="left" <?php selected($f('aidemo_visual_side'), 'left'); ?>>Left</option></select><p class="field-help">Left nivdla ki visual/image davikade ani text ujvikade. Mobile view badalat nahi.</p></div>
+<div class="field-group"><label>Demo visual — Visual Position (desktop)</label><select name="aidemo_visual_side"><option value="right" <?php selected($f('aidemo_visual_side') ?: 'right', 'right'); ?>>Right (default)</option><option value="left" <?php selected($f('aidemo_visual_side'), 'left'); ?>>Left</option></select><p class="field-help">Selecting Left puts the visual/image on the left and the text on the right. Does not change on mobile view.</p></div>
 <div class="field-group"><label>Subtitle</label><textarea                       name="aidemo_sub" rows="2"><?php echo esc_textarea($f('aidemo_sub')); ?></textarea></div>
 <div class="field-group"><label>CTA Button Text</label>        <input type="text" name="aidemo_cta_text"   value="<?php echo esc_attr($f('aidemo_cta_text'));   ?>"></div>
 <div class="field-group"><label>CTA Button URL</label>         <input type="text" name="aidemo_cta_url"    value="<?php echo esc_attr($f('aidemo_cta_url'));    ?>"></div>
@@ -8548,7 +8548,7 @@ function ee_products_page_render_admin() {
             </tbody></table>
 
             <h2>Category look &amp; order</h2>
-            <p class="description">Icon slug: <code>ti-star</code> (built-in, nehmi disto) · <code>star</code> (uploads/icons/star.svg) · kinva full <code>https://…svg</code> URL. Products already tya tya category la 🏷 Product Card Settings madhun jodlele aahet.</p>
+            <p class="description">Icon slug: <code>ti-star</code> (built-in, always shows) · <code>star</code> (uploads/icons/star.svg) · or a full <code>https://…svg</code> URL. Products are already linked to their category via 🏷 Product Card Settings.</p>
             <table class="widefat striped" style="max-width:900px">
                 <thead><tr><th>Category</th><th>Shown as</th><th>Icon slug</th><th>Description</th><th style="width:70px">Order</th><th style="width:60px">Hide</th></tr></thead>
                 <tbody>
