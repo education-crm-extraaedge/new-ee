@@ -92,13 +92,14 @@ add_action('wp_head', function () {
         --ee-muted:       #6B7280;
         --ee-border:      #E5E7EB;
 
-        /* ── Heading scale (consistent site-wide) ─────────────── */
-        --ee-h1: 40px;
-        --ee-h2: 32px;
-        --ee-h3: 24px;
+        /* ── Heading scale (consistent site-wide, same on desktop/mobile) ─── */
+        --ee-h1: 30px;
+        --ee-h2: 20px;
+        --ee-h3: 17px;
         --ee-h4: 20px;
         --ee-h5: 18px;
         --ee-h6: 16px;
+        --ee-p:  15px;
     }
 
     /* ── Base typography ─────────────────────────────────────── */
@@ -120,12 +121,7 @@ add_action('wp_head', function () {
     h4, .h4 { font-size:var(--ee-h4); font-weight:600; line-height:1.35; color:var(--ee-blue); }
     h5, .h5 { font-size:var(--ee-h5); font-weight:600; line-height:1.4;  color:var(--ee-blue); }
     h6, .h6 { font-size:var(--ee-h6); font-weight:600; line-height:1.4;  color:var(--ee-blue); }
-    @media (max-width:820px){
-        :root{
-            --ee-h1:30px; --ee-h2:24px; --ee-h3:20px;
-            --ee-h4:18px; --ee-h5:16px; --ee-h6:14px;
-        }
-    }
+    p { font-size:var(--ee-p); line-height:1.6; }
 
     /* ── Universal inline-SVG icon defaults ──
        Inherit colour & vertical-align so icons never look "off"

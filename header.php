@@ -1438,18 +1438,34 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     </script>
 
 <style id="ee-global-heading-scale">
-/* ── Global heading scale: every page's main headings match the home page ──
-   H1 = home hero size, H2/H3 vars available for templates. Page-builder
-   pages (.eepb) keep their pasted designs untouched. */
+/* ── Global heading scale: fixed sizes, identical on desktop and mobile ──
+   H1=30px, H2=20px, H3=17px, paragraphs=15px, site-wide. Page-builder
+   pages (.eepb) and embedded blog content (.ee-blog-embed) keep their
+   own pasted designs untouched. */
 :root{
-    --ee-h1:clamp(28px,3.4vw,42px);
-    --ee-h2:clamp(22px,2.6vw,30px);
-    --ee-h3:clamp(17px,1.8vw,20px);
+    --ee-h1:30px;
+    --ee-h2:20px;
+    --ee-h3:17px;
+    --ee-p:15px;
 }
 html body #main-content h1:not(.eepb *):not(.ee-blog-embed *){
     font-size:var(--ee-h1) !important;
     line-height:1.12 !important;
     letter-spacing:-.02em !important;
+}
+html body #main-content h2:not(.eepb *):not(.ee-blog-embed *){
+    font-size:var(--ee-h2) !important;
+    line-height:1.22 !important;
+    letter-spacing:-.015em !important;
+}
+html body #main-content h3:not(.eepb *):not(.ee-blog-embed *){
+    font-size:var(--ee-h3) !important;
+    line-height:1.3 !important;
+    letter-spacing:-.01em !important;
+}
+html body #main-content p:not(.eepb *):not(.ee-blog-embed *){
+    font-size:var(--ee-p) !important;
+    line-height:1.6 !important;
 }
 </style>
 <!-- Main content landmark — required so the skip-to-content link has a target and screen readers/SEO recognise the primary content area. Closed in footer.php. -->
