@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-26-headingscale -->
+<!-- ee-front-tpl v2026-07-26-headingorder -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1947,7 +1947,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/01-VidyaAI-Intelligence.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem">
                                 </div>
                                 <div>
-                                    <h4 class="text-sm font-semibold text-brand-navy nav-title transition-colors">VidyaAI Intelligence</h4>
+                                    <h3 class="text-sm font-semibold text-brand-navy nav-title transition-colors">VidyaAI Intelligence</h3>
                                     <p class="text-xs text-slate-500 line-clamp-1">24x7 Assistant, Intent Scoring & Calling</p>
                                 </div>
                             </div>
@@ -1962,7 +1962,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/02-Admission-CRM.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem">
                                 </div>
                                 <div>
-                                    <h4 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Admission CRM</h4>
+                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Admission CRM</h3>
                                     <p class="text-xs text-slate-500 line-clamp-1">Centralized Prospect Tracking</p>
                                 </div>
                             </div>
@@ -1977,7 +1977,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/03-Marketing-Automation.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem">
                                 </div>
                                 <div>
-                                    <h4 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Marketing Automation</h4>
+                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Marketing Automation</h3>
                                     <p class="text-xs text-slate-500 line-clamp-1">Targeted Multichannel Campaigns</p>
                                 </div>
                             </div>
@@ -1992,7 +1992,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/04-Chatbot-and-Live-Chat.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem">
                                 </div>
                                 <div>
-                                    <h4 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Chatbot & Live Chat</h4>
+                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Chatbot & Live Chat</h3>
                                     <p class="text-xs text-slate-500 line-clamp-1">24/7 Automated Engagement</p>
                                 </div>
                             </div>
@@ -2007,7 +2007,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/05-Application-System.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem">
                                 </div>
                                 <div>
-                                    <h4 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Application System</h4>
+                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Application System</h3>
                                     <p class="text-xs text-slate-500 line-clamp-1">Forms, Verification & GD-PI</p>
                                 </div>
                             </div>
@@ -2022,7 +2022,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/06-WhatsApp-API.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem">
                                 </div>
                                 <div>
-                                    <h4 class="text-sm font-semibold text-slate-700 nav-title transition-colors">WhatsApp API</h4>
+                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">WhatsApp API</h3>
                                     <p class="text-xs text-slate-500 line-clamp-1">Two-Way Direct Messaging</p>
                                 </div>
                             </div>
@@ -2037,7 +2037,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/07-Mobile-CRM.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem">
                                 </div>
                                 <div>
-                                    <h4 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Mobile CRM</h4>
+                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Mobile CRM</h3>
                                     <p class="text-xs text-slate-500 line-clamp-1">Field Tracking & Click-To-Call</p>
                                 </div>
                             </div>
@@ -2100,7 +2100,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                         <div class="mt-4 p-4 rounded-xl bg-brand-navy text-white flex items-start gap-3">
                             <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/13-Counselor-Performance-Intelligence.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem">
                             <div>
-                                <h5 class="text-xs font-bold text-brand-orange uppercase">Counselor Performance Intelligence</h5>
+                                <h3 class="text-xs font-bold text-brand-orange uppercase">Counselor Performance Intelligence</h3>
                                 <p class="text-xs text-slate-200 mt-0.5">Clear visibility into response times, follow-ups, and conversion impact by counselor to drive focused coaching and better outcomes.</p>
                             </div>
                         </div>
@@ -2125,7 +2125,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                  onerror="this.src='https://placehold.co/800x450/19335D/ffffff?text=Admission+CRM'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')">
                         </div>
                         <div class="pt-4 border-t border-slate-100">
-                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h4>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/15-Funnel-Management.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Funnel Management</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">See every prospect's stage from enquiry to enrolment and spot drop-offs instantly.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/16-Follow-Up-Manager.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Follow-Up Manager</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">Auto-schedules reminders so no prospect ever slips through the cracks.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
@@ -2153,7 +2153,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                  onerror="this.src='https://placehold.co/800x450/19335D/ffffff?text=Marketing+Automation'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')">
                         </div>
                         <div class="pt-4 border-t border-slate-100">
-                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h4>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/19-Email-Marketing.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Email Marketing</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">Personalized drip campaigns triggered automatically by prospect behavior.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/20-Integrated-Communication-Channels.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Integrated Communication Channels</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">Email, SMS, and WhatsApp orchestrated from a single workflow.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
@@ -2181,7 +2181,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                  onerror="this.src='https://placehold.co/800x450/19335D/ffffff?text=Chatbot+and+Live+Chat'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')">
                         </div>
                         <div class="pt-4 border-t border-slate-100">
-                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h4>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/23-Automated-Chat-Workflow.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Automated Chat Workflow</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">Pre-built conversation flows that qualify and route enquiries on their own.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/24-Live-Chat-Enablement.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Live Chat Enablement</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">Seamless handoff from bot to human counselor whenever it's needed.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
@@ -2209,7 +2209,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                  onerror="this.src='https://placehold.co/800x450/19335D/ffffff?text=Application+Management+System'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')">
                         </div>
                         <div class="pt-4 border-t border-slate-100">
-                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h4>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/26-Application-Form-Builder-and-Widgets.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Application Form Builder & Widgets</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">Drag-and-drop forms you can embed anywhere on your site.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/27-Video-GD-PI-and-Counseling.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Video GD-PI & Counseling</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">Run group discussions and interviews virtually, with recordings saved to the CRM.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
@@ -2237,7 +2237,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                  onerror="this.src='https://placehold.co/800x450/19335D/ffffff?text=WhatsApp+Business+API'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')">
                         </div>
                         <div class="pt-4 border-t border-slate-100">
-                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h4>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/29-Two-way-WhatsApp-and-live-chat.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Two-way WhatsApp and live chat</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">Reply to prospects directly inside WhatsApp threads, synced with the CRM.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/30-Bulk-WhatsApp-and-automated-campaigns.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Bulk WhatsApp & automated campaigns</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">Send templated updates to thousands of prospects instantly.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
@@ -2265,7 +2265,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
                                  onerror="this.src='https://placehold.co/800x450/19335D/ffffff?text=Mobile+CRM'; this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton')">
                         </div>
                         <div class="pt-4 border-t border-slate-100">
-                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h4>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Popular Features</h3>
                             <div class="flex flex-wrap gap-2">
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/33-Click-To-Call.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Click-To-Call</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">Dial prospects straight from the mobile app; every call logs automatically.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
                                 <span class="relative inline-flex pill-wrap"><span tabindex="0" class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-brand-navy text-xs font-semibold flex items-center gap-2 hover:bg-brand-orangeLight hover:text-brand-orange transition-colors cursor-help focus:outline-none"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/34-Field-Tracker.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em"> Field Tracker</span><span class="feature-tooltip pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-52 rounded-lg bg-brand-navy text-white text-[11px] leading-snug px-3 py-2 opacity-0 invisible transition-all duration-200 translate-y-1 z-30 shadow-figma-hover">GPS check-in and check-out for on-ground counselor visits.<span class="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 bg-brand-navy rotate-45"></span></span></span>
@@ -5283,7 +5283,7 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
       </div>
 
       <div class="wa-panel" id="waPanel">
-        <h4>📣 Bulk campaigns that feel 1:1</h4>
+        <h3>📣 Bulk campaigns that feel 1:1</h3>
         <p>Segment by course, stage or source and send personalised broadcasts with merge fields, media and CTA buttons - without ever risking your number.</p>
         <div class="chips"><span class="chip">Smart segments</span><span class="chip">Template library</span><span class="chip">Scheduled sends</span></div>
       </div>
@@ -5372,7 +5372,7 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
     tab.classList.add('on');
     const d=panels[+tab.dataset.tab];
     panel.classList.remove('swap'); void panel.offsetWidth;
-    panel.innerHTML=`<h4>${d.h}</h4><p>${d.p}</p><div class="chips">${d.c.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`;
+    panel.innerHTML=`<h3>${d.h}</h3><p>${d.p}</p><div class="chips">${d.c.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`;
     panel.classList.add('swap');
     playScript(+tab.dataset.tab);
   }));
@@ -5499,10 +5499,10 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
       <p>No long IT projects. Our team imports your data, configures your AI &amp; WhatsApp, trains your counsellors and gets you live in a single week.</p>
     </div>
     <div class="tl">
-      <div class="st"><div class="n">1</div><div class="day">Day 1&ndash;2</div><h4>Kickoff &amp; data import</h4><p>We migrate your leads &amp; history - zero manual work for you.</p></div>
-      <div class="st"><div class="n">2</div><div class="day">Day 3&ndash;4</div><h4>Setup &amp; branding</h4><p>Stages, forms, templates &amp; dashboards mapped to your funnel.</p></div>
-      <div class="st"><div class="n">3</div><div class="day">Day 5&ndash;6</div><h4>AI &amp; WhatsApp config</h4><p>VidyaAI calling, VidyaGPT &amp; WhatsApp API live and tested.</p></div>
-      <div class="st"><div class="n">4</div><div class="day">Day 7</div><h4>Go live + training</h4><p>Counsellors trained, you start converting from day one.</p></div>
+      <div class="st"><div class="n">1</div><div class="day">Day 1&ndash;2</div><h3>Kickoff &amp; data import</h3><p>We migrate your leads &amp; history - zero manual work for you.</p></div>
+      <div class="st"><div class="n">2</div><div class="day">Day 3&ndash;4</div><h3>Setup &amp; branding</h3><p>Stages, forms, templates &amp; dashboards mapped to your funnel.</p></div>
+      <div class="st"><div class="n">3</div><div class="day">Day 5&ndash;6</div><h3>AI &amp; WhatsApp config</h3><p>VidyaAI calling, VidyaGPT &amp; WhatsApp API live and tested.</p></div>
+      <div class="st"><div class="n">4</div><div class="day">Day 7</div><h3>Go live + training</h3><p>Counsellors trained, you start converting from day one.</p></div>
     </div>
     <p class="note">Most CRMs take <b>weeks of onboarding</b>. With ExtraaEdge you&rsquo;re live in <b>7 days</b>.</p>
   </div>
