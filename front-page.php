@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-26-instlogos -->
+<!-- ee-front-tpl v2026-07-26-headingscale -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -84,6 +84,34 @@ add_action('wp_head', function () {
 
 get_header();
 ?>
+
+<style id="ee-home-heading-scale">
+/* ── Home page heading/paragraph override (larger than the site-wide
+   default set in header.php's #ee-global-heading-scale): H1=40, H2=30,
+   H3=20, H4=14. Same selector/specificity as that block, but this one
+   loads later in the document, so it wins the cascade tie on this page
+   only - no body class needed since this file only ever runs on the
+   front page. */
+html body #main-content h1:not(.eepb *):not(.ee-blog-embed *){
+    font-size:40px !important;
+    line-height:1.12 !important;
+    letter-spacing:-.02em !important;
+}
+html body #main-content h2:not(.eepb *):not(.ee-blog-embed *){
+    font-size:30px !important;
+    line-height:1.22 !important;
+    letter-spacing:-.015em !important;
+}
+html body #main-content h3:not(.eepb *):not(.ee-blog-embed *){
+    font-size:20px !important;
+    line-height:1.3 !important;
+    letter-spacing:-.01em !important;
+}
+html body #main-content h4:not(.eepb *):not(.ee-blog-embed *){
+    font-size:14px !important;
+    line-height:1.35 !important;
+}
+</style>
 
 <style>/* =====================================================================
    ExtraaEdge - Enterprise high-conversion Admission CRM homepage
