@@ -782,9 +782,14 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
   </div>
 </section>
 
-<?php /* Logo marquee removed — now rendered globally (home-page style) via the
-   ee_before_footer hook in functions.php so every page looks identical.
-   Hide it per-page with the "🧱 Site header & footer" meta box checkbox. */ ?>
+<?php
+/* Institute-logo strip for this specific Industries category, auto-detected
+   from the post title (e.g. "Higher Education CRM" -> higher-education).
+   No-ops silently if the title doesn't match any known category. */
+if (function_exists('ee_render_category_institute_logos')) {
+    ee_render_category_institute_logos();
+}
+?>
 
 <div class="toc-zone-wrapper" id="toc-zone-wrapper">
 

@@ -8405,6 +8405,12 @@ function ee_section_anywhere_render_admin() {
 require_once get_template_directory() . '/inc/page-builder.php';
 
 /* =========================================================================
+ * 🏫 INSTITUTE LOGO SETS — home page "Top 50" strip + per-category Industries
+ * page logo strips, sourced from the client-provided spreadsheet import.
+ * ========================================================================= */
+require_once get_template_directory() . '/inc/institute-logos.php';
+
+/* =========================================================================
  * 🙂 NATIVE EMOJI — WordPress swaps every emoji for an image loaded from
  * the s.w.org CDN; when that CDN is unreachable the whole admin (and any
  * emoji on the site) shows broken-image icons. Modern OSes render emoji
