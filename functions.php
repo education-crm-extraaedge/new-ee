@@ -8411,6 +8411,13 @@ require_once get_template_directory() . '/inc/page-builder.php';
 require_once get_template_directory() . '/inc/institute-logos.php';
 
 /* =========================================================================
+ * 📄 PRODUCT CONTENT SEED — one-time import of client-supplied copy into
+ * the Application Management System product page (safe: only fills empty
+ * fields, never overwrites edits). See inc/ for details.
+ * ========================================================================= */
+require_once get_template_directory() . '/inc/seed-application-management-system.php';
+
+/* =========================================================================
  * 🙂 NATIVE EMOJI — WordPress swaps every emoji for an image loaded from
  * the s.w.org CDN; when that CDN is unreachable the whole admin (and any
  * emoji on the site) shows broken-image icons. Modern OSes render emoji
