@@ -2090,11 +2090,11 @@ function product_seo_fields($post) {
 <option value="noindex, follow" <?php selected($f('robots'),'noindex, follow'); ?>>noindex, follow</option>
 <option value="index, nofollow" <?php selected($f('robots'),'index, nofollow'); ?>>index, nofollow</option>
 <option value="noindex, nofollow" <?php selected($f('robots'),'noindex, nofollow'); ?>>noindex, nofollow</option>
-</select><p class="field-help">Google/Bing la he page index karayche ki nahi.</p></div>
-<div class="field-group"><label>Focus Keyword (primary)</label><input type="text" name="focus_keyword" value="<?php echo esc_attr($f('focus_keyword')); ?>" placeholder="education crm software"><p class="field-help">Keywords box rikama asel tr ha keywords meta mhanun jato.</p></div>
+</select><p class="field-help">Whether Google/Bing should index this page.</p></div>
+<div class="field-group"><label>Focus Keyword (primary)</label><input type="text" name="focus_keyword" value="<?php echo esc_attr($f('focus_keyword')); ?>" placeholder="education crm software"><p class="field-help">If the keywords box is left blank, this is used as the keywords meta instead.</p></div>
 <div class="field-group"><label>OG Title (social share heading)</label><input type="text" name="og_title" value="<?php echo esc_attr($f('og_title')); ?>" placeholder="Blank = Page Title"></div>
 <div class="field-group"><label>OG Description (social share text)</label><textarea name="og_description" rows="2" placeholder="Blank = Meta Description"><?php echo esc_textarea($f('og_description')); ?></textarea></div>
-<div class="field-group"><label>AI Answer Summary (AEO/GEO)</label><textarea name="ai_summary" rows="3" placeholder="40-60 shabdat ya page che thet uttar — Google AI Overviews, ChatGPT, Perplexity yancya sathi."><?php echo esc_textarea($f('ai_summary')); ?></textarea><p class="field-help">&lt;meta name="abstract"&gt; mhanun page var jato — AI search engines ha summary thet vaparu shaktat.</p></div>
+<div class="field-group"><label>AI Answer Summary (AEO/GEO)</label><textarea name="ai_summary" rows="3" placeholder="A direct 40-60 word answer for this page — for Google AI Overviews, ChatGPT, Perplexity."><?php echo esc_textarea($f('ai_summary')); ?></textarea><p class="field-help">Goes on the page as &lt;meta name="abstract"&gt; so AI search engines can use this summary directly.</p></div>
     <?php
 }
 
