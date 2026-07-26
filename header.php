@@ -1440,30 +1440,32 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 <style id="ee-global-heading-scale">
 /* ── Global heading scale: fixed sizes, identical on desktop and mobile ──
    H1=30px, H2=20px, H3=17px, paragraphs=15px, site-wide. Page-builder
-   pages (.eepb) and embedded blog content (.ee-blog-embed) keep their
-   own pasted designs untouched. */
+   pages (.eepb), embedded blog content (.ee-blog-embed) and the
+   self-contained "While your campus sleeps" story widget (#ee-night-embed,
+   which ships its own carefully-tuned scoped typography) keep their own
+   pasted designs untouched. */
 :root{
     --ee-h1:30px;
     --ee-h2:20px;
     --ee-h3:17px;
     --ee-p:15px;
 }
-html body #main-content h1:not(.eepb *):not(.ee-blog-embed *){
+html body #main-content h1:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:var(--ee-h1) !important;
     line-height:1.12 !important;
     letter-spacing:-.02em !important;
 }
-html body #main-content h2:not(.eepb *):not(.ee-blog-embed *){
+html body #main-content h2:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:var(--ee-h2) !important;
     line-height:1.22 !important;
     letter-spacing:-.015em !important;
 }
-html body #main-content h3:not(.eepb *):not(.ee-blog-embed *){
+html body #main-content h3:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:var(--ee-h3) !important;
     line-height:1.3 !important;
     letter-spacing:-.01em !important;
 }
-html body #main-content p:not(.eepb *):not(.ee-blog-embed *){
+html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:var(--ee-p) !important;
     line-height:1.6 !important;
 }

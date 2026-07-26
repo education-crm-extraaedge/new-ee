@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-26-nightheadings -->
+<!-- ee-front-tpl v2026-07-26-nightembed -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -92,22 +92,22 @@ get_header();
    loads later in the document, so it wins the cascade tie on this page
    only - no body class needed since this file only ever runs on the
    front page. */
-html body #main-content h1:not(.eepb *):not(.ee-blog-embed *){
+html body #main-content h1:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:40px !important;
     line-height:1.12 !important;
     letter-spacing:-.02em !important;
 }
-html body #main-content h2:not(.eepb *):not(.ee-blog-embed *){
+html body #main-content h2:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:30px !important;
     line-height:1.22 !important;
     letter-spacing:-.015em !important;
 }
-html body #main-content h3:not(.eepb *):not(.ee-blog-embed *){
+html body #main-content h3:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:20px !important;
     line-height:1.3 !important;
     letter-spacing:-.01em !important;
 }
-html body #main-content h4:not(.eepb *):not(.ee-blog-embed *){
+html body #main-content h4:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:14px !important;
     line-height:1.35 !important;
 }
@@ -3803,318 +3803,198 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 <!-- ===================== EE · WHILE YOUR CAMPUS SLEEPS (admission operating system story) ===================== -->
 <style>#ee-night{position:relative;width:100%;background:#fff}
 /* scroll-driven storytelling: tall track + sticky pinned viewport.
-   Pin sits BELOW the sticky site header (≈90px) so the story isn't hidden. */
+   Pin sits BELOW the sticky site header (≈ 90px) so the story isn't hidden. */
 #ee-night .een-track{position:relative;height:calc(min(100vh,870px)*3.4)}
 #ee-night .een-pin{position:sticky;top:90px;height:min(calc(100vh - 90px),780px);overflow:hidden}
-#ee-night iframe{display:block;width:100%;height:100%;border:0;background:#fff}
-/* phones: no pinning - keep the normal auto-play + side-arrow story */
+#ee-night #ee-night-stage{display:block;width:100%;height:100%;overflow:hidden;position:relative;background:#fff}
 /* phones: the same scroll-driven pinning, just under the shorter mobile header */
 @media(max-width:960px){
   #ee-night .een-pin{top:72px;height:min(calc(100vh - 72px),740px)}
   /* any sizing slack around the story must never show as a dark band between sections */
-  #ee-night,#ee-night iframe{background:#fff}
+  #ee-night,#ee-night #ee-night-stage{background:#fff}
 }
-/* deep zoom-out: static autoplay block */
+/* deep zoom-out: static autoplay block, full natural height, no clip/slide */
 @media(min-height:1200px){
   #ee-night .een-track{height:auto!important}
   #ee-night .een-pin{position:static!important;height:auto!important;overflow:visible}
-  #ee-night iframe{height:auto;min-height:640px}
-  #ee-night,#ee-night iframe{background:#fff}
+  #ee-night #ee-night-stage{height:auto;min-height:640px;overflow:visible}
+  #ee-night,#ee-night #ee-night-stage{background:#fff}
+}
+#ee-night-embed{
+  --orange:#DE6E30;--orange2:#E8843F;
+  --wa:#25D366;--wadark:#075E54;--green:#2BC98A;--blue:#4E86D8;--red:#E5484D;
+  --bg:#0F2144;--bg2:#132a55;--fg:#fff;--sub:rgba(255,255,255,.62);--faint:rgba(255,255,255,.36);--hair:rgba(255,255,255,.10);--panel:rgba(255,255,255,.05);
+}#ee-night-embed.day{--bg:#fff;--bg2:#FBF6F1;--fg:#19335D;--sub:#7C8698;--faint:#A9B2C1;--hair:#ECEEF4;--panel:#fff}#ee-night-embed *{margin:0;padding:0;box-sizing:border-box}#ee-night-embed{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}#ee-night-embed{font-family:'Inter',system-ui,sans-serif;color:var(--fg);background:linear-gradient(var(--bg),var(--bg2));transition:background 1.2s,color 1.2s}#ee-night-embed ::selection{background:rgba(222,110,48,.25)}#ee-night-embed h1,#ee-night-embed h2{font-family:'Inter',sans-serif;letter-spacing:-.02em;color:var(--fg);transition:color 1.2s}#ee-night-embed .o{color:var(--orange)}#ee-night-embed .rev{opacity:0;transform:translateY(18px);transition:opacity .55s,transform .55s}#ee-night-embed .rev.in{opacity:1;transform:none}#ee-night-embed .d1{transition-delay:.08s}#ee-night-embed .d2{transition-delay:.16s}#ee-night-embed #sky{position:absolute;inset:0;pointer-events:none;z-index:0;transition:opacity 1.4s;
+  background-image:radial-gradient(1.5px 1.5px at 12% 18%,rgba(255,255,255,.7),transparent),radial-gradient(1px 1px at 28% 64%,rgba(255,255,255,.5),transparent),radial-gradient(1.5px 1.5px at 44% 30%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 61% 74%,rgba(255,255,255,.45),transparent),radial-gradient(2px 2px at 72% 12%,rgba(255,255,255,.65),transparent),radial-gradient(1px 1px at 84% 48%,rgba(255,255,255,.5),transparent);
+  animation:eenTwinkle 5s ease-in-out infinite}#ee-night-embed.day #sky{opacity:0}@keyframes eenTwinkle{50%{opacity:.55}}@keyframes eenBlink{50%{opacity:.35}}#ee-night-embed .player{position:relative;z-index:1;min-height:min(100vh,820px);min-height:min(100svh,820px);display:grid;grid-template-columns:minmax(320px,38%) 1fr;gap:3vw;max-width:1280px;margin:0 auto;padding:26px 4vw;align-items:center}#ee-night-embed .pleft{display:flex;flex-direction:column;justify-content:center}#ee-night-embed .kick{font:600 10.5px/1 Inter;letter-spacing:.24em;text-transform:uppercase;color:var(--orange2)}#ee-night-embed .pleft h2{font-size:clamp(28px,3.4vw,44px);font-weight:800;line-height:1.1;margin:12px 0 8px;max-width:18ch}#ee-night-embed .pleft .lede{color:var(--sub);font-size:13.5px;line-height:1.55;max-width:40ch;transition:color 1.2s}#ee-night-embed .steps{margin-top:24px;display:flex;flex-direction:column;gap:4px}#ee-night-embed .step{position:relative;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:background .3s,border-color .3s;user-select:none}#ee-night-embed .step:hover{background:var(--panel)}#ee-night-embed .step.on{background:var(--panel);border-color:var(--hair);box-shadow:0 10px 30px rgba(3,10,26,.18)}#ee-night-embed.day .step.on{box-shadow:0 10px 30px rgba(25,51,93,.08)}#ee-night-embed .step .tno{font:700 10px/1 ui-monospace,Menlo,monospace;color:var(--faint);width:20px;flex:none;transition:color .3s}#ee-night-embed .step.on .tno{color:var(--orange)}#ee-night-embed .step .tt{flex:1;min-width:0}#ee-night-embed .step .tt h3{font:600 13px/1.3 Inter;color:var(--fg);display:block;transition:color 1.2s}#ee-night-embed .step .tt span{font:500 10.5px/1 Inter;color:var(--faint);transition:color 1.2s}#ee-night-embed .step .tm{font:600 10.5px/1 ui-monospace,Menlo,monospace;color:var(--sub);flex:none;transition:color 1.2s}#ee-night-embed .step.on .tm{color:var(--orange)}#ee-night-embed .step .pbar{position:absolute;left:12px;right:12px;bottom:4px;height:2px;border-radius:2px;background:var(--hair);overflow:hidden;opacity:0;transition:opacity .3s}#ee-night-embed .step.on .pbar{opacity:1}#ee-night-embed .step .pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange2),var(--orange))}#ee-night-embed .step.done .tno{color:var(--green)}#ee-night-embed .pctrl{display:none;align-items:center;gap:10px;margin-top:16px}#ee-night-embed .pbtn{width:34px;height:34px;border-radius:50%;border:1px solid var(--hair);background:var(--panel);color:var(--fg);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,background 1.2s,color 1.2s}#ee-night-embed .pbtn:hover{border-color:var(--orange)}#ee-night-embed .pctrl span{font:500 10.5px/1 Inter;color:var(--faint);transition:color 1.2s}#ee-night-embed .pright{display:flex;flex-direction:column;align-items:center;justify-content:center}#ee-night-embed .stage{position:relative;width:100%;max-width:680px;height:min(700px,80vh);display:flex;align-items:center;justify-content:center}#ee-night-embed .shot{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:translateY(16px) scale(.97);transition:opacity .45s,transform .45s;pointer-events:none}#ee-night-embed .shot.on{opacity:1;transform:none;pointer-events:auto;transition-delay:.08s}#ee-night-embed .evcap{margin-top:15px;text-align:center;font:500 13px/1.55 Inter;color:var(--sub);max-width:430px;transition:color 1.2s}#ee-night-embed .phone{position:relative;width:330px;background:#000;border-radius:42px;padding:10px;box-shadow:0 0 0 1.5px rgba(255,255,255,.12),0 26px 60px rgba(3,10,26,.5);transition:box-shadow 1.2s}#ee-night-embed.day .phone{box-shadow:0 0 0 1.5px #D8DEE9,0 26px 60px rgba(25,51,93,.18)}#ee-night-embed .phone .screen{border-radius:33px;overflow:hidden;background:#fff;position:relative;height:580px;display:flex;flex-direction:column}#ee-night-embed .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:92px;height:24px;background:#000;border-radius:999px;z-index:5;display:flex;align-items:center;justify-content:flex-end;padding-right:12px}#ee-night-embed .notch::after{content:"";width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3b4d61,#000 72%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}#ee-night-embed .appwin{width:min(600px,100%);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 26px 60px rgba(3,10,26,.5);transition:box-shadow 1.2s}#ee-night-embed.day .appwin{box-shadow:0 0 0 1px #E6E9F0,0 26px 60px rgba(25,51,93,.14)}#ee-night-embed .appbar{display:flex;align-items:center;gap:9px;background:#F7F8FB;border-bottom:1px solid #ECEEF4;padding:10px 14px}#ee-night-embed .appbar .wd{display:flex;gap:5px}#ee-night-embed .appbar .wd i{width:8px;height:8px;border-radius:50%}#ee-night-embed .appbar .wd i:nth-child(1){background:#FF5F57}#ee-night-embed .appbar .wd i:nth-child(2){background:#FEBC2E}#ee-night-embed .appbar .wd i:nth-child(3){background:#28C840}#ee-night-embed .appbar .url{flex:1;background:#fff;border:1px solid #ECEEF4;border-radius:8px;padding:7px 12px;font:500 11px/1 Inter;color:#7C8698;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden}#ee-night-embed .apptop{display:flex;align-items:center;gap:9px;padding:12px 16px;border-bottom:1px solid #ECEEF4}#ee-night-embed .apptop .alogo{width:24px;height:24px;border-radius:6px;background:conic-gradient(from 200deg,#DE6E30,#19335D 55%,#DE6E30);flex:none}#ee-night-embed .apptop b{font:700 13.5px/1 Inter;color:#19335D}#ee-night-embed .apptop .crumb{font:500 11.5px/1 Inter;color:#A9B2C1}#ee-night-embed .apptop .lvpill{margin-left:auto;font:600 10.5px/1 Inter;color:#1FAF66;background:#E7F8EF;padding:4px 8px;border-radius:999px;display:flex;align-items:center;gap:5px}#ee-night-embed .apptop .lvpill::before{content:"";width:5px;height:5px;border-radius:50%;background:#1FAF66;animation:eenBlink 1.4s infinite}#ee-night-embed .appbody{padding:16px 18px;color:#22314A}#ee-night-embed .leadhead{display:flex;align-items:center;gap:12px;margin-bottom:13px}#ee-night-embed .lava{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#8FB2E8,#4E86D8);color:#fff;display:flex;align-items:center;justify-content:center;font:700 16px/1 Inter;flex:none}#ee-night-embed .leadhead .ln b{font:700 16px/1.2 Inter;color:#19335D;display:flex;align-items:center;gap:6px}#ee-night-embed .leadhead .ln b .new{font:700 9.5px/1 Inter;letter-spacing:.08em;color:#DE6E30;background:#FDF1E9;padding:3px 6px;border-radius:5px}#ee-night-embed .leadhead .ln span{font:500 11.5px/1 Inter;color:#A9B2C1;display:block;margin-top:3px}#ee-night-embed .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}#ee-night-embed .fld{background:#F9FAFC;border:1px solid #EFF1F6;border-radius:10px;padding:10px 12px}#ee-night-embed .fld span{font:600 9.5px/1 Inter;letter-spacing:.1em;text-transform:uppercase;color:#A9B2C1;display:block;margin-bottom:5px}#ee-night-embed .fld b{font:600 13px/1.35 Inter;color:#22314A}#ee-night-embed .fld b.hl{color:#DE6E30}#ee-night-embed .appfoot{display:flex;gap:9px;margin-top:14px}#ee-night-embed .abtn{flex:1;text-align:center;font:600 12.5px/1 Inter;border-radius:9px;padding:11px 0}#ee-night-embed .abtn.pr{background:linear-gradient(90deg,#E8843F,#DE6E30);color:#fff}#ee-night-embed .abtn.sec{border:1px solid #ECEEF4;color:#19335D}#ee-night-embed .wchat{flex:1;display:flex;flex-direction:column;background:#EFE7DD}#ee-night-embed .whead{background:var(--wadark);color:#fff;display:flex;align-items:center;gap:10px;padding:32px 14px 11px}#ee-night-embed .whead .wava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#E8843F,#DE6E30);display:flex;align-items:center;justify-content:center;font:700 14px/1 Inter;flex:none}#ee-night-embed .whead .wn{flex:1;min-width:0}#ee-night-embed .whead .wn b{font:600 14.5px/1.2 Inter;display:flex;align-items:center;gap:5px}#ee-night-embed .whead .wn b .vf{width:12px;height:12px;border-radius:50%;background:#25A9E0;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:7px;flex:none}#ee-night-embed .whead .wn span{font:400 11px/1 Inter;opacity:.8}#ee-night-embed .wbody{flex:1;padding:13px 12px;display:flex;flex-direction:column;gap:8px;overflow:hidden}#ee-night-embed .wmsg{max-width:84%;border-radius:10px;padding:8px 11px 7px;font:400 13.5px/1.45 Inter;color:#111;box-shadow:0 1px 1px rgba(0,0,0,.08)}#ee-night-embed .wmsg .wtm{display:inline-flex;align-items:center;gap:3px;font:400 10px/1 Inter;color:#8696A0;margin-left:7px;position:relative;top:3px;float:right}#ee-night-embed .wmsg.in{background:#fff;align-self:flex-start;border-top-left-radius:2px}#ee-night-embed .wmsg.out{background:#DCF8C6;align-self:flex-end;border-top-right-radius:2px}#ee-night-embed .ticks{color:#4FC3F7;font-size:9px;letter-spacing:-2px}#ee-night-embed .wdate{align-self:center;background:#E1F2FA;border-radius:7px;padding:5px 11px;font:500 10.5px/1 Inter;color:#5B6B76}#ee-night-embed .wtyping{align-self:flex-start;background:#fff;border-radius:8px;border-top-left-radius:2px;padding:8px 11px;display:flex;gap:4px;box-shadow:0 1px 1px rgba(0,0,0,.08)}#ee-night-embed .wtyping i{width:5px;height:5px;border-radius:50%;background:#9AA7B0;animation:eenTy 1s infinite}#ee-night-embed .wtyping i:nth-child(2){animation-delay:.15s}#ee-night-embed .wtyping i:nth-child(3){animation-delay:.3s}@keyframes eenTy{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-3px);opacity:1}}#ee-night-embed .winput{display:flex;align-items:center;gap:8px;padding:9px 12px 16px;background:#EFE7DD}#ee-night-embed .winput .wfield{flex:1;background:#fff;border-radius:999px;padding:11px 16px;font:400 12.5px/1 Inter;color:#8696A0}#ee-night-embed .winput .wmic{width:40px;height:40px;border-radius:50%;background:var(--wa);flex:none;display:flex;align-items:center;justify-content:center}#ee-night-embed .scorehead{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}#ee-night-embed .scorehead b{font:700 14.5px/1 Inter;color:#19335D}#ee-night-embed .scorenum{font:800 30px/1 Inter;color:#DE6E30}#ee-night-embed .factor{margin-bottom:11px}#ee-night-embed .factor .fl{display:flex;justify-content:space-between;font:500 12px/1.3 Inter;color:#7C8698;margin-bottom:5px;gap:10px}#ee-night-embed .factor .fl b{color:#22314A;font-weight:600;text-align:right}#ee-night-embed .factor .fb{height:8px;border-radius:4px;background:#F1F3F7;overflow:hidden}#ee-night-embed .factor .fb i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#E8843F,#DE6E30);width:0;transition:width .9s ease}#ee-night-embed .shot.on .factor .fb i{width:var(--w)}#ee-night-embed .shot.on .factor:nth-child(3) .fb i{transition-delay:.12s}#ee-night-embed .shot.on .factor:nth-child(4) .fb i{transition-delay:.24s}#ee-night-embed .shot.on .factor:nth-child(5) .fb i{transition-delay:.36s}#ee-night-embed .scoreverdict{margin-top:12px;background:#FDF1E9;border:1px solid #F6D9C4;border-radius:10px;padding:11px 13px;font:600 12.5px/1.45 Inter;color:#B4571F}#ee-night-embed .callscr{flex:1;display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,#12233F,#0A1526);color:#fff;padding-top:36px}#ee-night-embed .callscr .cava{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#E8843F,#DE6E30);display:flex;align-items:center;justify-content:center;font:700 25px/1 Inter;margin-bottom:13px;box-shadow:0 0 0 9px rgba(222,110,48,.12),0 0 0 19px rgba(222,110,48,.05)}#ee-night-embed .callscr .cname{font:600 17.5px/1.2 Inter}#ee-night-embed .callscr .cnum{font:400 12.5px/1 Inter;opacity:.65;margin-top:4px}#ee-night-embed .callscr .cstate{font:500 11.5px/1 Inter;color:#2BC98A;margin-top:8px;display:flex;align-items:center;gap:5px}#ee-night-embed .callscr .cstate::before{content:"";width:5px;height:5px;border-radius:50%;background:#2BC98A;animation:eenBlink 1.4s infinite}#ee-night-embed .callscr .ctimer{font:600 27px/1 Inter;font-variant-numeric:tabular-nums;margin-top:10px;letter-spacing:.04em}#ee-night-embed .transcript{width:calc(100% - 28px);margin:16px 14px 0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:12px 13px;text-align:left}#ee-night-embed .transcript .tl{font:600 10px/1 Inter;letter-spacing:.16em;text-transform:uppercase;opacity:.5;margin-bottom:7px;display:flex;align-items:center;gap:5px}#ee-night-embed .transcript .tl::before{content:"";width:5px;height:5px;border-radius:50%;background:#E5484D;animation:eenBlink 1.2s infinite}#ee-night-embed .tline{font:400 12.5px/1.55 Inter;opacity:0;transform:translateY(5px);transition:opacity .45s,transform .45s;margin-bottom:5px}#ee-night-embed .tline b{font-weight:600;color:#F0A776}#ee-night-embed .tline.stu b{color:#8FB8F5}#ee-night-embed .shot.on .tline{opacity:.92;transform:none}#ee-night-embed .shot.on .tline:nth-child(2){transition-delay:.4s}#ee-night-embed .shot.on .tline:nth-child(3){transition-delay:1.1s}#ee-night-embed .shot.on .tline:nth-child(4){transition-delay:1.8s}#ee-night-embed .callbtns{margin-top:auto;display:flex;gap:36px;padding:18px 0 24px}#ee-night-embed .cbtn{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12)}#ee-night-embed .cbtn.end{background:#E5484D}#ee-night-embed .assign{display:flex;align-items:flex-start;gap:9px}#ee-night-embed .assign .aicon{width:38px;height:38px;border-radius:8px;background:#FDF1E9;color:#DE6E30;flex:none;display:flex;align-items:center;justify-content:center}#ee-night-embed .assign h3{font:700 14.5px/1.35 Inter;color:#19335D}#ee-night-embed .assign p{font:400 12.5px/1.55 Inter;color:#7C8698;margin-top:4px}#ee-night-embed .attach{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}#ee-night-embed .att{display:flex;align-items:center;gap:6px;border:1px solid #ECEEF4;border-radius:9px;padding:8px 12px;font:600 11.5px/1 Inter;color:#22314A;background:#F9FAFC}#ee-night-embed .sla{margin-top:13px;display:flex;align-items:center;gap:9px;font:600 11.5px/1 Inter;color:#1FAF66}#ee-night-embed .sla .slabar{flex:1;height:7px;border-radius:4px;background:#F1F3F7;overflow:hidden}#ee-night-embed .sla .slabar i{display:block;height:100%;width:0;background:#2BC98A;transition:width 1.2s ease .25s}#ee-night-embed .shot.on .sla .slabar i{width:88%}#ee-night-embed .payscr{flex:1;display:flex;flex-direction:column;background:#F6F8FB}#ee-night-embed .payhead{background:#19335D;color:#fff;padding:34px 17px 14px;font:600 14px/1 Inter;display:flex;align-items:center;gap:7px}#ee-night-embed .paybody{flex:1;display:flex;flex-direction:column;align-items:center;padding:24px 17px}#ee-night-embed .payck{width:68px;height:68px;border-radius:50%;background:#E7F8EF;color:#1FAF66;display:flex;align-items:center;justify-content:center;margin-bottom:11px}#ee-night-embed .payck svg,#ee-night-embed .payck img.eeimg{width:33px;height:33px}#ee-night-embed .paybody h3{font:700 17px/1.2 Inter;color:#19335D}#ee-night-embed .payamt{font:800 32px/1 Inter;color:#19335D;margin:10px 0 3px}#ee-night-embed .paysub{font:400 12px/1 Inter;color:#7C8698}#ee-night-embed .payrows{width:100%;margin-top:16px;background:#fff;border:1px solid #ECEEF4;border-radius:13px;padding:4px 14px}#ee-night-embed .payrows .pr{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #F1F3F7;font:400 12px/1.35 Inter;color:#7C8698;gap:8px}#ee-night-embed .payrows .pr:last-child{border-bottom:none}#ee-night-embed .payrows .pr b{color:#22314A;font-weight:600;text-align:right}#ee-night-embed .paypill{margin-top:15px;background:#E7F8EF;color:#1FAF66;font:700 11.5px/1 Inter;letter-spacing:.08em;padding:10px 17px;border-radius:999px}#ee-night-embed .flow{position:relative;z-index:1;padding:44px 4vw 40px;border-top:1px solid var(--hair);transition:border-color 1.2s}#ee-night-embed .flow h2{text-align:center;font-size:clamp(20px,2.6vw,30px);font-weight:800}#ee-night-embed .flowline{display:flex;align-items:flex-start;justify-content:space-between;max-width:1080px;margin:28px auto 0;position:relative}#ee-night-embed .flowline::before{content:"";position:absolute;left:3%;right:3%;top:17px;height:2px;background:var(--hair);transition:background 1.2s}#ee-night-embed .fnode{position:relative;flex:1;text-align:center;min-width:0}#ee-night-embed .fnode .fdot{width:36px;height:36px;border-radius:50%;margin:0 auto 8px;background:var(--bg);border:2px solid var(--hair);display:flex;align-items:center;justify-content:center;position:relative;transition:background 1.2s,border-color .3s}#ee-night-embed .fnode .fdot svg{width:16px;height:16px}#ee-night-embed .fnode .fdot img.eeimg{width:20px;height:20px;border-radius:6px;display:block}#ee-night-embed .fnode b{font:600 10.5px/1.3 Inter;color:var(--fg);display:block;transition:color 1.2s}#ee-night-embed .fnode span{font:600 9px/1 ui-monospace,Menlo,monospace;color:var(--faint);display:block;margin-top:3px;transition:color 1.2s}#ee-night-embed .fnode.hot .fdot{border-color:var(--orange);box-shadow:0 0 0 5px rgba(222,110,48,.14)}#ee-night-embed .band{position:relative;z-index:1;padding:38px 4vw;border-top:1px solid var(--hair);transition:border-color 1.2s}#ee-night-embed .bandgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:34px;max-width:1080px;margin:0 auto;align-items:center}#ee-night-embed .modrow{display:flex;flex-wrap:wrap;gap:7px}#ee-night-embed .modpill{display:flex;align-items:center;gap:6px;border:1px solid var(--hair);border-radius:999px;padding:7px 12px;font:600 10.5px/1 Inter;color:var(--fg);background:var(--panel);transition:color 1.2s,border-color 1.2s,background 1.2s}#ee-night-embed .modpill svg,#ee-night-embed .modpill img.eeimg{width:12px;height:12px;flex:none}#ee-night-embed .bandgrid h2{font-size:clamp(20px,2.4vw,28px);font-weight:800;line-height:1.15}#ee-night-embed .bandgrid .bp{color:var(--sub);font-size:12.5px;line-height:1.55;margin-top:8px;transition:color 1.2s}#ee-night-embed .numrow{display:flex;gap:26px;flex-wrap:wrap;margin-top:6px}#ee-night-embed .num .nv{font:800 clamp(30px,3.6vw,44px)/1 'Inter',sans-serif;color:var(--orange)}#ee-night-embed .num .nd{margin-top:6px;font-size:10.5px;color:var(--sub);max-width:16ch;line-height:1.5;transition:color 1.2s}#ee-night-embed .ctaband{display:flex;align-items:center;justify-content:space-between;gap:22px;max-width:1080px;margin:0 auto;flex-wrap:wrap}#ee-night-embed .ctaband h2{font-size:clamp(22px,2.8vw,34px);font-weight:800;line-height:1.15}#ee-night-embed .ctaband p{color:var(--sub);font-size:12.5px;margin-top:6px;transition:color 1.2s}#ee-night-embed .cta{display:inline-block;background:linear-gradient(90deg,var(--orange2),var(--orange));color:#fff;font:700 14.5px/1 'Inter',sans-serif;text-decoration:none;border-radius:12px;padding:16px 28px;box-shadow:0 12px 30px rgba(222,110,48,.4);transition:transform .15s,box-shadow .15s;white-space:nowrap}#ee-night-embed .cta:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(222,110,48,.5)}#ee-night-embed .trust{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px}#ee-night-embed .trust span{font:600 9.5px/1 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:6px;transition:color 1.2s}#ee-night-embed .trust span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--orange2)}@media (max-width:960px){#ee-night-embed .player{grid-template-columns:1fr;gap:10px;padding:14px 5vw 12px;align-items:start;min-height:0}#ee-night-embed .pleft h2{font-size:21px}#ee-night-embed .pleft .lede{display:none}#ee-night-embed .steps{flex-direction:row;gap:5px;margin-top:14px}#ee-night-embed .step{flex:1;padding:0;height:4px;border-radius:3px;background:var(--hair);border:none;overflow:hidden}#ee-night-embed .step .tno,#ee-night-embed .step .tt,#ee-night-embed .step .tm{display:none}#ee-night-embed .step .pbar{position:static;opacity:1;height:100%;background:transparent}#ee-night-embed .step.done .pbar i{width:100%!important}#ee-night-embed .stage{height:640px;max-width:100%}#ee-night-embed .bandgrid{grid-template-columns:1fr;gap:20px}#ee-night-embed .flowline{flex-wrap:wrap;gap:14px 0}#ee-night-embed .flowline::before{display:none}#ee-night-embed .fnode{flex:0 0 33%}#ee-night-embed .ctaband{justify-content:center;text-align:center}}@media (max-width:380px){#ee-night-embed .phone{width:290px}#ee-night-embed .phone .screen{height:520px}#ee-night-embed .appwin{width:100%}#ee-night-embed .stage{height:580px}}@media (prefers-reduced-motion:reduce){#ee-night-embed *,#ee-night-embed *::before,#ee-night-embed *::after{animation:none!important;transition:none!important}#ee-night-embed .rev,#ee-night-embed .shot,#ee-night-embed .tline{opacity:1!important;transform:none!important}#ee-night-embed .shot{position:relative;display:none}#ee-night-embed .shot.on{display:flex}#ee-night-embed .shot .factor .fb i{width:var(--w)!important}#ee-night-embed .sla .slabar i{width:88%!important}}
+#ee-night-embed .apptop .alogo{background:#fff!important;overflow:hidden;display:flex;align-items:center;justify-content:center}#ee-night-embed .apptop .alogo img{width:100%;height:100%;object-fit:contain}#ee-night-embed .whead .wava,#ee-night-embed .callscr .cava{overflow:hidden}#ee-night-embed .whead .wava img,#ee-night-embed .callscr .cava img{width:100%;height:100%;object-fit:cover;display:block}#ee-night-embed .mnow{display:none;align-items:center;gap:11px;margin-top:15px;padding:12px 14px;border:1px solid var(--hair);border-radius:14px;background:var(--panel);transition:border-color 1.2s,background 1.2s}#ee-night-embed .mnow .mi{font:700 10px/1 ui-monospace,Menlo,monospace;color:var(--orange);background:rgba(222,110,48,.12);padding:6px 8px;border-radius:8px;flex:none;letter-spacing:.06em}#ee-night-embed .mnow .mm{flex:1;min-width:0}#ee-night-embed .mnow .mm b{display:block;font:600 14px/1.2 Inter;color:var(--fg);transition:color 1.2s}#ee-night-embed .mnow .mm span{display:block;font:500 11px/1.3 Inter;color:var(--faint);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color 1.2s}#ee-night-embed .mnow .mt{font:600 11px/1 ui-monospace,Menlo,monospace;color:var(--orange);flex:none}@media(max-width:960px){#ee-night-embed .pleft,#ee-night-embed .pright{min-width:0}#ee-night-embed .mnow{display:none!important}#ee-night-embed .steps{gap:6px;margin-top:16px}#ee-night-embed .step{height:5px;border-radius:3px}#ee-night-embed .step.on{box-shadow:none}#ee-night-embed .stage{height:auto!important;min-height:440px!important;max-width:100%!important;display:flex;align-items:center;justify-content:center;padding:4px 0}#ee-night-embed .shot{position:relative!important;inset:auto!important;opacity:1;transform:none;display:none!important;width:100%;transition:none}#ee-night-embed .shot{min-width:0}#ee-night-embed .shot.on{display:flex!important;animation:eenMfade .5s cubic-bezier(.23,1,.32,1) both}@keyframes eenMfade{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}#ee-night-embed .phone{width:min(296px,80vw)}@media(max-height:760px){#ee-night-embed .phone{transform:scale(.76);transform-origin:top center}}@media(max-height:660px){#ee-night-embed .phone{transform:scale(.68);transform-origin:top center}}@media(max-height:600px){#ee-night-embed .phone{transform:scale(.6);transform-origin:top center}}@media(max-height:540px){#ee-night-embed .phone{transform:scale(.54);transform-origin:top center}}#ee-night-embed .phone .screen{height:auto!important;min-height:420px}#ee-night-embed .wbody{overflow:visible!important}#ee-night-embed .evcap{margin-top:16px;max-width:88vw}#ee-night-embed .appwin{width:100%!important;max-width:100%!important}#ee-night-embed .appbar .url{min-width:0}#ee-night-embed .apptop{flex-wrap:wrap;row-gap:4px}#ee-night-embed .apptop .lvpill{margin-left:auto}}@media(max-width:380px){#ee-night-embed .phone .screen{min-height:440px}#ee-night-embed .mnow .mm b{font-size:13px}}@media(max-width:960px){#ee-night-embed .player{display:flex!important;flex-direction:column;align-items:stretch}#ee-night-embed .pleft{display:contents}#ee-night-embed .steps{display:none!important}#ee-night-embed .kick{display:none!important}#ee-night-embed .pleft h2,#ee-night-embed .lede,#ee-night-embed .steps{order:0}#ee-night-embed .pright{order:1;position:relative}#ee-night-embed .mnow{order:2;margin-top:12px}#ee-night-embed .pctrl{display:none!important}#ee-night-embed .pstage-arw{display:flex;align-items:center;justify-content:center;position:absolute;top:50%;transform:translateY(-50%);z-index:20;width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.24);background:rgba(15,28,48,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.28)}#ee-night-embed .pstage-arw svg{width:13px;height:13px}#ee-night-embed .pstage-prev{left:2px}#ee-night-embed .pstage-next{right:2px}#ee-night-embed .pstage-arw:active{transform:translateY(-50%) scale(.93)}#ee-night-embed .band{padding:16px 5vw 14px}#ee-night-embed .flow{padding:20px 5vw 16px}#ee-night-embed .flowline{margin-top:14px}#ee-night-embed .bandgrid{gap:16px}#ee-night-embed .modrow{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6px}#ee-night-embed .modpill{justify-content:center;padding:7px 6px;font-size:9.5px;text-align:center}#ee-night-embed .numrow{display:grid!important;grid-template-columns:repeat(3,1fr);gap:10px}#ee-night-embed .num .nv{font-size:22px!important}#ee-night-embed .num .nd{font-size:9.5px;max-width:none}}#ee-night-embed h1,#ee-night-embed h2{font-family:'Inter',sans-serif!important}#ee-night-embed{background:
+  radial-gradient(620px 520px at 10% 6%, rgba(222,110,48,.15), transparent 60%),
+  radial-gradient(700px 580px at 94% 88%, rgba(46,78,133,.34), transparent 62%),
+  linear-gradient(var(--bg),var(--bg2))!important}#ee-night-embed .mnow,#ee-night-embed .modpill,#ee-night-embed .pctrl{
+  background:linear-gradient(158deg,rgba(255,255,255,.09),rgba(255,255,255,.035))!important;
+  -webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);
+  border:1px solid rgba(255,255,255,.15)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 18px 38px -22px rgba(0,0,0,.6)!important;
+}#ee-night-embed .step.on{
+  background:linear-gradient(158deg,rgba(255,255,255,.10),rgba(255,255,255,.04))!important;
+  -webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);
+  border:1px solid rgba(255,255,255,.16)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 14px 30px -18px rgba(0,0,0,.5)!important;
+}#ee-night-embed .phone,#ee-night-embed .appwin{
+  box-shadow:0 0 0 1px rgba(255,255,255,.10),0 44px 84px -30px rgba(0,0,0,.72),0 10px 34px -22px rgba(222,110,48,.5)!important;
 }
 </style>
 <section id="ee-night" aria-label="The admission operating system in action">
   <div class="een-track" id="eenTrack">
   <div class="een-pin">
-  <iframe id="eeNightFrame" title="ExtraaEdge - the admission operating system, from lead to enrolled" loading="lazy" scrolling="no" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" srcdoc="<!DOCTYPE html>
-<html lang=&quot;en&quot;>
-<head>
-<meta charset=&quot;UTF-8&quot;>
-<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
-<meta name=&quot;robots&quot; content=&quot;noindex, nofollow&quot;>
-<title>ExtraaEdge - While Your Campus Sleeps</title>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
-<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
-<style>:root{
-  --orange:#DE6E30;--orange2:#E8843F;
-  --wa:#25D366;--wadark:#075E54;--green:#2BC98A;--blue:#4E86D8;--red:#E5484D;
-  --bg:#0F2144;--bg2:#132a55;--fg:#fff;--sub:rgba(255,255,255,.62);--faint:rgba(255,255,255,.36);--hair:rgba(255,255,255,.10);--panel:rgba(255,255,255,.05);
-}body.day{--bg:#fff;--bg2:#FBF6F1;--fg:#19335D;--sub:#7C8698;--faint:#A9B2C1;--hair:#ECEEF4;--panel:#fff}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}body{font-family:'Inter',system-ui,sans-serif;color:var(--fg);background:linear-gradient(var(--bg),var(--bg2));transition:background 1.2s,color 1.2s}::selection{background:rgba(222,110,48,.25)}h1,h2{font-family:'Inter',sans-serif;letter-spacing:-.02em;color:var(--fg);transition:color 1.2s}.o{color:var(--orange)}.rev{opacity:0;transform:translateY(18px);transition:opacity .55s,transform .55s}.rev.in{opacity:1;transform:none}.d1{transition-delay:.08s}.d2{transition-delay:.16s}#sky{position:fixed;inset:0;pointer-events:none;z-index:0;transition:opacity 1.4s;
-  background-image:radial-gradient(1.5px 1.5px at 12% 18%,rgba(255,255,255,.7),transparent),radial-gradient(1px 1px at 28% 64%,rgba(255,255,255,.5),transparent),radial-gradient(1.5px 1.5px at 44% 30%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 61% 74%,rgba(255,255,255,.45),transparent),radial-gradient(2px 2px at 72% 12%,rgba(255,255,255,.65),transparent),radial-gradient(1px 1px at 84% 48%,rgba(255,255,255,.5),transparent);
-  animation:twinkle 5s ease-in-out infinite}body.day #sky{opacity:0}
-@keyframes twinkle{50%{opacity:.55}}
-@keyframes blink{50%{opacity:.35}}/* ============ PLAYER ============ */
-.player{position:relative;z-index:1;min-height:min(100vh,820px);min-height:min(100svh,820px);display:grid;grid-template-columns:minmax(320px,38%) 1fr;gap:3vw;max-width:1280px;margin:0 auto;padding:26px 4vw;align-items:center}.pleft{display:flex;flex-direction:column;justify-content:center}.kick{font:600 10.5px/1 Inter;letter-spacing:.24em;text-transform:uppercase;color:var(--orange2)}.pleft h2{font-size:clamp(28px,3.4vw,44px);font-weight:800;line-height:1.1;margin:12px 0 8px;max-width:18ch}.pleft .lede{color:var(--sub);font-size:13.5px;line-height:1.55;max-width:40ch;transition:color 1.2s}/* step list */
-.steps{margin-top:24px;display:flex;flex-direction:column;gap:4px}.step{position:relative;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:background .3s,border-color .3s;user-select:none}.step:hover{background:var(--panel)}.step.on{background:var(--panel);border-color:var(--hair);box-shadow:0 10px 30px rgba(3,10,26,.18)}body.day .step.on{box-shadow:0 10px 30px rgba(25,51,93,.08)}.step .tno{font:700 10px/1 ui-monospace,Menlo,monospace;color:var(--faint);width:20px;flex:none;transition:color .3s}.step.on .tno{color:var(--orange)}.step .tt{flex:1;min-width:0}.step .tt h3{font:600 13px/1.3 Inter;color:var(--fg);display:block;transition:color 1.2s}.step .tt span{font:500 10.5px/1 Inter;color:var(--faint);transition:color 1.2s}.step .tm{font:600 10.5px/1 ui-monospace,Menlo,monospace;color:var(--sub);flex:none;transition:color 1.2s}.step.on .tm{color:var(--orange)}.step .pbar{position:absolute;left:12px;right:12px;bottom:4px;height:2px;border-radius:2px;background:var(--hair);overflow:hidden;opacity:0;transition:opacity .3s}.step.on .pbar{opacity:1}.step .pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange2),var(--orange))}.step.done .tno{color:var(--green)}.pctrl{display:none;align-items:center;gap:10px;margin-top:16px}/* desktop: scroll drives the story - no manual controls; the prev/next buttons stay in the DOM because phones relocate them onto the stage as side arrows */.pbtn{width:34px;height:34px;border-radius:50%;border:1px solid var(--hair);background:var(--panel);color:var(--fg);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,background 1.2s,color 1.2s}.pbtn:hover{border-color:var(--orange)}.pctrl span{font:500 10.5px/1 Inter;color:var(--faint);transition:color 1.2s}/* stage */
-.pright{display:flex;flex-direction:column;align-items:center;justify-content:center}.stage{position:relative;width:100%;max-width:680px;height:min(700px,80vh);display:flex;align-items:center;justify-content:center}.shot{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:translateY(16px) scale(.97);transition:opacity .45s,transform .45s;pointer-events:none}.shot.on{opacity:1;transform:none;pointer-events:auto;transition-delay:.08s}.evcap{margin-top:15px;text-align:center;font:500 13px/1.55 Inter;color:var(--sub);max-width:430px;transition:color 1.2s}/* phone */
-.phone{position:relative;width:330px;background:#000;border-radius:42px;padding:10px;box-shadow:0 0 0 1.5px rgba(255,255,255,.12),0 26px 60px rgba(3,10,26,.5);transition:box-shadow 1.2s}body.day .phone{box-shadow:0 0 0 1.5px #D8DEE9,0 26px 60px rgba(25,51,93,.18)}.phone .screen{border-radius:33px;overflow:hidden;background:#fff;position:relative;height:580px;display:flex;flex-direction:column}.notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:92px;height:24px;background:#000;border-radius:999px;z-index:5;display:flex;align-items:center;justify-content:flex-end;padding-right:12px}.notch::after{content:&quot;&quot;;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3b4d61,#000 72%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}/* app window */
-.appwin{width:min(600px,100%);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 26px 60px rgba(3,10,26,.5);transition:box-shadow 1.2s}body.day .appwin{box-shadow:0 0 0 1px #E6E9F0,0 26px 60px rgba(25,51,93,.14)}.appbar{display:flex;align-items:center;gap:9px;background:#F7F8FB;border-bottom:1px solid #ECEEF4;padding:10px 14px}.appbar .wd{display:flex;gap:5px}.appbar .wd i{width:8px;height:8px;border-radius:50%}.appbar .wd i:nth-child(1){background:#FF5F57}.appbar .wd i:nth-child(2){background:#FEBC2E}.appbar .wd i:nth-child(3){background:#28C840}.appbar .url{flex:1;background:#fff;border:1px solid #ECEEF4;border-radius:8px;padding:7px 12px;font:500 11px/1 Inter;color:#7C8698;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden}.apptop{display:flex;align-items:center;gap:9px;padding:12px 16px;border-bottom:1px solid #ECEEF4}.apptop .alogo{width:24px;height:24px;border-radius:6px;background:conic-gradient(from 200deg,#DE6E30,#19335D 55%,#DE6E30);flex:none}.apptop b{font:700 13.5px/1 Inter;color:#19335D}.apptop .crumb{font:500 11.5px/1 Inter;color:#A9B2C1}.apptop .lvpill{margin-left:auto;font:600 10.5px/1 Inter;color:#1FAF66;background:#E7F8EF;padding:4px 8px;border-radius:999px;display:flex;align-items:center;gap:5px}.apptop .lvpill::before{content:&quot;&quot;;width:5px;height:5px;border-radius:50%;background:#1FAF66;animation:blink 1.4s infinite}.appbody{padding:16px 18px;color:#22314A}.leadhead{display:flex;align-items:center;gap:12px;margin-bottom:13px}.lava{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#8FB2E8,#4E86D8);color:#fff;display:flex;align-items:center;justify-content:center;font:700 16px/1 Inter;flex:none}.leadhead .ln b{font:700 16px/1.2 Inter;color:#19335D;display:flex;align-items:center;gap:6px}.leadhead .ln b .new{font:700 9.5px/1 Inter;letter-spacing:.08em;color:#DE6E30;background:#FDF1E9;padding:3px 6px;border-radius:5px}.leadhead .ln span{font:500 11.5px/1 Inter;color:#A9B2C1;display:block;margin-top:3px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.fld{background:#F9FAFC;border:1px solid #EFF1F6;border-radius:10px;padding:10px 12px}.fld span{font:600 9.5px/1 Inter;letter-spacing:.1em;text-transform:uppercase;color:#A9B2C1;display:block;margin-bottom:5px}.fld b{font:600 13px/1.35 Inter;color:#22314A}.fld b.hl{color:#DE6E30}.appfoot{display:flex;gap:9px;margin-top:14px}.abtn{flex:1;text-align:center;font:600 12.5px/1 Inter;border-radius:9px;padding:11px 0}.abtn.pr{background:linear-gradient(90deg,#E8843F,#DE6E30);color:#fff}.abtn.sec{border:1px solid #ECEEF4;color:#19335D}/* whatsapp */
-.wchat{flex:1;display:flex;flex-direction:column;background:#EFE7DD}.whead{background:var(--wadark);color:#fff;display:flex;align-items:center;gap:10px;padding:32px 14px 11px}.whead .wava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#E8843F,#DE6E30);display:flex;align-items:center;justify-content:center;font:700 14px/1 Inter;flex:none}.whead .wn{flex:1;min-width:0}.whead .wn b{font:600 14.5px/1.2 Inter;display:flex;align-items:center;gap:5px}.whead .wn b .vf{width:12px;height:12px;border-radius:50%;background:#25A9E0;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:7px;flex:none}.whead .wn span{font:400 11px/1 Inter;opacity:.8}.wbody{flex:1;padding:13px 12px;display:flex;flex-direction:column;gap:8px;overflow:hidden}.wmsg{max-width:84%;border-radius:10px;padding:8px 11px 7px;font:400 13.5px/1.45 Inter;color:#111;box-shadow:0 1px 1px rgba(0,0,0,.08)}.wmsg .wtm{display:inline-flex;align-items:center;gap:3px;font:400 10px/1 Inter;color:#8696A0;margin-left:7px;position:relative;top:3px;float:right}.wmsg.in{background:#fff;align-self:flex-start;border-top-left-radius:2px}.wmsg.out{background:#DCF8C6;align-self:flex-end;border-top-right-radius:2px}.ticks{color:#4FC3F7;font-size:9px;letter-spacing:-2px}.wdate{align-self:center;background:#E1F2FA;border-radius:7px;padding:5px 11px;font:500 10.5px/1 Inter;color:#5B6B76}.wtyping{align-self:flex-start;background:#fff;border-radius:8px;border-top-left-radius:2px;padding:8px 11px;display:flex;gap:4px;box-shadow:0 1px 1px rgba(0,0,0,.08)}.wtyping i{width:5px;height:5px;border-radius:50%;background:#9AA7B0;animation:ty 1s infinite}.wtyping i:nth-child(2){animation-delay:.15s}.wtyping i:nth-child(3){animation-delay:.3s}
-@keyframes ty{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-3px);opacity:1}}.winput{display:flex;align-items:center;gap:8px;padding:9px 12px 16px;background:#EFE7DD}.winput .wfield{flex:1;background:#fff;border-radius:999px;padding:11px 16px;font:400 12.5px/1 Inter;color:#8696A0}.winput .wmic{width:40px;height:40px;border-radius:50%;background:var(--wa);flex:none;display:flex;align-items:center;justify-content:center}/* score */
-.scorehead{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}.scorehead b{font:700 14.5px/1 Inter;color:#19335D}.scorenum{font:800 30px/1 Inter;color:#DE6E30}.factor{margin-bottom:11px}.factor .fl{display:flex;justify-content:space-between;font:500 12px/1.3 Inter;color:#7C8698;margin-bottom:5px;gap:10px}.factor .fl b{color:#22314A;font-weight:600;text-align:right}.factor .fb{height:8px;border-radius:4px;background:#F1F3F7;overflow:hidden}.factor .fb i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#E8843F,#DE6E30);width:0;transition:width .9s ease}.shot.on .factor .fb i{width:var(--w)}.shot.on .factor:nth-child(3) .fb i{transition-delay:.12s}.shot.on .factor:nth-child(4) .fb i{transition-delay:.24s}.shot.on .factor:nth-child(5) .fb i{transition-delay:.36s}.scoreverdict{margin-top:12px;background:#FDF1E9;border:1px solid #F6D9C4;border-radius:10px;padding:11px 13px;font:600 12.5px/1.45 Inter;color:#B4571F}/* call */
-.callscr{flex:1;display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,#12233F,#0A1526);color:#fff;padding-top:36px}.callscr .cava{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#E8843F,#DE6E30);display:flex;align-items:center;justify-content:center;font:700 25px/1 Inter;margin-bottom:13px;box-shadow:0 0 0 9px rgba(222,110,48,.12),0 0 0 19px rgba(222,110,48,.05)}.callscr .cname{font:600 17.5px/1.2 Inter}.callscr .cnum{font:400 12.5px/1 Inter;opacity:.65;margin-top:4px}.callscr .cstate{font:500 11.5px/1 Inter;color:#2BC98A;margin-top:8px;display:flex;align-items:center;gap:5px}.callscr .cstate::before{content:&quot;&quot;;width:5px;height:5px;border-radius:50%;background:#2BC98A;animation:blink 1.4s infinite}.callscr .ctimer{font:600 27px/1 Inter;font-variant-numeric:tabular-nums;margin-top:10px;letter-spacing:.04em}.transcript{width:calc(100% - 28px);margin:16px 14px 0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:12px 13px;text-align:left}.transcript .tl{font:600 10px/1 Inter;letter-spacing:.16em;text-transform:uppercase;opacity:.5;margin-bottom:7px;display:flex;align-items:center;gap:5px}.transcript .tl::before{content:&quot;&quot;;width:5px;height:5px;border-radius:50%;background:#E5484D;animation:blink 1.2s infinite}.tline{font:400 12.5px/1.55 Inter;opacity:0;transform:translateY(5px);transition:opacity .45s,transform .45s;margin-bottom:5px}.tline b{font-weight:600;color:#F0A776}.tline.stu b{color:#8FB8F5}.shot.on .tline{opacity:.92;transform:none}.shot.on .tline:nth-child(2){transition-delay:.4s}.shot.on .tline:nth-child(3){transition-delay:1.1s}.shot.on .tline:nth-child(4){transition-delay:1.8s}.callbtns{margin-top:auto;display:flex;gap:36px;padding:18px 0 24px}.cbtn{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12)}.cbtn.end{background:#E5484D}/* assign */
-.assign{display:flex;align-items:flex-start;gap:9px}.assign .aicon{width:38px;height:38px;border-radius:8px;background:#FDF1E9;color:#DE6E30;flex:none;display:flex;align-items:center;justify-content:center}.assign h3{font:700 14.5px/1.35 Inter;color:#19335D}.assign p{font:400 12.5px/1.55 Inter;color:#7C8698;margin-top:4px}.attach{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.att{display:flex;align-items:center;gap:6px;border:1px solid #ECEEF4;border-radius:9px;padding:8px 12px;font:600 11.5px/1 Inter;color:#22314A;background:#F9FAFC}.sla{margin-top:13px;display:flex;align-items:center;gap:9px;font:600 11.5px/1 Inter;color:#1FAF66}.sla .slabar{flex:1;height:7px;border-radius:4px;background:#F1F3F7;overflow:hidden}.sla .slabar i{display:block;height:100%;width:0;background:#2BC98A;transition:width 1.2s ease .25s}.shot.on .sla .slabar i{width:88%}/* payment */
-.payscr{flex:1;display:flex;flex-direction:column;background:#F6F8FB}.payhead{background:#19335D;color:#fff;padding:34px 17px 14px;font:600 14px/1 Inter;display:flex;align-items:center;gap:7px}.paybody{flex:1;display:flex;flex-direction:column;align-items:center;padding:24px 17px}.payck{width:68px;height:68px;border-radius:50%;background:#E7F8EF;color:#1FAF66;display:flex;align-items:center;justify-content:center;margin-bottom:11px}.payck svg,.payck img.eeimg{width:33px;height:33px}.paybody h3{font:700 17px/1.2 Inter;color:#19335D}.payamt{font:800 32px/1 Inter;color:#19335D;margin:10px 0 3px}.paysub{font:400 12px/1 Inter;color:#7C8698}.payrows{width:100%;margin-top:16px;background:#fff;border:1px solid #ECEEF4;border-radius:13px;padding:4px 14px}.payrows .pr{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #F1F3F7;font:400 12px/1.35 Inter;color:#7C8698;gap:8px}.payrows .pr:last-child{border-bottom:none}.payrows .pr b{color:#22314A;font-weight:600;text-align:right}.paypill{margin-top:15px;background:#E7F8EF;color:#1FAF66;font:700 11.5px/1 Inter;letter-spacing:.08em;padding:10px 17px;border-radius:999px}/* ============ FLOWLINE RECAP ============ */
-.flow{position:relative;z-index:1;padding:44px 4vw 40px;border-top:1px solid var(--hair);transition:border-color 1.2s}.flow h2{text-align:center;font-size:clamp(20px,2.6vw,30px);font-weight:800}.flowline{display:flex;align-items:flex-start;justify-content:space-between;max-width:1080px;margin:28px auto 0;position:relative}.flowline::before{content:&quot;&quot;;position:absolute;left:3%;right:3%;top:17px;height:2px;background:var(--hair);transition:background 1.2s}.fnode{position:relative;flex:1;text-align:center;min-width:0}.fnode .fdot{width:36px;height:36px;border-radius:50%;margin:0 auto 8px;background:var(--bg);border:2px solid var(--hair);display:flex;align-items:center;justify-content:center;position:relative;transition:background 1.2s,border-color .3s}.fnode .fdot svg{width:16px;height:16px}.fnode .fdot img.eeimg{width:20px;height:20px;border-radius:6px;display:block}.fnode b{font:600 10.5px/1.3 Inter;color:var(--fg);display:block;transition:color 1.2s}.fnode span{font:600 9px/1 ui-monospace,Menlo,monospace;color:var(--faint);display:block;margin-top:3px;transition:color 1.2s}.fnode.hot .fdot{border-color:var(--orange);box-shadow:0 0 0 5px rgba(222,110,48,.14)}/* ============ FOOTER BANDS ============ */
-.band{position:relative;z-index:1;padding:38px 4vw;border-top:1px solid var(--hair);transition:border-color 1.2s}.bandgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:34px;max-width:1080px;margin:0 auto;align-items:center}.modrow{display:flex;flex-wrap:wrap;gap:7px}.modpill{display:flex;align-items:center;gap:6px;border:1px solid var(--hair);border-radius:999px;padding:7px 12px;font:600 10.5px/1 Inter;color:var(--fg);background:var(--panel);transition:color 1.2s,border-color 1.2s,background 1.2s}.modpill svg,.modpill img.eeimg{width:12px;height:12px;flex:none}.bandgrid h2{font-size:clamp(20px,2.4vw,28px);font-weight:800;line-height:1.15}.bandgrid .bp{color:var(--sub);font-size:12.5px;line-height:1.55;margin-top:8px;transition:color 1.2s}.numrow{display:flex;gap:26px;flex-wrap:wrap;margin-top:6px}.num .nv{font:800 clamp(30px,3.6vw,44px)/1 'Inter',sans-serif;color:var(--orange)}.num .nd{margin-top:6px;font-size:10.5px;color:var(--sub);max-width:16ch;line-height:1.5;transition:color 1.2s}.ctaband{display:flex;align-items:center;justify-content:space-between;gap:22px;max-width:1080px;margin:0 auto;flex-wrap:wrap}.ctaband h2{font-size:clamp(22px,2.8vw,34px);font-weight:800;line-height:1.15}.ctaband p{color:var(--sub);font-size:12.5px;margin-top:6px;transition:color 1.2s}.cta{display:inline-block;background:linear-gradient(90deg,var(--orange2),var(--orange));color:#fff;font:700 14.5px/1 'Inter',sans-serif;text-decoration:none;border-radius:12px;padding:16px 28px;box-shadow:0 12px 30px rgba(222,110,48,.4);transition:transform .15s,box-shadow .15s;white-space:nowrap}.cta:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(222,110,48,.5)}.trust{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px}.trust span{font:600 9.5px/1 Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:6px;transition:color 1.2s}.trust span::before{content:&quot;&quot;;width:4px;height:4px;border-radius:50%;background:var(--orange2)}
-
-@media (max-width:960px){.player{grid-template-columns:1fr;gap:10px;padding:14px 5vw 12px;align-items:start;min-height:0}.pleft h2{font-size:21px}.pleft .lede{display:none}.steps{flex-direction:row;gap:5px;margin-top:14px}.step{flex:1;padding:0;height:4px;border-radius:3px;background:var(--hair);border:none;overflow:hidden}.step .tno,.step .tt,.step .tm{display:none}.step .pbar{position:static;opacity:1;height:100%;background:transparent}.step.done .pbar i{width:100%!important}.stage{height:640px;max-width:100%}.bandgrid{grid-template-columns:1fr;gap:20px}.flowline{flex-wrap:wrap;gap:14px 0}.flowline::before{display:none}.fnode{flex:0 0 33%}.ctaband{justify-content:center;text-align:center}
-}
-@media (max-width:380px){.phone{width:290px}.phone .screen{height:520px}.appwin{width:100%}.stage{height:580px}
-}
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rev,.shot,.tline{opacity:1!important;transform:none!important}.shot{position:relative;display:none}.shot.on{display:flex}.shot .factor .fb i{width:var(--w)!important}.sla .slabar i{width:88%!important}
-}
-</style>
-<style id=&quot;ee-embed-fix&quot;>html,body{height:auto!important;min-height:0!important;overflow:visible!important}.player{min-height:0!important}.stage{height:700px!important}
-  @media(max-width:960px){.stage{height:640px!important}}
-  @media(max-width:380px){.stage{height:580px!important}}
-</style>
-<style id=&quot;ee-mobile-redesign&quot;>
-/* ---- real brand marks inside the story mockups ---- */
-.apptop .alogo{background:#fff!important;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.apptop .alogo img{width:100%;height:100%;object-fit:contain}
-.whead .wava,.callscr .cava{overflow:hidden}
-.whead .wava img,.callscr .cava img{width:100%;height:100%;object-fit:cover;display:block}
-/* ---- contextual 'now playing' card (mobile only) ---- */
-.mnow{display:none;align-items:center;gap:11px;margin-top:15px;padding:12px 14px;border:1px solid var(--hair);border-radius:14px;background:var(--panel);transition:border-color 1.2s,background 1.2s}
-.mnow .mi{font:700 10px/1 ui-monospace,Menlo,monospace;color:var(--orange);background:rgba(222,110,48,.12);padding:6px 8px;border-radius:8px;flex:none;letter-spacing:.06em}
-.mnow .mm{flex:1;min-width:0}
-.mnow .mm b{display:block;font:600 14px/1.2 Inter;color:var(--fg);transition:color 1.2s}
-.mnow .mm span{display:block;font:500 11px/1.3 Inter;color:var(--faint);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color 1.2s}
-.mnow .mt{font:600 11px/1 ui-monospace,Menlo,monospace;color:var(--orange);flex:none}
-@media(max-width:960px){
-  .pleft,.pright{min-width:0}
-  .mnow{display:none!important}
-  /* nicer tappable segment track */
-  .steps{gap:6px;margin-top:16px}
-  .step{height:5px;border-radius:3px}
-  .step.on{box-shadow:none}
-  /* stage sizes to the active shot - no clipping, minimal dead space */
-  .stage{height:auto!important;min-height:440px!important;max-width:100%!important;display:flex;align-items:center;justify-content:center;padding:4px 0}
-  .shot{position:relative!important;inset:auto!important;opacity:1;transform:none;display:none!important;width:100%;transition:none}
-  .shot{min-width:0}
-  .shot.on{display:flex!important;animation:mfade .5s cubic-bezier(.23,1,.32,1) both}
-  @keyframes mfade{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
-  /* a real phone: fit the whole screen, don't cut off the chat */
-  .phone{width:min(296px,80vw)}
-  @media(max-height:760px){.phone{transform:scale(.76);transform-origin:top center}}
-  @media(max-height:660px){.phone{transform:scale(.68);transform-origin:top center}}
-  @media(max-height:600px){.phone{transform:scale(.6);transform-origin:top center}}
-  @media(max-height:540px){.phone{transform:scale(.54);transform-origin:top center}}
-  .phone .screen{height:auto!important;min-height:420px}
-  .wbody{overflow:visible!important}
-  .evcap{margin-top:16px;max-width:88vw}
-  .appwin{width:100%!important;max-width:100%!important}
-  .appbar .url{min-width:0}
-  .apptop{flex-wrap:wrap;row-gap:4px}
-  .apptop .lvpill{margin-left:auto}
-}
-@media(max-width:380px){
-  .phone .screen{min-height:440px}
-  .mnow .mm b{font-size:13px}
-}
-/* Mobile: put the visual result on top and float the prev/next
-   arrows as a sticky bar so tapping updates the result in place. */
-@media(max-width:960px){
-  .player{display:flex!important;flex-direction:column;align-items:stretch}
-  .pleft{display:contents}
-  /* thin segment bars are redundant on phones (arrows + context card handle nav) */
-  .steps{display:none!important}
-  /* hide the eyebrow label - the story headline already leads the section */
-  .kick{display:none!important}
-  .pleft h2,.lede,.steps{order:0}
-  .pright{order:1;position:relative}
-  .mnow{order:2;margin-top:12px}
-  .pctrl{display:none!important}
-  /* prev/next as side arrows over the stage - same as Agentic AI Suite */
-  .pstage-arw{display:flex;align-items:center;justify-content:center;position:absolute;top:50%;transform:translateY(-50%);z-index:20;width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.24);background:rgba(15,28,48,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.28)}
-  .pstage-arw svg{width:13px;height:13px}
-  .pstage-prev{left:2px}
-  .pstage-next{right:2px}
-  .pstage-arw:active{transform:translateY(-50%) scale(.93)}
-  /* One brain. Nine modules. - modules + numbers as tidy 3-up grids, less whitespace */
-  .band{padding:16px 5vw 14px}
-  .flow{padding:20px 5vw 16px}
-  .flowline{margin-top:14px}
-  .bandgrid{gap:16px}
-  .modrow{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6px}
-  .modpill{justify-content:center;padding:7px 6px;font-size:9.5px;text-align:center}
-  .numrow{display:grid!important;grid-template-columns:repeat(3,1fr);gap:10px}
-  .num .nv{font-size:22px!important}
-  .num .nd{font-size:9.5px;max-width:none}
-}
-/* ===== Apple visionOS spatial skin - brand navy + orange, Inter, dark frosted glass ===== */
-h1,h2{font-family:'Inter',sans-serif!important}
-body{background:
-  radial-gradient(620px 520px at 10% 6%, rgba(222,110,48,.15), transparent 60%),
-  radial-gradient(700px 580px at 94% 88%, rgba(46,78,133,.34), transparent 62%),
-  linear-gradient(var(--bg),var(--bg2))!important}
-/* frosted DARK-glass panels - stay dark so the light story text remains readable */
-.mnow,.modpill,.pctrl{
-  background:linear-gradient(158deg,rgba(255,255,255,.09),rgba(255,255,255,.035))!important;
-  -webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);
-  border:1px solid rgba(255,255,255,.15)!important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 18px 38px -22px rgba(0,0,0,.6)!important;
-}
-.step.on{
-  background:linear-gradient(158deg,rgba(255,255,255,.10),rgba(255,255,255,.04))!important;
-  -webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);
-  border:1px solid rgba(255,255,255,.16)!important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 14px 30px -18px rgba(0,0,0,.5)!important;
-}
-/* spatial float for the device mockups + a subtle orange rim light */
-.phone,.appwin{
-  box-shadow:0 0 0 1px rgba(255,255,255,.10),0 44px 84px -30px rgba(0,0,0,.72),0 10px 34px -22px rgba(222,110,48,.5)!important;
-}
-</style>
-</head>
-<body>
-<div id=&quot;sky&quot;></div>
+  <div id="ee-night-stage">
+  <div id="ee-night-embed">
+<div id="sky"></div>
 <!-- ============ STORY PLAYER ============ -->
-<section class=&quot;player&quot; id=&quot;top&quot;>
-  <div class=&quot;pleft&quot;>
-    <span class=&quot;kick rev&quot;>The Admission Operating System</span>
-    <h2 class=&quot;rev d1&quot;>While your campus sleeps, <span class=&quot;o&quot;>admissions don't.</span></h2>
-    <p class=&quot;lede rev d2&quot;>One student, one night, six screens. Watch the whole process - it plays itself.</p>
-    <div class=&quot;steps&quot; id=&quot;steps&quot;>
-      <div class=&quot;step on&quot; data-i=&quot;0&quot;><span class=&quot;tno&quot;>01</span><div class=&quot;tt&quot;><h3>Lead captured</h3><span>Meta ad · auto-logged in CRM</span></div><span class=&quot;tm&quot;>11:02 PM</span><div class=&quot;pbar&quot;><i></i></div></div>
-      <div class=&quot;step&quot; data-i=&quot;1&quot;><span class=&quot;tno&quot;>02</span><div class=&quot;tt&quot;><h3>VidyaGPT replies</h3><span>WhatsApp · her language · 24×7</span></div><span class=&quot;tm&quot;>11:02 PM</span><div class=&quot;pbar&quot;><i></i></div></div>
-      <div class=&quot;step&quot; data-i=&quot;2&quot;><span class=&quot;tno&quot;>03</span><div class=&quot;tt&quot;><h3>Intent scored 96</h3><span>VidyaPulse ranks her priority</span></div><span class=&quot;tm&quot;>11:09 PM</span><div class=&quot;pbar&quot;><i></i></div></div>
-      <div class=&quot;step&quot; data-i=&quot;3&quot;><span class=&quot;tno&quot;>04</span><div class=&quot;tt&quot;><h3>AI voice call</h3><span>Qualified · meeting booked</span></div><span class=&quot;tm&quot;>9:00 AM</span><div class=&quot;pbar&quot;><i></i></div></div>
-      <div class=&quot;step&quot; data-i=&quot;4&quot;><span class=&quot;tno&quot;>05</span><div class=&quot;tt&quot;><h3>Counsellor handoff</h3><span>Full context · zero cold starts</span></div><span class=&quot;tm&quot;>9:04 AM</span><div class=&quot;pbar&quot;><i></i></div></div>
-      <div class=&quot;step&quot; data-i=&quot;5&quot;><span class=&quot;tno&quot;>06</span><div class=&quot;tt&quot;><h3>Enrolled</h3><span>Fee paid · pipeline complete</span></div><span class=&quot;tm&quot;>Day 12</span><div class=&quot;pbar&quot;><i></i></div></div>
+<section class="player" id="top">
+  <div class="pleft">
+    <span class="kick rev">The Admission Operating System</span>
+    <h2 class="rev d1">While your campus sleeps, <span class="o">admissions don't.</span></h2>
+    <p class="lede rev d2">One student, one night, six screens. Watch the whole process - it plays itself.</p>
+    <div class="steps" id="steps">
+      <div class="step on" data-i="0"><span class="tno">01</span><div class="tt"><h3>Lead captured</h3><span>Meta ad · auto-logged in CRM</span></div><span class="tm">11:02 PM</span><div class="pbar"><i></i></div></div>
+      <div class="step" data-i="1"><span class="tno">02</span><div class="tt"><h3>VidyaGPT replies</h3><span>WhatsApp · her language · 24×7</span></div><span class="tm">11:02 PM</span><div class="pbar"><i></i></div></div>
+      <div class="step" data-i="2"><span class="tno">03</span><div class="tt"><h3>Intent scored 96</h3><span>VidyaPulse ranks her priority</span></div><span class="tm">11:09 PM</span><div class="pbar"><i></i></div></div>
+      <div class="step" data-i="3"><span class="tno">04</span><div class="tt"><h3>AI voice call</h3><span>Qualified · meeting booked</span></div><span class="tm">9:00 AM</span><div class="pbar"><i></i></div></div>
+      <div class="step" data-i="4"><span class="tno">05</span><div class="tt"><h3>Counsellor handoff</h3><span>Full context · zero cold starts</span></div><span class="tm">9:04 AM</span><div class="pbar"><i></i></div></div>
+      <div class="step" data-i="5"><span class="tno">06</span><div class="tt"><h3>Enrolled</h3><span>Fee paid · pipeline complete</span></div><span class="tm">Day 12</span><div class="pbar"><i></i></div></div>
     </div>
-    <div class=&quot;mnow&quot; id=&quot;mnow&quot; aria-live=&quot;polite&quot;><span class=&quot;mi&quot;>01 / 06</span><div class=&quot;mm&quot;><b>Lead captured</b><span>Meta ad · auto-logged in CRM</span></div><span class=&quot;mt&quot;>11:02 PM</span></div>
-    <div class=&quot;pctrl&quot;>
-      <button class=&quot;pbtn&quot; id=&quot;pprev&quot; aria-label=&quot;Previous step&quot;><svg width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.4&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M15 18l-6-6 6-6&quot;/></svg></button>
-      <button class=&quot;pbtn&quot; id=&quot;pplay&quot; aria-label=&quot;Pause story&quot;>
-        <svg id=&quot;icpause&quot; width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;4&quot; height=&quot;16&quot; rx=&quot;1&quot;/><rect x=&quot;14&quot; y=&quot;4&quot; width=&quot;4&quot; height=&quot;16&quot; rx=&quot;1&quot;/></svg>
-        <svg id=&quot;icplay&quot; width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; style=&quot;display:none&quot;><path d=&quot;M7 4l13 8-13 8V4z&quot;/></svg>
+    <div class="mnow" id="mnow" aria-live="polite"><span class="mi">01 / 06</span><div class="mm"><b>Lead captured</b><span>Meta ad · auto-logged in CRM</span></div><span class="mt">11:02 PM</span></div>
+    <div class="pctrl">
+      <button class="pbtn" id="pprev" aria-label="Previous step"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="pbtn" id="pplay" aria-label="Pause story">
+        <svg id="icpause" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+        <svg id="icplay" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M7 4l13 8-13 8V4z"/></svg>
       </button>
-      <button class=&quot;pbtn&quot; id=&quot;pnext&quot; aria-label=&quot;Next step&quot;><svg width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.4&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 6l6 6-6 6&quot;/></svg></button>
+      <button class="pbtn" id="pnext" aria-label="Next step"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
   </div>
 
-  <div class=&quot;pright&quot;>
-    <div class=&quot;stage&quot; id=&quot;stage&quot;>
+  <div class="pright">
+    <div class="stage" id="stage">
 
-      <div class=&quot;shot on&quot; data-i=&quot;0&quot;>
-        <div class=&quot;appwin&quot;>
-          <div class=&quot;appbar&quot;><div class=&quot;wd&quot;><i></i><i></i><i></i></div><div class=&quot;url&quot;><svg width=&quot;9&quot; height=&quot;9&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#1FAF66&quot; stroke-width=&quot;3&quot;><rect x=&quot;5&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M8 10V7a4 4 0 0 1 8 0v3&quot;/></svg>app.extraaedge.com/leads/EE-2026-84517</div></div>
-          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg&quot; alt=&quot;ExtraaEdge&quot;></div><b>ExtraaEdge</b><span class=&quot;crumb&quot;>/ Leads / New</span><span class=&quot;lvpill&quot;>Auto-captured</span></div>
-          <div class=&quot;appbody&quot;>
-            <div class=&quot;leadhead&quot;><div class=&quot;lava&quot;>PD</div><div class=&quot;ln&quot;><b>Priya Deshmukh <span class=&quot;new&quot;>NEW LEAD</span></b><span>Lead ID EE-2026-84517 · Created 23:02:14 IST</span></div></div>
-            <div class=&quot;grid2&quot;>
-              <div class=&quot;fld&quot;><span>Source</span><b class=&quot;hl&quot;>Meta Ads · Instagram</b></div>
-              <div class=&quot;fld&quot;><span>Campaign</span><b>MBA_Mumbai_Jul26</b></div>
-              <div class=&quot;fld&quot;><span>Course</span><b>MBA · 2026 Intake</b></div>
-              <div class=&quot;fld&quot;><span>Phone</span><b>+91 98••• ••342</b></div>
+      <div class="shot on" data-i="0">
+        <div class="appwin">
+          <div class="appbar"><div class="wd"><i></i><i></i><i></i></div><div class="url"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#1FAF66" stroke-width="3"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>app.extraaedge.com/leads/EE-2026-84517</div></div>
+          <div class="apptop"><div class="alogo"><img src="https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg" alt="ExtraaEdge"></div><b>ExtraaEdge</b><span class="crumb">/ Leads / New</span><span class="lvpill">Auto-captured</span></div>
+          <div class="appbody">
+            <div class="leadhead"><div class="lava">PD</div><div class="ln"><b>Priya Deshmukh <span class="new">NEW LEAD</span></b><span>Lead ID EE-2026-84517 · Created 23:02:14 IST</span></div></div>
+            <div class="grid2">
+              <div class="fld"><span>Source</span><b class="hl">Meta Ads · Instagram</b></div>
+              <div class="fld"><span>Campaign</span><b>MBA_Mumbai_Jul26</b></div>
+              <div class="fld"><span>Course</span><b>MBA · 2026 Intake</b></div>
+              <div class="fld"><span>Phone</span><b>+91 98••• ••342</b></div>
             </div>
-            <div class=&quot;appfoot&quot;><div class=&quot;abtn pr&quot;>Engage with VidyaGPT</div><div class=&quot;abtn sec&quot;>View timeline</div></div>
+            <div class="appfoot"><div class="abtn pr">Engage with VidyaGPT</div><div class="abtn sec">View timeline</div></div>
           </div>
         </div>
-        <p class=&quot;evcap&quot;>Captured, deduped, enriched - no one typed this in.</p>
+        <p class="evcap">Captured, deduped, enriched - no one typed this in.</p>
       </div>
 
-      <div class=&quot;shot&quot; data-i=&quot;1&quot;>
-        <div class=&quot;phone&quot;><div class=&quot;notch&quot;></div>
-          <div class=&quot;screen&quot;><div class=&quot;wchat&quot;>
-            <div class=&quot;whead&quot;><svg width=&quot;7&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2.6&quot;><path d=&quot;M15 5l-7 7 7 7&quot;/></svg><div class=&quot;wava&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidyaai-fevicon.png&quot; alt=&quot;Vidya AI&quot;></div><div class=&quot;wn&quot;><b>Vidya AI Counsellor <span class=&quot;vf&quot;>✓</span></b><span>online</span></div><svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><path d=&quot;M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z&quot;/></svg></div>
-            <div class=&quot;wbody&quot;>
-              <div class=&quot;wdate&quot;>Today</div>
-              <div class=&quot;wmsg out&quot;>MBA ki fees kya hai?<span class=&quot;wtm&quot;>11:02 PM <span class=&quot;ticks&quot;>✓✓</span></span></div>
-              <div class=&quot;wmsg in&quot;>Hi Priya! 👋 Main Vidya hoon - aapki AI admission counsellor.<span class=&quot;wtm&quot;>11:02 PM</span></div>
-              <div class=&quot;wmsg in&quot;>MBA 2026 ki total fees ₹8.4L hai. Aap 25% tak merit scholarship ke liye eligible ho sakti hain 🎓<span class=&quot;wtm&quot;>11:02 PM</span></div>
-              <div class=&quot;wmsg out&quot;>Scholarship kaise milegi?<span class=&quot;wtm&quot;>11:03 PM <span class=&quot;ticks&quot;>✓✓</span></span></div>
-              <div class=&quot;wmsg in&quot;>Aapke 12th marks pe aap seedha 25% merit scholarship ke liye eligible ho 🎉<span class=&quot;wtm&quot;>11:03 PM</span></div>
-              <div class=&quot;wmsg in&quot;>Main kal subah 11 baje counsellor ke saath aapki call fix kar rahi hoon ✅<span class=&quot;wtm&quot;>11:04 PM</span></div>
+      <div class="shot" data-i="1">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen"><div class="wchat">
+            <div class="whead"><svg width="7" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"><path d="M15 5l-7 7 7 7"/></svg><div class="wava"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidyaai-fevicon.png" alt="Vidya AI"></div><div class="wn"><b>Vidya AI Counsellor <span class="vf">✓</span></b><span>online</span></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div>
+            <div class="wbody">
+              <div class="wdate">Today</div>
+              <div class="wmsg out">MBA ki fees kya hai?<span class="wtm">11:02 PM <span class="ticks">✓✓</span></span></div>
+              <div class="wmsg in">Hi Priya! 👋 Main Vidya hoon - aapki AI admission counsellor.<span class="wtm">11:02 PM</span></div>
+              <div class="wmsg in">MBA 2026 ki total fees ₹8.4L hai. Aap 25% tak merit scholarship ke liye eligible ho sakti hain 🎓<span class="wtm">11:02 PM</span></div>
+              <div class="wmsg out">Scholarship kaise milegi?<span class="wtm">11:03 PM <span class="ticks">✓✓</span></span></div>
+              <div class="wmsg in">Aapke 12th marks pe aap seedha 25% merit scholarship ke liye eligible ho 🎉<span class="wtm">11:03 PM</span></div>
+              <div class="wmsg in">Main kal subah 11 baje counsellor ke saath aapki call fix kar rahi hoon ✅<span class="wtm">11:04 PM</span></div>
             </div>
-            <div class=&quot;winput&quot;><div class=&quot;wfield&quot;>Message</div><div class=&quot;wmic&quot;><svg width=&quot;13&quot; height=&quot;13&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><rect x=&quot;9&quot; y=&quot;3&quot; width=&quot;6&quot; height=&quot;11&quot; rx=&quot;3&quot;/><path d=&quot;M5 11a7 7 0 0 0 14 0M12 18v3&quot;/></svg></div></div>
+            <div class="winput"><div class="wfield">Message</div><div class="wmic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div></div>
           </div></div>
         </div>
-        <p class=&quot;evcap&quot;>A real conversation at 11 PM - while your office is dark.</p>
+        <p class="evcap">A real conversation at 11 PM - while your office is dark.</p>
       </div>
 
-      <div class=&quot;shot&quot; data-i=&quot;2&quot;>
-        <div class=&quot;appwin&quot;>
-          <div class=&quot;appbar&quot;><div class=&quot;wd&quot;><i></i><i></i><i></i></div><div class=&quot;url&quot;><svg width=&quot;9&quot; height=&quot;9&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#1FAF66&quot; stroke-width=&quot;3&quot;><rect x=&quot;5&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M8 10V7a4 4 0 0 1 8 0v3&quot;/></svg>app.extraaedge.com/leads/EE-2026-84517/score</div></div>
-          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-pulse-fevicon.png&quot; alt=&quot;VidyaPulse&quot;></div><b>VidyaPulse</b><span class=&quot;crumb&quot;>/ Lead Scoring</span><span class=&quot;lvpill&quot;>Live model</span></div>
-          <div class=&quot;appbody&quot;>
-            <div class=&quot;scorehead&quot;><b>Intent Score - Priya Deshmukh</b><span class=&quot;scorenum&quot;><span data-count=&quot;96&quot;>0</span><span style=&quot;font-size:13px&quot;>/100</span></span></div>
-            <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Response velocity</span><b>Replied in 41s avg</b></div><div class=&quot;fb&quot;><i style=&quot;--w:92%&quot;></i></div></div>
-            <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Engagement depth</span><b>6 questions · fees + scholarship</b></div><div class=&quot;fb&quot;><i style=&quot;--w:88%&quot;></i></div></div>
-            <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Course-fit signals</span><b>Work-ex 3 yrs · CAT registered</b></div><div class=&quot;fb&quot;><i style=&quot;--w:84%&quot;></i></div></div>
-            <div class=&quot;factor&quot;><div class=&quot;fl&quot;><span>Page activity</span><b>Fee page ×3 · Placements ×2</b></div><div class=&quot;fb&quot;><i style=&quot;--w:78%&quot;></i></div></div>
-            <div class=&quot;scoreverdict&quot;>⚡ Priority HIGH - queued for AI voice call at 9:00 AM.</div>
+      <div class="shot" data-i="2">
+        <div class="appwin">
+          <div class="appbar"><div class="wd"><i></i><i></i><i></i></div><div class="url"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#1FAF66" stroke-width="3"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>app.extraaedge.com/leads/EE-2026-84517/score</div></div>
+          <div class="apptop"><div class="alogo"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-pulse-fevicon.png" alt="VidyaPulse"></div><b>VidyaPulse</b><span class="crumb">/ Lead Scoring</span><span class="lvpill">Live model</span></div>
+          <div class="appbody">
+            <div class="scorehead"><b>Intent Score - Priya Deshmukh</b><span class="scorenum"><span data-count="96">0</span><span style="font-size:13px">/100</span></span></div>
+            <div class="factor"><div class="fl"><span>Response velocity</span><b>Replied in 41s avg</b></div><div class="fb"><i style="--w:92%"></i></div></div>
+            <div class="factor"><div class="fl"><span>Engagement depth</span><b>6 questions · fees + scholarship</b></div><div class="fb"><i style="--w:88%"></i></div></div>
+            <div class="factor"><div class="fl"><span>Course-fit signals</span><b>Work-ex 3 yrs · CAT registered</b></div><div class="fb"><i style="--w:84%"></i></div></div>
+            <div class="factor"><div class="fl"><span>Page activity</span><b>Fee page ×3 · Placements ×2</b></div><div class="fb"><i style="--w:78%"></i></div></div>
+            <div class="scoreverdict">⚡ Priority HIGH - queued for AI voice call at 9:00 AM.</div>
           </div>
         </div>
-        <p class=&quot;evcap&quot;>Not a guess - a live model reading behaviour, not form fields.</p>
+        <p class="evcap">Not a guess - a live model reading behaviour, not form fields.</p>
       </div>
 
-      <div class=&quot;shot&quot; data-i=&quot;3&quot;>
-        <div class=&quot;phone&quot;><div class=&quot;notch&quot;></div>
-          <div class=&quot;screen&quot;><div class=&quot;callscr&quot;>
-            <div class=&quot;cava&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-ai-voice-agent-fevicon.png&quot; alt=&quot;Vidya AI Voice Agent&quot;></div>
-            <div class=&quot;cname&quot;>Vidya AI Voice Agent</div>
-            <div class=&quot;cnum&quot;>+91 89569 82897</div>
-            <div class=&quot;cstate&quot;>Connected in 18s</div>
-            <div class=&quot;ctimer&quot; data-timer data-max=&quot;134&quot;>00:00</div>
-            <div class=&quot;transcript&quot;>
-              <div class=&quot;tl&quot;>Live transcript</div>
-              <div class=&quot;tline&quot;><b>Vidya:</b> Good morning Priya! Kal raat aapne MBA fees poocha tha…</div>
-              <div class=&quot;tline stu&quot;><b>Priya:</b> Haan! Scholarship ka process samajhna tha.</div>
-              <div class=&quot;tline&quot;><b>Vidya:</b> Main aapki counsellor ke saath 11 baje ki meeting book kar rahi hoon ✓</div>
+      <div class="shot" data-i="3">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen"><div class="callscr">
+            <div class="cava"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-ai-voice-agent-fevicon.png" alt="Vidya AI Voice Agent"></div>
+            <div class="cname">Vidya AI Voice Agent</div>
+            <div class="cnum">+91 89569 82897</div>
+            <div class="cstate">Connected in 18s</div>
+            <div class="ctimer" data-timer data-max="134">00:00</div>
+            <div class="transcript">
+              <div class="tl">Live transcript</div>
+              <div class="tline"><b>Vidya:</b> Good morning Priya! Kal raat aapne MBA fees poocha tha…</div>
+              <div class="tline stu"><b>Priya:</b> Haan! Scholarship ka process samajhna tha.</div>
+              <div class="tline"><b>Vidya:</b> Main aapki counsellor ke saath 11 baje ki meeting book kar rahi hoon ✓</div>
             </div>
-            <div class=&quot;callbtns&quot;>
-              <div class=&quot;cbtn&quot;><svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><rect x=&quot;9&quot; y=&quot;3&quot; width=&quot;6&quot; height=&quot;11&quot; rx=&quot;3&quot;/><path d=&quot;M5 11a7 7 0 0 0 14 0M12 18v3&quot;/></svg></div>
-              <div class=&quot;cbtn end&quot;><svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot; transform=&quot;rotate(135)&quot;><path d=&quot;M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z&quot;/></svg></div>
-              <div class=&quot;cbtn&quot;><svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;><path d=&quot;M4 6h16v10H9l-5 4V6z&quot;/></svg></div>
+            <div class="callbtns">
+              <div class="cbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
+              <div class="cbtn end"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" transform="rotate(135)"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div>
+              <div class="cbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 6h16v10H9l-5 4V6z"/></svg></div>
             </div>
           </div></div>
         </div>
-        <p class=&quot;evcap&quot;>18 seconds after she's active - qualified, transcribed, booked.</p>
+        <p class="evcap">18 seconds after she's active - qualified, transcribed, booked.</p>
       </div>
 
-      <div class=&quot;shot&quot; data-i=&quot;4&quot;>
-        <div class=&quot;appwin&quot;>
-          <div class=&quot;appbar&quot;><div class=&quot;wd&quot;><i></i><i></i><i></i></div><div class=&quot;url&quot;><svg width=&quot;9&quot; height=&quot;9&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#1FAF66&quot; stroke-width=&quot;3&quot;><rect x=&quot;5&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M8 10V7a4 4 0 0 1 8 0v3&quot;/></svg>app.extraaedge.com/inbox</div></div>
-          <div class=&quot;apptop&quot;><div class=&quot;alogo&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg&quot; alt=&quot;ExtraaEdge&quot;></div><b>ExtraaEdge</b><span class=&quot;crumb&quot;>/ Inbox - Rahul Verma</span><span class=&quot;lvpill&quot;>1 new</span></div>
-          <div class=&quot;appbody&quot;>
-            <div class=&quot;assign&quot;>
-              <div class=&quot;aicon&quot;><svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M13 2L4 14h6l-1 8 9-12h-6l1-8z&quot;/></svg></div>
+      <div class="shot" data-i="4">
+        <div class="appwin">
+          <div class="appbar"><div class="wd"><i></i><i></i><i></i></div><div class="url"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#1FAF66" stroke-width="3"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>app.extraaedge.com/inbox</div></div>
+          <div class="apptop"><div class="alogo"><img src="https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg" alt="ExtraaEdge"></div><b>ExtraaEdge</b><span class="crumb">/ Inbox - Rahul Verma</span><span class="lvpill">1 new</span></div>
+          <div class="appbody">
+            <div class="assign">
+              <div class="aicon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
               <div><h3>Priya Deshmukh assigned · Meeting 11:00 AM</h3><p>Smart-routed on score 96 and your 78% conversion on Meta leads. Context attached:</p></div>
             </div>
-            <div class=&quot;attach&quot;>
-              <div class=&quot;att&quot;><svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#25D366&quot; stroke-width=&quot;2.4&quot;><path d=&quot;M4 6h16v10H9l-5 4V6z&quot;/></svg>WhatsApp · 14 msgs</div>
-              <div class=&quot;att&quot;><svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#DE6E30&quot; stroke-width=&quot;2.4&quot;><path d=&quot;M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z&quot;/></svg>Call rec · 02:14</div>
-              <div class=&quot;att&quot;><svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#4E86D8&quot; stroke-width=&quot;2.4&quot;><path d=&quot;M4 20V10M10 20V4M16 20v-8&quot;/></svg>Score · 96/100</div>
-              <div class=&quot;att&quot;><svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#7A5AF8&quot; stroke-width=&quot;2.4&quot;><rect x=&quot;5&quot; y=&quot;3&quot; width=&quot;14&quot; height=&quot;18&quot; rx=&quot;2&quot;/><path d=&quot;M9 8h6M9 12h6&quot;/></svg>AI summary</div>
+            <div class="attach">
+              <div class="att"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2.4"><path d="M4 6h16v10H9l-5 4V6z"/></svg>WhatsApp · 14 msgs</div>
+              <div class="att"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#DE6E30" stroke-width="2.4"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Call rec · 02:14</div>
+              <div class="att"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4E86D8" stroke-width="2.4"><path d="M4 20V10M10 20V4M16 20v-8"/></svg>Score · 96/100</div>
+              <div class="att"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7A5AF8" stroke-width="2.4"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6"/></svg>AI summary</div>
             </div>
-            <div class=&quot;sla&quot;><span>Follow-up SLA</span><div class=&quot;slabar&quot;><i></i></div><span>1h 56m left</span></div>
+            <div class="sla"><span>Follow-up SLA</span><div class="slabar"><i></i></div><span>1h 56m left</span></div>
           </div>
         </div>
-        <p class=&quot;evcap&quot;>Zero cold starts. AI did the night shift; humans do the human part.</p>
+        <p class="evcap">Zero cold starts. AI did the night shift; humans do the human part.</p>
       </div>
 
-      <div class=&quot;shot&quot; data-i=&quot;5&quot;>
-        <div class=&quot;phone&quot;><div class=&quot;notch&quot;></div>
-          <div class=&quot;screen&quot;><div class=&quot;payscr&quot;>
-            <div class=&quot;payhead&quot;><svg width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2.6&quot;><path d=&quot;M15 5l-7 7 7 7&quot;/></svg>Admission Fee Payment</div>
-            <div class=&quot;paybody&quot;>
-              <div class=&quot;payck&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.6&quot;><path d=&quot;M4 12.5l5 5L20 6.5&quot;/></svg></div>
+      <div class="shot" data-i="5">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen"><div class="payscr">
+            <div class="payhead"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"><path d="M15 5l-7 7 7 7"/></svg>Admission Fee Payment</div>
+            <div class="paybody">
+              <div class="payck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M4 12.5l5 5L20 6.5"/></svg></div>
               <h3>Payment Successful</h3>
-              <div class=&quot;payamt&quot;>₹1,00,000</div>
-              <div class=&quot;paysub&quot;>Admission Fee · MBA 2026</div>
-              <div class=&quot;payrows&quot;>
-                <div class=&quot;pr&quot;><span>Transaction ID</span><b>pay_Oq8xT2mK4KzR</b></div>
-                <div class=&quot;pr&quot;><span>Method</span><b>UPI · priya.d@okhdfc</b></div>
-                <div class=&quot;pr&quot;><span>Receipt</span><b style=&quot;color:#DE6E30&quot;>Sent on WhatsApp ✓</b></div>
+              <div class="payamt">₹1,00,000</div>
+              <div class="paysub">Admission Fee · MBA 2026</div>
+              <div class="payrows">
+                <div class="pr"><span>Transaction ID</span><b>pay_Oq8xT2mK4KzR</b></div>
+                <div class="pr"><span>Method</span><b>UPI · priya.d@okhdfc</b></div>
+                <div class="pr"><span>Receipt</span><b style="color:#DE6E30">Sent on WhatsApp ✓</b></div>
               </div>
-              <div class=&quot;paypill&quot;>STATUS: ENROLLED 🎓</div>
+              <div class="paypill">STATUS: ENROLLED 🎓</div>
             </div>
           </div></div>
         </div>
-        <p class=&quot;evcap&quot;>Day 12: enrolled. All 12 days live in one timeline.</p>
+        <p class="evcap">Day 12: enrolled. All 12 days live in one timeline.</p>
       </div>
 
     </div>
@@ -4122,50 +4002,58 @@ body{background:
 </section>
 
 <!-- ============ FLOW RECAP ============ -->
-<section class=&quot;flow&quot;>
-  <h2 class=&quot;rev&quot;>The whole night, <span class=&quot;o&quot;>on one line.</span></h2>
-  <div class=&quot;flowline&quot; id=&quot;flowline&quot;>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/lead-captured.svg&quot; alt=&quot;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;></div><b>Lead captured</b><span>11:02 PM</span></div>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/vidyagpt-chat.svg&quot; alt=&quot;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;></div><b>VidyaGPT chat</b><span>11:02 PM</span></div>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/scored-96.svg&quot; alt=&quot;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;></div><b>Scored 96</b><span>11:09 PM</span></div>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/ai-voice-call.svg&quot; alt=&quot;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;></div><b>AI voice call</b><span>9:00 AM</span></div>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/handoff.svg&quot; alt=&quot;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;></div><b>Handoff</b><span>9:04 AM</span></div>
-    <div class=&quot;fnode&quot;><div class=&quot;fdot&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/home-page/enrolled.svg&quot; alt=&quot;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;></div><b>Enrolled</b><span>Day 12</span></div>
+<section class="flow">
+  <h2 class="rev">The whole night, <span class="o">on one line.</span></h2>
+  <div class="flowline" id="flowline">
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/lead-captured.svg" alt="" loading="lazy" decoding="async"></div><b>Lead captured</b><span>11:02 PM</span></div>
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/vidyagpt-chat.svg" alt="" loading="lazy" decoding="async"></div><b>VidyaGPT chat</b><span>11:02 PM</span></div>
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/scored-96.svg" alt="" loading="lazy" decoding="async"></div><b>Scored 96</b><span>11:09 PM</span></div>
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/ai-voice-call.svg" alt="" loading="lazy" decoding="async"></div><b>AI voice call</b><span>9:00 AM</span></div>
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/handoff.svg" alt="" loading="lazy" decoding="async"></div><b>Handoff</b><span>9:04 AM</span></div>
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/enrolled.svg" alt="" loading="lazy" decoding="async"></div><b>Enrolled</b><span>Day 12</span></div>
   </div>
 </section>
 
 <!-- ============ MODULES + NUMBERS ============ -->
-<section class=&quot;band&quot;>
-  <div class=&quot;bandgrid&quot;>
+<section class="band">
+  <div class="bandgrid">
     <div>
-      <h2 class=&quot;rev&quot;>One brain. <span class=&quot;o&quot;>Nine modules.</span></h2>
-      <p class=&quot;bp rev d1&quot;>Every screen above runs on the same platform - zero handoff gaps, one student timeline.</p>
-      <div class=&quot;modrow rev d2&quot; style=&quot;margin-top:14px&quot;>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#DE6E30&quot; stroke-width=&quot;2.2&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/><path d=&quot;M12 2v4M12 18v4M2 12h4M18 12h4&quot;/></svg>AI Engine</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#6FA3F2&quot; stroke-width=&quot;2.2&quot;><circle cx=&quot;9&quot; cy=&quot;8&quot; r=&quot;3&quot;/><path d=&quot;M3 20a6 6 0 0 1 12 0&quot;/></svg>Admissions CRM</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#B29CFF&quot; stroke-width=&quot;2.2&quot;><path d=&quot;M13 2L4 14h6l-1 8 9-12h-6l1-8z&quot;/></svg>Automation</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#2BC98A&quot; stroke-width=&quot;2.2&quot;><path d=&quot;M4 20V10M10 20V4M16 20v-8&quot;/></svg>Analytics</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#E8843F&quot; stroke-width=&quot;2.2&quot;><circle cx=&quot;12&quot; cy=&quot;8&quot; r=&quot;3.5&quot;/><path d=&quot;M5 20a7 7 0 0 1 14 0&quot;/></svg>Student Database</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#DE6E30&quot; stroke-width=&quot;2.2&quot;><circle cx=&quot;7&quot; cy=&quot;7&quot; r=&quot;3&quot;/><circle cx=&quot;17&quot; cy=&quot;17&quot; r=&quot;3&quot;/><path d=&quot;M10 7h7M7 10v7&quot;/></svg>Workflow Engine</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#25D366&quot; stroke-width=&quot;2.2&quot;><path d=&quot;M4 6h16v10H9l-5 4V6z&quot;/></svg>Communication</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#6FA3F2&quot; stroke-width=&quot;2.2&quot;><rect x=&quot;5&quot; y=&quot;3&quot; width=&quot;14&quot; height=&quot;18&quot; rx=&quot;2&quot;/><path d=&quot;M9 8h6M9 12h6&quot;/></svg>Applications</span>
-        <span class=&quot;modpill&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#2BC98A&quot; stroke-width=&quot;2.2&quot;><path d=&quot;M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z&quot;/></svg>Security</span>
+      <h2 class="rev">One brain. <span class="o">Nine modules.</span></h2>
+      <p class="bp rev d1">Every screen above runs on the same platform - zero handoff gaps, one student timeline.</p>
+      <div class="modrow rev d2" style="margin-top:14px">
+        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#DE6E30" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>AI Engine</span>
+        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#6FA3F2" stroke-width="2.2"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/></svg>Admissions CRM</span>
+        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#B29CFF" stroke-width="2.2"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Automation</span>
+        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#2BC98A" stroke-width="2.2"><path d="M4 20V10M10 20V4M16 20v-8"/></svg>Analytics</span>
+        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#E8843F" stroke-width="2.2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>Student Database</span>
+        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#DE6E30" stroke-width="2.2"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><path d="M10 7h7M7 10v7"/></svg>Workflow Engine</span>
+        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2.2"><path d="M4 6h16v10H9l-5 4V6z"/></svg>Communication</span>
+        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#6FA3F2" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6"/></svg>Applications</span>
+        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#2BC98A" stroke-width="2.2"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/></svg>Security</span>
       </div>
     </div>
-    <div class=&quot;numrow&quot;>
-      <div class=&quot;num rev&quot;><div class=&quot;nv&quot;><span data-count=&quot;10&quot; data-suffix=&quot;M+&quot;>0M+</span></div><div class=&quot;nd&quot;>enquiries managed end-to-end</div></div>
-      <div class=&quot;num rev d1&quot;><div class=&quot;nv&quot;><span data-count=&quot;500&quot; data-suffix=&quot;+&quot;>0+</span></div><div class=&quot;nd&quot;>institutions on ExtraaEdge</div></div>
-      <div class=&quot;num rev d2&quot;><div class=&quot;nv&quot;><span data-count=&quot;37&quot; data-suffix=&quot;%&quot;>0%</span>↑</div><div class=&quot;nd&quot;>higher conversion - no lead waits</div></div>
+    <div class="numrow">
+      <div class="num rev"><div class="nv"><span data-count="10" data-suffix="M+">0M+</span></div><div class="nd">enquiries managed end-to-end</div></div>
+      <div class="num rev d1"><div class="nv"><span data-count="500" data-suffix="+">0+</span></div><div class="nd">institutions on ExtraaEdge</div></div>
+      <div class="num rev d2"><div class="nv"><span data-count="37" data-suffix="%">0%</span>↑</div><div class="nd">higher conversion - no lead waits</div></div>
     </div>
   </div>
 </section>
-
-
+  </div>
+  </div>
+  </div>
+  </div>
+</section>
 <script>
 (function(){
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.2});
-  document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+  var root=document.getElementById('ee-night-embed');
+  var stageWrap=document.getElementById('ee-night-stage');
+  var track=document.getElementById('eenTrack');
+  if(!root||!stageWrap||!track) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.2});
+  root.querySelectorAll('.rev').forEach(el=>io.observe(el));
 
   function countUp(el){
     const end=+el.dataset.count,suf=el.dataset.suffix||'';
@@ -4174,7 +4062,7 @@ body{background:
     (function tick(t){const p=Math.min((t-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(end*e)+suf;if(p<1)requestAnimationFrame(tick)})(t0);
   }
   const cIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){countUp(e.target);o.unobserve(e.target)}})},{threshold:.6});
-  document.querySelectorAll('.band [data-count]').forEach(el=>cIO.observe(el));
+  root.querySelectorAll('.band [data-count]').forEach(el=>cIO.observe(el));
 
   function runTimer(el){
     const max=+el.dataset.max||120;
@@ -4186,14 +4074,14 @@ body{background:
   }
 
   /* ---- story player ---- */
-  const DUR=5200,N=6,DAY_AT=3;
-  const steps=[...document.querySelectorAll('#steps .step')];
-  const shots=[...document.querySelectorAll('#stage .shot')];
-  const fnodes=[...document.querySelectorAll('#flowline .fnode')];
-  const playBtn=document.getElementById('pplay');
-  const icPlay=document.getElementById('icplay'),icPause=document.getElementById('icpause');
-  const mnow=document.getElementById('mnow');
-  let cur=0,elapsed=0,last=null,paused=false,raf=null;
+  const DUR=5200,N=6,DAY_AT=3,STORY=0.74;
+  const steps=[...root.querySelectorAll('#steps .step')];
+  const shots=[...root.querySelectorAll('#stage .shot')];
+  const fnodes=[...root.querySelectorAll('#flowline .fnode')];
+  const playBtn=root.querySelector('#pplay');
+  const icPlay=root.querySelector('#icplay'),icPause=root.querySelector('#icpause');
+  const mnow=root.querySelector('#mnow');
+  let cur=0,elapsed=0,last=null,paused=false,raf=null,userPaused=false;
   const seen=new Set([0]);
 
   function render(i){
@@ -4202,7 +4090,7 @@ body{background:
     shots.forEach((s,j)=>s.classList.toggle('on',j===i));
     fnodes.forEach((f,j)=>f.classList.toggle('hot',j<=i));
     if(mnow){const s=steps[i];mnow.querySelector('.mi').textContent=String(i+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');mnow.querySelector('.mm b').textContent=s.querySelector('.tt h3').textContent;mnow.querySelector('.mm span').textContent=s.querySelector('.tt span').textContent;mnow.querySelector('.mt').textContent=s.querySelector('.tm').textContent;}
-    document.body.classList.toggle('day',i>=DAY_AT);
+    root.classList.toggle('day',i>=DAY_AT);
     if(!seen.has(i)){seen.add(i);
       const sh=shots[i];
       sh.querySelectorAll('[data-count]').forEach(countUp);
@@ -4216,7 +4104,7 @@ body{background:
   }
   function loop(t){
     if(last===null)last=t;
-    if(!paused&amp;&amp;!reduce){
+    if(!paused&&!reduce){
       elapsed+=t-last;
       const bar=steps[cur].querySelector('.pbar i');
       bar.style.width=Math.min(elapsed/DUR*100,100)+'%';
@@ -4231,114 +4119,49 @@ body{background:
     icPlay.style.display=p?'block':'none';
     playBtn.setAttribute('aria-label',p?'Play story':'Pause story');
   }
-  let userPaused=false;
-  steps.forEach(s=>s.addEventListener('click',()=>go(+s.dataset.i)));
+  steps.forEach(s=>s.addEventListener('click',()=>{userPaused=true;setPaused(true);go(+s.dataset.i)}));
   playBtn.addEventListener('click',()=>{userPaused=!userPaused;setPaused(userPaused)});
-  var prevBtn=document.getElementById('pprev'),nextBtn=document.getElementById('pnext');
+  var prevBtn=root.querySelector('#pprev'),nextBtn=root.querySelector('#pnext');
   function stepBy(d){ userPaused=true; setPaused(true); go(cur+d); }
   if(prevBtn) prevBtn.addEventListener('click',()=>stepBy(-1));
   if(nextBtn) nextBtn.addEventListener('click',()=>stepBy(1));
-  const stage=document.getElementById('stage');
-  /* On phones, move the prev/next buttons onto the stage as left/right
-     side arrows (same pattern as the Agentic AI Suite carousel). */
-  var mqSide=window.matchMedia('(max-width:960px)');
-  /* side arrows removed - scrolling drives the story on every device */
+  const stage=root.querySelector('#stage');
   stage.addEventListener('mouseenter',()=>{if(!reduce)setPaused(true)});
-  stage.addEventListener('mouseleave',()=>{if(!reduce&amp;&amp;!userPaused)setPaused(false)});
+  stage.addEventListener('mouseleave',()=>{if(!reduce&&!userPaused)setPaused(false)});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)setPaused(true)});
-  window.addEventListener('message',e=>{
-    if(e.data==='ee-pause')setPaused(true);
-    else if(e.data==='ee-play'&amp;&amp;!userPaused)setPaused(false);
-    else if(typeof e.data==='string'&amp;&amp;e.data.indexOf('ee-goto-')===0){
-      /* scroll-driven: parent tells us which step to show */
-      userPaused=true; setPaused(true);
-      var gi=parseInt(e.data.slice(8),10); if(!isNaN(gi))go(gi);
-    }
-    else if(typeof e.data==='string'&amp;&amp;e.data.indexOf('ee-prog-')===0){
-      /* the tail of the pinned scroll slides the whole story up so the
-         flow timeline + modules band are fully visible before the pin releases */
-      var x=parseFloat(e.data.slice(8)); if(isNaN(x)) return;
-      var m=document.documentElement.scrollHeight-window.innerHeight;
-      var t=x<=0.74?0:(x-0.74)/0.26;
-      document.body.style.transform=m>0?'translateY('+(-Math.round(t*m))+'px)':'';
-    }
-  });
 
-  render(0);
-  if(reduce){setPaused(true)}else{raf=requestAnimationFrame(loop)}
-})();
-</script>
-</body>
-</html>
-"></iframe>
-  </div>
-  </div>
-</section>
-<script>
-/* Scroll-driven storytelling controller (desktop): map scroll progress through
-   the pinned track to the 6 story steps and tell the iframe which step to show. */
-(function(){
-  var track=document.getElementById('eenTrack');
-  var frame=document.getElementById('eeNightFrame');
-  if(!track||!frame) return;
-  var N=6, last=-1, ticking=false;
-  var mq=window.matchMedia('(max-width:960px)');
-  function update(){
+  /* ---- scroll-driven storytelling (desktop + mobile pin): map scroll progress
+     through the pinned track to the 6 story steps, then slide the lower
+     sections into view for the tail of the pin - all in-process now, no
+     postMessage/iframe boundary needed. ---- */
+  var lastStep=-1, ticking=false;
+  function scrollUpdate(){
     ticking=false;
-    if(window.innerHeight>=1200||(document.documentElement.className+' '+document.body.className).indexOf('ee-embed-mode')!==-1) return;  /* deep zoom-out + embeds keep auto-play */
+    if(window.innerHeight>=1200||(document.documentElement.className+' '+document.body.className).indexOf('ee-embed-mode')!==-1) return;
     var pinEl=track.querySelector('.een-pin');
     var total=track.offsetHeight - (pinEl?pinEl.offsetHeight:(window.innerHeight||document.documentElement.clientHeight));
     if(total<=0) return;
     var top=track.getBoundingClientRect().top;
     var p=Math.min(1,Math.max(0, -top/total));
-    /* first 74% of the track plays the 6 story steps; the last 26% slides the
-       story up inside the frame so the flow timeline + "One brain. Nine
-       modules." band are also fully shown on desktop */
-    var STORY=0.74;
     var sp=Math.min(1,p/STORY);
     var i=Math.min(N-1, Math.floor(sp*N + 0.0001));
-    if(i!==last){ last=i; try{ frame.contentWindow.postMessage('ee-goto-'+i,'*'); }catch(e){} }
-    try{ frame.contentWindow.postMessage('ee-prog-'+p.toFixed(4),'*'); }catch(e){}
+    if(i!==lastStep){ lastStep=i; userPaused=true; setPaused(true); go(i); }
+    var m=root.scrollHeight-stageWrap.clientHeight;
+    var t=p<=STORY?0:(p-STORY)/(1-STORY);
+    root.style.transform=m>0?'translateY('+(-Math.round(t*m))+'px)':'';
   }
-  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(scrollUpdate); } }
   window.addEventListener('scroll',onScroll,{passive:true});
   window.addEventListener('resize',onScroll,{passive:true});
-  onScroll();
-})();
-</script>
-<script>
-(function(){
-  var f=document.getElementById('eeNightFrame'); if(!f) return;
-  var mqm=window.matchMedia('(max-width:960px)');
-  function fit(){
-    try{
-      /* desktop uses the pinned 100% layout - never force an inline height there */
-      if(window.innerHeight<1200&&(document.documentElement.className+' '+document.body.className).indexOf('ee-embed-mode')===-1){ if(f.style.height) f.style.height=''; return; }
-      var d=f.contentDocument||(f.contentWindow&&f.contentWindow.document);
-      if(!d||!d.body) return;
-      /* measure the body box, NOT scrollHeight: scrollHeight is floored at the
-         current iframe height, so the frame could grow but never shrink back,
-         leaving a dead empty band under the story */
-      var h=Math.ceil(d.body.getBoundingClientRect().height);
-      if(h>300 && Math.abs(h-(parseInt(f.style.height,10)||0))>2) f.style.height=h+'px';
-    }catch(e){}
-  }
-  if(mqm.addEventListener) mqm.addEventListener('change',fit);
-  function post(m){ try{ if(f.contentWindow) f.contentWindow.postMessage(m,'*'); }catch(e){} }
-  f.addEventListener('load',function(){
-    fit(); setTimeout(fit,300); setTimeout(fit,1200);
-    /* resize only when the story's own size actually changes - no periodic reflow polling */
-    try{
-      var d=f.contentDocument||(f.contentWindow&&f.contentWindow.document);
-      if(d&&d.body&&'ResizeObserver' in window){ new ResizeObserver(function(){ requestAnimationFrame(fit); }).observe(d.body); }
-      else { var n=0, iv=setInterval(function(){ fit(); if(++n>20) clearInterval(iv); }, 800); }
-    }catch(e){}
-  });
-  window.addEventListener('resize',function(){ clearTimeout(f.__t); f.__t=setTimeout(fit,150); });
-  /* play the story only while it's on screen - off-screen it's paused, so it never competes for frames */
+
+  /* play the story only while it's on screen */
   if('IntersectionObserver' in window){
-    new IntersectionObserver(function(es){ es.forEach(function(e){ post(e.isIntersecting?'ee-play':'ee-pause'); }); },{rootMargin:'120px 0px'}).observe(f);
+    new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ if(!userPaused)setPaused(false); } else { setPaused(true); } }); },{rootMargin:'120px 0px'}).observe(stageWrap);
   }
+
+  render(0);
+  onScroll();
+  if(reduce){setPaused(true)}else{raf=requestAnimationFrame(loop)}
 })();
 </script>
 <!-- ===================== /EE · WHILE YOUR CAMPUS SLEEPS ===================== -->
