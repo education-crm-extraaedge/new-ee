@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-slidecenter -->
+<!-- ee-front-tpl v2026-07-28-readable -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3912,26 +3912,55 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
    one screen), centred player, and card-style flow/modules/stats layout */
 @media(max-width:960px){
   #ee-night-embed .player{justify-content:center}
-  #ee-night-embed .phone{width:min(268px,74vw)}
+  #ee-night-embed .phone{width:min(304px,86vw);padding:7px;border-radius:34px}
+  #ee-night-embed .phone .screen{border-radius:28px}
+  #ee-night-embed .notch{display:none}
   #ee-night-embed .notch{width:70px;height:18px;top:10px}
   #ee-night-embed .phone .screen{min-height:0!important}
-  #ee-night-embed .whead{padding:20px 12px 8px}
+  #ee-night-embed .whead{padding:12px 12px 8px}
   #ee-night-embed .whead .wava{width:30px;height:30px}
   #ee-night-embed .whead .wn b{font-size:12.5px}
   #ee-night-embed .whead .wn span{font-size:10px}
   #ee-night-embed .wbody{padding:9px 9px;gap:5px}
-  #ee-night-embed .wmsg{font-size:11.5px;line-height:1.4;padding:5px 8px 4px;border-radius:9px;max-width:88%}
+  #ee-night-embed .wmsg{font-size:12.5px;line-height:1.42;padding:6px 9px 5px;border-radius:9px;max-width:90%}
   #ee-night-embed .wmsg .wtm{font-size:8.5px}
   #ee-night-embed .wdate{font-size:9px;padding:4px 9px}
   #ee-night-embed .winput{padding:6px 9px 10px}
   #ee-night-embed .winput .wfield{padding:8px 13px;font-size:11px}
   #ee-night-embed .winput .wmic{width:32px;height:32px}
-  #ee-night-embed .callscr{padding-top:26px}
+  #ee-night-embed .callscr{padding-top:16px}
   #ee-night-embed .callscr .cava{width:62px;height:62px;margin-bottom:10px}
   /* slide fitter: JS computes the exact stage height; every mockup is
      scaled to fill it so all six slides look consistent on any phone */
   #ee-night-embed .stage{height:var(--eenStageH,auto)!important;min-height:0!important;overflow:hidden}
-  #ee-night-embed .payhead{padding:26px 14px 11px}
+  #ee-night-embed .payhead{padding:16px 14px 10px}
+  /* short phones: drop the caption + context sub-line so the mockup itself
+     gets the room and stays readable */
+  @media(max-height:700px){
+    #ee-night-embed .evcap{display:none}
+    #ee-night-embed .mnow .mm span{display:none}
+    #ee-night-embed .winput{display:none}
+    #ee-night-embed .wdate{display:none}
+    #ee-night-embed .callbtns{display:none}
+  }
+  #ee-night-embed .player{padding:8px 5vw 10px}
+  #ee-night-embed .mnow{padding:8px 11px;margin-top:8px;border-radius:11px}
+  #ee-night-embed .mnow .mm b{font-size:12.5px}
+  #ee-night-embed .mnow .mm span{font-size:10px}
+  #ee-night-embed .mnow .mi{font-size:9px;padding:5px 7px}
+  #ee-night-embed .mnow .mt{font-size:10px}
+  /* readable in-mockup text on phones */
+  #ee-night-embed .fld b{font-size:13px}
+  #ee-night-embed .fld span{font-size:9.5px}
+  #ee-night-embed .leadhead .ln b{font-size:15px}
+  #ee-night-embed .tline{font-size:13px}
+  #ee-night-embed .factor .fl{font-size:12.5px}
+  #ee-night-embed .scoreverdict{font-size:12.5px}
+  #ee-night-embed .assign h3{font-size:14px}
+  #ee-night-embed .assign p{font-size:12.5px}
+  #ee-night-embed .att{font-size:11.5px}
+  #ee-night-embed .payrows .pr{font-size:12px}
+  #ee-night-embed .evcap{font-size:12.5px;margin-top:10px;max-width:92vw}
   #ee-night-embed .paybody{padding:16px 13px}
   /* flow recap: tidy 2-up cards, icon left, label + time stacked */
   #ee-night-embed .flow{padding:16px 5vw 10px}
@@ -4219,9 +4248,9 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
     const availH=stage.clientHeight-capH-6, availW=stage.clientWidth;
     const ih=inner.offsetHeight, iw=inner.offsetWidth;
     if(ih<10||availH<100) return;
-    /* keep the mockup at ~80% of the free space and centre it vertically,
-       so every slide floats in the middle with clear breathing room */
-    const s=Math.min(1,(availH*0.8)/ih,(availW*0.9)/iw);
+    /* use nearly all the free space (text stays as large as possible),
+       centre the mockup in whatever margin remains */
+    const s=Math.min(1,(availH*0.96)/ih,(availW*0.94)/iw);
     const free=Math.max(0,availH-ih*s);
     inner.style.transform='scale('+s.toFixed(3)+')';
     inner.style.transformOrigin='top center';
