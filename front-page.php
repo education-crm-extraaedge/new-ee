@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-heroclip -->
+<!-- ee-front-tpl v2026-07-28-mobilepass -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -115,19 +115,19 @@ html body #main-content h4:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embe
    on small screens (desktop keeps 40/30/20/14) ── */
 @media(max-width:820px){
 html body #main-content h1:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:28px !important;
+    font-size:26px !important;
 }
 html body #main-content h2:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:21px !important;
+    font-size:19px !important;
 }
 html body #main-content h3:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:17px !important;
+    font-size:15.5px !important;
 }
 html body #main-content h4:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:13px !important;
+    font-size:12.5px !important;
 }
 html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:14.5px !important;
+    font-size:13.5px !important;
 }
 }
 </style>
@@ -3156,7 +3156,10 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
       window.removeEventListener('scroll', onScroll);
     }
     var vEMB=(document.documentElement.className+' '+(document.body?document.body.className:'')).indexOf('ee-embed-mode')!==-1;
-    function evaluate(){ (!reduce && !vEMB && window.innerHeight<1150) ? enable() : disable(); }
+    /* scroll-driven mode is desktop-only: on phones the rail stays a native
+       swipe carousel (scroll-snap) - the pinned variant left users stuck on
+       card 1 with no arrows and a tall empty track */
+    function evaluate(){ (!reduce && !vEMB && mq.matches && window.innerHeight<1150) ? enable() : disable(); }
 
     evaluate();
     window.addEventListener('resize', function(){ evaluate(); recalc(); }, {passive:true});
@@ -5639,6 +5642,71 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   function arm(){ armedUntil=Date.now()+2400; setTimeout(check,700); setTimeout(check,1500); setTimeout(check,2300); }
   window.addEventListener('hashchange',arm);
   if(location.hash){ (document.readyState==='complete') ? arm() : window.addEventListener('load',arm); }
+})();
+</script>
+<style id="ee-mobile-compact">
+/* ── Mobile compaction pass: smaller grids/cards on phones ── */
+@media(max-width:640px){
+  /* One platform, every team */
+  #ee-teams{padding:44px 0}
+  #ee-teams .ee-teams-grid{grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+  #ee-teams .ee-card{padding:14px 13px;gap:8px;border-radius:13px}
+  /* Industries */
+  #ee-ind .spx-grid{gap:10px}
+  #ee-ind .spx-card{padding:14px 13px;border-radius:13px}
+  /* ROI calculator + comparison table */
+  #ee-cro .roi-in{padding:16px 14px}
+  #ee-cro .roi{border-radius:14px}
+  #ee-cro table th,#ee-cro table td{padding:8px 8px;font-size:11px}
+  /* Fast implementation timeline */
+  #ee-golive{padding:38px 0}
+  #ee-golive .rvh{margin-bottom:20px}
+  #ee-golive .tl{gap:9px}
+  #ee-golive .st{padding:12px 12px;border-radius:12px}
+  /* Switching is easy */
+  #ee-switch{padding:38px 0}
+  #ee-switch .sw{display:grid;grid-template-columns:1fr;gap:14px}
+  #ee-switch .swl,#ee-switch .swr{padding:16px 14px;border-radius:14px}
+  #ee-switch .g{gap:8px}
+  #ee-switch .gain{padding:9px 10px;border-radius:11px}
+  #ee-switch .cta{padding:12px 18px;font-size:13.5px}
+  /* Resources */
+  #ee-resources .ee-r-grid{gap:10px}
+  #ee-resources .ee-r-card{padding:14px 13px;border-radius:13px}
+  #ee-resources .ee-r-ico{width:34px;height:34px}
+}
+</style>
+<script>
+/* Logo marquee watchdog: a few mobile browsers/settings stop the CSS keyframe
+   animation (e.g. animation-reducing modes). If a track has not moved ~1s
+   after load, drive the same seamless loop with JS instead. Runs only while
+   the strip is on screen. */
+(function(){
+  var sec=document.getElementById('trusted-institutions'); if(!sec) return;
+  var visible=true;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ visible=e.isIntersecting; }); },{rootMargin:'100px 0px'}).observe(sec);
+  }
+  function watch(sel,dir){
+    var el=sec.querySelector(sel); if(!el) return;
+    var t1=getComputedStyle(el).transform;
+    setTimeout(function(){
+      var t2=getComputedStyle(el).transform;
+      if(t1!==t2) return;                       /* CSS animation is running fine */
+      el.style.animation='none';
+      var half=el.scrollWidth/2||1, x=(dir>0?-half:0);
+      (function step(){
+        if(visible){
+          x+=dir*0.55;
+          if(dir<0&&-x>=half)x=0;
+          if(dir>0&&x>=0)x=-half;
+          el.style.transform='translateX('+x+'px)';
+        }
+        requestAnimationFrame(step);
+      })();
+    },1000);
+  }
+  setTimeout(function(){ watch('.marquee-left',-1); watch('.marquee-right',1); },1400);
 })();
 </script>
 <style id="ee-render-lazy">
