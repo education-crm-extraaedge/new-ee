@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-advpanel -->
+<!-- ee-front-tpl v2026-07-28-wowtour -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -868,6 +868,12 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 #ee-platform .eep-mod-info span{font-size:11.5px;line-height:1.45;color:#5a6b85}
 #ee-platform .eep-mod-info em{font-style:normal;font-size:11px;font-weight:700;color:#1FAF66}
 #ee-platform .eep-mod-info em::before{content:"\2713  "}
+#ee-platform .eep-mod-prog{display:none;position:relative;height:3px;margin-top:8px;border-radius:2px;background:rgba(25,52,93,.1);overflow:hidden}
+#ee-platform .eep-mod-info.ticking .eep-mod-prog{display:block}
+#ee-platform .eep-mod-info.ticking .eep-mod-prog::after{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#E8843F,#DE6E30);animation:eepTick 6s linear forwards}
+@keyframes eepTick{to{width:100%}}
+#ee-platform .eep-window{transition:box-shadow .4s ease}
+#ee-platform .eep-window.eep-flash{box-shadow:0 0 0 3px rgba(222,110,48,.45),0 24px 60px -24px rgba(222,110,48,.35)}
 /* overlay bottom module strip: switch screens without closing the experience */
 .eep-ovnav{display:none;position:absolute;left:0;right:0;bottom:0;height:46px;z-index:15;background:#12243f;border-top:1px solid rgba(255,255,255,.1);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;white-space:nowrap;padding:7px 8px}
 .eep-ovnav::-webkit-scrollbar{display:none}
@@ -899,7 +905,7 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
     <aside class="eep-mods" aria-label="CRM modules - click to open that screen in the live demo">
       <div class="eep-mods-head">
         <h3 class="eep-mods-title">Every action, superpowered.</h3>
-        <button type="button" class="eep-tour" id="eepTour" aria-pressed="false" title="Auto-play a tour of all modules"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8V4z"/></svg><span>Tour</span></button>
+        <button type="button" class="eep-tour" id="eepTour" aria-pressed="false" title="Auto-play a tour of all modules"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8V4z"/></svg><span id="eepTourN">Tour</span></button>
       </div>
       <div class="eep-mods-grid">
         <button type="button" class="eep-mod on" data-go="outcomes" data-url="/dashboards" data-info="Live funnel, source ROI and counsellor performance." data-gain="Decisions in minutes"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span><b>Dashboards</b></button>
@@ -916,6 +922,7 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
         <b id="eepModInfoName">Dashboards</b>
         <span id="eepModInfoTx">Live funnel, source ROI and counsellor performance.</span>
         <em id="eepModInfoGain">Decisions in minutes</em>
+        <i class="eep-mod-prog" id="eepModProg" aria-hidden="true"></i>
       </div>
     </aside>
     <button type="button" class="eep-mlaunch" id="eepLaunch" aria-label="Open the interactive product experience">
@@ -1731,6 +1738,12 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
     loadFrame();
     syncMeta(b);
     navFrame(b.getAttribute('data-go'));
+    /* glow flash on the window so the screen change reads instantly */
+    if(winEl){ winEl.classList.remove('eep-flash'); void winEl.offsetWidth; winEl.classList.add('eep-flash');
+      clearTimeout(winEl.__fl); winEl.__fl=setTimeout(function(){ winEl.classList.remove('eep-flash'); },700); }
+    /* per-module countdown while the tour runs */
+    var box=document.getElementById('eepModInfo');
+    if(box){ box.classList.remove('ticking'); if(fromTour){ void box.offsetWidth; box.classList.add('ticking'); } }
   }
   mods.forEach(function(b){
     b.addEventListener('click',function(){
@@ -1744,23 +1757,35 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
   function stopTour(){
     if(tourTimer){ clearInterval(tourTimer); tourTimer=null; }
     if(tourBtn){ tourBtn.classList.remove('on'); tourBtn.setAttribute('aria-pressed','false'); }
+    var n=document.getElementById('eepTourN'); if(n) n.textContent='Tour';
+    var box=document.getElementById('eepModInfo'); if(box) box.classList.remove('ticking');
   }
+  function tourLabel(){ var n=document.getElementById('eepTourN'); if(n) n.textContent=(tourIdx+1)+'/'+mods.length; }
   function startTour(){
     stopTour();
     if(tourBtn){ tourBtn.classList.add('on'); tourBtn.setAttribute('aria-pressed','true'); }
     tourIdx=mods.findIndex(function(b){ return b.classList.contains('on'); });
     tourTimer=setInterval(function(){
       tourIdx=(tourIdx+1)%mods.length;
-      selectModule(mods[tourIdx],true);
+      selectModule(mods[tourIdx],true); tourLabel();
     },6000);
     tourIdx=(tourIdx+1)%mods.length;
-    selectModule(mods[tourIdx],true);
+    selectModule(mods[tourIdx],true); tourLabel();
   }
   if(tourBtn) tourBtn.addEventListener('click',function(){ tourTimer?stopTour():startTour(); });
-  /* pause the tour while the demo itself is being used or off screen */
+  /* pause the tour while the demo itself is being used or off screen;
+     on desktop the tour starts by itself the first time the section is
+     properly on screen - the demo literally plays itself */
   if(fr) fr.addEventListener('mouseenter',stopTour);
+  var autoToured=false;
   if('IntersectionObserver' in window){
-    new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) stopTour(); }); }).observe(sec);
+    new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(!e.isIntersecting){ stopTour(); return; }
+      if(!autoToured && !mq.matches && e.intersectionRatio>=0.45){
+        autoToured=true;
+        setTimeout(function(){ if(!tourTimer && !mq.matches) startTour(); },1200);
+      }
+    }); },{threshold:[0,0.45]}).observe(sec);
   }
   if(closeBtn) closeBtn.addEventListener('click',closeExp);
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && isOpen()) closeExp(); });
