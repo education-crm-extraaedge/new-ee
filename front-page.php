@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-nightfull -->
+<!-- ee-front-tpl v2026-07-28-nightsteps -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3891,6 +3891,17 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 }#ee-night-embed .phone,#ee-night-embed .appwin{
   box-shadow:0 0 0 1px rgba(255,255,255,.10),0 44px 84px -30px rgba(0,0,0,.72),0 10px 34px -22px rgba(222,110,48,.5)!important;
 }
+/* Neutralize legacy global bare-class styles (.step/.fnode/.flow/.pbar/.fl
+   from the old hero + flow widgets earlier in this template) that leak into
+   this directly-embedded story. Without these, the 6-step list renders at
+   opacity:0 (invisible), flow nodes become white cards, the .flow section
+   turns into a flex row and score-factor lines go position:absolute. */
+#ee-night-embed .step{opacity:1;transform:none;background:transparent;margin-bottom:0;box-shadow:none;width:auto}
+#ee-night-embed .fnode{width:auto;background:transparent;border:0;border-radius:0;padding:0;box-shadow:none;transform:none}
+#ee-night-embed .fnode b{margin-top:0}
+#ee-night-embed .flow{display:block;margin-top:0}
+#ee-night-embed .pbar{background:var(--hair);border-radius:2px}
+#ee-night-embed .fl{position:static;background:transparent;border-radius:0;box-shadow:none;padding:0}
 </style>
 <noscript><style>#ee-night .een-track{height:auto!important}#ee-night .een-pin{position:static!important;height:auto!important;overflow:visible!important}#ee-night #ee-night-stage{height:auto!important;overflow:visible!important}#ee-night-embed .rev{opacity:1!important;transform:none!important}#ee-night-embed .shot{position:relative!important;inset:auto!important;opacity:1!important;transform:none!important;pointer-events:auto;display:flex!important;margin-bottom:26px}#ee-night-embed .stage{height:auto!important;display:block!important}#ee-night-embed .tline{opacity:.92!important;transform:none!important}#ee-night-embed .factor .fb i{width:var(--w)!important}#ee-night-embed .sla .slabar i{width:88%!important}</style></noscript>
 <section id="ee-night" aria-label="The admission operating system in action">
