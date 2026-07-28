@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-prodaudit -->
+<!-- ee-front-tpl v2026-07-28-glitchfix -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -326,22 +326,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     <ul class="eetoc-list">
       <li><a href="#xhero" data-t="xhero"><i>01</i><span>Top</span></a></li>
       <li><a href="#trusted-institutions" data-t="trusted-institutions"><i>02</i><span>Broad Client Base</span></a></li>
-      <li><a href="#why-admissions-leak" data-t="why-admissions-leak"><i>03</i><span>Where admissions leak</span></a></li>
-      <li><a href="#ee-night" data-t="ee-night"><i>05</i><span>The Admission Operating System</span></a></li>
-      <li><a href="#ee-platform" data-t="ee-platform"><i>06</i><span>AI Product-Led Experience</span></a></li>
-      <li><a href="#ee-products" data-t="ee-products"><i>07</i><span>The admissions platform</span></a></li>
-      <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>08</i><span>Agentic AI Suite</span></a></li>
-      <li><a href="#ee-teams" data-t="ee-teams"><i>09</i><span>One platform, every team</span></a></li>
-      <li><a href="#ee-solutions" data-t="ee-solutions"><i>10</i><span>Solutions</span></a></li>
-      <li><a href="#ee-ind" data-t="ee-ind"><i>11</i><span>Industries</span></a></li>
-      <li><a href="#stories" data-t="stories"><i>12</i><span>CRM Impact Stories</span></a></li>
-      <li><a href="#ee-cro" data-t="ee-cro"><i>13</i><span>Why teams switch to us</span></a></li>
-      <li><a href="#integrations" data-t="integrations"><i>14</i><span>Extensions &amp; Integrations</span></a></li>
-      <li><a href="#security" data-t="security"><i>15</i><span>Enterprise-grade trust</span></a></li>
-      <li><a href="#ee-golive" data-t="ee-golive"><i>16</i><span>Fast implementation</span></a></li>
-      <li><a href="#ee-resources" data-t="ee-resources"><i>17</i><span>Resources</span></a></li>
-      <li><a href="#ee-events" data-t="ee-events"><i>18</i><span>Events &amp; Webinars</span></a></li>
-      <li><a href="#faq" data-t="faq"><i>19</i><span>Frequently Asked</span></a></li>
+      <li><a href="#ee-night" data-t="ee-night"><i>03</i><span>The Admission Operating System</span></a></li>
+      <li><a href="#ee-platform" data-t="ee-platform"><i>04</i><span>AI Product-Led Experience</span></a></li>
+      <li><a href="#ee-products" data-t="ee-products"><i>05</i><span>The admissions platform</span></a></li>
+      <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>06</i><span>Agentic AI Suite</span></a></li>
+      <li><a href="#ee-teams" data-t="ee-teams"><i>07</i><span>One platform, every team</span></a></li>
+      <li><a href="#ee-solutions" data-t="ee-solutions"><i>08</i><span>Solutions</span></a></li>
+      <li><a href="#ee-ind" data-t="ee-ind"><i>09</i><span>Industries</span></a></li>
+      <li><a href="#stories" data-t="stories"><i>10</i><span>CRM Impact Stories</span></a></li>
+      <li><a href="#ee-cro" data-t="ee-cro"><i>11</i><span>Why teams switch to us</span></a></li>
+      <li><a href="#integrations" data-t="integrations"><i>12</i><span>Extensions &amp; Integrations</span></a></li>
+      <li><a href="#security" data-t="security"><i>13</i><span>Enterprise-grade trust</span></a></li>
+      <li><a href="#ee-golive" data-t="ee-golive"><i>14</i><span>Fast implementation</span></a></li>
+      <li><a href="#ee-resources" data-t="ee-resources"><i>15</i><span>Resources</span></a></li>
+      <li><a href="#ee-events" data-t="ee-events"><i>16</i><span>Events &amp; Webinars</span></a></li>
+      <li><a href="#faq" data-t="faq"><i>17</i><span>Frequently Asked</span></a></li>
     </ul>
   </nav>
 </div>
@@ -763,70 +762,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </section>
 
 
-<!-- STORY 1 · THE REAL PROBLEM -->
-<!-- ================= The Real Problem - The Admissions Narrative (scoped .tan-*) ================= -->
-<section id="why-admissions-leak" class="tan-sec" aria-labelledby="tan-h">
-<style>
-.lp2-sec{padding:clamp(48px,7vw,88px) 0 0}
-.lp2-head{max-width:760px;margin:0 auto 28px;padding:0 20px;text-align:center}
-.lp2-eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#DE6E30;margin:0 0 10px}
-.lp2-h2{font-size:clamp(24px,3.4vw,38px);font-weight:800;color:#0f203a;margin:0 0 10px;line-height:1.15}
-.lp2-sub{font-size:15px;color:#5a6b85;margin:0}
-
-.lp2-wrap{position:relative;height:340vh}
-.lp2-pin{position:sticky;top:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;overflow:hidden}
-
-.lp2-nav{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;justify-content:center}
-.lp2-navbtn{display:flex;align-items:center;gap:8px;border:1.5px solid rgba(15,32,58,.12);background:#fff;border-radius:999px;padding:8px 16px 8px 10px;cursor:pointer;font-family:inherit;transition:border-color .25s,background .25s}
-.lp2-navbtn b{width:22px;height:22px;border-radius:50%;background:#eef1f6;color:#5a6b85;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .25s,color .25s}
-.lp2-navbtn span{font-size:12.5px;font-weight:700;color:#5a6b85;white-space:nowrap}
-.lp2-navbtn.on{border-color:var(--lp2-accent,#DE6E30);background:rgba(222,110,48,.06)}
-.lp2-navbtn.on b{background:var(--lp2-accent,#DE6E30);color:#fff}
-.lp2-navbtn.on span{color:#0f203a}
-
-.lp2-progress{width:min(600px,90%);height:3px;background:rgba(15,32,58,.08);border-radius:3px;margin-bottom:28px;overflow:hidden;flex-shrink:0}
-.lp2-progress-fill{height:100%;width:25%;background:linear-gradient(90deg,#DE6E30,#E8843F);border-radius:3px;transition:width .4s cubic-bezier(.65,0,.35,1)}
-
-.lp2-stage{display:grid;width:min(980px,94%)}
-.lp2-story{grid-area:1/1;opacity:0;transform:translateY(18px);pointer-events:none;transition:opacity .5s ease,transform .5s ease}
-.lp2-story.on{opacity:1;transform:translateY(0);pointer-events:auto}
-
-.lp2-story-head{display:flex;align-items:center;gap:16px;margin-bottom:22px;justify-content:center;text-align:left}
-.lp2-badge{width:54px;height:54px;border-radius:50%;background:#fff;border:2.5px solid var(--lp2-accent,#DE6E30);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.lp2-badge img.eeimg{width:26px;height:26px}
-.lp2-story-title h3{font-size:24px;font-weight:800;color:#0f203a;margin:0 0 2px}
-.lp2-story-title p{font-size:13.5px;color:#5a6b85;margin:0}
-
-.lp2-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.lp2-step{background:#F7F8FB;border:1px solid rgba(15,32,58,.07);border-radius:14px;padding:16px 14px;display:flex;flex-direction:column;gap:10px}
-.lp2-step-ic{width:38px;height:38px;border-radius:10px;background:var(--lp2-accent,#DE6E30);display:flex;align-items:center;justify-content:center;color:#fff}
-.lp2-step-ic svg,.lp2-step-ic img.eeimg{width:19px;height:19px}
-.lp2-step-txt b{display:block;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--lp2-accent,#DE6E30);margin:0 0 5px}
-.lp2-step-txt p{font-size:12.5px;line-height:1.5;color:#3b4a63;margin:0}
-
-@media(max-width:900px){
-  .lp2-steps{grid-template-columns:1fr 1fr;gap:10px}
-}
-@media(max-width:600px){
-  .lp2-pin{padding:16px}
-  .lp2-navbtn{padding:0;width:30px;height:30px;justify-content:center;border-radius:50%}
-  .lp2-navbtn span{display:none}
-  .lp2-nav{gap:10px;margin-bottom:16px}
-  .lp2-progress{margin-bottom:18px}
-  .lp2-steps{grid-template-columns:1fr;gap:8px}
-  .lp2-step{flex-direction:row;align-items:center;padding:10px 12px}
-  .lp2-step-ic{width:32px;height:32px;flex-shrink:0}
-  .lp2-step-ic svg,.lp2-step-ic img.eeimg{width:16px;height:16px}
-  .lp2-story-head{gap:12px;margin-bottom:14px}
-  .lp2-badge{width:44px;height:44px}
-  .lp2-badge img.eeimg{width:21px;height:21px}
-  .lp2-story-title h3{font-size:19px}
-}
-@media (prefers-reduced-motion: reduce){
-  .lp2-story{transition:none}
-}
-</style>
-</section>
+<!-- (removed) STORY 1 · THE REAL PROBLEM - empty shell cleaned up; content was superseded and removed earlier -->
 
 <style>/* ===== AI Product-Led Experience: launch + full-screen overlay (all devices) ===== */
 #ee-platform .eep-mlaunch{display:none;}#ee-platform .eep-close,#ee-platform .eep-mbook,#ee-platform .eep-expand{display:none;}/* ---- full-screen experience overlay - the window is relocated to <body> on
@@ -3963,7 +3899,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   <div id="ee-night-embed">
 <div id="sky"></div>
 <!-- ============ STORY PLAYER ============ -->
-<section class="player" id="top">
+<section class="player" id="een-player">
   <div class="pleft">
     <span class="kick rev">The Admission Operating System</span>
     <h2 class="rev d1">While your campus sleeps, <span class="o">admissions don't.</span></h2>
@@ -4246,7 +4182,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
      through the pinned track to the 6 story steps, then slide the lower
      sections into view for the tail of the pin - all in-process now, no
      postMessage/iframe boundary needed. ---- */
-  var lastStep=-1, ticking=false;
+  var lastStep=-1, ticking=false, revealedPlayer=false, revealedAll=false;
   function scrollUpdate(){
     ticking=false;
     if(window.innerHeight>=1200||(document.documentElement.className+' '+document.body.className).indexOf('ee-embed-mode')!==-1) return;
@@ -4255,6 +4191,11 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     if(total<=0) return;
     var top=track.getBoundingClientRect().top;
     var p=Math.min(1,Math.max(0, -top/total));
+    /* deterministic reveals: the lower sections (.flow/.band) are clipped by
+       the pin box until the tail-of-pin slide, so IntersectionObserver alone
+       can miss them - force their .rev fade-ins from scroll progress */
+    if(!revealedPlayer && p>0.01){ revealedPlayer=true; root.querySelectorAll('.player .rev').forEach(function(el){el.classList.add('in')}); }
+    if(!revealedAll && p>STORY-0.1){ revealedAll=true; root.querySelectorAll('.rev').forEach(function(el){el.classList.add('in')}); }
     var sp=Math.min(1,p/STORY);
     var i=Math.min(N-1, Math.floor(sp*N + 0.0001));
     if(i!==lastStep){ lastStep=i; userPaused=true; setPaused(true); go(i); }
@@ -6541,7 +6482,6 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 .ee-home>#ee-toc{order:-1}
 .ee-home>#xhero{order:10}                 /* What it is + primary CTA */
 .ee-home>#trusted-institutions{order:20}  /* Instant social proof */
-.ee-home>#why-admissions-leak{order:30}   /* The problem */
 .ee-home>#ee-night{order:50}              /* How it works, end to end */
 .ee-home>#ee-platform{order:60}           /* See the product */
 .ee-home>#vidyaai-embed-root{order:65}   /* Powerful Admission CRM with Simplicity */
