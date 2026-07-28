@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-nighth2 -->
+<!-- ee-front-tpl v2026-07-28-slidecenter -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -4214,17 +4214,19 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
     const inner=shot.firstElementChild; if(!inner) return;
     if(!mqM.matches){ inner.style.transform='';inner.style.marginBottom='';return; }
     const cap=shot.querySelector('.evcap');
-    inner.style.transform='';inner.style.marginBottom='';
+    inner.style.transform='';inner.style.marginBottom='';inner.style.marginTop='';
     const capH=cap?cap.offsetHeight+10:0;
     const availH=stage.clientHeight-capH-6, availW=stage.clientWidth;
     const ih=inner.offsetHeight, iw=inner.offsetWidth;
     if(ih<10||availH<100) return;
-    const s=Math.min(1,availH/ih,availW/iw);
-    if(s<0.99){
-      inner.style.transform='scale('+s.toFixed(3)+')';
-      inner.style.transformOrigin='top center';
-      inner.style.marginBottom=(-Math.round((1-s)*ih))+'px';
-    }
+    /* keep the mockup at ~80% of the free space and centre it vertically,
+       so every slide floats in the middle with clear breathing room */
+    const s=Math.min(1,(availH*0.8)/ih,(availW*0.9)/iw);
+    const free=Math.max(0,availH-ih*s);
+    inner.style.transform='scale('+s.toFixed(3)+')';
+    inner.style.transformOrigin='top center';
+    inner.style.marginTop=Math.round(free/2)+'px';
+    inner.style.marginBottom=Math.round(ih*s-ih+free/2)+'px';
   }
   function render(i){
     steps.forEach((s,j)=>{s.classList.toggle('on',j===i);s.classList.toggle('done',j<i);
