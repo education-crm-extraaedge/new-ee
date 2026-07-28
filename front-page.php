@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-nightmobile -->
+<!-- ee-front-tpl v2026-07-28-nightmobile2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1868,20 +1868,41 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
         }
 
         /* ---------- NEW: Back-to-top / jump button ---------- */
+        /* UP button sits directly above the floating TOC button (same left
+           rail, same 50px circle) instead of clashing with the WhatsApp/Call
+           FABs bottom-right */
         #jumpToNav {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 55;
+            left: 16px;
+            top: 50%;
+            right: auto;
+            bottom: auto;
+            width: 50px;
+            height: 50px;
+            border: 2.5px solid #fff;
+            box-shadow: 0 6px 14px rgba(15,32,64,.28);
+            z-index: 99989;
             opacity: 0;
             pointer-events: none;
-            transform: translateY(12px) scale(0.9);
+            transform: translateY(calc(-50% - 62px)) scale(0.9);
             transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
         }
         #jumpToNav.visible {
             opacity: 1;
             pointer-events: auto;
-            transform: translateY(0) scale(1);
+            transform: translateY(calc(-50% - 62px)) scale(1);
+        }
+        /* phones: the TOC fab docks bottom-left, so the UP button docks right
+           above it (16px fab + 50px height + 12px gap = bottom 78px) */
+        @media (max-width: 600px) {
+            #jumpToNav {
+                top: auto;
+                bottom: 78px;
+                transform: scale(0.9);
+            }
+            #jumpToNav.visible {
+                transform: scale(1);
+            }
         }
 
         /* ---------- NEW: image skeleton shimmer while loading ---------- */
@@ -3877,6 +3898,50 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 #ee-night-embed .flow{display:block;margin-top:0}
 #ee-night-embed .pbar{background:var(--hair);border-radius:2px}
 #ee-night-embed .fl{position:static;background:transparent;border-radius:0;box-shadow:none;padding:0}
+/* ── Mobile-first pass ── compact phone mockups (full WhatsApp chat visible in
+   one screen), centred player, and card-style flow/modules/stats layout */
+@media(max-width:960px){
+  #ee-night-embed .player{justify-content:center}
+  #ee-night-embed .phone{width:min(268px,74vw)}
+  #ee-night-embed .notch{width:70px;height:18px;top:10px}
+  #ee-night-embed .phone .screen{min-height:0!important}
+  #ee-night-embed .whead{padding:20px 12px 8px}
+  #ee-night-embed .whead .wava{width:30px;height:30px}
+  #ee-night-embed .whead .wn b{font-size:12.5px}
+  #ee-night-embed .whead .wn span{font-size:10px}
+  #ee-night-embed .wbody{padding:9px 9px;gap:5px}
+  #ee-night-embed .wmsg{font-size:11.5px;line-height:1.4;padding:5px 8px 4px;border-radius:9px;max-width:88%}
+  #ee-night-embed .wmsg .wtm{font-size:8.5px}
+  #ee-night-embed .wdate{font-size:9px;padding:4px 9px}
+  #ee-night-embed .winput{padding:6px 9px 10px}
+  #ee-night-embed .winput .wfield{padding:8px 13px;font-size:11px}
+  #ee-night-embed .winput .wmic{width:32px;height:32px}
+  #ee-night-embed .callscr{padding-top:26px}
+  #ee-night-embed .callscr .cava{width:62px;height:62px;margin-bottom:10px}
+  #ee-night-embed .payhead{padding:26px 14px 11px}
+  #ee-night-embed .paybody{padding:16px 13px}
+  /* flow recap: tidy 2-up cards, icon left, label + time stacked */
+  #ee-night-embed .flow{padding:16px 5vw 10px}
+  #ee-night-embed .flow h2{font-size:19px}
+  #ee-night-embed .flowline{display:grid!important;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+  #ee-night-embed .flowline::before{display:none}
+  #ee-night-embed .fnode{display:grid;grid-template-columns:auto 1fr;column-gap:9px;align-items:center;text-align:left;padding:8px 10px;border:1px solid var(--hair);border-radius:12px;background:var(--panel)}
+  #ee-night-embed .fnode .fdot{grid-row:1/3;margin:0;width:30px;height:30px}
+  #ee-night-embed .fnode .fdot img.eeimg{width:15px;height:15px}
+  #ee-night-embed .fnode b{grid-column:2;font-size:11px;line-height:1.25}
+  #ee-night-embed .fnode span{grid-column:2;font-size:9px;margin-top:1px}
+  /* one brain / nine modules + stats: readable 2-up pills and stat cards */
+  #ee-night-embed .band{padding:12px 5vw 18px}
+  #ee-night-embed .bandgrid{gap:14px}
+  #ee-night-embed .bandgrid h2{font-size:19px}
+  #ee-night-embed .bandgrid .bp{font-size:12px;margin-top:6px}
+  #ee-night-embed .modrow{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:7px}
+  #ee-night-embed .modpill{justify-content:flex-start!important;padding:9px 11px!important;font-size:11px!important;text-align:left!important}
+  #ee-night-embed .numrow{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:8px}
+  #ee-night-embed .num{border:1px solid var(--hair);border-radius:12px;background:var(--panel);padding:10px 6px;text-align:center}
+  #ee-night-embed .num .nv{font-size:20px!important}
+  #ee-night-embed .num .nd{font-size:9.5px!important;margin-top:4px;max-width:none}
+}
 </style>
 <noscript><style>#ee-night .een-track{height:auto!important}#ee-night .een-pin{position:static!important;height:auto!important;overflow:visible!important}#ee-night #ee-night-stage{height:auto!important;overflow:visible!important}#ee-night-embed .rev{opacity:1!important;transform:none!important}#ee-night-embed .shot{position:relative!important;inset:auto!important;opacity:1!important;transform:none!important;pointer-events:auto;display:flex!important;margin-bottom:26px}#ee-night-embed .stage{height:auto!important;display:block!important}#ee-night-embed .tline{opacity:.92!important;transform:none!important}#ee-night-embed .factor .fb i{width:var(--w)!important}#ee-night-embed .sla .slabar i{width:88%!important}</style></noscript>
 <section id="ee-night" aria-label="The admission operating system in action">
