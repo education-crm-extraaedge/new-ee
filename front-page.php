@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-perf -->
+<!-- ee-front-tpl v2026-07-28-scroll -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -139,7 +139,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg)
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:6px}
 /* respect reduced-motion / low-power devices */
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.marq__track,.arch-screen::after,.iphone-glow,.ip-spin,.wv i,.cwaves i,.scanbar::after,.ping::after,.ctyping i{animation:none!important}*,*::before,*::after{transition-duration:.01ms!important}
-}#prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--orange),var(--blue));box-shadow:0 0 12px rgba(222,110,48,.5)}/* buttons */
+}/* buttons */
 .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer;border:1.5px solid transparent;transition:transform .18s,box-shadow .25s,background .2s,color .2s;font-family:inherit}.btn-primary{background:var(--orange);color:#fff;box-shadow:0 10px 26px rgba(222,110,48,.35)}.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(222,110,48,.45)}.btn-dark{background:var(--blue);color:#fff;box-shadow:0 10px 26px rgba(25,52,93,.25)}.btn-dark:hover{transform:translateY(-3px)}.btn-ghost{background:#fff;color:var(--blue);border-color:var(--line)}.btn-ghost:hover{border-color:var(--orange);color:var(--orange)}.btn-lg{padding:17px 32px;font-size:16px}/* pills / tags */
 .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;background:var(--orange-soft);color:var(--orange);padding:8px 16px;border-radius:999px}.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--orange);margin-bottom:14px}.dot{width:8px;height:8px;border-radius:50%;background:var(--orange)}.ping{position:relative;width:10px;height:10px;border-radius:50%;background:var(--green);flex:none}.ping::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--green);animation:ping 1.6s cubic-bezier(0,0,.2,1) infinite}
 @keyframes ping{75%,100%{transform:scale(2.6);opacity:0}}/* heads / sections */
@@ -255,7 +255,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   padding-bottom:18px!important;
 }.ts-grid{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;overflow:visible!important;scroll-snap-type:none!important;margin-inline:auto!important;max-width:1180px;gap:clamp(16px,2.2vw,24px)!important}#stories .ts-card{flex:1 1 320px!important;max-width:382px!important;scroll-snap-align:none!important}#stories .ts-nav,#stories .ts-hint{display:none!important}
 </style>
-<div id="prog"></div>
 
 <!-- The theme's header.php already opens <main id="main-content">, so this
      homepage uses a plain wrapper <div> (not a second <main>) to avoid two
@@ -3855,6 +3854,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 #ee-night .een-track{position:relative;height:calc(min(100vh,870px)*3.4)}
 #ee-night .een-pin{position:sticky;top:90px;height:min(calc(100vh - 90px),780px);overflow:hidden}
 #ee-night #ee-night-stage{display:block;width:100%;height:100%;overflow:hidden;position:relative;background:#fff}
+#ee-night-embed{will-change:transform}
 /* phones: the same scroll-driven pinning, just under the shorter mobile header */
 @media(max-width:960px){
   #ee-night .een-pin{top:72px;height:min(calc(100vh - 72px),740px)}
@@ -4869,9 +4869,7 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
 /* honour reduced-motion / low-power devices */
 var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* progress */
-var prog=document.getElementById('prog');
-addEventListener('scroll',function(){var h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+/* progress bar removed - #ee-progress (global, rAF-driven) is the single scroll progress indicator */
 
 /* reveal */
 var rvObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rvObs.unobserve(e.target);}});},{threshold:0,rootMargin:'0px 0px -8%'});
@@ -5088,7 +5086,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}/* Anchor jumps land be
 </style>
 <!-- ===================== GLOBAL PREMIUM MOTION + POLISH PASS ===================== -->
 <style>html{scroll-behavior:smooth}html,body{overflow-x:clip}/* scroll progress bar (brand gradient) */
-  #ee-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:99999;background:linear-gradient(90deg,#19345d,#DE6E30);box-shadow:0 0 12px rgba(222,110,48,.45);pointer-events:none;transition:width .08s linear}/* section scroll-reveal - class is added by JS only,so no-JS users always see content */
+  #ee-progress{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0 50%;z-index:99999;background:linear-gradient(90deg,#19345d,#DE6E30);box-shadow:0 0 12px rgba(222,110,48,.45);pointer-events:none;will-change:transform}/* section scroll-reveal - class is added by JS only,so no-JS users always see content */
   .ee-reveal{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}.ee-reveal.ee-in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}#ee-progress{display:none}.ee-reveal{opacity:1!important;transform:none!important;transition:none!important}
   }
@@ -5099,9 +5097,15 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}/* Anchor jumps land be
   /* ---- scroll progress bar ---- */
   var bar=document.getElementById('ee-progress');
   if(bar){
+    var barTicking=false;
     var tick=function(){
-      var d=document.documentElement, sc=d.scrollTop||document.body.scrollTop, max=(d.scrollHeight-d.clientHeight)||1;
-      bar.style.width=Math.min(100,(sc/max*100))+'%';
+      if(barTicking) return; barTicking=true;
+      requestAnimationFrame(function(){
+        barTicking=false;
+        var d=document.documentElement, sc=d.scrollTop||document.body.scrollTop, max=(d.scrollHeight-d.clientHeight)||1;
+        /* scaleX on a composited layer - no layout/paint work per frame */
+        bar.style.transform='scaleX('+Math.min(1,sc/max).toFixed(4)+')';
+      });
     };
     window.addEventListener('scroll',tick,{passive:true});
     window.addEventListener('resize',tick,{passive:true}); tick();
