@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-mobilepass2 -->
+<!-- ee-front-tpl v2026-07-28-slidefit -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3949,6 +3949,9 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
   #ee-night-embed .winput .wmic{width:32px;height:32px}
   #ee-night-embed .callscr{padding-top:26px}
   #ee-night-embed .callscr .cava{width:62px;height:62px;margin-bottom:10px}
+  /* slide fitter: JS computes the exact stage height; every mockup is
+     scaled to fill it so all six slides look consistent on any phone */
+  #ee-night-embed .stage{height:var(--eenStageH,auto)!important;min-height:0!important;overflow:hidden}
   #ee-night-embed .payhead{padding:26px 14px 11px}
   #ee-night-embed .paybody{padding:16px 13px}
   /* flow recap: tidy 2-up cards, icon left, label + time stacked */
@@ -4215,6 +4218,35 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
   let cur=0,elapsed=0,last=null,paused=false,raf=null,userPaused=false;
   const seen=new Set([0]);
 
+  /* ---- phone slide fitter: every mockup is scaled to exactly fill the
+     stage box, so all six slides render at a consistent, fully-visible
+     size on every phone (replaces the coarse max-height CSS scales) ---- */
+  const mqM=window.matchMedia('(max-width:960px)');
+  function sizeStage(){
+    if(!mqM.matches){ stage.style.removeProperty('--eenStageH'); return; }
+    const pinBox=stageWrap.getBoundingClientRect();
+    if(pinBox.height<200) return;
+    const top=stage.getBoundingClientRect().top-pinBox.top;
+    const h=Math.round(pinBox.height-top-14);
+    if(h>240) stage.style.setProperty('--eenStageH',h+'px');
+  }
+  function fitShot(){
+    const shot=root.querySelector('#stage .shot.on'); if(!shot) return;
+    const inner=shot.firstElementChild; if(!inner) return;
+    if(!mqM.matches){ inner.style.transform='';inner.style.marginBottom='';return; }
+    const cap=shot.querySelector('.evcap');
+    inner.style.transform='';inner.style.marginBottom='';
+    const capH=cap?cap.offsetHeight+10:0;
+    const availH=stage.clientHeight-capH-6, availW=stage.clientWidth;
+    const ih=inner.offsetHeight, iw=inner.offsetWidth;
+    if(ih<10||availH<100) return;
+    const s=Math.min(1,availH/ih,availW/iw);
+    if(s<0.99){
+      inner.style.transform='scale('+s.toFixed(3)+')';
+      inner.style.transformOrigin='top center';
+      inner.style.marginBottom=(-Math.round((1-s)*ih))+'px';
+    }
+  }
   function render(i){
     steps.forEach((s,j)=>{s.classList.toggle('on',j===i);s.classList.toggle('done',j<i);
       if(j!==i)s.querySelector('.pbar i').style.width=j<i?'100%':'0%'});
@@ -4227,6 +4259,7 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
       sh.querySelectorAll('[data-count]').forEach(countUp);
       const tm=sh.querySelector('[data-timer]');if(tm)runTimer(tm);
     }
+    requestAnimationFrame(function(){ sizeStage(); fitShot(); });
   }
   function go(i,resetTimer=true){
     cur=(i+N)%N;
@@ -4297,6 +4330,9 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 
   render(0);
   onScroll();
+  window.addEventListener('resize',function(){ clearTimeout(root.__ft); root.__ft=setTimeout(function(){ sizeStage(); fitShot(); },120); },{passive:true});
+  window.addEventListener('load',function(){ sizeStage(); fitShot(); });
+  setTimeout(function(){ sizeStage(); fitShot(); },900);
   if(reduce){setPaused(true)}else{raf=requestAnimationFrame(loop)}
 })();
 </script>
