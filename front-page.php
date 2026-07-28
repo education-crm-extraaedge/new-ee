@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-slidefit -->
+<!-- ee-front-tpl v2026-07-28-nosticky -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3828,12 +3828,7 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
     </div>
   </div>
 </section>
-<div id="ee-sticky" aria-hidden="true">
-  <div class="sw">
-    <div class="txt">🎓 <b>Fill more seats this cycle.</b><span class="hide"> See ExtraaEdge on your funnel in 30 minutes.</span></div>
-    <div class="sp"><a href="#admission-form" class="go">Book Demo Now &rarr;</a><button class="x" aria-label="Dismiss" id="eeStickyX">&times;</button></div>
-  </div>
-</div>
+<!-- (removed) sticky "Fill more seats" CTA bar -->
 <script>
 (function(){
   /* ROI calculator */
@@ -3854,23 +3849,7 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
     }
     [i1,i2,i3].forEach(function(s){s.addEventListener('input',calc);}); calc();
   }
-  /* sticky CTA - show after scrolling past the hero, hide near the final demo form */
-  var bar=document.getElementById('ee-sticky'); 
-  if(bar){
-    var dismissed=false;
-    var x=document.getElementById('eeStickyX'); if(x) x.addEventListener('click',function(){dismissed=true;bar.classList.remove('show');document.body.classList.remove('ee-sticky-on');});
-    bar.querySelector('.go').addEventListener('click',function(){bar.classList.remove('show');document.body.classList.remove('ee-sticky-on');});
-    var hero=document.getElementById('xhero'), demo=document.getElementById('demo');
-    function upd(){
-      if(dismissed){bar.classList.remove('show');document.body.classList.remove('ee-sticky-on');return;}
-      var y=window.pageYOffset, past=hero?(y>hero.offsetHeight*0.9):(y>500);
-      var nearDemo=demo?(y+window.innerHeight > demo.offsetTop+80):false;
-      var show=past && !nearDemo;
-      bar.classList.toggle('show', show);
-      document.body.classList.toggle('ee-sticky-on', show);
-    }
-    window.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd,{passive:true}); upd();
-  }
+  /* sticky CTA bar removed */
 })();
 </script>
 
@@ -4564,13 +4543,7 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
   @media(max-width:720px){#ee-cro .cmp-row{grid-template-columns:1.4fr .9fr .9fr .9fr}#ee-cro .cmp-row>div{padding:11px 8px;font-size:12px}#ee-cro .cmp-row.head>div{padding:12px 6px;font-size:11px}#ee-cro .cmp-row .feat{font-size:12px}
   }/* ROI calculator */
   #ee-cro .roi{display:grid;grid-template-columns:1fr 1.05fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 60px -30px rgba(25,52,93,.3);overflow:hidden}#ee-cro .roi-in{padding:clamp(24px,3vw,38px)}#ee-cro .roi-in h3{font-size:20px;font-weight:800;color:var(--nv);margin:0 0 4px}#ee-cro .roi-in .sub{font-size:13px;color:var(--mut);margin:0 0 22px}#ee-cro .fld{margin-bottom:18px}#ee-cro .fld label{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;color:var(--nv);margin-bottom:7px}#ee-cro .fld label b{color:var(--or);font-weight:800}#ee-cro .fld input[type=range]{width:100%;accent-color:var(--or);height:5px}#ee-cro .fld .nums{display:flex;justify-content:space-between;font-size:10.5px;color:var(--mut);margin-top:4px}#ee-cro .roi-out{background:linear-gradient(150deg,var(--nv2),var(--nv));color:#fff;padding:clamp(24px,3vw,38px);display:flex;flex-direction:column;justify-content:center}#ee-cro .roi-out .lab{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c6d4ea}#ee-cro .roi-out .big{font-size:clamp(34px,5vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.05;background:linear-gradient(100deg,#fff,#E8843F);-webkit-background-clip:text;background-clip:text;color:transparent;margin:2px 0 0}#ee-cro .roi-out .rev{font-size:clamp(18px,2.4vw,24px);font-weight:800;margin-top:14px}#ee-cro .roi-out .rev span{color:#9fb9e0}#ee-cro .roi-out .meta{display:flex;gap:22px;margin-top:18px;flex-wrap:wrap}#ee-cro .roi-out .meta div b{display:block;font-size:19px;font-weight:800}#ee-cro .roi-out .meta div span{font-size:11px;color:#c6d4ea}#ee-cro .roi-out .cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;margin-top:24px;background:var(--or);color:#fff;font-weight:700;font-size:15px;padding:14px 24px;border-radius:12px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.6);transition:transform .2s}#ee-cro .roi-out .cta:hover{transform:translateY(-2px)}#ee-cro .roi-out .fine{font-size:10.5px;color:#9fb1cc;margin-top:12px;text-align:center}
-  @media(max-width:760px){#ee-cro .roi{grid-template-columns:1fr}}/* sticky CTA bar */
-  #ee-sticky{position:fixed;left:0;right:0;bottom:0;z-index:990;transform:translateY(120%);transition:transform .4s cubic-bezier(.2,.8,.2,1);background:rgba(15,29,51,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.12);box-shadow:0 -10px 40px rgba(15,29,51,.3)}#ee-sticky.show{transform:none}#ee-sticky .sw{max-width:1140px;margin:0 auto;padding:11px 18px;display:flex;align-items:center;gap:16px}#ee-sticky .txt{color:#fff;font-size:14px;font-weight:600}#ee-sticky .txt b{color:#E8843F}#ee-sticky .sp{margin-left:auto;display:flex;align-items:center;gap:10px}#ee-sticky .go{background:var(--or,#DE6E30);color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:10px;text-decoration:none;white-space:nowrap;transition:transform .2s}#ee-sticky .go:hover{transform:translateY(-2px)}#ee-sticky .x{background:rgba(255,255,255,.12);color:#fff;border:0;width:38px;height:38px;border-radius:9px;cursor:pointer;font-size:18px;line-height:1}#ee-sticky .x:hover{background:rgba(255,255,255,.22)}
-  @media(max-width:600px){#ee-sticky .txt{font-size:12.5px}#ee-sticky .txt .hide{display:none}#ee-sticky .sw{padding:9px 12px;gap:10px}#ee-sticky .go{padding:10px 16px;font-size:13px}}
-  @media(prefers-reduced-motion:reduce){#ee-sticky{transition:none}}
-  /* lift the site-wide floating WhatsApp/Call/TOC buttons clear of this bar while it's shown - otherwise they overlap its Book Demo / dismiss buttons */
-  body.ee-sticky-on .ee-fabs{bottom:78px;transition:bottom .3s ease}
-  @media(max-width:600px){body.ee-sticky-on .ee-fabs{bottom:70px}}
+  @media(max-width:760px){#ee-cro .roi{grid-template-columns:1fr}}/* (removed) sticky CTA bar styles */
 </style>
 <!-- ===================== COMPETITOR-BEATING · GO-LIVE / PRICING / SWITCH ===================== -->
 <style>#ee-golive,#ee-pricing,#ee-switch{--nv:#19345d;--nv2:#22467c;--or:#DE6E30;--mut:#5a6b85;--line:rgba(25,52,93,.1);position:relative;padding:clamp(54px,7vw,88px) 0;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}#ee-golive *,#ee-pricing *,#ee-switch *{box-sizing:border-box}.rvw{max-width:1140px;margin:0 auto;padding:0 22px}.rvh{text-align:center;max-width:680px;margin:0 auto 36px}.rvh .eb{display:inline-flex;align-items:center;gap:8px;font:700 12px/1 'Inter';letter-spacing:.13em;text-transform:uppercase;color:var(--or);margin-bottom:12px}.rvh .eb i{width:7px;height:7px;border-radius:50%;background:var(--or)}.rvh h2{font-weight:800;font-size:clamp(26px,3.8vw,42px);line-height:1.1;letter-spacing:-.03em;color:var(--nv);margin:0 0 10px}.rvh h2 em{font-style:normal;color:var(--or)}.rvh p{font-size:clamp(15px,1.6vw,17px);color:var(--mut);line-height:1.6;margin:0}/* GO-LIVE timeline */
