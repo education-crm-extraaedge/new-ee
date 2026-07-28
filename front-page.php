@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-26-nightembed -->
+<!-- ee-front-tpl v2026-07-28-platformmods -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -882,6 +882,39 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
     background:rgba(15,32,58,.78)!important;box-shadow:0 4px 12px rgba(0,0,0,.35)!important;
   }
 }
+
+/* ---- module cards: what each module is, how it works, its payoff -
+   clicking any card opens that live product window full screen ---- */
+#ee-platform .eep-mods{margin:26px 0 24px}
+#ee-platform .eep-mods-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;font-family:'Inter',sans-serif;font-weight:800;color:#19345d;margin:0 0 14px}
+#ee-platform .eep-mods-title span{font-size:13px;font-weight:500;color:#5a6b85;letter-spacing:0;text-transform:none}
+#ee-platform .eep-mods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+#ee-platform .eep-mod{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;background:#fff;border:1px solid rgba(25,52,93,.12);border-radius:14px;padding:15px 16px 13px;cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .2s;-webkit-tap-highlight-color:transparent}
+#ee-platform .eep-mod:hover{border-color:rgba(222,110,48,.45);box-shadow:0 16px 34px -20px rgba(25,52,93,.4);transform:translateY(-2px)}
+#ee-platform .eep-mod .eep-mod-ic{width:34px;height:34px;border-radius:9px;background:#19345d;color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+#ee-platform .eep-mod .eep-mod-ic svg{width:17px;height:17px}
+#ee-platform .eep-mod b{font-size:14px;font-weight:700;color:#19345d;line-height:1.25}
+#ee-platform .eep-mod i{font-style:normal;font-size:12px;line-height:1.5;color:#5a6b85}
+#ee-platform .eep-mod em{font-style:normal;font-size:11.5px;font-weight:700;color:#1FAF66;display:inline-flex;align-items:center;gap:5px}
+#ee-platform .eep-mod em::before{content:"\2713"}
+#ee-platform .eep-mod .eep-mod-open{font-size:11px;font-weight:700;color:#C45A20;display:inline-flex;align-items:center;gap:4px;opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s}
+#ee-platform .eep-mod:hover .eep-mod-open{opacity:1;transform:none}
+@media(max-width:1080px){#ee-platform .eep-mods-grid{grid-template-columns:repeat(2,1fr)}}
+/* phones: the same modules as a swipeable pill strip (icon + name), matching
+   the launch-card-only mobile layout - tap any pill to open the experience */
+@media(max-width:860px){
+  #ee-platform .eep-mods{margin:16px 0 14px}
+  #ee-platform .eep-mods-title{margin-bottom:10px}
+  #ee-platform .eep-mods-title span{display:none}
+  #ee-platform .eep-mods-grid{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  #ee-platform .eep-mods-grid::-webkit-scrollbar{display:none}
+  #ee-platform .eep-mod{flex:none;flex-direction:row;align-items:center;gap:8px;padding:9px 14px;border-radius:999px}
+  #ee-platform .eep-mod:hover{transform:none;box-shadow:none}
+  #ee-platform .eep-mod .eep-mod-ic{width:24px;height:24px;border-radius:7px}
+  #ee-platform .eep-mod .eep-mod-ic svg{width:13px;height:13px}
+  #ee-platform .eep-mod b{font-size:12.5px;white-space:nowrap}
+  #ee-platform .eep-mod i,#ee-platform .eep-mod em,#ee-platform .eep-mod .eep-mod-open{display:none}
+}
 </style>
 <section id="ee-platform" aria-label="Explore the ExtraaEdge platform">
   <div class="eep-wrap">
@@ -890,6 +923,74 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
       <h2>Explore the platform yourself - no sales call needed</h2>
       <p>An advanced, AI-powered interactive product experience. Click through the real Admission CRM - dashboards, AI, lead manager, WhatsApp &amp; automation. A guided tour walks you through it; click anywhere to take over. When you&rsquo;re ready, book a personalised demo on your own funnel.</p>
     </header>
+    <div class="eep-mods" aria-label="CRM modules - click to open the live product experience">
+      <h3 class="eep-mods-title">Every action, superpowered. <span>Click any module - it opens live inside the product window.</span></h3>
+      <div class="eep-mods-grid">
+        <button type="button" class="eep-mod">
+          <span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span>
+          <b>Business Outcomes</b>
+          <i>Live admission dashboards - funnel, source ROI and counsellor performance refresh in real time, no spreadsheet work.</i>
+          <em>Decisions in minutes, not month-end</em>
+          <span class="eep-mod-open">Open in live demo &rarr;</span>
+        </button>
+        <button type="button" class="eep-mod">
+          <span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg></span>
+          <b>Vidya AI</b>
+          <i>Your AI admission copilot - answers students, scores intent and drafts follow-ups 24&times;7 in their language.</i>
+          <em>No enquiry ever waits overnight</em>
+          <span class="eep-mod-open">Open in live demo &rarr;</span>
+        </button>
+        <button type="button" class="eep-mod">
+          <span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0M16 4.5a3.2 3.2 0 0 1 0 7M17.5 14.6a5.5 5.5 0 0 1 3 5.4"/></svg></span>
+          <b>Lead Manager</b>
+          <i>Every enquiry auto-captured, deduped and kept on one student timeline - calls, chats, forms, all in one card.</i>
+          <em>Zero leads lost, zero cold starts</em>
+          <span class="eep-mod-open">Open in live demo &rarr;</span>
+        </button>
+        <button type="button" class="eep-mod">
+          <span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v10H9l-5 4V6z"/></svg></span>
+          <b>WhatsApp Chat</b>
+          <i>Official WhatsApp inside the CRM - 1:1 chats and bulk sends, every message logged on the lead automatically.</i>
+          <em>98% open rates, one shared inbox</em>
+          <span class="eep-mod-open">Open in live demo &rarr;</span>
+        </button>
+        <button type="button" class="eep-mod">
+          <span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15.5l2 2 4-4"/></svg></span>
+          <b>Follow-ups Manager</b>
+          <i>An auto-built daily task list and calendar for every counsellor, with SLA reminders before anything slips.</i>
+          <em>Follow-ups on time, every time</em>
+          <span class="eep-mod-open">Open in live demo &rarr;</span>
+        </button>
+        <button type="button" class="eep-mod">
+          <span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l14-5v12L3 13v-2zM7 14v4a2 2 0 0 0 4 0v-2M17 8a4 4 0 0 1 0 6"/></svg></span>
+          <b>Marketing Campaigns</b>
+          <i>Bulk email, SMS and WhatsApp campaigns with segments, templates and delivery tracking built in.</i>
+          <em>1:1 feel, campus scale</em>
+          <span class="eep-mod-open">Open in live demo &rarr;</span>
+        </button>
+        <button type="button" class="eep-mod">
+          <span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
+          <b>Workflow Automation</b>
+          <i>No-code rules that assign leads, trigger nurture journeys and notify teams the moment something happens.</i>
+          <em>Routine work runs itself</em>
+          <span class="eep-mod-open">Open in live demo &rarr;</span>
+        </button>
+        <button type="button" class="eep-mod">
+          <span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5V12c0 1.66 3.58 3 8 3s8-1.34 8-3V5.5M4 12v6.5c0 1.66 3.58 3 8 3s8-1.34 8-3V12"/></svg></span>
+          <b>Raw Data Manager</b>
+          <i>Bulk-import and clean lead data; failed uploads are caught, fixed and re-verified inside the app.</i>
+          <em>Clean data in, clean funnel out</em>
+          <span class="eep-mod-open">Open in live demo &rarr;</span>
+        </button>
+        <button type="button" class="eep-mod">
+          <span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><path d="M10 7h7M7 10v7"/></svg></span>
+          <b>Integrations</b>
+          <i>Meta &amp; Google ads, education portals, telephony and 50+ tools sync leads straight into the CRM.</i>
+          <em>No manual imports, ever</em>
+          <span class="eep-mod-open">Open in live demo &rarr;</span>
+        </button>
+      </div>
+    </div>
     <button type="button" class="eep-mlaunch" id="eepLaunch" aria-label="Open the interactive product experience">
       <span class="eep-mlaunch-play" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-01.svg" alt="" loading="lazy" decoding="async"></span>
       <span class="eep-mlaunch-tx"><b>Launch the live product experience</b><i>Tap to explore the AI Admission CRM - full screen</i></span>
@@ -1627,6 +1728,8 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   window.addEventListener('orientationchange',function(){ setTimeout(fitFrame,120); });
   if(launch) launch.addEventListener('click',openExp);
   if(expand) expand.addEventListener('click',openExp);
+  /* module cards / pills: every module opens the same live experience */
+  sec.querySelectorAll('.eep-mod').forEach(function(b){ b.addEventListener('click',openExp); });
   if(closeBtn) closeBtn.addEventListener('click',closeExp);
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && isOpen()) closeExp(); });
   /* if the viewport grows past mobile while closed, make sure the inline demo is loaded */
