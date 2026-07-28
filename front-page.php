@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-mobilepass -->
+<!-- ee-front-tpl v2026-07-28-mobilepass2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -115,19 +115,19 @@ html body #main-content h4:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embe
    on small screens (desktop keeps 40/30/20/14) ── */
 @media(max-width:820px){
 html body #main-content h1:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:26px !important;
+    font-size:24px !important;
 }
 html body #main-content h2:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:19px !important;
+    font-size:18px !important;
 }
 html body #main-content h3:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:15.5px !important;
+    font-size:14.5px !important;
 }
 html body #main-content h4:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:12.5px !important;
+    font-size:12px !important;
 }
 html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:13.5px !important;
+    font-size:13px !important;
 }
 }
 </style>
@@ -468,7 +468,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   ];
   var el=document.getElementById('heroRot'); if(!el) return;
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  if(reduce){ var d0=DATA[0]; el.innerHTML=d0.pre+'<span class="accent">'+d0.acc+'</span>'; return; }
+  /* typing runs everywhere - many phones ship with OS-level animation
+     reduction that used to freeze this headline on the first phrase */
 
   /* Build stable child nodes ONCE. Typing then only mutates their text content -
      no per-keystroke innerHTML reparse/reflow (that was the stutter), and the
@@ -5674,6 +5675,14 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   #ee-resources .ee-r-grid{gap:10px}
   #ee-resources .ee-r-card{padding:14px 13px;border-radius:13px}
   #ee-resources .ee-r-ico{width:34px;height:34px}
+}
+/* Agentic AI Suite: small side arrows over the swipe rail (phones) */
+@media(max-width:900px){
+  #ee-vidya-suite .vsx-arw{display:flex;position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:30px;height:30px;border-radius:50%;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.25);background:rgba(15,28,48,.55);color:#fff;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.28);padding:0}
+  #ee-vidya-suite .vsx-arw svg{width:14px;height:14px}
+  #ee-vidya-suite .vsx-prev{left:4px}
+  #ee-vidya-suite .vsx-next{right:4px}
+  #ee-vidya-suite .vsx-arw:active{transform:translateY(-50%) scale(.93)}
 }
 </style>
 <script>

@@ -1472,16 +1472,16 @@ html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed
 /* ── phones: slightly smaller site-wide type for comfortable reading ── */
 @media(max-width:820px){
 html body #main-content h1:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:24px !important;
+    font-size:22px !important;
 }
 html body #main-content h2:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:18px !important;
+    font-size:17px !important;
 }
 html body #main-content h3:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:15px !important;
+    font-size:14px !important;
 }
 html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
-    font-size:13.5px !important;
+    font-size:13px !important;
 }
 }
 </style>
