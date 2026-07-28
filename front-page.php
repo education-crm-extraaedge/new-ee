@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-glitchfix -->
+<!-- ee-front-tpl v2026-07-28-nightfull -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3892,6 +3892,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   box-shadow:0 0 0 1px rgba(255,255,255,.10),0 44px 84px -30px rgba(0,0,0,.72),0 10px 34px -22px rgba(222,110,48,.5)!important;
 }
 </style>
+<noscript><style>#ee-night .een-track{height:auto!important}#ee-night .een-pin{position:static!important;height:auto!important;overflow:visible!important}#ee-night #ee-night-stage{height:auto!important;overflow:visible!important}#ee-night-embed .rev{opacity:1!important;transform:none!important}#ee-night-embed .shot{position:relative!important;inset:auto!important;opacity:1!important;transform:none!important;pointer-events:auto;display:flex!important;margin-bottom:26px}#ee-night-embed .stage{height:auto!important;display:block!important}#ee-night-embed .tline{opacity:.92!important;transform:none!important}#ee-night-embed .factor .fb i{width:var(--w)!important}#ee-night-embed .sla .slabar i{width:88%!important}</style></noscript>
 <section id="ee-night" aria-label="The admission operating system in action">
   <div class="een-track" id="eenTrack">
   <div class="een-pin">
@@ -3929,7 +3930,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
       <div class="shot on" data-i="0">
         <div class="appwin">
           <div class="appbar"><div class="wd"><i></i><i></i><i></i></div><div class="url"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#1FAF66" stroke-width="3"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>app.extraaedge.com/leads/EE-2026-84517</div></div>
-          <div class="apptop"><div class="alogo"><img src="https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg" alt="ExtraaEdge" loading="lazy" decoding="async"></div><b>ExtraaEdge</b><span class="crumb">/ Leads / New</span><span class="lvpill">Auto-captured</span></div>
+          <div class="apptop"><div class="alogo"><img src="https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg" alt="ExtraaEdge" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>ExtraaEdge</b><span class="crumb">/ Leads / New</span><span class="lvpill">Auto-captured</span></div>
           <div class="appbody">
             <div class="leadhead"><div class="lava">PD</div><div class="ln"><b>Priya Deshmukh <span class="new">NEW LEAD</span></b><span>Lead ID EE-2026-84517 · Created 23:02:14 IST</span></div></div>
             <div class="grid2">
@@ -3947,7 +3948,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
       <div class="shot" data-i="1">
         <div class="phone"><div class="notch"></div>
           <div class="screen"><div class="wchat">
-            <div class="whead"><svg width="7" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"><path d="M15 5l-7 7 7 7"/></svg><div class="wava"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidyaai-fevicon.png" alt="Vidya AI" loading="lazy" decoding="async"></div><div class="wn"><b>Vidya AI Counsellor <span class="vf">✓</span></b><span>online</span></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div>
+            <div class="whead"><svg width="7" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"><path d="M15 5l-7 7 7 7"/></svg><div class="wava"><img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/01-VidyaAI-Intelligence.svg" alt="Vidya AI" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><div class="wn"><b>Vidya AI Counsellor <span class="vf">✓</span></b><span>online</span></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div>
             <div class="wbody">
               <div class="wdate">Today</div>
               <div class="wmsg out">MBA ki fees kya hai?<span class="wtm">11:02 PM <span class="ticks">✓✓</span></span></div>
@@ -3966,7 +3967,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
       <div class="shot" data-i="2">
         <div class="appwin">
           <div class="appbar"><div class="wd"><i></i><i></i><i></i></div><div class="url"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#1FAF66" stroke-width="3"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>app.extraaedge.com/leads/EE-2026-84517/score</div></div>
-          <div class="apptop"><div class="alogo"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-pulse-fevicon.png" alt="VidyaPulse" loading="lazy" decoding="async"></div><b>VidyaPulse</b><span class="crumb">/ Lead Scoring</span><span class="lvpill">Live model</span></div>
+          <div class="apptop"><div class="alogo"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-pulse-fevicon.png" alt="VidyaPulse" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>VidyaPulse</b><span class="crumb">/ Lead Scoring</span><span class="lvpill">Live model</span></div>
           <div class="appbody">
             <div class="scorehead"><b>Intent Score - Priya Deshmukh</b><span class="scorenum"><span data-count="96">0</span><span style="font-size:13px">/100</span></span></div>
             <div class="factor"><div class="fl"><span>Response velocity</span><b>Replied in 41s avg</b></div><div class="fb"><i style="--w:92%"></i></div></div>
@@ -3982,7 +3983,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
       <div class="shot" data-i="3">
         <div class="phone"><div class="notch"></div>
           <div class="screen"><div class="callscr">
-            <div class="cava"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-ai-voice-agent-fevicon.png" alt="Vidya AI Voice Agent" loading="lazy" decoding="async"></div>
+            <div class="cava"><img src="https://www.extraaedge.com/wp-content/uploads/2026/fevicons/vidya-ai-voice-agent-fevicon.png" alt="Vidya AI Voice Agent" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
             <div class="cname">Vidya AI Voice Agent</div>
             <div class="cnum">+91 89569 82897</div>
             <div class="cstate">Connected in 18s</div>
@@ -4006,7 +4007,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
       <div class="shot" data-i="4">
         <div class="appwin">
           <div class="appbar"><div class="wd"><i></i><i></i><i></i></div><div class="url"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#1FAF66" stroke-width="3"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>app.extraaedge.com/inbox</div></div>
-          <div class="apptop"><div class="alogo"><img src="https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg" alt="ExtraaEdge" loading="lazy" decoding="async"></div><b>ExtraaEdge</b><span class="crumb">/ Inbox - Rahul Verma</span><span class="lvpill">1 new</span></div>
+          <div class="apptop"><div class="alogo"><img src="https://www.extraaedge.com/wp-content/uploads/2026/brand-logo/extraaedge-mark.svg" alt="ExtraaEdge" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>ExtraaEdge</b><span class="crumb">/ Inbox - Rahul Verma</span><span class="lvpill">1 new</span></div>
           <div class="appbody">
             <div class="assign">
               <div class="aicon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
@@ -4053,12 +4054,12 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
 <section class="flow">
   <h2 class="rev">The whole night, <span class="o">on one line.</span></h2>
   <div class="flowline" id="flowline">
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/lead-captured.svg" alt="" loading="lazy" decoding="async"></div><b>Lead captured</b><span>11:02 PM</span></div>
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/vidyagpt-chat.svg" alt="" loading="lazy" decoding="async"></div><b>VidyaGPT chat</b><span>11:02 PM</span></div>
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/scored-96.svg" alt="" loading="lazy" decoding="async"></div><b>Scored 96</b><span>11:09 PM</span></div>
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/ai-voice-call.svg" alt="" loading="lazy" decoding="async"></div><b>AI voice call</b><span>9:00 AM</span></div>
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/handoff.svg" alt="" loading="lazy" decoding="async"></div><b>Handoff</b><span>9:04 AM</span></div>
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/enrolled.svg" alt="" loading="lazy" decoding="async"></div><b>Enrolled</b><span>Day 12</span></div>
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/lead-captured.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>Lead captured</b><span>11:02 PM</span></div>
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/vidyagpt-chat.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>VidyaGPT chat</b><span>11:02 PM</span></div>
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/scored-96.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>Scored 96</b><span>11:09 PM</span></div>
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/ai-voice-call.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>AI voice call</b><span>9:00 AM</span></div>
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/handoff.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>Handoff</b><span>9:04 AM</span></div>
+    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/enrolled.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>Enrolled</b><span>Day 12</span></div>
   </div>
 </section>
 
