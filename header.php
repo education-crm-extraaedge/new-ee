@@ -1469,6 +1469,21 @@ html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed
     font-size:var(--ee-p) !important;
     line-height:1.6 !important;
 }
+/* ── phones: slightly smaller site-wide type for comfortable reading ── */
+@media(max-width:820px){
+html body #main-content h1:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
+    font-size:26px !important;
+}
+html body #main-content h2:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
+    font-size:19px !important;
+}
+html body #main-content h3:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
+    font-size:16px !important;
+}
+html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
+    font-size:14.5px !important;
+}
+}
 </style>
 <!-- Main content landmark — required so the skip-to-content link has a target and screen readers/SEO recognise the primary content area. Closed in footer.php. -->
 <main id="main-content" role="main">

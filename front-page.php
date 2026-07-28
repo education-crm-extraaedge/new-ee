@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-mobilefix -->
+<!-- ee-front-tpl v2026-07-28-mobilefonts -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -110,6 +110,25 @@ html body #main-content h3:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embe
 html body #main-content h4:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:14px !important;
     line-height:1.35 !important;
+}
+/* ── phones: scale the home-page headings down so they read comfortably
+   on small screens (desktop keeps 40/30/20/14) ── */
+@media(max-width:820px){
+html body #main-content h1:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
+    font-size:28px !important;
+}
+html body #main-content h2:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
+    font-size:21px !important;
+}
+html body #main-content h3:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
+    font-size:17px !important;
+}
+html body #main-content h4:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
+    font-size:13px !important;
+}
+html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
+    font-size:14.5px !important;
+}
 }
 </style>
 
