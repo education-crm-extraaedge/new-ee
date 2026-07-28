@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-readable -->
+<!-- ee-front-tpl v2026-07-28-slidealign -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3949,6 +3949,47 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
   #ee-night-embed .mnow .mm span{font-size:10px}
   #ee-night-embed .mnow .mi{font-size:9px;padding:5px 7px}
   #ee-night-embed .mnow .mt{font-size:10px}
+  /* breathing room + clean alignment inside every mockup (phones) */
+  #ee-night-embed .wbody{gap:7px;padding:10px 10px}
+  #ee-night-embed .wmsg{line-height:1.45}
+  #ee-night-embed .wmsg .wtm{margin-left:8px;top:4px}
+  #ee-night-embed .whead{gap:9px}
+  #ee-night-embed .whead .wn b{line-height:1.25}
+  #ee-night-embed .apptop{gap:8px;row-gap:5px;padding:10px 13px}
+  #ee-night-embed .apptop .crumb{font-size:10.5px}
+  #ee-night-embed .apptop .lvpill{font-size:9.5px;padding:4px 7px}
+  #ee-night-embed .appbody{padding:13px 14px}
+  #ee-night-embed .leadhead{gap:10px;margin-bottom:11px}
+  #ee-night-embed .leadhead .ln b{line-height:1.3;flex-wrap:wrap;gap:5px}
+  #ee-night-embed .leadhead .ln span{line-height:1.45;margin-top:3px;white-space:normal}
+  #ee-night-embed .grid2{gap:8px}
+  #ee-night-embed .fld{padding:9px 11px}
+  #ee-night-embed .fld span{margin-bottom:4px;letter-spacing:.06em}
+  #ee-night-embed .fld b{line-height:1.35}
+  #ee-night-embed .appfoot{gap:8px;margin-top:12px}
+  #ee-night-embed .abtn{padding:10px 4px;line-height:1.25}
+  #ee-night-embed .scorehead{margin-bottom:10px;gap:10px}
+  #ee-night-embed .scorehead b{line-height:1.3}
+  #ee-night-embed .factor{margin-bottom:10px}
+  #ee-night-embed .factor .fl{gap:12px;margin-bottom:5px;line-height:1.35}
+  #ee-night-embed .factor .fl b{max-width:52%;line-height:1.35}
+  #ee-night-embed .scoreverdict{line-height:1.5;padding:10px 12px;margin-top:10px}
+  #ee-night-embed .transcript{padding:11px 12px}
+  #ee-night-embed .tline{line-height:1.5;margin-bottom:7px}
+  #ee-night-embed .callscr .cname{line-height:1.25}
+  #ee-night-embed .assign{gap:10px}
+  #ee-night-embed .assign h3{line-height:1.35}
+  #ee-night-embed .assign p{line-height:1.5;margin-top:5px}
+  #ee-night-embed .attach{gap:7px;margin-top:10px}
+  #ee-night-embed .att{padding:7px 10px;line-height:1.25}
+  #ee-night-embed .sla{flex-wrap:wrap;gap:7px 9px;margin-top:11px;line-height:1.3}
+  #ee-night-embed .paybody h3{line-height:1.3}
+  #ee-night-embed .payamt{margin:8px 0 3px}
+  #ee-night-embed .payrows{padding:3px 13px;margin-top:12px}
+  #ee-night-embed .payrows .pr{padding:9px 0;line-height:1.4;gap:12px}
+  #ee-night-embed .payrows .pr b{max-width:58%;word-break:break-all;line-height:1.4}
+  #ee-night-embed .paypill{margin-top:12px}
+  #ee-night-embed .evcap{line-height:1.5}
   /* readable in-mockup text on phones */
   #ee-night-embed .fld b{font-size:13px}
   #ee-night-embed .fld span{font-size:9.5px}
