@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-popup -->
+<!-- ee-front-tpl v2026-07-28-slidefonts -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3922,7 +3922,7 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
   #ee-night-embed .whead .wn b{font-size:12.5px}
   #ee-night-embed .whead .wn span{font-size:10px}
   #ee-night-embed .wbody{padding:9px 9px;gap:5px}
-  #ee-night-embed .wmsg{font-size:12.5px;line-height:1.42;padding:6px 9px 5px;border-radius:9px;max-width:90%}
+  #ee-night-embed .wmsg{font-size:11.5px;line-height:1.42;padding:5px 8px 4px;border-radius:9px;max-width:90%}
   #ee-night-embed .wmsg .wtm{font-size:8.5px}
   #ee-night-embed .wdate{font-size:9px;padding:4px 9px}
   #ee-night-embed .winput{padding:6px 9px 10px}
@@ -3990,18 +3990,29 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
   #ee-night-embed .payrows .pr b{max-width:58%;word-break:break-all;line-height:1.4}
   #ee-night-embed .paypill{margin-top:12px}
   #ee-night-embed .evcap{line-height:1.5}
+  /* display numbers + headers: compact on phones */
+  #ee-night-embed .scorenum{font-size:24px}
+  #ee-night-embed .scorenum span[style]{font-size:11px!important}
+  #ee-night-embed .scorehead b{font-size:13px}
+  #ee-night-embed .apptop b{font-size:12.5px}
+  #ee-night-embed .payamt{font-size:24px}
+  #ee-night-embed .paybody h3{font-size:15px}
+  #ee-night-embed .payhead{font-size:12.5px}
+  #ee-night-embed .paypill{font-size:10.5px;padding:8px 14px}
+  #ee-night-embed .callscr .cname{font-size:15px}
+  #ee-night-embed .callscr .ctimer{font-size:21px}
   /* readable in-mockup text on phones */
-  #ee-night-embed .fld b{font-size:13px}
+  #ee-night-embed .fld b{font-size:12px}
   #ee-night-embed .fld span{font-size:9.5px}
-  #ee-night-embed .leadhead .ln b{font-size:15px}
-  #ee-night-embed .tline{font-size:13px}
-  #ee-night-embed .factor .fl{font-size:12.5px}
-  #ee-night-embed .scoreverdict{font-size:12.5px}
-  #ee-night-embed .assign h3{font-size:14px}
-  #ee-night-embed .assign p{font-size:12.5px}
-  #ee-night-embed .att{font-size:11.5px}
-  #ee-night-embed .payrows .pr{font-size:12px}
-  #ee-night-embed .evcap{font-size:12.5px;margin-top:10px;max-width:92vw}
+  #ee-night-embed .leadhead .ln b{font-size:13.5px}
+  #ee-night-embed .tline{font-size:12px}
+  #ee-night-embed .factor .fl{font-size:11.5px}
+  #ee-night-embed .scoreverdict{font-size:11.5px}
+  #ee-night-embed .assign h3{font-size:13px}
+  #ee-night-embed .assign p{font-size:11.5px}
+  #ee-night-embed .att{font-size:10.5px}
+  #ee-night-embed .payrows .pr{font-size:11px}
+  #ee-night-embed .evcap{font-size:11.5px;margin-top:9px;max-width:92vw}
   #ee-night-embed .paybody{padding:16px 13px}
   /* flow recap: tidy 2-up cards, icon left, label + time stacked */
   #ee-night-embed .flow{padding:16px 5vw 10px}
