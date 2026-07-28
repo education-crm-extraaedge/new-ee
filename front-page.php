@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-slidefonts -->
+<!-- ee-front-tpl v2026-07-28-advpanel -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -797,7 +797,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 }.eep-window.eep-launched .eep-bar{
   display:flex;align-items:center;gap:10px;height:56px;padding:0 clamp(12px,2vw,20px);
   background:#12243f;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;position:relative;z-index:2;
-}.eep-window.eep-launched .eep-url{color:#aec0db;font-size:13px;}.eep-window.eep-launched .eep-frame{display:block;width:100%;height:calc(100% - 56px);border:0;border-radius:0;background:#fff;}.eep-window.eep-launched .eep-mbook{
+}.eep-window.eep-launched .eep-url{color:#aec0db;font-size:13px;}.eep-window.eep-launched .eep-frame{display:block;width:100%;height:calc(100% - 102px);border:0;border-radius:0;background:#fff;}.eep-window.eep-launched .eep-mbook{
   display:inline-flex;align-items:center;margin-left:auto;background:linear-gradient(135deg,#E8843F,#DE6E30);
   color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:9px 16px;border-radius:999px;white-space:nowrap;
 }.eep-window.eep-launched .eep-close{
@@ -856,6 +856,24 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 #ee-platform .eep-mod:hover{border-color:rgba(222,110,48,.55);transform:translateY(-1px)}
 #ee-platform .eep-mod.on{background:#19345d;border-color:#19345d}
 #ee-platform .eep-mod.on .eep-mod-ic,#ee-platform .eep-mod.on b{color:#fff}
+#ee-platform .eep-mods-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+#ee-platform .eep-mods-head .eep-mods-title{margin:0!important;text-align:left}
+#ee-platform .eep-tour{display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(25,52,93,.18);background:#fff;color:#19345d;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+#ee-platform .eep-tour svg{width:10px;height:10px}
+#ee-platform .eep-tour:hover{border-color:rgba(222,110,48,.5);color:#C45A20}
+#ee-platform .eep-tour.on{background:#19345d;border-color:#19345d;color:#fff}
+#ee-platform .eep-mod-info{display:flex;flex-direction:column;gap:3px;margin-top:11px;padding:10px 12px;border:1px solid rgba(25,52,93,.1);border-left:3px solid #DE6E30;border-radius:10px;background:#f8fafc;animation:eepInfoIn .3s ease}
+@keyframes eepInfoIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+#ee-platform .eep-mod-info b{font-size:12.5px;font-weight:800;color:#19345d}
+#ee-platform .eep-mod-info span{font-size:11.5px;line-height:1.45;color:#5a6b85}
+#ee-platform .eep-mod-info em{font-style:normal;font-size:11px;font-weight:700;color:#1FAF66}
+#ee-platform .eep-mod-info em::before{content:"\2713  "}
+/* overlay bottom module strip: switch screens without closing the experience */
+.eep-ovnav{display:none;position:absolute;left:0;right:0;bottom:0;height:46px;z-index:15;background:#12243f;border-top:1px solid rgba(255,255,255,.1);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;white-space:nowrap;padding:7px 8px}
+.eep-ovnav::-webkit-scrollbar{display:none}
+.eep-window.eep-launched .eep-ovnav{display:block}
+.eep-ovnav button{display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:#cfdcf0;font:600 11.5px/1 'Inter',sans-serif;padding:8px 12px;border-radius:999px;margin-right:6px;cursor:pointer;white-space:nowrap}
+.eep-ovnav button.on{background:#DE6E30;border-color:#DE6E30;color:#fff;font-weight:700}
 @media(max-width:1240px){#ee-platform .eep-mods{right:6px}}
 @media(max-width:860px){
   #ee-platform .eep-mods{position:static;width:auto;box-shadow:none;border:0;background:transparent;border-radius:0;padding:0;margin:0 0 14px}
@@ -866,6 +884,8 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
   #ee-platform .eep-mod:hover{transform:none}
   #ee-platform .eep-mod .eep-mod-ic,#ee-platform .eep-mod .eep-mod-ic svg{width:14px;height:14px}
   #ee-platform .eep-mod b{white-space:nowrap;font-size:12px}
+  #ee-platform .eep-tour{display:none}
+  #ee-platform .eep-mod-info{margin-top:9px}
 }
 </style>
 <section id="ee-platform" aria-label="Explore the ExtraaEdge platform">
@@ -877,17 +897,25 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
     </header>
     <div class="eep-demo-wrap">
     <aside class="eep-mods" aria-label="CRM modules - click to open that screen in the live demo">
-      <h3 class="eep-mods-title">Every action, superpowered.</h3>
+      <div class="eep-mods-head">
+        <h3 class="eep-mods-title">Every action, superpowered.</h3>
+        <button type="button" class="eep-tour" id="eepTour" aria-pressed="false" title="Auto-play a tour of all modules"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8V4z"/></svg><span>Tour</span></button>
+      </div>
       <div class="eep-mods-grid">
-        <button type="button" class="eep-mod on" data-go="outcomes"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span><b>Dashboards</b></button>
-        <button type="button" class="eep-mod" data-go="ai"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg></span><b>Vidya AI</b></button>
-        <button type="button" class="eep-mod" data-go="leads"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0M16 4.5a3.2 3.2 0 0 1 0 7M17.5 14.6a5.5 5.5 0 0 1 3 5.4"/></svg></span><b>Leads</b></button>
-        <button type="button" class="eep-mod" data-go="wa"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v10H9l-5 4V6z"/></svg></span><b>WhatsApp</b></button>
-        <button type="button" class="eep-mod" data-go="followups"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15.5l2 2 4-4"/></svg></span><b>Follow-ups</b></button>
-        <button type="button" class="eep-mod" data-go="campaign"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l14-5v12L3 13v-2zM7 14v4a2 2 0 0 0 4 0v-2M17 8a4 4 0 0 1 0 6"/></svg></span><b>Campaigns</b></button>
-        <button type="button" class="eep-mod" data-go="workflow"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></span><b>Workflows</b></button>
-        <button type="button" class="eep-mod" data-go="rawdata"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5V12c0 1.66 3.58 3 8 3s8-1.34 8-3V5.5M4 12v6.5c0 1.66 3.58 3 8 3s8-1.34 8-3V12"/></svg></span><b>Data</b></button>
-        <button type="button" class="eep-mod" data-go="integration"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><path d="M10 7h7M7 10v7"/></svg></span><b>Integrations</b></button>
+        <button type="button" class="eep-mod on" data-go="outcomes" data-url="/dashboards" data-info="Live funnel, source ROI and counsellor performance." data-gain="Decisions in minutes"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span><b>Dashboards</b></button>
+        <button type="button" class="eep-mod" data-go="ai" data-url="/vidya-ai" data-info="24x7 AI copilot - answers, scores intent, drafts follow-ups." data-gain="No enquiry waits"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg></span><b>Vidya AI</b></button>
+        <button type="button" class="eep-mod" data-go="leads" data-url="/leads" data-info="Every enquiry auto-captured and deduped on one timeline." data-gain="Zero leads lost"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0M16 4.5a3.2 3.2 0 0 1 0 7M17.5 14.6a5.5 5.5 0 0 1 3 5.4"/></svg></span><b>Leads</b></button>
+        <button type="button" class="eep-mod" data-go="wa" data-url="/whatsapp" data-info="Official WhatsApp - 1:1 and bulk, every message logged." data-gain="98% open rates"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v10H9l-5 4V6z"/></svg></span><b>WhatsApp</b></button>
+        <button type="button" class="eep-mod" data-go="followups" data-url="/follow-ups" data-info="Auto-built task list and SLA reminders per counsellor." data-gain="Nothing slips"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15.5l2 2 4-4"/></svg></span><b>Follow-ups</b></button>
+        <button type="button" class="eep-mod" data-go="campaign" data-url="/campaigns" data-info="Segmented email, SMS and WhatsApp campaigns." data-gain="1:1 feel at scale"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l14-5v12L3 13v-2zM7 14v4a2 2 0 0 0 4 0v-2M17 8a4 4 0 0 1 0 6"/></svg></span><b>Campaigns</b></button>
+        <button type="button" class="eep-mod" data-go="workflow" data-url="/workflows" data-info="No-code rules that assign, nurture and notify." data-gain="Runs itself"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></span><b>Workflows</b></button>
+        <button type="button" class="eep-mod" data-go="rawdata" data-url="/data" data-info="Bulk-import, clean and re-verify lead data in-app." data-gain="Clean funnel"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5V12c0 1.66 3.58 3 8 3s8-1.34 8-3V5.5M4 12v6.5c0 1.66 3.58 3 8 3s8-1.34 8-3V12"/></svg></span><b>Data</b></button>
+        <button type="button" class="eep-mod" data-go="integration" data-url="/integrations" data-info="Meta, Google, portals, telephony and 50+ tools." data-gain="No manual imports"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><path d="M10 7h7M7 10v7"/></svg></span><b>Integrations</b></button>
+      </div>
+      <div class="eep-mod-info" id="eepModInfo" aria-live="polite">
+        <b id="eepModInfoName">Dashboards</b>
+        <span id="eepModInfoTx">Live funnel, source ROI and counsellor performance.</span>
+        <em id="eepModInfoGain">Decisions in minutes</em>
       </div>
     </aside>
     <button type="button" class="eep-mlaunch" id="eepLaunch" aria-label="Open the interactive product experience">
@@ -1593,7 +1621,7 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
   function fitFrame(){
     if(!fr) return;
     if(isOpen() && mq.matches){
-      var base=460, barH=56;
+      var base=460, barH=102;   /* top bar 56 + bottom module strip 46 */
       var vw=document.documentElement.clientWidth||window.innerWidth;
       var availH=(window.innerHeight||document.documentElement.clientHeight)-barH;
       var scale=vw/base;
@@ -1664,14 +1692,76 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
       if(!done&&++attempts<50) setTimeout(go,300);
     })();
   }
+  /* ---- live URL + info-strip sync ---- */
+  var urlEl=winEl&&winEl.querySelector('.eep-url');
+  var infoN=document.getElementById('eepModInfoName'),
+      infoT=document.getElementById('eepModInfoTx'),
+      infoG=document.getElementById('eepModInfoGain');
+  function syncMeta(b){
+    if(urlEl) urlEl.textContent='app.extraaedge.com'+(b.getAttribute('data-url')||'');
+    if(infoN){
+      infoN.textContent=b.querySelector('b').textContent;
+      infoT.textContent=b.getAttribute('data-info')||'';
+      infoG.textContent=b.getAttribute('data-gain')||'';
+      var box=document.getElementById('eepModInfo');
+      if(box){ box.style.animation='none'; void box.offsetWidth; box.style.animation=''; }
+    }
+  }
+  /* ---- overlay bottom strip: switch modules inside the full-screen view ---- */
+  var ovnav=null;
+  function buildOvnav(){
+    if(ovnav||!winEl) return;
+    ovnav=document.createElement('div');
+    ovnav.className='eep-ovnav';
+    mods.forEach(function(b){
+      var p=document.createElement('button');
+      p.type='button';
+      p.setAttribute('data-go',b.getAttribute('data-go'));
+      p.textContent=b.querySelector('b').textContent;
+      p.addEventListener('click',function(){ selectModule(b,false); });
+      ovnav.appendChild(p);
+    });
+    winEl.appendChild(ovnav);
+  }
+  /* ---- single entry point for every module change ---- */
+  function selectModule(b,fromTour){
+    if(!fromTour) stopTour();
+    mods.forEach(function(x){ x.classList.toggle('on',x===b); });
+    if(ovnav){ [].forEach.call(ovnav.children,function(p){ p.classList.toggle('on',p.getAttribute('data-go')===b.getAttribute('data-go')); }); }
+    loadFrame();
+    syncMeta(b);
+    navFrame(b.getAttribute('data-go'));
+  }
   mods.forEach(function(b){
     b.addEventListener('click',function(){
-      mods.forEach(function(x){ x.classList.toggle('on',x===b); });
-      loadFrame();
+      selectModule(b,false);
       if(mq.matches){ openExp(); }
-      navFrame(b.getAttribute('data-go'));
     });
   });
+  buildOvnav();
+  /* ---- auto tour: cycle through every module while the demo is on screen ---- */
+  var tourBtn=document.getElementById('eepTour'), tourTimer=null, tourIdx=0;
+  function stopTour(){
+    if(tourTimer){ clearInterval(tourTimer); tourTimer=null; }
+    if(tourBtn){ tourBtn.classList.remove('on'); tourBtn.setAttribute('aria-pressed','false'); }
+  }
+  function startTour(){
+    stopTour();
+    if(tourBtn){ tourBtn.classList.add('on'); tourBtn.setAttribute('aria-pressed','true'); }
+    tourIdx=mods.findIndex(function(b){ return b.classList.contains('on'); });
+    tourTimer=setInterval(function(){
+      tourIdx=(tourIdx+1)%mods.length;
+      selectModule(mods[tourIdx],true);
+    },6000);
+    tourIdx=(tourIdx+1)%mods.length;
+    selectModule(mods[tourIdx],true);
+  }
+  if(tourBtn) tourBtn.addEventListener('click',function(){ tourTimer?stopTour():startTour(); });
+  /* pause the tour while the demo itself is being used or off screen */
+  if(fr) fr.addEventListener('mouseenter',stopTour);
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) stopTour(); }); }).observe(sec);
+  }
   if(closeBtn) closeBtn.addEventListener('click',closeExp);
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && isOpen()) closeExp(); });
   /* if the viewport grows past mobile while closed, make sure the inline demo is loaded */
