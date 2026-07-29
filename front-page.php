@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-cro-order -->
+<!-- ee-front-tpl v2026-07-29-hero-cta2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -433,6 +433,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       </div>
       <div class="hero__cta reveal d5">
         <a href="#admission-form" class="btn btn-primary" id="magnet">Book a Demo <span class="arr">&rarr;</span><span class="shine"></span></a>
+        <a href="#stories" class="btn btn-watch"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:15px;height:15px;flex:none"><path d="M8 5v14l11-7z"/></svg> Watch 2-Min Demo</a>
         <span class="cta-note">No credit card &middot; Personalised to your institution</span>
       </div>
       <div class="stats reveal d6">
@@ -6043,6 +6044,13 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 </style>
 
 <style id="ee-cta-unify">
+/* Low-friction secondary CTA: quiet outline so Book a Demo stays dominant */
+#xhero .btn-watch{background:transparent!important;color:#19335D!important;
+  border:1.5px solid rgba(25,51,93,.35)!important;border-radius:9px!important;
+  font-weight:600!important;box-shadow:none!important}
+#xhero .btn-watch:hover{background:#EEF2F8!important;border-color:#19335D!important;
+  transform:translateY(-2px);box-shadow:none!important}
+
 /* ── Unified CTA look: every page-level button matches the header's
    "Book Demo" (same orange gradient, 9px radius, 600 weight, hover lift).
    Mockup-internal buttons (phone/app replicas) keep their own styles. ── */
