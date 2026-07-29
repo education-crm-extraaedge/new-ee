@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-rfa-wheel -->
+<!-- ee-front-tpl v2026-07-29-cta-unify -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -6035,6 +6035,42 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 #ee-golive,#ee-switch,#ee-resources,#faq{
   content-visibility:auto;
   contain-intrinsic-size:auto 760px;
+}
+</style>
+
+<style id="ee-cta-unify">
+/* ── Unified CTA look: every page-level button matches the header's
+   "Book Demo" (same orange gradient, 9px radius, 600 weight, hover lift).
+   Mockup-internal buttons (phone/app replicas) keep their own styles. ── */
+.ee-home .btn.btn-primary,.ee-home .btn.btn-dark,
+#trusted-institutions .btn-primary,
+.eep-explore-btn,.eep-spot-cta,.eep-mbook,
+#stories .cis-btn.primary,
+#ee-cro .roi-out .cta,
+.vsx-card-cta,.vsx-cta-btn,
+#ee-solutions .solb-cta,
+#ee-golive .eebk-book,
+#ee-form-7 input[type="submit"],#ee-form-7 button[type="submit"]{
+  background:linear-gradient(135deg,#DE6E30,#FF8A5C)!important;
+  color:#fff!important;
+  border-radius:9px!important;
+  font-weight:600!important;
+  border:none!important;
+  box-shadow:0 4px 14px rgba(222,110,48,.25)!important;
+}
+.ee-home .btn.btn-primary:hover,.ee-home .btn.btn-dark:hover,
+#trusted-institutions .btn-primary:hover,
+.eep-explore-btn:hover,.eep-spot-cta:hover,.eep-mbook:hover,
+#stories .cis-btn.primary:hover,
+#ee-cro .roi-out .cta:hover,
+.vsx-card-cta:hover,.vsx-cta-btn:hover,
+#ee-solutions .solb-cta:hover,
+#ee-golive .eebk-book:hover,
+#ee-form-7 input[type="submit"]:hover,#ee-form-7 button[type="submit"]:hover{
+  background:linear-gradient(135deg,#B85920,#C75E24)!important;
+  color:#fff!important;
+  transform:translateY(-2px);
+  box-shadow:0 6px 22px rgba(222,110,48,.35)!important;
 }
 </style>
 <?php get_footer(); ?>
