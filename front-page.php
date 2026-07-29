@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-mods-rail -->
+<!-- ee-front-tpl v2026-07-29-rail-glass -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1150,15 +1150,15 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
    screen in place. On phones the same tiles become a swipeable pill strip
    and tapping opens the full-screen experience on that screen. ---- */
 #ee-platform .eep-demo-wrap{position:relative}
-#ee-platform .eep-mods{position:absolute;top:50%;right:-38px;z-index:6;width:96px;display:flex;flex-direction:column;background:#fff;border:1px solid #ECEFF4;border-radius:22px;box-shadow:0 2px 6px rgba(15,32,58,.05),0 34px 80px -30px rgba(15,32,58,.45);padding:14px 10px;transform:translate(28px,-50%);opacity:0;visibility:hidden;transition:transform .65s cubic-bezier(.22,1,.36,1),opacity .5s ease,visibility .5s}#ee-platform.eep-rail-in .eep-mods{transform:translate(0,-50%);opacity:1;visibility:visible}@media(max-width:860px){#ee-platform .eep-mods{position:static;transform:none!important;opacity:1!important;visibility:visible!important;width:auto;flex-direction:column;box-shadow:none;border:0;background:transparent;border-radius:0;padding:0;margin:0 0 14px}#ee-platform .eep-mods-grid{flex-direction:row;max-height:none;overflow-y:visible}#ee-platform .eep-mod .eep-mod-ic{width:auto;height:auto;border:0;background:transparent;box-shadow:none}#ee-platform .eep-mod.on .eep-mod-ic{border:0;background:transparent;box-shadow:none;color:#fff}#ee-platform .eep-mod-info{display:flex}}@media(max-width:1540px){#ee-platform .eep-mods{right:12px}}
+#ee-platform .eep-mods{position:fixed;top:50%;right:16px;z-index:900;width:92px;display:flex;flex-direction:column;background:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.6);border-radius:24px;box-shadow:0 2px 6px rgba(15,32,58,.06),0 30px 70px -28px rgba(15,32,58,.45),inset 0 1px 0 rgba(255,255,255,.65);padding:14px 9px;transform:translate(34px,-50%);opacity:0;visibility:hidden;transition:transform .7s cubic-bezier(.22,1,.36,1),opacity .5s ease,visibility .5s}@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){#ee-platform .eep-mods{background:rgba(255,255,255,.32);-webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%)}}#ee-platform.eep-rail-in .eep-mods{transform:translate(0,-50%);opacity:1;visibility:visible}#ee-platform .eep-mods .eep-mod{opacity:0;transform:translateX(16px);transition:opacity .45s ease,transform .5s cubic-bezier(.22,1,.36,1)}#ee-platform.eep-rail-in .eep-mods .eep-mod{opacity:1;transform:none}#ee-platform.eep-rail-in .eep-mods .eep-mod:nth-child(1){transition-delay:0.20s}#ee-platform.eep-rail-in .eep-mods .eep-mod:nth-child(2){transition-delay:0.25s}#ee-platform.eep-rail-in .eep-mods .eep-mod:nth-child(3){transition-delay:0.30s}#ee-platform.eep-rail-in .eep-mods .eep-mod:nth-child(4){transition-delay:0.35s}#ee-platform.eep-rail-in .eep-mods .eep-mod:nth-child(5){transition-delay:0.40s}#ee-platform.eep-rail-in .eep-mods .eep-mod:nth-child(6){transition-delay:0.45s}#ee-platform.eep-rail-in .eep-mods .eep-mod:nth-child(7){transition-delay:0.50s}#ee-platform.eep-rail-in .eep-mods .eep-mod:nth-child(8){transition-delay:0.55s}#ee-platform.eep-rail-in .eep-mods .eep-mod:nth-child(9){transition-delay:0.60s}@media(max-width:860px){#ee-platform .eep-mods{position:static;transform:none!important;opacity:1!important;visibility:visible!important;width:auto;flex-direction:column;box-shadow:none;border:0;background:transparent;border-radius:0;padding:0;margin:0 0 14px}#ee-platform .eep-mods-grid{flex-direction:row;max-height:none;overflow-y:visible}#ee-platform .eep-mod .eep-mod-ic{width:auto;height:auto;border:0;background:transparent;box-shadow:none}#ee-platform .eep-mods .eep-mod{opacity:1!important;transform:none!important;transition-delay:0s!important}#ee-platform .eep-mod.on .eep-mod-ic{border:0;background:transparent;box-shadow:none;color:#fff}#ee-platform .eep-mod-info{display:flex}}
 html body #main-content #ee-platform .eep-mods-title{display:none!important}
 #ee-platform .eep-mods-grid{display:flex;flex-direction:column;gap:13px;order:1;max-height:min(62vh,600px);overflow-y:auto;scrollbar-width:none}#ee-platform .eep-mods-grid::-webkit-scrollbar{display:none}
 #ee-platform .eep-mod{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:transparent;border:0;box-shadow:none;border-radius:0;padding:0;cursor:pointer;transition:border-color .18s,background .18s,transform .18s;-webkit-tap-highlight-color:transparent}
-#ee-platform .eep-mod .eep-mod-ic{display:flex;align-items:center;justify-content:center;width:42px;height:42px;color:#19345d;background:#fff;border:1.4px solid #E7EBF1;border-radius:13px;box-shadow:0 1px 2px rgba(15,32,58,.05);transition:border-color .2s,background .2s,box-shadow .2s,transform .2s,color .2s}
+#ee-platform .eep-mod .eep-mod-ic{display:flex;align-items:center;justify-content:center;width:42px;height:42px;color:#19345d;background:rgba(255,255,255,.55);border:1.4px solid rgba(255,255,255,.7);border-radius:13px;box-shadow:0 1px 2px rgba(15,32,58,.06);transition:border-color .2s,background .2s,box-shadow .2s,transform .2s,color .2s}
 #ee-platform .eep-mod .eep-mod-ic svg{width:19px;height:19px}
 #ee-platform .eep-mod b{font-size:9.5px;font-weight:700;color:#334a68;line-height:1.15;text-align:center;transition:color .18s}
 #ee-platform .eep-mod:hover .eep-mod-ic{border-color:#19345d;transform:translateY(-2px)}
-#ee-platform .eep-mod.on .eep-mod-ic{border-color:#DE6E30;background:#FFF4EC;color:var(--orange-700,#B5551D);box-shadow:0 0 0 4px rgba(222,110,48,.13)}#ee-platform .eep-mod.on b{color:#19345d}
+#ee-platform .eep-mod.on .eep-mod-ic{border-color:#DE6E30;background:rgba(255,244,236,.9);color:var(--orange-700,#B5551D);box-shadow:0 0 0 4px rgba(222,110,48,.16),0 8px 18px -8px rgba(222,110,48,.5)}#ee-platform .eep-mod.on b{color:#19345d}
 #ee-platform .eep-mod.on .eep-mod-ic,#ee-platform .eep-mod.on b{color:var(--orange-700,#B5551D)}
 #ee-platform .eep-mods-head{display:flex;align-items:center;justify-content:center;order:2;margin:12px 0 0}
 #ee-platform .eep-mods-head .eep-mods-title{margin:0!important;text-align:left}
@@ -1879,7 +1879,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   var sec=document.getElementById('ee-platform'); if(!sec) return;
   if(!('IntersectionObserver' in window)){ sec.classList.add('eep-rail-in'); return; }
   var io=new IntersectionObserver(function(es){ es.forEach(function(e){
-    if(e.isIntersecting){ sec.classList.add('eep-rail-in'); io.disconnect(); } }); },{threshold:.25});
+    sec.classList.toggle('eep-rail-in', e.isIntersecting); }); },{threshold:.15});
   io.observe(sec);
 })();
 </script>
