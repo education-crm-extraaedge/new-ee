@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-rfa-air -->
+<!-- ee-front-tpl v2026-07-29-rfa-reveal -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -866,6 +866,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-rfa .rfa-track{position:relative;height:calc(min(100vh,860px)*3.4)}
 #ee-rfa .rfa-pin{position:sticky;top:86px;height:min(calc(100vh - 86px),820px);overflow:hidden;display:flex;align-items:center;align-items:safe center}
 #ee-rfa .rfa-in{max-width:1270px;margin:0 auto;width:100%;padding:12px 24px;display:grid;grid-template-columns:18px minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(18px,2.6vw,40px);align-items:center}
+#ee-rfa .rfa-cards{max-height:calc(min(100vh - 86px,820px) - 24px);overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior:contain}#ee-rfa .rfa-cards::-webkit-scrollbar{display:none}
 @media (max-height:860px){#ee-rfa .rfa-card{padding:11px 14px;margin-bottom:7px}#ee-rfa .rfa-kick{margin-bottom:7px}html body #main-content #ee-rfa h2.rfa-title{font-size:17px!important}#ee-rfa .rfa-body p{line-height:1.6;margin:8px 0 10px}#ee-rfa .rfa-chiplbl{margin:10px 0 7px}}
 /* progress rail: fill tracks scroll, dots jump to a story */
 #ee-rfa .rfa-rail{position:relative;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:26px 0;width:18px}
@@ -1025,6 +1026,19 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     if(cap&&t) cap.textContent=t.textContent;
     if(cnt) cnt.textContent='0'+(i+1)+' / 0'+cards.length;
     if(urlEl&&k) urlEl.textContent='app.extraaedge.com \u00b7 '+k.textContent.toLowerCase();
+    reveal(i); setTimeout(function(){ reveal(cur); },620);
+  }
+  /* keep the active card fully visible inside the scrollable card column -
+     without this, the expanded body of the last stories clips at the
+     pinned box's bottom edge on shorter screens */
+  var cardsBox=document.getElementById('rfaCards');
+  function reveal(i){
+    if(!cardsBox||!mqd.matches) return;
+    var cr=cards[i].getBoundingClientRect(), br=cardsBox.getBoundingClientRect();
+    var d=0;
+    if(cr.bottom>br.bottom) d=cr.bottom-br.bottom+6;
+    else if(cr.top<br.top) d=cr.top-br.top-6;
+    if(d) cardsBox.scrollTo({top:cardsBox.scrollTop+d,behavior:'smooth'});
   }
   /* one-time fade-in reveal (desktop stagger) + per-card reveal on phones */
   if('IntersectionObserver' in window){
