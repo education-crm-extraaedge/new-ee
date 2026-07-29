@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-cro-redesign -->
+<!-- ee-front-tpl v2026-07-29-no-events -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -315,7 +315,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 
 <!-- ===================== EE · QUICK TABLE OF CONTENTS (scoped #ee-toc) ===================== -->
 <style>/* keep anchored jumps clear of any sticky chrome */
-  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-rfa,#ee-products,#ee-vidya-suite,#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#ee-night,#integrations,#security,#ee-golive,#ee-resources,#ee-events,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
+  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-rfa,#ee-products,#ee-vidya-suite,#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#ee-night,#integrations,#security,#ee-golive,#ee-resources,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
   #ee-toc .eetoc-fab{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:99990;
     display:flex;align-items:center;justify-content:center;width:50px;height:50px;padding:0;border:2.5px solid #fff;cursor:pointer;
     background:#19335D;color:#fff;border-radius:50%;
@@ -364,8 +364,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <li><a href="#security" data-t="security"><i>13</i><span>Enterprise-grade trust</span></a></li>
       <li><a href="#ee-golive" data-t="ee-golive"><i>14</i><span>Fast implementation</span></a></li>
       <li><a href="#ee-resources" data-t="ee-resources"><i>15</i><span>Resources</span></a></li>
-      <li><a href="#ee-events" data-t="ee-events"><i>16</i><span>Events &amp; Webinars</span></a></li>
-      <li><a href="#faq" data-t="faq"><i>17</i><span>Frequently Asked</span></a></li>
+      <li><a href="#faq" data-t="faq"><i>16</i><span>Frequently Asked</span></a></li>
     </ul>
   </nav>
 </div>
@@ -5222,155 +5221,6 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
   </div>
 </section>
 
-<style>#ee-events{
-    --navy:#19345d; --navy2:#22467c; --orange:#DE6E30; --orange2:#E8843F;
-    --ink:#0f203a; --muted:#5a6b85; --hair:rgba(25,52,93,.09);
-    position:relative; padding:clamp(64px,8vw,104px) 0;
-    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    color:var(--ink);
-    background:linear-gradient(180deg,rgba(34,70,124,.025),rgba(34,70,124,0) 40%);
-  }#ee-events *{box-sizing:border-box;}#ee-events .ee-e-container{max-width:1240px;margin:0 auto;padding:0 24px;}#ee-events .ee-e-head{max-width:760px;margin:0 0 clamp(32px,4vw,48px);}#ee-events .ee-e-eyebrow{
-    display:inline-flex;align-items:center;gap:8px;
-    font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--orange);margin:0 0 16px;
-  }#ee-events .ee-e-eyebrow::before{
-    content:"";width:22px;height:2px;border-radius:2px;
-    background:linear-gradient(90deg,var(--orange),var(--orange2));
-  }#ee-events h2{
-    font-family:'Inter',system-ui,sans-serif;
-    font-weight:600;font-size:clamp(28px,3.6vw,42px);line-height:1.12;
-    letter-spacing:-.015em;margin:0 0 14px;color:var(--navy);
-  }#ee-events .ee-e-sub{
-    margin:0;font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:var(--muted);max-width:600px;
-  }#ee-events .ee-e-grid{
-    display:grid;gap:12px;margin-bottom:clamp(28px,4vw,40px);
-    grid-template-columns:repeat(3,minmax(0,1fr));
-  }#ee-events .ee-e-card{
-    position:relative;display:flex;flex-direction:column;
-    background:#fff;border:1px solid var(--hair);border-radius:14px;
-    padding:16px;text-decoration:none;color:inherit;
-    box-shadow:0 1px 2px rgba(15,32,58,.04),0 10px 28px -18px rgba(15,32,58,.22);
-    transition:transform .28s cubic-bezier(.2,.7,.3,1),box-shadow .28s ease,border-color .28s ease;
-  }#ee-events .ee-e-card:hover{
-    transform:translateY(-6px);border-color:rgba(25,52,93,.16);
-    box-shadow:0 2px 4px rgba(15,32,58,.05),0 24px 44px -22px rgba(25,52,93,.34);
-  }#ee-events .ee-e-card:focus-within{outline:3px solid rgba(222,110,48,.4);outline-offset:3px;}#ee-events .ee-e-top{display:flex;align-items:center;gap:12px;margin-bottom:18px;}#ee-events .ee-e-date{
-    flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    width:58px;height:62px;border-radius:14px;line-height:1;
-    background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;
-    box-shadow:0 8px 18px -10px rgba(25,52,93,.6);
-  }#ee-events .ee-e-date .d{font-family:'Inter',sans-serif;font-weight:600;font-size:22px;}#ee-events .ee-e-date .m{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-top:4px;opacity:.92;}#ee-events .ee-e-date .y{font-size:10px;font-weight:500;margin-top:3px;opacity:.7;}#ee-events .ee-e-tag{
-    display:inline-flex;align-items:center;gap:6px;
-    font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
-    padding:6px 11px;border-radius:999px;
-    color:var(--navy2);background:rgba(34,70,124,.08);border:1px solid var(--hair);
-  }#ee-events .ee-e-tag.is-live{color:var(--orange);background:rgba(222,110,48,.10);border-color:rgba(222,110,48,.18);}#ee-events .ee-e-tag .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}#ee-events .ee-e-title{
-    font-family:'Inter',system-ui,sans-serif;
-    font-weight:600;font-size:18px;line-height:1.28;margin:0 0 9px;color:var(--navy);
-  }#ee-events .ee-e-desc{margin:0 0 20px;font-size:14px;line-height:1.55;color:var(--muted);}#ee-events .ee-e-link{
-    margin-top:auto;display:inline-flex;align-items:center;gap:6px;
-    font-size:13.5px;font-weight:600;color:var(--orange);
-  }#ee-events .ee-e-link svg,#ee-events .ee-e-link img.eeimg{width:14px;height:14px;transition:transform .25s ease;}#ee-events .ee-e-card:hover .ee-e-link svg,#ee-events .ee-e-card:hover .ee-e-link img.eeimg{transform:translateX(4px);}#ee-events .ee-e-link:focus-visible{outline:3px solid rgba(222,110,48,.55);outline-offset:3px;border-radius:4px;}#ee-events .ee-e-odhead{
-    display:flex;align-items:baseline;gap:12px;margin:0 0 18px;
-    font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:var(--navy);
-  }#ee-events .ee-e-odhead::before{
-    content:"On-demand";font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--orange);
-  }#ee-events .ee-e-odgrid{
-    display:grid;gap:16px;grid-template-columns:repeat(3,minmax(0,1fr));
-  }#ee-events .ee-e-od{
-    display:flex;align-items:center;gap:14px;
-    background:#fff;border:1px solid var(--hair);border-radius:14px;padding:16px 18px;
-    text-decoration:none;color:inherit;
-    box-shadow:0 1px 2px rgba(15,32,58,.04),0 8px 22px -16px rgba(15,32,58,.2);
-    transition:transform .26s cubic-bezier(.2,.7,.3,1),box-shadow .26s ease,border-color .26s ease;
-  }#ee-events .ee-e-od:hover{transform:translateY(-4px);border-color:rgba(25,52,93,.16);box-shadow:0 2px 4px rgba(15,32,58,.05),0 18px 34px -20px rgba(25,52,93,.3);}#ee-events .ee-e-od:focus-visible{outline:3px solid rgba(222,110,48,.55);outline-offset:3px;}#ee-events .ee-e-play{
-    flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
-    width:42px;height:42px;border-radius:50%;
-    background:linear-gradient(160deg,var(--orange),var(--orange2));color:#fff;
-    box-shadow:0 8px 18px -9px rgba(222,110,48,.65);
-  }#ee-events .ee-e-play svg,#ee-events .ee-e-play img.eeimg{width:16px;height:16px;margin-left:2px;}#ee-events .ee-e-od-body{display:flex;flex-direction:column;gap:5px;min-width:0;}#ee-events .ee-e-od-title{font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;line-height:1.25;color:var(--navy);}#ee-events .ee-e-od-link{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--orange);}#ee-events .ee-e-od-link svg,#ee-events .ee-e-od-link img.eeimg{width:12px;height:12px;transition:transform .25s ease;}#ee-events .ee-e-od:hover .ee-e-od-link svg,#ee-events .ee-e-od:hover .ee-e-od-link img.eeimg{transform:translateX(3px);}
-
-  @media (max-width:900px){#ee-events .ee-e-grid{grid-template-columns:repeat(2,minmax(0,1fr));}#ee-events .ee-e-odgrid{grid-template-columns:repeat(2,minmax(0,1fr));}#ee-events .ee-e-grid .ee-e-card:nth-child(3){grid-column:1 / -1;}
-  }
-  @media (max-width:560px){#ee-events .ee-e-grid,#ee-events .ee-e-odgrid{grid-template-columns:1fr;}#ee-events .ee-e-grid .ee-e-card:nth-child(3){grid-column:auto;}#ee-events .ee-e-container{padding:0 18px;}
-  }
-  @media (prefers-reduced-motion:reduce){#ee-events .ee-e-card,#ee-events .ee-e-od,#ee-events .ee-e-link svg,#ee-events .ee-e-link img.eeimg,#ee-events .ee-e-od-link svg,#ee-events .ee-e-od-link img.eeimg{transition:none;}
-  }
-</style>
-<section id="ee-events" aria-label="Events and Webinars">
-  <div class="ee-e-container">
-    <div class="ee-e-head">
-      <p class="ee-e-eyebrow">Events &amp; Webinars</p>
-      <h2>Live events &amp; on-demand webinars</h2>
-      <p class="ee-e-sub">Learn from admissions leaders and AI experts, then revisit the sessions that matter most, anytime.</p>
-    </div>
-
-    <div class="ee-e-grid">
-
-      <a class="ee-e-card" href="#admission-form">
-        <div class="ee-e-top">
-          <div class="ee-e-date"><span class="d">12</span><span class="m">Jul</span><span class="y">2026</span></div>
-          <span class="ee-e-tag"><span class="dot"></span>Webinar</span>
-        </div>
-        <h3 class="ee-e-title">Using AI to Convert Inquiries into Enrollments</h3>
-        <p class="ee-e-desc">A practical look at AI-led lead scoring and automated follow-ups that lift yield.</p>
-        <span class="ee-e-link">Register free <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-      </a>
-
-      <a class="ee-e-card" href="#admission-form">
-        <div class="ee-e-top">
-          <div class="ee-e-date"><span class="d">29</span><span class="m">Jul</span><span class="y">2026</span></div>
-          <span class="ee-e-tag"><span class="dot"></span>Workshop</span>
-        </div>
-        <h3 class="ee-e-title">Building a Counselor Workflow That Scales</h3>
-        <p class="ee-e-desc">Hands-on session to design follow-up cadences your team can actually sustain.</p>
-        <span class="ee-e-link">Register free <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-      </a>
-
-      <a class="ee-e-card" href="#admission-form">
-        <div class="ee-e-top">
-          <div class="ee-e-date"><span class="d">14</span><span class="m">Aug</span><span class="y">2026</span></div>
-          <span class="ee-e-tag is-live"><span class="dot"></span>Live Event</span>
-        </div>
-        <h3 class="ee-e-title">Admissions Summit 2026: The AI-First Campus</h3>
-        <p class="ee-e-desc">A flagship gathering of admissions leaders shaping the next enrollment era.</p>
-        <span class="ee-e-link">Register free <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-      </a>
-
-    </div>
-
-    <h3 class="ee-e-odhead">webinars you can watch right now</h3>
-    <div class="ee-e-odgrid">
-
-      <a class="ee-e-od" href="#admission-form">
-        <span class="ee-e-play" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/events-icon-01.svg" alt="" loading="lazy" decoding="async"></span>
-        <span class="ee-e-od-body">
-          <span class="ee-e-od-title">Cutting Lead Response Time to Under 5 Minutes</span>
-          <span class="ee-e-od-link">Watch now <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-        </span>
-      </a>
-
-      <a class="ee-e-od" href="#admission-form">
-        <span class="ee-e-play" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/events-icon-01.svg" alt="" loading="lazy" decoding="async"></span>
-        <span class="ee-e-od-body">
-          <span class="ee-e-od-title">Personalizing Outreach at Scale with AI</span>
-          <span class="ee-e-od-link">Watch now <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-        </span>
-      </a>
-
-      <a class="ee-e-od" href="#admission-form">
-        <span class="ee-e-play" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/events-icon-01.svg" alt="" loading="lazy" decoding="async"></span>
-        <span class="ee-e-od-body">
-          <span class="ee-e-od-title">Measuring True ROI Across Your Admissions Funnel</span>
-          <span class="ee-e-od-link">Watch now <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-        </span>
-      </a>
-
-    </div>
-  </div>
-</section>
-
 <section class="sec sec--soft" id="faq">
   <div class="container">
     <div class="head rv">
@@ -5710,8 +5560,8 @@ body.ee-home{
 
 <style id="ee-ctx-bg">/* ===== Plain white background across the whole homepage ===== */
 body.ee-home{ background:#ffffff!important; }/* remove all graphic background motifs */
-#ee-products::before,#ee-teams::before,#ee-solutions::before,#ee-resources::before,#ee-events::before,#integrations::before,#security::before,#stories::before{ display:none!important; }/* plain white section backgrounds (keeps intentional dark component panels intact) */
-#ee-products,#ee-teams,#ee-solutions,#ee-resources,#ee-events,#ee-industries{ background:#ffffff!important; }
+#ee-products::before,#ee-teams::before,#ee-solutions::before,#ee-resources::before,#integrations::before,#security::before,#stories::before{ display:none!important; }/* plain white section backgrounds (keeps intentional dark component panels intact) */
+#ee-products,#ee-teams,#ee-solutions,#ee-resources,#ee-industries{ background:#ffffff!important; }
 </style>
 
 <!-- (removed) EE · SMOOTH INERTIA SCROLL - wheel hijack dropped in favor of native scrolling for performance -->
@@ -6018,8 +5868,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   #integrations .eyebrow,
   #security .eyebrow,
   #ee-golive .eb,
-  #ee-resources .ee-r-eyebrow,
-  #ee-events .ee-e-eyebrow{ display:none!important; }
+  #ee-resources .ee-r-eyebrow{ display:none!important; }
 }
 </style>
 
@@ -6082,7 +5931,6 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 .ee-home>#ee-golive{order:190}            /* Objection: fast go-live */
 .ee-home>#ee-switch{order:200}            /* Objection: easy switch */
 .ee-home>#ee-resources{order:210}         /* Nurture */
-.ee-home>#ee-events{order:220}            /* Nurture */
 .ee-home>#faq{order:230}                  /* Final objections */
 </style>
 
@@ -6190,7 +6038,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
    night story, CRM, scrollytelling) are deliberately NOT included - their
    scripts measure geometry at load. Unsupported browsers simply ignore. */
 #ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,
-#ee-golive,#ee-switch,#ee-resources,#ee-events,#faq{
+#ee-golive,#ee-switch,#ee-resources,#faq{
   content-visibility:auto;
   contain-intrinsic-size:auto 760px;
 }
