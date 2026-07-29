@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-hero-cta2 -->
+<!-- ee-front-tpl v2026-07-29-hero-roi -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -433,8 +433,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       </div>
       <div class="hero__cta reveal d5">
         <a href="#admission-form" class="btn btn-primary" id="magnet">Book a Demo <span class="arr">&rarr;</span><span class="shine"></span></a>
-        <a href="#stories" class="btn btn-watch"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:15px;height:15px;flex:none"><path d="M8 5v14l11-7z"/></svg> Watch 2-Min Demo</a>
-        <span class="cta-note">No credit card &middot; Personalised to your institution</span>
+        <a href="#stories" class="btn btn-watch"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:15px;height:15px;flex:none"><path d="M8 5v14l11-7z"/></svg> Watch 2-Min Product Tour</a>
+        <span class="cta-note">No credit card &middot; Personalised to your institution &middot; <a href="#ee-cro" class="cta-roi-link">Calculate your admission ROI &rarr;</a></span>
       </div>
       <div class="stats reveal d6">
         <div class="stat"><div class="stat__n"><span data-xhcount="500">0</span><em>+</em></div><div class="stat__l">Institutions onboard</div></div>
@@ -6044,6 +6044,9 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 </style>
 
 <style id="ee-cta-unify">
+#xhero .cta-roi-link{color:var(--orange-700,#B5551D);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+#xhero .cta-roi-link:hover{color:var(--orange-800,#A8501C)}
+
 /* Low-friction secondary CTA: quiet outline so Book a Demo stays dominant */
 #xhero .btn-watch{background:transparent!important;color:#19335D!important;
   border:1.5px solid rgba(25,51,93,.35)!important;border-radius:9px!important;
