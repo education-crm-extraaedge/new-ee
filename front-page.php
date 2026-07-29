@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-sol-white -->
+<!-- ee-front-tpl v2026-07-29-sol-noghost -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3889,7 +3889,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
     <div class="solb-grid">
 
       <article class="solb-card solb-a">
-        <span class="solb-ghost" aria-hidden="true">01</span>
         <span class="solb-tag"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-01.svg" alt="" loading="lazy" decoding="async">Admission Solutions</span>
         <h3>Run your core admissions engine end-to-end</h3>
         <p class="solb-desc">Capture, qualify, convert and enrol - one connected pipeline from first enquiry to fee paid.</p>
@@ -3901,7 +3900,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
       </article>
 
       <article class="solb-card solb-b">
-        <span class="solb-ghost" aria-hidden="true">02</span>
         <span class="solb-tag"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-03.svg" alt="" loading="lazy" decoding="async">Study Abroad</span>
         <h3>Purpose-built for overseas education counselling</h3>
         <p class="solb-desc">Manage country, course and intake journeys - with full visibility over agents and consultants.</p>
@@ -3913,7 +3911,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
       </article>
 
       <article class="solb-card solb-c">
-        <span class="solb-ghost" aria-hidden="true">03</span>
         <span class="solb-tag"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-04.svg" alt="" loading="lazy" decoding="async">Recruitment &amp; Lead Management</span>
         <h3>Fill your funnel - and never let a lead go cold</h3>
         <p class="solb-desc">Source, score, route and nurture every enquiry automatically, from first touch to enrolled.</p>
