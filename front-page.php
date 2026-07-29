@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-why-center -->
+<!-- ee-front-tpl v2026-07-29-cro-order -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -351,8 +351,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     <ul class="eetoc-list">
       <li><a href="#xhero" data-t="xhero"><i>01</i><span>Top</span></a></li>
       <li><a href="#trusted-institutions" data-t="trusted-institutions"><i>02</i><span>Broad Client Base</span></a></li>
-      <li><a href="#ee-night" data-t="ee-night"><i>03</i><span>The Admission Operating System</span></a></li>
-      <li><a href="#ee-platform" data-t="ee-platform"><i>04</i><span>AI Product-Led Experience</span></a></li>
+      <li><a href="#ee-platform" data-t="ee-platform"><i>03</i><span>AI Product-Led Experience</span></a></li>
+      <li><a href="#ee-night" data-t="ee-night"><i>04</i><span>The Admission Operating System</span></a></li>
       <li><a href="#ee-products" data-t="ee-products"><i>05</i><span>The admissions platform</span></a></li>
       <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>06</i><span>Agentic AI Suite</span></a></li>
       <li><a href="#ee-teams" data-t="ee-teams"><i>07</i><span>One platform, every team</span></a></li>
@@ -5897,33 +5897,39 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 </style>
 
 <style id="ee-cro-order">
-/* CRO / lead-gen section reorder - ideal user journey, DESIGN UNCHANGED.
-   Uses CSS order only (no markup moved) so every section keeps its exact
-   design, scripts and scroll behaviour. Flow: what it is -> proof -> problem
-   -> value -> how it works -> product -> differentiator -> relevance ->
-   social proof/ROI -> trust -> nurture -> FAQ -> convert. */
+/* CRO / lead-gen section order - DESIGN UNCHANGED, CSS order only.
+   Journey: Attention (hero+form) -> instant credibility (logos) ->
+   positioning "why us" BEFORE heavy demos (users invest scroll only after
+   a reason) -> show-don't-tell interactive demo -> #1 pain differentiator
+   (speed-to-lead) -> CRM simplicity -> immersive long-form OS story (deep
+   engagement only after buy-in; a 3.4-screen pinned story too early causes
+   drop-off) -> platform depth -> AI differentiator -> every team ->
+   self-identification (solutions, industries) -> proof from "institutes
+   like mine" -> decision tools (comparison + ROI) -> objection handling
+   (integrations, security, fast go-live, easy switch) -> nurture ->
+   final objections (FAQ) -> footer CTA. */
 .ee-home{display:flex;flex-direction:column}
 .ee-home>#ee-toc{order:-1}
-.ee-home>#xhero{order:10}                 /* What it is + primary CTA */
+.ee-home>#xhero{order:10}                 /* Attention: value prop + lead form */
 .ee-home>#trusted-institutions{order:20}  /* Instant social proof */
-.ee-home>#ee-night{order:50}              /* How it works, end to end */
-.ee-home>#ee-platform{order:60}
-.ee-home>#ee-why{order:62}
-.ee-home>#ee-rfa{order:63}              /* Respond first - AI storytelling */              /* Why institutes choose us */           /* See the product */
-.ee-home>#vidyaai-embed-root{order:65}   /* Powerful Admission CRM with Simplicity */
+.ee-home>#ee-why{order:30}                /* Positioning: why ExtraaEdge */
+.ee-home>#ee-platform{order:40}           /* Show, don't tell: live demo */
+.ee-home>#ee-rfa{order:50}                /* Speed-to-lead differentiator */
+.ee-home>#vidyaai-embed-root{order:55}    /* Powerful CRM with simplicity */
+.ee-home>#ee-night{order:60}              /* Immersive OS story */
 .ee-home>#ee-products{order:70}           /* Full platform / modules */
 .ee-home>#ee-vidya-suite{order:80}        /* AI differentiator */
 .ee-home>#ee-teams{order:90}              /* Every team */
-.ee-home>#ee-solutions{order:130}         /* Relevance: solutions */
-.ee-home>#ee-ind{order:140}               /* Relevance: industries */
-.ee-home>#stories{order:150}              /* Proof: impact stories */
-.ee-home>#ee-cro{order:160}               /* Why switch + ROI value */
-.ee-home>#integrations{order:170}         /* Trust: fits your stack */
-.ee-home>#security{order:180}             /* Trust: enterprise-grade */
-.ee-home>#ee-golive{order:190}            /* Objection: fast go-live */
-.ee-home>#ee-switch{order:200}            /* Objection: easy switch */
-.ee-home>#ee-resources{order:210}         /* Nurture */
-.ee-home>#faq{order:230}                  /* Final objections */
+.ee-home>#ee-solutions{order:100}         /* Relevance: solutions */
+.ee-home>#ee-ind{order:110}               /* Relevance: industries */
+.ee-home>#stories{order:120}              /* Proof: impact stories */
+.ee-home>#ee-cro{order:130}               /* Decision: comparison + ROI */
+.ee-home>#integrations{order:140}         /* Objection: fits your stack */
+.ee-home>#security{order:150}             /* Objection: enterprise trust */
+.ee-home>#ee-golive{order:160}            /* Objection: fast go-live */
+.ee-home>#ee-switch{order:170}            /* Objection: easy switch */
+.ee-home>#ee-resources{order:180}         /* Nurture the not-ready */
+.ee-home>#faq{order:190}                  /* Final objections */
 </style>
 
 <script>
