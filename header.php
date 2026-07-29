@@ -1539,20 +1539,26 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 }
 html body #main-content h1:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:var(--ee-h1) !important;
-    line-height:1.12 !important;
+    line-height:1.15 !important;
     letter-spacing:-.02em !important;
+    text-wrap:balance;
 }
 html body #main-content h2:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:var(--ee-h2) !important;
-    line-height:1.22 !important;
-    letter-spacing:-.015em !important;
+    line-height:1.28 !important;
+    letter-spacing:-.008em !important;
+    font-weight:700 !important;
+    text-wrap:balance;
 }
 html body #main-content h3:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:var(--ee-h3) !important;
-    line-height:1.3 !important;
-    letter-spacing:-.01em !important;
+    line-height:1.35 !important;
+    letter-spacing:-.005em !important;
+    font-weight:600 !important;
+    text-wrap:balance;
 }
 html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
+    text-wrap:pretty;
     font-size:var(--ee-p) !important;
     line-height:1.6 !important;
 }

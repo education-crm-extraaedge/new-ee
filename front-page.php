@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-no-eyebrows -->
+<!-- ee-front-tpl v2026-07-29-polish -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -273,12 +273,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
    (Agentic pinned-scroll + the story iframe) keep their own spacing so their
    scroll mechanics aren't disturbed. */
 .ee-home > section:not(#ee-vidya-suite):not(#ee-night){
-  padding-top:18px!important;
-  padding-bottom:18px!important;
+  padding-top:30px!important;
+  padding-bottom:30px!important;
 }
 .sec,.hero,#xhero,#platform,#stories,#segments,.vx-head,.vx-proof,.rf-wrap,.rf-band-in,.sec-auto,.ea-wrap,.ee-wrap,.wa-sec,.intro,.outro{
-  padding-top:18px!important;
-  padding-bottom:18px!important;
+  padding-top:30px!important;
+  padding-bottom:30px!important;
 }.ts-grid{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;overflow:visible!important;scroll-snap-type:none!important;margin-inline:auto!important;max-width:1180px;gap:clamp(16px,2.2vw,24px)!important}#stories .ts-card{flex:1 1 320px!important;max-width:382px!important;scroll-snap-align:none!important}#stories .ts-nav,#stories .ts-hint{display:none!important}
 </style>
 
@@ -854,7 +854,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 
 <!-- ===================== RESPOND FIRST · AI STORYTELLING (scoped #ee-rfa) ===================== -->
-<style>#ee-rfa{position:relative;padding:0;background:
+<style>#ee-rfa{position:relative;padding:0;margin-top:clamp(32px,5vw,56px);background:
   radial-gradient(900px 480px at 92% 0%, rgba(222,110,48,.07), transparent 60%),
   radial-gradient(820px 460px at 2% 100%, rgba(25,52,93,.06), transparent 60%),#f6f8fc;
   font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0f203a;-webkit-font-smoothing:antialiased}
@@ -1853,11 +1853,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 </html>
 "></iframe>
     </div>
-    </div>
-    <div class="eep-cta">
-      <p class="eep-cta-t">Explored the platform? See it run on <strong>your</strong> admission funnel.</p>
-      <a href="https://www.extraaedge.com/book-a-demo/" class="eep-cta-btn">Book demo Now <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-04.svg" alt="" loading="lazy" decoding="async"></a>
-      <span class="eep-cta-sub">30-min personalised walkthrough &middot; No credit card</span>
     </div>
   </div>
 </section>
