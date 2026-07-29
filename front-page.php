@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-cta-unify -->
+<!-- ee-front-tpl v2026-07-29-sol-white -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -6072,5 +6072,35 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   transform:translateY(-2px);
   box-shadow:0 6px 22px rgba(222,110,48,.35)!important;
 }
+</style>
+
+<style id="ee-sol-white">
+/* ── Solutions: all-white treatment. The navy hero card (solb-a), tinted
+   card (solb-c) and orange card (solb-d) all become white cards with the
+   same hairline border + soft shadow as solb-b; their text recolours to
+   the standard navy/muted palette. ── */
+#ee-solutions{background:#ffffff!important}
+#ee-solutions::before{display:none!important}
+#ee-solutions .solb-a,#ee-solutions .solb-c,#ee-solutions .solb-d{
+  background:#ffffff!important;color:var(--ink,#0f203a)!important;
+  border:1px solid rgba(25,52,93,.09)!important;
+  box-shadow:0 1px 2px rgba(15,32,58,.04),0 14px 34px -22px rgba(15,32,58,.22)!important;
+}
+#ee-solutions .solb-a::after,#ee-solutions .solb-d::after{display:none!important}
+#ee-solutions .solb-a h3,#ee-solutions .solb-d h3{color:#19345d!important}
+#ee-solutions .solb-a .solb-desc,#ee-solutions .solb-d .solb-desc{color:#5a6b85!important}
+#ee-solutions .solb-a .solb-tag{
+  color:var(--orange-700,#B5551D)!important;
+  background:rgba(222,110,48,.08)!important;
+  border-color:rgba(222,110,48,.22)!important;
+}
+#ee-solutions .solb-a .solb-ghost{color:rgba(25,52,93,.05)!important}
+#ee-solutions .solb-a .solb-link{
+  background:#fff!important;border:1px solid rgba(25,52,93,.09)!important;color:var(--ink,#0f203a)!important;
+}
+#ee-solutions .solb-a .solb-link:hover{background:#fff!important;border-color:rgba(222,110,48,.5)!important}
+#ee-solutions .solb-a .solb-lt span{color:#5a6b85!important}
+#ee-solutions .solb-a .solb-arr{color:#5a6b85!important}
+#ee-solutions .solb-a .solb-link:hover .solb-arr{color:var(--orange-700,#B5551D)!important}
 </style>
 <?php get_footer(); ?>
