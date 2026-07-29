@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-mods-glass -->
+<!-- ee-front-tpl v2026-07-29-mods-glass2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1150,10 +1150,10 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
    screen in place. On phones the same tiles become a swipeable pill strip
    and tapping opens the full-screen experience on that screen. ---- */
 #ee-platform .eep-demo-wrap{position:relative}
-#ee-platform .eep-mods{position:absolute;top:70px;right:16px;z-index:6;width:344px;background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.7);border-radius:16px;box-shadow:0 24px 60px -24px rgba(15,32,58,.45),inset 0 1px 0 rgba(255,255,255,.8);padding:16px 14px 14px}@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){#ee-platform .eep-mods{background:rgba(255,255,255,.42);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%)}}
+#ee-platform .eep-mods{position:absolute;top:70px;right:16px;z-index:6;width:344px;background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.7);border-radius:16px;box-shadow:0 24px 60px -24px rgba(15,32,58,.45),inset 0 1px 0 rgba(255,255,255,.8);padding:16px 14px 14px}@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){#ee-platform .eep-mods{background:rgba(255,255,255,.22);-webkit-backdrop-filter:blur(5px) saturate(150%);backdrop-filter:blur(5px) saturate(150%)}}
 html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;line-height:1.2!important;margin:0 0 12px;text-align:center;font-weight:800;color:#0f203a;letter-spacing:-.01em}
 #ee-platform .eep-mods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-#ee-platform .eep-mod{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.75);border-radius:12px;padding:13px 6px 11px;cursor:pointer;transition:border-color .18s,background .18s,transform .18s;-webkit-tap-highlight-color:transparent}
+#ee-platform .eep-mod{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;background:rgba(255,255,255,.34);border:1px solid rgba(255,255,255,.6);border-radius:12px;padding:13px 6px 11px;cursor:pointer;transition:border-color .18s,background .18s,transform .18s;-webkit-tap-highlight-color:transparent}
 #ee-platform .eep-mod .eep-mod-ic{display:flex;width:20px;height:20px;color:#19345d;transition:color .18s}
 #ee-platform .eep-mod .eep-mod-ic svg{width:20px;height:20px}
 #ee-platform .eep-mod b{font-size:11px;font-weight:600;color:#334a68;line-height:1.15;text-align:center;transition:color .18s}
@@ -1166,7 +1166,7 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 #ee-platform .eep-tour svg{width:10px;height:10px}
 #ee-platform .eep-tour:hover{border-color:rgba(222,110,48,.5);color:#C45A20}
 #ee-platform .eep-tour.on{background:#19345d;border-color:#19345d;color:#fff}
-#ee-platform .eep-mod-info{display:flex;flex-direction:column;gap:3px;margin-top:11px;padding:10px 12px;border:1px solid rgba(25,52,93,.1);border-left:3px solid #DE6E30;border-radius:10px;background:rgba(248,250,252,.72);animation:eepInfoIn .3s ease}
+#ee-platform .eep-mod-info{display:flex;flex-direction:column;gap:3px;margin-top:11px;padding:10px 12px;border:1px solid rgba(25,52,93,.1);border-left:3px solid #DE6E30;border-radius:10px;background:rgba(248,250,252,.5);animation:eepInfoIn .3s ease}
 @keyframes eepInfoIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 #ee-platform .eep-mod-info b{font-size:12.5px;font-weight:800;color:#19345d}
 #ee-platform .eep-mod-info span{font-size:11.5px;line-height:1.45;color:#5a6b85}
