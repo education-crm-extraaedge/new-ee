@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-noflowband -->
+<!-- ee-front-tpl v2026-07-29-rfa-h2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -960,7 +960,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </article>
       <article class="rfa-card" data-i="1" tabindex="0">
         <span class="rfa-kick">Boost conversion rates</span>
-        <h3 class="rfa-title">AI Decides the Right Admission Engagements.</h3>
+        <h2 class="rfa-title">AI Decides the Right Admission Engagements.</h2>
         <div class="rfa-body">
           <p>ExtraaEdge uses intelligence across student behaviour, intent, and application stage. It decides who to engage, when to engage, and how to engage across channels. Every interaction is timely, relevant, and context-aware. Admissions teams move away from manual follow-ups and generic messaging - AI-guided engagements adapt in real time and drive higher enrollments.</p>
           <b class="rfa-chiplbl">Engagement Channels</b>
@@ -970,7 +970,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </article>
       <article class="rfa-card" data-i="2" tabindex="0">
         <span class="rfa-kick">Convert more</span>
-        <h3 class="rfa-title">Turn Enquiries Into Enrollments</h3>
+        <h2 class="rfa-title">Turn Enquiries Into Enrollments</h2>
         <div class="rfa-body">
           <p>Not every enquiry deserves the same attention. ExtraaEdge helps teams focus on prospects most likely to enroll. Intelligent prioritization uses engagement, intent, and application stage. Teams know exactly who to follow up, nurture, or move forward - the result is higher efficiency and stronger enrollment conversions.</p>
           <b class="rfa-chiplbl">Powered by Intelligent Prioritization</b>
@@ -980,7 +980,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </article>
       <article class="rfa-card" data-i="3" tabindex="0">
         <span class="rfa-kick">Measure your efforts</span>
-        <h3 class="rfa-title">Know What&rsquo;s Working. Fix What&rsquo;s Not.</h3>
+        <h2 class="rfa-title">Know What&rsquo;s Working. Fix What&rsquo;s Not.</h2>
         <div class="rfa-body">
           <p>Measure what matters across admissions and marketing. ExtraaEdge gives teams clear, actionable visibility into performance. Track counselors, campaigns, and lead sources in one place. With Analytics Builder and VidyaGPT Analytics, insights are easier to explore and understand - so teams act faster on what&rsquo;s working and fix what&rsquo;s not.</p>
           <b class="rfa-chiplbl">Analytics &amp; Visibility Across</b>
