@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-mods-superleap -->
+<!-- ee-front-tpl v2026-07-29-mods-rail -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1150,23 +1150,23 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
    screen in place. On phones the same tiles become a swipeable pill strip
    and tapping opens the full-screen experience on that screen. ---- */
 #ee-platform .eep-demo-wrap{position:relative}
-#ee-platform .eep-mods{position:absolute;top:-26px;right:-26px;z-index:6;width:336px;background:#fff;border:1px solid #ECEFF4;border-radius:18px;box-shadow:0 2px 6px rgba(15,32,58,.05),0 46px 100px -34px rgba(15,32,58,.45);padding:18px 16px 16px}@media(max-width:1460px){#ee-platform .eep-mods{top:64px;right:14px}}
-html body #main-content #ee-platform .eep-mods-title{font-size:15px!important;line-height:1.2!important;margin:0 0 12px;text-align:center;font-weight:800;color:#0f203a;letter-spacing:-.015em}
-#ee-platform .eep-mods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-#ee-platform .eep-mod{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;background:#fff;border:1px solid #E7EBF1;border-radius:12px;box-shadow:0 1px 2px rgba(15,32,58,.04);padding:14px 6px 12px;cursor:pointer;transition:border-color .18s,background .18s,transform .18s;-webkit-tap-highlight-color:transparent}
-#ee-platform .eep-mod .eep-mod-ic{display:flex;width:20px;height:20px;color:#19345d;transition:color .18s}
-#ee-platform .eep-mod .eep-mod-ic svg{width:20px;height:20px}
-#ee-platform .eep-mod b{font-size:11px;font-weight:600;color:#334a68;line-height:1.15;text-align:center;transition:color .18s}
-#ee-platform .eep-mod:hover{border-color:#19345d;transform:translateY(-2px);box-shadow:0 10px 20px -10px rgba(15,32,58,.3)}
-#ee-platform .eep-mod.on{background:#19345d;border-color:#19345d;box-shadow:0 12px 26px -10px rgba(25,52,93,.55)}#ee-platform .eep-mod.on .eep-mod-ic{color:#fff}
-#ee-platform .eep-mod.on .eep-mod-ic,#ee-platform .eep-mod.on b{color:#fff}
-#ee-platform .eep-mods-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+#ee-platform .eep-mods{position:absolute;top:50%;right:-38px;z-index:6;width:96px;display:flex;flex-direction:column;background:#fff;border:1px solid #ECEFF4;border-radius:22px;box-shadow:0 2px 6px rgba(15,32,58,.05),0 34px 80px -30px rgba(15,32,58,.45);padding:14px 10px;transform:translate(28px,-50%);opacity:0;visibility:hidden;transition:transform .65s cubic-bezier(.22,1,.36,1),opacity .5s ease,visibility .5s}#ee-platform.eep-rail-in .eep-mods{transform:translate(0,-50%);opacity:1;visibility:visible}@media(max-width:860px){#ee-platform .eep-mods{position:static;transform:none!important;opacity:1!important;visibility:visible!important;width:auto;flex-direction:column;box-shadow:none;border:0;background:transparent;border-radius:0;padding:0;margin:0 0 14px}#ee-platform .eep-mods-grid{flex-direction:row;max-height:none;overflow-y:visible}#ee-platform .eep-mod .eep-mod-ic{width:auto;height:auto;border:0;background:transparent;box-shadow:none}#ee-platform .eep-mod.on .eep-mod-ic{border:0;background:transparent;box-shadow:none;color:#fff}#ee-platform .eep-mod-info{display:flex}}@media(max-width:1540px){#ee-platform .eep-mods{right:12px}}
+html body #main-content #ee-platform .eep-mods-title{display:none!important}
+#ee-platform .eep-mods-grid{display:flex;flex-direction:column;gap:13px;order:1;max-height:min(62vh,600px);overflow-y:auto;scrollbar-width:none}#ee-platform .eep-mods-grid::-webkit-scrollbar{display:none}
+#ee-platform .eep-mod{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:transparent;border:0;box-shadow:none;border-radius:0;padding:0;cursor:pointer;transition:border-color .18s,background .18s,transform .18s;-webkit-tap-highlight-color:transparent}
+#ee-platform .eep-mod .eep-mod-ic{display:flex;align-items:center;justify-content:center;width:42px;height:42px;color:#19345d;background:#fff;border:1.4px solid #E7EBF1;border-radius:13px;box-shadow:0 1px 2px rgba(15,32,58,.05);transition:border-color .2s,background .2s,box-shadow .2s,transform .2s,color .2s}
+#ee-platform .eep-mod .eep-mod-ic svg{width:19px;height:19px}
+#ee-platform .eep-mod b{font-size:9.5px;font-weight:700;color:#334a68;line-height:1.15;text-align:center;transition:color .18s}
+#ee-platform .eep-mod:hover .eep-mod-ic{border-color:#19345d;transform:translateY(-2px)}
+#ee-platform .eep-mod.on .eep-mod-ic{border-color:#DE6E30;background:#FFF4EC;color:var(--orange-700,#B5551D);box-shadow:0 0 0 4px rgba(222,110,48,.13)}#ee-platform .eep-mod.on b{color:#19345d}
+#ee-platform .eep-mod.on .eep-mod-ic,#ee-platform .eep-mod.on b{color:var(--orange-700,#B5551D)}
+#ee-platform .eep-mods-head{display:flex;align-items:center;justify-content:center;order:2;margin:12px 0 0}
 #ee-platform .eep-mods-head .eep-mods-title{margin:0!important;text-align:left}
 #ee-platform .eep-tour{display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(25,52,93,.18);background:#fff;color:#19345d;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
 #ee-platform .eep-tour svg{width:10px;height:10px}
 #ee-platform .eep-tour:hover{border-color:rgba(222,110,48,.5);color:#C45A20}
 #ee-platform .eep-tour.on{background:#19345d;border-color:#19345d;color:#fff}
-#ee-platform .eep-mod-info{display:flex;flex-direction:column;gap:3px;margin-top:11px;padding:10px 12px;border:1px solid rgba(25,52,93,.1);border-left:3px solid #DE6E30;border-radius:10px;background:#F8FAFC;animation:eepInfoIn .3s ease}
+#ee-platform .eep-mod-info{display:none;flex-direction:column;gap:3px;margin-top:11px;padding:10px 12px;border:1px solid rgba(25,52,93,.1);border-left:3px solid #DE6E30;border-radius:10px;background:#F8FAFC;animation:eepInfoIn .3s ease}
 @keyframes eepInfoIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 #ee-platform .eep-mod-info b{font-size:12.5px;font-weight:800;color:#19345d}
 #ee-platform .eep-mod-info span{font-size:11.5px;line-height:1.45;color:#5a6b85}
@@ -1874,6 +1874,15 @@ html body #main-content #ee-platform .eep-mods-title{font-size:15px!important;li
     </div>
   </div>
 </section>
+<script>
+(function(){
+  var sec=document.getElementById('ee-platform'); if(!sec) return;
+  if(!('IntersectionObserver' in window)){ sec.classList.add('eep-rail-in'); return; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+    if(e.isIntersecting){ sec.classList.add('eep-rail-in'); io.disconnect(); } }); },{threshold:.25});
+  io.observe(sec);
+})();
+</script>
 <script>
 /* Run the platform demo's guided tour ONLY while the section is on screen,
    so the iframe never scroll-jumps the page back while the user reads on. */
