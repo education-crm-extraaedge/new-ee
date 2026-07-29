@@ -161,6 +161,70 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     })();
     </script>
 
+    <!-- ─── DESIGN TOKENS (ee-design-tokens) ───
+         Single source of truth for colour, type, space, radius, elevation
+         and motion. New/refactored CSS must consume these instead of
+         literals. Two-tier orange: #DE6E30 stays the identity colour for
+         fills, icons, borders and large display text; --orange-700/800 are
+         the text-safe shades (>=4.5:1 on white) for body-size orange text
+         and CTA fills per WCAG 2.2 SC 1.4.3. -->
+    <style id="ee-design-tokens">
+    :root{
+      /* Brand */
+      --orange-500:#DE6E30; --orange-600:#C25F26; --orange-700:#B5551D;
+      --orange-800:#A8501C; --orange-050:#FDF2EB;
+      --navy-900:#0F2143; --navy-700:#19335D; --navy-500:#2E4A78; --navy-050:#EEF2F8;
+      /* Neutral / text */
+      --white:#FFFFFF; --surface:#F7F8FA; --border:#E2E6ED; --border-strong:#C9D1DE;
+      --text-strong:#19335D; --text-body:#33415C; --text-muted:#5A6B85; --text-inverse:#FFFFFF;
+      /* Semantic (>=4.5:1 on white) */
+      --success:#147A50; --warning:#8A5A00; --error:#B3261E; --info:#1A5FB4;
+      /* Focus */
+      --focus-ring:#1A5FB4; --focus-width:3px; --focus-offset:2px;
+      /* Type */
+      --font:'Inter','Inter var',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+      --fs-display:clamp(3rem,2rem + 5vw,4.5rem); --fs-h1:clamp(2.5rem,1.7rem + 3.2vw,4rem);
+      --fs-h2:clamp(2rem,1.5rem + 1.8vw,3rem); --fs-h3:clamp(1.5rem,1.3rem + .9vw,2rem);
+      --fs-h4:clamp(1.25rem,1.15rem + .4vw,1.5rem); --fs-h5:1.125rem;
+      --fs-eyebrow:.875rem; --fs-body-lg:1.125rem; --fs-body:1rem;
+      --fs-body-sm:.875rem; --fs-caption:.75rem;
+      --lh-tight:1.08; --lh-heading:1.2; --lh-snug:1.4; --lh-body:1.65;
+      --ls-display:-.03em; --ls-heading:-.015em; --ls-body:0; --ls-eyebrow:.08em;
+      --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700;
+      /* Space: 4pt base */
+      --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px;
+      --s-7:40px; --s-8:48px; --s-9:64px; --s-10:80px; --s-11:96px; --s-12:120px;
+      --section-y:clamp(64px,8vw,120px); --container:1200px;
+      --gutter:clamp(20px,5vw,40px); --measure:68ch;
+      /* Radius */
+      --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:24px; --r-pill:999px;
+      /* Elevation: navy-tinted */
+      --sh-sm:0 1px 2px rgba(25,51,93,.06); --sh-md:0 8px 24px rgba(25,51,93,.08);
+      --sh-lg:0 20px 48px rgba(25,51,93,.10);
+      /* Motion */
+      --ease:cubic-bezier(.22,1,.36,1); --dur-fast:140ms; --dur:200ms; --dur-slow:320ms;
+    }
+    </style>
+
+    <!-- ─── ACCESSIBILITY BASE LAYER (ee-a11y-layer) ───
+         Site-wide WCAG 2.2 AA guarantees that individual sections cannot
+         opt out of: an always-visible focus ring (SC 2.4.7 - several legacy
+         rules set outline:none, the !important here restores it), anchor
+         targets clearing the sticky header (SC 2.4.11), token-contrast
+         placeholders (SC 1.4.3), a screen-reader-only utility, and the
+         global reduced-motion kill-switch (SC 2.3.3). -->
+    <style id="ee-a11y-layer">
+    html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+    *:focus-visible{outline:var(--focus-width) solid var(--focus-ring)!important;outline-offset:var(--focus-offset)!important}
+    :where([id]){scroll-margin-block-start:96px}
+    input::placeholder,textarea::placeholder{color:var(--text-muted)}
+    .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+    }
+    </style>
+
+
     <!-- ─── 2. PRIMARY SEO META (single source — works on every page) ─── -->
     <meta name="description" content="<?php echo esc_attr($ee_seo_desc); ?>">
     <?php if ($ee_meta_keywords) : ?>
@@ -338,7 +402,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     <!-- ─── 13. Critical CSS (EXISTING — preserved fully) ─── -->
     <style>
         /* preserved scroll progress + skip-link styles */
-        .skip-to-content { position:absolute; top:-100%; left:0; background:#DE6E30; color:#fff; font-weight:700; padding:.75rem 1.5rem; border-radius:0 0 8px 0; text-decoration:none; z-index:9999; transition:top .2s; }
+        .skip-to-content { position:absolute; top:-100%; left:0; background:var(--orange-700,#B5551D); color:#fff; font-weight:700; padding:.75rem 1.5rem; border-radius:0 0 8px 0; text-decoration:none; z-index:9999; transition:top .2s; }
         .skip-to-content:focus { top:0; }
         #progress { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,#DE6E30,#19335D); z-index:2000; width:0%; }
 
@@ -403,8 +467,8 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         #site-header .eh-nav { display:flex; align-items:center; gap:.15rem; }
         #site-header .eh-nav-item { position:relative; }
         #site-header .eh-nav-link { display:flex; align-items:center; gap:.35rem; padding:.55rem .85rem; color:#19335D; text-decoration:none; font-weight:600; font-size:.9rem; letter-spacing:.005em; border-radius:8px; transition:color .18s ease, background .18s ease; cursor:pointer; background:transparent; border:none; font-family:inherit; position:relative; }
-        #site-header .eh-nav-link:hover { background:#FFF3EC; color:#DE6E30; }
-        #site-header .eh-nav-link.active { background:#FFF3EC; color:#DE6E30; }
+        #site-header .eh-nav-link:hover { background:#FFF3EC; color:var(--orange-700,#B5551D); }
+        #site-header .eh-nav-link.active { background:#FFF3EC; color:var(--orange-700,#B5551D); }
         #site-header .eh-nav-link.active::after,
         #site-header .eh-nav-item:hover > .eh-nav-link::after {
             content: "";

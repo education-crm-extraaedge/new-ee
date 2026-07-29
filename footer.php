@@ -446,7 +446,7 @@ if (!defined('ABSPATH')) exit;
 .ee-fab img{width:24px;height:24px;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.15))}
 .ee-fab svg{width:22px;height:22px}
 .ee-fab-toc{background:#19335D;color:#fff;display:none}
-.ee-fab-wa{background:#25D366}
+.ee-fab-wa{background:#128C7E}/* WhatsApp dark teal: white icon 3.9:1 (SC 1.4.11); #25D366 was 2.0:1 */
 .ee-fab-call{background:#DE6E30}
 @media(max-width:1200px){.ee-fab-toc.ee-has-toc{display:flex}}
 .ee-toc-backdrop{position:fixed;inset:0;background:rgba(10,20,40,.45);opacity:0;visibility:hidden;transition:opacity .25s;z-index:997}
