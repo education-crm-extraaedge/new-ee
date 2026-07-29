@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-demo-hint -->
+<!-- ee-front-tpl v2026-07-29-demo-hint2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1393,19 +1393,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
       </div>
       <div class=&quot;oc-grid&quot; id=&quot;ocGrid&quot;></div>
     </section>
-<script>
-(function(){
-  var hint=document.getElementById('eepHint'); if(!hint) return;
-  function off(){ hint.classList.add('off'); }
-  var go=document.getElementById('eepHintGo');
-  if(go) go.addEventListener('click',off);
-  hint.addEventListener('click',function(e){ if(e.target===hint) off(); });
-  document.querySelectorAll('#ee-platform .eep-mod,#ee-platform .eep-tour').forEach(function(b){
-    b.addEventListener('click',off,{once:false});
-  });
-})();
-</script>
-
     <section class=&quot;view&quot; data-v=&quot;ai&quot;>
       <div class=&quot;vhead&quot;><div><span class=&quot;ai-eyebrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><path d=&quot;M13 2 3 14h7l-1 8 10-12h-7z&quot;/></svg> Powered by Vidya AI</span><h2 style=&quot;margin-top:8px&quot;>AI that does the work - not just assists</h2></div><div class=&quot;right&quot;><span class=&quot;sample-badge&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>Sample data</span></span></div></div>
       <div class=&quot;ai-grid&quot; id=&quot;aiGrid&quot;></div>
@@ -1932,6 +1919,19 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
     </div>
   </div>
 </section>
+<script>
+(function(){
+  var hint=document.getElementById('eepHint'); if(!hint) return;
+  function off(){ hint.classList.add('off'); }
+  var go=document.getElementById('eepHintGo');
+  if(go) go.addEventListener('click',off);
+  hint.addEventListener('click',function(e){ if(e.target===hint) off(); });
+  document.querySelectorAll('#ee-platform .eep-mod,#ee-platform .eep-tour').forEach(function(b){
+    b.addEventListener('click',off,{once:false});
+  });
+})();
+</script>
+
 <script>
 /* Run the platform demo's guided tour ONLY while the section is on screen,
    so the iframe never scroll-jumps the page back while the user reads on. */
