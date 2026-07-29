@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-noicon -->
+<!-- ee-front-tpl v2026-07-29-zoom90 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -85,6 +85,19 @@ add_action('wp_head', function () {
 get_header();
 ?>
 
+<style id="ee-home-zoom">
+/* ── Home page renders at 90% of the browser's zoom on desktop: what a
+   visitor sees at 100% browser zoom is the 90% view. Everything scales
+   uniformly (header, sections, pinned stories - their scroll math reads
+   the same zoomed coordinate space). Phones keep 100% - their type and
+   layouts are tuned separately. */
+@media(min-width:961px){
+  body{zoom:.9}
+  /* the relocated full-screen demo overlay must still cover the whole
+     viewport, so it counter-zooms back to 1:1 */
+  body>.eep-window.eep-launched{zoom:1.1112}
+}
+</style>
 <style id="ee-home-heading-scale">
 /* ── Home page heading/paragraph override (larger than the site-wide
    default set in header.php's #ee-global-heading-scale): H1=40, H2=30,
