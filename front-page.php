@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-rfastory2 -->
+<!-- ee-front-tpl v2026-07-29-noicon -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -2392,9 +2392,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-            <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:10px">
-                <img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/01-VidyaAI-Intelligence.svg" alt="VidyaAI" style="width:40px;height:40px;border-radius:10px;object-fit:contain;flex-shrink:0;background:#FFF4EE;padding:7px" loading="lazy" decoding="async">
-            </div>
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-brand-navy text-center mb-10 lg:mb-14 tracking-tight">
                 Powerful Admission CRM with Simplicity
             </h2>
