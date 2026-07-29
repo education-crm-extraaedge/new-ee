@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-rfa-hsize -->
+<!-- ee-front-tpl v2026-07-29-why-center -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -797,8 +797,8 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-why .eew-wrap{max-width:1240px;margin:0 auto;padding:0 24px}
 #ee-why .eew-eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 11px;border-radius:999px;background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.2);color:#C45A20;font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin-bottom:14px}
 #ee-why .eew-eyebrow i{width:7px;height:7px;border-radius:50%;background:#DE6E30;box-shadow:0 0 0 4px rgba(222,110,48,.15)}
-#ee-why h2{color:#19345d;margin:0 0 12px;max-width:20ch}
-#ee-why .eew-lead{color:#5a6b85;line-height:1.6;margin:0 0 8px;max-width:56ch}
+#ee-why h2{color:#19345d;margin:0 auto 12px;max-width:44ch;text-align:center}
+#ee-why .eew-lead{color:#5a6b85;line-height:1.6;margin:0 auto 8px;max-width:56ch;text-align:center}
 #ee-why .eew-lead strong{color:#19345d}
 #ee-why .eew-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(28px,4vw,54px);align-items:center;margin-top:clamp(20px,3vw,30px)}
 #ee-why .eew-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
