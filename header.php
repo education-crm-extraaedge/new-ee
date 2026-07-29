@@ -138,6 +138,29 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    <!-- ─── SITE-WIDE 90% ZOOM (ee-site-zoom v2026-07-29-global) ───
+         At browser 100% the whole site renders at 90% scale, site-wide.
+         Belt-and-braces: the CSS rule alone could lose to a later
+         stylesheet, so JS also force-sets an inline !important style on
+         <body>, which no stylesheet can override. Uses zoom (not
+         transform) because a transform on <body> silently kills
+         position:sticky — see the sticky-header note further down. -->
+    <style id="ee-site-zoom">body{zoom:.9 !important}</style>
+    <script id="ee-site-zoom-js">
+    (function () {
+        function eeApplyZoom() {
+            if (document.body) {
+                document.body.style.setProperty('zoom', '0.9', 'important');
+            }
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', eeApplyZoom);
+        } else {
+            eeApplyZoom();
+        }
+    })();
+    </script>
+
     <!-- ─── 2. PRIMARY SEO META (single source — works on every page) ─── -->
     <meta name="description" content="<?php echo esc_attr($ee_seo_desc); ?>">
     <?php if ($ee_meta_keywords) : ?>
