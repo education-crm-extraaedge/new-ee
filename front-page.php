@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-stories-cta -->
+<!-- ee-front-tpl v2026-07-29-rfa-hsize -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -903,6 +903,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   box-shadow:inset 0 1px 0 #fff,0 20px 46px -22px rgba(222,110,48,.35),0 0 0 4px rgba(222,110,48,.08)}
 #ee-rfa .rfa-kick{display:inline-block;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);border:1px solid rgba(222,110,48,.22);padding:5px 10px;border-radius:999px;margin-bottom:12px}
 #ee-rfa .rfa-title{color:#19345d;margin:0 0 10px}
+html body #main-content #ee-rfa h2.rfa-title{font-size:17px!important;line-height:1.35!important}
 #ee-rfa .rfa-body{max-height:0;opacity:0;overflow:hidden;transition:max-height .55s cubic-bezier(.2,.7,.2,1),opacity .4s ease .1s}
 #ee-rfa .rfa-card.on .rfa-body{max-height:560px;opacity:1}
 #ee-rfa .rfa-body p{color:#5a6b85;line-height:1.72;margin:12px 0 18px}
