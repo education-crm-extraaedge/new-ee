@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-rfastory -->
+<!-- ee-front-tpl v2026-07-29-rfastory2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -861,7 +861,26 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-rfa .rfa-orb.o2{width:400px;height:400px;right:-100px;bottom:8%;background:rgba(34,99,197,.14)}
 #ee-rfa .rfa-track{position:relative;height:calc(min(100vh,860px)*3.4)}
 #ee-rfa .rfa-pin{position:sticky;top:86px;height:min(calc(100vh - 86px),820px);overflow:hidden;display:flex;align-items:center}
-#ee-rfa .rfa-in{max-width:1240px;margin:0 auto;width:100%;padding:26px 24px;display:grid;grid-template-columns:minmax(0,.98fr) minmax(0,1.02fr);gap:clamp(26px,3.5vw,52px);align-items:center}
+#ee-rfa .rfa-in{max-width:1270px;margin:0 auto;width:100%;padding:26px 24px;display:grid;grid-template-columns:18px minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(18px,2.6vw,40px);align-items:center}
+/* progress rail: fill tracks scroll, dots jump to a story */
+#ee-rfa .rfa-rail{position:relative;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:26px 0;width:18px}
+#ee-rfa .rfa-rail::before{content:"";position:absolute;top:26px;bottom:26px;left:50%;width:2px;transform:translateX(-50%);background:rgba(25,52,93,.12);border-radius:2px}
+#ee-rfa .rfa-fill{position:absolute;top:26px;left:50%;width:2px;transform:translateX(-50%);height:0;background:linear-gradient(180deg,#E8843F,#DE6E30);border-radius:2px;transition:height .2s linear}
+#ee-rfa .rfa-dot{position:relative;z-index:1;width:14px;height:14px;border-radius:50%;border:2px solid rgba(25,52,93,.25);background:#fff;padding:0;cursor:pointer;transition:border-color .25s,box-shadow .25s,transform .25s}
+#ee-rfa .rfa-dot:hover{transform:scale(1.25)}
+#ee-rfa .rfa-dot.on{border-color:#DE6E30;box-shadow:0 0 0 5px rgba(222,110,48,.15)}
+/* browser-chrome frame + live caption under the stage */
+#ee-rfa .rfa-frame{border-radius:16px;overflow:hidden;background:#fff;border:1px solid rgba(25,52,93,.12);box-shadow:0 34px 70px -30px rgba(25,52,93,.35)}
+#ee-rfa .rfa-chrome{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#f4f6fa;border-bottom:1px solid rgba(25,52,93,.08)}
+#ee-rfa .rfa-chrome i{width:9px;height:9px;border-radius:50%;background:rgba(25,52,93,.15)}
+#ee-rfa .rfa-chrome i:nth-child(1){background:#ff5f57}
+#ee-rfa .rfa-chrome i:nth-child(2){background:#febc2e}
+#ee-rfa .rfa-chrome i:nth-child(3){background:#28c840}
+#ee-rfa .rfa-chrome span{margin-left:8px;font:600 11px/1 'Inter',sans-serif;color:#7a889e;background:#fff;border:1px solid rgba(25,52,93,.1);border-radius:7px;padding:5px 11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#ee-rfa .rfa-shots{position:relative;aspect-ratio:16/10;background:#fbfcfe}
+#ee-rfa .rfa-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+#ee-rfa .rfa-foot b{font-size:12.5px;font-weight:700;color:#19345d;line-height:1.35}
+#ee-rfa .rfa-foot span{flex:none;font:700 11px/1 ui-monospace,Menlo,monospace;color:#C45A20;background:rgba(222,110,48,.09);border:1px solid rgba(222,110,48,.25);padding:6px 10px;border-radius:999px}
 /* glass cards: fade-in + slide-up reveal, hover lift, active highlight */
 #ee-rfa .rfa-card{position:relative;border-radius:16px;padding:16px 18px;cursor:pointer;margin-bottom:10px;
   background:rgba(255,255,255,.55);border:1px solid rgba(25,52,93,.12);
@@ -887,10 +906,10 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-rfa .rfa-chips span:hover{border-color:rgba(222,110,48,.5);color:#C45A20}
 #ee-rfa .rfa-cardimg{display:none;margin:12px 0 0}
 /* sticky image stage: crossfade + scale animation */
-#ee-rfa .rfa-stage{position:relative;aspect-ratio:16/10.6;min-height:340px}
-#ee-rfa .rfa-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:16px;
+#ee-rfa .rfa-stage{position:relative;min-height:340px}
+#ee-rfa .rfa-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8px;
   opacity:0;transform:scale(.94);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1);
-  filter:drop-shadow(0 30px 50px rgba(25,52,93,.22))}
+}
 #ee-rfa .rfa-shot.on{opacity:1;transform:scale(1)}
 /* phones: no pinning - stacked story, image inside each card */
 @media(max-width:960px){
@@ -898,8 +917,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   #ee-rfa .rfa-track{height:auto}
   #ee-rfa .rfa-pin{position:static;height:auto;overflow:visible;display:block}
   #ee-rfa .rfa-in{grid-template-columns:1fr;gap:0;padding:0 18px}
-  #ee-rfa .rfa-stage{display:none}
-  #ee-rfa .rfa-card{opacity:1;transform:none;margin-bottom:12px;padding:14px 14px;background:rgba(255,255,255,.85)}
+  #ee-rfa .rfa-stage,#ee-rfa .rfa-rail{display:none}
+  #ee-rfa .rfa-card{margin-bottom:12px;padding:14px 14px;background:rgba(255,255,255,.85)}
+  #ee-rfa .rfa-card.mi{opacity:1;transform:none}
   #ee-rfa .rfa-card .rfa-body{max-height:none;opacity:1}
   #ee-rfa .rfa-cardimg{display:block}
   #ee-rfa .rfa-cardimg img{width:100%;height:auto;border-radius:12px;border:1px solid rgba(25,52,93,.1);box-shadow:0 16px 36px -20px rgba(25,52,93,.3)}
@@ -913,6 +933,13 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   <div class="rfa-track" id="rfaTrack">
   <div class="rfa-pin">
     <div class="rfa-in">
+      <div class="rfa-rail" id="rfaRail" aria-hidden="true">
+        <i class="rfa-fill" id="rfaFill"></i>
+        <button type="button" class="rfa-dot on" data-i="0" aria-label="Story 1"></button>
+        <button type="button" class="rfa-dot" data-i="1" aria-label="Story 2"></button>
+        <button type="button" class="rfa-dot" data-i="2" aria-label="Story 3"></button>
+        <button type="button" class="rfa-dot" data-i="3" aria-label="Story 4"></button>
+      </div>
       <div class="rfa-cards" id="rfaCards">
       <article class="rfa-card on" data-i="0" tabindex="0">
         <span class="rfa-kick">Decrease response time</span>
@@ -956,10 +983,16 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </article>
       </div>
       <div class="rfa-stage" id="rfaStage" aria-hidden="true">
+        <div class="rfa-frame">
+          <div class="rfa-chrome"><i></i><i></i><i></i><span id="rfaUrl">app.extraaedge.com &middot; decrease response time</span></div>
+          <div class="rfa-shots">
       <img class="rfa-shot on" data-i="0" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Integration%20Hub%20Flowchart.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
       <img class="rfa-shot" data-i="1" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Omnichannel%20Conversion%20Dashboard.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
       <img class="rfa-shot" data-i="2" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Admissions%20CRM%20Dashboard%20Overview.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
       <img class="rfa-shot" data-i="3" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Dashboard%20analytics%20overview.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          </div>
+        </div>
+        <div class="rfa-foot"><b id="rfaCap">Respond First Using AI Agents. Win Admissions.</b><span id="rfaCount">01 / 04</span></div>
       </div>
     </div>
   </div>
@@ -971,35 +1004,64 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var track=document.getElementById('rfaTrack');
   var cards=[].slice.call(sec.querySelectorAll('.rfa-card'));
   var shots=[].slice.call(sec.querySelectorAll('.rfa-shot'));
+  var dots=[].slice.call(sec.querySelectorAll('.rfa-dot'));
+  var fill=document.getElementById('rfaFill'),
+      cap=document.getElementById('rfaCap'),
+      cnt=document.getElementById('rfaCount'),
+      urlEl=document.getElementById('rfaUrl');
   var mqd=window.matchMedia('(min-width:961px)');
   var cur=0;
   function render(i){
     cur=i;
     cards.forEach(function(c,j){ c.classList.toggle('on',j===i); });
     shots.forEach(function(s,j){ s.classList.toggle('on',j===i); });
+    dots.forEach(function(d,j){ d.classList.toggle('on',j===i); });
+    var t=cards[i].querySelector('.rfa-title'), k=cards[i].querySelector('.rfa-kick');
+    if(cap&&t) cap.textContent=t.textContent;
+    if(cnt) cnt.textContent='0'+(i+1)+' / 0'+cards.length;
+    if(urlEl&&k) urlEl.textContent='app.extraaedge.com \u00b7 '+k.textContent.toLowerCase();
   }
-  /* scroll trigger: reveal once, then progress drives the active card */
+  /* one-time fade-in reveal (desktop stagger) + per-card reveal on phones */
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ sec.classList.add('rfa-rev'); io.disconnect(); } }); },{threshold:.15});
     io.observe(sec);
-  } else { sec.classList.add('rfa-rev'); }
+    var mio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('mi'); mio.unobserve(e.target); } }); },{threshold:.12});
+    cards.forEach(function(c){ mio.observe(c); });
+  } else { sec.classList.add('rfa-rev'); cards.forEach(function(c){ c.classList.add('mi'); }); }
   var ticking=false;
+  function metrics(){
+    var pin=track.querySelector('.rfa-pin');
+    return { total: track.offsetHeight-(pin?pin.offsetHeight:window.innerHeight),
+             top: track.getBoundingClientRect().top };
+  }
   function upd(){
     ticking=false;
     if(!mqd.matches) return;
-    var pin=track.querySelector('.rfa-pin');
-    var total=track.offsetHeight-(pin?pin.offsetHeight:window.innerHeight);
-    if(total<=0) return;
-    var p=Math.min(1,Math.max(0,-track.getBoundingClientRect().top/total));
+    var m=metrics();
+    if(m.total<=0) return;
+    var p=Math.min(1,Math.max(0,-m.top/m.total));
+    if(fill) fill.style.height=(p*100)+'%';
     var i=Math.min(cards.length-1,Math.floor(p*cards.length+0.0001));
     if(i!==cur) render(i);
   }
   window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(upd); } },{passive:true});
   window.addEventListener('resize',upd,{passive:true});
+  /* click/keyboard on a card or rail dot scrolls the page to that story's
+     position in the pinned track, so state and scroll stay in sync */
+  function jumpTo(i){
+    if(!mqd.matches){ render(i); return; }
+    var m=metrics();
+    if(m.total<=0){ render(i); return; }
+    var trackTop=window.pageYOffset+m.top;
+    var target=Math.round(trackTop+((i+0.5)/cards.length)*m.total);
+    render(i);
+    window.scrollTo({top:target,behavior:'smooth'});
+  }
   cards.forEach(function(c,i){
-    c.addEventListener('click',function(){ render(i); });
-    c.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); render(i); } });
+    c.addEventListener('click',function(){ jumpTo(i); });
+    c.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); jumpTo(i); } });
   });
+  dots.forEach(function(d,i){ d.addEventListener('click',function(){ jumpTo(i); }); });
   render(0); upd();
 })();
 </script>
