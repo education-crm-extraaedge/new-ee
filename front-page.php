@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-sol-noghost -->
+<!-- ee-front-tpl v2026-07-29-stories-cta -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -4147,7 +4147,7 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
     </div>
 
     <div class="cis-cta">
-      <a class="cis-btn primary" href="https://www.extraaedge.com/book-a-demo/">Book demo Now <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-03.svg" alt="" loading="lazy" decoding="async"></a>
+      <a class="cis-btn primary" href="/customer-success-stories/">View All Customer Stories <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-03.svg" alt="" loading="lazy" decoding="async"></a>
     </div>
   </div>
 </section>
