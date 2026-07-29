@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-hero-roi -->
+<!-- ee-front-tpl v2026-07-29-demo-hint -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1198,6 +1198,39 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
   #ee-platform .eep-mod-info{margin-top:9px}
 }
 </style>
+
+<style id="eep-hint-style">
+/* "This is live, not a screenshot" affordance layer for the platform demo */
+#ee-platform .eep-window{position:relative}
+#ee-platform .eep-hint{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;
+  background:rgba(15,33,67,.45);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+  border-radius:inherit;transition:opacity .35s ease,visibility .35s ease}
+#ee-platform .eep-hint.off{opacity:0;visibility:hidden;pointer-events:none}
+#ee-platform .eep-hint-card{max-width:420px;margin:16px;background:#fff;border:1px solid rgba(25,52,93,.12);
+  border-radius:16px;padding:22px 24px;box-shadow:0 30px 70px -25px rgba(15,33,67,.55);text-align:left}
+#ee-platform .eep-hint-badge{display:inline-flex;align-items:center;gap:7px;font:700 10.5px/1 'Inter',sans-serif;
+  letter-spacing:.12em;color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);
+  border:1px solid rgba(222,110,48,.25);padding:5px 10px;border-radius:999px;margin-bottom:12px}
+#ee-platform .eep-hint-badge i{width:7px;height:7px;border-radius:50%;background:#DE6E30;
+  box-shadow:0 0 0 0 rgba(222,110,48,.5);animation:eepHintPulse 1.6s infinite}
+@keyframes eepHintPulse{70%{box-shadow:0 0 0 8px rgba(222,110,48,0)}100%{box-shadow:0 0 0 0 rgba(222,110,48,0)}}
+#ee-platform .eep-hint-title{display:block;font:700 16.5px/1.35 'Inter',sans-serif;color:#19345d;margin-bottom:10px}
+#ee-platform .eep-hint-steps{margin:0 0 16px;padding-left:20px;display:grid;gap:7px}
+#ee-platform .eep-hint-steps li{font:500 13px/1.55 'Inter',sans-serif;color:#5a6b85}
+#ee-platform .eep-hint-steps li b{color:#19345d}
+#ee-platform .eep-hint-go{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#DE6E30,#FF8A5C);
+  color:#fff;border:0;font:600 14px/1 'Inter',sans-serif;padding:12px 22px;border-radius:9px;cursor:pointer;
+  box-shadow:0 4px 14px rgba(222,110,48,.25);transition:all .2s}
+#ee-platform .eep-hint-go:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(222,110,48,.35)}
+#ee-platform .eep-live-tag{display:inline-flex;align-items:center;gap:6px;margin-left:10px;
+  font:700 10px/1 'Inter',sans-serif;letter-spacing:.08em;color:#1f7a4d;background:rgba(31,122,77,.1);
+  border:1px solid rgba(31,122,77,.28);padding:4px 9px;border-radius:999px;white-space:nowrap}
+#ee-platform .eep-live-tag i{width:6px;height:6px;border-radius:50%;background:#1f7a4d;
+  box-shadow:0 0 0 0 rgba(31,122,77,.5);animation:eepHintPulse 1.6s infinite}
+#ee-platform .eep-mods-hint{display:block;font:500 12px/1.5 'Inter',sans-serif;color:var(--orange-700,#B5551D);margin:2px 0 10px}
+@media(max-width:960px){#ee-platform .eep-hint{display:none}#ee-platform .eep-live-tag{display:none}}
+@media(prefers-reduced-motion:reduce){#ee-platform .eep-hint-badge i,#ee-platform .eep-live-tag i{animation:none}}
+</style>
 <section id="ee-platform" aria-label="Explore the ExtraaEdge platform">
   <div class="eep-wrap">
     <header class="eep-head">
@@ -1208,6 +1241,7 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
     <aside class="eep-mods" aria-label="CRM modules - click to open that screen in the live demo">
       <div class="eep-mods-head">
         <h3 class="eep-mods-title">Every action, superpowered.</h3>
+        <span class="eep-mods-hint">Click a module below - the live demo switches to that screen &#8594;</span>
         <button type="button" class="eep-tour" id="eepTour" aria-pressed="false" title="Auto-play a tour of all modules"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8V4z"/></svg><span id="eepTourN">Tour</span></button>
       </div>
       <div class="eep-mods-grid">
@@ -1234,7 +1268,19 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
       <span class="eep-mlaunch-arrow" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
     </button>
     <div class="eep-window">
-      <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span><button type="button" class="eep-expand" id="eepExpand" aria-label="Open full screen"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-03.svg" alt="" loading="lazy" decoding="async"> Full screen</button><a class="eep-mbook" href="https://www.extraaedge.com/book-a-demo/">Book now</a><button type="button" class="eep-close" id="eepClose" aria-label="Close experience">&#10005;</button></div>
+      <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span><span class="eep-live-tag"><i></i> LIVE &middot; click anything</span><button type="button" class="eep-expand" id="eepExpand" aria-label="Open full screen"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-03.svg" alt="" loading="lazy" decoding="async"> Full screen</button><a class="eep-mbook" href="https://www.extraaedge.com/book-a-demo/">Book now</a><button type="button" class="eep-close" id="eepClose" aria-label="Close experience">&#10005;</button></div>
+            <div class="eep-hint" id="eepHint">
+        <div class="eep-hint-card">
+          <span class="eep-hint-badge"><i></i> INTERACTIVE DEMO &middot; LIVE</span>
+          <b class="eep-hint-title">This is the real platform - not a screenshot</b>
+          <ol class="eep-hint-steps">
+            <li><b>Click any module pill</b> - that screen opens right here</li>
+            <li><b>Click inside the demo</b> - menus, dashboards &amp; buttons all work</li>
+            <li>Or press <b>&#9654; Tour</b> and watch every module auto-play</li>
+          </ol>
+          <button type="button" class="eep-hint-go" id="eepHintGo">Start exploring &rarr;</button>
+        </div>
+      </div>
       <iframe class="eep-frame" title="ExtraaEdge - Lead Management Platform (interactive demo)" id="eepFrame" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" data-srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
@@ -1347,6 +1393,19 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
       </div>
       <div class=&quot;oc-grid&quot; id=&quot;ocGrid&quot;></div>
     </section>
+<script>
+(function(){
+  var hint=document.getElementById('eepHint'); if(!hint) return;
+  function off(){ hint.classList.add('off'); }
+  var go=document.getElementById('eepHintGo');
+  if(go) go.addEventListener('click',off);
+  hint.addEventListener('click',function(e){ if(e.target===hint) off(); });
+  document.querySelectorAll('#ee-platform .eep-mod,#ee-platform .eep-tour').forEach(function(b){
+    b.addEventListener('click',off,{once:false});
+  });
+})();
+</script>
+
     <section class=&quot;view&quot; data-v=&quot;ai&quot;>
       <div class=&quot;vhead&quot;><div><span class=&quot;ai-eyebrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><path d=&quot;M13 2 3 14h7l-1 8 10-12h-7z&quot;/></svg> Powered by Vidya AI</span><h2 style=&quot;margin-top:8px&quot;>AI that does the work - not just assists</h2></div><div class=&quot;right&quot;><span class=&quot;sample-badge&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>Sample data</span></span></div></div>
       <div class=&quot;ai-grid&quot; id=&quot;aiGrid&quot;></div>
