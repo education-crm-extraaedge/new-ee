@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-zoom90-global -->
+<!-- ee-front-tpl v2026-07-29-noflowband -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -4597,44 +4597,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
   </div>
 </section>
 
-<!-- ============ FLOW RECAP ============ -->
-<section class="flow">
-  <h2 class="rev">The whole night, <span class="o">on one line.</span></h2>
-  <div class="flowline" id="flowline">
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/lead-captured.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>Lead captured</b><span>11:02 PM</span></div>
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/vidyagpt-chat.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>VidyaGPT chat</b><span>11:02 PM</span></div>
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/scored-96.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>Scored 96</b><span>11:09 PM</span></div>
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/ai-voice-call.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>AI voice call</b><span>9:00 AM</span></div>
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/handoff.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>Handoff</b><span>9:04 AM</span></div>
-    <div class="fnode"><div class="fdot"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/enrolled.svg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div><b>Enrolled</b><span>Day 12</span></div>
-  </div>
-</section>
-
-<!-- ============ MODULES + NUMBERS ============ -->
-<section class="band">
-  <div class="bandgrid">
-    <div>
-      <h2 class="rev">One brain. <span class="o">Nine modules.</span></h2>
-      <p class="bp rev d1">Every screen above runs on the same platform - zero handoff gaps, one student timeline.</p>
-      <div class="modrow rev d2" style="margin-top:14px">
-        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#DE6E30" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>AI Engine</span>
-        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#6FA3F2" stroke-width="2.2"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/></svg>Admissions CRM</span>
-        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#B29CFF" stroke-width="2.2"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Automation</span>
-        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#2BC98A" stroke-width="2.2"><path d="M4 20V10M10 20V4M16 20v-8"/></svg>Analytics</span>
-        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#E8843F" stroke-width="2.2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>Student Database</span>
-        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#DE6E30" stroke-width="2.2"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><path d="M10 7h7M7 10v7"/></svg>Workflow Engine</span>
-        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2.2"><path d="M4 6h16v10H9l-5 4V6z"/></svg>Communication</span>
-        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#6FA3F2" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6"/></svg>Applications</span>
-        <span class="modpill"><svg viewBox="0 0 24 24" fill="none" stroke="#2BC98A" stroke-width="2.2"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/></svg>Security</span>
-      </div>
-    </div>
-    <div class="numrow">
-      <div class="num rev"><div class="nv"><span data-count="10" data-suffix="M+">0M+</span></div><div class="nd">enquiries managed end-to-end</div></div>
-      <div class="num rev d1"><div class="nv"><span data-count="500" data-suffix="+">0+</span></div><div class="nd">institutions on ExtraaEdge</div></div>
-      <div class="num rev d2"><div class="nv"><span data-count="37" data-suffix="%">0%</span>↑</div><div class="nd">higher conversion - no lead waits</div></div>
-    </div>
-  </div>
-</section>
   </div>
   </div>
   </div>
