@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-rfa-swap -->
+<!-- ee-front-tpl v2026-07-29-rfa-wheel -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -866,7 +866,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-rfa .rfa-track{position:relative;height:calc(min(100vh,860px)*3.4)}
 #ee-rfa .rfa-pin{position:sticky;top:86px;height:min(calc(100vh - 86px),820px);overflow:hidden;display:flex;align-items:center;align-items:safe center}
 #ee-rfa .rfa-in{max-width:1270px;margin:0 auto;width:100%;padding:12px 24px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) 18px;gap:clamp(18px,2.6vw,40px);align-items:center}#ee-rfa .rfa-in>.rfa-rail{order:3}#ee-rfa .rfa-in>.rfa-cards{order:2}#ee-rfa .rfa-in>.rfa-stagewrap,#ee-rfa .rfa-in>*:nth-child(3){order:1}
-#ee-rfa .rfa-cards{max-height:calc(min(100vh - 86px,820px) - 24px);overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior:contain}#ee-rfa .rfa-cards::-webkit-scrollbar{display:none}
+#ee-rfa .rfa-cards{max-height:calc(min(100vh - 86px,820px) - 24px);overflow-y:hidden}/* overflow-y:hidden (not auto): the column must never swallow the mouse wheel - page scroll drives the pinned story - while reveal() can still move scrollTop */
 @media (max-height:860px){#ee-rfa .rfa-card{padding:11px 14px;margin-bottom:7px}#ee-rfa .rfa-kick{margin-bottom:7px}html body #main-content #ee-rfa h2.rfa-title{font-size:17px!important}#ee-rfa .rfa-body p{line-height:1.6;margin:8px 0 10px}#ee-rfa .rfa-chiplbl{margin:10px 0 7px}}
 /* progress rail: fill tracks scroll, dots jump to a story */
 #ee-rfa .rfa-rail{position:relative;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:26px 0;width:18px}
