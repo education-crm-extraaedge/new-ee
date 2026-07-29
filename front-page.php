@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-28-wowtour -->
+<!-- ee-front-tpl v2026-07-29-whysection -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -308,7 +308,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 
 <!-- ===================== EE · QUICK TABLE OF CONTENTS (scoped #ee-toc) ===================== -->
 <style>/* keep anchored jumps clear of any sticky chrome */
-  #xhero,#trusted-institutions,#ee-platform,#ee-products,#ee-vidya-suite,#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#ee-night,#integrations,#security,#ee-golive,#ee-resources,#ee-events,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
+  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-products,#ee-vidya-suite,#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#ee-night,#integrations,#security,#ee-golive,#ee-resources,#ee-events,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
   #ee-toc .eetoc-fab{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:99990;
     display:flex;align-items:center;justify-content:center;width:50px;height:50px;padding:0;border:2.5px solid #fff;cursor:pointer;
     background:#19335D;color:#fff;border-radius:50%;
@@ -780,6 +780,71 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   </div>
   <div style="text-align:center;margin-top:26px">
     <a href="#admission-form" style="display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;color:#19345d;border:1.5px solid rgba(25,52,93,.18);background:#fff;border-radius:999px;padding:11px 24px;text-decoration:none;transition:all .2s ease" onmouseover="this.style.borderColor='#DE6E30';this.style.color='#DE6E30'" onmouseout="this.style.borderColor='rgba(25,52,93,.18)';this.style.color='#19345d'">View More Clients <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</section>
+
+<!-- ===================== WHY INSTITUTES CHOOSE EXTRAAEDGE (scoped #ee-why) ===================== -->
+<style>#ee-why{position:relative;padding:clamp(48px,7vw,92px) 0;background:
+  radial-gradient(900px 420px at 90% -6%, rgba(222,110,48,.06), transparent 60%),
+  radial-gradient(760px 420px at 4% 104%, rgba(25,52,93,.05), transparent 60%),#fff;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0f203a;-webkit-font-smoothing:antialiased}
+#ee-why *{box-sizing:border-box}
+#ee-why .eew-wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+#ee-why .eew-eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 11px;border-radius:999px;background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.2);color:#C45A20;font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin-bottom:14px}
+#ee-why .eew-eyebrow i{width:7px;height:7px;border-radius:50%;background:#DE6E30;box-shadow:0 0 0 4px rgba(222,110,48,.15)}
+#ee-why h2{color:#19345d;margin:0 0 12px;max-width:20ch}
+#ee-why .eew-lead{color:#5a6b85;line-height:1.6;margin:0 0 8px;max-width:56ch}
+#ee-why .eew-lead strong{color:#19345d}
+#ee-why .eew-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(28px,4vw,54px);align-items:center;margin-top:clamp(20px,3vw,30px)}
+#ee-why .eew-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+#ee-why .eew-item{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid rgba(25,52,93,.1);border-radius:14px;padding:14px 16px;transition:border-color .25s,box-shadow .25s,transform .25s}
+#ee-why .eew-item:hover{border-color:rgba(222,110,48,.45);box-shadow:0 14px 32px -20px rgba(25,52,93,.35);transform:translateX(4px)}
+#ee-why .eew-n{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font:800 11px/1 'Inter',sans-serif;color:#DE6E30;background:rgba(222,110,48,.09);border:1px solid rgba(222,110,48,.25)}
+#ee-why .eew-tx h3{color:#19345d;margin:2px 0 4px}
+#ee-why .eew-tx p{color:#5a6b85;line-height:1.55;margin:0}
+#ee-why .eew-media{position:relative}
+#ee-why .eew-media img{width:100%;height:auto;border-radius:18px;border:1px solid rgba(25,52,93,.1);box-shadow:0 30px 70px -30px rgba(25,52,93,.35)}
+#ee-why .eew-media::after{content:"";position:absolute;inset:auto -14px -14px auto;width:120px;height:120px;border-radius:50%;background:radial-gradient(closest-side,rgba(222,110,48,.14),transparent 70%);z-index:-1}
+@media(max-width:960px){
+  #ee-why .eew-grid{grid-template-columns:minmax(0,1fr);gap:20px}
+  #ee-why .eew-media{order:-1;max-width:520px;margin:0 auto}
+  #ee-why .eew-item{padding:11px 12px;gap:10px;border-radius:12px}
+  #ee-why .eew-n{width:26px;height:26px;border-radius:8px;font-size:10px}
+  #ee-why .eew-list{gap:8px}
+}
+</style>
+<section id="ee-why" aria-labelledby="eew-h">
+  <div class="eew-wrap">
+    <span class="eew-eyebrow"><i></i> The Architect of Admissions</span>
+    <h2 id="eew-h">Why Institutes Choose ExtraaEdge as the Architect of Their Admission Process?</h2>
+    <p class="eew-lead">Most Admission CRMs help you <strong>manage</strong> admissions. ExtraaEdge helps you <strong>design how admissions should work</strong> - end to end, at scale.</p>
+    <div class="eew-grid">
+      <ul class="eew-list">
+        <li class="eew-item">
+          <span class="eew-n">01</span>
+          <div class="eew-tx"><h3>One unified Admission Cloud</h3><p>Run the entire enrollment journey from inquiry to enrollment, without fragmented tools or manual follow-ups.</p></div>
+        </li>
+        <li class="eew-item">
+          <span class="eew-n">02</span>
+          <div class="eew-tx"><h3>AI-powered admission assistance</h3><p>Handles student queries 24&times;7 across web and WhatsApp, while giving counselors full context to respond faster and smarter.</p></div>
+        </li>
+        <li class="eew-item">
+          <span class="eew-n">03</span>
+          <div class="eew-tx"><h3>AI calling and agents</h3><p>Qualify, engage, and route high-intent prospects at scale, helping teams grow outcomes without growing headcount.</p></div>
+        </li>
+        <li class="eew-item">
+          <span class="eew-n">04</span>
+          <div class="eew-tx"><h3>Real-time intelligence</h3><p>Surfaces intent, bottlenecks, and counselor performance so teams act early and convert better.</p></div>
+        </li>
+        <li class="eew-item">
+          <span class="eew-n">05</span>
+          <div class="eew-tx"><h3>Built to adapt and integrate</h3><p>Adapts to each institute&rsquo;s process, integrates seamlessly with ads, websites, ERP, and communication tools - and scales with your growth.</p></div>
+        </li>
+      </ul>
+      <div class="eew-media">
+        <img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-institutes-choose-extraaedge.png" alt="Why institutes choose ExtraaEdge - the unified AI Admission Cloud" loading="lazy" decoding="async" onerror="this.closest('.eew-media').style.display='none'">
+      </div>
+    </div>
   </div>
 </section>
 
@@ -5811,7 +5876,8 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 .ee-home>#xhero{order:10}                 /* What it is + primary CTA */
 .ee-home>#trusted-institutions{order:20}  /* Instant social proof */
 .ee-home>#ee-night{order:50}              /* How it works, end to end */
-.ee-home>#ee-platform{order:60}           /* See the product */
+.ee-home>#ee-platform{order:60}
+.ee-home>#ee-why{order:62}              /* Why institutes choose us */           /* See the product */
 .ee-home>#vidyaai-embed-root{order:65}   /* Powerful Admission CRM with Simplicity */
 .ee-home>#ee-products{order:70}           /* Full platform / modules */
 .ee-home>#ee-vidya-suite{order:80}        /* AI differentiator */
