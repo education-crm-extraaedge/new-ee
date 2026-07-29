@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-whysection -->
+<!-- ee-front-tpl v2026-07-29-rfastory -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -308,7 +308,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 
 <!-- ===================== EE · QUICK TABLE OF CONTENTS (scoped #ee-toc) ===================== -->
 <style>/* keep anchored jumps clear of any sticky chrome */
-  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-products,#ee-vidya-suite,#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#ee-night,#integrations,#security,#ee-golive,#ee-resources,#ee-events,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
+  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-rfa,#ee-products,#ee-vidya-suite,#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#ee-night,#integrations,#security,#ee-golive,#ee-resources,#ee-events,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
   #ee-toc .eetoc-fab{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:99990;
     display:flex;align-items:center;justify-content:center;width:50px;height:50px;padding:0;border:2.5px solid #fff;cursor:pointer;
     background:#19335D;color:#fff;border-radius:50%;
@@ -847,6 +847,162 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     </div>
   </div>
 </section>
+
+
+<!-- ===================== RESPOND FIRST · AI STORYTELLING (scoped #ee-rfa) ===================== -->
+<style>#ee-rfa{position:relative;padding:0;background:
+  radial-gradient(900px 480px at 92% 0%, rgba(222,110,48,.07), transparent 60%),
+  radial-gradient(820px 460px at 2% 100%, rgba(25,52,93,.06), transparent 60%),#f6f8fc;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0f203a;-webkit-font-smoothing:antialiased}
+#ee-rfa *{box-sizing:border-box}
+/* blurred brand orbs behind the glass cards */
+#ee-rfa .rfa-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:.5}
+#ee-rfa .rfa-orb.o1{width:340px;height:340px;left:-80px;top:12%;background:rgba(222,110,48,.18)}
+#ee-rfa .rfa-orb.o2{width:400px;height:400px;right:-100px;bottom:8%;background:rgba(34,99,197,.14)}
+#ee-rfa .rfa-track{position:relative;height:calc(min(100vh,860px)*3.4)}
+#ee-rfa .rfa-pin{position:sticky;top:86px;height:min(calc(100vh - 86px),820px);overflow:hidden;display:flex;align-items:center}
+#ee-rfa .rfa-in{max-width:1240px;margin:0 auto;width:100%;padding:26px 24px;display:grid;grid-template-columns:minmax(0,.98fr) minmax(0,1.02fr);gap:clamp(26px,3.5vw,52px);align-items:center}
+/* glass cards: fade-in + slide-up reveal, hover lift, active highlight */
+#ee-rfa .rfa-card{position:relative;border-radius:16px;padding:16px 18px;cursor:pointer;margin-bottom:10px;
+  background:rgba(255,255,255,.55);border:1px solid rgba(25,52,93,.12);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 8px 24px -18px rgba(25,52,93,.25);
+  opacity:0;transform:translateY(24px);
+  transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .45s cubic-bezier(.2,.7,.2,1),background .35s,border-color .35s,box-shadow .35s}
+#ee-rfa.rfa-rev .rfa-card{opacity:1;transform:none}
+#ee-rfa.rfa-rev .rfa-card:nth-child(2){transition-delay:.08s}
+#ee-rfa.rfa-rev .rfa-card:nth-child(3){transition-delay:.16s}
+#ee-rfa.rfa-rev .rfa-card:nth-child(4){transition-delay:.24s}
+#ee-rfa .rfa-card:hover{transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 18px 40px -20px rgba(25,52,93,.4)}
+#ee-rfa .rfa-card.on{background:rgba(255,255,255,.92);border-color:rgba(222,110,48,.55);
+  box-shadow:inset 0 1px 0 #fff,0 20px 46px -22px rgba(222,110,48,.35),0 0 0 4px rgba(222,110,48,.08)}
+#ee-rfa .rfa-kick{display:inline-block;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C45A20;background:rgba(222,110,48,.09);border:1px solid rgba(222,110,48,.22);padding:5px 10px;border-radius:999px;margin-bottom:8px}
+#ee-rfa .rfa-title{color:#19345d;margin:0}
+#ee-rfa .rfa-body{max-height:0;opacity:0;overflow:hidden;transition:max-height .55s cubic-bezier(.2,.7,.2,1),opacity .4s ease .1s}
+#ee-rfa .rfa-card.on .rfa-body{max-height:560px;opacity:1}
+#ee-rfa .rfa-body p{color:#5a6b85;line-height:1.6;margin:9px 0 10px}
+#ee-rfa .rfa-chiplbl{display:block;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8593a8;margin-bottom:7px}
+#ee-rfa .rfa-chips{display:flex;flex-wrap:wrap;gap:6px}
+#ee-rfa .rfa-chips span{font:600 11.5px/1.3 'Inter',sans-serif;color:#19345d;background:rgba(25,52,93,.05);border:1px solid rgba(25,52,93,.13);padding:6px 11px;border-radius:999px;transition:border-color .2s,color .2s}
+#ee-rfa .rfa-chips span:hover{border-color:rgba(222,110,48,.5);color:#C45A20}
+#ee-rfa .rfa-cardimg{display:none;margin:12px 0 0}
+/* sticky image stage: crossfade + scale animation */
+#ee-rfa .rfa-stage{position:relative;aspect-ratio:16/10.6;min-height:340px}
+#ee-rfa .rfa-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:16px;
+  opacity:0;transform:scale(.94);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1);
+  filter:drop-shadow(0 30px 50px rgba(25,52,93,.22))}
+#ee-rfa .rfa-shot.on{opacity:1;transform:scale(1)}
+/* phones: no pinning - stacked story, image inside each card */
+@media(max-width:960px){
+  #ee-rfa{padding:40px 0 26px}
+  #ee-rfa .rfa-track{height:auto}
+  #ee-rfa .rfa-pin{position:static;height:auto;overflow:visible;display:block}
+  #ee-rfa .rfa-in{grid-template-columns:1fr;gap:0;padding:0 18px}
+  #ee-rfa .rfa-stage{display:none}
+  #ee-rfa .rfa-card{opacity:1;transform:none;margin-bottom:12px;padding:14px 14px;background:rgba(255,255,255,.85)}
+  #ee-rfa .rfa-card .rfa-body{max-height:none;opacity:1}
+  #ee-rfa .rfa-cardimg{display:block}
+  #ee-rfa .rfa-cardimg img{width:100%;height:auto;border-radius:12px;border:1px solid rgba(25,52,93,.1);box-shadow:0 16px 36px -20px rgba(25,52,93,.3)}
+  #ee-rfa .rfa-chips span{font-size:10.5px;padding:5px 9px}
+}
+@media(prefers-reduced-motion:reduce){#ee-rfa .rfa-card,#ee-rfa .rfa-shot,#ee-rfa .rfa-body{transition:none!important}}
+</style>
+<section id="ee-rfa" aria-label="Respond first with AI agents - how ExtraaEdge wins admissions">
+  <span class="rfa-orb o1" aria-hidden="true"></span>
+  <span class="rfa-orb o2" aria-hidden="true"></span>
+  <div class="rfa-track" id="rfaTrack">
+  <div class="rfa-pin">
+    <div class="rfa-in">
+      <div class="rfa-cards" id="rfaCards">
+      <article class="rfa-card on" data-i="0" tabindex="0">
+        <span class="rfa-kick">Decrease response time</span>
+        <h2 class="rfa-title">Respond First Using AI Agents. Win Admissions.</h2>
+        <div class="rfa-body">
+          <p>Respond to every admission inquiry in minutes, not hours. Because the institute that responds first controls the conversation and conversion. ExtraaEdge brings all admission inquiries into one Admission CRM. AI-powered calling and intelligent routing ensure every prospect is contacted at the right moment - so counselors engage the right students faster and close more enrollments.</p>
+          <b class="rfa-chiplbl">Unified Lead Ingestion Across</b>
+          <div class="rfa-chips"><span>Ads Integration</span><span>Forms Integration</span><span>Third-Party Publisher Integration</span><span>AI Calling &amp; IVR Integration</span></div>
+          <figure class="rfa-cardimg"><img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Integration%20Hub%20Flowchart.png" alt="Integration hub - every admission inquiry flows into one CRM" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"></figure>
+        </div>
+      </article>
+      <article class="rfa-card" data-i="1" tabindex="0">
+        <span class="rfa-kick">Boost conversion rates</span>
+        <h3 class="rfa-title">AI Decides the Right Admission Engagements.</h3>
+        <div class="rfa-body">
+          <p>ExtraaEdge uses intelligence across student behaviour, intent, and application stage. It decides who to engage, when to engage, and how to engage across channels. Every interaction is timely, relevant, and context-aware. Admissions teams move away from manual follow-ups and generic messaging - AI-guided engagements adapt in real time and drive higher enrollments.</p>
+          <b class="rfa-chiplbl">Engagement Channels</b>
+          <div class="rfa-chips"><span>Trigger-Based Email &amp; SMS</span><span>AI Calling &amp; Click-to-Call</span><span>VidyaGPT - AI-Based 24&times;7 Admission Agents</span><span>WhatsApp Communication</span></div>
+          <figure class="rfa-cardimg"><img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Omnichannel%20Conversion%20Dashboard.png" alt="Omnichannel conversion dashboard" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"></figure>
+        </div>
+      </article>
+      <article class="rfa-card" data-i="2" tabindex="0">
+        <span class="rfa-kick">Convert more</span>
+        <h3 class="rfa-title">Turn Enquiries Into Enrollments</h3>
+        <div class="rfa-body">
+          <p>Not every enquiry deserves the same attention. ExtraaEdge helps teams focus on prospects most likely to enroll. Intelligent prioritization uses engagement, intent, and application stage. Teams know exactly who to follow up, nurture, or move forward - the result is higher efficiency and stronger enrollment conversions.</p>
+          <b class="rfa-chiplbl">Powered by Intelligent Prioritization</b>
+          <div class="rfa-chips"><span>Prediction Score</span><span>Next Best Action</span><span>Follow-Up Calendar</span><span>Multi-Funnel Stages</span></div>
+          <figure class="rfa-cardimg"><img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Admissions%20CRM%20Dashboard%20Overview.png" alt="Admissions CRM dashboard overview" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"></figure>
+        </div>
+      </article>
+      <article class="rfa-card" data-i="3" tabindex="0">
+        <span class="rfa-kick">Measure your efforts</span>
+        <h3 class="rfa-title">Know What&rsquo;s Working. Fix What&rsquo;s Not.</h3>
+        <div class="rfa-body">
+          <p>Measure what matters across admissions and marketing. ExtraaEdge gives teams clear, actionable visibility into performance. Track counselors, campaigns, and lead sources in one place. With Analytics Builder and VidyaGPT Analytics, insights are easier to explore and understand - so teams act faster on what&rsquo;s working and fix what&rsquo;s not.</p>
+          <b class="rfa-chiplbl">Analytics &amp; Visibility Across</b>
+          <div class="rfa-chips"><span>VidyaGPT Analytics + Analytics Builder</span><span>Counselor Dashboard</span><span>Custom Dashboards</span><span>Marketing Dashboard</span><span>Publisher Reports</span></div>
+          <figure class="rfa-cardimg"><img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Dashboard%20analytics%20overview.png" alt="Dashboard analytics overview" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"></figure>
+        </div>
+      </article>
+      </div>
+      <div class="rfa-stage" id="rfaStage" aria-hidden="true">
+      <img class="rfa-shot on" data-i="0" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Integration%20Hub%20Flowchart.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      <img class="rfa-shot" data-i="1" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Omnichannel%20Conversion%20Dashboard.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      <img class="rfa-shot" data-i="2" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Admissions%20CRM%20Dashboard%20Overview.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      <img class="rfa-shot" data-i="3" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Dashboard%20analytics%20overview.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+<script>
+(function(){
+  var sec=document.getElementById('ee-rfa'); if(!sec) return;
+  var track=document.getElementById('rfaTrack');
+  var cards=[].slice.call(sec.querySelectorAll('.rfa-card'));
+  var shots=[].slice.call(sec.querySelectorAll('.rfa-shot'));
+  var mqd=window.matchMedia('(min-width:961px)');
+  var cur=0;
+  function render(i){
+    cur=i;
+    cards.forEach(function(c,j){ c.classList.toggle('on',j===i); });
+    shots.forEach(function(s,j){ s.classList.toggle('on',j===i); });
+  }
+  /* scroll trigger: reveal once, then progress drives the active card */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ sec.classList.add('rfa-rev'); io.disconnect(); } }); },{threshold:.15});
+    io.observe(sec);
+  } else { sec.classList.add('rfa-rev'); }
+  var ticking=false;
+  function upd(){
+    ticking=false;
+    if(!mqd.matches) return;
+    var pin=track.querySelector('.rfa-pin');
+    var total=track.offsetHeight-(pin?pin.offsetHeight:window.innerHeight);
+    if(total<=0) return;
+    var p=Math.min(1,Math.max(0,-track.getBoundingClientRect().top/total));
+    var i=Math.min(cards.length-1,Math.floor(p*cards.length+0.0001));
+    if(i!==cur) render(i);
+  }
+  window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(upd); } },{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+  cards.forEach(function(c,i){
+    c.addEventListener('click',function(){ render(i); });
+    c.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); render(i); } });
+  });
+  render(0); upd();
+})();
+</script>
 
 
 <!-- (removed) STORY 1 · THE REAL PROBLEM - empty shell cleaned up; content was superseded and removed earlier -->
@@ -5877,7 +6033,8 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 .ee-home>#trusted-institutions{order:20}  /* Instant social proof */
 .ee-home>#ee-night{order:50}              /* How it works, end to end */
 .ee-home>#ee-platform{order:60}
-.ee-home>#ee-why{order:62}              /* Why institutes choose us */           /* See the product */
+.ee-home>#ee-why{order:62}
+.ee-home>#ee-rfa{order:63}              /* Respond first - AI storytelling */              /* Why institutes choose us */           /* See the product */
 .ee-home>#vidyaai-embed-root{order:65}   /* Powerful Admission CRM with Simplicity */
 .ee-home>#ee-products{order:70}           /* Full platform / modules */
 .ee-home>#ee-vidya-suite{order:80}        /* AI differentiator */
