@@ -4483,6 +4483,15 @@ function ee_resources_menu_render_admin() {
  * ═════════════════════════════════════════════ */
 function ee_customers_categories() {
     return array(
+        'higher-ed'     => 'Higher Education',
+        'k12'           => 'K-12 Schools',
+        'edtech'        => 'Edtech',
+        'study-abroad'  => 'Study Abroad Consultants',
+        'coaching'      => 'Coaching & Training',
+        'online-degree' => 'Online Degree Programmes',
+        'channel'       => 'Channel Partners',
+        'preschool'     => 'Preschools & Playschools',
+        /* legacy keys - existing saved stories may still use these */
         'engineering' => 'Engineering',
         'business'    => 'Business',
         'skilling'    => 'Skilling',

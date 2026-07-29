@@ -29,8 +29,10 @@ $cu_set     = function_exists('ee_get_customers_settings') ? ee_get_customers_se
 $cu_stories = function_exists('ee_get_customers_stories')  ? ee_get_customers_stories()  : array();
 $cu_cats    = function_exists('ee_customers_categories')   ? ee_customers_categories()   : array();
 
-/* Filter chips: only show categories with at least one story */
-$used_cats = array();
+/* Filter chips: primary segments always show; legacy categories only when
+   at least one story still uses them. */
+$always_cats = array('higher-ed','k12','edtech','study-abroad','coaching','online-degree','channel','preschool');
+$used_cats = array_fill_keys($always_cats, true);
 foreach ($cu_stories as $s) {
     if (!empty($s['cat'])) $used_cats[$s['cat']] = true;
 }
@@ -93,6 +95,7 @@ $ee_classify_video = function ($u) {
 .ee-cu .chip:hover{border-color:var(--navy);color:var(--navy)}
 .ee-cu .chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 .ee-cu .chip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.ee-cu .cu-empty{font-family:'Hanken Grotesk',sans-serif;text-align:center;color:var(--ink-soft);font-size:.95rem;padding:26px 0 6px}
 
 .ee-cu .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px}
 @media(max-width:1000px){.ee-cu .grid{grid-template-columns:1fr 1fr}}
@@ -212,6 +215,7 @@ $ee_classify_video = function ($u) {
       </article>
     <?php endforeach; ?>
   </div>
+  <p class="cu-empty" id="cuEmpty" hidden>Stories in this category are coming soon.</p>
 
   <section class="cta" id="cta">
     <h2><?php echo wp_kses_post($cu_set['cta_title']); ?></h2>
@@ -234,9 +238,14 @@ $ee_classify_video = function ($u) {
       chips.forEach(function(x){ x.classList.remove('active'); });
       c.classList.add('active');
       var f = c.dataset.filter;
+      var shown = 0;
       cards.forEach(function(card){
-        card.classList.toggle('hide', !(f === 'all' || card.dataset.cat === f));
+        var hide = !(f === 'all' || card.dataset.cat === f);
+        card.classList.toggle('hide', hide);
+        if (!hide) shown++;
       });
+      var empty = root.querySelector('#cuEmpty');
+      if (empty) empty.hidden = shown > 0;
     });
   });
 
