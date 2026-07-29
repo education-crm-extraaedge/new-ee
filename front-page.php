@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-a11y -->
+<!-- ee-front-tpl v2026-07-29-no-eyebrows -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -690,7 +690,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 <section class="logo-section" id="trusted-institutions" aria-label="Trusted Institutions">
   <div class="logo-header reveal">
-    <div class="logo-badge">Broad Client Base</div>
     <h2 class="logo-title" style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.5rem,3.2vw,2.2rem);color:var(--blue);line-height:1.18;letter-spacing:-.02em;margin:6px 0 12px">Trusted by 500+ educational institutions across India</h2>
     <p class="logo-sub" style="max-width:760px;margin:0 auto 18px;color:#5a6b85;font-size:clamp(.95rem,1.6vw,1.05rem);line-height:1.6">ExtraaEdge powers <strong>5M+ student leads</strong> and <strong>100M+ student interactions</strong>, enabling universities, colleges, and EdTech organizations to accelerate admissions with AI-powered CRM and intelligent automation.</p>
   </div>
@@ -821,7 +820,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </style>
 <section id="ee-why" aria-labelledby="eew-h">
   <div class="eew-wrap">
-    <span class="eew-eyebrow"><i></i> The Architect of Admissions</span>
     <h2 id="eew-h">Why Institutes Choose ExtraaEdge as the Architect of Their Admission Process?</h2>
     <p class="eew-lead">Most Admission CRMs help you <strong>manage</strong> admissions. ExtraaEdge helps you <strong>design how admissions should work</strong> - end to end, at scale.</p>
     <div class="eew-grid">
@@ -1186,7 +1184,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 <section id="ee-platform" aria-label="Explore the ExtraaEdge platform">
   <div class="eep-wrap">
     <header class="eep-head">
-      <span class="eep-eyebrow"><i></i> AI Product-Led Experience</span>
       <h2>Explore the platform yourself - no sales call needed</h2>
       <p>An advanced, AI-powered interactive product experience. Click through the real Admission CRM - dashboards, AI, lead manager, WhatsApp &amp; automation. A guided tour walks you through it; click anywhere to take over. When you&rsquo;re ready, book a personalised demo on your own funnel.</p>
     </header>
@@ -2996,7 +2993,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 
     <div class="eep-head">
       <div class="eep-head-l">
-        <span class="eep-eyebrow"><span class="eep-dot" aria-hidden="true"></span>The admissions platform</span>
         <h2>One platform. <span class="eep-accent">Every admissions tool.</span></h2>
         <p class="eep-sub">From first enquiry to enrolled - explore the suite. Tap or hover any product to see it come alive.</p>
       </div>
@@ -3439,7 +3435,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
       <div class="vsx-bg" aria-hidden="true"></div>
       <div class="vsx-inner">
         <header class="vsx-head">
-          <span class="vsx-eyebrow"><i></i> Agentic AI Suite</span>
           <h2>Meet Vidya AI, the Agentic AI Suite <span class="vsx-h2b">Built for Smarter Admissions</span></h2>
           <p class="vsx-lead">Vidya AI is your always-on AI workforce that engages every prospective student, qualifies leads instantly, automates follow-ups, supports counselors, and accelerates enrollments - so your teams can focus on building meaningful student relationships instead of repetitive tasks.</p>
         </header>
@@ -3717,7 +3712,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 <section id="ee-teams" aria-label="Built for Every Team">
   <div class="ee-teams-container">
     <div class="ee-teams-head">
-      <span class="ee-teams-eyebrow"><span class="ee-dot" aria-hidden="true"></span>One platform, every team</span>
       <h2>Built for Every Team Driving Student Enrollment</h2>
       <p class="ee-teams-lead">From marketing and admissions to counseling, finance, leadership, and AI-powered automation - ExtraaEdge brings every team together on one intelligent platform, helping institutions attract, engage, convert, and enroll more students with less effort.</p>
     </div>
@@ -3878,7 +3872,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 <section id="ee-solutions" aria-label="Solutions">
   <div class="ee-container">
     <div class="ee-head">
-      <p class="ee-eyebrow">Solutions</p>
       <h2>Solutions for every admissions motion</h2>
       <p class="ee-sub">From first enquiry to confirmed enrolment, ExtraaEdge brings the right workflow to every stage of your admissions journey - explore each category below.</p>
     </div>
@@ -4013,7 +4006,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
   </div>
   <div class="spx-wrap">
     <div class="spx-head">
-      <span class="eei-eyebrow"><span class="eei-dot" aria-hidden="true"></span>Industries</span>
       <h2>Built for every kind of institution</h2>
       <p>One AI-powered admissions platform, tuned to the way your category recruits, nurtures and enrols students.</p>
     </div>
@@ -4103,7 +4095,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 <section id="stories" aria-labelledby="stories-title">
   <div class="cis-wrap">
     <div class="cis-head">
-      <span class="cis-eyebrow"><span class="d"></span> CRM Impact Stories</span>
       <h2 class="cis-title" id="stories-title">Powering growth for <em>500+ happy customers</em></h2>
       <p class="cis-lead">Real admissions leaders and the stories behind them. See how institutions grow with ExtraaEdge.</p>
     </div>
@@ -4191,7 +4182,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 <section id="ee-cro" aria-label="Why teams choose ExtraaEdge + ROI calculator">
   <div class="cw">
     <div class="ch">
-      <span class="eyebrow"><i></i> Why teams switch to us</span>
       <h2>The only <em>AI-native</em> Admission CRM</h2>
       <p>Others automate. ExtraaEdge actually <b>calls, qualifies and follows up</b> with every student using AI - so your team only talks to ready-to-enrol leads.</p>
     </div>
@@ -4454,7 +4444,6 @@ html body #main-content #ee-platform .eep-mods-title{font-size:14px!important;li
 <!-- ============ STORY PLAYER ============ -->
 <section class="player" id="een-player">
   <div class="pleft">
-    <span class="kick rev">The Admission Operating System</span>
     <h2 class="rev d1">While your campus sleeps, <span class="o">admissions don't.</span></h2>
     <p class="lede rev d2">One student, one night, six screens. Watch the whole process - it plays itself.</p>
     <div class="steps" id="steps">
@@ -4947,7 +4936,6 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
 <section class="sec" id="integrations">
   <div class="container">
     <div class="head rv">
-      <span class="eyebrow"><span class="dot"></span> Extensions &amp; Integrations</span>
       <h2 class="h2">One platform, <span class="grad-o">infinite connections.</span></h2>
       <p class="lead">Plug ExtraaEdge into the tools your team already loves - telephony, payments, marketplaces, marketing &amp; more. No rip-and-replace.</p>
     </div>
@@ -4973,7 +4961,6 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
 <section class="sec sec--soft" id="security">
   <div class="container">
     <div class="head rv">
-      <span class="eyebrow"><span class="dot"></span> Enterprise-grade trust</span>
       <h2 class="h2">Your students' data, <span class="grad-o">protected by design.</span></h2>
       <p class="lead">Bank-grade security and compliance, so your institution and applicants are always safe.</p>
     </div>
@@ -5011,7 +4998,6 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
 <section id="ee-golive" aria-label="Go live in 7 days">
   <div class="rvw">
     <div class="rvh">
-      <span class="eb"><i></i> Fast implementation</span>
       <h2>Go live in <em>7 days</em> - not months.</h2>
       <p>No long IT projects. Our team imports your data, configures your AI &amp; WhatsApp, trains your counsellors and gets you live in a single week.</p>
     </div>
@@ -5121,7 +5107,6 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
 <section id="ee-resources" aria-label="Resources">
   <div class="ee-r-container">
     <div class="ee-r-head">
-      <p class="ee-r-eyebrow">Resources</p>
       <h2>Everything you need to win admissions</h2>
       <p class="ee-r-sub">Practical guides, data-backed reports, and ready-to-use tools that help your team enroll more students, faster.</p>
     </div>
@@ -5224,7 +5209,6 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
 <section class="sec sec--soft" id="faq">
   <div class="container">
     <div class="head rv">
-      <span class="eyebrow"><span class="dot"></span> Frequently Asked</span>
       <h2 class="h2">Everything you need to know about <span class="grad-o">ExtraaEdge.</span></h2>
     </div>
     <div class="faq rv">
