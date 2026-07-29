@@ -1557,6 +1557,13 @@ html body #main-content h3:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embe
     font-weight:600 !important;
     text-wrap:balance;
 }
+/* Respond-First story cards: their h2 titles render at exactly h3 size */
+html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{
+    font-size:var(--ee-h3) !important;
+    line-height:1.35 !important;
+    letter-spacing:-.005em !important;
+    font-weight:600 !important;
+}
 html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     text-wrap:pretty;
     font-size:var(--ee-p) !important;
@@ -1564,6 +1571,7 @@ html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed
 }
 /* ── phones: slightly smaller site-wide type for comfortable reading ── */
 @media(max-width:820px){
+html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:14px !important}
 html body #main-content h1:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:22px !important;
 }
