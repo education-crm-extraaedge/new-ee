@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-why-pin -->
+<!-- ee-front-tpl v2026-07-29-why-fit -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -800,12 +800,12 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-why *{box-sizing:border-box}
 #ee-why .eew2-track{position:relative;height:calc(min(100vh,880px)*2.6)}
 #ee-why .eew2-pin{position:sticky;top:86px;height:min(calc(100vh - 86px),820px);overflow:hidden;
-  display:flex;flex-direction:column;justify-content:center}
+  display:flex;flex-direction:column;justify-content:center;justify-content:safe center}
 #ee-why .eew2-wrap{max-width:1240px;margin:0 auto;padding:0 24px;width:100%}
 #ee-why h2{color:#19345d;margin:0 auto 12px;max-width:44ch;text-align:center}
 #ee-why .eew2-lead{color:#5a6b85;line-height:1.6;margin:0 auto 8px;max-width:56ch;text-align:center}
 #ee-why .eew2-lead strong{color:#19345d}
-#ee-why .eew2-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);gap:clamp(26px,3.4vw,54px);align-items:center;margin-top:clamp(20px,2.6vw,34px)}
+#ee-why .eew2-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);gap:clamp(26px,3.4vw,54px);align-items:center;margin-top:clamp(14px,2vw,24px)}
 /* visual */
 #ee-why .eew2-vframe{position:relative;aspect-ratio:16/11;border-radius:20px;background:#fff;
   border:1px solid rgba(25,52,93,.1);overflow:hidden;cursor:zoom-in;
@@ -838,6 +838,12 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-why .eew2-tx h3{margin:0 0 6px;color:#19345d}
 #ee-why .eew2-tx p{margin:0;color:#5a6b85;line-height:1.62;max-width:52ch}
 #ee-why .eew2-mimg{display:none}
+@media(min-width:901px){
+  #ee-why .eew2-step{padding:12px 16px 12px 20px}
+  #ee-why .eew2-tx p{max-height:0;opacity:0;overflow:hidden;margin:0;
+    transition:max-height .5s cubic-bezier(.2,.7,.2,1),opacity .35s ease .08s}
+  #ee-why .eew2-step.on .eew2-tx p{max-height:220px;opacity:1;margin:6px 0 0}
+}
 #ee-why .eew2-steps:not(.in) .eew2-step{opacity:0;transform:translateY(18px)}
 #ee-why .eew2-steps.in .eew2-step{transform:none}
 #ee-why .eew2-steps.in .eew2-step:nth-child(1){transition-delay:.05s}
