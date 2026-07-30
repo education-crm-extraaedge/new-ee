@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-rfa-noclip -->
+<!-- ee-front-tpl v2026-07-29-why-story -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -790,68 +790,170 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </section>
 
 <!-- ===================== WHY INSTITUTES CHOOSE EXTRAAEDGE (scoped #ee-why) ===================== -->
-<style>#ee-why{position:relative;padding:clamp(48px,7vw,92px) 0;background:
-  radial-gradient(900px 420px at 90% -6%, rgba(222,110,48,.06), transparent 60%),
-  radial-gradient(760px 420px at 4% 104%, rgba(25,52,93,.05), transparent 60%),#fff;
-  font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0f203a;-webkit-font-smoothing:antialiased}
+<style id="eew2-style">
+/* ── Why ExtraaEdge: scroll-driven story. Sticky visual frame crossfades
+   through the five stages while the step list drives the narrative. ── */
+#ee-why{position:relative;padding:clamp(30px,4vw,52px) 0;background:
+  radial-gradient(720px 420px at 8% 4%, rgba(222,110,48,.06), transparent 62%),
+  radial-gradient(720px 460px at 96% 90%, rgba(25,52,93,.06), transparent 62%),#fff;
+  font-family:'Inter',system-ui,sans-serif;overflow:hidden}
 #ee-why *{box-sizing:border-box}
-#ee-why .eew-wrap{max-width:1240px;margin:0 auto;padding:0 24px}
-#ee-why .eew-eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 11px;border-radius:999px;background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.2);color:#C45A20;font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin-bottom:14px}
-#ee-why .eew-eyebrow i{width:7px;height:7px;border-radius:50%;background:#DE6E30;box-shadow:0 0 0 4px rgba(222,110,48,.15)}
+#ee-why .eew2-wrap{max-width:1240px;margin:0 auto;padding:0 24px}
 #ee-why h2{color:#19345d;margin:0 auto 12px;max-width:44ch;text-align:center}
-#ee-why .eew-lead{color:#5a6b85;line-height:1.6;margin:0 auto 8px;max-width:56ch;text-align:center}
-#ee-why .eew-lead strong{color:#19345d}
-#ee-why .eew-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(28px,4vw,54px);align-items:center;margin-top:clamp(20px,3vw,30px)}
-#ee-why .eew-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
-#ee-why .eew-item{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid rgba(25,52,93,.1);border-radius:14px;padding:14px 16px;transition:border-color .25s,box-shadow .25s,transform .25s}
-#ee-why .eew-item:hover{border-color:rgba(222,110,48,.45);box-shadow:0 14px 32px -20px rgba(25,52,93,.35);transform:translateX(4px)}
-#ee-why .eew-n{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font:800 11px/1 'Inter',sans-serif;color:var(--orange-800,#A8501C);background:rgba(222,110,48,.09);border:1px solid rgba(222,110,48,.25)}
-#ee-why .eew-tx h3{color:#19345d;margin:2px 0 4px}
-#ee-why .eew-tx p{color:#5a6b85;line-height:1.55;margin:0}
-#ee-why .eew-media{position:relative}
-#ee-why .eew-media img{width:100%;height:auto;border-radius:18px;border:1px solid rgba(25,52,93,.1);box-shadow:0 30px 70px -30px rgba(25,52,93,.35)}
-#ee-why .eew-media::after{content:"";position:absolute;inset:auto -14px -14px auto;width:120px;height:120px;border-radius:50%;background:radial-gradient(closest-side,rgba(222,110,48,.14),transparent 70%);z-index:-1}
-@media(max-width:960px){
-  #ee-why .eew-grid{grid-template-columns:minmax(0,1fr);gap:20px}
-  #ee-why .eew-media{order:-1;max-width:520px;margin:0 auto}
-  #ee-why .eew-item{padding:11px 12px;gap:10px;border-radius:12px}
-  #ee-why .eew-n{width:26px;height:26px;border-radius:8px;font-size:10px}
-  #ee-why .eew-list{gap:8px}
+#ee-why .eew2-lead{color:#5a6b85;line-height:1.6;margin:0 auto 8px;max-width:56ch;text-align:center}
+#ee-why .eew2-lead strong{color:#19345d}
+#ee-why .eew2-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);gap:clamp(26px,3.4vw,54px);align-items:start;margin-top:clamp(26px,3.4vw,44px)}
+/* sticky visual */
+#ee-why .eew2-visual{position:sticky;top:104px}
+#ee-why .eew2-vframe{position:relative;aspect-ratio:16/11;border-radius:20px;background:#fff;
+  border:1px solid rgba(25,52,93,.1);overflow:hidden;
+  box-shadow:0 2px 6px rgba(15,32,58,.05),0 42px 90px -34px rgba(25,52,93,.42)}
+#ee-why .eew2-vframe::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+  background:linear-gradient(135deg,rgba(222,110,48,.5),rgba(25,52,93,.18) 45%,transparent 70%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:3}
+#ee-why .eew2-ghost{position:absolute;right:14px;bottom:0;font:800 120px/1 'Inter',sans-serif;
+  letter-spacing:-.04em;color:rgba(25,52,93,.05);z-index:0;transition:all .5s ease;user-select:none}
+#ee-why .eew2-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:16px;
+  opacity:0;transform:scale(.955) translateY(14px);z-index:1;
+  transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+#ee-why .eew2-img.on{opacity:1;transform:none;z-index:2}
+/* progress */
+#ee-why .eew2-progress{display:flex;align-items:center;gap:12px;margin-top:16px}
+#ee-why .eew2-pline{position:relative;flex:1;height:3px;border-radius:3px;background:rgba(25,52,93,.1);overflow:hidden}
+#ee-why .eew2-pfill{position:absolute;left:0;top:0;bottom:0;width:20%;border-radius:3px;
+  background:linear-gradient(90deg,#E8843F,#DE6E30);transition:width .5s cubic-bezier(.22,1,.36,1)}
+#ee-why .eew2-plabel{font:700 11.5px/1.3 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--orange-700,#B5551D);white-space:nowrap;transition:opacity .3s}
+/* steps */
+#ee-why .eew2-steps{list-style:none;margin:0;padding:0;position:relative}
+#ee-why .eew2-steps::before{content:"";position:absolute;left:19px;top:26px;bottom:26px;width:2px;
+  background:linear-gradient(180deg,rgba(222,110,48,.35),rgba(25,52,93,.12))}
+#ee-why .eew2-step{position:relative;display:flex;gap:18px;padding:20px 16px 20px 0;cursor:pointer;
+  opacity:.45;transition:opacity .45s ease,transform .45s ease}
+#ee-why .eew2-step.on{opacity:1}
+#ee-why .eew2-no{position:relative;z-index:1;flex:none;width:40px;height:40px;border-radius:12px;
+  display:grid;place-items:center;font:800 13px/1 'Inter',sans-serif;color:#5a6b85;
+  background:#fff;border:1.4px solid rgba(25,52,93,.16);
+  transition:all .4s cubic-bezier(.22,1,.36,1)}
+#ee-why .eew2-step.on .eew2-no{color:#fff;background:linear-gradient(135deg,#E8843F,#DE6E30);
+  border-color:transparent;box-shadow:0 10px 22px -8px rgba(222,110,48,.6);transform:scale(1.06)}
+#ee-why .eew2-tx h3{margin:2px 0 6px;color:#19345d}
+#ee-why .eew2-tag{display:inline-block;font:700 11px/1 'Inter',sans-serif;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);
+  border:1px solid rgba(222,110,48,.22);padding:5px 10px;border-radius:999px;margin-bottom:9px}
+#ee-why .eew2-tx p{margin:0;color:#5a6b85;line-height:1.65;max-width:52ch}
+#ee-why .eew2-mimg{display:none}
+@media(prefers-reduced-motion:reduce){#ee-why .eew2-img,#ee-why .eew2-step,#ee-why .eew2-no,#ee-why .eew2-pfill{transition:none}}
+/* phones: stacked story cards, each with its own image */
+@media(max-width:900px){
+  #ee-why .eew2-grid{grid-template-columns:1fr;gap:14px}
+  #ee-why .eew2-visual{display:none}
+  #ee-why .eew2-steps::before{display:none}
+  #ee-why .eew2-step{opacity:1;padding:16px;background:#fff;border:1px solid rgba(25,52,93,.1);
+    border-radius:16px;margin-bottom:12px;box-shadow:0 10px 26px -18px rgba(25,52,93,.3)}
+  #ee-why .eew2-mimg{display:block;width:100%;height:auto;border-radius:12px;margin-top:12px;
+    border:1px solid rgba(25,52,93,.08)}
 }
 </style>
 <section id="ee-why" aria-labelledby="eew-h">
-  <div class="eew-wrap">
+  <div class="eew2-wrap">
     <h2 id="eew-h">Why Institutes Choose ExtraaEdge as the Architect of Their Admission Process?</h2>
-    <p class="eew-lead">Most Admission CRMs help you <strong>manage</strong> admissions. ExtraaEdge helps you <strong>design how admissions should work</strong> - end to end, at scale.</p>
-    <div class="eew-grid">
-      <ul class="eew-list">
-        <li class="eew-item">
-          <span class="eew-n">01</span>
-          <div class="eew-tx"><h3>One unified Admission Cloud</h3><p>Run the entire enrollment journey from inquiry to enrollment, without fragmented tools or manual follow-ups.</p></div>
-        </li>
-        <li class="eew-item">
-          <span class="eew-n">02</span>
-          <div class="eew-tx"><h3>AI-powered admission assistance</h3><p>Handles student queries 24&times;7 across web and WhatsApp, while giving counselors full context to respond faster and smarter.</p></div>
-        </li>
-        <li class="eew-item">
-          <span class="eew-n">03</span>
-          <div class="eew-tx"><h3>AI calling and agents</h3><p>Qualify, engage, and route high-intent prospects at scale, helping teams grow outcomes without growing headcount.</p></div>
-        </li>
-        <li class="eew-item">
-          <span class="eew-n">04</span>
-          <div class="eew-tx"><h3>Real-time intelligence</h3><p>Surfaces intent, bottlenecks, and counselor performance so teams act early and convert better.</p></div>
-        </li>
-        <li class="eew-item">
-          <span class="eew-n">05</span>
-          <div class="eew-tx"><h3>Built to adapt and integrate</h3><p>Adapts to each institute&rsquo;s process, integrates seamlessly with ads, websites, ERP, and communication tools - and scales with your growth.</p></div>
-        </li>
-      </ul>
-      <div class="eew-media">
-        <img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-institutes-choose-extraaedge.png" alt="Why institutes choose ExtraaEdge - the unified AI Admission Cloud" loading="lazy" decoding="async" onerror="this.closest('.eew-media').style.display='none'">
+    <p class="eew2-lead">Most Admission CRMs help you <strong>manage</strong> admissions. ExtraaEdge helps you <strong>design how admissions should work</strong> - end to end, at scale.</p>
+    <div class="eew2-grid">
+      <div class="eew2-visual">
+        <div class="eew2-vframe">
+          <span class="eew2-ghost" id="eew2Ghost" aria-hidden="true">01</span>
+          <img class="eew2-img on" data-i="0" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/unified-admission-ecosystem.webp" alt="Unified Admission Ecosystem" loading="lazy" decoding="async">
+          <img class="eew2-img" data-i="1" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/ai-guided-student-journey.webp" alt="AI Guided Student Journey" loading="lazy" decoding="async">
+          <img class="eew2-img" data-i="2" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/intelligent-counselor-workspace.webp" alt="Intelligent Counselor Workspace" loading="lazy" decoding="async">
+          <img class="eew2-img" data-i="3" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/automation-connected-operations.webp" alt="Automation & Connected Operations" loading="lazy" decoding="async">
+          <img class="eew2-img" data-i="4" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/executive-decision-intelligence.webp" alt="Executive Decision Intelligence" loading="lazy" decoding="async">
+        </div>
+        <div class="eew2-progress" aria-hidden="true">
+          <span class="eew2-plabel" id="eew2Label">Everything in one platform</span>
+          <span class="eew2-pline"><i class="eew2-pfill" id="eew2Fill"></i></span>
+        </div>
       </div>
+      <ol class="eew2-steps" id="eew2Steps">
+        <li class="eew2-step on" data-i="0">
+          <span class="eew2-no">01</span>
+          <div class="eew2-tx">
+            <h3>Unified Admission Ecosystem</h3>
+            <span class="eew2-tag">Everything in one platform</span>
+            <p>One unified Admission Cloud to run the entire enrollment journey from inquiry to enrollment, without fragmented tools or manual follow-ups.</p>
+            <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/unified-admission-ecosystem.webp" alt="" loading="lazy" decoding="async">
+          </div>
+        </li>
+        <li class="eew2-step" data-i="1">
+          <span class="eew2-no">02</span>
+          <div class="eew2-tx">
+            <h3>AI Guided Student Journey</h3>
+            <span class="eew2-tag">Complete enrollment flow</span>
+            <p>AI-powered admission assistance handles student queries 24&times;7 across web and WhatsApp, while giving counselors full context to respond faster and smarter.</p>
+            <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/ai-guided-student-journey.webp" alt="" loading="lazy" decoding="async">
+          </div>
+        </li>
+        <li class="eew2-step" data-i="2">
+          <span class="eew2-no">03</span>
+          <div class="eew2-tx">
+            <h3>Intelligent Counselor Workspace</h3>
+            <span class="eew2-tag">Counselors work smarter</span>
+            <p>AI calling and agents qualify, engage, and route high-intent prospects at scale, helping teams grow outcomes without growing headcount.</p>
+            <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/intelligent-counselor-workspace.webp" alt="" loading="lazy" decoding="async">
+          </div>
+        </li>
+        <li class="eew2-step" data-i="3">
+          <span class="eew2-no">04</span>
+          <div class="eew2-tx">
+            <h3>Automation &amp; Connected Operations</h3>
+            <span class="eew2-tag">Processes run automatically</span>
+            <p>Built to adapt to each institute&rsquo;s process, ExtraaEdge integrates seamlessly with ads, websites, ERP, and communication tools - and scales with your growth.</p>
+            <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/automation-connected-operations.webp" alt="" loading="lazy" decoding="async">
+          </div>
+        </li>
+        <li class="eew2-step" data-i="4">
+          <span class="eew2-no">05</span>
+          <div class="eew2-tx">
+            <h3>Executive Decision Intelligence</h3>
+            <span class="eew2-tag">Leadership gets actionable insights</span>
+            <p>Real-time intelligence surfaces intent, bottlenecks, and counselor performance so teams act early and convert better.</p>
+            <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/executive-decision-intelligence.webp" alt="" loading="lazy" decoding="async">
+          </div>
+        </li>
+      </ol>
     </div>
   </div>
 </section>
+<script>
+(function(){
+  var sec=document.getElementById('ee-why'); if(!sec) return;
+  var steps=[].slice.call(sec.querySelectorAll('.eew2-step'));
+  var imgs=[].slice.call(sec.querySelectorAll('.eew2-img'));
+  var ghost=document.getElementById('eew2Ghost'),
+      fill=document.getElementById('eew2Fill'),
+      label=document.getElementById('eew2Label');
+  var labels=['Everything in one platform','Complete enrollment flow','Counselors work smarter','Processes run automatically','Leadership gets actionable insights'];
+  var cur=0;
+  function setActive(i){
+    if(i===cur) return; cur=i;
+    steps.forEach(function(st,j){ st.classList.toggle('on',j===i); });
+    imgs.forEach(function(im,j){ im.classList.toggle('on',j===i); });
+    if(ghost) ghost.textContent='0'+(i+1);
+    if(fill) fill.style.width=((i+1)*20)+'%';
+    if(label) label.textContent=labels[i]||'';
+  }
+  var mq=window.matchMedia('(min-width:901px)');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      if(!mq.matches) return;
+      es.forEach(function(e){ if(e.isIntersecting){ setActive(+e.target.dataset.i); } });
+    },{rootMargin:'-42% 0px -42% 0px',threshold:0});
+    steps.forEach(function(st){ io.observe(st); });
+  }
+  steps.forEach(function(st){ st.addEventListener('click',function(){ setActive(+st.dataset.i); }); });
+})();
+</script>
 
 
 <!-- ===================== RESPOND FIRST · AI STORYTELLING (scoped #ee-rfa) ===================== -->
@@ -6133,9 +6235,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
    screenshots. Desktop-only column rebalance - phones keep their layouts. ── */
 @media(min-width:961px){
   /* Architect of Admissions: image column grows from ~49% to 56% */
-  #ee-why .eew-grid{grid-template-columns:minmax(0,.68fr) minmax(0,1.32fr);gap:clamp(22px,3vw,40px)}
-  #ee-why .eew-media{max-width:none}
-  /* Respond First: browser-preview column grows, story cards narrow */
+    /* Respond First: browser-preview column grows, story cards narrow */
   #ee-rfa .rfa-in{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr) 18px}
   #ee-rfa .rfa-shot{padding:4px}
 }
