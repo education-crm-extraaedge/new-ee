@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-night-skin -->
+<!-- ee-front-tpl v2026-07-29-nav-wow -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -6449,5 +6449,47 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   #ee-night-embed::before,#ee-night-embed .phone{animation:none}
 }
 @media(max-width:960px){#ee-night-embed .phone{animation:none}}
+</style>
+
+<style id="ee-nav-wow">
+/* ── Powerful CRM: "wow" navigation panel. Deep navy glass card with
+   glowing orange active row - markup and scroll-sync untouched. ── */
+#vidyaai-embed-root #navCard{position:relative;overflow:hidden;
+  background:linear-gradient(150deg,#0F2547,#19345D 55%,#22467C)!important;
+  border:1px solid rgba(255,255,255,.08)!important;border-radius:22px!important;
+  box-shadow:0 30px 80px -30px rgba(15,32,58,.65),0 12px 34px -18px rgba(222,110,48,.35)!important}
+#vidyaai-embed-root #navCard::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+  background:linear-gradient(135deg,rgba(222,110,48,.55),rgba(255,255,255,.12) 40%,transparent 70%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:0}
+#vidyaai-embed-root #navCard::after{content:"";position:absolute;top:-70px;right:-70px;width:230px;height:230px;
+  border-radius:50%;background:radial-gradient(circle,rgba(222,110,48,.38),transparent 70%);
+  filter:blur(8px);pointer-events:none;z-index:0}
+/* rows: frosted glass on navy */
+#vidyaai-embed-root .feature-nav-item{position:relative;z-index:1;
+  background:rgba(255,255,255,.045)!important;border:1px solid rgba(255,255,255,.08)!important;
+  border-radius:14px!important;margin-bottom:8px;
+  transition:transform .3s cubic-bezier(.22,1,.36,1),background .3s,border-color .3s,box-shadow .3s!important}
+#vidyaai-embed-root .feature-nav-item:hover{background:rgba(255,255,255,.1)!important;
+  border-color:rgba(255,255,255,.18)!important;transform:translateX(4px)}
+#vidyaai-embed-root .feature-nav-item .nav-title{color:#fff!important}
+#vidyaai-embed-root .feature-nav-item p{color:rgba(198,212,234,.78)!important}
+#vidyaai-embed-root .feature-nav-item .w-10{background:rgba(255,255,255,.09)!important;
+  border:1px solid rgba(255,255,255,.14);box-shadow:none!important;transition:background .3s,transform .3s}
+#vidyaai-embed-root .feature-nav-item .w-10 img{filter:brightness(0) invert(1)}
+#vidyaai-embed-root .feature-nav-item>svg{color:rgba(255,255,255,.5);transition:transform .25s,color .25s}
+#vidyaai-embed-root .feature-nav-item:hover>svg{transform:translateX(3px);color:#fff}
+#vidyaai-embed-root .nav-indicator{display:none!important}
+/* active row: full orange gradient with glow */
+#vidyaai-embed-root .feature-nav-item.active{
+  background:linear-gradient(95deg,#DE6E30,#E8843F 70%,#FF8A5C)!important;
+  border-color:rgba(255,255,255,.28)!important;transform:translateX(4px);
+  box-shadow:0 16px 34px -12px rgba(222,110,48,.75)!important}
+#vidyaai-embed-root .feature-nav-item.active .nav-title{color:#fff!important}
+#vidyaai-embed-root .feature-nav-item.active p{color:rgba(255,244,236,.92)!important}
+#vidyaai-embed-root .feature-nav-item.active .w-10{background:rgba(255,255,255,.18)!important;
+  border-color:rgba(255,255,255,.3);transform:scale(1.06)}
+#vidyaai-embed-root .feature-nav-item.active>svg{color:#fff;transform:translateX(3px)}
+@media(prefers-reduced-motion:reduce){#vidyaai-embed-root .feature-nav-item{transition:none!important}}
 </style>
 <?php get_footer(); ?>
