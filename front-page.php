@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-why-story5 -->
+<!-- ee-front-tpl v2026-07-29-why-pin -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -791,75 +791,61 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 <!-- ===================== WHY INSTITUTES CHOOSE EXTRAAEDGE (scoped #ee-why) ===================== -->
 <style id="eew2-style">
-/* ── Why ExtraaEdge: scroll-driven story. Sticky visual frame crossfades
-   through the five stages while the step list drives the narrative. ── */
-#ee-why{position:relative;padding:clamp(30px,4vw,52px) 0;background:
+/* ── Why ExtraaEdge: pinned scroll story. The visual + step list stay
+   centred mid-viewport while scroll progress drives the five stages. ── */
+#ee-why{position:relative;background:
   radial-gradient(720px 420px at 8% 4%, rgba(222,110,48,.06), transparent 62%),
   radial-gradient(720px 460px at 96% 90%, rgba(25,52,93,.06), transparent 62%),#fff;
-  font-family:'Inter',system-ui,sans-serif;overflow:hidden}
+  font-family:'Inter',system-ui,sans-serif;padding:0}
 #ee-why *{box-sizing:border-box}
-#ee-why .eew2-wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+#ee-why .eew2-track{position:relative;height:calc(min(100vh,880px)*2.6)}
+#ee-why .eew2-pin{position:sticky;top:86px;height:min(calc(100vh - 86px),820px);overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center}
+#ee-why .eew2-wrap{max-width:1240px;margin:0 auto;padding:0 24px;width:100%}
 #ee-why h2{color:#19345d;margin:0 auto 12px;max-width:44ch;text-align:center}
 #ee-why .eew2-lead{color:#5a6b85;line-height:1.6;margin:0 auto 8px;max-width:56ch;text-align:center}
 #ee-why .eew2-lead strong{color:#19345d}
-#ee-why .eew2-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);gap:clamp(26px,3.4vw,54px);align-items:start;margin-top:clamp(26px,3.4vw,44px)}
-/* sticky visual */
-#ee-why .eew2-visual{position:sticky;top:104px}
+#ee-why .eew2-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);gap:clamp(26px,3.4vw,54px);align-items:center;margin-top:clamp(20px,2.6vw,34px)}
+/* visual */
 #ee-why .eew2-vframe{position:relative;aspect-ratio:16/11;border-radius:20px;background:#fff;
-  border:1px solid rgba(25,52,93,.1);overflow:hidden;
+  border:1px solid rgba(25,52,93,.1);overflow:hidden;cursor:zoom-in;
   box-shadow:0 2px 6px rgba(15,32,58,.05),0 42px 90px -34px rgba(25,52,93,.42)}
+#ee-why .eew2-vframe.eew2-noimg{cursor:default}
 #ee-why .eew2-vframe::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
   background:linear-gradient(135deg,rgba(222,110,48,.5),rgba(25,52,93,.18) 45%,transparent 70%);
   -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:3}
-
 #ee-why .eew2-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:16px;
   opacity:0;transform:scale(.955) translateY(14px);z-index:1;
-  transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+  transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
 #ee-why .eew2-img.on{opacity:1;transform:none;z-index:2}
-/* progress */
-#ee-why .eew2-progress{display:flex;align-items:center;gap:12px;margin-top:16px}
-#ee-why .eew2-pline{position:relative;flex:1;height:3px;border-radius:3px;background:rgba(25,52,93,.1);overflow:hidden}
-#ee-why .eew2-pfill{position:absolute;left:0;top:0;bottom:0;width:20%;border-radius:3px;
-  background:linear-gradient(90deg,#E8843F,#DE6E30);transition:width .5s cubic-bezier(.22,1,.36,1)}
-#ee-why .eew2-plabel{font:700 11.5px/1.3 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--orange-700,#B5551D);white-space:nowrap;transition:opacity .3s}
-/* steps */
-#ee-why .eew2-steps{list-style:none;margin:0;padding:0;position:relative}
-
-#ee-why .eew2-step{position:relative;display:flex;gap:0;padding:18px 16px 18px 20px;cursor:pointer;border-left:3px solid rgba(25,52,93,.1);opacity:.45;transition:opacity .45s ease,transform .45s ease,border-color .45s ease,background .45s ease}#ee-why .eew2-step.on{border-left-color:#DE6E30;background:linear-gradient(90deg,rgba(222,110,48,.05),transparent 65%)}
-#ee-why .eew2-step.on{opacity:1}
-
-
-#ee-why .eew2-tx h3{margin:2px 0 6px;color:#19345d}
-#ee-why .eew2-tag{display:inline-block;font:700 11px/1 'Inter',sans-serif;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);
-  border:1px solid rgba(222,110,48,.22);padding:5px 10px;border-radius:999px;margin-bottom:9px}
-#ee-why .eew2-tx p{margin:0;color:#5a6b85;line-height:1.65;max-width:52ch}
-#ee-why .eew2-mimg{display:none}
-/* counter + autoplay ring + ken-burns + entrance */
-
-@keyframes eew2Ken{from{transform:scale(1)}to{transform:scale(1.035)}}
-#ee-why.eew2-play .eew2-img.on{animation:eew2Ken 5s linear forwards}
-
-#ee-why .eew2-steps:not(.in) .eew2-step{opacity:0;transform:translateY(18px)}
-#ee-why .eew2-steps.in .eew2-step{transform:none}
-#ee-why .eew2-steps.in .eew2-step:nth-child(1){transition-delay:.05s}
-#ee-why .eew2-steps.in .eew2-step:nth-child(2){transition-delay:.13s}
-#ee-why .eew2-steps.in .eew2-step:nth-child(3){transition-delay:.21s}
-#ee-why .eew2-steps.in .eew2-step:nth-child(4){transition-delay:.29s}
-#ee-why .eew2-steps.in .eew2-step:nth-child(5){transition-delay:.37s}
 #ee-why .eew2-vframe.eew2-noimg::after{content:"";position:absolute;inset:0;background:
   radial-gradient(420px 260px at 30% 30%,rgba(222,110,48,.12),transparent 60%),
   radial-gradient(420px 300px at 75% 75%,rgba(25,52,93,.1),transparent 60%)}
+/* continuous progress under the frame */
+#ee-why .eew2-progress{display:flex;align-items:center;gap:12px;margin-top:14px}
+#ee-why .eew2-pline{position:relative;flex:1;height:3px;border-radius:3px;background:rgba(25,52,93,.1);overflow:hidden}
+#ee-why .eew2-pfill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:3px;
+  background:linear-gradient(90deg,#E8843F,#DE6E30)}
+/* steps */
+#ee-why .eew2-steps{list-style:none;margin:0;padding:0}
+#ee-why .eew2-step{position:relative;padding:15px 16px 15px 20px;cursor:pointer;
+  border-left:3px solid rgba(25,52,93,.1);
+  opacity:.42;transition:opacity .45s ease,border-color .45s ease,background .45s ease,transform .45s ease}
+#ee-why .eew2-step.on{opacity:1;border-left-color:#DE6E30;
+  background:linear-gradient(90deg,rgba(222,110,48,.05),transparent 65%)}
 #ee-why .eew2-step:focus-visible{border-radius:14px}
-#ee-why .eew2-toggle{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;
-  border:1.4px solid rgba(25,52,93,.18);background:#fff;color:#19345d;cursor:pointer;
-  transition:border-color .2s,color .2s,transform .2s}
-#ee-why .eew2-toggle:hover{border-color:#DE6E30;color:var(--orange-700,#B5551D);transform:scale(1.06)}
-#ee-why .eew2-toggle svg{width:12px;height:12px}
-#ee-why .eew2-vframe{cursor:zoom-in}
-#ee-why .eew2-vframe.eew2-noimg{cursor:default}
+#ee-why .eew2-tx h3{margin:0 0 6px;color:#19345d}
+#ee-why .eew2-tx p{margin:0;color:#5a6b85;line-height:1.62;max-width:52ch}
+#ee-why .eew2-mimg{display:none}
+#ee-why .eew2-steps:not(.in) .eew2-step{opacity:0;transform:translateY(18px)}
+#ee-why .eew2-steps.in .eew2-step{transform:none}
+#ee-why .eew2-steps.in .eew2-step:nth-child(1){transition-delay:.05s}
+#ee-why .eew2-steps.in .eew2-step:nth-child(2){transition-delay:.12s}
+#ee-why .eew2-steps.in .eew2-step:nth-child(3){transition-delay:.19s}
+#ee-why .eew2-steps.in .eew2-step:nth-child(4){transition-delay:.26s}
+#ee-why .eew2-steps.in .eew2-step:nth-child(5){transition-delay:.33s}
+/* lightbox */
 #ee-why .eew2-lb{position:fixed;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;
   background:rgba(15,33,67,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s}
@@ -875,43 +861,44 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-why .eew2-lb-cap{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
   font:600 13px/1.4 'Inter',sans-serif;color:#c6d4ea;background:rgba(15,33,67,.6);
   padding:8px 16px;border-radius:999px;white-space:nowrap}
-@media(prefers-reduced-motion:reduce){#ee-why.eew2-play .eew2-img.on,#ee-why.eew2-play .eew2-step.on .eew2-no{animation:none}}
-@media(prefers-reduced-motion:reduce){#ee-why .eew2-img,#ee-why .eew2-step,#ee-why .eew2-no,#ee-why .eew2-pfill{transition:none}}
-/* phones: stacked story cards, each with its own image */
+@media(prefers-reduced-motion:reduce){#ee-why .eew2-img,#ee-why .eew2-step{transition:none}}
+/* phones: no pinning - stacked story cards with inline images */
 @media(max-width:900px){
-  #ee-why .eew2-grid{grid-template-columns:1fr;gap:14px}
+  #ee-why{padding:30px 0}
+  #ee-why .eew2-track{height:auto}
+  #ee-why .eew2-pin{position:static;height:auto;overflow:visible;display:block}
+  #ee-why .eew2-grid{grid-template-columns:1fr;gap:14px;align-items:start}
   #ee-why .eew2-visual{display:none}
-  #ee-why .eew2-steps::before{display:none}
   #ee-why .eew2-step{opacity:1;padding:16px;background:#fff;border:1px solid rgba(25,52,93,.1);
-    border-radius:16px;margin-bottom:12px;box-shadow:0 10px 26px -18px rgba(25,52,93,.3)}
+    border-left:3px solid rgba(222,110,48,.5);border-radius:16px;margin-bottom:12px;
+    box-shadow:0 10px 26px -18px rgba(25,52,93,.3)}
   #ee-why .eew2-mimg{display:block;width:100%;height:auto;border-radius:12px;margin-top:12px;
     border:1px solid rgba(25,52,93,.08)}
 }
 </style>
 <section id="ee-why" aria-labelledby="eew-h">
+  <div class="eew2-track" id="eew2Track">
+  <div class="eew2-pin">
   <div class="eew2-wrap">
     <h2 id="eew-h">Why Institutes Choose ExtraaEdge as the Architect of Their Admission Process?</h2>
     <p class="eew2-lead">Most Admission CRMs help you <strong>manage</strong> admissions. ExtraaEdge helps you <strong>design how admissions should work</strong> - end to end, at scale.</p>
     <div class="eew2-grid">
       <div class="eew2-visual">
         <div class="eew2-vframe" id="eew2Frame" tabindex="0" role="button" aria-label="Enlarge the current screenshot">
-          <img class="eew2-img on" data-i="0" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/unified-admission-ecosystem.webp" alt="Unified Admission Ecosystem" loading="lazy" decoding="async">
-          <img class="eew2-img" data-i="1" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/ai-guided-student-journey.webp" alt="AI Guided Student Journey" loading="lazy" decoding="async">
-          <img class="eew2-img" data-i="2" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/intelligent-counselor-workspace.webp" alt="Intelligent Counselor Workspace" loading="lazy" decoding="async">
-          <img class="eew2-img" data-i="3" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/automation-connected-operations.webp" alt="Automation & Connected Operations" loading="lazy" decoding="async">
-          <img class="eew2-img" data-i="4" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/executive-decision-intelligence.webp" alt="Executive Decision Intelligence" loading="lazy" decoding="async">
+          <img class="eew2-img on" data-i="0" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/unified-admission-ecosystem.webp" alt="Everything in one platform" loading="lazy" decoding="async">
+          <img class="eew2-img" data-i="1" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/ai-guided-student-journey.webp" alt="Complete enrollment flow" loading="lazy" decoding="async">
+          <img class="eew2-img" data-i="2" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/intelligent-counselor-workspace.webp" alt="Counselors work smarter" loading="lazy" decoding="async">
+          <img class="eew2-img" data-i="3" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/automation-connected-operations.webp" alt="Processes run automatically" loading="lazy" decoding="async">
+          <img class="eew2-img" data-i="4" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/executive-decision-intelligence.webp" alt="Leadership gets actionable insights" loading="lazy" decoding="async">
         </div>
         <div class="eew2-progress" aria-hidden="true">
-          <span class="eew2-plabel" id="eew2Label">Unified Admission Ecosystem</span>
           <span class="eew2-pline"><i class="eew2-pfill" id="eew2Fill"></i></span>
-          <button type="button" class="eew2-toggle" id="eew2Toggle" aria-label="Pause the story autoplay" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" id="eew2TIcon"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
         </div>
       </div>
       <ol class="eew2-steps" id="eew2Steps">
         <li class="eew2-step on" data-i="0" tabindex="0" aria-current="step">
           <div class="eew2-tx">
             <h3>Everything in one platform</h3>
-            <span class="eew2-tag">Unified Admission Ecosystem</span>
             <p>One unified Admission Cloud to run the entire enrollment journey from inquiry to enrollment, without fragmented tools or manual follow-ups.</p>
             <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/unified-admission-ecosystem.webp" alt="" loading="lazy" decoding="async">
           </div>
@@ -919,7 +906,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         <li class="eew2-step" data-i="1" tabindex="0">
           <div class="eew2-tx">
             <h3>Complete enrollment flow</h3>
-            <span class="eew2-tag">AI Guided Student Journey</span>
             <p>AI-powered admission assistance handles student queries 24&times;7 across web and WhatsApp, while giving counselors full context to respond faster and smarter.</p>
             <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/ai-guided-student-journey.webp" alt="" loading="lazy" decoding="async">
           </div>
@@ -927,7 +913,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         <li class="eew2-step" data-i="2" tabindex="0">
           <div class="eew2-tx">
             <h3>Counselors work smarter</h3>
-            <span class="eew2-tag">Intelligent Counselor Workspace</span>
             <p>AI calling and agents qualify, engage, and route high-intent prospects at scale, helping teams grow outcomes without growing headcount.</p>
             <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/intelligent-counselor-workspace.webp" alt="" loading="lazy" decoding="async">
           </div>
@@ -935,7 +920,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         <li class="eew2-step" data-i="3" tabindex="0">
           <div class="eew2-tx">
             <h3>Processes run automatically</h3>
-            <span class="eew2-tag">Automation &amp; Connected Operations</span>
             <p>Built to adapt to each institute&rsquo;s process, ExtraaEdge integrates seamlessly with ads, websites, ERP, and communication tools - and scales with your growth.</p>
             <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/automation-connected-operations.webp" alt="" loading="lazy" decoding="async">
           </div>
@@ -943,13 +927,14 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         <li class="eew2-step" data-i="4" tabindex="0">
           <div class="eew2-tx">
             <h3>Leadership gets actionable insights</h3>
-            <span class="eew2-tag">Executive Decision Intelligence</span>
             <p>Real-time intelligence surfaces intent, bottlenecks, and counselor performance so teams act early and convert better.</p>
             <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/executive-decision-intelligence.webp" alt="" loading="lazy" decoding="async">
           </div>
         </li>
       </ol>
     </div>
+  </div>
+  </div>
   </div>
   <div class="eew2-lb" id="eew2Lb" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
     <button type="button" class="eew2-lb-x" id="eew2LbX" aria-label="Close">&#10005;</button>
@@ -960,115 +945,79 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <script>
 (function(){
   var sec=document.getElementById('ee-why'); if(!sec) return;
+  var track=document.getElementById('eew2Track');
   var steps=[].slice.call(sec.querySelectorAll('.eew2-step'));
   var imgs=[].slice.call(sec.querySelectorAll('.eew2-img'));
   var list=document.getElementById('eew2Steps'),
       frame=document.getElementById('eew2Frame'),
-      ghost=document.getElementById('eew2Ghost'),
       fill=document.getElementById('eew2Fill'),
-      label=document.getElementById('eew2Label'),
-      count=document.getElementById('eew2Count'),
-      toggle=document.getElementById('eew2Toggle'),
-      ticon=document.getElementById('eew2TIcon'),
       lb=document.getElementById('eew2Lb'),
       lbImg=document.getElementById('eew2LbImg'),
       lbCap=document.getElementById('eew2LbCap'),
       lbX=document.getElementById('eew2LbX');
-  var labels=['Unified Admission Ecosystem','AI Guided Student Journey','Intelligent Counselor Workspace','Automation & Connected Operations','Executive Decision Intelligence'];
   var heads=['Everything in one platform','Complete enrollment flow','Counselors work smarter','Processes run automatically','Leadership gets actionable insights'];
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var mq=window.matchMedia('(min-width:901px)');
-  var cur=0,timer=null,paused=false,inView=false,failed=0;
-  var ICON_PAUSE='M7 5h4v14H7zM13 5h4v14h-4z', ICON_PLAY='M8 5v14l11-7z';
+  var cur=0,failed=0,ticking=false;
 
   imgs.forEach(function(im){
     var pre=new Image(); pre.src=im.src;
     im.addEventListener('error',function(){ if(++failed>=imgs.length&&frame) frame.classList.add('eew2-noimg'); });
   });
 
-  function armFill(i,timed){
-    if(!fill) return;
-    fill.style.transition='none';
-    fill.style.width=(i*20)+'%';
-    void fill.offsetWidth;
-    fill.style.transition=timed?'width 5s linear':'width .45s cubic-bezier(.22,1,.36,1)';
-    fill.style.width=((i+1)*20)+'%';
+  function render(i){
+    i=Math.max(0,Math.min(steps.length-1,i));
+    if(i===cur) return;
+    cur=i;
+    steps.forEach(function(st,j){ st.classList.toggle('on',j===i);
+      if(j===i){ st.setAttribute('aria-current','step'); } else { st.removeAttribute('aria-current'); } });
+    imgs.forEach(function(im,j){ im.classList.toggle('on',j===i); });
   }
-  function setActive(i,fromUser){
-    i=(i+steps.length)%steps.length;
-    if(fromUser){ pause(true); }
-    if(i!==cur){
-      cur=i;
-      steps.forEach(function(st,j){ st.classList.toggle('on',j===i);
-        if(j===i){ st.setAttribute('aria-current','step'); } else { st.removeAttribute('aria-current'); } });
-      imgs.forEach(function(im,j){ im.classList.toggle('on',j===i); });
-      if(ghost) ghost.textContent='0'+(i+1);
-      if(label) label.textContent=labels[i]||'';
-      if(count) count.textContent='0'+(i+1)+' / 05';
-    }
-    armFill(cur, !!timer&&!fromUser);
+  function metrics(){
+    var pin=track.querySelector('.eew2-pin');
+    return { total: track.offsetHeight-(pin?pin.offsetHeight:window.innerHeight),
+             top: track.getBoundingClientRect().top };
   }
-  function tick(){ setActive(cur+1,false); }
-  function play(){
-    if(timer||reduce||paused||!mq.matches||!inView) return;
-    sec.classList.add('eew2-play');
-    timer=setInterval(tick,5000);
-    armFill(cur,true);
-    if(ticon) ticon.firstElementChild.setAttribute('d',ICON_PAUSE);
-    if(toggle){ toggle.setAttribute('aria-pressed','false'); toggle.setAttribute('aria-label','Pause the story autoplay'); }
+  function upd(){
+    ticking=false;
+    if(!mq.matches) return;
+    var m=metrics(); if(m.total<=0) return;
+    var p=Math.min(1,Math.max(0,-m.top/m.total));
+    if(fill) fill.style.width=(p*100)+'%';
+    render(Math.min(steps.length-1,Math.floor(p*steps.length+0.0001)));
   }
-  function stop(){
-    sec.classList.remove('eew2-play');
-    if(timer){ clearInterval(timer); timer=null; }
-    if(fill){ fill.style.transition='width .3s ease'; fill.style.width=((cur+1)*20)+'%'; }
-    if(ticon) ticon.firstElementChild.setAttribute('d',ICON_PLAY);
-    if(toggle){ toggle.setAttribute('aria-pressed','true'); toggle.setAttribute('aria-label','Play the story autoplay'); }
-  }
-  function pause(byUser){ if(byUser) paused=true; stop(); }
-  if(toggle) toggle.addEventListener('click',function(){
-    if(timer){ pause(true); } else { paused=false; play(); }
-  });
+  window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(upd); } },{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
 
-  if('IntersectionObserver' in window){
-    var vio=new IntersectionObserver(function(es){ es.forEach(function(e){
-      inView=e.isIntersecting;
-      if(inView){ if(list) list.classList.add('in'); play(); } else { stop(); }
-    }); },{threshold:.3});
-    vio.observe(sec);
-    /* scrolling through the list also drives the story (centre band) */
-    var sio=new IntersectionObserver(function(es){
-      if(!mq.matches) return;
-      es.forEach(function(e){
-        if(e.isIntersecting){
-          var i=+e.target.dataset.i;
-          if(i!==cur){
-            setActive(i,false);
-            if(timer){ clearInterval(timer); timer=setInterval(tick,5000); armFill(cur,true); }
-          }
-        }
-      });
-    },{rootMargin:'-40% 0px -40% 0px',threshold:0});
-    steps.forEach(function(st){ sio.observe(st); });
-  } else if(list){ list.classList.add('in'); }
-  sec.addEventListener('mouseenter',function(){ if(timer) stop(); });
-  sec.addEventListener('mouseleave',function(){ play(); });
-
+  /* click / keyboard jumps scroll to that stage's spot in the track */
+  function jumpTo(i){
+    if(!mq.matches){ render(i); return; }
+    var m=metrics(); if(m.total<=0){ render(i); return; }
+    var trackTop=window.pageYOffset+m.top;
+    window.scrollTo({top:Math.round(trackTop+((i+0.5)/steps.length)*m.total),behavior:'smooth'});
+    render(i);
+  }
   steps.forEach(function(st){
-    st.addEventListener('click',function(){ setActive(+st.dataset.i,true); });
+    st.addEventListener('click',function(){ jumpTo(+st.dataset.i); });
     st.addEventListener('keydown',function(e){
-      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); setActive(+st.dataset.i,true); }
-      else if(e.key==='ArrowDown'||e.key==='ArrowRight'){ e.preventDefault(); setActive(cur+1,true); steps[cur].focus(); }
-      else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){ e.preventDefault(); setActive(cur-1,true); steps[cur].focus(); }
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); jumpTo(+st.dataset.i); }
+      else if(e.key==='ArrowDown'||e.key==='ArrowRight'){ e.preventDefault(); jumpTo(cur+1); steps[Math.min(cur+1,steps.length-1)].focus(); }
+      else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){ e.preventDefault(); jumpTo(cur-1); steps[Math.max(cur-1,0)].focus(); }
     });
   });
 
-  /* ---- click-to-zoom lightbox ---- */
+  /* entrance stagger */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(e.isIntersecting){ if(list) list.classList.add('in'); io.disconnect(); } }); },{threshold:.2});
+    io.observe(sec);
+  } else if(list){ list.classList.add('in'); }
+
+  /* click-to-zoom lightbox */
   var lastFocus=null;
   function lbOpen(){
     if(!lb||frame.classList.contains('eew2-noimg')) return;
-    pause(true);
     lbImg.src=imgs[cur].src; lbImg.alt=imgs[cur].alt||'';
-    if(lbCap) lbCap.textContent=heads[cur]+' \u00b7 '+labels[cur];
+    if(lbCap) lbCap.textContent=heads[cur];
     lb.classList.add('open');
     document.documentElement.style.overflow='hidden';
     lastFocus=document.activeElement; if(lbX) lbX.focus();
@@ -1086,6 +1035,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(lbX) lbX.addEventListener('click',lbClose);
   if(lb) lb.addEventListener('click',function(e){ if(e.target===lb) lbClose(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb&&lb.classList.contains('open')) lbClose(); });
+  upd();
 })();
 </script>
 
