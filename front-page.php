@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-lh-pass -->
+<!-- ee-front-tpl v2026-07-29-convo -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5421,6 +5421,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 .ee-home{display:flex;flex-direction:column}
 .ee-home>#ee-toc{order:-1}
 .ee-home>#xhero{order:10}                 /* Attention: value prop + lead form */
+.ee-home>#ee-convo{order:15}             /* Live AI conversation proof */
 .ee-home>#trusted-institutions{order:20}  /* Instant social proof */
 .ee-home>#ee-why{order:30}                /* Positioning: why ExtraaEdge */
 .ee-home>#ee-platform{order:40}           /* Show, don't tell: live demo */
@@ -5763,4 +5764,92 @@ html body #main-content #vidyaai-embed-root .feature-nav-item h3.nav-title{font-
     position:static!important;top:auto!important;left:auto!important;width:auto!important}
 }
 </style>
+
+<!-- ===================== EE · VIDYAGPT LIVE CONVERSATION STRIP ===================== -->
+<style id="ee-convo-style">
+#ee-convo{background:#fff;padding:10px 0 34px;font-family:'Inter',system-ui,sans-serif}
+#ee-convo .cv-wrap{max-width:720px;margin:0 auto;padding:0 20px}
+#ee-convo .cv-card{position:relative;background:linear-gradient(180deg,#fbfdff,#f6f9fd);
+  border:1px solid rgba(25,52,93,.1);border-radius:18px;padding:16px 18px 14px;
+  box-shadow:0 2px 6px rgba(15,32,58,.04),0 24px 54px -30px rgba(25,52,93,.35)}
+#ee-convo .cv-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2.5px;border-radius:18px 18px 0 0;
+  background:linear-gradient(90deg,#DE6E30,#FF8A5C 45%,transparent 85%)}
+#ee-convo .cv-head{display:flex;align-items:center;gap:8px;margin-bottom:11px}
+#ee-convo .cv-dot{width:7px;height:7px;border-radius:50%;background:#1f7a4d;
+  box-shadow:0 0 0 0 rgba(31,122,77,.45);animation:cvPulse 1.8s infinite}
+@keyframes cvPulse{70%{box-shadow:0 0 0 7px rgba(31,122,77,0)}100%{box-shadow:0 0 0 0 rgba(31,122,77,0)}}
+#ee-convo .cv-head b{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#19345d}
+#ee-convo .cv-head span{font-size:11px;color:#5a6b85;margin-left:auto}
+#ee-convo .cv-msgs{display:flex;flex-direction:column;gap:8px;min-height:96px}
+#ee-convo .cv-m{max-width:78%;padding:9px 13px;border-radius:14px;font-size:13.5px;line-height:1.5;
+  opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .45s cubic-bezier(.22,1,.36,1)}
+#ee-convo .cv-m.in{opacity:1;transform:none}
+#ee-convo .cv-q{align-self:flex-end;background:#E7F6EC;color:#1d3b2a;border-bottom-right-radius:5px}
+#ee-convo .cv-a{align-self:flex-start;background:#fff;color:#33415C;border:1px solid rgba(25,52,93,.1);
+  border-bottom-left-radius:5px;box-shadow:0 2px 6px rgba(15,32,58,.05)}
+#ee-convo .cv-a b{color:var(--orange-700,#B5551D)}
+#ee-convo .cv-typing{align-self:flex-start;display:none;gap:4px;padding:11px 14px;background:#fff;
+  border:1px solid rgba(25,52,93,.1);border-radius:14px;border-bottom-left-radius:5px}
+#ee-convo .cv-typing.on{display:inline-flex}
+#ee-convo .cv-typing i{width:6px;height:6px;border-radius:50%;background:#9fb1cc;animation:cvTy 1s infinite}
+#ee-convo .cv-typing i:nth-child(2){animation-delay:.15s}
+#ee-convo .cv-typing i:nth-child(3){animation-delay:.3s}
+@keyframes cvTy{30%{transform:translateY(-4px);opacity:.6}}
+@media(prefers-reduced-motion:reduce){
+  #ee-convo .cv-m{opacity:1;transform:none;transition:none}
+  #ee-convo .cv-typing{display:none!important}
+  #ee-convo .cv-dot{animation:none}
+}
+@media(max-width:640px){#ee-convo .cv-m{max-width:88%;font-size:12.5px}}
+</style>
+<section id="ee-convo" aria-label="VidyaGPT answering a student, live">
+  <div class="cv-wrap">
+    <div class="cv-card">
+      <div class="cv-head"><span class="cv-dot" aria-hidden="true"></span><b>VidyaGPT &middot; AI Counsellor</b><span>replies in seconds, 24&times;7</span></div>
+      <div class="cv-msgs" id="cvMsgs" aria-live="off">
+        <div class="cv-m cv-q">What is the MBA fee &amp; scholarship criteria?</div>
+        <span class="cv-typing" id="cvTyping" aria-hidden="true"><i></i><i></i><i></i></span>
+        <div class="cv-m cv-a">MBA 2026 fee is <b>&#8377;8.4L</b>. With your 12th marks you qualify for a <b>25% merit scholarship</b> - shall I book a counsellor call for tomorrow 11 AM? &#127891;</div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var sec=document.getElementById('ee-convo'); if(!sec) return;
+  var msgs=[].slice.call(sec.querySelectorAll('.cv-m'));
+  var typing=document.getElementById('cvTyping');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ msgs.forEach(function(m){ m.classList.add('in'); }); return; }
+  var CONVOS=[
+    ['What is the MBA fee & scholarship criteria?',
+     'MBA 2026 fee is <b>₹8.4L</b>. With your 12th marks you qualify for a <b>25% merit scholarship</b> - shall I book a counsellor call for tomorrow 11 AM? 🎓'],
+    ['Is hostel available for outstation students?',
+     'Yes - AC & non-AC hostels from <b>₹98K/year</b>, 5 min from campus. I can hold a seat and send photos on WhatsApp right now ✉️'],
+    ['Application deadline kab tak hai?',
+     'Round 2 closes <b>June 30</b>. Your profile fits - I can start your application now, it takes just 4 minutes ⚡']
+  ];
+  var idx=0, playing=false, started=false;
+  function play(){
+    if(playing) return; playing=true;
+    var pair=CONVOS[idx%CONVOS.length]; idx++;
+    msgs[0].classList.remove('in'); msgs[1].classList.remove('in');
+    setTimeout(function(){
+      msgs[0].innerHTML=pair[0]; msgs[1].innerHTML=pair[1];
+      msgs[0].classList.add('in');
+      typing.classList.add('on');
+      setTimeout(function(){
+        typing.classList.remove('on');
+        msgs[1].classList.add('in');
+        setTimeout(function(){ playing=false; play(); },5200);
+      },1400);
+    },450);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(e.isIntersecting&&!started){ started=true; play(); io.disconnect(); } }); },{threshold:.4});
+    io.observe(sec);
+  } else { msgs.forEach(function(m){ m.classList.add('in'); }); }
+})();
+</script>
 <?php get_footer(); ?>
