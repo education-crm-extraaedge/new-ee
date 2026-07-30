@@ -7,10 +7,10 @@
 <link rel="icon" type="image/svg+xml" href="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --navy:#0F2347; --navy-2:#16315F; --teal:#06B6D4; --teal-2:#22D3EE;
+    --navy:#0F2347; --navy-2:#16315F; --teal:#06B6D4; --teal-2:#22D3EE; --violet:#8A7CFF;
     --ink:#0F172A; --muted:#64748B; --line:#E6EBF2; --bg:#F4F7FB; --white:#fff;
     --font-h:'Plus Jakarta Sans',system-ui,sans-serif; --font-b:'Inter',system-ui,sans-serif;
   }
@@ -18,188 +18,243 @@
   html,body{width:100%;height:100%;overflow:hidden}
   body{font-family:var(--font-b);color:var(--ink);-webkit-font-smoothing:antialiased;background:var(--bg)}
   #app{position:fixed;inset:0;display:flex;background:var(--bg)}
+  button{font-family:var(--font-b)}
+  .blogo{position:relative;display:inline-block;line-height:0;flex:0 0 auto}
+  .blogo>svg,.blogo>img{width:100%;height:100%;display:block}
+  .blogo>img{position:absolute;inset:0;object-fit:contain}
 
   /* ===================== SIDEBAR ===================== */
   #side{width:clamp(260px,22vw,340px);flex:0 0 auto;height:100%;background:linear-gradient(180deg,#0F2347,#0B1B3A);
     color:#CFE0F5;display:flex;flex-direction:column;padding:20px 16px;border-right:1px solid rgba(255,255,255,.06)}
   .brand{display:flex;align-items:center;gap:12px;padding:4px 6px 16px}
-  .brand .lm{width:40px;height:40px;filter:drop-shadow(0 3px 8px rgba(255,120,180,.3))}
-  .brand .bt{font-family:var(--font-h);font-weight:800;font-size:18px;color:#fff;line-height:1.15}
+  .brand .lm{width:42px;height:42px;filter:drop-shadow(0 4px 12px rgba(138,124,255,.4))}
+  .brand .bt{font-family:var(--font-h);font-weight:800;font-size:17.5px;color:#fff;line-height:1.15}
   .brand .bt small{display:block;font-family:var(--font-b);font-weight:500;font-size:11px;color:#7E9AC4;margin-top:3px}
   .newchat{display:flex;align-items:center;gap:10px;margin:4px 0 18px;padding:12px 15px;border-radius:12px;
-    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:700;font-size:14.5px;cursor:pointer;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:700;font-size:14px;cursor:pointer;
     text-decoration:none;box-shadow:0 8px 20px rgba(6,182,212,.32);transition:transform .15s}
   .newchat:hover{transform:translateY(-1px)}
   .newchat svg{width:17px;height:17px}
   .hist-lbl{font-size:11px;font-weight:700;letter-spacing:.14em;color:#6E89B5;padding:0 8px 9px}
   .hist{display:flex;flex-direction:column;gap:5px}
-  .hi{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;font-size:13.8px;color:#B9CCE8;
+  .hi{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;font-size:13.6px;color:#B9CCE8;
     font-weight:500;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid transparent;transition:background .15s,color .15s}
   .hi svg{width:16px;height:16px;flex:0 0 auto;opacity:.7}
   .hi:hover{background:rgba(255,255,255,.05);color:#E4EEFC}
   .hi.active{background:rgba(34,211,238,.12);color:#fff;border-color:rgba(34,211,238,.25);font-weight:600}
   .side-foot{margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:11px;
-    font-size:13.5px;color:#9DB3D6;font-weight:500}
+    font-size:13px;color:#9DB3D6;font-weight:500}
   .side-foot .ava{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.08);display:grid;place-items:center}
   .side-foot .ava svg{width:18px;height:18px}
 
   /* ===================== MAIN ===================== */
-  #main{flex:1;height:100%;display:flex;flex-direction:column;background:var(--white);min-width:0}
-  #top{padding:18px 36px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto;display:flex;align-items:center;gap:14px}
+  #main{flex:1;height:100%;display:flex;flex-direction:column;background:var(--white);min-width:0;position:relative}
+  #top{padding:16px 34px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto;display:flex;align-items:center;gap:14px}
   .thead{flex:1;min-width:0}
   .menu-btn{display:none;width:44px;height:44px;border-radius:11px;border:1px solid var(--line);background:#fff;cursor:pointer;
     flex:0 0 auto;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
   .menu-btn svg{width:23px;height:23px}
   #ov{position:fixed;inset:0;background:rgba(8,16,34,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:40}
   #ov.show{opacity:1;pointer-events:auto}
-  #top h2{font-family:var(--font-h);font-weight:800;font-size:21px;color:var(--navy)}
-  #top p{font-size:13.5px;color:var(--muted);margin-top:3px}
-  #top .crumb{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--teal);
-    background:rgba(6,182,212,.10);border:1px solid rgba(6,182,212,.22);padding:4px 11px;border-radius:999px;margin-bottom:10px}
+  #top h2{font-family:var(--font-h);font-weight:800;font-size:20px;color:var(--navy)}
+  #top p{font-size:13px;color:var(--muted);margin-top:3px}
+  #top .crumb{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;color:var(--teal);
+    background:rgba(6,182,212,.10);border:1px solid rgba(6,182,212,.22);padding:4px 11px;border-radius:999px;margin-bottom:9px}
   #top .crumb i{width:7px;height:7px;border-radius:50%;background:#22C55E;display:inline-block;box-shadow:0 0 8px #22C55E;animation:bl 1.6s infinite}
   @keyframes bl{0%,100%{opacity:1}50%{opacity:.4}}
 
-  #stage{flex:1;overflow-y:auto;overflow-x:hidden;padding:26px 0;scroll-behavior:smooth}
+  #stage{flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 0}
   #stage::-webkit-scrollbar{width:9px}#stage::-webkit-scrollbar-thumb{background:#D5DEEA;border-radius:9px}
-  .inner{max-width:980px;margin:0 auto;padding:0 36px;display:flex;flex-direction:column}
-  .rise{animation:rise .45s cubic-bezier(.2,.7,.3,1) both}
-  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .inner{max-width:1000px;margin:0 auto;padding:0 34px;display:flex;flex-direction:column}
+  .rise{animation:rise .5s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-  /* campaign header */
-  .camp{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#0F2347,#16315F);color:#fff;
-    border-radius:18px;padding:22px 24px;margin-bottom:18px;box-shadow:0 14px 34px rgba(15,35,71,.28)}
-  .camp .cic{width:52px;height:52px;flex:0 0 auto;border-radius:14px;background:rgba(34,211,238,.15);display:grid;place-items:center;font-size:24px}
-  .camp h3{font-family:var(--font-h);font-weight:800;font-size:20px}
-  .camp p{font-size:13.5px;color:#AFC6E6;margin-top:4px}
-  .camp .launch{margin-left:auto;flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:12px;border:0;cursor:pointer;
-    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:800;font-family:var(--font-h);font-size:15px;
-    box-shadow:0 10px 26px rgba(6,182,212,.45);transition:transform .15s}
-  .camp .launch:hover{transform:translateY(-2px)}
-  .camp .launch svg{width:17px;height:17px}
-  .camp .live-tag{margin-left:auto;flex:0 0 auto;display:none;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.1em;
-    color:#22D3EE;border:1px solid rgba(34,211,238,.4);padding:7px 14px;border-radius:999px}
-  .camp .live-tag i{width:8px;height:8px;border-radius:50%;background:#22C55E;box-shadow:0 0 8px #22C55E;animation:bl 1.3s infinite}
+  /* jump-to-latest pill */
+  #jumpPill{position:absolute;left:50%;bottom:56px;transform:translateX(-50%) translateY(10px);z-index:30;display:inline-flex;align-items:center;gap:9px;
+    padding:11px 19px;border-radius:999px;background:rgba(15,35,71,.94);color:#fff;font-weight:700;font-size:13px;cursor:pointer;border:1px solid rgba(34,211,238,.35);
+    box-shadow:0 14px 34px rgba(15,35,71,.45);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;backdrop-filter:blur(8px)}
+  #jumpPill.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  #jumpPill b{background:#22D3EE;color:#06283A;border-radius:999px;min-width:21px;height:21px;display:inline-grid;place-items:center;font-size:11.5px;padding:0 6px}
+  #jumpPill svg{width:14px;height:14px}
 
-  /* counters */
-  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
-  .tile{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:0 6px 18px rgba(15,35,71,.05)}
-  .tile .k{font-family:var(--font-h);font-weight:800;font-size:27px;color:var(--navy);line-height:1.1}
-  .tile .k.acc{color:var(--teal)} .tile .k.ok{color:#10B981} .tile .k.wr{color:#F59E0B}
-  .tile .l{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:5px}
-  .prog{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding:13px 18px;border-radius:14px;background:#F4F7FB;border:1px solid var(--line)}
-  .prog .lbl{font-size:13.5px;font-weight:700;color:var(--navy);flex:0 0 auto}
-  .prog .bar{flex:1;height:9px;border-radius:999px;background:#E2E9F2;overflow:hidden}
-  .prog .bar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22D3EE,#06B6D4);transition:width .5s cubic-bezier(.2,.7,.3,1)}
-  .prog .pct{font-size:13px;font-weight:700;color:var(--teal);flex:0 0 auto;min-width:70px;text-align:right}
+  /* ============ DARK GLASS "CALL CENTRE" ============ */
+  .callroom{position:relative;border-radius:26px;padding:22px;overflow:hidden;color:#E8F0FC;isolation:isolate;
+    background:radial-gradient(900px 480px at 88% -10%,rgba(138,124,255,.32),transparent 60%),
+               radial-gradient(700px 420px at -10% 108%,rgba(6,182,212,.25),transparent 55%),
+               linear-gradient(160deg,#0B1B3A 0%,#0F2347 55%,#101A38 100%);
+    box-shadow:0 26px 60px rgba(11,27,58,.45)}
+  .callroom:before{content:'';position:absolute;inset:0;z-index:-1;opacity:.5;
+    background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:26px 26px}
+  .glass{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.12);border-radius:18px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 
-  /* live call card */
-  .callwrap{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;margin-bottom:16px}
-  .callcard{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 26px rgba(15,35,71,.08)}
-  .ch{display:flex;align-items:center;gap:13px;padding:15px 18px;background:linear-gradient(135deg,#F7FBFF,#EEF4FF);border-bottom:1px solid var(--line)}
-  .ch .pav{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#16315F,#0F2347);display:grid;place-items:center;color:#fff;
-    font-family:var(--font-h);font-weight:700;font-size:14px;flex:0 0 auto}
-  .ch b{font-family:var(--font-h);font-size:15.5px;color:var(--navy);display:block}
-  .ch span{font-size:12px;color:var(--muted);font-weight:600}
-  .ch .cstat{margin-left:auto;font-size:12px;font-weight:800;letter-spacing:.06em;padding:6px 12px;border-radius:999px;flex:0 0 auto}
-  .cstat.ring{background:#FFFBEB;color:#B45309;border:1px solid #FDE68A}
-  .cstat.live{background:#ECFDF5;color:#059669;border:1px solid #A7F3D0}
-  .cstat.done{background:rgba(6,182,212,.1);color:#0A6E84;border:1px solid rgba(6,182,212,.3)}
-  .tbody{padding:16px 18px;min-height:200px;display:flex;flex-direction:column;gap:10px}
-  .tline{display:flex;gap:10px;animation:rise .35s both}
-  .tline .tag{flex:0 0 auto;font-size:10.5px;font-weight:800;letter-spacing:.07em;padding:4px 9px;border-radius:999px;height:fit-content;margin-top:3px}
-  .tline.aiL .tag{background:rgba(6,182,212,.12);color:#0A6E84}
-  .tline.stL .tag{background:#F1F5F9;color:#475569}
-  .tline p{font-size:14.2px;line-height:1.55;color:#1A2742}
-  .tline.aiL p{font-weight:500}
-  .wavebar{display:flex;align-items:center;gap:3px;height:22px;margin-top:2px}
-  .wavebar i{width:4px;border-radius:3px;background:var(--teal);animation:wv .9s ease-in-out infinite}
-  @keyframes wv{0%,100%{height:6px}50%{height:20px}}
+  .camp{display:flex;align-items:center;gap:16px;padding:20px 22px;margin-bottom:16px}
+  .camp .cic{width:54px;height:54px;flex:0 0 auto;border-radius:15px;display:grid;place-items:center;padding:9px;
+    background:linear-gradient(135deg,rgba(34,211,238,.2),rgba(138,124,255,.22));border:1px solid rgba(255,255,255,.14)}
+  .camp .cic .blogo{width:100%;height:100%}
+  .camp h3{font-family:var(--font-h);font-weight:800;font-size:19px;color:#fff}
+  .camp p{font-size:12.8px;color:#A9BEDF;margin-top:5px;line-height:1.6}
+  .camp .lang{display:inline-flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+  .camp .lang span{font-size:10.8px;font-weight:700;color:#CDE7F5;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);padding:3px 10px;border-radius:999px}
+  .camp .cright{margin-left:auto;flex:0 0 auto;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
+  .launch{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:13px;border:0;cursor:pointer;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:800;font-family:var(--font-h);font-size:14.5px;
+    box-shadow:0 10px 28px rgba(6,182,212,.5),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .16s,box-shadow .16s}
+  .launch:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(6,182,212,.6),inset 0 1px 0 rgba(255,255,255,.5)}
+  .launch:active{transform:translateY(0) scale(.98)}
+  .launch svg{width:16px;height:16px}
+  .live-tag{display:none;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.1em;
+    color:#22D3EE;border:1px solid rgba(34,211,238,.4);padding:7px 14px;border-radius:999px;background:rgba(34,211,238,.08)}
+  .live-tag i{width:8px;height:8px;border-radius:50%;background:#22C55E;box-shadow:0 0 8px #22C55E;animation:bl 1.3s infinite}
+  .vtog{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;cursor:pointer;font-size:12px;font-weight:700;
+    color:#CDE7F5;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);transition:background .15s}
+  .vtog:hover{background:rgba(255,255,255,.14)}
+  .vtog.on{color:#06283A;background:linear-gradient(135deg,#4AE58A,#22C55E);border-color:transparent;box-shadow:0 6px 16px rgba(34,197,94,.35)}
 
-  /* CRM panel */
-  .crm{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 26px rgba(15,35,71,.08);height:fit-content}
-  .crm .chh{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
-  .crm .chh b{font-family:var(--font-h);font-size:14.5px;color:var(--navy)}
-  .crm .chh .sy{margin-left:auto;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:#0A6E84;background:rgba(6,182,212,.1);
-    border:1px solid rgba(6,182,212,.3);padding:4px 9px;border-radius:999px}
-  .crm ul{list-style:none;padding:10px 18px 14px}
-  .crm li{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed #EDF1F7;font-size:13.2px;color:#3A4D6C;animation:rise .35s both}
+  .tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+  .tile{padding:15px 17px;position:relative;overflow:hidden}
+  .tile:after{content:'';position:absolute;left:17px;right:17px;bottom:0;height:2.5px;border-radius:3px;background:var(--tg,linear-gradient(90deg,#22D3EE,#06B6D4));opacity:.85}
+  .tile .k{font-family:var(--font-h);font-weight:800;font-size:26px;color:#fff;line-height:1.1;font-variant-numeric:tabular-nums}
+  .tile .l{font-size:11.8px;color:#A9BEDF;font-weight:600;margin-top:4px;line-height:1.45}
+  .prog{display:flex;align-items:center;gap:13px;margin-bottom:16px;padding:13px 17px}
+  .prog .lbl{font-size:12.5px;font-weight:700;color:#CDE7F5;flex:0 0 auto}
+  .prog .bar{flex:1;height:8px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
+  .prog .bar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22D3EE,#8A7CFF);transition:width .7s cubic-bezier(.2,.7,.3,1);
+    box-shadow:0 0 12px rgba(34,211,238,.6)}
+  .prog .pct{font-size:12.5px;font-weight:700;color:#22D3EE;flex:0 0 auto;min-width:64px;text-align:right;font-variant-numeric:tabular-nums}
+
+  /* ---- phone call card ---- */
+  .callwrap{display:grid;grid-template-columns:1.35fr 1fr;gap:14px;margin-bottom:14px}
+  .callcard{overflow:hidden;display:flex;flex-direction:column}
+  .ch{display:flex;align-items:center;gap:13px;padding:15px 17px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .pwrap{position:relative;width:50px;height:50px;flex:0 0 auto}
+  .pav{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;color:#fff;z-index:2;
+    font-family:var(--font-h);font-weight:700;font-size:15px;background:linear-gradient(135deg,#FF6FA3,#FFB46A)}
+  .pwrap .ring1,.pwrap .ring2{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(34,211,238,.55);opacity:0;z-index:1}
+  .pwrap.speaking .ring1{animation:ringp 1.6s ease-out infinite}
+  .pwrap.speaking .ring2{animation:ringp 1.6s .55s ease-out infinite}
+  @keyframes ringp{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.75);opacity:0}}
+  .ch .cwho{min-width:0}
+  .ch .cwho b{font-family:var(--font-h);font-size:15px;color:#fff;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ch .cwho span{font-size:11.5px;color:#A9BEDF;font-weight:600;display:block;margin-top:2px}
+  .ch .cstat{margin-left:auto;flex:0 0 auto;text-align:right}
+  .ch .cstat .st{font-size:11px;font-weight:800;letter-spacing:.08em;padding:5px 11px;border-radius:999px;display:inline-block}
+  .st.dial{background:rgba(251,191,36,.14);color:#FCD34D;border:1px solid rgba(251,191,36,.35)}
+  .st.live{background:rgba(74,229,138,.13);color:#4AE58A;border:1px solid rgba(74,229,138,.35)}
+  .st.done{background:rgba(34,211,238,.12);color:#22D3EE;border:1px solid rgba(34,211,238,.35)}
+  .ch .timer{font-size:12px;color:#A9BEDF;font-weight:700;margin-top:5px;font-variant-numeric:tabular-nums;display:block}
+  .tbody{padding:15px 17px 8px;display:flex;flex-direction:column;gap:11px;min-height:190px}
+  .tline{display:flex;gap:10px;animation:rise .4s both}
+  .tline .tag{flex:0 0 auto;font-size:10px;font-weight:800;letter-spacing:.07em;padding:4px 9px;border-radius:999px;height:fit-content;margin-top:3px}
+  .tline.aiL .tag{background:rgba(34,211,238,.14);color:#22D3EE;border:1px solid rgba(34,211,238,.3)}
+  .tline.stL .tag{background:rgba(255,255,255,.09);color:#C6D6EE;border:1px solid rgba(255,255,255,.16)}
+  .tline p{font-size:13.8px;line-height:1.62;color:#E8F0FC;min-height:1.4em}
+  .tline p .w{opacity:0;animation:wfade .3s forwards}
+  @keyframes wfade{to{opacity:1}}
+  .eq{display:inline-flex;align-items:flex-end;gap:2.5px;height:14px;margin-left:8px;vertical-align:-2px}
+  .eq i{width:3px;border-radius:2px;background:#22D3EE;animation:eqb .8s ease-in-out infinite}
+  .eq i:nth-child(2){animation-delay:.15s}.eq i:nth-child(3){animation-delay:.3s}.eq i:nth-child(4){animation-delay:.45s}
+  @keyframes eqb{0%,100%{height:4px}50%{height:13px}}
+  .callfoot{display:flex;align-items:center;justify-content:center;gap:14px;padding:12px 17px 16px;margin-top:auto}
+  .cbtn{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);cursor:pointer;
+    display:grid;place-items:center;transition:transform .14s,background .15s}
+  .cbtn:hover{transform:translateY(-2px);background:rgba(255,255,255,.13)}
+  .cbtn svg{width:19px;height:19px}
+  .cbtn.end{background:linear-gradient(135deg,#F87171,#DC2626);border-color:transparent;box-shadow:0 8px 20px rgba(220,38,38,.4)}
+  .cbtn.end:hover{background:linear-gradient(135deg,#EF4444,#B91C1C)}
+  .cbtn[disabled]{opacity:.4;pointer-events:none}
+
+  .crm{overflow:hidden;height:fit-content}
+  .crm .chh{padding:14px 17px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:10px}
+  .crm .chh b{font-family:var(--font-h);font-size:14px;color:#fff}
+  .crm .chh span{display:block;font-size:11px;color:#A9BEDF;font-weight:600;margin-top:2px}
+  .crm .chh .sy{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:.08em;color:#4AE58A;background:rgba(74,229,138,.1);
+    border:1px solid rgba(74,229,138,.3);padding:4px 9px;border-radius:999px}
+  .crm ul{list-style:none;padding:9px 17px 13px}
+  .crm li{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.1);font-size:12.6px;color:#C6D6EE;animation:rise .4s both}
   .crm li:last-child{border-bottom:0}
-  .crm li .fk{color:var(--muted);font-weight:600;flex:0 0 auto}
-  .crm li .fv{font-weight:700;color:var(--navy);margin-left:auto;text-align:right}
-  .crm li .ck{width:19px;height:19px;flex:0 0 auto;border-radius:6px;background:linear-gradient(135deg,#34D399,#10B981);display:grid;place-items:center}
-  .crm li .ck svg{width:11px;height:11px}
-  .crm .empty{padding:22px 18px;font-size:13px;color:#A0AEC2;text-align:center}
+  .crm li .fk{color:#8FA6C9;font-weight:600;flex:0 0 auto}
+  .crm li .fv{font-weight:700;color:#fff;margin-left:auto;text-align:right}
+  .crm li .ck{width:18px;height:18px;flex:0 0 auto;border-radius:6px;background:linear-gradient(135deg,#34D399,#10B981);display:grid;place-items:center}
+  .crm li .ck svg{width:10px;height:10px}
+  .crm .empty{padding:22px 17px;font-size:12.5px;color:#8FA6C9;text-align:center}
 
-  .outcome{display:flex;align-items:center;gap:12px;margin:4px 18px 16px;padding:13px 16px;border-radius:13px;
-    background:linear-gradient(135deg,#ECFDF5,#F0FBF6);border:1.5px solid #A7F3D0;animation:rise .4s both}
-  .outcome .ok{width:38px;height:38px;flex:0 0 auto;border-radius:11px;background:linear-gradient(135deg,#34D399,#10B981);display:grid;place-items:center}
-  .outcome .ok svg{width:20px;height:20px}
-  .outcome b{font-family:var(--font-h);font-size:14.5px;color:#065F46;display:block}
-  .outcome span{font-size:12.5px;color:#0F7A5A;font-weight:500}
+  .outcome{display:flex;align-items:center;gap:12px;margin:2px 17px 15px;padding:13px 15px;border-radius:13px;animation:rise .45s both;
+    background:linear-gradient(135deg,rgba(52,211,153,.14),rgba(16,185,129,.08));border:1px solid rgba(74,229,138,.3)}
+  .outcome .ok{width:36px;height:36px;flex:0 0 auto;border-radius:11px;background:linear-gradient(135deg,#34D399,#10B981);display:grid;place-items:center;box-shadow:0 6px 16px rgba(16,185,129,.4)}
+  .outcome .ok svg{width:19px;height:19px}
+  .outcome b{font-family:var(--font-h);font-size:13.8px;color:#8FF5C6;display:block}
+  .outcome span{font-size:12px;color:#7BD9AC;font-weight:500}
 
-  .summary{display:flex;gap:16px;align-items:center;background:linear-gradient(135deg,#0F2347,#16315F);color:#fff;border-radius:18px;
-    padding:22px 24px;margin:6px 0 20px;box-shadow:0 14px 34px rgba(15,35,71,.3)}
-  .summary .sic{width:52px;height:52px;flex:0 0 auto;border-radius:14px;background:linear-gradient(135deg,#22D3EE,#06B6D4);display:grid;place-items:center}
-  .summary .sic svg{width:28px;height:28px}
-  .summary h3{font-family:var(--font-h);font-weight:800;font-size:19px}
-  .summary p{font-size:13.5px;color:#AFC6E6;margin-top:4px;line-height:1.6}
+  .ticker{display:flex;align-items:center;gap:12px;padding:12px 17px;border-radius:14px;margin-bottom:14px;font-size:13px;font-weight:500;color:#C6D6EE}
+  .ticker .dot{width:8px;height:8px;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;animation:bl 1.4s infinite;flex:0 0 auto}
+  .ticker b{color:#fff}
 
-  /* ===== Call Intelligence ===== */
+  .summary{display:flex;gap:16px;align-items:center;padding:22px;margin:4px 0 4px;animation:rise .5s both;
+    background:linear-gradient(135deg,rgba(34,211,238,.16),rgba(138,124,255,.14));border:1px solid rgba(34,211,238,.3);border-radius:18px}
+  .summary .sic{width:52px;height:52px;flex:0 0 auto;border-radius:14px;background:linear-gradient(135deg,#22D3EE,#06B6D4);display:grid;place-items:center;box-shadow:0 10px 26px rgba(6,182,212,.45)}
+  .summary .sic svg{width:26px;height:26px}
+  .summary h3{font-family:var(--font-h);font-weight:800;font-size:18px;color:#fff}
+  .summary p{font-size:13px;color:#B9CCE8;margin-top:5px;line-height:1.65}
+  .summary b{color:#22D3EE}
+
+  /* ============ CALL INTELLIGENCE (light studio) ============ */
   .sec-t{font-family:var(--font-h);font-weight:800;font-size:18px;color:var(--navy);margin:6px 0 13px}
+  .lticker{display:flex;align-items:center;gap:12px;padding:13px 18px;border-radius:14px;margin-bottom:18px;
+    background:linear-gradient(135deg,#0F2347,#16315F);color:#D9E7FA;font-size:13.5px;font-weight:500;box-shadow:0 10px 26px rgba(15,35,71,.22)}
+  .lticker .dot{width:9px;height:9px;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;animation:bl 1.4s infinite;flex:0 0 auto}
+  .lticker b{color:#fff}
   .recs{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
-  .rec{display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 17px;cursor:pointer;transition:all .15s}
-  .rec:hover{border-color:var(--teal-2);transform:translateY(-1px);box-shadow:0 8px 20px rgba(6,182,212,.12)}
+  .rec{display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 17px;cursor:pointer;transition:all .16s}
+  .rec:hover{border-color:var(--teal-2);transform:translateY(-1px);box-shadow:0 10px 24px rgba(6,182,212,.13)}
   .rec.sel{border-color:var(--teal);background:linear-gradient(135deg,#F0FDFF,#F7FBFF)}
   .rec .pv{width:40px;height:40px;border-radius:11px;flex:0 0 auto;display:grid;place-items:center;color:#fff;font-family:var(--font-h);font-weight:700;font-size:13px}
-  .rec b{font-size:14.5px;color:var(--navy);display:block}
+  .rec b{font-size:14.2px;color:var(--navy);display:block}
   .rec span{font-size:12px;color:var(--muted);font-weight:600}
   .rec .dur{margin-left:auto;font-size:12.5px;font-weight:700;color:#33486B;background:#F4F7FB;border:1px solid var(--line);padding:6px 12px;border-radius:999px;flex:0 0 auto}
-  .rec .play{width:34px;height:34px;flex:0 0 auto;border-radius:50%;background:linear-gradient(135deg,#22D3EE,#06B6D4);display:grid;place-items:center;box-shadow:0 5px 14px rgba(6,182,212,.35)}
+  .rec .play{width:34px;height:34px;flex:0 0 auto;border-radius:50%;background:linear-gradient(135deg,#22D3EE,#06B6D4);display:grid;place-items:center;box-shadow:0 5px 14px rgba(6,182,212,.35);transition:transform .15s}
+  .rec:hover .play{transform:scale(1.08)}
   .rec .play svg{width:14px;height:14px}
-
   .analy{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 22px;margin-bottom:18px;box-shadow:0 10px 26px rgba(15,35,71,.08)}
   .analy .stt{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:700;color:var(--teal);margin-bottom:12px}
   .wave{display:flex;align-items:center;gap:3px;height:44px;margin-bottom:14px}
   .wave i{flex:1;border-radius:3px;background:#D9E4F0;min-height:6px;transition:background .3s}
   .wave i.on{background:var(--teal)}
   .snip{background:#F8FAFC;border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:16px}
-  .snip .sl{display:flex;gap:9px;margin-bottom:9px;animation:rise .3s both}
+  .snip .sl{display:flex;gap:9px;margin-bottom:9px;animation:rise .35s both}
   .snip .sl:last-child{margin-bottom:0}
   .snip .who{flex:0 0 auto;font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:3px 8px;border-radius:999px;height:fit-content;margin-top:2px}
   .snip .who.c{background:rgba(6,182,212,.12);color:#0A6E84}
   .snip .who.p{background:#F1F5F9;color:#475569}
-  .snip p{font-size:13.3px;color:#33486B;line-height:1.55}
+  .snip p{font-size:13.3px;color:#33486B;line-height:1.6}
   .snip .flag{font-size:11.5px;font-weight:700;color:#B45309;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:6px 10px;margin-top:8px;display:inline-block}
-
   .meters{display:flex;flex-direction:column;gap:12px;margin-bottom:6px}
   .meter{display:grid;grid-template-columns:170px 1fr 52px;align-items:center;gap:13px}
   .meter .mn{font-size:13.5px;font-weight:700;color:var(--navy)}
   .meter .mb{height:11px;border-radius:999px;background:#EDF1F7;overflow:hidden}
-  .meter .mb i{display:block;height:100%;width:0;border-radius:999px;transition:width 1s cubic-bezier(.2,.7,.3,1)}
+  .meter .mb i{display:block;height:100%;width:0;border-radius:999px;transition:width 1.1s cubic-bezier(.2,.7,.3,1)}
   .meter .mv{font-family:var(--font-h);font-weight:800;font-size:15px;text-align:right}
   .g .mb i{background:linear-gradient(90deg,#34D399,#10B981)} .g .mv{color:#059669}
   .t .mb i{background:linear-gradient(90deg,#22D3EE,#06B6D4)} .t .mv{color:#0A6E84}
   .w .mb i{background:linear-gradient(90deg,#FBBF24,#F59E0B)} .w .mv{color:#B45309}
-
-  .coach{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0 4px}
+  .coach{display:grid;grid-template-columns:1fr;gap:14px;margin:16px 0 4px}
   .cbox{border-radius:14px;padding:16px 18px}
   .cbox.good{background:linear-gradient(135deg,#ECFDF5,#F0FBF6);border:1.5px solid #A7F3D0}
   .cbox.impr{background:#FFFBEB;border:1.5px solid #FDE68A}
   .cbox h5{font-family:var(--font-h);font-size:13.5px;margin-bottom:9px}
   .cbox.good h5{color:#065F46}.cbox.impr h5{color:#92400E}
-  .cbox li{font-size:13px;line-height:1.6;margin-left:17px;margin-bottom:6px}
+  .cbox li{font-size:13px;line-height:1.65;margin-left:17px;margin-bottom:6px}
   .cbox.good li{color:#0F7A5A}.cbox.impr li{color:#A16207}
   .deliv{display:flex;align-items:center;gap:9px;margin-top:14px;font-size:12.5px;font-weight:700;color:#0A6E84}
   .deliv i{width:8px;height:8px;border-radius:50%;background:#22C55E;box-shadow:0 0 8px #22C55E}
 
-  /* manager */
+  /* ============ MANAGER ============ */
   .team{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:18px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
   .trow{display:grid;grid-template-columns:170px 1fr 86px;align-items:center;gap:14px;padding:11px 0;border-bottom:1px dashed #EDF1F7}
   .trow:last-child{border-bottom:0}
   .trow .cn{font-size:14px;font-weight:700;color:var(--navy)}
   .trow .cn small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;margin-top:2px}
   .hbar{height:11px;border-radius:999px;background:#EDF1F7;overflow:hidden}
-  .hbar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22D3EE,#06B6D4);transition:width 1s cubic-bezier(.2,.7,.3,1)}
+  .hbar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22D3EE,#06B6D4);transition:width 1.1s cubic-bezier(.2,.7,.3,1)}
   .hbar i.lag{background:linear-gradient(90deg,#FBBF24,#F59E0B)}
   .trow .val{font-family:var(--font-h);font-weight:800;font-size:15px;color:var(--navy);text-align:right}
   .trow .val em{display:block;font-style:normal;font-size:11px;font-weight:700;color:#059669}
@@ -207,25 +262,104 @@
   .insight{display:flex;gap:13px;align-items:flex-start;background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:14px;padding:15px 18px;margin-bottom:20px}
   .insight .iic{width:38px;height:38px;flex:0 0 auto;border-radius:11px;background:linear-gradient(135deg,#FBBF24,#F59E0B);display:grid;place-items:center;font-size:18px}
   .insight b{font-size:14px;color:#92400E;display:block;margin-bottom:3px}
-  .insight p{font-size:13px;color:#A16207;line-height:1.6}
-  .ticker{display:flex;align-items:center;gap:12px;padding:13px 18px;border-radius:14px;margin-bottom:18px;
-    background:linear-gradient(135deg,#0F2347,#16315F);color:#D9E7FA;font-size:14px;font-weight:500;box-shadow:0 10px 26px rgba(15,35,71,.22)}
-  .ticker .dot{width:9px;height:9px;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;animation:bl 1.4s infinite;flex:0 0 auto}
-  .ticker b{color:#fff}
+  .insight p{font-size:13px;color:#A16207;line-height:1.65}
 
   /* about */
   .aboutcard{margin:20px auto;max-width:660px;text-align:center;padding:40px 36px;border-radius:22px;
     background:linear-gradient(160deg,#F7FBFF,#EEF4FF);border:1px solid #E3ECF7}
-  .aboutcard .lg{width:74px;height:74px;margin:0 auto 18px;filter:drop-shadow(0 6px 18px rgba(255,120,180,.3))}
+  .aboutcard .lg{width:76px;height:76px;margin:0 auto 18px;filter:drop-shadow(0 8px 20px rgba(138,124,255,.35))}
   .aboutcard h3{font-family:var(--font-h);font-weight:800;font-size:26px;color:var(--navy)}
   .aboutcard .t{color:var(--teal);font-weight:700;margin:6px 0 16px;font-size:15px}
-  .aboutcard p{color:#3A4D6C;font-size:15.5px;line-height:1.7}
+  .aboutcard p{color:#3A4D6C;font-size:15.5px;line-height:1.75}
   .stats-mini{display:flex;justify-content:center;gap:26px;margin-top:22px;flex-wrap:wrap}
   .sm{min-width:110px}
   .sm b{font-family:var(--font-h);font-weight:800;font-size:23px;color:var(--navy);display:block}
   .sm span{font-size:12px;color:var(--muted);font-weight:600}
 
-  #foot{padding:12px 36px;border-top:1px solid var(--line);background:#fff;flex:0 0 auto;text-align:center;font-size:12px;color:#A0AEC2}
+  #foot{padding:11px 34px;border-top:1px solid var(--line);background:#fff;flex:0 0 auto;text-align:center;font-size:11.8px;color:#A0AEC2}
+
+  /* ===== overview (light editorial) ===== */
+  .ovv{display:flex;flex-direction:column;gap:28px;padding-bottom:12px}
+  .hero-p{background:linear-gradient(150deg,#0F2347,#16315F 58%,#2A1B5E);border-radius:24px;padding:38px 22px;color:#fff;
+    text-align:center;box-shadow:0 18px 44px rgba(15,35,71,.3);position:relative;overflow:hidden}
+  .hero-p:before{content:'';position:absolute;width:380px;height:380px;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(138,124,255,.28),transparent);top:-170px;right:-130px}
+  .hero-p:after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(34,211,238,.18),transparent);bottom:-140px;left:-100px}
+  .hero-p .blogo{width:88px;height:88px;margin:0 auto 16px;filter:drop-shadow(0 8px 22px rgba(138,124,255,.45))}
+  .hero-p .say{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.18em;color:#22D3EE;
+    border:1px solid rgba(34,211,238,.4);padding:6px 14px;border-radius:999px;margin-bottom:15px}
+  .hero-p h1{font-family:var(--font-h);font-weight:800;font-size:clamp(24px,4.5vw,36px);line-height:1.22;position:relative;z-index:1}
+  .hero-p .ol{max-width:660px;margin:13px auto 0;font-size:15px;line-height:1.78;color:#B9CCE8;position:relative;z-index:1}
+  .hero-p .cta-row{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-top:24px;position:relative;z-index:1}
+  .cta-main{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:13px;border:0;cursor:pointer;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:800;font-family:var(--font-h);font-size:15px;
+    box-shadow:0 10px 28px rgba(6,182,212,.45),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .16s;text-decoration:none}
+  .cta-main:hover{transform:translateY(-2px)}
+  .cta-main:active{transform:scale(.98)}
+  .cta-main svg{width:17px;height:17px}
+  .cta-ghost{display:inline-flex;align-items:center;gap:9px;padding:14px 22px;border-radius:13px;border:1.5px solid rgba(255,255,255,.32);
+    color:#fff;font-weight:700;font-size:14px;cursor:pointer;background:transparent;text-decoration:none;transition:background .15s}
+  .cta-ghost:hover{background:rgba(255,255,255,.08)}
+  .sec-kick{font-size:11px;font-weight:800;letter-spacing:.2em;color:var(--teal);text-align:center}
+  .sec-h{font-family:var(--font-h);font-weight:800;font-size:clamp(20px,3.4vw,27px);color:var(--navy);text-align:center;margin-top:6px}
+  .sec-sub{max-width:660px;margin:9px auto 0;text-align:center;font-size:14px;line-height:1.72;color:var(--muted)}
+  .p3{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .pcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 8px 22px rgba(15,35,71,.06);transition:transform .18s,box-shadow .18s}
+  .pcard:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(15,35,71,.1)}
+  .pcard .no{font-family:var(--font-h);font-weight:800;font-size:13px;color:#fff;width:30px;height:30px;border-radius:9px;
+    display:grid;place-items:center;background:linear-gradient(135deg,#8A7CFF,#E879F9);margin-bottom:11px}
+  .pcard b{font-family:var(--font-h);font-size:16px;color:var(--navy);display:block;margin-bottom:6px}
+  .pcard p{font-size:13.5px;color:#3A4D6C;line-height:1.7}
+  .cost{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+  .cost .c{background:linear-gradient(135deg,#FFF7ED,#FEF2F2);border:1px solid #FED7AA;border-radius:14px;padding:16px 13px;text-align:center}
+  .cost .c b{font-family:var(--font-h);font-weight:800;font-size:22px;color:#C2410C;display:block}
+  .cost .c span{font-size:11.5px;color:#9A3412;font-weight:600;line-height:1.5;display:block;margin-top:4px}
+  .feat{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .fcard{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 8px 22px rgba(15,35,71,.06);transition:transform .18s}
+  .fcard:hover{transform:translateY(-3px)}
+  .fcard .fi{width:46px;height:46px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;font-size:21px;
+    background:linear-gradient(135deg,#F0FDFF,#F3ECFF);border:1px solid #E3ECF7}
+  .fcard b{font-family:var(--font-h);font-size:15.5px;color:var(--navy);display:block;margin-bottom:4px}
+  .fcard p{font-size:13.5px;color:#3A4D6C;line-height:1.7}
+  .ba{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .ba .bh{display:grid;grid-template-columns:1fr 1fr;font-family:var(--font-h);font-weight:800;font-size:11.5px;letter-spacing:.08em}
+  .ba .bh div{padding:12px 14px;text-align:center}
+  .ba .bh .l{background:#FEF2F2;color:#B91C1C}.ba .bh .r{background:#ECFDF5;color:#047857}
+  .ba .br{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #EDF1F7;font-size:12.8px;line-height:1.55}
+  .ba .br div{padding:12px 14px}
+  .ba .br .l{color:#7F1D1D;background:#FFFBFA}.ba .br .r{color:#064E3B;background:#F7FEFA;border-left:1px solid #EDF1F7}
+  .proofrow{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+  .pf{background:linear-gradient(135deg,#F0FDFF,#F7FBFF);border:1px solid rgba(6,182,212,.28);border-radius:14px;padding:17px 13px;text-align:center;transition:transform .18s}
+  .pf:hover{transform:translateY(-3px)}
+  .pf b{font-family:var(--font-h);font-weight:800;font-size:23px;color:var(--navy);display:block}
+  .pf span{font-size:11.5px;color:#33607A;font-weight:600;line-height:1.5;display:block;margin-top:4px}
+  .whyedu{margin-top:18px;background:linear-gradient(135deg,#0F2347,#16315F);border-radius:18px;padding:26px 22px;color:#D9E7FA}
+  .whyedu h4{font-family:var(--font-h);font-size:17.5px;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .whyedu ul{list-style:none}
+  .whyedu li{font-size:13.8px;line-height:1.82;margin-bottom:9px;padding-left:26px;position:relative}
+  .whyedu li:before{content:'✓';position:absolute;left:0;top:0;color:#22D3EE;font-weight:800}
+  .whyedu b{color:#22D3EE}
+  .twoprod{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .tp{border-radius:18px;padding:22px;color:#fff;transition:transform .18s}
+  .tp:hover{transform:translateY(-3px)}
+  .tp.a{background:linear-gradient(135deg,#0E7490,#155E75)}
+  .tp.b{background:linear-gradient(135deg,#5B21B6,#7C3AED)}
+  .tp .tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.14em;background:rgba(255,255,255,.16);padding:4px 11px;border-radius:999px;margin-bottom:10px}
+  .tp h5{font-family:var(--font-h);font-size:18px;margin-bottom:7px}
+  .tp p{font-size:13.5px;line-height:1.72;opacity:.93}
+  .cta-final{display:flex;justify-content:center;margin-top:2px}
+
+  @media(min-width:720px){
+    .p3{grid-template-columns:repeat(3,1fr)}
+    .feat{grid-template-columns:repeat(2,1fr)}
+    .cost{grid-template-columns:repeat(4,1fr)}
+    .proofrow{grid-template-columns:repeat(4,1fr)}
+    .twoprod{grid-template-columns:1fr 1fr}
+    .coach{grid-template-columns:1fr 1fr}
+    .tiles{grid-template-columns:repeat(4,1fr)}
+    .hero-p{padding:48px 36px}
+  }
 
   /* ===================== MOBILE ===================== */
   @media (max-width:900px){
@@ -236,102 +370,26 @@
     .menu-btn{display:inline-flex}
     #top{padding:11px 14px;gap:10px}
     #top h2{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    #top p{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    #top .crumb{margin-bottom:6px;font-size:10.5px;padding:3px 9px}
-    #stage{padding:15px 0}
-    .inner{padding:0 13px}
-    .camp{flex-wrap:wrap;padding:17px;gap:13px}
-    .camp .launch{margin-left:0;width:100%;justify-content:center}
-    .camp .live-tag{margin-left:0}
-    .tiles{grid-template-columns:repeat(2,1fr);gap:10px}
-    .tile{padding:13px 14px}.tile .k{font-size:22px}
+    #top p{font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #top .crumb{margin-bottom:5px;font-size:10.5px;padding:3px 9px}
+    #stage{padding:13px 0}
+    .inner{padding:0 12px}
+    .callroom{padding:13px;border-radius:20px}
+    .camp{flex-wrap:wrap;padding:15px;gap:12px}
+    .camp .cright{margin-left:0;width:100%;flex-direction:row;justify-content:space-between;align-items:center}
+    .launch{flex:1;justify-content:center}
+    .tile{padding:12px 13px}.tile .k{font-size:21px}.tile .l{font-size:10.8px}
     .callwrap{grid-template-columns:1fr}
-    .meter{grid-template-columns:118px 1fr 42px;gap:9px}
+    .tbody{min-height:150px}
+    .tline p{font-size:13.2px}
+    .meter{grid-template-columns:112px 1fr 42px;gap:9px}
     .meter .mn{font-size:12px}
-    .coach{grid-template-columns:1fr}
-    .trow{grid-template-columns:112px 1fr 68px;gap:9px}
+    .trow{grid-template-columns:108px 1fr 66px;gap:9px}
     .trow .cn{font-size:12.5px}
-    .ticker{font-size:12.5px;padding:11px 13px}
     .aboutcard{padding:28px 20px;margin:10px auto}
     .aboutcard h3{font-size:21px}.aboutcard p{font-size:14px}
-    #foot{padding:9px 13px;font-size:10.5px}
-  }
-
-  /* ===== brand logo (remote SVG with inline fallback) ===== */
-  .blogo{position:relative;display:inline-block;line-height:0;flex:0 0 auto}
-  .blogo>svg,.blogo>img{width:100%;height:100%;display:block}
-  .blogo>img{position:absolute;inset:0;object-fit:contain}
-
-  /* ===== overview / product story (mobile-first) ===== */
-  .ovv{display:flex;flex-direction:column;gap:28px;padding-bottom:12px}
-  .hero-p{background:linear-gradient(150deg,#0F2347,#16315F 58%,#2A1B5E);border-radius:22px;padding:36px 22px;color:#fff;
-    text-align:center;box-shadow:0 18px 44px rgba(15,35,71,.3);position:relative;overflow:hidden}
-  .hero-p:before{content:'';position:absolute;width:360px;height:360px;border-radius:50%;
-    background:radial-gradient(closest-side,rgba(138,124,255,.25),transparent);top:-170px;right:-130px}
-  .hero-p .blogo{width:86px;height:86px;margin:0 auto 16px;filter:drop-shadow(0 8px 22px rgba(138,124,255,.4))}
-  .hero-p .say{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.18em;color:#22D3EE;
-    border:1px solid rgba(34,211,238,.4);padding:6px 14px;border-radius:999px;margin-bottom:15px}
-  .hero-p h1{font-family:var(--font-h);font-weight:800;font-size:clamp(24px,4.5vw,36px);line-height:1.22;position:relative}
-  .hero-p .ol{max-width:640px;margin:13px auto 0;font-size:15px;line-height:1.75;color:#B9CCE8;position:relative}
-  .hero-p .cta-row{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-top:24px;position:relative}
-  .cta-main{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:13px;border:0;cursor:pointer;
-    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:800;font-family:var(--font-h);font-size:15px;
-    box-shadow:0 10px 28px rgba(6,182,212,.45);transition:transform .15s;text-decoration:none}
-  .cta-main:hover{transform:translateY(-2px)}
-  .cta-main svg{width:17px;height:17px}
-  .cta-ghost{display:inline-flex;align-items:center;gap:9px;padding:14px 22px;border-radius:13px;border:1.5px solid rgba(255,255,255,.32);
-    color:#fff;font-weight:700;font-size:14px;cursor:pointer;background:transparent;text-decoration:none}
-  .sec-kick{font-size:11px;font-weight:800;letter-spacing:.2em;color:var(--teal);text-align:center}
-  .sec-h{font-family:var(--font-h);font-weight:800;font-size:clamp(20px,3.4vw,27px);color:var(--navy);text-align:center;margin-top:6px}
-  .sec-sub{max-width:640px;margin:9px auto 0;text-align:center;font-size:14px;line-height:1.7;color:var(--muted)}
-  .p3{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
-  .pcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
-  .pcard .no{font-family:var(--font-h);font-weight:800;font-size:13px;color:#fff;width:30px;height:30px;border-radius:9px;
-    display:grid;place-items:center;background:linear-gradient(135deg,#8A7CFF,#E879F9);margin-bottom:11px}
-  .pcard b{font-family:var(--font-h);font-size:16px;color:var(--navy);display:block;margin-bottom:6px}
-  .pcard p{font-size:13.5px;color:#3A4D6C;line-height:1.68}
-  .cost{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
-  .cost .c{background:linear-gradient(135deg,#FFF7ED,#FEF2F2);border:1px solid #FED7AA;border-radius:14px;padding:16px 13px;text-align:center}
-  .cost .c b{font-family:var(--font-h);font-weight:800;font-size:22px;color:#C2410C;display:block}
-  .cost .c span{font-size:11.5px;color:#9A3412;font-weight:600;line-height:1.5;display:block;margin-top:4px}
-  .feat{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
-  .fcard{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
-  .fcard .fi{width:46px;height:46px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;font-size:21px;
-    background:linear-gradient(135deg,#F0FDFF,#F3ECFF);border:1px solid #E3ECF7}
-  .fcard b{font-family:var(--font-h);font-size:15.5px;color:var(--navy);display:block;margin-bottom:4px}
-  .fcard p{font-size:13.5px;color:#3A4D6C;line-height:1.68}
-  .ba{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(15,35,71,.06)}
-  .ba .bh{display:grid;grid-template-columns:1fr 1fr;font-family:var(--font-h);font-weight:800;font-size:11.5px;letter-spacing:.08em}
-  .ba .bh div{padding:12px 14px;text-align:center}
-  .ba .bh .l{background:#FEF2F2;color:#B91C1C}.ba .bh .r{background:#ECFDF5;color:#047857}
-  .ba .br{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #EDF1F7;font-size:12.8px;line-height:1.55}
-  .ba .br div{padding:12px 14px}
-  .ba .br .l{color:#7F1D1D;background:#FFFBFA}.ba .br .r{color:#064E3B;background:#F7FEFA;border-left:1px solid #EDF1F7}
-  .proofrow{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
-  .pf{background:linear-gradient(135deg,#F0FDFF,#F7FBFF);border:1px solid rgba(6,182,212,.28);border-radius:14px;padding:17px 13px;text-align:center}
-  .pf b{font-family:var(--font-h);font-weight:800;font-size:23px;color:var(--navy);display:block}
-  .pf span{font-size:11.5px;color:#33607A;font-weight:600;line-height:1.5;display:block;margin-top:4px}
-  .whyedu{margin-top:18px;background:linear-gradient(135deg,#0F2347,#16315F);border-radius:18px;padding:26px 22px;color:#D9E7FA}
-  .whyedu h4{font-family:var(--font-h);font-size:17.5px;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:10px}
-  .whyedu ul{list-style:none}
-  .whyedu li{font-size:13.8px;line-height:1.8;margin-bottom:9px;padding-left:26px;position:relative}
-  .whyedu li:before{content:'✓';position:absolute;left:0;top:0;color:#22D3EE;font-weight:800}
-  .whyedu b{color:#22D3EE}
-  .twoprod{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
-  .tp{border-radius:18px;padding:22px;color:#fff}
-  .tp.a{background:linear-gradient(135deg,#0E7490,#155E75)}
-  .tp.b{background:linear-gradient(135deg,#5B21B6,#7C3AED)}
-  .tp .tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.14em;background:rgba(255,255,255,.16);padding:4px 11px;border-radius:999px;margin-bottom:10px}
-  .tp h5{font-family:var(--font-h);font-size:18px;margin-bottom:7px}
-  .tp p{font-size:13.5px;line-height:1.7;opacity:.92}
-  .cta-final{display:flex;justify-content:center;margin-top:2px}
-  @media(min-width:720px){
-    .p3{grid-template-columns:repeat(3,1fr)}
-    .feat{grid-template-columns:repeat(2,1fr)}
-    .cost{grid-template-columns:repeat(4,1fr)}
-    .proofrow{grid-template-columns:repeat(4,1fr)}
-    .twoprod{grid-template-columns:1fr 1fr}
-    .hero-p{padding:46px 36px}
+    #jumpPill{bottom:46px}
+    #foot{padding:9px 13px;font-size:10px}
   }
 </style>
 </head>
@@ -339,58 +397,112 @@
 <div id="app">
 
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-    <linearGradient id="vg-head" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF86C9"/><stop offset="1" stop-color="#FF9559"/></linearGradient>
-    <linearGradient id="vg-bookL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB46A"/><stop offset="1" stop-color="#FF6FA3"/></linearGradient>
-    <linearGradient id="vg-bookR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#28D7F0"/><stop offset="1" stop-color="#8A7CFF"/></linearGradient>
-    <symbol id="vlogo" viewBox="0 0 120 120">
-      <path d="M93,15 C93,24.75 96.25,28 106,28 C96.25,28 93,31.25 93,41 C93,31.25 89.75,28 80,28 C89.75,28 93,24.75 93,15 Z" fill="#29D3F2"/>
-      <path d="M104,45 C104,50.25 105.75,52 111,52 C105.75,52 104,53.75 104,59 C104,53.75 102.25,52 97,52 C102.25,52 104,50.25 104,45 Z" fill="#E879F9"/>
-      <path d="M50,64 C39,57 27,55 17,57 C15.5,57.3 15,58.2 15,59.7 L15,82 C15,83.6 15.7,84.6 17,84.8 C29,86 41,88.5 50,93 Z" fill="url(#vg-bookL)"/>
-      <path d="M50,64 C61,57 73,55 83,57 C84.5,57.3 85,58.2 85,59.7 L85,82 C85,83.6 84.3,84.6 83,84.8 C71,86 59,88.5 50,93 Z" fill="url(#vg-bookR)"/>
-      <circle cx="50" cy="33" r="16" fill="url(#vg-head)"/>
-    </symbol></defs></svg>
+    <linearGradient id="lgA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#8A7CFF"/></linearGradient>
+    <linearGradient id="lgB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF6FA3"/><stop offset="1" stop-color="#FFB46A"/></linearGradient>
+    <symbol id="plogo" viewBox="0 0 120 120">
+      <path d="M36 20c6.5-4.3 14.2-2.2 17.6 4.4l5.4 10.8c2.7 5.4 1.1 12-3.8 15.5l-5.5 4c4.4 11 13.2 19.8 24.2 24.2l4-5.5c3.5-4.9 10.1-6.5 15.5-3.8l10.8 5.4c6.6 3.4 8.7 11.1 4.4 17.6-6.6 10-17.6 16.5-29.7 14.3C49.3 101.4 25.6 77.7 20.1 48 17.9 35.9 26 24.6 36 20z" fill="url(#lgA)"/>
+      <path d="M76 34a22 22 0 0 1 14.5 14.5" stroke="url(#lgB)" stroke-width="7.5" fill="none" stroke-linecap="round"/>
+      <path d="M81 17a38 38 0 0 1 26 26" stroke="url(#lgB)" stroke-width="7.5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <path d="M99 88 Q101 95 108 97 Q101 99 99 106 Q97 99 90 97 Q97 95 99 88 Z" fill="#E879F9"/>
+    </symbol>
+  </defs></svg>
 
   <aside id="side">
     <div class="brand">
-      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="VidyaAI Voice Agent" onerror="this.remove()"></span>
+      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="VidyaAI Voice Agent" onerror="this.remove()"></span>
       <div class="bt">VidyaAI Voice Agent<small>powered by ExtraaEdge</small></div>
     </div>
-    <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Run a Live RSVP Campaign</a>
+    <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Run a Live Campaign for My Institute</a>
     <div class="hist-lbl">WORKSPACE</div>
     <div class="hist" id="hist"></div>
-    <div class="side-foot"><div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#9DB3D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg></div> Vikram Rao · VP Admissions</div>
+    <div class="side-foot"><div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#9DB3D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg></div> Vikram Rao · VP Admissions, Pune</div>
   </aside>
 
   <main id="main">
     <div id="top">
       <button class="menu-btn" aria-label="Menu" onclick="VA.toggleNav()"><svg viewBox="0 0 24 24" fill="none" stroke="#0F2347" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
       <div class="thead">
-        <div class="crumb"><i></i> Vidya Agents · Live</div>
-        <h2 id="ctitle">Vidya Call — AI Outbound Calling</h2>
-        <p id="csub">AI makes the calls. Books RSVPs. Updates qualifying fields. Zero counselor hours.</p>
+        <div class="crumb"><i></i> VidyaAI Voice Agent · Live</div>
+        <h2 id="ctitle">Vidya Call — Live Call Centre</h2>
+        <p id="csub">AI makes the calls in English, हिंदी & मराठी. Books RSVPs. Updates qualifying fields.</p>
       </div>
     </div>
     <div id="stage"><div class="inner" id="inner"></div></div>
-    <div id="foot">Vidya Call makes the outbound calls · Vidya Call Intelligence makes every human call better — the AUTOMATE pillar of ExtraaEdge.</div>
+    <div id="foot">VidyaAI Voice Agent — Vidya Call makes the outbound calls · Vidya Call Intelligence makes every human call better. Built for Indian schools, colleges, universities &amp; coaching institutes.</div>
   </main>
   <div id="ov" onclick="VA.toggleNav(false)"></div>
 </div>
 
 <script>
 const VA=(function(){
-  const inner=document.getElementById('inner'),
+  const inner=document.getElementById('inner'), stage=document.getElementById('stage'), mainEl=document.getElementById('main'),
         ctitle=document.getElementById('ctitle'), csub=document.getElementById('csub'),
         hist=document.getElementById('hist');
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
-  function setNum(id,v,fmt){const n=document.getElementById(id);if(n)n.textContent=(fmt||(x=>x))(v);}
-  function animNum(id,from,to,ms,fmt){const n=document.getElementById(id);if(!n)return;const t0=performance.now();
-    (function f(t){const p=Math.min(1,(t-t0)/ms);n.textContent=(fmt||(x=>Math.round(x)))(from+(to-from)*p);if(p<1)requestAnimationFrame(f);})(t0);}
+  function animNum(id,from,to,ms){const n=document.getElementById(id);if(!n)return;const t0=performance.now();
+    (function f(t){const p=Math.min(1,(t-t0)/ms);n.textContent=Math.round(from+(to-from)*p);if(p<1)requestAnimationFrame(f);})(t0);}
 
   const LOGO='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg';
-  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
-  const ORDER=[['ovv','What is Vidya Agents?','star'],['call','Vidya Call — RSVP Campaign','phone'],['intel','Vidya Call Intelligence','spark'],
-               ['mgr','Manager — Call Quality','chart'],['about','About Vidya Agents','info']];
+  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
+
+  /* ========== smart scroll: live chat never stops, user can read history ========== */
+  const SS=(function(){
+    let stick=true,n=0,touching=false;
+    const pill=el('div','','<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg> New updates <b>0</b> · Jump to latest');
+    pill.id='jumpPill'; mainEl.appendChild(pill);
+    const nearBottom=()=>stage.scrollHeight-stage.scrollTop-stage.clientHeight<100;
+    stage.addEventListener('wheel',e=>{if(e.deltaY<0)stick=false;},{passive:true});
+    stage.addEventListener('touchstart',()=>{touching=true;},{passive:true});
+    stage.addEventListener('touchend',()=>{touching=false;},{passive:true});
+    stage.addEventListener('scroll',()=>{
+      if(nearBottom()){stick=true;n=0;pill.classList.remove('show');}
+      else if(touching){stick=false;}
+    },{passive:true});
+    function push(){
+      if(stick){requestAnimationFrame(()=>stage.scrollTo({top:stage.scrollHeight,behavior:'smooth'}));}
+      else{n++;pill.querySelector('b').textContent=n;pill.classList.add('show');}
+    }
+    function jump(){stick=true;n=0;pill.classList.remove('show');stage.scrollTo({top:stage.scrollHeight,behavior:'smooth'});}
+    function reset(){stick=true;n=0;pill.classList.remove('show');stage.scrollTop=0;}
+    pill.onclick=jump;
+    return{push,jump,reset};
+  })();
+
+  /* ========== real voice engine (browser TTS, graceful fallback) ========== */
+  const Voice=(function(){
+    let enabled=true, voices=[], vAI=null, vST=null;
+    const ok=('speechSynthesis' in window);
+    function pickVoices(){
+      voices=speechSynthesis.getVoices(); if(!voices.length)return;
+      const by=f=>voices.find(f);
+      vAI=by(v=>/en[-_]IN/i.test(v.lang)&&/female|heera|veena|kalpana|neerja|swara/i.test(v.name))
+        ||by(v=>/en[-_]IN/i.test(v.lang))||by(v=>/hi[-_]IN/i.test(v.lang))
+        ||by(v=>/en[-_]GB/i.test(v.lang))||by(v=>/^en/i.test(v.lang))||voices[0];
+      vST=by(v=>v!==vAI&&/en[-_]IN|hi[-_]IN/i.test(v.lang))||by(v=>v!==vAI&&/^en/i.test(v.lang))||vAI;
+    }
+    if(ok){pickVoices();speechSynthesis.onvoiceschanged=pickVoices;}
+    function clean(t){return t.replace(/[🙂😊😄🎉👋👇🌙⚡✅✓×✗📞🗂️🔁📊•]/g,'').replace(/₹/g,' rupees ').replace(/\s+/g,' ').trim();}
+    function speak(text,who){
+      if(!enabled||!ok||!vAI)return null;
+      try{
+        const u=new SpeechSynthesisUtterance(clean(text));
+        u.voice=who==='ai'?vAI:vST;
+        u.rate=0.97; u.pitch=who==='ai'?1.12:0.88; u.volume=1;
+        speechSynthesis.speak(u);
+        return u;
+      }catch(e){return null;}
+    }
+    return{
+      get enabled(){return enabled;},
+      toggle(){enabled=!enabled;if(!enabled&&ok)try{speechSynthesis.cancel();}catch(e){} return enabled;},
+      stop(){if(ok)try{speechSynthesis.cancel();}catch(e){}},
+      speak, available:ok
+    };
+  })();
+
+  const ORDER=[['ovv','What is VidyaAI Voice Agent?','star'],['call','Live Call Centre — Vidya Call','phone'],['intel','Vidya Call Intelligence','spark'],
+               ['mgr','Manager — Call Quality','chart'],['about','About VidyaAI Voice Agent','info']];
   const ICONS={
     star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.3l6.1-.7L12 3z"/></svg>',
     phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
@@ -404,55 +516,86 @@ const VA=(function(){
 
   let token=0;
 
-  // ============ VIDYA CALL — campaign sim ============
+  /* ============ LIVE CALL CENTRE ============ */
   const CALLS=[
-    {name:'Aisha Verma',pg:'B.Tech CS aspirant',lines:[
-      ['ai',"Hi, good evening! Am I speaking with Aisha? This is Vidya calling from EE Edge University — is this a good time to talk for a minute?"],
-      ['st',"Uh… yes, who is this again?"],
-      ['ai',"Vidya, from EE Edge University's admissions team 😊 You'd enquired about B.Tech Computer Science last week, and our Engineering Open Day is this Saturday — I'm calling to see if you'd like me to reserve a seat for you."],
-      ['st',"Oh right, yes! I was actually planning to come but I'm not sure about the timing… I have coaching class in the afternoon."],
-      ['ai',"Ah, that's totally fine — that's exactly why we run two batches, 10 AM and 2 PM. Since your afternoon is busy, the 10 AM batch works well — and honestly it's the better one for you, it includes the AI & Robotics lab tour that most CS aspirants come for. Shall I lock the 10 AM for you?"],
-      ['st',"Hmm okay, 10 AM works. Actually — can my father also come along? He has a lot of questions about placements."],
-      ['ai',"Of course, please bring him! In fact there's a dedicated parents' Q&A with the placement team at 11:30 — average package, recruiters, the works. He'll get every answer straight from the source. So that's 2 seats, Saturday 10 AM. You'll get a WhatsApp confirmation with the campus map in the next minute."],
-      ['st',"That's great. And… this is free, right? No charges for the open day?"],
-      ['ai',"Completely free, Aisha — no charges at all, and lunch is on us 😄 Just carry the WhatsApp confirmation at the gate. Anything else you'd like me to note down before Saturday?"],
-      ['st',"No, that's all. Thank you so much, this was really helpful!"]],
-     crm:[['RSVP Status','✓ Confirmed — 10 AM batch'],['Seats','2 (student + parent)'],['Program Interest','B.Tech Computer Science'],['Qualified','Yes — entrance score fits'],['Next Action','WA confirmation + day-1 reminder']],
-     outcome:'RSVP booked · CRM qualifying fields updated automatically',bump:[64,49,9,2]},
-    {name:'Rohan Kulkarni',pg:'MBA enquiry — day-3 follow-up',lines:[
-      ['ai',"Hi Rohan, Vidya here from EE Edge University — hope I'm not disturbing you. You'd downloaded our MBA brochure on Monday, so I thought I'd check in: did any questions come up while going through it?"],
-      ['st',"Oh hey. Yeah, honestly I got stuck at the fees page… ₹4.2 lakhs a year is on the higher side for us right now."],
-      ['ai',"I completely understand, Rohan — that's the most common question we get, and there are genuinely good options. Two things: we have a zero-interest 6-instalment plan for the first-year fee, and with your CAT percentile you're very likely eligible for our merit scholarship, which can bring it down meaningfully. Would it help if a senior counselor worked out the exact numbers for your case?"],
-      ['st',"Hmm… yeah, that would actually help. But I'm working, so only evenings work for me."],
-      ['ai',"Evenings it is. How about tomorrow 6 PM with counselor Priya? She'll come prepared with your scholarship estimate and the instalment schedule, so it's a 15-minute call, not a sales pitch."],
-      ['st',"Okay, tomorrow 6 PM works. Thanks for not just reading a script at me, by the way."],
-      ['ai',"Ha! Noted, Rohan 😄 You'll get a calendar invite on WhatsApp right now. Speak tomorrow — and good luck with the CAT results party in the meantime."]],
-     crm:[['Follow-up Stage','Day 3 of 7 — completed'],['Fee Objection','EMI info shared ✓'],['Scholarship Fit','CAT 88%ile — eligible'],['Handover','Counselor Priya · tomorrow 6 PM'],['Qualified','Yes — high intent']],
-     outcome:'Qualified & handed to human counselor — with full context',bump:[68,52,7,3]},
+    {name:'Aisha Verma',pg:'B.Tech CS aspirant · Pune · via MHT-CET enquiry',lang:'English',lines:[
+      ['ai',"Good evening! Am I speaking with Aisha? This is Vidya — the AI admission assistant from EE Edge University, Pune. Is this a good time to talk for a minute?"],
+      ['st',"Uh… yes, but who gave you my number?"],
+      ['ai',"Fair question! You'd enquired on our website last week about B.Tech Computer Science after your MHT-CET result — that's how I have your details, and you can opt out anytime. I'm calling because seats for Saturday's Engineering Open Day are filling fast. Shall I reserve one for you?"],
+      ['st',"Oh okay, right! Actually I did want to come… but I have coaching class in the afternoon."],
+      ['ai',"No problem at all — we run two batches, 10 AM and 2 PM. Since your afternoon is busy, the 10 AM batch works — and honestly it's the better one for you. It includes the AI & Robotics lab tour and the placement desk, which most CS aspirants come for. Should I book 10 AM?"],
+      ['st',"Hmm, okay, 10 AM works. Can my father also come? He has a lot of questions about placements and hostel fees."],
+      ['ai',"Please bring him! There's a dedicated parents' Q&A with the placement team at 11:30 — average package, top recruiters, hostel and mess charges, everything. So that's 2 seats for Saturday, 10 AM batch. You'll get a WhatsApp confirmation with the campus map right away."],
+      ['st',"Great… and this event is free, right? No charges?"],
+      ['ai',"Completely free, Aisha — and lunch is on us. Just show the WhatsApp confirmation at Gate 2. See you Saturday, and all the best for your counselling rounds!"]],
+     crm:[['RSVP Status','✓ Confirmed — Sat 10 AM batch'],['Seats','2 (student + parent)'],['Program Interest','B.Tech Computer Science'],['Entrance Track','MHT-CET · counselling stage'],['Qualified','Yes — high intent'],['Next Action','WA confirmation + Friday reminder call']],
+     outcome:'RSVP booked · qualifying fields updated in ExtraaEdge automatically',bump:[64,49,9,2]},
+    {name:'Rohan Kulkarni',pg:'MBA aspirant · working professional · day-3 follow-up',lang:'हिंदी + English',lines:[
+      ['ai',"Hi Rohan, main Vidya bol rahi hoon — EE Edge University ki AI admission assistant. Aapne Monday ko hamara MBA brochure download kiya tha, toh socha ek baar check kar loon… koi question aaya kya?"],
+      ['st',"Oh, haan… actually fees dekh ke thoda ruk gaya main. ₹4.2 lakh per year humare liye abhi thoda zyada hai."],
+      ['ai',"Bilkul samajh sakti hoon, Rohan — yeh sabse common concern hai, aur genuinely options hain. Ek: first-year fees ke liye zero-interest 6-instalment plan. Do: aapke CAT percentile pe merit scholarship possible hai, jisse fees kaafi kam ho sakti hai. Kya main senior counselor Priya ke saath 15-minute ka call book kar doon? Woh aapke exact numbers nikaal dengi."],
+      ['st',"Theek hai… par main office mein hota hoon din bhar. Sirf evening free hai."],
+      ['ai',"Evening hi rakhte hain — kal shaam 6 baje? Priya aapka scholarship estimate aur instalment schedule pehle se ready rakhengi. Sirf 15 minute, koi sales pitch nahi."],
+      ['st',"Done, kal 6 baje. Waise ek baat poochhun… aap sach mein AI ho? Lag hi nahi raha."],
+      ['ai',"Haan Rohan, main VidyaAI Voice Agent hoon! Aur yahi toh point hai — aapko apne sawaal ka jawaab chahiye tha, woh mil gaya. Calendar invite abhi WhatsApp pe aa raha hai. Kal shaam baat karte hain — best of luck!"]],
+     crm:[['Follow-up Stage','Day 3 of 7 — completed'],['Fee Objection','EMI + scholarship info shared ✓'],['Scholarship Fit','CAT 88%ile — eligible'],['Handover','Counselor Priya · tomorrow 6 PM'],['Language','Hindi-English (auto-detected)'],['Qualified','Yes — high intent']],
+     outcome:'Qualified & handed to human counselor — with full context, in his language',bump:[68,52,7,3]},
   ];
 
+  function fmtTime(s){const m=Math.floor(s/60),ss=s%60;return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+
+  async function speakLine(pEl,text,who,my){
+    // word-by-word reveal paced like real speech; TTS speaks in parallel when on
+    const words=text.split(' ');
+    const wordMs=Voice.enabled&&Voice.available?350:Math.min(Math.max(4200/words.length,120),420);
+    const utter=Voice.speak(text,who);
+    let ended=false; if(utter)utter.onend=()=>{ended=true;};
+    pEl.innerHTML=words.map(w=>'<span class="w">'+w.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</span>').join(' ');
+    const spans=pEl.querySelectorAll('.w');
+    for(let i=0;i<spans.length;i++){
+      if(my!==token)return;
+      spans[i].style.animationDelay='0s';spans[i].style.opacity='';spans[i].classList.add('w');
+      spans[i].style.animationPlayState='running';spans[i].style.animationName='wfade';
+      spans[i].style.animationFillMode='forwards';
+      spans[i].style.animationDuration='.25s';
+      spans[i].style.opacity='';
+      spans[i].style.animation='wfade .25s forwards';
+      if(i%3===0)SS.push();
+      await sleep(i===0?60:wordMs*(0.75+Math.random()*0.5));
+    }
+    // wait briefly for TTS to finish naturally
+    if(utter){const t0=Date.now();while(!ended&&Date.now()-t0<9000){if(my!==token){Voice.stop();return;}await sleep(120);}}
+  }
+
   async function viewCall(){
-    const my=++token;
+    const my=++token; Voice.stop(); SS.reset();
     inner.innerHTML='';
-    ctitle.textContent='Vidya Call — AI Outbound Calling';
-    csub.textContent='AI makes the calls. Books RSVPs. Updates qualifying fields. Zero counselor hours.';
-    await sleep(220); if(my!==token)return;
+    ctitle.textContent='Vidya Call — Live Call Centre';
+    csub.textContent='AI makes the calls in English, हिंदी & मराठी. Books RSVPs. Updates qualifying fields.';
+    await sleep(200); if(my!==token)return;
 
-    const camp=el('div','camp rise',
-      '<div class="cic">📞</div><div><h3>Open Day RSVP Campaign — Sat, Aug 8</h3>'+
-      '<p>Audience: 200 warm leads · Goal: 150 RSVPs · Up to 40 parallel AI calls · Marathi / Hindi / English</p></div>'+
-      '<button class="launch"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Launch AI Campaign</button>'+
-      '<span class="live-tag"><i></i> CAMPAIGN LIVE</span>');
-    inner.appendChild(camp);
+    const room=el('div','callroom rise');inner.appendChild(room);
 
-    const tiles=el('div','tiles rise',
-      '<div class="tile"><div class="k" id="nCalls">0</div><div class="l">calls placed (of 200)</div></div>'+
-      '<div class="tile"><div class="k ok" id="nRsvp">0</div><div class="l">RSVPs confirmed</div></div>'+
-      '<div class="tile"><div class="k wr" id="nRetry">0</div><div class="l">no answer → auto-retry queued</div></div>'+
-      '<div class="tile"><div class="k acc" id="nHand">0</div><div class="l">handed to human counselor</div></div>');
-    inner.appendChild(tiles);
-    const prog=el('div','prog rise','<span class="lbl">Campaign progress</span><div class="bar"><i id="cbar"></i></div><span class="pct" id="cpct">0 / 200</span>');
-    inner.appendChild(prog);
+    const camp=el('div','camp glass');
+    camp.innerHTML='<div class="cic">'+brandImg('')+'</div>'+
+      '<div><h3>Admission Open Day — Pune Campus · Sat, 9 Aug</h3>'+
+      '<p>Audience: <b style="color:#fff">200 warm leads</b> (12th-pass · MHT-CET/JEE track) · Goal: 150 RSVPs · up to 40 parallel AI calls by VidyaAI Voice Agent</p>'+
+      '<div class="lang"><span>🌐 English</span><span>हिंदी</span><span>मराठी</span><span>Auto language detect</span></div></div>'+
+      '<div class="cright"><button class="launch"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Launch AI Campaign</button>'+
+      '<span class="live-tag"><i></i> CAMPAIGN LIVE</span>'+
+      '<button class="vtog on" id="vtog">🔊 Live voice: ON</button></div>';
+    room.appendChild(camp);
+    const vtog=camp.querySelector('#vtog');
+    if(!Voice.available){vtog.classList.remove('on');vtog.textContent='🔇 Voice: not supported here';}
+    else vtog.onclick=()=>{const on=Voice.toggle();vtog.classList.toggle('on',on);vtog.textContent=on?'🔊 Live voice: ON':'🔇 Live voice: OFF';};
+
+    const tiles=el('div','tiles',
+      '<div class="tile glass" style="--tg:linear-gradient(90deg,#22D3EE,#06B6D4)"><div class="k" id="nCalls">0</div><div class="l">calls placed (of 200)</div></div>'+
+      '<div class="tile glass" style="--tg:linear-gradient(90deg,#4AE58A,#22C55E)"><div class="k" id="nRsvp">0</div><div class="l">RSVPs confirmed</div></div>'+
+      '<div class="tile glass" style="--tg:linear-gradient(90deg,#FCD34D,#F59E0B)"><div class="k" id="nRetry">0</div><div class="l">no answer → auto-retry at 6 PM</div></div>'+
+      '<div class="tile glass" style="--tg:linear-gradient(90deg,#C4B5FD,#8A7CFF)"><div class="k" id="nHand">0</div><div class="l">handed to human counselor</div></div>');
+    room.appendChild(tiles);
+    room.appendChild(el('div','prog glass','<span class="lbl">Campaign progress</span><div class="bar"><i id="cbar"></i></div><span class="pct" id="cpct">0 / 200</span>'));
 
     await new Promise(res=>camp.querySelector('.launch').onclick=res); if(my!==token)return;
     camp.querySelector('.launch').remove();
@@ -466,104 +609,125 @@ const VA=(function(){
       const b=document.getElementById('cbar');if(b){b.style.width=(placed/200*100)+'%';document.getElementById('cpct').textContent=placed+' / 200';}
     }
 
-    // featured live calls, with parallel calls "completing in background" between them
     for(let ci=0;ci<CALLS.length;ci++){
       if(my!==token)return;
       const C=CALLS[ci];
-      const wrap=el('div','callwrap rise');
-      const cc=el('div','callcard');
-      cc.innerHTML='<div class="ch"><div class="pav">'+C.name.split(' ').map(w=>w[0]).join('')+'</div>'+
-        '<div><b>'+C.name+'</b><span>'+C.pg+' · featured live call '+(ci+1)+' of 40 parallel</span></div>'+
-        '<span class="cstat ring">RINGING…</span></div><div class="tbody"></div>';
-      const crm=el('div','crm');
-      crm.innerHTML='<div class="chh"><b>ExtraaEdge CRM — live sync</b><span class="sy">AUTO</span></div><div class="empty">Waiting for call signals…</div><ul style="display:none"></ul>';
-      wrap.appendChild(cc);wrap.appendChild(crm);inner.appendChild(wrap);
-      wrap.scrollIntoView({behavior:'smooth',block:'end'});
+      let skipped=false;
 
-      await sleep(1300); if(my!==token)return;
-      const stat=cc.querySelector('.cstat');stat.className='cstat live';stat.textContent='● CONNECTED';
+      const wrap=el('div','callwrap rise');
+      const cc=el('div','callcard glass');
+      cc.innerHTML='<div class="ch"><div class="pwrap" id="pw"><span class="ring1"></span><span class="ring2"></span><div class="pav">'+C.name.split(' ').map(w=>w[0]).join('')+'</div></div>'+
+        '<div class="cwho"><b>'+C.name+'</b><span>'+C.pg+'</span><span style="color:#22D3EE">🌐 '+C.lang+' · featured call '+(ci+1)+' of 40 parallel</span></div>'+
+        '<div class="cstat"><span class="st dial">📞 DIALING…</span><span class="timer" id="tmr">00:00</span></div></div>'+
+        '<div class="tbody"></div>'+
+        '<div class="callfoot"><button class="cbtn" title="Mute (demo)"><svg viewBox="0 0 24 24" fill="none" stroke="#C6D6EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 1 0-7 0v5A3.5 3.5 0 0 0 12 15z"/><path d="M18.5 11.5a6.5 6.5 0 0 1-13 0M12 18v3.5"/></svg></button>'+
+        '<button class="cbtn end" title="End & skip this call"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 9c-2.9 0-5.6.6-8 1.7-.7.3-1.1 1-1.1 1.8v2.2c0 .9.8 1.6 1.7 1.4l3.6-.7c.7-.1 1.2-.7 1.3-1.4l.2-1.5c1.5-.4 3-.4 4.6 0l.2 1.5c.1.7.6 1.3 1.3 1.4l3.6.7c.9.2 1.7-.5 1.7-1.4v-2.2c0-.8-.4-1.5-1.1-1.8C17.6 9.6 14.9 9 12 9z"/></svg></button></div>';
+      const crm=el('div','crm glass');
+      crm.innerHTML='<div class="chh"><div><b>ExtraaEdge CRM — live sync</b><span>qualifying fields update during the call</span></div><span class="sy">AUTO</span></div><div class="empty">Waiting for call signals…</div><ul style="display:none"></ul>';
+      wrap.appendChild(cc);wrap.appendChild(crm);room.appendChild(wrap);
+      SS.push();
+
+      const endBtn=cc.querySelector('.cbtn.end');
+      endBtn.onclick=()=>{skipped=true;Voice.stop();};
+
+      // dialing → ringing → connected
+      const stat=cc.querySelector('.st'), tmr=cc.querySelector('#tmr'), pw=cc.querySelector('#pw');
+      await sleep(1400); if(my!==token)return;
+      stat.textContent='🔔 RINGING…';
+      await sleep(1600); if(my!==token)return;
+      stat.className='st live';stat.textContent='● CONNECTED';
+      let secs=0; const ti=setInterval(()=>{secs++;if(tmr)tmr.textContent=fmtTime(secs);},1000);
+
       const body=cc.querySelector('.tbody');
       const ul=crm.querySelector('ul'), emp=crm.querySelector('.empty');
       let crmIdx=0;
-      for(let li=0;li<C.lines.length;li++){
-        if(my!==token)return;
-        const [who,text]=C.lines[li];
-        const wv=el('div','tline '+(who==='ai'?'aiL':'stL'),
-          '<span class="tag">'+(who==='ai'?'VIDYA CALL':'STUDENT')+'</span><div><div class="wavebar">'+
-          '<i style="animation-delay:0s"></i><i style="animation-delay:.12s"></i><i style="animation-delay:.24s"></i><i style="animation-delay:.36s"></i><i style="animation-delay:.48s"></i></div></div>');
-        body.appendChild(wv); wrap.scrollIntoView({behavior:'smooth',block:'end'});
-        await sleep(520+Math.min(text.length*7,1500)); if(my!==token)return;
-        wv.querySelector('div div').outerHTML='<p>'+text+'</p>';
-        // drip a CRM field roughly every second line
-        if(li%2===1&&crmIdx<C.crm.length){
-          emp.style.display='none';ul.style.display='block';
-          const [k,v]=C.crm[crmIdx++];
-          ul.appendChild(el('li','','<span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></span><span class="fk">'+k+'</span><span class="fv">'+v+'</span>'));
+      try{
+        for(let li=0;li<C.lines.length;li++){
+          if(my!==token)return;
+          if(skipped)break;
+          const [who,text]=C.lines[li];
+          pw.classList.toggle('speaking',who==='ai');
+          const line=el('div','tline '+(who==='ai'?'aiL':'stL'),
+            '<span class="tag">'+(who==='ai'?'VIDYA · AI':'STUDENT')+'</span><div style="min-width:0"><p></p></div>');
+          const eq=el('span','eq','<i></i><i></i><i></i><i></i>');
+          line.querySelector('.tag').after();
+          body.appendChild(line);SS.push();
+          const p=line.querySelector('p');
+          p.appendChild(eq);
+          await speakLine(p,text,who,my); if(my!==token){clearInterval(ti);return;}
+          eq.remove();
+          if(skipped)break;
+          if(li%2===1&&crmIdx<C.crm.length){
+            emp.style.display='none';ul.style.display='block';
+            const [k,v]=C.crm[crmIdx++];
+            ul.appendChild(el('li','','<span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></span><span class="fk">'+k+'</span><span class="fv">'+v+'</span>'));
+          }
+          await sleep(who==='ai'?750:550);
         }
-        await sleep(280);
-      }
-      // flush remaining CRM rows
+      }finally{clearInterval(ti);}
+      if(my!==token)return;
+      pw.classList.remove('speaking');
       while(crmIdx<C.crm.length){
         const [k,v]=C.crm[crmIdx++];
         emp.style.display='none';ul.style.display='block';
         ul.appendChild(el('li','','<span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></span><span class="fk">'+k+'</span><span class="fv">'+v+'</span>'));
-        await sleep(240);
+        await sleep(260);
       }
-      if(my!==token)return;
-      stat.className='cstat done';stat.textContent='✓ CALL COMPLETE';
-      cc.appendChild(el('div','outcome','<div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></div><div><b>'+C.outcome+'</b><span>No counselor touched this call.</span></div>'));
-      const [bp,br,bq,bh]=C.bump; bump(bp,br,bq,bh,1600);
-      inner.appendChild(el('div','ticker rise','<span class="dot"></span><div><b>'+bp+' parallel calls</b> completed in the background while you watched — <b>'+br+' RSVPs</b> booked, <b>'+bq+'</b> queued for auto-retry at 6 PM.</div>'));
-      wrap.scrollIntoView({behavior:'smooth',block:'end'});
-      await sleep(1200);
+      stat.className='st done';stat.textContent='✓ CALL COMPLETE';
+      endBtn.setAttribute('disabled','');
+      cc.querySelector('.tbody').after(el('div','outcome','<div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></div><div><b>'+C.outcome+'</b><span>No counselor touched this call.</span></div>'));
+      const [bp,br,bq,bh]=C.bump; bump(bp,br,bq,bh,1800);
+      room.appendChild(el('div','ticker glass rise','<span class="dot"></span><div>While you watched, <b>'+bp+' parallel calls</b> completed in the background — <b>'+br+' RSVPs</b> booked, <b>'+bq+'</b> queued for auto-retry this evening.</div>'));
+      SS.push();
+      await sleep(1600);
     }
     if(my!==token)return;
-    bump(200,150,0,1,1800); await sleep(1900); if(my!==token)return;
-    const sum=el('div','summary rise','<div class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></div>'+
+    bump(200,150,0,1,2000); await sleep(2100); if(my!==token)return;
+    room.appendChild(el('div','summary','<div class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></div>'+
       '<div><h3>Campaign complete — 150 RSVPs booked overnight</h3>'+
-      '<p>200 manual calls replaced · <b>0 counselor hours</b> spent · 2 counselor-days saved · every lead\'s qualifying fields updated in ExtraaEdge. Your counselors open the dashboard to 150 confirmed attendees — and spend the saved days on high-intent conversations.</p></div>');
-    inner.appendChild(sum); sum.scrollIntoView({behavior:'smooth',block:'end'});
+      '<p>200 manual calls replaced · <b>0 counselor hours</b> spent · 2 counselor-days saved · every lead\'s qualifying fields updated in ExtraaEdge — in the student\'s own language. Your counselors open the dashboard tomorrow to 150 confirmed attendees, and spend the saved days on the conversations that actually need a human.</p></div>'));
+    SS.push();
   }
 
-  // ============ VIDYA CALL INTELLIGENCE ============
+  /* ============ VIDYA CALL INTELLIGENCE ============ */
   const RECS=[
-    {n:'Sameer Kale',lead:'call with Tanvi (MBA) — fee objection',dur:'6:42',col:'#F59E0B',
+    {n:'Sameer Kale',lead:'call with Tanvi (MBA, Nashik) — fee objection',dur:'6:42',col:'#F59E0B',
      snip:[['c',"…so yes, the total first-year fee comes to about ₹4.2 lakhs."],
-           ['p',"Hmm, that's more than we were planning. We'll think about it."],
+           ['p',"Hmm, that's more than we were planning. We'll think about it and call you back."],
            ['c',"Okay sure, no problem. You can call us back whenever you decide."]],
-     flag:'⚠ Missed moment 04:12 — fee objection left unhandled; no scholarship/EMI mention, no next step booked.',
+     flag:'⚠ Missed moment 04:12 — fee objection left unhandled. No EMI or scholarship mention, no next step booked. This is where Tanvi went cold.',
      scores:[['Tone & warmth',8.1,'g'],['Empathy',7.4,'t'],['Objection handling',4.6,'w'],['Next-step commitment',3.9,'w']],
      grade:'6.0 / 10',
-     good:['Warm opening — used the student\'s program interest in the first 20 seconds','Clear, jargon-free fee explanation'],
-     impr:['When fees feel high → pivot to scholarship + EMI options (script card 7)','Never end without a booked next step — offer a parent call slot','Listen: 02:14–02:31 — the exact moment Tanvi hesitated']},
-    {n:'Priya Kulkarni',lead:'call with Aditya (B.Tech) — comparison shopper',dur:'8:15',col:'#10B981',
-     snip:[['p',"Honestly, we're also considering two other colleges nearby."],
-           ['c',"That's completely fair — most families compare 3–4 colleges. Can I share the one number I'd compare? Our CS placement median is ₹7.2 LPA against the state average of ₹3.8."],
-           ['p',"Oh — that's a big difference. Can we visit the campus this week?"]],
+     good:['Warm opening — used Tanvi\'s program interest in the first 20 seconds','Clear, jargon-free fee explanation in simple Hindi-English'],
+     impr:['When fees feel high → pivot to scholarship + zero-interest EMI (script card 7)','Never end without a booked next step — offer a parent call slot','Listen: 02:14–02:31 — the exact moment Tanvi hesitated']},
+    {n:'Priya Kulkarni',lead:'call with Aditya (B.Tech, Pune) — comparing 3 colleges',dur:'8:15',col:'#10B981',
+     snip:[['p',"Honestly ma'am, we're also considering two other colleges near Hinjewadi."],
+           ['c',"That's completely fair — most families compare 3–4 colleges, and you should. Can I share the one number I'd compare? Our CS placement median is ₹7.2 LPA against the state average of ₹3.8."],
+           ['p',"Oh… that's a big difference. Can we visit the campus this week?"]],
      flag:'',
      scores:[['Tone & warmth',9.2,'g'],['Empathy',8.8,'g'],['Objection handling',9.0,'g'],['Next-step commitment',9.4,'g']],
      grade:'9.1 / 10',
-     good:['Validated the comparison instead of arguing — trust built','Used one sharp proof point (placement median) at the right moment','Closed with a concrete campus-visit slot within the call'],
-     impr:['Share this call as the team\'s reference for handling comparison shoppers']},
-    {n:'Rohit Jadhav',lead:'call with Ishaan (B.Com) — parent on call',dur:'5:03',col:'#06B6D4',
-     snip:[['p',"(Parent) We're worried about placements for commerce, everyone says engineering is safer."],
-           ['c',"I understand the worry, sir. Actually our B.Com + fintech certification track placed 91% last year — I can WhatsApp you the company list right now while we talk."],
-           ['p',"Yes, please send it."]],
+     good:['Validated the comparison instead of arguing — instant trust','One sharp proof point (placement median) at exactly the right moment','Closed with a concrete campus-visit slot within the call'],
+     impr:['Share this recording as the team\'s reference for comparison shoppers']},
+    {n:'Rohit Jadhav',lead:'call with Ishaan (B.Com, Nagpur) — parent on the call',dur:'5:03',col:'#06B6D4',
+     snip:[['p',"(Father) Beta commerce mein placement ka kya scene hai? Sab bolte hain engineering hi safe hai."],
+           ['c',"Sir, aapki chinta bilkul jaayaz hai. Actually hamara B.Com + fintech certification track pichhle saal 91% placed hua — main abhi WhatsApp pe company list bhej deta hoon, aap call pe hi dekh lijiye."],
+           ['p',"Haan haan, bhejo. Dekhte hain."]],
      flag:'',
      scores:[['Tone & warmth',8.6,'g'],['Empathy',9.1,'g'],['Objection handling',7.8,'t'],['Next-step commitment',6.9,'t']],
      grade:'8.1 / 10',
-     good:['Addressed the parent directly and respectfully','Sent proof (company list) during the call — instant credibility'],
+     good:['Addressed the parent directly and respectfully, in his language','Sent proof (company list) during the call — instant credibility'],
      impr:['End with a scheduled follow-up, not “call us anytime”','Quantify the fintech track outcomes earlier in the call']},
   ];
 
   async function viewIntel(){
-    const my=++token;
+    const my=++token; Voice.stop(); SS.reset();
     inner.innerHTML='';
-    ctitle.textContent='Vidya Call Intelligence — Coaching';
+    ctitle.textContent='Vidya Call Intelligence — Coaching Studio';
     csub.textContent='Every human counselor call recorded, transcribed & AI-scored. Coaching card in minutes.';
     await sleep(200); if(my!==token)return;
 
-    inner.appendChild(el('div','ticker rise','<span class="dot"></span><div>Today: <b>47 counselor calls</b> recorded &amp; transcribed · <b>47 coaching cards</b> delivered · avg <b>2m 40s</b> after call end</div>'));
+    inner.appendChild(el('div','lticker rise','<span class="dot"></span><div>Today: <b>47 counselor calls</b> recorded &amp; transcribed by VidyaAI Voice Agent · <b>47 coaching cards</b> delivered · avg <b>2m 40s</b> after call end</div>'));
     inner.appendChild(el('div','sec-t rise','Today\'s recorded calls — click one to see the AI analysis'));
     const list=el('div','recs rise');inner.appendChild(list);
     RECS.forEach((R,i)=>{
@@ -574,8 +738,7 @@ const VA=(function(){
       list.appendChild(r);
     });
     const hold=el('div','',''); hold.id='analyHold'; inner.appendChild(hold);
-    // auto-open the coaching-moment call first
-    await sleep(700); if(my!==token)return;
+    await sleep(900); if(my!==token)return;
     list.children[0].click();
   }
 
@@ -588,9 +751,8 @@ const VA=(function(){
       '<div class="wave" id="awave">'+Array.from({length:46},()=>'<i style="height:'+(6+Math.random()*34)+'px"></i>').join('')+'</div>'+
       '<div id="aslot"></div>';
     a.scrollIntoView({behavior:'smooth',block:'start'});
-    // waveform sweep
     const bars=[...a.querySelectorAll('#awave i')];
-    for(let i=0;i<bars.length;i++){if(my!==aToken)return;bars[i].classList.add('on');await sleep(26);}
+    for(let i=0;i<bars.length;i++){if(my!==aToken)return;bars[i].classList.add('on');await sleep(34);}
     if(my!==aToken)return;
     document.getElementById('astt').innerHTML='📝 Transcribed · key moment identified:';
     const slot=a.querySelector('#aslot');
@@ -598,9 +760,9 @@ const VA=(function(){
     for(const [w,t] of R.snip){
       if(my!==aToken)return;
       sn.appendChild(el('div','sl','<span class="who '+w+'">'+(w==='c'?'COUNSELOR':'PROSPECT')+'</span><p>'+t+'</p>'));
-      await sleep(480);
+      await sleep(1300);
     }
-    if(R.flag){sn.appendChild(el('div','flag',R.flag));await sleep(500);}
+    if(R.flag){await sleep(400);sn.appendChild(el('div','flag',R.flag));await sleep(800);}
     if(my!==aToken)return;
     document.getElementById('astt').innerHTML='🤖 AI scoring — tone, empathy, objection handling, close:';
     const ms=el('div','meters');slot.appendChild(ms);
@@ -608,26 +770,26 @@ const VA=(function(){
       if(my!==aToken)return;
       const m=el('div','meter '+cl,'<span class="mn">'+n+'</span><div class="mb"><i></i></div><span class="mv">'+v.toFixed(1)+'</span>');
       ms.appendChild(m);requestAnimationFrame(()=>{m.querySelector('.mb i').style.width=(v*10)+'%';});
-      await sleep(330);
+      await sleep(520);
     }
-    await sleep(500); if(my!==aToken)return;
+    await sleep(700); if(my!==aToken)return;
     document.getElementById('astt').innerHTML='✅ Coaching card ready — overall <b style="color:#0F2347">&nbsp;'+R.grade+'</b>';
     const co=el('div','coach');slot.appendChild(co);
     co.appendChild(el('div','cbox good','<h5>✓ What worked</h5><ul>'+R.good.map(g=>'<li>'+g+'</li>').join('')+'</ul>'));
     co.appendChild(el('div','cbox impr','<h5>↗ Coach on this next call</h5><ul>'+R.impr.map(g=>'<li>'+g+'</li>').join('')+'</ul>'));
-    slot.appendChild(el('div','deliv','<i></i> Delivered to '+R.n.split(' ')[0]+' &amp; manager dashboard — 2m 40s after the call ended. No manager listening required.'));
+    slot.appendChild(el('div','deliv','<i></i> Delivered to '+R.n.split(' ')[0]+' &amp; the manager dashboard — 2m 40s after the call ended. No manager listening required.'));
     slot.lastChild.scrollIntoView({behavior:'smooth',block:'end'});
   }
 
-  // ============ MANAGER ============
+  /* ============ MANAGER ============ */
   async function viewMgr(){
-    const my=++token;
+    const my=++token; Voice.stop(); SS.reset();
     inner.innerHTML='';
     ctitle.textContent='Manager — Team Call Quality';
     csub.textContent='Coaching becomes data-driven. Quality improves measurably, week over week.';
     await sleep(200); if(my!==token)return;
-    inner.appendChild(el('div','ticker rise','<span class="dot"></span><div>This week: <b>214 calls scored</b> · team average <b>7.6 → 8.1</b> · weakest skill: <b>objection handling</b></div>'));
-    await sleep(350); if(my!==token)return;
+    inner.appendChild(el('div','lticker rise','<span class="dot"></span><div>This week: <b>214 calls scored</b> by VidyaAI Voice Agent · team average <b>7.6 → 8.1</b> · weakest skill: <b>objection handling</b></div>'));
+    await sleep(500); if(my!==token)return;
 
     inner.appendChild(el('div','sec-t rise','Average AI call score — by counselor (this week)'));
     const team=el('div','team rise');inner.appendChild(team);
@@ -640,60 +802,48 @@ const VA=(function(){
       const r=el('div','trow','<div class="cn">'+n+'<small>'+d+'</small></div><div class="hbar"><i class="'+(lag?'lag':'')+'"></i></div><div class="val">'+(v/10).toFixed(1)+'<em class="'+(lag?'dn':'')+'">'+tr+'</em></div>');
       team.appendChild(r);
       requestAnimationFrame(()=>{r.querySelector('.hbar i').style.width=v+'%';});
-      await sleep(300);
+      await sleep(420);
     }
-    await sleep(450); if(my!==token)return;
-    inner.appendChild(el('div','insight rise','<div class="iic">🎯</div><div><b>Vidya Call Intelligence — team insight</b><p>3 counselors score below 6.0 on <b>objection handling</b> — the same weak habit is repeating on fee objections. Auto-assigned: micro-coaching module “Fee → Scholarship pivot” + Priya\'s 9.1-scored call as the reference recording. Projected impact: +0.8 team score in 2 weeks.</p></div>'));
-    await sleep(350); if(my!==token)return;
+    await sleep(600); if(my!==token)return;
+    inner.appendChild(el('div','insight rise','<div class="iic">🎯</div><div><b>Vidya Call Intelligence — team insight</b><p>3 counselors score below 6.0 on <b>objection handling</b> — the same weak habit repeats on fee objections. Auto-assigned: micro-coaching module “Fee → Scholarship pivot” + Priya\'s 9.1-scored call as the reference recording. Projected impact: +0.8 team score in 2 weeks.</p></div>'));
+    await sleep(500); if(my!==token)return;
     inner.appendChild(el('div','sec-t rise','Skill breakdown — team average'));
     const t2=el('div','team rise');inner.appendChild(t2);
     const rows2=[['Tone & warmth','across 214 calls',86,'strong — keep',false],
                  ['Empathy','across 214 calls',82,'strong — keep',false],
-                 ['Next-step commitment','calls ending with booked step',71,'▲ improving',false],
-                 ['Objection handling','fee & comparison objections',58,'focus area',true]];
+                 ['Next-step commitment','calls ending with a booked step',71,'▲ improving',false],
+                 ['Objection handling','fee & college-comparison objections',58,'focus area',true]];
     for(const [n,d,v,tr,lag] of rows2){
       if(my!==token)return;
       const r=el('div','trow','<div class="cn">'+n+'<small>'+d+'</small></div><div class="hbar"><i class="'+(lag?'lag':'')+'"></i></div><div class="val">'+(v/10).toFixed(1)+'<em class="'+(lag?'dn':'')+'">'+tr+'</em></div>');
       t2.appendChild(r);
       requestAnimationFrame(()=>{r.querySelector('.hbar i').style.width=v+'%';});
-      await sleep(280);
+      await sleep(380);
     }
   }
 
-  // ============ ABOUT ============
-  function aboutView(){
-    ++token;
-    inner.innerHTML='';
-    ctitle.textContent='About VidyaAI Voice Agent'; csub.textContent='Two products, one engine — the AUTOMATE pillar.';
-    inner.appendChild(el('div','aboutcard rise',
-      brandImg('lg')+
-      '<h3>VidyaAI Voice Agent</h3><div class="t">“Automate the calls that don\'t need a human. Coach the ones that do.”</div>'+
-      '<p><b>Vidya Call</b> — an AI voice agent that places natural outbound calls: event RSVPs, day 1/3/7 follow-up sequences, application reminders — at any volume, updating qualifying fields in the CRM after every call. <b>Vidya Call Intelligence</b> — records &amp; transcribes every human counselor call, AI-scores tone, empathy, objection handling and close, and delivers a coaching card within minutes. Managers coach on data, not instinct.</p>'+
-      '<div class="stats-mini"><div class="sm"><b>150</b><span>RSVPs booked / event</span></div><div class="sm"><b>0 hrs</b><span>counselor time used</span></div><div class="sm"><b>40%</b><span>counselor time freed</span></div><div class="sm"><b>95%</b><span>adoption in 4 weeks</span></div></div>'));
-  }
-
-  // ============ OVERVIEW / PRODUCT STORY ============
+  /* ============ OVERVIEW ============ */
   function viewOvv(){
-    ++token;
+    ++token; Voice.stop(); SS.reset();
     inner.innerHTML='';
     ctitle.textContent='What is VidyaAI Voice Agent?';
-    csub.textContent='Understand the product in 60 seconds — then launch a live AI calling campaign.';
+    csub.textContent='Understand the product in 60 seconds — then step into the live call centre.';
     const o=el('div','ovv rise');
     o.innerHTML=
       '<div class="hero-p">'+brandImg('')+
         '<div><span class="say">AUTOMATE PILLAR · SAY IT: “VIDYA AGENTS”</span></div>'+
         '<h1>Automate the calls that don\'t need a human.<br>Coach the ones that do.</h1>'+
-        '<p class="ol">Every admission season, your counselors burn days on repeatable calls — RSVP dialing, reminders, follow-ups — while nobody hears what happens on the calls that matter. VidyaAI Voice Agent fixes both: <b>Vidya Call</b>, an AI voice agent that makes the outbound calls and updates qualifying fields, and <b>Vidya Call Intelligence</b>, an AI coach that scores every human call and improves it.</p>'+
-        '<div class="cta-row"><button class="cta-main" id="goDemo"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Launch a live AI campaign</button>'+
+        '<p class="ol">Every admission season, counselors across Indian schools, colleges, universities and coaching institutes burn weeks on repeatable calls — RSVP dialing, fee reminders, follow-ups — while nobody hears what happens on the calls that matter. <b>VidyaAI Voice Agent</b> fixes both sides: <b>Vidya Call</b>, an AI voice agent that makes natural outbound calls in English, हिंदी and मराठी and updates qualifying fields in your CRM — and <b>Vidya Call Intelligence</b>, an AI coach that scores every human call and makes the next one better.</p>'+
+        '<div class="cta-row"><button class="cta-main" id="goDemo"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Step into the live call centre</button>'+
         '<a class="cta-ghost" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener">Book a real demo →</a></div>'+
       '</div>'+
 
       '<div><div class="sec-kick">THE PROBLEM</div><div class="sec-h">Manual calling is eating your team\'s capacity</div>'+
       '<p class="sec-sub">To fill 150 seats at one open day: 200 manual calls, 2 counselors, 2 full days. Multiply by 12 events a year — and nobody is coaching the calls that do happen.</p>'+
       '<div class="p3">'+
-        '<div class="pcard"><div class="no">01</div><b>The volume trap</b><p>200 calls to book 150 event seats. 2 counselors, 2 days — ×12 events = <b>72 counselor-days a year</b> gone on RSVP dialing alone.</p></div>'+
-        '<div class="pcard"><div class="no">02</div><b>The follow-up black hole</b><p>Leads need 5–7 touchpoints to convert. Under time pressure, teams manage 1–2 and move on. Revenue quietly leaks in the gap.</p></div>'+
-        '<div class="pcard"><div class="no">03</div><b>The call-quality blind spot</b><p>Managers can\'t listen to every call. Weak closes and poor objection handling repeat — invisibly, indefinitely — costing enrolments every week.</p></div>'+
+        '<div class="pcard"><div class="no">01</div><b>The volume trap</b><p>200 calls to book 150 open-day seats. 2 counselors, 2 days — ×12 events = <b>72 counselor-days a year</b> gone on RSVP dialing alone.</p></div>'+
+        '<div class="pcard"><div class="no">02</div><b>The follow-up black hole</b><p>Indian admission cycles need 5–7 touchpoints per family to convert. Under season pressure, teams manage 1–2 and move on. Revenue quietly leaks.</p></div>'+
+        '<div class="pcard"><div class="no">03</div><b>The call-quality blind spot</b><p>Managers can\'t listen to every call. Weak closes and unhandled fee objections repeat — invisibly, indefinitely — costing admissions every week.</p></div>'+
       '</div>'+
       '<div class="cost">'+
         '<div class="c"><b>72 days</b><span>lost per year to RSVP dialing (12 events × 6 days)</span></div>'+
@@ -704,28 +854,29 @@ const VA=(function(){
 
       '<div><div class="sec-kick">THE SOLUTION</div><div class="sec-h">Two products. One engine. Call less, convert more.</div>'+
       '<div class="twoprod">'+
-        '<div class="tp a"><span class="tag">VIDYA CALL · AI MAKES THE CALLS</span><h5>Your AI voice agent for outbound</h5><p>Places natural, personalised calls — event RSVPs, day 1/3/7 follow-up sequences, application reminders — at any volume, in Marathi, Hindi or English. Books the seat, answers common questions, and updates qualifying fields in the CRM after every single call. Zero counselor hours.</p></div>'+
+        '<div class="tp a"><span class="tag">VIDYA CALL · AI MAKES THE CALLS</span><h5>Your AI voice agent for outbound</h5><p>Places natural, personalised calls — open-day RSVPs, day 1/3/7 follow-ups, application and fee reminders — at any volume, in English, हिंदी or मराठी with automatic language detection. Books the seat, answers parent questions, and updates qualifying fields in ExtraaEdge after every call. Zero counselor hours.</p></div>'+
         '<div class="tp b"><span class="tag">VIDYA CALL INTELLIGENCE · AI COACHES THE HUMANS</span><h5>Every human call, scored &amp; coached</h5><p>Records and transcribes every counselor call, scores tone, empathy, objection handling and close — and delivers a personal coaching card within minutes of hanging up. Managers finally see call quality as data, not guesswork.</p></div>'+
       '</div>'+
       '<div class="feat">'+
-        '<div class="fcard"><div class="fi">📞</div><div><b>Natural conversations, not IVR</b><p>Two-way dialogue that handles timing changes, parent questions and fee objections — 70%+ of students can\'t tell they\'re talking to AI.</p></div></div>'+
-        '<div class="fcard"><div class="fi">🗂️</div><div><b>CRM fields update themselves</b><p>RSVP status, program interest, qualification, next action — written back to ExtraaEdge automatically while the call ends. No data entry, no missed notes.</p></div></div>'+
-        '<div class="fcard"><div class="fi">🔁</div><div><b>Sequences that never forget</b><p>Day-1 follow-up, day-3 check-in, day-7 push — on autopilot for every warm lead, with smart retries for unanswered calls.</p></div></div>'+
+        '<div class="fcard"><div class="fi">📞</div><div><b>Natural conversations, not IVR</b><p>Two-way dialogue that handles timing changes, parent questions and fee objections — in tested calls, 70%+ of students can\'t tell they\'re talking to AI.</p></div></div>'+
+        '<div class="fcard"><div class="fi">🗂️</div><div><b>CRM fields update themselves</b><p>RSVP status, program interest, entrance track (JEE / MHT-CET / CAT / NEET), qualification, next action — written back to ExtraaEdge while the call ends.</p></div></div>'+
+        '<div class="fcard"><div class="fi">🔁</div><div><b>Sequences that never forget</b><p>Day-1 follow-up, day-3 check-in, day-7 push — on autopilot for every warm lead, with smart 6 PM retries for unanswered calls.</p></div></div>'+
         '<div class="fcard"><div class="fi">📊</div><div><b>Manager dashboard</b><p>Team quality trends, per-counselor scores, weakest-skill detection with auto-assigned micro-coaching. Quality improves measurably, week over week.</p></div></div>'+
       '</div></div>'+
 
       '<div><div class="sec-kick">BEFORE → AFTER</div><div class="sec-h">The transformation in practice</div>'+
-      '<div class="ba"><div class="bh"><div class="l">WITHOUT VIDYA AGENTS</div><div class="r">WITH VIDYA AGENTS</div></div>'+
+      '<div class="ba"><div class="bh"><div class="l">WITHOUT VIDYAAI VOICE AGENT</div><div class="r">WITH VIDYAAI VOICE AGENT</div></div>'+
         '<div class="br"><div class="l">✗ 200 calls to fill 150 seats — 2 days lost</div><div class="r">✓ Vidya Call books 150 RSVPs — zero counselor hours</div></div>'+
-        '<div class="br"><div class="l">✗ Follow-up sequences break under pressure</div><div class="r">✓ Sequences run on autopilot, qualifying fields updated</div></div>'+
+        '<div class="br"><div class="l">✗ Follow-up sequences break under season pressure</div><div class="r">✓ Sequences run on autopilot, qualifying fields updated</div></div>'+
         '<div class="br"><div class="l">✗ Call quality invisible — poor habits repeat</div><div class="r">✓ Every call scored — coaching becomes data-driven</div></div>'+
-        '<div class="br"><div class="l">✗ 72 counselor-days/year on RSVP dialing</div><div class="r">✓ 40% counselor time freed for actual selling</div></div>'+
+        '<div class="br"><div class="l">✗ 72 counselor-days/year on RSVP dialing</div><div class="r">✓ 40% counselor time freed for actual counselling</div></div>'+
         '<div class="br"><div class="l">✗ Managers coach on instinct</div><div class="r">✓ Team improves measurably, week over week</div></div>'+
       '</div></div>'+
 
-      '<div class="whyedu"><h4>🎓 Why education teams specifically need this</h4><ul>'+
-        '<li><b>Admissions runs on events.</b> Open days, webinars, counselling camps — every one needs hundreds of confirmation calls in a tight window. That\'s exactly the work AI does best.</li>'+
-        '<li><b>Students don\'t mind — they prefer answers.</b> In tested calls, 70%+ of students can\'t tell the difference. They care about getting their doubt cleared, not who\'s dialing.</li>'+
+      '<div class="whyedu"><h4>🎓 Why Indian education teams specifically need this</h4><ul>'+
+        '<li><b>Admissions runs on events.</b> Open days, webinars, counselling camps, entrance-result windows — every one needs hundreds of confirmation calls in a tight window. That\'s exactly the work AI does best.</li>'+
+        '<li><b>Students don\'t mind — they prefer answers.</b> In tested calls, 70%+ of students can\'t tell the difference. They care about their doubt getting cleared, not who\'s dialing.</li>'+
+        '<li><b>India speaks many languages.</b> Vidya Call switches naturally between English, हिंदी and मराठी mid-conversation — the way real families actually talk.</li>'+
         '<li><b>Counselor burnout is real.</b> Dial-and-hope calling drives attrition, and institutional knowledge walks out the door. Freeing 40% of counselor time keeps your best people counselling.</li>'+
         '<li><b>Coaching finally scales.</b> One manager can\'t listen to 200 calls a week — Vidya Call Intelligence listens to all of them and turns them into specific, teachable feedback.</li>'+
       '</ul></div>'+
@@ -738,11 +889,23 @@ const VA=(function(){
         '<div class="pf"><b>90+ days</b><span>annual capacity saved across 12 events</span></div>'+
       '</div></div>'+
 
-      '<div class="cta-final"><button class="cta-main" id="goDemo2"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Watch Vidya Call book RSVPs live</button></div>';
+      '<div class="cta-final"><button class="cta-main" id="goDemo2"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Hear Vidya Call talk to a student — live</button></div>';
     inner.appendChild(o);
     o.querySelector('#goDemo').onclick=()=>select('call');
     o.querySelector('#goDemo2').onclick=()=>select('call');
-    document.getElementById('stage').scrollTop=0;
+    stage.scrollTop=0;
+  }
+
+  /* ============ ABOUT ============ */
+  function aboutView(){
+    ++token; Voice.stop(); SS.reset();
+    inner.innerHTML='';
+    ctitle.textContent='About VidyaAI Voice Agent'; csub.textContent='Two products, one engine — the AUTOMATE pillar of ExtraaEdge.';
+    inner.appendChild(el('div','aboutcard rise',
+      brandImg('lg')+
+      '<h3>VidyaAI Voice Agent</h3><div class="t">“Automate the calls that don\'t need a human. Coach the ones that do.”</div>'+
+      '<p><b>Vidya Call</b> — an AI voice agent that places natural outbound calls in English, हिंदी and मराठी: open-day RSVPs, day 1/3/7 follow-up sequences, application &amp; fee reminders — at any volume, updating qualifying fields in ExtraaEdge after every call. <b>Vidya Call Intelligence</b> — records &amp; transcribes every human counselor call, AI-scores tone, empathy, objection handling and close, and delivers a coaching card within minutes. Built for Indian schools, colleges, universities, coaching institutes and EdTech teams.</p>'+
+      '<div class="stats-mini"><div class="sm"><b>150</b><span>RSVPs booked / event</span></div><div class="sm"><b>0 hrs</b><span>counselor time used</span></div><div class="sm"><b>40%</b><span>counselor time freed</span></div><div class="sm"><b>95%</b><span>adoption in 4 weeks</span></div></div>'));
   }
 
   function toggleNav(force){

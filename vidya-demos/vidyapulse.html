@@ -45,7 +45,13 @@
   .side-foot .ava svg{width:18px;height:18px}
 
   /* ===================== MAIN ===================== */
-  #main{flex:1;height:100%;display:flex;flex-direction:column;background:var(--white);min-width:0}
+  #main{flex:1;height:100%;display:flex;flex-direction:column;background:var(--white);min-width:0;position:relative}
+  #jumpPill{position:absolute;left:50%;bottom:56px;transform:translateX(-50%) translateY(10px);z-index:30;display:inline-flex;align-items:center;gap:9px;
+    padding:11px 19px;border-radius:999px;background:rgba(15,35,71,.94);color:#fff;font-weight:700;font-size:13px;cursor:pointer;border:1px solid rgba(34,211,238,.35);
+    box-shadow:0 14px 34px rgba(15,35,71,.45);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;backdrop-filter:blur(8px)}
+  #jumpPill.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  #jumpPill b{background:#22D3EE;color:#06283A;border-radius:999px;min-width:21px;height:21px;display:inline-grid;place-items:center;font-size:11.5px;padding:0 6px}
+  #jumpPill svg{width:14px;height:14px}
   #top{padding:18px 36px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto;display:flex;align-items:center;gap:14px}
   .thead{flex:1;min-width:0}
   .menu-btn{display:none;width:44px;height:44px;border-radius:11px;border:1px solid var(--line);background:#fff;cursor:pointer;
@@ -312,11 +318,19 @@
       <path d="M50,64 C39,57 27,55 17,57 C15.5,57.3 15,58.2 15,59.7 L15,82 C15,83.6 15.7,84.6 17,84.8 C29,86 41,88.5 50,93 Z" fill="url(#vg-bookL)"/>
       <path d="M50,64 C61,57 73,55 83,57 C84.5,57.3 85,58.2 85,59.7 L85,82 C85,83.6 84.3,84.6 83,84.8 C71,86 59,88.5 50,93 Z" fill="url(#vg-bookR)"/>
       <circle cx="50" cy="33" r="16" fill="url(#vg-head)"/>
+    </symbol>
+    <linearGradient id="lgP" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#8A7CFF"/></linearGradient>
+    <linearGradient id="lgP2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF6FA3"/><stop offset="1" stop-color="#FFB46A"/></linearGradient>
+    <symbol id="plogo" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="41" stroke="url(#lgP)" stroke-width="9" fill="none" opacity=".35"/>
+      <path d="M16 62h18l9-21 15 39 11-27 7 9h28" stroke="url(#lgP2)" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="60" cy="60" r="41" stroke="url(#lgP)" stroke-width="9" fill="none" stroke-dasharray="70 190" stroke-linecap="round"/>
+      <path d="M100 16 Q101.8 22.5 108 24 Q101.8 25.5 100 32 Q98.2 25.5 92 24 Q98.2 22.5 100 16 Z" fill="#E879F9"/>
     </symbol></defs></svg>
 
   <aside id="side">
     <div class="brand">
-      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="VidyaPulse" onerror="this.remove()"></span>
+      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="VidyaPulse" onerror="this.remove()"></span>
       <div class="bt">VidyaPulse<small>powered by ExtraaEdge</small></div>
     </div>
     <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Score Your Live Leads</a>
@@ -354,6 +368,30 @@ const VP=(function(){
   function ring(node,to,ms){let v=0;const step=to/(ms/16);
     const b=node.querySelector('b');
     const iv=setInterval(()=>{v+=step;if(v>=to){v=to;clearInterval(iv);}node.style.setProperty('--v',v);if(b)b.textContent=Math.round(v);},16);}
+
+  // smart scroll: the feed keeps building, but if the user scrolls up to read,
+  // new cards queue behind a "Jump to latest" pill instead of yanking the view.
+  const SS=(function(){
+    let stick=true,n=0,touching=false;
+    const pill=el('div','','<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg> New updates <b>0</b> · Jump to latest');
+    pill.id='jumpPill'; document.getElementById('main').appendChild(pill);
+    const nearBottom=()=>stage.scrollHeight-stage.scrollTop-stage.clientHeight<100;
+    stage.addEventListener('wheel',e=>{if(e.deltaY<0)stick=false;},{passive:true});
+    stage.addEventListener('touchstart',()=>{touching=true;},{passive:true});
+    stage.addEventListener('touchend',()=>{touching=false;},{passive:true});
+    stage.addEventListener('scroll',()=>{
+      if(nearBottom()){stick=true;n=0;pill.classList.remove('show');}
+      else if(touching){stick=false;}
+    },{passive:true});
+    function push(){
+      if(stick){requestAnimationFrame(()=>stage.scrollTo({top:stage.scrollHeight,behavior:'smooth'}));}
+      else{n++;pill.querySelector('b').textContent=n;pill.classList.add('show');}
+    }
+    function jump(){stick=true;n=0;pill.classList.remove('show');stage.scrollTo({top:stage.scrollHeight,behavior:'smooth'});}
+    function reset(){stick=true;n=0;pill.classList.remove('show');stage.scrollTop=0;}
+    pill.onclick=jump;
+    return{push,jump,reset};
+  })();
 
   // ---------------- data ----------------
   const LEADS=[
@@ -394,7 +432,7 @@ const VP=(function(){
   ];
 
   const LOGO='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg';
-  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
+  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
   const ORDER=[['ovv','What is VidyaPulse?','star'],['list','My Priority List (HOT)','flame'],['dd','Why is Priya HOT? — Signals','pulse'],
                ['mgr','Manager — Team View','chart'],['about','About VidyaPulse','info']];
   const ICONS={
@@ -413,7 +451,7 @@ const VP=(function(){
   // ---------------- priority list view ----------------
   async function viewList(){
     const my=++token; doneCount=0;
-    inner.innerHTML='';
+    inner.innerHTML=''; SS.reset();
     ctitle.textContent='My Priority List — Today';
     csub.textContent='Good morning, Priya. VidyaPulse finished scoring while you slept.';
     await sleep(250); if(my!==token)return;
@@ -443,7 +481,7 @@ const VP=(function(){
     for(let i=0;i<LEADS.length;i++){
       if(my!==token)return;
       addLead(LEADS[i],i,my);
-      await sleep(560);
+      await sleep(950);
     }
   }
 
@@ -472,17 +510,17 @@ const VP=(function(){
       if(pb){pb.style.width=(doneCount/5*100)+'%';pp.textContent=doneCount+' / 5';}
       if(doneCount===5&&my===token){
         const d=el('div','alldone rise','<div class="alldone-ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></div><div><b>All 5 HOT leads actioned before lunch 🎯</b><span>Same team, more output — VidyaPulse users convert 2× faster from enquiry to enrolment.</span></div>');
-        inner.appendChild(d); d.scrollIntoView({behavior:'smooth',block:'end'});
+        inner.appendChild(d); SS.push();
       }
     };
-    card.scrollIntoView({behavior:'smooth',block:'end'});
+    SS.push();
   }
 
   // ---------------- deep-dive view ----------------
   async function deepDive(L){
     const my=++token; L=L||LEADS[0];
     setActive('dd');
-    inner.innerHTML='';
+    inner.innerHTML=''; SS.reset();
     ctitle.textContent='Signal Deep-Dive — '+L.n;
     csub.textContent='How VidyaPulse computed this score from live behaviour.';
     const back=el('div','backrow rise','<button class="backbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Back to priority list</button>');
@@ -499,21 +537,21 @@ const VP=(function(){
     for(const [em,t,s,pts] of L.tl){
       if(my!==token)return;
       const li=el('div','tli rise','<div class="tcard"><span class="em">'+em+'</span><div class="tx"><b>'+t+'</b><span>'+s+'</span></div><span class="pts'+(pts.startsWith('-')?' neg':'')+'">'+pts+'</span></div>');
-      tl.appendChild(li); li.scrollIntoView({behavior:'smooth',block:'end'});
-      await sleep(430);
+      tl.appendChild(li); SS.push();
+      await sleep(700);
     }
     if(my!==token)return;
     ring(head.querySelector('.ring'),L.score,1000);
     await sleep(700); if(my!==token)return;
     const v=el('div','verdict rise','<div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg></div>'+
       '<div><b>VidyaPulse verdict — '+L.score+'/100 · HOT</b><p>'+L.why+' This score refreshes every 24 hours as behaviour changes — so you never call at the wrong moment.</p></div>');
-    inner.appendChild(v); v.scrollIntoView({behavior:'smooth',block:'end'});
+    inner.appendChild(v); SS.push();
   }
 
   // ---------------- manager view ----------------
   async function viewMgr(){
     const my=++token;
-    inner.innerHTML='';
+    inner.innerHTML=''; SS.reset();
     ctitle.textContent='Manager — Team Performance';
     csub.textContent='Who is acting on HOT leads, and where conversion is leaking.';
     await sleep(200); if(my!==token)return;
@@ -631,7 +669,7 @@ const VP=(function(){
     inner.appendChild(o);
     o.querySelector('#goDemo').onclick=()=>select('list');
     o.querySelector('#goDemo2').onclick=()=>select('list');
-    stage.scrollTop=0;
+    SS.reset();
   }
 
   function toggleNav(force){

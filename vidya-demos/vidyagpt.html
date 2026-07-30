@@ -44,7 +44,13 @@
   .side-foot .ava svg{width:18px;height:18px}
 
   /* ===================== MAIN ===================== */
-  #main{flex:1;height:100%;display:flex;flex-direction:column;background:var(--white);min-width:0}
+  #main{flex:1;height:100%;display:flex;flex-direction:column;background:var(--white);min-width:0;position:relative}
+  #jumpPill{position:absolute;left:50%;bottom:118px;transform:translateX(-50%) translateY(10px);z-index:30;display:inline-flex;align-items:center;gap:9px;
+    padding:11px 19px;border-radius:999px;background:rgba(15,35,71,.94);color:#fff;font-weight:700;font-size:13px;cursor:pointer;border:1px solid rgba(34,211,238,.35);
+    box-shadow:0 14px 34px rgba(15,35,71,.45);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;backdrop-filter:blur(8px)}
+  #jumpPill.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  #jumpPill b{background:#22D3EE;color:#06283A;border-radius:999px;min-width:21px;height:21px;display:inline-grid;place-items:center;font-size:11.5px;padding:0 6px}
+  #jumpPill svg{width:14px;height:14px}
   #top{padding:18px 36px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto;display:flex;align-items:center;gap:14px}
   .thead{flex:1;min-width:0}
   .menu-btn{display:none;width:44px;height:44px;border-radius:11px;border:1px solid var(--line);background:#fff;cursor:pointer;
@@ -265,11 +271,18 @@
       <path d="M50,64 C39,57 27,55 17,57 C15.5,57.3 15,58.2 15,59.7 L15,82 C15,83.6 15.7,84.6 17,84.8 C29,86 41,88.5 50,93 Z" fill="url(#vg-bookL)"/>
       <path d="M50,64 C61,57 73,55 83,57 C84.5,57.3 85,58.2 85,59.7 L85,82 C85,83.6 84.3,84.6 83,84.8 C71,86 59,88.5 50,93 Z" fill="url(#vg-bookR)"/>
       <circle cx="50" cy="33" r="16" fill="url(#vg-head)"/>
+    </symbol>
+    <linearGradient id="lgA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#8A7CFF"/></linearGradient>
+    <symbol id="plogo" viewBox="0 0 120 120">
+      <path d="M60 16c27 0 46 16.5 46 39 0 22.5-19 39-46 39-5.2 0-10.2-.6-14.9-1.8L24 102l5-18.2C19.6 76.5 14 66.7 14 55c0-22.5 19-39 46-39z" fill="url(#lgA)"/>
+      <path d="M60 36 Q63 50 76 53 Q63 56 60 70 Q57 56 44 53 Q57 50 60 36 Z" fill="#fff"/>
+      <path d="M82 68 Q83.5 74 89 75.5 Q83.5 77 82 83 Q80.5 77 75 75.5 Q80.5 74 82 68 Z" fill="#fff" opacity=".85"/>
+      <path d="M101 22 Q102.5 28.5 109 30 Q102.5 31.5 101 38 Q99.5 31.5 93 30 Q99.5 28.5 101 22 Z" fill="#E879F9"/>
     </symbol></defs></svg>
 
   <aside id="side">
     <div class="brand">
-      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="VidyaGPT" onerror="this.remove()"></span>
+      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="VidyaGPT" onerror="this.remove()"></span>
       <div class="bt">VidyaGPT<small>powered by ExtraaEdge</small></div>
     </div>
     <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Add Your University / Institute</a>
@@ -308,7 +321,7 @@ const VG=(function(){
   const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const LOGO='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg';
-  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
+  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
   const logoSvg=brandImg('');
   const PE='powered by ExtraaEdge';
 
@@ -387,7 +400,31 @@ const VG=(function(){
 
   // ---------- helpers ----------
   function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
-  function scroll(){msgs.scrollTop=msgs.scrollHeight;}
+
+  // smart scroll: conversation keeps flowing; the user can scroll up and read history
+  // without being yanked down — new messages queue behind a "Jump to latest" pill.
+  const SS=(function(){
+    let stick=true,n=0,touching=false;
+    const pill=el('div','','<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg> New messages <b>0</b> · Jump to latest');
+    pill.id='jumpPill'; document.getElementById('main').appendChild(pill);
+    const nearBottom=()=>msgs.scrollHeight-msgs.scrollTop-msgs.clientHeight<100;
+    msgs.addEventListener('wheel',e=>{if(e.deltaY<0)stick=false;},{passive:true});
+    msgs.addEventListener('touchstart',()=>{touching=true;},{passive:true});
+    msgs.addEventListener('touchend',()=>{touching=false;},{passive:true});
+    msgs.addEventListener('scroll',()=>{
+      if(nearBottom()){stick=true;n=0;pill.classList.remove('show');}
+      else if(touching){stick=false;}
+    },{passive:true});
+    function push(){
+      if(stick){requestAnimationFrame(()=>{msgs.scrollTop=msgs.scrollHeight;});}
+      else{n++;pill.querySelector('b').textContent=n;pill.classList.add('show');}
+    }
+    function jump(){stick=true;n=0;pill.classList.remove('show');msgs.scrollTo({top:msgs.scrollHeight,behavior:'smooth'});}
+    function reset(){stick=true;n=0;pill.classList.remove('show');msgs.scrollTop=0;}
+    pill.onclick=jump;
+    return{push,jump,reset};
+  })();
+  function scroll(){SS.push();}
   function addUser(text){const m=el('div','m user');m.appendChild(el('div','av me','You'));
     const c=el('div','col');c.appendChild(el('div','who','You'));c.appendChild(el('div','bub',esc(text)));m.appendChild(c);inner.appendChild(m);scroll();}
   function aiShell(){const m=el('div','m ai');m.appendChild(el('div','av ai',logoSvg));
@@ -432,33 +469,35 @@ const VG=(function(){
   let token=0;
   function setComposer(text,active){ph.textContent=text;ph.classList.toggle('act',!!active);}
   async function typeUserInComposer(text,my){
-    for(let i=0;i<=text.length;i+=2){if(my!==token)return;setComposer(text.slice(0,i)||' ',true);await sleep(18);}
-    setComposer(text,true);await sleep(160);
+    for(let i=0;i<=text.length;i+=2){if(my!==token)return;setComposer(text.slice(0,i)||' ',true);await sleep(27);}
+    setComposer(text,true);await sleep(300);
   }
   async function play(key){
     const my=++token; const conv=CONV[key];
     inner.innerHTML=''; hint.classList.remove('show'); setComposer('Ask about admissions, tuition, requirements…',false);
+    SS.reset();
     ctitle.textContent=conv.title; csub.textContent=conv.sub;
-    await sleep(350);
+    await sleep(500);
     for(const turn of conv.turns){
       if(my!==token)return;
       const [role,text,card]=turn;
       if(role===U){
         await typeUserInComposer(text,my); if(my!==token)return;
         addUser(text); setComposer('Ask about admissions, tuition, requirements…',false);
-        await sleep(450);
+        await sleep(1000);
       } else {
-        const ty=addTyping(); await sleep(700+Math.min(text.length*4,900)); if(my!==token){ty.remove();return;}
+        const ty=addTyping(); await sleep(1100+Math.min(text.length*9,2600)); if(my!==token){ty.remove();return;}
         ty.remove();
         if(card==='slots'){
           const c=addAI(text); const sel=await waitSlots(c,my); if(my!==token||!sel)return;
           // final scheduled message + confirmation, using the user's chosen day & time
-          await sleep(500); const ty2=addTyping(); await sleep(900); if(my!==token){ty2.remove();return;} ty2.remove();
+          await sleep(700); const ty2=addTyping(); await sleep(1400); if(my!==token){ty2.remove();return;} ty2.remove();
           const fc=addAI("Great! Your information session is scheduled for "+sel.day+" at "+sel.time+". You'll receive a confirmation email with all the details. We look forward to helping you with your application!");
           fc.appendChild(el('div','done','<div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></div><div><b>Counseling Session Scheduled!</b><span>'+sel.day+' · '+sel.time+' — check your email for confirmation details</span></div>'));
           scroll();
         } else {
-          addAI(text,card); await sleep(700+Math.min(text.length*3,800));
+          // dwell long enough that a reader can actually finish the message
+          addAI(text,card); await sleep(1300+Math.min(text.length*17,4600));
         }
       }
     }
@@ -479,6 +518,7 @@ const VG=(function(){
   }
   function aboutView(){
     inner.innerHTML=''; hint.classList.remove('show'); setComposer('Ask about admissions, tuition, requirements…',false);
+    SS.reset();
     ctitle.textContent='About VidyaGPT'; csub.textContent='Your AI companion for education admissions.';
     inner.appendChild(el('div','aboutcard',
       brandImg('lg')+
@@ -490,6 +530,7 @@ const VG=(function(){
   // ---------- overview / product story ----------
   function viewOvv(){
     inner.innerHTML=''; hint.classList.remove('show'); setComposer('Ask about admissions, tuition, requirements…',false);
+    SS.reset();
     ctitle.textContent='What is VidyaGPT?'; csub.textContent='Understand the product in 60 seconds — then watch it counsel a student live.';
     const o=el('div','ovv');
     o.innerHTML=

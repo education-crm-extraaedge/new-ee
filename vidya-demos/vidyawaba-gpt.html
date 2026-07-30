@@ -68,7 +68,12 @@
 
   /* ===================== PHONE / WHATSAPP ===================== */
   #phone{background:#0B0F14;border-radius:34px;padding:11px;box-shadow:0 24px 60px rgba(15,35,71,.35);position:sticky;top:2px}
-  #pscreen{border-radius:26px;overflow:hidden;display:flex;flex-direction:column;height:min(640px,calc(100vh - 210px));min-height:480px;background:var(--wa-bg)}
+  #pscreen{position:relative;border-radius:26px;overflow:hidden;display:flex;flex-direction:column;height:min(640px,calc(100vh - 210px));min-height:480px;background:var(--wa-bg)}
+  .wjump{position:absolute;left:50%;bottom:68px;transform:translateX(-50%) translateY(8px);z-index:20;display:inline-flex;align-items:center;gap:7px;
+    padding:9px 15px;border-radius:999px;background:rgba(7,94,84,.96);color:#fff;font-weight:700;font-size:11.5px;cursor:pointer;
+    box-shadow:0 10px 24px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;font-family:var(--font-b)}
+  .wjump.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  .wjump b{background:#25D366;color:#06283A;border-radius:999px;min-width:18px;height:18px;display:inline-grid;place-items:center;font-size:10px;padding:0 5px}
   #wahead{background:var(--wa-dark);color:#fff;padding:11px 14px;display:flex;align-items:center;gap:11px;flex:0 0 auto}
   #wahead .back{font-size:19px;opacity:.9}
   #wahead .wava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#22D3EE,#8A7CFF);display:grid;place-items:center;flex:0 0 auto}
@@ -278,11 +283,17 @@
       <path d="M50,64 C39,57 27,55 17,57 C15.5,57.3 15,58.2 15,59.7 L15,82 C15,83.6 15.7,84.6 17,84.8 C29,86 41,88.5 50,93 Z" fill="url(#vg-bookL)"/>
       <path d="M50,64 C61,57 73,55 83,57 C84.5,57.3 85,58.2 85,59.7 L85,82 C85,83.6 84.3,84.6 83,84.8 C71,86 59,88.5 50,93 Z" fill="url(#vg-bookR)"/>
       <circle cx="50" cy="33" r="16" fill="url(#vg-head)"/>
+    </symbol>
+    <linearGradient id="lgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#25D366"/><stop offset="1" stop-color="#128C7E"/></linearGradient>
+    <symbol id="plogo" viewBox="0 0 120 120">
+      <path d="M60 14c26 0 45 17 45 39.5S86 93 60 93c-6.6 0-12.8-1-18.4-3L20 96l6.4-19.3C21 70 18 62.2 18 53.5 18 31 34 14 60 14z" fill="url(#lgG)"/>
+      <path d="M46 36c2.6-1.7 5.7-.9 7 1.7l2.2 4.3c1.1 2.2.4 4.8-1.5 6.2l-2.2 1.6c1.8 4.4 5.3 7.9 9.7 9.7l1.6-2.2c1.4-1.9 4-2.6 6.2-1.5l4.3 2.2c2.6 1.3 3.4 4.4 1.7 7-2.6 4-7 6.6-11.9 5.7-13.4-2.4-24-13-26.4-26.4-.9-4.9 1.7-9.3 5.7-11.9z" fill="#fff"/>
+      <path d="M98 88 Q99.8 94.5 106 96 Q99.8 97.5 98 104 Q96.2 97.5 90 96 Q96.2 94.5 98 88 Z" fill="#E879F9"/>
     </symbol></defs></svg>
 
   <aside id="side">
     <div class="brand">
-      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="VidyaWABA GPT" onerror="this.remove()"></span>
+      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="VidyaWABA GPT" onerror="this.remove()"></span>
       <div class="bt">VidyaWABA GPT<small>powered by ExtraaEdge</small></div>
     </div>
     <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Try It on Your WA Number</a>
@@ -365,7 +376,7 @@ const VW=(function(){
     ]},
   };
   const LOGO='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg';
-  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
+  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
   const ORDER=[['ovv','What is VidyaWABA GPT?'],['night','11:47 PM — MBA Fee Enquiry'],['visit','Campus Visit — WA Buttons'],
                ['follow','Day-3 Proactive Follow-up'],['about','About VidyaWABA GPT']];
   ORDER.forEach(([k,label])=>{
@@ -403,7 +414,9 @@ const VW=(function(){
       '<div class="crm-note"><b>Every WhatsApp message becomes CRM intelligence</b> — lead captured, profile enriched, VidyaPulse re-scored, counselor notified on hot intent. No manual data entry, ever.</div></div>'+
       '<div class="kpis"><div class="kpi"><b>98%</b><span>WA open rate</span></div><div class="kpi"><b class="acc">&lt;3s</b><span>reply time 24×7</span></div><div class="kpi"><b>5×</b><span>vs broadcast response</span></div></div>';
     inner.appendChild(right);
-    return {chat:ph.querySelector('#wachat'),feed:right.querySelector('#crmfeed'),waph:ph.querySelector('#waph'),hint};
+    const chat=ph.querySelector('#wachat');
+    WSS=makeSS(chat,ph.querySelector('#pscreen'));
+    return {chat,feed:right.querySelector('#crmfeed'),waph:ph.querySelector('#waph'),hint};
   }
 
   function fmtText(t){
@@ -411,7 +424,26 @@ const VW=(function(){
     s=s.replace(/\*([^*\n]+)\*/g,'<b>$1</b>');
     return s;
   }
-  function wscroll(chat){chat.scrollTop=chat.scrollHeight;}
+  // smart scroll inside the phone: chat keeps flowing, user can swipe up and read
+  // history freely — new messages queue behind a WhatsApp-style "new messages" pill.
+  let WSS=null;
+  function makeSS(chat,screen){
+    let stick=true,n=0,touching=false;
+    const pill=el('div','wjump','↓ New messages <b>0</b> · Jump to latest');
+    screen.appendChild(pill);
+    const nearBottom=()=>chat.scrollHeight-chat.scrollTop-chat.clientHeight<80;
+    chat.addEventListener('wheel',e=>{if(e.deltaY<0)stick=false;},{passive:true});
+    chat.addEventListener('touchstart',()=>{touching=true;},{passive:true});
+    chat.addEventListener('touchend',()=>{touching=false;},{passive:true});
+    chat.addEventListener('scroll',()=>{
+      if(nearBottom()){stick=true;n=0;pill.classList.remove('show');}
+      else if(touching){stick=false;}
+    },{passive:true});
+    pill.onclick=()=>{stick=true;n=0;pill.classList.remove('show');chat.scrollTo({top:chat.scrollHeight,behavior:'smooth'});};
+    return{push(){if(stick){requestAnimationFrame(()=>{chat.scrollTop=chat.scrollHeight;});}
+                  else{n++;pill.querySelector('b').textContent=n;pill.classList.add('show');}}};
+  }
+  function wscroll(chat){if(WSS)WSS.push();else chat.scrollTop=chat.scrollHeight;}
   function addMsg(chat,who,html,time){
     const m=el('div','wmsg '+(who==='u'?'out':'in'),
       (who==='a'?'<div class="bname">VidyaWABA GPT · AI</div>':'')+html+
@@ -432,8 +464,8 @@ const VW=(function(){
   }
 
   async function typeInComposer(waph,text,my){
-    for(let i=0;i<=text.length;i+=2){if(my!==token)return;waph.textContent=text.slice(0,i)||' ';waph.classList.add('act');await sleep(15);}
-    await sleep(140);
+    for(let i=0;i<=text.length;i+=2){if(my!==token)return;waph.textContent=text.slice(0,i)||' ';waph.classList.add('act');await sleep(25);}
+    await sleep(320);
   }
   function resetComposer(waph){waph.textContent='Message';waph.classList.remove('act');}
 
@@ -451,19 +483,19 @@ const VW=(function(){
         await typeInComposer(S.waph,text,my);if(my!==token)return;
         resetComposer(S.waph);
         addMsg(S.chat,'u',fmtText(text),time);
-        (crm||[]).forEach((e,j)=>setTimeout(()=>{if(my===token)crmEvent(S.feed,e);},350+j*450));
-        ti+=1;await sleep(600);
+        (crm||[]).forEach((e,j)=>setTimeout(()=>{if(my===token)crmEvent(S.feed,e);},500+j*650));
+        ti+=1;await sleep(1200);
       }else{
         const st=document.getElementById('wast');if(st)st.textContent='typing…';
         const ty=el('div','wtyping','<i></i><i></i><i></i>');S.chat.appendChild(ty);wscroll(S.chat);
-        await sleep(650+Math.min(text.length*3.5,1400));if(my!==token){ty.remove();return;}
+        await sleep(1000+Math.min(text.length*8,2800));if(my!==token){ty.remove();return;}
         ty.remove();if(st)st.textContent='VidyaWABA GPT · online 24×7';
         let html=fmtText(text);
         if(extra==='doc')html+='<div class="wdoc"><div class="di">PDF</div><div><b>EE-Edge-Brochure-2026.pdf</b><span>2.4 MB · 18 pages</span></div><div class="dl">↓</div></div>';
         if(extra==='cal')html+='<div class="wcard"><b>📅 Campus Open Day — booked</b><span id="calslot">Slot confirmed · AI & Robotics lab tour included\nGate 2, EE Edge Campus · show this chat at entry</span></div>';
         if(extra==='card')html+='<div class="wcard"><b>✅ Saturday visit — provisionally reserved</b><span>10:00 AM batch · counselor Priya will confirm by 10 AM tomorrow</span></div>';
         const msg=addMsg(S.chat,'a',html,time);
-        (crm||[]).forEach((e,j)=>setTimeout(()=>{if(my===token)crmEvent(S.feed,e);},350+j*450));
+        (crm||[]).forEach((e,j)=>setTimeout(()=>{if(my===token)crmEvent(S.feed,e);},500+j*650));
         // interactive WA reply buttons
         if(extra==='btns'){
           const btns=el('div','wbtns',
@@ -492,13 +524,14 @@ const VW=(function(){
           const cs=msg.querySelector('#calslot');
           if(cs)cs.innerHTML=esc(window.__waChoice)+' · AI &amp; Robotics lab tour included<br>Gate 2, EE Edge Campus · show this chat at entry';
         }
-        ti+=1;await sleep(750);
+        // dwell long enough that the reply can actually be read before the next turn
+        ti+=1;await sleep(1300+Math.min(text.length*15,4200));
       }
     }
   }
 
   function aboutView(){
-    ++token;
+    ++token; WSS=null;
     ctitle.textContent='About VidyaWABA GPT';csub.textContent='The power of VidyaGPT on WhatsApp Business Enterprise.';
     inner.innerHTML='';
     const w=el('div','aboutwrap rise');
@@ -516,7 +549,7 @@ const VW=(function(){
   }
   // ---------------- overview / product story ----------------
   function viewOvv(){
-    ++token;
+    ++token; WSS=null;
     ctitle.textContent='What is VidyaWABA GPT?';
     csub.textContent='Understand the product in 60 seconds — then watch a live WhatsApp conversation.';
     inner.innerHTML='';
