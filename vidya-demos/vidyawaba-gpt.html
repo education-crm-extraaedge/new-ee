@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VidyaWABA GPT — VidyaGPT on WhatsApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#0F2347; --navy-2:#16315F; --teal:#06B6D4; --teal-2:#22D3EE;
+    --wa-dark:#075E54; --wa-green:#128C7E; --wa-out:#DCF8C6; --wa-bg:#ECE1D5;
+    --ink:#0F172A; --muted:#64748B; --line:#E6EBF2; --bg:#F4F7FB; --white:#fff;
+    --font-h:'Plus Jakarta Sans',system-ui,sans-serif; --font-b:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow:hidden}
+  body{font-family:var(--font-b);color:var(--ink);-webkit-font-smoothing:antialiased;background:var(--bg)}
+  #app{position:fixed;inset:0;display:flex;background:var(--bg)}
+
+  /* ===================== SIDEBAR ===================== */
+  #side{width:clamp(260px,22vw,340px);flex:0 0 auto;height:100%;background:linear-gradient(180deg,#0F2347,#0B1B3A);
+    color:#CFE0F5;display:flex;flex-direction:column;padding:20px 16px;border-right:1px solid rgba(255,255,255,.06)}
+  .brand{display:flex;align-items:center;gap:12px;padding:4px 6px 16px}
+  .brand .lm{width:40px;height:40px;filter:drop-shadow(0 3px 8px rgba(255,120,180,.3))}
+  .brand .bt{font-family:var(--font-h);font-weight:800;font-size:18px;color:#fff;line-height:1.15}
+  .brand .bt small{display:block;font-family:var(--font-b);font-weight:500;font-size:11px;color:#7E9AC4;margin-top:3px}
+  .newchat{display:flex;align-items:center;gap:10px;margin:4px 0 18px;padding:12px 15px;border-radius:12px;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:700;font-size:14.5px;cursor:pointer;
+    text-decoration:none;box-shadow:0 8px 20px rgba(6,182,212,.32);transition:transform .15s}
+  .newchat:hover{transform:translateY(-1px)}
+  .newchat svg{width:17px;height:17px}
+  .hist-lbl{font-size:11px;font-weight:700;letter-spacing:.14em;color:#6E89B5;padding:0 8px 9px}
+  .hist{display:flex;flex-direction:column;gap:5px}
+  .hi{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;font-size:13.8px;color:#B9CCE8;
+    font-weight:500;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid transparent;transition:background .15s,color .15s}
+  .hi svg{width:16px;height:16px;flex:0 0 auto;opacity:.7}
+  .hi:hover{background:rgba(255,255,255,.05);color:#E4EEFC}
+  .hi.active{background:rgba(34,211,238,.12);color:#fff;border-color:rgba(34,211,238,.25);font-weight:600}
+  .side-foot{margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:11px;
+    font-size:13.5px;color:#9DB3D6;font-weight:500}
+  .side-foot .ava{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.08);display:grid;place-items:center}
+  .side-foot .ava svg{width:18px;height:18px}
+
+  /* ===================== MAIN ===================== */
+  #main{flex:1;height:100%;display:flex;flex-direction:column;background:var(--white);min-width:0}
+  #top{padding:16px 32px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto;display:flex;align-items:center;gap:14px}
+  .thead{flex:1;min-width:0}
+  .menu-btn{display:none;width:44px;height:44px;border-radius:11px;border:1px solid var(--line);background:#fff;cursor:pointer;
+    flex:0 0 auto;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+  .menu-btn svg{width:23px;height:23px}
+  #ov{position:fixed;inset:0;background:rgba(8,16,34,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:40}
+  #ov.show{opacity:1;pointer-events:auto}
+  #top h2{font-family:var(--font-h);font-weight:800;font-size:20px;color:var(--navy)}
+  #top p{font-size:13px;color:var(--muted);margin-top:3px}
+  #top .crumb{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;color:var(--teal);
+    background:rgba(6,182,212,.10);border:1px solid rgba(6,182,212,.22);padding:4px 11px;border-radius:999px;margin-bottom:8px}
+  #top .crumb i{width:7px;height:7px;border-radius:50%;background:#22C55E;display:inline-block;box-shadow:0 0 8px #22C55E;animation:bl 1.6s infinite}
+  @keyframes bl{0%,100%{opacity:1}50%{opacity:.4}}
+
+  #stage{flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 0;scroll-behavior:smooth}
+  #stage::-webkit-scrollbar{width:9px}#stage::-webkit-scrollbar-thumb{background:#D5DEEA;border-radius:9px}
+  .inner{max-width:1020px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:400px 1fr;gap:22px;align-items:start}
+  .rise{animation:rise .45s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+  /* ===================== PHONE / WHATSAPP ===================== */
+  #phone{background:#0B0F14;border-radius:34px;padding:11px;box-shadow:0 24px 60px rgba(15,35,71,.35);position:sticky;top:2px}
+  #pscreen{border-radius:26px;overflow:hidden;display:flex;flex-direction:column;height:min(640px,calc(100vh - 210px));min-height:480px;background:var(--wa-bg)}
+  #wahead{background:var(--wa-dark);color:#fff;padding:11px 14px;display:flex;align-items:center;gap:11px;flex:0 0 auto}
+  #wahead .back{font-size:19px;opacity:.9}
+  #wahead .wava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#22D3EE,#8A7CFF);display:grid;place-items:center;flex:0 0 auto}
+  #wahead .wava svg{width:26px;height:26px}
+  #wahead .wt{flex:1;min-width:0}
+  #wahead .wt b{font-size:14.5px;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden}
+  #wahead .wt b .vf{width:14px;height:14px;border-radius:50%;background:#25D366;display:inline-grid;place-items:center;flex:0 0 auto}
+  #wahead .wt b .vf svg{width:8px;height:8px}
+  #wahead .wt span{font-size:11.5px;color:#B9E8DF;display:block;margin-top:1px}
+  #wahead .icons{display:flex;gap:16px;font-size:16px;opacity:.9}
+
+  #wachat{flex:1;overflow-y:auto;padding:12px 10px;background:
+    linear-gradient(rgba(236,225,213,.93),rgba(236,225,213,.93)),
+    repeating-linear-gradient(45deg,#D8CCBC 0 2px,transparent 2px 14px)}
+  #wachat::-webkit-scrollbar{width:5px}#wachat::-webkit-scrollbar-thumb{background:#C9BBA8;border-radius:5px}
+  .datechip{align-self:center;margin:4px auto 10px;width:fit-content;font-size:11px;font-weight:600;color:#5A6B7C;background:#E4EFF7;
+    border-radius:8px;padding:4px 10px;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+  .enc{width:fit-content;max-width:86%;margin:0 auto 12px;font-size:10.8px;color:#857250;background:#FCF3CF;border-radius:8px;padding:6px 10px;
+    text-align:center;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+  .wmsg{max-width:82%;margin-bottom:7px;padding:7px 9px 5px;border-radius:9px;position:relative;font-size:13.6px;line-height:1.45;color:#111B21;
+    box-shadow:0 1px 1px rgba(0,0,0,.1);animation:rise .3s both;white-space:pre-wrap;word-wrap:break-word}
+  .wmsg.in{background:#fff;border-top-left-radius:2px;margin-right:auto}
+  .wmsg.out{background:var(--wa-out);border-top-right-radius:2px;margin-left:auto}
+  .wmsg .meta{display:flex;justify-content:flex-end;align-items:center;gap:3px;font-size:10.3px;color:#8696A0;margin-top:3px;line-height:1}
+  .wmsg .ticks{color:#53BDEB;font-size:11px;letter-spacing:-2px}
+  .wmsg .bname{font-size:11.5px;font-weight:700;color:var(--wa-green);margin-bottom:2px}
+  .wtyping{width:58px;padding:11px 13px;background:#fff;border-radius:9px;border-top-left-radius:2px;margin-bottom:7px;display:flex;gap:5px;box-shadow:0 1px 1px rgba(0,0,0,.1)}
+  .wtyping i{width:7px;height:7px;border-radius:50%;background:#9FB6C4;animation:tp 1s infinite}
+  .wtyping i:nth-child(2){animation-delay:.15s}.wtyping i:nth-child(3){animation-delay:.3s}
+  @keyframes tp{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-5px);opacity:1}}
+
+  /* doc bubble */
+  .wdoc{display:flex;align-items:center;gap:10px;background:#F5F6F6;border-radius:8px;padding:9px 11px;margin:2px 0 4px;cursor:pointer}
+  .wdoc .di{width:36px;height:36px;border-radius:8px;background:#E53E3E;display:grid;place-items:center;color:#fff;font-size:9.5px;font-weight:800;flex:0 0 auto}
+  .wdoc b{font-size:12.8px;color:#111B21;display:block}
+  .wdoc span{font-size:10.8px;color:#8696A0}
+  .wdoc .dl{margin-left:auto;width:30px;height:30px;border-radius:50%;border:1.6px solid #8696A0;display:grid;place-items:center;color:#8696A0;flex:0 0 auto;font-size:13px}
+
+  /* WA reply buttons */
+  .wbtns{max-width:82%;margin:0 0 7px;display:flex;flex-direction:column;gap:5px}
+  .wbtn{background:#fff;border:0;border-radius:9px;padding:10px 12px;font-size:13.4px;font-weight:600;color:#00A5F4;cursor:pointer;
+    box-shadow:0 1px 1px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;gap:8px;transition:background .13s;font-family:var(--font-b)}
+  .wbtn:hover{background:#F0FAFF}
+  .wbtn:disabled{opacity:.5;cursor:default}
+
+  /* calendar/confirm card inside bubble */
+  .wcard{background:#F0FDF7;border:1px solid #B7EBD0;border-radius:9px;padding:10px 12px;margin:3px 0 4px}
+  .wcard b{font-size:13px;color:#0B6B4F;display:flex;align-items:center;gap:7px}
+  .wcard span{display:block;font-size:12px;color:#33564A;margin-top:4px;line-height:1.5}
+
+  #wafoot{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:8px 9px;background:#F0F2F5}
+  #wafoot .field{flex:1;background:#fff;border-radius:999px;padding:10px 15px;font-size:13.5px;color:#8696A0;display:flex;align-items:center;gap:9px;min-width:0}
+  #wafoot .field .emoji{font-size:16px;flex:0 0 auto}
+  #wafoot .field .txt{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #wafoot .field .txt.act{color:#111B21}
+  #wafoot .mic{width:42px;height:42px;border-radius:50%;background:#00897B;display:grid;place-items:center;flex:0 0 auto;box-shadow:0 3px 8px rgba(0,0,0,.25)}
+  #wafoot .mic svg{width:19px;height:19px}
+
+  /* ===================== CRM PANEL ===================== */
+  #crm{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 26px rgba(15,35,71,.08)}
+  #crm .chh{padding:15px 19px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  #crm .chh .cic{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#16315F,#0F2347);display:grid;place-items:center;flex:0 0 auto}
+  #crm .chh .cic svg{width:19px;height:19px}
+  #crm .chh b{font-family:var(--font-h);font-size:15px;color:var(--navy);display:block}
+  #crm .chh span{font-size:11.5px;color:var(--muted);font-weight:600}
+  #crm .chh .sy{margin-left:auto;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:#0A6E84;background:rgba(6,182,212,.1);
+    border:1px solid rgba(6,182,212,.3);padding:4px 9px;border-radius:999px;flex:0 0 auto}
+  #crmfeed{padding:8px 19px 14px;min-height:180px}
+  .cev{display:flex;gap:11px;padding:10px 0;border-bottom:1px dashed #EDF1F7;animation:rise .35s both}
+  .cev:last-child{border-bottom:0}
+  .cev .ei{width:32px;height:32px;border-radius:9px;flex:0 0 auto;display:grid;place-items:center;font-size:15px}
+  .cev .ei.cap{background:#ECFDF5}.cev .ei.upd{background:#F0FDFF}.cev .ei.pulse{background:#FEF2F2}.cev .ei.task{background:#F5F0FF}.cev .ei.doc{background:#FFFBEB}
+  .cev .et b{font-size:13px;color:var(--navy);display:block;line-height:1.4}
+  .cev .et span{font-size:11.5px;color:var(--muted)}
+  .crm-empty{padding:26px 0;text-align:center;font-size:13px;color:#A0AEC2}
+  .crm-note{margin:14px 19px 17px;padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#F0FDFF,#F5F0FF);
+    border:1px solid rgba(6,182,212,.3);font-size:12.5px;color:#3A4D6C;line-height:1.6}
+  .crm-note b{color:var(--navy)}
+
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+  .kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 15px;text-align:center;box-shadow:0 6px 16px rgba(15,35,71,.05)}
+  .kpi b{font-family:var(--font-h);font-weight:800;font-size:22px;color:var(--navy);display:block}
+  .kpi span{font-size:11px;color:var(--muted);font-weight:600;display:block;margin-top:3px}
+  .kpi b.acc{color:var(--teal)}
+
+  .hintbar{grid-column:1/-1;font-size:12.5px;color:var(--teal);font-weight:600;text-align:center;display:none;margin-bottom:-8px}
+  .hintbar.show{display:block}
+
+  /* about */
+  .aboutwrap{grid-column:1/-1}
+  .aboutcard{margin:14px auto;max-width:660px;text-align:center;padding:40px 36px;border-radius:22px;
+    background:linear-gradient(160deg,#F7FBFF,#EEF4FF);border:1px solid #E3ECF7}
+  .aboutcard .lg{width:74px;height:74px;margin:0 auto 18px;filter:drop-shadow(0 6px 18px rgba(255,120,180,.3))}
+  .aboutcard h3{font-family:var(--font-h);font-weight:800;font-size:26px;color:var(--navy)}
+  .aboutcard .t{color:var(--teal);font-weight:700;margin:6px 0 16px;font-size:15px}
+  .aboutcard p{color:#3A4D6C;font-size:15.5px;line-height:1.7}
+  .stats-mini{display:flex;justify-content:center;gap:26px;margin-top:22px;flex-wrap:wrap}
+  .sm{min-width:100px}
+  .sm b{font-family:var(--font-h);font-weight:800;font-size:23px;color:var(--navy);display:block}
+  .sm span{font-size:12px;color:var(--muted);font-weight:600}
+
+  #foot{padding:11px 32px;border-top:1px solid var(--line);background:#fff;flex:0 0 auto;text-align:center;font-size:12px;color:#A0AEC2}
+
+  /* ===================== MOBILE ===================== */
+  @media (max-width:960px){
+    #side{position:fixed;z-index:50;left:0;top:0;height:100%;width:min(84vw,330px);
+      transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+      box-shadow:0 0 70px rgba(0,0,0,.45);padding:18px 14px}
+    #side.open{transform:none}
+    .menu-btn{display:inline-flex}
+    #top{padding:11px 14px;gap:10px}
+    #top h2{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #top p{font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #top .crumb{margin-bottom:5px;font-size:10.5px;padding:3px 9px}
+    #stage{padding:13px 0}
+    .inner{grid-template-columns:1fr;gap:15px;padding:0 12px}
+    #phone{position:static;border-radius:26px;padding:8px}
+    #pscreen{height:calc(100vh - 250px);min-height:430px;border-radius:20px}
+    .kpis{grid-template-columns:repeat(3,1fr);gap:8px}
+    .kpi{padding:11px 8px}.kpi b{font-size:17px}.kpi span{font-size:9.8px}
+    .aboutcard{padding:28px 20px}
+    .aboutcard h3{font-size:21px}.aboutcard p{font-size:14px}
+    #foot{padding:9px 13px;font-size:10.5px}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <linearGradient id="vg-head" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF86C9"/><stop offset="1" stop-color="#FF9559"/></linearGradient>
+    <linearGradient id="vg-bookL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB46A"/><stop offset="1" stop-color="#FF6FA3"/></linearGradient>
+    <linearGradient id="vg-bookR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#28D7F0"/><stop offset="1" stop-color="#8A7CFF"/></linearGradient>
+    <symbol id="vlogo" viewBox="0 0 120 120">
+      <path d="M93,15 C93,24.75 96.25,28 106,28 C96.25,28 93,31.25 93,41 C93,31.25 89.75,28 80,28 C89.75,28 93,24.75 93,15 Z" fill="#29D3F2"/>
+      <path d="M104,45 C104,50.25 105.75,52 111,52 C105.75,52 104,53.75 104,59 C104,53.75 102.25,52 97,52 C102.25,52 104,50.25 104,45 Z" fill="#E879F9"/>
+      <path d="M50,64 C39,57 27,55 17,57 C15.5,57.3 15,58.2 15,59.7 L15,82 C15,83.6 15.7,84.6 17,84.8 C29,86 41,88.5 50,93 Z" fill="url(#vg-bookL)"/>
+      <path d="M50,64 C61,57 73,55 83,57 C84.5,57.3 85,58.2 85,59.7 L85,82 C85,83.6 84.3,84.6 83,84.8 C71,86 59,88.5 50,93 Z" fill="url(#vg-bookR)"/>
+      <circle cx="50" cy="33" r="16" fill="url(#vg-head)"/>
+    </symbol></defs></svg>
+
+  <aside id="side">
+    <div class="brand">
+      <svg class="lm" viewBox="0 0 120 120"><use href="#vlogo"/></svg>
+      <div class="bt">VidyaWABA GPT<small>powered by ExtraaEdge</small></div>
+    </div>
+    <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Try It on Your WA Number</a>
+    <div class="hist-lbl">CONVERSATIONS</div>
+    <div class="hist" id="hist"></div>
+    <div class="side-foot"><div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#9DB3D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg></div> WhatsApp Business API · Official</div>
+  </aside>
+
+  <main id="main">
+    <div id="top">
+      <button class="menu-btn" aria-label="Menu" onclick="VW.toggleNav()"><svg viewBox="0 0 24 24" fill="none" stroke="#0F2347" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <div class="thead">
+        <div class="crumb"><i></i> VidyaWABA GPT · Live on WhatsApp Business</div>
+        <h2 id="ctitle">11:47 PM — MBA Fee Enquiry</h2>
+        <p id="csub">The full VidyaGPT engine, in the channel students already live in.</p>
+      </div>
+    </div>
+    <div id="stage"><div class="inner" id="inner"></div></div>
+    <div id="foot">98% open rate · &lt;3s replies · 1:1 conversations at any scale — built on the official WhatsApp Business API, fully compliant.</div>
+  </main>
+  <div id="ov" onclick="VW.toggleNav(false)"></div>
+</div>
+
+<script>
+const VW=(function(){
+  const inner=document.getElementById('inner'),
+        ctitle=document.getElementById('ctitle'), csub=document.getElementById('csub'),
+        hist=document.getElementById('hist');
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  // turn: [who('u'|'a'), text, extra?, crm? [ [cls,icon,title,sub], ... ] ]
+  const CONV={
+    night:{title:'11:47 PM — MBA Fee Enquiry',sub:'Student messages at midnight. VidyaWABA GPT answers in <3 seconds.',t0:'11:47 PM',turns:[
+      ['u',"Hi, I saw your Instagram ad. Is the MBA in Marketing still open for this year?",null,
+        [['cap','🟢','Lead auto-captured from WhatsApp','Source: Instagram ad → WA · 11:47 PM']]],
+      ['a',"Hi! Great to hear from you 😊 Yes — MBA (Marketing) admissions are open for the 2026 batch, and you're right on time: the early-decision round closes on Aug 20.\n\nMay I know your name and which city you're from?"],
+      ['u',"I'm Neha, from Nashik. What's the total fee? And is hostel available for girls?",null,
+        [['upd','👤','Profile updated','Name: Neha · City: Nashik · Program: MBA Marketing'],
+         ['pulse','🔥','VidyaPulse signal logged','Fee enquiry at 11:48 PM → intent +14']]],
+      ['a',"Nice to meet you, Neha! Here are the details:\n\n💰 *MBA (Marketing) — 2026*\n• Tuition: ₹3.4 L/year\n• Girls hostel (incl. mess): ₹1.1 L/year\n• Zero-interest EMI available\n\n🎓 With your profile, you may also qualify for a merit scholarship of up to ₹80,000/year. Want the full fee & scholarship brochure?"],
+      ['u',"Yes please, share the brochure."],
+      ['a',"Here you go 👇 It covers fees, scholarships, hostel and placement stats for the last 3 years.",'doc',
+        [['doc','📄','Brochure delivered & tracked','Open/download events feed VidyaPulse scoring']]],
+      ['u',"Thanks! What were the placements like for Marketing last year?"],
+      ['a',"Happy to share, Neha 📊\n\n*MBA Marketing — Class of 2025*\n• 94% placed within 3 months\n• Average: ₹6.8 LPA · Highest: ₹14.2 LPA\n• Top recruiters: HUL, Asian Paints, Nykaa, Zomato\n\nSince you're from Nashik — we have a campus visit day this Saturday with a direct interaction with the placement team. Should I check seat availability for you?"],
+      ['u',"Wow okay! Yes, check for Saturday.",null,
+        [['pulse','🔥','VidyaPulse: lead moved to HOT','Score 87 → counselor will see her at #1 tomorrow'],
+         ['task','🤝','Counselor task created','“Neha (HOT) — confirm Sat campus visit, scholarship estimate ready”']]],
+      ['a',"Done, Neha! ✅ I've reserved a provisional seat for *Saturday's campus visit (10 AM batch)* and our senior counselor Priya will confirm it with you tomorrow morning — she'll also have your scholarship estimate ready.\n\nAnything else you'd like to know tonight? I'm here 24×7 🌙",'card']
+    ]},
+    visit:{title:'Campus Visit Booking — WA Buttons',sub:'Native WhatsApp buttons: student books a slot in two taps.',t0:'4:12 PM',turns:[
+      ['u',"Hi, I want to visit the campus before applying for B.Tech.",null,
+        [['cap','🟢','Returning lead recognised','Aarav Mehta · B.Tech CS enquiry · full history loaded']]],
+      ['a',"Welcome back, Aarav! 👋 Great idea — 78% of students who visit end up more confident about their decision.\n\nWe have two Open Day slots this weekend, both include the AI & Robotics lab tour you asked about last week. Pick what works for you:",'btns'],
+      // btns interaction inserts the user's choice automatically
+      ['a',"Perfect, that's booked! 🎉",'cal',
+        [['upd','📅','Campus visit scheduled','Synced to counselor calendar + reminder sequence'],
+         ['task','🤖','Vidya Call queued','AI reminder call scheduled for Friday 6 PM']]],
+      ['u',"Can my parents join? And is there parking?"],
+      ['a',"Of course — parents are encouraged to join! There's a dedicated *Parents' Q&A with the Dean* at 11:30 AM covering fees, safety and placements.\n\n🅿 Free visitor parking at Gate 2 — just show this chat at entry. I've added 2 guest passes to your booking.\n\nSee you Saturday, Aarav! I'll send the campus map on Friday. 😊",null,
+        [['upd','👨‍👩‍👦','Booking updated','+2 guest passes · parent Q&A flagged']]]
+    ]},
+    follow:{title:'Day-3 Proactive Follow-up',sub:'Not a broadcast — a personal 1:1 nudge, triggered by CRM journey.',t0:'6:30 PM',turns:[
+      ['a',"Hi Kavya! 👋 Vidya here from EE Edge University.\n\nYou'd started your *B.Des application* on Monday and it's 70% done — only the portfolio upload is left. Applications close in 6 days, and I'd hate for you to miss it after coming this far!\n\nStuck anywhere? I can help right here.",null,
+        [['task','🤖','Journey automation fired','Day-3 nudge · trigger: application stalled at 70%']]],
+      ['u',"Oh hi! Actually yes — I'm confused about what to include in the portfolio. Is 8 works enough?"],
+      ['a',"Great question, Kavya! 8 is perfectly fine — quality beats quantity 🎨\n\nFor Communication Design, our reviewers love seeing:\n• 3–4 finished pieces (any medium)\n• 2–3 process/sketch pages — they *love* seeing how you think\n• 1 personal passion project\n\nPro tip: export as a single PDF under 20 MB. Want our 2-page portfolio guide?"],
+      ['u',"Yes! That would help so much."],
+      ['a',"Here it is 👇 made by our design faculty.",'doc',
+        [['doc','📄','Portfolio guide sent','Engagement logged → VidyaPulse +9'],
+         ['pulse','🔥','Stall risk cleared','Predicted completion ↑ 41% → 86%']]],
+      ['u',"Perfect. I'll upload it tonight. Thank you so much!! 🙏"],
+      ['a',"You've got this, Kavya! 🌟 I'll check in tomorrow once your upload is through — and I've asked our scholarship desk to review your profile for the *Design Merit Award* in the meantime.\n\nGood luck with the portfolio — message me anytime, day or night.",null,
+        [['upd','🎓','Scholarship review queued','Design Merit Award · auto-attached to application'],
+         ['task','✅','Follow-up complete','Day-3 touchpoint converted — no counselor time used']]]
+    ]},
+  };
+  const ORDER=[['night','11:47 PM — MBA Fee Enquiry'],['visit','Campus Visit — WA Buttons'],
+               ['follow','Day-3 Proactive Follow-up'],['about','About VidyaWABA GPT']];
+  ORDER.forEach(([k,label])=>{
+    const d=document.createElement('div');d.className='hi';d.dataset.k=k;
+    const ic=k==='about'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.9-.9L3 20l1-4.9a8.4 8.4 0 1 1 17-3.6z"/></svg>';
+    d.innerHTML=ic+' '+label; d.onclick=()=>select(k); hist.appendChild(d);
+  });
+
+  let token=0;
+  const logoUse='<svg viewBox="0 0 120 120"><use href="#vlogo"/></svg>';
+
+  function shell(conv){
+    inner.innerHTML='';
+    const hint=el('div','hintbar','👉 Tap a reply button inside the phone to continue');hint.id='hint';
+    inner.appendChild(hint);
+    const ph=el('div','rise');ph.id='phone';
+    ph.innerHTML='<div id="pscreen">'+
+      '<div id="wahead"><span class="back">‹</span><div class="wava">'+logoUse+'</div>'+
+      '<div class="wt"><b>EE Edge University <span class="vf"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></span></b>'+
+      '<span id="wast">VidyaWABA GPT · online 24×7</span></div>'+
+      '<div class="icons">📹 📞 ⋮</div></div>'+
+      '<div id="wachat"><div class="datechip">TODAY</div>'+
+      '<div class="enc">🔒 Messages are end-to-end encrypted. Official WhatsApp Business API · opt-in managed.</div></div>'+
+      '<div id="wafoot"><div class="field"><span class="emoji">😊</span><span class="txt" id="waph">Message</span></div>'+
+      '<div class="mic"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 15a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 1 0-7 0v5A3.5 3.5 0 0 0 12 15zm5.5-3.5a5.5 5.5 0 0 1-11 0H4.5a7.5 7.5 0 0 0 6.5 7.4V22h2v-3.1a7.5 7.5 0 0 0 6.5-7.4h-2z"/></svg></div></div>';
+    inner.appendChild(ph);
+    const right=el('div','rise');
+    right.innerHTML='<div id="crm"><div class="chh"><div class="cic"><svg viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>'+
+      '<div><b>Behind the scenes</b><span>ExtraaEdge CRM · live sync</span></div><span class="sy">AUTO</span></div>'+
+      '<div id="crmfeed"><div class="crm-empty">Waiting for conversation signals…</div></div>'+
+      '<div class="crm-note"><b>Every WhatsApp message becomes CRM intelligence</b> — lead captured, profile enriched, VidyaPulse re-scored, counselor notified on hot intent. No manual data entry, ever.</div></div>'+
+      '<div class="kpis"><div class="kpi"><b>98%</b><span>WA open rate</span></div><div class="kpi"><b class="acc">&lt;3s</b><span>reply time 24×7</span></div><div class="kpi"><b>5×</b><span>vs broadcast response</span></div></div>';
+    inner.appendChild(right);
+    return {chat:ph.querySelector('#wachat'),feed:right.querySelector('#crmfeed'),waph:ph.querySelector('#waph'),hint};
+  }
+
+  function fmtText(t){
+    let s=esc(t);
+    s=s.replace(/\*([^*\n]+)\*/g,'<b>$1</b>');
+    return s;
+  }
+  function wscroll(chat){chat.scrollTop=chat.scrollHeight;}
+  function addMsg(chat,who,html,time){
+    const m=el('div','wmsg '+(who==='u'?'out':'in'),
+      (who==='a'?'<div class="bname">VidyaWABA GPT · AI</div>':'')+html+
+      '<div class="meta">'+time+(who==='u'?' <span class="ticks">✓✓</span>':'')+'</div>');
+    chat.appendChild(m);wscroll(chat);return m;
+  }
+  function crmEvent(feed,[cls,icn,t,s]){
+    const empty=feed.querySelector('.crm-empty');if(empty)empty.remove();
+    feed.appendChild(el('div','cev','<div class="ei '+cls+'">'+icn+'</div><div class="et"><b>'+t+'</b><span>'+s+'</span></div>'));
+  }
+
+  function tickTime(base,step){
+    // base "11:47 PM" → add step minutes (demo-simple)
+    const [hm,ap]=base.split(' ');let [h,m]=hm.split(':').map(Number);
+    m+=step;h+=Math.floor(m/60);m%=60;let apx=ap;
+    if(h>12){h-=12;apx=ap==='AM'?'PM':'AM';}
+    return h+':'+String(m).padStart(2,'0')+' '+apx;
+  }
+
+  async function typeInComposer(waph,text,my){
+    for(let i=0;i<=text.length;i+=2){if(my!==token)return;waph.textContent=text.slice(0,i)||' ';waph.classList.add('act');await sleep(15);}
+    await sleep(140);
+  }
+  function resetComposer(waph){waph.textContent='Message';waph.classList.remove('act');}
+
+  async function play(key){
+    const my=++token;const conv=CONV[key];
+    ctitle.textContent=conv.title;csub.textContent=conv.sub;
+    const S=shell(conv);
+    await sleep(400);if(my!==token)return;
+    let ti=0;
+    for(let i=0;i<conv.turns.length;i++){
+      if(my!==token)return;
+      const [who,text,extra,crm]=conv.turns[i];
+      const time=tickTime(conv.t0,ti);
+      if(who==='u'){
+        await typeInComposer(S.waph,text,my);if(my!==token)return;
+        resetComposer(S.waph);
+        addMsg(S.chat,'u',fmtText(text),time);
+        (crm||[]).forEach((e,j)=>setTimeout(()=>{if(my===token)crmEvent(S.feed,e);},350+j*450));
+        ti+=1;await sleep(600);
+      }else{
+        const st=document.getElementById('wast');if(st)st.textContent='typing…';
+        const ty=el('div','wtyping','<i></i><i></i><i></i>');S.chat.appendChild(ty);wscroll(S.chat);
+        await sleep(650+Math.min(text.length*3.5,1400));if(my!==token){ty.remove();return;}
+        ty.remove();if(st)st.textContent='VidyaWABA GPT · online 24×7';
+        let html=fmtText(text);
+        if(extra==='doc')html+='<div class="wdoc"><div class="di">PDF</div><div><b>EE-Edge-Brochure-2026.pdf</b><span>2.4 MB · 18 pages</span></div><div class="dl">↓</div></div>';
+        if(extra==='cal')html+='<div class="wcard"><b>📅 Campus Open Day — booked</b><span id="calslot">Slot confirmed · AI & Robotics lab tour included\nGate 2, EE Edge Campus · show this chat at entry</span></div>';
+        if(extra==='card')html+='<div class="wcard"><b>✅ Saturday visit — provisionally reserved</b><span>10:00 AM batch · counselor Priya will confirm by 10 AM tomorrow</span></div>';
+        const msg=addMsg(S.chat,'a',html,time);
+        (crm||[]).forEach((e,j)=>setTimeout(()=>{if(my===token)crmEvent(S.feed,e);},350+j*450));
+        // interactive WA reply buttons
+        if(extra==='btns'){
+          const btns=el('div','wbtns',
+            '<button class="wbtn" data-v="Saturday · 10:00 AM">📅 Saturday · 10:00 AM</button>'+
+            '<button class="wbtn" data-v="Sunday · 4:00 PM">📅 Sunday · 4:00 PM</button>'+
+            '<button class="wbtn" data-v="Talk to a counselor first">💬 Talk to a counselor first</button>');
+          S.chat.appendChild(btns);wscroll(S.chat);
+          S.hint.classList.add('show');
+          const choice=await new Promise(res=>{
+            btns.querySelectorAll('.wbtn').forEach(b=>b.onclick=()=>{
+              btns.querySelectorAll('.wbtn').forEach(x=>x.disabled=true);res(b.dataset.v);
+            });
+          });
+          if(my!==token)return;
+          S.hint.classList.remove('show');btns.remove();
+          ti+=1;
+          addMsg(S.chat,'u',esc(choice),tickTime(conv.t0,ti));
+          await sleep(700);
+          // patch the upcoming calendar card with the chosen slot
+          const nxt=conv.turns[i+1];
+          if(nxt&&nxt[2]==='cal'){/* slot text is generic; prepend choice */}
+          window.__waChoice=choice;
+        }
+        // fill in chosen slot on the cal card
+        if(extra==='cal'&&window.__waChoice){
+          const cs=msg.querySelector('#calslot');
+          if(cs)cs.innerHTML=esc(window.__waChoice)+' · AI &amp; Robotics lab tour included<br>Gate 2, EE Edge Campus · show this chat at entry';
+        }
+        ti+=1;await sleep(750);
+      }
+    }
+  }
+
+  function aboutView(){
+    ++token;
+    ctitle.textContent='About VidyaWABA GPT';csub.textContent='The power of VidyaGPT on WhatsApp Business Enterprise.';
+    inner.innerHTML='';
+    const w=el('div','aboutwrap rise');
+    w.innerHTML='<div class="aboutcard">'+logoUse.replace('<svg ','<svg class="lg" ')+
+      '<h3>VidyaWABA GPT</h3><div class="t">“VidyaGPT talks to students — on WhatsApp.”</div>'+
+      '<p>The complete VidyaGPT intelligence engine — Education-specific Small Language Model, student-profile personalisation, program &amp; fee knowledge — deployed inside <b>WhatsApp Business Enterprise</b>. Handles inbound enquiries and proactive journey nudges, 1:1 at any scale, 24×7. Every conversation auto-syncs to ExtraaEdge: lead captured, profile enriched, VidyaPulse re-scored, counselor alerted on hot intent. Built on the official WhatsApp Business API — fully compliant, opt-in managed.</p>'+
+      '<div class="stats-mini"><div class="sm"><b>98%</b><span>open rate (vs 20% email)</span></div><div class="sm"><b>&lt;3s</b><span>response — 24×7</span></div><div class="sm"><b>5×</b><span>vs broadcast campaigns</span></div><div class="sm"><b>500+</b><span>education brands</span></div></div></div>';
+    inner.appendChild(w);
+  }
+
+  function toggleNav(force){
+    const side=document.getElementById('side'), ov=document.getElementById('ov');
+    const open=(typeof force==='boolean')?force:!side.classList.contains('open');
+    side.classList.toggle('open',open); ov.classList.toggle('show',open);
+  }
+  function select(key){
+    toggleNav(false);
+    document.querySelectorAll('.hi').forEach(h=>h.classList.toggle('active',h.dataset.k===key));
+    window.__waChoice=null;
+    if(key==='about'){aboutView();return;}
+    play(key);
+  }
+  window.addEventListener('load',()=>select('night'));
+  return {select,toggleNav};
+})();
+</script>
+</body>
+</html>

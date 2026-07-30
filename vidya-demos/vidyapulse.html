@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VidyaPulse — AI Lead Prioritisation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#0F2347; --navy-2:#16315F; --teal:#06B6D4; --teal-2:#22D3EE;
+    --hot:#EF4444; --warm:#F59E0B; --cold:#94A3B8;
+    --ink:#0F172A; --muted:#64748B; --line:#E6EBF2; --bg:#F4F7FB; --white:#fff;
+    --font-h:'Plus Jakarta Sans',system-ui,sans-serif; --font-b:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow:hidden}
+  body{font-family:var(--font-b);color:var(--ink);-webkit-font-smoothing:antialiased;background:var(--bg)}
+  #app{position:fixed;inset:0;display:flex;background:var(--bg)}
+
+  /* ===================== SIDEBAR ===================== */
+  #side{width:clamp(260px,22vw,340px);flex:0 0 auto;height:100%;background:linear-gradient(180deg,#0F2347,#0B1B3A);
+    color:#CFE0F5;display:flex;flex-direction:column;padding:20px 16px;border-right:1px solid rgba(255,255,255,.06)}
+  .brand{display:flex;align-items:center;gap:12px;padding:4px 6px 16px}
+  .brand .lm{width:40px;height:40px;filter:drop-shadow(0 3px 8px rgba(255,120,180,.3))}
+  .brand .bt{font-family:var(--font-h);font-weight:800;font-size:19px;color:#fff;line-height:1}
+  .brand .bt small{display:block;font-family:var(--font-b);font-weight:500;font-size:11px;color:#7E9AC4;margin-top:3px}
+  .newchat{display:flex;align-items:center;gap:10px;margin:4px 0 18px;padding:12px 15px;border-radius:12px;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:700;font-size:14.5px;cursor:pointer;
+    text-decoration:none;box-shadow:0 8px 20px rgba(6,182,212,.32);transition:transform .15s}
+  .newchat:hover{transform:translateY(-1px)}
+  .newchat svg{width:17px;height:17px}
+  .hist-lbl{font-size:11px;font-weight:700;letter-spacing:.14em;color:#6E89B5;padding:0 8px 9px}
+  .hist{display:flex;flex-direction:column;gap:5px}
+  .hi{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;font-size:13.8px;color:#B9CCE8;
+    font-weight:500;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid transparent;transition:background .15s,color .15s}
+  .hi svg{width:16px;height:16px;flex:0 0 auto;opacity:.7}
+  .hi:hover{background:rgba(255,255,255,.05);color:#E4EEFC}
+  .hi.active{background:rgba(34,211,238,.12);color:#fff;border-color:rgba(34,211,238,.25);font-weight:600}
+  .side-foot{margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:11px;
+    font-size:13.5px;color:#9DB3D6;font-weight:500}
+  .side-foot .ava{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.08);display:grid;place-items:center}
+  .side-foot .ava svg{width:18px;height:18px}
+
+  /* ===================== MAIN ===================== */
+  #main{flex:1;height:100%;display:flex;flex-direction:column;background:var(--white);min-width:0}
+  #top{padding:18px 36px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto;display:flex;align-items:center;gap:14px}
+  .thead{flex:1;min-width:0}
+  .menu-btn{display:none;width:44px;height:44px;border-radius:11px;border:1px solid var(--line);background:#fff;cursor:pointer;
+    flex:0 0 auto;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+  .menu-btn svg{width:23px;height:23px}
+  #ov{position:fixed;inset:0;background:rgba(8,16,34,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:40}
+  #ov.show{opacity:1;pointer-events:auto}
+  #top h2{font-family:var(--font-h);font-weight:800;font-size:21px;color:var(--navy)}
+  #top p{font-size:13.5px;color:var(--muted);margin-top:3px}
+  #top .crumb{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--teal);
+    background:rgba(6,182,212,.10);border:1px solid rgba(6,182,212,.22);padding:4px 11px;border-radius:999px;margin-bottom:10px}
+  #top .crumb i{width:7px;height:7px;border-radius:50%;background:#22C55E;display:inline-block;box-shadow:0 0 8px #22C55E;animation:bl 1.6s infinite}
+  @keyframes bl{0%,100%{opacity:1}50%{opacity:.4}}
+
+  #stage{flex:1;overflow-y:auto;overflow-x:hidden;padding:26px 0;scroll-behavior:smooth}
+  #stage::-webkit-scrollbar{width:9px}#stage::-webkit-scrollbar-thumb{background:#D5DEEA;border-radius:9px}
+  .inner{max-width:980px;margin:0 auto;padding:0 36px;display:flex;flex-direction:column}
+  .rise{animation:rise .45s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+  /* ticker */
+  .ticker{display:flex;align-items:center;gap:12px;padding:13px 18px;border-radius:14px;margin-bottom:18px;
+    background:linear-gradient(135deg,#0F2347,#16315F);color:#D9E7FA;font-size:14px;font-weight:500;box-shadow:0 10px 26px rgba(15,35,71,.22)}
+  .ticker .dot{width:9px;height:9px;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;animation:bl 1.4s infinite;flex:0 0 auto}
+  .ticker b{color:#fff}
+  .ticker .ai-tag{margin-left:auto;flex:0 0 auto;font-size:11px;font-weight:700;letter-spacing:.1em;color:#22D3EE;
+    border:1px solid rgba(34,211,238,.35);padding:3px 9px;border-radius:999px}
+
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+  .tile{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px 18px;box-shadow:0 6px 18px rgba(15,35,71,.05)}
+  .tile .k{font-family:var(--font-h);font-weight:800;font-size:29px;line-height:1.1}
+  .tile .l{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:5px}
+  .tile.hot .k{color:var(--hot)} .tile.warm .k{color:var(--warm)} .tile.cold .k{color:var(--cold)} .tile.win .k{color:var(--teal)}
+  .tile .pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:999px;margin-bottom:8px}
+  .tile.hot .pill{background:#FEF2F2;color:#B91C1C} .tile.warm .pill{background:#FFFBEB;color:#B45309}
+  .tile.cold .pill{background:#F1F5F9;color:#64748B} .tile.win .pill{background:rgba(6,182,212,.1);color:#0A6E84}
+
+  .startday{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px auto 22px;padding:15px 34px;border-radius:14px;border:0;cursor:pointer;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:800;font-family:var(--font-h);font-size:16.5px;
+    box-shadow:0 12px 30px rgba(6,182,212,.4);transition:transform .15s}
+  .startday:hover{transform:translateY(-2px)}
+  .startday svg{width:19px;height:19px}
+
+  .prog{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding:13px 18px;border-radius:14px;background:#F4F7FB;border:1px solid var(--line)}
+  .prog .lbl{font-size:13.5px;font-weight:700;color:var(--navy);flex:0 0 auto}
+  .prog .bar{flex:1;height:9px;border-radius:999px;background:#E2E9F2;overflow:hidden}
+  .prog .bar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22D3EE,#06B6D4);transition:width .6s cubic-bezier(.2,.7,.3,1)}
+  .prog .pct{font-size:13px;font-weight:700;color:var(--teal);flex:0 0 auto;min-width:44px;text-align:right}
+
+  /* lead cards */
+  .lead{display:flex;gap:18px;background:#fff;border:1px solid var(--line);border-left:5px solid var(--hot);border-radius:16px;
+    padding:19px 21px;margin-bottom:14px;box-shadow:0 8px 22px rgba(15,35,71,.06);transition:opacity .4s,transform .4s}
+  .lead.donecard{border-left-color:#10B981;opacity:.62}
+  .lead .ring{--v:0;width:74px;height:74px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;
+    background:conic-gradient(var(--rc,#EF4444) calc(var(--v)*1%),#EDF1F7 0)}
+  .lead .ring b{width:56px;height:56px;border-radius:50%;background:#fff;display:grid;place-items:center;
+    font-family:var(--font-h);font-weight:800;font-size:19px;color:var(--navy)}
+  .lead .body{flex:1;min-width:0}
+  .lead .r1{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .lead .nm{font-family:var(--font-h);font-weight:800;font-size:17.5px;color:var(--navy)}
+  .lead .pg{font-size:13px;color:var(--muted);font-weight:600}
+  .badge{font-size:10.5px;font-weight:800;letter-spacing:.1em;padding:4px 10px;border-radius:999px}
+  .badge.hot{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA}
+  .badge.up{background:#ECFDF5;color:#059669;border:1px solid #A7F3D0}
+  .sigs{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0 12px}
+  .sig{font-size:12.5px;font-weight:600;color:#33486B;background:#F4F7FB;border:1px solid var(--line);padding:6px 11px;border-radius:999px}
+  .sig b{color:var(--teal)}
+  .nba{display:flex;align-items:flex-start;gap:11px;background:linear-gradient(135deg,#F0FDFF,#EFF7FF);border:1px solid rgba(6,182,212,.3);
+    border-radius:12px;padding:12px 14px}
+  .nba .ic{width:34px;height:34px;flex:0 0 auto;border-radius:10px;background:linear-gradient(135deg,#22D3EE,#06B6D4);display:grid;place-items:center}
+  .nba .ic svg{width:18px;height:18px}
+  .nba b{font-size:13.5px;color:var(--navy);display:block}
+  .nba span{font-size:12.5px;color:#3A4D6C;line-height:1.5;display:block;margin-top:2px}
+  .acts{display:flex;gap:9px;margin-top:12px;flex-wrap:wrap}
+  .abtn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:11px;font-weight:700;font-size:13.5px;cursor:pointer;border:0;transition:transform .14s}
+  .abtn:hover{transform:translateY(-1px)}
+  .abtn.pr{background:linear-gradient(135deg,#16315F,#0F2347);color:#fff}
+  .abtn.sec{background:#fff;border:1.5px solid var(--teal);color:#0A6E84}
+  .abtn svg{width:15px;height:15px}
+  .abtn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+  .alldone{display:flex;align-items:center;gap:15px;margin:8px 0 20px;padding:18px 22px;border-radius:16px;
+    background:linear-gradient(135deg,#ECFDF5,#F0FBF6);border:1.5px solid #A7F3D0}
+  .alldone-ck{width:46px;height:46px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;
+    background:linear-gradient(135deg,#34D399,#10B981);box-shadow:0 8px 20px rgba(16,185,129,.4)}
+  .alldone-ck svg{width:25px;height:25px}
+  .allone b{display:block}
+  .alldone b{font-family:var(--font-h);font-weight:800;font-size:17px;color:#065F46;display:block}
+  .alldone span{font-size:13.5px;color:#0F7A5A;font-weight:500}
+
+  /* ===== deep-dive (signal timeline) ===== */
+  .backrow{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .backbtn{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:10px;border:1.5px solid var(--line);
+    background:#fff;color:var(--navy);font-weight:700;font-size:13px;cursor:pointer}
+  .backbtn svg{width:15px;height:15px}
+  .dd-head{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#0F2347,#16315F);color:#fff;
+    border-radius:18px;padding:22px 24px;margin-bottom:18px;box-shadow:0 14px 34px rgba(15,35,71,.28)}
+  .dd-head .ring{--v:0;width:86px;height:86px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;
+    background:conic-gradient(#22D3EE calc(var(--v)*1%),rgba(255,255,255,.12) 0)}
+  .dd-head .ring b{width:64px;height:64px;border-radius:50%;background:#0F2347;display:grid;place-items:center;
+    font-family:var(--font-h);font-weight:800;font-size:23px;color:#22D3EE}
+  .dd-head h3{font-family:var(--font-h);font-weight:800;font-size:21px}
+  .dd-head p{font-size:13.5px;color:#AFC6E6;margin-top:4px}
+  .dd-head .badge{margin-top:9px;display:inline-block}
+  .tl{position:relative;padding-left:26px;margin:6px 0 18px}
+  .tl:before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2.5px;background:#E2E9F2;border-radius:2px}
+  .tli{position:relative;display:flex;align-items:flex-start;gap:13px;padding:10px 0}
+  .tli:before{content:'';position:absolute;left:-24px;top:16px;width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid var(--teal)}
+  .tli .tcard{flex:1;display:flex;align-items:center;gap:13px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px 16px;box-shadow:0 4px 12px rgba(15,35,71,.05)}
+  .tli .em{font-size:19px;flex:0 0 auto}
+  .tli .tx{flex:1;min-width:0}
+  .tli .tx b{font-size:13.8px;color:var(--navy)}
+  .tli .tx span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+  .tli .pts{flex:0 0 auto;font-family:var(--font-h);font-weight:800;font-size:15px;color:#059669;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 11px;border-radius:999px}
+  .tli .pts.neg{color:#B45309;background:#FFFBEB;border-color:#FDE68A}
+  .verdict{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(135deg,#F0FDFF,#F5F0FF);border:1.5px solid rgba(6,182,212,.35);
+    border-radius:16px;padding:18px 20px;margin-bottom:22px}
+  .verdict .vic{width:44px;height:44px;flex:0 0 auto;border-radius:12px;background:linear-gradient(135deg,#22D3EE,#8A7CFF);display:grid;place-items:center}
+  .verdict .vic svg{width:24px;height:24px}
+  .verdict b{font-family:var(--font-h);font-size:15.5px;color:var(--navy);display:block;margin-bottom:4px}
+  .verdict p{font-size:13.8px;color:#3A4D6C;line-height:1.65}
+
+  /* ===== manager view ===== */
+  .sec-t{font-family:var(--font-h);font-weight:800;font-size:18px;color:var(--navy);margin:6px 0 13px}
+  .team{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:18px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .trow{display:grid;grid-template-columns:150px 1fr 78px;align-items:center;gap:14px;padding:11px 0;border-bottom:1px dashed #EDF1F7}
+  .trow:last-child{border-bottom:0}
+  .trow .cn{font-size:14px;font-weight:700;color:var(--navy)}
+  .trow .cn small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;margin-top:2px}
+  .hbar{height:11px;border-radius:999px;background:#EDF1F7;overflow:hidden}
+  .hbar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22D3EE,#06B6D4);transition:width 1s cubic-bezier(.2,.7,.3,1)}
+  .hbar i.lag{background:linear-gradient(90deg,#FBBF24,#F59E0B)}
+  .trow .val{font-family:var(--font-h);font-weight:800;font-size:15px;color:var(--navy);text-align:right}
+  .trow .val em{display:block;font-style:normal;font-size:11px;font-weight:700;color:#059669}
+  .trow .val em.dn{color:#D97706}
+  .insight{display:flex;gap:13px;align-items:flex-start;background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:14px;padding:15px 18px;margin-bottom:20px}
+  .insight .iic{width:38px;height:38px;flex:0 0 auto;border-radius:11px;background:linear-gradient(135deg,#FBBF24,#F59E0B);display:grid;place-items:center;font-size:18px}
+  .insight b{font-size:14px;color:#92400E;display:block;margin-bottom:3px}
+  .insight p{font-size:13px;color:#A16207;line-height:1.6}
+
+  /* about */
+  .aboutcard{margin:20px auto;max-width:640px;text-align:center;padding:40px 36px;border-radius:22px;
+    background:linear-gradient(160deg,#F7FBFF,#EEF4FF);border:1px solid #E3ECF7}
+  .aboutcard .lg{width:74px;height:74px;margin:0 auto 18px;filter:drop-shadow(0 6px 18px rgba(255,120,180,.3))}
+  .aboutcard h3{font-family:var(--font-h);font-weight:800;font-size:26px;color:var(--navy)}
+  .aboutcard .t{color:var(--teal);font-weight:700;margin:6px 0 16px;font-size:15px}
+  .aboutcard p{color:#3A4D6C;font-size:15.5px;line-height:1.7}
+  .stats-mini{display:flex;justify-content:center;gap:26px;margin-top:22px;flex-wrap:wrap}
+  .sm{min-width:110px}
+  .sm b{font-family:var(--font-h);font-weight:800;font-size:23px;color:var(--navy);display:block}
+  .sm span{font-size:12px;color:var(--muted);font-weight:600}
+
+  #foot{padding:12px 36px;border-top:1px solid var(--line);background:#fff;flex:0 0 auto;text-align:center;font-size:12px;color:#A0AEC2}
+
+  /* ===================== MOBILE ===================== */
+  @media (max-width:860px){
+    #side{position:fixed;z-index:50;left:0;top:0;height:100%;width:min(84vw,330px);
+      transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+      box-shadow:0 0 70px rgba(0,0,0,.45);padding:18px 14px}
+    #side.open{transform:none}
+    .menu-btn{display:inline-flex}
+    #top{padding:11px 14px;gap:10px}
+    #top h2{font-size:16.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #top p{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    #top .crumb{margin-bottom:6px;font-size:10.5px;padding:3px 9px}
+    #stage{padding:15px 0}
+    .inner{padding:0 13px}
+    .tiles{grid-template-columns:repeat(2,1fr);gap:10px}
+    .tile{padding:13px 14px}.tile .k{font-size:23px}
+    .ticker{font-size:12.5px;padding:11px 13px;flex-wrap:wrap}
+    .ticker .ai-tag{display:none}
+    .lead{flex-direction:column;gap:13px;padding:15px}
+    .lead .ring{width:62px;height:62px}.lead .ring b{width:47px;height:47px;font-size:16px}
+    .dd-head{flex-direction:column;text-align:center;padding:18px}
+    .trow{grid-template-columns:105px 1fr 62px;gap:9px}
+    .trow .cn{font-size:12.5px}
+    .aboutcard{padding:28px 20px;margin:10px auto}
+    .aboutcard h3{font-size:21px}.aboutcard p{font-size:14px}
+    #foot{padding:9px 13px;font-size:10.5px}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <linearGradient id="vg-head" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF86C9"/><stop offset="1" stop-color="#FF9559"/></linearGradient>
+    <linearGradient id="vg-bookL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB46A"/><stop offset="1" stop-color="#FF6FA3"/></linearGradient>
+    <linearGradient id="vg-bookR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#28D7F0"/><stop offset="1" stop-color="#8A7CFF"/></linearGradient>
+    <symbol id="vlogo" viewBox="0 0 120 120">
+      <path d="M93,15 C93,24.75 96.25,28 106,28 C96.25,28 93,31.25 93,41 C93,31.25 89.75,28 80,28 C89.75,28 93,24.75 93,15 Z" fill="#29D3F2"/>
+      <path d="M104,45 C104,50.25 105.75,52 111,52 C105.75,52 104,53.75 104,59 C104,53.75 102.25,52 97,52 C102.25,52 104,50.25 104,45 Z" fill="#E879F9"/>
+      <path d="M50,64 C39,57 27,55 17,57 C15.5,57.3 15,58.2 15,59.7 L15,82 C15,83.6 15.7,84.6 17,84.8 C29,86 41,88.5 50,93 Z" fill="url(#vg-bookL)"/>
+      <path d="M50,64 C61,57 73,55 83,57 C84.5,57.3 85,58.2 85,59.7 L85,82 C85,83.6 84.3,84.6 83,84.8 C71,86 59,88.5 50,93 Z" fill="url(#vg-bookR)"/>
+      <circle cx="50" cy="33" r="16" fill="url(#vg-head)"/>
+    </symbol></defs></svg>
+
+  <aside id="side">
+    <div class="brand">
+      <svg class="lm" viewBox="0 0 120 120"><use href="#vlogo"/></svg>
+      <div class="bt">VidyaPulse<small>powered by ExtraaEdge</small></div>
+    </div>
+    <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Score Your Live Leads</a>
+    <div class="hist-lbl">WORKSPACE</div>
+    <div class="hist" id="hist"></div>
+    <div class="side-foot"><div class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#9DB3D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg></div> Priya Kulkarni · Counselor</div>
+  </aside>
+
+  <main id="main">
+    <div id="top">
+      <button class="menu-btn" aria-label="Menu" onclick="VP.toggleNav()"><svg viewBox="0 0 24 24" fill="none" stroke="#0F2347" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <div class="thead">
+        <div class="crumb"><i></i> VidyaPulse · AI re-scored overnight</div>
+        <h2 id="ctitle">My Priority List — Today</h2>
+        <p id="csub">HOT / WARM / COLD scoring across 50+ signals, refreshed every 24 hours.</p>
+      </div>
+    </div>
+    <div id="stage"><div class="inner" id="inner"></div></div>
+    <div id="foot">VidyaPulse reads website, WhatsApp, email, call &amp; campus-visit signals — so counselors act on the right students first.</div>
+  </main>
+  <div id="ov" onclick="VP.toggleNav(false)"></div>
+</div>
+
+<script>
+const VP=(function(){
+  const inner=document.getElementById('inner'), stage=document.getElementById('stage'),
+        ctitle=document.getElementById('ctitle'), csub=document.getElementById('csub'),
+        hist=document.getElementById('hist');
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const logoSvg='<svg viewBox="0 0 120 120"><use href="#vlogo"/></svg>';
+  function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function countUp(node,to,ms,fmt){const t0=performance.now();
+    function f(t){const p=Math.min(1,(t-t0)/ms);node.textContent=(fmt||(x=>Math.round(x)))(to*(0.2+0.8*p)*p>=to?to:to*p);if(p<1)requestAnimationFrame(f);else node.textContent=(fmt||(x=>Math.round(x)))(to);}
+    requestAnimationFrame(f);}
+  function ring(node,to,ms){let v=0;const step=to/(ms/16);
+    const b=node.querySelector('b');
+    const iv=setInterval(()=>{v+=step;if(v>=to){v=to;clearInterval(iv);}node.style.setProperty('--v',v);if(b)b.textContent=Math.round(v);},16);}
+
+  // ---------------- data ----------------
+  const LEADS=[
+    {n:'Priya Deshmukh',pg:'MBA · Marketing',score:94,delta:'+18 overnight',
+     sigs:['🔥 Fee page <b>×3</b> yesterday','📧 Opened last <b>2 emails</b>','🏫 Campus visit — Sat','📱 WA reply in 2 min'],
+     nba:'Call now — best window 11:00 AM–1:00 PM',why:'Fee-page pattern + campus visit = decision stage. Mention the merit scholarship before she compares fees elsewhere.',
+     tl:[['🌐','Visited MBA fee page ×3','Yesterday, 9:42 PM · 6 min on page','+18'],
+         ['📧','Opened “Scholarship Deadlines” email','Yesterday, 8:10 PM · clicked CTA','+9'],
+         ['🏫','Attended campus open day','Saturday · scanned QR at Management block','+22'],
+         ['📱','Replied to WhatsApp in 2 minutes','Tue · asked about placement stats','+11'],
+         ['📄','Application started — 60% complete','Monday · stalled at fee section','+15'],
+         ['⏳','No counselor call in 6 days','Signal decay risk','-4']]},
+    {n:'Rahul Sharma',pg:'B.Tech · Computer Science',score:89,delta:'+12 overnight',
+     sigs:['📄 Application <b>80%</b> done','🌐 Compared <b>CS vs IT</b> pages','📧 3 email opens this week'],
+     nba:'Send fee-structure PDF, then call after 4 PM',why:'Applied-stage lead stuck at payment step. A fee breakdown + EMI option unblocks him.',
+     tl:[['📄','Application 80% complete','Stalled at payment step, 2 days','+20'],
+         ['🌐','Compared CS vs IT program pages','Wed · 11 min session','+10'],
+         ['📧','Opened 3 emails this week','Placement report clicked twice','+9'],
+         ['📞','Asked about EMI on last call','Call log · counselor note','+14']]},
+    {n:'Sneha Patil',pg:'BBA · Global Business',score:86,delta:'NEW → HOT',
+     sigs:['⚡ Applied <b>last night 11:20 PM</b>','🌐 Hostel page ×2','🎥 Webinar attended'],
+     nba:'First-response call before 11 AM',why:'Applied at 11:20 PM — high intent while interest peaks. First institution to respond usually wins this profile.',
+     tl:[['⚡','Submitted application','Last night, 11:20 PM','+30'],
+         ['🎥','Attended “Careers in Business” webinar','Asked 2 questions in Q&A','+12'],
+         ['🌐','Viewed hostel & campus-life pages ×2','Family decision signal','+8']]},
+    {n:'Arjun Nair',pg:'MBA · Finance',score:81,delta:'+7 overnight',
+     sigs:['📱 WA: asked <b>placement stats</b>','📧 Opened fee email','🌐 Alumni page visit'],
+     nba:'WhatsApp the placement report, book campus visit',why:'Research-heavy profile. Placement proof + a campus visit invite moves him to application.',
+     tl:[['📱','WhatsApp: “What are average placements for Finance?”','Yesterday · answered by VidyaGPT','+13'],
+         ['📧','Opened fee-structure email','Twice in 24 hours','+8'],
+         ['🌐','Browsed alumni success stories','8 min session','+6']]},
+    {n:'Ananya Iyer',pg:'B.Des · Communication Design',score:78,delta:'+9 overnight',
+     sigs:['🎨 Portfolio guidelines <b>downloaded</b>','📧 2 email opens','🌐 Scholarship page visit'],
+     nba:'Call to offer portfolio-review session',why:'Downloading portfolio guidelines = preparing to apply. A free portfolio review converts this profile 3× faster.',
+     tl:[['🎨','Downloaded portfolio guidelines PDF','Yesterday, 6:15 PM','+16'],
+         ['🌐','Visited scholarship page','Merit + need-based sections','+9'],
+         ['📧','Opened 2 emails','Design-week invite clicked','+7']]},
+  ];
+
+  const ORDER=[['list','My Priority List (HOT)','flame'],['dd','Why is Priya HOT? — Signals','pulse'],
+               ['mgr','Manager — Team View','chart'],['about','About VidyaPulse','info']];
+  const ICONS={
+    flame:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-9-2 2-2 4-2 4s-1-3-4-5c0 4-4 6-4 10 0 4 3 7 7 7z"/></svg>',
+    pulse:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>',
+    chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>',
+    info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>'};
+  ORDER.forEach(([k,label,ic])=>{
+    const d=document.createElement('div');d.className='hi';d.dataset.k=k;
+    d.innerHTML=ICONS[ic]+' '+label; d.onclick=()=>select(k); hist.appendChild(d);
+  });
+
+  let token=0, doneCount=0;
+
+  // ---------------- priority list view ----------------
+  async function viewList(){
+    const my=++token; doneCount=0;
+    inner.innerHTML='';
+    ctitle.textContent='My Priority List — Today';
+    csub.textContent='Good morning, Priya. VidyaPulse finished scoring while you slept.';
+    await sleep(250); if(my!==token)return;
+
+    const tk=el('div','ticker rise','<span class="dot"></span><div>Overnight AI run complete — <b>1,247 leads re-scored</b> · <b>23 score changes</b> · <b>5 leads surfaced HOT</b></div><span class="ai-tag">AI · 50+ SIGNALS</span>');
+    inner.appendChild(tk); await sleep(420); if(my!==token)return;
+
+    const tiles=el('div','tiles rise',
+      '<div class="tile hot"><span class="pill">HOT</span><div class="k" id="kh">0</div><div class="l">ready to enrol — act today</div></div>'+
+      '<div class="tile warm"><span class="pill">WARM</span><div class="k" id="kw">0</div><div class="l">nurture sequence running</div></div>'+
+      '<div class="tile cold"><span class="pill">COLD</span><div class="k" id="kc">0</div><div class="l">deprioritised — auto follow-up</div></div>'+
+      '<div class="tile win"><span class="pill">BEST WINDOW</span><div class="k">11–1</div><div class="l">highest pickup rate today</div></div>');
+    inner.appendChild(tiles);
+    countUp(document.getElementById('kh'),5,700);
+    countUp(document.getElementById('kw'),34,900);
+    countUp(document.getElementById('kc'),1208,1100,x=>Math.round(x).toLocaleString('en-IN'));
+    await sleep(650); if(my!==token)return;
+
+    const btn=el('button','startday rise','<svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Start My Day — Show HOT Leads');
+    inner.appendChild(btn);
+    await new Promise(res=>btn.onclick=res); if(my!==token)return;
+    btn.remove();
+
+    const prog=el('div','prog rise','<span class="lbl">HOT actions completed</span><div class="bar"><i id="pbar"></i></div><span class="pct" id="ppct">0 / 5</span>');
+    inner.appendChild(prog);
+
+    for(let i=0;i<LEADS.length;i++){
+      if(my!==token)return;
+      addLead(LEADS[i],i,my);
+      await sleep(560);
+    }
+  }
+
+  function addLead(L,idx,my){
+    const card=el('div','lead rise');
+    card.innerHTML=
+      '<div class="ring" style="--rc:'+(L.score>=90?'#EF4444':'#F97316')+'"><b>0</b></div>'+
+      '<div class="body">'+
+        '<div class="r1"><span class="nm">'+L.n+'</span><span class="pg">'+L.pg+'</span>'+
+        '<span class="badge hot">HOT #'+(idx+1)+'</span><span class="badge up">▲ '+L.delta+'</span></div>'+
+        '<div class="sigs">'+L.sigs.map(s=>'<span class="sig">'+s+'</span>').join('')+'</div>'+
+        '<div class="nba"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg></div>'+
+        '<div><b>Next-best action: '+L.nba+'</b><span>'+L.why+'</span></div></div>'+
+        '<div class="acts">'+
+          '<button class="abtn pr donebtn"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg> Mark Action Done</button>'+
+          '<button class="abtn sec whybtn"><svg viewBox="0 0 24 24" fill="none" stroke="#0A6E84" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg> Why is this lead HOT?</button>'+
+        '</div>'+
+      '</div>';
+    inner.appendChild(card);
+    ring(card.querySelector('.ring'),L.score,900);
+    card.querySelector('.whybtn').onclick=()=>{deepDive(L);};
+    card.querySelector('.donebtn').onclick=e=>{
+      const b=e.currentTarget;b.disabled=true;b.innerHTML='✓ Actioned';
+      card.classList.add('donecard'); doneCount++;
+      const pb=document.getElementById('pbar'),pp=document.getElementById('ppct');
+      if(pb){pb.style.width=(doneCount/5*100)+'%';pp.textContent=doneCount+' / 5';}
+      if(doneCount===5&&my===token){
+        const d=el('div','alldone rise','<div class="alldone-ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></div><div><b>All 5 HOT leads actioned before lunch 🎯</b><span>Same team, more output — VidyaPulse users convert 2× faster from enquiry to enrolment.</span></div>');
+        inner.appendChild(d); d.scrollIntoView({behavior:'smooth',block:'end'});
+      }
+    };
+    card.scrollIntoView({behavior:'smooth',block:'end'});
+  }
+
+  // ---------------- deep-dive view ----------------
+  async function deepDive(L){
+    const my=++token; L=L||LEADS[0];
+    setActive('dd');
+    inner.innerHTML='';
+    ctitle.textContent='Signal Deep-Dive — '+L.n;
+    csub.textContent='How VidyaPulse computed this score from live behaviour.';
+    const back=el('div','backrow rise','<button class="backbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Back to priority list</button>');
+    back.querySelector('.backbtn').onclick=()=>select('list');
+    inner.appendChild(back);
+
+    const head=el('div','dd-head rise',
+      '<div class="ring"><b>0</b></div><div><h3>'+L.n+'</h3><p>'+L.pg+' · scored from '+L.tl.length+' of 50+ tracked signals · refreshed 6:00 AM today</p>'+
+      '<span class="badge hot">HOT</span> <span class="badge up">▲ '+L.delta+'</span></div>');
+    inner.appendChild(head);
+    await sleep(300); if(my!==token)return;
+
+    const tl=el('div','tl');inner.appendChild(tl);
+    for(const [em,t,s,pts] of L.tl){
+      if(my!==token)return;
+      const li=el('div','tli rise','<div class="tcard"><span class="em">'+em+'</span><div class="tx"><b>'+t+'</b><span>'+s+'</span></div><span class="pts'+(pts.startsWith('-')?' neg':'')+'">'+pts+'</span></div>');
+      tl.appendChild(li); li.scrollIntoView({behavior:'smooth',block:'end'});
+      await sleep(430);
+    }
+    if(my!==token)return;
+    ring(head.querySelector('.ring'),L.score,1000);
+    await sleep(700); if(my!==token)return;
+    const v=el('div','verdict rise','<div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg></div>'+
+      '<div><b>VidyaPulse verdict — '+L.score+'/100 · HOT</b><p>'+L.why+' This score refreshes every 24 hours as behaviour changes — so you never call at the wrong moment.</p></div>');
+    inner.appendChild(v); v.scrollIntoView({behavior:'smooth',block:'end'});
+  }
+
+  // ---------------- manager view ----------------
+  async function viewMgr(){
+    const my=++token;
+    inner.innerHTML='';
+    ctitle.textContent='Manager — Team Performance';
+    csub.textContent='Who is acting on HOT leads, and where conversion is leaking.';
+    await sleep(200); if(my!==token)return;
+
+    inner.appendChild(el('div','ticker rise','<span class="dot"></span><div>This week: <b>41 HOT leads</b> surfaced · <b>36 actioned same-day</b> · team conversion trending <b>2.4% → 6.1%</b></div><span class="ai-tag">AI · TEAM VIEW</span>'));
+    await sleep(380); if(my!==token)return;
+
+    inner.appendChild(el('div','sec-t rise','HOT leads actioned same-day — by counselor'));
+    const team=el('div','team rise');inner.appendChild(team);
+    const rows=[['Priya Kulkarni','MBA & PG programs',96,'▲ +9 vs last week',false],
+                ['Rohit Jadhav','Engineering',88,'▲ +5 vs last week',false],
+                ['Meera Joshi','Design & Liberal Arts',79,'▲ +11 vs last week',false],
+                ['Sameer Kale','Coaching intakes',54,'▼ needs support',true]];
+    for(const [n,d,v,tr,lag] of rows){
+      if(my!==token)return;
+      const r=el('div','trow','<div class="cn">'+n+'<small>'+d+'</small></div><div class="hbar"><i class="'+(lag?'lag':'')+'"></i></div><div class="val">'+v+'%<em class="'+(lag?'dn':'')+'">'+tr+'</em></div>');
+      team.appendChild(r);
+      requestAnimationFrame(()=>{r.querySelector('.hbar i').style.width=v+'%';});
+      await sleep(300);
+    }
+    await sleep(500); if(my!==token)return;
+    inner.appendChild(el('div','insight rise','<div class="iic">💡</div><div><b>VidyaPulse insight</b><p>Sameer\'s HOT leads wait 9+ hours before first action — 3 went cold this week. Suggested fix: auto-route his overflow HOT leads to Priya between 11 AM–1 PM, and enable Vidya Call follow-up sequences for his WARM list.</p></div>'));
+    await sleep(400); if(my!==token)return;
+
+    inner.appendChild(el('div','sec-t rise','Marketing → enrolment visibility'));
+    const t2=el('div','team rise');inner.appendChild(t2);
+    const rows2=[['Google Ads','1,180 leads → 74 HOT',63,'₹41 CPL → 9 enrolments',false],
+                 ['Meta Ads','2,040 leads → 51 HOT',44,'₹28 CPL → 5 enrolments',false],
+                 ['Education fairs','310 leads → 38 HOT',86,'highest HOT ratio',false],
+                 ['Bulk SMS','4,500 leads → 6 HOT',9,'recommend: pause spend',true]];
+    for(const [n,d,v,tr,lag] of rows2){
+      if(my!==token)return;
+      const r=el('div','trow','<div class="cn">'+n+'<small>'+d+'</small></div><div class="hbar"><i class="'+(lag?'lag':'')+'"></i></div><div class="val">'+v+'<em class="'+(lag?'dn':'')+'">'+tr+'</em></div>');
+      t2.appendChild(r);
+      requestAnimationFrame(()=>{r.querySelector('.hbar i').style.width=v+'%';});
+      await sleep(300);
+    }
+  }
+
+  // ---------------- about ----------------
+  function aboutView(){
+    ++token;
+    inner.innerHTML='';
+    ctitle.textContent='About VidyaPulse'; csub.textContent='AI lead prioritisation — HOT / WARM / COLD.';
+    inner.appendChild(el('div','aboutcard rise',
+      '<svg class="lg" viewBox="0 0 120 120"><use href="#vlogo"/></svg>'+
+      '<h3>VidyaPulse</h3><div class="t">“VidyaPulse tells you who to focus on.”</div>'+
+      '<p>An AI scoring model that reads <b>50+ signals</b> per student — website visits, email opens, WhatsApp replies, call logs, campus visits, application stage — and produces a <b>HOT / WARM / COLD</b> score refreshed every 24 hours. Counselors open their dashboard to a prioritised list with a specific next-best action. Not a gut feeling — a data-backed instruction.</p>'+
+      '<div class="stats-mini"><div class="sm"><b>2×</b><span>faster conversions</span></div><div class="sm"><b>40%</b><span>counselor productivity</span></div><div class="sm"><b>2%→10%</b><span>Annapurna College</span></div><div class="sm"><b>38%</b><span>applications ▲ Uttaranchal</span></div></div>'));
+  }
+
+  function toggleNav(force){
+    const side=document.getElementById('side'), ov=document.getElementById('ov');
+    const open=(typeof force==='boolean')?force:!side.classList.contains('open');
+    side.classList.toggle('open',open); ov.classList.toggle('show',open);
+  }
+  function setActive(key){document.querySelectorAll('.hi').forEach(h=>h.classList.toggle('active',h.dataset.k===key));}
+  function select(key){
+    toggleNav(false); setActive(key);
+    if(key==='list')viewList();
+    else if(key==='dd')deepDive(LEADS[0]);
+    else if(key==='mgr')viewMgr();
+    else aboutView();
+  }
+  window.addEventListener('load',()=>select('list'));
+  return {select,toggleNav};
+})();
+</script>
+</body>
+</html>
