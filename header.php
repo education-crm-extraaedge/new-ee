@@ -1574,6 +1574,10 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     #site-header .eh-dl:hover .eh-dl-title{color:var(--orange-700,#B5551D)}
     #site-header .eh-dl .eh-dl-icon{transition:transform .25s cubic-bezier(.22,1,.36,1)}
     #site-header .eh-dl:hover .eh-dl-icon{transform:translateY(-2px)}
+    /* minimal menu rows: no descriptions, icon+title aligned centre */
+    #site-header .eh-dl-desc{display:none!important}
+    #site-header .eh-dl{align-items:center;padding:.55rem .7rem}
+    #site-header .eh-dl-content{display:flex;align-items:center}
     #site-header .eh-quick-link{border-radius:10px;transition:background .2s,color .2s}
     #site-header .eh-quick-link:hover{background:rgba(25,51,93,.05)}
     /* logo: micro-lift only */
