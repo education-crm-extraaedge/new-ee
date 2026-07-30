@@ -1525,6 +1525,79 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         })();
     </script>
 
+
+    <!-- ─── HEADER 2026 SKIN (eh-2026) ───
+         Floating glass island: detached rounded bar with backdrop blur,
+         compact-on-scroll, glass mega menus, quiet pill nav, premium
+         micro-interactions. Colours/fonts = existing brand tokens only. -->
+    <style id="eh-2026">
+    #site-header{background:transparent!important;border:0!important;box-shadow:none!important;
+      padding:14px 14px 0;transition:padding .35s cubic-bezier(.22,1,.36,1)}
+    #site-header .eh-content{max-width:1200px;height:60px;padding:0 10px 0 18px;
+      background:rgba(255,255,255,.74);
+      -webkit-backdrop-filter:blur(18px) saturate(180%);backdrop-filter:blur(18px) saturate(180%);
+      border:1px solid rgba(25,51,93,.08);border-radius:18px;
+      box-shadow:0 1px 2px rgba(25,51,93,.04),0 16px 48px -24px rgba(25,51,93,.25);
+      transition:height .35s cubic-bezier(.22,1,.36,1),background .35s ease,box-shadow .35s ease}
+    @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+      #site-header .eh-content{background:rgba(255,255,255,.97)}}
+    #site-header.eh-scrolled{padding-top:8px}
+    #site-header.eh-scrolled .eh-content{height:52px;background:rgba(255,255,255,.88);
+      box-shadow:0 1px 2px rgba(25,51,93,.05),0 22px 54px -22px rgba(25,51,93,.32)}
+    /* nav: quiet pill links, no underline bars */
+    #site-header .eh-nav-link{font-weight:500;font-size:.875rem;color:#33415C;
+      padding:.5rem .8rem;border-radius:10px;letter-spacing:0;
+      transition:background .2s ease,color .2s ease}
+    #site-header .eh-nav-link:hover,#site-header .eh-nav-item:hover>.eh-nav-link{
+      background:rgba(25,51,93,.05);color:#19335D}
+    #site-header .eh-nav-link.active{background:rgba(25,51,93,.06);color:#19335D}
+    #site-header .eh-nav-link.active::after,
+    #site-header .eh-nav-item:hover>.eh-nav-link::after{display:none!important}
+    #site-header .eh-chev{transition:transform .25s cubic-bezier(.22,1,.36,1)}
+    #site-header .eh-nav-item:hover .eh-chev{transform:rotate(180deg)}
+    /* CTA: slim conversion pill with arrow slide */
+    #site-header .eh-cta{border-radius:999px;padding:.55rem 1.2rem;font-size:.82rem;font-weight:600;
+      letter-spacing:.01em;box-shadow:0 6px 18px -8px rgba(222,110,48,.55);
+      transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .25s ease}
+    #site-header .eh-cta:hover{transform:translateY(-1px);box-shadow:0 10px 26px -8px rgba(222,110,48,.6)}
+    #site-header .eh-cta svg,#site-header .eh-cta img{transition:transform .25s ease}
+    #site-header .eh-cta:hover svg,#site-header .eh-cta:hover img{transform:translateX(3px)}
+    /* dropdowns + mega menus: glass panels with a soft spring entrance */
+    #site-header .eh-mega,#site-header .eh-dropdown{
+      background:rgba(255,255,255,.9)!important;
+      -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
+      border:1px solid rgba(25,51,93,.08)!important;border-radius:18px!important;
+      box-shadow:0 2px 6px rgba(25,51,93,.05),0 42px 90px -30px rgba(25,51,93,.35)!important;
+      transition:opacity .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),visibility .28s!important}
+    #site-header .eh-dl{border-radius:12px;transition:background .2s ease}
+    #site-header .eh-dl:hover{background:rgba(222,110,48,.06)}
+    #site-header .eh-dl:hover .eh-dl-title{color:var(--orange-700,#B5551D)}
+    #site-header .eh-dl .eh-dl-icon{transition:transform .25s cubic-bezier(.22,1,.36,1)}
+    #site-header .eh-dl:hover .eh-dl-icon{transform:translateY(-2px)}
+    #site-header .eh-quick-link{border-radius:10px;transition:background .2s,color .2s}
+    #site-header .eh-quick-link:hover{background:rgba(25,51,93,.05)}
+    /* logo: micro-lift only */
+    #site-header .eh-logo:hover{transform:translateY(-1px)}
+    @media(max-width:860px){
+      #site-header{padding:10px 10px 0}
+      #site-header .eh-content{height:56px;border-radius:16px;padding:0 8px 0 14px}
+      #site-header.eh-scrolled .eh-content{height:50px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      #site-header,#site-header .eh-content,#site-header .eh-nav-link,#site-header .eh-cta,
+      #site-header .eh-chev,#site-header .eh-dl,#site-header .eh-dl-icon{transition:none!important}
+    }
+    </style>
+    <script id="eh-2026-js">
+    (function(){
+      var h=document.getElementById('site-header'); if(!h) return;
+      var t=false;
+      function upd(){ t=false; h.classList.toggle('eh-scrolled', window.scrollY>24); }
+      window.addEventListener('scroll',function(){ if(!t){ t=true; requestAnimationFrame(upd); } },{passive:true});
+      upd();
+    })();
+    </script>
+
 <style id="ee-global-heading-scale">
 /* ── Global heading scale: fixed sizes, identical on desktop and mobile ──
    H1=30px, H2=20px, H3=17px, paragraphs=15px, site-wide. Page-builder
