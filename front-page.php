@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-vz-pro -->
+<!-- ee-front-tpl v2026-07-29-night-skin -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -6407,4 +6407,47 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   root.querySelectorAll('.story-card').forEach(function(c){ io.observe(c); });
 })();
 </script>
+
+<style id="een-skin">
+/* ── Campus-sleeps story: aurora skin. Pure decoration over the existing
+   widget - its day/night variable system and player logic are untouched. ── */
+/* drifting aurora behind the story (softens in day mode) */
+#ee-night-embed{position:relative}
+#ee-night-embed::before{content:"";position:absolute;inset:-10% -5%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(560px 380px at 18% 22%, rgba(222,110,48,.16), transparent 62%),
+    radial-gradient(640px 420px at 82% 12%, rgba(79,134,216,.14), transparent 62%),
+    radial-gradient(520px 400px at 68% 86%, rgba(122,90,248,.1), transparent 62%);
+  filter:blur(10px);opacity:.85;
+  animation:eenAurora 18s ease-in-out infinite alternate}
+@keyframes eenAurora{from{transform:translate3d(-2.5%,-1.5%,0) scale(1)}to{transform:translate3d(2.5%,2%,0) scale(1.06)}}
+#ee-night-embed.day::before{opacity:.4;filter:blur(14px)}
+/* gradient headline accent */
+#ee-night-embed .pleft h2 .o{background:linear-gradient(100deg,#FF8A5C,#DE6E30 55%,#E8843F);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+/* steps: glowing active state, chip numbers, monospace time pills */
+#ee-night-embed .step{border-radius:14px}
+#ee-night-embed .step .tno{display:inline-grid;place-items:center;min-width:26px;height:26px;border-radius:9px;
+  font-weight:800;font-size:11px;border:1px solid var(--hair);transition:all .35s cubic-bezier(.22,1,.36,1)}
+#ee-night-embed .step.on .tno{background:linear-gradient(135deg,#E8843F,#DE6E30);border-color:transparent;color:#fff;
+  box-shadow:0 8px 18px -6px rgba(222,110,48,.55)}
+#ee-night-embed .step.on{box-shadow:0 10px 30px rgba(3,10,26,.18),inset 2px 0 0 #DE6E30}
+#ee-night-embed .step .tm{font-family:ui-monospace,Menlo,monospace;font-weight:700;font-size:10.5px;
+  color:var(--orange);background:rgba(222,110,48,.1);border:1px solid rgba(222,110,48,.25);
+  padding:3px 8px;border-radius:999px}
+/* phone: gentle levitation + halo */
+#ee-night-embed .phone{animation:eenFloat 7s ease-in-out infinite}
+@keyframes eenFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+#ee-night-embed .phone::after{content:"";position:absolute;inset:-14%;z-index:-1;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(222,110,48,.22),rgba(79,134,216,.1) 55%,transparent 75%);
+  filter:blur(18px)}
+/* section top: hairline gradient rule ties it to the page's design language */
+#ee-night{position:relative}
+#ee-night::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;z-index:2;
+  background:linear-gradient(90deg,transparent,#DE6E30 30%,#FF8A5C 55%,transparent 85%)}
+@media(prefers-reduced-motion:reduce){
+  #ee-night-embed::before,#ee-night-embed .phone{animation:none}
+}
+@media(max-width:960px){#ee-night-embed .phone{animation:none}}
+</style>
 <?php get_footer(); ?>
