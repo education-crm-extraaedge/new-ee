@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-why-story3 -->
+<!-- ee-front-tpl v2026-07-29-why-story4 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -861,6 +861,28 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   radial-gradient(420px 260px at 30% 30%,rgba(222,110,48,.12),transparent 60%),
   radial-gradient(420px 300px at 75% 75%,rgba(25,52,93,.1),transparent 60%)}
 #ee-why .eew2-step:focus-visible{border-radius:14px}
+#ee-why .eew2-toggle{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;
+  border:1.4px solid rgba(25,52,93,.18);background:#fff;color:#19345d;cursor:pointer;
+  transition:border-color .2s,color .2s,transform .2s}
+#ee-why .eew2-toggle:hover{border-color:#DE6E30;color:var(--orange-700,#B5551D);transform:scale(1.06)}
+#ee-why .eew2-toggle svg{width:12px;height:12px}
+#ee-why .eew2-vframe{cursor:zoom-in}
+#ee-why .eew2-vframe.eew2-noimg{cursor:default}
+#ee-why .eew2-lb{position:fixed;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;
+  background:rgba(15,33,67,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s}
+#ee-why .eew2-lb.open{opacity:1;visibility:visible}
+#ee-why .eew2-lb img{max-width:min(92vw,1400px);max-height:86vh;border-radius:16px;background:#fff;
+  padding:14px;box-shadow:0 40px 120px -30px rgba(0,0,0,.6);
+  transform:scale(.94);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+#ee-why .eew2-lb.open img{transform:none}
+#ee-why .eew2-lb-x{position:absolute;top:22px;right:26px;width:42px;height:42px;border-radius:50%;border:0;
+  background:rgba(255,255,255,.14);color:#fff;font-size:19px;line-height:1;cursor:pointer;
+  display:grid;place-items:center;transition:background .2s,transform .2s}
+#ee-why .eew2-lb-x:hover{background:rgba(255,255,255,.26);transform:rotate(90deg)}
+#ee-why .eew2-lb-cap{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  font:600 13px/1.4 'Inter',sans-serif;color:#c6d4ea;background:rgba(15,33,67,.6);
+  padding:8px 16px;border-radius:999px;white-space:nowrap}
 @media(prefers-reduced-motion:reduce){#ee-why.eew2-play .eew2-img.on,#ee-why.eew2-play .eew2-step.on .eew2-no{animation:none}}
 @media(prefers-reduced-motion:reduce){#ee-why .eew2-img,#ee-why .eew2-step,#ee-why .eew2-no,#ee-why .eew2-pfill{transition:none}}
 /* phones: stacked story cards, each with its own image */
@@ -880,7 +902,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <p class="eew2-lead">Most Admission CRMs help you <strong>manage</strong> admissions. ExtraaEdge helps you <strong>design how admissions should work</strong> - end to end, at scale.</p>
     <div class="eew2-grid">
       <div class="eew2-visual">
-        <div class="eew2-vframe">
+        <div class="eew2-vframe" id="eew2Frame" tabindex="0" role="button" aria-label="Enlarge the current screenshot">
           <span class="eew2-ghost" id="eew2Ghost" aria-hidden="true">01</span>
           <img class="eew2-img on" data-i="0" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/unified-admission-ecosystem.webp" alt="Unified Admission Ecosystem" loading="lazy" decoding="async">
           <img class="eew2-img" data-i="1" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/ai-guided-student-journey.webp" alt="AI Guided Student Journey" loading="lazy" decoding="async">
@@ -892,6 +914,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
           <span class="eew2-plabel" id="eew2Label">Unified Admission Ecosystem</span>
           <span class="eew2-pline"><i class="eew2-pfill" id="eew2Fill"></i></span>
           <span class="eew2-count" id="eew2Count">01 / 05</span>
+          <button type="button" class="eew2-toggle" id="eew2Toggle" aria-label="Pause the story autoplay" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" id="eew2TIcon"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
         </div>
       </div>
       <ol class="eew2-steps" id="eew2Steps">
@@ -943,6 +966,11 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       </ol>
     </div>
   </div>
+  <div class="eew2-lb" id="eew2Lb" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
+    <button type="button" class="eew2-lb-x" id="eew2LbX" aria-label="Close">&#10005;</button>
+    <img id="eew2LbImg" src="" alt="">
+    <span class="eew2-lb-cap" id="eew2LbCap"></span>
+  </div>
 </section>
 <script>
 (function(){
@@ -950,41 +978,72 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var steps=[].slice.call(sec.querySelectorAll('.eew2-step'));
   var imgs=[].slice.call(sec.querySelectorAll('.eew2-img'));
   var list=document.getElementById('eew2Steps'),
-      frame=sec.querySelector('.eew2-vframe'),
+      frame=document.getElementById('eew2Frame'),
       ghost=document.getElementById('eew2Ghost'),
       fill=document.getElementById('eew2Fill'),
       label=document.getElementById('eew2Label'),
-      count=document.getElementById('eew2Count');
+      count=document.getElementById('eew2Count'),
+      toggle=document.getElementById('eew2Toggle'),
+      ticon=document.getElementById('eew2TIcon'),
+      lb=document.getElementById('eew2Lb'),
+      lbImg=document.getElementById('eew2LbImg'),
+      lbCap=document.getElementById('eew2LbCap'),
+      lbX=document.getElementById('eew2LbX');
   var labels=['Unified Admission Ecosystem','AI Guided Student Journey','Intelligent Counselor Workspace','Automation & Connected Operations','Executive Decision Intelligence'];
+  var heads=['Everything in one platform','Complete enrollment flow','Counselors work smarter','Processes run automatically','Leadership gets actionable insights'];
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var mq=window.matchMedia('(min-width:901px)');
-  var cur=0,timer=null,userDrove=false,inView=false,failed=0;
+  var cur=0,timer=null,paused=false,inView=false,failed=0;
+  var ICON_PAUSE='M7 5h4v14H7zM13 5h4v14h-4z', ICON_PLAY='M8 5v14l11-7z';
 
-  /* preload all stage images so crossfades are instant */
   imgs.forEach(function(im){
     var pre=new Image(); pre.src=im.src;
     im.addEventListener('error',function(){ if(++failed>=imgs.length&&frame) frame.classList.add('eew2-noimg'); });
   });
 
+  function armFill(i,timed){
+    if(!fill) return;
+    fill.style.transition='none';
+    fill.style.width=(i*20)+'%';
+    void fill.offsetWidth;
+    fill.style.transition=timed?'width 5s linear':'width .45s cubic-bezier(.22,1,.36,1)';
+    fill.style.width=((i+1)*20)+'%';
+  }
   function setActive(i,fromUser){
     i=(i+steps.length)%steps.length;
-    if(fromUser){ userDrove=true; stop(); }
-    if(i===cur) return;
-    cur=i;
-    steps.forEach(function(st,j){ st.classList.toggle('on',j===i);
-      if(j===i){ st.setAttribute('aria-current','step'); } else { st.removeAttribute('aria-current'); } });
-    imgs.forEach(function(im,j){ im.classList.toggle('on',j===i); });
-    if(ghost) ghost.textContent='0'+(i+1);
-    if(fill) fill.style.width=((i+1)*20)+'%';
-    if(label) label.textContent=labels[i]||'';
-    if(count) count.textContent='0'+(i+1)+' / 05';
+    if(fromUser){ pause(true); }
+    if(i!==cur){
+      cur=i;
+      steps.forEach(function(st,j){ st.classList.toggle('on',j===i);
+        if(j===i){ st.setAttribute('aria-current','step'); } else { st.removeAttribute('aria-current'); } });
+      imgs.forEach(function(im,j){ im.classList.toggle('on',j===i); });
+      if(ghost) ghost.textContent='0'+(i+1);
+      if(label) label.textContent=labels[i]||'';
+      if(count) count.textContent='0'+(i+1)+' / 05';
+    }
+    armFill(cur, !!timer&&!fromUser);
   }
-  /* auto-play while on screen (desktop, motion allowed, until the user takes over) */
   function tick(){ setActive(cur+1,false); }
-  function play(){ if(timer||reduce||userDrove||!mq.matches||!inView) return;
-    sec.classList.add('eew2-play'); timer=setInterval(tick,5000); }
-  function stop(){ sec.classList.remove('eew2-play');
-    if(timer){ clearInterval(timer); timer=null; } }
+  function play(){
+    if(timer||reduce||paused||!mq.matches||!inView) return;
+    sec.classList.add('eew2-play');
+    timer=setInterval(tick,5000);
+    armFill(cur,true);
+    if(ticon) ticon.firstElementChild.setAttribute('d',ICON_PAUSE);
+    if(toggle){ toggle.setAttribute('aria-pressed','false'); toggle.setAttribute('aria-label','Pause the story autoplay'); }
+  }
+  function stop(){
+    sec.classList.remove('eew2-play');
+    if(timer){ clearInterval(timer); timer=null; }
+    if(fill){ fill.style.transition='width .3s ease'; fill.style.width=((cur+1)*20)+'%'; }
+    if(ticon) ticon.firstElementChild.setAttribute('d',ICON_PLAY);
+    if(toggle){ toggle.setAttribute('aria-pressed','true'); toggle.setAttribute('aria-label','Play the story autoplay'); }
+  }
+  function pause(byUser){ if(byUser) paused=true; stop(); }
+  if(toggle) toggle.addEventListener('click',function(){
+    if(timer){ pause(true); } else { paused=false; play(); }
+  });
+
   if('IntersectionObserver' in window){
     var vio=new IntersectionObserver(function(es){ es.forEach(function(e){
       inView=e.isIntersecting;
@@ -992,10 +1051,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     }); },{threshold:.3});
     vio.observe(sec);
   } else if(list){ list.classList.add('in'); }
-  /* hover pauses, leaving resumes (unless user drove) */
-  sec.addEventListener('mouseenter',stop);
+  sec.addEventListener('mouseenter',function(){ if(timer) stop(); });
   sec.addEventListener('mouseleave',function(){ play(); });
-  /* click + keyboard */
+
   steps.forEach(function(st){
     st.addEventListener('click',function(){ setActive(+st.dataset.i,true); });
     st.addEventListener('keydown',function(e){
@@ -1004,6 +1062,31 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){ e.preventDefault(); setActive(cur-1,true); steps[cur].focus(); }
     });
   });
+
+  /* ---- click-to-zoom lightbox ---- */
+  var lastFocus=null;
+  function lbOpen(){
+    if(!lb||frame.classList.contains('eew2-noimg')) return;
+    pause(true);
+    lbImg.src=imgs[cur].src; lbImg.alt=imgs[cur].alt||'';
+    if(lbCap) lbCap.textContent=heads[cur]+' \u00b7 '+labels[cur];
+    lb.classList.add('open');
+    document.documentElement.style.overflow='hidden';
+    lastFocus=document.activeElement; if(lbX) lbX.focus();
+  }
+  function lbClose(){
+    if(!lb) return;
+    lb.classList.remove('open');
+    document.documentElement.style.overflow='';
+    if(lastFocus&&lastFocus.focus) lastFocus.focus();
+  }
+  if(frame){
+    frame.addEventListener('click',lbOpen);
+    frame.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); lbOpen(); } });
+  }
+  if(lbX) lbX.addEventListener('click',lbClose);
+  if(lb) lb.addEventListener('click',function(e){ if(e.target===lb) lbClose(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb&&lb.classList.contains('open')) lbClose(); });
 })();
 </script>
 
