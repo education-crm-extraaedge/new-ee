@@ -1647,8 +1647,17 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     /* scrolled: hairline warms slightly */
     #site-header.eh-scrolled .eh-content::before{
       background:linear-gradient(110deg,rgba(222,110,48,.55),rgba(25,51,93,.15) 40%,rgba(255,255,255,0) 62%,rgba(222,110,48,.25))}
+    /* ── mobile drawer enhancements: scrim, safe-area, touch targets ── */
+    .eh-scrim{position:fixed;inset:0;z-index:1090;background:rgba(15,32,58,.45);
+      -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+      opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s}
+    .eh-scrim.on{opacity:1;visibility:visible}
+    #mobileMenu .overflow-y-auto{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+      padding-bottom:calc(1.5rem + env(safe-area-inset-bottom))}
+    #openMobileBtn,#closeMobileBtn{min-width:44px;min-height:44px;
+      display:inline-flex;align-items:center;justify-content:center}
     @media(prefers-reduced-motion:reduce){
-      #site-header .eh-hoverpill,#site-header .eh-mega .eh-dl,#mobileMenu{transition:none!important}
+      #site-header .eh-hoverpill,#site-header .eh-mega .eh-dl,#mobileMenu,.eh-scrim{transition:none!important}
       #site-header .eh-content{animation:none}
       #site-header .eh-cta::after{display:none}
     }
@@ -1682,6 +1691,22 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         nav.addEventListener('mouseleave',function(){
           var act=nav.querySelector('.eh-nav-link.active');
           if(act){ moveTo(act); } else { pill.style.opacity='0'; }
+        });
+      }
+      /* mobile drawer: backdrop scrim, tap-outside + Esc close, focus return */
+      var mm=document.getElementById('mobileMenu'),
+          ob=document.getElementById('openMobileBtn'),
+          cb=document.getElementById('closeMobileBtn');
+      if(mm&&ob&&cb){
+        var scrim=document.createElement('div');
+        scrim.className='eh-scrim'; scrim.setAttribute('aria-hidden','true');
+        document.body.appendChild(scrim);
+        ob.addEventListener('click',function(){ scrim.classList.add('on'); });
+        function shut(){ scrim.classList.remove('on'); ob.focus(); }
+        cb.addEventListener('click',shut);
+        scrim.addEventListener('click',function(){ cb.click(); });
+        document.addEventListener('keydown',function(e){
+          if(e.key==='Escape'&&mm.classList.contains('active')) cb.click();
         });
       }
     })();
