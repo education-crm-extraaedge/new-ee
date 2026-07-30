@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-rfa-tabs -->
+<!-- ee-front-tpl v2026-07-29-rfa-onekw -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1078,13 +1078,14 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-rfa .rfa-chrome span{margin-left:8px;font:600 11px/1 'Inter',sans-serif;color:#7a889e;background:#fff;border:1px solid rgba(25,52,93,.1);border-radius:7px;padding:5px 11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #ee-rfa .rfa-shots{position:relative;aspect-ratio:16/10;background:#fbfcfe}
 #ee-rfa .rfa-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
-#ee-rfa .rfa-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center}
-#ee-rfa .rfa-tab{font:700 11.5px/1 'Inter',sans-serif;letter-spacing:.02em;color:#5a6b85;
-  background:#fff;border:1.4px solid rgba(25,52,93,.16);padding:9px 14px;border-radius:999px;
-  cursor:pointer;transition:color .25s,border-color .25s,background .25s,transform .2s}
-#ee-rfa .rfa-tab:hover{border-color:#19345d;color:#19345d;transform:translateY(-1px)}
-#ee-rfa .rfa-tab.on{color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);
-  border-color:rgba(222,110,48,.5);box-shadow:0 6px 16px -8px rgba(222,110,48,.5)}
+#ee-rfa .rfa-tabs{display:flex;justify-content:center;margin-top:14px;min-height:34px}
+#ee-rfa .rfa-tab{display:none;font:700 12px/1 'Inter',sans-serif;letter-spacing:.03em;
+  padding:10px 18px;border-radius:999px;cursor:default;border:1.4px solid rgba(222,110,48,.5);
+  color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);
+  box-shadow:0 6px 16px -8px rgba(222,110,48,.5)}
+#ee-rfa .rfa-tab.on{display:inline-flex;animation:rfaTabIn .45s cubic-bezier(.22,1,.36,1)}
+@keyframes rfaTabIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#ee-rfa .rfa-tab.on{animation:none}}
 #ee-rfa .rfa-foot b{font-size:12.5px;font-weight:700;color:#19345d;line-height:1.35}
 #ee-rfa .rfa-foot span{flex:none;font:700 11px/1 ui-monospace,Menlo,monospace;color:#C45A20;background:rgba(222,110,48,.09);border:1px solid rgba(222,110,48,.25);padding:6px 10px;border-radius:999px}
 /* glass cards: fade-in + slide-up reveal, hover lift, active highlight */
@@ -1149,7 +1150,6 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
       </div>
       <div class="rfa-cards" id="rfaCards">
       <article class="rfa-card on" data-i="0" tabindex="0">
-        <span class="rfa-kick">Decrease response time</span>
         <h2 class="rfa-title">Respond First Using AI Agents. Win Admissions.</h2>
         <div class="rfa-body">
           <p>Respond to every admission inquiry in minutes, not hours. Because the institute that responds first controls the conversation and conversion. ExtraaEdge brings all admission inquiries into one Admission CRM. AI-powered calling and intelligent routing ensure every prospect is contacted at the right moment - so counselors engage the right students faster and close more enrollments.</p>
@@ -1159,7 +1159,6 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
         </div>
       </article>
       <article class="rfa-card" data-i="1" tabindex="0">
-        <span class="rfa-kick">Boost conversion rates</span>
         <h2 class="rfa-title">AI Decides the Right Admission Engagements.</h2>
         <div class="rfa-body">
           <p>ExtraaEdge uses intelligence across student behaviour, intent, and application stage. It decides who to engage, when to engage, and how to engage across channels. Every interaction is timely, relevant, and context-aware. Admissions teams move away from manual follow-ups and generic messaging - AI-guided engagements adapt in real time and drive higher enrollments.</p>
@@ -1169,7 +1168,6 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
         </div>
       </article>
       <article class="rfa-card" data-i="2" tabindex="0">
-        <span class="rfa-kick">Convert more</span>
         <h2 class="rfa-title">Turn Enquiries Into Enrollments</h2>
         <div class="rfa-body">
           <p>Not every enquiry deserves the same attention. ExtraaEdge helps teams focus on prospects most likely to enroll. Intelligent prioritization uses engagement, intent, and application stage. Teams know exactly who to follow up, nurture, or move forward - the result is higher efficiency and stronger enrollment conversions.</p>
@@ -1179,7 +1177,6 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
         </div>
       </article>
       <article class="rfa-card" data-i="3" tabindex="0">
-        <span class="rfa-kick">Measure your efforts</span>
         <h2 class="rfa-title">Know What&rsquo;s Working. Fix What&rsquo;s Not.</h2>
         <div class="rfa-body">
           <p>Measure what matters across admissions and marketing. ExtraaEdge gives teams clear, actionable visibility into performance. Track counselors, campaigns, and lead sources in one place. With Analytics Builder and VidyaGPT Analytics, insights are easier to explore and understand - so teams act faster on what&rsquo;s working and fix what&rsquo;s not.</p>
