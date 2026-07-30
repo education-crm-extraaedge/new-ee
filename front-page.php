@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-night-skin -->
+<!-- ee-front-tpl v2026-07-29-night-real -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -6445,9 +6445,69 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 #ee-night{position:relative}
 #ee-night::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;z-index:2;
   background:linear-gradient(90deg,transparent,#DE6E30 30%,#FF8A5C 55%,transparent 85%)}
+/* ── realism layer ── */
+/* twinkling stars (own layer on the sky) */
+#ee-night-embed #sky::before{content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(1.6px 1.6px at 22% 26%,rgba(255,255,255,.9),transparent),
+    radial-gradient(1.3px 1.3px at 64% 14%,rgba(255,255,255,.85),transparent),
+    radial-gradient(1.8px 1.8px at 84% 42%,rgba(255,255,255,.8),transparent),
+    radial-gradient(1.2px 1.2px at 38% 55%,rgba(255,255,255,.75),transparent),
+    radial-gradient(1.5px 1.5px at 8% 68%,rgba(255,255,255,.8),transparent),
+    radial-gradient(1.2px 1.2px at 52% 34%,rgba(255,255,255,.7),transparent);
+  animation:eenTwinkle 3.4s ease-in-out infinite alternate}
+@keyframes eenTwinkle{from{opacity:.35}to{opacity:1}}
+/* an occasional shooting star */
+#ee-night-embed #sky::after{content:"";position:absolute;top:12%;left:-8%;width:110px;height:1.5px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.9) 55%,#fff);
+  border-radius:2px;transform:rotate(16deg);opacity:0;
+  animation:eenMeteor 9s cubic-bezier(.3,0,.7,1) infinite}
+@keyframes eenMeteor{
+  0%,86%{opacity:0;transform:translate3d(0,0,0) rotate(16deg)}
+  88%{opacity:.9}
+  94%,100%{opacity:0;transform:translate3d(78vw,26vh,0) rotate(16deg)}}
+/* moon + campus skyline with lit windows (behind the story, fades by day) */
+#ee-night-embed::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle 26px at 87% 13%,rgba(240,244,255,.95) 24px,rgba(240,244,255,0) 26px),
+    radial-gradient(circle 70px at 87% 13%,rgba(200,214,255,.18),transparent 70px),
+    /* lit windows */
+    radial-gradient(1.6px 1.6px at 6% calc(100% - 66px),rgba(255,193,110,.9),transparent),
+    radial-gradient(1.6px 1.6px at 8.5% calc(100% - 44px),rgba(255,193,110,.75),transparent),
+    radial-gradient(1.6px 1.6px at 15% calc(100% - 92px),rgba(255,193,110,.85),transparent),
+    radial-gradient(1.6px 1.6px at 17% calc(100% - 60px),rgba(255,193,110,.7),transparent),
+    radial-gradient(1.6px 1.6px at 27% calc(100% - 50px),rgba(255,193,110,.8),transparent),
+    radial-gradient(1.6px 1.6px at 40% calc(100% - 76px),rgba(255,193,110,.85),transparent),
+    radial-gradient(1.6px 1.6px at 42.5% calc(100% - 40px),rgba(255,193,110,.7),transparent),
+    radial-gradient(1.6px 1.6px at 58% calc(100% - 64px),rgba(255,193,110,.8),transparent),
+    radial-gradient(1.6px 1.6px at 72% calc(100% - 84px),rgba(255,193,110,.85),transparent),
+    radial-gradient(1.6px 1.6px at 74.5% calc(100% - 52px),rgba(255,193,110,.7),transparent),
+    radial-gradient(1.6px 1.6px at 88% calc(100% - 58px),rgba(255,193,110,.8),transparent),
+    radial-gradient(1.6px 1.6px at 95% calc(100% - 38px),rgba(255,193,110,.75),transparent),
+    /* building silhouettes */
+    linear-gradient(rgba(4,11,26,.85),rgba(4,11,26,.85)),
+    linear-gradient(rgba(5,13,30,.8),rgba(5,13,30,.8)),
+    linear-gradient(rgba(4,11,26,.9),rgba(4,11,26,.9)),
+    linear-gradient(rgba(6,14,32,.8),rgba(6,14,32,.8)),
+    linear-gradient(rgba(4,11,26,.85),rgba(4,11,26,.85)),
+    linear-gradient(rgba(5,13,30,.85),rgba(5,13,30,.85)),
+    linear-gradient(rgba(4,11,26,.8),rgba(4,11,26,.8));
+  background-repeat:no-repeat;
+  background-size:auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,
+    11% 84px,9% 118px,10% 64px,12% 96px,10% 108px,9% 72px,11% 88px;
+  background-position:0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,
+    2% 100%,13% 100%,25% 100%,38% 100%,56% 100%,70% 100%,86% 100%;
+  transition:opacity 1.4s}
+#ee-night-embed.day::after{opacity:.12}
+#ee-night-embed.day #sky::before,#ee-night-embed.day #sky::after{opacity:0;animation:none}
+/* phone: glass gloss sweep + richer bezel */
+#ee-night-embed .phone::before{content:"";position:absolute;inset:10px;border-radius:32px;z-index:3;pointer-events:none;
+  background:linear-gradient(118deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,.03) 24%,transparent 38%)}
+/* per-step progress: gradient fill */
+#ee-night-embed .pbar i{background:linear-gradient(90deg,#E8843F,#DE6E30)!important}
 @media(prefers-reduced-motion:reduce){
-  #ee-night-embed::before,#ee-night-embed .phone{animation:none}
+  #ee-night-embed::before,#ee-night-embed .phone,#ee-night-embed #sky::before,#ee-night-embed #sky::after{animation:none}
 }
-@media(max-width:960px){#ee-night-embed .phone{animation:none}}
+@media(max-width:960px){#ee-night-embed .phone{animation:none}#ee-night-embed #sky::after{display:none}}
 </style>
 <?php get_footer(); ?>
