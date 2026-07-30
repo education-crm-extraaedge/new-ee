@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-why-fit -->
+<!-- ee-front-tpl v2026-07-29-rfa-tabs -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1078,6 +1078,13 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-rfa .rfa-chrome span{margin-left:8px;font:600 11px/1 'Inter',sans-serif;color:#7a889e;background:#fff;border:1px solid rgba(25,52,93,.1);border-radius:7px;padding:5px 11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #ee-rfa .rfa-shots{position:relative;aspect-ratio:16/10;background:#fbfcfe}
 #ee-rfa .rfa-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+#ee-rfa .rfa-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center}
+#ee-rfa .rfa-tab{font:700 11.5px/1 'Inter',sans-serif;letter-spacing:.02em;color:#5a6b85;
+  background:#fff;border:1.4px solid rgba(25,52,93,.16);padding:9px 14px;border-radius:999px;
+  cursor:pointer;transition:color .25s,border-color .25s,background .25s,transform .2s}
+#ee-rfa .rfa-tab:hover{border-color:#19345d;color:#19345d;transform:translateY(-1px)}
+#ee-rfa .rfa-tab.on{color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);
+  border-color:rgba(222,110,48,.5);box-shadow:0 6px 16px -8px rgba(222,110,48,.5)}
 #ee-rfa .rfa-foot b{font-size:12.5px;font-weight:700;color:#19345d;line-height:1.35}
 #ee-rfa .rfa-foot span{flex:none;font:700 11px/1 ui-monospace,Menlo,monospace;color:#C45A20;background:rgba(222,110,48,.09);border:1px solid rgba(222,110,48,.25);padding:6px 10px;border-radius:999px}
 /* glass cards: fade-in + slide-up reveal, hover lift, active highlight */
@@ -1192,6 +1199,12 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
       <img class="rfa-shot" data-i="3" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Dashboard%20analytics%20overview.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
           </div>
         </div>
+        <div class="rfa-tabs" id="rfaTabs" role="tablist" aria-label="Stories">
+          <button type="button" class="rfa-tab on" data-i="0">Decrease response time</button>
+          <button type="button" class="rfa-tab" data-i="1">Boost conversion rates</button>
+          <button type="button" class="rfa-tab" data-i="2">Convert more</button>
+          <button type="button" class="rfa-tab" data-i="3">Measure your efforts</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1210,11 +1223,13 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
       urlEl=document.getElementById('rfaUrl');
   var mqd=window.matchMedia('(min-width:961px)');
   var cur=0;
+  var tabs=[].slice.call(sec.querySelectorAll('.rfa-tab'));
   function render(i){
     cur=i;
     cards.forEach(function(c,j){ c.classList.toggle('on',j===i); });
     shots.forEach(function(s,j){ s.classList.toggle('on',j===i); });
     dots.forEach(function(d,j){ d.classList.toggle('on',j===i); });
+    tabs.forEach(function(t,j){ t.classList.toggle('on',j===i); });
     var t=cards[i].querySelector('.rfa-title'), k=cards[i].querySelector('.rfa-kick');
     if(cap&&t) cap.textContent=t.textContent;
     if(cnt) cnt.textContent='0'+(i+1)+' / 0'+cards.length;
@@ -1274,6 +1289,7 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
     c.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); jumpTo(i); } });
   });
   dots.forEach(function(d,i){ d.addEventListener('click',function(){ jumpTo(i); }); });
+  tabs.forEach(function(t,i){ t.addEventListener('click',function(){ jumpTo(i); }); });
   render(0); upd();
 })();
 </script>
