@@ -148,20 +148,42 @@
   .tline.aiL .tag{background:rgba(34,211,238,.14);color:#22D3EE;border:1px solid rgba(34,211,238,.3)}
   .tline.stL .tag{background:rgba(255,255,255,.09);color:#C6D6EE;border:1px solid rgba(255,255,255,.16)}
   .tline p{font-size:13.8px;line-height:1.62;color:#E8F0FC;min-height:1.4em}
-  .tline p .w{opacity:0;animation:wfade .3s forwards}
-  @keyframes wfade{to{opacity:1}}
-  .eq{display:inline-flex;align-items:flex-end;gap:2.5px;height:14px;margin-left:8px;vertical-align:-2px}
-  .eq i{width:3px;border-radius:2px;background:#22D3EE;animation:eqb .8s ease-in-out infinite}
-  .eq i:nth-child(2){animation-delay:.15s}.eq i:nth-child(3){animation-delay:.3s}.eq i:nth-child(4){animation-delay:.45s}
-  @keyframes eqb{0%,100%{height:4px}50%{height:13px}}
-  .callfoot{display:flex;align-items:center;justify-content:center;gap:14px;padding:12px 17px 16px;margin-top:auto}
-  .cbtn{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);cursor:pointer;
-    display:grid;place-items:center;transition:transform .14s,background .15s}
+  /* live-caption reveal: unspoken words ghost in, spoken words light up in time with the voice */
+  .tline p .w{opacity:.16;transition:opacity .22s ease,color .22s ease}
+  .tline p .w.on{opacity:1}
+  .tline p .w.em{font-weight:700;color:#fff}
+  .tline.aiL p .w.on{color:#EAF6FF}
+  .tline p .cursor{display:inline-block;width:2px;height:1em;background:#22D3EE;vertical-align:-2px;margin-left:1px;
+    animation:blink .9s steps(2) infinite;border-radius:2px}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+  /* live voice waveform — animates only while the agent is actually speaking */
+  .eq{display:inline-flex;align-items:center;gap:2.5px;height:15px;margin-left:9px;vertical-align:-3px}
+  .eq i{width:3px;height:3px;border-radius:2px;background:#22D3EE;transition:height .12s ease,opacity .2s;opacity:.35}
+  .eq.live i{opacity:1;animation:eqb var(--d,.7s) ease-in-out infinite}
+  .eq i:nth-child(1){--d:.62s}.eq i:nth-child(2){--d:.78s;animation-delay:.1s}
+  .eq i:nth-child(3){--d:.55s;animation-delay:.22s}.eq i:nth-child(4){--d:.84s;animation-delay:.33s}
+  .eq i:nth-child(5){--d:.68s;animation-delay:.45s}
+  @keyframes eqb{0%,100%{height:3px}45%{height:14px}70%{height:7px}}
+
+  .listening{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.08em;
+    color:#C4B5FD;background:rgba(138,124,255,.14);border:1px solid rgba(138,124,255,.34);padding:4px 10px;border-radius:999px;margin-left:9px}
+  .listening i{width:6px;height:6px;border-radius:50%;background:#C4B5FD;animation:bl 1s infinite}
+
+  .callfoot{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 17px 16px;margin-top:auto;flex-wrap:wrap}
+  .cbtn{height:44px;min-width:44px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .14s,background .15s,box-shadow .15s;
+    color:#C6D6EE;font-weight:700;font-size:12.5px;font-family:var(--font-b);-webkit-tap-highlight-color:transparent}
   .cbtn:hover{transform:translateY(-2px);background:rgba(255,255,255,.13)}
-  .cbtn svg{width:19px;height:19px}
-  .cbtn.end{background:linear-gradient(135deg,#F87171,#DC2626);border-color:transparent;box-shadow:0 8px 20px rgba(220,38,38,.4)}
+  .cbtn:active{transform:translateY(0) scale(.97)}
+  .cbtn svg{width:18px;height:18px;flex:0 0 auto}
+  .cbtn.round{padding:0;width:44px}
+  .cbtn.on{background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;border-color:transparent;box-shadow:0 8px 20px rgba(6,182,212,.4)}
+  .cbtn.muted{background:rgba(248,113,113,.14);border-color:rgba(248,113,113,.4);color:#FCA5A5}
+  .cbtn.end{background:linear-gradient(135deg,#F87171,#DC2626);border-color:transparent;box-shadow:0 8px 20px rgba(220,38,38,.4);color:#fff}
   .cbtn.end:hover{background:linear-gradient(135deg,#EF4444,#B91C1C)}
   .cbtn[disabled]{opacity:.4;pointer-events:none}
+  .vhint{width:100%;text-align:center;font-size:11px;color:#8FA6C9;font-weight:600;margin-top:2px}
 
   .crm{overflow:hidden;height:fit-content}
   .crm .chh{padding:14px 17px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:10px}
@@ -469,35 +491,130 @@ const VA=(function(){
     return{push,jump,reset};
   })();
 
-  /* ========== real voice engine (browser TTS, graceful fallback) ========== */
+  /* ================= VOICE ENGINE =================
+     The robotic feel of stock TTS comes from flat prosody: one long sentence
+     read at one rate and one pitch. This engine instead speaks each line the
+     way a counselor does — broken into phrases, with a real breath between
+     them, an emotion profile per line, lift on emphasised words, and small
+     natural variation so no two phrases land identically.                */
   const Voice=(function(){
-    let enabled=true, voices=[], vAI=null, vST=null;
     const ok=('speechSynthesis' in window);
+    let enabled=true, rateMul=1, voices=[], vAI=null, vST=null, ready=false, keep=null;
+
+    // Prefer a warm Indian-English female voice for Vidya; a distinct one for the student.
     function pickVoices(){
-      voices=speechSynthesis.getVoices(); if(!voices.length)return;
+      voices=(ok?speechSynthesis.getVoices():[])||[]; if(!voices.length)return;
       const by=f=>voices.find(f);
-      vAI=by(v=>/en[-_]IN/i.test(v.lang)&&/female|heera|veena|kalpana|neerja|swara/i.test(v.name))
-        ||by(v=>/en[-_]IN/i.test(v.lang))||by(v=>/hi[-_]IN/i.test(v.lang))
-        ||by(v=>/en[-_]GB/i.test(v.lang))||by(v=>/^en/i.test(v.lang))||voices[0];
-      vST=by(v=>v!==vAI&&/en[-_]IN|hi[-_]IN/i.test(v.lang))||by(v=>v!==vAI&&/^en/i.test(v.lang))||vAI;
+      vAI = by(v=>/en[-_]IN/i.test(v.lang)&&/female|heera|veena|kalpana|neerja|swara|priya|isha|aditi|raveena/i.test(v.name))
+         || by(v=>/en[-_]IN/i.test(v.lang)&&!/male\b/i.test(v.name))
+         || by(v=>/en[-_]IN/i.test(v.lang))
+         || by(v=>/hi[-_]IN/i.test(v.lang))
+         || by(v=>/^en/i.test(v.lang)&&/female|samantha|zira|hazel|karen|moira|tessa/i.test(v.name))
+         || by(v=>/^en/i.test(v.lang)) || voices[0];
+      vST= by(v=>v!==vAI&&/en[-_]IN/i.test(v.lang))
+         || by(v=>v!==vAI&&/hi[-_]IN/i.test(v.lang))
+         || by(v=>v!==vAI&&/^en/i.test(v.lang)) || vAI;
+      ready=!!vAI;
     }
     if(ok){pickVoices();speechSynthesis.onvoiceschanged=pickVoices;}
-    function clean(t){return t.replace(/[🙂😊😄🎉👋👇🌙⚡✅✓×✗📞🗂️🔁📊•]/g,'').replace(/₹/g,' rupees ').replace(/\s+/g,' ').trim();}
-    function speak(text,who){
-      if(!enabled||!ok||!vAI)return null;
-      try{
-        const u=new SpeechSynthesisUtterance(clean(text));
-        u.voice=who==='ai'?vAI:vST;
-        u.rate=0.97; u.pitch=who==='ai'?1.12:0.88; u.volume=1;
-        speechSynthesis.speak(u);
-        return u;
-      }catch(e){return null;}
+    function voiceName(){return ready&&vAI?(vAI.name+' · '+vAI.lang):'system voice';}
+
+    // Emotion profiles — a counselor does not greet, reassure and close in the same tone.
+    const EM={
+      greet   :{r:0.99,p:1.15,v:1.00},   // warm, bright, welcoming
+      ask     :{r:0.97,p:1.11,v:1.00},   // question — lifts at the end
+      guide   :{r:0.95,p:1.05,v:1.00},   // clear and measured, giving information
+      info    :{r:0.94,p:1.03,v:0.98},   // detail: fees, dates, numbers
+      reassure:{r:0.88,p:0.98,v:0.95},   // slower, lower, softer — calming a worry
+      excite  :{r:1.04,p:1.20,v:1.00},   // good news
+      close   :{r:0.92,p:1.09,v:1.00},   // warm sign-off
+      student :{r:0.99,p:0.93,v:1.00},
+      hesitant:{r:0.90,p:0.90,v:0.94},   // unsure, thinking aloud
+      curious :{r:1.01,p:0.99,v:1.00},
+      relieved:{r:0.97,p:1.05,v:1.00}
+    };
+
+    // Strip things a voice should not read out; expand what it should read properly.
+    function clean(t){
+      return t.replace(/\*/g,'')
+              .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}]/gu,'')
+              .replace(/₹\s?([\d.]+)\s*lakhs?/gi,'$1 lakh rupees')
+              .replace(/₹\s?([\d.]+)/g,'$1 rupees')
+              .replace(/(\d+)%/g,'$1 percent')
+              .replace(/\bAM\b/g,'A M').replace(/\bPM\b/g,'P M')
+              .replace(/\bB\.Tech\b/gi,'B Tech').replace(/\bB\.Com\b/gi,'B Com')
+              .replace(/\bMHT-CET\b/gi,'M H T C E T').replace(/\bJEE\b/g,'J E E')
+              .replace(/\bCAT\b/g,'C A T').replace(/\bRSVP\b/g,'R S V P')
+              .replace(/\bAI\b/g,'A I').replace(/\bCRM\b/g,'C R M')
+              .replace(/\bLPA\b/g,'L P A').replace(/\bEMI\b/g,'E M I')
+              .replace(/\s+/g,' ').trim();
     }
+
+    // Break a line into speakable phrases and give each one its own breath.
+    // This is what makes it sound like a person and not a paragraph reader.
+    function phrasesOf(text){
+      // shield the dots that are *inside* words (B.Tech, B.Com, 4.2) so a phrase
+      // never breaks mid-term the way a naive sentence splitter would
+      const DOT='';
+      const src=text.replace(/\.(?=\S)/g,DOT);
+      const out=[]; const re=/[^,;:.!?…—\n]+[,;:.!?…—]*/g; let m;
+      while((m=re.exec(src))){
+        const t=m[0].replace(new RegExp(DOT,'g'),'.').trim(); if(!t)continue;
+        const tail=t.slice(-1);
+        let pause=170;                                   // clause break
+        if(/[.!]/.test(tail))pause=440;                  // full stop — real breath
+        else if(/\?/.test(tail))pause=400;               // question — wait for an answer
+        else if(/[…—]/.test(tail))pause=560;             // trailing off / thinking
+        else if(/[,;:]/.test(tail))pause=210;
+        out.push({t,pause,em:/\*/.test(t)});
+      }
+      return out.length?out:[{t:text,pause:320,em:false}];
+    }
+
+    // Chrome silently stops long synthesis runs; a light resume keeps it alive.
+    function keepAlive(on){
+      if(!ok)return;
+      if(on&&!keep)keep=setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},6000);
+      if(!on&&keep){clearInterval(keep);keep=null;}
+    }
+
+    // Speak one phrase. onWordAt fires with the character index as each word is
+    // actually voiced, which is what keeps the on-screen caption in true sync.
+    function speakPhrase(txt,prof,onWordAt){
+      return new Promise(res=>{
+        if(!enabled||!ok||!ready){res('silent');return;}
+        let settled=false; const done=v=>{if(!settled){settled=true;res(v);}};
+        try{
+          const u=new SpeechSynthesisUtterance(clean(txt));
+          u.voice=prof.voice; u.lang=(prof.voice&&prof.voice.lang)||'en-IN';
+          u.rate=Math.max(.5,Math.min(2,prof.r*rateMul));
+          u.pitch=Math.max(0,Math.min(2,prof.p));
+          u.volume=prof.v;
+          u.onboundary=e=>{if(onWordAt&&e.name!=='sentence')onWordAt(e.charIndex);};
+          u.onend=()=>done('spoke'); u.onerror=()=>done('error');
+          keepAlive(true);
+          speechSynthesis.speak(u);
+        }catch(e){done('error');}
+      });
+    }
+
     return{
-      get enabled(){return enabled;},
-      toggle(){enabled=!enabled;if(!enabled&&ok)try{speechSynthesis.cancel();}catch(e){} return enabled;},
-      stop(){if(ok)try{speechSynthesis.cancel();}catch(e){}},
-      speak, available:ok
+      available:ok,
+      get ready(){return ready;},
+      get enabled(){return enabled&&ok&&ready;},
+      get rateMul(){return rateMul;},
+      voiceName,
+      profile(em,who){
+        const b=EM[em]||(who==='ai'?EM.guide:EM.student);
+        // tiny per-line variation so repeated lines never land identically
+        return{r:b.r*(0.98+Math.random()*0.04),p:b.p*(0.985+Math.random()*0.03),v:b.v,
+               voice:who==='ai'?vAI:vST};
+      },
+      phrasesOf,
+      speakPhrase,
+      setRate(m){rateMul=m;},
+      toggle(){enabled=!enabled;if(!enabled)this.stop();return enabled;},
+      stop(){keepAlive(false);if(ok){try{speechSynthesis.cancel();}catch(e){}}}
     };
   })();
 
@@ -516,55 +633,138 @@ const VA=(function(){
 
   let token=0;
 
-  /* ============ LIVE CALL CENTRE ============ */
+  /* ============ LIVE CALL CENTRE ============
+     Lines carry an emotion so the voice changes with the moment, and *stars*
+     mark the words a counselor would actually lean on.                     */
   const CALLS=[
     {name:'Aisha Verma',pg:'B.Tech CS aspirant · Pune · via MHT-CET enquiry',lang:'English',lines:[
-      ['ai',"Good evening! Am I speaking with Aisha? This is Vidya — the AI admission assistant from EE Edge University, Pune. Is this a good time to talk for a minute?"],
-      ['st',"Uh… yes, but who gave you my number?"],
-      ['ai',"Fair question! You'd enquired on our website last week about B.Tech Computer Science after your MHT-CET result — that's how I have your details, and you can opt out anytime. I'm calling because seats for Saturday's Engineering Open Day are filling fast. Shall I reserve one for you?"],
-      ['st',"Oh okay, right! Actually I did want to come… but I have coaching class in the afternoon."],
-      ['ai',"No problem at all — we run two batches, 10 AM and 2 PM. Since your afternoon is busy, the 10 AM batch works — and honestly it's the better one for you. It includes the AI & Robotics lab tour and the placement desk, which most CS aspirants come for. Should I book 10 AM?"],
-      ['st',"Hmm, okay, 10 AM works. Can my father also come? He has a lot of questions about placements and hostel fees."],
-      ['ai',"Please bring him! There's a dedicated parents' Q&A with the placement team at 11:30 — average package, top recruiters, hostel and mess charges, everything. So that's 2 seats for Saturday, 10 AM batch. You'll get a WhatsApp confirmation with the campus map right away."],
-      ['st',"Great… and this event is free, right? No charges?"],
-      ['ai',"Completely free, Aisha — and lunch is on us. Just show the WhatsApp confirmation at Gate 2. See you Saturday, and all the best for your counselling rounds!"]],
+      ['ai','greet',"Good evening! Am I speaking with Aisha?"],
+      ['ai','greet',"Hi Aisha, this is *Vidya*, calling from the admissions office at EE Edge University, Pune. Is this a good time to talk, just for a minute?"],
+      ['st','hesitant',"Umm… yes, it's fine. But how did you get my number?"],
+      ['ai','reassure',"Sure, that's a fair question. You had enquired on our website last week about *B.Tech Computer Science*, right after your MHT-CET result came out. That's where your details are from, and you can ask me to stop calling any time."],
+      ['ai','guide',"The reason I'm calling — our *Engineering Open Day* is this Saturday, and the seats are filling up quite fast. Would you like me to reserve one for you?"],
+      ['st','curious',"Oh, okay! Actually I did want to come… but I have coaching class in the afternoon."],
+      ['ai','reassure',"No worries at all, that's very common. We run two batches, ten in the morning and two in the afternoon. Since your afternoon is busy, the *ten AM batch* is perfect for you."],
+      ['ai','excite',"And honestly? That's the better one anyway. It includes the AI and Robotics lab tour, plus the placement desk — which is exactly what most CS aspirants come for. Shall I lock in ten AM?"],
+      ['st','curious',"Yes, ten works. Can my father come along? He has a lot of questions about placements and hostel fees."],
+      ['ai','excite',"Absolutely, please do bring him! In fact there's a dedicated *parents' session* with our placement team at eleven thirty — average package, top recruiters, hostel and mess charges. He'll get every answer directly from the team."],
+      ['ai','info',"So that's *two seats*, Saturday, ten AM batch. You'll get a WhatsApp confirmation with the campus map in just a minute."],
+      ['st','hesitant',"Perfect. And… the event is free, right? There's no fee for this?"],
+      ['ai','reassure',"Completely free, Aisha. Lunch is on us as well — just show the WhatsApp confirmation at Gate two."],
+      ['ai','close',"See you on Saturday! And all the best for your counselling rounds."]],
      crm:[['RSVP Status','✓ Confirmed — Sat 10 AM batch'],['Seats','2 (student + parent)'],['Program Interest','B.Tech Computer Science'],['Entrance Track','MHT-CET · counselling stage'],['Qualified','Yes — high intent'],['Next Action','WA confirmation + Friday reminder call']],
      outcome:'RSVP booked · qualifying fields updated in ExtraaEdge automatically',bump:[64,49,9,2]},
+
+    {name:'Mrs. Deshpande',pg:'Parent of Sanika · B.Com aspirant · Nagpur',lang:'English + हिंदी',lines:[
+      ['ai','greet',"Good afternoon ma'am, am I speaking with Sanika's mother?"],
+      ['ai','greet',"Namaste ma'am, this is Vidya from EE Edge University admissions. Sanika had filled our enquiry form for *B.Com*. Is this a convenient time?"],
+      ['st','hesitant',"Haan, boliye. But see, we are still deciding. Everyone is telling us commerce mein scope kam hai."],
+      ['ai','reassure',"I completely understand, ma'am. That worry comes up in almost every conversation I have with parents, so please don't feel it's an unusual question."],
+      ['ai','guide',"Let me share what actually happened with our last batch. Our *B.Com with the fintech certification track* placed *ninety-one percent* of students last year — that's banking, analytics and fintech roles, not just traditional accounts."],
+      ['st','curious',"Achha? And what kind of salary are we talking about?"],
+      ['ai','info',"For that track, the average was *four point two lakhs* per year to start, and our top offer was seven point eight. I'll WhatsApp you the full recruiter list right after this call, so you can go through it with Sanika."],
+      ['st','hesitant',"Theek hai. And fees kitni hai? Because we have to plan for her brother also."],
+      ['ai','reassure',"Of course ma'am, that's an important consideration. The B.Com fee is *sixty-eight thousand* per year, and there's a merit scholarship of up to twenty-five thousand if Sanika has scored above eighty percent in twelfth."],
+      ['st','relieved',"She got eighty-six percent actually."],
+      ['ai','excite',"Oh, that's wonderful! Then she's *comfortably eligible* for the scholarship — please make sure she mentions it in the application form."],
+      ['ai','close',"Ma'am, I'll send the recruiter list and the fee breakdown on WhatsApp now. And if it helps, our counsellor Meera can call you and Sanika together this weekend. Would that be alright?"],
+      ['st','relieved',"Yes yes, that would be good. Thank you."],
+      ['ai','close',"Thank you so much for your time, ma'am. All the best to Sanika!"]],
+     crm:[['Contact Type','Parent — decision influencer'],['Objection','Commerce scope → placement proof shared ✓'],['Scholarship Fit','86% in 12th — eligible for ₹25,000'],['Follow-up','Counselor Meera · joint call this weekend'],['Documents Sent','Recruiter list + fee breakdown (WA)'],['Qualified','Yes — parent buy-in improving']],
+     outcome:'Parent objection handled · joint counselling call scheduled',bump:[52,38,6,2]},
+
     {name:'Rohan Kulkarni',pg:'MBA aspirant · working professional · day-3 follow-up',lang:'हिंदी + English',lines:[
-      ['ai',"Hi Rohan, main Vidya bol rahi hoon — EE Edge University ki AI admission assistant. Aapne Monday ko hamara MBA brochure download kiya tha, toh socha ek baar check kar loon… koi question aaya kya?"],
-      ['st',"Oh, haan… actually fees dekh ke thoda ruk gaya main. ₹4.2 lakh per year humare liye abhi thoda zyada hai."],
-      ['ai',"Bilkul samajh sakti hoon, Rohan — yeh sabse common concern hai, aur genuinely options hain. Ek: first-year fees ke liye zero-interest 6-instalment plan. Do: aapke CAT percentile pe merit scholarship possible hai, jisse fees kaafi kam ho sakti hai. Kya main senior counselor Priya ke saath 15-minute ka call book kar doon? Woh aapke exact numbers nikaal dengi."],
-      ['st',"Theek hai… par main office mein hota hoon din bhar. Sirf evening free hai."],
-      ['ai',"Evening hi rakhte hain — kal shaam 6 baje? Priya aapka scholarship estimate aur instalment schedule pehle se ready rakhengi. Sirf 15 minute, koi sales pitch nahi."],
-      ['st',"Done, kal 6 baje. Waise ek baat poochhun… aap sach mein AI ho? Lag hi nahi raha."],
-      ['ai',"Haan Rohan, main VidyaAI Voice Agent hoon! Aur yahi toh point hai — aapko apne sawaal ka jawaab chahiye tha, woh mil gaya. Calendar invite abhi WhatsApp pe aa raha hai. Kal shaam baat karte hain — best of luck!"]],
+      ['ai','greet',"Hello Rohan! Main Vidya bol rahi hoon, EE Edge University admissions se. Baat karne ka sahi time hai?"],
+      ['ai','guide',"Aapne Monday ko hamara *MBA brochure* download kiya tha, toh socha ek baar check kar loon — koi question aaya kya padhte waqt?"],
+      ['st','hesitant',"Haan actually… fees dekh ke thoda ruk gaya main. Four point two lakh per year abhi thoda zyada lag raha hai."],
+      ['ai','reassure',"Bilkul samajh sakti hoon, Rohan. Yeh sabse common concern hai, aur trust me — iske genuinely achhe options hain."],
+      ['ai','guide',"Pehla: first year fees ke liye humara *zero-interest six-instalment plan* hai. Doosra: aapke CAT percentile pe *merit scholarship* possible hai, jo fees kaafi kam kar deta hai."],
+      ['ai','ask',"Kya main senior counsellor Priya ke saath ek pandrah minute ka call book kar doon? Woh aapke case ke exact numbers nikaal dengi."],
+      ['st','hesitant',"Theek hai… par main din bhar office mein rehta hoon. Sirf evening free hoti hai."],
+      ['ai','reassure',"Koi baat nahi, evening hi rakhte hain. Kal *shaam chhe baje* chalega? Priya aapka scholarship estimate aur instalment schedule pehle se ready rakhengi — sirf pandrah minute, koi sales pitch nahi."],
+      ['st','curious',"Done, kal chhe baje. Waise ek baat poochhun… aap sach mein AI ho? Bilkul lag nahi raha."],
+      ['ai','excite',"Haan Rohan, main *VidyaAI Voice Agent* hoon! Aur yahi toh baat hai — aapko apne sawaal ka jawaab chahiye tha, woh mil gaya, raat ho ya din."],
+      ['ai','close',"Calendar invite abhi WhatsApp pe bhej rahi hoon. Kal shaam baat karte hain — all the best!"]],
      crm:[['Follow-up Stage','Day 3 of 7 — completed'],['Fee Objection','EMI + scholarship info shared ✓'],['Scholarship Fit','CAT 88%ile — eligible'],['Handover','Counselor Priya · tomorrow 6 PM'],['Language','Hindi-English (auto-detected)'],['Qualified','Yes — high intent']],
      outcome:'Qualified & handed to human counselor — with full context, in his language',bump:[68,52,7,3]},
   ];
 
   function fmtTime(s){const m=Math.floor(s/60),ss=s%60;return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
 
-  async function speakLine(pEl,text,who,my){
-    // word-by-word reveal paced like real speech; TTS speaks in parallel when on
-    const words=text.split(' ');
-    const wordMs=Voice.enabled&&Voice.available?350:Math.min(Math.max(4200/words.length,120),420);
-    const utter=Voice.speak(text,who);
-    let ended=false; if(utter)utter.onend=()=>{ended=true;};
-    pEl.innerHTML=words.map(w=>'<span class="w">'+w.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</span>').join(' ');
-    const spans=pEl.querySelectorAll('.w');
-    for(let i=0;i<spans.length;i++){
-      if(my!==token)return;
-      spans[i].style.animationDelay='0s';spans[i].style.opacity='';spans[i].classList.add('w');
-      spans[i].style.animationPlayState='running';spans[i].style.animationName='wfade';
-      spans[i].style.animationFillMode='forwards';
-      spans[i].style.animationDuration='.25s';
-      spans[i].style.opacity='';
-      spans[i].style.animation='wfade .25s forwards';
-      if(i%3===0)SS.push();
-      await sleep(i===0?60:wordMs*(0.75+Math.random()*0.5));
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  /* Speak one phrase while lighting up its words in the transcript.
+     When the speech engine reports word boundaries we follow those exactly,
+     so the caption and the voice are the same event — not two timers guessing
+     at each other. Without boundary support (or when muted) we fall back to a
+     pace derived from the phrase itself. */
+  async function sayPhrase(host,phrase,prof,my){
+    const words=phrase.t.split(/\s+/).filter(Boolean);
+    const span=document.createElement('span');
+    // *emphasis* can span several words, so track the marker as we walk the phrase
+    let emOn=false;
+    span.innerHTML=words.map(w=>{
+      const opens=w.startsWith('*');
+      if(opens)emOn=true;
+      const isEm=emOn;
+      if(/\*/.test(opens?w.slice(1):w))emOn=false;
+      return '<span class="w'+(isEm?' em':'')+'">'+esc(w.replace(/\*/g,''))+'</span>';
+    }).join(' ')+' ';
+    host.appendChild(span);
+    const ws=[...span.querySelectorAll('.w')];
+    // character offsets, computed on the cleaned text the engine actually speaks
+    const offs=[]; let c=0;
+    words.forEach(w=>{offs.push(c); c+=w.replace(/\*/g,'').length+1;});
+    let shown=0;
+    const show=n=>{
+      n=Math.min(n,ws.length);
+      while(shown<n){ws[shown].classList.add('on');shown++;}
+      if(shown%4===0)SS.push();
+    };
+    // pace used when the engine gives no boundaries, or when the voice is muted
+    const est=Math.max(380,(words.length/(2.55*prof.r*Voice.rateMul))*1000);
+    const t0=performance.now();
+    let live=true;
+    (function tick(){
+      if(!live)return;
+      const p=Math.min(1,(performance.now()-t0)/est);
+      show(Math.ceil(p*ws.length));
+      if(p<1)requestAnimationFrame(tick);
+    })();
+    let result='silent';
+    if(Voice.enabled){
+      result=await Promise.race([
+        Voice.speakPhrase(phrase.t,prof,ci=>{let n=0;for(let i=0;i<offs.length;i++){if(offs[i]<=ci)n=i+1;}show(n);}),
+        sleep(est+4000).then(()=>'timeout')
+      ]);
+    }else{
+      await sleep(est);
     }
-    // wait briefly for TTS to finish naturally
-    if(utter){const t0=Date.now();while(!ended&&Date.now()-t0<9000){if(my!==token){Voice.stop();return;}await sleep(120);}}
+    live=false;
+    if(my!==token)return;
+    show(ws.length); SS.push();
+    return result;
+  }
+
+  /* Speak a full line: phrase by phrase, with a real breath between phrases
+     and a beat of extra thought before an emphasised one. */
+  async function speakLine(pEl,text,who,emotion,my,onSpeaking){
+    const prof=Voice.profile(emotion,who);
+    const phrases=Voice.phrasesOf(text);
+    pEl.innerHTML='';
+    const cursor=document.createElement('span');cursor.className='cursor';
+    for(let i=0;i<phrases.length;i++){
+      if(my!==token)return;
+      const ph=phrases[i];
+      if(ph.em)await sleep(130/Voice.rateMul);       // the tiny beat before a stressed word
+      if(onSpeaking)onSpeaking(true);
+      pEl.appendChild(cursor);
+      await sayPhrase(pEl,ph,prof,my);
+      cursor.remove();
+      if(my!==token)return;
+      if(onSpeaking)onSpeaking(false);
+      if(i<phrases.length-1)await sleep(ph.pause/Voice.rateMul);   // the breath
+    }
   }
 
   async function viewCall(){
@@ -586,8 +786,14 @@ const VA=(function(){
       '<button class="vtog on" id="vtog">🔊 Live voice: ON</button></div>';
     room.appendChild(camp);
     const vtog=camp.querySelector('#vtog');
-    if(!Voice.available){vtog.classList.remove('on');vtog.textContent='🔇 Voice: not supported here';}
-    else vtog.onclick=()=>{const on=Voice.toggle();vtog.classList.toggle('on',on);vtog.textContent=on?'🔊 Live voice: ON':'🔇 Live voice: OFF';};
+    if(!Voice.available||!Voice.ready){
+      vtog.classList.remove('on');vtog.textContent='🔇 No speech voice in this browser';
+    }else{
+      vtog.title='Voice: '+Voice.voiceName();
+      vtog.onclick=()=>{const on=Voice.toggle();vtog.classList.toggle('on',on);
+        vtog.textContent=on?'🔊 Live voice: ON':'🔇 Live voice: OFF';
+        document.querySelectorAll('[data-a="mute"]').forEach(b=>b.classList.toggle('muted',!on));};
+    }
 
     const tiles=el('div','tiles',
       '<div class="tile glass" style="--tg:linear-gradient(90deg,#22D3EE,#06B6D4)"><div class="k" id="nCalls">0</div><div class="l">calls placed (of 200)</div></div>'+
@@ -620,15 +826,52 @@ const VA=(function(){
         '<div class="cwho"><b>'+C.name+'</b><span>'+C.pg+'</span><span style="color:#22D3EE">🌐 '+C.lang+' · featured call '+(ci+1)+' of 40 parallel</span></div>'+
         '<div class="cstat"><span class="st dial">📞 DIALING…</span><span class="timer" id="tmr">00:00</span></div></div>'+
         '<div class="tbody"></div>'+
-        '<div class="callfoot"><button class="cbtn" title="Mute (demo)"><svg viewBox="0 0 24 24" fill="none" stroke="#C6D6EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 1 0-7 0v5A3.5 3.5 0 0 0 12 15z"/><path d="M18.5 11.5a6.5 6.5 0 0 1-13 0M12 18v3.5"/></svg></button>'+
-        '<button class="cbtn end" title="End & skip this call"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 9c-2.9 0-5.6.6-8 1.7-.7.3-1.1 1-1.1 1.8v2.2c0 .9.8 1.6 1.7 1.4l3.6-.7c.7-.1 1.2-.7 1.3-1.4l.2-1.5c1.5-.4 3-.4 4.6 0l.2 1.5c.1.7.6 1.3 1.3 1.4l3.6.7c.9.2 1.7-.5 1.7-1.4v-2.2c0-.8-.4-1.5-1.1-1.8C17.6 9.6 14.9 9 12 9z"/></svg></button></div>';
+        '<div class="callfoot">'+
+          '<button class="cbtn round" data-a="mute" title="Mute / unmute the agent voice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 1 0-7 0v5A3.5 3.5 0 0 0 12 15z"/><path d="M18.5 11.5a6.5 6.5 0 0 1-13 0M12 18v3.5"/></svg></button>'+
+          '<button class="cbtn" data-a="replay" title="Replay the last thing said"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg> Replay</button>'+
+          '<button class="cbtn" data-a="speed" title="Playback speed">1×</button>'+
+          '<button class="cbtn end" data-a="end" title="End &amp; skip this call"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 9c-2.9 0-5.6.6-8 1.7-.7.3-1.1 1-1.1 1.8v2.2c0 .9.8 1.6 1.7 1.4l3.6-.7c.7-.1 1.2-.7 1.3-1.4l.2-1.5c1.5-.4 3-.4 4.6 0l.2 1.5c.1.7.6 1.3 1.3 1.4l3.6.7c.9.2 1.7-.5 1.7-1.4v-2.2c0-.8-.4-1.5-1.1-1.8C17.6 9.6 14.9 9 12 9z"/></svg> End</button>'+
+          '<div class="vhint" id="vhint"></div>'+
+        '</div>';
       const crm=el('div','crm glass');
       crm.innerHTML='<div class="chh"><div><b>ExtraaEdge CRM — live sync</b><span>qualifying fields update during the call</span></div><span class="sy">AUTO</span></div><div class="empty">Waiting for call signals…</div><ul style="display:none"></ul>';
       wrap.appendChild(cc);wrap.appendChild(crm);room.appendChild(wrap);
       SS.push();
 
-      const endBtn=cc.querySelector('.cbtn.end');
-      endBtn.onclick=()=>{skipped=true;Voice.stop();};
+      // ---- per-call voice controls ----
+      const btn=a=>cc.querySelector('[data-a="'+a+'"]');
+      const muteBtn=btn('mute'), replayBtn=btn('replay'), speedBtn=btn('speed'), endBtn=btn('end');
+      const vhint=cc.querySelector('#vhint');
+      const SPEEDS=[0.85,1,1.15,1.35];
+      let spIdx=1, last=null, replaying=false;
+      function paintMute(){
+        const on=Voice.enabled;
+        muteBtn.classList.toggle('muted',!on);
+        muteBtn.title=on?'Mute the agent voice':'Unmute the agent voice';
+      }
+      if(!Voice.available||!Voice.ready){
+        muteBtn.classList.add('muted');
+        vhint.textContent='Captions only — no speech voice available in this browser';
+      }else{
+        vhint.textContent='Voice: '+Voice.voiceName();
+      }
+      paintMute();
+      muteBtn.onclick=()=>{Voice.toggle();paintMute();};
+      speedBtn.onclick=()=>{spIdx=(spIdx+1)%SPEEDS.length;Voice.setRate(SPEEDS[spIdx]);
+        speedBtn.textContent=SPEEDS[spIdx]+'×';};
+      replayBtn.onclick=async()=>{
+        if(!last||replaying)return;
+        replaying=true;replayBtn.classList.add('on');
+        Voice.stop();
+        const prof=Voice.profile(last.em,last.who);
+        for(const ph of Voice.phrasesOf(last.text)){
+          if(!replaying)break;
+          await Voice.speakPhrase(ph.t,prof);
+          await sleep(ph.pause/Voice.rateMul);
+        }
+        replaying=false;replayBtn.classList.remove('on');
+      };
+      endBtn.onclick=()=>{skipped=true;replaying=false;Voice.stop();};
 
       // dialing → ringing → connected
       const stat=cc.querySelector('.st'), tmr=cc.querySelector('#tmr'), pw=cc.querySelector('#pw');
@@ -645,26 +888,36 @@ const VA=(function(){
         for(let li=0;li<C.lines.length;li++){
           if(my!==token)return;
           if(skipped)break;
-          const [who,text]=C.lines[li];
-          pw.classList.toggle('speaking',who==='ai');
+          const [who,em,text]=C.lines[li];
+          last={who,em,text};
           const line=el('div','tline '+(who==='ai'?'aiL':'stL'),
             '<span class="tag">'+(who==='ai'?'VIDYA · AI':'STUDENT')+'</span><div style="min-width:0"><p></p></div>');
-          const eq=el('span','eq','<i></i><i></i><i></i><i></i>');
-          line.querySelector('.tag').after();
           body.appendChild(line);SS.push();
           const p=line.querySelector('p');
-          p.appendChild(eq);
-          await speakLine(p,text,who,my); if(my!==token){clearInterval(ti);return;}
-          eq.remove();
+          // waveform for the agent, a listening chip while the student talks
+          const meter=who==='ai'
+            ? el('span','eq','<i></i><i></i><i></i><i></i><i></i>')
+            : el('span','listening','<i></i> LISTENING');
+          line.querySelector('div').appendChild(meter);
+          // speaking state drives the avatar rings and the waveform together
+          const setSpeaking=on=>{
+            pw.classList.toggle('speaking',on&&who==='ai');
+            if(who==='ai')meter.classList.toggle('live',on&&Voice.enabled);
+          };
+          await speakLine(p,text,who,em,my,setSpeaking);
+          if(my!==token){clearInterval(ti);return;}
+          setSpeaking(false); meter.remove();
           if(skipped)break;
           if(li%2===1&&crmIdx<C.crm.length){
             emp.style.display='none';ul.style.display='block';
             const [k,v]=C.crm[crmIdx++];
             ul.appendChild(el('li','','<span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></span><span class="fk">'+k+'</span><span class="fv">'+v+'</span>'));
           }
-          await sleep(who==='ai'?750:550);
+          // the natural turn-taking gap: a touch longer before the other person answers
+          const nextWho=C.lines[li+1]&&C.lines[li+1][0];
+          await sleep((nextWho&&nextWho!==who?620:340)/Voice.rateMul);
         }
-      }finally{clearInterval(ti);}
+      }finally{clearInterval(ti);replaying=false;}
       if(my!==token)return;
       pw.classList.remove('speaking');
       while(crmIdx<C.crm.length){
