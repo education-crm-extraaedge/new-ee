@@ -1618,8 +1618,38 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
       -webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);
       border-radius:24px 0 0 24px!important;border-left:1px solid rgba(25,51,93,.08);
       transition:transform .45s cubic-bezier(.22,1,.36,1)!important}
+    /* ── beauty layer ── */
+    /* island: gradient hairline ring + soft entrance drop */
+    #site-header .eh-content{position:relative}
+    #site-header .eh-content::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+      background:linear-gradient(110deg,rgba(222,110,48,.4),rgba(25,51,93,.12) 38%,rgba(255,255,255,0) 62%,rgba(222,110,48,.18));
+      -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+    @keyframes ehDropIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+    #site-header .eh-content{animation:ehDropIn .65s cubic-bezier(.22,1,.36,1) both}
+    /* CTA: one-time light sweep on hover */
+    #site-header .eh-cta{position:relative;overflow:hidden}
+    #site-header .eh-cta::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;
+      background:linear-gradient(105deg,transparent,rgba(255,255,255,.35),transparent);
+      transform:skewX(-18deg);transition:left .6s ease;pointer-events:none}
+    #site-header .eh-cta:hover::after{left:120%}
+    /* active link: tiny orange dot */
+    #site-header .eh-nav-link.active{position:relative}
+    #site-header .eh-nav-link.active::before{content:"";position:absolute;left:50%;bottom:2px;
+      width:4px;height:4px;border-radius:50%;background:#DE6E30;transform:translateX(-50%)}
+    /* mega menu: pointer caret + refined column titles */
+    #site-header .eh-mega::after{content:"";position:absolute;top:-6px;left:50%;width:12px;height:12px;
+      transform:translateX(-50%) rotate(45deg);background:rgba(255,255,255,.9);
+      border-left:1px solid rgba(25,51,93,.08);border-top:1px solid rgba(25,51,93,.08);border-radius:3px 0 0 0}
+    #site-header .eh-col-title{color:var(--orange-700,#B5551D)!important;letter-spacing:.12em!important}
+    #site-header .eh-mega-col+.eh-mega-col{border-left:1px solid rgba(25,51,93,.06);padding-left:1rem}
+    /* scrolled: hairline warms slightly */
+    #site-header.eh-scrolled .eh-content::before{
+      background:linear-gradient(110deg,rgba(222,110,48,.55),rgba(25,51,93,.15) 40%,rgba(255,255,255,0) 62%,rgba(222,110,48,.25))}
     @media(prefers-reduced-motion:reduce){
       #site-header .eh-hoverpill,#site-header .eh-mega .eh-dl,#mobileMenu{transition:none!important}
+      #site-header .eh-content{animation:none}
+      #site-header .eh-cta::after{display:none}
     }
     </style>
     <script id="eh-2026-js">
