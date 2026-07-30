@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Vidya AI Suite — Interactive Product Demos</title>
+<link rel="icon" type="image/svg+xml" href="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,42 +17,54 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:var(--font-b);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh;
     background:linear-gradient(180deg,#0F2347 0%,#0B1B3A 46%,#F4F7FB 46.05%)}
-  .wrap{max-width:1060px;margin:0 auto;padding:54px 28px 60px}
-  .hero{color:#fff;text-align:center;margin-bottom:44px}
-  .hero .lm{width:78px;height:78px;margin:0 auto 16px;filter:drop-shadow(0 6px 20px rgba(255,120,180,.35))}
+  .wrap{max-width:1060px;margin:0 auto;padding:44px 16px 54px}
+  .blogo{position:relative;display:inline-block;line-height:0}
+  .blogo>svg,.blogo>img{width:100%;height:100%;display:block}
+  .blogo>img{position:absolute;inset:0;object-fit:contain}
+  .hero{color:#fff;text-align:center;margin-bottom:40px}
+  .hero .lm{width:80px;height:80px;margin:0 auto 16px;filter:drop-shadow(0 6px 20px rgba(255,120,180,.35))}
   .hero .kick{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.22em;color:#22D3EE;
     border:1px solid rgba(34,211,238,.4);padding:6px 16px;border-radius:999px;margin-bottom:16px}
-  .hero h1{font-family:var(--font-h);font-weight:800;font-size:clamp(28px,4.6vw,44px);line-height:1.15}
+  .hero h1{font-family:var(--font-h);font-weight:800;font-size:clamp(27px,4.6vw,44px);line-height:1.16}
   .hero h1 span{color:#22D3EE}
-  .hero p{max-width:640px;margin:14px auto 0;font-size:16px;line-height:1.7;color:#AFC6E6}
+  .hero p{max-width:660px;margin:14px auto 0;font-size:15.5px;line-height:1.75;color:#AFC6E6}
   .flow{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:22px}
-  .flow b{font-family:var(--font-h);font-size:12.5px;font-weight:800;letter-spacing:.12em;color:#D9E7FA;
+  .flow b{font-family:var(--font-h);font-size:12px;font-weight:800;letter-spacing:.12em;color:#D9E7FA;
     background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);padding:8px 15px;border-radius:999px}
   .flow i{color:#22D3EE;font-style:normal;font-weight:800;align-self:center}
 
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-  .card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;
+  .grid{display:grid;grid-template-columns:1fr;gap:16px}
+  .card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;
     text-decoration:none;color:var(--ink);box-shadow:0 14px 38px rgba(15,35,71,.10);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden}
   .card:hover{transform:translateY(-4px);box-shadow:0 24px 54px rgba(15,35,71,.16)}
   .card:before{content:'';position:absolute;inset:0 0 auto 0;height:5px;background:var(--bar,linear-gradient(90deg,#22D3EE,#06B6D4))}
-  .pill{width:fit-content;font-size:10.5px;font-weight:800;letter-spacing:.16em;padding:5px 12px;border-radius:999px;margin-bottom:14px;
-    background:var(--pbg,rgba(6,182,212,.1));color:var(--pfg,#0A6E84)}
-  .card h2{font-family:var(--font-h);font-weight:800;font-size:22px;color:var(--navy)}
-  .card .say{font-size:12px;color:var(--muted);font-weight:600;margin-top:3px}
-  .card p{font-size:14px;line-height:1.65;color:#3A4D6C;margin:12px 0 16px}
+  .chead{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+  .chead .plogo{width:52px;height:52px;flex:0 0 auto;border-radius:14px;background:linear-gradient(135deg,#F0FDFF,#F3ECFF);
+    border:1px solid #E3ECF7;display:grid;place-items:center;padding:8px}
+  .chead .plogo .blogo{width:100%;height:100%}
+  .pill{width:fit-content;font-size:10.5px;font-weight:800;letter-spacing:.16em;padding:5px 12px;border-radius:999px;margin-bottom:7px;
+    background:var(--pbg,rgba(6,182,212,.1));color:var(--pfg,#0A6E84);display:inline-block}
+  .card h2{font-family:var(--font-h);font-weight:800;font-size:21px;color:var(--navy)}
+  .card .say{font-size:12px;color:var(--muted);font-weight:600;margin-top:6px}
+  .card p{font-size:14px;line-height:1.68;color:#3A4D6C;margin:11px 0 15px}
   .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
   .chips span{font-size:11.5px;font-weight:700;color:#33486B;background:#F4F7FB;border:1px solid var(--line);padding:5px 10px;border-radius:999px}
-  .open{margin-top:auto;display:inline-flex;align-items:center;gap:9px;width:fit-content;padding:11px 19px;border-radius:12px;
+  .open{margin-top:auto;display:inline-flex;align-items:center;gap:9px;width:fit-content;padding:12px 19px;border-radius:12px;
     background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:800;font-family:var(--font-h);font-size:14px;
     box-shadow:0 8px 20px rgba(6,182,212,.32)}
   .open svg{width:15px;height:15px}
-  .foot{text-align:center;margin-top:40px;font-size:12.5px;color:#8CA0BC}
+
+  .card.soon{background:linear-gradient(160deg,#F7FBFF,#F0F4FB);border-style:dashed;border-color:#C9D6E8}
+  .card.soon:hover{transform:none;box-shadow:0 14px 38px rgba(15,35,71,.08)}
+  .card.soon .ribbon{position:absolute;top:16px;right:-38px;transform:rotate(38deg);background:linear-gradient(135deg,#F59E0B,#F97316);
+    color:#fff;font-family:var(--font-h);font-weight:800;font-size:10.5px;letter-spacing:.12em;padding:6px 44px;box-shadow:0 4px 12px rgba(249,115,22,.35)}
+  .card.soon .open{background:#E7EDF5;color:#64748B;box-shadow:none;cursor:default}
+
+  .foot{text-align:center;margin-top:38px;font-size:12.5px;color:#8CA0BC;line-height:1.8}
   .foot b{color:var(--navy)}
-  @media (max-width:760px){
-    .wrap{padding:40px 16px 44px}
-    .grid{grid-template-columns:1fr;gap:16px}
-    .card{padding:21px}
-    body{background:linear-gradient(180deg,#0F2347 0%,#0B1B3A 54%,#F4F7FB 54.05%)}
+  @media (min-width:760px){
+    .wrap{padding:54px 28px 60px}
+    .grid{grid-template-columns:repeat(2,1fr);gap:22px}
   }
 </style>
 </head>
@@ -70,45 +83,59 @@
 
 <div class="wrap">
   <div class="hero">
-    <svg class="lm" viewBox="0 0 120 120"><use href="#vlogo"/></svg>
-    <span class="kick">VIDYA AI SUITE · EXTRAAEDGE</span>
+    <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="Vidya AI" onerror="this.remove()"></span>
+    <div><span class="kick">VIDYA AI SUITE · EXTRAAEDGE</span></div>
     <h1>The Intelligent Admissions <span>Growth Platform</span> — live, interactive</h1>
-    <p>Four AI products, one platform, one mission: predictable admissions growth. Open any demo below to watch the product actually work — conversations, scoring, calls and coaching, end to end.</p>
+    <p>Four AI products, one platform, one mission: predictable admissions growth. Open any demo below to understand each product in 60 seconds — and then watch it actually work: conversations, scoring, calls and coaching, end to end.</p>
     <div class="flow"><b>UNIFY</b><i>→</i><b>PRIORITISE</b><i>→</i><b>AUTOMATE</b><i>→</i><b>CONVERT</b></div>
   </div>
 
   <div class="grid">
     <a class="card" href="vidyagpt.html" style="--bar:linear-gradient(90deg,#22D3EE,#8A7CFF);--pbg:rgba(6,182,212,.1);--pfg:#0A6E84">
-      <span class="pill">CONVERT · WEB</span>
-      <h2>VidyaGPT</h2><span class="say">Say it: “Vidya G-P-T” — VidyaGPT talks to students.</span>
-      <p>Your always-on AI admissions counselor. Watch it answer a student's enquiry at any hour — programs, fees, scholarships — then book a counseling slot, live in the chat.</p>
+      <div class="chead"><span class="plogo"><span class="blogo"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="" onerror="this.remove()"></span></span>
+        <div><span class="pill">CONVERT · WEB</span><h2>VidyaGPT</h2></div></div>
+      <span class="say">Say it: “Vidya G-P-T” — VidyaGPT talks to students.</span>
+      <p>Your always-on AI admissions counselor. Watch it calm a nervous student at any hour — programs, fees, scholarships, honest guidance — then book a counseling slot, live in the chat.</p>
       <div class="chips"><span>&lt;3s replies · 24×7</span><span>Education-specific SLM</span><span>50% better conversion</span><span>24× ROI</span></div>
       <span class="open">Open interactive demo <svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
 
     <a class="card" href="vidyawaba-gpt.html" style="--bar:linear-gradient(90deg,#25D366,#128C7E);--pbg:rgba(37,211,102,.12);--pfg:#0B6B4F">
-      <span class="pill">CONVERT · WHATSAPP</span>
-      <h2>VidyaWABA GPT</h2><span class="say">Say it: “Vidya WABA G-P-T” — VidyaGPT, on WhatsApp.</span>
+      <div class="chead"><span class="plogo"><span class="blogo"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="" onerror="this.remove()"></span></span>
+        <div><span class="pill">CONVERT · WHATSAPP</span><h2>VidyaWABA GPT</h2></div></div>
+      <span class="say">Say it: “Vidya WABA G-P-T” — VidyaGPT, on WhatsApp.</span>
       <p>The same VidyaGPT brain inside WhatsApp Business Enterprise. A midnight fee enquiry, native WA booking buttons, proactive day-3 nudges — with live CRM sync running beside the phone.</p>
       <div class="chips"><span>98% open rate</span><span>1:1 at any scale</span><span>Official WA Business API</span><span>5× vs broadcast</span></div>
       <span class="open">Open interactive demo <svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
 
     <a class="card" href="vidyapulse.html" style="--bar:linear-gradient(90deg,#F97316,#EF4444);--pbg:#FEF2F2;--pfg:#B91C1C">
-      <span class="pill">PRIORITISE</span>
-      <h2>VidyaPulse</h2><span class="say">Say it: “Vidya Pulse” — tells you who to focus on.</span>
+      <div class="chead"><span class="plogo"><span class="blogo"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="" onerror="this.remove()"></span></span>
+        <div><span class="pill">PRIORITISE</span><h2>VidyaPulse</h2></div></div>
+      <span class="say">Say it: “Vidya Pulse” — tells you who to focus on.</span>
       <p>AI lead prioritisation in action: the overnight re-score, HOT / WARM / COLD tiles, a counselor's top-5 list with next-best actions — and the signal timeline showing exactly why a lead is HOT.</p>
       <div class="chips"><span>50+ signals / student</span><span>Re-scored every 24h</span><span>2× faster conversions</span><span>2%→10% Annapurna</span></div>
       <span class="open">Open interactive demo <svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
 
     <a class="card" href="vidya-voice-agent.html" style="--bar:linear-gradient(90deg,#8A7CFF,#E879F9);--pbg:#F5F0FF;--pfg:#6D28D9">
-      <span class="pill">AUTOMATE</span>
-      <h2>VidyaAI Voice Agent</h2><span class="say">Say it: “Vidya Agents” — Vidya Call + Vidya Call Intelligence.</span>
-      <p>Launch a live AI RSVP campaign — watch Vidya Call talk to students, book seats and update qualifying fields. Then see Call Intelligence score a counselor's call and deliver a coaching card in minutes.</p>
+      <div class="chead"><span class="plogo"><span class="blogo"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="" onerror="this.remove()"></span></span>
+        <div><span class="pill">AUTOMATE</span><h2>VidyaAI Voice Agent</h2></div></div>
+      <span class="say">Say it: “Vidya Agents” — Vidya Call + Vidya Call Intelligence.</span>
+      <p>Launch a live AI RSVP campaign — hear Vidya Call handle real objections, book seats and update qualifying fields. Then watch Call Intelligence score a counselor's call and coach them in minutes.</p>
       <div class="chips"><span>150 RSVPs / event</span><span>0 counselor hours</span><span>Every call AI-scored</span><span>95% adoption</span></div>
       <span class="open">Open interactive demo <svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
+
+    <div class="card soon" style="--bar:linear-gradient(90deg,#F59E0B,#F97316)">
+      <div class="ribbon">UPCOMING</div>
+      <div class="chead"><span class="plogo"><span class="blogo"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-work.svg" alt="" onerror="this.remove()"></span></span>
+        <div><span class="pill" style="background:#FFFBEB;color:#B45309">NEXT IN THE SUITE</span><h2>VidyaWork</h2></div></div>
+      <span class="say">The next Vidya AI product — launching soon.</span>
+      <p>The Vidya AI suite keeps growing. VidyaWork is in the works — the next step in agent-led execution for admission teams. Watch this space; the interactive demo will land right here.</p>
+      <div class="chips"><span>Coming soon</span><span>Vidya AI Suite</span><span>ExtraaEdge</span></div>
+      <span class="open">Demo coming soon</span>
+    </div>
   </div>
 
   <div class="foot"><b>ExtraaEdge is the operating system.</b> VidyaGPT talks to students · VidyaPulse tells you who to focus on · VidyaAgents make sure the calls actually convert.<br>getvidya.ai · extraaedge.com</div>

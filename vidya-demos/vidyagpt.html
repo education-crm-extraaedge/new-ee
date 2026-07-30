@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VidyaGPT — Interactive Admissions Assistant</title>
+<link rel="icon" type="image/svg+xml" href="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -178,6 +179,77 @@
     .m.user .col,.m.ai .col{max-width:90%}
     .bub{font-size:14px}
   }
+
+  /* ===== brand logo (remote SVG with inline fallback) ===== */
+  .blogo{position:relative;display:inline-block;line-height:0;flex:0 0 auto}
+  .blogo>svg,.blogo>img{width:100%;height:100%;display:block}
+  .blogo>img{position:absolute;inset:0;object-fit:contain}
+  .av.ai .blogo{width:29px;height:29px}
+  @media (max-width:820px){.av.ai .blogo{width:23px;height:23px}}
+
+  /* ===== overview / product story (mobile-first) ===== */
+  .ovv{display:flex;flex-direction:column;gap:28px;padding-bottom:12px}
+  .hero-p{background:linear-gradient(150deg,#0F2347,#16315F 58%,#0B3A4A);border-radius:22px;padding:36px 22px;color:#fff;
+    text-align:center;box-shadow:0 18px 44px rgba(15,35,71,.3);position:relative;overflow:hidden}
+  .hero-p:before{content:'';position:absolute;width:360px;height:360px;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(34,211,238,.22),transparent);top:-170px;right:-130px}
+  .hero-p .blogo{width:86px;height:86px;margin:0 auto 16px;filter:drop-shadow(0 8px 22px rgba(34,211,238,.35))}
+  .hero-p .say{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.18em;color:#22D3EE;
+    border:1px solid rgba(34,211,238,.4);padding:6px 14px;border-radius:999px;margin-bottom:15px}
+  .hero-p h1{font-family:var(--font-h);font-weight:800;font-size:clamp(24px,4.5vw,36px);line-height:1.22;position:relative}
+  .hero-p .ol{max-width:640px;margin:13px auto 0;font-size:15px;line-height:1.75;color:#B9CCE8;position:relative}
+  .hero-p .cta-row{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-top:24px;position:relative}
+  .cta-main{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:13px;border:0;cursor:pointer;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:800;font-family:var(--font-h);font-size:15px;
+    box-shadow:0 10px 28px rgba(6,182,212,.45);transition:transform .15s;text-decoration:none}
+  .cta-main:hover{transform:translateY(-2px)}
+  .cta-main svg{width:17px;height:17px}
+  .cta-ghost{display:inline-flex;align-items:center;gap:9px;padding:14px 22px;border-radius:13px;border:1.5px solid rgba(255,255,255,.32);
+    color:#fff;font-weight:700;font-size:14px;cursor:pointer;background:transparent;text-decoration:none}
+  .sec-kick{font-size:11px;font-weight:800;letter-spacing:.2em;color:var(--teal);text-align:center}
+  .sec-h{font-family:var(--font-h);font-weight:800;font-size:clamp(20px,3.4vw,27px);color:var(--navy);text-align:center;margin-top:6px}
+  .sec-sub{max-width:640px;margin:9px auto 0;text-align:center;font-size:14px;line-height:1.7;color:var(--muted)}
+  .p3{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .pcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .pcard .no{font-family:var(--font-h);font-weight:800;font-size:13px;color:#fff;width:30px;height:30px;border-radius:9px;
+    display:grid;place-items:center;background:linear-gradient(135deg,#22D3EE,#8A7CFF);margin-bottom:11px}
+  .pcard b{font-family:var(--font-h);font-size:16px;color:var(--navy);display:block;margin-bottom:6px}
+  .pcard p{font-size:13.5px;color:#3A4D6C;line-height:1.68}
+  .cost{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+  .cost .c{background:linear-gradient(135deg,#FFF7ED,#FEF2F2);border:1px solid #FED7AA;border-radius:14px;padding:16px 13px;text-align:center}
+  .cost .c b{font-family:var(--font-h);font-weight:800;font-size:22px;color:#C2410C;display:block}
+  .cost .c span{font-size:11.5px;color:#9A3412;font-weight:600;line-height:1.5;display:block;margin-top:4px}
+  .feat{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .fcard{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .fcard .fi{width:46px;height:46px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;font-size:21px;
+    background:linear-gradient(135deg,#F0FDFF,#F3ECFF);border:1px solid #E3ECF7}
+  .fcard b{font-family:var(--font-h);font-size:15.5px;color:var(--navy);display:block;margin-bottom:4px}
+  .fcard p{font-size:13.5px;color:#3A4D6C;line-height:1.68}
+  .ba{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .ba .bh{display:grid;grid-template-columns:1fr 1fr;font-family:var(--font-h);font-weight:800;font-size:11.5px;letter-spacing:.08em}
+  .ba .bh div{padding:12px 14px;text-align:center}
+  .ba .bh .l{background:#FEF2F2;color:#B91C1C}.ba .bh .r{background:#ECFDF5;color:#047857}
+  .ba .br{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #EDF1F7;font-size:12.8px;line-height:1.55}
+  .ba .br div{padding:12px 14px}
+  .ba .br .l{color:#7F1D1D;background:#FFFBFA}.ba .br .r{color:#064E3B;background:#F7FEFA;border-left:1px solid #EDF1F7}
+  .proofrow{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+  .pf{background:linear-gradient(135deg,#F0FDFF,#F7FBFF);border:1px solid rgba(6,182,212,.28);border-radius:14px;padding:17px 13px;text-align:center}
+  .pf b{font-family:var(--font-h);font-weight:800;font-size:23px;color:var(--navy);display:block}
+  .pf span{font-size:11.5px;color:#33607A;font-weight:600;line-height:1.5;display:block;margin-top:4px}
+  .whyedu{margin-top:18px;background:linear-gradient(135deg,#0F2347,#16315F);border-radius:18px;padding:26px 22px;color:#D9E7FA}
+  .whyedu h4{font-family:var(--font-h);font-size:17.5px;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .whyedu ul{list-style:none}
+  .whyedu li{font-size:13.8px;line-height:1.8;margin-bottom:9px;padding-left:26px;position:relative}
+  .whyedu li:before{content:'✓';position:absolute;left:0;top:0;color:#22D3EE;font-weight:800}
+  .whyedu b{color:#22D3EE}
+  .cta-final{display:flex;justify-content:center;margin-top:2px}
+  @media(min-width:720px){
+    .p3{grid-template-columns:repeat(3,1fr)}
+    .feat{grid-template-columns:repeat(2,1fr)}
+    .cost{grid-template-columns:repeat(4,1fr)}
+    .proofrow{grid-template-columns:repeat(4,1fr)}
+    .hero-p{padding:46px 36px}
+  }
 </style>
 </head>
 <body>
@@ -197,7 +269,7 @@
 
   <aside id="side">
     <div class="brand">
-      <svg class="lm" viewBox="0 0 120 120"><use href="#vlogo"/></svg>
+      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="VidyaGPT" onerror="this.remove()"></span>
       <div class="bt">VidyaGPT<small>powered by ExtraaEdge</small></div>
     </div>
     <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Add Your University / Institute</a>
@@ -235,30 +307,32 @@ const VG=(function(){
         hist=document.getElementById('hist'), ph=document.getElementById('ph'), hint=document.getElementById('hint');
   const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  const logoSvg='<svg viewBox="0 0 120 120"><use href="#vlogo"/></svg>';
+  const LOGO='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg';
+  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
+  const logoSvg=brandImg('');
   const PE='powered by ExtraaEdge';
 
   // ---------- conversation data ----------
   const U='user', A='ai';
   const CONV={
     eeedge:{title:"EE Edge University Admissions",sub:"Chat with VidyaGPT about EE Edge University's admissions process.",turns:[
-      [A,"Hi there! I'm here to help you with your EE Edge University application. What's your name?"],
-      [U,"Hi! I'm Alex Chen. I'm really interested in applying to EE Edge University."],
-      [A,"Nice to meet you, Alex! I'd love to help you learn more about EE Edge University. Let me share our comprehensive university brochure with you — it covers programs, campus life, admissions and financial aid.","brochure"],
-      [U,"Thank you! That would be really helpful. Can you tell me about the admission requirements?"],
-      [A,"Absolutely! EE Edge University looks for academic excellence, extracurricular achievements and strong character. Our acceptance rate is around 4–5%, with admitted students typically scoring SAT 1460–1580."],
-      [U,"What about the application deadlines?"],
-      [A,"Great question! The Early Action deadline is November 1st, and Regular Decision is January 1st. I always recommend applying early if possible."],
-      [U,"What are the tuition fees like?"],
-      [A,"For 2023–24, tuition is approximately $52,000. With room, board and fees, the total is around $80,000 per year — but we have generous financial aid programs."],
-      [U,"That's quite expensive. Are there scholarships available?"],
-      [A,"Yes! EE Edge University meets 100% of demonstrated financial need. Families earning below $75,000 typically pay nothing, and ~55% of students receive need-based aid averaging over $55,000."],
-      [U,"What programs is EE Edge University most known for?"],
-      [A,"We excel in many areas — particularly Computer Science, Engineering, Business, Medicine and Liberal Arts. Our interdisciplinary approach lets students explore multiple interests."],
-      [U,"This all sounds amazing! What would be the next steps for me to apply?"],
-      [A,"I'm so glad you're interested! The next step is a personalised consultation where we discuss your academic background and create a tailored application strategy."],
-      [U,"That sounds perfect! Can we schedule a meeting?"],
-      [A,"Absolutely! I'd be happy to schedule a one-on-one consultation. Let me show you our available time slots.","slots"],
+      [A,"Hey there! 👋 I'm Vidya, EE Edge University's admissions assistant. I'm here 24×7 — ask me anything about programs, fees, campus life… or just tell me what's on your mind. What's your name?"],
+      [U,"Hi! I'm Alex Chen. I'm in my final year of school and honestly a bit overwhelmed by this whole application thing 😅"],
+      [A,"Totally understandable, Alex — application season feels like a lot for almost everyone. That's exactly what I'm here for, so let's take it one step at a time.\n\nFirst things first: here's our university brochure — programs, campus life, admissions and financial aid, all in one place. Skim it whenever you like; I'll answer the specific questions right here.","brochure"],
+      [U,"Thanks! So… what does EE Edge actually look for? My grades are good but not perfect."],
+      [A,"Honest answer? We read applications as stories, not scorecards. Academic strength matters — admitted students typically score SAT 1460–1580 — but your activities, essays and character carry real weight too.\n\n'Good but not perfect, with a genuine story' beats 'perfect but generic' more often than you'd think, Alex."],
+      [U,"That's actually reassuring. When are the deadlines? I really don't want to miss anything."],
+      [A,"Smart to ask early 😄 Two dates to circle on your calendar:\n\n• Early Action — November 1\n• Regular Decision — January 1\n\nIf EE Edge is high on your list, I'd genuinely recommend Early Action — you hear back sooner, and it signals commitment."],
+      [U,"Okay, now the scary question… what does it cost? 😬"],
+      [A,"Deep breath — because the sticker price and the real price are very different things.\n\nTuition is about $52,000, and roughly $80,000/year all-in with housing and meals. BUT: we meet 100% of demonstrated financial need. Families earning under $75,000 typically pay nothing, and ~55% of students receive aid averaging over $55,000."],
+      [U,"Wait, seriously? My parents will definitely want to hear that. How does the financial aid application work?"],
+      [A,"Seriously! 😊 You file the aid forms alongside your application — it takes about an hour with your family's financial documents, and I can walk you through each form when you get there.\n\nAnd here's the part most families miss: applying for aid does NOT hurt your admission chances at EE Edge. Need-blind means need-blind."],
+      [U,"Good to know. By the way, I'm torn between Computer Science and Business. Which one is better there?"],
+      [A,"Ooh, a genuinely good dilemma — those are two of our strongest programs. But here's the thing: at EE Edge you don't have to pick on day one.\n\nMany students combine CS + Business — our whole curriculum is built for interdisciplinary paths, and your advisor helps you shape the mix after you arrive. Your dilemma might actually be your advantage."],
+      [U,"Honestly, that sounds perfect for me. What should I do next?"],
+      [A,"I love the momentum, Alex 🙌 The ideal next step is a one-on-one consultation with an admissions counselor — they'll review your profile and sketch a personalised application strategy with you. Want me to set that up right now?"],
+      [U,"Yes please! Let's schedule it."],
+      [A,"Done — pick whichever slot suits you below, and I'll lock it in.","slots"],
     ]},
     bvp:{title:"BVP University Pune Admissions",sub:"Chat with VidyaGPT about BVP University Pune's admissions process.",turns:[
       [U,"Hi, I want to know about BVP University Pune's admission process."],
@@ -297,7 +371,7 @@ const VG=(function(){
       [A,"Excellent! Let me help you book a personalised financial aid consultation. Please pick a slot below.","slots"],
     ]},
   };
-  const ORDER=[['eeedge','EE Edge University Admissions'],['bvp','BVP University Pune Admissions'],
+  const ORDER=[['ovv','What is VidyaGPT?'],['eeedge','EE Edge University Admissions'],['bvp','BVP University Pune Admissions'],
                ['iit','IIT Bombay Application Process'],['du','Delhi University Financial Aid'],['about','About VidyaGPT']];
 
   // ---------- sidebar ----------
@@ -305,6 +379,8 @@ const VG=(function(){
     const d=document.createElement('div');d.className='hi';d.dataset.k=k;
     const ic=k==='about'
       ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>'
+      : k==='ovv'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.3l6.1-.7L12 3z"/></svg>'
       : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
     d.innerHTML=ic+' '+label; d.onclick=()=>select(k); hist.appendChild(d);
   });
@@ -397,6 +473,7 @@ const VG=(function(){
   function select(key){
     toggleNav(false); // close drawer on mobile after picking a chat
     document.querySelectorAll('.hi').forEach(h=>h.classList.toggle('active',h.dataset.k===key));
+    if(key==='ovv'){ token++; viewOvv(); return; }
     if(key==='about'){ token++; aboutView(); return; }
     play(key);
   }
@@ -404,14 +481,82 @@ const VG=(function(){
     inner.innerHTML=''; hint.classList.remove('show'); setComposer('Ask about admissions, tuition, requirements…',false);
     ctitle.textContent='About VidyaGPT'; csub.textContent='Your AI companion for education admissions.';
     inner.appendChild(el('div','aboutcard',
-      '<svg class="lg" viewBox="0 0 120 120"><use href="#vlogo"/></svg>'+
+      brandImg('lg')+
       '<h3>VidyaGPT AI</h3><div class="t">Your AI Companion for Education Admissions</div>'+
       '<p>Powered by education-first foundation models, VidyaGPT AI is a co-pilot for prospective students &amp; admission teams — to navigate the critical admissions process and make the right admission decisions, faster, precise &amp; hyper-personalised.</p>'));
     scroll();
   }
 
+  // ---------- overview / product story ----------
+  function viewOvv(){
+    inner.innerHTML=''; hint.classList.remove('show'); setComposer('Ask about admissions, tuition, requirements…',false);
+    ctitle.textContent='What is VidyaGPT?'; csub.textContent='Understand the product in 60 seconds — then watch it counsel a student live.';
+    const o=el('div','ovv');
+    o.innerHTML=
+      '<div class="hero-p">'+brandImg('')+
+        '<div><span class="say">CONVERT PILLAR · SAY IT: “VIDYA G-P-T”</span></div>'+
+        '<h1>VidyaGPT talks to students —<br>24×7, so your counselors don\'t have to.</h1>'+
+        '<p class="ol">Students decide fast and enquire late at night. VidyaGPT is your <b>always-on AI admissions counselor</b> — built on an Education-specific Small Language Model, live on your website and WhatsApp. It answers every enquiry in <b>under 3 seconds</b> with accurate, personal guidance on programs, fees, eligibility and next steps — and hands your team engaged, pre-qualified leads every morning.</p>'+
+        '<div class="cta-row"><button class="cta-main" id="goDemo"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Watch it counsel a student</button>'+
+        '<a class="cta-ghost" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener">See it on my website →</a></div>'+
+      '</div>'+
+
+      '<div><div class="sec-kick">THE PROBLEM</div><div class="sec-h">Students expect instant answers. Teams can\'t be online 24×7.</div>'+
+      '<p class="sec-sub">A student who enquires at 9 PM and hears nothing until morning has often already registered with a competitor. The gap between “student reaches out” and “student feels heard” is where enrolments are lost.</p>'+
+      '<div class="p3">'+
+        '<div class="pcard"><div class="no">01</div><b>Missed overnight enquiries</b><p>Peak enquiry time is 8–11 PM — exactly when institutions go dark. High-intent midnight leads go cold before the counselor\'s morning coffee.</p></div>'+
+        '<div class="pcard"><div class="no">02</div><b>Generic copy-paste replies</b><p>Thousands of different students get the same template answer. Nobody feels heard, and the drop-off is silent and fast.</p></div>'+
+        '<div class="pcard"><div class="no">03</div><b>Counselor overload</b><p>60% of a counselor\'s day goes to answering the same 20 questions — instead of converting the students who are actually ready to enrol.</p></div>'+
+      '</div>'+
+      '<div class="cost">'+
+        '<div class="c"><b>14–18 hrs</b><span>average institutional response time</span></div>'+
+        '<div class="c"><b>&lt;5 min</b><span>industry best practice — the bar students expect</span></div>'+
+        '<div class="c"><b>60%</b><span>of counselor day lost to repetitive Q&amp;A</span></div>'+
+        '<div class="c"><b>9pm–6am</b><span>peak browsing window — usually unanswered</span></div>'+
+      '</div></div>'+
+
+      '<div><div class="sec-kick">THE SOLUTION</div><div class="sec-h">An AI counselor that never sleeps, never rushes, always personalises</div>'+
+      '<p class="sec-sub">Not a generic chatbot — an Education-specific Small Language Model trained on admissions: programs, fees, eligibility, scholarships, campus life and how students actually decide.</p>'+
+      '<div class="feat">'+
+        '<div class="fcard"><div class="fi">⚡</div><div><b>Always on, instantly</b><p>Every enquiry answered in under 3 seconds — 9 AM or 2 AM, weekday or festival week. No gaps, no out-of-office, ever.</p></div></div>'+
+        '<div class="fcard"><div class="fi">🎓</div><div><b>Admission-trained, no hallucination</b><p>Knows your programs, fee structures, eligibility rules and deadlines. Counsels like your best counselor — it doesn\'t keyword-match like a bot.</p></div></div>'+
+        '<div class="fcard"><div class="fi">💛</div><div><b>Truly personal, at scale</b><p>Reads the student\'s profile, interests and past conversation — so 1,000 simultaneous chats still each feel 1:1 and human.</p></div></div>'+
+        '<div class="fcard"><div class="fi">🔗</div><div><b>Plugged into ExtraaEdge CRM</b><p>Every conversation auto-captures the lead, updates the profile and triggers the right follow-up — counselors wake up to engaged, pre-qualified leads.</p></div></div>'+
+      '</div></div>'+
+
+      '<div><div class="sec-kick">BEFORE → AFTER</div><div class="sec-h">The transformation in practice</div>'+
+      '<div class="ba"><div class="bh"><div class="l">WITHOUT VIDYAGPT</div><div class="r">WITH VIDYAGPT</div></div>'+
+        '<div class="br"><div class="l">✗ No one answers after 6 PM</div><div class="r">✓ Every enquiry answered in &lt;3s, 24×7</div></div>'+
+        '<div class="br"><div class="l">✗ Same generic reply to 1,000 students</div><div class="r">✓ Personalised by profile, program &amp; intent</div></div>'+
+        '<div class="br"><div class="l">✗ Counselors repeat the same 20 answers</div><div class="r">✓ Counselors focus on ready-to-enrol students</div></div>'+
+        '<div class="br"><div class="l">✗ 14–18 hour response SLA</div><div class="r">✓ Instant — always</div></div>'+
+        '<div class="br"><div class="l">✗ High-intent midnight leads go cold</div><div class="r">✓ Converted before sunrise</div></div>'+
+      '</div></div>'+
+
+      '<div class="whyedu"><h4>🎓 Why education teams specifically need this</h4><ul>'+
+        '<li><b>Admissions is a speed game.</b> Whoever responds first and personalises at scale wins the enrolment — VidyaGPT makes you permanently first.</li>'+
+        '<li><b>Gen-Z doesn\'t fill forms and wait.</b> They expect a conversation, now. Forms and auto-replies were built for a different generation of students.</li>'+
+        '<li><b>Education-specific by design.</b> Indian program diversity, regional contexts, parent questions, scholarship nuance — things a generic chatbot simply cannot counsel on.</li>'+
+        '<li><b>Live in under 10 days.</b> Deployed within your current admission season — not a 6-month IT project. 500+ education brands already run on this engine.</li>'+
+      '</ul></div>'+
+
+      '<div><div class="sec-kick">PROOF</div><div class="sec-h">Results that speak for themselves</div>'+
+      '<div class="proofrow">'+
+        '<div class="pf"><b>50%</b><span>better conversion vs no AI engagement</span></div>'+
+        '<div class="pf"><b>&lt;3s</b><span>response time — 24×7</span></div>'+
+        '<div class="pf"><b>24×</b><span>ROI for a 5,000-enquiry/year institution</span></div>'+
+        '<div class="pf"><b>₹7.2 Cr</b><span>net annual revenue gain (10% conversion uplift)</span></div>'+
+      '</div></div>'+
+
+      '<div class="cta-final"><button class="cta-main" id="goDemo2"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Watch VidyaGPT counsel Alex — live</button></div>';
+    inner.appendChild(o);
+    o.querySelector('#goDemo').onclick=()=>select('eeedge');
+    o.querySelector('#goDemo2').onclick=()=>select('eeedge');
+    msgs.scrollTop=0;
+  }
+
   // auto-start
-  window.addEventListener('load',()=>select('eeedge'));
+  window.addEventListener('load',()=>select('ovv'));
   return {select,toggleNav};
 })();
 </script>

@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VidyaWABA GPT — VidyaGPT on WhatsApp</title>
+<link rel="icon" type="image/svg+xml" href="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -192,6 +193,76 @@
     .aboutcard h3{font-size:21px}.aboutcard p{font-size:14px}
     #foot{padding:9px 13px;font-size:10.5px}
   }
+
+  /* ===== brand logo (remote SVG with inline fallback) ===== */
+  .blogo{position:relative;display:inline-block;line-height:0;flex:0 0 auto}
+  .blogo>svg,.blogo>img{width:100%;height:100%;display:block}
+  .blogo>img{position:absolute;inset:0;object-fit:contain}
+  #wahead .wava .blogo{width:26px;height:26px}
+
+  /* ===== overview / product story (mobile-first) ===== */
+  .ovv{grid-column:1/-1;display:flex;flex-direction:column;gap:28px;padding-bottom:12px}
+  .hero-p{background:linear-gradient(150deg,#0F2347,#0B4A3C 62%,#075E54);border-radius:22px;padding:36px 22px;color:#fff;
+    text-align:center;box-shadow:0 18px 44px rgba(15,35,71,.3);position:relative;overflow:hidden}
+  .hero-p:before{content:'';position:absolute;width:360px;height:360px;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(37,211,102,.22),transparent);top:-170px;right:-130px}
+  .hero-p .blogo{width:86px;height:86px;margin:0 auto 16px;filter:drop-shadow(0 8px 22px rgba(37,211,102,.4))}
+  .hero-p .say{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.18em;color:#4AE58A;
+    border:1px solid rgba(37,211,102,.45);padding:6px 14px;border-radius:999px;margin-bottom:15px}
+  .hero-p h1{font-family:var(--font-h);font-weight:800;font-size:clamp(24px,4.5vw,36px);line-height:1.22;position:relative}
+  .hero-p .ol{max-width:640px;margin:13px auto 0;font-size:15px;line-height:1.75;color:#BFE8D9;position:relative}
+  .hero-p .cta-row{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-top:24px;position:relative}
+  .cta-main{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:13px;border:0;cursor:pointer;
+    background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;font-weight:800;font-family:var(--font-h);font-size:15px;
+    box-shadow:0 10px 28px rgba(37,211,102,.4);transition:transform .15s;text-decoration:none}
+  .cta-main:hover{transform:translateY(-2px)}
+  .cta-main svg{width:17px;height:17px}
+  .cta-ghost{display:inline-flex;align-items:center;gap:9px;padding:14px 22px;border-radius:13px;border:1.5px solid rgba(255,255,255,.32);
+    color:#fff;font-weight:700;font-size:14px;cursor:pointer;background:transparent;text-decoration:none}
+  .sec-kick{font-size:11px;font-weight:800;letter-spacing:.2em;color:#128C7E;text-align:center}
+  .sec-h{font-family:var(--font-h);font-weight:800;font-size:clamp(20px,3.4vw,27px);color:var(--navy);text-align:center;margin-top:6px}
+  .sec-sub{max-width:640px;margin:9px auto 0;text-align:center;font-size:14px;line-height:1.7;color:var(--muted)}
+  .p3{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .pcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .pcard .no{font-family:var(--font-h);font-weight:800;font-size:13px;color:#fff;width:30px;height:30px;border-radius:9px;
+    display:grid;place-items:center;background:linear-gradient(135deg,#25D366,#128C7E);margin-bottom:11px}
+  .pcard b{font-family:var(--font-h);font-size:16px;color:var(--navy);display:block;margin-bottom:6px}
+  .pcard p{font-size:13.5px;color:#3A4D6C;line-height:1.68}
+  .cost{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+  .cost .c{background:linear-gradient(135deg,#FFF7ED,#FEF2F2);border:1px solid #FED7AA;border-radius:14px;padding:16px 13px;text-align:center}
+  .cost .c b{font-family:var(--font-h);font-weight:800;font-size:22px;color:#C2410C;display:block}
+  .cost .c span{font-size:11.5px;color:#9A3412;font-weight:600;line-height:1.5;display:block;margin-top:4px}
+  .feat{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .fcard{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .fcard .fi{width:46px;height:46px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;font-size:21px;
+    background:linear-gradient(135deg,#F0FDF4,#ECFDF5);border:1px solid #D1FAE5}
+  .fcard b{font-family:var(--font-h);font-size:15.5px;color:var(--navy);display:block;margin-bottom:4px}
+  .fcard p{font-size:13.5px;color:#3A4D6C;line-height:1.68}
+  .ba{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .ba .bh{display:grid;grid-template-columns:1fr 1fr;font-family:var(--font-h);font-weight:800;font-size:11.5px;letter-spacing:.08em}
+  .ba .bh div{padding:12px 14px;text-align:center}
+  .ba .bh .l{background:#FEF2F2;color:#B91C1C}.ba .bh .r{background:#ECFDF5;color:#047857}
+  .ba .br{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #EDF1F7;font-size:12.8px;line-height:1.55}
+  .ba .br div{padding:12px 14px}
+  .ba .br .l{color:#7F1D1D;background:#FFFBFA}.ba .br .r{color:#064E3B;background:#F7FEFA;border-left:1px solid #EDF1F7}
+  .proofrow{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+  .pf{background:linear-gradient(135deg,#F0FDF4,#F7FBFF);border:1px solid rgba(18,140,126,.28);border-radius:14px;padding:17px 13px;text-align:center}
+  .pf b{font-family:var(--font-h);font-weight:800;font-size:23px;color:var(--navy);display:block}
+  .pf span{font-size:11.5px;color:#33607A;font-weight:600;line-height:1.5;display:block;margin-top:4px}
+  .whyedu{margin-top:18px;background:linear-gradient(135deg,#0F2347,#0B4A3C);border-radius:18px;padding:26px 22px;color:#D9E7FA}
+  .whyedu h4{font-family:var(--font-h);font-size:17.5px;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .whyedu ul{list-style:none}
+  .whyedu li{font-size:13.8px;line-height:1.8;margin-bottom:9px;padding-left:26px;position:relative}
+  .whyedu li:before{content:'✓';position:absolute;left:0;top:0;color:#4AE58A;font-weight:800}
+  .whyedu b{color:#4AE58A}
+  .cta-final{display:flex;justify-content:center;margin-top:2px}
+  @media(min-width:720px){
+    .p3{grid-template-columns:repeat(3,1fr)}
+    .feat{grid-template-columns:repeat(2,1fr)}
+    .cost{grid-template-columns:repeat(4,1fr)}
+    .proofrow{grid-template-columns:repeat(4,1fr)}
+    .hero-p{padding:46px 36px}
+  }
 </style>
 </head>
 <body>
@@ -211,7 +282,7 @@
 
   <aside id="side">
     <div class="brand">
-      <svg class="lm" viewBox="0 0 120 120"><use href="#vlogo"/></svg>
+      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="VidyaWABA GPT" onerror="this.remove()"></span>
       <div class="bt">VidyaWABA GPT<small>powered by ExtraaEdge</small></div>
     </div>
     <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Try It on Your WA Number</a>
@@ -257,7 +328,9 @@ const VW=(function(){
       ['u',"Yes please, share the brochure."],
       ['a',"Here you go 👇 It covers fees, scholarships, hostel and placement stats for the last 3 years.",'doc',
         [['doc','📄','Brochure delivered & tracked','Open/download events feed VidyaPulse scoring']]],
-      ['u',"Thanks! What were the placements like for Marketing last year?"],
+      ['u',"One more thing… I got 68% in BCom. Am I even eligible? 😅 Everyone keeps saying MBA cutoffs are high"],
+      ['a',"You're absolutely eligible, Neha — no stress there 😊 Our requirement is 50%+ in graduation, so your 68% clears it comfortably. In fact, combined with a decent entrance score, 68% puts you in range for the *merit scholarship interview* too.\n\nAnd honestly? The admission decision weighs your overall profile — not just one percentage."],
+      ['u',"Ohh that's such a relief 😭 Thanks! And what were the placements like for Marketing last year?"],
       ['a',"Happy to share, Neha 📊\n\n*MBA Marketing — Class of 2025*\n• 94% placed within 3 months\n• Average: ₹6.8 LPA · Highest: ₹14.2 LPA\n• Top recruiters: HUL, Asian Paints, Nykaa, Zomato\n\nSince you're from Nashik — we have a campus visit day this Saturday with a direct interaction with the placement team. Should I check seat availability for you?"],
       ['u',"Wow okay! Yes, check for Saturday.",null,
         [['pulse','🔥','VidyaPulse: lead moved to HOT','Score 87 → counselor will see her at #1 tomorrow'],
@@ -291,12 +364,16 @@ const VW=(function(){
          ['task','✅','Follow-up complete','Day-3 touchpoint converted — no counselor time used']]]
     ]},
   };
-  const ORDER=[['night','11:47 PM — MBA Fee Enquiry'],['visit','Campus Visit — WA Buttons'],
+  const LOGO='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg';
+  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
+  const ORDER=[['ovv','What is VidyaWABA GPT?'],['night','11:47 PM — MBA Fee Enquiry'],['visit','Campus Visit — WA Buttons'],
                ['follow','Day-3 Proactive Follow-up'],['about','About VidyaWABA GPT']];
   ORDER.forEach(([k,label])=>{
     const d=document.createElement('div');d.className='hi';d.dataset.k=k;
     const ic=k==='about'
       ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>'
+      : k==='ovv'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.3l6.1-.7L12 3z"/></svg>'
       : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.9-.9L3 20l1-4.9a8.4 8.4 0 1 1 17-3.6z"/></svg>';
     d.innerHTML=ic+' '+label; d.onclick=()=>select(k); hist.appendChild(d);
   });
@@ -310,7 +387,7 @@ const VW=(function(){
     inner.appendChild(hint);
     const ph=el('div','rise');ph.id='phone';
     ph.innerHTML='<div id="pscreen">'+
-      '<div id="wahead"><span class="back">‹</span><div class="wava">'+logoUse+'</div>'+
+      '<div id="wahead"><span class="back">‹</span><div class="wava">'+brandImg('')+'</div>'+
       '<div class="wt"><b>EE Edge University <span class="vf"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10"/></svg></span></b>'+
       '<span id="wast">VidyaWABA GPT · online 24×7</span></div>'+
       '<div class="icons">📹 📞 ⋮</div></div>'+
@@ -425,7 +502,7 @@ const VW=(function(){
     ctitle.textContent='About VidyaWABA GPT';csub.textContent='The power of VidyaGPT on WhatsApp Business Enterprise.';
     inner.innerHTML='';
     const w=el('div','aboutwrap rise');
-    w.innerHTML='<div class="aboutcard">'+logoUse.replace('<svg ','<svg class="lg" ')+
+    w.innerHTML='<div class="aboutcard">'+brandImg('lg')+
       '<h3>VidyaWABA GPT</h3><div class="t">“VidyaGPT talks to students — on WhatsApp.”</div>'+
       '<p>The complete VidyaGPT intelligence engine — Education-specific Small Language Model, student-profile personalisation, program &amp; fee knowledge — deployed inside <b>WhatsApp Business Enterprise</b>. Handles inbound enquiries and proactive journey nudges, 1:1 at any scale, 24×7. Every conversation auto-syncs to ExtraaEdge: lead captured, profile enriched, VidyaPulse re-scored, counselor alerted on hot intent. Built on the official WhatsApp Business API — fully compliant, opt-in managed.</p>'+
       '<div class="stats-mini"><div class="sm"><b>98%</b><span>open rate (vs 20% email)</span></div><div class="sm"><b>&lt;3s</b><span>response — 24×7</span></div><div class="sm"><b>5×</b><span>vs broadcast campaigns</span></div><div class="sm"><b>500+</b><span>education brands</span></div></div></div>';
@@ -437,14 +514,85 @@ const VW=(function(){
     const open=(typeof force==='boolean')?force:!side.classList.contains('open');
     side.classList.toggle('open',open); ov.classList.toggle('show',open);
   }
+  // ---------------- overview / product story ----------------
+  function viewOvv(){
+    ++token;
+    ctitle.textContent='What is VidyaWABA GPT?';
+    csub.textContent='Understand the product in 60 seconds — then watch a live WhatsApp conversation.';
+    inner.innerHTML='';
+    const o=el('div','ovv rise');
+    o.innerHTML=
+      '<div class="hero-p">'+brandImg('')+
+        '<div><span class="say">CONVERT PILLAR · WHATSAPP · SAY IT: “VIDYA WABA G-P-T”</span></div>'+
+        '<h1>Your students live on WhatsApp.<br>Now you can actually talk to them.</h1>'+
+        '<p class="ol">90%+ of Indian students prefer WhatsApp over every other channel — but most institutions only broadcast into it, and get a 2–5% response. VidyaWABA GPT puts the <b>full VidyaGPT intelligence engine inside WhatsApp Business Enterprise</b>: every student gets a personal, accurate reply in under 3 seconds — at midnight, at scale, in a real 1:1 conversation.</p>'+
+        '<div class="cta-row"><button class="cta-main" id="goDemo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Watch a live WA conversation</button>'+
+        '<a class="cta-ghost" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener">Try it on my WA number →</a></div>'+
+      '</div>'+
+
+      '<div><div class="sec-kick">THE PROBLEM</div><div class="sec-h">The world\'s best channel, used the worst way</div>'+
+      '<p class="sec-sub">WhatsApp has a 98% open rate — higher than email, SMS or calls. But when institutions treat it like a mass-SMS tool, students treat their messages like spam.</p>'+
+      '<div class="p3">'+
+        '<div class="pcard"><div class="no">01</div><b>One-way broadcast blasts</b><p>“Admissions open. Apply now.” — 10,000 messages, 200 replies, 10 conversions. Students ignore what doesn\'t talk <i>to</i> them.</p></div>'+
+        '<div class="pcard"><div class="no">02</div><b>Zero personalisation</b><p>Every student on the list gets the same message — whether they asked about MBA fees yesterday or never heard of you. It feels like spam because it is.</p></div>'+
+        '<div class="pcard"><div class="no">03</div><b>WhatsApp leads abandoned</b><p>A student replies to your ad on WhatsApp at 10 PM… and waits till next morning for a human. By then they\'ve messaged two other colleges.</p></div>'+
+      '</div>'+
+      '<div class="cost">'+
+        '<div class="c"><b>2–5%</b><span>response rate on WhatsApp broadcasts</span></div>'+
+        '<div class="c"><b>90%+</b><span>of students prefer WhatsApp for first contact</span></div>'+
+        '<div class="c"><b>98%</b><span>WA open rate — vs 20% for email — being wasted</span></div>'+
+        '<div class="c"><b>Hours</b><span>of wait time = student moves to the next institution</span></div>'+
+      '</div></div>'+
+
+      '<div><div class="sec-kick">THE SOLUTION</div><div class="sec-h">A real conversation, with your best counselor\'s brain</div>'+
+      '<p class="sec-sub">Not a keyword bot that answers 3 questions and gives up. The complete VidyaGPT engine — programs, fees, eligibility, scholarships, student context — living natively inside WhatsApp.</p>'+
+      '<div class="feat">'+
+        '<div class="fcard"><div class="fi">💬</div><div><b>1:1 conversations at any scale</b><p>10 students or 10,000 — each gets a personalised reply in &lt;3 seconds, with full memory of their earlier messages, program interest and stage.</p></div></div>'+
+        '<div class="fcard"><div class="fi">🌙</div><div><b>24×7, including 11:47 PM</b><p>Peak student browsing is 8–11 PM — exactly when institutions are dark. VidyaWABA GPT converts those midnight enquiries before sunrise.</p></div></div>'+
+        '<div class="fcard"><div class="fi">📲</div><div><b>Native WhatsApp experience</b><p>Reply buttons, brochures as documents, booking confirmations, reminders — everything inside the chat. No app downloads, no portal logins.</p></div></div>'+
+        '<div class="fcard"><div class="fi">🔄</div><div><b>Every message feeds your CRM</b><p>Lead auto-captured, profile enriched, VidyaPulse re-scored, counselor alerted on hot intent — while the conversation is still going. Zero manual entry.</p></div></div>'+
+      '</div></div>'+
+
+      '<div><div class="sec-kick">BEFORE → AFTER</div><div class="sec-h">From broadcast channel to conversion engine</div>'+
+      '<div class="ba"><div class="bh"><div class="l">WITHOUT VIDYAWABA GPT</div><div class="r">WITH VIDYAWABA GPT</div></div>'+
+        '<div class="br"><div class="l">✗ 10,000 broadcasts → 2% response</div><div class="r">✓ Every WA enquiry: personalised reply in &lt;3s</div></div>'+
+        '<div class="br"><div class="l">✗ Night-time messages answered next day</div><div class="r">✓ Midnight enquiries engaged before competition wakes up</div></div>'+
+        '<div class="br"><div class="l">✗ Generic bulk pushes, no context</div><div class="r">✓ Student profile + history guide every single reply</div></div>'+
+        '<div class="br"><div class="l">✗ Counselors drown managing WA manually</div><div class="r">✓ Humans step in only on hot intent — with full context</div></div>'+
+        '<div class="br"><div class="l">✗ WA marketing spend, invisible ROI</div><div class="r">✓ Every WA lead engaged, tracked and measurable</div></div>'+
+      '</div></div>'+
+
+      '<div class="whyedu"><h4>🎓 Why education teams specifically need this</h4><ul>'+
+        '<li><b>Students won\'t email you.</b> Gen-Z checks WhatsApp before anything else — 73% prefer it over a phone call for first contact. Meeting them there isn\'t optional anymore.</li>'+
+        '<li><b>Admission questions need real answers.</b> “Am I eligible with 82%?” “Is hostel included?” — keyword bots fail here. An education-trained model answers accurately, without hallucination.</li>'+
+        '<li><b>Parents are on WhatsApp too.</b> Fee structures, safety, placements — the family conversation that decides enrolment happens in this channel.</li>'+
+        '<li><b>Fully compliant, enterprise-grade.</b> Built on the official WhatsApp Business API with managed opt-ins — the same engine already trusted by 500+ education brands on ExtraaEdge.</li>'+
+      '</ul></div>'+
+
+      '<div><div class="sec-kick">PROOF</div><div class="sec-h">Results that speak for themselves</div>'+
+      '<div class="proofrow">'+
+        '<div class="pf"><b>98%</b><span>WhatsApp open rate vs 20% for email</span></div>'+
+        '<div class="pf"><b>&lt;3s</b><span>response time — 24×7, any volume</span></div>'+
+        '<div class="pf"><b>5×</b><span>better response vs broadcast campaigns</span></div>'+
+        '<div class="pf"><b>500+</b><span>education brands on the Vidya AI platform</span></div>'+
+      '</div></div>'+
+
+      '<div class="cta-final"><button class="cta-main" id="goDemo2"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> See the 11:47 PM conversation live</button></div>';
+    inner.appendChild(o);
+    o.querySelector('#goDemo').onclick=()=>select('night');
+    o.querySelector('#goDemo2').onclick=()=>select('night');
+    document.getElementById('stage').scrollTop=0;
+  }
+
   function select(key){
     toggleNav(false);
     document.querySelectorAll('.hi').forEach(h=>h.classList.toggle('active',h.dataset.k===key));
     window.__waChoice=null;
+    if(key==='ovv'){viewOvv();return;}
     if(key==='about'){aboutView();return;}
     play(key);
   }
-  window.addEventListener('load',()=>select('night'));
+  window.addEventListener('load',()=>select('ovv'));
   return {select,toggleNav};
 })();
 </script>

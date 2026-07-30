@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VidyaPulse — AI Lead Prioritisation</title>
+<link rel="icon" type="image/svg+xml" href="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -226,6 +227,76 @@
     .aboutcard h3{font-size:21px}.aboutcard p{font-size:14px}
     #foot{padding:9px 13px;font-size:10.5px}
   }
+
+  /* ===== brand logo (remote SVG with inline fallback) ===== */
+  .blogo{position:relative;display:inline-block;line-height:0;flex:0 0 auto}
+  .blogo>svg,.blogo>img{width:100%;height:100%;display:block}
+  .blogo>img{position:absolute;inset:0;object-fit:contain}
+
+  /* ===== overview / product story (mobile-first) ===== */
+  .ovv{display:flex;flex-direction:column;gap:28px;padding-bottom:12px}
+  .hero-p{background:linear-gradient(150deg,#0F2347,#16315F 58%,#0B3A4A);border-radius:22px;padding:36px 22px;color:#fff;
+    text-align:center;box-shadow:0 18px 44px rgba(15,35,71,.3);position:relative;overflow:hidden}
+  .hero-p:before{content:'';position:absolute;width:360px;height:360px;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(34,211,238,.22),transparent);top:-170px;right:-130px}
+  .hero-p .blogo{width:86px;height:86px;margin:0 auto 16px;filter:drop-shadow(0 8px 22px rgba(34,211,238,.35))}
+  .hero-p .say{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.18em;color:#22D3EE;
+    border:1px solid rgba(34,211,238,.4);padding:6px 14px;border-radius:999px;margin-bottom:15px}
+  .hero-p h1{font-family:var(--font-h);font-weight:800;font-size:clamp(24px,4.5vw,36px);line-height:1.22;position:relative}
+  .hero-p .ol{max-width:620px;margin:13px auto 0;font-size:15px;line-height:1.75;color:#B9CCE8;position:relative}
+  .hero-p .cta-row{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-top:24px;position:relative}
+  .cta-main{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:13px;border:0;cursor:pointer;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:800;font-family:var(--font-h);font-size:15px;
+    box-shadow:0 10px 28px rgba(6,182,212,.45);transition:transform .15s;text-decoration:none}
+  .cta-main:hover{transform:translateY(-2px)}
+  .cta-main svg{width:17px;height:17px}
+  .cta-ghost{display:inline-flex;align-items:center;gap:9px;padding:14px 22px;border-radius:13px;border:1.5px solid rgba(255,255,255,.32);
+    color:#fff;font-weight:700;font-size:14px;cursor:pointer;background:transparent;text-decoration:none}
+  .sec-kick{font-size:11px;font-weight:800;letter-spacing:.2em;color:var(--teal);text-align:center}
+  .sec-h{font-family:var(--font-h);font-weight:800;font-size:clamp(20px,3.4vw,27px);color:var(--navy);text-align:center;margin-top:6px}
+  .sec-sub{max-width:640px;margin:9px auto 0;text-align:center;font-size:14px;line-height:1.7;color:var(--muted)}
+  .p3{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .pcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .pcard .no{font-family:var(--font-h);font-weight:800;font-size:13px;color:#fff;width:30px;height:30px;border-radius:9px;
+    display:grid;place-items:center;background:linear-gradient(135deg,#F97316,#EF4444);margin-bottom:11px}
+  .pcard b{font-family:var(--font-h);font-size:16px;color:var(--navy);display:block;margin-bottom:6px}
+  .pcard p{font-size:13.5px;color:#3A4D6C;line-height:1.68}
+  .cost{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+  .cost .c{background:linear-gradient(135deg,#FFF7ED,#FEF2F2);border:1px solid #FED7AA;border-radius:14px;padding:16px 13px;text-align:center}
+  .cost .c b{font-family:var(--font-h);font-weight:800;font-size:22px;color:#C2410C;display:block}
+  .cost .c span{font-size:11.5px;color:#9A3412;font-weight:600;line-height:1.5;display:block;margin-top:4px}
+  .feat{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .fcard{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .fcard .fi{width:46px;height:46px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;font-size:21px;
+    background:linear-gradient(135deg,#F0FDFF,#F3ECFF);border:1px solid #E3ECF7}
+  .fcard b{font-family:var(--font-h);font-size:15.5px;color:var(--navy);display:block;margin-bottom:4px}
+  .fcard p{font-size:13.5px;color:#3A4D6C;line-height:1.68}
+  .ba{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .ba .bh{display:grid;grid-template-columns:1fr 1fr;font-family:var(--font-h);font-weight:800;font-size:11.5px;letter-spacing:.08em}
+  .ba .bh div{padding:12px 14px;text-align:center}
+  .ba .bh .l{background:#FEF2F2;color:#B91C1C}.ba .bh .r{background:#ECFDF5;color:#047857}
+  .ba .br{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #EDF1F7;font-size:12.8px;line-height:1.55}
+  .ba .br div{padding:12px 14px}
+  .ba .br .l{color:#7F1D1D;background:#FFFBFA}.ba .br .r{color:#064E3B;background:#F7FEFA;border-left:1px solid #EDF1F7}
+  .proofrow{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+  .pf{background:linear-gradient(135deg,#F0FDFF,#F7FBFF);border:1px solid rgba(6,182,212,.28);border-radius:14px;padding:17px 13px;text-align:center}
+  .pf b{font-family:var(--font-h);font-weight:800;font-size:23px;color:var(--navy);display:block}
+  .pf span{font-size:11.5px;color:#33607A;font-weight:600;line-height:1.5;display:block;margin-top:4px}
+  .whyedu{margin-top:18px;background:linear-gradient(135deg,#0F2347,#16315F);border-radius:18px;padding:26px 22px;color:#D9E7FA}
+  .whyedu h4{font-family:var(--font-h);font-size:17.5px;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .whyedu ul{list-style:none}
+  .whyedu li{font-size:13.8px;line-height:1.8;margin-bottom:9px;padding-left:26px;position:relative}
+  .whyedu li:before{content:'✓';position:absolute;left:0;top:0;color:#22D3EE;font-weight:800}
+  .whyedu b{color:#22D3EE}
+  .cta-final{display:flex;justify-content:center;margin-top:2px}
+  @media(min-width:720px){
+    .p3{grid-template-columns:repeat(3,1fr)}
+    .feat{grid-template-columns:repeat(3,1fr)}
+    .fcard{flex-direction:column;gap:12px}
+    .cost{grid-template-columns:repeat(4,1fr)}
+    .proofrow{grid-template-columns:repeat(4,1fr)}
+    .hero-p{padding:46px 36px}
+  }
 </style>
 </head>
 <body>
@@ -245,7 +316,7 @@
 
   <aside id="side">
     <div class="brand">
-      <svg class="lm" viewBox="0 0 120 120"><use href="#vlogo"/></svg>
+      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="VidyaPulse" onerror="this.remove()"></span>
       <div class="bt">VidyaPulse<small>powered by ExtraaEdge</small></div>
     </div>
     <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Score Your Live Leads</a>
@@ -322,9 +393,12 @@ const VP=(function(){
          ['📧','Opened 2 emails','Design-week invite clicked','+7']]},
   ];
 
-  const ORDER=[['list','My Priority List (HOT)','flame'],['dd','Why is Priya HOT? — Signals','pulse'],
+  const LOGO='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg';
+  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
+  const ORDER=[['ovv','What is VidyaPulse?','star'],['list','My Priority List (HOT)','flame'],['dd','Why is Priya HOT? — Signals','pulse'],
                ['mgr','Manager — Team View','chart'],['about','About VidyaPulse','info']];
   const ICONS={
+    star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.3l6.1-.7L12 3z"/></svg>',
     flame:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-9-2 2-2 4-2 4s-1-3-4-5c0 4-4 6-4 10 0 4 3 7 7 7z"/></svg>',
     pulse:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>',
     chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>',
@@ -485,10 +559,79 @@ const VP=(function(){
     inner.innerHTML='';
     ctitle.textContent='About VidyaPulse'; csub.textContent='AI lead prioritisation — HOT / WARM / COLD.';
     inner.appendChild(el('div','aboutcard rise',
-      '<svg class="lg" viewBox="0 0 120 120"><use href="#vlogo"/></svg>'+
+      brandImg('lg')+
       '<h3>VidyaPulse</h3><div class="t">“VidyaPulse tells you who to focus on.”</div>'+
       '<p>An AI scoring model that reads <b>50+ signals</b> per student — website visits, email opens, WhatsApp replies, call logs, campus visits, application stage — and produces a <b>HOT / WARM / COLD</b> score refreshed every 24 hours. Counselors open their dashboard to a prioritised list with a specific next-best action. Not a gut feeling — a data-backed instruction.</p>'+
       '<div class="stats-mini"><div class="sm"><b>2×</b><span>faster conversions</span></div><div class="sm"><b>40%</b><span>counselor productivity</span></div><div class="sm"><b>2%→10%</b><span>Annapurna College</span></div><div class="sm"><b>38%</b><span>applications ▲ Uttaranchal</span></div></div>'));
+  }
+
+  // ---------------- overview / product story ----------------
+  function viewOvv(){
+    ++token;
+    inner.innerHTML='';
+    ctitle.textContent='What is VidyaPulse?';
+    csub.textContent='Understand the product in 60 seconds — then watch it work live.';
+    const o=el('div','ovv rise');
+    o.innerHTML=
+      '<div class="hero-p">'+brandImg('')+
+        '<div><span class="say">PRIORITISE PILLAR · SAY IT: “VIDYA PULSE”</span></div>'+
+        '<h1>VidyaPulse tells your counselors<br>exactly who to call today.</h1>'+
+        '<p class="ol">Your CRM already knows which students are ready to enrol — it\'s hidden in their clicks, replies and visits. VidyaPulse is the AI that reads <b>50+ signals per student</b> every night and hands each counselor a simple morning answer: <b>these 5 are HOT, and here\'s exactly what to do for each one.</b></p>'+
+        '<div class="cta-row"><button class="cta-main" id="goDemo"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Watch it work — live demo</button>'+
+        '<a class="cta-ghost" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener">Score my real leads →</a></div>'+
+      '</div>'+
+
+      '<div><div class="sec-kick">THE PROBLEM</div><div class="sec-h">Why do good leads slip away?</div>'+
+      '<p class="sec-sub">Not all leads are equal — but without AI, counselors treat all 1,000 the same. The one who is ready to enrol sits at position #287 on a flat list, and by the time someone calls, they\'ve joined another college.</p>'+
+      '<div class="p3">'+
+        '<div class="pcard"><div class="no">01</div><b>Gut-feel decides who gets called</b><p>Counselors pick by recency or memory — not by real intent signals like 3 fee-page visits, opened emails or an open-day attendance.</p></div>'+
+        '<div class="pcard"><div class="no">02</div><b>Best leads buried in the crowd</b><p>The student who compared programs, downloaded the brochure and attended the webinar is invisible on a flat list. Called too late = enrolled elsewhere.</p></div>'+
+        '<div class="pcard"><div class="no">03</div><b>No “next-best action”</b><p>No system says: “Call Priya <i>today</i> — she visited the fees page 3×, opened your last 2 emails and came to Saturday\'s open day.” So follow-up stays random.</p></div>'+
+      '</div>'+
+      '<div class="cost">'+
+        '<div class="c"><b>#287</b><span>where your hottest lead is buried on a flat list</span></div>'+
+        '<div class="c"><b>60%</b><span>of a counselor\'s day spent on low-intent leads</span></div>'+
+        '<div class="c"><b>5–7</b><span>touchpoints needed to convert — teams manage 1–2</span></div>'+
+        '<div class="c"><b>0</b><span>systems telling you who is ready to enrol today</span></div>'+
+      '</div></div>'+
+
+      '<div><div class="sec-kick">THE SOLUTION</div><div class="sec-h">One AI score. One clear morning answer.</div>'+
+      '<p class="sec-sub">VidyaPulse reads every touchpoint — website, email, WhatsApp, calls, campus visits, application stage — and re-scores every lead every 24 hours. Counselors open the dashboard to clarity, not chaos.</p>'+
+      '<div class="feat">'+
+        '<div class="fcard"><div class="fi">🔥</div><div><b>HOT / WARM / COLD scoring</b><p>Every lead automatically ranked, refreshed daily. Your top-5 HOT leads are front and centre every morning — no digging, no guessing.</p></div></div>'+
+        '<div class="fcard"><div class="fi">🎯</div><div><b>Next-best action engine</b><p>Not just a score — a specific instruction: “Call now, mention the scholarship, best window 11 AM–1 PM.” Data-backed, ready to act on.</p></div></div>'+
+        '<div class="fcard"><div class="fi">📡</div><div><b>50+ signal intelligence</b><p>Fee-page visits, program comparisons, WA reply speed, open-day scans — education-specific signals that generic CRMs can\'t even see.</p></div></div>'+
+      '</div></div>'+
+
+      '<div><div class="sec-kick">BEFORE → AFTER</div><div class="sec-h">What actually changes for your team</div>'+
+      '<div class="ba"><div class="bh"><div class="l">WITHOUT VIDYAPULSE</div><div class="r">WITH VIDYAPULSE</div></div>'+
+        '<div class="br"><div class="l">✗ All leads equal — gut feel decides the day</div><div class="r">✓ HOT leads front and centre, every morning</div></div>'+
+        '<div class="br"><div class="l">✗ Best leads buried at #287, called too late</div><div class="r">✓ Personal priority list for every counselor</div></div>'+
+        '<div class="br"><div class="l">✗ 60% of the day burned on cold lists</div><div class="r">✓ 40% counselor time freed for real selling</div></div>'+
+        '<div class="br"><div class="l">✗ Nobody knows who is ready to enrol</div><div class="r">✓ AI acts on signals before leads go cold</div></div>'+
+        '<div class="br"><div class="l">✗ Conversion cycle stretches for weeks</div><div class="r">✓ Enquiry-to-enrolment time cut in half</div></div>'+
+      '</div></div>'+
+
+      '<div class="whyedu"><h4>🎓 Why education teams specifically need this</h4><ul>'+
+        '<li><b>Admission season is a sprint.</b> Marketing generates 1,000+ leads/month, but counselors can physically call only 30–40 a day — prioritisation is the only way spend turns into enrolments.</li>'+
+        '<li><b>Education intent looks different.</b> A fee-page revisit, a parent joining a campus tour, a scholarship query at 11 PM — VidyaPulse is trained on admission signals, not generic sales activity.</li>'+
+        '<li><b>Zero extra work for counselors.</b> No forms, no manual scoring, no tagging. The AI works overnight on data your ExtraaEdge CRM already captures — the team just opens the list and calls.</li>'+
+        '<li><b>Proven in Indian institutions.</b> Annapurna College went from 2–3% to 10% conversion; Uttaranchal University grew applications 38%; Rai University hit 100% of its admission target.</li>'+
+      '</ul></div>'+
+
+      '<div><div class="sec-kick">PROOF</div><div class="sec-h">Results that speak for themselves</div>'+
+      '<div class="proofrow">'+
+        '<div class="pf"><b>2×</b><span>faster conversions — enquiry to enrolment</span></div>'+
+        '<div class="pf"><b>40%</b><span>more counselor productivity, same team</span></div>'+
+        '<div class="pf"><b>2%→10%</b><span>conversion — Annapurna College</span></div>'+
+        '<div class="pf"><b>38%</b><span>application growth — Uttaranchal University</span></div>'+
+      '</div></div>'+
+
+      '<div class="cta-final"><button class="cta-main" id="goDemo2"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> See a counselor\'s morning — live demo</button></div>';
+    inner.appendChild(o);
+    o.querySelector('#goDemo').onclick=()=>select('list');
+    o.querySelector('#goDemo2').onclick=()=>select('list');
+    stage.scrollTop=0;
   }
 
   function toggleNav(force){
@@ -499,12 +642,13 @@ const VP=(function(){
   function setActive(key){document.querySelectorAll('.hi').forEach(h=>h.classList.toggle('active',h.dataset.k===key));}
   function select(key){
     toggleNav(false); setActive(key);
-    if(key==='list')viewList();
+    if(key==='ovv')viewOvv();
+    else if(key==='list')viewList();
     else if(key==='dd')deepDive(LEADS[0]);
     else if(key==='mgr')viewMgr();
     else aboutView();
   }
-  window.addEventListener('load',()=>select('list'));
+  window.addEventListener('load',()=>select('ovv'));
   return {select,toggleNav};
 })();
 </script>

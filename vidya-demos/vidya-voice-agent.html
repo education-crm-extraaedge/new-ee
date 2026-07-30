@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VidyaAI Voice Agent — Vidya Call + Call Intelligence</title>
+<link rel="icon" type="image/svg+xml" href="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -255,6 +256,83 @@
     .aboutcard h3{font-size:21px}.aboutcard p{font-size:14px}
     #foot{padding:9px 13px;font-size:10.5px}
   }
+
+  /* ===== brand logo (remote SVG with inline fallback) ===== */
+  .blogo{position:relative;display:inline-block;line-height:0;flex:0 0 auto}
+  .blogo>svg,.blogo>img{width:100%;height:100%;display:block}
+  .blogo>img{position:absolute;inset:0;object-fit:contain}
+
+  /* ===== overview / product story (mobile-first) ===== */
+  .ovv{display:flex;flex-direction:column;gap:28px;padding-bottom:12px}
+  .hero-p{background:linear-gradient(150deg,#0F2347,#16315F 58%,#2A1B5E);border-radius:22px;padding:36px 22px;color:#fff;
+    text-align:center;box-shadow:0 18px 44px rgba(15,35,71,.3);position:relative;overflow:hidden}
+  .hero-p:before{content:'';position:absolute;width:360px;height:360px;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(138,124,255,.25),transparent);top:-170px;right:-130px}
+  .hero-p .blogo{width:86px;height:86px;margin:0 auto 16px;filter:drop-shadow(0 8px 22px rgba(138,124,255,.4))}
+  .hero-p .say{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.18em;color:#22D3EE;
+    border:1px solid rgba(34,211,238,.4);padding:6px 14px;border-radius:999px;margin-bottom:15px}
+  .hero-p h1{font-family:var(--font-h);font-weight:800;font-size:clamp(24px,4.5vw,36px);line-height:1.22;position:relative}
+  .hero-p .ol{max-width:640px;margin:13px auto 0;font-size:15px;line-height:1.75;color:#B9CCE8;position:relative}
+  .hero-p .cta-row{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-top:24px;position:relative}
+  .cta-main{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:13px;border:0;cursor:pointer;
+    background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#06283A;font-weight:800;font-family:var(--font-h);font-size:15px;
+    box-shadow:0 10px 28px rgba(6,182,212,.45);transition:transform .15s;text-decoration:none}
+  .cta-main:hover{transform:translateY(-2px)}
+  .cta-main svg{width:17px;height:17px}
+  .cta-ghost{display:inline-flex;align-items:center;gap:9px;padding:14px 22px;border-radius:13px;border:1.5px solid rgba(255,255,255,.32);
+    color:#fff;font-weight:700;font-size:14px;cursor:pointer;background:transparent;text-decoration:none}
+  .sec-kick{font-size:11px;font-weight:800;letter-spacing:.2em;color:var(--teal);text-align:center}
+  .sec-h{font-family:var(--font-h);font-weight:800;font-size:clamp(20px,3.4vw,27px);color:var(--navy);text-align:center;margin-top:6px}
+  .sec-sub{max-width:640px;margin:9px auto 0;text-align:center;font-size:14px;line-height:1.7;color:var(--muted)}
+  .p3{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .pcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .pcard .no{font-family:var(--font-h);font-weight:800;font-size:13px;color:#fff;width:30px;height:30px;border-radius:9px;
+    display:grid;place-items:center;background:linear-gradient(135deg,#8A7CFF,#E879F9);margin-bottom:11px}
+  .pcard b{font-family:var(--font-h);font-size:16px;color:var(--navy);display:block;margin-bottom:6px}
+  .pcard p{font-size:13.5px;color:#3A4D6C;line-height:1.68}
+  .cost{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+  .cost .c{background:linear-gradient(135deg,#FFF7ED,#FEF2F2);border:1px solid #FED7AA;border-radius:14px;padding:16px 13px;text-align:center}
+  .cost .c b{font-family:var(--font-h);font-weight:800;font-size:22px;color:#C2410C;display:block}
+  .cost .c span{font-size:11.5px;color:#9A3412;font-weight:600;line-height:1.5;display:block;margin-top:4px}
+  .feat{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .fcard{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .fcard .fi{width:46px;height:46px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;font-size:21px;
+    background:linear-gradient(135deg,#F0FDFF,#F3ECFF);border:1px solid #E3ECF7}
+  .fcard b{font-family:var(--font-h);font-size:15.5px;color:var(--navy);display:block;margin-bottom:4px}
+  .fcard p{font-size:13.5px;color:#3A4D6C;line-height:1.68}
+  .ba{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(15,35,71,.06)}
+  .ba .bh{display:grid;grid-template-columns:1fr 1fr;font-family:var(--font-h);font-weight:800;font-size:11.5px;letter-spacing:.08em}
+  .ba .bh div{padding:12px 14px;text-align:center}
+  .ba .bh .l{background:#FEF2F2;color:#B91C1C}.ba .bh .r{background:#ECFDF5;color:#047857}
+  .ba .br{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #EDF1F7;font-size:12.8px;line-height:1.55}
+  .ba .br div{padding:12px 14px}
+  .ba .br .l{color:#7F1D1D;background:#FFFBFA}.ba .br .r{color:#064E3B;background:#F7FEFA;border-left:1px solid #EDF1F7}
+  .proofrow{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+  .pf{background:linear-gradient(135deg,#F0FDFF,#F7FBFF);border:1px solid rgba(6,182,212,.28);border-radius:14px;padding:17px 13px;text-align:center}
+  .pf b{font-family:var(--font-h);font-weight:800;font-size:23px;color:var(--navy);display:block}
+  .pf span{font-size:11.5px;color:#33607A;font-weight:600;line-height:1.5;display:block;margin-top:4px}
+  .whyedu{margin-top:18px;background:linear-gradient(135deg,#0F2347,#16315F);border-radius:18px;padding:26px 22px;color:#D9E7FA}
+  .whyedu h4{font-family:var(--font-h);font-size:17.5px;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .whyedu ul{list-style:none}
+  .whyedu li{font-size:13.8px;line-height:1.8;margin-bottom:9px;padding-left:26px;position:relative}
+  .whyedu li:before{content:'✓';position:absolute;left:0;top:0;color:#22D3EE;font-weight:800}
+  .whyedu b{color:#22D3EE}
+  .twoprod{display:grid;grid-template-columns:1fr;gap:13px;margin-top:18px}
+  .tp{border-radius:18px;padding:22px;color:#fff}
+  .tp.a{background:linear-gradient(135deg,#0E7490,#155E75)}
+  .tp.b{background:linear-gradient(135deg,#5B21B6,#7C3AED)}
+  .tp .tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.14em;background:rgba(255,255,255,.16);padding:4px 11px;border-radius:999px;margin-bottom:10px}
+  .tp h5{font-family:var(--font-h);font-size:18px;margin-bottom:7px}
+  .tp p{font-size:13.5px;line-height:1.7;opacity:.92}
+  .cta-final{display:flex;justify-content:center;margin-top:2px}
+  @media(min-width:720px){
+    .p3{grid-template-columns:repeat(3,1fr)}
+    .feat{grid-template-columns:repeat(2,1fr)}
+    .cost{grid-template-columns:repeat(4,1fr)}
+    .proofrow{grid-template-columns:repeat(4,1fr)}
+    .twoprod{grid-template-columns:1fr 1fr}
+    .hero-p{padding:46px 36px}
+  }
 </style>
 </head>
 <body>
@@ -274,7 +352,7 @@
 
   <aside id="side">
     <div class="brand">
-      <svg class="lm" viewBox="0 0 120 120"><use href="#vlogo"/></svg>
+      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="VidyaAI Voice Agent" onerror="this.remove()"></span>
       <div class="bt">VidyaAI Voice Agent<small>powered by ExtraaEdge</small></div>
     </div>
     <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Run a Live RSVP Campaign</a>
@@ -309,9 +387,12 @@ const VA=(function(){
   function animNum(id,from,to,ms,fmt){const n=document.getElementById(id);if(!n)return;const t0=performance.now();
     (function f(t){const p=Math.min(1,(t-t0)/ms);n.textContent=(fmt||(x=>Math.round(x)))(from+(to-from)*p);if(p<1)requestAnimationFrame(f);})(t0);}
 
-  const ORDER=[['call','Vidya Call — RSVP Campaign','phone'],['intel','Vidya Call Intelligence','spark'],
+  const LOGO='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg';
+  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#vlogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
+  const ORDER=[['ovv','What is Vidya Agents?','star'],['call','Vidya Call — RSVP Campaign','phone'],['intel','Vidya Call Intelligence','spark'],
                ['mgr','Manager — Call Quality','chart'],['about','About Vidya Agents','info']];
   const ICONS={
+    star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.3l6.1-.7L12 3z"/></svg>',
     phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
     spark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.5"/></svg>',
     chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>',
@@ -326,20 +407,26 @@ const VA=(function(){
   // ============ VIDYA CALL — campaign sim ============
   const CALLS=[
     {name:'Aisha Verma',pg:'B.Tech CS aspirant',lines:[
-      ['ai',"Hi, am I speaking with Aisha? This is Vidya calling from EE Edge University about Saturday's Engineering Open Day — you'd shown interest in B.Tech Computer Science."],
-      ['st',"Oh yes, hi! I was actually planning to come but I'm not sure about the timing."],
-      ['ai',"No problem! We have two batches — 10 AM and 2 PM. The 10 AM batch includes the AI & Robotics lab tour, which most CS aspirants prefer. Shall I reserve that for you?"],
-      ['st',"The 10 AM one sounds good. Can my father also come along?"],
-      ['ai',"Absolutely — parents are welcome, and there's a dedicated Q&A with the placement team for them. I've booked 2 seats for the 10 AM batch. You'll get a WhatsApp confirmation with the campus map in a minute."],
-      ['st',"Perfect, thank you so much!"]],
+      ['ai',"Hi, good evening! Am I speaking with Aisha? This is Vidya calling from EE Edge University — is this a good time to talk for a minute?"],
+      ['st',"Uh… yes, who is this again?"],
+      ['ai',"Vidya, from EE Edge University's admissions team 😊 You'd enquired about B.Tech Computer Science last week, and our Engineering Open Day is this Saturday — I'm calling to see if you'd like me to reserve a seat for you."],
+      ['st',"Oh right, yes! I was actually planning to come but I'm not sure about the timing… I have coaching class in the afternoon."],
+      ['ai',"Ah, that's totally fine — that's exactly why we run two batches, 10 AM and 2 PM. Since your afternoon is busy, the 10 AM batch works well — and honestly it's the better one for you, it includes the AI & Robotics lab tour that most CS aspirants come for. Shall I lock the 10 AM for you?"],
+      ['st',"Hmm okay, 10 AM works. Actually — can my father also come along? He has a lot of questions about placements."],
+      ['ai',"Of course, please bring him! In fact there's a dedicated parents' Q&A with the placement team at 11:30 — average package, recruiters, the works. He'll get every answer straight from the source. So that's 2 seats, Saturday 10 AM. You'll get a WhatsApp confirmation with the campus map in the next minute."],
+      ['st',"That's great. And… this is free, right? No charges for the open day?"],
+      ['ai',"Completely free, Aisha — no charges at all, and lunch is on us 😄 Just carry the WhatsApp confirmation at the gate. Anything else you'd like me to note down before Saturday?"],
+      ['st',"No, that's all. Thank you so much, this was really helpful!"]],
      crm:[['RSVP Status','✓ Confirmed — 10 AM batch'],['Seats','2 (student + parent)'],['Program Interest','B.Tech Computer Science'],['Qualified','Yes — entrance score fits'],['Next Action','WA confirmation + day-1 reminder']],
      outcome:'RSVP booked · CRM qualifying fields updated automatically',bump:[64,49,9,2]},
     {name:'Rohan Kulkarni',pg:'MBA enquiry — day-3 follow-up',lines:[
-      ['ai',"Hi Rohan, Vidya here from EE Edge University. You'd downloaded our MBA brochure on Monday — I'm calling to check if any questions came up, especially on the fee structure you were viewing."],
-      ['st',"Yeah actually — is there any EMI option for the first-year fee?"],
-      ['ai',"Yes — we offer a zero-interest 6-instalment plan for first-year fees, and you may also qualify for the merit scholarship based on your CAT percentile. Want me to book a 15-minute call with a senior counselor to work out the exact numbers?"],
-      ['st',"That would be great. Tomorrow evening works."],
-      ['ai',"Done — tomorrow 6 PM with counselor Priya. She'll have your scholarship estimate ready. You'll get a calendar invite on WhatsApp now."]],
+      ['ai',"Hi Rohan, Vidya here from EE Edge University — hope I'm not disturbing you. You'd downloaded our MBA brochure on Monday, so I thought I'd check in: did any questions come up while going through it?"],
+      ['st',"Oh hey. Yeah, honestly I got stuck at the fees page… ₹4.2 lakhs a year is on the higher side for us right now."],
+      ['ai',"I completely understand, Rohan — that's the most common question we get, and there are genuinely good options. Two things: we have a zero-interest 6-instalment plan for the first-year fee, and with your CAT percentile you're very likely eligible for our merit scholarship, which can bring it down meaningfully. Would it help if a senior counselor worked out the exact numbers for your case?"],
+      ['st',"Hmm… yeah, that would actually help. But I'm working, so only evenings work for me."],
+      ['ai',"Evenings it is. How about tomorrow 6 PM with counselor Priya? She'll come prepared with your scholarship estimate and the instalment schedule, so it's a 15-minute call, not a sales pitch."],
+      ['st',"Okay, tomorrow 6 PM works. Thanks for not just reading a script at me, by the way."],
+      ['ai',"Ha! Noted, Rohan 😄 You'll get a calendar invite on WhatsApp right now. Speak tomorrow — and good luck with the CAT results party in the meantime."]],
      crm:[['Follow-up Stage','Day 3 of 7 — completed'],['Fee Objection','EMI info shared ✓'],['Scholarship Fit','CAT 88%ile — eligible'],['Handover','Counselor Priya · tomorrow 6 PM'],['Qualified','Yes — high intent']],
      outcome:'Qualified & handed to human counselor — with full context',bump:[68,52,7,3]},
   ];
@@ -579,10 +666,83 @@ const VA=(function(){
     inner.innerHTML='';
     ctitle.textContent='About VidyaAI Voice Agent'; csub.textContent='Two products, one engine — the AUTOMATE pillar.';
     inner.appendChild(el('div','aboutcard rise',
-      '<svg class="lg" viewBox="0 0 120 120"><use href="#vlogo"/></svg>'+
+      brandImg('lg')+
       '<h3>VidyaAI Voice Agent</h3><div class="t">“Automate the calls that don\'t need a human. Coach the ones that do.”</div>'+
       '<p><b>Vidya Call</b> — an AI voice agent that places natural outbound calls: event RSVPs, day 1/3/7 follow-up sequences, application reminders — at any volume, updating qualifying fields in the CRM after every call. <b>Vidya Call Intelligence</b> — records &amp; transcribes every human counselor call, AI-scores tone, empathy, objection handling and close, and delivers a coaching card within minutes. Managers coach on data, not instinct.</p>'+
       '<div class="stats-mini"><div class="sm"><b>150</b><span>RSVPs booked / event</span></div><div class="sm"><b>0 hrs</b><span>counselor time used</span></div><div class="sm"><b>40%</b><span>counselor time freed</span></div><div class="sm"><b>95%</b><span>adoption in 4 weeks</span></div></div>'));
+  }
+
+  // ============ OVERVIEW / PRODUCT STORY ============
+  function viewOvv(){
+    ++token;
+    inner.innerHTML='';
+    ctitle.textContent='What is VidyaAI Voice Agent?';
+    csub.textContent='Understand the product in 60 seconds — then launch a live AI calling campaign.';
+    const o=el('div','ovv rise');
+    o.innerHTML=
+      '<div class="hero-p">'+brandImg('')+
+        '<div><span class="say">AUTOMATE PILLAR · SAY IT: “VIDYA AGENTS”</span></div>'+
+        '<h1>Automate the calls that don\'t need a human.<br>Coach the ones that do.</h1>'+
+        '<p class="ol">Every admission season, your counselors burn days on repeatable calls — RSVP dialing, reminders, follow-ups — while nobody hears what happens on the calls that matter. VidyaAI Voice Agent fixes both: <b>Vidya Call</b>, an AI voice agent that makes the outbound calls and updates qualifying fields, and <b>Vidya Call Intelligence</b>, an AI coach that scores every human call and improves it.</p>'+
+        '<div class="cta-row"><button class="cta-main" id="goDemo"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Launch a live AI campaign</button>'+
+        '<a class="cta-ghost" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener">Book a real demo →</a></div>'+
+      '</div>'+
+
+      '<div><div class="sec-kick">THE PROBLEM</div><div class="sec-h">Manual calling is eating your team\'s capacity</div>'+
+      '<p class="sec-sub">To fill 150 seats at one open day: 200 manual calls, 2 counselors, 2 full days. Multiply by 12 events a year — and nobody is coaching the calls that do happen.</p>'+
+      '<div class="p3">'+
+        '<div class="pcard"><div class="no">01</div><b>The volume trap</b><p>200 calls to book 150 event seats. 2 counselors, 2 days — ×12 events = <b>72 counselor-days a year</b> gone on RSVP dialing alone.</p></div>'+
+        '<div class="pcard"><div class="no">02</div><b>The follow-up black hole</b><p>Leads need 5–7 touchpoints to convert. Under time pressure, teams manage 1–2 and move on. Revenue quietly leaks in the gap.</p></div>'+
+        '<div class="pcard"><div class="no">03</div><b>The call-quality blind spot</b><p>Managers can\'t listen to every call. Weak closes and poor objection handling repeat — invisibly, indefinitely — costing enrolments every week.</p></div>'+
+      '</div>'+
+      '<div class="cost">'+
+        '<div class="c"><b>72 days</b><span>lost per year to RSVP dialing (12 events × 6 days)</span></div>'+
+        '<div class="c"><b>200</b><span>manual calls to fill 150 seats — capacity burned</span></div>'+
+        '<div class="c"><b>5–7</b><span>touchpoints needed — teams manage 1–2</span></div>'+
+        '<div class="c"><b>0%</b><span>of poor call habits corrected without call intelligence</span></div>'+
+      '</div></div>'+
+
+      '<div><div class="sec-kick">THE SOLUTION</div><div class="sec-h">Two products. One engine. Call less, convert more.</div>'+
+      '<div class="twoprod">'+
+        '<div class="tp a"><span class="tag">VIDYA CALL · AI MAKES THE CALLS</span><h5>Your AI voice agent for outbound</h5><p>Places natural, personalised calls — event RSVPs, day 1/3/7 follow-up sequences, application reminders — at any volume, in Marathi, Hindi or English. Books the seat, answers common questions, and updates qualifying fields in the CRM after every single call. Zero counselor hours.</p></div>'+
+        '<div class="tp b"><span class="tag">VIDYA CALL INTELLIGENCE · AI COACHES THE HUMANS</span><h5>Every human call, scored &amp; coached</h5><p>Records and transcribes every counselor call, scores tone, empathy, objection handling and close — and delivers a personal coaching card within minutes of hanging up. Managers finally see call quality as data, not guesswork.</p></div>'+
+      '</div>'+
+      '<div class="feat">'+
+        '<div class="fcard"><div class="fi">📞</div><div><b>Natural conversations, not IVR</b><p>Two-way dialogue that handles timing changes, parent questions and fee objections — 70%+ of students can\'t tell they\'re talking to AI.</p></div></div>'+
+        '<div class="fcard"><div class="fi">🗂️</div><div><b>CRM fields update themselves</b><p>RSVP status, program interest, qualification, next action — written back to ExtraaEdge automatically while the call ends. No data entry, no missed notes.</p></div></div>'+
+        '<div class="fcard"><div class="fi">🔁</div><div><b>Sequences that never forget</b><p>Day-1 follow-up, day-3 check-in, day-7 push — on autopilot for every warm lead, with smart retries for unanswered calls.</p></div></div>'+
+        '<div class="fcard"><div class="fi">📊</div><div><b>Manager dashboard</b><p>Team quality trends, per-counselor scores, weakest-skill detection with auto-assigned micro-coaching. Quality improves measurably, week over week.</p></div></div>'+
+      '</div></div>'+
+
+      '<div><div class="sec-kick">BEFORE → AFTER</div><div class="sec-h">The transformation in practice</div>'+
+      '<div class="ba"><div class="bh"><div class="l">WITHOUT VIDYA AGENTS</div><div class="r">WITH VIDYA AGENTS</div></div>'+
+        '<div class="br"><div class="l">✗ 200 calls to fill 150 seats — 2 days lost</div><div class="r">✓ Vidya Call books 150 RSVPs — zero counselor hours</div></div>'+
+        '<div class="br"><div class="l">✗ Follow-up sequences break under pressure</div><div class="r">✓ Sequences run on autopilot, qualifying fields updated</div></div>'+
+        '<div class="br"><div class="l">✗ Call quality invisible — poor habits repeat</div><div class="r">✓ Every call scored — coaching becomes data-driven</div></div>'+
+        '<div class="br"><div class="l">✗ 72 counselor-days/year on RSVP dialing</div><div class="r">✓ 40% counselor time freed for actual selling</div></div>'+
+        '<div class="br"><div class="l">✗ Managers coach on instinct</div><div class="r">✓ Team improves measurably, week over week</div></div>'+
+      '</div></div>'+
+
+      '<div class="whyedu"><h4>🎓 Why education teams specifically need this</h4><ul>'+
+        '<li><b>Admissions runs on events.</b> Open days, webinars, counselling camps — every one needs hundreds of confirmation calls in a tight window. That\'s exactly the work AI does best.</li>'+
+        '<li><b>Students don\'t mind — they prefer answers.</b> In tested calls, 70%+ of students can\'t tell the difference. They care about getting their doubt cleared, not who\'s dialing.</li>'+
+        '<li><b>Counselor burnout is real.</b> Dial-and-hope calling drives attrition, and institutional knowledge walks out the door. Freeing 40% of counselor time keeps your best people counselling.</li>'+
+        '<li><b>Coaching finally scales.</b> One manager can\'t listen to 200 calls a week — Vidya Call Intelligence listens to all of them and turns them into specific, teachable feedback.</li>'+
+      '</ul></div>'+
+
+      '<div><div class="sec-kick">PROOF</div><div class="sec-h">Results that speak for themselves</div>'+
+      '<div class="proofrow">'+
+        '<div class="pf"><b>150</b><span>RSVPs booked per event — replacing 200 manual calls</span></div>'+
+        '<div class="pf"><b>40%</b><span>counselor time freed for high-value conversations</span></div>'+
+        '<div class="pf"><b>95%</b><span>counselor adoption within 4 weeks</span></div>'+
+        '<div class="pf"><b>90+ days</b><span>annual capacity saved across 12 events</span></div>'+
+      '</div></div>'+
+
+      '<div class="cta-final"><button class="cta-main" id="goDemo2"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8V4z"/></svg> Watch Vidya Call book RSVPs live</button></div>';
+    inner.appendChild(o);
+    o.querySelector('#goDemo').onclick=()=>select('call');
+    o.querySelector('#goDemo2').onclick=()=>select('call');
+    document.getElementById('stage').scrollTop=0;
   }
 
   function toggleNav(force){
@@ -593,12 +753,13 @@ const VA=(function(){
   function select(key){
     toggleNav(false);
     document.querySelectorAll('.hi').forEach(h=>h.classList.toggle('active',h.dataset.k===key));
-    if(key==='call')viewCall();
+    if(key==='ovv')viewOvv();
+    else if(key==='call')viewCall();
     else if(key==='intel')viewIntel();
     else if(key==='mgr')viewMgr();
     else aboutView();
   }
-  window.addEventListener('load',()=>select('call'));
+  window.addEventListener('load',()=>select('ovv'));
   return {select,toggleNav};
 })();
 </script>
