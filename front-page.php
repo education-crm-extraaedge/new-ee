@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-no-night -->
+<!-- ee-front-tpl v2026-07-29-no-teams -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -315,7 +315,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 
 <!-- ===================== EE · QUICK TABLE OF CONTENTS (scoped #ee-toc) ===================== -->
 <style>/* keep anchored jumps clear of any sticky chrome */
-  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-rfa,#ee-products,#ee-vidya-suite,#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,#ee-golive,#ee-resources,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
+  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-rfa,#ee-products,#ee-vidya-suite,#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,#ee-golive,#ee-resources,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
   #ee-toc .eetoc-fab{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:99990;
     display:flex;align-items:center;justify-content:center;width:50px;height:50px;padding:0;border:2.5px solid #fff;cursor:pointer;
     background:#19335D;color:#fff;border-radius:50%;
@@ -354,16 +354,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <li><a href="#ee-platform" data-t="ee-platform"><i>03</i><span>AI Product-Led Experience</span></a></li>
       <li><a href="#ee-products" data-t="ee-products"><i>04</i><span>The admissions platform</span></a></li>
       <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>05</i><span>Agentic AI Suite</span></a></li>
-      <li><a href="#ee-teams" data-t="ee-teams"><i>06</i><span>One platform, every team</span></a></li>
-      <li><a href="#ee-solutions" data-t="ee-solutions"><i>07</i><span>Solutions</span></a></li>
-      <li><a href="#ee-ind" data-t="ee-ind"><i>08</i><span>Industries</span></a></li>
-      <li><a href="#stories" data-t="stories"><i>09</i><span>CRM Impact Stories</span></a></li>
-      <li><a href="#ee-cro" data-t="ee-cro"><i>10</i><span>Why teams switch to us</span></a></li>
-      <li><a href="#integrations" data-t="integrations"><i>11</i><span>Extensions &amp; Integrations</span></a></li>
-      <li><a href="#security" data-t="security"><i>12</i><span>Enterprise-grade trust</span></a></li>
-      <li><a href="#ee-golive" data-t="ee-golive"><i>13</i><span>Fast implementation</span></a></li>
-      <li><a href="#ee-resources" data-t="ee-resources"><i>14</i><span>Resources</span></a></li>
-      <li><a href="#faq" data-t="faq"><i>15</i><span>Frequently Asked</span></a></li>
+      <li><a href="#ee-solutions" data-t="ee-solutions"><i>06</i><span>Solutions</span></a></li>
+      <li><a href="#ee-ind" data-t="ee-ind"><i>07</i><span>Industries</span></a></li>
+      <li><a href="#stories" data-t="stories"><i>08</i><span>CRM Impact Stories</span></a></li>
+      <li><a href="#ee-cro" data-t="ee-cro"><i>09</i><span>Why teams switch to us</span></a></li>
+      <li><a href="#integrations" data-t="integrations"><i>10</i><span>Extensions &amp; Integrations</span></a></li>
+      <li><a href="#security" data-t="security"><i>11</i><span>Enterprise-grade trust</span></a></li>
+      <li><a href="#ee-golive" data-t="ee-golive"><i>12</i><span>Fast implementation</span></a></li>
+      <li><a href="#ee-resources" data-t="ee-resources"><i>13</i><span>Resources</span></a></li>
+      <li><a href="#faq" data-t="faq"><i>14</i><span>Frequently Asked</span></a></li>
     </ul>
   </nav>
 </div>
@@ -3803,206 +3802,6 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   </script>
 </section>
 
-<style>#ee-teams{
-    background: transparent;
-    padding: clamp(64px, 8vw, 104px) 0;
-    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    color: #0f203a;
-    -webkit-font-smoothing: antialiased;
-  }#ee-teams *{ box-sizing: border-box; }#ee-teams .ee-teams-container{
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }#ee-teams .ee-teams-head{
-    max-width: 760px;
-    margin: 0 auto;
-    text-align: center;
-  }#ee-teams .ee-teams-eyebrow{
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 15px;
-    border-radius: 999px;
-    background: rgba(222, 110, 48, .08);
-    border: 1px solid rgba(222, 110, 48, .22);
-    color: #C25A22;
-    font-size: 12.5px;
-    font-weight: 600;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-  }#ee-teams .ee-teams-eyebrow .ee-dot{
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #DE6E30;
-    box-shadow: 0 0 0 3px rgba(222, 110, 48, .18);
-  }#ee-teams h2{
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 700;
-    font-size: clamp(28px, 4vw, 44px);
-    line-height: 1.12;
-    letter-spacing: -.015em;
-    margin: 20px 0 0;
-    color: #19345d;
-  }#ee-teams .ee-teams-lead{
-    margin: 18px auto 0;
-    max-width: 680px;
-    font-size: clamp(15px, 1.6vw, 17px);
-    line-height: 1.65;
-    color: #5a6b85;
-  }#ee-teams .ee-teams-grid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: clamp(40px, 5vw, 60px);
-  }#ee-teams .ee-card{
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    text-decoration: none;
-    color: inherit;
-    background: #ffffff;
-    border: 1px solid rgba(25,52,93,.09);
-    border-radius: 16px;
-    padding: 26px 24px 24px;
-    box-shadow: 0 1px 2px rgba(15,32,58,.04), 0 10px 24px -16px rgba(15,32,58,.22);
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-    position: relative;
-    overflow: hidden;
-  }#ee-teams .ee-card::before{
-    content: "";
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 3px;
-    background: linear-gradient(90deg, #DE6E30, #E8843F);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform .3s ease;
-  }#ee-teams a.ee-card:hover,#ee-teams a.ee-card:focus-visible{
-    transform: translateY(-4px);
-    box-shadow: 0 1px 2px rgba(15,32,58,.05), 0 22px 40px -22px rgba(25,52,93,.35);
-    border-color: rgba(25,52,93,.16);
-  }#ee-teams a.ee-card:hover::before,#ee-teams a.ee-card:focus-visible::before{
-    transform: scaleX(1);
-  }#ee-teams a.ee-card:focus-visible{
-    outline: 2px solid #22467c;
-    outline-offset: 3px;
-  }#ee-teams .ee-chip{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 13px;
-    font-size: 24px;
-    line-height: 1;
-    background: linear-gradient(160deg, rgba(34,70,124,.10), rgba(25,52,93,.05));
-    border: 1px solid rgba(25,52,93,.10);
-  }#ee-teams .ee-chip--img{background:none;border:0;padding:0;overflow:hidden}#ee-teams .ee-chip--img img{width:100%;height:100%;object-fit:contain;display:block}#ee-teams .ee-card-title{
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 1.25;
-    color: #0f203a;
-    margin: 0;
-  }#ee-teams .ee-card-benefit{
-    font-size: 14.5px;
-    line-height: 1.6;
-    color: #5a6b85;
-    margin: 0;
-  }#ee-teams .ee-card-arrow{
-    margin-top: auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #C25A22;
-    opacity: 0;
-    transform: translateY(4px);
-    transition: opacity .25s ease, transform .25s ease;
-  }#ee-teams a.ee-card:hover .ee-card-arrow,#ee-teams a.ee-card:focus-visible .ee-card-arrow{
-    opacity: 1;
-    transform: translateY(0);
-  }#ee-teams .ee-card-arrow svg,#ee-teams .ee-card-arrow img.eeimg{ display: block; }
-
-  @media (max-width: 900px){#ee-teams .ee-teams-grid{
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (max-width: 560px){#ee-teams .ee-teams-grid{
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }#ee-teams .ee-card{ padding: 22px 20px; }
-  }
-  @media (prefers-reduced-motion: reduce){#ee-teams .ee-card,#ee-teams .ee-card::before,#ee-teams .ee-card-arrow{ transition: none; }
-  }
-</style>
-<section id="ee-teams" aria-label="Built for Every Team">
-  <div class="ee-teams-container">
-    <div class="ee-teams-head">
-      <h2>Built for Every Team Driving Student Enrollment</h2>
-      <p class="ee-teams-lead">From marketing and admissions to counseling, finance, leadership, and AI-powered automation - ExtraaEdge brings every team together on one intelligent platform, helping institutions attract, engage, convert, and enroll more students with less effort.</p>
-    </div>
-
-    <div class="ee-teams-grid">
-      <a class="ee-card" href="#admission-form">
-        <span class="ee-chip ee-chip--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/marketing-teams.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3 class="ee-card-title">Marketing Teams</h3>
-        <p class="ee-card-benefit">Capture every inquiry across channels and track which campaigns actually drive enrolled students, not just clicks.</p>
-        <span class="ee-card-arrow" aria-hidden="true">See it in action
-          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/teams-icon-01.svg" alt="" width="14" height="14" loading="lazy" decoding="async">
-        </span>
-      </a>
-
-      <a class="ee-card" href="#admission-form">
-        <span class="ee-chip ee-chip--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/admissions-teams.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3 class="ee-card-title">Admissions Teams</h3>
-        <p class="ee-card-benefit">Prioritize hot leads with smart scoring and automated follow-ups so no prospective student slips through the cracks.</p>
-        <span class="ee-card-arrow" aria-hidden="true">See it in action
-          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/teams-icon-01.svg" alt="" width="14" height="14" loading="lazy" decoding="async">
-        </span>
-      </a>
-
-      <a class="ee-card" href="#admission-form">
-        <span class="ee-chip ee-chip--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/counseling-teams.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3 class="ee-card-title">Counseling Teams</h3>
-        <p class="ee-card-benefit">Give counselors a full applicant history so every call, message, and meeting moves students closer to confirmation.</p>
-        <span class="ee-card-arrow" aria-hidden="true">See it in action
-          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/teams-icon-01.svg" alt="" width="14" height="14" loading="lazy" decoding="async">
-        </span>
-      </a>
-
-      <a class="ee-card" href="#admission-form">
-        <span class="ee-chip ee-chip--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/vidya-ai-agents.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3 class="ee-card-title">Vidya AI Agents</h3>
-        <p class="ee-card-benefit">Engage and qualify applicants instantly, around the clock, answering queries and booking counseling slots on autopilot.</p>
-        <span class="ee-card-arrow" aria-hidden="true">See it in action
-          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/teams-icon-01.svg" alt="" width="14" height="14" loading="lazy" decoding="async">
-        </span>
-      </a>
-
-      <a class="ee-card" href="#admission-form">
-        <span class="ee-chip ee-chip--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/leadership-and-analytics.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3 class="ee-card-title">Leadership &amp; Analytics</h3>
-        <p class="ee-card-benefit">See the full funnel in real time, from source to enrollment, and forecast intake with dashboards built for decisions.</p>
-        <span class="ee-card-arrow" aria-hidden="true">See it in action
-          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/teams-icon-01.svg" alt="" width="14" height="14" loading="lazy" decoding="async">
-        </span>
-      </a>
-
-      <a class="ee-card" href="#admission-form">
-        <span class="ee-chip ee-chip--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/finance-and-operations.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3 class="ee-card-title">Finance &amp; Operations</h3>
-        <p class="ee-card-benefit">Streamline fee collection, payment links, and reconciliation so confirmed admissions convert to paid enrollments faster.</p>
-        <span class="ee-card-arrow" aria-hidden="true">See it in action
-          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/teams-icon-01.svg" alt="" width="14" height="14" loading="lazy" decoding="async">
-        </span>
-      </a>
-    </div>
-  </div>
-</section>
-
 <style>#ee-solutions{
   --navy:#19345d; --navy2:#22467c; --orange:#DE6E30; --orange2:#E8843F;
   --ink:#0f203a; --muted:#5a6b85; --hair:rgba(25,52,93,.09); --bg:#f6f8fc;
@@ -5265,8 +5064,8 @@ body.ee-home{
 
 <style id="ee-ctx-bg">/* ===== Plain white background across the whole homepage ===== */
 body.ee-home{ background:#ffffff!important; }/* remove all graphic background motifs */
-#ee-products::before,#ee-teams::before,#ee-solutions::before,#ee-resources::before,#integrations::before,#security::before,#stories::before{ display:none!important; }/* plain white section backgrounds (keeps intentional dark component panels intact) */
-#ee-products,#ee-teams,#ee-solutions,#ee-resources,#ee-industries{ background:#ffffff!important; }
+#ee-products::before,#ee-solutions::before,#ee-resources::before,#integrations::before,#security::before,#stories::before{ display:none!important; }/* plain white section backgrounds (keeps intentional dark component panels intact) */
+#ee-products,#ee-solutions,#ee-resources,#ee-industries{ background:#ffffff!important; }
 </style>
 
 <!-- (removed) EE · SMOOTH INERTIA SCROLL - wheel hijack dropped in favor of native scrolling for performance -->
@@ -5565,7 +5364,6 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   #ee-platform .eep-eyebrow,
   #ee-products .eep-eyebrow,
   #ee-vidya-suite .vsx-eyebrow,
-  #ee-teams .ee-teams-eyebrow,
   #ee-solutions .ee-eyebrow,
   #ee-ind .eei-eyebrow,
   #stories .cis-eyebrow,
@@ -5631,7 +5429,6 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 .ee-home>#vidyaai-embed-root{order:55}    /* Powerful CRM with simplicity */
 .ee-home>#ee-products{order:70}           /* Full platform / modules */
 .ee-home>#ee-vidya-suite{order:80}        /* AI differentiator */
-.ee-home>#ee-teams{order:90}              /* Every team */
 .ee-home>#ee-solutions{order:100}         /* Relevance: solutions */
 .ee-home>#ee-ind{order:110}               /* Relevance: industries */
 .ee-home>#stories{order:120}              /* Proof: impact stories */
@@ -5747,7 +5544,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
    the scrollbar stable. Interactive/pinned sections (hero, product demo,
    night story, CRM, scrollytelling) are deliberately NOT included - their
    scripts measure geometry at load. Unsupported browsers simply ignore. */
-#ee-teams,#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,
+#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,
 #ee-golive,#ee-switch,#ee-resources,#faq{
   content-visibility:auto;
   contain-intrinsic-size:auto 760px;
