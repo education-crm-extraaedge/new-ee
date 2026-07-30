@@ -388,7 +388,8 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     <!-- ─── 11. Fonts (EXISTING — preserved exactly) ─── -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
 
     <!-- ─── 12. Tailwind for Layout & Utils — INLINED production build (no CDN) ─── -->
     <!-- Pre-compiled, minified Tailwind (theme.extend brandOrange/brandBlue + fonts
