@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-why-story -->
+<!-- ee-front-tpl v2026-07-29-why-story3 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -844,6 +844,24 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   border:1px solid rgba(222,110,48,.22);padding:5px 10px;border-radius:999px;margin-bottom:9px}
 #ee-why .eew2-tx p{margin:0;color:#5a6b85;line-height:1.65;max-width:52ch}
 #ee-why .eew2-mimg{display:none}
+/* counter + autoplay ring + ken-burns + entrance */
+#ee-why .eew2-count{font:800 11px/1 ui-monospace,Menlo,monospace;color:#5a6b85;background:rgba(25,52,93,.06);border:1px solid rgba(25,52,93,.12);padding:5px 9px;border-radius:999px;white-space:nowrap}
+@keyframes eew2Ken{from{transform:scale(1)}to{transform:scale(1.035)}}
+#ee-why.eew2-play .eew2-img.on{animation:eew2Ken 5s linear forwards}
+@keyframes eew2Ring{0%{box-shadow:0 10px 22px -8px rgba(222,110,48,.6),0 0 0 0 rgba(222,110,48,.35)}100%{box-shadow:0 10px 22px -8px rgba(222,110,48,.6),0 0 0 12px rgba(222,110,48,0)}}
+#ee-why.eew2-play .eew2-step.on .eew2-no{animation:eew2Ring 1.6s ease-out infinite}
+#ee-why .eew2-steps:not(.in) .eew2-step{opacity:0;transform:translateY(18px)}
+#ee-why .eew2-steps.in .eew2-step{transform:none}
+#ee-why .eew2-steps.in .eew2-step:nth-child(1){transition-delay:.05s}
+#ee-why .eew2-steps.in .eew2-step:nth-child(2){transition-delay:.13s}
+#ee-why .eew2-steps.in .eew2-step:nth-child(3){transition-delay:.21s}
+#ee-why .eew2-steps.in .eew2-step:nth-child(4){transition-delay:.29s}
+#ee-why .eew2-steps.in .eew2-step:nth-child(5){transition-delay:.37s}
+#ee-why .eew2-vframe.eew2-noimg::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(420px 260px at 30% 30%,rgba(222,110,48,.12),transparent 60%),
+  radial-gradient(420px 300px at 75% 75%,rgba(25,52,93,.1),transparent 60%)}
+#ee-why .eew2-step:focus-visible{border-radius:14px}
+@media(prefers-reduced-motion:reduce){#ee-why.eew2-play .eew2-img.on,#ee-why.eew2-play .eew2-step.on .eew2-no{animation:none}}
 @media(prefers-reduced-motion:reduce){#ee-why .eew2-img,#ee-why .eew2-step,#ee-why .eew2-no,#ee-why .eew2-pfill{transition:none}}
 /* phones: stacked story cards, each with its own image */
 @media(max-width:900px){
@@ -871,52 +889,53 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
           <img class="eew2-img" data-i="4" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/executive-decision-intelligence.webp" alt="Executive Decision Intelligence" loading="lazy" decoding="async">
         </div>
         <div class="eew2-progress" aria-hidden="true">
-          <span class="eew2-plabel" id="eew2Label">Everything in one platform</span>
+          <span class="eew2-plabel" id="eew2Label">Unified Admission Ecosystem</span>
           <span class="eew2-pline"><i class="eew2-pfill" id="eew2Fill"></i></span>
+          <span class="eew2-count" id="eew2Count">01 / 05</span>
         </div>
       </div>
       <ol class="eew2-steps" id="eew2Steps">
-        <li class="eew2-step on" data-i="0">
+        <li class="eew2-step on" data-i="0" tabindex="0" aria-current="step">
           <span class="eew2-no">01</span>
           <div class="eew2-tx">
-            <h3>Unified Admission Ecosystem</h3>
-            <span class="eew2-tag">Everything in one platform</span>
+            <h3>Everything in one platform</h3>
+            <span class="eew2-tag">Unified Admission Ecosystem</span>
             <p>One unified Admission Cloud to run the entire enrollment journey from inquiry to enrollment, without fragmented tools or manual follow-ups.</p>
             <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/unified-admission-ecosystem.webp" alt="" loading="lazy" decoding="async">
           </div>
         </li>
-        <li class="eew2-step" data-i="1">
+        <li class="eew2-step" data-i="1" tabindex="0">
           <span class="eew2-no">02</span>
           <div class="eew2-tx">
-            <h3>AI Guided Student Journey</h3>
-            <span class="eew2-tag">Complete enrollment flow</span>
+            <h3>Complete enrollment flow</h3>
+            <span class="eew2-tag">AI Guided Student Journey</span>
             <p>AI-powered admission assistance handles student queries 24&times;7 across web and WhatsApp, while giving counselors full context to respond faster and smarter.</p>
             <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/ai-guided-student-journey.webp" alt="" loading="lazy" decoding="async">
           </div>
         </li>
-        <li class="eew2-step" data-i="2">
+        <li class="eew2-step" data-i="2" tabindex="0">
           <span class="eew2-no">03</span>
           <div class="eew2-tx">
-            <h3>Intelligent Counselor Workspace</h3>
-            <span class="eew2-tag">Counselors work smarter</span>
+            <h3>Counselors work smarter</h3>
+            <span class="eew2-tag">Intelligent Counselor Workspace</span>
             <p>AI calling and agents qualify, engage, and route high-intent prospects at scale, helping teams grow outcomes without growing headcount.</p>
             <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/intelligent-counselor-workspace.webp" alt="" loading="lazy" decoding="async">
           </div>
         </li>
-        <li class="eew2-step" data-i="3">
+        <li class="eew2-step" data-i="3" tabindex="0">
           <span class="eew2-no">04</span>
           <div class="eew2-tx">
-            <h3>Automation &amp; Connected Operations</h3>
-            <span class="eew2-tag">Processes run automatically</span>
+            <h3>Processes run automatically</h3>
+            <span class="eew2-tag">Automation &amp; Connected Operations</span>
             <p>Built to adapt to each institute&rsquo;s process, ExtraaEdge integrates seamlessly with ads, websites, ERP, and communication tools - and scales with your growth.</p>
             <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/automation-connected-operations.webp" alt="" loading="lazy" decoding="async">
           </div>
         </li>
-        <li class="eew2-step" data-i="4">
+        <li class="eew2-step" data-i="4" tabindex="0">
           <span class="eew2-no">05</span>
           <div class="eew2-tx">
-            <h3>Executive Decision Intelligence</h3>
-            <span class="eew2-tag">Leadership gets actionable insights</span>
+            <h3>Leadership gets actionable insights</h3>
+            <span class="eew2-tag">Executive Decision Intelligence</span>
             <p>Real-time intelligence surfaces intent, bottlenecks, and counselor performance so teams act early and convert better.</p>
             <img class="eew2-mimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/executive-decision-intelligence.webp" alt="" loading="lazy" decoding="async">
           </div>
@@ -930,28 +949,61 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var sec=document.getElementById('ee-why'); if(!sec) return;
   var steps=[].slice.call(sec.querySelectorAll('.eew2-step'));
   var imgs=[].slice.call(sec.querySelectorAll('.eew2-img'));
-  var ghost=document.getElementById('eew2Ghost'),
+  var list=document.getElementById('eew2Steps'),
+      frame=sec.querySelector('.eew2-vframe'),
+      ghost=document.getElementById('eew2Ghost'),
       fill=document.getElementById('eew2Fill'),
-      label=document.getElementById('eew2Label');
-  var labels=['Everything in one platform','Complete enrollment flow','Counselors work smarter','Processes run automatically','Leadership gets actionable insights'];
-  var cur=0;
-  function setActive(i){
-    if(i===cur) return; cur=i;
-    steps.forEach(function(st,j){ st.classList.toggle('on',j===i); });
+      label=document.getElementById('eew2Label'),
+      count=document.getElementById('eew2Count');
+  var labels=['Unified Admission Ecosystem','AI Guided Student Journey','Intelligent Counselor Workspace','Automation & Connected Operations','Executive Decision Intelligence'];
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mq=window.matchMedia('(min-width:901px)');
+  var cur=0,timer=null,userDrove=false,inView=false,failed=0;
+
+  /* preload all stage images so crossfades are instant */
+  imgs.forEach(function(im){
+    var pre=new Image(); pre.src=im.src;
+    im.addEventListener('error',function(){ if(++failed>=imgs.length&&frame) frame.classList.add('eew2-noimg'); });
+  });
+
+  function setActive(i,fromUser){
+    i=(i+steps.length)%steps.length;
+    if(fromUser){ userDrove=true; stop(); }
+    if(i===cur) return;
+    cur=i;
+    steps.forEach(function(st,j){ st.classList.toggle('on',j===i);
+      if(j===i){ st.setAttribute('aria-current','step'); } else { st.removeAttribute('aria-current'); } });
     imgs.forEach(function(im,j){ im.classList.toggle('on',j===i); });
     if(ghost) ghost.textContent='0'+(i+1);
     if(fill) fill.style.width=((i+1)*20)+'%';
     if(label) label.textContent=labels[i]||'';
+    if(count) count.textContent='0'+(i+1)+' / 05';
   }
-  var mq=window.matchMedia('(min-width:901px)');
+  /* auto-play while on screen (desktop, motion allowed, until the user takes over) */
+  function tick(){ setActive(cur+1,false); }
+  function play(){ if(timer||reduce||userDrove||!mq.matches||!inView) return;
+    sec.classList.add('eew2-play'); timer=setInterval(tick,5000); }
+  function stop(){ sec.classList.remove('eew2-play');
+    if(timer){ clearInterval(timer); timer=null; } }
   if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){
-      if(!mq.matches) return;
-      es.forEach(function(e){ if(e.isIntersecting){ setActive(+e.target.dataset.i); } });
-    },{rootMargin:'-42% 0px -42% 0px',threshold:0});
-    steps.forEach(function(st){ io.observe(st); });
-  }
-  steps.forEach(function(st){ st.addEventListener('click',function(){ setActive(+st.dataset.i); }); });
+    var vio=new IntersectionObserver(function(es){ es.forEach(function(e){
+      inView=e.isIntersecting;
+      if(inView){ if(list) list.classList.add('in'); play(); } else { stop(); }
+    }); },{threshold:.3});
+    vio.observe(sec);
+  } else if(list){ list.classList.add('in'); }
+  /* hover pauses, leaving resumes (unless user drove) */
+  sec.addEventListener('mouseenter',stop);
+  sec.addEventListener('mouseleave',function(){ play(); });
+  /* click + keyboard */
+  steps.forEach(function(st){
+    st.addEventListener('click',function(){ setActive(+st.dataset.i,true); });
+    st.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); setActive(+st.dataset.i,true); }
+      else if(e.key==='ArrowDown'||e.key==='ArrowRight'){ e.preventDefault(); setActive(cur+1,true); steps[cur].focus(); }
+      else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){ e.preventDefault(); setActive(cur-1,true); steps[cur].focus(); }
+    });
+  });
 })();
 </script>
 
