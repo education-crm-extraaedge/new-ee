@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-why-img-xl -->
+<!-- ee-front-tpl v2026-07-29-rfa-noclip -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1037,8 +1037,8 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
     if(!cardsBox||!mqd.matches) return;
     var cr=cards[i].getBoundingClientRect(), br=cardsBox.getBoundingClientRect();
     var d=0;
-    if(cr.bottom>br.bottom) d=cr.bottom-br.bottom+6;
-    else if(cr.top<br.top) d=cr.top-br.top-6;
+    if(cr.height>=br.height-4||cr.top<br.top) d=cr.top-br.top-6;
+    else if(cr.bottom>br.bottom) d=cr.bottom-br.bottom+6;
     if(d) cardsBox.scrollTo({top:cardsBox.scrollTop+d,behavior:'smooth'});
   }
   /* one-time fade-in reveal (desktop stagger) + per-card reveal on phones */
@@ -6136,7 +6136,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   #ee-why .eew-grid{grid-template-columns:minmax(0,.68fr) minmax(0,1.32fr);gap:clamp(22px,3vw,40px)}
   #ee-why .eew-media{max-width:none}
   /* Respond First: browser-preview column grows, story cards narrow */
-  #ee-rfa .rfa-in{grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr) 18px}
+  #ee-rfa .rfa-in{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr) 18px}
   #ee-rfa .rfa-shot{padding:4px}
 }
 /* Powerful Admission CRM with Simplicity: screenshot column 7/12 -> 8/12 */
