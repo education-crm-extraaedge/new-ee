@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-why-story4 -->
+<!-- ee-front-tpl v2026-07-29-why-story5 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -812,8 +812,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   background:linear-gradient(135deg,rgba(222,110,48,.5),rgba(25,52,93,.18) 45%,transparent 70%);
   -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:3}
-#ee-why .eew2-ghost{position:absolute;right:14px;bottom:0;font:800 120px/1 'Inter',sans-serif;
-  letter-spacing:-.04em;color:rgba(25,52,93,.05);z-index:0;transition:all .5s ease;user-select:none}
+
 #ee-why .eew2-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:16px;
   opacity:0;transform:scale(.955) translateY(14px);z-index:1;
   transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
@@ -827,17 +826,11 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   color:var(--orange-700,#B5551D);white-space:nowrap;transition:opacity .3s}
 /* steps */
 #ee-why .eew2-steps{list-style:none;margin:0;padding:0;position:relative}
-#ee-why .eew2-steps::before{content:"";position:absolute;left:19px;top:26px;bottom:26px;width:2px;
-  background:linear-gradient(180deg,rgba(222,110,48,.35),rgba(25,52,93,.12))}
-#ee-why .eew2-step{position:relative;display:flex;gap:18px;padding:20px 16px 20px 0;cursor:pointer;
-  opacity:.45;transition:opacity .45s ease,transform .45s ease}
+
+#ee-why .eew2-step{position:relative;display:flex;gap:0;padding:18px 16px 18px 20px;cursor:pointer;border-left:3px solid rgba(25,52,93,.1);opacity:.45;transition:opacity .45s ease,transform .45s ease,border-color .45s ease,background .45s ease}#ee-why .eew2-step.on{border-left-color:#DE6E30;background:linear-gradient(90deg,rgba(222,110,48,.05),transparent 65%)}
 #ee-why .eew2-step.on{opacity:1}
-#ee-why .eew2-no{position:relative;z-index:1;flex:none;width:40px;height:40px;border-radius:12px;
-  display:grid;place-items:center;font:800 13px/1 'Inter',sans-serif;color:#5a6b85;
-  background:#fff;border:1.4px solid rgba(25,52,93,.16);
-  transition:all .4s cubic-bezier(.22,1,.36,1)}
-#ee-why .eew2-step.on .eew2-no{color:#fff;background:linear-gradient(135deg,#E8843F,#DE6E30);
-  border-color:transparent;box-shadow:0 10px 22px -8px rgba(222,110,48,.6);transform:scale(1.06)}
+
+
 #ee-why .eew2-tx h3{margin:2px 0 6px;color:#19345d}
 #ee-why .eew2-tag{display:inline-block;font:700 11px/1 'Inter',sans-serif;letter-spacing:.08em;
   text-transform:uppercase;color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);
@@ -845,11 +838,10 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-why .eew2-tx p{margin:0;color:#5a6b85;line-height:1.65;max-width:52ch}
 #ee-why .eew2-mimg{display:none}
 /* counter + autoplay ring + ken-burns + entrance */
-#ee-why .eew2-count{font:800 11px/1 ui-monospace,Menlo,monospace;color:#5a6b85;background:rgba(25,52,93,.06);border:1px solid rgba(25,52,93,.12);padding:5px 9px;border-radius:999px;white-space:nowrap}
+
 @keyframes eew2Ken{from{transform:scale(1)}to{transform:scale(1.035)}}
 #ee-why.eew2-play .eew2-img.on{animation:eew2Ken 5s linear forwards}
-@keyframes eew2Ring{0%{box-shadow:0 10px 22px -8px rgba(222,110,48,.6),0 0 0 0 rgba(222,110,48,.35)}100%{box-shadow:0 10px 22px -8px rgba(222,110,48,.6),0 0 0 12px rgba(222,110,48,0)}}
-#ee-why.eew2-play .eew2-step.on .eew2-no{animation:eew2Ring 1.6s ease-out infinite}
+
 #ee-why .eew2-steps:not(.in) .eew2-step{opacity:0;transform:translateY(18px)}
 #ee-why .eew2-steps.in .eew2-step{transform:none}
 #ee-why .eew2-steps.in .eew2-step:nth-child(1){transition-delay:.05s}
@@ -903,7 +895,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <div class="eew2-grid">
       <div class="eew2-visual">
         <div class="eew2-vframe" id="eew2Frame" tabindex="0" role="button" aria-label="Enlarge the current screenshot">
-          <span class="eew2-ghost" id="eew2Ghost" aria-hidden="true">01</span>
           <img class="eew2-img on" data-i="0" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/unified-admission-ecosystem.webp" alt="Unified Admission Ecosystem" loading="lazy" decoding="async">
           <img class="eew2-img" data-i="1" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/ai-guided-student-journey.webp" alt="AI Guided Student Journey" loading="lazy" decoding="async">
           <img class="eew2-img" data-i="2" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/intelligent-counselor-workspace.webp" alt="Intelligent Counselor Workspace" loading="lazy" decoding="async">
@@ -913,13 +904,11 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
         <div class="eew2-progress" aria-hidden="true">
           <span class="eew2-plabel" id="eew2Label">Unified Admission Ecosystem</span>
           <span class="eew2-pline"><i class="eew2-pfill" id="eew2Fill"></i></span>
-          <span class="eew2-count" id="eew2Count">01 / 05</span>
           <button type="button" class="eew2-toggle" id="eew2Toggle" aria-label="Pause the story autoplay" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" id="eew2TIcon"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
         </div>
       </div>
       <ol class="eew2-steps" id="eew2Steps">
         <li class="eew2-step on" data-i="0" tabindex="0" aria-current="step">
-          <span class="eew2-no">01</span>
           <div class="eew2-tx">
             <h3>Everything in one platform</h3>
             <span class="eew2-tag">Unified Admission Ecosystem</span>
@@ -928,7 +917,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
           </div>
         </li>
         <li class="eew2-step" data-i="1" tabindex="0">
-          <span class="eew2-no">02</span>
           <div class="eew2-tx">
             <h3>Complete enrollment flow</h3>
             <span class="eew2-tag">AI Guided Student Journey</span>
@@ -937,7 +925,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
           </div>
         </li>
         <li class="eew2-step" data-i="2" tabindex="0">
-          <span class="eew2-no">03</span>
           <div class="eew2-tx">
             <h3>Counselors work smarter</h3>
             <span class="eew2-tag">Intelligent Counselor Workspace</span>
@@ -946,7 +933,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
           </div>
         </li>
         <li class="eew2-step" data-i="3" tabindex="0">
-          <span class="eew2-no">04</span>
           <div class="eew2-tx">
             <h3>Processes run automatically</h3>
             <span class="eew2-tag">Automation &amp; Connected Operations</span>
@@ -955,7 +941,6 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
           </div>
         </li>
         <li class="eew2-step" data-i="4" tabindex="0">
-          <span class="eew2-no">05</span>
           <div class="eew2-tx">
             <h3>Leadership gets actionable insights</h3>
             <span class="eew2-tag">Executive Decision Intelligence</span>
@@ -1050,6 +1035,20 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
       if(inView){ if(list) list.classList.add('in'); play(); } else { stop(); }
     }); },{threshold:.3});
     vio.observe(sec);
+    /* scrolling through the list also drives the story (centre band) */
+    var sio=new IntersectionObserver(function(es){
+      if(!mq.matches) return;
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          var i=+e.target.dataset.i;
+          if(i!==cur){
+            setActive(i,false);
+            if(timer){ clearInterval(timer); timer=setInterval(tick,5000); armFill(cur,true); }
+          }
+        }
+      });
+    },{rootMargin:'-40% 0px -40% 0px',threshold:0});
+    steps.forEach(function(st){ sio.observe(st); });
   } else if(list){ list.classList.add('in'); }
   sec.addEventListener('mouseenter',function(){ if(timer) stop(); });
   sec.addEventListener('mouseleave',function(){ play(); });
