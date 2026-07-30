@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-no-teams -->
+<!-- ee-front-tpl v2026-07-29-no-dots -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1186,8 +1186,7 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
       </div>
       <div class="rfa-stage" id="rfaStage" aria-hidden="true">
         <div class="rfa-frame">
-          <div class="rfa-chrome"><i></i><i></i><i></i></div>
-          <div class="rfa-shots">
+                    <div class="rfa-shots">
       <img class="rfa-shot on" data-i="0" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Integration%20Hub%20Flowchart.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
       <img class="rfa-shot" data-i="1" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Omnichannel%20Conversion%20Dashboard.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
       <img class="rfa-shot" data-i="2" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Admissions%20CRM%20Dashboard%20Overview.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
@@ -5655,12 +5654,8 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 #vidyaai-embed-root .story-card:hover{transform:translateY(-4px);
   box-shadow:0 2px 6px rgba(15,32,58,.05),0 44px 90px -34px rgba(25,52,93,.45)!important}
 /* screenshots inside a mac-style window frame */
-#vidyaai-embed-root .story-img-container{position:relative;padding-top:34px!important;background:#f4f6fa!important;
+#vidyaai-embed-root .story-img-container{position:relative;background:#fff!important;
   border:1px solid rgba(25,52,93,.12)!important;border-radius:16px!important;overflow:hidden}
-#vidyaai-embed-root .story-img-container::before{content:"";position:absolute;top:13px;left:16px;width:44px;height:9px;z-index:2;
-  background:radial-gradient(circle 4.5px at 4.5px 4.5px,#ff5f57 4.5px,transparent 5px),
-             radial-gradient(circle 4.5px at 22px 4.5px,#febc2e 4.5px,transparent 5px),
-             radial-gradient(circle 4.5px at 39.5px 4.5px,#28c840 4.5px,transparent 5px)}
 #vidyaai-embed-root .story-img-container img{display:block;background:#fff;
   transition:transform .5s cubic-bezier(.22,1,.36,1)}
 #vidyaai-embed-root .story-card:hover .story-img-container img{transform:scale(1.015)}
