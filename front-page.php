@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-rfa-onekw -->
+<!-- ee-front-tpl v2026-07-29-vz-pro -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -6348,4 +6348,63 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   #vidyaai-embed-root .lg\:col-span-7{grid-column:span 8/span 8}
 }
 </style>
+
+<style id="vz-pro">
+/* ── Powerful Admission CRM: professional skin. Scoped overrides only -
+   markup and the embed's own scroll-sync stay untouched. ── */
+/* story cards: gradient hairline, layered depth, hover lift */
+#vidyaai-embed-root .story-card{position:relative;border-radius:24px!important;border:1px solid #E7EBF1!important;
+  box-shadow:0 2px 6px rgba(15,32,58,.04),0 30px 70px -34px rgba(25,52,93,.35)!important;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s ease,opacity .6s ease!important;overflow:hidden}
+#vidyaai-embed-root .story-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#DE6E30,#FF8A5C 45%,transparent 85%)}
+#vidyaai-embed-root .story-card:hover{transform:translateY(-4px);
+  box-shadow:0 2px 6px rgba(15,32,58,.05),0 44px 90px -34px rgba(25,52,93,.45)!important}
+/* screenshots inside a mac-style window frame */
+#vidyaai-embed-root .story-img-container{position:relative;padding-top:34px!important;background:#f4f6fa!important;
+  border:1px solid rgba(25,52,93,.12)!important;border-radius:16px!important;overflow:hidden}
+#vidyaai-embed-root .story-img-container::before{content:"";position:absolute;top:13px;left:16px;width:44px;height:9px;z-index:2;
+  background:radial-gradient(circle 4.5px at 4.5px 4.5px,#ff5f57 4.5px,transparent 5px),
+             radial-gradient(circle 4.5px at 22px 4.5px,#febc2e 4.5px,transparent 5px),
+             radial-gradient(circle 4.5px at 39.5px 4.5px,#28c840 4.5px,transparent 5px)}
+#vidyaai-embed-root .story-img-container img{display:block;background:#fff;
+  transition:transform .5s cubic-bezier(.22,1,.36,1)}
+#vidyaai-embed-root .story-card:hover .story-img-container img{transform:scale(1.015)}
+/* left rail: card polish + orange active state */
+#vidyaai-embed-root #navCard{border-radius:20px!important;border:1px solid #E7EBF1!important;
+  box-shadow:0 2px 6px rgba(15,32,58,.05),0 26px 60px -30px rgba(25,52,93,.35)!important}
+#vidyaai-embed-root .feature-nav-item{border-radius:14px!important;
+  transition:transform .3s cubic-bezier(.22,1,.36,1),background .3s,border-color .3s!important}
+#vidyaai-embed-root .feature-nav-item:hover{transform:translateX(3px)}
+#vidyaai-embed-root .feature-nav-item.active{
+  background:linear-gradient(90deg,rgba(222,110,48,.1),rgba(222,110,48,.03))!important;
+  border-color:rgba(222,110,48,.35)!important}
+#vidyaai-embed-root .feature-nav-item.active .w-10{
+  background:linear-gradient(135deg,#E8843F,#DE6E30)!important;
+  box-shadow:0 8px 18px -6px rgba(222,110,48,.55)}
+#vidyaai-embed-root .feature-nav-item.active .w-10 img{filter:brightness(0) invert(1)}
+#vidyaai-embed-root .feature-nav-item.active .nav-title{color:var(--orange-700,#B5551D)!important}
+/* mini feature tiles: lively hover */
+#vidyaai-embed-root .story-card .bg-slate-50{transition:transform .25s ease,border-color .25s,box-shadow .25s}
+#vidyaai-embed-root .story-card .bg-slate-50:hover{transform:translateY(-3px);
+  border-color:rgba(222,110,48,.45)!important;box-shadow:0 12px 26px -14px rgba(25,52,93,.3)}
+/* scroll reveal (JS-gated so no-JS never hides content) */
+#vidyaai-embed-root.vz-ready .story-card{opacity:0;transform:translateY(26px)}
+#vidyaai-embed-root.vz-ready .story-card.vz-in{opacity:1;transform:none}
+#vidyaai-embed-root.vz-ready .story-card.vz-in:hover{transform:translateY(-4px)}
+@media(prefers-reduced-motion:reduce){
+  #vidyaai-embed-root.vz-ready .story-card{opacity:1;transform:none;transition:none!important}
+  #vidyaai-embed-root .story-img-container img{transition:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.getElementById('vidyaai-embed-root');
+  if(!root||!('IntersectionObserver' in window)) return;
+  root.classList.add('vz-ready');
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+    if(e.isIntersecting){ e.target.classList.add('vz-in'); io.unobserve(e.target); } }); },{threshold:.1});
+  root.querySelectorAll('.story-card').forEach(function(c){ io.observe(c); });
+})();
+</script>
 <?php get_footer(); ?>
