@@ -1556,7 +1556,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     #site-header .eh-chev{transition:transform .25s cubic-bezier(.22,1,.36,1)}
     #site-header .eh-nav-item:hover .eh-chev{transform:rotate(180deg)}
     /* CTA: slim conversion pill with arrow slide */
-    #site-header .eh-cta{border-radius:999px;padding:.55rem 1.2rem;font-size:.82rem;font-weight:600;
+    #site-header .eh-cta{border-radius:9px;padding:.55rem 1.2rem;font-size:.82rem;font-weight:600;
       letter-spacing:.01em;box-shadow:0 6px 18px -8px rgba(222,110,48,.55);
       transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .25s ease}
     #site-header .eh-cta:hover{transform:translateY(-1px);box-shadow:0 10px 26px -8px rgba(222,110,48,.6)}
@@ -1596,6 +1596,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     #site-header .eh-content{justify-content:flex-start}
     #site-header .eh-nav{margin-left:auto;margin-right:auto;position:relative}
     #site-header .eh-actions{flex-shrink:0}
+    @media(max-width:1023px){#site-header .eh-actions{margin-left:auto}}
     /* magnetic sliding hover pill behind nav links (injected by JS) */
     #site-header .eh-hoverpill{position:absolute;z-index:0;background:rgba(25,51,93,.06);
       border-radius:10px;opacity:0;pointer-events:none;
