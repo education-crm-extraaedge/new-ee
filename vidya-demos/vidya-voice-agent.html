@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VidyaAI Voice Agent — Vidya Call + Call Intelligence</title>
+<script>function fbLogo(i){var p=i.parentNode,m=i.getAttribute("data-fb");i.remove();if(m&&document.getElementById(m.slice(1)))p.innerHTML='<svg viewBox="0 0 120 120"><use href="'+m+'"/></svg>';}</script>
 <link rel="icon" type="image/svg+xml" href="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,8 +21,7 @@
   #app{position:fixed;inset:0;display:flex;background:var(--bg)}
   button{font-family:var(--font-b)}
   .blogo{position:relative;display:inline-block;line-height:0;flex:0 0 auto}
-  .blogo>svg,.blogo>img{width:100%;height:100%;display:block}
-  .blogo>img{position:absolute;inset:0;object-fit:contain}
+  .blogo>img,.blogo>svg{width:100%;height:100%;display:block;object-fit:contain}
 
   /* ===================== SIDEBAR ===================== */
   #side{width:clamp(260px,22vw,340px);flex:0 0 auto;height:100%;background:linear-gradient(180deg,#0F2347,#0B1B3A);
@@ -89,7 +89,7 @@
 
   .camp{display:flex;align-items:center;gap:16px;padding:20px 22px;margin-bottom:16px}
   .camp .cic{width:54px;height:54px;flex:0 0 auto;border-radius:15px;display:grid;place-items:center;padding:9px;
-    background:linear-gradient(135deg,rgba(34,211,238,.2),rgba(138,124,255,.22));border:1px solid rgba(255,255,255,.14)}
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16)}
   .camp .cic .blogo{width:100%;height:100%}
   .camp h3{font-family:var(--font-h);font-weight:800;font-size:19px;color:#fff}
   .camp p{font-size:12.8px;color:#A9BEDF;margin-top:5px;line-height:1.6}
@@ -409,7 +409,7 @@
 
   <aside id="side">
     <div class="brand">
-      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="VidyaAI Voice Agent" onerror="this.remove()"></span>
+      <span class="blogo lm"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="VidyaAI Voice Agent" data-fb="#plogo" onerror="fbLogo(this)"></span>
       <div class="bt">VidyaAI Voice Agent<small>powered by ExtraaEdge</small></div>
     </div>
     <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Run a Live Campaign for My Institute</a>
@@ -444,7 +444,7 @@ const VA=(function(){
     (function f(t){const p=Math.min(1,(t-t0)/ms);n.textContent=Math.round(from+(to-from)*p);if(p<1)requestAnimationFrame(f);})(t0);}
 
   const LOGO='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg';
-  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
+  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><img src="'+LOGO+'" alt="" data-fb="#plogo" onerror="fbLogo(this)"></span>';}
 
   /* ========== smart scroll: live chat never stops, user can read history ========== */
   const SS=(function(){

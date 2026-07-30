@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VidyaWABA GPT — VidyaGPT on WhatsApp</title>
+<script>function fbLogo(i){var p=i.parentNode,m=i.getAttribute("data-fb");i.remove();if(m&&document.getElementById(m.slice(1)))p.innerHTML='<svg viewBox="0 0 120 120"><use href="'+m+'"/></svg>';}</script>
 <link rel="icon" type="image/svg+xml" href="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -76,7 +77,7 @@
   .wjump b{background:#25D366;color:#06283A;border-radius:999px;min-width:18px;height:18px;display:inline-grid;place-items:center;font-size:10px;padding:0 5px}
   #wahead{background:var(--wa-dark);color:#fff;padding:11px 14px;display:flex;align-items:center;gap:11px;flex:0 0 auto}
   #wahead .back{font-size:19px;opacity:.9}
-  #wahead .wava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#22D3EE,#8A7CFF);display:grid;place-items:center;flex:0 0 auto}
+  #wahead .wava{width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:0 0 auto;padding:4px;overflow:hidden}
   #wahead .wava svg{width:26px;height:26px}
   #wahead .wt{flex:1;min-width:0}
   #wahead .wt b{font-size:14.5px;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden}
@@ -201,8 +202,7 @@
 
   /* ===== brand logo (remote SVG with inline fallback) ===== */
   .blogo{position:relative;display:inline-block;line-height:0;flex:0 0 auto}
-  .blogo>svg,.blogo>img{width:100%;height:100%;display:block}
-  .blogo>img{position:absolute;inset:0;object-fit:contain}
+  .blogo>img,.blogo>svg{width:100%;height:100%;display:block;object-fit:contain}
   #wahead .wava .blogo{width:26px;height:26px}
 
   /* ===== overview / product story (mobile-first) ===== */
@@ -293,7 +293,7 @@
 
   <aside id="side">
     <div class="brand">
-      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="VidyaWABA GPT" onerror="this.remove()"></span>
+      <span class="blogo lm"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="VidyaWABA GPT" data-fb="#plogo" onerror="fbLogo(this)"></span>
       <div class="bt">VidyaWABA GPT<small>powered by ExtraaEdge</small></div>
     </div>
     <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Try It on Your WA Number</a>
@@ -376,7 +376,7 @@ const VW=(function(){
     ]},
   };
   const LOGO='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg';
-  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
+  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><img src="'+LOGO+'" alt="" data-fb="#plogo" onerror="fbLogo(this)"></span>';}
   const ORDER=[['ovv','What is VidyaWABA GPT?'],['night','11:47 PM — MBA Fee Enquiry'],['visit','Campus Visit — WA Buttons'],
                ['follow','Day-3 Proactive Follow-up'],['about','About VidyaWABA GPT']];
   ORDER.forEach(([k,label])=>{

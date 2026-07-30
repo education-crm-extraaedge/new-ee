@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VidyaPulse — AI Lead Prioritisation</title>
+<script>function fbLogo(i){var p=i.parentNode,m=i.getAttribute("data-fb");i.remove();if(m&&document.getElementById(m.slice(1)))p.innerHTML='<svg viewBox="0 0 120 120"><use href="'+m+'"/></svg>';}</script>
 <link rel="icon" type="image/svg+xml" href="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -236,8 +237,7 @@
 
   /* ===== brand logo (remote SVG with inline fallback) ===== */
   .blogo{position:relative;display:inline-block;line-height:0;flex:0 0 auto}
-  .blogo>svg,.blogo>img{width:100%;height:100%;display:block}
-  .blogo>img{position:absolute;inset:0;object-fit:contain}
+  .blogo>img,.blogo>svg{width:100%;height:100%;display:block;object-fit:contain}
 
   /* ===== overview / product story (mobile-first) ===== */
   .ovv{display:flex;flex-direction:column;gap:28px;padding-bottom:12px}
@@ -330,7 +330,7 @@
 
   <aside id="side">
     <div class="brand">
-      <span class="blogo lm"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="VidyaPulse" onerror="this.remove()"></span>
+      <span class="blogo lm"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="VidyaPulse" data-fb="#plogo" onerror="fbLogo(this)"></span>
       <div class="bt">VidyaPulse<small>powered by ExtraaEdge</small></div>
     </div>
     <a class="newchat" href="https://www.extraaedge.com/book-a-demo/" target="_top" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#06283A" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Score Your Live Leads</a>
@@ -432,7 +432,7 @@ const VP=(function(){
   ];
 
   const LOGO='https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg';
-  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><svg viewBox="0 0 120 120"><use href="#plogo"/></svg><img src="'+LOGO+'" alt="" onerror="this.remove()"></span>';}
+  function brandImg(cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><img src="'+LOGO+'" alt="" data-fb="#plogo" onerror="fbLogo(this)"></span>';}
   const ORDER=[['ovv','What is VidyaPulse?','star'],['list','My Priority List (HOT)','flame'],['dd','Why is Priya HOT? — Signals','pulse'],
                ['mgr','Manager — Team View','chart'],['about','About VidyaPulse','info']];
   const ICONS={
