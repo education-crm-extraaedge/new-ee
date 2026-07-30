@@ -1591,6 +1591,36 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
       #site-header,#site-header .eh-content,#site-header .eh-nav-link,#site-header .eh-cta,
       #site-header .eh-chev,#site-header .eh-dl,#site-header .eh-dl-icon{transition:none!important}
     }
+
+    /* ── structural layer: balanced centre cluster ── */
+    #site-header .eh-content{justify-content:flex-start}
+    #site-header .eh-nav{margin-left:auto;margin-right:auto;position:relative}
+    #site-header .eh-actions{flex-shrink:0}
+    /* magnetic sliding hover pill behind nav links (injected by JS) */
+    #site-header .eh-hoverpill{position:absolute;z-index:0;background:rgba(25,51,93,.06);
+      border-radius:10px;opacity:0;pointer-events:none;
+      transition:transform .32s cubic-bezier(.22,1,.36,1),width .32s cubic-bezier(.22,1,.36,1),
+                 height .32s cubic-bezier(.22,1,.36,1),opacity .25s ease}
+    #site-header .eh-nav-item{position:relative;z-index:1}
+    #site-header.eh-pill-on .eh-nav-link:hover,
+    #site-header.eh-pill-on .eh-nav-item:hover>.eh-nav-link{background:transparent}
+    /* mega menu rows: soft stagger on open */
+    #site-header .eh-mega .eh-dl{opacity:0;transform:translateY(6px);
+      transition:opacity .3s ease,transform .35s cubic-bezier(.22,1,.36,1),background .2s ease}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl,
+    #site-header .eh-nav-item:focus-within .eh-mega .eh-dl{opacity:1;transform:none}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(2){transition-delay:.03s}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(3){transition-delay:.06s}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(4){transition-delay:.09s}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(5){transition-delay:.12s}
+    /* premium mobile slide-over: glass, rounded, springy */
+    #mobileMenu{background:rgba(255,255,255,.94)!important;
+      -webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);
+      border-radius:24px 0 0 24px!important;border-left:1px solid rgba(25,51,93,.08);
+      transition:transform .45s cubic-bezier(.22,1,.36,1)!important}
+    @media(prefers-reduced-motion:reduce){
+      #site-header .eh-hoverpill,#site-header .eh-mega .eh-dl,#mobileMenu{transition:none!important}
+    }
     </style>
     <script id="eh-2026-js">
     (function(){
@@ -1599,6 +1629,30 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
       function upd(){ t=false; h.classList.toggle('eh-scrolled', window.scrollY>24); }
       window.addEventListener('scroll',function(){ if(!t){ t=true; requestAnimationFrame(upd); } },{passive:true});
       upd();
+      /* magnetic hover pill */
+      var nav=h.querySelector('.eh-nav');
+      if(nav && matchMedia('(hover:hover)').matches){
+        var pill=document.createElement('span');
+        pill.className='eh-hoverpill'; pill.setAttribute('aria-hidden','true');
+        nav.appendChild(pill);
+        h.classList.add('eh-pill-on');
+        function moveTo(link){
+          /* rects are visual (site-wide body zoom) - divide back to CSS px */
+          var Z=parseFloat(getComputedStyle(document.body).zoom)||1;
+          var nr=nav.getBoundingClientRect(), lr=link.getBoundingClientRect();
+          pill.style.width=(lr.width/Z)+'px'; pill.style.height=(lr.height/Z)+'px';
+          pill.style.transform='translate('+((lr.left-nr.left)/Z)+'px,'+((lr.top-nr.top)/Z)+'px)';
+          pill.style.opacity='1';
+        }
+        nav.querySelectorAll('.eh-nav-link').forEach(function(l){
+          l.addEventListener('mouseenter',function(){ moveTo(l); });
+          l.addEventListener('focus',function(){ moveTo(l); });
+        });
+        nav.addEventListener('mouseleave',function(){
+          var act=nav.querySelector('.eh-nav-link.active');
+          if(act){ moveTo(act); } else { pill.style.opacity='0'; }
+        });
+      }
     })();
     </script>
 
