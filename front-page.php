@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-nav-wow2 -->
+<!-- ee-front-tpl v2026-07-29-nav-sticky -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -6497,5 +6497,28 @@ html body #main-content #vidyaai-embed-root .feature-nav-item h3.nav-title{font-
   border-color:rgba(255,255,255,.3);transform:scale(1.06)}
 #vidyaai-embed-root .feature-nav-item.active>svg{color:#fff;transform:translateX(3px)}
 @media(prefers-reduced-motion:reduce){#vidyaai-embed-root .feature-nav-item{transition:none!important}}
+</style>
+
+<style id="ee-nav-sticky-fix">
+/* ── CRM nav: replace the JS fixed-positioning (which fights the site-wide
+   body zoom - shrink + left drift) with plain CSS sticky. The old script
+   still runs but its classes and inline styles are neutralised here. ── */
+@media(min-width:1024px){
+  /* overflow-x:hidden made this a scroll container and killed sticky;
+     clip gives identical clipping without breaking it */
+  #vidyaai-embed-root{overflow-x:clip!important;overflow-y:visible!important}
+  #vidyaai-embed-root #navColumn{align-self:stretch}
+  #vidyaai-embed-root #navCard{position:-webkit-sticky!important;position:sticky!important;top:96px!important}
+  #vidyaai-embed-root #navCard.js-fixed,
+  #vidyaai-embed-root #navCard.js-bottom{
+    position:-webkit-sticky!important;position:sticky!important;
+    top:96px!important;left:auto!important;width:auto!important;bottom:auto!important}
+}
+@media(max-width:1023px){
+  #vidyaai-embed-root #navCard,
+  #vidyaai-embed-root #navCard.js-fixed,
+  #vidyaai-embed-root #navCard.js-bottom{
+    position:static!important;top:auto!important;left:auto!important;width:auto!important}
+}
 </style>
 <?php get_footer(); ?>
