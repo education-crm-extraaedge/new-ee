@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-nav-wow -->
+<!-- ee-front-tpl v2026-07-29-nav-wow2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3063,6 +3063,10 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
                 const scrollY = window.scrollY;
                 const navHeight = navCard.offsetHeight;
                 const topOffset = getTopOffset(navHeight);
+                /* body{zoom:.9}: rect measurements are visual px but style px
+                   get re-scaled by the zoom - divide so fixed mode keeps the
+                   card at its natural size instead of shrinking */
+                const Z = parseFloat(getComputedStyle(document.body).zoom) || 1;
                 const stickyStartAt = naturalTop - topOffset;
                 const stickyEndAt = containerBottom - topOffset - navHeight;
 
@@ -3074,13 +3078,13 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
                 } else if (scrollY > stickyStartAt && scrollY <= stickyEndAt) {
                     navCard.classList.add('js-fixed');
                     navCard.classList.remove('js-bottom');
-                    navCard.style.top = `${topOffset}px`;
-                    navCard.style.left = `${naturalLeft}px`;
-                    navCard.style.width = `${naturalWidth}px`;
+                    navCard.style.top = `${topOffset / Z}px`;
+                    navCard.style.left = `${naturalLeft / Z}px`;
+                    navCard.style.width = `${naturalWidth / Z}px`;
                 } else {
                     navCard.classList.add('js-bottom');
                     navCard.classList.remove('js-fixed');
-                    navCard.style.top = `${containerBottom - naturalTop - navHeight}px`;
+                    navCard.style.top = `${(containerBottom - naturalTop) / Z - navHeight}px`;
                     navCard.style.left = '';
                     navCard.style.width = '';
                 }
@@ -6473,6 +6477,8 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 #vidyaai-embed-root .feature-nav-item:hover{background:rgba(255,255,255,.1)!important;
   border-color:rgba(255,255,255,.18)!important;transform:translateX(4px)}
 #vidyaai-embed-root .feature-nav-item .nav-title{color:#fff!important}
+html body #main-content #vidyaai-embed-root .feature-nav-item h3.nav-title{font-size:var(--ee-h3,17px)!important;line-height:1.3!important;font-weight:600!important}
+@media(max-width:820px){html body #main-content #vidyaai-embed-root .feature-nav-item h3.nav-title{font-size:14px!important}}
 #vidyaai-embed-root .feature-nav-item p{color:rgba(198,212,234,.78)!important}
 #vidyaai-embed-root .feature-nav-item .w-10{background:rgba(255,255,255,.09)!important;
   border:1px solid rgba(255,255,255,.14);box-shadow:none!important;transition:background .3s,transform .3s}
