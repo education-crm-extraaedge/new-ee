@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-night-h2 -->
+<!-- ee-front-tpl v2026-07-29-img-boost -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -6127,5 +6127,23 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 #ee-solutions .solb-a .solb-lt span{color:#5a6b85!important}
 #ee-solutions .solb-a .solb-arr{color:#5a6b85!important}
 #ee-solutions .solb-a .solb-link:hover .solb-arr{color:var(--orange-700,#B5551D)!important}
+</style>
+
+<style id="ee-img-boost">
+/* ── Bigger product imagery: users must be able to read what's inside the
+   screenshots. Desktop-only column rebalance - phones keep their layouts. ── */
+@media(min-width:961px){
+  /* Architect of Admissions: image column grows from ~49% to 56% */
+  #ee-why .eew-grid{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)}
+  #ee-why .eew-media{max-width:none}
+  /* Respond First: browser-preview column grows, story cards narrow */
+  #ee-rfa .rfa-in{grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr) 18px}
+  #ee-rfa .rfa-shot{padding:4px}
+}
+/* Powerful Admission CRM with Simplicity: screenshot column 7/12 -> 8/12 */
+@media(min-width:1024px){
+  #vidyaai-embed-root .lg\:col-span-5{grid-column:span 4/span 4}
+  #vidyaai-embed-root .lg\:col-span-7{grid-column:span 8/span 8}
+}
 </style>
 <?php get_footer(); ?>
