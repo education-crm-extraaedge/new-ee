@@ -1605,15 +1605,20 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     #site-header .eh-nav-item{position:relative;z-index:1}
     #site-header.eh-pill-on .eh-nav-link:hover,
     #site-header.eh-pill-on .eh-nav-item:hover>.eh-nav-link{background:transparent}
-    /* mega menu rows: soft stagger on open */
-    #site-header .eh-mega .eh-dl{opacity:0;transform:translateY(6px);
-      transition:opacity .3s ease,transform .35s cubic-bezier(.22,1,.36,1),background .2s ease}
+    /* mega menu rows: entrance stagger on open. Rows are visible by
+       default (never opacity:0 at rest) so aggressive CSS optimisers
+       like LiteSpeed UCSS can never leave them permanently hidden. */
+    @keyframes ehDlIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
     #site-header .eh-nav-item:hover .eh-mega .eh-dl,
-    #site-header .eh-nav-item:focus-within .eh-mega .eh-dl{opacity:1;transform:none}
-    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(2){transition-delay:.03s}
-    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(3){transition-delay:.06s}
-    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(4){transition-delay:.09s}
-    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(5){transition-delay:.12s}
+    #site-header .eh-nav-item:focus-within .eh-mega .eh-dl{
+      animation:ehDlIn .3s cubic-bezier(.22,1,.36,1) both}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(2){animation-delay:.03s}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(3){animation-delay:.06s}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(4){animation-delay:.09s}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(5){animation-delay:.12s}
+    /* keyboard support: panels open on focus too, not just hover */
+    #site-header .eh-nav-item:focus-within .eh-mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    #site-header .eh-nav-item:focus-within>.eh-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
     /* premium mobile slide-over: glass, rounded, springy */
     #mobileMenu{background:rgba(255,255,255,.94)!important;
       -webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);
@@ -1657,7 +1662,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     #openMobileBtn,#closeMobileBtn{min-width:44px;min-height:44px;
       display:inline-flex;align-items:center;justify-content:center}
     @media(prefers-reduced-motion:reduce){
-      #site-header .eh-hoverpill,#site-header .eh-mega .eh-dl,#mobileMenu,.eh-scrim{transition:none!important}
+      #site-header .eh-hoverpill,#site-header .eh-mega .eh-dl,#mobileMenu,.eh-scrim{transition:none!important;animation:none!important}
       #site-header .eh-content{animation:none}
       #site-header .eh-cta::after{display:none}
     }
