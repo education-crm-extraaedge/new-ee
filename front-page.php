@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-img-boost -->
+<!-- ee-front-tpl v2026-07-29-rfa-clean -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -992,7 +992,7 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
       </div>
       <div class="rfa-stage" id="rfaStage" aria-hidden="true">
         <div class="rfa-frame">
-          <div class="rfa-chrome"><i></i><i></i><i></i><span id="rfaUrl">app.extraaedge.com &middot; decrease response time</span></div>
+          <div class="rfa-chrome"><i></i><i></i><i></i></div>
           <div class="rfa-shots">
       <img class="rfa-shot on" data-i="0" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Integration%20Hub%20Flowchart.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
       <img class="rfa-shot" data-i="1" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Omnichannel%20Conversion%20Dashboard.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
@@ -1000,7 +1000,6 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
       <img class="rfa-shot" data-i="3" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Dashboard%20analytics%20overview.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
           </div>
         </div>
-        <div class="rfa-foot"><b id="rfaCap">Respond First Using AI Agents. Win Admissions.</b><span id="rfaCount">01 / 04</span></div>
       </div>
     </div>
   </div>
