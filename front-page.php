@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-rfa-clean -->
+<!-- ee-front-tpl v2026-07-29-why-img-xl -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -6133,7 +6133,7 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
    screenshots. Desktop-only column rebalance - phones keep their layouts. ── */
 @media(min-width:961px){
   /* Architect of Admissions: image column grows from ~49% to 56% */
-  #ee-why .eew-grid{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)}
+  #ee-why .eew-grid{grid-template-columns:minmax(0,.68fr) minmax(0,1.32fr);gap:clamp(22px,3vw,40px)}
   #ee-why .eew-media{max-width:none}
   /* Respond First: browser-preview column grows, story cards narrow */
   #ee-rfa .rfa-in{grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr) 18px}
