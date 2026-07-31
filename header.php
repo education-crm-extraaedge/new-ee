@@ -852,264 +852,191 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
                      width="160" height="48" fetchpriority="high" decoding="async">
             </a>
 
+    <?php
+    /* ══════════════════════════════════════════════════════════════
+       NAVIGATION MAP — the only place to edit the menu.
+       Change a label or a link here and it updates the desktop mega
+       menus and the mobile accordion together.
+       'cols' = groups laid out per column; each group has a heading
+       and its links. Rendered server-side, so every link is real
+       HTML in the page source.
+       ══════════════════════════════════════════════════════════════ */
+    $EE_MENU = array(
+      'products' => array('label'=>'Products','type'=>'mega','cols'=>array(
+        array(
+          array('h'=>'Core Platform','items'=>array(
+            array('t'=>'Education CRM','u'=>'/products/education-crm/'),
+            array('t'=>'Marketing Automation','u'=>'/products/marketing-automation/'),
+            array('t'=>'Application Management System (AMS)','u'=>'/products/application-management-system/'),
+            array('t'=>'Payment & Enrollment','u'=>'/products/payment-enrollment/'),
+          )),
+          array('h'=>'Automation','items'=>array(
+            array('t'=>'Workflow Automation','u'=>'/products/workflow-automation/'),
+            array('t'=>'Journey Builder','u'=>'/products/journey-builder/'),
+            array('t'=>'Lead Assignment','u'=>'/products/lead-assignment/'),
+            array('t'=>'Lead Routing','u'=>'/products/lead-routing/'),
+            array('t'=>'Task Automation','u'=>'/products/task-automation/'),
+            array('t'=>'Follow-up Automation','u'=>'/products/follow-up-automation/'),
+          )),
+        ),
+        array(
+          array('h'=>'Vidya AI Suite','items'=>array(
+            array('t'=>'VidyaGPT','u'=>'/products/vidyagpt/'),
+            array('t'=>'VidyaAI Voice Agent','u'=>'/products/vidyaai-voice-agent/'),
+            array('t'=>'VidyaPulse','u'=>'/products/vidyapulse/'),
+            array('t'=>'VidyaWABA GPT','u'=>'/products/vidyawaba-gpt/'),
+            array('t'=>'Vidya Work','u'=>'/products/vidya-work/','badge'=>'Upcoming'),
+          )),
+          array('h'=>'Security','items'=>array(
+            array('t'=>'Role Management','u'=>'/security/role-management/'),
+            array('t'=>'Permissions','u'=>'/security/permissions/'),
+            array('t'=>'Audit Logs','u'=>'/security/audit-logs/'),
+            array('t'=>'Data Security','u'=>'/security/data-security/'),
+            array('t'=>'Compliance','u'=>'/security/compliance/'),
+          )),
+        ),
+        array(
+          array('h'=>'Communication','items'=>array(
+            array('t'=>'Education Chatbot','u'=>'/products/education-chatbot/'),
+            array('t'=>'WhatsApp Business API','u'=>'/products/whatsapp-api/'),
+            array('t'=>'Cloud Telephony','u'=>'/products/cloud-telephony/'),
+            array('t'=>'IVR','u'=>'/products/ivr/'),
+            array('t'=>'Email','u'=>'/products/email/'),
+            array('t'=>'SMS','u'=>'/products/sms/'),
+            array('t'=>'Mobile CRM','u'=>'/products/mobile-crm/'),
+          )),
+          array('h'=>'Integrations','items'=>array(
+            array('t'=>'All integrations','u'=>'/products/integrations/'),
+          )),
+        ),
+        array(
+          array('h'=>'Analytics','items'=>array(
+            array('t'=>'Executive Dashboard','u'=>'/analytics/executive-dashboard/'),
+            array('t'=>'Admission Analytics','u'=>'/analytics/admission-analytics/'),
+            array('t'=>'Marketing Analytics','u'=>'/analytics/marketing-analytics/'),
+            array('t'=>'Lead Analytics','u'=>'/analytics/lead-analytics/'),
+            array('t'=>'Funnel Analytics','u'=>'/analytics/funnel-analytics/'),
+            array('t'=>'Custom Reports','u'=>'/analytics/custom-reports/'),
+          )),
+        ),
+      )),
+      'solutions' => array('label'=>'Solutions','type'=>'mega','cols'=>array(
+        array(array('h'=>'By Institution','items'=>array(
+          array('t'=>'Universities','u'=>'/solutions/universities/'),
+          array('t'=>'Colleges','u'=>'/solutions/colleges/'),
+          array('t'=>'Schools','u'=>'/solutions/schools/'),
+          array('t'=>'Coaching Institutes','u'=>'/solutions/coaching-institutes/'),
+          array('t'=>'EdTech','u'=>'/solutions/edtech/'),
+          array('t'=>'Study Abroad','u'=>'/solutions/study-abroad/'),
+        ))),
+        array(array('h'=>'By Department','items'=>array(
+          array('t'=>'Admissions','u'=>'/solutions/admissions/'),
+          array('t'=>'Marketing','u'=>'/solutions/marketing/'),
+          array('t'=>'Sales','u'=>'/solutions/sales/'),
+          array('t'=>'Counselors','u'=>'/solutions/counselors/'),
+          array('t'=>'Management','u'=>'/solutions/management/'),
+          array('t'=>'Call Center','u'=>'/solutions/call-center/'),
+        ))),
+        array(array('h'=>'By Use Case','items'=>array(
+          array('t'=>'Student Recruitment','u'=>'/solutions/student-recruitment/'),
+          array('t'=>'Lead Management','u'=>'/solutions/lead-management/'),
+          array('t'=>'Admission Automation','u'=>'/solutions/admission-automation/'),
+          array('t'=>'AI Calling','u'=>'/solutions/ai-calling/'),
+          array('t'=>'WhatsApp Automation','u'=>'/solutions/whatsapp-automation/'),
+          array('t'=>'Student Engagement','u'=>'/solutions/student-engagement/'),
+          array('t'=>'Event Management','u'=>'/solutions/event-management/'),
+          array('t'=>'Application Processing','u'=>'/solutions/application-processing/'),
+          array('t'=>'Lead Scoring','u'=>'/solutions/lead-scoring/'),
+        ))),
+        array(array('h'=>'By Goal','items'=>array(
+          array('t'=>'Increase Admissions','u'=>'/solutions/increase-admissions/'),
+          array('t'=>'Improve Conversion','u'=>'/solutions/improve-conversion/'),
+          array('t'=>'Reduce Manual Work','u'=>'/solutions/reduce-manual-work/'),
+          array('t'=>'Increase ROI','u'=>'/solutions/increase-roi/'),
+          array('t'=>'Faster Follow-ups','u'=>'/solutions/faster-follow-ups/'),
+          array('t'=>'Better Student Experience','u'=>'/solutions/better-student-experience/'),
+        ))),
+      )),
+      'customers' => array('label'=>'Customers','type'=>'drop','items'=>array(
+        array('t'=>'Success Customer Stories','u'=>'/customer-success-stories/'),
+        array('t'=>'Case Studies','u'=>'/case-studies/'),
+        array('t'=>'Testimonials','u'=>'/testimonials/'),
+        array('t'=>'Reviews','u'=>'/reviews/'),
+        array('t'=>'Awards','u'=>'/awards/'),
+      )),
+      'resources' => array('label'=>'Resources','type'=>'mega','cols'=>array(
+        array(array('h'=>'Learn','items'=>array(
+          array('t'=>'Blog','u'=>'/blog/'),
+          array('t'=>'Webinars','u'=>'/webinars/'),
+          array('t'=>'Videos','u'=>'/videos/'),
+          array('t'=>'eBooks','u'=>'/ebooks/'),
+        ))),
+        array(array('h'=>'Docs & Support','items'=>array(
+          array('t'=>'Documentation','u'=>'/documentation/'),
+          array('t'=>'API Documentation','u'=>'/api-documentation/'),
+          array('t'=>'Help Center','u'=>'/help/'),
+          array('t'=>'FAQs','u'=>'/faqs/'),
+        ))),
+        array(array('h'=>'Tools & Updates','items'=>array(
+          array('t'=>'ROI Calculator','u'=>'/roi-calculator/'),
+          array('t'=>'CRM Comparison','u'=>'/crm-comparison/'),
+          array('t'=>'Release Notes','u'=>'/release-notes/'),
+        ))),
+      )),
+      'pricing' => array('label'=>'Pricing','type'=>'drop','items'=>array(
+        array('t'=>'CRM Pricing','u'=>'/pricing/crm/'),
+        array('t'=>'Vidya AI Pricing','u'=>'/pricing/vidya-ai/'),
+      )),
+      'company' => array('label'=>'Company','type'=>'drop','items'=>array(
+        array('t'=>'About Us','u'=>'/about-us/'),
+        array('t'=>'Team','u'=>'/team/'),
+        array('t'=>'Careers','u'=>'/careers/'),
+        array('t'=>'Partners','u'=>'/partners/'),
+        array('t'=>'Events','u'=>'/events/'),
+        array('t'=>'News','u'=>'/news/'),
+        array('t'=>'Contact','u'=>'/contact/'),
+        array('t'=>'Support','u'=>'/support/'),
+      )),
+    );
+    if (!function_exists('ee_m_url')) { function ee_m_url($u){ return (strpos($u,'http')===0) ? $u : home_url($u); } }
+    ?>
             <nav class="eh-nav ee-desktop-nav" role="navigation" aria-label="Primary">
-
-                <?php $eh_top = function_exists('ee_get_header_top_labels') ? ee_get_header_top_labels() : array(); ?>
-                <!-- Products Mega Menu — columns + badges set per-post in WP Admin -->
-                <div class="eh-nav-item">
-                    <a href="<?php echo esc_url($eh_top['products']['url'] ?? home_url('/products/')); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['products']['label'] ?? 'Products'); ?>
+                <?php foreach ($EE_MENU as $mk => $ms): ?>
+                <div class="eh-nav-item<?php echo $ms['type'] === 'mega' ? ' eh-nav-item--mega' : ''; ?>">
+                    <a href="#" class="eh-nav-link" role="button" aria-haspopup="true" aria-expanded="false"><?php echo esc_html($ms['label']); ?>
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
-                    <div class="eh-mega">
-                        <?php
-                        /* Group every Product CPT post into one of four
-                           columns based on its "Menu Column" meta value.
-                           The non-coder picks the column from the dropdown
-                           in WP Admin → Products → edit any post → 🏷 Product
-                           Card Settings. Posts with column = "hidden" are
-                           skipped here but still show on /products/. */
-                        $eh_products_all = function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items() : array();
-                        $eh_cols = array(
-                            'featured'      => array('label' => 'Featured',      'icon' => 'star'),
-                            'core'          => array('label' => 'Core CRM',      'icon' => 'bullseye'),
-                            'communication' => array('label' => 'Communication', 'icon' => 'comments'),
-                            'automation'    => array('label' => 'Automation',    'icon' => 'bolt'),
-                        );
-                        $eh_groups = array('featured'=>array(),'core'=>array(),'communication'=>array(),'automation'=>array());
-                        foreach ($eh_products_all as $eh_p) {
-                            $col = isset($eh_p['column']) ? $eh_p['column'] : 'featured';
-                            if ($col === 'hidden' || !isset($eh_groups[$col])) continue;
-                            $eh_groups[$col][] = $eh_p;
-                        }
-                        ?>
+                    <?php if ($ms['type'] === 'mega'): ?>
+                    <div class="eh-mega eh-mega--<?php echo esc_attr($mk); ?>">
                         <div class="eh-mega-grid">
-                            <?php
-                            /* Featured promo strip — content editable from
-                               WP Admin → 🛍 Products Menu. Skipped entirely
-                               when the "Show this promo" checkbox is off. */
-                            $eh_promo = function_exists('ee_get_products_promo') ? ee_get_products_promo() : array('enabled' => '1');
-                            if (!empty($eh_promo['enabled']) && $eh_promo['enabled'] !== '0') :
-                                $eh_promo_btn_external = ($eh_promo['btn_url'] && (strpos($eh_promo['btn_url'], 'http') === 0) && strpos($eh_promo['btn_url'], home_url()) !== 0);
-                            ?>
-                            <div class="eh-featured">
-                                <div>
-                                    <div class="eh-featured-title">
-                                        <img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/rocket.svg'); ?>" alt="" loading="lazy">
-                                        <?php if (!empty($eh_promo['badge'])) : ?><?php echo esc_html($eh_promo['badge']); ?>: <?php endif; ?><?php echo esc_html($eh_promo['title']); ?>
-                                    </div>
-                                    <?php if (!empty($eh_promo['desc'])) : ?><p><?php echo esc_html($eh_promo['desc']); ?></p><?php endif; ?>
-                                    <?php if (!empty($eh_promo['btn_text']) && !empty($eh_promo['btn_url'])) : ?>
-                                    <a href="<?php echo esc_url($eh_promo['btn_url']); ?>" class="eh-featured-btn"<?php echo $eh_promo_btn_external ? ' target="_blank" rel="noopener"' : ''; ?>>
-                                        <?php echo esc_html($eh_promo['btn_text']); ?>
-                                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-                                    </a>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="eh-featured-visual"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . ($eh_promo['visual_icon'] ?: 'robot') . '.svg'); ?>" alt="" loading="lazy"></div>
-                            </div>
-                            <?php endif; ?>
-
-                            <?php foreach ($eh_cols as $eh_col_key => $eh_col_meta) :
-                                $eh_col_items = $eh_groups[$eh_col_key];
-                                if (empty($eh_col_items)) continue; /* skip column if no products assigned */
-                            ?>
+                            <?php foreach ($ms['cols'] as $col): ?>
                             <div class="eh-mega-col">
-                                <div class="eh-col-title"><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_meta['icon'] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo esc_html($eh_col_meta['label']); ?></div>
-                                <?php foreach ($eh_col_items as $eh_p) :
-                                    $eh_short = wp_trim_words(wp_strip_all_tags((string) $eh_p['desc']), 9, '…');
-                                    $eh_badge = isset($eh_p['badge']) ? $eh_p['badge'] : 'none';
-                                ?>
-                                <a href="<?php echo esc_url($eh_p['url']); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon">
-                                        <?php if (!empty($eh_p['icon'])) : ?>
-                                            <img class="eh-svg" src="<?php echo esc_url($eh_p['icon']); ?>" alt="" loading="lazy">
-                                        <?php else : ?>
-                                            <img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg" alt="" loading="lazy">
-                                        <?php endif; ?>
-                                    </div>
+                                <?php foreach ($col as $grp): ?>
+                                <div class="eh-col-title"><?php echo esc_html($grp['h']); ?></div>
+                                <?php foreach ($grp['items'] as $it): ?>
+                                <a href="<?php echo esc_url(ee_m_url($it['u'])); ?>" class="eh-dl">
                                     <div class="eh-dl-content">
-                                        <div class="eh-dl-title">
-                                            <?php echo esc_html($eh_p['title']); ?>
-                                            <?php if ($eh_badge && $eh_badge !== 'none') : ?>
-                                                <span class="eh-badge <?php echo esc_attr($eh_badge); ?>"><?php echo esc_html(ucfirst($eh_badge)); ?></span>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="eh-dl-desc"><?php echo esc_html($eh_short); ?></div>
+                                        <div class="eh-dl-title"><?php echo esc_html($it['t']); ?><?php
+                                            if (!empty($it['badge'])) echo ' <span class="eh-badge-soon">'.esc_html($it['badge']).'</span>'; ?></div>
                                     </div>
                                 </a>
                                 <?php endforeach; ?>
-                            </div>
-                            <?php endforeach; ?>
-                        </div>
-
-                        <?php
-                        /* Quick Access chips — all rows editable from WP
-                           Admin → 🛍 Products Menu. Skipped entirely when
-                           the editor removes every row. */
-                        $eh_qlinks = function_exists('ee_get_products_quick_links') ? ee_get_products_quick_links() : array();
-                        if (!empty($eh_qlinks)) :
-                        ?>
-                        <div class="eh-quick">
-                            <div class="eh-quick-title">⚡ Quick Access</div>
-                            <div class="eh-quick-grid">
-                                <?php foreach ($eh_qlinks as $eh_ql) :
-                                    $eh_qurl = !empty($eh_ql['url']) ? $eh_ql['url'] : '#';
-                                    if (strpos($eh_qurl, 'http') !== 0 && strpos($eh_qurl, '//') !== 0 && strpos($eh_qurl, '#') !== 0) {
-                                        $eh_qurl = home_url($eh_qurl);
-                                    }
-                                    $eh_qicon   = !empty($eh_ql['icon']) ? $eh_ql['icon'] : 'star';
-                                    $eh_qext    = isset($eh_ql['target']) && $eh_ql['target'] === '_blank';
-                                ?>
-                                <a href="<?php echo esc_url($eh_qurl); ?>" class="eh-quick-link"<?php echo $eh_qext ? ' target="_blank" rel="noopener"' : ''; ?>>
-                                    <img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_qicon . '.svg'); ?>" alt="" loading="lazy">
-                                    <?php echo esc_html($eh_ql['label']); ?>
-                                </a>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <!-- Solutions Mega Menu — auto-fills from the 'ee_solution_items' option -->
-                <div class="eh-nav-item">
-                    <a href="<?php echo esc_url($eh_top['solutions']['url'] ?? '#'); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['solutions']['label'] ?? 'Solutions'); ?>
-                        <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </a>
-                    <div class="eh-mega">
-                        <?php
-                        /* Solutions are managed in WP Admin -> 🧩 Solutions.
-                           Three columns: Admission / Study Abroad / Recruitment.
-                           Editor can add / edit / remove rows without touching code. */
-                        $eh_sol     = function_exists('ee_get_solution_items') ? ee_get_solution_items() : array('admission'=>array(),'study_abroad'=>array(),'recruitment'=>array());
-                        $eh_sol_cols = array(
-                            'admission'    => array('label' => 'Admission Solutions',                  'icon' => 'graduation-cap'),
-                            'study_abroad' => array('label' => 'Study Abroad',                         'icon' => 'globe-americas'),
-                            'recruitment'  => array('label' => 'Recruitment &amp; Lead Management',    'icon' => 'bullseye'),
-                        );
-                        ?>
-                        <div class="eh-mega-grid three-col">
-                            <?php foreach ($eh_sol_cols as $eh_col_key => $eh_col_meta) :
-                                $eh_col_items = isset($eh_sol[$eh_col_key]) ? $eh_sol[$eh_col_key] : array();
-                            ?>
-                            <div class="eh-mega-col">
-                                <div class="eh-col-title"><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_meta['icon'] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo wp_kses_post($eh_col_meta['label']); ?></div>
-                                <?php foreach ($eh_col_items as $eh_s) :
-                                    $eh_url  = !empty($eh_s['url'])  ? $eh_s['url']  : '#';
-                                    if (strpos($eh_url, 'http') !== 0 && strpos($eh_url, '//') !== 0) {
-                                        $eh_url = home_url($eh_url);
-                                    }
-                                    $eh_icon = !empty($eh_s['icon']) ? $eh_s['icon'] : 'star';
-                                ?>
-                                <a href="<?php echo esc_url($eh_url); ?>" class="eh-dl">
-                                    <div class="eh-dl-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_icon . '.svg'); ?>" alt="" loading="lazy"></div>
-                                    <div class="eh-dl-content">
-                                        <div class="eh-dl-title"><?php echo esc_html($eh_s['title']); ?></div>
-                                        <?php if (!empty($eh_s['desc'])) : ?>
-                                            <div class="eh-dl-desc"><?php echo esc_html($eh_s['desc']); ?></div>
-                                        <?php endif; ?>
-                                    </div>
-                                </a>
                                 <?php endforeach; ?>
                             </div>
                             <?php endforeach; ?>
                         </div>
                     </div>
-                </div>
-
-                <!-- Industries — auto-fills from Industry CPT -->
-                <div class="eh-nav-item">
-                    <a href="<?php echo esc_url($eh_top['industries']['url'] ?? home_url('/industries/')); ?>" class="eh-nav-link"><?php echo esc_html($eh_top['industries']['label'] ?? 'Industries'); ?>
-                        <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </a>
+                    <?php else: ?>
                     <div class="eh-dropdown">
-                        <?php
-                        /* Every published Industry CPT post is listed here.
-                           Add a new Industry in WP Admin -> it appears in
-                           this dropdown, in the mobile menu, and on /industries/
-                           automatically (all three share the same helper). */
-                        $eh_industries = function_exists('ee_get_industry_menu_items') ? ee_get_industry_menu_items() : array();
-                        foreach ($eh_industries as $eh_ind) :
-                            $eh_short = wp_trim_words(wp_strip_all_tags((string) ($eh_ind['short_desc'] ?: $eh_ind['desc'])), 8, '…');
-                        ?>
-                        <a href="<?php echo esc_url($eh_ind['url']); ?>" class="eh-dl">
-                            <div class="eh-dl-icon">
-                                <?php if (!empty($eh_ind['icon'])) : ?>
-                                    <img class="eh-svg" src="<?php echo esc_url($eh_ind['icon']); ?>" alt="" loading="lazy">
-                                <?php else : ?>
-                                    <img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/landmark.svg" alt="" loading="lazy">
-                                <?php endif; ?>
-                            </div>
-                            <div class="eh-dl-content">
-                                <div class="eh-dl-title"><?php echo esc_html($eh_ind['title']); ?></div>
-                                <div class="eh-dl-desc"><?php echo esc_html($eh_short); ?></div>
-                            </div>
+                        <?php foreach ($ms['items'] as $it): ?>
+                        <a href="<?php echo esc_url(ee_m_url($it['u'])); ?>" class="eh-dl">
+                            <div class="eh-dl-content"><div class="eh-dl-title"><?php echo esc_html($it['t']); ?></div></div>
                         </a>
                         <?php endforeach; ?>
                     </div>
+                    <?php endif; ?>
                 </div>
-
-                <!-- Resources -->
-                <div class="eh-nav-item">
-                    <a href="<?php echo esc_url($eh_top['resources']['url'] ?? '#'); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['resources']['label'] ?? 'Resources'); ?>
-                        <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </a>
-                    <div class="eh-dropdown">
-                        <?php
-                        $ee_resources_items = function_exists('ee_get_resources_menu_items') ? ee_get_resources_menu_items() : array();
-                        $ee_last = count($ee_resources_items) - 1;
-                        foreach ($ee_resources_items as $ee_idx => $ee_it):
-                            /* Show a thin divider before the last item (typically "Help Center") */
-                            if ($ee_idx === $ee_last && $ee_last > 0): ?>
-                                <div class="eh-divider"></div>
-                            <?php endif; ?>
-                            <a href="<?php echo esc_url($ee_it['url'] ?? '#'); ?>" class="eh-dl">
-                                <div class="eh-dl-icon">
-                                    <?php if (!empty($ee_it['icon'])): ?>
-                                        <img class="eh-svg" src="<?php echo esc_url($ee_it['icon']); ?>" alt="" loading="lazy">
-                                    <?php endif; ?>
-                                </div>
-                                <div class="eh-dl-content">
-                                    <div class="eh-dl-title"><?php echo esc_html($ee_it['title'] ?? ''); ?></div>
-                                    <?php if (!empty($ee_it['desc'])): ?>
-                                        <div class="eh-dl-desc"><?php echo esc_html($ee_it['desc']); ?></div>
-                                    <?php endif; ?>
-                                </div>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-
-                <!-- Company -->
-                <div class="eh-nav-item">
-                    <a href="<?php echo esc_url($eh_top['company']['url'] ?? '#'); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['company']['label'] ?? 'Company'); ?>
-                        <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </a>
-                    <div class="eh-dropdown">
-                        <?php
-                        $eh_company = function_exists('ee_get_company_menu_items') ? ee_get_company_menu_items() : array();
-                        $eh_last_c  = count($eh_company) - 1;
-                        foreach ($eh_company as $eh_ci => $eh_c):
-                            /* Show a divider just before the very last item (usually Contact / Privacy) */
-                            if ($eh_ci === $eh_last_c && $eh_last_c > 0): ?>
-                                <div class="eh-divider"></div>
-                            <?php endif; ?>
-                            <a href="<?php echo esc_url($eh_c['url'] ?? '#'); ?>" class="eh-dl">
-                                <div class="eh-dl-icon">
-                                    <?php if (!empty($eh_c['icon'])): ?>
-                                        <img class="eh-svg" src="<?php echo esc_url($eh_c['icon']); ?>" alt="" loading="lazy">
-                                    <?php endif; ?>
-                                </div>
-                                <div class="eh-dl-content">
-                                    <div class="eh-dl-title"><?php echo esc_html($eh_c['title'] ?? ''); ?></div>
-                                    <?php if (!empty($eh_c['desc'])): ?>
-                                        <div class="eh-dl-desc"><?php echo esc_html($eh_c['desc']); ?></div>
-                                    <?php endif; ?>
-                                </div>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </nav>
 
             <!-- CTA + hamburger — grouped so Book Demo always sits tight against the 3-line icon on the right, never floating in the middle when the nav links are hidden on mobile -->
@@ -1134,150 +1061,31 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
             <button id="closeMobileBtn" class="p-2 bg-slate-100 rounded-full" aria-label="Close mobile menu"><i data-lucide="x" aria-hidden="true"></i></button>
         </div>
 
-        <div class="flex-1 overflow-y-auto bg-slate-50 px-4 py-6 space-y-4">
-
-            <!-- 1. Products Mobile -->
+        <div class="flex-1 overflow-y-auto bg-slate-50 px-4 py-6 space-y-4" id="eeMobileBody">
+            <?php foreach ($EE_MENU as $mk => $ms): ?>
             <div class="mobile-accordion-item bg-white rounded-2xl overflow-hidden border border-slate-200">
-                <button class="w-full p-5 flex justify-between items-center font-bold text-brandBlue" onclick="toggleAccordion(this)" aria-expanded="false">
-                    <span class="flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4 text-brandOrange" aria-hidden="true"></i> Products</span>
-                    <i data-lucide="chevron-down" class="w-5 h-5 text-brandOrange transition-transform chevron-icon" aria-hidden="true"></i>
+                <button class="w-full p-5 flex justify-between items-center font-bold text-brandBlue" data-macc="<?php echo esc_attr($mk); ?>" aria-expanded="false">
+                    <span><?php echo esc_html($ms['label']); ?></span>
+                    <svg class="chevron-icon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </button>
                 <div class="mobile-accordion-content">
                     <div class="p-4 space-y-2">
-                        <?php foreach ((function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items() : array()) as $p) :
-                            $short = wp_trim_words(wp_strip_all_tags((string) $p['desc']), 10, '…');
-                        ?>
-                        <a href="<?php echo esc_url($p['url']); ?>" class="m-icon-card" title="<?php echo esc_attr($p['title']); ?>">
-                            <div class="m-ico" aria-hidden="true">
-                                <?php if (!empty($p['icon'])) : ?>
-                                    <img src="<?php echo esc_url($p['icon']); ?>" alt="" style="width:18px;height:18px;object-fit:contain" loading="lazy">
-                                <?php else : ?>
-                                    <i data-lucide="layout-dashboard"></i>
-                                <?php endif; ?>
-                            </div>
-                            <div class="m-text"><span class="menu-title"><?php echo esc_html($p['title']); ?></span><p><?php echo esc_html($short); ?></p></div>
-                        </a>
-                        <?php endforeach; ?>
+                        <?php if ($ms['type'] === 'mega'): ?>
+                            <?php foreach ($ms['cols'] as $col): foreach ($col as $grp): ?>
+                            <p class="ee-m-group"><?php echo esc_html($grp['h']); ?></p>
+                            <?php foreach ($grp['items'] as $it): ?>
+                            <a href="<?php echo esc_url(ee_m_url($it['u'])); ?>" class="m-icon-card"><span><?php echo esc_html($it['t']); ?><?php
+                                if (!empty($it['badge'])) echo ' <span class="eh-badge-soon">'.esc_html($it['badge']).'</span>'; ?></span></a>
+                            <?php endforeach; endforeach; endforeach; ?>
+                        <?php else: ?>
+                            <?php foreach ($ms['items'] as $it): ?>
+                            <a href="<?php echo esc_url(ee_m_url($it['u'])); ?>" class="m-icon-card"><span><?php echo esc_html($it['t']); ?></span></a>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
-
-            <!-- 2. Industry Mobile -->
-            <div class="mobile-accordion-item bg-white rounded-2xl overflow-hidden border border-slate-200">
-                <button class="w-full p-5 flex justify-between items-center font-bold text-brandBlue" onclick="toggleAccordion(this)" aria-expanded="false">
-                    <span class="flex items-center gap-2"><i data-lucide="building-2" class="w-4 h-4 text-brandOrange" aria-hidden="true"></i> Industry</span>
-                    <i data-lucide="chevron-down" class="w-5 h-5 text-brandOrange transition-transform chevron-icon" aria-hidden="true"></i>
-                </button>
-                <div class="mobile-accordion-content">
-                    <div class="p-4 space-y-2">
-                        <?php foreach (ee_get_industry_menu_items() as $ind) : ?>
-                        <a href="<?php echo esc_url($ind['url']); ?>" class="m-icon-card" title="<?php echo esc_attr($ind['title']); ?>">
-                            <div class="m-ico" aria-hidden="true">
-                                <?php if (!empty($ind['icon'])) : ?>
-                                    <img src="<?php echo esc_url($ind['icon']); ?>" alt="" style="width:18px;height:18px;object-fit:contain" loading="lazy">
-                                <?php else : ?>
-                                    <i data-lucide="building"></i>
-                                <?php endif; ?>
-                            </div>
-                            <div class="m-text"><span class="menu-title"><?php echo esc_html($ind['title']); ?></span><p><?php echo esc_html($ind['short_desc']); ?></p></div>
-                        </a>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. Use Cases Mobile -->
-            <div class="mobile-accordion-item bg-white rounded-2xl overflow-hidden border border-slate-200">
-                <button class="w-full p-5 flex justify-between items-center font-bold text-brandBlue" onclick="toggleAccordion(this)" aria-expanded="false">
-                    <span class="flex items-center gap-2"><i data-lucide="target" class="w-4 h-4 text-brandOrange" aria-hidden="true"></i> Use Cases</span>
-                    <i data-lucide="chevron-down" class="w-5 h-5 text-brandOrange transition-transform chevron-icon" aria-hidden="true"></i>
-                </button>
-                <div class="mobile-accordion-content">
-                    <div class="p-4 space-y-2">
-                        <?php foreach ((function_exists('ee_get_usecase_items') ? ee_get_usecase_items() : array()) as $uc) :
-                            $short = wp_trim_words(wp_strip_all_tags((string) $uc['desc']), 10, '…');
-                        ?>
-                        <a href="<?php echo esc_url($uc['url']); ?>" class="m-icon-card" title="<?php echo esc_attr($uc['title']); ?>">
-                            <div class="m-ico" aria-hidden="true">
-                                <?php if (!empty($uc['icon'])) : ?>
-                                    <img src="<?php echo esc_url($uc['icon']); ?>" alt="" style="width:18px;height:18px;object-fit:contain" loading="lazy">
-                                <?php elseif (!empty($uc['lucide'])) : ?>
-                                    <i data-lucide="<?php echo esc_attr($uc['lucide']); ?>"></i>
-                                <?php else : ?>
-                                    <i data-lucide="users"></i>
-                                <?php endif; ?>
-                            </div>
-                            <div class="m-text"><span class="menu-title"><?php echo esc_html($uc['title']); ?></span><p><?php echo esc_html($short); ?></p></div>
-                        </a>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. Resources Mobile -->
-            <div class="mobile-accordion-item bg-white rounded-2xl overflow-hidden border border-slate-200">
-                <button class="w-full p-5 flex justify-between items-center font-bold text-brandBlue" onclick="toggleAccordion(this)" aria-expanded="false">
-                    <span class="flex items-center gap-2"><i data-lucide="library" class="w-4 h-4 text-brandOrange" aria-hidden="true"></i> Resources</span>
-                    <i data-lucide="chevron-down" class="w-5 h-5 text-brandOrange transition-transform chevron-icon" aria-hidden="true"></i>
-                </button>
-                <div class="mobile-accordion-content">
-                    <div class="p-4 space-y-2">
-                        <a href="/blogs/" class="m-icon-card" title="Blogs">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="file-text"></i></div>
-                            <div class="m-text"><span class="menu-title">Blogs</span><p>Latest admissions insights.</p></div>
-                        </a>
-                        <a href="/ebooks/" class="m-icon-card" title="Ebooks">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="book"></i></div>
-                            <div class="m-text"><span class="menu-title">Ebooks</span><p>Industry-relevant guides.</p></div>
-                        </a>
-                        <a href="/webinars/" class="m-icon-card" title="Webinars">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="monitor"></i></div>
-                            <div class="m-text"><span class="menu-title">Webinars</span><p>Live sessions on trends.</p></div>
-                        </a>
-                        <a href="/news/" class="m-icon-card" title="News and Media">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="newspaper"></i></div>
-                            <div class="m-text"><span class="menu-title">News &amp; Media</span><p>Latest updates from ExtraaEdge.</p></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. Company Mobile -->
-            <div class="mobile-accordion-item bg-white rounded-2xl overflow-hidden border border-slate-200">
-                <button class="w-full p-5 flex justify-between items-center font-bold text-brandBlue" onclick="toggleAccordion(this)" aria-expanded="false">
-                    <span class="flex items-center gap-2"><i data-lucide="briefcase-business" class="w-4 h-4 text-brandOrange" aria-hidden="true"></i> Company</span>
-                    <i data-lucide="chevron-down" class="w-5 h-5 text-brandOrange transition-transform chevron-icon" aria-hidden="true"></i>
-                </button>
-                <div class="mobile-accordion-content">
-                    <div class="p-4 space-y-2">
-                        <a href="/about/" class="m-icon-card" title="About Us">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="info"></i></div>
-                            <div class="m-text"><span class="menu-title">About Us</span><p>Our story and mission.</p></div>
-                        </a>
-                        <a href="/customer-success-stories/" class="m-icon-card" title="Customers">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="users"></i></div>
-                            <div class="m-text"><span class="menu-title">Customers</span><p>Success stories.</p></div>
-                        </a>
-                        <a href="/careers/" class="m-icon-card" title="Careers">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="sparkles"></i></div>
-                            <div class="m-text"><span class="menu-title">Careers</span><p>Join our team.</p></div>
-                        </a>
-                        <a href="/investors/" class="m-icon-card" title="Investors and Advisors">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="landmark"></i></div>
-                            <div class="m-text"><span class="menu-title">Investors &amp; Advisors</span><p>Our supporters.</p></div>
-                        </a>
-                        <a href="/team/" class="m-icon-card" title="Team">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="smile"></i></div>
-                            <div class="m-text"><span class="menu-title">Team</span><p>People driving your success.</p></div>
-                        </a>
-                        <a href="/partners/" class="m-icon-card" title="Become a Partner">
-                            <div class="m-ico" aria-hidden="true"><i data-lucide="handshake"></i></div>
-                            <div class="m-text"><span class="menu-title">Become a Partner</span><p>Partner with us.</p></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
+            <?php endforeach; ?>
         </div>
 
         <!-- Mobile Bottom Actions -->
@@ -1526,7 +1334,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     </script>
 
 
-    <!-- ee-header v2026-07-31-capsule -->
+    <!-- ee-header v2026-07-31-ia -->
     <!-- ─── HEADER 2026 SKIN (eh-2026) ───
          Floating glass island: detached rounded bar with backdrop blur,
          compact-on-scroll, glass mega menus, quiet pill nav, premium
@@ -1665,6 +1473,31 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
       padding-bottom:calc(1.5rem + env(safe-area-inset-bottom))}
     #openMobileBtn,#closeMobileBtn{min-width:44px;min-height:44px;
       display:inline-flex;align-items:center;justify-content:center}
+    /* ── new IA: dense mega columns, group headings, badge ── */
+    /* mega items go static so the panel centres on the whole nav, not the trigger */
+    #site-header .eh-nav-item--mega{position:static!important}
+    #site-header .eh-mega{width:min(1180px,94vw)!important;padding:1.5rem 1.6rem!important}
+    #site-header .eh-mega-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:1.6rem!important}
+    #site-header .eh-mega-col{display:block}
+    #site-header .eh-col-title{font-size:10.5px!important;font-weight:700!important;letter-spacing:.1em!important;
+      text-transform:uppercase;color:var(--orange-700,#B5551D)!important;margin:0 0 .55rem!important}
+    #site-header .eh-mega-col .eh-col-title:not(:first-child){margin-top:1.15rem!important;
+      padding-top:.9rem;border-top:1px solid rgba(25,51,93,.08)}
+    #site-header .eh-mega .eh-dl{padding:.34rem .5rem!important;border-radius:8px}
+    #site-header .eh-mega .eh-dl-title{font-size:13.5px!important;font-weight:500!important;line-height:1.35!important;color:#33415C}
+    #site-header .eh-mega .eh-dl:hover .eh-dl-title{color:var(--orange-700,#B5551D)}
+    #site-header .eh-dropdown{min-width:250px!important;padding:.45rem!important}
+    #site-header .eh-dropdown .eh-dl{padding:.5rem .65rem!important;border-radius:8px}
+    #site-header .eh-dropdown .eh-dl-title{font-size:13.5px!important;font-weight:500!important;color:#33415C}
+    #site-header .eh-dropdown .eh-dl:hover .eh-dl-title{color:var(--orange-700,#B5551D)}
+    #site-header .eh-badge-soon{display:inline-block;margin-left:6px;font:700 9px/1 'Inter',sans-serif;
+      letter-spacing:.06em;text-transform:uppercase;color:var(--orange-700,#B5551D);
+      background:rgba(222,110,48,.1);border:1px solid rgba(222,110,48,.25);padding:3px 6px;border-radius:999px;vertical-align:middle}
+    .ee-m-group{font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--orange-700,#B5551D);margin:14px 0 6px;padding-left:4px}
+    .ee-m-group:first-child{margin-top:2px}
+    @media(max-width:1240px){#site-header .eh-mega-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+
     /* ── capsule nav group + pill CTA (Awake-style) ── */
     #site-header .eh-nav.ee-desktop-nav{
       position:relative;                     /* containing block for the sliding pill */
@@ -1727,6 +1560,21 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         nav.addEventListener('mouseleave',function(){
           var act=nav.querySelector('.eh-nav-link.active');
           if(act){ moveTo(act); } else { pill.style.opacity='0'; }
+        });
+      }
+      /* mobile accordion (data-macc): one section open at a time */
+      var mbody=document.getElementById('eeMobileBody');
+      if(mbody){
+        mbody.addEventListener('click',function(e){
+          var btn=e.target.closest?e.target.closest('button[data-macc]'):null;
+          if(!btn) return;
+          var item=btn.parentElement, was=item.classList.contains('active');
+          mbody.querySelectorAll('.mobile-accordion-item').forEach(function(el){
+            el.classList.remove('active');
+            var b=el.querySelector('button[data-macc]');
+            if(b) b.setAttribute('aria-expanded','false');
+          });
+          if(!was){ item.classList.add('active'); btn.setAttribute('aria-expanded','true'); }
         });
       }
       /* mobile drawer: backdrop scrim, tap-outside + Esc close, focus return */
