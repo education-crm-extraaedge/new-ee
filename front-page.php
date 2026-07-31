@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-vidya-light -->
+<!-- ee-front-tpl v2026-07-31-vidya-focus -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3936,6 +3936,21 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
   background:linear-gradient(180deg,#FFFFFF 0%, #FDF2EB 100%);
   border-color:#F3DDCC; align-items:stretch; justify-content:flex-start; }
 
+/* ── centre-focus rail ──────────────────────────────────────────────────
+   The card the reader is on renders full size; its neighbours sit back at
+   87% and slightly dimmed. Scale is a transform, so nothing reflows and the
+   pinned rail's scroll maths (which measures layout width) is untouched.
+   Exactly one card is focused at all times: the one nearest the stage
+   centre, or the one being hovered/focused on a fine pointer. */
+#ee-vidya-suite .vsx-job{
+  transform:scale(.87); transform-origin:50% 50%; opacity:.78;
+  transition:transform .45s cubic-bezier(.2,.7,.2,1), opacity .45s ease, box-shadow .45s ease; }
+#ee-vidya-suite .vsx-job.is-focus{
+  transform:scale(1); opacity:1; z-index:2;
+  box-shadow:0 34px 66px -28px rgba(11,24,48,.75); }
+@media (prefers-reduced-motion:reduce){
+  #ee-vidya-suite .vsx-job{ transition:none; } }
+
 @media (prefers-reduced-motion:reduce){ #ee-vidya-suite .vsx-apply{ transition:none; } }
 
 /* phones — the compaction block above sets !important on .vsx-card */
@@ -4009,6 +4024,49 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
     function step(dir){ var c=rail.querySelector('.vsx-card'); var w=c?c.getBoundingClientRect().width+20:320; rail.scrollBy({left:dir*w,behavior:'smooth'}); }
     if(prev) prev.addEventListener('click',function(){ step(-1); });
     if(next) next.addEventListener('click',function(){ step(1); });
+  })();
+
+  /* centre-focus: one card at full size, the rest stepped back.
+     Works in both rail modes - the pinned desktop rail moves by transform
+     and the phone rail by native scroll, and getBoundingClientRect reflects
+     either, so the same measurement drives both. */
+  (function(){
+    var sec=document.getElementById('ee-vidya-suite'); if(!sec) return;
+    var rail=document.getElementById('vsxRail'); if(!rail) return;
+    var cards=Array.prototype.slice.call(rail.querySelectorAll('.vsx-card'));
+    if(!cards.length) return;
+    var frame=sec.querySelector('.vsx-stage')||rail;
+    var hover=-1, ticking=false;
+    var fine=window.matchMedia&&window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+    function nearest(){
+      var f=frame.getBoundingClientRect(), cx=f.left+f.width/2, best=0, bd=Infinity;
+      for(var j=0;j<cards.length;j++){
+        var r=cards[j].getBoundingClientRect();
+        var d=Math.abs(r.left+r.width/2-cx);
+        if(d<bd){ bd=d; best=j; }
+      }
+      return best;
+    }
+    function update(){
+      ticking=false;
+      var i=(hover>=0)?hover:nearest();
+      for(var j=0;j<cards.length;j++) cards[j].classList.toggle('is-focus', j===i);
+    }
+    function schedule(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
+
+    if(fine){
+      cards.forEach(function(c,i){
+        c.addEventListener('pointerenter',function(){ hover=i; schedule(); });
+        c.addEventListener('focusin',function(){ hover=i; schedule(); });
+      });
+      rail.addEventListener('pointerleave',function(){ hover=-1; schedule(); });
+      rail.addEventListener('focusout',function(){ hover=-1; schedule(); });
+    }
+    rail.addEventListener('scroll',schedule,{passive:true});
+    window.addEventListener('scroll',schedule,{passive:true});
+    window.addEventListener('resize',schedule,{passive:true});
+    update();
   })();
   </script>
 </section>
