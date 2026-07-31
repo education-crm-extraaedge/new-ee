@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-vidya-serial2 -->
+<!-- ee-front-tpl v2026-07-31-vidya-scroll -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3629,7 +3629,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
     padding:15px 24px; border-radius:14px; background:linear-gradient(135deg,var(--or2),var(--or)); color:#fff;
     font-weight:700; font-size:15.5px; text-decoration:none; box-shadow:0 14px 30px -12px rgba(222,110,48,.7), inset 0 1px 0 rgba(255,255,255,.22);
     transition:transform .2s ease, box-shadow .2s ease; }#ee-vidya-suite .vsx-cta-btn:hover{ transform:translateY(-2px); }#ee-vidya-suite .vsx-cta-btn:focus-visible{ outline:2px solid #fff; outline-offset:3px; }#ee-vidya-suite .vsx-cta-btn svg,#ee-vidya-suite .vsx-cta-btn img.eeimg{ width:18px; height:18px; }#ee-vidya-suite .vsx-cta-btn svg *,#ee-vidya-suite .vsx-cta-btn img.eeimg *{ stroke:#fff; }/* ================= PINNED HORIZONTAL MODE (desktop,JS on) ================= */
-  #ee-vidya-suite.vsx-on .vsx-track{ height:calc(min(100vh,820px)*3.2); }#ee-vidya-suite.vsx-on .vsx-sticky{ position:sticky; top:0; height:min(100vh,820px); min-height:0; margin-top:0; margin-bottom:0; border-radius:0; max-width:none;
+  #ee-vidya-suite.vsx-on .vsx-track{ height:calc(min(100vh,820px)*4.2); }#ee-vidya-suite.vsx-on .vsx-sticky{ position:sticky; top:0; height:min(100vh,820px); min-height:0; margin-top:0; margin-bottom:0; border-radius:0; max-width:none;
     display:flex; flex-direction:column; justify-content:center; }#ee-vidya-suite.vsx-on .vsx-stage{ overflow:hidden; }#ee-vidya-suite.vsx-on .vsx-rail{ overflow:visible; scroll-snap-type:none; padding-bottom:0; flex-wrap:nowrap; will-change:transform; }#ee-vidya-suite.vsx-on .vsx-card{ flex:0 0 clamp(320px,30vw,420px); }
   @media (max-width:900px){
     #ee-vidya-suite.vsx-on{ background:radial-gradient(120% 60% at 85% 0%, #21457a 0%, var(--vn) 42%, var(--vn2) 100%); }
@@ -3678,7 +3678,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
           <div class="vsx-rail" id="vsxRail">
 
 
-            <article class="vsx-card vsx-job" style="--ca:#2274ee;transform:scale(.87);opacity:.78">
+            <article class="vsx-card vsx-job is-focus" style="--ca:#2274ee;transform:scale(1);opacity:1;filter:none">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3703,7 +3703,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
               </div>
             </article>
 
-            <article class="vsx-card vsx-job" style="--ca:#DE6E30;transform:scale(.87);opacity:.78">
+            <article class="vsx-card vsx-job" style="--ca:#DE6E30;transform:scale(.87);opacity:.72;filter:blur(3px)">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3728,7 +3728,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
               </div>
             </article>
 
-            <article class="vsx-card vsx-job is-focus" style="--ca:#8bb7fa;transform:scale(1);opacity:1">
+            <article class="vsx-card vsx-job" style="--ca:#8bb7fa;transform:scale(.87);opacity:.72;filter:blur(3px)">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3753,7 +3753,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
               </div>
             </article>
 
-            <article class="vsx-card vsx-job" style="--ca:#3474d3;transform:scale(.87);opacity:.78">
+            <article class="vsx-card vsx-job" style="--ca:#3474d3;transform:scale(.87);opacity:.72;filter:blur(3px)">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3778,7 +3778,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
               </div>
             </article>
 
-            <article class="vsx-card vsx-job" style="--ca:#fb8124;transform:scale(.87);opacity:.78">
+            <article class="vsx-card vsx-job" style="--ca:#fb8124;transform:scale(.87);opacity:.72;filter:blur(3px)">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-work.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3786,7 +3786,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
                 </div>
                 <span class="vsx-tag">AUTOMATION</span>
               </div>
-              <h3>Vidya Work</h3>
+              <h3>Vidya Work <span class="vsx-soon">Upcoming</span></h3>
               <dl class="vsx-meta">
                   <div><dt>Runs</dt><dd>Follow-ups</dd></div>
                   <div><dt>Routing</dt><dd>Automatic</dd></div>
@@ -3803,7 +3803,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
               </div>
             </article>
 
-            <article class="vsx-card vsx-job vsx-cta-card" style="--ca:#DE6E30;transform:scale(.87);opacity:.78">
+            <article class="vsx-card vsx-job vsx-cta-card" style="--ca:#DE6E30;transform:scale(.87);opacity:.72;filter:blur(3px)">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3886,6 +3886,16 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job h3{ margin:0; color:va
   font-size:clamp(26px,2.3vw,34px) !important; line-height:1.05 !important;
   letter-spacing:-.035em !important; }
 
+/* "Upcoming" tag - Vidya Work is not shipped yet, so the card says so
+   next to the name rather than reading like a live module */
+#ee-vidya-suite .vsx-soon{ display:inline-block; vertical-align:middle;
+  margin-left:8px; padding:5px 10px; border-radius:999px;
+  background:var(--orange-050,#FDF2EB); color:var(--orange-700,#B5551D);
+  border:1px solid rgba(222,110,48,.32);
+  font:800 10.5px/1 'Inter',sans-serif; letter-spacing:.06em;
+  text-transform:uppercase; white-space:nowrap; }
+@media (max-width:640px){ #ee-vidya-suite .vsx-soon{ font-size:9px; padding:4px 8px; margin-left:6px; } }
+
 /* fact strip */
 #ee-vidya-suite .vsx-meta{ display:flex; align-items:stretch; margin:0; padding:0; }
 #ee-vidya-suite .vsx-meta>div{ flex:1 1 0; min-width:0; padding:0 12px; }
@@ -3936,13 +3946,6 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
   background:linear-gradient(180deg,#FFFFFF 0%, #FDF2EB 100%);
   border-color:#F3DDCC; align-items:stretch; justify-content:flex-start; }
 
-/* The pinned rail's travel is scrollWidth - clientWidth, which stops with
-   the last card flush against the rail's own right edge - a few pixels
-   short of clearing the stage's clip box, so the last card could never be
-   revealed whole. A trailing spacer buys exactly that much extra travel.
-   It is a flex item, not a card, so the highlight script never counts it. */
-#ee-vidya-suite.vsx-on .vsx-rail::after{ content:""; flex:0 0 48px; align-self:stretch; }
-
 /* ── centre-focus rail ──────────────────────────────────────────────────
    The card the reader is on renders full size; its neighbours sit back at
    87% and slightly dimmed. Scale is a transform, so nothing reflows and the
@@ -3958,13 +3961,17 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
    still set (and rendered on the middle card below, so it is present in
    the source) for the shadow and stacking order. */
 #ee-vidya-suite .vsx-job{
-  transform:scale(.87); transform-origin:50% 50%; opacity:.78;
-  transition:transform .45s cubic-bezier(.2,.7,.2,1), opacity .45s ease, box-shadow .45s ease; }
+  transform:scale(.87); transform-origin:50% 50%; opacity:.72; filter:blur(3px);
+  transition:transform .5s cubic-bezier(.2,.7,.2,1), opacity .5s ease,
+             filter .5s ease, box-shadow .5s ease; }
 #ee-vidya-suite .vsx-job.is-focus{
-  transform:scale(1); opacity:1; z-index:2;
+  transform:scale(1); opacity:1; filter:none; z-index:2;
   box-shadow:0 34px 66px -28px rgba(11,24,48,.75); }
+/* the pinned rail moves a whole card per step, so it eases between
+   positions instead of tracking the scroll pixel for pixel */
+#ee-vidya-suite.vsx-on .vsx-rail{ transition:transform .55s cubic-bezier(.2,.7,.2,1); }
 @media (prefers-reduced-motion:reduce){
-  #ee-vidya-suite .vsx-job{ transition:none; } }
+  #ee-vidya-suite .vsx-job,#ee-vidya-suite.vsx-on .vsx-rail{ transition:none; } }
 
 @media (prefers-reduced-motion:reduce){ #ee-vidya-suite .vsx-apply{ transition:none; } }
 
@@ -3999,23 +4006,33 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     var mq=window.matchMedia('(min-width:901px)');
 
-    var maxX=0, on=false, autoX=0;
+    var on=false, step=-1;
     function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
-    function recalc(){ if(!on) return; maxX=Math.max(0, rail.scrollWidth - rail.clientWidth); onScroll(); }
+    function recalc(){ if(!on) return; step=-1; onScroll(); }
+    /* offset that puts card i in the middle of the rail's viewport.
+       offsetLeft/offsetWidth are layout values, so they stay correct under
+       the site-wide zoom and are not skewed by the cards' own scale. */
+    function centreX(i){
+      var c=cards[i];
+      return Math.round(c.offsetLeft + c.offsetWidth/2 - rail.clientWidth/2);
+    }
     function onScroll(){
       if(!on) return;
       var rect=track.getBoundingClientRect();
       var stk=sec.querySelector('.vsx-sticky');
       var dist=track.offsetHeight - (stk?stk.offsetHeight:window.innerHeight);
       var p = dist>0 ? clamp(-rect.top/dist,0,1) : 0;
-      /* autoX lets the serial highlight nudge the rail while the reader is
-         idle; scroll still owns the base position and resets it on the next
-         move, so the two never fight for the same pixel */
-      rail.style.transform='translate3d('+(-clamp(p*maxX+autoX,0,maxX))+'px,0,0)';
+      /* one card per slice of the track: scrolling advances the rail a whole
+         card at a time and parks it in the middle, rather than sliding
+         continuously past the reader */
+      var i = clamp(Math.floor(p*cards.length), 0, cards.length-1);
+      if(i===step) return;
+      step=i;
+      rail.style.transform='translate3d('+(-centreX(i))+'px,0,0)';
+      if(sec.__vsxActive) sec.__vsxActive(i);
     }
     sec.__vsxPinned=function(){ return on; };
-    sec.__vsxNudge=function(dx){ if(!on) return; autoX=clamp(autoX+dx,-maxX,maxX); onScroll(); };
-    sec.__vsxRelease=function(){ if(!on||autoX===0) return false; autoX=0; onScroll(); return true; };
+    sec.__vsxStep=function(){ return step; };
     function enable(){
       if(on) return; on=true; sec.classList.add('vsx-on');
       rail.style.transform='translate3d(0,0,0)';
@@ -4023,7 +4040,7 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
       recalc();
     }
     function disable(){
-      if(!on) return; on=false; sec.classList.remove('vsx-on');
+      if(!on) return; on=false; step=-1; sec.classList.remove('vsx-on');
       rail.style.transform='';
       window.removeEventListener('scroll', onScroll);
     }
@@ -4047,137 +4064,60 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
     if(next) next.addEventListener('click',function(){ step(1); });
   })();
 
-  /* Serial highlight: the cards take the spotlight one after another, and
-     the reader can take it over by hovering.
+  /* One product at a time: the card in the middle is full size and sharp,
+     the rest are stepped back and blurred. Nothing plays on its own — the
+     reader's scroll drives it. On the pinned desktop rail the scroll handler
+     above reports which card it parked in the middle; on the phone rail the
+     cards snap natively, so the nearest one to the middle is the active one.
 
-     The two rail modes need different mechanics. On the pinned desktop rail
-     the horizontal position is bound to page scroll, so the highlight cannot
-     scroll a card into view on its own — it walks the cards currently inside
-     the stage instead, and hands control straight back to the nearest-centre
-     rule the moment the reader scrolls. The phone rail scrolls natively, so
-     there the highlight simply centres the next card and lets the same
-     nearest-centre rule pick it up.
-
-     Anything the reader does — hovering, swiping, scrolling the rail — pauses
-     the rotation, and prefers-reduced-motion switches it off entirely. */
+     transform, opacity and filter are written as inline styles rather than
+     left to the .is-focus class alone: unused-CSS removal keeps only the
+     selectors it can find in the served HTML, and a class that appears just
+     at runtime does not survive it. */
   (function(){
     var sec=document.getElementById('ee-vidya-suite'); if(!sec) return;
     var rail=document.getElementById('vsxRail'); if(!rail) return;
     var cards=Array.prototype.slice.call(rail.querySelectorAll('.vsx-card'));
     if(cards.length<2) return;
     var frame=sec.querySelector('.vsx-stage')||rail;
-    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    var fine=window.matchMedia&&window.matchMedia('(hover:hover) and (pointer:fine)').matches;
-
-    var HOLD=2600;      /* time each card keeps the spotlight */
-    var RESUME=6500;    /* quiet period after the reader takes over */
-    var hover=-1, forced=-1, ticking=false, paused=0, inView=false;
+    var ticking=false, active=-1;
 
     function paint(i){
+      if(i===active) return;
+      active=i;
       for(var j=0;j<cards.length;j++){
         var f=(j===i), c=cards[j];
         c.classList.toggle('is-focus', f);
-        /* inline, so the effect survives unused-CSS removal and any
-           stylesheet that loads after this one */
         c.style.transform=f?'scale(1)':'scale(.87)';
-        c.style.opacity=f?'1':'.78';
+        c.style.opacity=f?'1':'.72';
+        c.style.filter=f?'none':'blur(3px)';
       }
     }
-    function mid(c){ var r=c.getBoundingClientRect(); return r.left+r.width/2; }
     function nearest(){
       var f=frame.getBoundingClientRect(), cx=f.left+f.width/2, best=0, bd=Infinity;
       for(var j=0;j<cards.length;j++){
-        var d=Math.abs(mid(cards[j])-cx);
+        var r=cards[j].getBoundingClientRect();
+        var d=Math.abs(r.left+r.width/2-cx);
         if(d<bd){ bd=d; best=j; }
       }
       return best;
     }
-    function onStage(){
-      var f=frame.getBoundingClientRect(), out=[];
-      for(var j=0;j<cards.length;j++){ var m=mid(cards[j]); if(m>=f.left-4&&m<=f.right+4) out.push(j); }
-      return out.length?out:[nearest()];
+    function update(){
+      ticking=false;
+      var pinned=!!(sec.__vsxPinned&&sec.__vsxPinned());
+      var i=pinned ? (sec.__vsxStep?sec.__vsxStep():-1) : nearest();
+      paint(i<0?nearest():i);
     }
-    function current(){ return hover>=0 ? hover : (forced>=0 ? forced : nearest()); }
-    function update(){ ticking=false; paint(current()); }
     function schedule(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
-    function hold(){ paused=Date.now()+RESUME; }
-    function pinned(){ return !!(sec.__vsxPinned&&sec.__vsxPinned()); }
-    /* how far card i is from the middle of the stage */
-    function offsetOf(i){
-      var f=frame.getBoundingClientRect(), r=cards[i].getBoundingClientRect();
-      return Math.round((r.left+r.width/2)-(f.left+f.width/2));
-    }
-    /* the least the rail has to travel for card i to sit fully inside the
-       stage. Centring the card instead would clip the first and last ones,
-       which cannot reach the middle before the rail runs out of travel. A
-       card already in view returns 0, so the rail holds still and only the
-       highlight moves. */
-    function revealOffset(i){
-      var f=frame.getBoundingClientRect(), pad=26;
-      /* measure the card at the size it is about to become: it is still
-         scaled down while this runs, and it grows ~7% each side once it
-         takes the spotlight - enough to reappear clipped at the stage edge */
-      var r=cards[i].getBoundingClientRect();
-      var scale=cards[i].classList.contains('is-focus')?1:.87;
-      var w=r.width/scale, cx=r.left+r.width/2, left=cx-w/2, right=cx+w/2;
-      if(left  < f.left+pad)   return Math.round(left-(f.left+pad));
-      if(right > f.right-pad)  return Math.round(right-(f.right-pad));
-      return 0;
-    }
-    function glide(ms){
-      rail.style.transition='transform '+ms+'ms cubic-bezier(.2,.7,.2,1)';
-      clearTimeout(glide._t);
-      glide._t=setTimeout(function(){ rail.style.transition=''; },ms+40);
-    }
 
-    function advance(){
-      if(reduce||!inView||hover>=0||Date.now()<paused) return;
-      var next=(current()+1)%cards.length;
-      if(pinned()){
-        /* the pinned rail is positioned by page scroll, so bring the next
-           card into view with a nudge instead of scrolling the page */
-        var dx=revealOffset(next);
-        if(dx){
-          glide(560);
-          sec.__vsxNudge(dx);
-          /* the nudge can be cut short by the rail's own travel limits, so
-             settle any remainder once the glide has landed */
-          clearTimeout(advance._t);
-          advance._t=setTimeout(function(){ var d=revealOffset(next); if(d) sec.__vsxNudge(d); },600);
-        }
-        forced=next; schedule();
-      }else{
-        rail.scrollTo({left:rail.scrollLeft+offsetOf(next),behavior:'smooth'});
-      }
-    }
+    /* the pinned handler calls this the moment it changes card, so the
+       spotlight lands with the slide instead of a frame later */
+    sec.__vsxActive=function(i){ paint(i); };
 
-    if(fine){
-      cards.forEach(function(c,i){
-        c.addEventListener('pointerenter',function(){ hover=i; schedule(); });
-        c.addEventListener('focusin',function(){ hover=i; schedule(); });
-      });
-      rail.addEventListener('pointerleave',function(){ hover=-1; hold(); schedule(); });
-      rail.addEventListener('focusout',function(){ hover=-1; hold(); schedule(); });
-    }
-    /* the reader scrolling the rail wins: drop the forced card so the
-       nearest-centre rule takes over again */
-    rail.addEventListener('scroll',function(){ forced=-1; schedule(); },{passive:true});
-    rail.addEventListener('pointerdown',hold,{passive:true});
-    rail.addEventListener('touchstart',hold,{passive:true});
-    rail.addEventListener('wheel',hold,{passive:true});
-    window.addEventListener('scroll',function(){
-      forced=-1;
-      if(sec.__vsxRelease&&sec.__vsxRelease()) glide(320);
-      schedule();
-    },{passive:true});
-    window.addEventListener('resize',schedule,{passive:true});
-
-    if('IntersectionObserver' in window){
-      new IntersectionObserver(function(es){ inView=es[0].isIntersecting; },{threshold:.25}).observe(sec);
-    } else { inView=true; }
-
+    rail.addEventListener('scroll',schedule,{passive:true});
+    window.addEventListener('scroll',schedule,{passive:true});
+    window.addEventListener('resize',function(){ active=-1; schedule(); },{passive:true});
     update();
-    if(!reduce) setInterval(advance,HOLD);
   })();
   </script>
 </section>
