@@ -861,154 +861,132 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
        and its links. Rendered server-side, so every link is real
        HTML in the page source.
        ══════════════════════════════════════════════════════════════ */
-    $EE_MENU = array(
-      'products' => array('label'=>'Products','type'=>'mega','cols'=>array(
-        array(
-          array('h'=>'Core Platform','items'=>array(
-            array('t'=>'Education CRM','u'=>'/products/education-crm/'),
-            array('t'=>'Marketing Automation','u'=>'/products/marketing-automation/'),
-            array('t'=>'Application Management System (AMS)','u'=>'/products/application-management-system/'),
-            array('t'=>'Payment & Enrollment','u'=>'/products/payment-enrollment/'),
-          )),
-          array('h'=>'Automation','items'=>array(
-            array('t'=>'Workflow Automation','u'=>'/products/workflow-automation/'),
-            array('t'=>'Journey Builder','u'=>'/products/journey-builder/'),
-            array('t'=>'Lead Assignment','u'=>'/products/lead-assignment/'),
-            array('t'=>'Lead Routing','u'=>'/products/lead-routing/'),
-            array('t'=>'Task Automation','u'=>'/products/task-automation/'),
-            array('t'=>'Follow-up Automation','u'=>'/products/follow-up-automation/'),
-          )),
-        ),
-        array(
-          array('h'=>'Vidya AI Suite','items'=>array(
-            array('t'=>'VidyaGPT','u'=>'/products/vidyagpt/'),
-            array('t'=>'VidyaAI Voice Agent','u'=>'/products/vidyaai-voice-agent/'),
-            array('t'=>'VidyaPulse','u'=>'/products/vidyapulse/'),
-            array('t'=>'VidyaWABA GPT','u'=>'/products/vidyawaba-gpt/'),
-            array('t'=>'Vidya Work','u'=>'/products/vidya-work/','badge'=>'Upcoming'),
-          )),
-          array('h'=>'Security','items'=>array(
-            array('t'=>'Role Management','u'=>'/security/role-management/'),
-            array('t'=>'Permissions','u'=>'/security/permissions/'),
-            array('t'=>'Audit Logs','u'=>'/security/audit-logs/'),
-            array('t'=>'Data Security','u'=>'/security/data-security/'),
-            array('t'=>'Compliance','u'=>'/security/compliance/'),
-          )),
-        ),
-        array(
-          array('h'=>'Communication','items'=>array(
-            array('t'=>'Education Chatbot','u'=>'/products/education-chatbot/'),
-            array('t'=>'WhatsApp Business API','u'=>'/products/whatsapp-api/'),
-            array('t'=>'Cloud Telephony','u'=>'/products/cloud-telephony/'),
-            array('t'=>'IVR','u'=>'/products/ivr/'),
-            array('t'=>'Email','u'=>'/products/email/'),
-            array('t'=>'SMS','u'=>'/products/sms/'),
-            array('t'=>'Mobile CRM','u'=>'/products/mobile-crm/'),
-          )),
-          array('h'=>'Integrations','items'=>array(
-            array('t'=>'All integrations','u'=>'/products/integrations/'),
-          )),
-        ),
-        array(
-          array('h'=>'Analytics','items'=>array(
-            array('t'=>'Executive Dashboard','u'=>'/analytics/executive-dashboard/'),
-            array('t'=>'Admission Analytics','u'=>'/analytics/admission-analytics/'),
-            array('t'=>'Marketing Analytics','u'=>'/analytics/marketing-analytics/'),
-            array('t'=>'Lead Analytics','u'=>'/analytics/lead-analytics/'),
-            array('t'=>'Funnel Analytics','u'=>'/analytics/funnel-analytics/'),
-            array('t'=>'Custom Reports','u'=>'/analytics/custom-reports/'),
-          )),
-        ),
-      )),
-      'solutions' => array('label'=>'Solutions','type'=>'mega','cols'=>array(
-        array(array('h'=>'By Institution','items'=>array(
-          array('t'=>'Universities','u'=>'/solutions/universities/'),
-          array('t'=>'Colleges','u'=>'/solutions/colleges/'),
-          array('t'=>'Schools','u'=>'/solutions/schools/'),
-          array('t'=>'Coaching Institutes','u'=>'/solutions/coaching-institutes/'),
-          array('t'=>'EdTech','u'=>'/solutions/edtech/'),
-          array('t'=>'Study Abroad','u'=>'/solutions/study-abroad/'),
-        ))),
-        array(array('h'=>'By Department','items'=>array(
-          array('t'=>'Admissions','u'=>'/solutions/admissions/'),
-          array('t'=>'Marketing','u'=>'/solutions/marketing/'),
-          array('t'=>'Sales','u'=>'/solutions/sales/'),
-          array('t'=>'Counselors','u'=>'/solutions/counselors/'),
-          array('t'=>'Management','u'=>'/solutions/management/'),
-          array('t'=>'Call Center','u'=>'/solutions/call-center/'),
-        ))),
-        array(array('h'=>'By Use Case','items'=>array(
-          array('t'=>'Student Recruitment','u'=>'/solutions/student-recruitment/'),
-          array('t'=>'Lead Management','u'=>'/solutions/lead-management/'),
-          array('t'=>'Admission Automation','u'=>'/solutions/admission-automation/'),
-          array('t'=>'AI Calling','u'=>'/solutions/ai-calling/'),
-          array('t'=>'WhatsApp Automation','u'=>'/solutions/whatsapp-automation/'),
-          array('t'=>'Student Engagement','u'=>'/solutions/student-engagement/'),
-          array('t'=>'Event Management','u'=>'/solutions/event-management/'),
-          array('t'=>'Application Processing','u'=>'/solutions/application-processing/'),
-          array('t'=>'Lead Scoring','u'=>'/solutions/lead-scoring/'),
-        ))),
-        array(array('h'=>'By Goal','items'=>array(
-          array('t'=>'Increase Admissions','u'=>'/solutions/increase-admissions/'),
-          array('t'=>'Improve Conversion','u'=>'/solutions/improve-conversion/'),
-          array('t'=>'Reduce Manual Work','u'=>'/solutions/reduce-manual-work/'),
-          array('t'=>'Increase ROI','u'=>'/solutions/increase-roi/'),
-          array('t'=>'Faster Follow-ups','u'=>'/solutions/faster-follow-ups/'),
-          array('t'=>'Better Student Experience','u'=>'/solutions/better-student-experience/'),
-        ))),
-      )),
-      'customers' => array('label'=>'Customers','type'=>'drop','items'=>array(
-        array('t'=>'Success Customer Stories','u'=>'/customer-success-stories/'),
-        array('t'=>'Case Studies','u'=>'/case-studies/'),
-        array('t'=>'Testimonials','u'=>'/testimonials/'),
-        array('t'=>'Reviews','u'=>'/reviews/'),
-        array('t'=>'Awards','u'=>'/awards/'),
-      )),
-      'resources' => array('label'=>'Resources','type'=>'mega','cols'=>array(
-        array(array('h'=>'Learn','items'=>array(
-          array('t'=>'Blog','u'=>'/blog/'),
-          array('t'=>'Webinars','u'=>'/webinars/'),
-          array('t'=>'Videos','u'=>'/videos/'),
-          array('t'=>'eBooks','u'=>'/ebooks/'),
-        ))),
-        array(array('h'=>'Docs & Support','items'=>array(
-          array('t'=>'Documentation','u'=>'/documentation/'),
-          array('t'=>'API Documentation','u'=>'/api-documentation/'),
-          array('t'=>'Help Center','u'=>'/help/'),
-          array('t'=>'FAQs','u'=>'/faqs/'),
-        ))),
-        array(array('h'=>'Tools & Updates','items'=>array(
-          array('t'=>'ROI Calculator','u'=>'/roi-calculator/'),
-          array('t'=>'CRM Comparison','u'=>'/crm-comparison/'),
-          array('t'=>'Release Notes','u'=>'/release-notes/'),
-        ))),
-      )),
-      'pricing' => array('label'=>'Pricing','type'=>'drop','items'=>array(
-        array('t'=>'CRM Pricing','u'=>'/pricing/crm/'),
-        array('t'=>'Vidya AI Pricing','u'=>'/pricing/vidya-ai/'),
-      )),
-      'company' => array('label'=>'Company','type'=>'drop','items'=>array(
-        array('t'=>'About Us','u'=>'/about-us/'),
-        array('t'=>'Team','u'=>'/team/'),
-        array('t'=>'Careers','u'=>'/careers/'),
-        array('t'=>'Partners','u'=>'/partners/'),
-        array('t'=>'Events','u'=>'/events/'),
-        array('t'=>'News','u'=>'/news/'),
-        array('t'=>'Contact','u'=>'/contact/'),
-        array('t'=>'Support','u'=>'/support/'),
-      )),
-    );
+    /* Every entry below is built from the site's own WordPress data
+       (Product / Industry CPTs + the Solutions, Resources and Company
+       menus editable in WP Admin), so the links are the same real
+       permalinks the footer and landing pages use — nothing here can
+       point at a URL that does not exist. Editors keep managing the
+       menu from WP Admin exactly as before; this file only decides the
+       column layout. */
     if (!function_exists('ee_m_url')) { function ee_m_url($u){ return (strpos($u,'http')===0) ? $u : home_url($u); } }
+
+    /* Top-level labels + landing URLs (WP Admin → Header labels). */
+    $eh_top = function_exists('ee_get_header_top_labels') ? ee_get_header_top_labels() : array();
+    if (!function_exists('ee_m_top')) {
+        function ee_m_top($top, $key, $label, $url) {
+            $l = isset($top[$key]['label']) && $top[$key]['label'] !== '' ? $top[$key]['label'] : $label;
+            $u = isset($top[$key]['url'])   && $top[$key]['url']   !== '' && $top[$key]['url'] !== '#' ? $top[$key]['url'] : $url;
+            return array($l, $u);
+        }
+    }
+    /* Badges are stored as slugs ('none' | 'new' | 'popular' | 'trending'). */
+    if (!function_exists('ee_m_badge')) {
+        function ee_m_badge($b) {
+            $b = strtolower((string) $b);
+            $map = array('new' => 'New', 'popular' => 'Popular', 'trending' => 'Trending', 'upcoming' => 'Upcoming');
+            return isset($map[$b]) ? $map[$b] : '';
+        }
+    }
+
+    $EE_MENU = array();
+
+    /* ── Products — one mega column per menu column set on the Product CPT ── */
+    $eh_prod_heads = array(
+        'featured'      => 'Featured',
+        'core'          => 'Core CRM',
+        'communication' => 'Communication',
+        'automation'    => 'Automation',
+    );
+    $eh_prod_items = function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items() : array();
+    $eh_prod_cols  = array_fill_keys(array_keys($eh_prod_heads), array());
+    foreach ($eh_prod_items as $eh_p) {
+        $eh_c = isset($eh_p['column']) ? $eh_p['column'] : 'featured';
+        if ($eh_c === 'hidden') continue;
+        if (!isset($eh_prod_cols[$eh_c])) $eh_c = 'featured';
+        $eh_prod_cols[$eh_c][] = array(
+            't'     => $eh_p['title'],
+            'u'     => $eh_p['url'],
+            'badge' => ee_m_badge(isset($eh_p['badge']) ? $eh_p['badge'] : ''),
+        );
+    }
+    $eh_cols = array();
+    foreach ($eh_prod_heads as $eh_k => $eh_h) {
+        if (!empty($eh_prod_cols[$eh_k])) $eh_cols[] = array(array('h' => $eh_h, 'items' => $eh_prod_cols[$eh_k]));
+    }
+    /* "All products" always closes the menu so /products/ stays one click away. */
+    $eh_cols[] = array(array('h' => 'Browse', 'items' => array(
+        array('t' => 'All products', 'u' => '/products/'),
+        array('t' => 'Use cases',    'u' => '/use-cases/'),
+    )));
+    list($eh_l, $eh_u) = ee_m_top($eh_top, 'products', 'Products', '/products/');
+    $EE_MENU['products'] = array('label' => $eh_l, 'url' => $eh_u, 'type' => 'mega', 'cols' => $eh_cols);
+
+    /* ── Solutions — the three groups managed in WP Admin → Solutions ── */
+    $eh_sol       = function_exists('ee_get_solution_items') ? ee_get_solution_items() : array();
+    $eh_sol_heads = array(
+        'admission'    => 'Admission Solutions',
+        'study_abroad' => 'Study Abroad',
+        'recruitment'  => 'Recruitment & Lead Management',
+    );
+    $eh_cols = array();
+    foreach ($eh_sol_heads as $eh_k => $eh_h) {
+        $eh_rows = array();
+        foreach ((isset($eh_sol[$eh_k]) && is_array($eh_sol[$eh_k]) ? $eh_sol[$eh_k] : array()) as $eh_s) {
+            if (empty($eh_s['url'])) continue;
+            $eh_rows[] = array('t' => $eh_s['title'], 'u' => $eh_s['url']);
+        }
+        if ($eh_rows) $eh_cols[] = array(array('h' => $eh_h, 'items' => $eh_rows));
+    }
+    if ($eh_cols) {
+        list($eh_l, $eh_u) = ee_m_top($eh_top, 'solutions', 'Solutions', '/solutions/');
+        $EE_MENU['solutions'] = array('label' => $eh_l, 'url' => $eh_u, 'type' => 'mega', 'cols' => $eh_cols);
+    }
+
+    /* ── Industries — every published Industry CPT post ── */
+    $eh_ind  = function_exists('ee_get_industry_menu_items') ? ee_get_industry_menu_items() : array();
+    $eh_rows = array();
+    foreach ($eh_ind as $eh_i) { if (!empty($eh_i['url'])) $eh_rows[] = array('t' => $eh_i['title'], 'u' => $eh_i['url']); }
+    if ($eh_rows) {
+        list($eh_l, $eh_u) = ee_m_top($eh_top, 'industries', 'Industries', '/industries/');
+        $EE_MENU['industries'] = array('label' => $eh_l, 'url' => $eh_u, 'type' => 'drop', 'items' => $eh_rows);
+    }
+
+    /* ── Customers — only routes this theme actually serves ── */
+    $EE_MENU['customers'] = array('label' => 'Customers', 'url' => '/customer-success-stories/', 'type' => 'drop', 'items' => array(
+        array('t' => 'Customer success stories', 'u' => '/customer-success-stories/'),
+        array('t' => 'Case studies',             'u' => '/case-studies/'),
+        array('t' => 'Testimonials',             'u' => '/testimonials/'),
+    ));
+
+    /* ── Resources — WP Admin → Resources menu (blog, ebooks, webinars, news, help) ── */
+    $eh_res  = function_exists('ee_get_resources_menu_items') ? ee_get_resources_menu_items() : array();
+    $eh_rows = array();
+    foreach ($eh_res as $eh_r) { if (!empty($eh_r['url'])) $eh_rows[] = array('t' => $eh_r['title'], 'u' => $eh_r['url']); }
+    if ($eh_rows) {
+        list($eh_l, $eh_u) = ee_m_top($eh_top, 'resources', 'Resources', '/resources/');
+        $EE_MENU['resources'] = array('label' => $eh_l, 'url' => $eh_u, 'type' => 'drop', 'items' => $eh_rows);
+    }
+
+    /* ── Company — WP Admin → Company menu ── */
+    $eh_co   = function_exists('ee_get_company_menu_items') ? ee_get_company_menu_items() : array();
+    $eh_rows = array();
+    foreach ($eh_co as $eh_c) { if (!empty($eh_c['url'])) $eh_rows[] = array('t' => $eh_c['title'], 'u' => $eh_c['url']); }
+    if ($eh_rows) {
+        list($eh_l, $eh_u) = ee_m_top($eh_top, 'company', 'Company', '/about-us/');
+        $EE_MENU['company'] = array('label' => $eh_l, 'url' => $eh_u, 'type' => 'drop', 'items' => $eh_rows);
+    }
     ?>
             <nav class="eh-nav ee-desktop-nav" role="navigation" aria-label="Primary">
                 <?php foreach ($EE_MENU as $mk => $ms): ?>
                 <div class="eh-nav-item<?php echo $ms['type'] === 'mega' ? ' eh-nav-item--mega' : ''; ?>">
-                    <a href="#" class="eh-nav-link" role="button" aria-haspopup="true" aria-expanded="false"><?php echo esc_html($ms['label']); ?>
+                    <?php /* A real href, not "#": the top link is a working shortcut to the
+                             section landing page and gives crawlers something to follow. */ ?>
+                    <a href="<?php echo esc_url(ee_m_url($ms['url'])); ?>" class="eh-nav-link" aria-haspopup="true" aria-expanded="false"><?php echo esc_html($ms['label']); ?>
                         <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </a>
                     <?php if ($ms['type'] === 'mega'): ?>
                     <div class="eh-mega eh-mega--<?php echo esc_attr($mk); ?>">
-                        <div class="eh-mega-grid">
+                        <div class="eh-mega-grid" style="--eh-cols:<?php echo (int) count($ms['cols']); ?>">
                             <?php foreach ($ms['cols'] as $col): ?>
                             <div class="eh-mega-col">
                                 <?php foreach ($col as $grp): ?>
@@ -1092,7 +1070,8 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
         <!-- Mobile Bottom Actions -->
         <div class="p-6 bg-white border-t border-slate-100">
-            <a href="https://www.extraaedge.com/book-a-demo/" class="block bg-brandBlue py-4 rounded-xl font-bold text-white shadow-lg shadow-brandBlue/20 text-center" aria-label="Book Demo Now">Book Demo</a>
+            <?php /* Same CTA the desktop bar uses, so WP Admin → Book Demo edits both. */ ?>
+            <a href="<?php echo esc_url($eh_cta['url']); ?>" class="block bg-brandBlue py-4 rounded-xl font-bold text-white shadow-lg shadow-brandBlue/20 text-center" aria-label="<?php echo esc_attr($eh_cta['text']); ?>"><?php echo esc_html($eh_cta['text']); ?></a>
         </div>
     </div>
 
@@ -1336,7 +1315,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     </script>
 
 
-    <!-- ee-header v2026-07-31-flat -->
+    <!-- ee-header v2026-07-31-live-menu -->
     <!-- ─── HEADER 2026 SKIN (eh-2026) ───
          Floating glass island: detached rounded bar with backdrop blur,
          compact-on-scroll, glass mega menus, quiet pill nav, premium
@@ -1479,7 +1458,9 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     /* mega items go static so the panel centres on the whole nav, not the trigger */
     #site-header .eh-nav-item--mega{position:static!important}
     #site-header .eh-mega{width:min(1180px,94vw)!important;padding:1.5rem 1.6rem!important}
-    #site-header .eh-mega-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:1.6rem!important}
+    /* --eh-cols is set per menu from PHP, so a mega with 3 or 5 groups
+       lays out at its real width instead of being forced into 4. */
+    #site-header .eh-mega-grid{display:grid!important;grid-template-columns:repeat(var(--eh-cols,4),minmax(0,1fr))!important;gap:1.6rem!important}
     #site-header .eh-mega-col{display:block}
     #site-header .eh-col-title{font-size:10.5px!important;font-weight:700!important;letter-spacing:.1em!important;
       text-transform:uppercase;color:var(--orange-700,#B5551D)!important;margin:0 0 .55rem!important}
@@ -1498,7 +1479,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     .ee-m-group{font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;
       color:var(--orange-700,#B5551D);margin:14px 0 6px;padding-left:4px}
     .ee-m-group:first-child{margin-top:2px}
-    @media(max-width:1240px){#site-header .eh-mega-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+    @media(max-width:1240px){#site-header .eh-mega-grid{grid-template-columns:repeat(min(var(--eh-cols,4),3),minmax(0,1fr))!important}}
 
     /* ── capsule nav group + pill CTA (Awake-style) ── */
     #site-header .eh-nav.ee-desktop-nav{
