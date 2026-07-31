@@ -524,7 +524,7 @@ if (!defined('ABSPATH')) exit;
 #trusted-institutions .btn-primary,
 .eep-explore-btn,.eep-mbook,
 #stories .cis-btn.primary,
-#ee-cro .roi-out .cta,
+#ee-cro .roi-out .cta,#ee-switch .swl .cta,#ee-platform .eep-cta-btn,
 .vsx-apply,.vsx-cta-btn,.vsx-card-cta,
 #ee-solutions .solb-cta,
 .eebk-book,
@@ -546,7 +546,7 @@ if (!defined('ABSPATH')) exit;
 #trusted-institutions .btn-primary:hover,
 .eep-explore-btn:hover,.eep-mbook:hover,
 #stories .cis-btn.primary:hover,
-#ee-cro .roi-out .cta:hover,
+#ee-cro .roi-out .cta:hover,#ee-switch .swl .cta:hover,#ee-platform .eep-cta-btn:hover,
 .vsx-apply:hover,.vsx-cta-btn:hover,.vsx-card-cta:hover,
 #ee-solutions .solb-cta:hover,
 .eebk-book:hover,
@@ -573,6 +573,8 @@ if (!defined('ABSPATH')) exit;
 .vsx-cta-btn:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
 #stories .cis-btn.primary:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
 #ee-cro .roi-out .cta:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+#ee-switch .swl .cta:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+#ee-platform .eep-cta-btn:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
 .vsx-apply:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
 #ee-solutions .solb-cta:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
 .eebk-book:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
@@ -609,7 +611,7 @@ if (!defined('ABSPATH')) exit;
 .ee-home .btn.btn-primary,.ee-home .btn.btn-dark,
 #trusted-institutions .btn-primary,.eep-explore-btn,
 #ee-solutions .solb-cta,.eebk-book,
-#ee-cro .roi-out .cta,
+#ee-cro .roi-out .cta,#ee-switch .swl .cta,#ee-platform .eep-cta-btn,
 #ee-form-7 input[type="submit"],#ee-form-7 button[type="submit"],.ee-btn{
   padding:14px 26px!important; font-size:15.5px!important; }
 #site-header .eh-cta{ padding:0 20px!important; font-size:15px!important; }
@@ -619,7 +621,7 @@ if (!defined('ABSPATH')) exit;
   .ee-home .btn.btn-primary,.ee-home .btn.btn-dark,
   #trusted-institutions .btn-primary,.eep-explore-btn,
   #ee-solutions .solb-cta,.eebk-book,
-  #ee-cro .roi-out .cta,.ee-btn{
+  #ee-cro .roi-out .cta,#ee-switch .swl .cta,#ee-platform .eep-cta-btn,.ee-btn{
     padding:12px 20px!important; font-size:14px!important; }
   .vsx-apply,.vsx-cta-btn,.eep-mbook{ padding:10px 15px!important; font-size:12.5px!important; }
 }
