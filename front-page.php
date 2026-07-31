@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-products-grid -->
+<!-- ee-front-tpl v2026-07-31-products-navy -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3223,68 +3223,97 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 
 <style id="ee-products-cards">
 /* ── One platform. Every admissions tool. ────────────────────────────────
-   Centred heading over a soft tinted wash, then a plain three-across grid
-   of white cards, each a ring-outlined icon above the name and a short
-   line of copy. The left-hand live-preview panel is gone, so the grid runs
-   the full width of the section.
+   Deep navy stage with a centred white heading, then white cards centred
+   on their own content: a tinted circular icon, the product name, and a
+   short line of copy. The left-hand live-preview panel is gone, so the
+   grid runs the full width.
 
+   The grid is flex, not grid: with eight products filtering down to five
+   or seven, a short final row centres itself instead of hanging left.
+
+   Palette is ExtraaEdge's — the stage is the brand navy, the glow and the
+   active pill are #DE6E30, and each icon is tinted with the accent its
+   category already carries.
    Loaded after the section's base rules so it wins without !important,
    except where the phone block further down uses !important itself. */
-#ee-products{ position:relative; background:#F7F8FC; overflow:hidden; }
+#ee-products{ position:relative; overflow:hidden;
+  background:linear-gradient(165deg,#24406E 0%, #1B3560 44%, #12294B 100%); }
+/* two soft orbs, the same trick the reference uses to lift a flat stage */
 #ee-products::before,#ee-products::after{ content:""; position:absolute; pointer-events:none; }
-/* the two corner washes read as one soft gradient behind the grid */
-#ee-products::before{ left:-14%; top:-22%; width:52%; height:72%;
-  background:radial-gradient(circle,rgba(222,110,48,.13),transparent 68%); }
-#ee-products::after{ right:-14%; bottom:-24%; width:54%; height:74%;
-  background:radial-gradient(circle,rgba(25,51,93,.12),transparent 68%); }
+#ee-products::before{ left:-10%; top:-18%; width:46%; height:62%;
+  background:radial-gradient(circle,rgba(222,110,48,.3),transparent 66%); }
+#ee-products::after{ right:-12%; bottom:-20%; width:48%; height:66%;
+  background:radial-gradient(circle,rgba(94,148,230,.26),transparent 68%); }
 #ee-products .eep-wrap{ position:relative; z-index:1; }
 
-/* head: centred, search under it */
-#ee-products .eep-head{ display:block; text-align:center; margin-bottom:clamp(18px,2.2vw,26px); }
-#ee-products .eep-head-l{ max-width:760px; margin:0 auto; }
-#ee-products .eep-sub{ margin-left:auto; margin-right:auto; max-width:60ch; }
+/* head */
+#ee-products .eep-head{ position:relative; display:block; text-align:center;
+  margin-bottom:clamp(20px,2.4vw,30px); }
+#ee-products .eep-head-l{ position:relative; max-width:780px; margin:0 auto; }
+/* the oversized ghost word sitting behind the title */
+#ee-products .eep-head-l::before{ content:"Platform"; position:absolute;
+  left:50%; top:50%; transform:translate(-50%,-58%);
+  font:800 clamp(80px,13vw,190px)/1 'Inter',sans-serif; letter-spacing:-.04em;
+  color:rgba(255,255,255,.05); white-space:nowrap; pointer-events:none; z-index:0; }
+#ee-products .eep-head-l>*{ position:relative; z-index:1; }
+#ee-products .eep-head h2{ color:#fff; }
+#ee-products .eep-head .eep-accent{ color:#F5A472; }
+#ee-products .eep-sub{ margin-left:auto; margin-right:auto; max-width:62ch; color:#B7C6DC; }
+
+/* search + filters on the dark stage */
 #ee-products .eep-search{ width:min(340px,100%); margin:clamp(16px,2vw,22px) auto 0; }
+#ee-products .eep-search input{ background:rgba(255,255,255,.1); color:#fff;
+  border-color:rgba(255,255,255,.22); }
+#ee-products .eep-search input::placeholder{ color:#93A6C2; }
+#ee-products .eep-search input:focus{ border-color:rgba(222,110,48,.7);
+  box-shadow:0 0 0 4px rgba(222,110,48,.22); }
+#ee-products .eep-clear{ background:rgba(255,255,255,.16); color:#fff; }
 #ee-products .eep-filters{ justify-content:center; }
+#ee-products .eep-pill{ background:rgba(255,255,255,.09); color:#DDE6F3;
+  border-color:rgba(255,255,255,.18); }
+#ee-products .eep-pill .eep-count{ background:rgba(255,255,255,.16); color:#fff; }
+#ee-products .eep-pill:hover{ border-color:rgba(222,110,48,.6); }
 
-/* grid: full width now that the preview panel has gone */
+/* grid: flex so a short last row centres */
 #ee-products .eep-main{ display:block; }
-#ee-products .eep-grid{ grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:clamp(14px,1.6vw,22px); }
-
-#ee-products .eep-card{
-  display:flex; flex-direction:column; align-items:flex-start; gap:0;
-  padding:clamp(22px,2.2vw,30px);
-  background:#fff; border:1px solid #ECEFF5; border-radius:22px;
-  box-shadow:0 18px 40px -30px rgba(25,51,93,.5); }
+#ee-products .eep-grid{ display:flex; flex-wrap:wrap; justify-content:center;
+  gap:clamp(14px,1.7vw,24px); }
+#ee-products .eep-card{ flex:0 1 calc(25% - 18px); min-width:200px;
+  display:flex; flex-direction:column; align-items:center; text-align:center; gap:0;
+  padding:clamp(24px,2.2vw,32px) clamp(16px,1.6vw,22px);
+  background:#fff; border:1px solid rgba(255,255,255,.5); border-radius:20px;
+  box-shadow:0 24px 44px -26px rgba(6,16,34,.75); }
 #ee-products .eep-card::before{ content:none; }
 #ee-products .eep-card:hover,#ee-products .eep-card.is-active{
-  transform:translateY(-4px); border-color:rgba(222,110,48,.32);
-  box-shadow:0 26px 50px -28px rgba(25,51,93,.55); }
+  transform:translateY(-5px); border-color:#fff;
+  box-shadow:0 32px 56px -24px rgba(6,16,34,.85); }
 
-/* ring-outlined icon badge */
-#ee-products .eep-chip{
-  width:62px; height:62px; border-radius:50%; margin-bottom:clamp(20px,2.4vw,30px);
-  background:#fff; border:1px solid rgba(222,110,48,.28);
-  box-shadow:0 0 0 6px rgba(222,110,48,.06); }
+/* circular icon, tinted with the accent the card's category already has */
+#ee-products .eep-chip{ width:56px; height:56px; border-radius:50%;
+  margin-bottom:clamp(16px,1.8vw,22px); box-shadow:none; border:0;
+  background:color-mix(in srgb, var(--cardacc,#DE6E30) 22%, #fff); }
 #ee-products .eep-chip svg,#ee-products .eep-chip img.eeimg{ width:26px; height:26px; }
-#ee-products .eep-chip svg *{ stroke:var(--orange-700,#B5551D); }
-#ee-products .eep-chip:has(img.eep-ic-img){ border-color:rgba(25,51,93,.1); box-shadow:none; }
-#ee-products .eep-chip img.eep-ic-img{ width:62%; height:62%; object-fit:contain;
+#ee-products .eep-chip svg *{ stroke:var(--cardacc,#B5551D); }
+#ee-products .eep-chip:has(img.eep-ic-img){ background:color-mix(in srgb, var(--cardacc,#DE6E30) 16%, #fff); }
+#ee-products .eep-chip img.eep-ic-img{ width:58%; height:58%; object-fit:contain;
   border-radius:0; margin:auto; }
 
-#ee-products .eep-card-title{ display:block; font-size:clamp(17px,1.5vw,20px);
-  font-weight:600; line-height:1.3; letter-spacing:-.015em;
-  color:var(--navy,#19335D); margin-bottom:8px; }
-#ee-products .eep-card-desc{ font-size:14px; line-height:1.55; color:#6B7C96; }
+#ee-products .eep-card-title{ display:block; justify-content:center;
+  font-size:clamp(16px,1.35vw,19px); font-weight:700; line-height:1.3;
+  letter-spacing:-.02em; color:var(--ink,#0F203A); margin-bottom:9px; }
+#ee-products .eep-card-desc{ font-size:13.5px; line-height:1.55; color:#6B7C96; }
 
-@media(max-width:980px){ #ee-products .eep-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:1100px){ #ee-products .eep-card{ flex-basis:calc(33.333% - 16px); } }
+@media(max-width:820px){  #ee-products .eep-card{ flex-basis:calc(50% - 12px); } }
 @media(max-width:620px){
-  #ee-products .eep-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-  #ee-products .eep-card{ padding:16px 14px!important; border-radius:16px; }
-  #ee-products .eep-chip{ width:44px; height:44px; margin-bottom:14px; }
+  #ee-products .eep-grid{ gap:10px; }
+  #ee-products .eep-card{ flex-basis:calc(50% - 5px); min-width:0;
+    padding:18px 12px!important; border-radius:16px; }
+  #ee-products .eep-chip{ width:44px; height:44px; margin-bottom:12px; }
   #ee-products .eep-chip svg,#ee-products .eep-chip img.eeimg{ width:20px; height:20px; }
-  #ee-products .eep-card-title{ font-size:14px!important; margin-bottom:5px; }
+  #ee-products .eep-card-title{ font-size:13.5px!important; margin-bottom:5px; }
   #ee-products .eep-card-desc{ font-size:11.5px!important; line-height:1.45!important; }
+  #ee-products .eep-head-l::before{ display:none; }
 }
 </style>
 
@@ -5339,8 +5368,11 @@ body.ee-home{
 
 <style id="ee-ctx-bg">/* ===== Plain white background across the whole homepage ===== */
 body.ee-home{ background:#ffffff!important; }/* remove all graphic background motifs */
-#ee-products::before,#ee-solutions::before,#ee-resources::before,#integrations::before,#security::before,#stories::before{ display:none!important; }/* plain white section backgrounds (keeps intentional dark component panels intact) */
-#ee-products,#ee-solutions,#ee-resources,#ee-industries{ background:#ffffff!important; }
+/* #ee-products is exempt from both rules below: it is now a deliberate
+   dark stage with its own glow orbs, not a white section that picked up a
+   stray motif. */
+#ee-solutions::before,#ee-resources::before,#integrations::before,#security::before,#stories::before{ display:none!important; }/* plain white section backgrounds (keeps intentional dark component panels intact) */
+#ee-solutions,#ee-resources,#ee-industries{ background:#ffffff!important; }
 </style>
 
 <!-- (removed) EE · SMOOTH INERTIA SCROLL - wheel hijack dropped in favor of native scrolling for performance -->
@@ -5655,8 +5687,10 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
    these sections are untouched; only their backgrounds turn into soft ambient
    depth and their existing cards become frosted glass. */
 
-/* soft ambient depth behind the light sections */
-#ee-products, #ee-teams, #ee-solutions, #ee-golive, #ee-resources{
+/* soft ambient depth behind the light sections. #ee-products is not one of
+   them any more - it is a dark navy stage with its own orbs, and this rule
+   carried !important, so leaving it listed would repaint it white. */
+#ee-teams, #ee-solutions, #ee-golive, #ee-resources{
   position:relative;
   background:
     radial-gradient(560px 440px at 6% -8%, rgba(222,110,48,.12), transparent 60%),
