@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-why-right -->
+<!-- ee-front-tpl v2026-07-31-vidya-cards -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3677,83 +3677,222 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
           <button class="vsx-arw vsx-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
           <div class="vsx-rail" id="vsxRail">
 
-            <article class="vsx-card" style="--ca:#2274ee">
-              <a class="vsx-card-cta" href="#admission-form" aria-label="Try Vidya GPT - book a demo">Try Vidya GPT <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-              <h3>Vidya GPT</h3>
-              <p class="vsx-desc">Your 24×7 AI chat counsellor that answers every query and never sleeps.</p>
-              <ul class="vsx-feats">
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Answers fees, courses, scholarships &amp; deadlines</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Works across website &amp; WhatsApp</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Replies instantly in 95+ languages</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Hands hot leads to your counsellors</li>
-              </ul>
+
+            <article class="vsx-card vsx-job" style="--ca:#2274ee">
+              <div class="vsx-jbody">
+                <div class="vsx-jtop">
+                  <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
+                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#0B1830"/></svg></span>
+                  <span class="vsx-tag">AI COUNSELLOR</span>
+                </div>
+                <h3>Vidya GPT</h3>
+                <dl class="vsx-meta">
+                  <div><dt>Channels</dt><dd>Web &amp; WhatsApp</dd></div>
+                  <div><dt>Languages</dt><dd>95+</dd></div>
+                  <div><dt>Available</dt><dd>24&times;7</dd></div>
+                </dl>
+                <p class="vsx-desc">Your 24&times;7 AI chat counsellor answers fees, courses, scholarships and deadline queries across your website and WhatsApp, replies instantly in 95+ languages, and hands hot leads straight to your counsellors.</p>
+              </div>
+              <div class="vsx-jfoot">
+                <span class="vsx-stat">95+ languages</span>
+                <a class="vsx-apply" href="#admission-form" aria-label="Try Vidya GPT - book a demo">Try it now</a>
+              </div>
             </article>
 
-            <article class="vsx-card" style="--ca:#DE6E30">
-              <a class="vsx-card-cta" href="#admission-form" aria-label="Try Vidya Pulse - book a demo">Try Vidya Pulse <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-              <h3>Vidya Pulse</h3>
-              <p class="vsx-desc">Real-time lead intent scoring that surfaces your hottest prospects first.</p>
-              <ul class="vsx-feats">
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Scores every lead 0–100 on real intent</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Surfaces the hottest prospects first</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Re-scores in real time as leads engage</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Tells counsellors exactly who to call now</li>
-              </ul>
+            <article class="vsx-card vsx-job" style="--ca:#DE6E30">
+              <div class="vsx-jbody">
+                <div class="vsx-jtop">
+                  <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
+                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#0B1830"/></svg></span>
+                  <span class="vsx-tag">LEAD SCORING</span>
+                </div>
+                <h3>Vidya Pulse</h3>
+                <dl class="vsx-meta">
+                  <div><dt>Score</dt><dd>0&ndash;100</dd></div>
+                  <div><dt>Updates</dt><dd>Real time</dd></div>
+                  <div><dt>Signal</dt><dd>Buying intent</dd></div>
+                </dl>
+                <p class="vsx-desc">Scores every lead 0&ndash;100 on real buying intent and re-scores in real time as they engage, so the hottest prospects surface first and counsellors know exactly who to call now.</p>
+              </div>
+              <div class="vsx-jfoot">
+                <span class="vsx-stat">0&ndash;100 score</span>
+                <a class="vsx-apply" href="#admission-form" aria-label="Try Vidya Pulse - book a demo">Try it now</a>
+              </div>
             </article>
 
-            <article class="vsx-card" style="--ca:#8bb7fa">
-              <a class="vsx-card-cta" href="#admission-form" aria-label="Try Vidyaai Voice Agent - book a demo">Try Vidyaai Voice Agent <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-              <h3>Vidyaai Voice Agent</h3>
-              <p class="vsx-desc">Calls and qualifies leads with natural conversations in 10+ languages.</p>
-              <ul class="vsx-feats">
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Calls every new lead within seconds</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Natural human-like conversations</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Qualifies &amp; books counselling slots</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Speaks 10+ Indian languages, 24/7</li>
-              </ul>
+            <article class="vsx-card vsx-job" style="--ca:#8bb7fa">
+              <div class="vsx-jbody">
+                <div class="vsx-jtop">
+                  <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
+                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#0B1830"/></svg></span>
+                  <span class="vsx-tag">VOICE AI</span>
+                </div>
+                <h3>Vidyaai Voice Agent</h3>
+                <dl class="vsx-meta">
+                  <div><dt>Channel</dt><dd>Outbound calls</dd></div>
+                  <div><dt>Languages</dt><dd>10+ Indian</dd></div>
+                  <div><dt>Available</dt><dd>24&times;7</dd></div>
+                </dl>
+                <p class="vsx-desc">Calls every new lead within seconds and holds natural, human-like conversations that qualify interest and book counselling slots &mdash; in 10+ Indian languages, around the clock.</p>
+              </div>
+              <div class="vsx-jfoot">
+                <span class="vsx-stat">10+ languages</span>
+                <a class="vsx-apply" href="#admission-form" aria-label="Try Vidyaai Voice Agent - book a demo">Try it now</a>
+              </div>
             </article>
 
-            <article class="vsx-card" style="--ca:#3474d3">
-              <a class="vsx-card-cta" href="#admission-form" aria-label="Try VidyaWABA GPT - book a demo">Try VidyaWABA GPT <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-              <h3>VidyaWABA GPT</h3>
-              <p class="vsx-desc">Automated WhatsApp Business engagement that nurtures leads at scale.</p>
-              <ul class="vsx-feats">
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Official, verified WhatsApp Business API</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Automated replies &amp; smart broadcasts</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Personalised nurture journeys at scale</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Every reply logged back to the lead</li>
-              </ul>
+            <article class="vsx-card vsx-job" style="--ca:#3474d3">
+              <div class="vsx-jbody">
+                <div class="vsx-jtop">
+                  <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
+                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#0B1830"/></svg></span>
+                  <span class="vsx-tag">WHATSAPP</span>
+                </div>
+                <h3>VidyaWABA GPT</h3>
+                <dl class="vsx-meta">
+                  <div><dt>Channel</dt><dd>WhatsApp API</dd></div>
+                  <div><dt>Account</dt><dd>Official &amp; verified</dd></div>
+                  <div><dt>Journeys</dt><dd>Automated</dd></div>
+                </dl>
+                <p class="vsx-desc">Runs admissions on the official, verified WhatsApp Business API &mdash; automated replies, smart broadcasts and personalised nurture journeys at scale, with every reply logged back to the lead.</p>
+              </div>
+              <div class="vsx-jfoot">
+                <span class="vsx-stat">Official WABA</span>
+                <a class="vsx-apply" href="#admission-form" aria-label="Try VidyaWABA GPT - book a demo">Try it now</a>
+              </div>
             </article>
 
-            <article class="vsx-card" style="--ca:#fb8124">
-              <a class="vsx-card-cta" href="#admission-form" aria-label="Try Vidya Work - book a demo">Try Vidya Work <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-work.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-              <h3>Vidya Work</h3>
-              <p class="vsx-desc">Autonomous workflow and follow-up automation that runs your busywork.</p>
-              <ul class="vsx-feats">
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Auto-triggers follow-ups &amp; reminders</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Routes &amp; assigns tasks automatically</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Runs repetitive busywork on its own</li>
-                <li><span class="fk"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Keeps every lead moving forward</li>
-              </ul>
+            <article class="vsx-card vsx-job" style="--ca:#fb8124">
+              <div class="vsx-jbody">
+                <div class="vsx-jtop">
+                  <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-work.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
+                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#0B1830"/></svg></span>
+                  <span class="vsx-tag">AUTOMATION</span>
+                </div>
+                <h3>Vidya Work</h3>
+                <dl class="vsx-meta">
+                  <div><dt>Runs</dt><dd>Follow-ups &amp; tasks</dd></div>
+                  <div><dt>Routing</dt><dd>Automatic</dd></div>
+                  <div><dt>Available</dt><dd>24&times;7</dd></div>
+                </dl>
+                <p class="vsx-desc">Auto-triggers follow-ups and reminders, routes and assigns tasks on its own, and runs the repetitive busywork in the background so every lead keeps moving forward.</p>
+              </div>
+              <div class="vsx-jfoot">
+                <span class="vsx-stat">Zero busywork</span>
+                <a class="vsx-apply" href="#admission-form" aria-label="Try Vidya Work - book a demo">Try it now</a>
+              </div>
             </article>
 
-            <article class="vsx-card vsx-cta-card" style="--ca:#DE6E30">
-              <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-              <h3>Try Vidya AI Live</h3>
-              <p class="vsx-desc">Explore the live AI inside the product demo - see every agent working on a real admission funnel.</p>
-              <a class="vsx-cta-btn" href="#ee-platform">Try Vidya AI Live <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <article class="vsx-card vsx-job vsx-cta-card" style="--ca:#DE6E30">
+              <div class="vsx-jbody">
+                <div class="vsx-jtop">
+                  <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
+                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#0B1830"/></svg></span>
+                  <span class="vsx-tag">LIVE DEMO</span>
+                </div>
+                <h3>Try Vidya AI Live</h3>
+                <dl class="vsx-meta">
+                  <div><dt>Access</dt><dd>Instant</dd></div>
+                  <div><dt>Signup</dt><dd>Not needed</dd></div>
+                  <div><dt>Agents</dt><dd>All five</dd></div>
+                </dl>
+                <p class="vsx-desc">Explore the live AI inside the product demo and watch every agent work a real admission funnel &mdash; no sales call, no signup.</p>
+              </div>
+              <div class="vsx-jfoot">
+                <span class="vsx-stat">Live demo</span>
+                <a class="vsx-apply" href="#ee-platform" aria-label="Open the live Vidya AI demo">Open demo</a>
+              </div>
             </article>
-
           </div>
         </div>
       </div>
     </div>
   </div>
+
+<style id="ee-vsx-jobcard">
+/* ── Vidya AI agent cards: job-post anatomy ──────────────────────────────
+   Brand row (icon + suite name + verified) and a category chip on one
+   line, then the agent name, a three-cell fact strip, the description,
+   and a full-bleed footer bar carrying the headline fact and the CTA.
+   Loaded after the section's base rules so it wins without !important,
+   except where the phone compaction block above uses !important itself. */
+#ee-vidya-suite .vsx-job{
+  padding:0; gap:0; justify-content:space-between; overflow:hidden;
+  background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.12); border-radius:26px;
+  box-shadow:0 28px 60px -34px rgba(0,0,0,.75), inset 0 1px 0 rgba(255,255,255,.07);
+}
+#ee-vidya-suite .vsx-job::after{ width:210px; height:210px; right:-70px; top:-70px; opacity:.22; }
+#ee-vidya-suite .vsx-jbody{ display:flex; flex-direction:column; gap:14px; padding:24px 24px 22px; }
+
+/* brand row */
+#ee-vidya-suite .vsx-jtop{ display:flex; align-items:center; gap:11px; }
+#ee-vidya-suite .vsx-job .vsx-ic{ width:46px; height:46px; border-radius:14px; }
+#ee-vidya-suite .vsx-job .vsx-ic svg,#ee-vidya-suite .vsx-job .vsx-ic img.eeimg{ width:24px; height:24px; }
+#ee-vidya-suite .vsx-brand{ display:inline-flex; align-items:center; gap:5px;
+  font:600 15px/1 'Inter',sans-serif; color:#fff; letter-spacing:-.01em; }
+#ee-vidya-suite .vsx-verified{ width:15px; height:15px; color:#DE6E30; flex:0 0 auto; }
+/* category chip - sits at the end of the brand row, like the reference tab */
+#ee-vidya-suite .vsx-tag{ margin-left:auto; flex:0 0 auto;
+  font:700 9.5px/1 'Inter',sans-serif; letter-spacing:.1em; color:#e7eefb;
+  padding:7px 11px; border-radius:999px; white-space:nowrap;
+  background:rgba(8,20,40,.66); border:1px solid rgba(255,255,255,.14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07); }
+
+#ee-vidya-suite .vsx-job h3{ font-size:25px; font-weight:700; letter-spacing:-.02em; margin:2px 0 0; }
+
+/* three-cell fact strip with hairline dividers */
+#ee-vidya-suite .vsx-meta{ display:flex; align-items:stretch; gap:0; margin:0; padding:0; }
+#ee-vidya-suite .vsx-meta>div{ flex:1 1 0; min-width:0; padding:0 13px; }
+#ee-vidya-suite .vsx-meta>div:first-child{ padding-left:0; }
+#ee-vidya-suite .vsx-meta>div:last-child{ padding-right:0; }
+#ee-vidya-suite .vsx-meta>div+div{ border-left:1px solid rgba(255,255,255,.14); }
+#ee-vidya-suite .vsx-meta dt{ font:500 11px/1.3 'Inter',sans-serif; color:#93a6c4; margin:0 0 4px; }
+#ee-vidya-suite .vsx-meta dd{ font:600 13.5px/1.3 'Inter',sans-serif; color:#fff; margin:0;
+  overflow-wrap:anywhere; }
+
+#ee-vidya-suite .vsx-job .vsx-desc{ color:#a9bad4; }
+
+/* footer bar - full-bleed, one shade darker */
+#ee-vidya-suite .vsx-jfoot{ display:flex; align-items:center; justify-content:space-between;
+  gap:14px; padding:16px 24px; background:rgba(6,16,34,.55);
+  border-top:1px solid rgba(255,255,255,.09); }
+#ee-vidya-suite .vsx-stat{ font:700 19px/1.15 'Inter',sans-serif; color:#fff;
+  letter-spacing:-.02em; min-width:0; white-space:nowrap; }
+#ee-vidya-suite .vsx-apply{ flex:0 0 auto; display:inline-flex; align-items:center;
+  justify-content:center; padding:12px 20px; border-radius:999px;
+  background:linear-gradient(135deg,#E8843F,#DE6E30); color:#fff; text-decoration:none;
+  font:700 13.5px/1 'Inter',sans-serif;
+  box-shadow:0 0 0 6px rgba(222,110,48,.14), 0 14px 30px -12px rgba(222,110,48,.85);
+  transition:transform .2s ease, box-shadow .2s ease; }
+#ee-vidya-suite .vsx-apply:hover{ transform:translateY(-2px);
+  box-shadow:0 0 0 8px rgba(222,110,48,.2), 0 18px 36px -12px rgba(222,110,48,.95); }
+#ee-vidya-suite .vsx-apply:focus-visible{ outline:3px solid #fff; outline-offset:3px; }
+
+/* the last card keeps its warm tint but the same anatomy */
+#ee-vidya-suite .vsx-job.vsx-cta-card{ justify-content:space-between; align-items:stretch;
+  background:linear-gradient(160deg,rgba(222,110,48,.2),rgba(255,255,255,.04));
+  border-color:rgba(222,110,48,.42); }
+
+@media (prefers-reduced-motion:reduce){ #ee-vidya-suite .vsx-apply{ transition:none; } }
+
+/* phones - the compaction block above sets !important on .vsx-card, so the
+   padding has to be re-stated here for the body/footer split to survive */
+@media (max-width:640px){
+  #ee-vidya-suite .vsx-job{ padding:0!important; gap:0!important; }
+  #ee-vidya-suite .vsx-jbody{ padding:16px 16px 14px; gap:10px; }
+  #ee-vidya-suite .vsx-job .vsx-ic{ width:38px!important; height:38px!important; border-radius:12px; }
+  #ee-vidya-suite .vsx-brand{ font-size:13px; }
+  #ee-vidya-suite .vsx-tag{ font-size:8.5px; padding:6px 9px; }
+  #ee-vidya-suite .vsx-job h3{ font-size:19px!important; }
+  #ee-vidya-suite .vsx-meta>div{ padding:0 9px; }
+  #ee-vidya-suite .vsx-meta dt{ font-size:9.5px; }
+  #ee-vidya-suite .vsx-meta dd{ font-size:11.5px; }
+  #ee-vidya-suite .vsx-jfoot{ padding:12px 16px; gap:10px; }
+  #ee-vidya-suite .vsx-stat{ font-size:15px; }
+  #ee-vidya-suite .vsx-apply{ padding:10px 15px; font-size:12px; }
+}
+</style>
 
   <script>
   (function(){
