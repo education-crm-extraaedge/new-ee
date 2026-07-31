@@ -1041,6 +1041,8 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
 
             <!-- CTA + hamburger — grouped so Book Demo always sits tight against the 3-line icon on the right, never floating in the middle when the nav links are hidden on mobile -->
             <div class="eh-actions">
+                <?php /* Login — change this URL if your app login lives elsewhere */ ?>
+                <a class="eh-login" href="https://app.extraaedge.com/">Login</a>
                 <?php $eh_cta = function_exists('ee_get_book_demo_cta') ? ee_get_book_demo_cta() : array('text' => 'Book Demo', 'url' => 'https://www.extraaedge.com/book-a-demo/'); ?>
                 <a href="<?php echo esc_url($eh_cta['url']); ?>" class="eh-cta"><?php echo esc_html($eh_cta['text']); ?>
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
@@ -1334,7 +1336,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     </script>
 
 
-    <!-- ee-header v2026-07-31-ia -->
+    <!-- ee-header v2026-07-31-flat -->
     <!-- ─── HEADER 2026 SKIN (eh-2026) ───
          Floating glass island: detached rounded bar with backdrop blur,
          compact-on-scroll, glass mega menus, quiet pill nav, premium
@@ -1524,6 +1526,46 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
       #site-header .eh-cta{padding:.35rem .35rem .35rem 1rem!important;gap:.5rem!important}
       #site-header .eh-cta svg,#site-header .eh-cta img{width:26px!important;height:26px!important;padding:7px}
     }
+    /* ══ FLAT BAR SKIN (HireSphere-style) — plain white full-width bar ══
+       Overrides the floating-island + capsule treatment above. */
+    #site-header{padding:0!important;background:#fff!important;
+      border-bottom:1px solid #E9ECF1;box-shadow:none!important}
+    #site-header.scrolled,#site-header.eh-scrolled{box-shadow:0 1px 3px rgba(25,51,93,.06)!important}
+    #site-header .eh-content{width:100%!important;max-width:1280px!important;
+      margin-inline:auto!important;height:72px!important;padding:0 28px!important;
+      background:transparent!important;border:0!important;border-radius:0!important;
+      box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+    #site-header.scrolled .eh-content,#site-header.eh-scrolled .eh-content{height:72px!important;background:transparent!important}
+    #site-header .eh-content::before{display:none!important}   /* gradient ring off */
+    /* nav: plain links, no capsule, no sliding chip */
+    #site-header .eh-nav.ee-desktop-nav{background:transparent!important;border:0!important;
+      border-radius:0!important;padding:0!important;gap:.35rem!important}
+    #site-header .eh-hoverpill{display:none!important}
+    #site-header .eh-nav-link{border-radius:8px!important;padding:.5rem .8rem!important;
+      font-size:15px!important;font-weight:500!important;color:#3A4A63!important}
+    #site-header .eh-nav-link:hover,#site-header .eh-nav-item:hover>.eh-nav-link{
+      background:transparent!important;color:#19335D!important}
+    #site-header .eh-nav-link .eh-chev{width:13px;height:13px;opacity:.6}
+    /* actions: quiet Login link + solid CTA, no arrow badge */
+    #site-header .eh-login{display:inline-flex;align-items:center;height:40px;padding:0 .9rem;
+      font-size:15px;font-weight:500;color:#3A4A63;border-radius:8px;white-space:nowrap;
+      transition:color .18s ease}
+    #site-header .eh-login:hover{color:#19335D}
+    #site-header .eh-cta{border-radius:9px!important;padding:0 1.35rem!important;height:44px;
+      gap:0!important;font-size:15px!important;font-weight:600!important;
+      background:var(--orange-700,#B5551D)!important;box-shadow:none!important}
+    #site-header .eh-cta:hover{background:var(--orange-800,#A8501C)!important;transform:none!important;box-shadow:none!important}
+    #site-header .eh-cta svg,#site-header .eh-cta img{display:none!important}
+    #site-header .eh-cta::after{display:none!important}   /* sheen off */
+    @media(max-width:1023.98px){
+      /* the .eh-nav.ee-desktop-nav rules above out-specify the original
+         media query, so hide the desktop nav explicitly here */
+      #site-header .eh-nav.ee-desktop-nav{display:none!important}
+      #site-header .eh-content{height:64px!important;padding:0 18px!important}
+      #site-header .eh-login{display:none}
+      #site-header .eh-cta{height:38px;padding:0 .95rem!important;font-size:13.5px!important}
+    }
+
     @media(prefers-reduced-motion:reduce){
       #site-header .eh-hoverpill,#site-header .eh-mega .eh-dl,#mobileMenu,.eh-scrim{transition:none!important;animation:none!important}
       #site-header .eh-content{animation:none}
