@@ -11,7 +11,8 @@
 .ee-nav{
   /* colour */
   --ee-orange:#DE6E30;
-  --ee-orange-dark:#C25F26;
+  --ee-orange-dark:#A8501C;
+  --ee-orange-text:#B5551D;    /* text-safe orange, 4.9:1 on white — WCAG AA */
   --ee-orange-tint:rgba(222,110,48,.06);
   --ee-orange-line:rgba(222,110,48,.28);
   --ee-navy:#19335D;
@@ -55,12 +56,12 @@
   font-size:14px;font-weight:500;color:var(--ee-navy);
   transition:background var(--ee-dur) var(--ee-ease),color var(--ee-dur) var(--ee-ease)}
 .ee-nav__trigger:hover,.ee-nav__toplink:hover,.ee-nav__trigger[aria-expanded="true"]{background:var(--ee-tint)}
-.ee-nav__trigger[aria-expanded="true"]{color:var(--ee-orange)}
+.ee-nav__trigger[aria-expanded="true"]{color:var(--ee-orange-text)}
 .ee-nav__chev{transition:transform var(--ee-dur) var(--ee-ease)}
 .ee-nav__trigger[aria-expanded="true"] .ee-nav__chev{transform:rotate(180deg)}
 .ee-nav__actions{display:flex;align-items:center;gap:var(--ee-s3);flex:0 0 auto}
 .ee-nav__cta{display:inline-flex;align-items:center;height:40px;padding:0 var(--ee-s5);
-  border-radius:var(--ee-r-md);background:var(--ee-orange);color:#fff;
+  border-radius:var(--ee-r-md);background:var(--ee-orange-text);color:#fff;
   font-size:14px;font-weight:600;transition:background var(--ee-dur) var(--ee-ease)}
 .ee-nav__cta:hover{background:var(--ee-orange-dark)}
 .ee-nav__burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;
@@ -83,7 +84,7 @@
 .ee-nav__grid--3{grid-template-columns:repeat(3,1fr)}
 .ee-nav__colhead{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
   color:var(--ee-muted);margin:0 0 var(--ee-s4)}
-.ee-nav__panel--accent .ee-nav__colhead{color:var(--ee-orange)}
+.ee-nav__panel--accent .ee-nav__colhead{color:var(--ee-orange-text)}
 .ee-nav__items{list-style:none;margin:0;padding:0;display:grid;gap:var(--ee-s5)}
 .ee-nav__items--tight{gap:var(--ee-s3)}
 .ee-nav__item{display:block;padding:var(--ee-s2) var(--ee-s3);margin:calc(var(--ee-s2)*-1) calc(var(--ee-s3)*-1);
@@ -91,16 +92,16 @@
 .ee-nav__item:hover{background:var(--ee-orange-tint)}
 .ee-nav__t{display:block;font-size:14px;font-weight:500;color:var(--ee-navy);
   transition:color var(--ee-dur) var(--ee-ease)}
-.ee-nav__item:hover .ee-nav__t{color:var(--ee-orange)}
+.ee-nav__item:hover .ee-nav__t{color:var(--ee-orange-text)}
 .ee-nav__d{display:block;margin-top:2px;font-size:13px;font-weight:400;color:var(--ee-muted)}
 .ee-nav__plain{font-size:14px;font-weight:400;color:var(--ee-navy)}
-.ee-nav__item:hover .ee-nav__plain{color:var(--ee-orange)}
+.ee-nav__item:hover .ee-nav__plain{color:var(--ee-orange-text)}
 /* right rail */
 .ee-nav__rail{border:1px solid var(--ee-line);border-radius:var(--ee-r-lg);padding:var(--ee-s5)}
 .ee-nav__rail h3{margin:0 0 var(--ee-s4);font-size:14px;font-weight:600}
 .ee-nav__rail ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--ee-s3)}
 .ee-nav__rail a{display:inline-flex;align-items:center;gap:var(--ee-s2);font-size:13px;color:var(--ee-navy)}
-.ee-nav__rail a:hover{color:var(--ee-orange)}
+.ee-nav__rail a:hover{color:var(--ee-orange-text)}
 .ee-nav__proof{display:grid;gap:var(--ee-s1)}
 .ee-nav__proof b{font-size:13px;font-weight:600}
 .ee-nav__proof span{font-size:13px;color:var(--ee-muted)}
@@ -108,7 +109,7 @@
 .ee-nav__strip{margin-top:var(--ee-s6);padding-top:var(--ee-s5);border-top:1px solid var(--ee-line);
   display:flex;flex-wrap:wrap;align-items:center;gap:var(--ee-s7);font-size:13px;color:var(--ee-muted)}
 .ee-nav__strip span,.ee-nav__strip a{display:inline-flex;align-items:center;gap:var(--ee-s2)}
-.ee-nav__strip a{color:var(--ee-orange);font-weight:500}
+.ee-nav__strip a{color:var(--ee-orange-text);font-weight:500}
 .ee-nav__strip svg{color:var(--ee-muted);flex:none}
 .ee-nav__strip a svg{color:currentColor}
 
@@ -124,7 +125,7 @@
 .ee-nav__acc{border-bottom:1px solid var(--ee-line)}
 .ee-nav__accbtn{width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;
   gap:var(--ee-s3);padding:var(--ee-s4) 0;font-size:16px;font-weight:600;text-align:left}
-.ee-nav__accbtn[aria-expanded="true"]{color:var(--ee-orange)}
+.ee-nav__accbtn[aria-expanded="true"]{color:var(--ee-orange-text)}
 .ee-nav__accbtn[aria-expanded="true"] .ee-nav__chev{transform:rotate(180deg)}
 .ee-nav__accpanel{display:none;padding:0 0 var(--ee-s5)}
 .ee-nav__accpanel.is-open{display:block}
