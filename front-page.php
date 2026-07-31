@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-29-convo -->
+<!-- ee-front-tpl v2026-07-31-why-right -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -803,7 +803,13 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-why h2{color:#19345d;margin:0 auto 12px;max-width:44ch;text-align:center}
 #ee-why .eew2-lead{color:#5a6b85;line-height:1.6;margin:0 auto 8px;max-width:56ch;text-align:center}
 #ee-why .eew2-lead strong{color:#19345d}
-#ee-why .eew2-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);gap:clamp(26px,3.4vw,54px);align-items:center;margin-top:clamp(14px,2vw,24px)}
+/* Steps read on the left, screenshots on the right. The markup keeps the
+   visual first (it is the section's primary content for crawlers and for
+   the no-CSS fallback), so the swap is done with order, and the wider
+   1.18fr share travels with the images to the second column. */
+#ee-why .eew2-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(26px,3.4vw,54px);align-items:center;margin-top:clamp(14px,2vw,24px)}
+#ee-why .eew2-grid>.eew2-steps{order:1}
+#ee-why .eew2-grid>.eew2-visual{order:2}
 /* visual */
 #ee-why .eew2-vframe{position:relative;aspect-ratio:16/11;border-radius:20px;background:#fff;
   border:1px solid rgba(25,52,93,.1);overflow:hidden;cursor:zoom-in;
