@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-vidya-scroll -->
+<!-- ee-front-tpl v2026-07-31-products-grid -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3221,6 +3221,73 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   </div>
 </div>
 
+<style id="ee-products-cards">
+/* ── One platform. Every admissions tool. ────────────────────────────────
+   Centred heading over a soft tinted wash, then a plain three-across grid
+   of white cards, each a ring-outlined icon above the name and a short
+   line of copy. The left-hand live-preview panel is gone, so the grid runs
+   the full width of the section.
+
+   Loaded after the section's base rules so it wins without !important,
+   except where the phone block further down uses !important itself. */
+#ee-products{ position:relative; background:#F7F8FC; overflow:hidden; }
+#ee-products::before,#ee-products::after{ content:""; position:absolute; pointer-events:none; }
+/* the two corner washes read as one soft gradient behind the grid */
+#ee-products::before{ left:-14%; top:-22%; width:52%; height:72%;
+  background:radial-gradient(circle,rgba(222,110,48,.13),transparent 68%); }
+#ee-products::after{ right:-14%; bottom:-24%; width:54%; height:74%;
+  background:radial-gradient(circle,rgba(25,51,93,.12),transparent 68%); }
+#ee-products .eep-wrap{ position:relative; z-index:1; }
+
+/* head: centred, search under it */
+#ee-products .eep-head{ display:block; text-align:center; margin-bottom:clamp(18px,2.2vw,26px); }
+#ee-products .eep-head-l{ max-width:760px; margin:0 auto; }
+#ee-products .eep-sub{ margin-left:auto; margin-right:auto; max-width:60ch; }
+#ee-products .eep-search{ width:min(340px,100%); margin:clamp(16px,2vw,22px) auto 0; }
+#ee-products .eep-filters{ justify-content:center; }
+
+/* grid: full width now that the preview panel has gone */
+#ee-products .eep-main{ display:block; }
+#ee-products .eep-grid{ grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(14px,1.6vw,22px); }
+
+#ee-products .eep-card{
+  display:flex; flex-direction:column; align-items:flex-start; gap:0;
+  padding:clamp(22px,2.2vw,30px);
+  background:#fff; border:1px solid #ECEFF5; border-radius:22px;
+  box-shadow:0 18px 40px -30px rgba(25,51,93,.5); }
+#ee-products .eep-card::before{ content:none; }
+#ee-products .eep-card:hover,#ee-products .eep-card.is-active{
+  transform:translateY(-4px); border-color:rgba(222,110,48,.32);
+  box-shadow:0 26px 50px -28px rgba(25,51,93,.55); }
+
+/* ring-outlined icon badge */
+#ee-products .eep-chip{
+  width:62px; height:62px; border-radius:50%; margin-bottom:clamp(20px,2.4vw,30px);
+  background:#fff; border:1px solid rgba(222,110,48,.28);
+  box-shadow:0 0 0 6px rgba(222,110,48,.06); }
+#ee-products .eep-chip svg,#ee-products .eep-chip img.eeimg{ width:26px; height:26px; }
+#ee-products .eep-chip svg *{ stroke:var(--orange-700,#B5551D); }
+#ee-products .eep-chip:has(img.eep-ic-img){ border-color:rgba(25,51,93,.1); box-shadow:none; }
+#ee-products .eep-chip img.eep-ic-img{ width:62%; height:62%; object-fit:contain;
+  border-radius:0; margin:auto; }
+
+#ee-products .eep-card-title{ display:block; font-size:clamp(17px,1.5vw,20px);
+  font-weight:600; line-height:1.3; letter-spacing:-.015em;
+  color:var(--navy,#19335D); margin-bottom:8px; }
+#ee-products .eep-card-desc{ font-size:14px; line-height:1.55; color:#6B7C96; }
+
+@media(max-width:980px){ #ee-products .eep-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:620px){
+  #ee-products .eep-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  #ee-products .eep-card{ padding:16px 14px!important; border-radius:16px; }
+  #ee-products .eep-chip{ width:44px; height:44px; margin-bottom:14px; }
+  #ee-products .eep-chip svg,#ee-products .eep-chip img.eeimg{ width:20px; height:20px; }
+  #ee-products .eep-card-title{ font-size:14px!important; margin-bottom:5px; }
+  #ee-products .eep-card-desc{ font-size:11.5px!important; line-height:1.45!important; }
+}
+</style>
+
 <section id="ee-products" aria-label="Our products">
   <div class="eep-wrap">
 
@@ -3239,22 +3306,6 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
     <div class="eep-filters" id="eepFilters" role="group" aria-label="Filter products by category"></div>
 
     <div class="eep-main">
-      <!-- Spotlight -->
-      <aside class="eep-spot" id="eepSpot" aria-live="polite">
-        <div class="eep-spot-top">
-          <span class="eep-spot-tag"><i></i><span id="eepSpotCat">AI &amp; automation</span></span>
-          <span class="eep-live"><b></b>Live preview</span>
-        </div>
-        <div class="eep-stage"><div class="eep-scene" id="eepScene"></div></div>
-        <div class="eep-spot-body">
-          <div class="eep-spot-icon" id="eepSpotIcon"></div>
-          <h3 class="eep-spot-title" id="eepSpotTitle"></h3>
-          <p class="eep-spot-desc" id="eepSpotDesc"></p>
-          <div class="eep-spot-tags" id="eepSpotTags"></div>
-          <a class="eep-spot-cta" id="eepSpotCta" href="#admission-form">See it in action <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-02.svg" alt="" loading="lazy" decoding="async"></a>
-        </div>
-      </aside>
-
       <!-- Grid -->
       <div class="eep-grid" id="eepGrid">
         <div class="eep-empty" id="eepEmpty">
@@ -3421,85 +3472,32 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
       a.dataset.search=(p.t+' '+p.d+' '+p.tags.join(' ')+' '+c.label).toLowerCase();
       a.style.setProperty('--cardacc', c.acc);
       a.innerHTML=''+
-        '<div class="eep-card-top"><span class="eep-chip" aria-hidden="true">'+ico(p)+'</span>'+
-        '<span class="eep-card-title">'+p.t+(p.badge?' <span class="eep-badge">'+p.badge+'</span>':'')+'</span></div>'+
-        '<p class="eep-card-desc">'+p.d+'</p>'+
-        '<div class="eep-card-foot"><span class="eep-card-cat">'+c.label+'</span>'+
-        '<span class="eep-card-go" aria-label="Learn more"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>';
+        '<span class="eep-chip" aria-hidden="true">'+ico(p)+'</span>'+
+        '<span class="eep-card-title">'+p.t+(p.badge?' <span class="eep-badge">'+p.badge+'</span>':'')+'</span>'+
+        '<p class="eep-card-desc">'+p.d+'</p>';
       grid.insertBefore(a, emptyEl);
     });
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.eep-card'));
 
-    /* ---- spotlight refs ---- */
-    var spot=document.getElementById('eepSpot'), sCat=document.getElementById('eepSpotCat'),
-        sIcon=document.getElementById('eepSpotIcon'), sTitle=document.getElementById('eepSpotTitle'),
-        sDesc=document.getElementById('eepSpotDesc'), sTags=document.getElementById('eepSpotTags'),
-        sCta=document.getElementById('eepSpotCta'), sScene=document.getElementById('eepScene');
-    var activeId=null;
-
-    function setActive(id, fromUser){
-      var p=P.filter(function(x){return x.id===id;})[0]; if(!p) return;
-      activeId=id;
-      var c=CATS[p.cat];
-      spot.style.setProperty('--acc', c.acc);
-      spot.style.setProperty('--acc-soft', hexA(c.acc,.18));
-      sCat.textContent=c.label;
-      sIcon.innerHTML=ico(p);
-      sTitle.innerHTML=p.t+(p.badge?' <span class="eep-new">'+p.badge+'</span>':'');
-      sDesc.textContent=p.l;
-      sTags.innerHTML=p.tags.map(function(t){return '<span>'+t+'</span>';}).join('');
-      sCta.setAttribute('href', p.href);
-      sScene.innerHTML=''; // restart scene animation
-      void sScene.offsetWidth;
-      sScene.innerHTML=scene(c.scene);
-      cards.forEach(function(cd){ cd.classList.toggle('is-active', cd.dataset.id===id); });
-      if(fromUser) pauseRotate();
-    }
-    function hexA(hex,a){ var h=hex.replace('#',''); var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
-
-    /* ---- hover / focus updates spotlight ---- */
-    var canHover = !!(window.matchMedia && window.matchMedia('(hover: hover)').matches);
-    cards.forEach(function(cd){
-      cd.addEventListener('mouseenter', function(){ setActive(cd.dataset.id, true); });
-      cd.addEventListener('focus', function(){ setActive(cd.dataset.id, true); });
-      /* Touch / no-hover devices: first tap previews the product in the
-         spotlight (and brings it into view); a second tap on the already
-         active card follows the link. Keeps desktop hover+click unchanged. */
-      cd.addEventListener('click', function(e){
-        if(canHover) return;                 // desktop: let the link work normally
-        if(cd.dataset.id === activeId) return; // already previewed → allow navigation
-        e.preventDefault();
-        setActive(cd.dataset.id, true);
-        try{ spot.scrollIntoView({behavior:'smooth', block:'center'}); }
-        catch(_){ spot.scrollIntoView(); }
-      });
-    });
-
     /* ---- filtering + search ---- */
     var curCat='all', curQ='';
     function apply(){
-      var shown=0, firstVisible=null;
+      var shown=0;
       cards.forEach(function(cd){
         var okCat = curCat==='all' || cd.dataset.cat===curCat;
         var okQ = !curQ || cd.dataset.search.indexOf(curQ)>-1;
         var vis = okCat && okQ;
         cd.hidden = !vis;
-        if(vis){ shown++; if(!firstVisible) firstVisible=cd; }
+        if(vis){ shown++; }
       });
       emptyEl.classList.toggle('show', shown===0);
-      // keep spotlight pointing at something visible
-      if(shown>0){
-        var stillVisible = cards.some(function(cd){ return cd.dataset.id===activeId && !cd.hidden; });
-        if(!stillVisible && firstVisible) setActive(firstVisible.dataset.id);
-        rebuildRotation();
-      }
     }
 
     filtersEl.addEventListener('click', function(e){
       var b=e.target.closest('.eep-pill'); if(!b) return;
       curCat=b.dataset.cat;
       filtersEl.querySelectorAll('.eep-pill').forEach(function(p){ p.setAttribute('aria-pressed', p===b?'true':'false'); });
-      apply(); pauseRotate();
+      apply();
     });
 
     var input=document.getElementById('eepInput'), searchWrap=document.getElementById('eepSearch'),
@@ -3507,7 +3505,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
     input.addEventListener('input', function(){
       curQ=input.value.trim().toLowerCase();
       searchWrap.classList.toggle('has-val', curQ.length>0);
-      apply(); pauseRotate();
+      apply();
     });
     clearBtn.addEventListener('click', function(){ input.value=''; curQ=''; searchWrap.classList.remove('has-val'); apply(); input.focus(); });
     document.getElementById('eepReset').addEventListener('click', function(){
@@ -3516,51 +3514,8 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
       apply();
     });
 
-    /* ---- idle auto-rotation through featured products ---- */
-    var FEATURED=['vidya','edu-crm','analytics','waba','app-mgmt'];
-    var rotePool=[], roteIdx=0, roteTimer=null, idleTimer=null;
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-
-    function rebuildRotation(){
-      rotePool = FEATURED.filter(function(id){
-        var cd=cards.filter(function(c){return c.dataset.id===id;})[0];
-        return cd && !cd.hidden;
-      });
-      if(rotePool.length===0){
-        rotePool = cards.filter(function(c){return !c.hidden;}).map(function(c){return c.dataset.id;});
-      }
-    }
-    function startRotate(){
-      if(reduce) return;
-      stopRotate(); rebuildRotation();
-      roteTimer=setInterval(function(){
-        if(rotePool.length===0) return;
-        roteIdx=(roteIdx+1)%rotePool.length;
-        // skip if it lands on current
-        if(rotePool[roteIdx]===activeId && rotePool.length>1) roteIdx=(roteIdx+1)%rotePool.length;
-        setActive(rotePool[roteIdx]);
-      }, 3600);
-    }
-    function stopRotate(){ if(roteTimer){ clearInterval(roteTimer); roteTimer=null; } }
-    function pauseRotate(){
-      stopRotate();
-      if(idleTimer) clearTimeout(idleTimer);
-      idleTimer=setTimeout(startRotate, 6000); // resume after 6s of no interaction
-    }
-    // stop rotation while the user is inside the section
-    root.addEventListener('mouseenter', stopRotate);
-    root.addEventListener('mouseleave', function(){ pauseRotate(); });
-
     /* ---- init ---- */
-    setActive('vidya');
     apply();
-    // begin idle rotation only when section scrolls into view
-    if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(function(ents){
-        ents.forEach(function(en){ if(en.isIntersecting){ startRotate(); io.disconnect(); } });
-      }, {threshold:.25});
-      io.observe(root);
-    } else { startRotate(); }
   })();
   </script>
 </section>
