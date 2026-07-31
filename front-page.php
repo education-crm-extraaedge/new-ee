@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-rm-convo -->
+<!-- ee-front-tpl v2026-07-31-products-bento -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3222,324 +3222,296 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 </div>
 
 <style id="ee-products-cards">
-/* ── One platform. Every admissions tool. ────────────────────────────────
-   Deep navy stage with a centred white heading, then white cards centred
-   on their own content: a tinted circular icon, the product name, and a
-   short line of copy. The left-hand live-preview panel is gone, so the
-   grid runs the full width.
+/* ── Our Products: category bento ────────────────────────────────────────
+   Soft light stage, centred eyebrow/heading, then the catalogue laid out
+   by category: four cards across, then a wider row where Integrations
+   sits between Communication and Analytics, a stats strip, and one CTA.
 
-   The grid is flex, not grid: with eight products filtering down to five
-   or seven, a short final row centres itself instead of hanging left.
+   Only routes this install actually serves are links; every other line is
+   plain text. The old grid linked each tile, and most of this catalogue
+   has no page yet — as text it still reads as the capability map the
+   layout is for, and nothing can land on a 404.
 
-   Palette is ExtraaEdge's — the stage is the brand navy, the glow and the
-   active pill are #DE6E30, and each icon is tinted with the accent its
-   category already carries.
-   Loaded after the section's base rules so it wins without !important,
-   except where the phone block further down uses !important itself. */
+   Palette is ExtraaEdge's: navy headings and navy-tinted icons, #DE6E30
+   for the warm icons, eyebrow and the Vidya AI card, and the two corner
+   washes. Loaded after the section's base rules so it wins without
+   !important. */
 #ee-products{ position:relative; overflow:hidden;
-  background:linear-gradient(165deg,#24406E 0%, #1B3560 44%, #12294B 100%); }
-/* two soft orbs, the same trick the reference uses to lift a flat stage */
+  background:linear-gradient(180deg,#FFFFFF 0%, #F8FAFD 55%, #FFFFFF 100%);
+  padding:clamp(54px,7vw,96px) 0; }
 #ee-products::before,#ee-products::after{ content:""; position:absolute; pointer-events:none; }
-#ee-products::before{ left:-10%; top:-18%; width:46%; height:62%;
-  background:radial-gradient(circle,rgba(222,110,48,.3),transparent 66%); }
-#ee-products::after{ right:-12%; bottom:-20%; width:48%; height:66%;
-  background:radial-gradient(circle,rgba(94,148,230,.26),transparent 68%); }
-#ee-products .eep-wrap{ position:relative; z-index:1; }
+#ee-products::before{ right:-12%; top:-16%; width:52%; height:62%;
+  background:radial-gradient(circle,rgba(222,110,48,.14),transparent 66%); }
+#ee-products::after{ left:-14%; bottom:-18%; width:54%; height:64%;
+  background:radial-gradient(circle,rgba(25,51,93,.11),transparent 68%); }
+#ee-products .epx-wrap{ position:relative; z-index:1;
+  max-width:1180px; margin:0 auto; padding:0 22px;
+  font-family:'Inter',system-ui,sans-serif; }
 
 /* head */
-#ee-products .eep-head{ position:relative; display:block; text-align:center;
-  margin-bottom:clamp(20px,2.4vw,30px); }
-#ee-products .eep-head-l{ position:relative; max-width:780px; margin:0 auto; }
-#ee-products .eep-head h2{ color:#fff; }
-#ee-products .eep-head .eep-accent{ color:#F5A472; }
-#ee-products .eep-sub{ margin-left:auto; margin-right:auto; max-width:62ch; color:#B7C6DC; }
+#ee-products .epx-head{ text-align:center; margin-bottom:clamp(26px,3.2vw,42px); }
+#ee-products .epx-eyebrow{ display:inline-flex; align-items:center; gap:8px;
+  padding:9px 18px; border-radius:999px; background:#fff;
+  border:1px solid rgba(222,110,48,.28); box-shadow:0 6px 18px -12px rgba(25,51,93,.5);
+  font:800 11.5px/1 'Inter',sans-serif; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--orange-700,#B5551D); }
+#ee-products .epx-eyebrow svg{ width:15px; height:15px; }
+html body #main-content #ee-products .epx-wrap .epx-head h2{
+  margin:clamp(14px,1.6vw,20px) 0 12px; color:#0F2143;
+  font-family:'Inter',sans-serif; font-weight:800 !important;
+  font-size:clamp(34px,4.6vw,60px) !important; line-height:1.02 !important;
+  letter-spacing:-.04em !important; }
+#ee-products .epx-head p{ max-width:60ch; margin:0 auto; color:#6B7C96;
+  font-size:clamp(14px,1.5vw,16.5px); line-height:1.6; }
 
-/* search + filters on the dark stage */
-#ee-products .eep-search{ width:min(340px,100%); margin:clamp(16px,2vw,22px) auto 0; }
-#ee-products .eep-search input{ background:rgba(255,255,255,.1); color:#fff;
-  border-color:rgba(255,255,255,.22); }
-#ee-products .eep-search input::placeholder{ color:#93A6C2; }
-#ee-products .eep-search input:focus{ border-color:rgba(222,110,48,.7);
-  box-shadow:0 0 0 4px rgba(222,110,48,.22); }
-#ee-products .eep-clear{ background:rgba(255,255,255,.16); color:#fff; }
-#ee-products .eep-filters{ justify-content:center; }
-#ee-products .eep-pill{ background:rgba(255,255,255,.09); color:#DDE6F3;
-  border-color:rgba(255,255,255,.18); }
-#ee-products .eep-pill .eep-count{ background:rgba(255,255,255,.16); color:#fff; }
-#ee-products .eep-pill:hover{ border-color:rgba(222,110,48,.6); }
+/* cards */
+#ee-products .epx-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(14px,1.6vw,22px); margin-bottom:clamp(14px,1.6vw,22px); }
+#ee-products .epx-grid--b{ grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) minmax(0,1fr); }
+#ee-products .epx-card{ display:flex; flex-direction:column;
+  padding:clamp(20px,1.9vw,26px);
+  background:rgba(255,255,255,.78); border:1px solid rgba(25,51,93,.09);
+  border-radius:20px; box-shadow:0 18px 40px -30px rgba(25,51,93,.55);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+#ee-products .epx-card:hover{ transform:translateY(-4px);
+  border-color:rgba(222,110,48,.3); box-shadow:0 26px 50px -28px rgba(25,51,93,.6); }
+/* the Vidya card is the one the eye should land on */
+#ee-products .epx-card--hero{ background:linear-gradient(170deg,#FFF6F0,#FFFDFB);
+  border-color:rgba(222,110,48,.34); box-shadow:0 26px 54px -28px rgba(222,110,48,.55); }
 
-/* grid: flex so a short last row centres */
-#ee-products .eep-main{ display:block; }
-#ee-products .eep-grid{ display:flex; flex-wrap:wrap; justify-content:center;
-  gap:clamp(14px,1.7vw,24px); }
-#ee-products .eep-card{ flex:0 1 calc(25% - 18px); min-width:200px;
-  display:flex; flex-direction:column; align-items:center; text-align:center; gap:0;
-  padding:clamp(24px,2.2vw,32px) clamp(16px,1.6vw,22px);
-  background:#fff; border:1px solid rgba(255,255,255,.5); border-radius:20px;
-  box-shadow:0 24px 44px -26px rgba(6,16,34,.75); }
-#ee-products .eep-card::before{ content:none; }
-#ee-products .eep-card:hover,#ee-products .eep-card.is-active{
-  transform:translateY(-5px); border-color:#fff;
-  box-shadow:0 32px 56px -24px rgba(6,16,34,.85); }
+#ee-products .epx-top{ position:relative; display:flex; align-items:center;
+  gap:13px; margin-bottom:clamp(14px,1.5vw,18px); }
+#ee-products .epx-ic{ flex:0 0 auto; width:52px; height:52px; border-radius:15px;
+  display:grid; place-items:center; }
+#ee-products .epx-ic svg{ width:25px; height:25px; }
+#ee-products .epx-ic--nv{ background:#EEF3FB; color:#19335D; border:1px solid rgba(25,51,93,.1); }
+#ee-products .epx-ic--or{ background:#FDF1E9; color:var(--orange-700,#B5551D);
+  border:1px solid rgba(222,110,48,.22); }
+html body #main-content #ee-products .epx-wrap .epx-card h3{
+  margin:0; color:#0F2143; font-family:'Inter',sans-serif;
+  font-weight:700 !important; font-size:clamp(16px,1.35vw,19px) !important;
+  line-height:1.25 !important; letter-spacing:-.02em !important; }
+#ee-products .epx-ai{ position:absolute; top:-26px; right:-12px;
+  width:40px; height:40px; border-radius:50%;
+  display:grid; place-items:center;
+  background:linear-gradient(140deg,#E8843F,#2E4A78); color:#fff;
+  font:800 13px/1 'Inter',sans-serif; letter-spacing:-.02em;
+  box-shadow:0 10px 22px -10px rgba(222,110,48,.85), 0 0 0 4px rgba(255,255,255,.9); }
 
-/* circular icon, tinted with the accent the card's category already has */
-#ee-products .eep-chip{ width:56px; height:56px; border-radius:50%;
-  margin-bottom:clamp(16px,1.8vw,22px); box-shadow:none; border:0;
-  background:color-mix(in srgb, var(--cardacc,#DE6E30) 22%, #fff); }
-#ee-products .eep-chip svg,#ee-products .eep-chip img.eeimg{ width:26px; height:26px; }
-#ee-products .eep-chip svg *{ stroke:var(--cardacc,#B5551D); }
-#ee-products .eep-chip:has(img.eep-ic-img){ background:color-mix(in srgb, var(--cardacc,#DE6E30) 16%, #fff); }
-#ee-products .eep-chip img.eep-ic-img{ width:58%; height:58%; object-fit:contain;
-  border-radius:0; margin:auto; }
+#ee-products .epx-list{ list-style:none; margin:0; padding:0; }
+#ee-products .epx-list li{ border-top:1px solid rgba(25,51,93,.09); }
+#ee-products .epx-list li:first-child{ border-top:0; }
+#ee-products .epx-list>li>a,#ee-products .epx-list>li>span{
+  display:block; padding:11px 0; color:#33415C; font-size:14px; line-height:1.4;
+  text-decoration:none; transition:color .2s ease; }
+#ee-products .epx-list>li>a:hover{ color:var(--orange-700,#B5551D); }
+#ee-products .epx-list>li>a:focus-visible{ outline:2px solid var(--focus-ring,#1A5FB4); outline-offset:2px; }
+#ee-products .epx-soon{ display:inline-block; margin-left:7px; padding:4px 9px;
+  border-radius:999px; background:#FDF2EB; color:var(--orange-700,#B5551D);
+  border:1px solid rgba(222,110,48,.32);
+  font:800 9.5px/1 'Inter',sans-serif; letter-spacing:.06em; text-transform:uppercase; }
 
-#ee-products .eep-card-title{ display:block; justify-content:center;
-  font-size:clamp(16px,1.35vw,19px); font-weight:700; line-height:1.3;
-  letter-spacing:-.02em; color:var(--ink,#0F203A); margin-bottom:9px; }
-#ee-products .eep-card-desc{ font-size:13.5px; line-height:1.55; color:#6B7C96; }
+/* integrations card: hub illustration beside the copy */
+#ee-products .epx-card--integ{ flex-direction:row; align-items:center; gap:clamp(14px,1.8vw,26px); }
+#ee-products .epx-hub{ position:relative; flex:0 0 auto;
+  width:clamp(132px,12.5vw,172px); height:clamp(132px,12.5vw,172px); }
+#ee-products .epx-hub-core{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:64px; height:64px; border-radius:20px; display:grid; place-items:center;
+  background:linear-gradient(150deg,#2E4A78,#19335D); color:#fff;
+  box-shadow:0 16px 32px -14px rgba(25,51,93,.75); }
+#ee-products .epx-hub-core svg{ width:30px; height:30px; }
+#ee-products .epx-hub .n{ position:absolute; width:38px; height:38px; border-radius:50%;
+  display:grid; place-items:center; background:#fff; color:#2E4A78;
+  border:1px solid rgba(25,51,93,.1); box-shadow:0 8px 18px -10px rgba(25,51,93,.5); }
+#ee-products .epx-hub .n svg{ width:18px; height:18px; }
+#ee-products .epx-hub .n1{ left:6%;  top:26%; }
+#ee-products .epx-hub .n2{ right:8%; top:16%; }
+#ee-products .epx-hub .n3{ left:44%; top:0; }
+#ee-products .epx-hub .n4{ right:2%; top:52%; }
+#ee-products .epx-hub .n5{ left:26%; bottom:2%; }
+#ee-products .epx-hub .n6{ right:16%; bottom:6%; }
+#ee-products .epx-integ-tx{ flex:1 1 auto; min-width:0; }
+#ee-products .epx-integ-lead{ margin:9px 0 6px; }
+#ee-products .epx-integ-lead a{ color:#0F2143; font-weight:600; font-size:15px;
+  text-decoration:none; }
+#ee-products .epx-integ-lead a:hover{ color:var(--orange-700,#B5551D); }
+html body #main-content #ee-products .epx-wrap .epx-integ-tx p{
+  margin:0; color:#6B7C96; font-size:13.5px !important; line-height:1.55 !important; }
 
-@media(max-width:1100px){ #ee-products .eep-card{ flex-basis:calc(33.333% - 16px); } }
-@media(max-width:820px){  #ee-products .eep-card{ flex-basis:calc(50% - 12px); } }
-@media(max-width:620px){
-  #ee-products .eep-grid{ gap:10px; }
-  #ee-products .eep-card{ flex-basis:calc(50% - 5px); min-width:0;
-    padding:18px 12px!important; border-radius:16px; }
-  #ee-products .eep-chip{ width:44px; height:44px; margin-bottom:12px; }
-  #ee-products .eep-chip svg,#ee-products .eep-chip img.eeimg{ width:20px; height:20px; }
-  #ee-products .eep-card-title{ font-size:13.5px!important; margin-bottom:5px; }
-  #ee-products .eep-card-desc{ font-size:11.5px!important; line-height:1.45!important; }
+/* stats strip */
+#ee-products .epx-stats{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(10px,1.4vw,18px); padding:clamp(16px,1.8vw,24px);
+  background:rgba(255,255,255,.78); border:1px solid rgba(25,51,93,.09);
+  border-radius:20px; box-shadow:0 18px 40px -30px rgba(25,51,93,.55);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+#ee-products .epx-stat{ display:flex; align-items:center; gap:13px; min-width:0; }
+#ee-products .epx-stat+.epx-stat{ border-left:1px solid rgba(25,51,93,.1);
+  padding-left:clamp(10px,1.4vw,18px); }
+#ee-products .epx-stat .epx-ic{ width:46px; height:46px; border-radius:14px; }
+#ee-products .epx-stat .epx-ic svg{ width:22px; height:22px; }
+#ee-products .epx-stat-tx{ min-width:0; }
+#ee-products .epx-stat-tx b{ display:block; color:#0F2143; font-weight:800;
+  font-size:clamp(15px,1.5vw,20px); letter-spacing:-.02em; line-height:1.15; }
+#ee-products .epx-stat-tx span{ display:block; color:#6B7C96; font-size:12.5px; margin-top:2px; }
+
+/* one CTA closes the section */
+#ee-products .epx-cta{ text-align:center; margin-top:clamp(22px,2.8vw,36px); }
+#ee-products .epx-btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:16px 34px; border-radius:999px; text-decoration:none;
+  background:linear-gradient(135deg,#22406F,#122A4E); color:#fff;
+  font:700 16px/1 'Inter',sans-serif; letter-spacing:-.01em;
+  box-shadow:0 16px 34px -14px rgba(15,33,67,.85);
+  transition:transform .2s ease, box-shadow .2s ease; }
+#ee-products .epx-btn::after{ content:"\2192"; font-size:1.05em; line-height:1; }
+#ee-products .epx-btn:hover{ transform:translateY(-2px);
+  box-shadow:0 22px 44px -14px rgba(15,33,67,.95); }
+#ee-products .epx-btn:focus-visible{ outline:3px solid var(--focus-ring,#1A5FB4); outline-offset:3px; }
+
+@media(max-width:1080px){
+  #ee-products .epx-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #ee-products .epx-grid--b{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #ee-products .epx-card--integ{ grid-column:1 / -1; }
+  #ee-products .epx-stats{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #ee-products .epx-stat:nth-child(3){ border-left:0; padding-left:0; }
 }
+@media(max-width:640px){
+  #ee-products .epx-grid,#ee-products .epx-grid--b{ grid-template-columns:1fr; gap:10px; }
+  #ee-products .epx-card{ padding:16px 15px; border-radius:16px; }
+  #ee-products .epx-ic{ width:42px; height:42px; border-radius:12px; }
+  #ee-products .epx-ic svg{ width:20px; height:20px; }
+  #ee-products .epx-list>li>a,#ee-products .epx-list>li>span{ padding:9px 0; font-size:13px; }
+  #ee-products .epx-card--integ{ flex-direction:column; align-items:flex-start; }
+  #ee-products .epx-hub{ width:150px; height:150px; margin:0 auto; }
+  #ee-products .epx-stats{ grid-template-columns:1fr; gap:12px; padding:14px; }
+  #ee-products .epx-stat+.epx-stat{ border-left:0; padding-left:0;
+    border-top:1px solid rgba(25,51,93,.1); padding-top:12px; }
+  #ee-products .epx-btn{ padding:13px 24px; font-size:14px; }
+}
+@media(prefers-reduced-motion:reduce){
+  #ee-products .epx-card,#ee-products .epx-btn{ transition:none; } }
 </style>
 
 <section id="ee-products" aria-label="Our products">
-  <div class="eep-wrap">
+  <div class="epx-wrap">
 
-    <div class="eep-head">
-      <div class="eep-head-l">
-        <h2>One platform. <span class="eep-accent">Every admissions tool.</span></h2>
-        <p class="eep-sub">From first enquiry to enrolled - explore the suite. Tap or hover any product to see it come alive.</p>
-      </div>
-      <div class="eep-search" id="eepSearch">
-        <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-01.svg" alt="" loading="lazy" decoding="async">
-        <input type="text" id="eepInput" placeholder="Search products…" aria-label="Search products" autocomplete="off">
-        <button class="eep-clear" id="eepClear" aria-label="Clear search">&times;</button>
-      </div>
+    <header class="epx-head">
+      <span class="epx-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg> ALL-IN-ONE ADMISSIONS PLATFORM</span>
+      <h2>Our Products</h2>
+      <p>Everything you need to attract, engage, enroll, and retain students &mdash; powered by AI and built for education.</p>
+    </header>
+
+    <div class="epx-grid">
+        <article class="epx-card">
+          <div class="epx-top">
+            <span class="epx-ic epx-ic--nv" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg></span>
+            <h3>Core Platform</h3>
+          </div>
+          <ul class="epx-list">
+            <li><a href="/products/education-crm/">Education CRM</a></li>
+            <li><a href="/products/">Marketing Automation</a></li>
+            <li><a href="/products/application-management-system/">Application Management System (AMS)</a></li>
+            <li><span>Payment &amp; Enrollment</span></li>
+          </ul>
+        </article>
+        <article class="epx-card">
+          <div class="epx-top">
+            <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span>
+            <h3>Automation</h3>
+          </div>
+          <ul class="epx-list">
+            <li><span>Workflow Automation</span></li>
+            <li><span>Journey Builder</span></li>
+            <li><span>Lead Assignment</span></li>
+            <li><span>Lead Routing</span></li>
+            <li><span>Task Automation</span></li>
+            <li><span>Follow-up Automation</span></li>
+          </ul>
+        </article>
+        <article class="epx-card epx-card--hero">
+          <div class="epx-top">
+            <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span>
+            <h3>Vidya AI Suite</h3><span class="epx-ai" aria-hidden="true">AI</span>
+          </div>
+          <ul class="epx-list">
+            <li><span>VidyaGPT</span></li>
+            <li><span>VidyaAI Voice Agent</span></li>
+            <li><span>VidyaPulse</span></li>
+            <li><span>VidyaWABA GPT</span></li>
+            <li><span>Vidya Work <span class="epx-soon">Upcoming</span></span></li>
+          </ul>
+        </article>
+        <article class="epx-card">
+          <div class="epx-top">
+            <span class="epx-ic epx-ic--nv" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l7.5 3v6c0 4.2-3.1 8-7.5 9.4C7.6 19.8 4.5 16 4.5 11.8v-6l7.5-3z"/></svg></span>
+            <h3>Security</h3>
+          </div>
+          <ul class="epx-list">
+            <li><span>Role Management</span></li>
+            <li><span>Permissions</span></li>
+            <li><span>Audit Logs</span></li>
+            <li><span>Data Security</span></li>
+            <li><span>Compliance</span></li>
+          </ul>
+        </article>
     </div>
 
-    <div class="eep-filters" id="eepFilters" role="group" aria-label="Filter products by category"></div>
+    <div class="epx-grid epx-grid--b">
+        <article class="epx-card">
+          <div class="epx-top">
+            <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span>
+            <h3>Communication</h3>
+          </div>
+          <ul class="epx-list">
+            <li><a href="/products/chatbot-for-education/">Education Chatbot</a></li>
+            <li><a href="/products/whatsapp-api/">WhatsApp Business API</a></li>
+            <li><span>Cloud Telephony</span></li>
+            <li><a href="/products/ivr/">IVR</a></li>
+            <li><span>Email</span></li>
+            <li><span>SMS</span></li>
+            <li><a href="/products/mobile-crm/">Mobile CRM</a></li>
+          </ul>
+        </article>
+        <article class="epx-card epx-card--integ">
+          <div class="epx-hub" aria-hidden="true">
+            <span class="epx-hub-core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 18.5H7a4.5 4.5 0 01-.6-9A6.5 6.5 0 0119 10.4a4.1 4.1 0 01-1.5 8.1z"/></svg></span>
+            <i class="n n1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19a6.5 6.5 0 0113 0"/></svg></i><i class="n n2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg></i><i class="n n3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 4.5V7M12 17v2.5M4.5 12H7M17 12h2.5"/></svg></i>
+            <i class="n n4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 4.3v9L12 20.6 4.5 16.3v-9L12 3z"/></svg></i><i class="n n5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6.5" rx="7" ry="3"/><path d="M5 6.5v11c0 1.7 3.1 3 7 3s7-1.3 7-3v-11"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></i><i class="n n6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3.6 7l8.4 6 8.4-6"/></svg></i>
+          </div>
+          <div class="epx-integ-tx">
+            <h3>Integrations</h3>
+            <p class="epx-integ-lead"><a href="/products/">All integrations</a></p>
+            <p>Seamlessly connect with your favourite tools and platforms.</p>
+          </div>
+        </article>
+        <article class="epx-card">
+          <div class="epx-top">
+            <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+            <h3>Analytics</h3>
+          </div>
+          <ul class="epx-list">
+            <li><span>Executive Dashboard</span></li>
+            <li><span>Admission Analytics</span></li>
+            <li><span>Marketing Analytics</span></li>
+            <li><span>Lead Analytics</span></li>
+            <li><span>Funnel Analytics</span></li>
+            <li><span>Custom Reports</span></li>
+          </ul>
+        </article>
+    </div>
 
-    <div class="eep-main">
-      <!-- Grid -->
-      <div class="eep-grid" id="eepGrid">
-        <div class="eep-empty" id="eepEmpty">
-          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/products-icon-03.svg" alt="" loading="lazy" decoding="async">
-          <b>No products match that</b>
-          <span>Try a different word, or clear your search.</span>
-          <button id="eepReset" type="button">Reset filters</button>
-        </div>
-      </div>
+    <div class="epx-stats">
+        <div class="epx-stat"><span class="epx-ic epx-ic--nv" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg></span><span class="epx-stat-tx"><b>9+</b><span>Product Categories</span></span></div>
+        <div class="epx-stat"><span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8.5L12 3.5 3 8.5v7L12 20.5l9-5v-7z"/><path d="M3 8.5l9 5 9-5M12 20.5v-7"/></svg></span><span class="epx-stat-tx"><b>30+</b><span>Powerful Features</span></span></div>
+        <div class="epx-stat"><span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epx-stat-tx"><b>AI-Powered</b><span>Intelligence</span></span></div>
+        <div class="epx-stat"><span class="epx-ic epx-ic--nv" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l7.5 3v6c0 4.2-3.1 8-7.5 9.4C7.6 19.8 4.5 16 4.5 11.8v-6l7.5-3z"/></svg></span><span class="epx-stat-tx"><b>Enterprise-Grade</b><span>Security &amp; Compliance</span></span></div>
     </div>
-    <div class="eep-explore-wrap" style="text-align:center;margin-top:clamp(26px,3.4vw,40px)">
-      <a href="/products/" class="eep-explore-btn" style="display:inline-flex;align-items:center;gap:9px;background:var(--orange-700,#B5551D);color:#fff;font-weight:700;font-size:16px;padding:15px 34px;border-radius:999px;box-shadow:0 14px 30px -10px rgba(222,110,48,.55);transition:transform .2s ease,box-shadow .2s ease;text-decoration:none" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
-        Explore All Products
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
+
+    <div class="epx-cta">
+      <a href="/products/" class="epx-btn">Explore All Features</a>
     </div>
+
   </div>
-
-  <script>
-  (function(){
-    var root = document.getElementById('ee-products');
-    if(!root) return;
-
-    /* ---- icons ---- */
-    var IC = {
-      crm:'<svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke-width="1.6"/><path d="M3.5 19c.6-3.1 2.8-5 5.5-5s4.9 1.9 5.5 5" stroke-width="1.6" stroke-linecap="round"/><path d="M16 8h5M16 12h4" stroke-width="1.6" stroke-linecap="round"/></svg>',
-      spark:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8L18 14z" stroke-width="1.5" stroke-linejoin="round"/></svg>',
-      phone:'<svg viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="18" rx="2.4" stroke-width="1.6"/><path d="M11 18h2" stroke-width="1.6" stroke-linecap="round"/></svg>',
-      gear:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke-width="1.6"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke-width="1.6" stroke-linecap="round"/></svg>',
-      doc:'<svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7a2 2 0 01-2-2V5a2 2 0 012-2z" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4h4M9 13h6M9 16.5h4" stroke-width="1.6" stroke-linecap="round"/></svg>',
-      shield:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-      globe:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M3 12h18M12 3c2.5 2.4 3.8 5.6 3.8 9S14.5 18.6 12 21c-2.5-2.4-3.8-5.6-3.8-9S9.5 5.4 12 3z" stroke-width="1.5"/></svg>',
-      chat:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 10h.01M12 10h.01M15 10h.01" stroke-width="2" stroke-linecap="round"/></svg>',
-      whatsapp:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 19l1.3-3.9A8 8 0 1112 20a8 8 0 01-3.9-1L4 19z" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 11c0 2 2 4 4 4l1-1.4c.3-.4-.1-.9-.6-1l-1.4-.4-.6.8c-.9-.4-1.7-1.2-2.1-2.1l.8-.6c.3-.5-.1-1.3-1-1.5C9 8.8 9 9.8 9 11z" stroke-width="1.4" stroke-linejoin="round"/></svg>',
-      call:'<svg viewBox="0 0 24 24" fill="none"><path d="M5 4h3l1.5 4-2 1.4a12 12 0 005.6 5.6l1.4-2L18.5 18v3a1 1 0 01-1.1 1A15 15 0 013 6.6 1 1 0 014.1 5.5L5 4z" stroke-width="1.6" stroke-linejoin="round"/></svg>',
-      send:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 8l13-4-2 16-4-3-2.5 2.5L8 16 4 8z" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 16l9-12" stroke-width="1.5" stroke-linecap="round"/></svg>',
-      heart:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 21c4.5-2 7-5.2 7-9.5C19 7 16 4 12 4S5 7 5 11.5C5 15.8 7.5 19 12 21z" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 12.5a2.2 2.2 0 100-4.4 2.2 2.2 0 000 4.4z" stroke-width="1.5"/></svg>',
-      bars:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 20V4M4 20h16" stroke-width="1.6" stroke-linecap="round"/><path d="M8 16v-4M12 16V8M16 16v-6M20 16v-9" stroke-width="1.8" stroke-linecap="round"/></svg>'
-    };
-
-    /* ---- categories ---- (accent only shows inside the dark spotlight) */
-    var CATS = {
-      ai:        { label:'AI & automation', acc:'#5c9af6', scene:'ai'   },
-      platform:  { label:'Core platform',   acc:'#F2935A', scene:'kan'  },
-      admissions:{ label:'Admissions',      acc:'#5b96ef', scene:'adm'  },
-      engage:    { label:'Engage',          acc:'#2564c2', scene:'eng'  },
-      grow:      { label:'Grow',            acc:'#F2B441', scene:'grow' }
-    };
-    var FILTERS = [
-      {id:'all', label:'All'},
-      {id:'ai', label:'AI & automation'},
-      {id:'platform', label:'Core platform'},
-      {id:'admissions', label:'Admissions'},
-      {id:'engage', label:'Engage'},
-      {id:'grow', label:'Grow'}
-    ];
-
-    /* ---- products ---- */
-    /* products flagged in wp-admin (Platform Listing metabox) take over;
-       the hardcoded list below is only the fallback when none are flagged */
-    var DYNP = <?php echo wp_json_encode(function_exists('ee_eep_collect') ? ee_eep_collect('home') : array()); ?>;
-    var P = (DYNP && DYNP.length) ? DYNP : [
-      {id:'edu-crm', t:'Education CRM', badge:'Popular', cat:'platform', ic:'crm', href:'/products/education-crm/', img:'https://www.extraaedge.com/wp-content/uploads/2026/home-page/education-crm.svg',
-        d:'Unify every enquiry, counsellor and campus on one purpose-built platform.',
-        l:'Built for admissions, not retrofitted from sales. One view of every enquiry, every counsellor and every campus - so nothing slips between teams.',
-        tags:['360\u00b0 enquiry view','Counsellor workflows','Multi-campus ready']},
-      {id:'ams', t:'Admission Management', cat:'admissions', ic:'shield', href:'/admission-management-software/', img:'https://www.extraaedge.com/wp-content/uploads/2026/home-page/admission-management.svg',
-        d:'Orchestrate fees, documents and approvals end-to-end in one auditable flow.',
-        l:'Run the whole admission cycle - fees, documents, approvals - in one place, with a complete audit trail for every decision.',
-        tags:['Fees & documents','Approval flows','Full audit trail']},
-      {id:'app-mgmt', t:'Application Management', cat:'admissions', ic:'doc', href:'/products/application-management-system/', img:'https://www.extraaedge.com/wp-content/uploads/2026/home-page/application-management.svg',
-        d:'Track every application stage with automated nudges so no form stalls.',
-        l:'See where every applicant is, in real time. Automated nudges restart stalled forms before they go cold.',
-        tags:['Stage tracking','Auto nudges','Status alerts']},
-      {id:'chatbot', t:'AI Chatbot', badge:'New', cat:'ai', ic:'chat', href:'/products/chatbot-for-education/', img:'https://www.extraaedge.com/wp-content/uploads/2026/home-page/education-ai-chatbot.svg',
-        d:'Answer student questions 24/7 and capture qualified enquiries while you sleep.',
-        l:'An always-on assistant that answers questions on your site and WhatsApp, qualifies interest, and hands warm leads to counsellors.',
-        tags:['24/7 answers','Qualifies enquiries','Site + WhatsApp']},
-      {id:'waba', t:'WhatsApp API', cat:'engage', ic:'whatsapp', href:'/products/whatsapp-api/', img:'https://www.extraaedge.com/wp-content/uploads/2026/home-page/whatsapp-business-api.svg',
-        d:'Reach families on their favourite channel with verified, automated conversations.',
-        l:'Meet families where they already are. Verified WhatsApp with automated replies and broadcast campaigns that actually get read.',
-        tags:['Verified sender','Automated replies','Broadcast campaigns']},
-      {id:'mkt-auto', t:'Marketing Automation', cat:'grow', ic:'send', href:'/products/', img:'https://www.extraaedge.com/wp-content/uploads/2026/home-page/marketing-automation.svg',
-        d:'Launch multi-channel campaigns that fill your funnel on autopilot.',
-        l:'Build journeys once and let them run - email, SMS and WhatsApp triggered by what each prospect does.',
-        tags:['Multi-channel drips','Triggered journeys','Campaign analytics']},
-      {id:'mob-crm', t:'Mobile CRM', cat:'platform', ic:'phone', href:'/products/mobile-crm/', img:'https://www.extraaedge.com/wp-content/uploads/2026/home-page/mobile-crm.svg',
-        d:'Run admissions from your pocket - call, follow up and close on the go.',
-        l:'Your full pipeline on mobile. Counsellors call, log and follow up from anywhere, with reminders that keep every lead moving.',
-        tags:['Call from your phone','Push reminders','Works on the move']},
-      {id:'analytics', t:'Analytics & Reporting', cat:'grow', ic:'bars', href:'/products/', img:'https://www.extraaedge.com/wp-content/uploads/2026/home-page/analytics-dashboard.svg',
-        d:'See conversion, cost and counsellor performance in real time, in one view.',
-        l:'Know what is working at a glance - funnels, cost per enrolment and counsellor scorecards, live and in one place.',
-        tags:['Real-time funnels','Cost per enrol','Counsellor scorecards']}
-    ];
-
-    /* ---- scene builders ---- */
-    function scene(type){
-      switch(type){
-        case 'ai': return '<div class="sc-ai">'+
-          '<div class="sc-bub">Hi! Is the fee structure available?</div>'+
-          '<div class="sc-bub me b2">Yes - sharing it now. Shall I call you to walk through it?</div>'+
-          '<div class="sc-bub b3" style="display:flex;align-items:center;gap:6px">Calling you<span class="sc-wave"><span></span><span></span><span></span><span></span><span></span></span></div>'+
-          '<div class="sc-type"><i></i><i></i><i></i></div></div>';
-        case 'kan': return '<div class="sc-kan">'+
-          '<div class="sc-col"><h6>New</h6><div class="sc-lead live"></div><div class="sc-lead"></div></div>'+
-          '<div class="sc-col"><h6>Engaged</h6><div class="sc-lead"></div></div>'+
-          '<div class="sc-col"><h6>Enrolled</h6><div class="sc-lead"></div><div class="sc-lead"></div></div></div>';
-        case 'adm': var tk='<svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-          return '<div class="sc-adm"><div class="sc-prog"><i></i></div>'+
-          '<div class="sc-row sc-r1"><span class="sc-tick">'+tk+'</span>Documents verified</div>'+
-          '<div class="sc-row sc-r2"><span class="sc-tick">'+tk+'</span>Fee received</div>'+
-          '<div class="sc-row sc-r3"><span class="sc-tick">'+tk+'</span>Offer approved</div></div>';
-        case 'eng': return '<div class="sc-eng">'+
-          '<div class="sc-msg"><span class="av"></span><span class="tx"></span></div>'+
-          '<div class="sc-msg m2"><span class="av"></span><span class="tx"></span></div>'+
-          '<div class="sc-msg m3"><span class="av"></span><span class="tx"></span></div>'+
-          '<div class="sc-verified"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified business · delivered</div></div>';
-        case 'grow': return '<div class="sc-grow"><span class="sc-bar"></span><span class="sc-bar"></span><span class="sc-bar"></span><span class="sc-bar"></span><span class="sc-bar"></span></div>';
-      }
-      return '';
-    }
-
-    /* ---- build filter pills ---- */
-    var counts = {all:P.length};
-    P.forEach(function(p){ counts[p.cat]=(counts[p.cat]||0)+1; });
-    /* merge admin-defined categories (Products → Listing Categories & Badges):
-       same slug overrides label/colour; brand-new slugs get their own filter
-       chip automatically once at least one product uses them */
-    var XCATS = <?php echo wp_json_encode(function_exists('ee_eep_all_cats') ? ee_eep_all_cats() : array()); ?>;
-    if (XCATS && !Array.isArray(XCATS)) {
-      Object.keys(XCATS).forEach(function(k){
-        if (CATS[k]) { CATS[k].label = XCATS[k].label; CATS[k].acc = XCATS[k].acc; }
-        else CATS[k] = { label: XCATS[k].label, acc: XCATS[k].acc, scene: 'kan' };
-      });
-      FILTERS.forEach(function(f){ if (f.id !== 'all' && CATS[f.id]) f.label = CATS[f.id].label; });
-      Object.keys(XCATS).forEach(function(k){
-        var used = P.some(function(p){ return p.cat === k; });
-        if (used && !FILTERS.some(function(f){ return f.id === k; })) FILTERS.push({ id: k, label: XCATS[k].label });
-      });
-    }
-
-    var filtersEl = document.getElementById('eepFilters');
-    FILTERS.forEach(function(f,i){
-      var b=document.createElement('button');
-      b.className='eep-pill'; b.type='button'; b.dataset.cat=f.id;
-      b.setAttribute('aria-pressed', i===0?'true':'false');
-      b.innerHTML=f.label+' <span class="eep-count">'+(counts[f.id]||0)+'</span>';
-      filtersEl.appendChild(b);
-    });
-
-    /* brand logo per product; falls back to the glyph icon if none is mapped */
-    var LOGO_BASE='';
-    var LOGO={};
-    function ico(p){ var u=p.img||(LOGO[p.id]?LOGO_BASE+LOGO[p.id]:''); return u ? '<img class="eep-ic-img" src="'+u+'" alt="" loading="lazy" decoding="async">' : IC[p.ic]; }
-
-    /* ---- build cards ---- */
-    var grid = document.getElementById('eepGrid');
-    var emptyEl = document.getElementById('eepEmpty');
-    P.forEach(function(p){
-      var c = CATS[p.cat];
-      var a=document.createElement('a');
-      a.className='eep-card'; a.href=p.href; a.dataset.id=p.id; a.dataset.cat=p.cat;
-      a.dataset.search=(p.t+' '+p.d+' '+p.tags.join(' ')+' '+c.label).toLowerCase();
-      a.style.setProperty('--cardacc', c.acc);
-      a.innerHTML=''+
-        '<span class="eep-chip" aria-hidden="true">'+ico(p)+'</span>'+
-        '<span class="eep-card-title">'+p.t+(p.badge?' <span class="eep-badge">'+p.badge+'</span>':'')+'</span>'+
-        '<p class="eep-card-desc">'+p.d+'</p>';
-      grid.insertBefore(a, emptyEl);
-    });
-    var cards = Array.prototype.slice.call(grid.querySelectorAll('.eep-card'));
-
-    /* ---- filtering + search ---- */
-    var curCat='all', curQ='';
-    function apply(){
-      var shown=0;
-      cards.forEach(function(cd){
-        var okCat = curCat==='all' || cd.dataset.cat===curCat;
-        var okQ = !curQ || cd.dataset.search.indexOf(curQ)>-1;
-        var vis = okCat && okQ;
-        cd.hidden = !vis;
-        if(vis){ shown++; }
-      });
-      emptyEl.classList.toggle('show', shown===0);
-    }
-
-    filtersEl.addEventListener('click', function(e){
-      var b=e.target.closest('.eep-pill'); if(!b) return;
-      curCat=b.dataset.cat;
-      filtersEl.querySelectorAll('.eep-pill').forEach(function(p){ p.setAttribute('aria-pressed', p===b?'true':'false'); });
-      apply();
-    });
-
-    var input=document.getElementById('eepInput'), searchWrap=document.getElementById('eepSearch'),
-        clearBtn=document.getElementById('eepClear');
-    input.addEventListener('input', function(){
-      curQ=input.value.trim().toLowerCase();
-      searchWrap.classList.toggle('has-val', curQ.length>0);
-      apply();
-    });
-    clearBtn.addEventListener('click', function(){ input.value=''; curQ=''; searchWrap.classList.remove('has-val'); apply(); input.focus(); });
-    document.getElementById('eepReset').addEventListener('click', function(){
-      input.value=''; curQ=''; curCat='all'; searchWrap.classList.remove('has-val');
-      filtersEl.querySelectorAll('.eep-pill').forEach(function(p){ p.setAttribute('aria-pressed', p.dataset.cat==='all'?'true':'false'); });
-      apply();
-    });
-
-    /* ---- init ---- */
-    apply();
-  })();
-  </script>
 </section>
 
 <style>#ee-vidya-suite{
