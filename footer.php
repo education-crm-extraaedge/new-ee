@@ -506,6 +506,129 @@ if (!defined('ABSPATH')) exit;
 </script>
 <?php endif; ?>
 
+<!-- ee-footer v2026-07-31-btn-standard -->
+<style id="ee-btn-standard">
+/* ── One button, everywhere ──────────────────────────────────────────────
+   Every call to action across the site renders as the same orange
+   gradient button: 10px corners, white 700 label, a trailing arrow and a
+   soft orange shadow. This lives in the footer because the footer is the
+   one template that loads on every page and renders last, so it settles
+   the look after any section stylesheet has had its say.
+
+   Scope is calls to action only. Controls that are not CTAs - filter
+   pills, carousel arrows, FAQ toggles, the search clear - keep their own
+   styling; making those orange too would leave a page with no visual
+   hierarchy left. */
+.ee-home .btn.btn-primary,.ee-home .btn.btn-dark,
+#site-header .eh-cta,
+#trusted-institutions .btn-primary,
+.eep-explore-btn,.eep-mbook,
+#stories .cis-btn.primary,
+#ee-cro .roi-out .cta,
+.vsx-apply,.vsx-cta-btn,.vsx-card-cta,
+#ee-solutions .solb-cta,
+.eebk-book,
+#ee-form-7 input[type="submit"],#ee-form-7 button[type="submit"],
+.ee-btn{
+  display:inline-flex!important; align-items:center!important; justify-content:center!important;
+  gap:10px!important;
+  background:linear-gradient(135deg,#E8843F 0%,#DE6E30 100%)!important;
+  color:#fff!important;
+  border:0!important; border-radius:10px!important;
+  font-family:'Inter',system-ui,sans-serif!important;
+  font-weight:700!important; letter-spacing:-.01em!important;
+  text-decoration:none!important;
+  box-shadow:0 10px 24px -8px rgba(222,110,48,.6)!important;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease!important;
+}
+.ee-home .btn.btn-primary:hover,.ee-home .btn.btn-dark:hover,
+#site-header .eh-cta:hover,
+#trusted-institutions .btn-primary:hover,
+.eep-explore-btn:hover,.eep-mbook:hover,
+#stories .cis-btn.primary:hover,
+#ee-cro .roi-out .cta:hover,
+.vsx-apply:hover,.vsx-cta-btn:hover,.vsx-card-cta:hover,
+#ee-solutions .solb-cta:hover,
+.eebk-book:hover,
+#ee-form-7 input[type="submit"]:hover,#ee-form-7 button[type="submit"]:hover,
+.ee-btn:hover{
+  background:linear-gradient(135deg,#DE6E30 0%,#C25F26 100%)!important;
+  transform:translateY(-2px)!important;
+  box-shadow:0 14px 30px -8px rgba(222,110,48,.72)!important;
+}
+.ee-home .btn.btn-primary:focus-visible,
+#site-header .eh-cta:focus-visible,
+.eep-explore-btn:focus-visible,.vsx-apply:focus-visible,
+#ee-solutions .solb-cta:focus-visible,.eebk-book:focus-visible,
+.ee-btn:focus-visible{
+  outline:3px solid var(--focus-ring,#1A5FB4)!important; outline-offset:3px!important;
+}
+/* the trailing arrow, added only where the button does not already carry
+   an icon of its own */
+.ee-home .btn.btn-primary:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+#site-header .eh-cta:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+#trusted-institutions .btn-primary:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+.eep-explore-btn:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+.eep-mbook:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+.vsx-cta-btn:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+#stories .cis-btn.primary:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+#ee-cro .roi-out .cta:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+.vsx-apply:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+#ee-solutions .solb-cta:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+.eebk-book:not(:has(svg)):not(:has(img)):not(:has(.arr))::after,
+.ee-btn:not(:has(svg)):not(:has(img)):not(:has(.arr))::after{
+  content:"\2192"; display:inline-block!important; font-size:1.05em; line-height:1;
+  opacity:1; transform:none; position:static; width:auto; height:auto;
+  background:none; border:0; box-shadow:none;
+}
+/* an arrow that came in a span is sized like the one the standard draws */
+.arr{ font-size:1.05em!important; line-height:1!important; }
+/* icons that came with a button sit at the arrow's size and colour */
+.ee-home .btn.btn-primary svg,.eep-explore-btn svg,.eep-explore-btn img,
+.eebk-book svg,#ee-solutions .solb-cta svg,.ee-btn svg{
+  width:17px!important; height:17px!important; }
+/* the Vidya card CTA carried its arrow in a white disc - flatten it so it
+   matches the plain arrow every other button now shows */
+.vsx-apply .vsx-arw2{ background:none!important; color:#fff!important;
+  width:auto!important; height:auto!important; box-shadow:none!important; }
+.vsx-apply .vsx-arw2 svg{ width:17px!important; height:17px!important; }
+/* the header CTA carries a circular arrow badge of its own. Rather than
+   revive it, hide it and draw the same plain arrow every other button
+   shows - the badge is the one shape that would not match. */
+#site-header .eh-cta svg,#site-header .eh-cta img{ display:none!important; }
+#site-header .eh-cta::before{ display:none!important; }
+#site-header .eh-cta::after{
+  content:"\2192"!important; display:inline-block!important;
+  position:static!important; width:auto!important; height:auto!important;
+  margin:0!important; inset:auto!important; transform:none!important;
+  background:none!important; border:0!important; box-shadow:none!important;
+  opacity:1!important; font-size:1.05em!important; line-height:1!important;
+  color:#fff!important; }
+
+/* sizes: one default, a compact variant where a button sits inside a card */
+.ee-home .btn.btn-primary,.ee-home .btn.btn-dark,
+#trusted-institutions .btn-primary,.eep-explore-btn,
+#ee-solutions .solb-cta,.eebk-book,
+#ee-cro .roi-out .cta,
+#ee-form-7 input[type="submit"],#ee-form-7 button[type="submit"],.ee-btn{
+  padding:14px 26px!important; font-size:15.5px!important; }
+#site-header .eh-cta{ padding:0 20px!important; font-size:15px!important; }
+.vsx-apply,.vsx-cta-btn,.eep-mbook,#stories .cis-btn.primary{
+  padding:11px 18px!important; font-size:14px!important; }
+@media(max-width:640px){
+  .ee-home .btn.btn-primary,.ee-home .btn.btn-dark,
+  #trusted-institutions .btn-primary,.eep-explore-btn,
+  #ee-solutions .solb-cta,.eebk-book,
+  #ee-cro .roi-out .cta,.ee-btn{
+    padding:12px 20px!important; font-size:14px!important; }
+  .vsx-apply,.vsx-cta-btn,.eep-mbook{ padding:10px 15px!important; font-size:12.5px!important; }
+}
+@media(prefers-reduced-motion:reduce){
+  .ee-home .btn.btn-primary,#site-header .eh-cta,.eep-explore-btn,.vsx-apply,.ee-btn{
+    transition:none!important; }
+}
+</style>
+
 <?php wp_footer(); ?>
 </body>
 </html>

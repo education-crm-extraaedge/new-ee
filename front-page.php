@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-products-navy -->
+<!-- ee-front-tpl v2026-07-31-btn-standard -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -4547,7 +4547,7 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
           <div><b id="roNew">496</b><span>With ExtraaEdge</span></div>
           <div><b>+40%</b><span>Conversion lift</span></div>
         </div>
-        <a href="#admission-form" class="cta">Get my detailed ROI report &rarr;</a>
+        <a href="#admission-form" class="cta">Get my detailed ROI report</a>
         <div class="fine">Projection based on a typical +40% conversion lift. Book a demo for numbers on your real funnel.</div>
       </div>
     </div>
@@ -5204,7 +5204,7 @@ document.querySelectorAll('.qa button').forEach(function(b){
     var link='https://wa.me/918956982897?text='+msg;
     var ok=document.getElementById('demoOk');
     ok.innerHTML='🎉 Thanks '+esc(name.split(' ')[0]||'')+'! Your request is in - our admissions expert will reach out within the hour.'+
-      '<br><a href="'+link+'" target="_blank" rel="noopener" class="btn btn-dark" style="margin-top:14px">Confirm instantly on WhatsApp →</a>';
+      '<br><a href="'+link+'" target="_blank" rel="noopener" class="btn btn-dark" style="margin-top:14px">Confirm instantly on WhatsApp</a>';
     f.style.display='none';ok.style.display='block';
     ok.scrollIntoView({behavior:'smooth',block:'center'});
   });
@@ -5862,49 +5862,19 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 </style>
 
 <style id="ee-cta-unify">
+/* The shared button skin moved to footer.php (#ee-btn-standard) so every
+   page gets the same one, header CTA included. Only the two home-page
+   exceptions live here. */
 #xhero .cta-roi-link{color:var(--orange-700,#B5551D);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 #xhero .cta-roi-link:hover{color:var(--orange-800,#A8501C)}
 
-/* Low-friction secondary CTA: quiet outline so Book a Demo stays dominant */
+/* Low-friction secondary CTA: quiet outline so Book a Demo stays dominant.
+   Geometry matches the standard button so the pair reads as one system. */
 #xhero .btn-watch{background:transparent!important;color:#19335D!important;
-  border:1.5px solid rgba(25,51,93,.35)!important;border-radius:9px!important;
-  font-weight:600!important;box-shadow:none!important}
+  border:1.5px solid rgba(25,51,93,.35)!important;border-radius:10px!important;
+  font-weight:700!important;box-shadow:none!important}
 #xhero .btn-watch:hover{background:#EEF2F8!important;border-color:#19335D!important;
   transform:translateY(-2px);box-shadow:none!important}
-
-/* ── Unified CTA look: every page-level button matches the header's
-   "Book Demo" (same orange gradient, 9px radius, 600 weight, hover lift).
-   Mockup-internal buttons (phone/app replicas) keep their own styles. ── */
-.ee-home .btn.btn-primary,.ee-home .btn.btn-dark,
-#trusted-institutions .btn-primary,
-.eep-explore-btn,.eep-spot-cta,.eep-mbook,
-#stories .cis-btn.primary,
-#ee-cro .roi-out .cta,
-.vsx-card-cta,.vsx-cta-btn,
-#ee-solutions .solb-cta,
-#ee-golive .eebk-book,
-#ee-form-7 input[type="submit"],#ee-form-7 button[type="submit"]{
-  background:linear-gradient(135deg,#DE6E30,#FF8A5C)!important;
-  color:#fff!important;
-  border-radius:9px!important;
-  font-weight:600!important;
-  border:none!important;
-  box-shadow:0 4px 14px rgba(222,110,48,.25)!important;
-}
-.ee-home .btn.btn-primary:hover,.ee-home .btn.btn-dark:hover,
-#trusted-institutions .btn-primary:hover,
-.eep-explore-btn:hover,.eep-spot-cta:hover,.eep-mbook:hover,
-#stories .cis-btn.primary:hover,
-#ee-cro .roi-out .cta:hover,
-.vsx-card-cta:hover,.vsx-cta-btn:hover,
-#ee-solutions .solb-cta:hover,
-#ee-golive .eebk-book:hover,
-#ee-form-7 input[type="submit"]:hover,#ee-form-7 button[type="submit"]:hover{
-  background:linear-gradient(135deg,#B85920,#C75E24)!important;
-  color:#fff!important;
-  transform:translateY(-2px);
-  box-shadow:0 6px 22px rgba(222,110,48,.35)!important;
-}
 </style>
 
 <style id="ee-sol-white">
