@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-rm-stats -->
+<!-- ee-front-tpl v2026-07-31-ind-cards -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -4275,6 +4275,84 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
 @media(prefers-reduced-motion:reduce){ #ee-ind .spx-card{ transition:none; } }
 </style>
 
+<style id="ee-ind-cards">
+/* ── Built for every kind of institution ─────────────────────────────────
+   Card anatomy from the reference: a large soft icon tile with the name
+   beside it, a short orange dash-and-dot rule under the name, the copy
+   below across the full card, an orange "Explore" at the foot and a faint
+   sparkle in the corner. Three across, and because there are eight
+   segments rather than the reference's six, the grid is flex so the short
+   last row centres instead of hanging left.
+
+   Type and palette are this site's: Inter throughout, #19335D headings,
+   #6B7C96 copy, #B5551D for the link and the rule. Loaded after the
+   section's base rules so it wins without !important, except where the
+   phone block further down uses !important itself. */
+#ee-ind .spx-grid{ display:flex!important; flex-wrap:wrap; justify-content:center;
+  gap:clamp(14px,1.7vw,24px); perspective:none; }
+#ee-ind .spx-card{ flex:0 1 calc(33.333% - 16px); min-width:250px;
+  display:flex; flex-direction:column; align-items:stretch;
+  padding:clamp(20px,2vw,28px); border-radius:24px;
+  background:rgba(255,255,255,.86); border:1px solid rgba(25,51,93,.07);
+  box-shadow:0 20px 44px -32px rgba(25,51,93,.6);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  text-decoration:none; overflow:hidden;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+#ee-ind .spx-card:hover{ transform:translateY(-5px);
+  border-color:rgba(222,110,48,.28); box-shadow:0 30px 56px -30px rgba(25,51,93,.65); }
+#ee-ind .spx-card:focus-visible{ outline:3px solid var(--focus-ring,#1A5FB4); outline-offset:3px; }
+
+/* icon beside the name */
+#ee-ind .spx-hd{ display:flex; align-items:center; gap:clamp(13px,1.4vw,20px);
+  margin-bottom:clamp(14px,1.6vw,20px); }
+#ee-ind .spx-ic{ flex:0 0 auto; width:clamp(56px,5vw,72px); height:clamp(56px,5vw,72px);
+  border-radius:20px; display:grid; place-items:center; margin:0;
+  background:linear-gradient(160deg,#fff, color-mix(in srgb, var(--g1,#DE6E30) 9%, #fff));
+  border:1px solid rgba(25,51,93,.07);
+  box-shadow:0 10px 22px -16px rgba(25,51,93,.7), inset 0 1px 0 #fff; }
+#ee-ind .spx-ic img,#ee-ind .spx-ic svg{ width:60%; height:60%; object-fit:contain; }
+#ee-ind .spx-tt{ min-width:0; }
+html body #main-content #ee-ind .spx-wrap .spx-card h3{
+  margin:0; color:#19335D; font-family:'Inter',sans-serif;
+  font-weight:800 !important; font-size:clamp(17px,1.5vw,21px) !important;
+  line-height:1.22 !important; letter-spacing:-.025em !important; }
+/* the dash-and-dot under the name */
+#ee-ind .spx-rule{ display:flex; align-items:center; gap:6px; margin-top:9px; }
+#ee-ind .spx-rule::before{ content:""; width:26px; height:2px; border-radius:2px;
+  background:var(--orange-700,#B5551D); }
+#ee-ind .spx-rule::after{ content:""; width:4px; height:4px; border-radius:50%;
+  background:var(--orange-700,#B5551D); opacity:.6; }
+
+html body #main-content #ee-ind .spx-wrap .spx-card p{
+  margin:0 0 clamp(16px,1.8vw,22px); color:#6B7C96;
+  font-size:14px !important; line-height:1.7 !important; }
+
+#ee-ind .spx-go{ margin-top:auto; display:inline-flex; align-items:center; gap:7px;
+  color:var(--orange-700,#B5551D); font-weight:700; font-size:14px; letter-spacing:-.01em; }
+#ee-ind .spx-go svg{ width:15px; height:15px; fill:none; stroke:currentColor;
+  stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;
+  transition:transform .25s ease; }
+#ee-ind .spx-card:hover .spx-go svg{ transform:translateX(4px); }
+
+/* the corner sparkle */
+#ee-ind .spx-spark{ position:absolute; right:18px; bottom:16px;
+  width:26px; height:26px; color:rgba(25,51,93,.07); pointer-events:none; }
+
+@media(max-width:980px){ #ee-ind .spx-card{ flex-basis:calc(50% - 12px); } }
+@media(max-width:640px){
+  #ee-ind .spx-grid{ gap:10px; }
+  #ee-ind .spx-card{ flex-basis:100%; min-width:0; padding:16px 15px!important; border-radius:18px; }
+  #ee-ind .spx-hd{ gap:12px; margin-bottom:12px; }
+  #ee-ind .spx-ic{ width:48px!important; height:48px!important; border-radius:15px; }
+  html body #main-content #ee-ind .spx-wrap .spx-card h3{ font-size:16px !important; }
+  html body #main-content #ee-ind .spx-wrap .spx-card p{ font-size:12.5px !important; line-height:1.6 !important; }
+  #ee-ind .spx-go{ font-size:12.5px; }
+  #ee-ind .spx-spark{ width:20px; height:20px; right:13px; bottom:12px; }
+}
+@media(prefers-reduced-motion:reduce){
+  #ee-ind .spx-card,#ee-ind .spx-go svg{ transition:none; } }
+</style>
+
 <section id="ee-ind" aria-label="Industries we serve">
   <div class="spx-bg" aria-hidden="true">
     <span class="spx-blob b1"></span><span class="spx-blob b2"></span><span class="spx-blob b3"></span>
@@ -4287,59 +4365,107 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
 
     <div class="spx-grid">
       <a class="spx-card" href="#admission-form" style="--g1:#E8843F;--g2:#DE6E30">
-        <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/edtech.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3>EdTech</h3>
+        <span class="spx-hd">
+          <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/edtech.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="spx-tt">
+            <h3>EdTech</h3>
+            <span class="spx-rule" aria-hidden="true"></span>
+          </span>
+        </span>
         <p>You buy leads by the thousand - every enquiry has to convert.</p>
-        <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <span class="spx-go">Explore <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <svg class="spx-spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.9 4.5 8.8 9.4 9.4-4.9.6-8.8 4.5-9.4 9.4-.6-4.9-4.5-8.8-9.4-9.4C7.5 10.8 11.4 6.9 12 2z"/></svg>
       </a>
 
       <a class="spx-card" href="#admission-form" style="--g1:#2A4E85;--g2:#19335D">
-        <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/coaching-and-training.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3>Coaching &amp; Training</h3>
+        <span class="spx-hd">
+          <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/coaching-and-training.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="spx-tt">
+            <h3>Coaching &amp; Training</h3>
+            <span class="spx-rule" aria-hidden="true"></span>
+          </span>
+        </span>
         <p>Batches fill on deadlines - every enquiry counts.</p>
-        <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <span class="spx-go">Explore <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <svg class="spx-spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.9 4.5 8.8 9.4 9.4-4.9.6-8.8 4.5-9.4 9.4-.6-4.9-4.5-8.8-9.4-9.4C7.5 10.8 11.4 6.9 12 2z"/></svg>
       </a>
 
       <a class="spx-card" href="#admission-form" style="--g1:#E8843F;--g2:#DE6E30">
-        <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/k-12-schools.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3>K-12 Schools</h3>
+        <span class="spx-hd">
+          <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/k-12-schools.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="spx-tt">
+            <h3>K-12 Schools</h3>
+            <span class="spx-rule" aria-hidden="true"></span>
+          </span>
+        </span>
         <p>Parents take months to choose - trust wins the seat.</p>
-        <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <span class="spx-go">Explore <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <svg class="spx-spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.9 4.5 8.8 9.4 9.4-4.9.6-8.8 4.5-9.4 9.4-.6-4.9-4.5-8.8-9.4-9.4C7.5 10.8 11.4 6.9 12 2z"/></svg>
       </a>
 
       <a class="spx-card" href="#admission-form" style="--g1:#2A4E85;--g2:#19335D">
-        <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/preschools-and-playschools.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3>Preschools &amp; Playschools</h3>
+        <span class="spx-hd">
+          <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/preschools-and-playschools.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="spx-tt">
+            <h3>Preschools &amp; Playschools</h3>
+            <span class="spx-rule" aria-hidden="true"></span>
+          </span>
+        </span>
         <p>It&rsquo;s their first school - reassurance closes the admission.</p>
-        <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <span class="spx-go">Explore <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <svg class="spx-spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.9 4.5 8.8 9.4 9.4-4.9.6-8.8 4.5-9.4 9.4-.6-4.9-4.5-8.8-9.4-9.4C7.5 10.8 11.4 6.9 12 2z"/></svg>
       </a>
 
       <a class="spx-card" href="#admission-form" style="--g1:#E8843F;--g2:#DE6E30">
-        <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/online-degree-programmes.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3>Online Degree Programmes</h3>
+        <span class="spx-hd">
+          <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/online-degree-programmes.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="spx-tt">
+            <h3>Online Degree Programmes</h3>
+            <span class="spx-rule" aria-hidden="true"></span>
+          </span>
+        </span>
         <p>You compete nationally for every learner.</p>
-        <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <span class="spx-go">Explore <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <svg class="spx-spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.9 4.5 8.8 9.4 9.4-4.9.6-8.8 4.5-9.4 9.4-.6-4.9-4.5-8.8-9.4-9.4C7.5 10.8 11.4 6.9 12 2z"/></svg>
       </a>
 
       <a class="spx-card" href="#admission-form" style="--g1:#2A4E85;--g2:#19335D">
-        <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/higher-education.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3>Higher Education</h3>
+        <span class="spx-hd">
+          <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/higher-education.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="spx-tt">
+            <h3>Higher Education</h3>
+            <span class="spx-rule" aria-hidden="true"></span>
+          </span>
+        </span>
         <p>Many programmes, many counsellors - one admissions engine.</p>
-        <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <span class="spx-go">Explore <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <svg class="spx-spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.9 4.5 8.8 9.4 9.4-4.9.6-8.8 4.5-9.4 9.4-.6-4.9-4.5-8.8-9.4-9.4C7.5 10.8 11.4 6.9 12 2z"/></svg>
       </a>
 
       <a class="spx-card" href="#admission-form" style="--g1:#E8843F;--g2:#DE6E30">
-        <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/study-abroad-consultants.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3>Study Abroad Consultants</h3>
+        <span class="spx-hd">
+          <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/study-abroad-consultants.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="spx-tt">
+            <h3>Study Abroad Consultants</h3>
+            <span class="spx-rule" aria-hidden="true"></span>
+          </span>
+        </span>
         <p>A single student journey can run for a year.</p>
-        <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <span class="spx-go">Explore <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <svg class="spx-spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.9 4.5 8.8 9.4 9.4-4.9.6-8.8 4.5-9.4 9.4-.6-4.9-4.5-8.8-9.4-9.4C7.5 10.8 11.4 6.9 12 2z"/></svg>
       </a>
 
       <a class="spx-card" href="#admission-form" style="--g1:#2A4E85;--g2:#19335D">
-        <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/channel-partners.svg" alt="" loading="lazy" decoding="async"></span>
-        <h3>Channel Partners</h3>
+        <span class="spx-hd">
+          <span class="spx-ic spx-ic--img" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/channel-partners.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="spx-tt">
+            <h3>Channel Partners</h3>
+            <span class="spx-rule" aria-hidden="true"></span>
+          </span>
+        </span>
         <p>Your partners send leads - you need to see every one.</p>
-        <span class="spx-go">Explore <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <span class="spx-go">Explore <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <svg class="spx-spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.9 4.5 8.8 9.4 9.4-4.9.6-8.8 4.5-9.4 9.4-.6-4.9-4.5-8.8-9.4-9.4C7.5 10.8 11.4 6.9 12 2z"/></svg>
       </a>
     </div>
   </div>
