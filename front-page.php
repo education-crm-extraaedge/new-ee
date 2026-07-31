@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-vidya-focus2 -->
+<!-- ee-front-tpl v2026-07-31-vidya-serial2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3936,6 +3936,13 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
   background:linear-gradient(180deg,#FFFFFF 0%, #FDF2EB 100%);
   border-color:#F3DDCC; align-items:stretch; justify-content:flex-start; }
 
+/* The pinned rail's travel is scrollWidth - clientWidth, which stops with
+   the last card flush against the rail's own right edge - a few pixels
+   short of clearing the stage's clip box, so the last card could never be
+   revealed whole. A trailing spacer buys exactly that much extra travel.
+   It is a flex item, not a card, so the highlight script never counts it. */
+#ee-vidya-suite.vsx-on .vsx-rail::after{ content:""; flex:0 0 48px; align-self:stretch; }
+
 /* ── centre-focus rail ──────────────────────────────────────────────────
    The card the reader is on renders full size; its neighbours sit back at
    87% and slightly dimmed. Scale is a transform, so nothing reflows and the
@@ -3992,7 +3999,7 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     var mq=window.matchMedia('(min-width:901px)');
 
-    var maxX=0, on=false;
+    var maxX=0, on=false, autoX=0;
     function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
     function recalc(){ if(!on) return; maxX=Math.max(0, rail.scrollWidth - rail.clientWidth); onScroll(); }
     function onScroll(){
@@ -4001,8 +4008,14 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
       var stk=sec.querySelector('.vsx-sticky');
       var dist=track.offsetHeight - (stk?stk.offsetHeight:window.innerHeight);
       var p = dist>0 ? clamp(-rect.top/dist,0,1) : 0;
-      rail.style.transform='translate3d('+(-(p*maxX))+'px,0,0)';
+      /* autoX lets the serial highlight nudge the rail while the reader is
+         idle; scroll still owns the base position and resets it on the next
+         move, so the two never fight for the same pixel */
+      rail.style.transform='translate3d('+(-clamp(p*maxX+autoX,0,maxX))+'px,0,0)';
     }
+    sec.__vsxPinned=function(){ return on; };
+    sec.__vsxNudge=function(dx){ if(!on) return; autoX=clamp(autoX+dx,-maxX,maxX); onScroll(); };
+    sec.__vsxRelease=function(){ if(!on||autoX===0) return false; autoX=0; onScroll(); return true; };
     function enable(){
       if(on) return; on=true; sec.classList.add('vsx-on');
       rail.style.transform='translate3d(0,0,0)';
@@ -4034,31 +4047,33 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
     if(next) next.addEventListener('click',function(){ step(1); });
   })();
 
-  /* centre-focus: one card at full size, the rest stepped back.
-     Works in both rail modes - the pinned desktop rail moves by transform
-     and the phone rail by native scroll, and getBoundingClientRect reflects
-     either, so the same measurement drives both. */
+  /* Serial highlight: the cards take the spotlight one after another, and
+     the reader can take it over by hovering.
+
+     The two rail modes need different mechanics. On the pinned desktop rail
+     the horizontal position is bound to page scroll, so the highlight cannot
+     scroll a card into view on its own — it walks the cards currently inside
+     the stage instead, and hands control straight back to the nearest-centre
+     rule the moment the reader scrolls. The phone rail scrolls natively, so
+     there the highlight simply centres the next card and lets the same
+     nearest-centre rule pick it up.
+
+     Anything the reader does — hovering, swiping, scrolling the rail — pauses
+     the rotation, and prefers-reduced-motion switches it off entirely. */
   (function(){
     var sec=document.getElementById('ee-vidya-suite'); if(!sec) return;
     var rail=document.getElementById('vsxRail'); if(!rail) return;
     var cards=Array.prototype.slice.call(rail.querySelectorAll('.vsx-card'));
-    if(!cards.length) return;
+    if(cards.length<2) return;
     var frame=sec.querySelector('.vsx-stage')||rail;
-    var hover=-1, ticking=false;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     var fine=window.matchMedia&&window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 
-    function nearest(){
-      var f=frame.getBoundingClientRect(), cx=f.left+f.width/2, best=0, bd=Infinity;
-      for(var j=0;j<cards.length;j++){
-        var r=cards[j].getBoundingClientRect();
-        var d=Math.abs(r.left+r.width/2-cx);
-        if(d<bd){ bd=d; best=j; }
-      }
-      return best;
-    }
-    function update(){
-      ticking=false;
-      var i=(hover>=0)?hover:nearest();
+    var HOLD=2600;      /* time each card keeps the spotlight */
+    var RESUME=6500;    /* quiet period after the reader takes over */
+    var hover=-1, forced=-1, ticking=false, paused=0, inView=false;
+
+    function paint(i){
       for(var j=0;j<cards.length;j++){
         var f=(j===i), c=cards[j];
         c.classList.toggle('is-focus', f);
@@ -4068,20 +4083,101 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
         c.style.opacity=f?'1':'.78';
       }
     }
+    function mid(c){ var r=c.getBoundingClientRect(); return r.left+r.width/2; }
+    function nearest(){
+      var f=frame.getBoundingClientRect(), cx=f.left+f.width/2, best=0, bd=Infinity;
+      for(var j=0;j<cards.length;j++){
+        var d=Math.abs(mid(cards[j])-cx);
+        if(d<bd){ bd=d; best=j; }
+      }
+      return best;
+    }
+    function onStage(){
+      var f=frame.getBoundingClientRect(), out=[];
+      for(var j=0;j<cards.length;j++){ var m=mid(cards[j]); if(m>=f.left-4&&m<=f.right+4) out.push(j); }
+      return out.length?out:[nearest()];
+    }
+    function current(){ return hover>=0 ? hover : (forced>=0 ? forced : nearest()); }
+    function update(){ ticking=false; paint(current()); }
     function schedule(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
+    function hold(){ paused=Date.now()+RESUME; }
+    function pinned(){ return !!(sec.__vsxPinned&&sec.__vsxPinned()); }
+    /* how far card i is from the middle of the stage */
+    function offsetOf(i){
+      var f=frame.getBoundingClientRect(), r=cards[i].getBoundingClientRect();
+      return Math.round((r.left+r.width/2)-(f.left+f.width/2));
+    }
+    /* the least the rail has to travel for card i to sit fully inside the
+       stage. Centring the card instead would clip the first and last ones,
+       which cannot reach the middle before the rail runs out of travel. A
+       card already in view returns 0, so the rail holds still and only the
+       highlight moves. */
+    function revealOffset(i){
+      var f=frame.getBoundingClientRect(), pad=26;
+      /* measure the card at the size it is about to become: it is still
+         scaled down while this runs, and it grows ~7% each side once it
+         takes the spotlight - enough to reappear clipped at the stage edge */
+      var r=cards[i].getBoundingClientRect();
+      var scale=cards[i].classList.contains('is-focus')?1:.87;
+      var w=r.width/scale, cx=r.left+r.width/2, left=cx-w/2, right=cx+w/2;
+      if(left  < f.left+pad)   return Math.round(left-(f.left+pad));
+      if(right > f.right-pad)  return Math.round(right-(f.right-pad));
+      return 0;
+    }
+    function glide(ms){
+      rail.style.transition='transform '+ms+'ms cubic-bezier(.2,.7,.2,1)';
+      clearTimeout(glide._t);
+      glide._t=setTimeout(function(){ rail.style.transition=''; },ms+40);
+    }
+
+    function advance(){
+      if(reduce||!inView||hover>=0||Date.now()<paused) return;
+      var next=(current()+1)%cards.length;
+      if(pinned()){
+        /* the pinned rail is positioned by page scroll, so bring the next
+           card into view with a nudge instead of scrolling the page */
+        var dx=revealOffset(next);
+        if(dx){
+          glide(560);
+          sec.__vsxNudge(dx);
+          /* the nudge can be cut short by the rail's own travel limits, so
+             settle any remainder once the glide has landed */
+          clearTimeout(advance._t);
+          advance._t=setTimeout(function(){ var d=revealOffset(next); if(d) sec.__vsxNudge(d); },600);
+        }
+        forced=next; schedule();
+      }else{
+        rail.scrollTo({left:rail.scrollLeft+offsetOf(next),behavior:'smooth'});
+      }
+    }
 
     if(fine){
       cards.forEach(function(c,i){
         c.addEventListener('pointerenter',function(){ hover=i; schedule(); });
         c.addEventListener('focusin',function(){ hover=i; schedule(); });
       });
-      rail.addEventListener('pointerleave',function(){ hover=-1; schedule(); });
-      rail.addEventListener('focusout',function(){ hover=-1; schedule(); });
+      rail.addEventListener('pointerleave',function(){ hover=-1; hold(); schedule(); });
+      rail.addEventListener('focusout',function(){ hover=-1; hold(); schedule(); });
     }
-    rail.addEventListener('scroll',schedule,{passive:true});
-    window.addEventListener('scroll',schedule,{passive:true});
+    /* the reader scrolling the rail wins: drop the forced card so the
+       nearest-centre rule takes over again */
+    rail.addEventListener('scroll',function(){ forced=-1; schedule(); },{passive:true});
+    rail.addEventListener('pointerdown',hold,{passive:true});
+    rail.addEventListener('touchstart',hold,{passive:true});
+    rail.addEventListener('wheel',hold,{passive:true});
+    window.addEventListener('scroll',function(){
+      forced=-1;
+      if(sec.__vsxRelease&&sec.__vsxRelease()) glide(320);
+      schedule();
+    },{passive:true});
     window.addEventListener('resize',schedule,{passive:true});
+
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ inView=es[0].isIntersecting; },{threshold:.25}).observe(sec);
+    } else { inView=true; }
+
     update();
+    if(!reduce) setInterval(advance,HOLD);
   })();
   </script>
 </section>
