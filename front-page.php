@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-vidya-focus -->
+<!-- ee-front-tpl v2026-07-31-vidya-focus2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3678,7 +3678,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
           <div class="vsx-rail" id="vsxRail">
 
 
-            <article class="vsx-card vsx-job" style="--ca:#2274ee">
+            <article class="vsx-card vsx-job" style="--ca:#2274ee;transform:scale(.87);opacity:.78">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3703,7 +3703,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
               </div>
             </article>
 
-            <article class="vsx-card vsx-job" style="--ca:#DE6E30">
+            <article class="vsx-card vsx-job" style="--ca:#DE6E30;transform:scale(.87);opacity:.78">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3728,7 +3728,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
               </div>
             </article>
 
-            <article class="vsx-card vsx-job" style="--ca:#8bb7fa">
+            <article class="vsx-card vsx-job is-focus" style="--ca:#8bb7fa;transform:scale(1);opacity:1">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3753,7 +3753,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
               </div>
             </article>
 
-            <article class="vsx-card vsx-job" style="--ca:#3474d3">
+            <article class="vsx-card vsx-job" style="--ca:#3474d3;transform:scale(.87);opacity:.78">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3778,7 +3778,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
               </div>
             </article>
 
-            <article class="vsx-card vsx-job" style="--ca:#fb8124">
+            <article class="vsx-card vsx-job" style="--ca:#fb8124;transform:scale(.87);opacity:.78">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-work.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3803,7 +3803,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
               </div>
             </article>
 
-            <article class="vsx-card vsx-job vsx-cta-card" style="--ca:#DE6E30">
+            <article class="vsx-card vsx-job vsx-cta-card" style="--ca:#DE6E30;transform:scale(.87);opacity:.78">
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
@@ -3941,7 +3941,15 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
    87% and slightly dimmed. Scale is a transform, so nothing reflows and the
    pinned rail's scroll maths (which measures layout width) is untouched.
    Exactly one card is focused at all times: the one nearest the stage
-   centre, or the one being hovered/focused on a fine pointer. */
+   centre, or the one being hovered/focused on a fine pointer.
+
+   The script writes transform and opacity as inline styles rather than
+   relying on the .is-focus class alone. Unused-CSS removal keeps only the
+   selectors it can find in the served HTML, and a class that appears just
+   at runtime does not survive it — inline styles do, and they also outrank
+   anything a combined stylesheet could put in front of them. The class is
+   still set (and rendered on the middle card below, so it is present in
+   the source) for the shadow and stacking order. */
 #ee-vidya-suite .vsx-job{
   transform:scale(.87); transform-origin:50% 50%; opacity:.78;
   transition:transform .45s cubic-bezier(.2,.7,.2,1), opacity .45s ease, box-shadow .45s ease; }
@@ -4051,7 +4059,14 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
     function update(){
       ticking=false;
       var i=(hover>=0)?hover:nearest();
-      for(var j=0;j<cards.length;j++) cards[j].classList.toggle('is-focus', j===i);
+      for(var j=0;j<cards.length;j++){
+        var f=(j===i), c=cards[j];
+        c.classList.toggle('is-focus', f);
+        /* inline, so the effect survives unused-CSS removal and any
+           stylesheet that loads after this one */
+        c.style.transform=f?'scale(1)':'scale(.87)';
+        c.style.opacity=f?'1':'.78';
+      }
     }
     function schedule(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
 
