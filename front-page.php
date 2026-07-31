@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-sol-white-tick -->
+<!-- ee-front-tpl v2026-07-31-navy-ico-white -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -2796,7 +2796,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
                             </div>
                         </div>
                         <div class="mt-4 p-4 rounded-xl bg-brand-navy text-white flex items-start gap-3">
-                            <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/13-Counselor-Performance-Intelligence.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem" loading="lazy" decoding="async">
+                            <img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/13-Counselor-Performance-Intelligence.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem" loading="lazy" decoding="async">
                             <div>
                                 <h3 class="text-xs font-bold text-brand-orange uppercase">Counselor Performance Intelligence</h3>
                                 <p class="text-xs text-slate-200 mt-0.5">Clear visibility into response times, follow-ups, and conversion impact by counselor to drive focused coaching and better outcomes.</p>
@@ -5868,6 +5868,14 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   content-visibility:auto;
   contain-intrinsic-size:auto 760px;
 }
+</style>
+
+<style id="ee-ico-white">
+/* Icons sitting on the navy panels are external SVG files with their own
+   orange artwork, so no CSS colour reaches them. brightness(0) flattens
+   whatever is inside to black while keeping its alpha, and invert(1) turns
+   that black to white — the shape survives, the colour does not. */
+.ee-ico-white{ filter:brightness(0) invert(1); }
 </style>
 
 <style id="ee-cta-unify">
