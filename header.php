@@ -1526,6 +1526,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     </script>
 
 
+    <!-- ee-header v2026-07-31-wide -->
     <!-- ─── HEADER 2026 SKIN (eh-2026) ───
          Floating glass island: detached rounded bar with backdrop blur,
          compact-on-scroll, glass mega menus, quiet pill nav, premium
@@ -1533,7 +1534,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     <style id="eh-2026">
     #site-header{background:transparent!important;border:0!important;box-shadow:none!important;
       padding:14px 14px 0;transition:padding .35s cubic-bezier(.22,1,.36,1)}
-    #site-header .eh-content{max-width:1860px;height:64px;padding:0 16px 0 28px;
+    #site-header .eh-content{width:min(1860px,93%)!important;max-width:none!important;margin-inline:auto!important;height:64px;padding:0 16px 0 28px;
       background:rgba(255,255,255,.74);
       -webkit-backdrop-filter:blur(18px) saturate(180%);backdrop-filter:blur(18px) saturate(180%);
       border:1px solid rgba(25,51,93,.08);border-radius:18px;
