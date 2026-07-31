@@ -1526,7 +1526,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     </script>
 
 
-    <!-- ee-header v2026-07-31-wide -->
+    <!-- ee-header v2026-07-31-capsule -->
     <!-- ─── HEADER 2026 SKIN (eh-2026) ───
          Floating glass island: detached rounded bar with backdrop blur,
          compact-on-scroll, glass mega menus, quiet pill nav, premium
@@ -1602,7 +1602,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     #site-header .eh-actions{flex:1 1 0;display:flex;align-items:center;justify-content:flex-end;gap:.5rem}
     @media(max-width:1023px){#site-header .eh-actions{margin-left:auto}}
     /* magnetic sliding hover pill behind nav links (injected by JS) */
-    #site-header .eh-hoverpill{position:absolute;z-index:0;background:rgba(25,51,93,.06);
+    #site-header .eh-hoverpill{position:absolute;left:0;top:0;z-index:0;background:rgba(25,51,93,.06);
       border-radius:10px;opacity:0;pointer-events:none;
       transition:transform .32s cubic-bezier(.22,1,.36,1),width .32s cubic-bezier(.22,1,.36,1),
                  height .32s cubic-bezier(.22,1,.36,1),opacity .25s ease}
@@ -1665,6 +1665,32 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
       padding-bottom:calc(1.5rem + env(safe-area-inset-bottom))}
     #openMobileBtn,#closeMobileBtn{min-width:44px;min-height:44px;
       display:inline-flex;align-items:center;justify-content:center}
+    /* ── capsule nav group + pill CTA (Awake-style) ── */
+    #site-header .eh-nav.ee-desktop-nav{
+      position:relative;                     /* containing block for the sliding pill */
+      background:#F3F4F6;border:1px solid rgba(25,51,93,.06);
+      border-radius:999px;padding:5px;gap:2px}
+    #site-header .eh-nav-link{border-radius:999px!important;padding:.5rem .95rem!important;
+      font-weight:500;color:#33415C}
+    #site-header .eh-nav-link:hover,#site-header .eh-nav-item:hover>.eh-nav-link{background:transparent}
+    #site-header.eh-pill-on .eh-nav-link.active{background:transparent}
+    /* the magnetic pill becomes the white "selected" chip that glides between links */
+    #site-header .eh-hoverpill{background:#fff!important;
+      box-shadow:0 1px 2px rgba(25,51,93,.1),0 6px 16px -10px rgba(25,51,93,.4);
+      border-radius:999px!important}
+    /* CTA: pill with a circular arrow badge */
+    #site-header .eh-cta{border-radius:999px!important;
+      padding:.42rem .42rem .42rem 1.25rem!important;gap:.65rem!important;font-weight:600}
+    #site-header .eh-cta svg,#site-header .eh-cta img{
+      width:30px!important;height:30px!important;padding:8px;border-radius:50%;
+      background:#fff;color:var(--orange-700,#B5551D);box-sizing:border-box;flex:none;
+      transform:rotate(-45deg);transition:transform .25s ease}
+    #site-header .eh-cta:hover svg,#site-header .eh-cta:hover img{
+      transform:rotate(-45deg) translateX(2px)}
+    @media(max-width:1023px){
+      #site-header .eh-cta{padding:.35rem .35rem .35rem 1rem!important;gap:.5rem!important}
+      #site-header .eh-cta svg,#site-header .eh-cta img{width:26px!important;height:26px!important;padding:7px}
+    }
     @media(prefers-reduced-motion:reduce){
       #site-header .eh-hoverpill,#site-header .eh-mega .eh-dl,#mobileMenu,.eh-scrim{transition:none!important;animation:none!important}
       #site-header .eh-content{animation:none}
@@ -1686,11 +1712,12 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         nav.appendChild(pill);
         h.classList.add('eh-pill-on');
         function moveTo(link){
-          /* rects are visual (site-wide body zoom) - divide back to CSS px */
-          var Z=parseFloat(getComputedStyle(document.body).zoom)||1;
-          var nr=nav.getBoundingClientRect(), lr=link.getBoundingClientRect();
-          pill.style.width=(lr.width/Z)+'px'; pill.style.height=(lr.height/Z)+'px';
-          pill.style.transform='translate('+((lr.left-nr.left)/Z)+'px,'+((lr.top-nr.top)/Z)+'px)';
+          /* walk offsetParents up to the nav: CSS px, immune to the site-wide zoom.
+             (.eh-nav-item is position:relative, so a single offsetLeft is not enough) */
+          var x=0,y=0,n=link;
+          while(n && n!==nav){ x+=n.offsetLeft; y+=n.offsetTop; n=n.offsetParent; }
+          pill.style.width=link.offsetWidth+'px'; pill.style.height=link.offsetHeight+'px';
+          pill.style.transform='translate('+x+'px,'+y+'px)';
           pill.style.opacity='1';
         }
         nav.querySelectorAll('.eh-nav-link').forEach(function(l){
