@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-products-bento -->
+<!-- ee-front-tpl v2026-07-31-rm-stats -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3339,22 +3339,6 @@ html body #main-content #ee-products .epx-wrap .epx-card h3{
 html body #main-content #ee-products .epx-wrap .epx-integ-tx p{
   margin:0; color:#6B7C96; font-size:13.5px !important; line-height:1.55 !important; }
 
-/* stats strip */
-#ee-products .epx-stats{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:clamp(10px,1.4vw,18px); padding:clamp(16px,1.8vw,24px);
-  background:rgba(255,255,255,.78); border:1px solid rgba(25,51,93,.09);
-  border-radius:20px; box-shadow:0 18px 40px -30px rgba(25,51,93,.55);
-  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
-#ee-products .epx-stat{ display:flex; align-items:center; gap:13px; min-width:0; }
-#ee-products .epx-stat+.epx-stat{ border-left:1px solid rgba(25,51,93,.1);
-  padding-left:clamp(10px,1.4vw,18px); }
-#ee-products .epx-stat .epx-ic{ width:46px; height:46px; border-radius:14px; }
-#ee-products .epx-stat .epx-ic svg{ width:22px; height:22px; }
-#ee-products .epx-stat-tx{ min-width:0; }
-#ee-products .epx-stat-tx b{ display:block; color:#0F2143; font-weight:800;
-  font-size:clamp(15px,1.5vw,20px); letter-spacing:-.02em; line-height:1.15; }
-#ee-products .epx-stat-tx span{ display:block; color:#6B7C96; font-size:12.5px; margin-top:2px; }
-
 /* one CTA closes the section */
 #ee-products .epx-cta{ text-align:center; margin-top:clamp(22px,2.8vw,36px); }
 #ee-products .epx-btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px;
@@ -3372,8 +3356,6 @@ html body #main-content #ee-products .epx-wrap .epx-integ-tx p{
   #ee-products .epx-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   #ee-products .epx-grid--b{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   #ee-products .epx-card--integ{ grid-column:1 / -1; }
-  #ee-products .epx-stats{ grid-template-columns:repeat(2,minmax(0,1fr)); }
-  #ee-products .epx-stat:nth-child(3){ border-left:0; padding-left:0; }
 }
 @media(max-width:640px){
   #ee-products .epx-grid,#ee-products .epx-grid--b{ grid-template-columns:1fr; gap:10px; }
@@ -3383,9 +3365,6 @@ html body #main-content #ee-products .epx-wrap .epx-integ-tx p{
   #ee-products .epx-list>li>a,#ee-products .epx-list>li>span{ padding:9px 0; font-size:13px; }
   #ee-products .epx-card--integ{ flex-direction:column; align-items:flex-start; }
   #ee-products .epx-hub{ width:150px; height:150px; margin:0 auto; }
-  #ee-products .epx-stats{ grid-template-columns:1fr; gap:12px; padding:14px; }
-  #ee-products .epx-stat+.epx-stat{ border-left:0; padding-left:0;
-    border-top:1px solid rgba(25,51,93,.1); padding-top:12px; }
   #ee-products .epx-btn{ padding:13px 24px; font-size:14px; }
 }
 @media(prefers-reduced-motion:reduce){
@@ -3498,13 +3477,6 @@ html body #main-content #ee-products .epx-wrap .epx-integ-tx p{
             <li><span>Custom Reports</span></li>
           </ul>
         </article>
-    </div>
-
-    <div class="epx-stats">
-        <div class="epx-stat"><span class="epx-ic epx-ic--nv" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg></span><span class="epx-stat-tx"><b>9+</b><span>Product Categories</span></span></div>
-        <div class="epx-stat"><span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8.5L12 3.5 3 8.5v7L12 20.5l9-5v-7z"/><path d="M3 8.5l9 5 9-5M12 20.5v-7"/></svg></span><span class="epx-stat-tx"><b>30+</b><span>Powerful Features</span></span></div>
-        <div class="epx-stat"><span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epx-stat-tx"><b>AI-Powered</b><span>Intelligence</span></span></div>
-        <div class="epx-stat"><span class="epx-ic epx-ic--nv" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l7.5 3v6c0 4.2-3.1 8-7.5 9.4C7.6 19.8 4.5 16 4.5 11.8v-6l7.5-3z"/></svg></span><span class="epx-stat-tx"><b>Enterprise-Grade</b><span>Security &amp; Compliance</span></span></div>
     </div>
 
     <div class="epx-cta">
