@@ -414,398 +414,878 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         #site-header.ee-force-fixed { position:fixed; top:0; left:0; right:0; width:100%; }
         body.ee-header-fixed { padding-top: var(--ee-header-h, 72px); }
 
-/* ════════════════════════════════════════════════════════════
-   EE NAVIGATION 2026 — comprehension-first mega menu
-   Scoped to .ee-nav so nothing leaks into page templates.
-   Content lives in the $EE_NAV array below (server-rendered,
-   so every link is real HTML in the source for SEO).
-   ════════════════════════════════════════════════════════════ */
-.ee-nav{
-  --ee-orange:#DE6E30;              /* identity: fills, tints, accent bar */
-  --ee-orange-text:#B5551D;         /* text-safe orange, 4.9:1 on white   */
-  --ee-orange-dark:#A8501C;
-  --ee-orange-tint:rgba(222,110,48,.06);
-  --ee-navy:#19335D;
-  --ee-muted:#66768F;               /* 4.6:1 on white */
-  --ee-line:#E6E9EF;
-  --ee-surface:#fff;
-  --ee-tint:#F7F8FA;
-  --ee-s1:4px; --ee-s2:8px; --ee-s3:12px; --ee-s4:16px;
-  --ee-s5:20px; --ee-s6:24px; --ee-s7:32px;
-  --ee-r-sm:6px; --ee-r-md:8px; --ee-r-lg:12px;
-  --ee-dur:120ms; --ee-ease:cubic-bezier(.4,0,.2,1);
-  --ee-bar-h:72px; --ee-max:1200px;
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-  color:var(--ee-navy);
-}
-.ee-nav *,.ee-nav *::before,.ee-nav *::after{box-sizing:border-box}
-.ee-nav a{text-decoration:none;color:inherit}
-.ee-nav button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-#site-header{position:sticky;top:0;z-index:1000;width:100%;background:var(--ee-surface);
-  border-bottom:1px solid transparent;
-  transition:border-color var(--ee-dur) var(--ee-ease),box-shadow var(--ee-dur) var(--ee-ease),transform .3s var(--ee-ease)}
-#site-header.scrolled,#site-header.eh-scrolled{border-bottom-color:var(--ee-line);box-shadow:0 1px 3px rgba(25,51,93,.06)}
-#site-header.eh-hidden{transform:translateY(-110%);box-shadow:none}
-#site-header.ee-force-fixed{position:fixed;top:0;left:0;right:0;width:100%}
-.ee-nav__inner{max-width:var(--ee-max);margin:0 auto;height:var(--ee-bar-h);padding:0 var(--ee-s6);
-  display:flex;align-items:center;gap:var(--ee-s7)}
-.ee-nav__logo{display:inline-flex;align-items:center;flex:0 0 auto}
-.ee-nav__logo img{height:34px;width:auto;display:block}
-.ee-nav__primary{display:flex;align-items:center;gap:var(--ee-s1);flex:1 1 auto}
-.ee-nav__trigger,.ee-nav__toplink{display:inline-flex;align-items:center;gap:var(--ee-s1);
-  height:40px;padding:0 var(--ee-s3);border-radius:var(--ee-r-md);
-  font-size:14px;font-weight:500;color:var(--ee-navy);white-space:nowrap;
-  transition:background var(--ee-dur) var(--ee-ease),color var(--ee-dur) var(--ee-ease)}
-.ee-nav__trigger:hover,.ee-nav__toplink:hover,.ee-nav__trigger[aria-expanded="true"]{background:var(--ee-tint)}
-.ee-nav__trigger[aria-expanded="true"]{color:var(--ee-orange-text)}
-.ee-nav__chev{transition:transform var(--ee-dur) var(--ee-ease);flex:none}
-.ee-nav__trigger[aria-expanded="true"] .ee-nav__chev{transform:rotate(180deg)}
-.ee-nav__actions{display:flex;align-items:center;gap:var(--ee-s3);flex:0 0 auto}
-.ee-nav__cta{display:inline-flex;align-items:center;gap:var(--ee-s2);height:40px;padding:0 var(--ee-s5);
-  border-radius:var(--ee-r-md);background:var(--ee-orange-text);color:#fff;
-  font-size:14px;font-weight:600;white-space:nowrap;transition:background var(--ee-dur) var(--ee-ease)}
-.ee-nav__cta:hover{background:var(--ee-orange-dark);color:#fff}
-.ee-nav__burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;border-radius:var(--ee-r-md)}
-.ee-nav__burger:hover{background:var(--ee-tint)}
-/* panels */
-.ee-nav__panels{position:absolute;left:0;right:0;top:100%}
-.ee-nav__panel{position:absolute;left:0;right:0;top:0;background:var(--ee-surface);
-  border-top:1px solid var(--ee-line);border-bottom:1px solid var(--ee-line);
-  opacity:0;visibility:hidden;transform:translateY(-4px);
-  transition:opacity var(--ee-dur) var(--ee-ease),transform var(--ee-dur) var(--ee-ease),visibility var(--ee-dur)}
-.ee-nav__panel.is-open{opacity:1;visibility:visible;transform:none}
-.ee-nav__panel--accent{border-top:2px solid var(--ee-orange)}
-.ee-nav__panel-in{max-width:var(--ee-max);margin:0 auto;padding:var(--ee-s7) var(--ee-s6)}
-.ee-nav__grid{display:grid;gap:var(--ee-s7)}
-.ee-nav__grid--4{grid-template-columns:repeat(4,1fr)}
-.ee-nav__grid--rail{grid-template-columns:repeat(2,minmax(0,1fr)) 260px}
-.ee-nav__grid--rail3{grid-template-columns:repeat(3,minmax(0,1fr)) 260px}
-.ee-nav__grid--3{grid-template-columns:repeat(3,1fr)}
-.ee-nav__colhead{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ee-muted);margin:0 0 var(--ee-s4)}
-.ee-nav__panel--accent .ee-nav__colhead{color:var(--ee-orange-text)}
-.ee-nav__items{list-style:none;margin:0;padding:0;display:grid;gap:var(--ee-s5)}
-.ee-nav__items--tight{gap:var(--ee-s3)}
-.ee-nav__item{display:block;padding:var(--ee-s2) var(--ee-s3);margin:calc(var(--ee-s2)*-1) calc(var(--ee-s3)*-1);
-  border-radius:var(--ee-r-sm);transition:background var(--ee-dur) var(--ee-ease)}
-.ee-nav__item:hover{background:var(--ee-orange-tint)}
-.ee-nav__t{display:block;font-size:14px;font-weight:500;color:var(--ee-navy);line-height:1.35;
-  transition:color var(--ee-dur) var(--ee-ease)}
-.ee-nav__item:hover .ee-nav__t{color:var(--ee-orange-text)}
-.ee-nav__d{display:block;margin-top:2px;font-size:13px;font-weight:400;color:var(--ee-muted);line-height:1.45}
-.ee-nav__plain{font-size:14px;font-weight:400;color:var(--ee-navy)}
-.ee-nav__item:hover .ee-nav__plain{color:var(--ee-orange-text)}
-.ee-nav__rail{border:1px solid var(--ee-line);border-radius:var(--ee-r-lg);padding:var(--ee-s5)}
-.ee-nav__rail h3{margin:0 0 var(--ee-s4);font-size:14px;font-weight:600;color:var(--ee-navy)}
-.ee-nav__rail ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--ee-s3)}
-.ee-nav__rail a{display:inline-flex;align-items:center;gap:var(--ee-s2);font-size:13px;color:var(--ee-navy)}
-.ee-nav__rail a:hover{color:var(--ee-orange-text)}
-.ee-nav__proof{display:grid;gap:2px}
-.ee-nav__proof b{font-size:13px;font-weight:600}
-.ee-nav__proof span{font-size:13px;color:var(--ee-muted)}
-.ee-nav__strip{margin-top:var(--ee-s6);padding-top:var(--ee-s5);border-top:1px solid var(--ee-line);
-  display:flex;flex-wrap:wrap;align-items:center;gap:var(--ee-s7);font-size:13px;color:var(--ee-muted)}
-.ee-nav__strip span,.ee-nav__strip a{display:inline-flex;align-items:center;gap:var(--ee-s2)}
-.ee-nav__strip a{color:var(--ee-orange-text);font-weight:500}
-.ee-nav__strip svg{flex:none}
-/* mobile overlay */
-.ee-nav__mobile{position:fixed;inset:0;z-index:1100;background:var(--ee-surface);display:flex;flex-direction:column}
-.ee-nav__mobile[hidden]{display:none}
-.ee-nav__mhead{flex:0 0 auto;height:var(--ee-bar-h);padding:0 var(--ee-s5);
-  display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ee-line)}
-.ee-nav__mclose{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--ee-r-md)}
-.ee-nav__mbody{flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
-  padding:var(--ee-s3) var(--ee-s5) var(--ee-s7)}
-.ee-nav__acc{border-bottom:1px solid var(--ee-line)}
-.ee-nav__accbtn{width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;
-  gap:var(--ee-s3);padding:var(--ee-s4) 0;font-size:16px;font-weight:600;text-align:left;color:var(--ee-navy)}
-.ee-nav__accbtn[aria-expanded="true"]{color:var(--ee-orange-text)}
-.ee-nav__accbtn[aria-expanded="true"] .ee-nav__chev{transform:rotate(180deg)}
-.ee-nav__accpanel{display:none;padding:0 0 var(--ee-s5)}
-.ee-nav__accpanel.is-open{display:block}
-.ee-nav__mgroup+.ee-nav__mgroup{margin-top:var(--ee-s5)}
-.ee-nav__mgroup .ee-nav__colhead{margin-bottom:var(--ee-s3)}
-.ee-nav__mitem{display:block;min-height:44px;padding:var(--ee-s3);border-radius:var(--ee-r-sm)}
-.ee-nav__mitem:hover{background:var(--ee-orange-tint)}
-.ee-nav__mlink{display:flex;align-items:center;min-height:44px;padding:var(--ee-s3);font-size:15px;border-radius:var(--ee-r-sm)}
-.ee-nav__mfoot{flex:0 0 auto;padding:var(--ee-s4) var(--ee-s5) calc(var(--ee-s4) + env(safe-area-inset-bottom));
-  border-top:1px solid var(--ee-line);background:var(--ee-surface)}
-.ee-nav__mfoot .ee-nav__cta{width:100%;justify-content:center;height:48px}
-@media (max-width:1023.98px){
-  .ee-nav__primary,.ee-nav__actions .ee-nav__cta{display:none}
-  .ee-nav__burger{display:inline-flex}
-  .ee-nav__inner{gap:var(--ee-s4);justify-content:space-between;padding:0 var(--ee-s4)}
-}
-@media (min-width:1024px){.ee-nav__mobile{display:none!important}}
-@media (max-width:1180px) and (min-width:1024px){
-  .ee-nav__grid--rail,.ee-nav__grid--rail3{grid-template-columns:repeat(2,minmax(0,1fr)) 240px}
-  .ee-nav__inner{gap:var(--ee-s5)}
-}
-@media (prefers-reduced-motion:reduce){.ee-nav *,#site-header{transition:none!important}}
+        /* ════════════════════════════════════════════════════════════
+           ADVANCED MULTI-LEVEL NAVIGATION — scoped to #site-header
+           User-supplied design adapted for WordPress with custom SVGs.
+           Mobile (<1024px) hides this entire bar and shows the existing
+           slide-in #mobileMenu panel preserved at the bottom. */
+        #site-header {
+            --eh-primary: #19335D;
+            --eh-primary-dark: #0F2040;
+            --eh-primary-light: #2A4C7A;
+            --eh-accent: #DE6E30;
+            --eh-accent-hover: #B85920;
+            --eh-success: #10B981;
+            --eh-warning: #F59E0B;
+            --eh-danger: #EF4444;
+            /* Softer typography palette — nav text no longer reads as harsh black.
+               --eh-text-dark   #475569 = slate-600  (nav links + titles at rest)
+               --eh-text-strong #1E293B = slate-800  (high-emphasis hover states)
+               --eh-text-light  #94A3B8 = slate-400  (descriptions, captions) */
+            --eh-text-dark:   #475569;
+            --eh-text-strong: #1E293B;
+            --eh-text-light:  #94A3B8;
+            --eh-bg-light: #FFFFFF;
+            --eh-bg-subtle: #F8FAFC;
+            --eh-border: #E5E7EB;
+            --eh-border-light: #F3F4F6;
+            --eh-shadow-sm: 0 2px 8px rgba(25,51,93,.06);
+            --eh-shadow-md: 0 8px 24px rgba(25,51,93,.12);
+            --eh-shadow-lg: 0 16px 48px rgba(25,51,93,.16);
+            --eh-shadow-xl: 0 24px 64px rgba(25,51,93,.20);
+            background: #fff;
+            border-bottom: 1px solid var(--eh-border);
+            box-shadow: var(--eh-shadow-sm);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            transition: all .3s cubic-bezier(.4,0,.2,1);
+        }
+        #site-header.scrolled { box-shadow: var(--eh-shadow-md); }
+        #site-header { transition: transform .3s cubic-bezier(.4,0,.2,1), box-shadow .25s ease, background .25s ease; will-change: transform; }
+        #site-header.eh-hidden { transform: translateY(-110%); box-shadow: none; }
+
+        #site-header .eh-content { max-width:1280px; margin:0 auto; padding:0 1.25rem; display:flex; align-items:center; justify-content:space-between; gap:.75rem; height:72px; }
+        #site-header .eh-actions { display:flex; align-items:center; gap:.6rem; }
+
+        /* Logo */
+        #site-header .eh-logo { display:flex; align-items:center; gap:.65rem; text-decoration:none; flex-shrink:0; transition:transform .3s ease; }
+        #site-header .eh-logo:hover { transform:translateY(-2px); }
+        #site-header .eh-logo img { height:34px; width:auto; }
+
+        /* SVG icon wrapper — replaces FontAwesome <i> tags */
+        #site-header .eh-svg { width:1em; height:1em; display:inline-block; vertical-align:-.125em; object-fit:contain; }
+
+        /* Navigation */
+        #site-header .eh-nav { display:flex; align-items:center; gap:.15rem; }
+        #site-header .eh-nav-item { position:relative; }
+        #site-header .eh-nav-link { display:flex; align-items:center; gap:.35rem; padding:.55rem .85rem; color:#19335D; text-decoration:none; font-weight:600; font-size:.9rem; letter-spacing:.005em; border-radius:8px; transition:color .18s ease, background .18s ease; cursor:pointer; background:transparent; border:none; font-family:inherit; position:relative; }
+        #site-header .eh-nav-link:hover { background:#FFF3EC; color:var(--orange-700,#B5551D); }
+        #site-header .eh-nav-link.active { background:#FFF3EC; color:var(--orange-700,#B5551D); }
+        #site-header .eh-nav-link.active::after,
+        #site-header .eh-nav-item:hover > .eh-nav-link::after {
+            content: "";
+            position: absolute;
+            left: 14px; right: 14px; bottom: -6px;
+            height: 2px;
+            background: #DE6E30;
+            border-radius: 2px;
+        }
+        #site-header .eh-nav-link .eh-chev { width:12px; height:12px; transition:transform .25s ease; }
+        #site-header .eh-nav-item:hover .eh-nav-link .eh-chev { transform:rotate(180deg); }
+
+        /* Standard dropdown */
+        #site-header .eh-dropdown { position:absolute; top:calc(100% + .35rem); left:0; background:#fff; border:1px solid var(--eh-border); border-radius:11px; box-shadow:var(--eh-shadow-lg); min-width:260px; opacity:0; visibility:hidden; transform:translateY(-8px); transition:all .22s cubic-bezier(.4,0,.2,1); padding:.5rem; z-index:100; }
+        #site-header .eh-nav-item:hover > .eh-dropdown { opacity:1; visibility:visible; transform:translateY(0); }
+
+        /* Mega menu */
+        #site-header .eh-mega { position:absolute; top:calc(100% + .35rem); left:50%; transform:translateX(-50%) translateY(-8px); background:#fff; border:1px solid var(--eh-border); border-radius:14px; box-shadow:var(--eh-shadow-xl); width:880px; max-width:95vw; opacity:0; visibility:hidden; transition:all .25s cubic-bezier(.4,0,.2,1); padding:1.1rem; z-index:100; }
+        #site-header .eh-nav-item:hover .eh-mega { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+        #site-header .eh-mega-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; }
+        #site-header .eh-mega-grid.three-col { grid-template-columns:repeat(3,1fr); }
+        #site-header .eh-mega-col h4,
+        #site-header .eh-mega-col .eh-col-title { font-family:'Inter',sans-serif; font-size:.65rem; font-weight:600; color:#94A3B8; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.55rem; display:flex; align-items:center; gap:.4rem; }
+        #site-header .eh-col-icon { width:16px; height:16px; background:linear-gradient(135deg,var(--eh-primary-light),var(--eh-accent)); border-radius:5px; display:inline-flex; align-items:center; justify-content:center; padding:3px; color:#fff; }
+        #site-header .eh-col-icon .eh-svg { width:100%; height:100%; filter:brightness(0) invert(1); }
+
+        /* Featured promo strip */
+        #site-header .eh-featured { grid-column:span 4; background:linear-gradient(135deg,var(--eh-primary),var(--eh-primary-light)); border-radius:10px; padding:.85rem 1.1rem; color:#fff; margin-bottom:.65rem; display:flex; align-items:center; justify-content:space-between; gap:.85rem; flex-wrap:wrap; }
+        #site-header .eh-featured.three-col { grid-column:span 3; }
+        #site-header .eh-featured h3,
+        #site-header .eh-featured .eh-featured-title { font-family:'Inter',sans-serif; font-size:.92rem; font-weight:800; margin-bottom:.15rem; color:#fff; display:flex; align-items:center; gap:.4rem; line-height:1.3; }
+        #site-header .eh-featured h3 .eh-svg,
+        #site-header .eh-featured .eh-featured-title .eh-svg { width:.95rem; height:.95rem; filter:brightness(0) invert(1); }
+        #site-header .eh-featured p { opacity:.9; font-size:.75rem; margin-bottom:.5rem; max-width:520px; color:#fff; line-height:1.45; }
+        #site-header .eh-featured-btn { background:#fff; color:var(--eh-primary); padding:.4rem .9rem; border-radius:7px; text-decoration:none; font-weight:600; font-size:.78rem; display:inline-flex; align-items:center; gap:.35rem; transition:all .2s ease; }
+        #site-header .eh-featured-btn:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(255,255,255,.3); color:var(--eh-primary); }
+        #site-header .eh-featured-visual { width:54px; height:54px; background:rgba(255,255,255,.15); border-radius:9px; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(10px); padding:9px; flex-shrink:0; }
+        #site-header .eh-featured-visual .eh-svg { width:100%; height:100%; filter:brightness(0) invert(1); }
+
+        /* Dropdown link rows */
+        #site-header .eh-dl { display:flex; align-items:flex-start; gap:.55rem; padding:.42rem .5rem; color:var(--eh-text-dark); text-decoration:none; border-radius:7px; border:1.5px solid transparent; transition:all .15s ease; margin-bottom:.1rem; position:relative; }
+        #site-header .eh-dl:hover { background:#F8FAFC; border-color:#22467c; transform:translateX(2px) scale(1.05); box-shadow:0 6px 18px rgba(25,51,93,.10); }
+        #site-header .eh-dl:hover .eh-dl-title { color:#19335D; }
+        #site-header .eh-dl:hover .eh-dl-desc  { color:#64748B; }
+        #site-header .eh-dl-icon { width:28px; height:28px; background:linear-gradient(135deg,var(--eh-bg-subtle),#E8EEF3); border-radius:7px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:.9rem; padding:4px; transition:all .2s ease; color:var(--eh-primary); overflow:hidden; }
+        #site-header .eh-dl-icon .eh-svg { width:100%; height:100%; }
+        #site-header .eh-dl:hover .eh-dl-icon { background:#fff; transform:scale(1.05); }
+        /* Icons are full-colour gradient tiles now — never invert them on
+           hover (invert used to flatten the whole tile to a white square,
+           which read as the icon disappearing). */
+        #site-header .eh-dl:hover .eh-dl-icon .eh-svg { filter:none; }
+        #site-header .eh-dl-content { flex:1; }
+        #site-header .eh-dl-title { font-weight:600; font-size:.8rem; color:#334155; margin-bottom:.1rem; display:flex; align-items:center; gap:.3rem; line-height:1.25; }
+        #site-header .eh-dl-desc { font-size:.7rem; color:#94A3B8; line-height:1.4; }
+
+        /* Badges */
+        #site-header .eh-badge { font-size:.65rem; font-weight:700; padding:.15rem .45rem; border-radius:4px; text-transform:uppercase; letter-spacing:.02em; line-height:1.2; }
+        #site-header .eh-badge.new      { background:var(--eh-success); color:#fff; }
+        #site-header .eh-badge.popular  { background:var(--eh-accent);  color:#fff; }
+        #site-header .eh-badge.trending { background:var(--eh-warning); color:#fff; }
+        #site-header .eh-badge.hot      { background:var(--eh-accent);  color:#fff; animation:eh-pulse 2s infinite; }
+        @keyframes eh-pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
+
+        /* Nested dropdown */
+        #site-header .eh-nested { position:absolute; left:100%; top:0; margin-left:.5rem; min-width:280px; background:#fff; border:1px solid var(--eh-border); border-radius:12px; box-shadow:var(--eh-shadow-lg); padding:.75rem; opacity:0; visibility:hidden; transform:translateX(-10px); transition:all .3s cubic-bezier(.4,0,.2,1); }
+        #site-header .eh-dl:hover .eh-nested { opacity:1; visibility:visible; transform:translateX(0); }
+        #site-header .eh-nested-indicator { margin-left:auto; opacity:.5; }
+
+        /* Divider */
+        #site-header .eh-divider { height:1px; background:var(--eh-border); margin:.75rem 0; }
+
+        /* Quick links — high-contrast hover that never goes invisible:
+           rest = white tile + dark text, hover = cream tile + orange text
+           with an orange ring. Text colour stays readable, icon keeps its
+           native colours, no opacity / no large transform so the link
+           cannot be clipped by any ancestor overflow. */
+        #site-header .eh-quick { background:var(--eh-bg-subtle); border-radius:9px; padding:.65rem .75rem; margin-top:.5rem; }
+        #site-header .eh-quick-title { font-size:.66rem; font-weight:700; color:var(--eh-text-light); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.45rem; }
+        #site-header .eh-quick-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:.4rem; }
+        #site-header .eh-quick-link {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .45rem .55rem;
+            background: #fff;
+            border: 1px solid var(--eh-border-light);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--eh-text-dark) !important;
+            font-size: .72rem;
+            font-weight: 600;
+            transition: background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease;
+        }
+        #site-header .eh-quick-link .eh-svg {
+            width: .9rem;
+            height: .9rem;
+            flex-shrink: 0;
+            opacity: 1 !important;
+        }
+        #site-header .eh-quick-link:hover,
+        #site-header .eh-quick-link:focus-visible {
+            background: #fff7f0;
+            border-color: rgba(222, 110, 48, 0.45);
+            color: var(--eh-accent) !important;
+            box-shadow: 0 4px 12px rgba(222, 110, 48, 0.18);
+        }
+        #site-header .eh-quick-link:hover .eh-svg,
+        #site-header .eh-quick-link:focus-visible .eh-svg {
+            filter: none;
+            transform: scale(1.06);
+        }
+
+        /* CTA button */
+        #site-header .eh-cta { background:linear-gradient(135deg,var(--eh-accent),#FF8A5C); color:#fff; padding:.55rem 1.2rem; border-radius:9px; text-decoration:none; font-weight:600; font-size:.82rem; display:inline-flex; align-items:center; gap:.4rem; transition:all .3s ease; box-shadow:0 4px 14px rgba(222,110,48,.25); border:none; cursor:pointer; flex-shrink:0; }
+        #site-header .eh-cta:hover { background:linear-gradient(135deg,var(--eh-accent-hover),#C75E24); color:#fff; transform:translateY(-2px); box-shadow:0 6px 22px rgba(222,110,48,.35); }
+
+        /* Responsive */
+        @media (max-width:1280px){
+            #site-header .eh-content { max-width:1200px; }
+            #site-header .eh-mega { width:780px; }
+            #site-header .eh-mega-grid { grid-template-columns:repeat(3,1fr); }
+            #site-header .eh-featured { grid-column:span 3; }
+            #site-header .eh-quick-grid { grid-template-columns:repeat(3,1fr); }
+        }
+        @media (max-width:1100px){
+            #site-header .eh-nav-link { padding:.45rem .55rem; font-size:.8rem; }
+            #site-header .eh-mega { width:640px; }
+            #site-header .eh-mega-grid { grid-template-columns:repeat(2,1fr); }
+            #site-header .eh-featured { grid-column:span 2; }
+            #site-header .eh-quick-grid { grid-template-columns:repeat(2,1fr); }
+        }
+        @media (max-width:1023.98px){
+            #site-header .eh-nav { display:none; }
+            /* Book Demo stays visible in the mobile top bar — compact, next to the hamburger */
+            #site-header .eh-cta { padding:.42rem .75rem; font-size:.72rem; gap:.25rem; white-space:nowrap; }
+            #site-header .eh-cta svg { width:12px; height:12px; }
+        }
+        @media (max-width:400px){
+            #site-header .eh-cta { padding:.62rem .7rem; font-size:.72rem; }
+        }
+        @media (min-width:1024px){
+            #site-header .ee-mobile-btn { display:none !important; }
+        }
+        @media (max-width:768px){
+            #site-header .eh-content { height:75px; padding:0 1rem; }
+        }
+
+        /* Animations */
+        @keyframes eh-fadeInUp { from { opacity:0; transform:translateY(20px);} to { opacity:1; transform:translateY(0);} }
+        #site-header .eh-dl { animation: eh-fadeInUp .3s ease backwards; }
+        #site-header .eh-dl:nth-child(1) { animation-delay:.05s; }
+        #site-header .eh-dl:nth-child(2) { animation-delay:.10s; }
+        #site-header .eh-dl:nth-child(3) { animation-delay:.15s; }
+        #site-header .eh-dl:nth-child(4) { animation-delay:.20s; }
+        #site-header .eh-dl:nth-child(5) { animation-delay:.25s; }
+        #site-header .eh-dl:nth-child(6) { animation-delay:.30s; }
+
+        /* ═════════════ Breadcrumb (single posts + custom landings) ═════════════ */
+        .ee-breadcrumb {
+            background: #f8fafc;
+            padding: 10px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(25, 51, 93, 0.06);
+        }
+        .ee-breadcrumb .ee-bc-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .ee-breadcrumb ol {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 8px;
+            align-items: center;
+        }
+        .ee-breadcrumb li {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        .ee-breadcrumb li + li::before {
+            content: "›";
+            color: #cbd5e1;
+            margin-right: 2px;
+            font-size: 15px;
+            line-height: 1;
+        }
+        .ee-breadcrumb a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color .2s ease;
+        }
+        .ee-breadcrumb a:hover { color: #DE6E30; }
+        .ee-breadcrumb .ee-bc-current {
+            color: #DE6E30;
+            font-weight: 700;
+        }
+        @media (max-width: 768px) {
+            .ee-breadcrumb { padding: 8px 0; font-size: 12px; }
+            .ee-breadcrumb .ee-bc-inner { padding: 0 1rem; }
+        }
+
+        /* ═════════════ Mobile slide-in menu (restored) ═════════════
+           This is the existing slide-in panel preserved 1:1 from the
+           old design. The desktop rewrite stripped these rules — the
+           HTML is still in place below, just needs its styling back. */
+        .menu-title { display: block; line-height: 1.25; font-family: 'Inter', sans-serif; }
+
+        #mobileMenu {
+            background: rgba(255, 255, 255, 0.98);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mobileMenu.active { transform: translateX(0); }
+
+        .mobile-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        .mobile-accordion-item.active .mobile-accordion-content {
+            max-height: 2500px;
+        }
+        .mobile-accordion-item.active .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        .m-icon-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        .m-icon-card:hover, .m-icon-card:active {
+            background: rgba(222, 110, 48, 0.06);
+            border-color: rgba(222, 110, 48, 0.18);
+        }
+        .m-icon-card .m-ico {
+            width: 32px;
+            height: 32px;
+            background: #ffffff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #19335D;
+            flex-shrink: 0;
+            border: 1px solid #e2e8f0;
+        }
+        .m-icon-card:hover .m-ico, .m-icon-card:active .m-ico {
+            background: #DE6E30;
+            color: #fff;
+            border-color: #DE6E30;
+        }
+        .m-icon-card .m-ico:has(img) { background: #fff; }
+        .m-icon-card:hover .m-ico:has(img),
+        .m-icon-card:active .m-ico:has(img) {
+            background: #fff7f0;
+            border-color: rgba(222, 110, 48, 0.35);
+        }
+        .m-icon-card .m-ico svg { width: 16px; height: 16px; }
+        .m-icon-card .m-text { flex: 1; min-width: 0; }
+        .m-icon-card .menu-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: #19335D;
+            margin: 0;
+            line-height: 1;
+        }
+        .m-icon-card p {
+            font-size: 11px;
+            color: #64748b;
+            margin: 2px 0 0 0;
+            line-height: 1.35;
+        }
+
+        /* Mobile hamburger button — visible on <1024 only */
+        @media (max-width: 1023.98px) {
+            #site-header .ee-mobile-btn {
+                display: inline-flex !important;
+                align-items: center;
+                justify-content: center;
+                padding: 10px;
+                background: transparent;
+                border: 0;
+                color: #19335D;
+                cursor: pointer;
+                border-radius: 8px;
+                margin-left: auto;
+            }
+            #site-header .ee-mobile-btn:hover { background: #F3F4F6; }
+            #site-header .ee-mobile-btn svg,
+            #site-header .ee-mobile-btn i[data-lucide] { width: 24px; height: 24px; color: #19335D; }
+        }
+
+        /* Tailwind utility shims used inside the mobile menu HTML
+           (these are real Tailwind classes — fallback values in case the
+           Tailwind CDN script is blocked or slow). */
+        .lg\:hidden { display: inline-flex; }
+        @media (min-width: 1024px) { .lg\:hidden { display: none; } }
+        .lg\:flex   { display: none; }
+        @media (min-width: 1024px) { .lg\:flex   { display: flex; } }
+        #mobileMenu.fixed { position: fixed; }
+        #mobileMenu.top-0 { top: 0; }
+        #mobileMenu.right-0 { right: 0; }
+        #mobileMenu.h-full { height: 100vh; }
+        #mobileMenu.shadow-2xl { box-shadow: -20px 0 40px rgba(0,0,0,.15); }
+        #mobileMenu.flex { display: flex; }
+        #mobileMenu.flex-col { flex-direction: column; }
+        #mobileMenu .w-\[85\%\] { width: 85%; }
+        #mobileMenu .max-w-\[360px\] { max-width: 360px; }
+        #mobileMenu.z-\[1100\] { z-index: 1100; }
+        /* Common Tailwind layout utilities inside the mobile menu */
+        #mobileMenu .p-6 { padding: 1.5rem; }
+        #mobileMenu .p-5 { padding: 1.25rem; }
+        #mobileMenu .p-4 { padding: 1rem; }
+        #mobileMenu .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        #mobileMenu .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        #mobileMenu .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        #mobileMenu .gap-2 { gap: 0.5rem; }
+        #mobileMenu .space-y-4 > * + * { margin-top: 1rem; }
+        #mobileMenu .space-y-2 > * + * { margin-top: 0.5rem; }
+        #mobileMenu .flex-1 { flex: 1; }
+        #mobileMenu .overflow-y-auto { overflow-y: auto; }
+        #mobileMenu .bg-white { background: #fff; }
+        #mobileMenu .bg-slate-50 { background: #f8fafc; }
+        #mobileMenu .bg-brandBlue { background: #19335D; }
+        #mobileMenu .text-white { color: #fff; }
+        #mobileMenu .text-brandBlue { color: #19335D; }
+        #mobileMenu .text-brandOrange { color: #DE6E30; }
+        #mobileMenu .font-bold { font-weight: 700; }
+        #mobileMenu .rounded-2xl { border-radius: 16px; }
+        #mobileMenu .rounded-xl { border-radius: 12px; }
+        #mobileMenu .rounded-full { border-radius: 9999px; }
+        #mobileMenu .border { border: 1px solid; }
+        #mobileMenu .border-b { border-bottom: 1px solid; }
+        #mobileMenu .border-t { border-top: 1px solid; }
+        #mobileMenu .border-slate-100 { border-color: #f1f5f9; }
+        #mobileMenu .border-slate-200 { border-color: #e2e8f0; }
+        #mobileMenu .bg-slate-100 { background: #f1f5f9; }
+        #mobileMenu .w-full { width: 100%; }
+        #mobileMenu .w-4 { width: 16px; }
+        #mobileMenu .h-4 { height: 16px; }
+        #mobileMenu .w-5 { width: 20px; }
+        #mobileMenu .h-5 { height: 20px; }
+        #mobileMenu .h-8 { height: 32px; }
+        #mobileMenu .flex { display: flex; }
+        #mobileMenu .items-center { align-items: center; }
+        #mobileMenu .justify-between { justify-content: space-between; }
+        #mobileMenu .text-center { text-align: center; }
+        #mobileMenu .overflow-hidden { overflow: hidden; }
+        #mobileMenu .shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+        #mobileMenu .shadow-lg { box-shadow: 0 10px 15px -3px rgba(25,51,93,.20); }
+        #mobileMenu .transition-transform { transition: transform .25s ease; }
     </style>
-    <!-- ee-header v2026-07-31-meganav -->
-    <!-- ─── Site Header (comprehension-first mega nav, sticky) ─── -->
+    <!-- ─── Site Header (advanced multi-level nav, sticky) ─── -->
     <?php if (!function_exists('ee_should_hide_part') || !ee_should_hide_part('header')): ?>
-    <?php
-    /* ══════════════════════════════════════════════════════════════
-       NAVIGATION CONTENT — the only place to edit menu items.
-         t = title, d = description (keep to 5 words), h = link
-       Descriptions are the differentiator: every product says what it
-       DOES, so a first-time visitor understands without clicking.
-       ══════════════════════════════════════════════════════════════ */
-    $EE_NAV = array(
-      'platform' => array(
-        'label' => 'Platform', 'desc' => true, 'grid' => 'ee-nav__grid--4',
-        'columns' => array(
-          array('heading' => '1 · Capture', 'items' => array(
-            array('t'=>'Admission CRM',        'd'=>'Every enquiry in one funnel',      'h'=>'/platform/admission-crm/'),
-            array('t'=>'Application platform', 'd'=>'Forms, documents, fees on mobile', 'h'=>'/platform/application-platform/'),
-            array('t'=>'Lead integrations',    'd'=>'Ads, publishers, IVR auto-synced', 'h'=>'/platform/integrations/'),
-          )),
-          array('heading' => '2 · Engage', 'items' => array(
-            array('t'=>'WhatsApp Business API','d'=>'Two-way chat at scale',        'h'=>'/platform/whatsapp-business-api/'),
-            array('t'=>'Education chatbot',    'd'=>'Answers queries 24 by 7',      'h'=>'/platform/education-chatbot/'),
-            array('t'=>'Email, SMS and IVR',   'd'=>'Drip journeys that follow up', 'h'=>'/platform/communication-suite/'),
-          )),
-          array('heading' => '3 · Convert', 'items' => array(
-            array('t'=>'Video counselling', 'd'=>'GD-PI and interviews inside CRM', 'h'=>'/platform/video-counselling/'),
-            array('t'=>'Mobile CRM app',    'd'=>'Counsellors call from anywhere',  'h'=>'/platform/mobile-crm/'),
-            array('t'=>'Payments and fees', 'd'=>'Collect and reconcile in-flow',   'h'=>'/platform/payments/'),
-          )),
-          array('heading' => '4 · Measure', 'items' => array(
-            array('t'=>'Analytics and reports',  'd'=>'Fifty-plus ready dashboards',      'h'=>'/platform/analytics/'),
-            array('t'=>'Analytics Builder',      'd'=>'Build reports without developers', 'h'=>'/platform/analytics-builder/'),
-            array('t'=>'Counsellor performance', 'd'=>'Response time to conversion impact','h'=>'/platform/counsellor-performance/'),
-          )),
-        ),
-        'strip' => array(
-          array('icon'=>'clock',  'label'=>'Live in 14 days'),
-          array('icon'=>'shield', 'label'=>'ISO 27001 and GDPR compliant'),
-          array('icon'=>'arrow',  'label'=>'Compare with Meritto and Salesforce', 'h'=>'/compare/'),
-        ),
-      ),
-      'vidya' => array(
-        'label' => 'Vidya AI', 'desc' => true, 'accent' => true, 'grid' => 'ee-nav__grid--rail',
-        'columns' => array(
-          array('heading' => 'AI products', 'items' => array(
-            array('t'=>'Vidya AI overview','d'=>'What AI does for admissions',  'h'=>'https://getvidya.ai'),
-            array('t'=>'VidyaGPT',         'd'=>'Answers student queries instantly','h'=>'/vidya-ai/vidyagpt/'),
-            array('t'=>'Vidya Call',       'd'=>'AI calls and qualifies leads', 'h'=>'/vidya-ai/vidya-call/'),
-            array('t'=>'VidyaWABA GPT',    'd'=>'AI replies on WhatsApp',       'h'=>'/vidya-ai/vidyawaba/'),
-          )),
-          array('heading' => 'Intelligence', 'items' => array(
-            array('t'=>'VidyaPulse',         'd'=>'Tells you who to call',        'h'=>'/vidya-ai/vidyapulse/'),
-            array('t'=>'VidyaGPT Analytics', 'd'=>'Ask your data anything',       'h'=>'/vidya-ai/analytics/'),
-            array('t'=>'AI trust and data',  'd'=>'Where your student data lives','h'=>'/vidya-ai/trust/'),
-          )),
-        ),
-        'rail' => array('heading'=>'See Vidya AI in action', 'links'=>array(
-          array('t'=>'Watch 3-min demo',        'h'=>'/vidya-ai/demo/'),
-          array('t'=>'Free AI readiness check', 'h'=>'/vidya-ai/readiness-check/'),
-        )),
-      ),
-      'solutions' => array(
-        'label' => 'Solutions', 'desc' => false, 'grid' => 'ee-nav__grid--rail3',
-        'columns' => array(
-          array('heading' => 'By institution', 'items' => array(
-            array('t'=>'Higher education',        'h'=>'/solutions/higher-education/'),
-            array('t'=>'K-12 schools',            'h'=>'/solutions/k-12-schools/'),
-            array('t'=>'Coaching and test prep',  'h'=>'/solutions/coaching-and-test-prep/'),
-            array('t'=>'EdTech companies',        'h'=>'/solutions/edtech-companies/'),
-            array('t'=>'Study abroad consultants','h'=>'/solutions/study-abroad-consultants/'),
-            array('t'=>'Vocational and skilling', 'h'=>'/solutions/vocational-and-skilling/'),
-          )),
-          array('heading' => 'By role', 'items' => array(
-            array('t'=>'Admission heads',        'h'=>'/solutions/for-admission-heads/'),
-            array('t'=>'Marketing leaders',      'h'=>'/solutions/for-marketing-leaders/'),
-            array('t'=>'Counselling teams',      'h'=>'/solutions/for-counselling-teams/'),
-            array('t'=>'Directors and founders', 'h'=>'/solutions/for-directors-and-founders/'),
-            array('t'=>'IT and compliance',      'h'=>'/solutions/for-it-and-compliance/'),
-          )),
-          array('heading' => 'By outcome', 'items' => array(
-            array('t'=>'Reduce cost per admission',      'h'=>'/solutions/reduce-cost-per-admission/'),
-            array('t'=>'Improve counsellor productivity','h'=>'/solutions/improve-counsellor-productivity/'),
-            array('t'=>'Increase form completion',       'h'=>'/solutions/increase-form-completion/'),
-            array('t'=>'Manage multi-campus admissions', 'h'=>'/solutions/manage-multi-campus-admissions/'),
-          )),
-        ),
-        'proof' => array('heading'=>'Customer proof', 'items'=>array(
-          array('b'=>'Bharati Vidyapeeth',     's'=>'10x applications'),
-          array('b'=>'Uttaranchal University', 's'=>'+38% applications'),
-          array('b'=>'Annapurna College',      's'=>'higher conversion'),
-        ), 'link'=>array('t'=>'See all 300+ customers','h'=>'/customer-success-stories/')),
-      ),
-      'resources' => array(
-        'label' => 'Resources', 'desc' => false, 'grid' => 'ee-nav__grid--3',
-        'columns' => array(
-          array('heading' => 'Learn', 'items' => array(
-            array('t'=>'Blog',              'h'=>'/blog/'),
-            array('t'=>'Webinars',          'h'=>'/webinars/'),
-            array('t'=>'Guides and ebooks', 'h'=>'/ebooks/'),
-            array('t'=>'Help centre',       'h'=>'/help/'),
-          )),
-          array('heading' => 'Tools', 'items' => array(
-            array('t'=>'CPA calculator',             'h'=>'/tools/cpa-calculator/'),
-            array('t'=>'ROI calculator',             'h'=>'/tools/roi-calculator/'),
-            array('t'=>'Admission benchmark report', 'h'=>'/admission-benchmark-report/'),
-            array('t'=>'Product changelog',          'h'=>'/changelog/'),
-          )),
-          array('heading' => 'Compare', 'items' => array(
-            array('t'=>'vs Meritto',                    'h'=>'/compare/meritto/'),
-            array('t'=>'vs LeadSquared',                'h'=>'/compare/leadsquared/'),
-            array('t'=>'vs Salesforce Education Cloud', 'h'=>'/compare/salesforce-education-cloud/'),
-            array('t'=>'vs NoPaperForms',               'h'=>'/compare/nopaperforms/'),
-            array('t'=>'Best admission CRM in India',   'h'=>'/best-admission-crm-in-india/'),
-          )),
-        ),
-      ),
-      'pricing' => array('label' => 'Pricing', 'href' => '/pricing/'),
-    );
-    $EE_NAV_DESKTOP = array('platform','vidya','solutions','resources','pricing');
-    $EE_NAV_MOBILE  = array('vidya','platform','solutions','pricing','resources');
+    <header id="site-header" role="banner" class="sticky top-0 z-[1000] w-full">
+        <div class="eh-content">
 
-    /* icons — inline SVG, currentColor, 16px, stroke 1.5 */
-    $ee_ico = array(
-      'chev'   => '<svg class="ee-nav__chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>',
-      'clock'  => '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
-      'shield' => '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
-      'arrow'  => '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>',
-    );
-    /* resolve a link: keep absolute URLs, run site paths through home_url() */
-    if (!function_exists('ee_nav_url')) {
-      function ee_nav_url($h){ return (strpos($h,'http') === 0) ? $h : home_url($h); }
-    }
-    if (!function_exists('ee_nav_column')) {
-      function ee_nav_column($col, $withDesc){
-        $out = '<div><p class="ee-nav__colhead">'.esc_html($col['heading']).'</p><ul class="ee-nav__items'.($withDesc ? '' : ' ee-nav__items--tight').'">';
-        foreach ($col['items'] as $it) {
-          $out .= '<li><a class="ee-nav__item" href="'.esc_url(ee_nav_url($it['h'])).'">';
-          $out .= $withDesc
-            ? '<span class="ee-nav__t">'.esc_html($it['t']).'</span><span class="ee-nav__d">'.esc_html($it['d']).'</span>'
-            : '<span class="ee-nav__plain">'.esc_html($it['t']).'</span>';
-          $out .= '</a></li>';
-        }
-        return $out.'</ul></div>';
-      }
-    }
-    if (!function_exists('ee_nav_rail')) {
-      function ee_nav_rail($rail, $ico){
-        $out = '<div class="ee-nav__rail"><h3>'.esc_html($rail['heading']).'</h3><ul>';
-        foreach ($rail['links'] as $l) $out .= '<li><a href="'.esc_url(ee_nav_url($l['h'])).'">'.$ico['arrow'].esc_html($l['t']).'</a></li>';
-        return $out.'</ul></div>';
-      }
-    }
-    if (!function_exists('ee_nav_proof')) {
-      function ee_nav_proof($p, $ico){
-        $out = '<div class="ee-nav__rail"><h3>'.esc_html($p['heading']).'</h3><ul>';
-        foreach ($p['items'] as $i) $out .= '<li class="ee-nav__proof"><b>'.esc_html($i['b']).'</b><span>'.esc_html($i['s']).'</span></li>';
-        $out .= '<li><a href="'.esc_url(ee_nav_url($p['link']['h'])).'">'.$ico['arrow'].esc_html($p['link']['t']).'</a></li>';
-        return $out.'</ul></div>';
-      }
-    }
-    if (!function_exists('ee_nav_strip')) {
-      function ee_nav_strip($strip, $ico){
-        $out = '<div class="ee-nav__strip">';
-        foreach ($strip as $s) {
-          $out .= isset($s['h'])
-            ? '<a href="'.esc_url(ee_nav_url($s['h'])).'">'.esc_html($s['label']).$ico['arrow'].'</a>'
-            : '<span>'.$ico[$s['icon']].esc_html($s['label']).'</span>';
-        }
-        return $out.'</div>';
-      }
-    }
-    $ee_cta = function_exists('ee_get_book_demo_cta') ? ee_get_book_demo_cta() : array('text'=>'Book a demo','url'=>'https://www.extraaedge.com/book-a-demo/');
-    $ee_logo = 'https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg';
-    ?>
-    <div class="ee-nav">
-    <header id="site-header" role="banner">
-        <div class="ee-nav__inner">
-            <a class="ee-nav__logo" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr($ee_site_name); ?> — home">
-                <img src="<?php echo esc_url($ee_logo); ?>" alt="<?php echo esc_attr($ee_site_name); ?>" width="160" height="34" fetchpriority="high" decoding="async">
+            <!-- Logo -->
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="eh-logo" aria-label="<?php echo esc_attr($ee_site_name); ?>">
+                <img src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg"
+                     alt="<?php echo esc_attr($ee_site_name); ?>"
+                     width="160" height="48" fetchpriority="high" decoding="async">
             </a>
-            <nav class="ee-nav__primary" aria-label="Primary">
-                <?php foreach ($EE_NAV_DESKTOP as $key): $sec = $EE_NAV[$key]; ?>
-                    <?php if (isset($sec['href'])): ?>
-                        <a class="ee-nav__toplink" href="<?php echo esc_url(ee_nav_url($sec['href'])); ?>"><?php echo esc_html($sec['label']); ?></a>
-                    <?php else: ?>
-                        <button class="ee-nav__trigger" type="button" data-key="<?php echo esc_attr($key); ?>"
-                                id="ee-trigger-<?php echo esc_attr($key); ?>" aria-expanded="false"
-                                aria-haspopup="true" aria-controls="ee-panel-<?php echo esc_attr($key); ?>"><?php
-                            echo esc_html($sec['label']) . $ee_ico['chev']; ?></button>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </nav>
-            <div class="ee-nav__actions">
-                <a class="ee-nav__cta" href="<?php echo esc_url($ee_cta['url']); ?>"><?php echo esc_html($ee_cta['text']); ?></a>
-                <button class="ee-nav__burger" id="eeBurger" type="button" aria-expanded="false"
-                        aria-controls="eeMobile" aria-label="Open menu">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-                </button>
-            </div>
-        </div>
-        <div class="ee-nav__panels">
-            <?php foreach ($EE_NAV_DESKTOP as $key): $sec = $EE_NAV[$key]; if (isset($sec['href'])) continue; ?>
-            <div class="ee-nav__panel<?php echo !empty($sec['accent']) ? ' ee-nav__panel--accent' : ''; ?>"
-                 id="ee-panel-<?php echo esc_attr($key); ?>" data-key="<?php echo esc_attr($key); ?>"
-                 aria-labelledby="ee-trigger-<?php echo esc_attr($key); ?>">
-                <div class="ee-nav__panel-in">
-                    <div class="ee-nav__grid <?php echo esc_attr($sec['grid']); ?>"><?php
-                        foreach ($sec['columns'] as $col) echo ee_nav_column($col, !empty($sec['desc']));
-                        if (isset($sec['rail']))  echo ee_nav_rail($sec['rail'], $ee_ico);
-                        if (isset($sec['proof'])) echo ee_nav_proof($sec['proof'], $ee_ico);
-                    ?></div>
-                    <?php if (isset($sec['strip'])) echo ee_nav_strip($sec['strip'], $ee_ico); ?>
-                </div>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </header>
 
-    <div class="ee-nav__mobile" id="eeMobile" hidden role="dialog" aria-label="Menu">
-        <div class="ee-nav__mhead">
-            <a class="ee-nav__logo" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr($ee_site_name); ?> — home">
-                <img src="<?php echo esc_url($ee_logo); ?>" alt="<?php echo esc_attr($ee_site_name); ?>" width="140" height="30" loading="eager" decoding="async">
-            </a>
-            <button class="ee-nav__mclose" id="eeMClose" type="button" aria-label="Close menu">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-            </button>
-        </div>
-        <div class="ee-nav__mbody">
-            <?php foreach ($EE_NAV_MOBILE as $key): $sec = $EE_NAV[$key]; ?>
-                <?php if (isset($sec['href'])): ?>
-                    <div class="ee-nav__acc"><a class="ee-nav__accbtn" href="<?php echo esc_url(ee_nav_url($sec['href'])); ?>"><?php echo esc_html($sec['label']); ?></a></div>
-                <?php else: $wd = !empty($sec['desc']); ?>
-                <div class="ee-nav__acc">
-                    <button class="ee-nav__accbtn" type="button" data-acc="<?php echo esc_attr($key); ?>"
-                            aria-expanded="false" aria-controls="ee-acc-<?php echo esc_attr($key); ?>"><?php
-                        echo esc_html($sec['label']) . $ee_ico['chev']; ?></button>
-                    <div class="ee-nav__accpanel" id="ee-acc-<?php echo esc_attr($key); ?>">
-                        <?php foreach ($sec['columns'] as $col): ?>
-                        <div class="ee-nav__mgroup">
-                            <p class="ee-nav__colhead"><?php echo esc_html($col['heading']); ?></p>
-                            <?php foreach ($col['items'] as $it): ?>
-                                <?php if ($wd): ?>
-                                <a class="ee-nav__mitem" href="<?php echo esc_url(ee_nav_url($it['h'])); ?>">
-                                    <span class="ee-nav__t"><?php echo esc_html($it['t']); ?></span>
-                                    <span class="ee-nav__d"><?php echo esc_html($it['d']); ?></span></a>
-                                <?php else: ?>
-                                <a class="ee-nav__mlink" href="<?php echo esc_url(ee_nav_url($it['h'])); ?>"><?php echo esc_html($it['t']); ?></a>
-                                <?php endif; ?>
+            <nav class="eh-nav ee-desktop-nav" role="navigation" aria-label="Primary">
+
+                <?php $eh_top = function_exists('ee_get_header_top_labels') ? ee_get_header_top_labels() : array(); ?>
+                <!-- Products Mega Menu — columns + badges set per-post in WP Admin -->
+                <div class="eh-nav-item">
+                    <a href="<?php echo esc_url($eh_top['products']['url'] ?? home_url('/products/')); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['products']['label'] ?? 'Products'); ?>
+                        <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </a>
+                    <div class="eh-mega">
+                        <?php
+                        /* Group every Product CPT post into one of four
+                           columns based on its "Menu Column" meta value.
+                           The non-coder picks the column from the dropdown
+                           in WP Admin → Products → edit any post → 🏷 Product
+                           Card Settings. Posts with column = "hidden" are
+                           skipped here but still show on /products/. */
+                        $eh_products_all = function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items() : array();
+                        $eh_cols = array(
+                            'featured'      => array('label' => 'Featured',      'icon' => 'star'),
+                            'core'          => array('label' => 'Core CRM',      'icon' => 'bullseye'),
+                            'communication' => array('label' => 'Communication', 'icon' => 'comments'),
+                            'automation'    => array('label' => 'Automation',    'icon' => 'bolt'),
+                        );
+                        $eh_groups = array('featured'=>array(),'core'=>array(),'communication'=>array(),'automation'=>array());
+                        foreach ($eh_products_all as $eh_p) {
+                            $col = isset($eh_p['column']) ? $eh_p['column'] : 'featured';
+                            if ($col === 'hidden' || !isset($eh_groups[$col])) continue;
+                            $eh_groups[$col][] = $eh_p;
+                        }
+                        ?>
+                        <div class="eh-mega-grid">
+                            <?php
+                            /* Featured promo strip — content editable from
+                               WP Admin → 🛍 Products Menu. Skipped entirely
+                               when the "Show this promo" checkbox is off. */
+                            $eh_promo = function_exists('ee_get_products_promo') ? ee_get_products_promo() : array('enabled' => '1');
+                            if (!empty($eh_promo['enabled']) && $eh_promo['enabled'] !== '0') :
+                                $eh_promo_btn_external = ($eh_promo['btn_url'] && (strpos($eh_promo['btn_url'], 'http') === 0) && strpos($eh_promo['btn_url'], home_url()) !== 0);
+                            ?>
+                            <div class="eh-featured">
+                                <div>
+                                    <div class="eh-featured-title">
+                                        <img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/rocket.svg'); ?>" alt="" loading="lazy">
+                                        <?php if (!empty($eh_promo['badge'])) : ?><?php echo esc_html($eh_promo['badge']); ?>: <?php endif; ?><?php echo esc_html($eh_promo['title']); ?>
+                                    </div>
+                                    <?php if (!empty($eh_promo['desc'])) : ?><p><?php echo esc_html($eh_promo['desc']); ?></p><?php endif; ?>
+                                    <?php if (!empty($eh_promo['btn_text']) && !empty($eh_promo['btn_url'])) : ?>
+                                    <a href="<?php echo esc_url($eh_promo['btn_url']); ?>" class="eh-featured-btn"<?php echo $eh_promo_btn_external ? ' target="_blank" rel="noopener"' : ''; ?>>
+                                        <?php echo esc_html($eh_promo['btn_text']); ?>
+                                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                                    </a>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="eh-featured-visual"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . ($eh_promo['visual_icon'] ?: 'robot') . '.svg'); ?>" alt="" loading="lazy"></div>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php foreach ($eh_cols as $eh_col_key => $eh_col_meta) :
+                                $eh_col_items = $eh_groups[$eh_col_key];
+                                if (empty($eh_col_items)) continue; /* skip column if no products assigned */
+                            ?>
+                            <div class="eh-mega-col">
+                                <div class="eh-col-title"><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_meta['icon'] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo esc_html($eh_col_meta['label']); ?></div>
+                                <?php foreach ($eh_col_items as $eh_p) :
+                                    $eh_short = wp_trim_words(wp_strip_all_tags((string) $eh_p['desc']), 9, '…');
+                                    $eh_badge = isset($eh_p['badge']) ? $eh_p['badge'] : 'none';
+                                ?>
+                                <a href="<?php echo esc_url($eh_p['url']); ?>" class="eh-dl">
+                                    <div class="eh-dl-icon">
+                                        <?php if (!empty($eh_p['icon'])) : ?>
+                                            <img class="eh-svg" src="<?php echo esc_url($eh_p['icon']); ?>" alt="" loading="lazy">
+                                        <?php else : ?>
+                                            <img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg" alt="" loading="lazy">
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="eh-dl-content">
+                                        <div class="eh-dl-title">
+                                            <?php echo esc_html($eh_p['title']); ?>
+                                            <?php if ($eh_badge && $eh_badge !== 'none') : ?>
+                                                <span class="eh-badge <?php echo esc_attr($eh_badge); ?>"><?php echo esc_html(ucfirst($eh_badge)); ?></span>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="eh-dl-desc"><?php echo esc_html($eh_short); ?></div>
+                                    </div>
+                                </a>
+                                <?php endforeach; ?>
+                            </div>
                             <?php endforeach; ?>
                         </div>
-                        <?php endforeach; ?>
-                        <?php if (isset($sec['rail'])):  ?><div class="ee-nav__mgroup"><?php echo ee_nav_rail($sec['rail'], $ee_ico); ?></div><?php endif; ?>
-                        <?php if (isset($sec['proof'])): ?><div class="ee-nav__mgroup"><?php echo ee_nav_proof($sec['proof'], $ee_ico); ?></div><?php endif; ?>
-                        <?php if (isset($sec['strip'])): ?><?php echo ee_nav_strip($sec['strip'], $ee_ico); ?><?php endif; ?>
+
+                        <?php
+                        /* Quick Access chips — all rows editable from WP
+                           Admin → 🛍 Products Menu. Skipped entirely when
+                           the editor removes every row. */
+                        $eh_qlinks = function_exists('ee_get_products_quick_links') ? ee_get_products_quick_links() : array();
+                        if (!empty($eh_qlinks)) :
+                        ?>
+                        <div class="eh-quick">
+                            <div class="eh-quick-title">⚡ Quick Access</div>
+                            <div class="eh-quick-grid">
+                                <?php foreach ($eh_qlinks as $eh_ql) :
+                                    $eh_qurl = !empty($eh_ql['url']) ? $eh_ql['url'] : '#';
+                                    if (strpos($eh_qurl, 'http') !== 0 && strpos($eh_qurl, '//') !== 0 && strpos($eh_qurl, '#') !== 0) {
+                                        $eh_qurl = home_url($eh_qurl);
+                                    }
+                                    $eh_qicon   = !empty($eh_ql['icon']) ? $eh_ql['icon'] : 'star';
+                                    $eh_qext    = isset($eh_ql['target']) && $eh_ql['target'] === '_blank';
+                                ?>
+                                <a href="<?php echo esc_url($eh_qurl); ?>" class="eh-quick-link"<?php echo $eh_qext ? ' target="_blank" rel="noopener"' : ''; ?>>
+                                    <img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_qicon . '.svg'); ?>" alt="" loading="lazy">
+                                    <?php echo esc_html($eh_ql['label']); ?>
+                                </a>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
+
+                <!-- Solutions Mega Menu — auto-fills from the 'ee_solution_items' option -->
+                <div class="eh-nav-item">
+                    <a href="<?php echo esc_url($eh_top['solutions']['url'] ?? '#'); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['solutions']['label'] ?? 'Solutions'); ?>
+                        <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </a>
+                    <div class="eh-mega">
+                        <?php
+                        /* Solutions are managed in WP Admin -> 🧩 Solutions.
+                           Three columns: Admission / Study Abroad / Recruitment.
+                           Editor can add / edit / remove rows without touching code. */
+                        $eh_sol     = function_exists('ee_get_solution_items') ? ee_get_solution_items() : array('admission'=>array(),'study_abroad'=>array(),'recruitment'=>array());
+                        $eh_sol_cols = array(
+                            'admission'    => array('label' => 'Admission Solutions',                  'icon' => 'graduation-cap'),
+                            'study_abroad' => array('label' => 'Study Abroad',                         'icon' => 'globe-americas'),
+                            'recruitment'  => array('label' => 'Recruitment &amp; Lead Management',    'icon' => 'bullseye'),
+                        );
+                        ?>
+                        <div class="eh-mega-grid three-col">
+                            <?php foreach ($eh_sol_cols as $eh_col_key => $eh_col_meta) :
+                                $eh_col_items = isset($eh_sol[$eh_col_key]) ? $eh_sol[$eh_col_key] : array();
+                            ?>
+                            <div class="eh-mega-col">
+                                <div class="eh-col-title"><span class="eh-col-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_col_meta['icon'] . '.svg'); ?>" alt="" loading="lazy"></span> <?php echo wp_kses_post($eh_col_meta['label']); ?></div>
+                                <?php foreach ($eh_col_items as $eh_s) :
+                                    $eh_url  = !empty($eh_s['url'])  ? $eh_s['url']  : '#';
+                                    if (strpos($eh_url, 'http') !== 0 && strpos($eh_url, '//') !== 0) {
+                                        $eh_url = home_url($eh_url);
+                                    }
+                                    $eh_icon = !empty($eh_s['icon']) ? $eh_s['icon'] : 'star';
+                                ?>
+                                <a href="<?php echo esc_url($eh_url); ?>" class="eh-dl">
+                                    <div class="eh-dl-icon"><img class="eh-svg" src="<?php echo esc_url('https://www.extraaedge.com/wp-content/uploads/icons/' . $eh_icon . '.svg'); ?>" alt="" loading="lazy"></div>
+                                    <div class="eh-dl-content">
+                                        <div class="eh-dl-title"><?php echo esc_html($eh_s['title']); ?></div>
+                                        <?php if (!empty($eh_s['desc'])) : ?>
+                                            <div class="eh-dl-desc"><?php echo esc_html($eh_s['desc']); ?></div>
+                                        <?php endif; ?>
+                                    </div>
+                                </a>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Industries — auto-fills from Industry CPT -->
+                <div class="eh-nav-item">
+                    <a href="<?php echo esc_url($eh_top['industries']['url'] ?? home_url('/industries/')); ?>" class="eh-nav-link"><?php echo esc_html($eh_top['industries']['label'] ?? 'Industries'); ?>
+                        <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </a>
+                    <div class="eh-dropdown">
+                        <?php
+                        /* Every published Industry CPT post is listed here.
+                           Add a new Industry in WP Admin -> it appears in
+                           this dropdown, in the mobile menu, and on /industries/
+                           automatically (all three share the same helper). */
+                        $eh_industries = function_exists('ee_get_industry_menu_items') ? ee_get_industry_menu_items() : array();
+                        foreach ($eh_industries as $eh_ind) :
+                            $eh_short = wp_trim_words(wp_strip_all_tags((string) ($eh_ind['short_desc'] ?: $eh_ind['desc'])), 8, '…');
+                        ?>
+                        <a href="<?php echo esc_url($eh_ind['url']); ?>" class="eh-dl">
+                            <div class="eh-dl-icon">
+                                <?php if (!empty($eh_ind['icon'])) : ?>
+                                    <img class="eh-svg" src="<?php echo esc_url($eh_ind['icon']); ?>" alt="" loading="lazy">
+                                <?php else : ?>
+                                    <img class="eh-svg" src="https://www.extraaedge.com/wp-content/uploads/icons/landmark.svg" alt="" loading="lazy">
+                                <?php endif; ?>
+                            </div>
+                            <div class="eh-dl-content">
+                                <div class="eh-dl-title"><?php echo esc_html($eh_ind['title']); ?></div>
+                                <div class="eh-dl-desc"><?php echo esc_html($eh_short); ?></div>
+                            </div>
+                        </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <!-- Resources -->
+                <div class="eh-nav-item">
+                    <a href="<?php echo esc_url($eh_top['resources']['url'] ?? '#'); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['resources']['label'] ?? 'Resources'); ?>
+                        <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </a>
+                    <div class="eh-dropdown">
+                        <?php
+                        $ee_resources_items = function_exists('ee_get_resources_menu_items') ? ee_get_resources_menu_items() : array();
+                        $ee_last = count($ee_resources_items) - 1;
+                        foreach ($ee_resources_items as $ee_idx => $ee_it):
+                            /* Show a thin divider before the last item (typically "Help Center") */
+                            if ($ee_idx === $ee_last && $ee_last > 0): ?>
+                                <div class="eh-divider"></div>
+                            <?php endif; ?>
+                            <a href="<?php echo esc_url($ee_it['url'] ?? '#'); ?>" class="eh-dl">
+                                <div class="eh-dl-icon">
+                                    <?php if (!empty($ee_it['icon'])): ?>
+                                        <img class="eh-svg" src="<?php echo esc_url($ee_it['icon']); ?>" alt="" loading="lazy">
+                                    <?php endif; ?>
+                                </div>
+                                <div class="eh-dl-content">
+                                    <div class="eh-dl-title"><?php echo esc_html($ee_it['title'] ?? ''); ?></div>
+                                    <?php if (!empty($ee_it['desc'])): ?>
+                                        <div class="eh-dl-desc"><?php echo esc_html($ee_it['desc']); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <!-- Company -->
+                <div class="eh-nav-item">
+                    <a href="<?php echo esc_url($eh_top['company']['url'] ?? '#'); ?>" class="eh-nav-link" role="button" aria-haspopup="true"><?php echo esc_html($eh_top['company']['label'] ?? 'Company'); ?>
+                        <svg class="eh-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </a>
+                    <div class="eh-dropdown">
+                        <?php
+                        $eh_company = function_exists('ee_get_company_menu_items') ? ee_get_company_menu_items() : array();
+                        $eh_last_c  = count($eh_company) - 1;
+                        foreach ($eh_company as $eh_ci => $eh_c):
+                            /* Show a divider just before the very last item (usually Contact / Privacy) */
+                            if ($eh_ci === $eh_last_c && $eh_last_c > 0): ?>
+                                <div class="eh-divider"></div>
+                            <?php endif; ?>
+                            <a href="<?php echo esc_url($eh_c['url'] ?? '#'); ?>" class="eh-dl">
+                                <div class="eh-dl-icon">
+                                    <?php if (!empty($eh_c['icon'])): ?>
+                                        <img class="eh-svg" src="<?php echo esc_url($eh_c['icon']); ?>" alt="" loading="lazy">
+                                    <?php endif; ?>
+                                </div>
+                                <div class="eh-dl-content">
+                                    <div class="eh-dl-title"><?php echo esc_html($eh_c['title'] ?? ''); ?></div>
+                                    <?php if (!empty($eh_c['desc'])): ?>
+                                        <div class="eh-dl-desc"><?php echo esc_html($eh_c['desc']); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- CTA + hamburger — grouped so Book Demo always sits tight against the 3-line icon on the right, never floating in the middle when the nav links are hidden on mobile -->
+            <div class="eh-actions">
+                <?php $eh_cta = function_exists('ee_get_book_demo_cta') ? ee_get_book_demo_cta() : array('text' => 'Book Demo', 'url' => 'https://www.extraaedge.com/book-a-demo/'); ?>
+                <a href="<?php echo esc_url($eh_cta['url']); ?>" class="eh-cta"><?php echo esc_html($eh_cta['text']); ?>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
+
+                <!-- Mobile hamburger — opens the existing slide-in #mobileMenu below -->
+                <button id="openMobileBtn" class="lg:hidden p-2 text-brandBlue ee-mobile-btn" aria-label="Open mobile menu" aria-controls="mobileMenu" aria-expanded="false"><i data-lucide="menu" aria-hidden="true"></i></button>
+            </div>
+
         </div>
-        <div class="ee-nav__mfoot"><a class="ee-nav__cta" href="<?php echo esc_url($ee_cta['url']); ?>"><?php echo esc_html($ee_cta['text']); ?></a></div>
-    </div>
-    </div>
+    </header>
     <?php endif; ?>
+
+    <!-- ─── Full Mobile Sidebar Menu (EXISTING — preserved fully) ─── -->
+    <div id="mobileMenu" class="fixed top-0 right-0 h-full w-[85%] max-w-[360px] z-[1100] lg:hidden flex flex-col shadow-2xl" role="dialog" aria-label="Mobile navigation menu" aria-modal="true">
+        <div class="p-6 flex items-center justify-between border-b border-slate-100 bg-white shadow-sm">
+            <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr($ee_site_name); ?> — Home"><img src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg" class="h-8" alt="<?php echo esc_attr($ee_site_name); ?>" width="120" height="32" loading="eager"></a>
+            <button id="closeMobileBtn" class="p-2 bg-slate-100 rounded-full" aria-label="Close mobile menu"><i data-lucide="x" aria-hidden="true"></i></button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto bg-slate-50 px-4 py-6 space-y-4">
+
+            <!-- 1. Products Mobile -->
+            <div class="mobile-accordion-item bg-white rounded-2xl overflow-hidden border border-slate-200">
+                <button class="w-full p-5 flex justify-between items-center font-bold text-brandBlue" onclick="toggleAccordion(this)" aria-expanded="false">
+                    <span class="flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4 text-brandOrange" aria-hidden="true"></i> Products</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-brandOrange transition-transform chevron-icon" aria-hidden="true"></i>
+                </button>
+                <div class="mobile-accordion-content">
+                    <div class="p-4 space-y-2">
+                        <?php foreach ((function_exists('ee_get_product_menu_items') ? ee_get_product_menu_items() : array()) as $p) :
+                            $short = wp_trim_words(wp_strip_all_tags((string) $p['desc']), 10, '…');
+                        ?>
+                        <a href="<?php echo esc_url($p['url']); ?>" class="m-icon-card" title="<?php echo esc_attr($p['title']); ?>">
+                            <div class="m-ico" aria-hidden="true">
+                                <?php if (!empty($p['icon'])) : ?>
+                                    <img src="<?php echo esc_url($p['icon']); ?>" alt="" style="width:18px;height:18px;object-fit:contain" loading="lazy">
+                                <?php else : ?>
+                                    <i data-lucide="layout-dashboard"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div class="m-text"><span class="menu-title"><?php echo esc_html($p['title']); ?></span><p><?php echo esc_html($short); ?></p></div>
+                        </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Industry Mobile -->
+            <div class="mobile-accordion-item bg-white rounded-2xl overflow-hidden border border-slate-200">
+                <button class="w-full p-5 flex justify-between items-center font-bold text-brandBlue" onclick="toggleAccordion(this)" aria-expanded="false">
+                    <span class="flex items-center gap-2"><i data-lucide="building-2" class="w-4 h-4 text-brandOrange" aria-hidden="true"></i> Industry</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-brandOrange transition-transform chevron-icon" aria-hidden="true"></i>
+                </button>
+                <div class="mobile-accordion-content">
+                    <div class="p-4 space-y-2">
+                        <?php foreach (ee_get_industry_menu_items() as $ind) : ?>
+                        <a href="<?php echo esc_url($ind['url']); ?>" class="m-icon-card" title="<?php echo esc_attr($ind['title']); ?>">
+                            <div class="m-ico" aria-hidden="true">
+                                <?php if (!empty($ind['icon'])) : ?>
+                                    <img src="<?php echo esc_url($ind['icon']); ?>" alt="" style="width:18px;height:18px;object-fit:contain" loading="lazy">
+                                <?php else : ?>
+                                    <i data-lucide="building"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div class="m-text"><span class="menu-title"><?php echo esc_html($ind['title']); ?></span><p><?php echo esc_html($ind['short_desc']); ?></p></div>
+                        </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Use Cases Mobile -->
+            <div class="mobile-accordion-item bg-white rounded-2xl overflow-hidden border border-slate-200">
+                <button class="w-full p-5 flex justify-between items-center font-bold text-brandBlue" onclick="toggleAccordion(this)" aria-expanded="false">
+                    <span class="flex items-center gap-2"><i data-lucide="target" class="w-4 h-4 text-brandOrange" aria-hidden="true"></i> Use Cases</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-brandOrange transition-transform chevron-icon" aria-hidden="true"></i>
+                </button>
+                <div class="mobile-accordion-content">
+                    <div class="p-4 space-y-2">
+                        <?php foreach ((function_exists('ee_get_usecase_items') ? ee_get_usecase_items() : array()) as $uc) :
+                            $short = wp_trim_words(wp_strip_all_tags((string) $uc['desc']), 10, '…');
+                        ?>
+                        <a href="<?php echo esc_url($uc['url']); ?>" class="m-icon-card" title="<?php echo esc_attr($uc['title']); ?>">
+                            <div class="m-ico" aria-hidden="true">
+                                <?php if (!empty($uc['icon'])) : ?>
+                                    <img src="<?php echo esc_url($uc['icon']); ?>" alt="" style="width:18px;height:18px;object-fit:contain" loading="lazy">
+                                <?php elseif (!empty($uc['lucide'])) : ?>
+                                    <i data-lucide="<?php echo esc_attr($uc['lucide']); ?>"></i>
+                                <?php else : ?>
+                                    <i data-lucide="users"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div class="m-text"><span class="menu-title"><?php echo esc_html($uc['title']); ?></span><p><?php echo esc_html($short); ?></p></div>
+                        </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Resources Mobile -->
+            <div class="mobile-accordion-item bg-white rounded-2xl overflow-hidden border border-slate-200">
+                <button class="w-full p-5 flex justify-between items-center font-bold text-brandBlue" onclick="toggleAccordion(this)" aria-expanded="false">
+                    <span class="flex items-center gap-2"><i data-lucide="library" class="w-4 h-4 text-brandOrange" aria-hidden="true"></i> Resources</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-brandOrange transition-transform chevron-icon" aria-hidden="true"></i>
+                </button>
+                <div class="mobile-accordion-content">
+                    <div class="p-4 space-y-2">
+                        <a href="/blogs/" class="m-icon-card" title="Blogs">
+                            <div class="m-ico" aria-hidden="true"><i data-lucide="file-text"></i></div>
+                            <div class="m-text"><span class="menu-title">Blogs</span><p>Latest admissions insights.</p></div>
+                        </a>
+                        <a href="/ebooks/" class="m-icon-card" title="Ebooks">
+                            <div class="m-ico" aria-hidden="true"><i data-lucide="book"></i></div>
+                            <div class="m-text"><span class="menu-title">Ebooks</span><p>Industry-relevant guides.</p></div>
+                        </a>
+                        <a href="/webinars/" class="m-icon-card" title="Webinars">
+                            <div class="m-ico" aria-hidden="true"><i data-lucide="monitor"></i></div>
+                            <div class="m-text"><span class="menu-title">Webinars</span><p>Live sessions on trends.</p></div>
+                        </a>
+                        <a href="/news/" class="m-icon-card" title="News and Media">
+                            <div class="m-ico" aria-hidden="true"><i data-lucide="newspaper"></i></div>
+                            <div class="m-text"><span class="menu-title">News &amp; Media</span><p>Latest updates from ExtraaEdge.</p></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Company Mobile -->
+            <div class="mobile-accordion-item bg-white rounded-2xl overflow-hidden border border-slate-200">
+                <button class="w-full p-5 flex justify-between items-center font-bold text-brandBlue" onclick="toggleAccordion(this)" aria-expanded="false">
+                    <span class="flex items-center gap-2"><i data-lucide="briefcase-business" class="w-4 h-4 text-brandOrange" aria-hidden="true"></i> Company</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-brandOrange transition-transform chevron-icon" aria-hidden="true"></i>
+                </button>
+                <div class="mobile-accordion-content">
+                    <div class="p-4 space-y-2">
+                        <a href="/about/" class="m-icon-card" title="About Us">
+                            <div class="m-ico" aria-hidden="true"><i data-lucide="info"></i></div>
+                            <div class="m-text"><span class="menu-title">About Us</span><p>Our story and mission.</p></div>
+                        </a>
+                        <a href="/customer-success-stories/" class="m-icon-card" title="Customers">
+                            <div class="m-ico" aria-hidden="true"><i data-lucide="users"></i></div>
+                            <div class="m-text"><span class="menu-title">Customers</span><p>Success stories.</p></div>
+                        </a>
+                        <a href="/careers/" class="m-icon-card" title="Careers">
+                            <div class="m-ico" aria-hidden="true"><i data-lucide="sparkles"></i></div>
+                            <div class="m-text"><span class="menu-title">Careers</span><p>Join our team.</p></div>
+                        </a>
+                        <a href="/investors/" class="m-icon-card" title="Investors and Advisors">
+                            <div class="m-ico" aria-hidden="true"><i data-lucide="landmark"></i></div>
+                            <div class="m-text"><span class="menu-title">Investors &amp; Advisors</span><p>Our supporters.</p></div>
+                        </a>
+                        <a href="/team/" class="m-icon-card" title="Team">
+                            <div class="m-ico" aria-hidden="true"><i data-lucide="smile"></i></div>
+                            <div class="m-text"><span class="menu-title">Team</span><p>People driving your success.</p></div>
+                        </a>
+                        <a href="/partners/" class="m-icon-card" title="Become a Partner">
+                            <div class="m-ico" aria-hidden="true"><i data-lucide="handshake"></i></div>
+                            <div class="m-text"><span class="menu-title">Become a Partner</span><p>Partner with us.</p></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Mobile Bottom Actions -->
+        <div class="p-6 bg-white border-t border-slate-100">
+            <a href="https://www.extraaedge.com/book-a-demo/" class="block bg-brandBlue py-4 rounded-xl font-bold text-white shadow-lg shadow-brandBlue/20 text-center" aria-label="Book Demo Now">Book Demo</a>
+        </div>
+    </div>
+
     <?php
     /* ─── Visible Breadcrumb Navigation (crawler-friendly, microdata) ───
      * Renders only on inner pages — improves crawl architecture and shows
@@ -961,118 +1441,36 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
             }, { passive: true });
         })();
 
-        /* ── mega-nav behaviour: hover intent, click, keyboard, mobile ── */
-        (function(){
-          var root = document.querySelector('.ee-nav'); if (!root) return;
-          var triggers = [].slice.call(root.querySelectorAll('.ee-nav__trigger'));
-          var panels   = [].slice.call(root.querySelectorAll('.ee-nav__panel'));
-          var byKey = function(k){ return panels.filter(function(p){ return p.dataset.key === k; })[0]; };
-          var OPEN_DELAY = 150, CLOSE_DELAY = 300;
-          var openKey = null, openTimer = null, closeTimer = null, pointerDown = false, muteFocus = false;
+        // Mobile Menu Toggle
+        const openBtn = document.getElementById('openMobileBtn');
+        const closeBtn = document.getElementById('closeMobileBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
 
-          function clearTimers(){ clearTimeout(openTimer); clearTimeout(closeTimer); }
-          function open(key, focusFirst){
-            clearTimers();
-            if (openKey !== key) {
-              panels.forEach(function(p){ p.classList.toggle('is-open', p.dataset.key === key); });
-              triggers.forEach(function(t){ t.setAttribute('aria-expanded', String(t.dataset.key === key)); });
-              openKey = key;
-            }
-            if (focusFirst) { var a = byKey(key) && byKey(key).querySelector('a'); if (a) a.focus(); }
-          }
-          function close(restoreFocus){
-            clearTimers();
-            if (!openKey) return;
-            var t = triggers.filter(function(x){ return x.dataset.key === openKey; })[0];
-            panels.forEach(function(p){ p.classList.remove('is-open'); });
-            triggers.forEach(function(x){ x.setAttribute('aria-expanded','false'); });
-            openKey = null;
-            if (restoreFocus && t) { muteFocus = true; t.focus(); setTimeout(function(){ muteFocus = false; }, 0); }
-          }
+        if (openBtn) openBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            openBtn.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        });
 
-          triggers.forEach(function(t){
-            var key = t.dataset.key, panel = byKey(key);
-            t.addEventListener('mouseenter', function(){
-              clearTimeout(closeTimer);
-              if (openKey && openKey !== key) { open(key); return; }   /* instant swap */
-              openTimer = setTimeout(function(){ open(key); }, OPEN_DELAY);
-            });
-            t.addEventListener('mouseleave', function(){
-              clearTimeout(openTimer);
-              closeTimer = setTimeout(function(){ close(false); }, CLOSE_DELAY);
-            });
-            t.addEventListener('pointerdown', function(){ pointerDown = true; });
-            t.addEventListener('click', function(e){
-              e.preventDefault();
-              (openKey === key) ? close(false) : open(key);
-              pointerDown = false;
-            });
-            t.addEventListener('focus', function(){ if (!pointerDown && !muteFocus) open(key); });
-            t.addEventListener('keydown', function(e){
-              if (e.key === 'ArrowDown') { e.preventDefault(); open(key, true); }
-              else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-                e.preventDefault();
-                var i = triggers.indexOf(t);
-                triggers[(i + (e.key === 'ArrowRight' ? 1 : triggers.length - 1)) % triggers.length].focus();
-              }
-            });
-            if (!panel) return;
-            panel.addEventListener('mouseenter', function(){ clearTimeout(closeTimer); });
-            panel.addEventListener('mouseleave', function(){ closeTimer = setTimeout(function(){ close(false); }, CLOSE_DELAY); });
-            panel.addEventListener('keydown', function(e){
-              var links = [].slice.call(panel.querySelectorAll('a'));
-              var i = links.indexOf(document.activeElement);
-              if (e.key === 'ArrowDown' && i > -1) { e.preventDefault(); links[(i + 1) % links.length].focus(); }
-              else if (e.key === 'ArrowUp' && i > -1) { e.preventDefault(); links[(i - 1 + links.length) % links.length].focus(); }
-            });
-          });
+        if (closeBtn) closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = 'auto';
+        });
 
-          document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(true); });
-          document.addEventListener('click', function(e){ if (openKey && !root.contains(e.target)) close(false); });
-          root.addEventListener('focusout', function(){
-            setTimeout(function(){ if (openKey && !root.contains(document.activeElement)) close(false); }, 0);
-          });
-
-          /* mobile overlay */
-          var overlay = document.getElementById('eeMobile'),
-              burger  = document.getElementById('eeBurger'),
-              mclose  = document.getElementById('eeMClose'),
-              savedY  = 0;
-          if (overlay && burger && mclose) {
-            burger.addEventListener('click', function(){
-              savedY = window.scrollY;
-              overlay.hidden = false;
-              burger.setAttribute('aria-expanded','true');
-              document.body.style.position = 'fixed';
-              document.body.style.top = '-' + savedY + 'px';
-              document.body.style.width = '100%';
-              mclose.focus();
+        // Mobile Accordion Logic
+        function toggleAccordion(btn) {
+            const item = btn.parentElement;
+            const wasActive = item.classList.contains('active');
+            document.querySelectorAll('.mobile-accordion-item').forEach(el => {
+                if (el !== item) {
+                    el.classList.remove('active');
+                    const b = el.querySelector('button[aria-expanded]'); if (b) b.setAttribute('aria-expanded', 'false');
+                }
             });
-            function shut(){
-              overlay.hidden = true;
-              burger.setAttribute('aria-expanded','false');
-              document.body.style.position = '';
-              document.body.style.top = '';
-              document.body.style.width = '';
-              window.scrollTo(0, savedY);
-              burger.focus();
-            }
-            mclose.addEventListener('click', shut);
-            document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !overlay.hidden) shut(); });
-            overlay.addEventListener('click', function(e){
-              var btn = e.target.closest ? e.target.closest('.ee-nav__accbtn[data-acc]') : null;
-              if (!btn) return;
-              var panel = document.getElementById('ee-acc-' + btn.dataset.acc);
-              var isOpen = btn.getAttribute('aria-expanded') === 'true';
-              overlay.querySelectorAll('.ee-nav__accbtn[data-acc]').forEach(function(b){
-                b.setAttribute('aria-expanded','false');
-                var p = document.getElementById('ee-acc-' + b.dataset.acc);
-                if (p) p.classList.remove('is-open');
-              });
-              if (!isOpen) { btn.setAttribute('aria-expanded','true'); if (panel) panel.classList.add('is-open'); }
-            });
-          }
-        })();
+            item.classList.toggle('active');
+            btn.setAttribute('aria-expanded', wasActive ? 'false' : 'true');
+        }
 
         // Reveal animations on load
         window.addEventListener('load', () => {
@@ -1127,6 +1525,201 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         })();
     </script>
 
+
+    <!-- ee-header v2026-07-31-wide -->
+    <!-- ─── HEADER 2026 SKIN (eh-2026) ───
+         Floating glass island: detached rounded bar with backdrop blur,
+         compact-on-scroll, glass mega menus, quiet pill nav, premium
+         micro-interactions. Colours/fonts = existing brand tokens only. -->
+    <style id="eh-2026">
+    #site-header{background:transparent!important;border:0!important;box-shadow:none!important;
+      padding:14px 14px 0;transition:padding .35s cubic-bezier(.22,1,.36,1)}
+    #site-header .eh-content{width:min(1860px,93%)!important;max-width:none!important;margin-inline:auto!important;height:64px;padding:0 16px 0 28px;
+      background:rgba(255,255,255,.74);
+      -webkit-backdrop-filter:blur(18px) saturate(180%);backdrop-filter:blur(18px) saturate(180%);
+      border:1px solid rgba(25,51,93,.08);border-radius:18px;
+      box-shadow:0 1px 2px rgba(25,51,93,.04),0 16px 48px -24px rgba(25,51,93,.25);
+      transition:height .35s cubic-bezier(.22,1,.36,1),background .35s ease,box-shadow .35s ease}
+    @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+      #site-header .eh-content{background:rgba(255,255,255,.97)}}
+    #site-header.eh-scrolled{padding-top:8px}
+    #site-header.eh-scrolled .eh-content{height:52px;background:rgba(255,255,255,.88);
+      box-shadow:0 1px 2px rgba(25,51,93,.05),0 22px 54px -22px rgba(25,51,93,.32)}
+    /* nav: quiet pill links, no underline bars */
+    #site-header .eh-nav-link{font-weight:500;font-size:.875rem;color:#33415C;
+      padding:.5rem .8rem;border-radius:10px;letter-spacing:0;
+      transition:background .2s ease,color .2s ease}
+    #site-header .eh-nav-link:hover,#site-header .eh-nav-item:hover>.eh-nav-link{
+      background:rgba(25,51,93,.05);color:#19335D}
+    #site-header .eh-nav-link.active{background:rgba(25,51,93,.06);color:#19335D}
+    #site-header .eh-nav-link.active::after,
+    #site-header .eh-nav-item:hover>.eh-nav-link::after{display:none!important}
+    #site-header .eh-chev{transition:transform .25s cubic-bezier(.22,1,.36,1)}
+    #site-header .eh-nav-item:hover .eh-chev{transform:rotate(180deg)}
+    /* CTA: slim conversion pill with arrow slide */
+    #site-header .eh-cta{border-radius:9px;padding:.55rem 1.2rem;font-size:.82rem;font-weight:600;
+      letter-spacing:.01em;box-shadow:0 6px 18px -8px rgba(222,110,48,.55);
+      transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .25s ease}
+    #site-header .eh-cta:hover{transform:translateY(-1px);box-shadow:0 10px 26px -8px rgba(222,110,48,.6)}
+    #site-header .eh-cta svg,#site-header .eh-cta img{transition:transform .25s ease}
+    #site-header .eh-cta:hover svg,#site-header .eh-cta:hover img{transform:translateX(3px)}
+    /* dropdowns + mega menus: glass panels with a soft spring entrance */
+    #site-header .eh-mega,#site-header .eh-dropdown{
+      background:rgba(255,255,255,.9)!important;
+      -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
+      border:1px solid rgba(25,51,93,.08)!important;border-radius:18px!important;
+      box-shadow:0 2px 6px rgba(25,51,93,.05),0 42px 90px -30px rgba(25,51,93,.35)!important;
+      transition:opacity .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),visibility .28s!important}
+    #site-header .eh-dl{border-radius:12px;transition:background .2s ease}
+    #site-header .eh-dl:hover{background:rgba(222,110,48,.06)}
+    #site-header .eh-dl:hover .eh-dl-title{color:var(--orange-700,#B5551D)}
+    #site-header .eh-dl .eh-dl-icon{transition:transform .25s cubic-bezier(.22,1,.36,1)}
+    #site-header .eh-dl:hover .eh-dl-icon{transform:translateY(-2px)}
+    /* minimal menu rows: no descriptions, icon+title aligned centre */
+    #site-header .eh-dl-desc{display:none!important}
+    #site-header .eh-dl{align-items:center;padding:.55rem .7rem}
+    #site-header .eh-dl-content{display:flex;align-items:center}
+    #site-header .eh-quick-link{border-radius:10px;transition:background .2s,color .2s}
+    #site-header .eh-quick-link:hover{background:rgba(25,51,93,.05)}
+    /* logo: micro-lift only */
+    #site-header .eh-logo:hover{transform:translateY(-1px)}
+    @media(max-width:860px){
+      #site-header{padding:10px 10px 0}
+      #site-header .eh-content{height:56px;border-radius:16px;padding:0 8px 0 14px}
+      #site-header.eh-scrolled .eh-content{height:50px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      #site-header,#site-header .eh-content,#site-header .eh-nav-link,#site-header .eh-cta,
+      #site-header .eh-chev,#site-header .eh-dl,#site-header .eh-dl-icon{transition:none!important}
+    }
+
+    /* ── structural layer: balanced centre cluster ── */
+    /* logo | nav | actions - side rails flex equally so the nav sits on the
+       bar's true centre no matter how wide the logo or CTA are */
+    #site-header .eh-content{justify-content:space-between}
+    #site-header .eh-logo{flex:1 1 0;min-width:0}
+    #site-header .eh-nav{position:relative;flex:0 0 auto;display:flex;justify-content:center;gap:.15rem}
+    #site-header .eh-actions{flex:1 1 0;display:flex;align-items:center;justify-content:flex-end;gap:.5rem}
+    @media(max-width:1023px){#site-header .eh-actions{margin-left:auto}}
+    /* magnetic sliding hover pill behind nav links (injected by JS) */
+    #site-header .eh-hoverpill{position:absolute;z-index:0;background:rgba(25,51,93,.06);
+      border-radius:10px;opacity:0;pointer-events:none;
+      transition:transform .32s cubic-bezier(.22,1,.36,1),width .32s cubic-bezier(.22,1,.36,1),
+                 height .32s cubic-bezier(.22,1,.36,1),opacity .25s ease}
+    #site-header .eh-nav-item{position:relative;z-index:1}
+    #site-header.eh-pill-on .eh-nav-link:hover,
+    #site-header.eh-pill-on .eh-nav-item:hover>.eh-nav-link{background:transparent}
+    /* mega menu rows: entrance stagger on open. Rows are visible by
+       default (never opacity:0 at rest) so aggressive CSS optimisers
+       like LiteSpeed UCSS can never leave them permanently hidden. */
+    @keyframes ehDlIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl,
+    #site-header .eh-nav-item:focus-within .eh-mega .eh-dl{
+      animation:ehDlIn .3s cubic-bezier(.22,1,.36,1) both}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(2){animation-delay:.03s}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(3){animation-delay:.06s}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(4){animation-delay:.09s}
+    #site-header .eh-nav-item:hover .eh-mega .eh-dl:nth-child(5){animation-delay:.12s}
+    /* keyboard support: panels open on focus too, not just hover */
+    #site-header .eh-nav-item:focus-within .eh-mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    #site-header .eh-nav-item:focus-within>.eh-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+    /* premium mobile slide-over: glass, rounded, springy */
+    #mobileMenu{background:rgba(255,255,255,.94)!important;
+      -webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);
+      border-radius:24px 0 0 24px!important;border-left:1px solid rgba(25,51,93,.08);
+      transition:transform .45s cubic-bezier(.22,1,.36,1)!important}
+    /* ── beauty layer ── */
+    /* island: gradient hairline ring + soft entrance drop */
+    #site-header .eh-content{position:relative}
+    #site-header .eh-content::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+      background:linear-gradient(110deg,rgba(222,110,48,.4),rgba(25,51,93,.12) 38%,rgba(255,255,255,0) 62%,rgba(222,110,48,.18));
+      -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+    @keyframes ehDropIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+    #site-header .eh-content{animation:ehDropIn .65s cubic-bezier(.22,1,.36,1) both}
+    /* CTA: one-time light sweep on hover */
+    #site-header .eh-cta{position:relative;overflow:hidden}
+    #site-header .eh-cta::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;
+      background:linear-gradient(105deg,transparent,rgba(255,255,255,.35),transparent);
+      transform:skewX(-18deg);transition:left .6s ease;pointer-events:none}
+    #site-header .eh-cta:hover::after{left:120%}
+    /* active link: tiny orange dot */
+    #site-header .eh-nav-link.active{position:relative}
+    #site-header .eh-nav-link.active::before{content:"";position:absolute;left:50%;bottom:2px;
+      width:4px;height:4px;border-radius:50%;background:#DE6E30;transform:translateX(-50%)}
+    /* mega menu: pointer caret + refined column titles */
+    #site-header .eh-mega::after{content:"";position:absolute;top:-6px;left:50%;width:12px;height:12px;
+      transform:translateX(-50%) rotate(45deg);background:rgba(255,255,255,.9);
+      border-left:1px solid rgba(25,51,93,.08);border-top:1px solid rgba(25,51,93,.08);border-radius:3px 0 0 0}
+    #site-header .eh-col-title{color:var(--orange-700,#B5551D)!important;letter-spacing:.12em!important}
+    #site-header .eh-mega-col+.eh-mega-col{border-left:1px solid rgba(25,51,93,.06);padding-left:1rem}
+    /* scrolled: hairline warms slightly */
+    #site-header.eh-scrolled .eh-content::before{
+      background:linear-gradient(110deg,rgba(222,110,48,.55),rgba(25,51,93,.15) 40%,rgba(255,255,255,0) 62%,rgba(222,110,48,.25))}
+    /* ── mobile drawer enhancements: scrim, safe-area, touch targets ── */
+    .eh-scrim{position:fixed;inset:0;z-index:1090;background:rgba(15,32,58,.45);
+      -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+      opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s}
+    .eh-scrim.on{opacity:1;visibility:visible}
+    #mobileMenu .overflow-y-auto{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+      padding-bottom:calc(1.5rem + env(safe-area-inset-bottom))}
+    #openMobileBtn,#closeMobileBtn{min-width:44px;min-height:44px;
+      display:inline-flex;align-items:center;justify-content:center}
+    @media(prefers-reduced-motion:reduce){
+      #site-header .eh-hoverpill,#site-header .eh-mega .eh-dl,#mobileMenu,.eh-scrim{transition:none!important;animation:none!important}
+      #site-header .eh-content{animation:none}
+      #site-header .eh-cta::after{display:none}
+    }
+    </style>
+    <script id="eh-2026-js">
+    (function(){
+      var h=document.getElementById('site-header'); if(!h) return;
+      var t=false;
+      function upd(){ t=false; h.classList.toggle('eh-scrolled', window.scrollY>24); }
+      window.addEventListener('scroll',function(){ if(!t){ t=true; requestAnimationFrame(upd); } },{passive:true});
+      upd();
+      /* magnetic hover pill */
+      var nav=h.querySelector('.eh-nav');
+      if(nav && matchMedia('(hover:hover)').matches){
+        var pill=document.createElement('span');
+        pill.className='eh-hoverpill'; pill.setAttribute('aria-hidden','true');
+        nav.appendChild(pill);
+        h.classList.add('eh-pill-on');
+        function moveTo(link){
+          /* rects are visual (site-wide body zoom) - divide back to CSS px */
+          var Z=parseFloat(getComputedStyle(document.body).zoom)||1;
+          var nr=nav.getBoundingClientRect(), lr=link.getBoundingClientRect();
+          pill.style.width=(lr.width/Z)+'px'; pill.style.height=(lr.height/Z)+'px';
+          pill.style.transform='translate('+((lr.left-nr.left)/Z)+'px,'+((lr.top-nr.top)/Z)+'px)';
+          pill.style.opacity='1';
+        }
+        nav.querySelectorAll('.eh-nav-link').forEach(function(l){
+          l.addEventListener('mouseenter',function(){ moveTo(l); });
+          l.addEventListener('focus',function(){ moveTo(l); });
+        });
+        nav.addEventListener('mouseleave',function(){
+          var act=nav.querySelector('.eh-nav-link.active');
+          if(act){ moveTo(act); } else { pill.style.opacity='0'; }
+        });
+      }
+      /* mobile drawer: backdrop scrim, tap-outside + Esc close, focus return */
+      var mm=document.getElementById('mobileMenu'),
+          ob=document.getElementById('openMobileBtn'),
+          cb=document.getElementById('closeMobileBtn');
+      if(mm&&ob&&cb){
+        var scrim=document.createElement('div');
+        scrim.className='eh-scrim'; scrim.setAttribute('aria-hidden','true');
+        document.body.appendChild(scrim);
+        ob.addEventListener('click',function(){ scrim.classList.add('on'); });
+        function shut(){ scrim.classList.remove('on'); ob.focus(); }
+        cb.addEventListener('click',shut);
+        scrim.addEventListener('click',function(){ cb.click(); });
+        document.addEventListener('keydown',function(e){
+          if(e.key==='Escape'&&mm.classList.contains('active')) cb.click();
+        });
+      }
+    })();
+    </script>
 
 <style id="ee-global-heading-scale">
 /* ── Global heading scale: fixed sizes, identical on desktop and mobile ──
