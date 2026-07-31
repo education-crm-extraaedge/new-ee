@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-btn-standard -->
+<!-- ee-front-tpl v2026-07-31-sol-blue-arrows -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -4173,11 +4173,15 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
 #ee-solutions .solb-lt b{font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;line-height:1.2;}
 #ee-solutions .solb-lt span{font-size:12.5px;line-height:1.35;color:var(--muted);}
 #ee-solutions .solb-a .solb-lt span{color:rgba(255,255,255,.62);}
-#ee-solutions .solb-arr{margin-left:auto;flex-shrink:0;color:var(--muted);transition:color .25s,transform .25s;}
-#ee-solutions .solb-a .solb-arr{color:rgba(255,255,255,.5);}
+/* Blue row arrows. They used to be an external <img>, which no CSS colour
+   can reach - they are inline SVG now so currentColor drives them. The
+   .solb-a override is gone with them: that card is white since the
+   all-white pass, and a white arrow on it was invisible. */
+#ee-solutions .solb-arr{margin-left:auto;flex-shrink:0;color:#1A5FB4;transition:color .25s,transform .25s;}
+#ee-solutions .solb-a .solb-arr{color:#1A5FB4;}
 #ee-solutions .solb-arr img.eeimg,#ee-solutions .solb-arr svg{width:16px;height:16px;}
-#ee-solutions .solb-link:hover .solb-arr{color:var(--orange);transform:translateX(3px);}
-#ee-solutions .solb-a .solb-link:hover .solb-arr{color:#fff;}
+#ee-solutions .solb-link:hover .solb-arr{color:#123F73;transform:translateX(3px);}
+#ee-solutions .solb-a .solb-link:hover .solb-arr{color:#123F73;}
 #ee-solutions .solb-cta{display:inline-flex;align-items:center;gap:9px;position:relative;z-index:1;margin-top:18px;
   background:#fff;color:var(--orange);font-weight:700;font-size:14.5px;padding:12px 22px;border-radius:999px;text-decoration:none;
   box-shadow:0 14px 28px -12px rgba(15,32,58,.4);transition:transform .25s,box-shadow .25s;}
@@ -4215,9 +4219,9 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
         <h3>Run your core admissions engine end-to-end</h3>
         <p class="solb-desc">Capture, qualify, convert and enrol - one connected pipeline from first enquiry to fee paid.</p>
         <div class="solb-links">
-          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Admission Management</b><span>Track every applicant in one live pipeline</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Enrollment Management</b><span>Move offers to enrolled &amp; fee-paid, faster</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Walk-in Management</b><span>Log, assign &amp; follow up every campus visit</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Admission Management</b><span>Track every applicant in one live pipeline</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Enrollment Management</b><span>Move offers to enrolled &amp; fee-paid, faster</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Walk-in Management</b><span>Log, assign &amp; follow up every campus visit</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
         </div>
       </article>
 
@@ -4226,9 +4230,9 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
         <h3>Purpose-built for overseas education counselling</h3>
         <p class="solb-desc">Manage country, course and intake journeys - with full visibility over agents and consultants.</p>
         <div class="solb-links">
-          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Study Abroad CRM</b><span>Country, course &amp; intake pipelines in one place</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Education Agents</b><span>Onboard &amp; track sub-agents with clear visibility</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Education Consultants</b><span>Counsellor workflows for visa, docs &amp; apps</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Study Abroad CRM</b><span>Country, course &amp; intake pipelines in one place</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Education Agents</b><span>Onboard &amp; track sub-agents with clear visibility</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Education Consultants</b><span>Counsellor workflows for visa, docs &amp; apps</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
         </div>
       </article>
 
@@ -4237,10 +4241,10 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
         <h3>Fill your funnel - and never let a lead go cold</h3>
         <p class="solb-desc">Source, score, route and nurture every enquiry automatically, from first touch to enrolled.</p>
         <div class="solb-links">
-          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Student Recruitment</b><span>Source verified enquiries from every channel</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Lead Management</b><span>Score, route &amp; prioritise leads automatically</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Lead Nurturing</b><span>Automated drips across WhatsApp, email &amp; SMS</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
-          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Enrollment CRM</b><span>One CRM from first touch to enrolled</span></span><span class="solb-arr" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-06.svg" alt="" loading="lazy" decoding="async"></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Student Recruitment</b><span>Source verified enquiries from every channel</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Lead Management</b><span>Score, route &amp; prioritise leads automatically</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Lead Nurturing</b><span>Automated drips across WhatsApp, email &amp; SMS</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="#admission-form"><span class="solb-chk" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-05.svg" alt="" loading="lazy" decoding="async"></span><span class="solb-lt"><b>Enrollment CRM</b><span>One CRM from first touch to enrolled</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
         </div>
       </article>
 
@@ -5903,8 +5907,10 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 }
 #ee-solutions .solb-a .solb-link:hover{background:#fff!important;border-color:rgba(222,110,48,.5)!important}
 #ee-solutions .solb-a .solb-lt span{color:#5a6b85!important}
-#ee-solutions .solb-a .solb-arr{color:#5a6b85!important}
-#ee-solutions .solb-a .solb-link:hover .solb-arr{color:var(--orange-700,#B5551D)!important}
+/* the row arrows are blue now - this block set them muted grey when the
+   card turned white, and it carries !important, so it has to say blue too */
+#ee-solutions .solb-a .solb-arr{color:#1A5FB4!important}
+#ee-solutions .solb-a .solb-link:hover .solb-arr{color:#123F73!important}
 </style>
 
 <style id="ee-img-boost">
