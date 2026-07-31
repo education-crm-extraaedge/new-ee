@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ExtraaEdge — navigation prototype</title>
+<style>
+/* ============================================================
+   ExtraaEdge mega-menu navigation — all styles scoped to .ee-nav
+   ============================================================ */
+.ee-nav{
+  /* colour */
+  --ee-orange:#DE6E30;
+  --ee-orange-dark:#C25F26;
+  --ee-orange-tint:rgba(222,110,48,.06);
+  --ee-orange-line:rgba(222,110,48,.28);
+  --ee-navy:#19335D;
+  --ee-muted:#66768F;          /* navy at ~65% on white, solid hex, 4.6:1 AA */
+  --ee-line:#E6E9EF;
+  --ee-surface:#FFFFFF;
+  --ee-tint:#F7F8FA;
+  /* space */
+  --ee-s1:4px; --ee-s2:8px; --ee-s3:12px; --ee-s4:16px;
+  --ee-s5:20px; --ee-s6:24px; --ee-s7:32px; --ee-s8:40px;
+  /* radius + motion + type */
+  --ee-r-sm:6px; --ee-r-md:8px; --ee-r-lg:12px;
+  --ee-dur:120ms;
+  --ee-ease:cubic-bezier(.4,0,.2,1);
+  --ee-bar-h:72px;
+  --ee-max:1200px;
+  --ee-font:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
+  font-family:var(--ee-font);
+  color:var(--ee-navy);
+  -webkit-font-smoothing:antialiased;
+}
+.ee-nav *,.ee-nav *::before,.ee-nav *::after{box-sizing:border-box}
+.ee-nav a{text-decoration:none;color:inherit}
+.ee-nav button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.ee-nav :focus-visible{outline:2px solid var(--ee-navy);outline-offset:2px;border-radius:var(--ee-r-sm)}
+.ee-nav__sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- bar ---------- */
+.ee-nav__bar{position:sticky;top:0;z-index:900;background:var(--ee-surface);
+  border-bottom:1px solid transparent;transition:border-color var(--ee-dur) var(--ee-ease),box-shadow var(--ee-dur) var(--ee-ease)}
+.ee-nav__bar.is-scrolled{border-bottom-color:var(--ee-line);box-shadow:0 1px 3px rgba(25,51,93,.06)}
+.ee-nav__inner{max-width:var(--ee-max);margin:0 auto;height:var(--ee-bar-h);padding:0 var(--ee-s6);
+  display:flex;align-items:center;gap:var(--ee-s7)}
+.ee-nav__logo{display:inline-flex;align-items:center;gap:var(--ee-s2);flex:0 0 auto;
+  font-size:19px;font-weight:700;letter-spacing:-.02em}
+.ee-nav__logo em{font-style:normal;color:var(--ee-orange)}
+.ee-nav__primary{display:flex;align-items:center;gap:var(--ee-s1);flex:1 1 auto}
+.ee-nav__trigger,.ee-nav__toplink{display:inline-flex;align-items:center;gap:var(--ee-s1);
+  height:40px;padding:0 var(--ee-s3);border-radius:var(--ee-r-md);
+  font-size:14px;font-weight:500;color:var(--ee-navy);
+  transition:background var(--ee-dur) var(--ee-ease),color var(--ee-dur) var(--ee-ease)}
+.ee-nav__trigger:hover,.ee-nav__toplink:hover,.ee-nav__trigger[aria-expanded="true"]{background:var(--ee-tint)}
+.ee-nav__trigger[aria-expanded="true"]{color:var(--ee-orange)}
+.ee-nav__chev{transition:transform var(--ee-dur) var(--ee-ease)}
+.ee-nav__trigger[aria-expanded="true"] .ee-nav__chev{transform:rotate(180deg)}
+.ee-nav__actions{display:flex;align-items:center;gap:var(--ee-s3);flex:0 0 auto}
+.ee-nav__cta{display:inline-flex;align-items:center;height:40px;padding:0 var(--ee-s5);
+  border-radius:var(--ee-r-md);background:var(--ee-orange);color:#fff;
+  font-size:14px;font-weight:600;transition:background var(--ee-dur) var(--ee-ease)}
+.ee-nav__cta:hover{background:var(--ee-orange-dark)}
+.ee-nav__burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;
+  border-radius:var(--ee-r-md)}
+.ee-nav__burger:hover{background:var(--ee-tint)}
+
+/* ---------- desktop panels ---------- */
+.ee-nav__panels{position:absolute;left:0;right:0;top:100%}
+.ee-nav__panel{position:absolute;left:0;right:0;top:0;background:var(--ee-surface);
+  border-top:1px solid var(--ee-line);border-bottom:1px solid var(--ee-line);
+  opacity:0;visibility:hidden;transform:translateY(-4px);
+  transition:opacity var(--ee-dur) var(--ee-ease),transform var(--ee-dur) var(--ee-ease),visibility var(--ee-dur)}
+.ee-nav__panel.is-open{opacity:1;visibility:visible;transform:none}
+.ee-nav__panel--accent{border-top:2px solid var(--ee-orange)}
+.ee-nav__panel-in{max-width:var(--ee-max);margin:0 auto;padding:var(--ee-s7) var(--ee-s6)}
+.ee-nav__grid{display:grid;gap:var(--ee-s7)}
+.ee-nav__grid--4{grid-template-columns:repeat(4,1fr)}
+.ee-nav__grid--rail{grid-template-columns:repeat(2,minmax(0,1fr)) 260px}
+.ee-nav__grid--rail3{grid-template-columns:repeat(3,minmax(0,1fr)) 260px}
+.ee-nav__grid--3{grid-template-columns:repeat(3,1fr)}
+.ee-nav__colhead{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ee-muted);margin:0 0 var(--ee-s4)}
+.ee-nav__panel--accent .ee-nav__colhead{color:var(--ee-orange)}
+.ee-nav__items{list-style:none;margin:0;padding:0;display:grid;gap:var(--ee-s5)}
+.ee-nav__items--tight{gap:var(--ee-s3)}
+.ee-nav__item{display:block;padding:var(--ee-s2) var(--ee-s3);margin:calc(var(--ee-s2)*-1) calc(var(--ee-s3)*-1);
+  border-radius:var(--ee-r-sm);transition:background var(--ee-dur) var(--ee-ease)}
+.ee-nav__item:hover{background:var(--ee-orange-tint)}
+.ee-nav__t{display:block;font-size:14px;font-weight:500;color:var(--ee-navy);
+  transition:color var(--ee-dur) var(--ee-ease)}
+.ee-nav__item:hover .ee-nav__t{color:var(--ee-orange)}
+.ee-nav__d{display:block;margin-top:2px;font-size:13px;font-weight:400;color:var(--ee-muted)}
+.ee-nav__plain{font-size:14px;font-weight:400;color:var(--ee-navy)}
+.ee-nav__item:hover .ee-nav__plain{color:var(--ee-orange)}
+/* right rail */
+.ee-nav__rail{border:1px solid var(--ee-line);border-radius:var(--ee-r-lg);padding:var(--ee-s5)}
+.ee-nav__rail h3{margin:0 0 var(--ee-s4);font-size:14px;font-weight:600}
+.ee-nav__rail ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--ee-s3)}
+.ee-nav__rail a{display:inline-flex;align-items:center;gap:var(--ee-s2);font-size:13px;color:var(--ee-navy)}
+.ee-nav__rail a:hover{color:var(--ee-orange)}
+.ee-nav__proof{display:grid;gap:var(--ee-s1)}
+.ee-nav__proof b{font-size:13px;font-weight:600}
+.ee-nav__proof span{font-size:13px;color:var(--ee-muted)}
+/* footer strip */
+.ee-nav__strip{margin-top:var(--ee-s6);padding-top:var(--ee-s5);border-top:1px solid var(--ee-line);
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--ee-s7);font-size:13px;color:var(--ee-muted)}
+.ee-nav__strip span,.ee-nav__strip a{display:inline-flex;align-items:center;gap:var(--ee-s2)}
+.ee-nav__strip a{color:var(--ee-orange);font-weight:500}
+.ee-nav__strip svg{color:var(--ee-muted);flex:none}
+.ee-nav__strip a svg{color:currentColor}
+
+/* ---------- mobile ---------- */
+.ee-nav__mobile{position:fixed;inset:0;z-index:950;background:var(--ee-surface);
+  display:flex;flex-direction:column}
+.ee-nav__mobile[hidden]{display:none}
+.ee-nav__mhead{flex:0 0 auto;height:var(--ee-bar-h);padding:0 var(--ee-s5);
+  display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ee-line)}
+.ee-nav__mclose{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;
+  border-radius:var(--ee-r-md)}
+.ee-nav__mbody{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:var(--ee-s3) var(--ee-s5) var(--ee-s7)}
+.ee-nav__acc{border-bottom:1px solid var(--ee-line)}
+.ee-nav__accbtn{width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;
+  gap:var(--ee-s3);padding:var(--ee-s4) 0;font-size:16px;font-weight:600;text-align:left}
+.ee-nav__accbtn[aria-expanded="true"]{color:var(--ee-orange)}
+.ee-nav__accbtn[aria-expanded="true"] .ee-nav__chev{transform:rotate(180deg)}
+.ee-nav__accpanel{display:none;padding:0 0 var(--ee-s5)}
+.ee-nav__accpanel.is-open{display:block}
+.ee-nav__mgroup+.ee-nav__mgroup{margin-top:var(--ee-s5)}
+.ee-nav__mgroup .ee-nav__colhead{margin-bottom:var(--ee-s3)}
+.ee-nav__mitem{display:block;min-height:44px;padding:var(--ee-s3) var(--ee-s3);
+  border-radius:var(--ee-r-sm)}
+.ee-nav__mitem:hover{background:var(--ee-orange-tint)}
+.ee-nav__mlink{display:flex;align-items:center;min-height:44px;padding:var(--ee-s3);
+  font-size:15px;border-radius:var(--ee-r-sm)}
+.ee-nav__mfoot{flex:0 0 auto;padding:var(--ee-s4) var(--ee-s5) calc(var(--ee-s4) + env(safe-area-inset-bottom));
+  border-top:1px solid var(--ee-line);background:var(--ee-surface)}
+.ee-nav__mfoot .ee-nav__cta{width:100%;justify-content:center;height:48px}
+
+@media (max-width:1023px){
+  .ee-nav__primary,.ee-nav__actions .ee-nav__cta{display:none}
+  .ee-nav__burger{display:inline-flex}
+  .ee-nav__inner{gap:var(--ee-s4);justify-content:space-between}
+}
+@media (min-width:1024px){
+  .ee-nav__mobile{display:none!important}
+}
+@media (max-width:1180px) and (min-width:1024px){
+  .ee-nav__grid--rail,.ee-nav__grid--rail3{grid-template-columns:repeat(2,minmax(0,1fr)) 240px}
+  .ee-nav__inner{gap:var(--ee-s5)}
+}
+@media (prefers-reduced-motion:reduce){
+  .ee-nav *{transition:none!important;animation:none!important}
+}
+/* page scaffold for the prototype only */
+body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.demo-body{max-width:1200px;margin:0 auto;padding:48px 24px 160px;color:#19335D}
+.demo-body p{color:#66768F;max-width:60ch;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="ee-nav" id="eeNav">
+  <header class="ee-nav__bar" id="eeBar">
+    <div class="ee-nav__inner">
+      <a class="ee-nav__logo" href="/" aria-label="ExtraaEdge home">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none">
+          <rect x="1" y="6" width="8" height="8" rx="2" fill="#19335D"/>
+          <rect x="11" y="2" width="7" height="7" rx="2" fill="#DE6E30"/>
+        </svg>
+        <span>extraa<em>edge</em></span>
+      </a>
+      <nav class="ee-nav__primary" id="eePrimary" aria-label="Primary"></nav>
+      <div class="ee-nav__actions">
+        <a class="ee-nav__cta" href="/book-demo/">Book a demo</a>
+        <button class="ee-nav__burger" id="eeBurger" type="button"
+                aria-expanded="false" aria-controls="eeMobile" aria-label="Open menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="ee-nav__panels" id="eePanels"></div>
+  </header>
+
+  <div class="ee-nav__mobile" id="eeMobile" hidden role="dialog" aria-modal="false" aria-label="Menu">
+    <div class="ee-nav__mhead">
+      <a class="ee-nav__logo" href="/" aria-label="ExtraaEdge home">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none">
+          <rect x="1" y="6" width="8" height="8" rx="2" fill="#19335D"/>
+          <rect x="11" y="2" width="7" height="7" rx="2" fill="#DE6E30"/>
+        </svg>
+        <span>extraa<em>edge</em></span>
+      </a>
+      <button class="ee-nav__mclose" id="eeMClose" type="button" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="ee-nav__mbody" id="eeMBody"></div>
+    <div class="ee-nav__mfoot"><a class="ee-nav__cta" href="/book-demo/">Book a demo</a></div>
+  </div>
+
+  <!-- Crawlable, no-JS copy of every destination in this navigation. -->
+  <noscript>
+    <nav aria-label="Primary (no script)">
+      <a href="/platform/admission-crm/">Admission CRM</a>
+      <a href="/platform/application-platform/">Application platform</a>
+      <a href="/platform/integrations/">Lead integrations</a>
+      <a href="/platform/whatsapp-business-api/">WhatsApp Business API</a>
+      <a href="/platform/education-chatbot/">Education chatbot</a>
+      <a href="/platform/communication-suite/">Email, SMS and IVR</a>
+      <a href="/platform/video-counselling/">Video counselling</a>
+      <a href="/platform/mobile-crm/">Mobile CRM app</a>
+      <a href="/platform/payments/">Payments and fees</a>
+      <a href="/platform/analytics/">Analytics and reports</a>
+      <a href="/platform/analytics-builder/">Analytics Builder</a>
+      <a href="/platform/counsellor-performance/">Counsellor performance</a>
+      <a href="https://getvidya.ai">Vidya AI overview</a>
+      <a href="/vidya-ai/vidyagpt/">VidyaGPT</a>
+      <a href="/vidya-ai/vidya-call/">Vidya Call</a>
+      <a href="/vidya-ai/vidyawaba/">VidyaWABA GPT</a>
+      <a href="/vidya-ai/vidyapulse/">VidyaPulse</a>
+      <a href="/vidya-ai/analytics/">VidyaGPT Analytics</a>
+      <a href="/vidya-ai/trust/">AI trust and data</a>
+      <a href="/solutions/higher-education/">Higher education</a>
+      <a href="/solutions/k-12-schools/">K-12 schools</a>
+      <a href="/solutions/coaching-and-test-prep/">Coaching and test prep</a>
+      <a href="/solutions/edtech-companies/">EdTech companies</a>
+      <a href="/solutions/study-abroad-consultants/">Study abroad consultants</a>
+      <a href="/solutions/vocational-and-skilling/">Vocational and skilling</a>
+      <a href="/solutions/for-admission-heads/">Admission heads</a>
+      <a href="/solutions/for-marketing-leaders/">Marketing leaders</a>
+      <a href="/solutions/for-counselling-teams/">Counselling teams</a>
+      <a href="/solutions/for-directors-and-founders/">Directors and founders</a>
+      <a href="/solutions/for-it-and-compliance/">IT and compliance</a>
+      <a href="/solutions/reduce-cost-per-admission/">Reduce cost per admission</a>
+      <a href="/solutions/improve-counsellor-productivity/">Improve counsellor productivity</a>
+      <a href="/solutions/increase-form-completion/">Increase form completion</a>
+      <a href="/solutions/manage-multi-campus-admissions/">Manage multi-campus admissions</a>
+      <a href="/blog/">Blog</a>
+      <a href="/webinars/">Webinars</a>
+      <a href="/guides-and-ebooks/">Guides and ebooks</a>
+      <a href="/help/">Help centre</a>
+      <a href="/tools/cpa-calculator/">CPA calculator</a>
+      <a href="/tools/roi-calculator/">ROI calculator</a>
+      <a href="/admission-benchmark-report/">Admission benchmark report</a>
+      <a href="/changelog/">Product changelog</a>
+      <a href="/compare/meritto/">vs Meritto</a>
+      <a href="/compare/leadsquared/">vs LeadSquared</a>
+      <a href="/compare/salesforce-education-cloud/">vs Salesforce Education Cloud</a>
+      <a href="/compare/nopaperforms/">vs NoPaperForms</a>
+      <a href="/best-admission-crm-in-india/">Best admission CRM in India</a>
+      <a href="/customers/">See all 300+ customers</a>
+      <a href="/compare/">Compare with Meritto and Salesforce</a>
+      <a href="/vidya-ai/demo/">Watch 3-min demo</a>
+      <a href="/vidya-ai/readiness-check/">Free AI readiness check</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/book-demo/">Book a demo</a>
+    </nav>
+  </noscript>
+</div>
+
+<main class="demo-body" id="main">
+  <h1>Navigation prototype</h1>
+  <p>Scroll to see the hairline border appear on the bar. Hover or click a menu
+     item to open its panel, press Escape to close, and Tab through with the
+     keyboard. Resize below 1024px for the mobile overlay.</p>
+  <p style="min-height:1200px"></p>
+</main>
+
+<script>
+/* ============================================================
+   Single source of truth. Edit labels, descriptions and links
+   here — nothing else needs touching.
+   t = title, d = description (5 words max), h = href
+   ============================================================ */
+const NAV = {
+  platform: {
+    label:'Platform', layout:'columns', grid:'ee-nav__grid--4',
+    columns:[
+      {heading:'1 · Capture', items:[
+        {t:'Admission CRM',        d:'Every enquiry in one funnel',   h:'/platform/admission-crm/'},
+        {t:'Application platform', d:'Forms, documents, fees on mobile', h:'/platform/application-platform/'},
+        {t:'Lead integrations',    d:'Ads, publishers, IVR auto-synced', h:'/platform/integrations/'}
+      ]},
+      {heading:'2 · Engage', items:[
+        {t:'WhatsApp Business API', d:'Two-way chat at scale',       h:'/platform/whatsapp-business-api/'},
+        {t:'Education chatbot',     d:'Answers queries 24 by 7',     h:'/platform/education-chatbot/'},
+        {t:'Email, SMS and IVR',    d:'Drip journeys that follow up', h:'/platform/communication-suite/'}
+      ]},
+      {heading:'3 · Convert', items:[
+        {t:'Video counselling', d:'GD-PI and interviews inside CRM', h:'/platform/video-counselling/'},
+        {t:'Mobile CRM app',    d:'Counsellors call from anywhere',  h:'/platform/mobile-crm/'},
+        {t:'Payments and fees', d:'Collect and reconcile in-flow',   h:'/platform/payments/'}
+      ]},
+      {heading:'4 · Measure', items:[
+        {t:'Analytics and reports',   d:'Fifty-plus ready dashboards',      h:'/platform/analytics/'},
+        {t:'Analytics Builder',       d:'Build reports without developers', h:'/platform/analytics-builder/'},
+        {t:'Counsellor performance',  d:'Response time to conversion impact', h:'/platform/counsellor-performance/'}
+      ]}
+    ],
+    strip:[
+      {icon:'clock',  label:'Live in 14 days'},
+      {icon:'shield', label:'ISO 27001 and GDPR compliant'},
+      {icon:'arrow',  label:'Compare with Meritto and Salesforce', h:'/compare/'}
+    ]
+  },
+
+  vidya: {
+    label:'Vidya AI', layout:'columns', accent:true, grid:'ee-nav__grid--rail',
+    columns:[
+      {heading:'AI products', items:[
+        {t:'Vidya AI overview', d:'What AI does for admissions', h:'https://getvidya.ai'},
+        {t:'VidyaGPT',          d:'Answers student queries instantly', h:'/vidya-ai/vidyagpt/'},
+        {t:'Vidya Call',        d:'AI calls and qualifies leads', h:'/vidya-ai/vidya-call/'},
+        {t:'VidyaWABA GPT',     d:'AI replies on WhatsApp',       h:'/vidya-ai/vidyawaba/'}
+      ]},
+      {heading:'Intelligence', items:[
+        {t:'VidyaPulse',         d:'Tells you who to call',      h:'/vidya-ai/vidyapulse/'},
+        {t:'VidyaGPT Analytics', d:'Ask your data anything',     h:'/vidya-ai/analytics/'},
+        {t:'AI trust and data',  d:'Where your student data lives', h:'/vidya-ai/trust/'}
+      ]}
+    ],
+    rail:{heading:'See Vidya AI in action', links:[
+      {t:'Watch 3-min demo',        h:'/vidya-ai/demo/'},
+      {t:'Free AI readiness check', h:'/vidya-ai/readiness-check/'}
+    ]}
+  },
+
+  solutions: {
+    label:'Solutions', layout:'plain', grid:'ee-nav__grid--rail3',
+    columns:[
+      {heading:'By institution', items:[
+        {t:'Higher education',        h:'/solutions/higher-education/'},
+        {t:'K-12 schools',            h:'/solutions/k-12-schools/'},
+        {t:'Coaching and test prep',  h:'/solutions/coaching-and-test-prep/'},
+        {t:'EdTech companies',        h:'/solutions/edtech-companies/'},
+        {t:'Study abroad consultants',h:'/solutions/study-abroad-consultants/'},
+        {t:'Vocational and skilling', h:'/solutions/vocational-and-skilling/'}
+      ]},
+      {heading:'By role', items:[
+        {t:'Admission heads',        h:'/solutions/for-admission-heads/'},
+        {t:'Marketing leaders',      h:'/solutions/for-marketing-leaders/'},
+        {t:'Counselling teams',      h:'/solutions/for-counselling-teams/'},
+        {t:'Directors and founders', h:'/solutions/for-directors-and-founders/'},
+        {t:'IT and compliance',      h:'/solutions/for-it-and-compliance/'}
+      ]},
+      {heading:'By outcome', items:[
+        {t:'Reduce cost per admission',     h:'/solutions/reduce-cost-per-admission/'},
+        {t:'Improve counsellor productivity', h:'/solutions/improve-counsellor-productivity/'},
+        {t:'Increase form completion',      h:'/solutions/increase-form-completion/'},
+        {t:'Manage multi-campus admissions', h:'/solutions/manage-multi-campus-admissions/'}
+      ]}
+    ],
+    proof:{heading:'Customer proof', items:[
+      {b:'Bharati Vidyapeeth',    s:'10x applications'},
+      {b:'Uttaranchal University', s:'+38% applications'},
+      {b:'Annapurna College',     s:'higher conversion'}
+    ], link:{t:'See all 300+ customers', h:'/customers/'}}
+  },
+
+  resources: {
+    label:'Resources', layout:'plain', grid:'ee-nav__grid--3',
+    columns:[
+      {heading:'Learn', items:[
+        {t:'Blog',             h:'/blog/'},
+        {t:'Webinars',         h:'/webinars/'},
+        {t:'Guides and ebooks', h:'/guides-and-ebooks/'},
+        {t:'Help centre',      h:'/help/'}
+      ]},
+      {heading:'Tools', items:[
+        {t:'CPA calculator',            h:'/tools/cpa-calculator/'},
+        {t:'ROI calculator',            h:'/tools/roi-calculator/'},
+        {t:'Admission benchmark report', h:'/admission-benchmark-report/'},
+        {t:'Product changelog',         h:'/changelog/'}
+      ]},
+      {heading:'Compare', items:[
+        {t:'vs Meritto',                     h:'/compare/meritto/'},
+        {t:'vs LeadSquared',                 h:'/compare/leadsquared/'},
+        {t:'vs Salesforce Education Cloud',  h:'/compare/salesforce-education-cloud/'},
+        {t:'vs NoPaperForms',                h:'/compare/nopaperforms/'},
+        {t:'Best admission CRM in India',    h:'/best-admission-crm-in-india/'}
+      ]}
+    ]
+  },
+
+  pricing: {label:'Pricing', href:'/pricing/'}
+};
+
+const DESKTOP_ORDER = ['platform','vidya','solutions','resources','pricing'];
+const MOBILE_ORDER  = ['vidya','platform','solutions','pricing','resources'];
+
+/* ---------- tiny helpers ---------- */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ICON = {
+  chev:'<svg class="ee-nav__chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>',
+  clock:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  shield:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+  arrow:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>'
+};
+
+/* ---------- render: column of items ---------- */
+function colHtml(col, withDesc){
+  const items = col.items.map(it => withDesc
+    ? `<li><a class="ee-nav__item" href="${esc(it.h)}"><span class="ee-nav__t">${esc(it.t)}</span><span class="ee-nav__d">${esc(it.d)}</span></a></li>`
+    : `<li><a class="ee-nav__item" href="${esc(it.h)}"><span class="ee-nav__plain">${esc(it.t)}</span></a></li>`
+  ).join('');
+  return `<div><p class="ee-nav__colhead">${esc(col.heading)}</p>
+    <ul class="ee-nav__items${withDesc ? '' : ' ee-nav__items--tight'}">${items}</ul></div>`;
+}
+
+function railHtml(rail){
+  return `<div class="ee-nav__rail"><h3>${esc(rail.heading)}</h3><ul>` +
+    rail.links.map(l => `<li><a href="${esc(l.h)}">${ICON.arrow}${esc(l.t)}</a></li>`).join('') +
+    `</ul></div>`;
+}
+function proofHtml(p){
+  return `<div class="ee-nav__rail"><h3>${esc(p.heading)}</h3><ul>` +
+    p.items.map(i => `<li class="ee-nav__proof"><b>${esc(i.b)}</b><span>${esc(i.s)}</span></li>`).join('') +
+    `<li><a href="${esc(p.link.h)}">${ICON.arrow}${esc(p.link.t)}</a></li></ul></div>`;
+}
+function stripHtml(strip){
+  return `<div class="ee-nav__strip">` + strip.map(s => s.h
+    ? `<a href="${esc(s.h)}">${esc(s.label)}${ICON.arrow}</a>`
+    : `<span>${ICON[s.icon]}${esc(s.label)}</span>`).join('') + `</div>`;
+}
+
+/* ---------- render: bar + panels ---------- */
+(function buildDesktop(){
+  const primary = document.getElementById('eePrimary');
+  const panels  = document.getElementById('eePanels');
+  let bar = '', pan = '';
+
+  DESKTOP_ORDER.forEach(key => {
+    const s = NAV[key];
+    if (s.href){
+      bar += `<a class="ee-nav__toplink" href="${esc(s.href)}">${esc(s.label)}</a>`;
+      return;
+    }
+    const pid = 'ee-panel-' + key;
+    bar += `<button class="ee-nav__trigger" type="button" data-key="${key}"
+              id="ee-trigger-${key}" aria-expanded="false" aria-haspopup="true"
+              aria-controls="${pid}">${esc(s.label)}${ICON.chev}</button>`;
+
+    const withDesc = s.layout === 'columns';
+    let cols = s.columns.map(c => colHtml(c, withDesc)).join('');
+    if (s.rail)  cols += railHtml(s.rail);
+    if (s.proof) cols += proofHtml(s.proof);
+
+    pan += `<div class="ee-nav__panel${s.accent ? ' ee-nav__panel--accent' : ''}"
+              id="${pid}" data-key="${key}" aria-labelledby="ee-trigger-${key}">
+              <div class="ee-nav__panel-in">
+                <div class="ee-nav__grid ${s.grid}">${cols}</div>
+                ${s.strip ? stripHtml(s.strip) : ''}
+              </div></div>`;
+  });
+
+  primary.innerHTML = bar;
+  panels.innerHTML  = pan;
+})();
+
+/* ---------- render: mobile accordion ---------- */
+(function buildMobile(){
+  const body = document.getElementById('eeMBody');
+  body.innerHTML = MOBILE_ORDER.map(key => {
+    const s = NAV[key];
+    if (s.href){
+      return `<div class="ee-nav__acc"><a class="ee-nav__accbtn" href="${esc(s.href)}">${esc(s.label)}</a></div>`;
+    }
+    const withDesc = s.layout === 'columns';
+    let groups = s.columns.map(col => {
+      const items = col.items.map(it => withDesc
+        ? `<a class="ee-nav__mitem" href="${esc(it.h)}"><span class="ee-nav__t">${esc(it.t)}</span><span class="ee-nav__d">${esc(it.d)}</span></a>`
+        : `<a class="ee-nav__mlink" href="${esc(it.h)}">${esc(it.t)}</a>`).join('');
+      return `<div class="ee-nav__mgroup"><p class="ee-nav__colhead">${esc(col.heading)}</p>${items}</div>`;
+    }).join('');
+    if (s.rail)  groups += `<div class="ee-nav__mgroup">${railHtml(s.rail)}</div>`;
+    if (s.proof) groups += `<div class="ee-nav__mgroup">${proofHtml(s.proof)}</div>`;
+    if (s.strip) groups += stripHtml(s.strip);
+
+    return `<div class="ee-nav__acc">
+      <button class="ee-nav__accbtn" type="button" data-acc="${key}"
+              aria-expanded="false" aria-controls="ee-acc-${key}">${esc(s.label)}${ICON.chev}</button>
+      <div class="ee-nav__accpanel" id="ee-acc-${key}">${groups}</div></div>`;
+  }).join('');
+})();
+
+/* ---------- desktop behaviour ---------- */
+(function panelBehaviour(){
+  const root     = document.getElementById('eeNav');
+  const bar      = document.getElementById('eeBar');
+  const triggers = [...root.querySelectorAll('.ee-nav__trigger')];
+  const panels   = [...root.querySelectorAll('.ee-nav__panel')];
+  const byKey    = k => panels.find(p => p.dataset.key === k);
+  const OPEN_DELAY = 150, CLOSE_DELAY = 300;
+  let openKey = null, openTimer = null, closeTimer = null, pointerDown = false, muteFocus = false;
+
+  function clearTimers(){ clearTimeout(openTimer); clearTimeout(closeTimer); }
+
+  function open(key, focusFirst){
+    clearTimers();
+    if (openKey === key){ if (focusFirst) firstLink(key); return; }
+    panels.forEach(p => p.classList.toggle('is-open', p.dataset.key === key));
+    triggers.forEach(t => t.setAttribute('aria-expanded', String(t.dataset.key === key)));
+    openKey = key;
+    if (focusFirst) firstLink(key);
+  }
+  function close(restoreFocus){
+    clearTimers();
+    if (!openKey) return;
+    const t = triggers.find(x => x.dataset.key === openKey);
+    panels.forEach(p => p.classList.remove('is-open'));
+    triggers.forEach(x => x.setAttribute('aria-expanded','false'));
+    openKey = null;
+    if (restoreFocus && t){ muteFocus = true; t.focus(); setTimeout(() => { muteFocus = false; }, 0); }
+  }
+  function firstLink(key){
+    const a = byKey(key) && byKey(key).querySelector('a');
+    if (a) a.focus();
+  }
+
+  triggers.forEach(t => {
+    const key = t.dataset.key, panel = byKey(key);
+
+    t.addEventListener('mouseenter', () => {
+      clearTimeout(closeTimer);
+      if (openKey && openKey !== key){ open(key); return; }   // instant swap, no flicker
+      openTimer = setTimeout(() => open(key), OPEN_DELAY);
+    });
+    t.addEventListener('mouseleave', () => {
+      clearTimeout(openTimer);
+      closeTimer = setTimeout(() => close(false), CLOSE_DELAY);
+    });
+    t.addEventListener('pointerdown', () => { pointerDown = true; });
+    t.addEventListener('click', e => {
+      e.preventDefault();
+      (openKey === key) ? close(false) : open(key);
+      pointerDown = false;
+    });
+    t.addEventListener('focus', () => { if (!pointerDown && !muteFocus) open(key); });  // Tab opens
+    t.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown'){ e.preventDefault(); open(key, true); }
+      else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+        e.preventDefault();
+        const i = triggers.indexOf(t);
+        const n = triggers[(i + (e.key === 'ArrowRight' ? 1 : triggers.length - 1)) % triggers.length];
+        n.focus();
+      }
+    });
+
+    panel.addEventListener('mouseenter', () => clearTimeout(closeTimer));
+    panel.addEventListener('mouseleave', () => { closeTimer = setTimeout(() => close(false), CLOSE_DELAY); });
+    panel.addEventListener('keydown', e => {
+      const links = [...panel.querySelectorAll('a')];
+      const i = links.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown' && i > -1){ e.preventDefault(); links[(i + 1) % links.length].focus(); }
+      else if (e.key === 'ArrowUp' && i > -1){ e.preventDefault(); links[(i - 1 + links.length) % links.length].focus(); }
+    });
+  });
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(true); });
+  document.addEventListener('click', e => { if (openKey && !root.contains(e.target)) close(false); });
+  root.addEventListener('focusout', () => {
+    setTimeout(() => { if (openKey && !root.contains(document.activeElement)) close(false); }, 0);
+  });
+
+  let ticking = false;
+  function onScroll(){
+    ticking = false;
+    bar.classList.toggle('is-scrolled', window.scrollY > 40);
+  }
+  window.addEventListener('scroll', () => { if (!ticking){ ticking = true; requestAnimationFrame(onScroll); } }, {passive:true});
+  onScroll();
+})();
+
+/* ---------- mobile behaviour ---------- */
+(function mobileBehaviour(){
+  const overlay = document.getElementById('eeMobile');
+  const burger  = document.getElementById('eeBurger');
+  const closeBtn = document.getElementById('eeMClose');
+  let savedY = 0;
+
+  function openMenu(){
+    savedY = window.scrollY;
+    overlay.hidden = false;
+    burger.setAttribute('aria-expanded','true');
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${savedY}px`;
+    document.body.style.width = '100%';
+    closeBtn.focus();
+  }
+  function closeMenu(){
+    overlay.hidden = true;
+    burger.setAttribute('aria-expanded','false');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, savedY);
+    burger.focus();
+  }
+  burger.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !overlay.hidden) closeMenu(); });
+
+  overlay.addEventListener('click', e => {
+    const btn = e.target.closest('.ee-nav__accbtn[data-acc]');
+    if (!btn) return;
+    const panel = document.getElementById('ee-acc-' + btn.dataset.acc);
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    overlay.querySelectorAll('.ee-nav__accbtn[data-acc]').forEach(b => {
+      b.setAttribute('aria-expanded','false');
+      const p = document.getElementById('ee-acc-' + b.dataset.acc);
+      if (p) p.classList.remove('is-open');
+    });
+    if (!isOpen){ btn.setAttribute('aria-expanded','true'); panel.classList.add('is-open'); }
+  });
+})();
+</script>
+</body>
+</html>
