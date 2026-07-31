@@ -1533,7 +1533,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     <style id="eh-2026">
     #site-header{background:transparent!important;border:0!important;box-shadow:none!important;
       padding:14px 14px 0;transition:padding .35s cubic-bezier(.22,1,.36,1)}
-    #site-header .eh-content{max-width:1200px;height:60px;padding:0 10px 0 18px;
+    #site-header .eh-content{max-width:1860px;height:64px;padding:0 16px 0 28px;
       background:rgba(255,255,255,.74);
       -webkit-backdrop-filter:blur(18px) saturate(180%);backdrop-filter:blur(18px) saturate(180%);
       border:1px solid rgba(25,51,93,.08);border-radius:18px;
@@ -1593,9 +1593,12 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     }
 
     /* ── structural layer: balanced centre cluster ── */
-    #site-header .eh-content{justify-content:flex-start}
-    #site-header .eh-nav{margin-left:auto;margin-right:auto;position:relative}
-    #site-header .eh-actions{flex-shrink:0}
+    /* logo | nav | actions - side rails flex equally so the nav sits on the
+       bar's true centre no matter how wide the logo or CTA are */
+    #site-header .eh-content{justify-content:space-between}
+    #site-header .eh-logo{flex:1 1 0;min-width:0}
+    #site-header .eh-nav{position:relative;flex:0 0 auto;display:flex;justify-content:center;gap:.15rem}
+    #site-header .eh-actions{flex:1 1 0;display:flex;align-items:center;justify-content:flex-end;gap:.5rem}
     @media(max-width:1023px){#site-header .eh-actions{margin-left:auto}}
     /* magnetic sliding hover pill behind nav links (injected by JS) */
     #site-header .eh-hoverpill{position:absolute;z-index:0;background:rgba(25,51,93,.06);
