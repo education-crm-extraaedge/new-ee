@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-h2-norm -->
+<!-- ee-front-tpl v2026-07-31-stories-cards -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -4495,8 +4495,9 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
 <section id="stories" aria-labelledby="stories-title">
   <div class="cis-wrap">
     <div class="cis-head">
+      <span class="cis-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L12 16.9 6.4 20.1l1.4-6.3L3 9.5l6.4-.6L12 3z"/></svg> Customer Stories</span>
       <h2 class="cis-title" id="stories-title">Powering growth for <em>500+ happy customers</em></h2>
-      <p class="cis-lead">Real admissions leaders and the stories behind them. See how institutions grow with ExtraaEdge.</p>
+      <p class="cis-lead">See how leading education institutions are transforming admissions, improving counsellor productivity, and creating better student experiences with ExtraaEdge.</p>
     </div>
 
     <div class="cis-rail" role="list">
@@ -4505,36 +4506,42 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
         <div class="cis-video" data-yt="3SHgLf1GFgk" role="button" tabindex="0" aria-label="Play video testimonial: Silky Jain Marwah, Tula's Institute">
           <img src="https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg" alt="Silky Jain Marwah, Executive Director, Tula's Institute - ExtraaEdge CRM review" loading="lazy" decoding="async">
           <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-          <span class="cis-dur">&#9654; 2 min</span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>2 min</span>
         </div>
         <div class="cis-foot">
           <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Silky-Jain-Marwah.webp" alt="Silky Jain Marwah" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">SJ</span></span>
           <div class="cis-meta"><div class="cis-aname">Silky Jain Marwah</div><div class="cis-arole">Executive Director &middot; Tula's Institute</div></div>
         </div>
+        <p class="cis-blurb">See how Tula&rsquo;s Institute streamlined its admissions process, strengthened student engagement, and empowered its team with a more organised admissions workflow.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
       </div>
 
       <div class="cis-card" role="listitem">
         <div class="cis-video" data-yt="dWLdQ8E3FOU" role="button" tabindex="0" aria-label="Play video testimonial: Pranay Rupani, Annapurna College of Film &amp; Media">
           <img src="https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg" alt="Pranay Rupani, Head of Admissions &amp; Marketing, Annapurna College of Film &amp; Media - ExtraaEdge CRM review" loading="lazy" decoding="async">
           <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-          <span class="cis-dur">&#9654; 2 min</span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>2 min</span>
         </div>
         <div class="cis-foot">
           <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/Pranay-sir-02.webp" alt="Pranay Rupani" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">PR</span></span>
           <div class="cis-meta"><div class="cis-aname">Pranay Rupani</div><div class="cis-arole">Head of Admissions &amp; Marketing &middot; Annapurna College of Film &amp; Media</div></div>
         </div>
+        <p class="cis-blurb">Discover how a unified admissions platform helped the team manage enquiries, improve follow-ups, and build a more efficient applicant journey.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
       </div>
 
       <div class="cis-card" role="listitem">
         <div class="cis-video" data-yt="yfK83D2SKps" role="button" tabindex="0" aria-label="Play video testimonial: K. Nirmala Devi, Indian Academy Group">
           <img src="https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg" alt="K. Nirmala Devi, Assistant Manager, Indian Academy Group - ExtraaEdge CRM review" loading="lazy" decoding="async">
           <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-          <span class="cis-dur">&#9654; 2 min</span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>2 min</span>
         </div>
         <div class="cis-foot">
           <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Nirmala-Devi.webp" alt="K. Nirmala Devi" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">KN</span></span>
           <div class="cis-meta"><div class="cis-aname">K. Nirmala Devi</div><div class="cis-arole">Assistant Manager &middot; Indian Academy Group</div></div>
         </div>
+        <p class="cis-blurb">Learn how the institution simplified lead management and communication while giving counsellors better visibility across the student admissions journey.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
       </div>
 
     </div>
@@ -4564,6 +4571,14 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
     }
     v.addEventListener('click',play);
     v.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}});
+  });
+  /* "Watch Story" is the same action as the thumbnail, so it just forwards */
+  root.querySelectorAll('.cis-watch').forEach(function(w){
+    w.addEventListener('click',function(){
+      var v=w.closest('.cis-card').querySelector('.cis-video');
+      if(v) v.click();
+      if(v) v.scrollIntoView({block:'center',behavior:'smooth'});
+    });
   });
   root.querySelectorAll('.cis-av img').forEach(function(a){a.addEventListener('error',function(){a.closest('.cis-av').classList.add('noimg');},{once:true});});
   /* cards rise in only when the section is reached; the hidden state exists
@@ -4820,6 +4835,85 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
   #stories .cis-cta{margin-top:22px}
 }
 </style>
+
+<style id="ee-stories-light">
+/* ── Customer stories: light treatment ───────────────────────────────────
+   The section was a navy panel; the reference is a light one, so the stage
+   turns white with the two brand washes, the cards become white, and every
+   text colour flips to the on-white palette. Each card now carries a line
+   about the story and a "Watch Story" link, which plays the same video the
+   thumbnail does.
+
+   The base rule sets the navy background with !important, so the override
+   has to as well. Type and palette are this site's: Inter, #19335D
+   headings, #6B7C96 copy, #B5551D links. Loaded after the section's base
+   rules, and after the phone block, so both are settled here. */
+section#stories{ background:#fff !important; position:relative; overflow:hidden; }
+section#stories::before,section#stories::after{ content:""; position:absolute; pointer-events:none; }
+section#stories::before{ left:-12%; top:-16%; width:48%; height:60%;
+  background:radial-gradient(circle,rgba(222,110,48,.1),transparent 68%); }
+section#stories::after{ right:-12%; bottom:-18%; width:50%; height:62%;
+  background:radial-gradient(circle,rgba(25,51,93,.09),transparent 70%); }
+#stories .cis-wrap{ position:relative; z-index:1; }
+
+/* head */
+#stories .cis-head{ text-align:center; }
+#stories .cis-eyebrow{ display:inline-flex; align-items:center; gap:8px;
+  padding:9px 18px; border-radius:999px; background:#FDF2EB;
+  color:var(--orange-700,#B5551D);
+  font:800 11.5px/1 'Inter',sans-serif; letter-spacing:.1em; text-transform:uppercase; }
+#stories .cis-eyebrow svg{ width:15px; height:15px; }
+#stories .cis-title{ color:#19335D; }
+#stories .cis-title em{ color:#DE6E30; }
+#stories .cis-lead{ color:#6B7C96; max-width:66ch; margin-left:auto; margin-right:auto; }
+
+/* cards */
+#stories .cis-card{ background:#fff; border:1px solid rgba(25,51,93,.08);
+  border-radius:22px; padding:clamp(14px,1.4vw,18px);
+  box-shadow:0 20px 44px -32px rgba(25,51,93,.6);
+  display:flex; flex-direction:column; }
+#stories .cis-card:hover{ border-color:rgba(222,110,48,.26);
+  box-shadow:0 28px 54px -30px rgba(25,51,93,.65); }
+#stories .cis-video{ border-radius:14px; overflow:hidden; }
+/* white disc play button, centred */
+#stories .cis-play{ width:62px; height:62px; border-radius:50%; background:#fff;
+  display:grid; place-items:center; box-shadow:0 12px 28px -10px rgba(11,24,48,.6); }
+#stories .cis-play img,#stories .cis-play svg{ width:22px; height:22px; }
+/* navy duration pill, bottom-right of the thumbnail */
+#stories .cis-dur{ display:inline-flex; align-items:center; gap:6px;
+  background:#19335D; color:#fff; border-radius:999px;
+  padding:6px 12px; font:700 12px/1 'Inter',sans-serif; }
+#stories .cis-dur svg{ width:13px; height:13px; }
+
+#stories .cis-foot{ padding:clamp(13px,1.3vw,17px) 2px 0; }
+#stories .cis-av{ border:2px solid rgba(222,110,48,.4); }
+#stories .cis-aname{ color:#19335D; font-weight:700; }
+#stories .cis-arole{ color:#6B7C96; }
+html body #main-content #stories .cis-wrap .cis-blurb{
+  margin:clamp(11px,1.2vw,15px) 2px clamp(14px,1.5vw,18px); color:#33415C;
+  font-size:14px !important; line-height:1.62 !important; }
+
+#stories .cis-watch{ margin:auto 2px 4px; align-self:flex-start;
+  display:inline-flex; align-items:center; gap:8px;
+  background:none; border:0; padding:0; cursor:pointer;
+  color:var(--orange-700,#B5551D); font:700 14px/1 'Inter',sans-serif;
+  letter-spacing:-.01em; }
+#stories .cis-watch svg{ width:15px; height:15px; transition:transform .25s ease; }
+#stories .cis-watch:hover svg{ transform:translateX(4px); }
+#stories .cis-watch:focus-visible{ outline:3px solid var(--focus-ring,#1A5FB4); outline-offset:3px; border-radius:6px; }
+
+@media(max-width:640px){
+  #stories .cis-eyebrow{ font-size:9.5px; padding:7px 13px; }
+  #stories .cis-play{ width:48px; height:48px; }
+  #stories .cis-dur{ font-size:10.5px; padding:5px 10px; }
+  html body #main-content #stories .cis-wrap .cis-blurb{
+    font-size:12.5px !important; line-height:1.55 !important; }
+  #stories .cis-watch{ font-size:12.5px; }
+}
+@media(prefers-reduced-motion:reduce){
+  #stories .cis-card,#stories .cis-watch svg{ transition:none; } }
+</style>
+
 
 
 
