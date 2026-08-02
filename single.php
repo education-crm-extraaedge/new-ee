@@ -14,6 +14,30 @@
  */
 if (!defined('ABSPATH')) exit;
 
+/* ── Social icon artwork ─────────────────────────────────────────────────
+   Same map as footer.php, repeated here because this template renders its
+   share row and contact buttons before footer.php has run. The
+   function_exists guard means whichever file gets there first defines it
+   and the other reuses it - keep the two lists in step when swapping an
+   icon, or the footer and the article would disagree.
+
+   Anything not listed keeps the theme's existing glyph, so a missing key
+   degrades rather than breaks. */
+if (!function_exists('ee_social_icon_url')) {
+    function ee_social_icon_url($key) {
+        $base = 'https://www.extraaedge.com/wp-content/uploads/2026/social-icons/';
+        $map  = array(
+            'facebook'  => 'facebook-icon.webp',
+            'instagram' => 'instagram-icon.webp',
+            'linkedin'  => 'linkedin-icon.webp',
+            'twitter'   => 'twitter-icon.webp',
+            'whatsapp'  => 'whatsapp-icon.webp',
+            'call'      => 'call-now-icon.webp',
+        );
+        return isset($map[$key]) ? $base . $map[$key] : '';
+    }
+}
+
 $pid = get_the_ID();
 $f   = function ($k, $default = '') use ($pid) {
     $v = get_post_meta($pid, '_ee_blog_' . $k, true);
@@ -88,7 +112,7 @@ add_action('wp_head', function () {
 }, 5);
 
 get_header();
-echo "\n<!-- ee-single-tpl v2026-08-02-no-crm-banner -->\n";
+echo "\n<!-- ee-single-tpl v2026-08-02-social-art -->\n";
 
 while (have_posts()) : the_post();
     $author_id       = get_post_field('post_author', $pid);
@@ -351,6 +375,8 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-soc-em{color:var(--b-blue);border-color:var(--b-blue);}
 .ee-soc-cp{color:var(--b-blue);border-color:var(--b-blue);}
 .ee-soc-btn svg{color:inherit;}
+/* Brand artwork in the share pills, sized to match the glyphs it replaced. */
+.ee-soc-art{width:18px;height:18px;object-fit:contain;display:block;flex-shrink:0;}
 
 .ee-send-article{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:22px;margin:24px 0;}
 .ee-send-article h4,
@@ -787,6 +813,10 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-float-btn{display:flex;align-items:center;gap:10px;padding:11px 18px 11px 14px;border-radius:50px;background:#fff;border:1px solid var(--b-border);font-weight:600;font-size:13.5px;text-decoration:none;box-shadow:0 6px 20px rgba(15,32,64,.12);transition:all .25s ease;cursor:pointer;font-family:inherit;}
 .ee-float-btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 12px 28px rgba(15,32,64,.18);}
 .ee-float-btn .ee-float-icon-wrap{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+/* Brand artwork brings its own colour disc, so the tinted circle behind it
+   is dropped and the image fills the wrap. */
+.ee-float-btn .ee-float-icon-wrap.ee-float-icon-art{background:none !important;animation:none;}
+.ee-float-btn .ee-float-icon-wrap.ee-float-icon-art img{width:100%;height:100%;object-fit:contain;display:block;}
 .ee-float-btn .ee-float-label{display:flex;flex-direction:column;line-height:1.15;}
 .ee-float-btn .ee-float-label small{font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--b-muted);}
 .ee-float-btn .ee-float-label strong{font-size:13px;font-weight:700;letter-spacing:.01em;color:var(--b-blue);}
@@ -1110,11 +1140,19 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             <div class="ee-share-section">
                 <div class="ee-section-label"><?php echo ee_icon('ti-share-3'); ?> Share this article</div>
                 <div class="ee-social-icons">
-                    <?php $u = urlencode(get_permalink()); $t = urlencode(get_the_title()); ?>
-                    <a class="ee-soc-btn ee-soc-fb" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $u; ?>" target="_blank" rel="noopener"><?php echo ee_icon('ti-brand-facebook'); ?> Facebook</a>
-                    <a class="ee-soc-btn ee-soc-tw" href="https://twitter.com/intent/tweet?url=<?php echo $u; ?>&text=<?php echo $t; ?>" target="_blank" rel="noopener"><?php echo ee_icon('ti-brand-x'); ?> Twitter/X</a>
-                    <a class="ee-soc-btn ee-soc-li" href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo $u; ?>" target="_blank" rel="noopener"><?php echo ee_icon('ti-brand-linkedin'); ?> LinkedIn</a>
-                    <a class="ee-soc-btn ee-soc-wa" href="https://api.whatsapp.com/send?text=<?php echo $t; ?>%20<?php echo $u; ?>" target="_blank" rel="noopener"><?php echo ee_icon('ti-brand-whatsapp'); ?> WhatsApp</a>
+                    <?php
+                    $u = urlencode(get_permalink()); $t = urlencode(get_the_title());
+                    /* Brand artwork for the four networks we have icons for;
+                       Email and Copy Link keep the theme's own glyphs. */
+                    $ee_share_ico = function ($key) {
+                        $url = function_exists('ee_social_icon_url') ? ee_social_icon_url($key) : '';
+                        return $url ? '<img class="ee-soc-art" src="' . esc_url($url) . '" alt="" width="18" height="18" loading="lazy" decoding="async">' : '';
+                    };
+                    ?>
+                    <a class="ee-soc-btn ee-soc-fb" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $u; ?>" target="_blank" rel="noopener"><?php echo $ee_share_ico('facebook') ?: ee_icon('ti-brand-facebook'); ?> Facebook</a>
+                    <a class="ee-soc-btn ee-soc-tw" href="https://twitter.com/intent/tweet?url=<?php echo $u; ?>&text=<?php echo $t; ?>" target="_blank" rel="noopener"><?php echo $ee_share_ico('twitter') ?: ee_icon('ti-brand-x'); ?> Twitter/X</a>
+                    <a class="ee-soc-btn ee-soc-li" href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo $u; ?>" target="_blank" rel="noopener"><?php echo $ee_share_ico('linkedin') ?: ee_icon('ti-brand-linkedin'); ?> LinkedIn</a>
+                    <a class="ee-soc-btn ee-soc-wa" href="https://api.whatsapp.com/send?text=<?php echo $t; ?>%20<?php echo $u; ?>" target="_blank" rel="noopener"><?php echo $ee_share_ico('whatsapp') ?: ee_icon('ti-brand-whatsapp'); ?> WhatsApp</a>
                     <a class="ee-soc-btn ee-soc-em" href="mailto:?subject=<?php echo $t; ?>&body=<?php echo $u; ?>"><?php echo ee_icon('ti-mail'); ?> Email</a>
                     <button class="ee-soc-btn ee-soc-cp" id="ee-btn-copy-link" type="button"><?php echo ee_icon('ti-link'); ?> Copy Link</button>
                 </div>
@@ -1426,11 +1464,11 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 
     <div class="ee-floating-contact" role="region" aria-label="Quick contact">
         <a class="ee-float-btn ee-float-whatsapp" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="WhatsApp">
-            <span class="ee-float-icon-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/whatsapp.svg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block" onerror="this.style.display='none';var s=this.nextElementSibling;if(s)s.style.display='block';"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;width:100%;height:100%;"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9z"/><path d="M9 10c0 .55.45 1 1 1s1-.45 1-1V9c0-.55-.45-1-1-1s-1 .45-1 1c0 2.76 2.24 5 5 5 .55 0 1-.45 1-1s-.45-1-1-1"/></svg></span>
+            <span class="ee-float-icon-wrap ee-float-icon-art"><img src="<?php echo esc_url(ee_social_icon_url('whatsapp')); ?>" alt="" loading="lazy" decoding="async"></span>
             <span class="ee-float-label"><small>Chat on</small><strong>WhatsApp</strong></span>
         </a>
         <a class="ee-float-btn ee-float-call" href="tel:+918956982897" aria-label="Call us">
-            <span class="ee-float-icon-wrap"><img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/call.svg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block" onerror="this.style.display='none';var s=this.nextElementSibling;if(s)s.style.display='block';"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;width:100%;height:100%;"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
+            <span class="ee-float-icon-wrap ee-float-icon-art"><img src="<?php echo esc_url(ee_social_icon_url('call')); ?>" alt="" loading="lazy" decoding="async"></span>
             <span class="ee-float-label"><small>Call us</small><strong>+91 89569 82897</strong></span>
         </a>
     </div>

@@ -4,6 +4,30 @@
  * @package ExtraaEdge
  */
 if (!defined('ABSPATH')) exit;
+
+/* ── Social icon artwork ─────────────────────────────────────────────────
+   One place for the brand icons, shared by the footer and the article
+   templates. Defined with a function_exists guard so whichever template
+   loads first wins and the other reuses it.
+
+   TO SWAP AN ICON: change its filename below.
+   TO ADD ONE (youtube, say): add the key here and it is picked up
+   automatically - anything not listed keeps the theme's existing glyph, so
+   nothing breaks while artwork is missing. */
+if (!function_exists('ee_social_icon_url')) {
+    function ee_social_icon_url($key) {
+        $base = 'https://www.extraaedge.com/wp-content/uploads/2026/social-icons/';
+        $map  = array(
+            'facebook'  => 'facebook-icon.webp',
+            'instagram' => 'instagram-icon.webp',
+            'linkedin'  => 'linkedin-icon.webp',
+            'twitter'   => 'twitter-icon.webp',
+            'whatsapp'  => 'whatsapp-icon.webp',
+            'call'      => 'call-now-icon.webp',
+        );
+        return isset($map[$key]) ? $base . $map[$key] : '';
+    }
+}
 ?>
 
 </main><!-- /#main-content (opened in header.php) -->
@@ -168,6 +192,11 @@ if (!defined('ABSPATH')) exit;
         font-size: 18px; color: var(--ee-blue-brand);
     }
     #extraaedge-footer-engine .ee-social-icon:hover { background: var(--ee-orange); color: white; transform: translateY(-5px); }
+    /* The brand artwork carries its own colour and shape, so it drops the
+       grey chip and the orange hover fill that the glyph version needs. */
+    #extraaedge-footer-engine .ee-social-icon--art,
+    #extraaedge-footer-engine .ee-social-icon--art:hover { background: none; }
+    #extraaedge-footer-engine .ee-social-icon--art img { width: 100%; height: 100%; object-fit: contain; display: block; }
     #extraaedge-footer-engine .ee-store-cluster { display: flex; gap: 12px; }
     #extraaedge-footer-engine .ee-store-cluster img { height: 40px; }
 
@@ -371,8 +400,14 @@ if (!defined('ABSPATH')) exit;
                 );
                 foreach ($ef_soc_icons as $ef_key => $ef_meta):
                     $ef_url = $ef_soc[$ef_key] ?? '';
-                    if (!$ef_url) continue; ?>
-                    <a href="<?php echo esc_url($ef_url); ?>" class="ee-social-icon" target="_blank" rel="noopener" aria-label="<?php echo esc_attr($ef_meta[1]); ?>"><i class="fa-brands <?php echo esc_attr($ef_meta[0]); ?>"></i></a>
+                    if (!$ef_url) continue;
+                    /* Brand artwork where we have it, Font Awesome otherwise -
+                       which is what still draws YouTube. */
+                    $ef_ico = ee_social_icon_url($ef_key); ?>
+                    <a href="<?php echo esc_url($ef_url); ?>" class="ee-social-icon<?php echo $ef_ico ? ' ee-social-icon--art' : ''; ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr($ef_meta[1]); ?>"><?php
+                    if ($ef_ico) : ?><img src="<?php echo esc_url($ef_ico); ?>" alt="" width="44" height="44" loading="lazy" decoding="async"><?php
+                    else : ?><i class="fa-brands <?php echo esc_attr($ef_meta[0]); ?>"></i><?php
+                    endif; ?></a>
                 <?php endforeach; ?>
             </div>
             <div class="ee-store-cluster">
@@ -438,7 +473,7 @@ if (!defined('ABSPATH')) exit;
 <?php if (!is_singular('post')): /* blog posts (single.php) already ship their own complete
    WhatsApp/Call/TOC floating system with a reading-progress badge —
    rendering this one too would show two overlapping stacks. */ ?>
-<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-07-23-fabs-gap14 ============ -->
+<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-08-02-social-art ============ -->
 <style id="ee-fabs-css">
 .ee-fabs{position:fixed;right:14px;bottom:16px;display:flex;flex-direction:column;gap:14px;z-index:996}
 .ee-fab{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;cursor:pointer;box-shadow:0 6px 14px rgba(15,32,64,.28);transition:transform .2s,box-shadow .2s;text-decoration:none}
@@ -446,8 +481,11 @@ if (!defined('ABSPATH')) exit;
 .ee-fab img{width:24px;height:24px;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.15))}
 .ee-fab svg{width:22px;height:22px}
 .ee-fab-toc{background:#19335D;color:#fff;display:none}
-.ee-fab-wa{background:#128C7E}/* WhatsApp dark teal: white icon 3.9:1 (SC 1.4.11); #25D366 was 2.0:1 */
-.ee-fab-call{background:#DE6E30}
+/* The WhatsApp and Call buttons are brand artwork now, so they carry their
+   own colour and shape - no tinted disc, no white ring, and the image fills
+   the button instead of sitting at 24px inside it. */
+.ee-fab-art{background:none;border:0;box-shadow:0 6px 16px rgba(15,32,64,.26)}
+.ee-fab-art img{width:100%;height:100%;object-fit:contain;filter:none}
 @media(max-width:1200px){.ee-fab-toc.ee-has-toc{display:flex}}
 .ee-toc-backdrop{position:fixed;inset:0;background:rgba(10,20,40,.45);opacity:0;visibility:hidden;transition:opacity .25s;z-index:997}
 .ee-toc-backdrop.open{opacity:1;visibility:visible}
@@ -463,11 +501,11 @@ if (!defined('ABSPATH')) exit;
   <button type="button" class="ee-fab ee-fab-toc" id="eeFabToc" aria-label="Open table of contents" aria-expanded="false">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg>
   </button>
-  <a class="ee-fab ee-fab-wa" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/whatsapp.svg" alt="" loading="lazy" decoding="async" onerror="this.outerHTML='<svg viewBox=\'0 0 24 24\' fill=\'#fff\'><path d=\'M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-2.7-.8-4.8-3-6-5.2-.5-1-.9-2.1-.5-3 .2-.4.7-1.3 1.3-1.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.4 0 .7.6 1 1.7 2 2.9 2.6.3.1.5.1.7-.1l.7-.8c.2-.2.4-.3.6-.2l2 .9c.3.2.4.5.1 1.5z\'/></svg>'">
+  <a class="ee-fab ee-fab-art" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <img src="<?php echo esc_url(ee_social_icon_url('whatsapp')); ?>" alt="" loading="lazy" decoding="async">
   </a>
-  <a class="ee-fab ee-fab-call" href="tel:918956982897" aria-label="Call us">
-    <img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/call.svg" alt="" loading="lazy" decoding="async" onerror="this.outerHTML='<svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'#fff\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z\'/></svg>'">
+  <a class="ee-fab ee-fab-art" href="tel:918956982897" aria-label="Call us">
+    <img src="<?php echo esc_url(ee_social_icon_url('call')); ?>" alt="" loading="lazy" decoding="async">
   </a>
 </div>
 <div class="ee-toc-backdrop" id="eeTocBackdrop"></div>
