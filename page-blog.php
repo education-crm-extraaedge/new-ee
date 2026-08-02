@@ -256,7 +256,7 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   .ee-bl-card,.ee-bl-btn,.ee-bl-more svg{ transition:none; } }
 </style>
 
-<!-- ee-blog-tpl v2026-08-02-banner-lookup -->
+<!-- ee-blog-tpl v2026-08-02-banner-urls -->
 <div class="ee-blog-page" id="ee-blog">
     <div class="ee-blog-wrap">
 
@@ -489,12 +489,12 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
                broken renders while artwork is still being uploaded. */
             $ee_bl_banners = array(
                 array(
-                    'src'  => 'assets/blog/banner-admissions-crm.png',
+                    'src'  => 'https://www.extraaedge.com/wp-content/uploads/2026/blog-side-bar/admission-crm-banner.png',
                     'href' => 'https://www.extraaedge.com/book-a-demo/',
                     'alt'  => 'ExtraaEdge Admissions CRM — turn more enquiries into enrollments. Book a demo.',
                 ),
                 array(
-                    'src'  => 'assets/blog/banner-vidya-ai.png',
+                    'src'  => 'https://www.extraaedge.com/wp-content/uploads/2026/blog-side-bar/vidya-ai-suite-admissions-banner.png',
                     'href' => 'https://www.extraaedge.com/book-a-demo/',
                     'alt'  => 'Vidya AI Suite — meet your AI admissions team. Book a demo.',
                 ),
