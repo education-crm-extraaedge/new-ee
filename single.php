@@ -88,7 +88,7 @@ add_action('wp_head', function () {
 }, 5);
 
 get_header();
-echo "\n<!-- ee-single-tpl v2026-08-02-sticky-banners -->\n";
+echo "\n<!-- ee-single-tpl v2026-08-02-no-crm-banner -->\n";
 
 while (have_posts()) : the_post();
     $author_id       = get_post_field('post_author', $pid);
@@ -125,11 +125,9 @@ while (have_posts()) : the_post();
     $hero_caption = $f('hero_caption', '');
     $callout     = $f('callout', '');
 
-    $banner_badge = $f('banner_badge', 'ExtraaEdge');
-    $banner_title = $f('banner_title', 'All-in-One CRM for Education');
-    $banner_desc  = $f('banner_desc', 'Unify SMS, WhatsApp, email, and calls. Convert more leads with intelligent automation built for admissions teams.');
-    $banner_cta_text = $f('banner_cta_text', 'Book Demo Now');
-    $banner_cta_url  = $f('banner_cta_url', '/book-demo/');
+    /* The in-article CRM banner ("All-in-One CRM for Education") was removed,
+       so its $banner_* meta is no longer read here. The fields still exist in
+       the post editor in functions.php - harmless, but nothing renders them. */
 
     /* Ad banner — when image URL is set it replaces the stat cards. */
     $ad_image = $f('ad_image', '');
@@ -376,13 +374,6 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-faq-icon{transition:transform .25s;font-size:18px;color:var(--b-muted);flex-shrink:0;}
 .ee-faq-item.ee-open .ee-faq-icon{transform:rotate(180deg);color:var(--b-orange);}
 
-.ee-crm-banner{background:linear-gradient(135deg,var(--b-blue) 0%,var(--b-blue-dark) 100%);border-radius:var(--b-radius-lg);padding:32px 36px;margin:36px 0;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;overflow:hidden;}
-.ee-crm-banner::after{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(222,110,48,.25),transparent 70%);}
-.ee-crm-banner > div{position:relative;z-index:2;flex:1;min-width:220px;}
-.ee-crm-banner h3,
-.ee-crm-banner .ee-crm-banner-title{font-size:22px;font-weight:700;margin:0 0 8px;letter-spacing:-.01em;color:#fff;}
-.ee-crm-banner p{font-size:13.5px;opacity:.88;margin:0;max-width:520px;color:#fff;}
-.ee-crm-badge{background:var(--b-orange);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:10px;letter-spacing:.08em;text-transform:uppercase;}
 .ee-meta-bottom{padding:22px 0;border-top:1px solid var(--b-border);margin-top:36px;font-size:12.5px;color:var(--b-muted);display:flex;flex-wrap:wrap;gap:18px;}
 .ee-meta-bottom strong{color:var(--b-text);font-weight:600;}
 
@@ -546,7 +537,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     .ee-toc-sidebar, .ee-right-sidebar, .ee-floating-contact, .ee-scroll-top,
     .ee-float-nav, .ee-copy-toast, .ee-progress-bar, .ee-cta-row,
     .ee-top-actions, #site-header, footer, .ee-share-section,
-    .ee-send-article, .ee-crm-banner, .ee-pn-nav, .ee-related,
+    .ee-send-article, .ee-pn-nav, .ee-related,
     .ee-ad-banner, .ee-bottom-nav { display: none !important; }
     .ee-blog-page { background: #fff !important; padding: 0 !important; }
     .ee-blog-wrap { grid-template-columns: 1fr !important; max-width: 760px !important; margin: 0 auto !important; }
@@ -842,8 +833,6 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     .ee-cta-row{flex-direction:column;align-items:stretch;}
     .ee-cta-row > a{justify-content:center;}
     .ee-stat-row{grid-template-columns:1fr;}
-    .ee-crm-banner{padding:22px;flex-direction:column;align-items:flex-start;}
-    .ee-crm-banner .ee-crm-banner-title{font-size:18px;}
     .ee-author-card{flex-direction:column;text-align:center;align-items:center;padding:22px;}
     .ee-floating-contact{right:14px;bottom:14px;gap:8px;}
     .ee-floating-contact .ee-float-btn{padding:9px 14px 9px 11px;font-size:12.5px;}
@@ -1154,15 +1143,6 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-
-            <div class="ee-crm-banner">
-                <div>
-                    <div class="ee-crm-badge"><?php echo esc_html($banner_badge); ?></div>
-                    <div class="ee-crm-banner-title"><?php echo esc_html($banner_title); ?></div>
-                    <p><?php echo wp_kses_post($banner_desc); ?></p>
-                </div>
-                <a href="<?php echo esc_url($banner_cta_url); ?>" class="ee-btn-primary" style="white-space:nowrap;flex-shrink:0;"><?php echo ee_icon('ti-rocket'); ?> <?php echo esc_html($banner_cta_text); ?></a>
-            </div>
 
             <div class="ee-meta-bottom">
                 <span><strong>Last Updated:</strong> <?php echo esc_html(get_the_modified_date()); ?></span>
