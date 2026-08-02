@@ -88,6 +88,7 @@ add_action('wp_head', function () {
 }, 5);
 
 get_header();
+echo "\n<!-- ee-single-tpl v2026-08-02-side-banners -->\n";
 
 while (have_posts()) : the_post();
     $author_id       = get_post_field('post_author', $pid);
@@ -665,24 +666,11 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     .ee-book-bubble svg{width:16px;height:16px;}
 }
 
-/* ── Sidebar promo cards (Vidya AI / Smarter Admissions) ── */
-.ee-promo-card{border-radius:var(--b-radius-md);padding:20px;color:#fff;position:relative;overflow:hidden;}
-.ee-promo-card.ee-promo-vidya{background:linear-gradient(135deg,#19335D 0%,#0F2040 100%);}
-.ee-promo-card.ee-promo-vidya::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;background:radial-gradient(circle,rgba(222,110,48,.3),transparent 65%);}
-.ee-promo-card.ee-promo-orange{background:linear-gradient(135deg,var(--b-orange) 0%,#C55E24 100%);}
-.ee-promo-card > *{position:relative;z-index:2;}
-.ee-promo-badge{display:inline-block;background:rgba(255,255,255,.18);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
-.ee-promo-card h3{font-size:18px;font-weight:800;margin:0 0 8px;color:#fff;letter-spacing:-.01em;line-height:1.2;}
-.ee-promo-card ul{margin:0 0 12px;padding:0;list-style:none;}
-.ee-promo-card ul li{font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.92);padding-left:18px;position:relative;margin-bottom:5px;}
-.ee-promo-card ul li::before{content:"✓";position:absolute;left:0;color:var(--b-orange);font-weight:700;}
-.ee-promo-card.ee-promo-orange ul li::before{color:#fff;}
-.ee-promo-card p{font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.9);margin:0 0 12px;}
-.ee-promo-card .ee-promo-btn,
-.ee-promo-card.ee-promo-orange .ee-promo-btn{display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--b-orange);border:2px solid #fff;padding:9px 16px;border-radius:var(--b-radius-sm);font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;transition:all var(--b-transition);}
-.ee-promo-card .ee-promo-btn:hover,
-.ee-promo-card.ee-promo-orange .ee-promo-btn:hover{background:var(--b-orange-light);color:var(--b-orange-dark);transform:translateY(-2px);}
-.ee-promo-card .ee-promo-btn svg{color:var(--b-orange);}
+/* ── Sidebar banners (replaced the built Vidya AI / Smarter Admissions cards) ── */
+.ee-side-banner{display:block;border-radius:var(--b-radius-md);overflow:hidden;box-shadow:0 14px 34px -28px rgba(25,51,93,.6);transition:transform .22s ease,box-shadow .22s ease;}
+.ee-side-banner img{display:block;width:100%;height:auto;}
+.ee-side-banner:hover{transform:translateY(-3px);box-shadow:0 22px 44px -26px rgba(25,51,93,.65);}
+.ee-side-banner:focus-visible{outline:3px solid rgba(222,110,48,.55);outline-offset:3px;}
 
 /* ── New Update card ── */
 .ee-new-update{background:#fff;border:1px solid var(--b-border);border-radius:var(--b-radius-md);padding:14px;display:flex;gap:12px;align-items:flex-start;text-decoration:none;color:inherit;transition:all var(--b-transition);}
@@ -1372,29 +1360,34 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             </div>
             <?php endif; ?>
 
-            <!-- ── Vidya AI promo banner ── -->
-            <div class="ee-sidebar-section">
-                <div class="ee-promo-card ee-promo-vidya">
-                    <span class="ee-promo-badge">✦ Vidya AI</span>
-                    <h3>Vidya AI</h3>
-                    <ul>
-                        <li>24/7 AI counselors</li>
-                        <li>Millions of student interactions</li>
-                        <li>One intelligent platform</li>
-                        <li>Convert more enrollments with AI</li>
-                    </ul>
-                    <a class="ee-promo-btn" href="https://getvidya.ai/" target="_blank" rel="noopener">Explore Vidya AI <?php echo ee_icon('ti-arrow-right'); ?></a>
-                </div>
-            </div>
+            <!-- ── Sidebar banners ──
+                 The two hand-built promo cards (Vidya AI and Smarter
+                 Admissions) have been replaced by the designed artwork, the
+                 same pair the /blog/ listing rail uses.
 
-            <!-- ── Smarter Admissions CTA banner ── -->
+                 TO SWAP ONE: change 'src' below. Add or remove entries to
+                 change how many banners the sidebar shows. -->
+            <?php
+            $ee_side_banners = array(
+                array(
+                    'src'  => 'https://www.extraaedge.com/wp-content/uploads/2026/blog-side-bar/vidya-ai-suite-admissions-banner.png',
+                    'href' => 'https://www.extraaedge.com/book-a-demo/',
+                    'alt'  => 'Vidya AI Suite — meet your AI admissions team. Book a demo.',
+                ),
+                array(
+                    'src'  => 'https://www.extraaedge.com/wp-content/uploads/2026/blog-side-bar/admission-crm-banner.png',
+                    'href' => 'https://www.extraaedge.com/book-a-demo/',
+                    'alt'  => 'ExtraaEdge Admissions CRM — turn more enquiries into enrollments. Book a demo.',
+                ),
+            );
+            foreach ($ee_side_banners as $ee_sb) : if (trim($ee_sb['src']) === '') continue; ?>
             <div class="ee-sidebar-section">
-                <div class="ee-promo-card ee-promo-orange">
-                    <h3>Need a Smarter Admissions Process?</h3>
-                    <p>Customise your entire admission workflow — funnels, reports, automations &amp; AI journeys built for your institution.</p>
-                    <a class="ee-promo-btn" href="/book-demo/">Book Demo Now <?php echo ee_icon('ti-arrow-right'); ?></a>
-                </div>
+                <a class="ee-side-banner" href="<?php echo esc_url($ee_sb['href']); ?>">
+                    <img src="<?php echo esc_url($ee_sb['src']); ?>" alt="<?php echo esc_attr($ee_sb['alt']); ?>"
+                         loading="lazy" decoding="async">
+                </a>
             </div>
+            <?php endforeach; ?>
 
             <!-- ── Compliance + action buttons ── -->
             <div class="ee-sidebar-section">
