@@ -507,67 +507,8 @@ if (!defined('ABSPATH')) exit;
 <?php endif; ?>
 
 <!-- ee-footer v2026-07-31-menu-modern -->
-<style id="ee-menu-modern">
-/* ── Header menus: solid, modern ─────────────────────────────────────────
-   The panels were glass — rgba white at 90% with a 24px backdrop blur —
-   so page content showed through and the text sat on whatever happened to
-   be behind it. They are opaque white now, with a crisp hairline, a
-   tighter radius and a two-layer shadow (a close one for the edge, a wide
-   soft one for depth) instead of the blur.
-
-   This lives in the footer, not header.php: the footer loads on every page
-   and renders last, so the skin lands on whichever header build is
-   installed without touching the header file itself.
-
-   Palette is this site's — #19335D and #DE6E30 only. */
-#site-header .eh-mega,#site-header .eh-dropdown{
-  background:#fff !important;
-  -webkit-backdrop-filter:none !important; backdrop-filter:none !important;
-  border:1px solid #E6EAF2 !important; border-radius:16px !important;
-  box-shadow:0 1px 2px rgba(15,33,67,.06),
-             0 18px 40px -12px rgba(15,33,67,.16),
-             0 40px 80px -30px rgba(15,33,67,.22) !important;
-  padding:14px !important; }
-/* some builds paint a gradient ring on the panel - it reads as haze now
-   that the surface is opaque */
-#site-header .eh-mega::before,#site-header .eh-dropdown::before{ display:none !important; }
-
-/* column headings: quieter, so the links themselves carry the panel */
-#site-header .eh-col-title,#site-header .eh-mega-col h4{
-  font:800 10.5px/1 'Inter',sans-serif !important; letter-spacing:.12em !important;
-  text-transform:uppercase !important; color:#8A9AB4 !important;
-  margin:6px 8px 8px !important; }
-
-/* rows. The panel scopes its own padding at (1 id, 2 classes), so these
-   have to be scoped the same way to win it. */
-#site-header .eh-mega .eh-dl,#site-header .eh-dropdown .eh-dl{
-  border-radius:10px !important; padding:9px 10px !important;
-  color:#33415C !important;
-  transition:background .18s ease, color .18s ease, transform .18s ease !important; }
-#site-header .eh-mega .eh-dl:hover,#site-header .eh-dropdown .eh-dl:hover,
-#site-header .eh-mega .eh-dl:focus-visible,#site-header .eh-dropdown .eh-dl:focus-visible{
-  background:#F4F7FC !important; color:#19335D !important; transform:translateX(2px); }
-#site-header .eh-dl-title{ font-weight:600 !important; color:inherit !important; }
-#site-header .eh-dl:hover .eh-dl-title{ color:var(--orange-700,#B5551D) !important; }
-#site-header .eh-dl-desc{ color:#7C8CA5 !important; }
-#site-header .eh-divider{ background:#EDF1F7 !important; margin:8px 6px !important; }
-
-/* top-level links */
-#site-header .eh-nav-link{
-  border-radius:10px !important; font-weight:500 !important;
-  transition:background .18s ease, color .18s ease !important; }
-#site-header .eh-nav-link:hover,#site-header .eh-nav-item:hover>.eh-nav-link{
-  background:#F4F7FC !important; color:#19335D !important; }
-#site-header .eh-chev{ opacity:.55; }
-
-/* the mobile drawer is a panel too - keep it opaque */
-#mobileMenu{ background:#fff !important; -webkit-backdrop-filter:none !important;
-  backdrop-filter:none !important; }
-#mobileMenu .mobile-accordion-item{ border-color:#E6EAF2 !important; }
-
-@media(prefers-reduced-motion:reduce){
-  #site-header .eh-dl,#site-header .eh-nav-link{ transition:none !important; } }
-</style>
+<!-- (removed) ee-menu-modern - the menu surface is part of the header
+     redesign now, so keeping a second copy here only fought it. -->
 
 <style id="ee-btn-standard">
 /* ── One button, everywhere ──────────────────────────────────────────────
