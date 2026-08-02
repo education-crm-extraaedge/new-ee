@@ -77,8 +77,7 @@ get_header();
 .ee-blog-page .ee-blog-wrap{ gap:26px; padding:0 22px; }
 @media(max-width:1100px){
   .ee-blog-page .ee-blog-wrap{ grid-template-columns:220px minmax(0,1fr); }
-  .ee-bl-rail{ grid-column:1 / -1; flex-direction:row; flex-wrap:wrap; }
-  .ee-bl-promo{ flex:1 1 300px; } }
+  .ee-bl-rail{ grid-column:1 / -1; } }
 @media(max-width:820px){
   .ee-blog-page .ee-blog-wrap{ grid-template-columns:1fr; padding:0 16px; } }
 .ee-bl{ font-family:'Inter',system-ui,sans-serif; }
@@ -187,31 +186,45 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
 .ee-bl-more svg{ width:14px; height:14px; transition:transform .22s ease; }
 .ee-bl-more:hover svg{ transform:translateX(4px); }
 
-/* promo rail */
+/* promo rail — the two built cards have been replaced by artwork, so the
+   rail is now just the banner links (plus a text fallback if no artwork has
+   been uploaded yet). */
 .ee-bl-rail{ display:flex; flex-direction:column; gap:16px; }
+.ee-bl-banner{ display:block; border-radius:16px; overflow:hidden;
+  box-shadow:0 14px 34px -28px rgba(25,51,93,.6);
+  transition:transform .22s ease, box-shadow .22s ease; }
+.ee-bl-banner img{ display:block; width:100%; height:auto; }
+.ee-bl-banner:hover{ transform:translateY(-3px);
+  box-shadow:0 22px 44px -26px rgba(25,51,93,.65); }
+.ee-bl-banner:focus-visible{ outline:3px solid rgba(222,110,48,.55); outline-offset:3px; }
+/* The shared shell in inc/blog-sidebar.php hides the right rail below 1100px
+   (.ee-blog-side-r{display:none}) - which used to be reasonable when the rail
+   was two long promo cards, but the rail is now a single Book a Demo banner
+   and hiding it on phones loses the CTA for most blog traffic. It is brought
+   back here, on the listing only, so single posts keep the shell's behaviour.
+
+   Three classes are needed to beat that rule: it lives in the sidebar
+   partial, whose <style> is printed after this one, so an equal-specificity
+   selector would lose on source order. Same reason this sits after the
+   .ee-bl-rail base above, which also sets flex-direction.
+
+   Across the page the banners run in a row rather than down it, capped
+   rather than stretched since they are tall portraits. */
+@media(max-width:1100px){
+  .ee-blog-page .ee-blog-side-r.ee-bl-rail{
+    display:flex; grid-column:1 / -1;
+    flex-direction:row; flex-wrap:wrap;
+    justify-content:center; align-items:flex-start; }
+  .ee-bl-banner{ flex:0 1 300px; }
+  .ee-bl-promo{ flex:1 1 300px; } }
+@media(max-width:620px){
+  .ee-bl-banner{ flex:0 1 340px; } }
+/* only shown when neither banner image is in place */
 .ee-bl-promo{ background:#fff; border:1px solid #EAEEF5; border-radius:16px;
   padding:20px 18px; box-shadow:0 14px 34px -28px rgba(25,51,93,.6); }
-.ee-bl-promo-eyebrow{ display:inline-flex; align-items:center; gap:8px;
-  font:800 10.5px/1 'Inter',sans-serif; letter-spacing:.1em; text-transform:uppercase;
-  color:var(--orange-700,#B5551D); margin-bottom:12px; }
-.ee-bl-promo-eyebrow i{ display:grid; place-items:center; width:26px; height:26px;
-  border-radius:8px; background:#FDF2EB; }
-.ee-bl-promo-eyebrow svg{ width:15px; height:15px; }
 .ee-bl-promo h2{ margin:0 0 9px; color:#19335D; font-weight:800;
   font-size:20px; line-height:1.2; letter-spacing:-.025em; }
 .ee-bl-promo p{ margin:0 0 13px; color:#6B7C96; font-size:13px; line-height:1.6; }
-.ee-bl-ticks{ list-style:none; margin:0 0 15px; padding:0; display:grid; gap:8px; }
-.ee-bl-ticks li{ display:flex; align-items:center; gap:9px;
-  color:#19335D; font-size:13px; font-weight:600; }
-.ee-bl-ticks li::before{ content:""; flex:0 0 auto; width:17px; height:17px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%23DE6E30'/%3E%3Cpath d='M7 12.3l3.3 3.3L17 8.9' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat; }
-.ee-bl-agents{ list-style:none; margin:0 0 15px; padding:0; counter-reset:a; display:grid; gap:8px; }
-.ee-bl-agents li{ counter-increment:a; position:relative;
-  padding:10px 12px 10px 42px; border:1px solid #EDF1F7; border-radius:11px; background:#FAFCFF; }
-.ee-bl-agents li::before{ content:"0" counter(a); position:absolute; left:13px; top:11px;
-  font:800 10.5px/1 'Inter',sans-serif; color:var(--orange-700,#B5551D); }
-.ee-bl-agents b{ display:block; color:#19335D; font-size:13px; font-weight:700; }
-.ee-bl-agents span{ display:block; color:#6B7C96; font-size:11.5px; line-height:1.5; margin-top:2px; }
 .ee-bl-btn{ display:flex; align-items:center; justify-content:center; gap:9px;
   padding:13px 18px; border-radius:10px; text-decoration:none; color:#fff;
   background:linear-gradient(135deg,#E8843F,#DE6E30);
@@ -220,11 +233,6 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   transition:transform .2s ease, box-shadow .2s ease; }
 .ee-bl-btn::after{ content:"\2192"; font-size:1.05em; line-height:1; }
 .ee-bl-btn:hover{ transform:translateY(-2px); }
-.ee-bl-btn--navy{ background:linear-gradient(135deg,#22406F,#122A4E);
-  box-shadow:0 10px 24px -10px rgba(15,33,67,.75); }
-.ee-bl-link{ display:block; text-align:center; margin-top:10px;
-  color:#19335D; font-weight:600; font-size:13px; text-decoration:none; }
-.ee-bl-link:hover{ color:var(--orange-700,#B5551D); }
 
 /* Three across only once the shell is allowed past 1280px; below that the
    sidebar and the rail leave the middle column under 200px per card, which
@@ -243,7 +251,7 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   .ee-bl-card,.ee-bl-btn,.ee-bl-more svg{ transition:none; } }
 </style>
 
-<!-- ee-blog-tpl v2026-08-02-no-foot -->
+<!-- ee-blog-tpl v2026-08-02-rail-banners -->
 <div class="ee-blog-page" id="ee-blog">
     <div class="ee-blog-wrap">
 
@@ -401,41 +409,62 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
         </main>
 
         <aside class="ee-blog-side-r ee-bl-rail" aria-label="Sidebar">
+            <?php
+            /* ── Rail banners ────────────────────────────────────────────────
+               The two hand-built promo cards (Admissions CRM and Vidya AI
+               Suite) have been replaced by the designed artwork, so the rail
+               is now just images that link out.
 
-            <section class="ee-bl-promo">
-                <span class="ee-bl-promo-eyebrow">
-                    <i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 4l9 5.5M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20.5h18"/></svg></i>
-                    Admissions CRM
-                </span>
-                <h2>Turn More Enquiries Into Enrollments</h2>
-                <p>Manage leads, automate follow-ups, track applications and give your admissions team everything they need to convert more students.</p>
-                <ul class="ee-bl-ticks">
-                    <li>Lead Management</li>
-                    <li>Marketing Automation</li>
-                    <li>Application Management</li>
-                    <li>Admissions Analytics</li>
-                </ul>
-                <a class="ee-bl-btn" href="<?php echo esc_url(home_url('/book-a-demo/')); ?>">Book a Demo</a>
-                <a class="ee-bl-link" href="<?php echo esc_url(home_url('/products/education-crm/')); ?>">Explore Admission CRM</a>
-            </section>
+               TO SWAP AN IMAGE: put the file in the theme folder under
+               assets/blog/ and keep the filename, or paste a full
+               https://... URL from the Media Library instead — anything
+               starting with http is used as-is.
 
-            <section class="ee-bl-promo ee-bl-promo--ai">
-                <span class="ee-bl-promo-eyebrow">
-                    <i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/></svg></i>
-                    Vidya AI Suite
-                </span>
-                <h2>Meet Your AI Admissions Team</h2>
-                <p>AI agents that help your team engage students, identify high-intent leads, automate conversations and improve admissions productivity 24&times;7.</p>
-                <ol class="ee-bl-agents">
-                    <li><b>VidyaGPT</b><span>AI admissions counsellor for instant student conversations.</span></li>
-                    <li><b>VidyaAI Voice Agent</b><span>Automates admission calls and lead qualification.</span></li>
-                    <li><b>VidyaPulse</b><span>AI-powered lead intent scoring and prioritisation.</span></li>
-                    <li><b>VidyaWABA GPT</b><span>Intelligent WhatsApp admissions conversations.</span></li>
-                    <li><b>Vidya Work</b><span>AI-powered productivity and admissions workflow assistant.</span></li>
-                </ol>
-                <a class="ee-bl-btn ee-bl-btn--navy" href="<?php echo esc_url(home_url('/vidyaai/')); ?>">Explore Vidya AI</a>
-            </section>
+               An entry whose file is not on disk is skipped, so nothing
+               broken renders while artwork is still being uploaded. */
+            $ee_bl_banners = array(
+                array(
+                    'src'  => 'assets/blog/banner-admissions-crm.png',
+                    'href' => 'https://www.extraaedge.com/book-a-demo/',
+                    'alt'  => 'ExtraaEdge Admissions CRM — turn more enquiries into enrollments. Book a demo.',
+                ),
+                array(
+                    'src'  => 'assets/blog/banner-vidya-ai.png',
+                    'href' => 'https://www.extraaedge.com/book-a-demo/',
+                    'alt'  => 'Vidya AI Suite — meet your AI admissions team. Book a demo.',
+                ),
+            );
 
+            $ee_bl_shown = 0;
+            foreach ($ee_bl_banners as $b) {
+                $src = trim($b['src']);
+                if ($src === '') continue;
+
+                if (strpos($src, 'http') === 0) {
+                    $url = $src;
+                } else {
+                    // theme-relative: only render it once the file is actually there
+                    if (!file_exists(get_template_directory() . '/' . ltrim($src, '/'))) continue;
+                    $url = get_template_directory_uri() . '/' . ltrim($src, '/');
+                }
+                $ee_bl_shown++;
+                ?>
+                <a class="ee-bl-banner" href="<?php echo esc_url($b['href']); ?>">
+                    <img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr($b['alt']); ?>"
+                         loading="lazy" decoding="async">
+                </a>
+                <?php
+            }
+
+            /* Nothing uploaded yet — keep a plain CTA in the rail rather than
+               leaving the column empty. */
+            if (!$ee_bl_shown) : ?>
+                <section class="ee-bl-promo">
+                    <h2>Turn More Enquiries Into Enrollments</h2>
+                    <p>See how ExtraaEdge helps your admissions team manage leads, automate follow-ups and convert more students.</p>
+                    <a class="ee-bl-btn" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+                </section>
+            <?php endif; ?>
         </aside>
 
     </div>
