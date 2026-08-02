@@ -88,7 +88,7 @@ add_action('wp_head', function () {
 }, 5);
 
 get_header();
-echo "\n<!-- ee-single-tpl v2026-08-02-side-banners -->\n";
+echo "\n<!-- ee-single-tpl v2026-08-02-sticky-banners -->\n";
 
 while (have_posts()) : the_post();
     $author_id       = get_post_field('post_author', $pid);
@@ -666,7 +666,20 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     .ee-book-bubble svg{width:16px;height:16px;}
 }
 
-/* ── Sidebar banners (replaced the built Vidya AI / Smarter Admissions cards) ── */
+/* ── Sidebar banners (replaced the built Vidya AI / Smarter Admissions cards) ──
+   The banners follow the article down instead of scrolling away with the rest
+   of the sidebar. The track around them is what ends the travel: its height is
+   set in JS to stop at the FAQ section, so the banners release there rather
+   than riding on into the related posts. Without JS the sticky still works and
+   simply runs to the end of the sidebar column.
+
+   --ee-side-top is the offset the pair sticks at, also set in JS: normally
+   96px, clearing the fixed header, but when the two banners are taller than
+   the viewport it goes negative so the block bottom-aligns instead. That way
+   scrolling down reveals the whole of the lower banner rather than pinning the
+   top and cutting the rest off screen. */
+.ee-side-track{position:relative;}
+.ee-side-sticky{position:sticky;top:var(--ee-side-top,96px);display:flex;flex-direction:column;gap:22px;}
 .ee-side-banner{display:block;border-radius:var(--b-radius-md);overflow:hidden;box-shadow:0 14px 34px -28px rgba(25,51,93,.6);transition:transform .22s ease,box-shadow .22s ease;}
 .ee-side-banner img{display:block;width:100%;height:auto;}
 .ee-side-banner:hover{transform:translateY(-3px);box-shadow:0 22px 44px -26px rgba(25,51,93,.65);}
@@ -1380,14 +1393,17 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
                     'alt'  => 'ExtraaEdge Admissions CRM — turn more enquiries into enrollments. Book a demo.',
                 ),
             );
-            foreach ($ee_side_banners as $ee_sb) : if (trim($ee_sb['src']) === '') continue; ?>
-            <div class="ee-sidebar-section">
-                <a class="ee-side-banner" href="<?php echo esc_url($ee_sb['href']); ?>">
-                    <img src="<?php echo esc_url($ee_sb['src']); ?>" alt="<?php echo esc_attr($ee_sb['alt']); ?>"
-                         loading="lazy" decoding="async">
-                </a>
+            ?>
+            <div class="ee-side-track" id="ee-side-track">
+                <div class="ee-side-sticky" id="ee-side-sticky">
+                    <?php foreach ($ee_side_banners as $ee_sb) : if (trim($ee_sb['src']) === '') continue; ?>
+                    <a class="ee-side-banner" href="<?php echo esc_url($ee_sb['href']); ?>">
+                        <img src="<?php echo esc_url($ee_sb['src']); ?>" alt="<?php echo esc_attr($ee_sb['alt']); ?>"
+                             decoding="async">
+                    </a>
+                    <?php endforeach; ?>
+                </div>
             </div>
-            <?php endforeach; ?>
 
             <!-- ── Compliance + action buttons ── -->
             <div class="ee-sidebar-section">
@@ -2197,6 +2213,60 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
         toggleFnav();
     }
 
+})();
+
+/* ── Sidebar banners: follow the article, stop at the FAQs ──
+   Two numbers do the work, both recomputed on resize:
+
+     track height  how far the pair is allowed to travel. Measured from the
+                   track's own top down to the top of the FAQ section, so the
+                   banners release exactly there. Sticky needs a real height on
+                   the ancestor for this - it cannot be expressed in CSS alone
+                   because the FAQ is in a different grid column.
+
+     --ee-side-top the offset the pair sticks at. 96px clears the fixed header.
+                   If the two banners together are taller than the viewport,
+                   pinning their top would push the lower one off screen, so
+                   the value goes negative and the block bottom-aligns instead.
+
+   Skipped entirely below 1101px, where the sidebar is not shown. */
+(function(){
+    var track  = document.getElementById('ee-side-track');
+    var sticky = document.getElementById('ee-side-sticky');
+    if (!track || !sticky) return;
+
+    function layout(){
+        track.style.height = '';
+        sticky.style.removeProperty('--ee-side-top');
+
+        if (window.innerWidth <= 1100 || !track.offsetParent) return;
+
+        /* looked up per pass rather than cached, so an FAQ block rendered
+           late still ends the travel */
+        var faq = document.getElementById('ee-faq-section');
+
+        var blockH = sticky.getBoundingClientRect().height;
+        var gap    = 24;
+        var top    = Math.min(96, window.innerHeight - blockH - gap);
+        sticky.style.setProperty('--ee-side-top', Math.round(top) + 'px');
+
+        if (faq) {
+            var scrollY  = window.scrollY || document.documentElement.scrollTop;
+            var trackTop = track.getBoundingClientRect().top + scrollY;
+            var faqTop   = faq.getBoundingClientRect().top + scrollY;
+            /* never shorter than the banners themselves, or they would be
+               clipped on posts whose FAQs sit high up the page */
+            track.style.height = Math.max(faqTop - trackTop, blockH) + 'px';
+        }
+    }
+
+    /* Images arrive after first paint, and the block height depends on them. */
+    var imgs = sticky.querySelectorAll('img');
+    for (var i = 0; i < imgs.length; i++) {
+        if (!imgs[i].complete) imgs[i].addEventListener('load', layout, { once:true });
+    }
+    window.addEventListener('resize', layout);
+    layout();
 })();
 
 document.documentElement.classList.add('ee-thin-scroll');
