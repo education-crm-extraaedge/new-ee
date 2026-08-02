@@ -118,6 +118,13 @@ get_header();
   transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
 .ee-bl-card:hover{ transform:translateY(-4px); border-color:rgba(222,110,48,.3);
   box-shadow:0 22px 44px -26px rgba(25,51,93,.65); }
+/* With the Read More row gone from the grid, the title's link is stretched
+   over the whole tile so the card itself is the click target. The category
+   tag sits above it so it stays separately clickable. */
+.ee-bl-card{ position:relative; }
+.ee-bl-card:not(.ee-bl-card--hero) .ee-bl-title a::after{
+  content:""; position:absolute; inset:0; border-radius:inherit; }
+.ee-bl-cat{ position:relative; z-index:2; }
 /* the lead card spans the row and turns side-by-side */
 .ee-bl-card--hero{ grid-column:1 / -1; flex-direction:row; align-items:stretch; }
 .ee-bl-card--hero .ee-bl-thumb{ flex:0 0 42%; }
@@ -149,10 +156,11 @@ get_header();
 /* Cards sit in a column barely 220px wide once the category sidebar and the
    rail have taken their share, so a long title ran to six or seven lines and
    left the rows very tall. It is clamped, and the foot is kept on one line.
-   With no excerpt under it in the grid, the title carries the card, so it
-   gets a fourth line and a clear gap before the read-time row. */
+   With no excerpt and no read-time row under it in the grid, the title is
+   the last thing in the card, so it carries a fourth line and no bottom
+   margin - the body's own padding closes the card. */
 html body #main-content #ee-blog .ee-bl-card h2.ee-bl-title{
-  margin:0 0 14px !important; font-size:16px !important; line-height:1.32 !important;
+  margin:0 !important; font-size:16px !important; line-height:1.32 !important;
   letter-spacing:-.015em !important; font-weight:700 !important;
   display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
 html body #main-content #ee-blog .ee-bl-card--hero h2.ee-bl-title{
@@ -235,7 +243,7 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   .ee-bl-card,.ee-bl-btn,.ee-bl-more svg{ transition:none; } }
 </style>
 
-<!-- ee-blog-tpl v2026-08-02-no-excerpt -->
+<!-- ee-blog-tpl v2026-08-02-no-foot -->
 <div class="ee-blog-page" id="ee-blog">
     <div class="ee-blog-wrap">
 
@@ -343,23 +351,23 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
                             </span>
                         </div>
                         <h2 class="ee-bl-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                        <?php /* The excerpt is only worth the height on the lead card. In the
-                                 grid the column is narrow enough that a three-line summary said
-                                 little and doubled the card, so the tile is thumbnail, category,
-                                 date, title and read-time. */ ?>
+                        <?php /* Only the lead card carries the excerpt and the read-time /
+                                 Read More row. In the grid the column is narrow enough that
+                                 both were mostly height, so the tile is thumbnail, category,
+                                 date and title - the whole card is already a link. */ ?>
                         <?php if ($hero) : ?>
                         <p class="ee-bl-x"><?php echo esc_html(ee_blog_excerpt(190)); ?></p>
-                        <?php endif; ?>
                         <div class="ee-bl-foot">
                             <span class="ee-bl-time">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>
                                 <?php echo (int) ee_blog_read_time(get_the_ID()); ?> min read
                             </span>
                             <a class="ee-bl-more" href="<?php the_permalink(); ?>">
-                                <?php echo $hero ? 'Read Article' : 'Read More'; ?>
+                                Read Article
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
                             </a>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </article>
                 <?php endwhile; wp_reset_postdata(); ?>
