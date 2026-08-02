@@ -124,7 +124,7 @@ get_header();
 .ee-bl-card--hero .ee-bl-body{ padding:26px 28px; justify-content:center; }
 
 .ee-bl-thumb{ display:block; background:#F1F5FA; }
-.ee-bl-thumb img{ width:100%; height:100%; min-height:132px; max-height:158px;
+.ee-bl-thumb img{ width:100%; height:100%; min-height:150px; max-height:176px;
   object-fit:cover; display:block; }
 .ee-bl-card--hero .ee-bl-thumb img{ max-height:none; }
 .ee-bl-body{ display:flex; flex-direction:column; flex:1 1 auto; padding:13px 14px 14px; }
@@ -147,13 +147,16 @@ get_header();
    listing's outline, so they have to match that count to stay card-sized -
    hence the #ee-blog id on the shell and two classes here. */
 /* Cards sit in a column barely 220px wide once the category sidebar and the
-   rail have taken their share, so a long title or excerpt ran to six or
-   seven lines and left the rows very tall. Both are clamped, and the foot
-   is kept on one line. */
+   rail have taken their share, so a long title ran to six or seven lines and
+   left the rows very tall. It is clamped, and the foot is kept on one line.
+   With no excerpt under it in the grid, the title carries the card, so it
+   gets a fourth line and a clear gap before the read-time row. */
 html body #main-content #ee-blog .ee-bl-card h2.ee-bl-title{
-  margin:0 0 7px !important; font-size:15.5px !important; line-height:1.3 !important;
+  margin:0 0 14px !important; font-size:16px !important; line-height:1.32 !important;
   letter-spacing:-.015em !important; font-weight:700 !important;
-  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+html body #main-content #ee-blog .ee-bl-card--hero h2.ee-bl-title{
+  margin:0 0 10px !important; -webkit-line-clamp:3; }
 html body #main-content #ee-blog .ee-bl-card--hero h2.ee-bl-title{
   font-size:clamp(19px,1.9vw,25px) !important; line-height:1.25 !important; }
 /* the excerpt loses to the same scale, so it is matched the same way */
@@ -232,7 +235,7 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   .ee-bl-card,.ee-bl-btn,.ee-bl-more svg{ transition:none; } }
 </style>
 
-<!-- ee-blog-tpl v2026-08-02-compact-cards -->
+<!-- ee-blog-tpl v2026-08-02-no-excerpt -->
 <div class="ee-blog-page" id="ee-blog">
     <div class="ee-blog-wrap">
 
@@ -340,7 +343,13 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
                             </span>
                         </div>
                         <h2 class="ee-bl-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                        <p class="ee-bl-x"><?php echo esc_html(ee_blog_excerpt($hero ? 190 : 110)); ?></p>
+                        <?php /* The excerpt is only worth the height on the lead card. In the
+                                 grid the column is narrow enough that a three-line summary said
+                                 little and doubled the card, so the tile is thumbnail, category,
+                                 date, title and read-time. */ ?>
+                        <?php if ($hero) : ?>
+                        <p class="ee-bl-x"><?php echo esc_html(ee_blog_excerpt(190)); ?></p>
+                        <?php endif; ?>
                         <div class="ee-bl-foot">
                             <span class="ee-bl-time">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>
