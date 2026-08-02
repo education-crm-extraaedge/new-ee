@@ -67,7 +67,13 @@ get_header();
    it unconditionally kept three columns at 390px and pushed the page into a
    horizontal scroll. */
 @media(min-width:1101px){
-  .ee-blog-page .ee-blog-wrap{ grid-template-columns:240px minmax(0,1fr) 320px; } }
+  .ee-blog-page .ee-blog-wrap{ grid-template-columns:230px minmax(0,1fr) 300px; } }
+/* The shell caps at 1280px, and once the category sidebar and the rail have
+   taken their share the middle column is only ~180px - narrow enough that
+   every title ran to six lines. Wide screens get a wider shell, and below
+   that the grid drops to two so the cards keep a readable measure. */
+@media(min-width:1500px){
+  .ee-blog-page .ee-blog-wrap{ max-width:1440px; } }
 .ee-blog-page .ee-blog-wrap{ gap:26px; padding:0 22px; }
 @media(max-width:1100px){
   .ee-blog-page .ee-blog-wrap{ grid-template-columns:220px minmax(0,1fr); }
@@ -105,7 +111,7 @@ get_header();
 .ee-bl-result a{ color:var(--orange-700,#B5551D); font-weight:600; }
 
 /* cards */
-.ee-bl-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+.ee-bl-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
 .ee-bl-card{ display:flex; flex-direction:column; overflow:hidden;
   background:#fff; border:1px solid #EAEEF5; border-radius:16px;
   box-shadow:0 14px 34px -28px rgba(25,51,93,.6);
@@ -118,10 +124,10 @@ get_header();
 .ee-bl-card--hero .ee-bl-body{ padding:26px 28px; justify-content:center; }
 
 .ee-bl-thumb{ display:block; background:#F1F5FA; }
-.ee-bl-thumb img{ width:100%; height:100%; min-height:170px; max-height:230px;
+.ee-bl-thumb img{ width:100%; height:100%; min-height:132px; max-height:158px;
   object-fit:cover; display:block; }
 .ee-bl-card--hero .ee-bl-thumb img{ max-height:none; }
-.ee-bl-body{ display:flex; flex-direction:column; flex:1 1 auto; padding:15px 16px 17px; }
+.ee-bl-body{ display:flex; flex-direction:column; flex:1 1 auto; padding:13px 14px 14px; }
 .ee-bl-meta{ display:flex; align-items:center; justify-content:space-between;
   gap:10px; margin-bottom:10px; flex-wrap:wrap; }
 .ee-bl-cat{ display:inline-block; padding:5px 10px; border-radius:6px;
@@ -131,18 +137,30 @@ get_header();
 .ee-bl-date{ display:inline-flex; align-items:center; gap:6px;
   color:#8A9AB4; font-size:11.5px; font-weight:600; white-space:nowrap; }
 .ee-bl-date svg{ width:13px; height:13px; }
+/* Short category names left the date sitting beside the tag while long ones
+   pushed it to a second line, so cards in the same row started at different
+   heights. Grid cards always stack; only the hero keeps the two on one row. */
+.ee-bl-card:not(.ee-bl-card--hero) .ee-bl-meta{
+  flex-direction:column; align-items:flex-start; gap:7px; }
 /* The site-wide heading scale pins every #main-content h2 to 30px with
    !important at (2 ids, 2 classes, 3 types). Card titles are h2 for the
    listing's outline, so they have to match that count to stay card-sized -
    hence the #ee-blog id on the shell and two classes here. */
+/* Cards sit in a column barely 220px wide once the category sidebar and the
+   rail have taken their share, so a long title or excerpt ran to six or
+   seven lines and left the rows very tall. Both are clamped, and the foot
+   is kept on one line. */
 html body #main-content #ee-blog .ee-bl-card h2.ee-bl-title{
-  margin:0 0 8px !important; font-size:16px !important; line-height:1.35 !important;
-  letter-spacing:-.015em !important; font-weight:700 !important; }
+  margin:0 0 7px !important; font-size:15.5px !important; line-height:1.3 !important;
+  letter-spacing:-.015em !important; font-weight:700 !important;
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 html body #main-content #ee-blog .ee-bl-card--hero h2.ee-bl-title{
   font-size:clamp(19px,1.9vw,25px) !important; line-height:1.25 !important; }
 /* the excerpt loses to the same scale, so it is matched the same way */
 html body #main-content #ee-blog .ee-bl-card p.ee-bl-x{
-  font-size:13.5px !important; line-height:1.6 !important; }
+  margin:0 0 12px !important; font-size:13px !important; line-height:1.55 !important;
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ -webkit-line-clamp:4; }
 html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !important; }
 .ee-bl-title{ margin:0 0 8px; font-size:16px; line-height:1.35; letter-spacing:-.015em; }
 .ee-bl-title a{ color:#19335D; font-weight:700; text-decoration:none; }
@@ -150,11 +168,11 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
 .ee-bl-x{ margin:0 0 14px; color:#6B7C96; font-size:13.5px; line-height:1.6; }
 .ee-bl-foot{ margin-top:auto; display:flex; align-items:center;
   justify-content:space-between; gap:10px; }
-.ee-bl-time{ display:inline-flex; align-items:center; gap:6px;
-  color:#8A9AB4; font-size:12px; font-weight:600; }
+.ee-bl-time{ display:inline-flex; align-items:center; gap:6px; white-space:nowrap;
+  color:#8A9AB4; font-size:11.5px; font-weight:600; }
 .ee-bl-time svg{ width:13px; height:13px; }
-.ee-bl-more{ display:inline-flex; align-items:center; gap:6px;
-  color:var(--orange-700,#B5551D); font-weight:700; font-size:13px; text-decoration:none; }
+.ee-bl-more{ display:inline-flex; align-items:center; gap:6px; white-space:nowrap;
+  color:var(--orange-700,#B5551D); font-weight:700; font-size:12.5px; text-decoration:none; }
 .ee-bl-more svg{ width:14px; height:14px; transition:transform .22s ease; }
 .ee-bl-more:hover svg{ transform:translateX(4px); }
 
@@ -197,7 +215,10 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   color:#19335D; font-weight:600; font-size:13px; text-decoration:none; }
 .ee-bl-link:hover{ color:var(--orange-700,#B5551D); }
 
-@media(max-width:1200px){
+/* Three across only once the shell is allowed past 1280px; below that the
+   sidebar and the rail leave the middle column under 200px per card, which
+   is what made every title run six lines. */
+@media(max-width:1499px){
   .ee-bl-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:900px){
   .ee-bl-card--hero{ flex-direction:column; }
@@ -211,6 +232,7 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   .ee-bl-card,.ee-bl-btn,.ee-bl-more svg{ transition:none; } }
 </style>
 
+<!-- ee-blog-tpl v2026-08-02-compact-cards -->
 <div class="ee-blog-page" id="ee-blog">
     <div class="ee-blog-wrap">
 
@@ -318,7 +340,7 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
                             </span>
                         </div>
                         <h2 class="ee-bl-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                        <p class="ee-bl-x"><?php echo esc_html(ee_blog_excerpt($hero ? 190 : 130)); ?></p>
+                        <p class="ee-bl-x"><?php echo esc_html(ee_blog_excerpt($hero ? 190 : 110)); ?></p>
                         <div class="ee-bl-foot">
                             <span class="ee-bl-time">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>
