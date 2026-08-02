@@ -219,6 +219,11 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   .ee-bl-promo{ flex:1 1 300px; } }
 @media(max-width:620px){
   .ee-bl-banner{ flex:0 1 340px; } }
+/* admin-only "where is the image" note */
+.ee-bl-note{ margin:0; padding:12px 14px; border-radius:12px;
+  border:1px dashed #E4B99A; background:#FFF8F3;
+  color:#8A5A33; font-size:11.5px; line-height:1.6; }
+.ee-bl-note code{ font-size:10.5px; word-break:break-all; }
 /* only shown when neither banner image is in place */
 .ee-bl-promo{ background:#fff; border:1px solid #EAEEF5; border-radius:16px;
   padding:20px 18px; box-shadow:0 14px 34px -28px rgba(25,51,93,.6); }
@@ -251,7 +256,7 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   .ee-bl-card,.ee-bl-btn,.ee-bl-more svg{ transition:none; } }
 </style>
 
-<!-- ee-blog-tpl v2026-08-02-rail-banners -->
+<!-- ee-blog-tpl v2026-08-02-banner-lookup -->
 <div class="ee-blog-page" id="ee-blog">
     <div class="ee-blog-wrap">
 
@@ -303,6 +308,66 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
                         $x = preg_replace('/\s+\S*$/u', '', $x) . '…';
                     }
                     return $x;
+                }
+            }
+            /* Resolve a rail banner to a URL, looking in the three places the
+               image could plausibly have been put:
+
+                 1. a full https:// URL, used exactly as given;
+                 2. the theme folder - child theme first, then parent, since
+                    get_template_directory() points at the parent and would
+                    miss a file uploaded into an active child theme;
+                 3. the Media Library, matched on the filename, so uploading
+                    the image through Media -> Add New is enough on its own.
+
+               The extension is not trusted either: a .png entry still matches
+               a .jpg/.jpeg/.webp export of the same name. Returns '' when the
+               image genuinely is not there yet. */
+            if (!function_exists('ee_blog_banner_url')) {
+                function ee_blog_banner_url($ref) {
+                    $ref = trim($ref);
+                    if ($ref === '') return '';
+                    if (strpos($ref, 'http') === 0) return $ref;
+
+                    $rel  = ltrim($ref, '/');
+                    $stem = pathinfo($rel, PATHINFO_FILENAME);
+                    $exts = array_unique(array_filter(array(
+                        pathinfo($rel, PATHINFO_EXTENSION), 'png', 'jpg', 'jpeg', 'webp',
+                    )));
+
+                    $dirs = array(get_stylesheet_directory() => get_stylesheet_directory_uri());
+                    $dirs[get_template_directory()] = get_template_directory_uri();
+                    foreach ($dirs as $dir => $uri) {
+                        foreach ($exts as $ext) {
+                            $try = preg_replace('/\.[^.\/]+$/', '.' . $ext, $rel);
+                            if (file_exists($dir . '/' . $try)) return $uri . '/' . $try;
+                        }
+                    }
+
+                    /* Media Library lookup is a DB hit, so it is cached - but
+                       briefly, so a freshly uploaded image appears without
+                       anyone having to wait out a long transient. */
+                    $key = 'ee_blog_banner_' . md5($stem);
+                    $hit = get_transient($key);
+                    if ($hit !== false) return $hit === 'none' ? '' : $hit;
+
+                    $url = '';
+                    $ids = get_posts(array(
+                        'post_type'      => 'attachment',
+                        'post_status'    => 'inherit',
+                        'posts_per_page' => 1,
+                        'fields'         => 'ids',
+                        'meta_query'     => array(array(
+                            'key'     => '_wp_attached_file',
+                            'value'   => $stem,
+                            'compare' => 'LIKE',
+                        )),
+                    ));
+                    if (!empty($ids)) {
+                        $url = (string) wp_get_attachment_url($ids[0]);
+                    }
+                    set_transient($key, $url !== '' ? $url : 'none', 5 * MINUTE_IN_SECONDS);
+                    return $url;
                 }
             }
             /* The lead card only makes sense on an unfiltered first page -
@@ -435,18 +500,11 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
                 ),
             );
 
-            $ee_bl_shown = 0;
+            $ee_bl_shown   = 0;
+            $ee_bl_missing = array();
             foreach ($ee_bl_banners as $b) {
-                $src = trim($b['src']);
-                if ($src === '') continue;
-
-                if (strpos($src, 'http') === 0) {
-                    $url = $src;
-                } else {
-                    // theme-relative: only render it once the file is actually there
-                    if (!file_exists(get_template_directory() . '/' . ltrim($src, '/'))) continue;
-                    $url = get_template_directory_uri() . '/' . ltrim($src, '/');
-                }
+                $url = ee_blog_banner_url($b['src']);
+                if ($url === '') { $ee_bl_missing[] = $b['src']; continue; }
                 $ee_bl_shown++;
                 ?>
                 <a class="ee-bl-banner" href="<?php echo esc_url($b['href']); ?>">
@@ -456,7 +514,7 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
                 <?php
             }
 
-            /* Nothing uploaded yet — keep a plain CTA in the rail rather than
+            /* Nothing found — keep a plain CTA in the rail rather than
                leaving the column empty. */
             if (!$ee_bl_shown) : ?>
                 <section class="ee-bl-promo">
@@ -464,6 +522,21 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
                     <p>See how ExtraaEdge helps your admissions team manage leads, automate follow-ups and convert more students.</p>
                     <a class="ee-bl-btn" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
                 </section>
+            <?php endif; ?>
+
+            <?php /* Only an administrator sees this, and only while an image is
+                     still missing - so "the banner isn't showing" says which
+                     file it could not find instead of failing silently. */ ?>
+            <?php if ($ee_bl_missing && current_user_can('manage_options')) : ?>
+                <?php $ee_bl_dirs = array_unique(array(get_stylesheet_directory(), get_template_directory())); ?>
+                <p class="ee-bl-note">
+                    <b>Banner not found</b> (visible to admins only). Looked for
+                    <?php echo esc_html(implode(' and ', $ee_bl_missing)); ?> under
+                    <?php foreach ($ee_bl_dirs as $d) : ?><code><?php echo esc_html($d); ?></code> <?php endforeach; ?>
+                    and in the Media Library. Upload the image through
+                    <b>Media &rarr; Add New</b> keeping that filename, or put the
+                    file at that path in the theme. .png / .jpg / .webp all work.
+                </p>
             <?php endif; ?>
         </aside>
 

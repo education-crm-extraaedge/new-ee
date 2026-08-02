@@ -1,21 +1,45 @@
 Blog rail banners
 =================
 
-Drop the two banner images here, keeping these exact filenames:
+The right-hand rail on /blog/ shows banner images that link to
+https://www.extraaedge.com/book-a-demo/
 
-  banner-admissions-crm.png   (Admissions CRM  - "Turn More Enquiries Into Enrollments")
-  banner-vidya-ai.png         (Vidya AI Suite  - "Meet Your AI Admissions Team")
+Expected filenames:
 
-Both link to https://www.extraaedge.com/book-a-demo/
+  banner-admissions-crm    (Admissions CRM - "Turn More Enquiries Into Enrollments")
+  banner-vidya-ai          (Vidya AI Suite - "Meet Your AI Admissions Team")
 
-The rail renders portrait banners about 300px wide, so export at roughly
-900x1900 (2x) for a sharp result. .jpg or .webp work too - if you change the
-extension, update the filename in the $ee_bl_banners array near the bottom
-of page-blog.php.
+.png, .jpg, .jpeg and .webp all work - the extension is not fixed.
 
-If you would rather host them in the WordPress Media Library, paste the full
-https://... URL into 'src' in that array instead of the filename; anything
-starting with http is used exactly as given and no file needs to be here.
 
-An entry whose file is missing is skipped, so the page never renders a
-broken image while artwork is still being uploaded.
+HOW TO ADD THEM - pick either one
+---------------------------------
+
+A) Media Library (easiest, no files to move)
+   WordPress admin -> Media -> Add New -> upload both images.
+   Keep the filenames above. Nothing else to do.
+
+B) Theme folder
+   Put the files in this directory:
+     wp-content/themes/<your-theme>/assets/blog/
+   A child theme is checked before the parent, so either works.
+
+C) Any other URL
+   Open page-blog.php, find the $ee_bl_banners array near the bottom, and
+   replace 'src' with the full https://... URL. Anything starting with http
+   is used exactly as given.
+
+
+Sizes
+-----
+The rail renders portrait banners about 300px wide, so export around
+900x1900 (2x) for a sharp result.
+
+
+If a banner does not appear
+---------------------------
+Log in as an administrator and open /blog/. A note in the rail will name the
+file it could not find and the folders it looked in. That note is only ever
+shown to administrators, and only while an image is missing.
+
+Remember to purge the LiteSpeed cache after uploading.
