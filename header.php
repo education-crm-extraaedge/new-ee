@@ -862,7 +862,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
        HTML in the page source.
        ══════════════════════════════════════════════════════════════ */
     $EE_MENU = array(
-      'products' => array('label'=>'Products','lead'=>'Everything an admissions team runs on, in one platform.','type'=>'mega','cols'=>array(
+      'products' => array('label'=>'Products','type'=>'mega','cols'=>array(
         array(
           array('h'=>'Core Platform','ic'=>'layers','items'=>array(
             array('t'=>'Education CRM','u'=>'/products/education-crm/'),
@@ -920,7 +920,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
           )),
         ),
       )),
-      'solutions' => array('label'=>'Solutions','lead'=>'Pick the way your institution recruits and enrols.','type'=>'mega','cols'=>array(
+      'solutions' => array('label'=>'Solutions','type'=>'mega','cols'=>array(
         array(array('h'=>'By Institution','ic'=>'bank','items'=>array(
           array('t'=>'Universities','u'=>'/solutions/universities/'),
           array('t'=>'Colleges','u'=>'/solutions/colleges/'),
@@ -964,7 +964,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         array('t'=>'Reviews','u'=>'/reviews/'),
         array('t'=>'Awards','u'=>'/awards/'),
       )),
-      'resources' => array('label'=>'Resources','lead'=>'Guides, sessions and support to help you get further.','type'=>'mega','cols'=>array(
+      'resources' => array('label'=>'Resources','type'=>'mega','cols'=>array(
         array(array('h'=>'Learn','ic'=>'book','items'=>array(
           array('t'=>'Blog','u'=>'/blog/'),
           array('t'=>'Webinars','u'=>'/webinars/'),
@@ -1039,9 +1039,6 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
                         <div class="eh-mega-grid">
                             <?php foreach ($ms['cols'] as $ci => $col): ?>
                             <div class="eh-mega-col<?php echo $ci === 0 ? ' eh-mega-col--feat' : ''; ?>">
-                                <?php if ($ci === 0 && !empty($ms['lead'])): ?>
-                                <p class="eh-mega-lead"><?php echo esc_html($ms['lead']); ?></p>
-                                <?php endif; ?>
                                 <?php foreach ($col as $grp): ?>
                                 <div class="eh-col-title"><?php echo esc_html($grp['h']); ?></div>
                                 <?php foreach ($grp['items'] as $it): ?>
@@ -1368,7 +1365,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     </script>
 
 
-    <!-- ee-header v2026-07-31-nologin -->
+    <!-- ee-header v2026-07-31-nolead -->
     <!-- ─── HEADER 2026 SKIN (eh-2026) ───
          Floating glass island: detached rounded bar with backdrop blur,
          compact-on-scroll, glass mega menus, quiet pill nav, premium
@@ -1768,15 +1765,12 @@ html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed
     #site-header>.eh-mega .eh-mega-col:last-child{ padding-right:0; }
     /* the divider between the feature side and the lists */
     #site-header>.eh-mega .eh-mega-col--feat{ border-right:1px solid #EDF1F7; }
-    #site-header>.eh-mega .eh-mega-lead{ margin:0 0 16px; color:#6B7C96;
-      font-size:13px; line-height:1.5; }
 
     #site-header>.eh-mega .eh-col-title{
       font:800 10.5px/1 'Inter',sans-serif !important; letter-spacing:.13em !important;
       text-transform:uppercase !important; color:#8A9AB4 !important;
       margin:18px 0 8px !important; display:block !important; }
-    #site-header>.eh-mega .eh-mega-col .eh-col-title:first-of-type,
-    #site-header>.eh-mega .eh-mega-lead + .eh-col-title{ margin-top:0 !important; }
+    #site-header>.eh-mega .eh-mega-col .eh-col-title:first-of-type{ margin-top:0 !important; }
 
     /* rows: icon + label, tinted fill on hover */
     #site-header>.eh-mega .eh-dl,#site-header .eh-dropdown .eh-dl{
