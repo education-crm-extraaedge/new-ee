@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-platform-cards -->
+<!-- ee-front-tpl v2026-08-03-product-tour -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1572,8 +1572,86 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 @keyframes aiblink{50%{opacity:.3}}.ai-viz{height:78px;display:flex;align-items:center;justify-content:center;background:var(--o-soft2);border-bottom:1px solid var(--line);overflow:hidden;padding:0 16px}.ai-body{padding:15px 18px;flex:1;display:flex;flex-direction:column}.ai-body p{font-size:12.8px;color:var(--mut);line-height:1.55;margin-bottom:13px}.ai-body ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:auto}.ai-body li{font-size:12.5px;color:var(--ink);display:flex;gap:8px;align-items:flex-start;line-height:1.4}.ai-body li svg,.ai-body li img.eeimg{width:15px;height:15px;color:var(--grn);flex:none;margin-top:1px}.ai-wave{display:flex;align-items:center;gap:3px;height:40px}.ai-wave i{width:4px;border-radius:4px;background:var(--o);animation:aiwv 1s ease-in-out infinite}
 @keyframes aiwv{0%,100%{height:7px}50%{height:34px}}.ai-chat{display:flex;flex-direction:column;gap:6px;width:100%}.ai-bub{max-width:80%;font-size:11px;padding:6px 10px;border-radius:10px;line-height:1.3}.ai-bub.a{background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px}.ai-bub.u{background:var(--nav);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}.ai-wabub{background:#dcf8c6;color:#0b3b2e;font-size:11px;padding:6px 10px;border-radius:10px;border-bottom-right-radius:3px;max-width:82%}.ai-wabub::after{content:&quot;✓✓&quot;;color:#34b7f1;font-size:9px;float:right;margin-left:8px}.ai-pulse{position:relative;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--o) 0 92%,#e1e5ec 92% 100%)}.ai-pulse span{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--nav);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}.ai-pulse::before{content:&quot;&quot;;position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--o);animation:aiping 1.8s ease-out infinite}
 @keyframes aiping{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.25);opacity:0}}.nav .cnt.ai{background:var(--o)}.pii{filter:blur(4px);-webkit-user-select:none;user-select:none;cursor:not-allowed;letter-spacing:.5px}.sample-badge{display:inline-flex;align-items:center;gap:6px;background:var(--o-soft);color:var(--o-d);border:1px solid var(--o-line);font-size:11px;font-weight:700;border-radius:999px;padding:5px 11px;white-space:nowrap}.sample-badge svg,.sample-badge img.eeimg{width:12px;height:12px}.privacy-bar{display:flex;align-items:center;gap:9px;background:#eef6ff;border:1px solid #cfe3fb;color:#2c5b94;font-size:12.5px;font-weight:500;border-radius:9px;padding:10px 14px;margin-bottom:16px}.privacy-bar svg,.privacy-bar img.eeimg{width:16px;height:16px;flex:none}.privacy-bar b{font-weight:700}
-@media(max-width:520px){.sample-badge span{display:none}}.oc-hero{background:linear-gradient(120deg,var(--nav),#2a4a7a);color:#fff;border-radius:12px;padding:22px 24px;margin-bottom:18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}.oc-hero .htxt h2{font-size:21px;font-weight:800;margin-bottom:4px}.oc-hero .htxt p{font-size:13px;color:#c6d4ea;max-width:560px;line-height:1.5}.oc-hero .hsum{margin-left:auto;display:flex;gap:22px;flex-wrap:wrap}.oc-hero .hsum .s b{font-size:24px;font-weight:800;display:block}.oc-hero .hsum .s span{font-size:11px;color:#c6d4ea}.oc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}.oc-card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);padding:18px 20px;position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s}.oc-card:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}.oc-card::after{content:&quot;&quot;;position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ac,var(--o))}.oc-card .ic{width:42px;height:42px;border-radius:11px;background:var(--acs,var(--o-soft));color:var(--ac,var(--o-d));display:flex;align-items:center;justify-content:center;margin-bottom:12px}.oc-card .ic svg,.oc-card .ic img.eeimg{width:21px;height:21px}.oc-card .lab{font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--mut)}.oc-card .big{font-size:38px;font-weight:800;color:var(--nav);line-height:1.05;margin:3px 0 2px;font-variant-numeric:tabular-nums}.oc-card .sub{font-size:12.5px;color:var(--mut);line-height:1.45}.oc-card .tr{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:11.5px;font-weight:700;color:var(--grn);background:var(--grn-soft);border-radius:999px;padding:4px 11px}.oc-card .ba{margin-top:13px;display:flex;flex-direction:column;gap:8px}.oc-card .ba .r{display:flex;align-items:center;gap:9px;font-size:11px}.oc-card .ba .r b{width:78px;color:var(--mut);font-weight:600}.oc-card .ba .tk{flex:1;height:8px;border-radius:5px;background:var(--paper);overflow:hidden}.oc-card .ba .tk i{display:block;height:100%;border-radius:5px;background:var(--ac,var(--o));width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}.oc-card .ba .r.old .tk i{background:#c9d0db}.oc-card .ba .r em{width:58px;text-align:right;font-style:normal;font-weight:700;color:var(--ink);font-size:11px}.bd-modal{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(15,28,51,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .25s}.bd-modal.show{opacity:1;visibility:visible}.bd-card{background:#fff;border-radius:18px;max-width:390px;width:100%;padding:30px 26px;text-align:center;box-shadow:0 30px 80px -20px rgba(15,28,51,.55);transform:translateY(14px) scale(.97);transition:transform .28s}.bd-modal.show .bd-card{transform:none}.bd-logo-img{height:34px;width:auto;display:block;margin:0 auto 16px}.bd-logo{display:flex;align-items:center;justify-content:center;gap:8px;font-weight:800;font-size:17px;color:var(--nav);margin-bottom:16px}.bd-logo .gx{display:flex;gap:2px}.bd-logo .gx i{width:12px;height:12px;border-radius:3px;display:block}.bd-logo .gx i:nth-child(1){background:var(--o)}.bd-logo .gx i:nth-child(2){background:var(--nav)}.bd-logo b em{color:var(--o);font-style:normal}.bd-ic{width:60px;height:60px;border-radius:16px;background:var(--o-soft);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px}.bd-card h3{font-size:20px;font-weight:800;color:var(--nav);margin-bottom:8px;line-height:1.2}.bd-card p{font-size:13.5px;color:var(--mut);line-height:1.6;margin-bottom:20px}.bd-go{display:block;background:var(--o);color:#fff;font-weight:700;font-size:15px;border-radius:11px;padding:14px;text-decoration:none;transition:background .2s,transform .15s}.bd-go:hover{background:var(--o-d)}.bd-go:active{transform:scale(.98)}.bd-close{margin-top:12px;font-size:12.5px;color:var(--dim);font-weight:600;background:none;border:0;cursor:pointer}.bd-close:hover{color:var(--mut)}.tour-spot{position:fixed;z-index:9000;border-radius:10px;border:2px solid var(--o);box-shadow:0 0 0 9999px rgba(15,28,51,.5);pointer-events:none;opacity:0;transition:all .5s cubic-bezier(.4,0,.2,1)}.tour-on .tour-spot{opacity:1}.tour-tip{position:fixed;z-index:9002;width:300px;max-width:calc(100vw - 28px);background:#fff;border-radius:14px;box-shadow:0 24px 60px rgba(15,28,51,.42);padding:17px 18px;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s,left .45s cubic-bezier(.4,0,.2,1),top .45s cubic-bezier(.4,0,.2,1);pointer-events:none}.tour-on .tour-tip{opacity:1;transform:none;pointer-events:auto}.tour-tip .stp{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--o);margin-bottom:7px}.tour-tip h4{font-size:15.5px;font-weight:700;color:var(--nav);line-height:1.25;margin-bottom:6px}.tour-tip p{font-size:12.8px;line-height:1.55;color:var(--mut)}.tour-tip .row{display:flex;align-items:center;gap:10px;margin-top:14px}.tour-tip .dts{display:flex;gap:5px;margin-right:auto}.tour-tip .dts b{width:7px;height:7px;border-radius:999px;background:var(--line-2);cursor:pointer;transition:.25s;display:block}.tour-tip .dts b.on{width:18px;background:var(--o)}.tour-tip .sk{font-size:11.5px;font-weight:600;color:var(--dim)}.tour-tip .nx{background:var(--o);color:#fff;font-weight:700;font-size:12.5px;border-radius:8px;padding:8px 15px}.tour-tip .nx:hover{background:var(--o-d)}.tour-dock{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:9002;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 9px 7px 12px;box-shadow:0 16px 44px -14px rgba(25,40,70,.5)}.tour-dock .dbtn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--paper);color:var(--nav)}.tour-dock .dbtn:hover{background:var(--o-soft);color:var(--o-d)}.tour-dock .dbtn.play{background:var(--o);color:#fff}.tour-dock .dbtn.play:hover{background:var(--o-d)}.tour-dock .dbtn svg,.tour-dock .dbtn img.eeimg{width:15px;height:15px}.tour-dock .lbl{font-size:12.5px;font-weight:600;color:var(--nav);white-space:nowrap;padding:0 4px}.tour-dock .ddots{display:flex;gap:5px;padding:0 4px}.tour-dock .ddots b{width:6px;height:6px;border-radius:50%;background:var(--line-2);cursor:pointer}.tour-dock .ddots b.on{background:var(--o)}.demo-cta{position:fixed;right:18px;bottom:20px;z-index:9001;display:inline-flex;align-items:center;gap:8px;background:var(--o);color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:11px 18px;box-shadow:0 14px 34px -10px rgba(244,123,32,.7);cursor:pointer}.demo-cta:hover{background:var(--o-d)}.demo-cta svg,.demo-cta img.eeimg{width:15px;height:15px}
-@media(max-width:860px){.tour-tip{left:14px!important;right:14px!important;top:auto!important;bottom:88px!important;width:auto;max-width:none}.tour-dock{left:14px;right:14px;transform:none;justify-content:center;bottom:14px}.tour-dock .lbl{display:none}.tour-dock .ddots{max-width:46vw;overflow:hidden}.demo-cta{bottom:66px;right:14px;padding:9px 14px;font-size:12px}
+@media(max-width:520px){.sample-badge span{display:none}}.oc-hero{background:linear-gradient(120deg,var(--nav),#2a4a7a);color:#fff;border-radius:12px;padding:22px 24px;margin-bottom:18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}.oc-hero .htxt h2{font-size:21px;font-weight:800;margin-bottom:4px}.oc-hero .htxt p{font-size:13px;color:#c6d4ea;max-width:560px;line-height:1.5}.oc-hero .hsum{margin-left:auto;display:flex;gap:22px;flex-wrap:wrap}.oc-hero .hsum .s b{font-size:24px;font-weight:800;display:block}.oc-hero .hsum .s span{font-size:11px;color:#c6d4ea}.oc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}.oc-card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);padding:18px 20px;position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s}.oc-card:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}.oc-card::after{content:&quot;&quot;;position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ac,var(--o))}.oc-card .ic{width:42px;height:42px;border-radius:11px;background:var(--acs,var(--o-soft));color:var(--ac,var(--o-d));display:flex;align-items:center;justify-content:center;margin-bottom:12px}.oc-card .ic svg,.oc-card .ic img.eeimg{width:21px;height:21px}.oc-card .lab{font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--mut)}.oc-card .big{font-size:38px;font-weight:800;color:var(--nav);line-height:1.05;margin:3px 0 2px;font-variant-numeric:tabular-nums}.oc-card .sub{font-size:12.5px;color:var(--mut);line-height:1.45}.oc-card .tr{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:11.5px;font-weight:700;color:var(--grn);background:var(--grn-soft);border-radius:999px;padding:4px 11px}.oc-card .ba{margin-top:13px;display:flex;flex-direction:column;gap:8px}.oc-card .ba .r{display:flex;align-items:center;gap:9px;font-size:11px}.oc-card .ba .r b{width:78px;color:var(--mut);font-weight:600}.oc-card .ba .tk{flex:1;height:8px;border-radius:5px;background:var(--paper);overflow:hidden}.oc-card .ba .tk i{display:block;height:100%;border-radius:5px;background:var(--ac,var(--o));width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}.oc-card .ba .r.old .tk i{background:#c9d0db}.oc-card .ba .r em{width:58px;text-align:right;font-style:normal;font-weight:700;color:var(--ink);font-size:11px}.bd-modal{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(15,28,51,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .25s}.bd-modal.show{opacity:1;visibility:visible}.bd-card{background:#fff;border-radius:18px;max-width:390px;width:100%;padding:30px 26px;text-align:center;box-shadow:0 30px 80px -20px rgba(15,28,51,.55);transform:translateY(14px) scale(.97);transition:transform .28s}.bd-modal.show .bd-card{transform:none}.bd-logo-img{height:34px;width:auto;display:block;margin:0 auto 16px}.bd-logo{display:flex;align-items:center;justify-content:center;gap:8px;font-weight:800;font-size:17px;color:var(--nav);margin-bottom:16px}.bd-logo .gx{display:flex;gap:2px}.bd-logo .gx i{width:12px;height:12px;border-radius:3px;display:block}.bd-logo .gx i:nth-child(1){background:var(--o)}.bd-logo .gx i:nth-child(2){background:var(--nav)}.bd-logo b em{color:var(--o);font-style:normal}.bd-ic{width:60px;height:60px;border-radius:16px;background:var(--o-soft);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px}.bd-card h3{font-size:20px;font-weight:800;color:var(--nav);margin-bottom:8px;line-height:1.2}.bd-card p{font-size:13.5px;color:var(--mut);line-height:1.6;margin-bottom:20px}.bd-go{display:block;background:var(--o);color:#fff;font-weight:700;font-size:15px;border-radius:11px;padding:14px;text-decoration:none;transition:background .2s,transform .15s}.bd-go:hover{background:var(--o-d)}.bd-go:active{transform:scale(.98)}.bd-close{margin-top:12px;font-size:12.5px;color:var(--dim);font-weight:600;background:none;border:0;cursor:pointer}.bd-close:hover{color:var(--mut)}/* ── Guided tour chrome ────────────────────────────────────────────────────
+   Glass cards over a dimmed app, an animated hotspot on the element being
+   explained, a progress bar, and a closing screen. Light and dark are both
+   handled through --t-* variables so the tour reads on either. */
+:root{--t-card:rgba(255,255,255,.82);--t-card-2:rgba(255,255,255,.62);--t-brd:rgba(255,255,255,.75);--t-ink:#0f203a;--t-mut:#5a6b85;--t-dim:#8a95a6;--t-line:rgba(15,32,58,.1);--t-shadow:0 28px 70px -18px rgba(15,28,51,.5)}
+@media (prefers-color-scheme:dark){:root{--t-card:rgba(20,30,48,.86);--t-card-2:rgba(28,40,62,.7);--t-brd:rgba(255,255,255,.14);--t-ink:#eaf0fb;--t-mut:#a9b8d0;--t-dim:#7f8ea8;--t-line:rgba(255,255,255,.12);--t-shadow:0 28px 70px -18px rgba(0,0,0,.75)}}
+.tour-spot{position:fixed;z-index:9000;border-radius:12px;border:2px solid var(--o);box-shadow:0 0 0 9999px rgba(9,18,36,.55),0 0 0 6px rgba(244,123,32,.18);pointer-events:none;opacity:0;transition:all .55s cubic-bezier(.4,0,.2,1)}
+.tour-on .tour-spot{opacity:1}
+/* interactive hotspot - a pulsing dot on the corner of what is highlighted */
+.tour-spot::after{content:'';position:absolute;right:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:var(--o);box-shadow:0 0 0 0 rgba(244,123,32,.65);animation:tSpotPulse 1.9s infinite}
+@keyframes tSpotPulse{0%{box-shadow:0 0 0 0 rgba(244,123,32,.6)}70%{box-shadow:0 0 0 13px rgba(244,123,32,0)}100%{box-shadow:0 0 0 0 rgba(244,123,32,0)}}
+.tour-tip{position:fixed;z-index:9002;width:330px;max-width:calc(100vw - 28px);background:var(--t-card);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);border:1px solid var(--t-brd);border-radius:18px;box-shadow:var(--t-shadow);padding:0;overflow:hidden;opacity:0;transform:translateY(10px) scale(.98);transition:opacity .35s,transform .35s,left .45s cubic-bezier(.4,0,.2,1),top .45s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.tour-on .tour-tip{opacity:1;transform:none;pointer-events:auto}
+/* progress bar across the very top of the card */
+.tour-tip .prog{height:3px;background:var(--t-line)}
+.tour-tip .prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--o),#ffb27a);transition:width .45s cubic-bezier(.4,0,.2,1)}
+.tour-tip .body{padding:15px 17px 14px}
+.tour-tip .head{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.tour-tip .stp{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t-dim)}
+/* AI badge - only rendered on steps that are actually AI */
+.tour-tip .ai{margin-left:auto;display:none;align-items:center;gap:5px;font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#7b52d3,#4f7fe0);border-radius:999px;padding:4px 9px 4px 7px;white-space:nowrap}
+.tour-tip .ai.on{display:inline-flex}
+.tour-tip .ai svg{width:11px;height:11px;flex:0 0 auto}
+.tour-tip h4{font-size:16px;font-weight:800;color:var(--t-ink);line-height:1.22;margin-bottom:6px;letter-spacing:-.015em}
+.tour-tip p{font-size:12.8px;line-height:1.55;color:var(--t-mut);margin:0}
+.tour-tip p b{color:var(--t-ink)}
+/* benefit + expected result */
+.tour-tip .meta{margin-top:11px;display:flex;flex-direction:column;gap:7px}
+.tour-tip .meta .m{display:flex;align-items:flex-start;gap:8px;font-size:11.8px;line-height:1.45;color:var(--t-ink)}
+.tour-tip .meta .m span{font-weight:600}
+.tour-tip .meta .m i{flex:0 0 auto;margin-top:1px;width:14px;height:14px;display:grid;place-items:center;border-radius:50%;background:var(--o-soft);color:var(--o-d);font-style:normal}
+.tour-tip .meta .m i svg{width:9px;height:9px}
+.tour-tip .out{margin-top:11px;display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;color:var(--grn);background:var(--grn-soft);border-radius:999px;padding:5px 11px}
+.tour-tip .out svg{width:12px;height:12px;flex:0 0 auto}
+.tour-tip .out u{text-decoration:none;font-weight:700;opacity:.72;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.tour-tip .row{display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--t-line)}
+.tour-tip .dts{display:flex;gap:5px;margin-right:auto;flex-wrap:wrap;max-width:150px}
+.tour-tip .dts b{width:7px;height:7px;border-radius:999px;background:var(--t-line);cursor:pointer;transition:.25s;display:block}
+.tour-tip .dts b.on{width:18px;background:var(--o)}
+.tour-tip .sk{font-size:11.5px;font-weight:600;color:var(--t-dim)}
+.tour-tip .sk:hover{color:var(--t-mut)}
+.tour-tip .pv{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--t-card-2);border:1px solid var(--t-line);color:var(--t-ink)}
+.tour-tip .pv:hover{background:var(--o-soft);color:var(--o-d)}
+.tour-tip .pv svg{width:14px;height:14px}
+.tour-tip .pv[disabled]{opacity:.35;cursor:default}
+.tour-tip .nx{background:var(--o);color:#fff;font-weight:700;font-size:12.5px;border-radius:9px;padding:9px 15px;white-space:nowrap}
+.tour-tip .nx:hover{background:var(--o-d)}
+.tour-tip .kbd{margin-top:9px;font-size:10px;color:var(--t-dim);text-align:right}
+.tour-tip .kbd b{font-weight:700;border:1px solid var(--t-line);border-radius:4px;padding:1px 4px;margin:0 1px}
+/* ── closing screen ── */
+.tour-end{position:fixed;inset:0;z-index:9100;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(9,18,36,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.tour-end.show{opacity:1;visibility:visible}
+.tour-end .card{width:100%;max-width:480px;background:var(--t-card);-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);border:1px solid var(--t-brd);border-radius:22px;box-shadow:var(--t-shadow);padding:32px 28px 26px;text-align:center;transform:translateY(16px) scale(.97);transition:transform .35s cubic-bezier(.2,.9,.3,1)}
+.tour-end.show .card{transform:none}
+.tour-end .tick{width:56px;height:56px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;background:var(--grn-soft);color:var(--grn)}
+.tour-end .tick svg{width:28px;height:28px}
+.tour-end h3{font-size:22px;font-weight:800;color:var(--t-ink);line-height:1.22;margin-bottom:10px;letter-spacing:-.02em}
+.tour-end p{font-size:13.5px;line-height:1.6;color:var(--t-mut);margin-bottom:18px}
+.tour-end .wins{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
+.tour-end .wins div{background:var(--t-card-2);border:1px solid var(--t-line);border-radius:12px;padding:10px 6px}
+.tour-end .wins b{display:block;font-size:15px;font-weight:800;color:var(--o-d);line-height:1.1}
+.tour-end .wins span{display:block;margin-top:3px;font-size:9.5px;font-weight:600;color:var(--t-mut);line-height:1.25}
+.tour-end .go{display:block;background:var(--o);color:#fff;font-weight:700;font-size:15px;border-radius:12px;padding:14px;text-decoration:none;transition:background .2s,transform .15s}
+.tour-end .go:hover{background:var(--o-d)}
+.tour-end .go:active{transform:scale(.99)}
+.tour-end .again{margin-top:11px;font-size:12.5px;color:var(--t-dim);font-weight:600;background:none;border:0;cursor:pointer}
+.tour-end .again:hover{color:var(--t-mut)}
+.tour-dock{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:9002;display:flex;align-items:center;gap:8px;background:var(--t-card);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:1px solid var(--t-brd);border-radius:999px;padding:7px 9px 7px 12px;box-shadow:var(--t-shadow)}
+.tour-dock .dbtn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--t-card-2);color:var(--t-ink)}
+.tour-dock .dbtn:hover{background:var(--o-soft);color:var(--o-d)}
+.tour-dock .dbtn.play{background:var(--o);color:#fff}
+.tour-dock .dbtn.play:hover{background:var(--o-d)}
+.tour-dock .dbtn svg,.tour-dock .dbtn img.eeimg{width:15px;height:15px}
+.tour-dock .lbl{font-size:12.5px;font-weight:600;color:var(--t-ink);white-space:nowrap;padding:0 4px}
+.tour-dock .ddots{display:flex;gap:5px;padding:0 4px}
+.tour-dock .ddots b{width:6px;height:6px;border-radius:50%;background:var(--t-line);cursor:pointer}
+.tour-dock .ddots b.on{background:var(--o)}
+@media (prefers-reduced-motion:reduce){.tour-spot,.tour-tip,.tour-end .card,.tour-tip .prog i{transition:none}.tour-spot::after{animation:none}}
+.demo-cta{position:fixed;right:18px;bottom:20px;z-index:9001;display:inline-flex;align-items:center;gap:8px;background:var(--o);color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:11px 18px;box-shadow:0 14px 34px -10px rgba(244,123,32,.7);cursor:pointer}.demo-cta:hover{background:var(--o-d)}.demo-cta svg,.demo-cta img.eeimg{width:15px;height:15px}
+@media(max-width:860px){.tour-tip{left:14px!important;right:14px!important;top:auto!important;bottom:88px!important;width:auto;max-width:none}.tour-tip .kbd{display:none}.tour-end .wins{grid-template-columns:repeat(2,1fr)}.tour-end .card{padding:26px 20px 22px}.tour-dock{left:14px;right:14px;transform:none;justify-content:center;bottom:14px}.tour-dock .lbl{display:none}.tour-dock .ddots{max-width:46vw;overflow:hidden}.demo-cta{bottom:66px;right:14px;padding:9px 14px;font-size:12px}
 }
 @media(max-width:420px){.tour-dock .ddots{display:none} }
 </style>
@@ -2072,7 +2150,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   function si(p){return '<svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;>'+p+'</svg>';}
   var tSpot=document.createElement('div'); tSpot.className='tour-spot';
   var tTip=document.createElement('div'); tTip.className='tour-tip';
-  tTip.innerHTML='<div class=&quot;stp&quot;></div><h4></h4><p></p><div class=&quot;row&quot;><div class=&quot;dts&quot;></div><button class=&quot;sk&quot;>Skip tour</button><button class=&quot;nx&quot;>Next →</button></div>';
+  tTip.setAttribute('role','dialog');tTip.setAttribute('aria-live','polite');tTip.setAttribute('aria-label','Product tour step');tTip.innerHTML='<div class=prog><i></i></div>'+'<div class=body>'+'<div class=head><span class=stp></span><span class=ai><svg viewBox=\'0 0 24 24\' fill=currentColor aria-hidden=true><path d=\'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z\'/></svg><em class=ail></em></span></div>'+'<h4></h4><p></p>'+'<div class=meta>'+'<div class=\'m mb\'><i><svg viewBox=\'0 0 24 24\' fill=none stroke=currentColor stroke-width=3 stroke-linecap=round stroke-linejoin=round><path d=\'M5 12.5l4.2 4.2L19 7\'/></svg></i><span></span></div>'+'</div>'+'<span class=out><svg viewBox=\'0 0 24 24\' fill=none stroke=currentColor stroke-width=2.6 stroke-linecap=round stroke-linejoin=round><path d=\'M4 17l6-6 4 4 6-7\'/></svg><u>Expected result</u><em class=outl></em></span>'+'<div class=row><div class=dts></div><button class=sk type=button>Skip</button><button class=pv type=button aria-label=\'Previous step\'><svg viewBox=\'0 0 24 24\' fill=none stroke=currentColor stroke-width=2.4 stroke-linecap=round stroke-linejoin=round><path d=\'M15 5l-7 7 7 7\'/></svg></button><button class=nx type=button>Next →</button></div>'+'<div class=kbd><b>←</b><b>→</b> to move &amp;middot; <b>Esc</b> to exit</div>'+'</div>';
   document.body.appendChild(tSpot); document.body.appendChild(tTip);
   var tDock=document.createElement('div'); tDock.className='tour-dock';
   tDock.innerHTML='<button class=&quot;dbtn restart&quot; title=&quot;Restart&quot;>'+si('<path d=&quot;M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z&quot;/>')+'</button><button class=&quot;dbtn play&quot; title=&quot;Play / Pause&quot;></button><div class=&quot;ddots&quot;></div><span class=&quot;lbl&quot;>Product tour</span><button class=&quot;dbtn close&quot; title=&quot;Close&quot;>'+si('<path d=&quot;M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z&quot;/>')+'</button>';
@@ -2087,25 +2165,85 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   /* Explore mode: any click outside the left menu / tour controls opens the popup */
   document.addEventListener('click',function(e){
     var t=e.target;
-    if(t && t.closest && t.closest('#side,#burger,#scrim,.tour-tip,.tour-dock,.tour-spot,.demo-cta,.toasts,.toast')) return;
+    if(t && t.closest && t.closest('#side,#burger,#scrim,.tour-tip,.tour-dock,.tour-spot,.demo-cta,.tour-end,.toasts,.toast')) return;
     e.preventDefault(); e.stopPropagation();
     openBookModal();
   },true);
   var PLAY=si('<path d=&quot;M8 5v14l11-7z&quot;/>'), PAUSE=si('<path d=&quot;M6 5h4v14H6zM14 5h4v14h-4z&quot;/>');
   var playBtn=tDock.querySelector('.play'), ddots=tDock.querySelector('.ddots'), lbl=tDock.querySelector('.lbl'), tipDots=tTip.querySelector('.dts');
+  /* Every step carries five things, not just a caption: what it is (t), one
+     line on what you are looking at (b), the AI capability at work (ai), the
+     business benefit (ben) and the measurable result (out). A visitor who
+     only reads the cards still leaves knowing what the platform does and
+     what it is worth. ~7s a step, so the whole run is about two minutes. */
   var TSTEPS=[
-    {v:'outcomes',sel:'#side',side:1,t:'This is your Admission CRM',b:'A privacy-first demo on <b>sample data</b>. Let us start with the <b>results</b> it delivers 👇'},
-    {v:'outcomes',sel:'#ocGrid',t:'Business outcomes, not just screens',b:'Faster <b>lead response</b>, higher <b>conversion</b>, more <b>WhatsApp automation</b>, better <b>productivity</b> and stronger <b>ROI</b>.'},
-    {v:'ai',sel:'#aiGrid',t:'Powered by Vidya AI',b:'Four AI products: <b>Voice Agent</b> calls leads, <b>VidyaGPT</b> chats 24×7, <b>VidyaWABA</b> automates WhatsApp, <b>VidyaPulse</b> scores intent.'},
-    {v:'mgmt',sel:'.view[data-v=&quot;mgmt&quot;] .panel',t:'Management · Live Funnel',b:'<b>917 enquiries → 386 admissions (42%)</b>, with strong movement at every stage.'},
-    {v:'counselor',sel:'#counselorTbl',t:'Counselor · Leaderboard',b:'Total leads, enrolled and <b>conversion %</b> for every counsellor.'},
-    {v:'comm',sel:'#commTbl',t:'Communication · Email Overview',b:'<b>24,620 sent</b>, <b>96% delivered</b>, <b>40% open rate</b> - well above industry norms.'},
-    {v:'leads',sel:'.view[data-v=&quot;leads&quot;] .lead',t:'Lead Manager · every lead, organised',b:'Open any lead to see its full history, contact details and status.'},
-    {v:'wa',sel:'#waList',t:'WhatsApp Chat · talk directly',b:'Reach students where they reply. Every chat syncs to the lead.'},
-    {v:'workflow',sel:'#wfGrid',t:'Automation working for you',b:'Follow-ups and WhatsApp journeys run automatically in the background.'},
-    {v:'mgmt',sel:'.demo-cta',t:'Want this on your funnel?',b:'Lead capture → calling → WhatsApp → conversion - all in one window. Book a demo.'}
+    {v:'outcomes',sel:'#side',side:1,
+     t:'Your whole admission office, one window',
+     b:'Enquiries, calls, WhatsApp, applications and reporting - on <b>sample data</b>, nothing real is exposed.',
+     ben:'Stop stitching spreadsheets, dialers and inboxes together',
+     out:'1 platform, 0 spreadsheets'},
+    {v:'outcomes',sel:'#ocGrid',
+     t:'Results first, not a feature list',
+     b:'The board every principal asks for: response time, conversion, productivity and <b>ROI</b>.',
+     ben:'Know what the admission spend actually returned',
+     out:'Better ROI, in one screen'},
+    {v:'ai',sel:'#aiGrid',ai:'AI Powered',
+     t:'Vidya AI, your 24x7 admissions team',
+     b:'<b>Voice Agent</b> calls, <b>VidyaGPT</b> chats, <b>VidyaWABA</b> runs WhatsApp, <b>VidyaPulse</b> scores intent.',
+     ben:'Every enquiry answered the minute it arrives, day or night',
+     out:'24x7 AI Assistance'},
+    {v:'outcomes',sel:'#search',ai:'Natural Language Search',
+     t:'Ask in plain language',
+     b:'Type what you want - <b>hot leads from Pune this week</b> - instead of building a filter.',
+     ben:'Anyone on the team can get an answer without training',
+     out:'Under 3 second response'},
+    {v:'mgmt',sel:'#mgmtFunnel',ai:'Predictive Analytics',
+     t:'See the leak before it costs you a batch',
+     b:'<b>917 enquiries to 386 admissions</b>, with the drop-off at every stage called out.',
+     ben:'Fix the stage that is losing students while the cycle is still open',
+     out:'2x More Conversions'},
+    {v:'counselor',sel:'#counselorTbl',ai:'Counselor Intelligence',
+     t:'Know who is converting, and who needs help',
+     b:'Leads handled, enrolled and <b>conversion %</b> for every counsellor, updated live.',
+     ben:'Coach on evidence instead of impressions',
+     out:'40% Higher Counselor Productivity'},
+    {v:'leads',sel:'.view[data-v=&quot;leads&quot;] .lead',ai:'Lead Scoring AI',
+     t:'One student, one timeline',
+     b:'Every enquiry auto-captured and deduped, scored by intent and routed to the right counsellor.',
+     ben:'No lead sits unclaimed, no student gets called twice',
+     out:'Automated Lead Assignment'},
+    {v:'wa',sel:'#waList',ai:'WhatsApp AI',
+     t:'WhatsApp, done properly',
+     b:'Official API - real two-way threads and broadcasts, every message logged on the lead.',
+     ben:'Reach students where they actually reply',
+     out:'3x Faster Follow-up'},
+    {v:'followups',sel:'#calGrid',ai:'Smart Automation',
+     t:'The follow-up list builds itself',
+     b:'Tasks, reminders and SLA timers created from the lead stage - not from memory.',
+     ben:'Nothing slips through on a busy admission day',
+     out:'Higher Enrollment Rate'},
+    {v:'comm',sel:'#commTbl',ai:'Real-time Insights',
+     t:'Email and SMS at scale, measured',
+     b:'<b>24,620 sent</b>, <b>96% delivered</b>, <b>40% opened</b> - well above the sector norm.',
+     ben:'See which message actually moved students, not just what was sent',
+     out:'40% open rate'},
+    {v:'campaign',sel:'#cmpList',ai:'AI Recommendations',
+     t:'Campaigns that target the right list',
+     b:'Segment by course, source, city or stage and run it across email, SMS and WhatsApp.',
+     ben:'A 1:1 feel at a scale no counselling team could do by hand',
+     out:'Higher Enrollment Rate'},
+    {v:'workflow',sel:'#wfGrid',ai:'Smart Automation',
+     t:'Automation you can actually read',
+     b:'No-code rules that assign, nurture, notify and escalate - open one and see exactly why a lead moved.',
+     ben:'The process runs the same way on the busiest day of the cycle',
+     out:'Runs itself, 24x7'},
+    {v:'integration',sel:'#intCats',
+     t:'It connects to what you already run',
+     b:'Meta, Google, education portals, telephony, payment and ERP - 50+ integrations.',
+     ben:'Leads arrive on their own, so nobody imports a CSV again',
+     out:'Automated lead capture'}
   ];
-  var tIdx=-1, tTimer=null, tRun=false, TDUR=6500, tBooked=false;
+  var tIdx=-1, tTimer=null, tRun=false, TDUR=7000;
   TSTEPS.forEach(function(_,i){var a=document.createElement('b');a.addEventListener('click',function(){tGo(i);});tipDots.appendChild(a);var b=document.createElement('b');b.addEventListener('click',function(){tGo(i);});ddots.appendChild(b);});
   function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
   function tPlace(i){
@@ -2119,8 +2257,17 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
       setTimeout(function(){
         var r=target.getBoundingClientRect(), pad=6;
         tSpot.style.left=(r.left-pad)+'px'; tSpot.style.top=(r.top-pad)+'px'; tSpot.style.width=(r.width+pad*2)+'px'; tSpot.style.height=(r.height+pad*2)+'px';
-        tTip.querySelector('.stp').textContent='Step '+(i+1)+' / '+TSTEPS.length;
+        tTip.querySelector('.stp').textContent='Step '+(i+1)+' of '+TSTEPS.length;
+        tTip.querySelector('.prog i').style.width=(((i+1)/TSTEPS.length)*100)+'%';
         tTip.querySelector('h4').textContent=st.t; tTip.querySelector('p').innerHTML=st.b;
+        /* AI badge only where the step really is AI - naming it on every card
+           would make the label mean nothing */
+        var aiEl=tTip.querySelector('.ai');
+        aiEl.classList.toggle('on',!!st.ai);
+        aiEl.querySelector('.ail').textContent=st.ai||'';
+        tTip.querySelector('.mb span').textContent=st.ben||'';
+        tTip.querySelector('.outl').textContent=st.out||'';
+        tTip.querySelector('.pv').disabled=(i===0);
         tTip.querySelector('.nx').textContent=(i===TSTEPS.length-1)?'Finish ✓':'Next →';
         [].forEach.call(tipDots.children,function(d,j){d.classList.toggle('on',j===i);});
         [].forEach.call(ddots.children,function(d,j){d.classList.toggle('on',j===i);});
@@ -2135,16 +2282,63 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
       }, tReduce?60:380);
     },120);
   }
-  function tGo(i){ clearTimeout(tTimer); if(i>=TSTEPS.length){ tStop(); if(!tBooked){ tBooked=true; setTimeout(openBookModal,400); } return; } tIdx=i; tPlace(i); if(tRun &amp;&amp; !tReduce){ tTimer=setTimeout(function(){ tGo(tIdx+1); }, TDUR); } }
+  /* ── closing screen ──
+     The old tour just fired the booking popup when it ran out of steps, which
+     landed as an ad. It now closes on a summary of what was shown, so the CTA
+     arrives as the obvious next move rather than an interruption. */
+  var tEnd=document.createElement('div'); tEnd.className='tour-end';
+  tEnd.setAttribute('role','dialog'); tEnd.setAttribute('aria-modal','true'); tEnd.setAttribute('aria-label','Tour complete');
+  tEnd.innerHTML='<div class=card>'
+    +'<div class=tick><svg viewBox=\'0 0 24 24\' fill=none stroke=currentColor stroke-width=2.6 stroke-linecap=round stroke-linejoin=round><path d=\'M4 12.5l5 5L20 6.5\'/></svg></div>'
+    +'<h3>You have seen the whole platform</h3>'
+    +'<p>You are now ready to experience the complete AI-powered Admission CRM. Book a live demo and see how institutions increase admissions with ExtraaEdge.</p>'
+    +'<div class=wins>'
+      +'<div><b>3x</b><span>Faster follow-up</span></div>'
+      +'<div><b>40%</b><span>More counsellor output</span></div>'
+      +'<div><b>2x</b><span>More conversions</span></div>'
+      +'<div><b>24x7</b><span>AI assistance</span></div>'
+    +'</div>'
+    +'<a class=go href=# >Book a live demo</a>'
+    +'<button class=again type=button>Watch the tour again</button>'
+    +'</div>';
+  document.body.appendChild(tEnd);
+  tEnd.querySelector('.go').addEventListener('click',function(e){ e.preventDefault(); openBookModal(); });
+  tEnd.querySelector('.again').addEventListener('click',function(){ tEndHide(); tIdx=-1; tStart(); });
+  tEnd.addEventListener('click',function(e){ if(e.target===tEnd) tEndHide(); });
+  function tEndShow(){ tEnd.classList.add('show'); var g=tEnd.querySelector('.go'); if(g) setTimeout(function(){ g.focus(); },320); }
+  function tEndHide(){ tEnd.classList.remove('show'); }
+  function tFinish(){ tStop(); tEndShow(); }
+  function tGo(i){ clearTimeout(tTimer); if(i>=TSTEPS.length){ tFinish(); return; } if(i<0) i=0; tIdx=i; tPlace(i); if(tRun &amp;&amp; !tReduce){ tTimer=setTimeout(function(){ tGo(tIdx+1); }, TDUR); } }
   function tStart(){ tRun=true; document.body.classList.add('tour-on'); playBtn.innerHTML=PAUSE; lbl.textContent='Auto-playing…'; tGo(tIdx<0?0:tIdx); }
+  /* Pause holds the step on screen and only stops the clock; exit takes the
+     tour away. They used to be the same call, so pausing closed the tour and
+     there was nothing left to resume. */
+  function tPause(){ tRun=false; clearTimeout(tTimer); playBtn.innerHTML=PLAY; lbl.textContent='Paused'; }
+  function tResume(){ if(tIdx<0){ tStart(); return; } tRun=true; document.body.classList.add('tour-on'); playBtn.innerHTML=PAUSE; lbl.textContent='Auto-playing…'; tGo(tIdx); }
   function tStop(){ tRun=false; clearTimeout(tTimer); document.body.classList.remove('tour-on'); playBtn.innerHTML=PLAY; lbl.textContent='Product tour'; }
   window.__laxmiStopTour=tStop;
   playBtn.innerHTML=PLAY;
-  playBtn.addEventListener('click',function(){ tRun?tStop():tStart(); });
+  playBtn.addEventListener('click',function(){ tRun?tPause():tResume(); });
   tDock.querySelector('.restart').addEventListener('click',function(){ tIdx=-1; tStart(); });
   tDock.querySelector('.close').addEventListener('click',tStop);
-  tTip.querySelector('.nx').addEventListener('click',function(){ if(tIdx===TSTEPS.length-1){ tStop(); tBooked=true; openBookModal(); } else { tGo(tIdx+1); } });
+  tTip.querySelector('.nx').addEventListener('click',function(){ if(tIdx===TSTEPS.length-1){ tFinish(); } else { tGo(tIdx+1); } });
+  tTip.querySelector('.pv').addEventListener('click',function(){ if(tIdx>0) tGo(tIdx-1); });
   tTip.querySelector('.sk').addEventListener('click',tStop);
+  /* ── keyboard ──
+     Arrows step, space pauses the autoplay, Esc leaves. Bound on the document
+     inside the frame, and only while the tour is actually up, so it never
+     swallows keys from the rest of the demo. */
+  document.addEventListener('keydown',function(e){
+    if(tEnd.classList.contains('show')){ if(e.key==='Escape'){ e.preventDefault(); tEndHide(); } return; }
+    if(!document.body.classList.contains('tour-on')) return;
+    var k=e.key;
+    if(k==='ArrowRight'||k==='PageDown'){ e.preventDefault(); if(tIdx===TSTEPS.length-1){ tFinish(); } else { tGo(tIdx+1); } }
+    else if(k==='ArrowLeft'||k==='PageUp'){ e.preventDefault(); if(tIdx>0) tGo(tIdx-1); }
+    else if(k===' '||k==='Spacebar'){ e.preventDefault(); tRun?tPause():tResume(); }
+    else if(k==='Escape'){ e.preventDefault(); tStop(); }
+    else if(k==='Home'){ e.preventDefault(); tGo(0); }
+    else if(k==='End'){ e.preventDefault(); tGo(TSTEPS.length-1); }
+  });
   var tResizeT=null;
   window.addEventListener('resize',function(){ if(tRun){ clearTimeout(tResizeT); tResizeT=setTimeout(function(){ tPlace(tIdx); },150); } });
   $('#main').addEventListener('click',function(){ if(tRun) tStop(); });
@@ -2355,8 +2549,20 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
     document.body.classList.add('eep-lock');
     document.body.style.top=(-_lockY)+'px';
     fitFrame(); setTimeout(fitFrame,60);
+    /* On phones the demo only exists inside this overlay, and the bridge that
+       starts the guided tour watches the section - which is scrolled away and
+       covered by now, so the tour never ran there. Opening full screen is an
+       unambiguous "show me the product", so ask for the tour directly.
+       Skipped when the visitor arrived by picking a module: they asked for
+       that screen, and the tour would move them off it. */
+    if(!userPicked){
+      tellFrame('ee-tour-start');
+      if(fr){ fr.addEventListener('load',function once(){ fr.removeEventListener('load',once); if(!userPicked) tellFrame('ee-tour-start'); }); }
+      setTimeout(function(){ if(!userPicked) tellFrame('ee-tour-start'); },1500);
+    }
   }
   function closeExp(){
+    tellFrame('ee-tour-stop');
     if(winEl) winEl.classList.remove('eep-launched');
     document.documentElement.classList.remove('eep-lock');
     document.body.classList.remove('eep-lock');
@@ -2430,8 +2636,12 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   }
   /* ---- single entry point for every module change ---- */
   var userPicked=false;
+  function tellFrame(msg){ try{ if(fr && fr.contentWindow) fr.contentWindow.postMessage(msg,'*'); }catch(e){} }
   function selectModule(b,fromTour){
     if(!fromTour){ stopTour(); userPicked=true; }
+    /* whoever asked for this screen - a card, the rail, or this section's own
+       tour - now owns it, so the frame's guided tour steps aside */
+    tellFrame('ee-tour-stop');
     mods.forEach(function(x){ x.classList.toggle('on',x===b); });
     if(ovnav){ [].forEach.call(ovnav.children,function(p){ p.classList.toggle('on',p.getAttribute('data-go')===b.getAttribute('data-go')); }); }
     loadFrame();
@@ -2476,17 +2686,14 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
      on desktop the tour starts by itself the first time the section is
      properly on screen - the demo literally plays itself */
   if(fr) fr.addEventListener('mouseenter',stopTour);
-  var autoToured=false;
+  /* This rail-cycling tour no longer starts by itself. The demo runs its own
+     guided product tour inside the frame - the detailed one, with the
+     benefit and result on every step - and both were driving the same screen,
+     so the rail kept yanking the frame off whatever step it was explaining.
+     The button below still cycles modules for anyone who wants that. */
   if('IntersectionObserver' in window){
     new IntersectionObserver(function(es){ es.forEach(function(e){
-      if(!e.isIntersecting){ stopTour(); return; }
-      if(!autoToured && !mq.matches && e.intersectionRatio>=0.45){
-        autoToured=true;
-        /* userPicked, not just !tourTimer: the auto-start is on a 1.2s delay,
-           so a visitor who picks a module inside that window used to have the
-           tour fire afterwards and move the demo off what they asked for. */
-        setTimeout(function(){ if(!userPicked && !tourTimer && !mq.matches) startTour(); },1200);
-      }
+      if(!e.isIntersecting) stopTour();
     }); },{threshold:[0,0.45]}).observe(sec);
   }
   /* ---- "Inside the demo" cards drive the demo ----
