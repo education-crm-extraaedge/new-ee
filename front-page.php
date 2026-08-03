@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-logo-spacing -->
+<!-- ee-front-tpl v2026-08-03-integrations -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5384,21 +5384,118 @@ html body #main-content #stories .cis-wrap .cis-blurb{
 <!-- (removed dead hidden section: #segments) -->
 <!-- (removed dead hidden section: #ecosystem) -->
 <!-- ===================== INTEGRATIONS ===================== -->
+<style id="ee-integrations-premium">
+/* ── Integrations ──────────────────────────────────────────────────────────
+   Left-aligned header and a staggered mosaic of soft tiles, the way premium
+   SaaS integration pages read - rather than a centred heading over a boxed
+   tab panel. Ghost tiles fill the gaps so the grid has rhythm instead of
+   ending in a ragged edge. Brand palette only: #19345D, #DE6E30, Inter.
+
+   Printed after the section's own stylesheet so it wins the ties. */
+#integrations{background:linear-gradient(180deg,#FAFBFD 0%,#F4F6FA 100%)}
+#integrations .container{max-width:1240px}
+
+/* header */
+#integrations .ig-head{max-width:none;text-align:left;margin:0 0 clamp(30px,4vw,48px)}
+#integrations .ig-eyebrow{display:inline-flex;align-items:center;gap:10px;font:700 13px/1 'Inter',system-ui,sans-serif;color:#19345d;margin-bottom:16px}
+#integrations .ig-eyebrow i{width:20px;height:3px;border-radius:2px;background:#DE6E30;display:block}
+/* The site-wide heading scale is (2 ids, 2 classes, 3 types) with !important.
+   One class here lost to it and the headline stayed at 30px, so both of the
+   element's classes are named to match the count and win on source order. */
+html body #main-content #integrations h2.h2.ig-h2{
+  text-align:left !important;font-weight:800 !important;
+  font-size:clamp(30px,5vw,58px) !important;line-height:1.06 !important;
+  letter-spacing:-.035em !important;color:#19345d !important;margin:0 0 18px !important}
+#integrations .ig-h2-soft{color:#9AA6BA}
+#integrations .ig-lead{margin:0;max-width:60ch;font-size:clamp(14.5px,1.5vw,16.5px);line-height:1.7;color:#6B7C96}
+#integrations .ig-stats{display:flex;flex-wrap:wrap;gap:38px;margin:26px 0 0;justify-content:flex-start;text-align:left}
+#integrations .ig-stats div{text-align:left}
+#integrations .ig-stats div{display:flex;flex-direction:column;gap:3px}
+#integrations .ig-stats b{font:800 clamp(24px,2.6vw,32px)/1 'Inter',system-ui,sans-serif;color:#19345d;letter-spacing:-.02em}
+#integrations .ig-stats span{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#8A95A6}
+
+/* panel */
+#integrations .ig{background:transparent;border:0;box-shadow:none;padding:0;display:block}
+#integrations .ig-panel{background:transparent;border:0;box-shadow:none;padding:0}
+
+/* category chips */
+/* the old nav was a vertical list, so flex-direction has to be reset or the
+   chips stack full-width down the page */
+#integrations .ig-nav{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;margin:0 0 26px;padding:0;background:none;border:0}
+#integrations .ig-nb{display:inline-flex;width:auto;flex:0 0 auto;text-align:left;align-items:center;gap:7px;background:#fff;border:1px solid rgba(25,52,93,.1);border-radius:999px;padding:9px 15px;font:600 13px/1 'Inter',system-ui,sans-serif;color:#19345d;cursor:pointer;transition:border-color .22s ease,transform .22s ease,box-shadow .22s ease;box-shadow:0 2px 8px rgba(25,52,93,.04)}
+#integrations .ig-nb:hover{border-color:rgba(222,110,48,.4);transform:translateY(-1px)}
+#integrations .ig-nb.on{background:#19345d;border-color:#19345d;color:#fff;box-shadow:0 12px 26px -14px rgba(25,52,93,.75)}
+#integrations .ig-nb .e{font-size:14px;line-height:1}
+
+/* panel head */
+#integrations .ig-phead{display:flex;align-items:center;gap:14px;margin:0 0 6px;background:none;border:0;padding:0}
+#integrations .ig-count{font:800 11.5px/1 'Inter',system-ui,sans-serif;letter-spacing:.12em;color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);border-radius:999px;padding:6px 11px}
+html body #main-content #integrations .ig-phead h3{margin:0 !important;font:800 clamp(17px,2vw,22px)/1.25 'Inter',system-ui,sans-serif !important;letter-spacing:-.02em !important;color:#19345d !important}
+#integrations .ig-arws{margin-left:auto;display:flex;gap:8px}
+#integrations .ig-arw{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1px solid rgba(25,52,93,.12);color:#19345d;font-size:19px;line-height:1;cursor:pointer;transition:border-color .2s ease,color .2s ease,transform .2s ease}
+#integrations .ig-arw:hover{border-color:#DE6E30;color:var(--orange-700,#B5551D);transform:translateY(-2px)}
+#integrations .ig-pd{margin:0 0 24px;max-width:66ch;font-size:14.5px;line-height:1.65;color:#6B7C96}
+
+/* ── the mosaic ──
+   Tiles are staggered by nth-child rather than absolutely placed, so the
+   grid still reflows on any width and never overlaps. */
+#integrations .ig-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:16px;background:none;border:0;padding:6px 0 0}
+/* The old cards ran an 'igin' entry keyframe. A running animation beats a
+   plain declaration, so every tile sat at the keyframe's translateY(14px)
+   and the stagger below did nothing. The section has its own transitions
+   now, so the animation goes. */
+#integrations .ig-card{animation:none;position:relative;aspect-ratio:1;display:grid;place-items:center;padding:16px;background:#fff;border:1px solid rgba(25,52,93,.07);border-radius:22px;box-shadow:0 10px 26px -18px rgba(25,52,93,.45),0 2px 4px rgba(25,52,93,.03);transition:transform .28s cubic-bezier(.2,.9,.3,1),box-shadow .28s ease,border-color .28s ease}
+#integrations .ig-card:nth-child(3n+2){transform:translateY(-16px)}
+#integrations .ig-card:nth-child(4n+3){transform:translateY(12px)}
+#integrations .ig-card:hover{transform:translateY(-8px) scale(1.04);border-color:rgba(222,110,48,.3);box-shadow:0 26px 50px -22px rgba(25,52,93,.5)}
+#integrations .ig-card:nth-child(3n+2):hover{transform:translateY(-24px) scale(1.04)}
+#integrations .ig-card:nth-child(4n+3):hover{transform:translateY(4px) scale(1.04)}
+#integrations .ig-card img{max-width:100%;max-height:44px;width:auto;height:auto;object-fit:contain}
+/* the empty tiles that give the mosaic its rhythm */
+#integrations .ig-card.ghost{background:rgba(255,255,255,.5);border-style:dashed;border-color:rgba(25,52,93,.08);box-shadow:none;pointer-events:none}
+#integrations .ig-card.ghost:hover{transform:none;box-shadow:none}
+#integrations .ig-card.ghost:nth-child(3n+2){transform:translateY(-16px)}
+#integrations .ig-card.ghost:nth-child(4n+3){transform:translateY(12px)}
+
+@media(max-width:900px){
+  #integrations .ig-stats{gap:26px}
+  #integrations .ig-grid{grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:12px}
+  #integrations .ig-card{border-radius:18px;padding:12px}
+  #integrations .ig-card img{max-height:34px}
+}
+@media(max-width:560px){
+  #integrations .ig-grid{grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:10px}
+  #integrations .ig-card,#integrations .ig-card:nth-child(3n+2),#integrations .ig-card:nth-child(4n+3){transform:none}
+  #integrations .ig-nb{font-size:12px;padding:8px 12px}
+}
+@media(prefers-reduced-motion:reduce){
+  #integrations .ig-card{transition:none}
+}
+</style>
 <section class="sec" id="integrations">
   <div class="container">
-    <div class="head rv">
-      <h2 class="h2">One platform, <span class="grad-o">infinite connections.</span></h2>
-      <p class="lead">Plug ExtraaEdge into the tools your team already loves - telephony, payments, marketplaces, marketing &amp; more. No rip-and-replace.</p>
+    <div class="ig-head rv">
+      <span class="ig-eyebrow"><i aria-hidden="true"></i>Integration</span>
+      <h2 class="h2 ig-h2">Connect everything.<br><span class="ig-h2-soft">Work seamlessly</span></h2>
+      <p class="ig-lead">ExtraaEdge plugs into the tools your team already runs - telephony, WhatsApp, payments, marketplaces and ads.<br>Every enquiry lands in one place, with nothing to rip out and replace.</p>
+      <div class="ig-stats">
+        <div><b>50+</b><span>Native integrations</span></div>
+        <div><b>8</b><span>Categories</span></div>
+        <div><b>0</b><span>Code required</span></div>
+      </div>
     </div>
-    <div class="ig-stats rv">
-      <div><div class="n grad-o">50+</div><div class="l">Native integrations</div></div>
-      <div><div class="n grad-o">8</div><div class="l">Categories</div></div>
-      <div><div class="n grad-o">0</div><div class="l">Code required</div></div>
-    </div>
+
     <div class="ig rv" id="ig">
       <div class="ig-nav" id="igNav" role="tablist"></div>
       <div class="ig-panel">
-        <div class="ig-phead"><button class="ig-arw" id="igPrev" type="button" aria-label="Previous category">‹</button><span class="ig-count" id="igCount">01 / 08</span><h3 id="igTitle">Integrations &amp; ecosystem</h3><button class="ig-arw" id="igNext" type="button" aria-label="Next category">›</button></div>
+        <div class="ig-phead">
+          <span class="ig-count" id="igCount">01 / 09</span>
+          <h3 id="igTitle">Integrations &amp; ecosystem</h3>
+          <div class="ig-arws">
+            <button class="ig-arw" id="igPrev" type="button" aria-label="Previous category">&lsaquo;</button>
+            <button class="ig-arw" id="igNext" type="button" aria-label="Next category">&rsaquo;</button>
+          </div>
+        </div>
         <p class="ig-pd" id="igDesc"></p>
         <div class="ig-grid" id="igGrid"></div>
       </div>
@@ -5780,7 +5877,13 @@ document.querySelectorAll('.qa button').forEach(function(b){
   var btns=nav.querySelectorAll('.ig-nb');var cur=0,timer=null,hovered=false;
   function sel(i){cur=i;btns.forEach(function(b,j){b.classList.toggle('on',j===i);});var c=C[i];
     count.textContent=pad(i+1)+' / '+pad(C.length);title.innerHTML=c.t;desc.innerHTML=c.d;
-    grid.innerHTML=c.g.map(function(x){return '<div class="ig-card"><img decoding="async" loading="lazy" src="'+B+x[0]+'" alt="'+x[1]+'"></div>';}).join('');
+    /* Ghost tiles pad the last row so the mosaic ends on a straight edge
+       instead of a ragged one, and a couple are sprinkled in so a short
+       category still reads as a grid rather than three lonely logos. */
+    var cards=c.g.map(function(x){return '<div class="ig-card"><img decoding="async" loading="lazy" src="'+B+x[0]+'" alt="'+x[1]+'"></div>';});
+    var MIN=12;
+    while(cards.length<MIN){ cards.splice(Math.min(cards.length,2+cards.length%3),0,'<div class="ig-card ghost" aria-hidden="true"></div>'); }
+    grid.innerHTML=cards.join('');
   }
   sel(0);
   function stepCat(d){if(timer){clearInterval(timer);timer=null;}sel((cur+d+C.length)%C.length);}
