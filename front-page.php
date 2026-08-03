@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-product-tour -->
+<!-- ee-front-tpl v2026-08-03-tour-all-dashboards -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1591,6 +1591,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 .tour-tip .body{padding:15px 17px 14px}
 .tour-tip .head{display:flex;align-items:center;gap:8px;margin-bottom:9px}
 .tour-tip .stp{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t-dim)}
+.tour-tip .ch{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--o-d);background:var(--o-soft);border-radius:999px;padding:3px 8px;white-space:nowrap}
 /* AI badge - only rendered on steps that are actually AI */
 .tour-tip .ai{margin-left:auto;display:none;align-items:center;gap:5px;font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#7b52d3,#4f7fe0);border-radius:999px;padding:4px 9px 4px 7px;white-space:nowrap}
 .tour-tip .ai.on{display:inline-flex}
@@ -1608,7 +1609,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 .tour-tip .out svg{width:12px;height:12px;flex:0 0 auto}
 .tour-tip .out u{text-decoration:none;font-weight:700;opacity:.72;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
 .tour-tip .row{display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--t-line)}
-.tour-tip .dts{display:flex;gap:5px;margin-right:auto;flex-wrap:wrap;max-width:150px}
+.tour-tip .dts{display:flex;gap:4px;margin-right:auto;flex-wrap:wrap;max-width:132px}
 .tour-tip .dts b{width:7px;height:7px;border-radius:999px;background:var(--t-line);cursor:pointer;transition:.25s;display:block}
 .tour-tip .dts b.on{width:18px;background:var(--o)}
 .tour-tip .sk{font-size:11.5px;font-weight:600;color:var(--t-dim)}
@@ -2150,7 +2151,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   function si(p){return '<svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;>'+p+'</svg>';}
   var tSpot=document.createElement('div'); tSpot.className='tour-spot';
   var tTip=document.createElement('div'); tTip.className='tour-tip';
-  tTip.setAttribute('role','dialog');tTip.setAttribute('aria-live','polite');tTip.setAttribute('aria-label','Product tour step');tTip.innerHTML='<div class=prog><i></i></div>'+'<div class=body>'+'<div class=head><span class=stp></span><span class=ai><svg viewBox=\'0 0 24 24\' fill=currentColor aria-hidden=true><path d=\'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z\'/></svg><em class=ail></em></span></div>'+'<h4></h4><p></p>'+'<div class=meta>'+'<div class=\'m mb\'><i><svg viewBox=\'0 0 24 24\' fill=none stroke=currentColor stroke-width=3 stroke-linecap=round stroke-linejoin=round><path d=\'M5 12.5l4.2 4.2L19 7\'/></svg></i><span></span></div>'+'</div>'+'<span class=out><svg viewBox=\'0 0 24 24\' fill=none stroke=currentColor stroke-width=2.6 stroke-linecap=round stroke-linejoin=round><path d=\'M4 17l6-6 4 4 6-7\'/></svg><u>Expected result</u><em class=outl></em></span>'+'<div class=row><div class=dts></div><button class=sk type=button>Skip</button><button class=pv type=button aria-label=\'Previous step\'><svg viewBox=\'0 0 24 24\' fill=none stroke=currentColor stroke-width=2.4 stroke-linecap=round stroke-linejoin=round><path d=\'M15 5l-7 7 7 7\'/></svg></button><button class=nx type=button>Next →</button></div>'+'<div class=kbd><b>←</b><b>→</b> to move &amp;middot; <b>Esc</b> to exit</div>'+'</div>';
+  tTip.setAttribute('role','dialog');tTip.setAttribute('aria-live','polite');tTip.setAttribute('aria-label','Product tour step');tTip.innerHTML='<div class=prog><i></i></div>'+'<div class=body>'+'<div class=head><span class=stp></span><span class=ch></span><span class=ai><svg viewBox=\'0 0 24 24\' fill=currentColor aria-hidden=true><path d=\'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z\'/></svg><em class=ail></em></span></div>'+'<h4></h4><p></p>'+'<div class=meta>'+'<div class=\'m mb\'><i><svg viewBox=\'0 0 24 24\' fill=none stroke=currentColor stroke-width=3 stroke-linecap=round stroke-linejoin=round><path d=\'M5 12.5l4.2 4.2L19 7\'/></svg></i><span></span></div>'+'</div>'+'<span class=out><svg viewBox=\'0 0 24 24\' fill=none stroke=currentColor stroke-width=2.6 stroke-linecap=round stroke-linejoin=round><path d=\'M4 17l6-6 4 4 6-7\'/></svg><u>Expected result</u><em class=outl></em></span>'+'<div class=row><div class=dts></div><button class=sk type=button>Skip</button><button class=pv type=button aria-label=\'Previous step\'><svg viewBox=\'0 0 24 24\' fill=none stroke=currentColor stroke-width=2.4 stroke-linecap=round stroke-linejoin=round><path d=\'M15 5l-7 7 7 7\'/></svg></button><button class=nx type=button>Next →</button></div>'+'<div class=kbd><b>←</b><b>→</b> to move &amp;middot; <b>Esc</b> to exit</div>'+'</div>';
   document.body.appendChild(tSpot); document.body.appendChild(tTip);
   var tDock=document.createElement('div'); tDock.className='tour-dock';
   tDock.innerHTML='<button class=&quot;dbtn restart&quot; title=&quot;Restart&quot;>'+si('<path d=&quot;M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z&quot;/>')+'</button><button class=&quot;dbtn play&quot; title=&quot;Play / Pause&quot;></button><div class=&quot;ddots&quot;></div><span class=&quot;lbl&quot;>Product tour</span><button class=&quot;dbtn close&quot; title=&quot;Close&quot;>'+si('<path d=&quot;M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z&quot;/>')+'</button>';
@@ -2171,79 +2172,127 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   },true);
   var PLAY=si('<path d=&quot;M8 5v14l11-7z&quot;/>'), PAUSE=si('<path d=&quot;M6 5h4v14H6zM14 5h4v14h-4z&quot;/>');
   var playBtn=tDock.querySelector('.play'), ddots=tDock.querySelector('.ddots'), lbl=tDock.querySelector('.lbl'), tipDots=tTip.querySelector('.dts');
-  /* Every step carries five things, not just a caption: what it is (t), one
-     line on what you are looking at (b), the AI capability at work (ai), the
-     business benefit (ben) and the measurable result (out). A visitor who
-     only reads the cards still leaves knowing what the platform does and
-     what it is worth. ~7s a step, so the whole run is about two minutes. */
+  /* Every step carries six things, not just a caption: the chapter it belongs
+     to (ch), what it is (t), one line on what you are looking at (b), the AI
+     capability at work (ai), the business benefit (ben) and the measurable
+     result (out). A visitor who only reads the cards still leaves knowing
+     what the platform does and what it is worth.
+
+     Every dashboard in the product is covered - 21 steps at 6s is about two
+     minutes - and the chapters keep that from feeling like a long list. */
   var TSTEPS=[
-    {v:'outcomes',sel:'#side',side:1,
+    /* ── 1. Start here ── */
+    {v:'outcomes',sel:'#side',side:1,ch:'Start here',
      t:'Your whole admission office, one window',
-     b:'Enquiries, calls, WhatsApp, applications and reporting - on <b>sample data</b>, nothing real is exposed.',
+     b:'Every dashboard, lead, call, chat and automation in the left menu - on <b>sample data</b>, nothing real is exposed.',
      ben:'Stop stitching spreadsheets, dialers and inboxes together',
      out:'1 platform, 0 spreadsheets'},
-    {v:'outcomes',sel:'#ocGrid',
+    {v:'outcomes',sel:'#ocGrid',ch:'Start here',
      t:'Results first, not a feature list',
      b:'The board every principal asks for: response time, conversion, productivity and <b>ROI</b>.',
      ben:'Know what the admission spend actually returned',
      out:'Better ROI, in one screen'},
-    {v:'ai',sel:'#aiGrid',ai:'AI Powered',
+    {v:'ai',sel:'#aiGrid',ai:'AI Powered',ch:'Start here',
      t:'Vidya AI, your 24x7 admissions team',
      b:'<b>Voice Agent</b> calls, <b>VidyaGPT</b> chats, <b>VidyaWABA</b> runs WhatsApp, <b>VidyaPulse</b> scores intent.',
      ben:'Every enquiry answered the minute it arrives, day or night',
      out:'24x7 AI Assistance'},
-    {v:'outcomes',sel:'#search',ai:'Natural Language Search',
+    {v:'outcomes',sel:'#search',ai:'Natural Language Search',ch:'Start here',
      t:'Ask in plain language',
      b:'Type what you want - <b>hot leads from Pune this week</b> - instead of building a filter.',
      ben:'Anyone on the team can get an answer without training',
      out:'Under 3 second response'},
-    {v:'mgmt',sel:'#mgmtFunnel',ai:'Predictive Analytics',
-     t:'See the leak before it costs you a batch',
-     b:'<b>917 enquiries to 386 admissions</b>, with the drop-off at every stage called out.',
-     ben:'Fix the stage that is losing students while the cycle is still open',
+    /* ── 2. The dashboards ── */
+    {v:'mgmt',sel:'#mgmtFunnel',ai:'Predictive Analytics',ch:'Dashboards',
+     t:'Management - see the leak before it costs a batch',
+     b:'<b>917 enquiries to 386 admissions</b>, with the drop-off called out at every stage.',
+     ben:'Fix the stage losing students while the cycle is still open',
      out:'2x More Conversions'},
-    {v:'counselor',sel:'#counselorTbl',ai:'Counselor Intelligence',
-     t:'Know who is converting, and who needs help',
+    {v:'counselor',sel:'#counselorTbl',ai:'Counselor Intelligence',ch:'Dashboards',
+     t:'Counselor - who is converting, who needs help',
      b:'Leads handled, enrolled and <b>conversion %</b> for every counsellor, updated live.',
      ben:'Coach on evidence instead of impressions',
      out:'40% Higher Counselor Productivity'},
-    {v:'leads',sel:'.view[data-v=&quot;leads&quot;] .lead',ai:'Lead Scoring AI',
-     t:'One student, one timeline',
-     b:'Every enquiry auto-captured and deduped, scored by intent and routed to the right counsellor.',
+    {v:'comm',sel:'#commTbl',ai:'Real-time Insights',ch:'Dashboards',
+     t:'Communication - every message, measured',
+     b:'<b>24,620 sent</b>, <b>23,640 delivered</b>, <b>9,460 opened</b> - email, SMS and WhatsApp in one view.',
+     ben:'See which message actually moved students, not just what was sent',
+     out:'40% open rate'},
+    {v:'publisher',sel:'#pubTbl',ch:'Dashboards',
+     t:'Publisher - which source is worth the money',
+     b:'<b>10,259 leads</b> across every portal, agency and campaign, with cost and quality per source.',
+     ben:'Move budget off the sources that never enrol anyone',
+     out:'Better ROI per source'},
+    {v:'demographic',sel:'#demoTbl',ch:'Dashboards',
+     t:'Demographic - where your students come from',
+     b:'Country, state and city wise lead count and <b>conversion</b>, so catchment is a number not a hunch.',
+     ben:'Aim campaigns and counsellor time at the regions that convert',
+     out:'Higher Enrollment Rate'},
+    /* ── 3. Working the leads ── */
+    {v:'leads',sel:'.view[data-v=&quot;leads&quot;] .lead',ai:'Lead Scoring AI',ch:'Working the leads',
+     t:'Lead Manager - one student, one timeline',
+     b:'<b>Hot</b> and <b>verified</b> leads, auto-captured and deduped, scored by intent and routed on their own.',
      ben:'No lead sits unclaimed, no student gets called twice',
      out:'Automated Lead Assignment'},
-    {v:'wa',sel:'#waList',ai:'WhatsApp AI',
-     t:'WhatsApp, done properly',
+    {v:'rawdata',sel:'.view[data-v=&quot;rawdata&quot;] .lead',ai:'Smart Automation',ch:'Working the leads',
+     t:'Raw Data - clean the list before you call it',
+     b:'<b>8,940 verified</b> and <b>6,120 enriched</b> records - bulk import, dedupe and re-verify in the app.',
+     ben:'Counsellors call real numbers instead of burning a day on bad data',
+     out:'Clean funnel, no wasted calls'},
+    {v:'failed',sel:'#failedTbl',ch:'Working the leads',
+     t:'Failed Leads - nothing disappears silently',
+     b:'Any enquiry that did not make it in, with the exact error, ready to fix and re-push.',
+     ben:'A broken form or portal feed cannot quietly cost you admissions',
+     out:'Zero leads lost'},
+    {v:'wa',sel:'#waList',ai:'WhatsApp AI',ch:'Working the leads',
+     t:'WhatsApp Chat - done properly',
      b:'Official API - real two-way threads and broadcasts, every message logged on the lead.',
      ben:'Reach students where they actually reply',
      out:'3x Faster Follow-up'},
-    {v:'followups',sel:'#calGrid',ai:'Smart Automation',
-     t:'The follow-up list builds itself',
-     b:'Tasks, reminders and SLA timers created from the lead stage - not from memory.',
+    {v:'followups',sel:'#calGrid',ai:'Smart Automation',ch:'Working the leads',
+     t:'Follow-ups - the list builds itself',
+     b:'A calendar of tasks, reminders and SLA timers created from the lead stage, not from memory.',
      ben:'Nothing slips through on a busy admission day',
      out:'Higher Enrollment Rate'},
-    {v:'comm',sel:'#commTbl',ai:'Real-time Insights',
-     t:'Email and SMS at scale, measured',
-     b:'<b>24,620 sent</b>, <b>96% delivered</b>, <b>40% opened</b> - well above the sector norm.',
-     ben:'See which message actually moved students, not just what was sent',
-     out:'40% open rate'},
-    {v:'campaign',sel:'#cmpList',ai:'AI Recommendations',
-     t:'Campaigns that target the right list',
-     b:'Segment by course, source, city or stage and run it across email, SMS and WhatsApp.',
+    /* ── 4. Automation and campaigns ── */
+    {v:'bulk',sel:'#bulkTbl',ch:'Automation',
+     t:'Bulk Actions - thousands of records at once',
+     b:'Upload, change stage or refer in bulk, with a full audit of what each file did.',
+     ben:'A season of data entry becomes one afternoon',
+     out:'Hours back, every week'},
+    {v:'campaign',sel:'#cmpList',ai:'AI Recommendations',ch:'Automation',
+     t:'Campaigns - target the right list',
+     b:'<b>30 campaigns</b> segmented by course, source, city or stage across email, SMS and WhatsApp.',
      ben:'A 1:1 feel at a scale no counselling team could do by hand',
      out:'Higher Enrollment Rate'},
-    {v:'workflow',sel:'#wfGrid',ai:'Smart Automation',
-     t:'Automation you can actually read',
+    {v:'workflow',sel:'#wfGrid',ai:'Smart Automation',ch:'Automation',
+     t:'Workflows - automation you can read',
      b:'No-code rules that assign, nurture, notify and escalate - open one and see exactly why a lead moved.',
      ben:'The process runs the same way on the busiest day of the cycle',
      out:'Runs itself, 24x7'},
-    {v:'integration',sel:'#intCats',
+    /* ── 5. The platform underneath ── */
+    {v:'basic',sel:'#tmplTbl',ai:'Lead Scoring AI',ch:'Platform',
+     t:'Templates, scoring and assignment rules',
+     b:'Email and SMS templates, the <b>lead score</b> model and the rules that decide who gets which enquiry.',
+     ben:'Your admission policy, written once and applied every time',
+     out:'Consistent process, no training gap'},
+    {v:'advanced',sel:'.view[data-v=&quot;advanced&quot;] .set-sec',ch:'Platform',
+     t:'Settings - users, roles and permissions',
+     b:'Dropdowns, user profiles, roles and communication settings, configured per institution.',
+     ben:'Each counsellor, HOD and director sees exactly what they should',
+     out:'Enterprise-grade control'},
+    {v:'integration',sel:'#intCats',ch:'Platform',
      t:'It connects to what you already run',
-     b:'Meta, Google, education portals, telephony, payment and ERP - 50+ integrations.',
+     b:'<b>60+ live integrations</b> across 8 categories - Meta, Google, portals, telephony, payments and ERP.',
      ben:'Leads arrive on their own, so nobody imports a CSV again',
-     out:'Automated lead capture'}
+     out:'Automated lead capture'},
+    {v:'ticket',sel:'.view[data-v=&quot;ticket&quot;] .placeholder',ch:'Platform',
+     t:'Support that answers 24x7',
+     b:'Raise a ticket from inside the product and track it - no email chains, no waiting for office hours.',
+     ben:'Admission season does not stop, and neither does support',
+     out:'24x7 support'}
   ];
-  var tIdx=-1, tTimer=null, tRun=false, TDUR=7000;
+  var tIdx=-1, tTimer=null, tRun=false, TDUR=6000;
   TSTEPS.forEach(function(_,i){var a=document.createElement('b');a.addEventListener('click',function(){tGo(i);});tipDots.appendChild(a);var b=document.createElement('b');b.addEventListener('click',function(){tGo(i);});ddots.appendChild(b);});
   function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
   function tPlace(i){
@@ -2257,7 +2306,9 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
       setTimeout(function(){
         var r=target.getBoundingClientRect(), pad=6;
         tSpot.style.left=(r.left-pad)+'px'; tSpot.style.top=(r.top-pad)+'px'; tSpot.style.width=(r.width+pad*2)+'px'; tSpot.style.height=(r.height+pad*2)+'px';
-        tTip.querySelector('.stp').textContent='Step '+(i+1)+' of '+TSTEPS.length;
+        tTip.querySelector('.stp').textContent=(i+1)+' / '+TSTEPS.length;
+        /* the chapter is what keeps 21 steps from reading as a long list */
+        tTip.querySelector('.ch').textContent=st.ch||'';
         tTip.querySelector('.prog i').style.width=(((i+1)/TSTEPS.length)*100)+'%';
         tTip.querySelector('h4').textContent=st.t; tTip.querySelector('p').innerHTML=st.b;
         /* AI badge only where the step really is AI - naming it on every card
