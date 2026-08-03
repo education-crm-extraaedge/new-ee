@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-integration-hub -->
+<!-- ee-front-tpl v2026-08-03-hub-logos -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5393,7 +5393,9 @@ html body #main-content #stories .cis-wrap .cis-blurb{
 
    Brand palette only: #19345D navy, #DE6E30 orange, Inter. */
 #integrations{background:linear-gradient(180deg,#FBFCFE 0%,#F5F7FB 100%);overflow:hidden}
-#integrations .container{max-width:1320px}
+/* the board is the section, so it gets the full width the shell allows -
+   eleven columns at 1320px left each logo about 80px to live in */
+#integrations .container{max-width:1440px}
 
 /* header */
 #integrations .ih-head{text-align:center;max-width:900px;margin:0 auto clamp(26px,4vw,42px)}
@@ -5411,27 +5413,29 @@ html body #main-content #integrations h2.h2.ih-h2{
 #integrations .ih-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
 #integrations .ih-lines path{fill:none;stroke-dasharray:3 6;stroke-linecap:round}
 #integrations .ih-grid{position:relative;z-index:1;display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr)) minmax(190px,1.25fr) repeat(5,minmax(0,1fr));
-  gap:14px;align-items:center}
-#integrations .ih-row1{grid-column:1 / -1;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:14px;margin-bottom:14px}
+  grid-template-columns:repeat(5,minmax(0,1fr)) minmax(168px,1.05fr) repeat(5,minmax(0,1fr));
+  gap:10px;align-items:center}
+#integrations .ih-row1{grid-column:1 / -1;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:10px;margin-bottom:10px}
 #integrations .ih-hub{grid-row:span 2;display:grid;place-items:center}
 
 /* tiles */
-#integrations .ih-t{aspect-ratio:1.32;display:grid;place-items:center;padding:12px;
+/* tiles carry the logo, so the padding is kept tight and the cap is high -
+   the mark should fill the card, not float in it */
+#integrations .ih-t{aspect-ratio:1.16;display:grid;place-items:center;padding:6px;
   background:#fff;border:1px solid rgba(25,52,93,.08);border-radius:16px;
   box-shadow:0 8px 22px -16px rgba(25,52,93,.45),0 1px 3px rgba(25,52,93,.04);
   transition:transform .26s cubic-bezier(.2,.9,.3,1),box-shadow .26s ease,border-color .26s ease}
 #integrations .ih-t:hover{transform:translateY(-5px);border-color:rgba(222,110,48,.35);
   box-shadow:0 22px 40px -20px rgba(25,52,93,.45)}
-#integrations .ih-t img{max-width:100%;max-height:38px;width:auto;height:auto;object-fit:contain}
+#integrations .ih-t img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 
 /* the hub itself */
 #integrations .ih-core{position:relative;width:min(210px,100%);aspect-ratio:1;display:grid;place-items:center}
 #integrations .ih-core::before,#integrations .ih-core::after{content:"";position:absolute;border-radius:50%;border:1px dashed rgba(25,52,93,.18)}
 #integrations .ih-core::before{inset:0}
 #integrations .ih-core::after{inset:13%;border-color:rgba(222,110,48,.28)}
-#integrations .ih-disc{position:relative;width:64%;aspect-ratio:1;border-radius:50%;background:#fff;
-  border:1px solid rgba(25,52,93,.08);display:grid;place-items:center;padding:16px;
+#integrations .ih-disc{position:relative;width:74%;aspect-ratio:1;border-radius:50%;background:#fff;
+  border:1px solid rgba(25,52,93,.08);display:grid;place-items:center;padding:10px;
   box-shadow:0 22px 46px -20px rgba(25,52,93,.45)}
 #integrations .ih-disc img{max-width:100%;height:auto}
 @keyframes ihPulse{0%{transform:scale(1);opacity:.5}70%{transform:scale(1.18);opacity:0}100%{opacity:0}}
@@ -5458,8 +5462,7 @@ html body #main-content #integrations h2.h2.ih-h2{
 }
 @media(max-width:640px){
   #integrations .ih-grid,#integrations .ih-row1{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-  #integrations .ih-t{border-radius:13px;padding:9px}
-  #integrations .ih-t img{max-height:26px}
+  #integrations .ih-t{border-radius:13px;padding:7px}
   #integrations .ih-bar{grid-template-columns:1fr}
   #integrations .ih-bar div{border-left:0}
   #integrations .ih-bar div:first-child{border-top:0}
