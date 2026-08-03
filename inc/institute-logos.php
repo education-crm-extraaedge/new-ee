@@ -579,9 +579,9 @@ function ee_institute_logos_html($args = array()) {
 .ee-logos-panel[hidden]{display:none}
 /* marquee */
 .ee-logos-wrap{overflow:hidden;padding:6px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-.ee-logos-track{display:flex;gap:22px;width:max-content;align-items:center;will-change:transform;padding:6px 0}
+.ee-logos-track{display:flex;gap:30px;width:max-content;align-items:center;will-change:transform;padding:6px 0}
 .ee-logos-a{animation:eeLogosL var(--ee-logos-speed,38s) linear infinite}
-.ee-logos-b{animation:eeLogosR var(--ee-logos-speed,38s) linear infinite;margin-top:14px}
+.ee-logos-b{animation:eeLogosR var(--ee-logos-speed,38s) linear infinite;margin-top:20px}
 .ee-logos-wrap:hover .ee-logos-track,.ee-logos-wrap:focus-within .ee-logos-track{animation-play-state:paused}
 @keyframes eeLogosL{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @keyframes eeLogosR{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
@@ -603,6 +603,8 @@ function ee_institute_logos_html($args = array()) {
 @media(max-width:600px){
   .ee-logo-card{width:132px;height:74px;padding:12px}
   .ee-logos-grid{grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px;padding:0 16px}
+  .ee-logos-track{gap:16px}
+  .ee-logos-b{margin-top:12px}
   .ee-logo-card img{max-height:38px}
   .ee-logos-tab{font-size:12px;padding:8px 13px}
   .ee-logos-quote{width:280px}

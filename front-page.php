@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-logo-quotes -->
+<!-- ee-front-tpl v2026-08-03-logo-spacing -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -677,6 +677,23 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 @media (prefers-reduced-motion:reduce){#trusted-institutions .marquee-track,#trusted-institutions .green-dot{animation:none}}
 @media (max-width:600px){#trusted-institutions .logo-card{width:132px;height:72px;padding:12px}#trusted-institutions .logo-card img{max-height:44px}}
+/* ── strip breathing room ──────────────────────────────────────────────────
+   The two rows sat directly on top of each other and the cards were 26px
+   apart, so the strip read as one dense block. Last in the stylesheet so it
+   wins the ties above. */
+#trusted-institutions .marquee-wrap{padding:10px 0}
+#trusted-institutions .marquee-track{gap:34px}
+#trusted-institutions .marquee-right{margin-top:20px}
+#trusted-institutions .logo-card{padding:18px}
+@media(max-width:900px){
+  #trusted-institutions .marquee-track{gap:24px}
+  #trusted-institutions .marquee-right{margin-top:14px}
+}
+@media(max-width:600px){
+  #trusted-institutions .marquee-track{gap:16px}
+  #trusted-institutions .marquee-right{margin-top:12px}
+  #trusted-institutions .logo-card{padding:12px}
+}
 </style>
 <!-- ═══ LOGO MARQUEE ═══ -->
 
