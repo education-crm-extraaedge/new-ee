@@ -4,6 +4,19 @@ Paste the shortcode into any page, post, Gutenberg "Shortcode" block or page-bui
 text/HTML widget. Nothing else to set up — the data and styling ship with the theme
 (`inc/institute-logos.php`, loaded from `functions.php`).
 
+## Building your own set (Site Editor)
+
+**ExtraaEdge Site → 🏫 Logo Sets → ➕ New logo set**
+
+1. Name it after where it goes — "Universities page", "Products page", "Sales dept".
+2. Tick the logos it should show. Search by name, or use **Select all** on a
+   category. Anything not in the list goes under **Your own logos** — type a URL
+   or pick from the Media Library.
+3. Save. The screen shows the shortcode, e.g. `[ee_logos set="universities-page"]`.
+4. Paste that wherever the logos should appear. Done.
+
+Editing the set later updates every page using it — no need to touch those pages.
+
 ## Quick copy-paste
 
 | Page | Paste this |
@@ -21,6 +34,7 @@ text/HTML widget. Nothing else to set up — the data and styling ship with the 
 
 | Attribute | Default | What it does |
 |---|---|---|
+| `set` | *(empty)* | A set you built in Site Editor → 🏫 Logo Sets. Overrides `cat` and `tabs`. |
 | `cat` | *(empty)* | Empty = the curated home set. One key, a comma-separated list (`cat="universities,colleges"`), or `all`. |
 | `tabs` | off | `tabs="1"` renders every category with a clickable switcher. |
 | `layout` | `marquee` | `grid` for a static grid instead of the scrolling rows. |
@@ -47,7 +61,13 @@ Spaces and underscores work too, so `cat="Study Abroad"` is fine.
 
 ## Adding or changing an institute
 
-Open `inc/institute-logos.php` and edit `ee_institute_logo_sets()`. Each entry is
+The easy way is the Site Editor screen above — add it under **Your own logos** in
+whichever sets need it.
+
+To add it to the built-in category lists instead (so it shows up for everyone
+picking that category):
+
+open `inc/institute-logos.php` and edit `ee_institute_logo_sets()`. Each entry is
 
     array('u' => 'https://…/logo.svg', 'a' => 'Institute Name'),
 

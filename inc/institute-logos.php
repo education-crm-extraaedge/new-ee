@@ -312,6 +312,7 @@ function ee_institute_category_keywords() {
  */
 function ee_institute_logos_html($args = array()) {
     $a = wp_parse_args($args, array(
+        'set'     => '',        // a set built in Site Editor -> Logo Sets
         'cat'     => '',
         'tabs'    => false,     // show the category switcher
         'layout'  => 'marquee', // marquee | grid
@@ -323,6 +324,17 @@ function ee_institute_logos_html($args = array()) {
         'rows'    => 2,
         'class'   => '',
     ));
+
+    /* A saved set wins over cat/tabs - it is an explicit hand-picked list,
+       so there is nothing to filter or switch between. */
+    $saved = trim((string) $a['set']);
+    if ($saved !== '') {
+        $sets = function_exists('ee_logos_custom_sets') ? ee_logos_custom_sets() : array();
+        $one  = $sets[$saved] ?? null;
+        if (!$one || empty($one['logos'])) return '';
+        $a['tabs'] = false;
+        $a['cat']  = '';
+    }
 
     $cats = ee_institute_categories();
     $tabs = !empty($a['tabs']) && $a['tabs'] !== 'false' && $a['tabs'] !== '0';
@@ -342,6 +354,8 @@ function ee_institute_logos_html($args = array()) {
             if ($logos) $panels[$k] = array('label' => $cats[$k], 'logos' => $logos);
         }
         if (!$panels) return '';
+    } elseif ($saved !== '') {
+        $panels['_'] = array('label' => '', 'logos' => $one['logos']);
     } else {
         $logos = ee_institute_logos_for($a['cat']);
         if (!$logos) return '';
@@ -508,6 +522,7 @@ function ee_institute_logos_html($args = array()) {
 /**
  * [ee_logos] - paste on any page, post or builder block.
  *
+ *   set     a set built in Site Editor -> 🏫 Logo Sets. Wins over cat/tabs.
  *   cat     universities | colleges | schools | coaching-institutes |
  *           edtech | study-abroad | all | (empty = the home set)
  *           Comma-separate to merge: cat="universities,colleges"
@@ -520,6 +535,7 @@ function ee_institute_logos_html($args = array()) {
  */
 function ee_logos_shortcode($atts) {
     $atts = shortcode_atts(array(
+        'set'    => '',
         'cat'    => '',
         'tabs'   => '',
         'layout' => 'marquee',
@@ -568,4 +584,306 @@ function ee_render_category_institute_logos($category_key = '', $args = array())
         'title' => isset($args['heading']) ? $args['heading'] : $args['title'],
         'class' => 'ee-ind-logos',
     ));
+}
+
+/* =========================================================================
+ * SITE EDITOR — 🏫 Logo Sets
+ * Build a named set of logos for a page, category or department, then paste
+ * that set's shortcode wherever it should appear.
+ * ========================================================================= */
+
+/** Saved sets: slug => array('label' => string, 'logos' => array of u/a) */
+function ee_logos_custom_sets() {
+    $sets = get_option('ee_logo_sets', array());
+    return is_array($sets) ? $sets : array();
+}
+
+/** Every built-in logo, keyed by URL, with the category it came from. */
+function ee_logos_library() {
+    static $lib = null;
+    if ($lib !== null) return $lib;
+    $lib = array();
+    foreach (ee_institute_categories() as $key => $label) {
+        foreach (ee_institute_logos_for($key) as $logo) {
+            if (isset($lib[$logo['u']])) continue;
+            $lib[$logo['u']] = array('u' => $logo['u'], 'a' => $logo['a'], 'cat' => $key, 'catlabel' => $label);
+        }
+    }
+    return $lib;
+}
+
+add_action('admin_menu', function () {
+    add_submenu_page('ee-site', 'Logo Sets', '🏫 Logo Sets', 'manage_options', 'ee-logo-sets', 'ee_logos_render_admin');
+});
+
+add_action('admin_enqueue_scripts', function ($hook) {
+    if (strpos((string) $hook, 'ee-logo-sets') !== false) wp_enqueue_media();
+});
+
+/* ---- save ---- */
+add_action('admin_post_ee_logos_save', function () {
+    if (!current_user_can('manage_options')) wp_die('Nope');
+    check_admin_referer('ee_logos_save');
+
+    $slug = sanitize_title(wp_unslash($_POST['slug'] ?? ''));
+    if ($slug === '') $slug = sanitize_title(wp_unslash($_POST['label'] ?? '')) ?: 'set-' . time();
+
+    $sets = ee_logos_custom_sets();
+    $logos = array();
+
+    /* built-in picks, in library order */
+    $picked = isset($_POST['pick']) && is_array($_POST['pick']) ? array_map('esc_url_raw', wp_unslash($_POST['pick'])) : array();
+    $picked = array_flip($picked);
+    foreach (ee_logos_library() as $u => $row) {
+        if (isset($picked[$u])) $logos[] = array('u' => $row['u'], 'a' => $row['a']);
+    }
+
+    /* anything typed in by hand or chosen from the Media Library */
+    $cu = isset($_POST['custom_u']) ? (array) wp_unslash($_POST['custom_u']) : array();
+    $ca = isset($_POST['custom_a']) ? (array) wp_unslash($_POST['custom_a']) : array();
+    foreach ($cu as $i => $u) {
+        $u = esc_url_raw(trim($u));
+        if ($u === '') continue;
+        $logos[] = array('u' => $u, 'a' => sanitize_text_field($ca[$i] ?? ''));
+    }
+
+    $sets[$slug] = array(
+        'label' => sanitize_text_field(wp_unslash($_POST['label'] ?? $slug)),
+        'logos' => $logos,
+    );
+    update_option('ee_logo_sets', $sets, false);
+    wp_safe_redirect(admin_url('admin.php?page=ee-logo-sets&set=' . rawurlencode($slug) . '&saved=1'));
+    exit;
+});
+
+/* ---- delete ---- */
+add_action('admin_post_ee_logos_delete', function () {
+    if (!current_user_can('manage_options')) wp_die('Nope');
+    check_admin_referer('ee_logos_delete');
+    $slug = sanitize_title(wp_unslash($_POST['slug'] ?? ''));
+    $sets = ee_logos_custom_sets();
+    unset($sets[$slug]);
+    update_option('ee_logo_sets', $sets, false);
+    wp_safe_redirect(admin_url('admin.php?page=ee-logo-sets&deleted=1'));
+    exit;
+});
+
+function ee_logos_render_admin() {
+    if (!current_user_can('manage_options')) return;
+    $slug = isset($_GET['set']) ? sanitize_title(wp_unslash($_GET['set'])) : '';
+    if ($slug !== '' || isset($_GET['new'])) { ee_logos_render_editor($slug); return; }
+    ee_logos_render_list();
+}
+
+/** Screen 1 — the sets you have built. */
+function ee_logos_render_list() {
+    $sets = ee_logos_custom_sets();
+    ?>
+    <div class="wrap" style="max-width:1000px">
+      <h1>🏫 Logo Sets</h1>
+      <p style="font-size:14px;color:#50575e;max-width:78ch">Build a set of institute logos for a page, category or department, then paste that set's shortcode wherever it should appear. The logos show automatically — no other setup.</p>
+
+      <?php if (isset($_GET['saved'])) : ?><div class="notice notice-success is-dismissible"><p>Set saved.</p></div><?php endif; ?>
+      <?php if (isset($_GET['deleted'])) : ?><div class="notice notice-success is-dismissible"><p>Set deleted.</p></div><?php endif; ?>
+
+      <p><a class="button button-primary" href="<?php echo esc_url(admin_url('admin.php?page=ee-logo-sets&new=1')); ?>">➕ New logo set</a></p>
+
+      <?php if ($sets) : ?>
+      <h2 style="margin-top:26px">Your sets</h2>
+      <table class="widefat striped" style="max-width:980px">
+        <thead><tr><th>Set</th><th style="width:90px">Logos</th><th style="width:330px">Paste this</th><th style="width:150px"></th></tr></thead>
+        <tbody>
+        <?php foreach ($sets as $s => $set) : ?>
+          <tr>
+            <td><b><?php echo esc_html($set['label'] ?: $s); ?></b><br><span style="color:#8a8f98;font-size:12px"><?php echo esc_html($s); ?></span></td>
+            <td><?php echo count($set['logos']); ?></td>
+            <td><code style="user-select:all;background:#f6f7f7;padding:4px 7px;border-radius:4px;display:inline-block">[ee_logos set="<?php echo esc_attr($s); ?>"]</code></td>
+            <td>
+              <a class="button" href="<?php echo esc_url(admin_url('admin.php?page=ee-logo-sets&set=' . rawurlencode($s))); ?>">Edit</a>
+              <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="display:inline" onsubmit="return confirm('Delete this set? Any page using its shortcode will stop showing logos.')">
+                <?php wp_nonce_field('ee_logos_delete'); ?>
+                <input type="hidden" name="action" value="ee_logos_delete">
+                <input type="hidden" name="slug" value="<?php echo esc_attr($s); ?>">
+                <button class="button-link delete" style="color:#b32d2e">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+        </tbody>
+      </table>
+      <?php endif; ?>
+
+      <h2 style="margin-top:30px">Ready-made sets</h2>
+      <p style="color:#50575e;max-width:78ch">These ship with the theme and need no setup — paste and go.</p>
+      <table class="widefat striped" style="max-width:980px">
+        <thead><tr><th>Set</th><th style="width:90px">Logos</th><th>Paste this</th></tr></thead>
+        <tbody>
+          <tr><td><b>Home page set</b></td><td><?php echo count(ee_institute_logos_for('home')); ?></td><td><code style="user-select:all">[ee_logos]</code></td></tr>
+          <?php foreach (ee_institute_categories() as $k => $label) : ?>
+          <tr><td><b><?php echo esc_html($label); ?></b></td><td><?php echo count(ee_institute_logos_for($k)); ?></td><td><code style="user-select:all">[ee_logos cat="<?php echo esc_attr($k); ?>"]</code></td></tr>
+          <?php endforeach; ?>
+          <tr><td><b>All, with category tabs</b></td><td><?php echo count(ee_institute_logos_for('all')); ?></td><td><code style="user-select:all">[ee_logos tabs="1"]</code></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:14px;color:#50575e">Add <code>title=""</code>, <code>badge=""</code>, <code>sub=""</code>, <code>limit="24"</code>, <code>layout="grid"</code> or <code>speed="50"</code> to any of them.</p>
+    </div>
+    <?php
+}
+
+/** Screen 2 — pick the logos for one set. */
+function ee_logos_render_editor($slug) {
+    $sets = ee_logos_custom_sets();
+    $set  = $sets[$slug] ?? array('label' => '', 'logos' => array());
+    $lib  = ee_logos_library();
+
+    /* what is already in the set: built-ins by URL, the rest as custom rows */
+    $chosen = array();
+    $custom = array();
+    foreach ($set['logos'] as $logo) {
+        if (isset($lib[$logo['u']])) $chosen[$logo['u']] = true;
+        else $custom[] = $logo;
+    }
+    ?>
+    <div class="wrap" style="max-width:1120px">
+      <h1><?php echo $slug ? '🏫 Edit logo set' : '🏫 New logo set'; ?></h1>
+      <p><a href="<?php echo esc_url(admin_url('admin.php?page=ee-logo-sets')); ?>">&larr; All logo sets</a></p>
+
+      <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+        <?php wp_nonce_field('ee_logos_save'); ?>
+        <input type="hidden" name="action" value="ee_logos_save">
+        <input type="hidden" name="slug" value="<?php echo esc_attr($slug); ?>">
+
+        <table class="form-table"><tr>
+          <th scope="row"><label for="ee-ls-label">Set name</label></th>
+          <td>
+            <input id="ee-ls-label" name="label" type="text" class="regular-text" required
+                   placeholder="e.g. Universities page" value="<?php echo esc_attr($set['label']); ?>">
+            <p class="description">Just for you — visitors never see it.</p>
+          </td>
+        </tr>
+        <?php if ($slug) : ?>
+        <tr>
+          <th scope="row">Paste this</th>
+          <td>
+            <code id="ee-ls-code" style="user-select:all;background:#f6f7f7;padding:7px 11px;border-radius:5px;font-size:14px">[ee_logos set="<?php echo esc_attr($slug); ?>"]</code>
+            <button type="button" class="button" onclick="navigator.clipboard.writeText(document.getElementById('ee-ls-code').textContent);this.textContent='Copied'">Copy</button>
+            <p class="description">Paste it into any page, post or builder text block. Add <code>title=""</code> to hide the heading, <code>layout="grid"</code> for a static grid.</p>
+          </td>
+        </tr>
+        <?php endif; ?>
+        </table>
+
+        <h2>Pick the logos</h2>
+        <p style="color:#50575e">Tick everything this set should show. <b><span id="ee-ls-count"><?php echo count($chosen); ?></span></b> selected.</p>
+
+        <p>
+          <input type="search" id="ee-ls-search" placeholder="Search institutes…" style="width:320px;padding:6px 10px">
+          <button type="button" class="button" id="ee-ls-none">Clear all</button>
+        </p>
+
+        <?php foreach (ee_institute_categories() as $ck => $clabel) :
+          $rows = array_filter($lib, function ($r) use ($ck) { return $r['cat'] === $ck; }); ?>
+        <div class="ee-ls-cat" style="margin:0 0 22px">
+          <h3 style="margin:16px 0 8px">
+            <?php echo esc_html($clabel); ?>
+            <span style="color:#8a8f98;font-weight:400">(<?php echo count($rows); ?>)</span>
+            <button type="button" class="button button-small ee-ls-all" style="margin-left:8px">Select all</button>
+          </h3>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px">
+            <?php foreach ($rows as $u => $r) : ?>
+            <label class="ee-ls-item" style="display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #dcdcde;border-radius:7px;padding:8px 10px;cursor:pointer">
+              <input type="checkbox" name="pick[]" value="<?php echo esc_attr($u); ?>" <?php checked(isset($chosen[$u])); ?>>
+              <img src="<?php echo esc_url($u); ?>" alt="" style="width:44px;height:26px;object-fit:contain;flex:none" loading="lazy"
+                   onerror="this.style.visibility='hidden'">
+              <span style="font-size:12px;line-height:1.3"><?php echo esc_html($r['a']); ?></span>
+            </label>
+            <?php endforeach; ?>
+          </div>
+        </div>
+        <?php endforeach; ?>
+
+        <h2>Your own logos</h2>
+        <p style="color:#50575e">For anything not in the list above — upload it to the Media Library and add it here.</p>
+        <div id="ee-ls-custom">
+          <?php foreach ($custom as $c) : ?>
+          <p class="ee-ls-crow">
+            <input type="text" name="custom_a[]" value="<?php echo esc_attr($c['a']); ?>" placeholder="Institute name" style="width:240px">
+            <input type="url" name="custom_u[]" value="<?php echo esc_attr($c['u']); ?>" placeholder="https://…/logo.svg" style="width:420px">
+            <button type="button" class="button ee-ls-media">Choose image</button>
+            <button type="button" class="button-link delete ee-ls-drop" style="color:#b32d2e">Remove</button>
+          </p>
+          <?php endforeach; ?>
+        </div>
+        <p><button type="button" class="button" id="ee-ls-add">➕ Add a logo</button></p>
+
+        <p style="margin-top:22px"><button class="button button-primary button-hero">Save logo set</button></p>
+      </form>
+    </div>
+
+    <script>
+    (function(){
+      var wrap = document.querySelector('.wrap');
+      var count = document.getElementById('ee-ls-count');
+      function boxes(){ return [].slice.call(wrap.querySelectorAll('input[name="pick[]"]')); }
+      function retally(){ count.textContent = boxes().filter(function(b){return b.checked;}).length; }
+      wrap.addEventListener('change', function(e){ if(e.target.name === 'pick[]') retally(); });
+
+      /* search filters the tiles, and empties whole categories out of the way */
+      var search = document.getElementById('ee-ls-search');
+      search.addEventListener('input', function(){
+        var q = search.value.trim().toLowerCase();
+        wrap.querySelectorAll('.ee-ls-cat').forEach(function(cat){
+          var any = false;
+          cat.querySelectorAll('.ee-ls-item').forEach(function(it){
+            var hit = !q || it.textContent.toLowerCase().indexOf(q) > -1;
+            it.style.display = hit ? '' : 'none';
+            if (hit) any = true;
+          });
+          cat.style.display = any ? '' : 'none';
+        });
+      });
+
+      wrap.querySelectorAll('.ee-ls-all').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var items = btn.closest('.ee-ls-cat').querySelectorAll('.ee-ls-item:not([style*="none"]) input[name="pick[]"]');
+          var turnOn = [].slice.call(items).some(function(b){ return !b.checked; });
+          items.forEach(function(b){ b.checked = turnOn; });
+          btn.textContent = turnOn ? 'Clear these' : 'Select all';
+          retally();
+        });
+      });
+      document.getElementById('ee-ls-none').addEventListener('click', function(){
+        boxes().forEach(function(b){ b.checked = false; }); retally();
+      });
+
+      /* custom rows */
+      var box = document.getElementById('ee-ls-custom');
+      function row(){
+        var p = document.createElement('p');
+        p.className = 'ee-ls-crow';
+        p.innerHTML = '<input type="text" name="custom_a[]" placeholder="Institute name" style="width:240px"> '
+          + '<input type="url" name="custom_u[]" placeholder="https://…/logo.svg" style="width:420px"> '
+          + '<button type="button" class="button ee-ls-media">Choose image</button> '
+          + '<button type="button" class="button-link delete ee-ls-drop" style="color:#b32d2e">Remove</button>';
+        box.appendChild(p);
+      }
+      document.getElementById('ee-ls-add').addEventListener('click', row);
+      box.addEventListener('click', function(e){
+        if (e.target.classList.contains('ee-ls-drop')) { e.target.closest('.ee-ls-crow').remove(); return; }
+        if (e.target.classList.contains('ee-ls-media')) {
+          var target = e.target.closest('.ee-ls-crow').querySelector('input[type="url"]');
+          var frame = wp.media({ title: 'Choose a logo', multiple: false, library: { type: 'image' } });
+          frame.on('select', function(){
+            var a = frame.state().get('selection').first().toJSON();
+            target.value = a.url;
+            var name = e.target.closest('.ee-ls-crow').querySelector('input[type="text"]');
+            if (!name.value) name.value = a.title || '';
+          });
+          frame.open();
+        }
+      });
+      if (!box.children.length) row();
+    })();
+    </script>
+    <?php
 }
