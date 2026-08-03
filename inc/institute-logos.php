@@ -342,7 +342,7 @@ function ee_institute_logos_html($args = array()) {
         'tabs'    => false,     // show the category switcher
         'layout'  => 'marquee', // marquee | grid
         'limit'   => 0,         // 0 = all
-        'badge'   => 'Trusted Nationwide',
+        'badge'   => '',        // the pill above the heading; empty = no pill
         'title'   => 'Trusted by leading institutions',
         'sub'     => '',
         'speed'   => 38,        // seconds for one loop
@@ -359,7 +359,14 @@ function ee_institute_logos_html($args = array()) {
         if (!$one || empty($one['logos'])) return '';
         $a['tabs'] = false;
         $a['cat']  = '';
+        foreach (array('title', 'sub', 'badge') as $f) {
+            if ($a[$f] === null && isset($one[$f])) $a[$f] = $one[$f];
+        }
     }
+    /* whatever is still unset falls back to the section default */
+    if ($a['title'] === null) $a['title'] = 'Trusted by leading institutions';
+    if ($a['sub']   === null) $a['sub']   = '';
+    if ($a['badge'] === null) $a['badge'] = '';
 
     $cats = ee_institute_categories();
     $tabs = !empty($a['tabs']) && $a['tabs'] !== 'false' && $a['tabs'] !== '0';
@@ -567,9 +574,12 @@ function ee_logos_shortcode($atts) {
         'limit'  => 0,
         'rows'   => 2,
         'speed'  => 38,
-        'badge'  => 'Trusted Nationwide',
-        'title'  => 'Trusted by leading institutions',
-        'sub'    => '',
+        /* null, not a string, so we can tell "not passed" from title="" -
+           a saved set's own heading should win over the default but never
+           over something the shortcode actually says */
+        'badge'  => null,
+        'title'  => null,
+        'sub'    => null,
         'class'  => '',
     ), $atts, 'ee_logos');
     return ee_institute_logos_html($atts);
@@ -600,7 +610,7 @@ function ee_render_category_institute_logos($category_key = '', $args = array())
 
     $rendered = true;
     $args = wp_parse_args($args, array(
-        'badge' => 'Trusted Nationwide',
+        'badge' => '',
         'title' => 'Trusted by leading institutions',
     ));
     echo ee_institute_logos_html(array(
@@ -709,6 +719,9 @@ add_action('admin_post_ee_logos_save', function () {
 
     $sets[$slug] = array(
         'label' => sanitize_text_field(wp_unslash($_POST['label'] ?? $slug)),
+        'title' => sanitize_text_field(wp_unslash($_POST['title'] ?? '')),
+        'sub'   => sanitize_text_field(wp_unslash($_POST['sub'] ?? '')),
+        'badge' => sanitize_text_field(wp_unslash($_POST['badge'] ?? '')),
         'logos' => $logos,
     );
     update_option('ee_logo_sets', $sets, false);
@@ -863,7 +876,14 @@ function ee_logos_cat_select($current = '') {
 /** Screen 2 — pick the logos for one set. */
 function ee_logos_render_editor($slug) {
     $sets = ee_logos_custom_sets();
-    $set  = $sets[$slug] ?? array('label' => '', 'logos' => array());
+    $is_new = !isset($sets[$slug]);
+    $set    = wp_parse_args($sets[$slug] ?? array(), array(
+        'label' => '',
+        'title' => $is_new ? 'Trusted by leading institutions' : '',
+        'sub'   => '',
+        'badge' => '',
+        'logos' => array(),
+    ));
     $lib  = ee_logos_library();
 
     /* what is already in the set: built-ins by URL, the rest as custom rows */
@@ -891,6 +911,30 @@ function ee_logos_render_editor($slug) {
             <p class="description">Just for you — visitors never see it.</p>
           </td>
         </tr>
+        <tr>
+          <th scope="row"><label for="ee-ls-title">Heading (H2)</label></th>
+          <td>
+            <input id="ee-ls-title" name="title" type="text" class="large-text"
+                   placeholder="Trusted by leading institutions" value="<?php echo esc_attr($set['title']); ?>">
+            <p class="description">Shown above the logos. Clear it to show no heading at all.</p>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="ee-ls-sub">Description</label></th>
+          <td>
+            <textarea id="ee-ls-sub" name="sub" rows="2" class="large-text"
+                      placeholder="One line under the heading — optional."><?php echo esc_textarea($set['sub']); ?></textarea>
+            <p class="description">Optional line under the heading.</p>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="ee-ls-badge">Small pill</label></th>
+          <td>
+            <input id="ee-ls-badge" name="badge" type="text" class="regular-text"
+                   placeholder="e.g. Trusted Nationwide — leave empty for none" value="<?php echo esc_attr($set['badge']); ?>">
+            <p class="description">The little pill above the heading. Empty means no pill.</p>
+          </td>
+        </tr>
         <?php if ($slug) : ?>
         <tr>
           <th scope="row">Paste this</th>
@@ -903,8 +947,12 @@ function ee_logos_render_editor($slug) {
         <?php endif; ?>
         </table>
 
+        <h2>In this set</h2>
+        <p style="color:#50575e"><b><span id="ee-ls-count"><?php echo count($chosen); ?></span></b> logos. Click the &times; on any one to take it out.</p>
+        <div id="ee-ls-chosen" style="display:flex;flex-wrap:wrap;gap:7px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:12px;min-height:56px;margin-bottom:22px"></div>
+
         <h2>Pick the logos</h2>
-        <p style="color:#50575e">Tick everything this set should show. <b><span id="ee-ls-count"><?php echo count($chosen); ?></span></b> selected.</p>
+        <p style="color:#50575e">Tick everything this set should show.</p>
 
         <p>
           <input type="search" id="ee-ls-search" placeholder="Search institutes…" style="width:320px;padding:6px 10px">
@@ -958,8 +1006,40 @@ function ee_logos_render_editor($slug) {
          including any the user just created */
       var CATSELECT = <?php echo wp_json_encode(ee_logos_cat_select('')); ?>;
       var count = document.getElementById('ee-ls-count');
+      var chosenBox = document.getElementById('ee-ls-chosen');
       function boxes(){ return [].slice.call(wrap.querySelectorAll('input[name="pick[]"]')); }
-      function retally(){ count.textContent = boxes().filter(function(b){return b.checked;}).length; }
+
+      /* The tick grid is long, so the only way to see - and undo - what is in
+         the set was to scroll it all. This mirrors the ticked ones as chips
+         with an x, right under the heading. */
+      function retally(){
+        var on = boxes().filter(function(b){ return b.checked; });
+        count.textContent = on.length;
+        chosenBox.innerHTML = '';
+        if (!on.length) {
+          chosenBox.innerHTML = '<span style="color:#8a8f98">Nothing picked yet — tick some logos below.</span>';
+          return;
+        }
+        on.forEach(function(b){
+          var item = b.closest('.ee-ls-item');
+          var name = item ? item.querySelector('span').textContent : b.value;
+          var img  = item ? item.querySelector('img').getAttribute('src') : b.value;
+          var chip = document.createElement('span');
+          chip.style.cssText = 'display:inline-flex;align-items:center;gap:7px;background:#f6f7f7;border:1px solid #dcdcde;border-radius:999px;padding:4px 6px 4px 8px;font-size:12px';
+          var i = document.createElement('img');
+          i.src = img; i.alt = '';
+          i.style.cssText = 'width:26px;height:16px;object-fit:contain';
+          i.onerror = function(){ i.style.visibility = 'hidden'; };
+          var t = document.createElement('span'); t.textContent = name;
+          var x = document.createElement('button');
+          x.type = 'button'; x.textContent = '\u00d7';
+          x.setAttribute('aria-label', 'Remove ' + name);
+          x.style.cssText = 'border:0;background:#e0e0e0;color:#50575e;border-radius:50%;width:18px;height:18px;line-height:1;cursor:pointer;font-size:13px';
+          x.addEventListener('click', function(){ b.checked = false; retally(); });
+          chip.appendChild(i); chip.appendChild(t); chip.appendChild(x);
+          chosenBox.appendChild(chip);
+        });
+      }
       wrap.addEventListener('change', function(e){ if(e.target.name === 'pick[]') retally(); });
 
       /* search filters the tiles, and empties whole categories out of the way */
@@ -1027,6 +1107,7 @@ function ee_logos_render_editor($slug) {
         }
       });
       if (!box.children.length) row();
+      retally();
     })();
     </script>
     <?php

@@ -9,8 +9,11 @@ text/HTML widget. Nothing else to set up — the data and styling ship with the 
 **ExtraaEdge Site → 🏫 Logo Sets → ➕ New logo set**
 
 1. Name it after where it goes — "Universities page", "Products page", "Sales dept".
+   Set the **Heading (H2)** and **Description** shown above the logos, and a
+   **Small pill** if you want one. Clear the heading to show no heading at all.
 2. Tick the logos it should show. Search by name, or use **Select all** on a
-   category. Anything not in the list goes under **Your own logos** — type a URL
+   category. Everything picked appears as a chip under **In this set** — click
+   the × on any chip to take it back out. Anything not in the list goes under **Your own logos** — type a URL
    or pick from the Media Library, then choose a **category** for it.
 
    Giving it a category files it into the shared library, so from then on it
@@ -48,8 +51,8 @@ Editing the set later updates every page using it — no need to touch those pag
 | `limit` | `0` | Cap the number of logos. `0` = all. |
 | `rows` | `2` | `1` for a single scrolling row. |
 | `speed` | `38` | Seconds for one full loop. Higher = slower. |
-| `badge` | `Trusted Nationwide` | Small pill above the heading. `badge=""` removes it. |
-| `title` | `Trusted by leading institutions` | Heading. `title=""` removes it. |
+| `badge` | *(none)* | Small pill above the heading. Off unless you ask for it. |
+| `title` | `Trusted by leading institutions` | Heading. `title=""` removes it. A set's own heading is used when the shortcode does not say. |
 | `sub` | *(empty)* | One line under the heading. |
 | `class` | *(empty)* | Extra CSS class on the section. |
 
