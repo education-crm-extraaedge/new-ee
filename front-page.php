@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-hub-nomark -->
+<!-- ee-front-tpl v2026-08-03-hub-cta -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5407,6 +5407,25 @@ html body #main-content #integrations h2.h2.ih-h2{
 #integrations .ih-lead{margin:0 auto;max-width:62ch;font-size:clamp(14.5px,1.6vw,17px);line-height:1.65;color:#6B7C96}
 #integrations .ih-lead b{font-weight:600;color:var(--orange-700,#B5551D)}
 
+/* header CTA - scoped so the global .btn rules can't reach it */
+/* button on its own line so it stays optically centred under the headline */
+#integrations .ih-act{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:24px}
+#integrations .ih-cta{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;
+  padding:15px 32px;border-radius:99px;text-decoration:none;color:#fff;
+  font:700 15.5px/1 'Inter',system-ui,sans-serif;letter-spacing:-.01em;
+  background:linear-gradient(180deg,#E87E43,#DE6E30);
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 14px 32px -12px rgba(222,110,48,.75);
+  transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
+#integrations .ih-cta:hover{transform:translateY(-2px);
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 20px 42px -12px rgba(222,110,48,.85)}
+#integrations .ih-cta:focus-visible{outline:2px solid #19345d;outline-offset:3px}
+#integrations .ih-cta .arr{transition:transform .25s}
+#integrations .ih-cta:hover .arr{transform:translateX(4px)}
+#integrations .ih-cta .shine{position:absolute;top:0;left:-80%;width:55%;height:100%;transform:skewX(-22deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:ihShine 4.4s ease-in-out infinite}
+@keyframes ihShine{0%,55%{left:-80%}75%,100%{left:140%}}
+#integrations .ih-note{font:600 12.5px/1.5 'Inter',system-ui,sans-serif;color:#6B7C96}
+
 /* board */
 #integrations .ih-board{position:relative;margin:clamp(24px,4vw,40px) 0 0}
 #integrations .ih-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
@@ -5466,10 +5485,14 @@ html body #main-content #integrations h2.h2.ih-h2{
   #integrations .ih-bar div{border-left:0}
   #integrations .ih-bar div:first-child{border-top:0}
   #integrations .ih-core{width:150px}
+  #integrations .ih-cta{width:100%;max-width:340px;justify-content:center;padding:15px 22px}
+  #integrations .ih-note{font-size:12px;text-align:center}
 }
 @media(prefers-reduced-motion:reduce){
   #integrations .ih-t{transition:none}
   #integrations .ih-core i{animation:none}
+  #integrations .ih-cta{transition:none}
+  #integrations .ih-cta .shine{display:none}
 }
 </style>
 
@@ -5478,6 +5501,10 @@ html body #main-content #integrations h2.h2.ih-h2{
     <div class="ih-head rv">
       <h2 class="h2 ih-h2">Connect Your <em>Admissions Stack</em><br>With <em>ExtraaEdge</em></h2>
       <p class="ih-lead">Seamlessly integrate the tools your team already uses and manage every student interaction from <b>one connected CRM</b>.</p>
+      <div class="ih-act">
+        <a class="ih-cta" href="https://www.extraaedge.com/book-a-demo/">Connect My Stack <span class="arr" aria-hidden="true">&rarr;</span><span class="shine" aria-hidden="true"></span></a>
+        <span class="ih-note">Setup handled by our team &middot; Don&rsquo;t see your tool? We&rsquo;ll integrate it.</span>
+      </div>
     </div>
 
     <div class="ih-board rv" id="ihBoard">
