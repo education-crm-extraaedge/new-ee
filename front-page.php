@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-07-31-stories-cards -->
+<!-- ee-front-tpl v2026-08-02-platform-frame -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1395,7 +1395,10 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 @media(max-width:860px){
   #ee-platform .eep-mods{position:static;width:auto;box-shadow:none;border:0;background:transparent;border-radius:0;padding:0;margin:0 0 14px}
   html body #main-content #ee-platform .eep-mods-title{text-align:left;margin-bottom:10px}
-  #ee-platform .eep-mods-grid{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  /* flex-direction was never reset from the desktop rail's column, so the
+     nine pills stacked instead of scrolling sideways - about 250px of dead
+     height on a phone, and not what the rules below describe. */
+  #ee-platform .eep-mods-grid{display:flex;flex-direction:row;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   #ee-platform .eep-mods-grid::-webkit-scrollbar{display:none}
   #ee-platform .eep-mod{flex:none;flex-direction:row;gap:8px;padding:9px 14px;border-radius:999px;background:#fff;border:1px solid rgba(25,52,93,.16)}
   #ee-platform .eep-mod:hover{transform:none}
@@ -1406,11 +1409,75 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 }
 </style>
 
+<style id="ee-platform-frame">
+/* ── Framing around the live demo ──────────────────────────────────────────
+   The demo itself was already the strongest thing on the page; what it
+   lacked was the frame a visitor needs to decide to click, and anywhere to
+   go once they had. So: an eyebrow and objection-answering chips above it,
+   a short "what is in here" strip below, and a real closing CTA.
+
+   Sits after the section's own stylesheet above so it wins the ties -
+   equal specificity, source order decides. Brand palette only: #19345D
+   navy, #DE6E30 orange, Inter. */
+
+/* the eyebrow chip was styled in this section long ago but never used */
+#ee-platform .eep-head .eep-eyebrow{margin-bottom:4px}
+
+/* Objection-answering chips. "No sales call needed" is the promise in the
+   heading; these are the four things a visitor wants confirmed before they
+   trust it enough to click. */
+#ee-platform .eep-assure{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+#ee-platform .eep-assure li{display:inline-flex;align-items:center;gap:7px;padding:7px 14px 7px 11px;border-radius:999px;background:rgba(255,255,255,.8);border:1px solid rgba(25,52,93,.1);box-shadow:0 4px 14px rgba(25,52,93,.05);font:600 12.5px/1 'Inter',system-ui,sans-serif;color:#19345d;white-space:nowrap}
+#ee-platform .eep-assure li::before{content:"";width:15px;height:15px;flex:0 0 auto;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%23DE6E30'/%3E%3Cpath d='M7 12.3l3.3 3.3L17 8.9' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* What is in the demo - for the majority who scroll past without clicking. */
+#ee-platform .eep-inside-t{margin:clamp(30px,4vw,44px) 0 14px;text-align:center;font:800 11.5px/1 'Inter',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-700,#B5551D)}
+#ee-platform .eep-inside{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+#ee-platform .eep-inside li{background:rgba(255,255,255,.72);border:1px solid rgba(25,52,93,.1);border-radius:16px;padding:18px 18px 20px;box-shadow:0 18px 40px -34px rgba(25,52,93,.55);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+#ee-platform .eep-inside li:hover{transform:translateY(-3px);border-color:rgba(222,110,48,.32);box-shadow:0 26px 50px -30px rgba(25,52,93,.6)}
+#ee-platform .eep-inside-ic{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:rgba(222,110,48,.1);color:var(--orange-700,#B5551D);margin-bottom:12px}
+#ee-platform .eep-inside-ic svg{width:18px;height:18px}
+#ee-platform .eep-inside b{display:block;font:700 15px/1.3 'Inter',system-ui,sans-serif;letter-spacing:-.015em;color:#19345d;margin-bottom:6px}
+#ee-platform .eep-inside i{display:block;font:400 13px/1.55 'Inter',system-ui,sans-serif;font-style:normal;color:#5a6b85}
+
+/* The section used to just stop at the demo window - these CTA styles were
+   already here with nothing rendering them. The button is picked up by the
+   site-wide standard in footer.php, so it matches every other CTA. */
+#ee-platform .eep-cta{display:flex}
+
+@media(max-width:1100px){
+  #ee-platform .eep-inside{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:860px){
+  /* the window is hidden this far down and the launch button takes over,
+     but the strip and the closing CTA still earn their place */
+  #ee-platform .eep-cta{display:flex}
+  #ee-platform .eep-assure{gap:6px}
+  #ee-platform .eep-assure li{font-size:11.5px;padding:6px 11px 6px 9px}
+}
+@media(max-width:560px){
+  #ee-platform .eep-inside{grid-template-columns:1fr;gap:10px}
+  #ee-platform .eep-inside li{padding:14px 15px 16px}
+}
+@media(prefers-reduced-motion:reduce){
+  #ee-platform .eep-inside li{transition:none}
+}
+</style>
+
 <section id="ee-platform" aria-label="Explore the ExtraaEdge platform">
   <div class="eep-wrap">
     <header class="eep-head">
-      <h2>Explore the platform yourself - no sales call needed</h2>
-      <p>An advanced, AI-powered interactive product experience. Click through the real Admission CRM - dashboards, AI, lead manager, WhatsApp &amp; automation. A guided tour walks you through it; click anywhere to take over. When you&rsquo;re ready, book a personalised demo on your own funnel.</p>
+      <span class="eep-eyebrow"><i aria-hidden="true"></i>Interactive product tour</span>
+<?php /* nbsp binds the dash to the word before it, so the line never breaks
+         with a hyphen stranded at the start of the second line */ ?>
+      <h2>Explore the platform yourself&nbsp;- no sales call needed</h2>
+      <p>Click through the real Admission CRM on sample data - dashboards, Vidya AI, lead manager, WhatsApp and automation. A guided tour starts you off; click anywhere to take over.</p>
+      <ul class="eep-assure">
+        <li>No signup</li>
+        <li>Sample data only</li>
+        <li>Under 2 minutes</li>
+        <li>The product, not a video</li>
+      </ul>
     </header>
     <div class="eep-demo-wrap">
     <aside class="eep-mods" aria-label="CRM modules - click to open that screen in the live demo">
@@ -2078,6 +2145,36 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 </html>
 "></iframe>
     </div>
+    </div>
+
+    <p class="eep-inside-t">Inside the demo</p>
+    <ul class="eep-inside">
+      <li>
+        <span class="eep-inside-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span>
+        <b>The funnel, live</b>
+        <i>Enquiries, applications and conversion by source - the numbers a head of admissions actually asks for.</i>
+      </li>
+      <li>
+        <span class="eep-inside-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg></span>
+        <b>Vidya AI at work</b>
+        <i>Watch it score intent, answer a student and draft the follow-up - not a slide about AI.</i>
+      </li>
+      <li>
+        <span class="eep-inside-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v10H9l-5 4V6z"/></svg></span>
+        <b>A real counsellor day</b>
+        <i>Lead timeline, WhatsApp thread, call log and the follow-up list that builds itself.</i>
+      </li>
+      <li>
+        <span class="eep-inside-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
+        <b>Automation you can read</b>
+        <i>Open a workflow and see exactly which rule assigned, nurtured and escalated the lead.</i>
+      </li>
+    </ul>
+
+    <div class="eep-cta">
+      <p class="eep-cta-t">Seen enough? Run it on <strong>your own funnel</strong>.</p>
+      <a class="eep-cta-btn" href="https://www.extraaedge.com/book-a-demo/">Book a personalised demo</a>
+      <span class="eep-cta-sub">30 minutes &middot; your courses, your sources, your team</span>
     </div>
   </div>
 </section>
