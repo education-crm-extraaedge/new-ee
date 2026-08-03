@@ -22,7 +22,10 @@ text/HTML widget. Nothing else to set up — the data and styling ship with the 
    "Training Partners", "Franchise", whatever you need — and it behaves exactly
    like Universities or Colleges, tabs included. Leave the category empty and
    the logo stays a one-off for this set only.
-3. Save. The screen shows the shortcode, e.g. `[ee_logos set="universities-page"]`.
+3. Save — there is a Save button beside every category heading and a bar
+   pinned to the bottom of the screen, so you never have to scroll to the end
+   to keep a change. After saving you land back where you were.
+   The screen shows the shortcode, e.g. `[ee_logos set="universities-page"]`.
 4. Paste that wherever the logos should appear. Done.
 
 Editing the set later updates every page using it — no need to touch those pages.

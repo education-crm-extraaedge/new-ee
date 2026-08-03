@@ -1118,7 +1118,18 @@ function ee_logos_render_editor($slug) {
         else $custom[] = $logo;
     }
     ?>
-    <div class="wrap" style="max-width:1120px">
+    <style>
+    /* room for the sticky bar, so it never covers the last row of tiles */
+    #wpwrap .ee-ls-wrap{padding-bottom:84px}
+    .ee-ls-bar{position:fixed;left:160px;right:20px;bottom:0;z-index:9;
+      display:flex;align-items:center;justify-content:flex-end;gap:14px;
+      background:#fff;border-top:1px solid #dcdcde;box-shadow:0 -6px 18px rgba(0,0,0,.06);
+      padding:11px 22px;font-size:13px;color:#50575e}
+    .ee-ls-bar b{color:#19335D}
+    .folded .ee-ls-bar{left:56px}
+    @media(max-width:960px){.ee-ls-bar{left:0}}
+    </style>
+    <div class="wrap ee-ls-wrap" style="max-width:1120px">
       <h1><?php echo $slug ? '🏫 Edit logo set' : '🏫 New logo set'; ?></h1>
       <p><a href="<?php echo esc_url(admin_url('admin.php?page=ee-logo-sets')); ?>">&larr; All logo sets</a></p>
 
@@ -1190,6 +1201,9 @@ function ee_logos_render_editor($slug) {
             <?php echo esc_html($clabel); ?>
             <span style="color:#8a8f98;font-weight:400">(<?php echo count($rows); ?>)</span>
             <button type="button" class="button button-small ee-ls-all" style="margin-left:8px">Select all</button>
+            <?php /* the page is 133 tiles long - without this you had to
+                     scroll to the very bottom to keep a change */ ?>
+            <button class="button button-small button-primary" style="margin-left:4px">Save</button>
           </h3>
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px">
             <?php foreach ($rows as $u => $r) : ?>
@@ -1229,6 +1243,14 @@ function ee_logos_render_editor($slug) {
         <p><button type="button" class="button" id="ee-ls-add">➕ Add a logo</button></p>
 
         <p style="margin-top:22px"><button class="button button-primary button-hero">Save logo set</button></p>
+
+        <?php /* Always-there save. The category buttons above cover "I am here
+                 and want to keep this"; this covers everywhere else, and keeps
+                 the count in view while you work. */ ?>
+        <div class="ee-ls-bar">
+          <span><b><span class="ee-ls-count2">0</span></b> logos in this set</span>
+          <button class="button button-primary">Save logo set</button>
+        </div>
       </form>
     </div>
 
@@ -1245,9 +1267,11 @@ function ee_logos_render_editor($slug) {
       /* The tick grid is long, so the only way to see - and undo - what is in
          the set was to scroll it all. This mirrors the ticked ones as chips
          with an x, right under the heading. */
+      var count2 = wrap.querySelector('.ee-ls-count2');
       function retally(){
         var on = boxes().filter(function(b){ return b.checked; });
         count.textContent = on.length;
+        if (count2) count2.textContent = on.length;
         chosenBox.innerHTML = '';
         if (!on.length) {
           chosenBox.innerHTML = '<span style="color:#8a8f98">Nothing picked yet — tick some logos below.</span>';
@@ -1384,6 +1408,22 @@ function ee_logos_render_editor($slug) {
       });
       if (!box.children.length) row();
       retally();
+
+      /* Saving reloads the page, and on a list this long that meant losing
+         your place every time. Remember where you were and go back there. */
+      /* keyed on the set, not the URL - saving adds &saved=1, so a key built
+         from location.search would never match on the way back */
+      var KEY = 'ee-ls-scroll-<?php echo esc_js($slug ?: 'new'); ?>';
+      wrap.querySelector('form').addEventListener('submit', function(){
+        try { sessionStorage.setItem(KEY, String(window.scrollY)); } catch (e) {}
+      });
+      try {
+        var back = sessionStorage.getItem(KEY);
+        if (back !== null) {
+          sessionStorage.removeItem(KEY);
+          requestAnimationFrame(function(){ window.scrollTo(0, parseInt(back, 10) || 0); });
+        }
+      } catch (e) {}
     })();
     </script>
     <?php
