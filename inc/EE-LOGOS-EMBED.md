@@ -89,6 +89,18 @@ open `inc/institute-logos.php` and edit `ee_institute_logo_sets()`. Each entry i
 category it belongs to; add it to `'home'` as well if it should appear on the
 home page strip.
 
+## Testimonials on hover
+
+Every logo in the picker has a **Short testimonial** box, which appears once the
+logo is ticked. Write a line or two and it shows in a small card when a visitor
+hovers that logo — anywhere it appears, including the home page strip.
+
+Logos with a testimonial carry a small orange dot in the corner so visitors know
+there is something to hover. Cards without one behave exactly as before.
+
+The card is keyboard reachable too — tab to a logo and the testimonial opens.
+Clear the box and save to remove it.
+
 ## Deleting a logo from the list
 
 In a set's picker, the small red **×** on a logo deletes it from the list

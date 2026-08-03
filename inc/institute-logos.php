@@ -51,6 +51,16 @@ function ee_logos_hidden() {
     return is_array($h) ? array_flip($h) : array();
 }
 
+/**
+ * Short testimonial per institute, keyed by logo URL. Written in Site Editor
+ * and shown when a visitor hovers that logo.
+ */
+function ee_logo_quotes() {
+    if (!function_exists('get_option')) return array();
+    $q = get_option('ee_logo_quotes', array());
+    return is_array($q) ? $q : array();
+}
+
 /** Institutes added from Site Editor: list of array('u','a','cat'). */
 function ee_logos_extra_logos() {
     if (!function_exists('get_option')) return array();
@@ -349,6 +359,103 @@ function ee_institute_category_keywords() {
     );
 }
 
+
+/**
+ * Prints the hover-testimonial popover once per page. Shared by the
+ * [ee_logos] strips and the hand-built home page strip, both of which mark
+ * their cards with data-q, so a quote written once shows everywhere the logo
+ * appears.
+ */
+function ee_logos_quote_ui() {
+    static $done = false;
+    if ($done) return;
+    $done = true;
+    ?>
+<style id="ee-logos-quote-css">
+/* One popover per page, moved to whichever card is hovered - a tooltip per
+   logo would be a lot of DOM for something only one of which is ever seen. */
+.ee-logos-quote{position:fixed;z-index:60;width:320px;max-width:calc(100vw - 24px);
+  background:linear-gradient(150deg,#FFF6F0 0%,#FFFFFF 46%,#FDF3FA 100%);
+  border:1px solid rgba(222,110,48,.22);border-radius:16px;padding:16px 18px 15px;
+  box-shadow:0 26px 60px -26px rgba(25,52,93,.5);
+  opacity:0;visibility:hidden;transform:translateY(6px);
+  transition:opacity .22s ease,transform .22s ease,visibility .22s;pointer-events:none}
+.ee-logos-quote.on{opacity:1;visibility:visible;transform:none}
+.ee-logos-quote .mk{display:block;font:800 26px/1 Georgia,serif;color:#DE6E30;margin-bottom:2px}
+.ee-logos-quote p{margin:0;font:400 13.5px/1.65 'Inter',system-ui,sans-serif;color:#19345d}
+.ee-logos-quote cite{display:block;margin-top:10px;font:700 11.5px/1.3 'Inter',system-ui,sans-serif;
+  font-style:normal;letter-spacing:.04em;text-transform:uppercase;color:#8a95a6}
+.logo-card.has-q,.ee-logo-card.has-q{position:relative}
+.logo-card.has-q::after,.ee-logo-card.has-q::after{content:"";position:absolute;right:9px;top:9px;width:6px;height:6px;border-radius:50%;background:rgba(222,110,48,.5)}
+.logo-card.has-q:hover::after,.ee-logo-card.has-q:hover::after{background:#DE6E30}
+/* quoted cards are focusable so the testimonial is reachable without a mouse -
+   give that a brand ring rather than the browser's default black one */
+.logo-card[data-q]:focus-visible,.ee-logo-card[data-q]:focus-visible{outline:3px solid rgba(222,110,48,.5);outline-offset:2px;border-radius:14px}
+.logo-card[data-q]:focus:not(:focus-visible),.ee-logo-card[data-q]:focus:not(:focus-visible){outline:none}
+</style>
+<script>
+/* ── hover testimonial ──
+   Built once per strip and parked on <body>, then positioned over whichever
+   card is hovered or focused. position:fixed off the card's own rect, so it
+   is unaffected by the marquee transform under it. */
+(function(){
+  var SEL = '.ee-logo-card[data-q], .logo-card[data-q]';
+  if (!document.querySelector(SEL)) return;
+
+  var tip = document.createElement('div');
+  tip.className = 'ee-logos-quote';
+  tip.setAttribute('role', 'tooltip');
+  tip.innerHTML = '<span class="mk" aria-hidden="true">&#8220;</span><p></p><cite></cite>';
+  document.body.appendChild(tip);
+
+  var hideT = null, current = null;
+
+  function place(card){
+    var r = card.getBoundingClientRect();
+    var w = tip.offsetWidth, h = tip.offsetHeight, gap = 12;
+    var left = r.left + r.width / 2 - w / 2;
+    left = Math.max(12, Math.min(left, window.innerWidth - w - 12));
+    /* above the card when there is room, below when there is not */
+    var top = r.top - gap - h;
+    if (top < 12) top = r.bottom + gap;
+    tip.style.left = Math.round(left) + 'px';
+    tip.style.top  = Math.round(top) + 'px';
+  }
+
+  function show(card){
+    clearTimeout(hideT);
+    current = card;
+    tip.querySelector('p').textContent = card.getAttribute('data-q');
+    tip.querySelector('cite').textContent = card.getAttribute('data-who') || '';
+    tip.classList.add('on');
+    place(card);              /* measure once visible, then place again */
+    requestAnimationFrame(function(){ if (current === card) place(card); });
+  }
+  function hide(){
+    hideT = setTimeout(function(){ tip.classList.remove('on'); current = null; }, 90);
+  }
+
+  document.addEventListener('mouseover', function(e){
+    var c = e.target.closest ? e.target.closest(SEL) : null;
+    if (c) show(c);
+  });
+  document.addEventListener('mouseout', function(e){
+    var c = e.target.closest ? e.target.closest(SEL) : null;
+    if (c) hide();
+  });
+  document.addEventListener('focusin', function(e){
+    var c = e.target.closest ? e.target.closest(SEL) : null;
+    if (c) show(c);
+  });
+  document.addEventListener('focusout', hide);
+  /* the marquee keeps moving under a pinned tooltip on touch, and scrolling
+     leaves it stranded - so drop it on both */
+  window.addEventListener('scroll', function(){ if (current) { tip.classList.remove('on'); current = null; } }, { passive: true });
+})();
+</script>
+    <?php
+}
+
 /**
  * The one renderer everything else goes through.
  * Prints its CSS once per page, however many strips are on it.
@@ -417,6 +524,22 @@ function ee_institute_logos_html($args = array()) {
         foreach ($panels as $k => $p) $panels[$k]['logos'] = array_slice($p['logos'], 0, $limit);
     }
 
+    $quotes = ee_logo_quotes();
+    /* one place that knows how to print a card, so the grid and both marquee
+       rows cannot drift apart */
+    $card = function ($logo, $dup = false) use ($quotes) {
+        $q = isset($quotes[$logo['u']]) ? trim($quotes[$logo['u']]) : '';
+        $out  = '<div class="ee-logo-card' . ($q ? ' has-q' : '') . '"';
+        if ($dup) $out .= ' aria-hidden="true"';
+        if ($q) {
+            $out .= ' data-q="' . esc_attr($q) . '" data-who="' . esc_attr($logo['a']) . '"';
+            $out .= ' tabindex="0"';   /* reachable without a mouse */
+        }
+        $out .= '><img src="' . esc_url($logo['u']) . '" alt="' . ($dup ? '' : esc_attr($logo['a'])) . '"';
+        $out .= ' loading="lazy" decoding="async" onerror="this.closest(\'.ee-logo-card\').remove()"></div>';
+        return $out;
+    };
+
     static $css_done = false;
     static $uid = 0;
     $uid++;
@@ -455,17 +578,24 @@ function ee_institute_logos_html($args = array()) {
 /* grid */
 .ee-logos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;max-width:1280px;margin:0 auto;padding:0 24px}
 /* card */
-.ee-logo-card{flex:none;width:150px;height:76px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;display:grid;place-items:center;padding:14px;transition:border-color .3s,transform .3s}
+.ee-logo-card{position:relative;flex:none;width:172px;height:92px;background:#fff;border:1px solid #E4E9F1;border-radius:14px;display:grid;place-items:center;padding:16px;transition:border-color .3s,transform .3s,box-shadow .3s}
 .ee-logos-grid .ee-logo-card{width:auto}
-.ee-logo-card:hover{border-color:#DE6E30;transform:translateY(-3px)}
-.ee-logo-card img{max-height:44px;max-width:100%;width:auto;object-fit:contain;filter:grayscale(100%);opacity:.75;transition:filter .3s,opacity .3s}
+.ee-logo-card:hover{border-color:rgba(222,110,48,.45);transform:translateY(-3px);box-shadow:0 18px 38px -26px rgba(25,52,93,.55)}
+.ee-logo-card img{max-height:48px;max-width:100%;width:auto;object-fit:contain;filter:grayscale(100%);opacity:.78;transition:filter .3s,opacity .3s}
 .ee-logo-card:hover img{filter:none;opacity:1}
-@media(prefers-reduced-motion:reduce){.ee-logos-track{animation:none}.ee-logo-card{transition:none}}
+/* a card with a quote gets a small corner mark, so it is discoverable */
+.ee-logo-card.has-q::after{content:"";position:absolute;right:9px;top:9px;width:6px;height:6px;border-radius:50%;background:rgba(222,110,48,.5)}
+.ee-logo-card.has-q:hover::after{background:#DE6E30}
+
+/* hover testimonial styles live in ee_logos_quote_ui() */
+
+@media(prefers-reduced-motion:reduce){.ee-logos-track{animation:none}.ee-logo-card,.ee-logos-quote{transition:none}}
 @media(max-width:600px){
-  .ee-logo-card{width:118px;height:64px;padding:10px}
-  .ee-logos-grid{grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px;padding:0 16px}
-  .ee-logo-card img{max-height:34px}
+  .ee-logo-card{width:132px;height:74px;padding:12px}
+  .ee-logos-grid{grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px;padding:0 16px}
+  .ee-logo-card img{max-height:38px}
   .ee-logos-tab{font-size:12px;padding:8px 13px}
+  .ee-logos-quote{width:280px}
 }
 </style>
         <?php
@@ -517,22 +647,16 @@ function ee_institute_logos_html($args = array()) {
 
     <?php if ($a['layout'] === 'grid') : ?>
     <div class="ee-logos-grid">
-      <?php foreach ($logos as $logo) : ?>
-      <div class="ee-logo-card"><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo esc_attr($logo['a']); ?>" loading="lazy" decoding="async" onerror="this.closest('.ee-logo-card').remove()"></div>
-      <?php endforeach; ?>
+      <?php foreach ($logos as $logo) echo $card($logo); ?>
     </div>
     <?php else : ?>
     <div class="ee-logos-wrap" style="--ee-logos-speed:<?php echo (int) $a['speed']; ?>s">
       <div class="ee-logos-track ee-logos-a">
-        <?php for ($pass = 0; $pass < 2; $pass++) : foreach ($row_a as $logo) : ?>
-        <div class="ee-logo-card"<?php echo $pass ? ' aria-hidden="true"' : ''; ?>><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo $pass ? '' : esc_attr($logo['a']); ?>" loading="lazy" decoding="async" onerror="this.closest('.ee-logo-card').remove()"></div>
-        <?php endforeach; endfor; ?>
+        <?php for ($pass = 0; $pass < 2; $pass++) foreach ($row_a as $logo) echo $card($logo, $pass > 0); ?>
       </div>
       <?php if ($row_b) : ?>
       <div class="ee-logos-track ee-logos-b">
-        <?php for ($pass = 0; $pass < 2; $pass++) : foreach ($row_b as $logo) : ?>
-        <div class="ee-logo-card"<?php echo $pass ? ' aria-hidden="true"' : ''; ?>><img src="<?php echo esc_url($logo['u']); ?>" alt="<?php echo $pass ? '' : esc_attr($logo['a']); ?>" loading="lazy" decoding="async" onerror="this.closest('.ee-logo-card').remove()"></div>
-        <?php endforeach; endfor; ?>
+        <?php for ($pass = 0; $pass < 2; $pass++) foreach ($row_b as $logo) echo $card($logo, $pass > 0); ?>
       </div>
       <?php endif; ?>
     </div>
@@ -540,6 +664,7 @@ function ee_institute_logos_html($args = array()) {
   </div>
   <?php $first = false; endforeach; ?>
 </section>
+<?php ee_logos_quote_ui(); ?>
 <?php if ($tabs) : ?>
 <script>
 (function(){
@@ -734,6 +859,19 @@ add_action('admin_post_ee_logos_save', function () {
 
     update_option('ee_logo_cats', $cats, false);
     update_option('ee_logo_extras', array_values($extras), false);
+
+    /* one short testimonial per institute, keyed by logo URL so the same quote
+       follows the logo into every set it appears in */
+    if (isset($_POST['quote']) && is_array($_POST['quote'])) {
+        $quotes = ee_logo_quotes();
+        foreach (wp_unslash($_POST['quote']) as $u => $q) {
+            $u = esc_url_raw(trim($u));
+            $q = sanitize_textarea_field($q);
+            if ($u === '') continue;
+            if ($q === '') unset($quotes[$u]); else $quotes[$u] = $q;
+        }
+        update_option('ee_logo_quotes', $quotes, false);
+    }
 
     /* logos the user removed from the picker on this screen */
     if (!empty($_POST['hide']) && is_array($_POST['hide'])) {
@@ -957,7 +1095,8 @@ function ee_logos_render_editor($slug) {
         'badge' => '',
         'logos' => array(),
     ));
-    $lib  = ee_logos_library();
+    $lib    = ee_logos_library();
+    $quotes = ee_logo_quotes();
 
     /* what is already in the set: built-ins by URL, the rest as custom rows */
     $chosen = array();
@@ -1042,7 +1181,7 @@ function ee_logos_render_editor($slug) {
           </h3>
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px">
             <?php foreach ($rows as $u => $r) : ?>
-            <label class="ee-ls-item" style="display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #dcdcde;border-radius:7px;padding:8px 10px;cursor:pointer">
+            <label class="ee-ls-item" style="display:flex;align-items:center;flex-wrap:wrap;gap:9px;background:#fff;border:1px solid #dcdcde;border-radius:7px;padding:8px 10px;cursor:pointer">
               <input type="checkbox" name="pick[]" value="<?php echo esc_attr($u); ?>" <?php checked(isset($chosen[$u])); ?>>
               <img src="<?php echo esc_url($u); ?>" alt="" style="width:44px;height:26px;object-fit:contain;flex:none" loading="lazy"
                    onerror="this.style.visibility='hidden'">
@@ -1050,6 +1189,12 @@ function ee_logos_render_editor($slug) {
               <button type="button" class="ee-ls-kill" data-u="<?php echo esc_attr($u); ?>"
                       title="Delete this logo from the list" aria-label="Delete <?php echo esc_attr($r['a']); ?> from the list"
                       style="border:0;background:none;color:#b32d2e;cursor:pointer;font-size:15px;line-height:1;padding:0 2px;opacity:.45">&times;</button>
+              <?php /* shown once the logo is ticked - a quote on a logo nobody
+                       picked would just be noise on the screen */ ?>
+              <textarea name="quote[<?php echo esc_attr($u); ?>]" class="ee-ls-quote" rows="2"
+                        placeholder="Short testimonial shown when a visitor hovers this logo — optional"
+                        style="flex:0 0 100%;margin-top:7px;font-size:12px;line-height:1.45;display:<?php echo isset($chosen[$u]) ? 'block' : 'none'; ?>"><?php
+                echo esc_textarea($quotes[$u] ?? ''); ?></textarea>
             </label>
             <?php endforeach; ?>
           </div>
@@ -1116,7 +1261,17 @@ function ee_logos_render_editor($slug) {
           chosenBox.appendChild(chip);
         });
       }
-      wrap.addEventListener('change', function(e){ if(e.target.name === 'pick[]') retally(); });
+      wrap.addEventListener('change', function(e){
+        if (e.target.name !== 'pick[]') return;
+        var q = e.target.closest('.ee-ls-item').querySelector('.ee-ls-quote');
+        if (q) q.style.display = e.target.checked ? 'block' : 'none';
+        retally();
+      });
+      /* the tile is a <label>, so a click inside the textarea would toggle the
+         checkbox and hide the box the moment you tried to type in it */
+      wrap.addEventListener('click', function(e){
+        if (e.target.classList && e.target.classList.contains('ee-ls-quote')) e.preventDefault();
+      });
 
       /* search filters the tiles, and empties whole categories out of the way */
       var search = document.getElementById('ee-ls-search');

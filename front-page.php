@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-logo-sets -->
+<!-- ee-front-tpl v2026-08-03-logo-quotes -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -697,7 +697,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
      category, so this strip and the [ee_logos] shortcode can never disagree.
      Odd/even split feeds the two counter-scrolling rows; each row is printed
      twice because the -50% loop needs a duplicate to be seamless. */
-  $ee_home_logos = function_exists('ee_institute_logos_for') ? ee_institute_logos_for('home') : array();
+  $ee_home_logos  = function_exists('ee_institute_logos_for') ? ee_institute_logos_for('home') : array();
+  $ee_quotes      = function_exists('ee_logo_quotes') ? ee_logo_quotes() : array();
+  if (function_exists('ee_logos_quote_ui')) ee_logos_quote_ui();
   $ee_row_a = array(); $ee_row_b = array();
   foreach ($ee_home_logos as $ee_i => $ee_l) { if ($ee_i % 2 === 0) $ee_row_a[] = $ee_l; else $ee_row_b[] = $ee_l; }
   $ee_rows = array('marquee-left' => $ee_row_a, 'marquee-right' => $ee_row_b);
@@ -706,7 +708,13 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <?php foreach ($ee_rows as $ee_dir => $ee_row) : if (!$ee_row) continue; ?>
     <div class="marquee-track <?php echo esc_attr($ee_dir); ?>">
       <?php for ($ee_pass = 0; $ee_pass < 2; $ee_pass++) : foreach ($ee_row as $ee_l) : ?>
-      <div class="logo-card"<?php echo $ee_pass ? ' aria-hidden="true"' : ''; ?>><img src="<?php echo esc_url($ee_l['u']); ?>" alt="<?php echo $ee_pass ? '' : esc_attr($ee_l['a'] . ' — ExtraaEdge admissions CRM'); ?>" loading="lazy" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:this.alt,className:'lc-alt'}))"></div>
+      <?php $ee_q = isset($ee_quotes[$ee_l['u']]) ? trim($ee_quotes[$ee_l['u']]) : ''; ?>
+      <div class="logo-card<?php echo $ee_q ? ' has-q' : ''; ?>"<?php
+        echo $ee_pass ? ' aria-hidden="true"' : '';
+        /* the quote written in Site Editor rides along, so hovering a logo
+           here shows the same testimonial as anywhere else it appears */
+        if ($ee_q) echo ' data-q="' . esc_attr($ee_q) . '" data-who="' . esc_attr($ee_l['a']) . '" tabindex="0"';
+      ?>><img src="<?php echo esc_url($ee_l['u']); ?>" alt="<?php echo $ee_pass ? '' : esc_attr($ee_l['a'] . ' — ExtraaEdge admissions CRM'); ?>" loading="lazy" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:this.alt,className:'lc-alt'}))"></div>
       <?php endforeach; endfor; ?>
     </div>
     <?php endforeach; ?>
