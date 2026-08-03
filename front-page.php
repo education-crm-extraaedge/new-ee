@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-hub-logos -->
+<!-- ee-front-tpl v2026-08-03-hub-nomark -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5399,7 +5399,6 @@ html body #main-content #stories .cis-wrap .cis-blurb{
 
 /* header */
 #integrations .ih-head{text-align:center;max-width:900px;margin:0 auto clamp(26px,4vw,42px)}
-#integrations .ih-mark{height:38px;width:auto;display:block;margin:0 auto 20px}
 html body #main-content #integrations h2.h2.ih-h2{
   text-align:center !important;font-weight:800 !important;
   font-size:clamp(26px,4.4vw,50px) !important;line-height:1.1 !important;
@@ -5477,7 +5476,6 @@ html body #main-content #integrations h2.h2.ih-h2{
 <section class="sec" id="integrations">
   <div class="container">
     <div class="ih-head rv">
-      <img class="ih-mark" src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg" alt="ExtraaEdge" width="150" height="38" loading="lazy" decoding="async">
       <h2 class="h2 ih-h2">Connect Your <em>Admissions Stack</em><br>With <em>ExtraaEdge</em></h2>
       <p class="ih-lead">Seamlessly integrate the tools your team already uses and manage every student interaction from <b>one connected CRM</b>.</p>
     </div>
