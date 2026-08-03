@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-integrations -->
+<!-- ee-front-tpl v2026-08-03-integration-hub -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5384,124 +5384,197 @@ html body #main-content #stories .cis-wrap .cis-blurb{
 <!-- (removed dead hidden section: #segments) -->
 <!-- (removed dead hidden section: #ecosystem) -->
 <!-- ===================== INTEGRATIONS ===================== -->
-<style id="ee-integrations-premium">
-/* ── Integrations ──────────────────────────────────────────────────────────
-   Left-aligned header and a staggered mosaic of soft tiles, the way premium
-   SaaS integration pages read - rather than a centred heading over a boxed
-   tab panel. Ghost tiles fill the gaps so the grid has rhythm instead of
-   ending in a ragged edge. Brand palette only: #19345D, #DE6E30, Inter.
+<style id="ee-integrations-hub">
+/* ── Integrations hub ──────────────────────────────────────────────────────
+   ExtraaEdge in the middle, the tools an admissions team already runs around
+   it, and dotted lines drawn from each tile back to the hub. The lines are
+   measured in JS because they start at real tile positions - CSS has no way
+   to know where a wrapped grid put things.
 
-   Printed after the section's own stylesheet so it wins the ties. */
-#integrations{background:linear-gradient(180deg,#FAFBFD 0%,#F4F6FA 100%)}
-#integrations .container{max-width:1240px}
+   Brand palette only: #19345D navy, #DE6E30 orange, Inter. */
+#integrations{background:linear-gradient(180deg,#FBFCFE 0%,#F5F7FB 100%);overflow:hidden}
+#integrations .container{max-width:1320px}
 
 /* header */
-#integrations .ig-head{max-width:none;text-align:left;margin:0 0 clamp(30px,4vw,48px)}
-#integrations .ig-eyebrow{display:inline-flex;align-items:center;gap:10px;font:700 13px/1 'Inter',system-ui,sans-serif;color:#19345d;margin-bottom:16px}
-#integrations .ig-eyebrow i{width:20px;height:3px;border-radius:2px;background:#DE6E30;display:block}
-/* The site-wide heading scale is (2 ids, 2 classes, 3 types) with !important.
-   One class here lost to it and the headline stayed at 30px, so both of the
-   element's classes are named to match the count and win on source order. */
-html body #main-content #integrations h2.h2.ig-h2{
-  text-align:left !important;font-weight:800 !important;
-  font-size:clamp(30px,5vw,58px) !important;line-height:1.06 !important;
-  letter-spacing:-.035em !important;color:#19345d !important;margin:0 0 18px !important}
-#integrations .ig-h2-soft{color:#9AA6BA}
-#integrations .ig-lead{margin:0;max-width:60ch;font-size:clamp(14.5px,1.5vw,16.5px);line-height:1.7;color:#6B7C96}
-#integrations .ig-stats{display:flex;flex-wrap:wrap;gap:38px;margin:26px 0 0;justify-content:flex-start;text-align:left}
-#integrations .ig-stats div{text-align:left}
-#integrations .ig-stats div{display:flex;flex-direction:column;gap:3px}
-#integrations .ig-stats b{font:800 clamp(24px,2.6vw,32px)/1 'Inter',system-ui,sans-serif;color:#19345d;letter-spacing:-.02em}
-#integrations .ig-stats span{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#8A95A6}
+#integrations .ih-head{text-align:center;max-width:900px;margin:0 auto clamp(26px,4vw,42px)}
+#integrations .ih-mark{height:38px;width:auto;display:block;margin:0 auto 20px}
+html body #main-content #integrations h2.h2.ih-h2{
+  text-align:center !important;font-weight:800 !important;
+  font-size:clamp(26px,4.4vw,50px) !important;line-height:1.1 !important;
+  letter-spacing:-.03em !important;color:#19345d !important;margin:0 0 14px !important}
+#integrations .ih-h2 em{font-style:normal;color:#DE6E30}
+#integrations .ih-lead{margin:0 auto;max-width:62ch;font-size:clamp(14.5px,1.6vw,17px);line-height:1.65;color:#6B7C96}
+#integrations .ih-lead b{font-weight:600;color:var(--orange-700,#B5551D)}
 
-/* panel */
-#integrations .ig{background:transparent;border:0;box-shadow:none;padding:0;display:block}
-#integrations .ig-panel{background:transparent;border:0;box-shadow:none;padding:0}
+/* board */
+#integrations .ih-board{position:relative;margin:clamp(24px,4vw,40px) 0 0}
+#integrations .ih-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+#integrations .ih-lines path{fill:none;stroke-dasharray:3 6;stroke-linecap:round}
+#integrations .ih-grid{position:relative;z-index:1;display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr)) minmax(190px,1.25fr) repeat(5,minmax(0,1fr));
+  gap:14px;align-items:center}
+#integrations .ih-row1{grid-column:1 / -1;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:14px;margin-bottom:14px}
+#integrations .ih-hub{grid-row:span 2;display:grid;place-items:center}
 
-/* category chips */
-/* the old nav was a vertical list, so flex-direction has to be reset or the
-   chips stack full-width down the page */
-#integrations .ig-nav{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;margin:0 0 26px;padding:0;background:none;border:0}
-#integrations .ig-nb{display:inline-flex;width:auto;flex:0 0 auto;text-align:left;align-items:center;gap:7px;background:#fff;border:1px solid rgba(25,52,93,.1);border-radius:999px;padding:9px 15px;font:600 13px/1 'Inter',system-ui,sans-serif;color:#19345d;cursor:pointer;transition:border-color .22s ease,transform .22s ease,box-shadow .22s ease;box-shadow:0 2px 8px rgba(25,52,93,.04)}
-#integrations .ig-nb:hover{border-color:rgba(222,110,48,.4);transform:translateY(-1px)}
-#integrations .ig-nb.on{background:#19345d;border-color:#19345d;color:#fff;box-shadow:0 12px 26px -14px rgba(25,52,93,.75)}
-#integrations .ig-nb .e{font-size:14px;line-height:1}
+/* tiles */
+#integrations .ih-t{aspect-ratio:1.32;display:grid;place-items:center;padding:12px;
+  background:#fff;border:1px solid rgba(25,52,93,.08);border-radius:16px;
+  box-shadow:0 8px 22px -16px rgba(25,52,93,.45),0 1px 3px rgba(25,52,93,.04);
+  transition:transform .26s cubic-bezier(.2,.9,.3,1),box-shadow .26s ease,border-color .26s ease}
+#integrations .ih-t:hover{transform:translateY(-5px);border-color:rgba(222,110,48,.35);
+  box-shadow:0 22px 40px -20px rgba(25,52,93,.45)}
+#integrations .ih-t img{max-width:100%;max-height:38px;width:auto;height:auto;object-fit:contain}
 
-/* panel head */
-#integrations .ig-phead{display:flex;align-items:center;gap:14px;margin:0 0 6px;background:none;border:0;padding:0}
-#integrations .ig-count{font:800 11.5px/1 'Inter',system-ui,sans-serif;letter-spacing:.12em;color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);border-radius:999px;padding:6px 11px}
-html body #main-content #integrations .ig-phead h3{margin:0 !important;font:800 clamp(17px,2vw,22px)/1.25 'Inter',system-ui,sans-serif !important;letter-spacing:-.02em !important;color:#19345d !important}
-#integrations .ig-arws{margin-left:auto;display:flex;gap:8px}
-#integrations .ig-arw{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1px solid rgba(25,52,93,.12);color:#19345d;font-size:19px;line-height:1;cursor:pointer;transition:border-color .2s ease,color .2s ease,transform .2s ease}
-#integrations .ig-arw:hover{border-color:#DE6E30;color:var(--orange-700,#B5551D);transform:translateY(-2px)}
-#integrations .ig-pd{margin:0 0 24px;max-width:66ch;font-size:14.5px;line-height:1.65;color:#6B7C96}
+/* the hub itself */
+#integrations .ih-core{position:relative;width:min(210px,100%);aspect-ratio:1;display:grid;place-items:center}
+#integrations .ih-core::before,#integrations .ih-core::after{content:"";position:absolute;border-radius:50%;border:1px dashed rgba(25,52,93,.18)}
+#integrations .ih-core::before{inset:0}
+#integrations .ih-core::after{inset:13%;border-color:rgba(222,110,48,.28)}
+#integrations .ih-disc{position:relative;width:64%;aspect-ratio:1;border-radius:50%;background:#fff;
+  border:1px solid rgba(25,52,93,.08);display:grid;place-items:center;padding:16px;
+  box-shadow:0 22px 46px -20px rgba(25,52,93,.45)}
+#integrations .ih-disc img{max-width:100%;height:auto}
+@keyframes ihPulse{0%{transform:scale(1);opacity:.5}70%{transform:scale(1.18);opacity:0}100%{opacity:0}}
+#integrations .ih-core i{position:absolute;inset:6%;border-radius:50%;border:1px solid rgba(222,110,48,.35);animation:ihPulse 3.4s ease-out infinite}
 
-/* ── the mosaic ──
-   Tiles are staggered by nth-child rather than absolutely placed, so the
-   grid still reflows on any width and never overlaps. */
-#integrations .ig-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:16px;background:none;border:0;padding:6px 0 0}
-/* The old cards ran an 'igin' entry keyframe. A running animation beats a
-   plain declaration, so every tile sat at the keyframe's translateY(14px)
-   and the stagger below did nothing. The section has its own transitions
-   now, so the animation goes. */
-#integrations .ig-card{animation:none;position:relative;aspect-ratio:1;display:grid;place-items:center;padding:16px;background:#fff;border:1px solid rgba(25,52,93,.07);border-radius:22px;box-shadow:0 10px 26px -18px rgba(25,52,93,.45),0 2px 4px rgba(25,52,93,.03);transition:transform .28s cubic-bezier(.2,.9,.3,1),box-shadow .28s ease,border-color .28s ease}
-#integrations .ig-card:nth-child(3n+2){transform:translateY(-16px)}
-#integrations .ig-card:nth-child(4n+3){transform:translateY(12px)}
-#integrations .ig-card:hover{transform:translateY(-8px) scale(1.04);border-color:rgba(222,110,48,.3);box-shadow:0 26px 50px -22px rgba(25,52,93,.5)}
-#integrations .ig-card:nth-child(3n+2):hover{transform:translateY(-24px) scale(1.04)}
-#integrations .ig-card:nth-child(4n+3):hover{transform:translateY(4px) scale(1.04)}
-#integrations .ig-card img{max-width:100%;max-height:44px;width:auto;height:auto;object-fit:contain}
-/* the empty tiles that give the mosaic its rhythm */
-#integrations .ig-card.ghost{background:rgba(255,255,255,.5);border-style:dashed;border-color:rgba(25,52,93,.08);box-shadow:none;pointer-events:none}
-#integrations .ig-card.ghost:hover{transform:none;box-shadow:none}
-#integrations .ig-card.ghost:nth-child(3n+2){transform:translateY(-16px)}
-#integrations .ig-card.ghost:nth-child(4n+3){transform:translateY(12px)}
+/* benefits bar */
+#integrations .ih-bar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;
+  margin:clamp(28px,4vw,44px) 0 0;background:#fff;border:1px solid rgba(25,52,93,.08);
+  border-radius:18px;box-shadow:0 14px 34px -26px rgba(25,52,93,.5);overflow:hidden}
+#integrations .ih-bar div{display:flex;align-items:center;gap:12px;padding:18px 20px;border-left:1px solid rgba(25,52,93,.07)}
+#integrations .ih-bar div:first-child{border-left:0}
+#integrations .ih-bar svg{width:26px;height:26px;flex:0 0 auto;color:var(--orange-700,#B5551D)}
+#integrations .ih-bar b{font:700 14.5px/1.3 'Inter',system-ui,sans-serif;color:#19345d}
 
-@media(max-width:900px){
-  #integrations .ig-stats{gap:26px}
-  #integrations .ig-grid{grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:12px}
-  #integrations .ig-card{border-radius:18px;padding:12px}
-  #integrations .ig-card img{max-height:34px}
+@media(max-width:1100px){
+  #integrations .ih-lines{display:none}
+  #integrations .ih-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+  #integrations .ih-row1{grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+  #integrations .ih-hub{grid-column:1 / -1;grid-row:auto;order:-1;margin-bottom:6px}
+  #integrations .ih-bar{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #integrations .ih-bar div:nth-child(odd){border-left:0}
+  #integrations .ih-bar div{border-top:1px solid rgba(25,52,93,.07)}
+  #integrations .ih-bar div:nth-child(-n+2){border-top:0}
 }
-@media(max-width:560px){
-  #integrations .ig-grid{grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:10px}
-  #integrations .ig-card,#integrations .ig-card:nth-child(3n+2),#integrations .ig-card:nth-child(4n+3){transform:none}
-  #integrations .ig-nb{font-size:12px;padding:8px 12px}
+@media(max-width:640px){
+  #integrations .ih-grid,#integrations .ih-row1{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  #integrations .ih-t{border-radius:13px;padding:9px}
+  #integrations .ih-t img{max-height:26px}
+  #integrations .ih-bar{grid-template-columns:1fr}
+  #integrations .ih-bar div{border-left:0}
+  #integrations .ih-bar div:first-child{border-top:0}
+  #integrations .ih-core{width:150px}
 }
 @media(prefers-reduced-motion:reduce){
-  #integrations .ig-card{transition:none}
+  #integrations .ih-t{transition:none}
+  #integrations .ih-core i{animation:none}
 }
 </style>
+
 <section class="sec" id="integrations">
   <div class="container">
-    <div class="ig-head rv">
-      <span class="ig-eyebrow"><i aria-hidden="true"></i>Integration</span>
-      <h2 class="h2 ig-h2">Connect everything.<br><span class="ig-h2-soft">Work seamlessly</span></h2>
-      <p class="ig-lead">ExtraaEdge plugs into the tools your team already runs - telephony, WhatsApp, payments, marketplaces and ads.<br>Every enquiry lands in one place, with nothing to rip out and replace.</p>
-      <div class="ig-stats">
-        <div><b>50+</b><span>Native integrations</span></div>
-        <div><b>8</b><span>Categories</span></div>
-        <div><b>0</b><span>Code required</span></div>
+    <div class="ih-head rv">
+      <img class="ih-mark" src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg" alt="ExtraaEdge" width="150" height="38" loading="lazy" decoding="async">
+      <h2 class="h2 ih-h2">Connect Your <em>Admissions Stack</em><br>With <em>ExtraaEdge</em></h2>
+      <p class="ih-lead">Seamlessly integrate the tools your team already uses and manage every student interaction from <b>one connected CRM</b>.</p>
+    </div>
+
+    <div class="ih-board rv" id="ihBoard">
+      <svg class="ih-lines" id="ihLines" aria-hidden="true"></svg>
+      <div class="ih-grid" id="ihGrid">
+        <?php
+        /* Only the tools on the approved artwork. Filenames are the ones
+           already in the media library, so nothing new has to be uploaded. */
+        $IH_B  = 'https://www.extraaedge.com/wp-content/uploads/2026/intigration-logo/';
+        $IH_WA = 'https://www.extraaedge.com/wp-content/uploads/2026/social-icons/whatsapp-icon.webp';
+        $ih_row1 = array(
+          array('linkedin-ads.svg','LinkedIn Ads'), array('google-ads.svg','Google Ads'),
+          array('google-remarketing.svg','Google Analytics'), array('facebook-ads.svg','Facebook Ads'),
+          array('instagram.svg','Instagram'), array('__wa','WhatsApp'),
+          array('shiksha.svg','Shiksha'), array('collegedekho.svg','CollegeDekho'),
+          array('collegedunia-learn.svg','Collegedunia'), array('justdial.svg','Justdial'),
+        );
+        $ih_left = array(
+          array('wix.svg','Wix'), array('wordpress.svg','WordPress'), array('asterisk.svg','Asterisk'),
+          array('zoho-forms.svg','Zoho Forms'), array('contact-form-7.svg','Contact Form 7'),
+          array('sendgrid.svg','SendGrid'), array('msg91.svg','MSG91'), array('netcore.svg','Netcore'),
+          array('razorpay.svg','Razorpay'), array('stripe.svg','Stripe'),
+        );
+        $ih_right = array(
+          array('typeform.svg','Typeform'), array('elementor.svg','Elementor'), array('populi.svg','Populi'),
+          array('unlayer.svg','Unlayer'), array('twilio.svg','Twilio'),
+          array('paytm.svg','Paytm'), array('adib.svg','ADIB'), array('hdfc-bank.svg','HDFC Bank'),
+          array('mastercard.svg','Mastercard'), array('easebuzz.svg','Easebuzz'),
+        );
+        $ih_tile = function ($x) use ($IH_B, $IH_WA) {
+          $src = ($x[0] === '__wa') ? $IH_WA : $IH_B . $x[0];
+          echo '<div class="ih-t"><img src="' . esc_url($src) . '" alt="' . esc_attr($x[1])
+             . '" loading="lazy" decoding="async" onerror="this.closest(\'.ih-t\').remove()"></div>';
+        };
+        ?>
+        <div class="ih-row1"><?php foreach ($ih_row1 as $x) $ih_tile($x); ?></div>
+
+        <?php foreach (array_slice($ih_left, 0, 5) as $x) $ih_tile($x); ?>
+        <div class="ih-hub">
+          <div class="ih-core">
+            <i aria-hidden="true"></i>
+            <div class="ih-disc"><img src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg" alt="ExtraaEdge" width="120" height="30" loading="lazy" decoding="async"></div>
+          </div>
+        </div>
+        <?php foreach (array_slice($ih_right, 0, 5) as $x) $ih_tile($x); ?>
+
+        <?php foreach (array_slice($ih_left, 5) as $x) $ih_tile($x); ?>
+        <?php foreach (array_slice($ih_right, 5) as $x) $ih_tile($x); ?>
       </div>
     </div>
 
-    <div class="ig rv" id="ig">
-      <div class="ig-nav" id="igNav" role="tablist"></div>
-      <div class="ig-panel">
-        <div class="ig-phead">
-          <span class="ig-count" id="igCount">01 / 09</span>
-          <h3 id="igTitle">Integrations &amp; ecosystem</h3>
-          <div class="ig-arws">
-            <button class="ig-arw" id="igPrev" type="button" aria-label="Previous category">&lsaquo;</button>
-            <button class="ig-arw" id="igNext" type="button" aria-label="Next category">&rsaquo;</button>
-          </div>
-        </div>
-        <p class="ig-pd" id="igDesc"></p>
-        <div class="ig-grid" id="igGrid"></div>
-      </div>
+    <div class="ih-bar rv">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7L12 19"/></svg><b>Easy<br>Integrations</b></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg><b>Real-time<br>Data Sync</b></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3.5v5c0 4.8-3.3 8.7-8 9.5-4.7-.8-8-4.7-8-9.5v-5z"/><path d="M9 12l2 2 4-4"/></svg><b>Secure &amp;<br>Reliable</b></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 8.9 19a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 8.4a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><b>Automate<br>Workflows</b></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg><b>Smarter Decisions.<br>Better Outcomes.</b></div>
     </div>
   </div>
 </section>
+
+<script>
+/* ── hub connectors ──
+   Curves from every tile to the hub, drawn once the grid has been laid out
+   and redrawn on resize. Off below 1100px, where the hub sits above the
+   tiles and lines would only be noise. */
+(function(){
+  var board=document.getElementById('ihBoard'); if(!board) return;
+  var svg=document.getElementById('ihLines'), grid=document.getElementById('ihGrid');
+  function draw(){
+    svg.innerHTML='';
+    if(window.innerWidth<=1100) return;
+    var core=board.querySelector('.ih-core'); if(!core) return;
+    var b=board.getBoundingClientRect(), c=core.getBoundingClientRect();
+    svg.setAttribute('viewBox','0 0 '+Math.round(b.width)+' '+Math.round(b.height));
+    var cx=c.left-b.left+c.width/2, cy=c.top-b.top+c.height/2, r=c.width/2;
+    var tiles=[].slice.call(grid.querySelectorAll('.ih-t'));
+    var out='';
+    tiles.forEach(function(t,i){
+      var q=t.getBoundingClientRect();
+      var x=q.left-b.left+q.width/2, y=q.top-b.top+q.height/2;
+      var dx=cx-x, dy=cy-y, d=Math.sqrt(dx*dx+dy*dy) || 1;
+      /* stop at the ring rather than the centre, so nothing runs under the disc */
+      var ex=cx-dx/d*(r+6), ey=cy-dy/d*(r+6);
+      /* bow each curve a little, alternating sides, for the fanned look */
+      var mx=(x+ex)/2 + (-dy/d)*(i%2?18:-18), my=(y+ey)/2 + (dx/d)*(i%2?18:-18);
+      out+='<path d="M'+x.toFixed(1)+' '+y.toFixed(1)+' Q'+mx.toFixed(1)+' '+my.toFixed(1)+' '+ex.toFixed(1)+' '+ey.toFixed(1)+'" stroke="'+(i%3?'rgba(25,52,93,.28)':'rgba(222,110,48,.42)')+'" stroke-width="1"/>';
+    });
+    svg.innerHTML=out;
+  }
+  var t=null;
+  function later(){ clearTimeout(t); t=setTimeout(draw,120); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',later); else later();
+  window.addEventListener('resize',later);
+  window.addEventListener('load',later);
+})();
+</script>
+
 
 <!-- ===================== WhatsApp Business API (scoped .wa-sec / #whatsapp) ===================== -->
 <!-- (removed dead hidden section: #whatsapp) -->
@@ -5856,50 +5929,9 @@ document.querySelectorAll('.qa button').forEach(function(b){
 
 
 
-/* ============ Integrations explorer ============ */
-(function(){
-  var nav=document.getElementById('igNav');if(!nav)return;
-  var B='https://www.extraaedge.com/wp-content/uploads/2026/intigration-logo/';
-  var C=[
-   {e:'📞',t:'Cloud Telephony',d:'Run your entire calling stack - IVR, click-to-call & recording - natively inside ExtraaEdge.',g:[['3cx.svg','3CX'],['3gcallnet.svg','3G Callnet'],['ameyo.svg','Ameyo'],['asterisk.svg','Asterisk'],['c-zentrix.svg','C-Zentrix'],['exotel.svg','Exotel'],['ivr-guru.svg','IVR Guru'],['knowlarity.svg','Knowlarity'],['mcube.svg','MCUBE'],['myoperator.svg','MyOperator'],['ozonetel.svg','Ozonetel'],['servetel.svg','Servetel'],['smartflo.svg','Smartflo'],['telecmi.svg','TeleCMI'],['voxbay.svg','Voxbay']]},
-   {e:'💬',t:'Messaging & SMS',d:'Reach every prospect on WhatsApp, SMS and RCS through India’s leading messaging gateways.',g:[['gupshup.svg','Gupshup'],['msg91.svg','MSG91'],['twilio.svg','Twilio'],['netcore.svg','Netcore']]},
-   {e:'🎯',t:'Lead Sources & Marketplaces',d:'Pull verified enquiries from India’s largest education marketplaces in real time.',g:[['careers360.svg','Careers360'],['collegedekho.svg','CollegeDekho'],['collegedunia-learn.svg','Collegedunia'],['collegesearch.svg','CollegeSearch'],['edugorilla.svg','EduGorilla'],['getmyuni.svg','GetMyUni'],['india-study-channel.svg','India Study Channel'],['jagran-josh.svg','Jagran Josh'],['justdial.svg','Justdial'],['mba-universe.svg','MBA Universe'],['shiksha.svg','Shiksha'],['sulekha.svg','Sulekha']]},
-   {e:'📢',t:'Advertising & Remarketing',d:'Sync audiences and conversions back to your ad platforms - close the loop on every rupee.',g:[['google-ads.svg','Google Ads'],['google-remarketing.svg','Google Remarketing'],['facebook-ads.svg','Facebook Ads'],['facebook-remarketing.svg','Facebook Remarketing'],['instagram.svg','Instagram'],['linkedin-ads.svg','LinkedIn Ads']]},
-   {e:'💳',t:'Payments & Banking',d:'PCI-compliant gateways and banking partners for secure, frictionless fee collection.',g:[['razorpay.svg','Razorpay'],['paytm.svg','Paytm'],['stripe.svg','Stripe'],['easebuzz.svg','Easebuzz'],['hdfc-bank.svg','HDFC Bank'],['adib.svg','ADIB'],['mastercard.svg','Mastercard']]},
-   {e:'🌐',t:'Forms & Website Builders',d:'Native connectors for the form and CMS tools you already use - no website lead slips through.',g:[['wordpress.svg','WordPress'],['elementor.svg','Elementor'],['wix.svg','Wix'],['contact-form-7.svg','Contact Form 7'],['typeform.svg','Typeform'],['zoho-forms.svg','Zoho Forms'],['unlayer.svg','Unlayer']]},
-   {e:'🧠',t:'Sales Intelligence',d:'Conversation intelligence that turns every counsellor call into coachable insight.',g:[['salesken.svg','Salesken'],['salesquared.svg','Salesquared']]},
-   {e:'🎓',t:'Learning & Assessment',d:'Plug into LMS and assessment platforms for one unified journey from admission to classroom.',g:[['collpoll.svg','CollPoll'],['learnyst.svg','Learnyst'],['populi.svg','Populi'],['wheebox.svg','Wheebox'],['unipro-education.svg','Unipro Education']]},
-   {e:'⚡',t:'Automation & Productivity',d:'Trigger workflows, send transactional emails and connect 1000+ apps - no code needed.',g:[['zapier.svg','Zapier'],['sendgrid.svg','SendGrid']]}
-  ];
-  var count=document.getElementById('igCount'),title=document.getElementById('igTitle'),desc=document.getElementById('igDesc'),grid=document.getElementById('igGrid');
-  function pad(n){return (n<10?'0':'')+n;}
-  C.forEach(function(c,i){var b=document.createElement('button');b.className='ig-nb'+(i===0?' on':'');b.setAttribute('role','tab');b.innerHTML='<span class="e">'+c.e+'</span> '+c.t;b.addEventListener('click',function(){sel(i);});nav.appendChild(b);});
-  var btns=nav.querySelectorAll('.ig-nb');var cur=0,timer=null,hovered=false;
-  function sel(i){cur=i;btns.forEach(function(b,j){b.classList.toggle('on',j===i);});var c=C[i];
-    count.textContent=pad(i+1)+' / '+pad(C.length);title.innerHTML=c.t;desc.innerHTML=c.d;
-    /* Ghost tiles pad the last row so the mosaic ends on a straight edge
-       instead of a ragged one, and a couple are sprinkled in so a short
-       category still reads as a grid rather than three lonely logos. */
-    var cards=c.g.map(function(x){return '<div class="ig-card"><img decoding="async" loading="lazy" src="'+B+x[0]+'" alt="'+x[1]+'"></div>';});
-    var MIN=12;
-    while(cards.length<MIN){ cards.splice(Math.min(cards.length,2+cards.length%3),0,'<div class="ig-card ghost" aria-hidden="true"></div>'); }
-    grid.innerHTML=cards.join('');
-  }
-  sel(0);
-  function stepCat(d){if(timer){clearInterval(timer);timer=null;}sel((cur+d+C.length)%C.length);}
-  var ip=document.getElementById('igPrev'),inx=document.getElementById('igNext');
-  if(ip)ip.addEventListener('click',function(){stepCat(-1);});
-  if(inx)inx.addEventListener('click',function(){stepCat(1);});
-  var ig=document.getElementById('ig');
-  ig.addEventListener('mouseenter',function(){hovered=true;});
-  ig.addEventListener('mouseleave',function(){hovered=false;});
-  /* Only auto-rotate while the section is actually on screen - otherwise the
-     changing grid height reflows the page and jumps content the reader is on. */
-  var visible=false;
-  var o=new IntersectionObserver(function(es){es.forEach(function(e){visible=e.isIntersecting;});},{threshold:.2});
-  o.observe(ig);
-  if(!RM)timer=setInterval(function(){if(visible&&!hovered)sel((cur+1)%C.length);},3500);
-})();
+/* The integrations explorer (category tabs + rotating grid) is gone - the
+   section is a single hub board now, and its connector script lives with the
+   markup. */
 
 
 
