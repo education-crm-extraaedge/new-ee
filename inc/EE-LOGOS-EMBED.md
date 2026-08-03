@@ -11,7 +11,14 @@ text/HTML widget. Nothing else to set up — the data and styling ship with the 
 1. Name it after where it goes — "Universities page", "Products page", "Sales dept".
 2. Tick the logos it should show. Search by name, or use **Select all** on a
    category. Anything not in the list goes under **Your own logos** — type a URL
-   or pick from the Media Library.
+   or pick from the Media Library, then choose a **category** for it.
+
+   Giving it a category files it into the shared library, so from then on it
+   appears as a tickbox for every set and answers `cat=""` like any built-in
+   category. Pick **+ New category…** to start a category of your own —
+   "Training Partners", "Franchise", whatever you need — and it behaves exactly
+   like Universities or Colleges, tabs included. Leave the category empty and
+   the logo stays a one-off for this set only.
 3. Save. The screen shows the shortcode, e.g. `[ee_logos set="universities-page"]`.
 4. Paste that wherever the logos should appear. Done.
 
@@ -50,6 +57,10 @@ Editing the set later updates every page using it — no need to touch those pag
 
 `universities` · `colleges` · `schools` · `coaching-institutes` · `edtech` · `study-abroad`
 
+Plus any category you create. Its key is the name in lowercase with dashes —
+"Training Partners" becomes `training-partners`. The Logo Sets screen lists every
+category with its ready-to-paste shortcode, so you never have to guess.
+
 Spaces and underscores work too, so `cat="Study Abroad"` is fine.
 
 ## Examples
@@ -74,6 +85,13 @@ open `inc/institute-logos.php` and edit `ee_institute_logo_sets()`. Each entry i
 `u` is the logo URL, `a` is the name (used as the image alt text). Add it to the
 category it belongs to; add it to `'home'` as well if it should appear on the
 home page strip.
+
+## Removing one of your own institutes
+
+**ExtraaEdge Site → 🏫 Logo Sets** lists them under **Your own institutes** with a
+Remove link. Removing the last institute in a category you created removes that
+category too, so the list never fills up with empty ones. Sets that already
+include the logo keep it.
 
 ## Notes
 

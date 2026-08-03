@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) exit;
  * key => human label. The keys are what the shortcode's cat="" takes.
  */
 function ee_institute_categories() {
-    return array(
+    $built_in = array(
         'universities'        => 'Universities',
         'colleges'            => 'Colleges',
         'schools'             => 'Schools',
@@ -28,6 +28,23 @@ function ee_institute_categories() {
         'edtech'              => 'EdTech',
         'study-abroad'        => 'Study Abroad',
     );
+    /* Categories added from Site Editor sit alongside the built-in six and
+       behave identically - they show in the picker and answer cat="". */
+    return array_merge($built_in, ee_logos_extra_cats());
+}
+
+/** slug => label for categories created in Site Editor. */
+function ee_logos_extra_cats() {
+    if (!function_exists('get_option')) return array();
+    $c = get_option('ee_logo_cats', array());
+    return is_array($c) ? $c : array();
+}
+
+/** Institutes added from Site Editor: list of array('u','a','cat'). */
+function ee_logos_extra_logos() {
+    if (!function_exists('get_option')) return array();
+    $l = get_option('ee_logo_extras', array());
+    return is_array($l) ? $l : array();
 }
 
 function ee_institute_logo_sets() {
@@ -269,13 +286,21 @@ function ee_institute_logos_for($cat = '') {
         $keys = array_map('trim', explode(',', $cat));
     }
 
+    $extras = ee_logos_extra_logos();
     $out = array();
     $seen = array();
     foreach ($keys as $k) {
         /* tolerate "Study Abroad", "study_abroad" and "study-abroad" alike */
         $k = str_replace(array(' ', '_'), '-', $k);
-        if (empty($sets[$k])) continue;
-        foreach ($sets[$k] as $logo) {
+
+        $pool = isset($sets[$k]) ? $sets[$k] : array();
+        /* the user's own institutes join whichever category they were filed
+           under - including a category that only exists because they made it */
+        foreach ($extras as $x) {
+            if (isset($x['cat']) && $x['cat'] === $k) $pool[] = array('u' => $x['u'], 'a' => $x['a']);
+        }
+        if (!$pool) continue;
+        foreach ($pool as $logo) {
             /* Keyed on the file, not the name: a few institutes share one
                mark (Rai University and Rai Technology University, the two
                MIT entries), and a logo wall showing the same mark twice
@@ -603,6 +628,8 @@ function ee_logos_library() {
     static $lib = null;
     if ($lib !== null) return $lib;
     $lib = array();
+    /* ee_institute_logos_for() already folds in the user's own institutes,
+       so a category they created lists here exactly like the built-in six */
     foreach (ee_institute_categories() as $key => $label) {
         foreach (ee_institute_logos_for($key) as $logo) {
             if (isset($lib[$logo['u']])) continue;
@@ -638,14 +665,47 @@ add_action('admin_post_ee_logos_save', function () {
         if (isset($picked[$u])) $logos[] = array('u' => $row['u'], 'a' => $row['a']);
     }
 
-    /* anything typed in by hand or chosen from the Media Library */
+    /* Anything typed in by hand or chosen from the Media Library. Each row
+       also carries a category, so the institute joins the shared library and
+       shows up in the picker and in cat="" from now on - not just in this
+       set. A brand-new category name is created on the spot. */
     $cu = isset($_POST['custom_u']) ? (array) wp_unslash($_POST['custom_u']) : array();
     $ca = isset($_POST['custom_a']) ? (array) wp_unslash($_POST['custom_a']) : array();
+    $cc = isset($_POST['custom_c']) ? (array) wp_unslash($_POST['custom_c']) : array();
+    $cn = isset($_POST['custom_newcat']) ? (array) wp_unslash($_POST['custom_newcat']) : array();
+
+    $cats   = ee_logos_extra_cats();
+    $extras = ee_logos_extra_logos();
+    $by_url = array();
+    foreach ($extras as $i => $x) $by_url[$x['u']] = $i;
+
     foreach ($cu as $i => $u) {
         $u = esc_url_raw(trim($u));
         if ($u === '') continue;
-        $logos[] = array('u' => $u, 'a' => sanitize_text_field($ca[$i] ?? ''));
+        $name = sanitize_text_field($ca[$i] ?? '');
+
+        /* compare before sanitising: sanitize_title('__new') is 'new', which
+           would never match the sentinel and silently skip the new category */
+        $raw = trim((string) ($cc[$i] ?? ''));
+        if ($raw === '__new') {
+            $label = sanitize_text_field($cn[$i] ?? '');
+            $cat   = sanitize_title($label);
+            if ($cat !== '' && !isset($cats[$cat])) $cats[$cat] = $label;
+        } else {
+            $cat = sanitize_title($raw);
+        }
+        /* only file it in the library when a category was chosen - otherwise
+           it stays a one-off for this set, which is the old behaviour */
+        if ($cat !== '') {
+            $row = array('u' => $u, 'a' => $name, 'cat' => $cat);
+            if (isset($by_url[$u])) $extras[$by_url[$u]] = $row;
+            else { $extras[] = $row; $by_url[$u] = count($extras) - 1; }
+        }
+        $logos[] = array('u' => $u, 'a' => $name);
     }
+
+    update_option('ee_logo_cats', $cats, false);
+    update_option('ee_logo_extras', array_values($extras), false);
 
     $sets[$slug] = array(
         'label' => sanitize_text_field(wp_unslash($_POST['label'] ?? $slug)),
@@ -668,6 +728,27 @@ add_action('admin_post_ee_logos_delete', function () {
     exit;
 });
 
+/* ---- remove one of the user's own institutes from the library ---- */
+add_action('admin_post_ee_logos_drop_extra', function () {
+    if (!current_user_can('manage_options')) wp_die('Nope');
+    check_admin_referer('ee_logos_drop_extra');
+    $u = esc_url_raw(wp_unslash($_POST['u'] ?? ''));
+    $extras = array();
+    foreach (ee_logos_extra_logos() as $x) { if ($x['u'] !== $u) $extras[] = $x; }
+    update_option('ee_logo_extras', $extras, false);
+
+    /* drop any category that just lost its last institute, so the list does
+       not fill up with empty categories */
+    $used = array();
+    foreach ($extras as $x) $used[$x['cat']] = true;
+    $cats = array();
+    foreach (ee_logos_extra_cats() as $k => $label) { if (isset($used[$k])) $cats[$k] = $label; }
+    update_option('ee_logo_cats', $cats, false);
+
+    wp_safe_redirect(admin_url('admin.php?page=ee-logo-sets&dropped=1'));
+    exit;
+});
+
 function ee_logos_render_admin() {
     if (!current_user_can('manage_options')) return;
     $slug = isset($_GET['set']) ? sanitize_title(wp_unslash($_GET['set'])) : '';
@@ -685,6 +766,7 @@ function ee_logos_render_list() {
 
       <?php if (isset($_GET['saved'])) : ?><div class="notice notice-success is-dismissible"><p>Set saved.</p></div><?php endif; ?>
       <?php if (isset($_GET['deleted'])) : ?><div class="notice notice-success is-dismissible"><p>Set deleted.</p></div><?php endif; ?>
+      <?php if (isset($_GET['dropped'])) : ?><div class="notice notice-success is-dismissible"><p>Institute removed from the library.</p></div><?php endif; ?>
 
       <p><a class="button button-primary" href="<?php echo esc_url(admin_url('admin.php?page=ee-logo-sets&new=1')); ?>">➕ New logo set</a></p>
 
@@ -713,14 +795,43 @@ function ee_logos_render_list() {
       </table>
       <?php endif; ?>
 
+      <?php $extras = ee_logos_extra_logos(); if ($extras) : $ecats = ee_logos_extra_cats(); ?>
+      <h2 style="margin-top:30px">Your own institutes</h2>
+      <p style="color:#50575e;max-width:78ch">Added from a set's <b>Your own logos</b> box. These show in the picker and answer <code>cat=""</code> like any built-in category.</p>
+      <table class="widefat striped" style="max-width:980px">
+        <thead><tr><th style="width:70px">Logo</th><th>Institute</th><th style="width:220px">Category</th><th style="width:90px"></th></tr></thead>
+        <tbody>
+        <?php foreach ($extras as $x) : ?>
+          <tr>
+            <td><img src="<?php echo esc_url($x['u']); ?>" alt="" style="width:52px;height:28px;object-fit:contain" onerror="this.style.visibility='hidden'"></td>
+            <td><b><?php echo esc_html($x['a'] ?: '(no name)'); ?></b></td>
+            <td><?php
+              $lbl = $ecats[$x['cat']] ?? (ee_institute_categories()[$x['cat']] ?? $x['cat']);
+              echo esc_html($lbl);
+              if (isset($ecats[$x['cat']])) echo ' <span style="color:#8a8f98;font-size:12px">(yours)</span>';
+            ?></td>
+            <td>
+              <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" onsubmit="return confirm('Remove this institute from the library? Sets that already include it keep it.')">
+                <?php wp_nonce_field('ee_logos_drop_extra'); ?>
+                <input type="hidden" name="action" value="ee_logos_drop_extra">
+                <input type="hidden" name="u" value="<?php echo esc_attr($x['u']); ?>">
+                <button class="button-link delete" style="color:#b32d2e">Remove</button>
+              </form>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+        </tbody>
+      </table>
+      <?php endif; ?>
+
       <h2 style="margin-top:30px">Ready-made sets</h2>
       <p style="color:#50575e;max-width:78ch">These ship with the theme and need no setup — paste and go.</p>
       <table class="widefat striped" style="max-width:980px">
         <thead><tr><th>Set</th><th style="width:90px">Logos</th><th>Paste this</th></tr></thead>
         <tbody>
           <tr><td><b>Home page set</b></td><td><?php echo count(ee_institute_logos_for('home')); ?></td><td><code style="user-select:all">[ee_logos]</code></td></tr>
-          <?php foreach (ee_institute_categories() as $k => $label) : ?>
-          <tr><td><b><?php echo esc_html($label); ?></b></td><td><?php echo count(ee_institute_logos_for($k)); ?></td><td><code style="user-select:all">[ee_logos cat="<?php echo esc_attr($k); ?>"]</code></td></tr>
+          <?php $ec = ee_logos_extra_cats(); foreach (ee_institute_categories() as $k => $label) : ?>
+          <tr><td><b><?php echo esc_html($label); ?></b><?php if (isset($ec[$k])) echo ' <span style="color:#8a8f98;font-weight:400;font-size:12px">(yours)</span>'; ?></td><td><?php echo count(ee_institute_logos_for($k)); ?></td><td><code style="user-select:all">[ee_logos cat="<?php echo esc_attr($k); ?>"]</code></td></tr>
           <?php endforeach; ?>
           <tr><td><b>All, with category tabs</b></td><td><?php echo count(ee_institute_logos_for('all')); ?></td><td><code style="user-select:all">[ee_logos tabs="1"]</code></td></tr>
         </tbody>
@@ -728,6 +839,25 @@ function ee_logos_render_list() {
       <p style="margin-top:14px;color:#50575e">Add <code>title=""</code>, <code>badge=""</code>, <code>sub=""</code>, <code>limit="24"</code>, <code>layout="grid"</code> or <code>speed="50"</code> to any of them.</p>
     </div>
     <?php
+}
+
+/**
+ * Category picker for a custom-logo row. Choosing one files the institute
+ * into the shared library under that category; "New category…" reveals a
+ * text box and creates it on save. Leaving it unset keeps the logo as a
+ * one-off for this set only.
+ */
+function ee_logos_cat_select($current = '') {
+    ob_start(); ?>
+<select name="custom_c[]" class="ee-ls-cat-sel" style="width:190px">
+  <option value="">— no category —</option>
+  <?php foreach (ee_institute_categories() as $k => $label) : ?>
+  <option value="<?php echo esc_attr($k); ?>" <?php selected($current, $k); ?>><?php echo esc_html($label); ?></option>
+  <?php endforeach; ?>
+  <option value="__new">+ New category…</option>
+</select><input type="text" name="custom_newcat[]" class="ee-ls-newcat" placeholder="New category name" style="width:170px;display:none">
+<?php
+    return ob_get_clean();
 }
 
 /** Screen 2 — pick the logos for one set. */
@@ -803,12 +933,13 @@ function ee_logos_render_editor($slug) {
         <?php endforeach; ?>
 
         <h2>Your own logos</h2>
-        <p style="color:#50575e">For anything not in the list above — upload it to the Media Library and add it here.</p>
+        <p style="color:#50575e">For anything not in the list above — upload it to the Media Library and add it here. Give it a category and it joins the list above for every set from now on; pick <b>+ New category…</b> to start a category of your own.</p>
         <div id="ee-ls-custom">
           <?php foreach ($custom as $c) : ?>
           <p class="ee-ls-crow">
-            <input type="text" name="custom_a[]" value="<?php echo esc_attr($c['a']); ?>" placeholder="Institute name" style="width:240px">
-            <input type="url" name="custom_u[]" value="<?php echo esc_attr($c['u']); ?>" placeholder="https://…/logo.svg" style="width:420px">
+            <input type="text" name="custom_a[]" value="<?php echo esc_attr($c['a']); ?>" placeholder="Institute name" style="width:210px">
+            <input type="url" name="custom_u[]" value="<?php echo esc_attr($c['u']); ?>" placeholder="https://…/logo.svg" style="width:330px">
+            <?php echo ee_logos_cat_select(isset($c['cat']) ? $c['cat'] : ''); ?>
             <button type="button" class="button ee-ls-media">Choose image</button>
             <button type="button" class="button-link delete ee-ls-drop" style="color:#b32d2e">Remove</button>
           </p>
@@ -823,6 +954,9 @@ function ee_logos_render_editor($slug) {
     <script>
     (function(){
       var wrap = document.querySelector('.wrap');
+      /* built once server-side so the JS-added rows offer the same categories,
+         including any the user just created */
+      var CATSELECT = <?php echo wp_json_encode(ee_logos_cat_select('')); ?>;
       var count = document.getElementById('ee-ls-count');
       function boxes(){ return [].slice.call(wrap.querySelectorAll('input[name="pick[]"]')); }
       function retally(){ count.textContent = boxes().filter(function(b){return b.checked;}).length; }
@@ -861,13 +995,23 @@ function ee_logos_render_editor($slug) {
       function row(){
         var p = document.createElement('p');
         p.className = 'ee-ls-crow';
-        p.innerHTML = '<input type="text" name="custom_a[]" placeholder="Institute name" style="width:240px"> '
-          + '<input type="url" name="custom_u[]" placeholder="https://…/logo.svg" style="width:420px"> '
+        p.innerHTML = '<input type="text" name="custom_a[]" placeholder="Institute name" style="width:210px"> '
+          + '<input type="url" name="custom_u[]" placeholder="https://\u2026/logo.svg" style="width:330px"> '
+          + CATSELECT
           + '<button type="button" class="button ee-ls-media">Choose image</button> '
           + '<button type="button" class="button-link delete ee-ls-drop" style="color:#b32d2e">Remove</button>';
         box.appendChild(p);
       }
       document.getElementById('ee-ls-add').addEventListener('click', row);
+      /* "+ New category…" swaps in a text box for the name */
+      box.addEventListener('change', function(e){
+        if (!e.target.classList.contains('ee-ls-cat-sel')) return;
+        var txt = e.target.closest('.ee-ls-crow').querySelector('.ee-ls-newcat');
+        if (!txt) return;
+        var isNew = e.target.value === '__new';
+        txt.style.display = isNew ? '' : 'none';
+        if (isNew) txt.focus(); else txt.value = '';
+      });
       box.addEventListener('click', function(e){
         if (e.target.classList.contains('ee-ls-drop')) { e.target.closest('.ee-ls-crow').remove(); return; }
         if (e.target.classList.contains('ee-ls-media')) {
