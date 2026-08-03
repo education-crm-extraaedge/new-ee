@@ -474,20 +474,52 @@ if (!function_exists('ee_social_icon_url')) {
 <?php if (!is_singular('post')): /* blog posts (single.php) already ship their own complete
    WhatsApp/Call/TOC floating system with a reading-progress badge —
    rendering this one too would show two overlapping stacks. */ ?>
-<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-08-03-social-art2 ============ -->
+<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-08-03-fab-pills ============ -->
 <style id="ee-fabs-css">
-.ee-fabs{position:fixed;right:14px;bottom:16px;display:flex;flex-direction:column;gap:14px;z-index:996}
+/* Same floating stack the article template ships (Book Demo pill over
+   labelled WhatsApp / Call pills), lifted here so every page carries it.
+   single.php keeps its own copy and this whole block is skipped there. */
+.ee-fabs{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;align-items:flex-end;gap:12px;z-index:996}
 .ee-fab{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;cursor:pointer;box-shadow:0 6px 14px rgba(15,32,64,.28);transition:transform .2s,box-shadow .2s;text-decoration:none}
 .ee-fab:hover,.ee-fab:focus-visible{transform:translateY(-2px) scale(1.05);box-shadow:0 10px 22px rgba(15,32,64,.34)}
-.ee-fab img{width:24px;height:24px;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.15))}
 .ee-fab svg{width:22px;height:22px}
 .ee-fab-toc{background:#19335D;color:#fff;display:none}
-/* The WhatsApp and Call buttons are brand artwork now, so they carry their
-   own colour and shape - no tinted disc, no white ring, and the image fills
-   the button instead of sitting at 24px inside it. */
-.ee-fab-art{background:none;border:0;box-shadow:0 6px 16px rgba(15,32,64,.26)}
-.ee-fab-art img{width:100%;height:100%;object-fit:contain;filter:none}
 @media(max-width:1200px){.ee-fab-toc.ee-has-toc{display:flex}}
+
+/* Book Demo pill */
+.ee-book-pill{box-sizing:border-box;display:inline-flex;align-items:center;gap:8px;padding:9px 18px 9px 14px;border-radius:50px;background:#fff;color:#DE6E30;border:2px solid #DE6E30;font:700 13.5px/1 'Inter',system-ui,sans-serif;text-decoration:none;box-shadow:0 8px 22px rgba(222,110,48,.18);transition:transform .25s ease,box-shadow .25s ease,background .2s,border-color .2s,color .2s}
+.ee-book-pill:hover,.ee-book-pill:focus-visible{background:#FDF0E7;border-color:#B5551D;color:#B5551D;transform:translateY(-2px) scale(1.04);box-shadow:0 12px 28px rgba(222,110,48,.25)}
+/* ee_icon() writes width/height inline, so these need !important to win */
+.ee-book-pill svg{width:18px;height:18px;color:inherit}
+.ee-book-pill .ee-qn-io,.ee-book-pill .ee-qn-img{width:18px !important;height:18px !important}
+
+/* WhatsApp / Call pills */
+.ee-fab-pill{box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:11px 18px 11px 14px;border-radius:50px;background:#fff;border:1px solid #E4EAF2;font-family:'Inter',system-ui,sans-serif;font-size:13.5px;font-weight:600;text-decoration:none;box-shadow:0 6px 20px rgba(15,32,64,.12);transition:transform .25s ease,box-shadow .25s ease}
+.ee-fab-pill:hover,.ee-fab-pill:focus-visible{transform:translateY(-2px) scale(1.03);box-shadow:0 12px 28px rgba(15,32,64,.18)}
+.ee-fab-pill .ee-fp-ico{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ee-fab-pill .ee-fp-ico img{width:100%;height:100%;object-fit:contain;display:block}
+.ee-fab-pill .ee-fp-lbl{display:flex;flex-direction:column;line-height:1.15}
+.ee-fab-pill .ee-fp-lbl small{font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:#6B7C96}
+.ee-fab-pill .ee-fp-lbl strong{font-size:13px;font-weight:700;letter-spacing:.01em;color:#19335D}
+
+@media(max-width:820px){
+  .ee-fabs{right:12px;bottom:14px;gap:8px}
+  .ee-fab-pill{padding:8px 14px 8px 10px;font-size:12px}
+  .ee-fab-pill .ee-fp-ico{width:30px;height:30px}
+  .ee-fab-pill .ee-fp-lbl strong{font-size:12.5px}
+}
+/* Phones: the labels cost more room than they earn, so the pills become
+   icon chips and the Book Demo pill steps aside. */
+@media(max-width:480px){
+  .ee-book-pill{display:none}
+  .ee-fab-pill .ee-fp-lbl{display:none}
+  .ee-fab-pill{padding:6px;border-radius:50%;width:46px;height:46px;justify-content:center}
+  .ee-fab-pill .ee-fp-ico{width:34px;height:34px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ee-fab,.ee-fab-pill,.ee-book-pill{transition:none}
+  .ee-fab:hover,.ee-fab-pill:hover,.ee-book-pill:hover{transform:none}
+}
 .ee-toc-backdrop{position:fixed;inset:0;background:rgba(10,20,40,.45);opacity:0;visibility:hidden;transition:opacity .25s;z-index:997}
 .ee-toc-backdrop.open{opacity:1;visibility:visible}
 .ee-toc-sheet{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:18px 18px 0 0;box-shadow:0 -14px 40px rgba(15,32,64,.25);transform:translateY(105%);transition:transform .3s cubic-bezier(.3,.8,.3,1);z-index:998;max-height:72vh;display:flex;flex-direction:column}
@@ -502,11 +534,22 @@ if (!function_exists('ee_social_icon_url')) {
   <button type="button" class="ee-fab ee-fab-toc" id="eeFabToc" aria-label="Open table of contents" aria-expanded="false">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg>
   </button>
-  <a class="ee-fab ee-fab-art" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <img src="<?php echo esc_url(ee_social_icon_url('whatsapp')); ?>" alt="" loading="lazy" decoding="async">
+  <?php
+  /* Honour the Book Demo CTA set in Site Editor → Header & Footer; fall back
+     to the same target the article template uses. */
+  $ee_fab_cta = function_exists('get_option') ? get_option('ee_book_demo_cta', array()) : array();
+  $ee_fab_url = (is_array($ee_fab_cta) && !empty($ee_fab_cta['url'])) ? $ee_fab_cta['url'] : home_url('/book-demo/');
+  ?>
+  <a class="ee-book-pill" href="<?php echo esc_url($ee_fab_url); ?>" aria-label="Book a demo">
+    <?php echo ee_icon('ti-calendar-check'); ?><span>Book Demo</span>
   </a>
-  <a class="ee-fab ee-fab-art" href="tel:918956982897" aria-label="Call us">
-    <img src="<?php echo esc_url(ee_social_icon_url('call')); ?>" alt="" loading="lazy" decoding="async">
+  <a class="ee-fab-pill ee-fp-wa" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <span class="ee-fp-ico"><img src="<?php echo esc_url(ee_social_icon_url('whatsapp')); ?>" alt="" loading="lazy" decoding="async"></span>
+    <span class="ee-fp-lbl"><small>Chat on</small><strong>WhatsApp</strong></span>
+  </a>
+  <a class="ee-fab-pill ee-fp-call" href="tel:+918956982897" aria-label="Call us">
+    <span class="ee-fp-ico"><img src="<?php echo esc_url(ee_social_icon_url('call')); ?>" alt="" loading="lazy" decoding="async"></span>
+    <span class="ee-fp-lbl"><small>Call us</small><strong>+91 89569 82897</strong></span>
   </a>
 </div>
 <div class="ee-toc-backdrop" id="eeTocBackdrop"></div>
