@@ -40,6 +40,17 @@ function ee_logos_extra_cats() {
     return is_array($c) ? $c : array();
 }
 
+/**
+ * Logo URLs hidden from Site Editor. The built-in lists live in this file,
+ * so a logo cannot be deleted out of them - it is suppressed instead, which
+ * also means removing one is always undoable.
+ */
+function ee_logos_hidden() {
+    if (!function_exists('get_option')) return array();
+    $h = get_option('ee_logo_hidden', array());
+    return is_array($h) ? array_flip($h) : array();
+}
+
 /** Institutes added from Site Editor: list of array('u','a','cat'). */
 function ee_logos_extra_logos() {
     if (!function_exists('get_option')) return array();
@@ -278,7 +289,14 @@ function ee_institute_logos_for($cat = '') {
     $sets = ee_institute_logo_sets();
     $cat  = trim(strtolower($cat));
 
-    if ($cat === '' || $cat === 'home') return $sets['home'];
+    $hidden = ee_logos_hidden();
+
+    if ($cat === '' || $cat === 'home') {
+        /* home returns early, so it needs the same filter as the rest */
+        $out = array();
+        foreach ($sets['home'] as $logo) { if (!isset($hidden[$logo['u']])) $out[] = $logo; }
+        return $out;
+    }
 
     if ($cat === 'all') {
         $keys = array_keys(ee_institute_categories());
@@ -306,7 +324,7 @@ function ee_institute_logos_for($cat = '') {
                MIT entries), and a logo wall showing the same mark twice
                reads as a bug. The first name met keeps the alt text. */
             $id = $logo['u'];
-            if (isset($seen[$id])) continue;
+            if (isset($hidden[$id]) || isset($seen[$id])) continue;
             $seen[$id] = true;
             $out[] = $logo;
         }
@@ -717,6 +735,16 @@ add_action('admin_post_ee_logos_save', function () {
     update_option('ee_logo_cats', $cats, false);
     update_option('ee_logo_extras', array_values($extras), false);
 
+    /* logos the user removed from the picker on this screen */
+    if (!empty($_POST['hide']) && is_array($_POST['hide'])) {
+        $hidden = array_keys(ee_logos_hidden());
+        foreach (wp_unslash($_POST['hide']) as $u) {
+            $u = esc_url_raw(trim($u));
+            if ($u !== '' && !in_array($u, $hidden, true)) $hidden[] = $u;
+        }
+        update_option('ee_logo_hidden', $hidden, false);
+    }
+
     $sets[$slug] = array(
         'label' => sanitize_text_field(wp_unslash($_POST['label'] ?? $slug)),
         'title' => sanitize_text_field(wp_unslash($_POST['title'] ?? '')),
@@ -762,6 +790,21 @@ add_action('admin_post_ee_logos_drop_extra', function () {
     exit;
 });
 
+/* ---- put a deleted logo back ---- */
+add_action('admin_post_ee_logos_restore', function () {
+    if (!current_user_can('manage_options')) wp_die('Nope');
+    check_admin_referer('ee_logos_restore');
+    $all = isset($_POST['all']);
+    $u   = esc_url_raw(wp_unslash($_POST['u'] ?? ''));
+    $keep = array();
+    if (!$all) {
+        foreach (array_keys(ee_logos_hidden()) as $h) { if ($h !== $u) $keep[] = $h; }
+    }
+    update_option('ee_logo_hidden', $keep, false);
+    wp_safe_redirect(admin_url('admin.php?page=ee-logo-sets&restored=1'));
+    exit;
+});
+
 function ee_logos_render_admin() {
     if (!current_user_can('manage_options')) return;
     $slug = isset($_GET['set']) ? sanitize_title(wp_unslash($_GET['set'])) : '';
@@ -780,6 +823,7 @@ function ee_logos_render_list() {
       <?php if (isset($_GET['saved'])) : ?><div class="notice notice-success is-dismissible"><p>Set saved.</p></div><?php endif; ?>
       <?php if (isset($_GET['deleted'])) : ?><div class="notice notice-success is-dismissible"><p>Set deleted.</p></div><?php endif; ?>
       <?php if (isset($_GET['dropped'])) : ?><div class="notice notice-success is-dismissible"><p>Institute removed from the library.</p></div><?php endif; ?>
+      <?php if (isset($_GET['restored'])) : ?><div class="notice notice-success is-dismissible"><p>Restored.</p></div><?php endif; ?>
 
       <p><a class="button button-primary" href="<?php echo esc_url(admin_url('admin.php?page=ee-logo-sets&new=1')); ?>">➕ New logo set</a></p>
 
@@ -835,6 +879,35 @@ function ee_logos_render_list() {
         <?php endforeach; ?>
         </tbody>
       </table>
+      <?php endif; ?>
+
+      <?php $hidden = array_keys(ee_logos_hidden()); if ($hidden) : ?>
+      <h2 style="margin-top:30px">Deleted logos <span style="color:#8a8f98;font-weight:400">(<?php echo count($hidden); ?>)</span></h2>
+      <p style="color:#50575e;max-width:78ch">Removed from the picker and from every page. Nothing is lost — restore any of them here.</p>
+      <table class="widefat striped" style="max-width:980px">
+        <tbody>
+        <?php foreach ($hidden as $u) : ?>
+          <tr>
+            <td style="width:70px"><img src="<?php echo esc_url($u); ?>" alt="" style="width:52px;height:28px;object-fit:contain;opacity:.55" onerror="this.style.visibility='hidden'"></td>
+            <td style="word-break:break-all;font-size:12px;color:#646970"><?php echo esc_html($u); ?></td>
+            <td style="width:90px">
+              <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+                <?php wp_nonce_field('ee_logos_restore'); ?>
+                <input type="hidden" name="action" value="ee_logos_restore">
+                <input type="hidden" name="u" value="<?php echo esc_attr($u); ?>">
+                <button class="button button-small">Restore</button>
+              </form>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+        </tbody>
+      </table>
+      <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="margin-top:10px">
+        <?php wp_nonce_field('ee_logos_restore'); ?>
+        <input type="hidden" name="action" value="ee_logos_restore">
+        <input type="hidden" name="all" value="1">
+        <button class="button">Restore all <?php echo count($hidden); ?></button>
+      </form>
       <?php endif; ?>
 
       <h2 style="margin-top:30px">Ready-made sets</h2>
@@ -952,7 +1025,7 @@ function ee_logos_render_editor($slug) {
         <div id="ee-ls-chosen" style="display:flex;flex-wrap:wrap;gap:7px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:12px;min-height:56px;margin-bottom:22px"></div>
 
         <h2>Pick the logos</h2>
-        <p style="color:#50575e">Tick everything this set should show.</p>
+        <p style="color:#50575e">Tick everything this set should show. The <b style="color:#b32d2e">&times;</b> on a logo deletes it from this list altogether — it disappears from every set and page, and can be restored from the Logo Sets screen.</p>
 
         <p>
           <input type="search" id="ee-ls-search" placeholder="Search institutes…" style="width:320px;padding:6px 10px">
@@ -973,7 +1046,10 @@ function ee_logos_render_editor($slug) {
               <input type="checkbox" name="pick[]" value="<?php echo esc_attr($u); ?>" <?php checked(isset($chosen[$u])); ?>>
               <img src="<?php echo esc_url($u); ?>" alt="" style="width:44px;height:26px;object-fit:contain;flex:none" loading="lazy"
                    onerror="this.style.visibility='hidden'">
-              <span style="font-size:12px;line-height:1.3"><?php echo esc_html($r['a']); ?></span>
+              <span style="font-size:12px;line-height:1.3;flex:1"><?php echo esc_html($r['a']); ?></span>
+              <button type="button" class="ee-ls-kill" data-u="<?php echo esc_attr($u); ?>"
+                      title="Delete this logo from the list" aria-label="Delete <?php echo esc_attr($r['a']); ?> from the list"
+                      style="border:0;background:none;color:#b32d2e;cursor:pointer;font-size:15px;line-height:1;padding:0 2px;opacity:.45">&times;</button>
             </label>
             <?php endforeach; ?>
           </div>
@@ -1068,6 +1144,39 @@ function ee_logos_render_editor($slug) {
       });
       document.getElementById('ee-ls-none').addEventListener('click', function(){
         boxes().forEach(function(b){ b.checked = false; }); retally();
+      });
+
+      /* The × on a tile takes the logo out of the list for good. It is only
+         applied on save, and it is a hide rather than a delete - the built-in
+         lists live in the theme file - so it can always be undone from the
+         Logo Sets screen. */
+      var killBox = document.createElement('div');
+      killBox.style.display = 'none';
+      wrap.querySelector('form').appendChild(killBox);
+      wrap.addEventListener('click', function(e){
+        var btn = e.target.closest ? e.target.closest('.ee-ls-kill') : null;
+        if (!btn) return;
+        e.preventDefault(); e.stopPropagation();
+        var item = btn.closest('.ee-ls-item');
+        var name = item.querySelector('span').textContent.trim();
+        if (!confirm('Delete "' + name + '" from the list?\n\nIt disappears from every set and every page. You can restore it later from the Logo Sets screen.')) return;
+        var box = item.querySelector('input[name="pick[]"]');
+        if (box) box.checked = false;
+        var h = document.createElement('input');
+        h.type = 'hidden'; h.name = 'hide[]'; h.value = btn.getAttribute('data-u');
+        killBox.appendChild(h);
+        var cat = item.closest('.ee-ls-cat');
+        item.remove();
+        /* keep the category count honest */
+        var head = cat.querySelector('h3 span');
+        if (head) head.textContent = '(' + cat.querySelectorAll('.ee-ls-item').length + ')';
+        retally();
+      }, true);
+      wrap.addEventListener('mouseover', function(e){
+        var b = e.target.closest ? e.target.closest('.ee-ls-kill') : null; if (b) b.style.opacity = '1';
+      });
+      wrap.addEventListener('mouseout', function(e){
+        var b = e.target.closest ? e.target.closest('.ee-ls-kill') : null; if (b) b.style.opacity = '.45';
       });
 
       /* custom rows */

@@ -89,6 +89,17 @@ open `inc/institute-logos.php` and edit `ee_institute_logo_sets()`. Each entry i
 category it belongs to; add it to `'home'` as well if it should appear on the
 home page strip.
 
+## Deleting a logo from the list
+
+In a set's picker, the small red **×** on a logo deletes it from the list
+altogether — it disappears from every set and every page, including the home
+page strip.
+
+Nothing is destroyed. **ExtraaEdge Site → 🏫 Logo Sets** grows a **Deleted logos**
+section with a **Restore** on each and a **Restore all**. The built-in lists live
+in the theme file, so a delete is really a hide — which is exactly why it is
+always undoable.
+
 ## Removing one of your own institutes
 
 **ExtraaEdge Site → 🏫 Logo Sets** lists them under **Your own institutes** with a
