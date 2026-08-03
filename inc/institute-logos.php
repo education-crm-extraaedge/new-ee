@@ -400,6 +400,15 @@ function ee_logos_quote_ui() {
    is unaffected by the marquee transform under it. */
 (function(){
   var SEL = '.ee-logo-card[data-q], .logo-card[data-q]';
+  /* This block is printed before the cards it serves - the home strip calls
+     it at the top of the section - so querying straight away found nothing
+     and the tooltip was never built. Wait for the document instead. */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  function init(){
   if (!document.querySelector(SEL)) return;
 
   var tip = document.createElement('div');
@@ -451,6 +460,7 @@ function ee_logos_quote_ui() {
   /* the marquee keeps moving under a pinned tooltip on touch, and scrolling
      leaves it stranded - so drop it on both */
   window.addEventListener('scroll', function(){ if (current) { tip.classList.remove('on'); current = null; } }, { passive: true });
+  }
 })();
 </script>
     <?php
