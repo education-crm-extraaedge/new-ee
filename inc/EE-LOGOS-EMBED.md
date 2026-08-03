@@ -115,6 +115,15 @@ section with a **Restore** on each and a **Restore all**. The built-in lists liv
 in the theme file, so a delete is really a hide — which is exactly why it is
 always undoable.
 
+## Deleting a category you created
+
+A **Delete category** button sits beside the heading of any category you made —
+in the set editor, and on the Logo Sets screen under **Your categories**. The
+built-in six have none; they are defined in the theme file.
+
+Deleting takes its institutes with it, so nothing is left stranded out of the
+picker with no way to reach it. The confirm says how many are going.
+
 ## Removing one of your own institutes
 
 **ExtraaEdge Site → 🏫 Logo Sets** lists them under **Your own institutes** with a

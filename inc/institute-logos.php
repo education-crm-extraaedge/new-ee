@@ -940,6 +940,46 @@ add_action('admin_post_ee_logos_drop_extra', function () {
     exit;
 });
 
+/* ---- delete a category the user created ---- */
+add_action('admin_post_ee_logos_del_cat', function () {
+    if (!current_user_can('manage_options')) wp_die('Nope');
+    $cat = sanitize_title(wp_unslash($_REQUEST['cat'] ?? ''));
+    check_admin_referer('ee_logos_del_cat_' . $cat);
+
+    $cats = ee_logos_extra_cats();
+    /* built-in categories are defined in this file and cannot be removed -
+       only ones added from this screen */
+    if (!isset($cats[$cat])) {
+        wp_safe_redirect(admin_url('admin.php?page=ee-logo-sets'));
+        exit;
+    }
+    unset($cats[$cat]);
+    update_option('ee_logo_cats', $cats, false);
+
+    /* its institutes go with it - they were added from this screen too, and
+       leaving them behind with no category would strand them out of the
+       picker with no way to reach them again */
+    $keep = array();
+    $gone = array();
+    foreach (ee_logos_extra_logos() as $x) {
+        if (($x['cat'] ?? '') !== $cat) $keep[] = $x; else $gone[$x['u']] = true;
+    }
+    update_option('ee_logo_extras', $keep, false);
+
+    /* if any of them had been deleted with the x, drop them from the restore
+       list too - the institute no longer exists, so there is nothing to
+       restore it to */
+    if ($gone) {
+        $hidden = array();
+        foreach (array_keys(ee_logos_hidden()) as $h) { if (!isset($gone[$h])) $hidden[] = $h; }
+        update_option('ee_logo_hidden', $hidden, false);
+    }
+
+    $back = wp_unslash($_REQUEST['back'] ?? '');
+    wp_safe_redirect($back !== '' ? $back : admin_url('admin.php?page=ee-logo-sets&catdel=1'));
+    exit;
+});
+
 /* ---- put a deleted logo back ---- */
 add_action('admin_post_ee_logos_restore', function () {
     if (!current_user_can('manage_options')) wp_die('Nope');
@@ -974,6 +1014,7 @@ function ee_logos_render_list() {
       <?php if (isset($_GET['deleted'])) : ?><div class="notice notice-success is-dismissible"><p>Set deleted.</p></div><?php endif; ?>
       <?php if (isset($_GET['dropped'])) : ?><div class="notice notice-success is-dismissible"><p>Institute removed from the library.</p></div><?php endif; ?>
       <?php if (isset($_GET['restored'])) : ?><div class="notice notice-success is-dismissible"><p>Restored.</p></div><?php endif; ?>
+      <?php if (isset($_GET['catdel'])) : ?><div class="notice notice-success is-dismissible"><p>Category deleted.</p></div><?php endif; ?>
 
       <p><a class="button button-primary" href="<?php echo esc_url(admin_url('admin.php?page=ee-logo-sets&new=1')); ?>">➕ New logo set</a></p>
 
@@ -996,6 +1037,28 @@ function ee_logos_render_list() {
                 <button class="button-link delete" style="color:#b32d2e">Delete</button>
               </form>
             </td>
+          </tr>
+        <?php endforeach; ?>
+        </tbody>
+      </table>
+      <?php endif; ?>
+
+      <?php $ecats_only = ee_logos_extra_cats(); if ($ecats_only) : ?>
+      <h2 style="margin-top:30px">Your categories</h2>
+      <p style="color:#50575e;max-width:78ch">Categories you created. Each behaves like a built-in one and has its own shortcode.</p>
+      <table class="widefat striped" style="max-width:980px">
+        <thead><tr><th>Category</th><th style="width:80px">Logos</th><th style="width:290px">Paste this</th><th style="width:150px"></th></tr></thead>
+        <tbody>
+        <?php foreach ($ecats_only as $ck => $clabel) :
+          $n = count(ee_institute_logos_for($ck));
+          $del = wp_nonce_url(admin_url('admin-post.php?action=ee_logos_del_cat&cat=' . rawurlencode($ck)), 'ee_logos_del_cat_' . $ck); ?>
+          <tr>
+            <td><b><?php echo esc_html($clabel); ?></b><br><span style="color:#8a8f98;font-size:12px"><?php echo esc_html($ck); ?></span></td>
+            <td><?php echo $n; ?></td>
+            <td><code style="user-select:all;background:#f6f7f7;padding:4px 7px;border-radius:4px;display:inline-block">[ee_logos cat="<?php echo esc_attr($ck); ?>"]</code></td>
+            <td><a class="button-link delete" style="color:#b32d2e" href="<?php echo esc_url($del); ?>"
+                   onclick="return confirm('Delete the category &quot;<?php echo esc_js($clabel); ?>&quot;?<?php
+                     echo $n ? esc_js(' Its ' . $n . ' institute' . ($n > 1 ? 's' : '') . ' go with it.') : ''; ?>')">Delete</a></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
@@ -1107,8 +1170,9 @@ function ee_logos_render_editor($slug) {
         'badge' => '',
         'logos' => array(),
     ));
-    $lib    = ee_logos_library();
-    $quotes = ee_logo_quotes();
+    $lib        = ee_logos_library();
+    $quotes     = ee_logo_quotes();
+    $extra_cats = ee_logos_extra_cats();
 
     /* what is already in the set: built-ins by URL, the rest as custom rows */
     $chosen = array();
@@ -1204,6 +1268,19 @@ function ee_logos_render_editor($slug) {
             <?php /* the page is 133 tiles long - without this you had to
                      scroll to the very bottom to keep a change */ ?>
             <button class="button button-small button-primary" style="margin-left:4px">Save</button>
+            <?php if (isset($extra_cats[$ck])) :
+              /* only categories added from this screen - the built-in six live
+                 in this file and have nothing to delete */
+              $n = count($rows);
+              $del = wp_nonce_url(
+                admin_url('admin-post.php?action=ee_logos_del_cat&cat=' . rawurlencode($ck)
+                  . '&back=' . rawurlencode(admin_url('admin.php?page=ee-logo-sets' . ($slug ? '&set=' . rawurlencode($slug) : '&new=1')))),
+                'ee_logos_del_cat_' . $ck); ?>
+            <a class="button button-small" style="margin-left:4px;color:#b32d2e;border-color:#b32d2e"
+               href="<?php echo esc_url($del); ?>"
+               onclick="return confirm('Delete the category &quot;<?php echo esc_js($clabel); ?>&quot;?<?php
+                 echo $n ? esc_js(' Its ' . $n . ' institute' . ($n > 1 ? 's' : '') . ' go with it.') : ''; ?>')">Delete category</a>
+            <?php endif; ?>
           </h3>
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px">
             <?php foreach ($rows as $u => $r) : ?>
