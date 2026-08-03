@@ -112,7 +112,7 @@ add_action('wp_head', function () {
 }, 5);
 
 get_header();
-echo "\n<!-- ee-single-tpl v2026-08-02-social-art -->\n";
+echo "\n<!-- ee-single-tpl v2026-08-03-social-art2 -->\n";
 
 while (have_posts()) : the_post();
     $author_id       = get_post_field('post_author', $pid);
@@ -417,6 +417,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
 .ee-f-ig{color:#BC1888;}
 .ee-f-yt{color:#FF0000;}
 .ee-follow-btn svg{color:inherit;}
+.ee-follow-art{width:22px;height:22px;object-fit:contain;display:block;flex-shrink:0;}
 
 /* Lead form in sidebar — wraps the configurable form rendered by
    ee_render_blog_form() so the embed code or the built-in form
@@ -874,6 +875,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     .ee-soc-btn{padding:8px 12px;font-size:11.5px;}
     .ee-follow-icons{gap:6px;}
     .ee-follow-btn{width:36px;height:36px;}
+    .ee-follow-art{width:20px;height:20px;}
     .ee-book-bubble{right:14px;bottom:172px;padding:8px 14px 8px 12px;font-size:12.5px;}
     .ee-book-bubble svg{width:16px;height:16px;}
 }
@@ -903,6 +905,7 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     .ee-end-cta-inner h3{font-size:19px;}
     .ee-soc-btn{padding:7px 10px;font-size:11px;}
     .ee-follow-btn{width:34px;height:34px;}
+    .ee-follow-art{width:19px;height:19px;}
 }
 /* Touch-device tap target enforcement */
 @media (pointer:coarse){
@@ -1295,10 +1298,18 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
             <div class="ee-sidebar-section">
                 <div class="ee-section-label"><?php echo ee_icon('ti-heart'); ?> Follow Us</div>
                 <div class="ee-follow-icons">
-                    <a class="ee-follow-btn ee-f-li" href="https://www.linkedin.com/company/extraaedge/" target="_blank" rel="noopener" aria-label="LinkedIn"><?php echo ee_icon('ti-brand-linkedin'); ?></a>
-                    <a class="ee-follow-btn ee-f-tw" href="https://twitter.com/extraaedge" target="_blank" rel="noopener" aria-label="Twitter"><?php echo ee_icon('ti-brand-x'); ?></a>
-                    <a class="ee-follow-btn ee-f-fb" href="https://www.facebook.com/extraaedge/" target="_blank" rel="noopener" aria-label="Facebook"><?php echo ee_icon('ti-brand-facebook'); ?></a>
-                    <a class="ee-follow-btn ee-f-ig" href="https://www.instagram.com/extraaedge/" target="_blank" rel="noopener" aria-label="Instagram"><?php echo ee_icon('ti-brand-instagram'); ?></a>
+                    <?php
+                    /* Same brand artwork as the share row and the footer; YouTube has
+                       no file in the set yet, so it keeps the theme glyph. */
+                    $ee_follow_ico = function ($key) {
+                        $url = function_exists('ee_social_icon_url') ? ee_social_icon_url($key) : '';
+                        return $url ? '<img class="ee-follow-art" src="' . esc_url($url) . '" alt="" width="22" height="22" loading="lazy" decoding="async">' : '';
+                    };
+                    ?>
+                    <a class="ee-follow-btn ee-f-li" href="https://www.linkedin.com/company/extraaedge/" target="_blank" rel="noopener" aria-label="LinkedIn"><?php echo $ee_follow_ico('linkedin') ?: ee_icon('ti-brand-linkedin'); ?></a>
+                    <a class="ee-follow-btn ee-f-tw" href="https://twitter.com/extraaedge" target="_blank" rel="noopener" aria-label="Twitter"><?php echo $ee_follow_ico('twitter') ?: ee_icon('ti-brand-x'); ?></a>
+                    <a class="ee-follow-btn ee-f-fb" href="https://www.facebook.com/extraaedge/" target="_blank" rel="noopener" aria-label="Facebook"><?php echo $ee_follow_ico('facebook') ?: ee_icon('ti-brand-facebook'); ?></a>
+                    <a class="ee-follow-btn ee-f-ig" href="https://www.instagram.com/extraaedge/" target="_blank" rel="noopener" aria-label="Instagram"><?php echo $ee_follow_ico('instagram') ?: ee_icon('ti-brand-instagram'); ?></a>
                     <a class="ee-follow-btn ee-f-yt" href="https://www.youtube.com/@ExtraaEdge" target="_blank" rel="noopener" aria-label="YouTube"><?php echo ee_icon('ti-brand-youtube'); ?></a>
                 </div>
             </div>

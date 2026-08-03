@@ -129,6 +129,7 @@ if (!function_exists('ee_social_icon_url')) {
     #extraaedge-footer-engine .ee-card-title { font-size: 20px; margin-bottom: 18px; color: var(--ee-blue-brand); }
     #extraaedge-footer-engine .ee-link-item { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; font-size: 15px; font-weight: 600; color: var(--ee-slate-600); }
     #extraaedge-footer-engine .ee-link-item i { color: var(--ee-blue-brand); width: 20px; }
+    #extraaedge-footer-engine .ee-link-item .ee-link-art { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; }
     #extraaedge-footer-engine .ee-link-item a:hover { color: var(--ee-orange); transform: translateX(5px); }
 
     /* 3. COMPLIANCE (DARK THEME #19335D) */
@@ -266,7 +267,7 @@ if (!function_exists('ee_social_icon_url')) {
                 <span class="ee-label">Talent</span>
                 <h3 class="ee-card-title">Openings & HR</h3>
                 <div class="ee-link-item"><i class="fa-solid fa-user-plus"></i><a href="tel:+918956755927">8956755927</a></div>
-                <div class="ee-link-item"><i class="fa-brands fa-whatsapp"></i><a href="https://api.whatsapp.com/send/?phone=918956982897&text=Hi" target="_blank" rel="noopener">Chat with HR</a></div>
+                <div class="ee-link-item"><img class="ee-link-art" src="<?php echo esc_url(ee_social_icon_url('whatsapp')); ?>" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="https://api.whatsapp.com/send/?phone=918956982897&text=Hi" target="_blank" rel="noopener">Chat with HR</a></div>
             </div>
             <?php endif; ?>
         </div>
@@ -473,7 +474,7 @@ if (!function_exists('ee_social_icon_url')) {
 <?php if (!is_singular('post')): /* blog posts (single.php) already ship their own complete
    WhatsApp/Call/TOC floating system with a reading-progress badge —
    rendering this one too would show two overlapping stacks. */ ?>
-<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-08-02-social-art ============ -->
+<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-08-03-social-art2 ============ -->
 <style id="ee-fabs-css">
 .ee-fabs{position:fixed;right:14px;bottom:16px;display:flex;flex-direction:column;gap:14px;z-index:996}
 .ee-fab{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;cursor:pointer;box-shadow:0 6px 14px rgba(15,32,64,.28);transition:transform .2s,box-shadow .2s;text-decoration:none}

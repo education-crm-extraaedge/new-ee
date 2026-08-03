@@ -4996,6 +4996,29 @@ function ee_get_company_menu_items() {
     );
 }
 
+/**
+ * Brand artwork for the social / contact icons, used site-wide.
+ *
+ * Single source of truth: footer.php and single.php keep their own
+ * function_exists()-guarded copies only so they still render if this
+ * file ever loads late. Returns '' for a key we have no artwork for
+ * (YouTube), which lets callers fall back to their own glyph.
+ */
+if (!function_exists('ee_social_icon_url')) {
+    function ee_social_icon_url($key) {
+        $base = 'https://www.extraaedge.com/wp-content/uploads/2026/social-icons/';
+        $map  = array(
+            'facebook'  => 'facebook-icon.webp',
+            'instagram' => 'instagram-icon.webp',
+            'linkedin'  => 'linkedin-icon.webp',
+            'twitter'   => 'twitter-icon.webp',
+            'whatsapp'  => 'whatsapp-icon.webp',
+            'call'      => 'call-now-icon.webp',
+        );
+        return isset($map[$key]) ? $base . $map[$key] : '';
+    }
+}
+
 function ee_get_social_links() {
     $s = get_option('ee_social_links', array());
     return wp_parse_args(is_array($s) ? $s : array(), array(
@@ -6692,11 +6715,14 @@ function ee_quick_nav_render_icon($name, $size = '1em') {
         'ti-quote'           => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/customer-stories.svg',
         'ti-book'            => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/guides.svg',
         'ti-mail'            => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/e-mail.svg',
-        'ti-brand-facebook'  => 'ee-icon-facebook.svg',
-        'ti-brand-x'         => 'ee-icon-twitter-x.svg',
-        'ti-brand-twitter'   => 'ee-icon-twitter-x.svg',
-        'ti-brand-linkedin'  => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/linkedin.svg',
-        'ti-brand-whatsapp'  => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/whatsapp.svg',
+        /* Social marks all come from the one brand set (uploads/2026/social-icons)
+           so share rows, follow rows and quick-nav tiles match everywhere. */
+        'ti-brand-facebook'  => 'https://www.extraaedge.com/wp-content/uploads/2026/social-icons/facebook-icon.webp',
+        'ti-brand-x'         => 'https://www.extraaedge.com/wp-content/uploads/2026/social-icons/twitter-icon.webp',
+        'ti-brand-twitter'   => 'https://www.extraaedge.com/wp-content/uploads/2026/social-icons/twitter-icon.webp',
+        'ti-brand-linkedin'  => 'https://www.extraaedge.com/wp-content/uploads/2026/social-icons/linkedin-icon.webp',
+        'ti-brand-instagram' => 'https://www.extraaedge.com/wp-content/uploads/2026/social-icons/instagram-icon.webp',
+        'ti-brand-whatsapp'  => 'https://www.extraaedge.com/wp-content/uploads/2026/social-icons/whatsapp-icon.webp',
         'ti-link'            => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/copy-link.svg',
         'ti-share-3'         => 'ee-icon-share.svg',
         'ti-phone'           => 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/call.svg',
