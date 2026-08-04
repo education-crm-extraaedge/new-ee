@@ -3990,18 +3990,37 @@ function ee_site_editor_welcome() {
     /* Emoji-free output: strip pictographs from everything this screen
        prints so no converted-image squares can appear. */
     ob_start(function ($html) { return ee_strip_admin_emoji_html($html); });
-    $cards = array(
-        array('home',      '🏠', 'Home Page',          'Hero copy, logos, sections, CTAs',                        admin_url('admin.php?page=ee-home-editor')),
-        array('hf',        '🧱', 'Header &amp; Footer','Book Demo, Company menu, social, copyright',              admin_url('admin.php?page=ee-header-footer')),
-        array('blog-nav',  '🧭', 'Blog · Quick Nav',   'Floating side-nav on every blog post',                    admin_url('admin.php?page=ee-quick-nav')),
-        array('blog-form', '📥', 'Blog · Lead Form',   'Inline lead form shown inside blog posts',                admin_url('admin.php?page=ee-blog-form')),
-        array('sol',       '🧩', 'Solutions Page',     'Cards across Admission / Study Abroad / Recruitment',     admin_url('admin.php?page=ee-solutions')),
-        array('res',       '🧰', 'Resources Page',     'Header dropdown + /resources/ cards',                     admin_url('admin.php?page=ee-resources-menu')),
-        array('cust',      '👥', 'Customer Stories',   'Cards on /customer-success-stories/, video + thumbnails',                admin_url('admin.php?page=ee-customers')),
-        array('prod',      '🛍', 'Products Menu',      'Header → Products dropdown banners',                      admin_url('admin.php?page=ee-products-menu')),
-        array('seo',       '🌐', 'SEO & Tracking',     'GA4, Tag Manager, sitewide tracking scripts',             admin_url('options-general.php?page=ee-tracking')),
-        array('ebook',     '📚', 'E-books',            'Manage every white-paper / e-book page',                  admin_url('edit.php?post_type=ebook')),
-        array('blog',      '📝', 'Blog Posts',         'Write, edit, schedule articles',                          admin_url('edit.php')),
+    /* Every editor the site has, grouped. Keep this list in step with the
+       add_submenu_page() calls — a tool that is missing here is a tool the
+       client will never find, since this screen is where they start.
+       Note the Home Page editor and SEO & Tracking are add_options_page(),
+       so they live under options-general.php, not admin.php. */
+    $groups = array(
+        'Home page' => array(
+            array('🏠', 'Home Page',        'Hero copy, section text, CTAs',                     admin_url('options-general.php?page=ee-home-editor')),
+            array('🏗', 'Home Builder',     'Reorder, show or hide the homepage sections',       admin_url('admin.php?page=ee-home-builder')),
+            array('🏫', 'Logo Sets',        'Institute logo strips, by category, with quotes',   admin_url('admin.php?page=ee-logo-sets')),
+        ),
+        'Pages' => array(
+            array('🧩', 'Solutions Page',   'Cards across Admission / Study Abroad / Recruitment', admin_url('admin.php?page=ee-solutions')),
+            array('🧰', 'Resources Page',   'Header dropdown + /resources/ cards',               admin_url('admin.php?page=ee-resources-menu')),
+            array('👥', 'Customer Stories', 'Cards on /customer-success-stories/, video + thumbnails', admin_url('admin.php?page=ee-customers')),
+            array('🛍', 'Products Menu',    'Header → Products dropdown banners',                admin_url('admin.php?page=ee-products-menu')),
+            array('🎬', 'Videos',           'Add or remove videos on /videos/, in any category', admin_url('admin.php?page=ee-videos')),
+            array('🏗️', 'Page Builder',     'Build a page section by section, no code',          admin_url('admin.php?page=ee-page-builder')),
+            array('🧩', 'Section Anywhere', 'Drop a homepage section onto any other page',       admin_url('admin.php?page=ee-section-anywhere')),
+        ),
+        'Blog' => array(
+            array('📝', 'Blog Posts',       'Write, edit, schedule articles',                    admin_url('edit.php')),
+            array('🗂️', 'Blog Categories',  'Create the sidebar categories, remove old ones',    admin_url('edit.php?page=ee-blog-cats')),
+            array('🧭', 'Blog · Quick Nav', 'Floating side-nav on every blog post',              admin_url('admin.php?page=ee-quick-nav')),
+            array('📥', 'Blog · Lead Form', 'Inline lead form shown inside blog posts',          admin_url('admin.php?page=ee-blog-form')),
+        ),
+        'Site-wide' => array(
+            array('🧱', 'Header &amp; Footer', 'Book Demo, Company menu, social, copyright',     admin_url('admin.php?page=ee-header-footer')),
+            array('🌐', 'SEO & Tracking',   'GA4, Tag Manager, sitewide tracking scripts',       admin_url('options-general.php?page=ee-tracking')),
+            array('📚', 'E-books',          'Manage every white-paper / e-book page',            admin_url('edit.php?post_type=ebook')),
+        ),
     );
     ?>
     <div class="wrap">
@@ -4020,22 +4039,27 @@ function ee_site_editor_welcome() {
             .ee-site-card p{margin:0;font-size:12.5px;color:#5b6678;line-height:1.5;}
             .ee-site-help{background:#fff8f1;border:1px solid #fde7d3;border-radius:8px;padding:14px 18px;margin:24px 0 0;max-width:1100px;color:#7c2d12;font-size:13px;line-height:1.6;}
             .ee-site-help strong{color:#19335D;}
+            .ee-site-grouphead{margin:26px 0 2px;font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#8a94a6;}
         </style>
-        <div class="ee-site-grid">
-            <?php foreach ($cards as $c): ?>
-                <a class="ee-site-card" href="<?php echo esc_url($c[4]); ?>">
-                    <span class="ico"><?php echo esc_html($c[1]); ?></span>
-                    <span>
-                        <h3><?php echo esc_html($c[2]); ?></h3>
-                        <p><?php echo esc_html($c[3]); ?></p>
-                    </span>
-                </a>
-            <?php endforeach; ?>
-        </div>
+        <?php foreach ($groups as $label => $cards): ?>
+            <h2 class="ee-site-grouphead"><?php echo esc_html($label); ?></h2>
+            <div class="ee-site-grid">
+                <?php foreach ($cards as $c): ?>
+                    <a class="ee-site-card" href="<?php echo esc_url($c[3]); ?>">
+                        <span class="ico"><?php echo esc_html($c[0]); ?></span>
+                        <span>
+                            <h3><?php echo wp_kses_post($c[1]); ?></h3>
+                            <p><?php echo esc_html($c[2]); ?></p>
+                        </span>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        <?php endforeach; ?>
         <div class="ee-site-help">
-            <strong>💡 Tip:</strong> Each of these editors lives as a sub-menu under <strong>🎨 Site Editor</strong> on the left.
-            You can also reach <strong>🌐 SEO &amp; Tracking</strong> from <strong>Settings</strong>, and the
-            <strong>🏠 Home Page</strong> editor from there too — but everything is one click away from this welcome screen.
+            <strong>💡 Tip:</strong> Most of these live as a sub-menu under <strong>🎨 Site Editor</strong> on the left.
+            The three exceptions sit where WordPress keeps that kind of thing: <strong>🏠 Home Page</strong> and
+            <strong>🌐 SEO &amp; Tracking</strong> under <strong>Settings</strong>, and <strong>🗂️ Blog Categories</strong>
+            under <strong>Posts</strong> — but every one of them is one click away from this screen.
         </div>
     </div>
     <?php
