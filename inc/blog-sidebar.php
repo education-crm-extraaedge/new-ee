@@ -54,9 +54,14 @@ if (function_exists('ee_blog_nav_items')) {
         array('ROI calculator',       '/tools/'),
     );
 }
-/* Active row = the one whose path matches the URL being viewed. Compared
-   on the trimmed path so it works with or without the base prefix. */
+/* Active row = the one whose path matches the URL being viewed. Compared on
+   the trimmed path so it works with or without the base prefix, and a row
+   also counts as active on its deeper URLs (/crm/page/2/). */
 $ee_nav_here = trim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/', '/');
+$ee_nav_is_active = function ($path) use ($ee_nav_here) {
+    $p = trim($path, '/');
+    return $p !== '' && ($ee_nav_here === $p || strpos($ee_nav_here, $p . '/') === 0);
+};
 ?>
 <style>
 .ee-blog-page {
@@ -301,13 +306,13 @@ $ee_nav_here = trim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '
 .ee-blog-empty p { margin:0; font-size:15px; }
 </style>
 
-<!-- ee-blog-sidebar v2026-08-03-fixed-nav -->
+<!-- ee-blog-sidebar v2026-08-03-root-routes -->
 <aside class="ee-blog-side" aria-label="Blog sections">
     <h2>Blogs by Category</h2>
     <ul class="ee-blog-side-list">
         <?php foreach ($EE_BLOG_NAV as $ee_row) :
             $ee_path = $EE_NAV_BASE . $ee_row[1];
-            $ee_act  = (trim($ee_path, '/') === $ee_nav_here);
+            $ee_act  = $ee_nav_is_active($ee_path);
         ?>
         <li>
             <a href="<?php echo esc_url(home_url($ee_path)); ?>" class="<?php echo $ee_act ? 'active' : ''; ?>"<?php echo $ee_act ? ' aria-current="page"' : ''; ?>>

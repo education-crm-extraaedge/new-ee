@@ -256,7 +256,7 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   .ee-bl-card,.ee-bl-btn,.ee-bl-more svg{ transition:none; } }
 </style>
 
-<!-- ee-blog-tpl v2026-08-03-fixed-nav -->
+<!-- ee-blog-tpl v2026-08-03-root-routes -->
 <div class="ee-blog-page" id="ee-blog">
     <div class="ee-blog-wrap">
 
@@ -383,7 +383,9 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
                     <p>Expert insights, practical strategies, and the latest ideas to help education teams improve admissions, student recruitment and growth.</p>
                 </div>
                 <form class="ee-bl-search" role="search" method="get"
-                      action="<?php echo esc_url($ee_active_cat ? home_url('/blog/' . $ee_active_cat->slug . '/') : home_url('/blog/')); ?>">
+                      action="<?php echo esc_url(!empty($GLOBALS['ee_blog_base_url'])
+                          ? $GLOBALS['ee_blog_base_url']
+                          : ($ee_active_cat ? home_url('/blog/' . $ee_active_cat->slug . '/') : home_url('/blog/'))); ?>">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
                     <input type="search" name="s" value="<?php echo esc_attr($ee_q); ?>"
                            placeholder="Search articles, topics or guides…" aria-label="Search articles">
@@ -447,9 +449,14 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
                 </div>
 
                 <?php
-                $pagi_base = $ee_active_cat
-                    ? trailingslashit(home_url('/blog/' . $ee_active_cat->slug)) . '%_%'
-                    : trailingslashit(home_url('/blog/')) . '%_%';
+                /* $ee_blog_base_url is set by the router when the page was
+                   reached through a root-level section (/crm/, /insights/ …),
+                   so paging stays on that URL instead of jumping to /blog/. */
+                $pagi_base = !empty($GLOBALS['ee_blog_base_url'])
+                    ? $GLOBALS['ee_blog_base_url'] . '%_%'
+                    : ($ee_active_cat
+                        ? trailingslashit(home_url('/blog/' . $ee_active_cat->slug)) . '%_%'
+                        : trailingslashit(home_url('/blog/')) . '%_%');
                 $pagi = paginate_links(array(
                     'total'   => $ee_blog_query->max_num_pages,
                     'current' => $ee_paged,

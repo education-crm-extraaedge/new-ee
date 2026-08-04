@@ -7742,6 +7742,38 @@ add_action('template_redirect', function () {
         }
     }
 
+    /* Root-level blog sections — the thirteen slugs the /blog/ sidebar links
+       to (/insights/, /crm/, /ai/ …), plus /{slug}/page/N/.
+
+         /insights/  → every post, no filter (the "all blogs" view)
+         everything else → filtered to the category with that slug
+
+       Skipped when a real Page already lives on the path, so publishing a
+       page at e.g. /tools/ always wins over the blog section. */
+    if (!isset($ee_custom_routes[$path]) && function_exists('ee_blog_nav_items')) {
+        $parts = explode('/', $path);
+        $root  = sanitize_title($parts[0] ?? '');
+        if ($root !== '' && in_array($root, ee_blog_approved_slugs(), true) && !get_page_by_path($root)) {
+            if (isset($parts[1], $parts[2]) && $parts[1] === 'page' && ctype_digit($parts[2])) {
+                set_query_var('paged', (int) $parts[2]);
+            }
+            $title = 'Blog';
+            foreach (ee_blog_nav_items() as $ee_it) {
+                if ($ee_it['slug'] === $root) { $title = $ee_it['label']; break; }
+            }
+            /* "insights" is the everything view, so it deliberately sets no
+               bcat even if a category with that slug exists. */
+            if ($root !== 'insights') {
+                $cat = get_category_by_slug($root);
+                if ($cat) { $_GET['bcat'] = $root; $title = $cat->name; }
+            }
+            /* page-blog.php builds its search action and pagination from
+               this, so both stay on /{slug}/ instead of jumping to /blog/. */
+            $GLOBALS['ee_blog_base_url'] = trailingslashit(home_url('/' . $root));
+            $ee_custom_routes[$path] = array('file' => 'page-blog.php', 'title' => $title);
+        }
+    }
+
     if (!isset($ee_custom_routes[$path])) return;
 
     $route = $ee_custom_routes[$path];
