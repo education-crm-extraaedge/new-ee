@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-hub-cta5 -->
+<!-- ee-front-tpl v2026-08-03-hub-cta6 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5407,28 +5407,33 @@ html body #main-content #integrations h2.h2.ih-h2{
 #integrations .ih-lead{margin:0 auto;max-width:62ch;font-size:clamp(14.5px,1.6vw,17px);line-height:1.65;color:#6B7C96}
 #integrations .ih-lead b{font-weight:600;color:var(--orange-700,#B5551D)}
 
-/* Closing CTA - the header's Book Demo button, rule for rule
-   (#site-header .eh-cta as it ends up after the 2026 overrides):
-   44px tall, 9px radius, flat orange-700, no shadow, no lift, hover
-   darkens to orange-800, 15px/600, no arrow. */
-/* Written at the same weight the theme's own heading scale uses
-   (html body #id .class + !important) so no plugin, cached stylesheet or
-   leftover .btn rule can put the old pill back. */
+/* Closing CTA - a copy of the header's Book Demo button, taken from the
+   "CTA button" rule in header.php (#site-header .eh-cta): the 135deg
+   #DE6E30 -> #FF8A5C gradient, 9px radius, white 600 label, the same arrow
+   glyph, soft orange shadow, and a 2px lift into the darker gradient on
+   hover. --eh-accent lives on #site-header, so the hexes are literal here.
+   Written at the weight the theme's own heading scale uses
+   (html body #id a.class + !important) so no cached or plugin stylesheet
+   can undo it. */
 #integrations .ih-act{display:flex;flex-direction:column;align-items:center;gap:12px;margin:clamp(28px,4vw,44px) 0 0}
 html body #integrations a.ih-cta,
 html body #main-content #integrations a.ih-cta{
   display:inline-flex !important;align-items:center !important;justify-content:center !important;
-  width:auto !important;height:44px !important;min-height:0 !important;
-  padding:0 1.35rem !important;border-radius:9px !important;border:none !important;
-  background:var(--orange-700,#B5551D) !important;background-image:none !important;
+  width:auto !important;height:auto !important;min-height:0 !important;
+  padding:.55rem 1.2rem !important;gap:.4rem !important;
+  border-radius:9px !important;border:none !important;
+  background:linear-gradient(135deg,#DE6E30,#FF8A5C) !important;
   color:#fff !important;text-decoration:none !important;
   font-family:'Inter','-apple-system','BlinkMacSystemFont','Segoe UI',Roboto,sans-serif !important;
-  font-size:15px !important;font-weight:600 !important;letter-spacing:.01em !important;
-  box-shadow:none !important;transform:none !important;cursor:pointer;transition:background .3s ease}
+  font-size:.82rem !important;font-weight:600 !important;letter-spacing:normal !important;
+  box-shadow:0 4px 14px rgba(222,110,48,.25) !important;
+  cursor:pointer;transition:all .3s ease}
 html body #integrations a.ih-cta:hover,
 html body #main-content #integrations a.ih-cta:hover{
-  background:var(--orange-800,#A8501C) !important;color:#fff !important;
-  transform:none !important;box-shadow:none !important}
+  background:linear-gradient(135deg,#B85920,#C75E24) !important;color:#fff !important;
+  transform:translateY(-2px) !important;box-shadow:0 6px 22px rgba(222,110,48,.35) !important}
+html body #integrations a.ih-cta svg{width:16px !important;height:16px !important;
+  flex:0 0 auto;stroke:currentColor;fill:none}
 #integrations .ih-cta:focus-visible{outline:2px solid #19345d;outline-offset:3px}
 #integrations .ih-note{font:600 12.5px/1.5 'Inter',system-ui,sans-serif;color:#6B7C96}
 
@@ -5484,11 +5489,16 @@ html body #main-content #integrations a.ih-cta:hover{
   #integrations .ih-bar div{border-top:1px solid rgba(25,52,93,.07)}
   #integrations .ih-bar div:nth-child(-n+2){border-top:0}
 }
-/* the header shrinks its CTA at the same point, so this one does too */
+/* the header shrinks its CTA at these two points, so this one does too */
 @media(max-width:1023.98px){
   html body #integrations a.ih-cta,
   html body #main-content #integrations a.ih-cta{
-    height:38px !important;padding:0 .95rem !important;font-size:13.5px !important}
+    padding:.42rem .75rem !important;font-size:.72rem !important;gap:.25rem !important;white-space:nowrap}
+  html body #integrations a.ih-cta svg{width:12px !important;height:12px !important}
+}
+@media(max-width:400px){
+  html body #integrations a.ih-cta,
+  html body #main-content #integrations a.ih-cta{padding:.62rem .7rem !important;font-size:.72rem !important}
 }
 @media(max-width:640px){
   #integrations .ih-grid,#integrations .ih-row1{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -5572,7 +5582,9 @@ html body #main-content #integrations a.ih-cta:hover{
     </div>
 
     <div class="ih-act rv">
-      <a class="ih-cta" href="/products/">See All Integrations</a>
+      <a class="ih-cta" href="/products/">See All Integrations
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
       <span class="ih-note">Setup handled by our team &middot; Don&rsquo;t see your tool? We&rsquo;ll integrate it.</span>
     </div>
   </div>
