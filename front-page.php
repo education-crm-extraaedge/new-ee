@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-hub-cta4 -->
+<!-- ee-front-tpl v2026-08-03-hub-cta5 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5411,14 +5411,24 @@ html body #main-content #integrations h2.h2.ih-h2{
    (#site-header .eh-cta as it ends up after the 2026 overrides):
    44px tall, 9px radius, flat orange-700, no shadow, no lift, hover
    darkens to orange-800, 15px/600, no arrow. */
+/* Written at the same weight the theme's own heading scale uses
+   (html body #id .class + !important) so no plugin, cached stylesheet or
+   leftover .btn rule can put the old pill back. */
 #integrations .ih-act{display:flex;flex-direction:column;align-items:center;gap:12px;margin:clamp(28px,4vw,44px) 0 0}
-#integrations .ih-cta{display:inline-flex;align-items:center;justify-content:center;
-  height:44px;padding:0 1.35rem;border-radius:9px;border:none;
-  background:var(--orange-700,#B5551D);color:#fff;text-decoration:none;
-  font-family:'Inter','-apple-system','BlinkMacSystemFont','Segoe UI',Roboto,sans-serif;
-  font-size:15px;font-weight:600;letter-spacing:.01em;
-  box-shadow:none;cursor:pointer;transition:background .3s ease}
-#integrations .ih-cta:hover{background:var(--orange-800,#A8501C);transform:none;box-shadow:none}
+html body #integrations a.ih-cta,
+html body #main-content #integrations a.ih-cta{
+  display:inline-flex !important;align-items:center !important;justify-content:center !important;
+  width:auto !important;height:44px !important;min-height:0 !important;
+  padding:0 1.35rem !important;border-radius:9px !important;border:none !important;
+  background:var(--orange-700,#B5551D) !important;background-image:none !important;
+  color:#fff !important;text-decoration:none !important;
+  font-family:'Inter','-apple-system','BlinkMacSystemFont','Segoe UI',Roboto,sans-serif !important;
+  font-size:15px !important;font-weight:600 !important;letter-spacing:.01em !important;
+  box-shadow:none !important;transform:none !important;cursor:pointer;transition:background .3s ease}
+html body #integrations a.ih-cta:hover,
+html body #main-content #integrations a.ih-cta:hover{
+  background:var(--orange-800,#A8501C) !important;color:#fff !important;
+  transform:none !important;box-shadow:none !important}
 #integrations .ih-cta:focus-visible{outline:2px solid #19345d;outline-offset:3px}
 #integrations .ih-note{font:600 12.5px/1.5 'Inter',system-ui,sans-serif;color:#6B7C96}
 
@@ -5476,7 +5486,9 @@ html body #main-content #integrations h2.h2.ih-h2{
 }
 /* the header shrinks its CTA at the same point, so this one does too */
 @media(max-width:1023.98px){
-  #integrations .ih-cta{height:38px;padding:0 .95rem;font-size:13.5px}
+  html body #integrations a.ih-cta,
+  html body #main-content #integrations a.ih-cta{
+    height:38px !important;padding:0 .95rem !important;font-size:13.5px !important}
 }
 @media(max-width:640px){
   #integrations .ih-grid,#integrations .ih-row1{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
