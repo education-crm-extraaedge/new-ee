@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-hub-cta2 -->
+<!-- ee-front-tpl v2026-08-03-hub-cta3 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5407,19 +5407,18 @@ html body #main-content #integrations h2.h2.ih-h2{
 #integrations .ih-lead{margin:0 auto;max-width:62ch;font-size:clamp(14.5px,1.6vw,17px);line-height:1.65;color:#6B7C96}
 #integrations .ih-lead b{font-weight:600;color:var(--orange-700,#B5551D)}
 
-/* Closing CTA - same pill the rest of the page uses (#trusted-institutions
-   .btn-primary / #ee-platform .eep-cta-btn): flat orange-700, 999px radius,
-   16px/700, arrow nudge on hover. Scoped so the global .btn rules stay out. */
+/* Closing CTA - the header's Book Demo button, rule for rule
+   (#site-header .eh-cta as it ends up after the 2026 overrides):
+   44px tall, 9px radius, flat orange-700, no shadow, no lift, hover
+   darkens to orange-800, 15px/600, no arrow. */
 #integrations .ih-act{display:flex;flex-direction:column;align-items:center;gap:12px;margin:clamp(28px,4vw,44px) 0 0}
-#integrations .ih-cta{display:inline-flex;align-items:center;gap:9px;
+#integrations .ih-cta{display:inline-flex;align-items:center;justify-content:center;
+  height:44px;padding:0 1.35rem;border-radius:9px;border:none;
   background:var(--orange-700,#B5551D);color:#fff;text-decoration:none;
-  font-weight:700;font-size:16px;padding:15px 30px;border-radius:999px;
-  box-shadow:0 14px 30px -10px rgba(222,110,48,.6);
-  transition:transform .2s ease,box-shadow .2s ease}
-#integrations .ih-cta:hover{transform:translateY(-2px);box-shadow:0 20px 38px -10px rgba(222,110,48,.7)}
+  font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:600;
+  box-shadow:none;cursor:pointer;transition:background .3s ease}
+#integrations .ih-cta:hover{background:var(--orange-800,#A8501C);transform:none;box-shadow:none}
 #integrations .ih-cta:focus-visible{outline:2px solid #19345d;outline-offset:3px}
-#integrations .ih-cta .arr{transition:transform .2s ease}
-#integrations .ih-cta:hover .arr{transform:translateX(4px)}
 #integrations .ih-note{font:600 12.5px/1.5 'Inter',system-ui,sans-serif;color:#6B7C96}
 
 /* board */
@@ -5474,6 +5473,10 @@ html body #main-content #integrations h2.h2.ih-h2{
   #integrations .ih-bar div{border-top:1px solid rgba(25,52,93,.07)}
   #integrations .ih-bar div:nth-child(-n+2){border-top:0}
 }
+/* the header shrinks its CTA at the same point, so this one does too */
+@media(max-width:1023.98px){
+  #integrations .ih-cta{height:38px;padding:0 .95rem;font-size:13.5px}
+}
 @media(max-width:640px){
   #integrations .ih-grid,#integrations .ih-row1{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
   #integrations .ih-t{border-radius:13px;padding:7px}
@@ -5481,7 +5484,6 @@ html body #main-content #integrations h2.h2.ih-h2{
   #integrations .ih-bar div{border-left:0}
   #integrations .ih-bar div:first-child{border-top:0}
   #integrations .ih-core{width:150px}
-  #integrations .ih-cta{width:100%;max-width:340px;justify-content:center;padding:15px 22px}
   #integrations .ih-note{font-size:12px;text-align:center}
 }
 @media(prefers-reduced-motion:reduce){
@@ -5557,7 +5559,7 @@ html body #main-content #integrations h2.h2.ih-h2{
     </div>
 
     <div class="ih-act rv">
-      <a class="ih-cta" href="/products/">See All Integrations <span class="arr" aria-hidden="true">&rarr;</span></a>
+      <a class="ih-cta" href="/products/">See All Integrations</a>
       <span class="ih-note">Setup handled by our team &middot; Don&rsquo;t see your tool? We&rsquo;ll integrate it.</span>
     </div>
   </div>
