@@ -7748,15 +7748,20 @@ add_action('template_redirect', function () {
          /insights/  → every post, no filter (the "all blogs" view)
          everything else → filtered to the category with that slug
 
-       Skipped when a real Page already lives on the path, so publishing a
-       page at e.g. /tools/ always wins over the blog section. */
+       ONLY those two URL shapes. The permalink structure is
+       /{category}/{post-name}/, so /crm/some-article/ is a post, not a
+       section — matching on the first segment alone swallowed every
+       article and bounced the reader back to the listing.
+
+       Also skipped when a real Page already lives on the path, so
+       publishing a page at e.g. /tools/ always wins over the section. */
     if (!isset($ee_custom_routes[$path]) && function_exists('ee_blog_nav_items')) {
-        $parts = explode('/', $path);
-        $root  = sanitize_title($parts[0] ?? '');
-        if ($root !== '' && in_array($root, ee_blog_approved_slugs(), true) && !get_page_by_path($root)) {
-            if (isset($parts[1], $parts[2]) && $parts[1] === 'page' && ctype_digit($parts[2])) {
-                set_query_var('paged', (int) $parts[2]);
-            }
+        $parts   = explode('/', $path);
+        $root    = sanitize_title($parts[0] ?? '');
+        $is_page = (count($parts) === 3 && $parts[1] === 'page' && ctype_digit($parts[2]));
+        $is_sect = (count($parts) === 1) || $is_page;
+        if ($is_sect && $root !== '' && in_array($root, ee_blog_approved_slugs(), true) && !get_page_by_path($root)) {
+            if ($is_page) set_query_var('paged', (int) $parts[2]);
             $title = 'Blog';
             foreach (ee_blog_nav_items() as $ee_it) {
                 if ($ee_it['slug'] === $root) { $title = $ee_it['label']; break; }

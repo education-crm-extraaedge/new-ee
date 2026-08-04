@@ -256,7 +256,7 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   .ee-bl-card,.ee-bl-btn,.ee-bl-more svg{ transition:none; } }
 </style>
 
-<!-- ee-blog-tpl v2026-08-03-root-routes -->
+<!-- ee-blog-tpl v2026-08-03-post-fix -->
 <div class="ee-blog-page" id="ee-blog">
     <div class="ee-blog-wrap">
 
@@ -418,7 +418,12 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
                     <div class="ee-bl-body">
                         <div class="ee-bl-meta">
                             <?php if ($primary) : ?>
-                            <a class="ee-bl-cat" href="<?php echo esc_url(home_url('/blog/' . $primary->slug . '/')); ?>"><?php echo esc_html($primary->name); ?></a>
+                            <?php /* Section URL when the category is one of the sidebar's
+                                     (/crm/), otherwise the /blog/{slug}/ filter. */
+                            $ee_cat_href = (function_exists('ee_blog_approved_slugs') && in_array($primary->slug, ee_blog_approved_slugs(), true))
+                                ? home_url('/' . $primary->slug . '/')
+                                : home_url('/blog/' . $primary->slug . '/'); ?>
+                            <a class="ee-bl-cat" href="<?php echo esc_url($ee_cat_href); ?>"><?php echo esc_html($primary->name); ?></a>
                             <?php endif; ?>
                             <span class="ee-bl-date">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>
