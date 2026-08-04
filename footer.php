@@ -474,51 +474,72 @@ if (!function_exists('ee_social_icon_url')) {
 <?php if (!is_singular('post')): /* blog posts (single.php) already ship their own complete
    WhatsApp/Call/TOC floating system with a reading-progress badge —
    rendering this one too would show two overlapping stacks. */ ?>
-<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-08-03-fab-pills ============ -->
+<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-08-03-fab-clone ============ -->
 <style id="ee-fabs-css">
-/* Same floating stack the article template ships (Book Demo pill over
-   labelled WhatsApp / Call pills), lifted here so every page carries it.
-   single.php keeps its own copy and this whole block is skipped there. */
-.ee-fabs{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;align-items:flex-end;gap:12px;z-index:996}
+/* ── The article template's floating widget, verbatim ────────────────────
+   Copied out of single.php rule for rule, with its --b-* variables
+   resolved to the literals they hold there (border #E5E7EB, muted
+   #6B7280, orange #DE6E30 / dark #B85920 / light #FFF3EC, blue #19335D).
+   The class names are kept identical on purpose: the site-wide
+   ee-brand-tokens stylesheet in functions.php carries !important rules
+   for .ee-float-btn / .ee-float-whatsapp / .ee-float-call /
+   .ee-book-bubble, so reusing the names is what makes this render
+   pixel-for-pixel like a blog post instead of merely close to it.
+   single.php still owns its own copy; this whole block is skipped there. */
+
+/* TOC button - docks bottom-LEFT, the side single.php puts it on, so it
+   never lands on top of the contact stack. Only ever visible <=1200px on
+   a page that actually has a Contents box. */
+.ee-fabs{position:fixed;left:14px;bottom:16px;display:flex;flex-direction:column;gap:14px;z-index:996}
 .ee-fab{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;cursor:pointer;box-shadow:0 6px 14px rgba(15,32,64,.28);transition:transform .2s,box-shadow .2s;text-decoration:none}
 .ee-fab:hover,.ee-fab:focus-visible{transform:translateY(-2px) scale(1.05);box-shadow:0 10px 22px rgba(15,32,64,.34)}
 .ee-fab svg{width:22px;height:22px}
 .ee-fab-toc{background:#19335D;color:#fff;display:none}
 @media(max-width:1200px){.ee-fab-toc.ee-has-toc{display:flex}}
 
-/* Book Demo pill */
-.ee-book-pill{box-sizing:border-box;display:inline-flex;align-items:center;gap:8px;padding:9px 18px 9px 14px;border-radius:50px;background:#fff;color:#DE6E30;border:2px solid #DE6E30;font:700 13.5px/1 'Inter',system-ui,sans-serif;text-decoration:none;box-shadow:0 8px 22px rgba(222,110,48,.18);transition:transform .25s ease,box-shadow .25s ease,background .2s,border-color .2s,color .2s}
-.ee-book-pill:hover,.ee-book-pill:focus-visible{background:#FDF0E7;border-color:#B5551D;color:#B5551D;transform:translateY(-2px) scale(1.04);box-shadow:0 12px 28px rgba(222,110,48,.25)}
-/* ee_icon() writes width/height inline, so these need !important to win */
-.ee-book-pill svg{width:18px;height:18px;color:inherit}
-.ee-book-pill .ee-qn-io,.ee-book-pill .ee-qn-img{width:18px !important;height:18px !important}
+/* Book Demo bubble */
+.ee-book-bubble{position:fixed;right:20px;bottom:160px;background:#fff;color:#DE6E30 !important;border:2px solid #DE6E30;text-decoration:none;padding:9px 18px 9px 14px;border-radius:50px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;box-shadow:0 8px 22px rgba(222,110,48,.18);z-index:990;transition:all .2s ease;}
+.ee-book-bubble:hover{background:#FFF3EC;color:#B85920 !important;border-color:#B85920;transform:translateY(-2px) scale(1.04);box-shadow:0 12px 28px rgba(222,110,48,.25);}
+.ee-book-bubble svg{color:inherit;width:18px;height:18px;}
+.ee-book-bubble img.ee-qn-img{width:18px !important;height:18px !important;}
 
-/* WhatsApp / Call pills */
-.ee-fab-pill{box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:11px 18px 11px 14px;border-radius:50px;background:#fff;border:1px solid #E4EAF2;font-family:'Inter',system-ui,sans-serif;font-size:13.5px;font-weight:600;text-decoration:none;box-shadow:0 6px 20px rgba(15,32,64,.12);transition:transform .25s ease,box-shadow .25s ease}
-.ee-fab-pill:hover,.ee-fab-pill:focus-visible{transform:translateY(-2px) scale(1.03);box-shadow:0 12px 28px rgba(15,32,64,.18)}
-.ee-fab-pill .ee-fp-ico{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.ee-fab-pill .ee-fp-ico img{width:100%;height:100%;object-fit:contain;display:block}
-.ee-fab-pill .ee-fp-lbl{display:flex;flex-direction:column;line-height:1.15}
-.ee-fab-pill .ee-fp-lbl small{font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:#6B7C96}
-.ee-fab-pill .ee-fp-lbl strong{font-size:13px;font-weight:700;letter-spacing:.01em;color:#19335D}
+/* WhatsApp / Call stack */
+.ee-floating-contact{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:1000;}
+.ee-float-btn{display:flex;align-items:center;gap:10px;padding:11px 18px 11px 14px;border-radius:50px;background:#fff;border:1px solid #E5E7EB;font-weight:600;font-size:13.5px;text-decoration:none;box-shadow:0 6px 20px rgba(15,32,64,.12);transition:all .25s ease;cursor:pointer;font-family:inherit;}
+.ee-float-btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 12px 28px rgba(15,32,64,.18);}
+.ee-float-btn .ee-float-icon-wrap{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;overflow:hidden;background:transparent !important;}
+.ee-float-btn .ee-float-icon-wrap svg{width:18px;height:18px;}
+/* Brand artwork brings its own colour disc, so the tinted circle behind it
+   is dropped and the image fills the wrap. */
+.ee-float-btn .ee-float-icon-wrap.ee-float-icon-art{background:none !important;animation:none;}
+.ee-float-btn .ee-float-icon-wrap.ee-float-icon-art img{width:100%;height:100%;object-fit:contain;display:block;}
+.ee-float-btn .ee-float-label{display:flex;flex-direction:column;line-height:1.15;}
+.ee-float-btn .ee-float-label small{font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:#6B7280;}
+.ee-float-btn .ee-float-label strong{font-size:13px;font-weight:700;letter-spacing:.01em;color:#19335D;}
+.ee-float-whatsapp{color:#1DA851;}
+.ee-float-whatsapp .ee-float-icon-wrap{background:rgba(37,211,102,.14);color:#1DA851;animation:ee-wa-pulse 2.4s infinite;}
+@keyframes ee-wa-pulse{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.35);}50%{box-shadow:0 0 0 8px rgba(37,211,102,0);}}
+.ee-float-call{color:#DE6E30;}
+.ee-float-call .ee-float-icon-wrap{background:#FFF3EC;color:#DE6E30;}
+.ee-float-call .ee-float-icon-wrap svg{animation:ee-phone-shake 1.6s infinite;}
+@keyframes ee-phone-shake{0%,60%,100%{transform:rotate(0);}10%,30%,50%{transform:rotate(-12deg);}20%,40%{transform:rotate(12deg);}}
 
-@media(max-width:820px){
-  .ee-fabs{right:12px;bottom:14px;gap:8px}
-  .ee-fab-pill{padding:8px 14px 8px 10px;font-size:12px}
-  .ee-fab-pill .ee-fp-ico{width:30px;height:30px}
-  .ee-fab-pill .ee-fp-lbl strong{font-size:12.5px}
+@media (max-width:820px){
+    /* Same as the article: the bubble steps aside on phones. */
+    .ee-book-bubble{display:none !important;}
+    /* single.php parks the stack at bottom:110px to clear its sticky
+       "Book Demo Now" bar. No other template has that bar, so the stack
+       keeps the desktop 20px offset here and everything else matches. */
+    .ee-floating-contact{right:12px;bottom:20px;gap:8px;z-index:999;}
+    .ee-floating-contact .ee-float-btn{padding:8px 14px 8px 10px;font-size:12px;}
+    .ee-floating-contact .ee-float-icon-wrap{width:30px;height:30px;}
+    .ee-floating-contact .ee-float-icon-wrap svg{width:16px;height:16px;}
+    .ee-fabs{left:12px;bottom:20px;}
 }
-/* Phones: the labels cost more room than they earn, so the pills become
-   icon chips and the Book Demo pill steps aside. */
-@media(max-width:480px){
-  .ee-book-pill{display:none}
-  .ee-fab-pill .ee-fp-lbl{display:none}
-  .ee-fab-pill{padding:6px;border-radius:50%;width:46px;height:46px;justify-content:center}
-  .ee-fab-pill .ee-fp-ico{width:34px;height:34px}
-}
-@media(prefers-reduced-motion:reduce){
-  .ee-fab,.ee-fab-pill,.ee-book-pill{transition:none}
-  .ee-fab:hover,.ee-fab-pill:hover,.ee-book-pill:hover{transform:none}
+@media (max-width:480px){
+    .ee-floating-contact .ee-float-btn .ee-float-label{display:none;}
+    .ee-floating-contact .ee-float-btn{padding:8px;border-radius:50%;width:44px;height:44px;justify-content:center;box-sizing:border-box;}
+    .ee-floating-contact .ee-float-icon-wrap{width:24px;height:24px;background:transparent !important;}
 }
 .ee-toc-backdrop{position:fixed;inset:0;background:rgba(10,20,40,.45);opacity:0;visibility:hidden;transition:opacity .25s;z-index:997}
 .ee-toc-backdrop.open{opacity:1;visibility:visible}
@@ -534,22 +555,22 @@ if (!function_exists('ee_social_icon_url')) {
   <button type="button" class="ee-fab ee-fab-toc" id="eeFabToc" aria-label="Open table of contents" aria-expanded="false">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg>
   </button>
-  <?php
-  /* Honour the Book Demo CTA set in Site Editor → Header & Footer; fall back
-     to the same target the article template uses. */
-  $ee_fab_cta = function_exists('get_option') ? get_option('ee_book_demo_cta', array()) : array();
-  $ee_fab_url = (is_array($ee_fab_cta) && !empty($ee_fab_cta['url'])) ? $ee_fab_cta['url'] : home_url('/book-demo/');
-  ?>
-  <a class="ee-book-pill" href="<?php echo esc_url($ee_fab_url); ?>" aria-label="Book a demo">
-    <?php echo ee_icon('ti-calendar-check'); ?><span>Book Demo</span>
+</div>
+
+<!-- Book Demo bubble + WhatsApp / Call stack — identical markup to single.php -->
+<a href="/book-demo/" class="ee-book-bubble" aria-label="Book a demo" id="ee-book-bubble">
+  <?php echo ee_icon('ti-rocket'); ?>
+  <span>Book Demo</span>
+</a>
+
+<div class="ee-floating-contact" role="region" aria-label="Quick contact">
+  <a class="ee-float-btn ee-float-whatsapp" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <span class="ee-float-icon-wrap ee-float-icon-art"><img src="<?php echo esc_url(ee_social_icon_url('whatsapp')); ?>" alt="" loading="lazy" decoding="async"></span>
+    <span class="ee-float-label"><small>Chat on</small><strong>WhatsApp</strong></span>
   </a>
-  <a class="ee-fab-pill ee-fp-wa" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <span class="ee-fp-ico"><img src="<?php echo esc_url(ee_social_icon_url('whatsapp')); ?>" alt="" loading="lazy" decoding="async"></span>
-    <span class="ee-fp-lbl"><small>Chat on</small><strong>WhatsApp</strong></span>
-  </a>
-  <a class="ee-fab-pill ee-fp-call" href="tel:+918956982897" aria-label="Call us">
-    <span class="ee-fp-ico"><img src="<?php echo esc_url(ee_social_icon_url('call')); ?>" alt="" loading="lazy" decoding="async"></span>
-    <span class="ee-fp-lbl"><small>Call us</small><strong>+91 89569 82897</strong></span>
+  <a class="ee-float-btn ee-float-call" href="tel:+918956982897" aria-label="Call us">
+    <span class="ee-float-icon-wrap ee-float-icon-art"><img src="<?php echo esc_url(ee_social_icon_url('call')); ?>" alt="" loading="lazy" decoding="async"></span>
+    <span class="ee-float-label"><small>Call us</small><strong>+91 89569 82897</strong></span>
   </a>
 </div>
 <div class="ee-toc-backdrop" id="eeTocBackdrop"></div>
@@ -561,8 +582,10 @@ if (!function_exists('ee_social_icon_url')) {
 (function(){
   /* belt-and-suspenders: if any old/cached markup or a theme override ever
      leaves a second floating-action stack in the DOM, keep only the first. */
-  var allStacks = document.querySelectorAll('.ee-fabs');
-  for (var i = 1; i < allStacks.length; i++) allStacks[i].remove();
+  ['.ee-fabs', '.ee-floating-contact', '.ee-book-bubble'].forEach(function(sel){
+    var dupes = document.querySelectorAll(sel);
+    for (var i = 1; i < dupes.length; i++) dupes[i].remove();
+  });
   var fab=document.getElementById('eeFabToc'), sheet=document.getElementById('eeTocSheet'),
       back=document.getElementById('eeTocBackdrop'), body=document.getElementById('eeTocSheetBody'),
       closeBtn=document.getElementById('eeTocClose'), home=null, moved=false;
