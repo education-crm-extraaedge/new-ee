@@ -2,14 +2,14 @@
 /**
  * Video library data for /videos/.
  *
- * One place for the whole library: category -> section -> videos.
- * Each video is array(title, YouTube ID); thumbnails and embeds are both
- * built from the ID, so nothing else has to be uploaded.
+ * The shipped library: category -> section -> videos, each video being
+ * array(title, YouTube ID). Thumbnails and embeds are both built from the
+ * ID, so nothing else has to be uploaded.
  *
- * TO ADD A VIDEO: drop a row into the right section below.
- * TO ADD A SECTION or CATEGORY: copy the shape of the ones here. New
- * categories appear in the nav and get their own /videos/{slug}/ page
- * automatically.
+ * NOBODY NEEDS TO EDIT THIS FILE. Videos are added, removed and restored
+ * from ExtraaEdge Site -> 🎬 Videos in the admin; ee_video_library() below
+ * folds those changes over this list. Editing here still works and is a
+ * fine way to ship a new batch, but it is not the normal route.
  *
  * Not published here on purpose:
  *   - the three Vidya AI videos, which belong on getvidya.ai
@@ -17,7 +17,8 @@
  */
 if (!defined('ABSPATH')) exit;
 
-function ee_video_library() {
+/** The shipped list, before anything the admin screen has changed. */
+function ee_video_library_builtin() {
     return array(
         array(
             'name' => 'Customer Stories',
@@ -339,6 +340,87 @@ function ee_video_library() {
             ),
         ),
     );
+}
+
+/* ── Admin overrides ─────────────────────────────────────────────────────
+   Two options carry everything the 🎬 Videos screen does:
+     ee_video_extras — videos added there
+     ee_video_hidden — IDs of shipped videos removed there (removing an
+                       added video just drops it from extras)
+   Kept apart from the shipped list so a theme update never wipes the
+   client's edits, and so "remove" is always reversible. */
+
+/* function_exists guards so the shipped list still renders if this file is
+   ever loaded before the options API is available. */
+function ee_video_extras() {
+    if (!function_exists('get_option')) return array();
+    $x = get_option('ee_video_extras', array());
+    return is_array($x) ? $x : array();
+}
+function ee_video_hidden() {
+    if (!function_exists('get_option')) return array();
+    $h = get_option('ee_video_hidden', array());
+    return is_array($h) ? $h : array();
+}
+
+/**
+ * The live library: shipped list + admin additions - admin removals.
+ *
+ * An added video whose category or section does not exist yet creates it,
+ * so a non-coder can file a video anywhere without touching this file.
+ */
+function ee_video_library() {
+    $lib    = ee_video_library_builtin();
+    $hidden = ee_video_hidden();
+
+    /* index by slug so extras can find their home in one pass */
+    $bySlug = array();
+    foreach ($lib as $i => $c) $bySlug[$c['slug']] = $i;
+
+    foreach (ee_video_extras() as $x) {
+        $slug = isset($x['cat']) ? $x['cat'] : '';
+        $name = isset($x['cat_name']) && $x['cat_name'] !== '' ? $x['cat_name'] : $slug;
+        $sec  = isset($x['section']) && $x['section'] !== '' ? $x['section'] : 'More videos';
+        $id   = isset($x['id']) ? $x['id'] : '';
+        $ttl  = isset($x['title']) ? $x['title'] : '';
+        if ($slug === '' || $id === '' || $ttl === '') continue;
+
+        if (!isset($bySlug[$slug])) {
+            $lib[] = array('name' => $name, 'slug' => $slug, 'sections' => array());
+            $bySlug[$slug] = count($lib) - 1;
+        }
+        $ci = $bySlug[$slug];
+
+        $si = null;
+        foreach ($lib[$ci]['sections'] as $k => $s) {
+            if ($s['name'] === $sec) { $si = $k; break; }
+        }
+        if ($si === null) {
+            $lib[$ci]['sections'][] = array('name' => $sec, 'videos' => array());
+            $si = count($lib[$ci]['sections']) - 1;
+        }
+        $lib[$ci]['sections'][$si]['videos'][] = array($ttl, $id);
+    }
+
+    if ($hidden) {
+        foreach ($lib as $ci => $cat) {
+            foreach ($cat['sections'] as $si => $sec) {
+                $keep = array();
+                foreach ($sec['videos'] as $v) {
+                    if (!in_array($v[1], $hidden, true)) $keep[] = $v;
+                }
+                $lib[$ci]['sections'][$si]['videos'] = $keep;
+            }
+            /* a section emptied by removals should not leave a bare heading */
+            $lib[$ci]['sections'] = array_values(array_filter($lib[$ci]['sections'], function ($s) {
+                return !empty($s['videos']);
+            }));
+        }
+        /* and a category emptied the same way drops out of the nav */
+        $lib = array_values(array_filter($lib, function ($c) { return !empty($c['sections']); }));
+    }
+
+    return $lib;
 }
 
 /** One category by slug, or null. */

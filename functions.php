@@ -8569,6 +8569,13 @@ require_once get_template_directory() . '/inc/page-builder.php';
 require_once get_template_directory() . '/inc/institute-logos.php';
 
 /* =========================================================================
+ * 🎬 VIDEO LIBRARY — data for /videos/ plus the admin screen a non-coder
+ * uses to add or remove a video in any category.
+ * ========================================================================= */
+require_once get_template_directory() . '/inc/videos-data.php';
+require_once get_template_directory() . '/inc/videos-admin.php';
+
+/* =========================================================================
  * 🙂 NATIVE EMOJI — WordPress swaps every emoji for an image loaded from
  * the s.w.org CDN; when that CDN is unreachable the whole admin (and any
  * emoji on the site) shows broken-image icons. Modern OSes render emoji

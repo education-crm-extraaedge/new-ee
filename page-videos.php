@@ -36,7 +36,7 @@ $EE_VID_PREVIEW = 8;
 get_header();
 ?>
 
-<!-- ee-videos-tpl v2026-08-04-videos -->
+<!-- ee-videos-tpl v2026-08-04-videos-admin -->
 <style id="ee-videos-css">
 /* ── /videos/ ────────────────────────────────────────────────────────────
    Brand palette only: #19335D navy, #DE6E30 orange, Inter. Cards are a
