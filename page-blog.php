@@ -256,7 +256,7 @@ html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !
   .ee-bl-card,.ee-bl-btn,.ee-bl-more svg{ transition:none; } }
 </style>
 
-<!-- ee-blog-tpl v2026-08-02-banner-urls -->
+<!-- ee-blog-tpl v2026-08-03-fixed-nav -->
 <div class="ee-blog-page" id="ee-blog">
     <div class="ee-blog-wrap">
 
