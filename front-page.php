@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-hub-cta -->
+<!-- ee-front-tpl v2026-08-03-hub-cta2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5407,23 +5407,19 @@ html body #main-content #integrations h2.h2.ih-h2{
 #integrations .ih-lead{margin:0 auto;max-width:62ch;font-size:clamp(14.5px,1.6vw,17px);line-height:1.65;color:#6B7C96}
 #integrations .ih-lead b{font-weight:600;color:var(--orange-700,#B5551D)}
 
-/* header CTA - scoped so the global .btn rules can't reach it */
-/* button on its own line so it stays optically centred under the headline */
-#integrations .ih-act{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:24px}
-#integrations .ih-cta{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;
-  padding:15px 32px;border-radius:99px;text-decoration:none;color:#fff;
-  font:700 15.5px/1 'Inter',system-ui,sans-serif;letter-spacing:-.01em;
-  background:linear-gradient(180deg,#E87E43,#DE6E30);
-  box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 14px 32px -12px rgba(222,110,48,.75);
-  transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
-#integrations .ih-cta:hover{transform:translateY(-2px);
-  box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 20px 42px -12px rgba(222,110,48,.85)}
+/* Closing CTA - same pill the rest of the page uses (#trusted-institutions
+   .btn-primary / #ee-platform .eep-cta-btn): flat orange-700, 999px radius,
+   16px/700, arrow nudge on hover. Scoped so the global .btn rules stay out. */
+#integrations .ih-act{display:flex;flex-direction:column;align-items:center;gap:12px;margin:clamp(28px,4vw,44px) 0 0}
+#integrations .ih-cta{display:inline-flex;align-items:center;gap:9px;
+  background:var(--orange-700,#B5551D);color:#fff;text-decoration:none;
+  font-weight:700;font-size:16px;padding:15px 30px;border-radius:999px;
+  box-shadow:0 14px 30px -10px rgba(222,110,48,.6);
+  transition:transform .2s ease,box-shadow .2s ease}
+#integrations .ih-cta:hover{transform:translateY(-2px);box-shadow:0 20px 38px -10px rgba(222,110,48,.7)}
 #integrations .ih-cta:focus-visible{outline:2px solid #19345d;outline-offset:3px}
-#integrations .ih-cta .arr{transition:transform .25s}
+#integrations .ih-cta .arr{transition:transform .2s ease}
 #integrations .ih-cta:hover .arr{transform:translateX(4px)}
-#integrations .ih-cta .shine{position:absolute;top:0;left:-80%;width:55%;height:100%;transform:skewX(-22deg);
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:ihShine 4.4s ease-in-out infinite}
-@keyframes ihShine{0%,55%{left:-80%}75%,100%{left:140%}}
 #integrations .ih-note{font:600 12.5px/1.5 'Inter',system-ui,sans-serif;color:#6B7C96}
 
 /* board */
@@ -5492,7 +5488,7 @@ html body #main-content #integrations h2.h2.ih-h2{
   #integrations .ih-t{transition:none}
   #integrations .ih-core i{animation:none}
   #integrations .ih-cta{transition:none}
-  #integrations .ih-cta .shine{display:none}
+  #integrations .ih-cta:hover{transform:none}
 }
 </style>
 
@@ -5501,10 +5497,6 @@ html body #main-content #integrations h2.h2.ih-h2{
     <div class="ih-head rv">
       <h2 class="h2 ih-h2">Connect Your <em>Admissions Stack</em><br>With <em>ExtraaEdge</em></h2>
       <p class="ih-lead">Seamlessly integrate the tools your team already uses and manage every student interaction from <b>one connected CRM</b>.</p>
-      <div class="ih-act">
-        <a class="ih-cta" href="https://www.extraaedge.com/book-a-demo/">Connect My Stack <span class="arr" aria-hidden="true">&rarr;</span><span class="shine" aria-hidden="true"></span></a>
-        <span class="ih-note">Setup handled by our team &middot; Don&rsquo;t see your tool? We&rsquo;ll integrate it.</span>
-      </div>
     </div>
 
     <div class="ih-board rv" id="ihBoard">
@@ -5562,6 +5554,11 @@ html body #main-content #integrations h2.h2.ih-h2{
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3.5v5c0 4.8-3.3 8.7-8 9.5-4.7-.8-8-4.7-8-9.5v-5z"/><path d="M9 12l2 2 4-4"/></svg><b>Secure &amp;<br>Reliable</b></div>
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 8.9 19a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 8.4a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><b>Automate<br>Workflows</b></div>
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg><b>Smarter Decisions.<br>Better Outcomes.</b></div>
+    </div>
+
+    <div class="ih-act rv">
+      <a class="ih-cta" href="/products/">See All Integrations <span class="arr" aria-hidden="true">&rarr;</span></a>
+      <span class="ih-note">Setup handled by our team &middot; Don&rsquo;t see your tool? We&rsquo;ll integrate it.</span>
     </div>
   </div>
 </section>
