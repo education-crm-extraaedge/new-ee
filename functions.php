@@ -7680,6 +7680,7 @@ add_action('template_redirect', function () {
         'resources'  => array('file' => 'page-resources.php',  'title' => 'Resources'),
         'customer-success-stories' => array('file' => 'page-customers.php', 'title' => 'Customer Success Stories'),
         'vidyaai'    => array('file' => 'page-vidyaai.php',     'title' => 'VidyaAI — The 24/7 AI Admission Agent'),
+        'videos'     => array('file' => 'page-videos.php',      'title' => 'Videos'),
     );
 
     /* Add a body class on any custom-routed landing page so the global
@@ -7737,6 +7738,26 @@ add_action('template_redirect', function () {
                         wp_safe_redirect(get_permalink($ee_old_post[0]), 301);
                         exit;
                     }
+                }
+            }
+        }
+    }
+
+    /* /videos/{category}/ — one page per video category, rendered by the
+       same template as /videos/. The slug is handed over in
+       $ee_video_cat; anything that is not a known category falls through
+       so it can 404 rather than showing an empty library. */
+    if (!isset($ee_custom_routes[$path])) {
+        $parts = explode('/', $path);
+        if (($parts[0] ?? '') === 'videos' && !empty($parts[1]) && count($parts) === 2) {
+            $vfile = get_stylesheet_directory() . '/inc/videos-data.php';
+            if (!file_exists($vfile)) $vfile = get_template_directory() . '/inc/videos-data.php';
+            if (file_exists($vfile)) {
+                require_once $vfile;
+                $vcat = ee_video_category(sanitize_title($parts[1]));
+                if ($vcat) {
+                    $GLOBALS['ee_video_cat'] = $vcat['slug'];
+                    $ee_custom_routes[$path] = array('file' => 'page-videos.php', 'title' => $vcat['name']);
                 }
             }
         }
