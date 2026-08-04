@@ -18,8 +18,13 @@ if (!defined('ABSPATH')) exit;
 $ee_current_cat = (isset($GLOBALS['ee_blog_active_cat']) && $GLOBALS['ee_blog_active_cat']) ? $GLOBALS['ee_blog_active_cat'] : null;
 
 /* ── Sidebar menu ────────────────────────────────────────────────────────
-   A fixed list now, not the WP category tree. Edit the rows below to
-   change the menu — label on the left, path on the right.
+   A fixed list now, not the WP category tree.
+
+   The rows come from ee_blog_nav_items() in functions.php, which is also
+   what Posts → 🗂️ Blog Categories creates, so the menu and the taxonomy
+   can never drift apart — add a row there and it appears in both. The
+   literal list below is only a fallback for when this partial is loaded
+   without the theme's functions.php.
 
    $EE_NAV_BASE is prefixed to every path:
        ''       -> /crm/          (site root, as supplied)
@@ -27,21 +32,28 @@ $ee_current_cat = (isset($GLOBALS['ee_blog_active_cat']) && $GLOBALS['ee_blog_ac
                                    what the old category links did)
    Change that one string to switch every row at once.  */
 $EE_NAV_BASE = '';
-$EE_BLOG_NAV = array(
-    array('Latest Insights',      '/insights/'),
-    array('Education CRM',        '/crm/'),
-    array('AI in admissions',     '/ai/'),
-    array('Lead management',      '/leads/'),
-    array('Student engagement',   '/engage/'),
-    array('Admission marketing',  '/growth/'),
-    array('Analytics & reporting','/data/'),
-    array('Admission process',    '/process/'),
-    array('By institution type',  '/sector/'),
-    array('All comparisons',      '/vs/'),
-    array('Glossary',             '/terms/'),
-    array('Templates & scripts',  '/kit/'),
-    array('ROI calculator',       '/tools/'),
-);
+if (function_exists('ee_blog_nav_items')) {
+    $EE_BLOG_NAV = array();
+    foreach (ee_blog_nav_items() as $ee_i) {
+        $EE_BLOG_NAV[] = array($ee_i['label'], '/' . $ee_i['slug'] . '/');
+    }
+} else {
+    $EE_BLOG_NAV = array(
+        array('Latest Insights',      '/insights/'),
+        array('Education CRM',        '/crm/'),
+        array('AI in admissions',     '/ai/'),
+        array('Lead management',      '/leads/'),
+        array('Student engagement',   '/engage/'),
+        array('Admission marketing',  '/growth/'),
+        array('Analytics & reporting','/data/'),
+        array('Admission process',    '/process/'),
+        array('By institution type',  '/sector/'),
+        array('All comparisons',      '/vs/'),
+        array('Glossary',             '/terms/'),
+        array('Templates & scripts',  '/kit/'),
+        array('ROI calculator',       '/tools/'),
+    );
+}
 /* Active row = the one whose path matches the URL being viewed. Compared
    on the trimmed path so it works with or without the base prefix. */
 $ee_nav_here = trim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/', '/');

@@ -4852,43 +4852,52 @@ function ee_render_logo_marquee($args = array()) {
 /* ─────────────────────────────────────────────
  * Blog category tree — one-click setup
  * ───────────────────────────────────────────── */
-/** The approved blog taxonomy: parent => children (order = position). */
-function ee_blog_cat_tree() {
+/**
+ * The approved blog categories — the single source of truth.
+ *
+ * Both the /blog/ sidebar menu (inc/blog-sidebar.php) and the one-click
+ * category setup below read this list, so a row added here shows up in
+ * both places. Order is the order shown.
+ *
+ * 'label' is what the reader sees, 'slug' is the category slug and the
+ * last part of the URL.
+ */
+function ee_blog_nav_items() {
     return array(
-        'Education CRM'         => array(),
-        'Admission Management'  => array(),
-        'Student Recruitment'   => array(),
-        'Enrollment Management' => array(),
-        'Education AI'          => array('Agentic AI', 'AI Chatbots', 'Voice AI', 'AI Lead Scoring', 'Generative AI'),
-        'Marketing Automation'  => array(),
-        'Lead Management'       => array(),
-        'Analytics & Reporting' => array(),
-        'Communication'         => array('WhatsApp', 'Email', 'SMS', 'Voice', 'IVR'),
-        'Industries'            => array('Universities', 'Colleges', 'Schools', 'K-12', 'Coaching', 'Study Abroad', 'EdTech', 'Vocational'),
-        'Product Guides'        => array(),
-        'Comparisons'           => array(),
-        'Case Studies'          => array(),
-        'Resources'             => array(),
-        'Webinars'              => array(),
-        'Events'                => array(),
-        'Product Updates'       => array(),
-        'Industry News'         => array(),
-        'Help'                  => array(),
+        array('label' => 'Latest Insights',       'slug' => 'insights'),
+        array('label' => 'Education CRM',         'slug' => 'crm'),
+        array('label' => 'AI in admissions',      'slug' => 'ai'),
+        array('label' => 'Lead management',       'slug' => 'leads'),
+        array('label' => 'Student engagement',    'slug' => 'engage'),
+        array('label' => 'Admission marketing',   'slug' => 'growth'),
+        array('label' => 'Analytics & reporting', 'slug' => 'data'),
+        array('label' => 'Admission process',     'slug' => 'process'),
+        array('label' => 'By institution type',   'slug' => 'sector'),
+        array('label' => 'All comparisons',       'slug' => 'vs'),
+        array('label' => 'Glossary',              'slug' => 'terms'),
+        array('label' => 'Templates & scripts',   'slug' => 'kit'),
+        array('label' => 'ROI calculator',        'slug' => 'tools'),
     );
 }
-/** Create-or-update one category; returns term_id. */
-function ee_blog_ensure_cat($name, $parent, $order, &$created, &$skipped) {
-    $existing = get_term_by('name', $name, 'category');
+/** Slugs we keep. Anything else in the taxonomy is "old". */
+function ee_blog_approved_slugs() {
+    return wp_list_pluck(ee_blog_nav_items(), 'slug');
+}
+/** Create-or-update one category, matched on slug; returns term_id. */
+function ee_blog_ensure_cat($label, $slug, $order, &$created, &$updated) {
+    $existing = get_term_by('slug', $slug, 'category');
     if ($existing && !is_wp_error($existing)) {
-        if ((int) $existing->parent !== (int) $parent) {
-            wp_update_term($existing->term_id, 'category', array('parent' => (int) $parent));
-        }
+        /* keep the slug, refresh the label and flatten any old parent */
+        wp_update_term($existing->term_id, 'category', array(
+            'name'   => $label,
+            'parent' => 0,
+        ));
         update_term_meta($existing->term_id, 'ee_cat_order', (int) $order);
-        $skipped++;
+        $updated++;
         return (int) $existing->term_id;
     }
-    $res = wp_insert_term($name, 'category', array('parent' => (int) $parent));
-    if (is_wp_error($res)) { $skipped++; return 0; }
+    $res = wp_insert_term($label, 'category', array('slug' => $slug, 'parent' => 0));
+    if (is_wp_error($res)) return 0;
     update_term_meta($res['term_id'], 'ee_cat_order', (int) $order);
     $created++;
     return (int) $res['term_id'];
@@ -4897,18 +4906,39 @@ add_action('admin_post_ee_blog_seed_cats', function () {
     if (!current_user_can('manage_categories')) wp_die('Not allowed');
     check_admin_referer('ee_blog_seed_cats');
     $created = 0;
-    $skipped = 0;
+    $updated = 0;
     $order   = 0;
-    foreach (ee_blog_cat_tree() as $parent => $children) {
+    foreach (ee_blog_nav_items() as $row) {
         $order += 10;
-        $pid = ee_blog_ensure_cat($parent, 0, $order, $created, $skipped);
-        $corder = 0;
-        foreach ($children as $child) {
-            $corder += 10;
-            ee_blog_ensure_cat($child, $pid, $corder, $created, $skipped);
-        }
+        ee_blog_ensure_cat($row['label'], $row['slug'], $order, $created, $updated);
     }
-    wp_safe_redirect(add_query_arg(array('page' => 'ee-blog-cats', 'seeded' => $created, 'skipped' => $skipped), admin_url('edit.php')));
+    wp_safe_redirect(add_query_arg(array('page' => 'ee-blog-cats', 'seeded' => $created, 'skipped' => $updated), admin_url('edit.php')));
+    exit;
+});
+
+/** Every category that is not on the approved list and is not the site default. */
+function ee_blog_stale_cats() {
+    $keep    = ee_blog_approved_slugs();
+    $default = (int) get_option('default_category');
+    $all     = get_categories(array('hide_empty' => false));
+    $out     = array();
+    foreach ($all as $c) {
+        if (in_array($c->slug, $keep, true)) continue;
+        if ((int) $c->term_id === $default) continue;   /* WP forbids deleting it */
+        $out[] = $c;
+    }
+    return $out;
+}
+add_action('admin_post_ee_blog_prune_cats', function () {
+    if (!current_user_can('manage_categories')) wp_die('Not allowed');
+    check_admin_referer('ee_blog_prune_cats');
+    $deleted = 0;
+    foreach (ee_blog_stale_cats() as $c) {
+        /* Deletes the term only. Posts are never deleted - WordPress moves
+           any post left with no category into the default one. */
+        if (wp_delete_term($c->term_id, 'category') === true) $deleted++;
+    }
+    wp_safe_redirect(add_query_arg(array('page' => 'ee-blog-cats', 'pruned' => $deleted), admin_url('edit.php')));
     exit;
 });
 add_action('admin_menu', function () {
@@ -4916,34 +4946,73 @@ add_action('admin_menu', function () {
 });
 function ee_blog_cats_page_render() {
     if (!current_user_can('manage_categories')) return;
+    $ee_stale = ee_blog_stale_cats();
     ?>
     <div class="wrap">
         <h1>🗂️ Blog Category Setup</h1>
         <?php if (isset($_GET['seeded'])) : ?>
             <div class="notice notice-success" style="margin-left:0"><p>
-                Created <strong><?php echo (int) $_GET['seeded']; ?></strong> new categor<?php echo ((int) $_GET['seeded'] === 1) ? 'y' : 'ies'; ?><?php if (!empty($_GET['skipped'])) : ?>, updated/kept <strong><?php echo (int) $_GET['skipped']; ?></strong> that already existed<?php endif; ?>.
+                Created <strong><?php echo (int) $_GET['seeded']; ?></strong> new categor<?php echo ((int) $_GET['seeded'] === 1) ? 'y' : 'ies'; ?><?php if (!empty($_GET['skipped'])) : ?>, updated <strong><?php echo (int) $_GET['skipped']; ?></strong> that already existed<?php endif; ?>.
                 <a href="<?php echo esc_url(home_url('/blog/')); ?>" target="_blank">View /blog/ →</a>
             </p></div>
         <?php endif; ?>
-        <p style="max-width:720px;color:#475569">One click creates the full blog category tree below (existing categories are kept — the button is safe to press again). The /blog/ sidebar shows the same tree, in this order, with sub-categories expandable. Assign categories to posts as usual in <strong>Posts → Add New</strong>; a post in a sub-category (e.g. Voice AI) automatically shows under its parent (Education AI) too.</p>
-        <div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:16px 22px;max-width:520px;margin:14px 0;font-size:13.5px;line-height:2">
-            <?php foreach (ee_blog_cat_tree() as $parent => $children) :
-                $p_exists = get_term_by('name', $parent, 'category');
-            ?>
-                <div><?php echo $p_exists ? '✅' : '⬜'; ?> <strong><?php echo esc_html($parent); ?></strong></div>
-                <?php foreach ($children as $child) :
-                    $c_exists = get_term_by('name', $child, 'category');
-                ?>
-                    <div style="padding-left:34px"><?php echo $c_exists ? '✅' : '⬜'; ?> <?php echo esc_html($child); ?></div>
-                <?php endforeach; ?>
+        <?php if (isset($_GET['pruned'])) : ?>
+            <div class="notice notice-success" style="margin-left:0"><p>
+                Deleted <strong><?php echo (int) $_GET['pruned']; ?></strong> old categor<?php echo ((int) $_GET['pruned'] === 1) ? 'y' : 'ies'; ?>. No posts were deleted.
+            </p></div>
+        <?php endif; ?>
+
+        <h2 style="margin-top:22px">Step 1 — create the categories</h2>
+        <p style="max-width:760px;color:#475569">These are the thirteen categories the /blog/ sidebar links to, in this order. The button is safe to press again: a category that already exists keeps its posts, and only its name and position are refreshed. The <strong>slug</strong> is what the URL uses, so it must stay as listed for the sidebar links to work.</p>
+        <table class="widefat striped" style="max-width:620px;margin:14px 0">
+            <thead><tr><th style="width:34px"></th><th>Category</th><th>Slug (URL)</th></tr></thead>
+            <tbody>
+            <?php foreach (ee_blog_nav_items() as $row) :
+                $exists = get_term_by('slug', $row['slug'], 'category'); ?>
+                <tr>
+                    <td><?php echo $exists ? '✅' : '⬜'; ?></td>
+                    <td><strong><?php echo esc_html($row['label']); ?></strong></td>
+                    <td><code>/<?php echo esc_html($row['slug']); ?>/</code></td>
+                </tr>
             <?php endforeach; ?>
-        </div>
+            </tbody>
+        </table>
         <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
             <input type="hidden" name="action" value="ee_blog_seed_cats">
             <?php wp_nonce_field('ee_blog_seed_cats'); ?>
-            <?php submit_button('Create blog categories', 'primary', 'submit', false); ?>
+            <?php submit_button('Create / update these categories', 'primary', 'submit', false); ?>
         </form>
-        <p class="description" style="margin-top:12px">✅ = already exists &nbsp;·&nbsp; ⬜ = will be created. Rename or fine-tune later in <a href="<?php echo esc_url(admin_url('edit-tags.php?taxonomy=category')); ?>">Posts → Categories</a>.</p>
+        <p class="description" style="margin-top:10px">✅ = already exists &nbsp;·&nbsp; ⬜ = will be created.</p>
+
+        <h2 style="margin-top:34px">Step 2 — delete the old categories</h2>
+        <?php if (!$ee_stale) : ?>
+            <p style="color:#475569">Nothing to delete — every category is on the list above.</p>
+        <?php else : ?>
+            <p style="max-width:760px;color:#475569">
+                <?php echo count($ee_stale); ?> categor<?php echo count($ee_stale) === 1 ? 'y is' : 'ies are'; ?> not on the list and will be removed.
+                <strong>Posts are never deleted.</strong> A post that ends up with no category left is moved by WordPress into its default category, so give anything with a count below a new category first if you want to keep it filed.
+            </p>
+            <table class="widefat striped" style="max-width:620px;margin:14px 0">
+                <thead><tr><th>Category</th><th>Slug</th><th style="width:90px">Posts</th></tr></thead>
+                <tbody>
+                <?php foreach ($ee_stale as $c) : ?>
+                    <tr>
+                        <td><?php echo esc_html($c->name); ?></td>
+                        <td><code><?php echo esc_html($c->slug); ?></code></td>
+                        <td<?php echo $c->count ? ' style="color:#b32d2e;font-weight:600"' : ''; ?>><?php echo (int) $c->count; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+            <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>"
+                  onsubmit="return confirm('Delete <?php echo count($ee_stale); ?> old categories? Posts are kept — any post left without a category moves to the default one.');">
+                <input type="hidden" name="action" value="ee_blog_prune_cats">
+                <?php wp_nonce_field('ee_blog_prune_cats'); ?>
+                <?php submit_button('Delete the ' . count($ee_stale) . ' old categories', 'delete', 'submit', false); ?>
+            </form>
+        <?php endif; ?>
+
+        <p class="description" style="margin-top:22px">Fine-tune anything by hand in <a href="<?php echo esc_url(admin_url('edit-tags.php?taxonomy=category')); ?>">Posts → Categories</a>.</p>
     </div>
     <?php
 }
