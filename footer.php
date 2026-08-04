@@ -474,7 +474,7 @@ if (!function_exists('ee_social_icon_url')) {
 <?php if (!is_singular('post')): /* blog posts (single.php) already ship their own complete
    WhatsApp/Call/TOC floating system with a reading-progress badge —
    rendering this one too would show two overlapping stacks. */ ?>
-<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-08-03-fab-clone ============ -->
+<!-- ============ SITE-WIDE FLOATING ACTIONS: TOC sheet + WhatsApp + Call — ee-footer-tpl v2026-08-03-fab-nounderline ============ -->
 <style id="ee-fabs-css">
 /* ── The article template's floating widget, verbatim ────────────────────
    Copied out of single.php rule for rule, with its --b-* variables
@@ -523,6 +523,29 @@ if (!function_exists('ee_social_icon_url')) {
 .ee-float-call .ee-float-icon-wrap{background:#FFF3EC;color:#DE6E30;}
 .ee-float-call .ee-float-icon-wrap svg{animation:ee-phone-shake 1.6s infinite;}
 @keyframes ee-phone-shake{0%,60%,100%{transform:rotate(0);}10%,30%,50%{transform:rotate(-12deg);}20%,40%{transform:rotate(12deg);}}
+
+/* No underline, ever. These sit outside #main-content, so whichever
+   stylesheet was drawing a rule under the label on hover (text-decoration,
+   a border, or the gradient-underline trick) is shut off here for every
+   state. Only the box itself reacts - lift + shadow, nothing on the text. */
+.ee-book-bubble,.ee-book-bubble:link,.ee-book-bubble:visited,.ee-book-bubble:hover,.ee-book-bubble:focus,.ee-book-bubble:active,.ee-book-bubble *,
+.ee-floating-contact .ee-float-btn,.ee-floating-contact .ee-float-btn:link,.ee-floating-contact .ee-float-btn:visited,.ee-floating-contact .ee-float-btn:hover,.ee-floating-contact .ee-float-btn:focus,.ee-floating-contact .ee-float-btn:active,.ee-floating-contact .ee-float-btn *{
+    text-decoration:none !important;
+    text-decoration-line:none !important;
+}
+/* Borders and gradient-underlines are killed on the inner spans only, so
+   the pill's own 1px border and the Book Demo outline survive. */
+.ee-book-bubble span,.ee-book-bubble span *,
+.ee-floating-contact .ee-float-btn span,.ee-floating-contact .ee-float-btn span *{
+    border:0 !important;
+    background-image:none !important;
+}
+/* box-shadow is reset on the label only - the icon wrap needs its own,
+   that is what draws the WhatsApp pulse ring. */
+.ee-book-bubble span,.ee-book-bubble span *,
+.ee-floating-contact .ee-float-label,.ee-floating-contact .ee-float-label *{
+    box-shadow:none !important;
+}
 
 @media (max-width:820px){
     /* Same as the article: the bubble steps aside on phones. */
