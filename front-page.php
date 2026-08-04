@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-hub-cta6 -->
+<!-- ee-front-tpl v2026-08-03-cta-unify -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3800,18 +3800,28 @@ html body #main-content #ee-products .epx-wrap .epx-card h3{
 html body #main-content #ee-products .epx-wrap .epx-integ-tx p{
   margin:0; color:#6B7C96; font-size:13.5px !important; line-height:1.55 !important; }
 
-/* one CTA closes the section */
+/* one CTA closes the section - same button as the header's Book Demo
+   (see the .ih-cta block in the integrations section for the source rule) */
 #ee-products .epx-cta{ text-align:center; margin-top:clamp(22px,2.8vw,36px); }
-#ee-products .epx-btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px;
-  padding:16px 34px; border-radius:999px; text-decoration:none;
-  background:linear-gradient(135deg,#22406F,#122A4E); color:#fff;
-  font:700 16px/1 'Inter',sans-serif; letter-spacing:-.01em;
-  box-shadow:0 16px 34px -14px rgba(15,33,67,.85);
-  transition:transform .2s ease, box-shadow .2s ease; }
-#ee-products .epx-btn::after{ content:"\2192"; font-size:1.05em; line-height:1; }
-#ee-products .epx-btn:hover{ transform:translateY(-2px);
-  box-shadow:0 22px 44px -14px rgba(15,33,67,.95); }
-#ee-products .epx-btn:focus-visible{ outline:3px solid var(--focus-ring,#1A5FB4); outline-offset:3px; }
+html body #ee-products a.epx-btn,
+html body #main-content #ee-products a.epx-btn{
+  display:inline-flex !important;align-items:center !important;justify-content:center !important;
+  width:auto !important;height:auto !important;min-height:0 !important;
+  padding:.55rem 1.2rem !important;gap:.4rem !important;
+  border-radius:9px !important;border:none !important;
+  background:linear-gradient(135deg,#DE6E30,#FF8A5C) !important;
+  color:#fff !important;text-decoration:none !important;
+  font-family:'Inter','-apple-system','BlinkMacSystemFont','Segoe UI',Roboto,sans-serif !important;
+  font-size:.82rem !important;font-weight:600 !important;letter-spacing:normal !important;
+  box-shadow:0 4px 14px rgba(222,110,48,.25) !important;
+  cursor:pointer;transition:all .3s ease}
+html body #ee-products a.epx-btn:hover,
+html body #main-content #ee-products a.epx-btn:hover{
+  background:linear-gradient(135deg,#B85920,#C75E24) !important;color:#fff !important;
+  transform:translateY(-2px) !important;box-shadow:0 6px 22px rgba(222,110,48,.35) !important}
+html body #ee-products a.epx-btn svg{width:16px !important;height:16px !important;
+  flex:0 0 auto;stroke:currentColor;fill:none}
+#ee-products .epx-btn:focus-visible{ outline:2px solid #19345d; outline-offset:3px; }
 
 @media(max-width:1080px){
   #ee-products .epx-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -3826,7 +3836,17 @@ html body #main-content #ee-products .epx-wrap .epx-integ-tx p{
   #ee-products .epx-list>li>a,#ee-products .epx-list>li>span{ padding:9px 0; font-size:13px; }
   #ee-products .epx-card--integ{ flex-direction:column; align-items:flex-start; }
   #ee-products .epx-hub{ width:150px; height:150px; margin:0 auto; }
-  #ee-products .epx-btn{ padding:13px 24px; font-size:14px; }
+}
+/* the header shrinks its CTA at these two points, so this one does too */
+@media(max-width:1023.98px){
+  html body #ee-products a.epx-btn,
+  html body #main-content #ee-products a.epx-btn{
+    padding:.42rem .75rem !important;font-size:.72rem !important;gap:.25rem !important;white-space:nowrap}
+  html body #ee-products a.epx-btn svg{width:12px !important;height:12px !important}
+}
+@media(max-width:400px){
+  html body #ee-products a.epx-btn,
+  html body #main-content #ee-products a.epx-btn{padding:.62rem .7rem !important;font-size:.72rem !important}
 }
 @media(prefers-reduced-motion:reduce){
   #ee-products .epx-card,#ee-products .epx-btn{ transition:none; } }
@@ -3941,7 +3961,9 @@ html body #main-content #ee-products .epx-wrap .epx-integ-tx p{
     </div>
 
     <div class="epx-cta">
-      <a href="/products/" class="epx-btn">Explore All Features</a>
+      <a href="/products/" class="epx-btn">Explore All Features
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
     </div>
 
   </div>
