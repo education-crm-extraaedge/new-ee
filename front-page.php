@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-hub-cta3 -->
+<!-- ee-front-tpl v2026-08-03-hub-cta4 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5415,7 +5415,8 @@ html body #main-content #integrations h2.h2.ih-h2{
 #integrations .ih-cta{display:inline-flex;align-items:center;justify-content:center;
   height:44px;padding:0 1.35rem;border-radius:9px;border:none;
   background:var(--orange-700,#B5551D);color:#fff;text-decoration:none;
-  font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:600;
+  font-family:'Inter','-apple-system','BlinkMacSystemFont','Segoe UI',Roboto,sans-serif;
+  font-size:15px;font-weight:600;letter-spacing:.01em;
   box-shadow:none;cursor:pointer;transition:background .3s ease}
 #integrations .ih-cta:hover{background:var(--orange-800,#A8501C);transform:none;box-shadow:none}
 #integrations .ih-cta:focus-visible{outline:2px solid #19345d;outline-offset:3px}
