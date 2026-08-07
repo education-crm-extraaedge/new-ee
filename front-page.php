@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-07-trio-row -->
+<!-- ee-front-tpl v2026-08-07-rfa-h2-mobile -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1114,6 +1114,15 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   radial-gradient(820px 460px at 2% 100%, rgba(25,52,93,.06), transparent 60%),#f6f8fc;
   font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0f203a;-webkit-font-smoothing:antialiased}
 #ee-rfa *{box-sizing:border-box}
+/* section heading: eyebrow + H2 + sub, same head pattern as the other home
+   sections; the long selector matches the site heading-scale rule's
+   specificity and prints later, so it wins the tie */
+#ee-rfa .rfa-head{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:clamp(44px,6vw,68px) 22px 0;text-align:center}
+#ee-rfa .rfa-eyebrow{display:inline-flex;align-items:center;gap:8px;font:700 12px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#19345d;background:rgba(255,255,255,.75);border:1px solid rgba(25,52,93,.1);border-radius:999px;padding:8px 15px;box-shadow:0 4px 14px rgba(25,52,93,.06)}
+#ee-rfa .rfa-eyebrow i{width:7px;height:7px;border-radius:50%;background:#DE6E30;box-shadow:0 0 0 4px rgba(222,110,48,.18)}
+html body #main-content #ee-rfa h2.h2.rfa-h2{margin:18px 0 12px!important;color:#19345d!important;font-weight:800!important;font-size:clamp(28px,4.2vw,46px)!important;line-height:1.08!important;letter-spacing:-.03em!important}
+#ee-rfa .rfa-h2 em{font-style:normal;color:#DE6E30}
+#ee-rfa .rfa-sub{font-size:clamp(15px,1.7vw,18px);line-height:1.6;color:#5a6b85;margin:0}
 /* blurred brand orbs behind the glass cards */
 #ee-rfa .rfa-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:.5}
 #ee-rfa .rfa-orb.o1{width:340px;height:340px;left:-80px;top:12%;background:rgba(222,110,48,.18)}
@@ -1122,7 +1131,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 #ee-rfa .rfa-pin{position:sticky;top:86px;height:min(calc(100vh - 86px),820px);overflow:hidden;display:flex;align-items:center;align-items:safe center}
 #ee-rfa .rfa-in{max-width:1270px;margin:0 auto;width:100%;padding:12px 24px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) 18px;gap:clamp(18px,2.6vw,40px);align-items:center}#ee-rfa .rfa-in>.rfa-rail{order:3}#ee-rfa .rfa-in>.rfa-cards{order:2}#ee-rfa .rfa-in>.rfa-stagewrap,#ee-rfa .rfa-in>*:nth-child(3){order:1}
 #ee-rfa .rfa-cards{max-height:calc(min(100vh - 86px,820px) - 24px);overflow-y:hidden}/* overflow-y:hidden (not auto): the column must never swallow the mouse wheel - page scroll drives the pinned story - while reveal() can still move scrollTop */
-@media (max-height:860px){#ee-rfa .rfa-card{padding:11px 14px;margin-bottom:7px}#ee-rfa .rfa-kick{margin-bottom:7px}html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:16px!important}#ee-rfa .rfa-body p{line-height:1.6;margin:8px 0 10px}#ee-rfa .rfa-chiplbl{margin:10px 0 7px}}
+@media (max-height:860px){#ee-rfa .rfa-card{padding:11px 14px;margin-bottom:7px}#ee-rfa .rfa-kick{margin-bottom:7px}html body #main-content #ee-rfa .rfa-cards .rfa-card h3.rfa-title{font-size:16px!important}#ee-rfa .rfa-body p{line-height:1.6;margin:8px 0 10px}#ee-rfa .rfa-chiplbl{margin:10px 0 7px}}
 /* progress rail: fill tracks scroll, dots jump to a story */
 #ee-rfa .rfa-rail{position:relative;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:26px 0;width:18px}
 #ee-rfa .rfa-rail::before{content:"";position:absolute;top:26px;bottom:26px;left:50%;width:2px;transform:translateX(-50%);background:rgba(25,52,93,.12);border-radius:2px}
@@ -1166,7 +1175,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   box-shadow:inset 0 1px 0 #fff,0 20px 46px -22px rgba(222,110,48,.35),0 0 0 4px rgba(222,110,48,.08)}
 #ee-rfa .rfa-kick{display:inline-block;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);border:1px solid rgba(222,110,48,.22);padding:5px 10px;border-radius:999px;margin-bottom:12px}
 #ee-rfa .rfa-title{color:#19345d;margin:0 0 10px}
-html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px!important;line-height:1.35!important;font-weight:600!important;letter-spacing:-.005em!important}@media(max-width:820px){html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:14px!important}}
+html body #main-content #ee-rfa .rfa-cards .rfa-card h3.rfa-title{font-size:17px!important;line-height:1.35!important;font-weight:600!important;letter-spacing:-.005em!important}@media(max-width:820px){html body #main-content #ee-rfa .rfa-cards .rfa-card h3.rfa-title{font-size:14.5px!important}}
 #ee-rfa .rfa-body{max-height:0;opacity:0;overflow:hidden;transition:max-height .55s cubic-bezier(.2,.7,.2,1),opacity .4s ease .1s}
 #ee-rfa .rfa-card.on .rfa-body{max-height:560px;opacity:1}
 #ee-rfa .rfa-body p{color:#5a6b85;line-height:1.72;margin:12px 0 18px}
@@ -1183,14 +1192,21 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
 #ee-rfa .rfa-shot.on{opacity:1;transform:scale(1)}
 /* phones: no pinning - stacked story, image inside each card */
 @media(max-width:960px){
-  #ee-rfa{padding:40px 0 26px}
+  #ee-rfa{padding:34px 0 26px}
+  #ee-rfa .rfa-head{padding-top:0;margin-bottom:22px}
   #ee-rfa .rfa-track{height:auto}
   #ee-rfa .rfa-pin{position:static;height:auto;overflow:visible;display:block}
   #ee-rfa .rfa-in{grid-template-columns:1fr;gap:0;padding:0 18px}
   #ee-rfa .rfa-stage,#ee-rfa .rfa-rail{display:none}
-  #ee-rfa .rfa-card{margin-bottom:12px;padding:14px 14px;background:rgba(255,255,255,.85)}
+  #ee-rfa .rfa-card{margin-bottom:12px;padding:15px 48px 15px 15px;background:rgba(255,255,255,.9)}
   #ee-rfa .rfa-card.mi{opacity:1;transform:none}
-  #ee-rfa .rfa-card .rfa-body{max-height:none;opacity:1}
+  #ee-rfa .rfa-card:hover{transform:none}
+  #ee-rfa .rfa-card .rfa-title{margin:0}
+  /* tap-to-open accordion: only the open card shows its body; the default
+     collapsed rules already hide the rest */
+  #ee-rfa .rfa-card.on .rfa-body{max-height:1400px;opacity:1}
+  #ee-rfa .rfa-card::after{content:"";position:absolute;top:13px;right:13px;width:26px;height:26px;border-radius:50%;background:rgba(25,52,93,.06) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2319335D' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/13px 13px no-repeat;transition:transform .35s ease,background-color .3s ease}
+  #ee-rfa .rfa-card.on::after{transform:rotate(180deg);background-color:rgba(222,110,48,.14)}
   #ee-rfa .rfa-cardimg{display:block}
   #ee-rfa .rfa-cardimg img{width:100%;height:auto;border-radius:12px;border:1px solid rgba(25,52,93,.1);box-shadow:0 16px 36px -20px rgba(25,52,93,.3)}
   #ee-rfa .rfa-chips span{font-size:10.5px;padding:5px 9px}
@@ -1200,6 +1216,11 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
 <section id="ee-rfa" aria-label="Respond first with AI agents - how ExtraaEdge wins admissions">
   <span class="rfa-orb o1" aria-hidden="true"></span>
   <span class="rfa-orb o2" aria-hidden="true"></span>
+  <header class="rfa-head">
+    <span class="rfa-eyebrow"><i aria-hidden="true"></i>How institutes win</span>
+    <h2 class="h2 rfa-h2">From First Enquiry to <em>Final Enrollment</em></h2>
+    <p class="rfa-sub">The four moves that decide admissions - respond first, engage right, prioritise the best-fit students and measure everything, on one AI Admission CRM.</p>
+  </header>
   <div class="rfa-track" id="rfaTrack">
   <div class="rfa-pin">
     <div class="rfa-in">
@@ -1212,7 +1233,7 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
       </div>
       <div class="rfa-cards" id="rfaCards">
       <article class="rfa-card on" data-i="0" tabindex="0">
-        <h2 class="rfa-title">Respond First Using AI Agents. Win Admissions.</h2>
+        <h3 class="rfa-title">Respond First Using AI Agents. Win Admissions.</h3>
         <div class="rfa-body">
           <p>Respond to every admission inquiry in minutes, not hours. Because the institute that responds first controls the conversation and conversion. ExtraaEdge brings all admission inquiries into one Admission CRM. AI-powered calling and intelligent routing ensure every prospect is contacted at the right moment - so counselors engage the right students faster and close more enrollments.</p>
           <b class="rfa-chiplbl">Unified Lead Ingestion Across</b>
@@ -1221,7 +1242,7 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
         </div>
       </article>
       <article class="rfa-card" data-i="1" tabindex="0">
-        <h2 class="rfa-title">AI Decides the Right Admission Engagements.</h2>
+        <h3 class="rfa-title">AI Decides the Right Admission Engagements.</h3>
         <div class="rfa-body">
           <p>ExtraaEdge uses intelligence across student behaviour, intent, and application stage. It decides who to engage, when to engage, and how to engage across channels. Every interaction is timely, relevant, and context-aware. Admissions teams move away from manual follow-ups and generic messaging - AI-guided engagements adapt in real time and drive higher enrollments.</p>
           <b class="rfa-chiplbl">Engagement Channels</b>
@@ -1230,7 +1251,7 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
         </div>
       </article>
       <article class="rfa-card" data-i="2" tabindex="0">
-        <h2 class="rfa-title">Turn Enquiries Into Enrollments</h2>
+        <h3 class="rfa-title">Turn Enquiries Into Enrollments</h3>
         <div class="rfa-body">
           <p>Not every enquiry deserves the same attention. ExtraaEdge helps teams focus on prospects most likely to enroll. Intelligent prioritization uses engagement, intent, and application stage. Teams know exactly who to follow up, nurture, or move forward - the result is higher efficiency and stronger enrollment conversions.</p>
           <b class="rfa-chiplbl">Powered by Intelligent Prioritization</b>
@@ -1239,7 +1260,7 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
         </div>
       </article>
       <article class="rfa-card" data-i="3" tabindex="0">
-        <h2 class="rfa-title">Know What&rsquo;s Working. Fix What&rsquo;s Not.</h2>
+        <h3 class="rfa-title">Know What&rsquo;s Working. Fix What&rsquo;s Not.</h3>
         <div class="rfa-body">
           <p>Measure what matters across admissions and marketing. ExtraaEdge gives teams clear, actionable visibility into performance. Track counselors, campaigns, and lead sources in one place. With Analytics Builder and VidyaGPT Analytics, insights are easier to explore and understand - so teams act faster on what&rsquo;s working and fix what&rsquo;s not.</p>
           <b class="rfa-chiplbl">Analytics &amp; Visibility Across</b>
@@ -1342,9 +1363,24 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
     render(i);
     window.scrollTo({top:target,behavior:'smooth'});
   }
+  /* phones: the stacked cards behave as an accordion - tapping the open
+     card's header closes it, tapping another opens that one. Taps inside an
+     open body (chips, image) must not collapse the card mid-read. Desktop
+     keeps the scroll-story jump. */
+  function tap(i,e){
+    if(!mqd.matches){
+      if(e&&e.target&&e.target.closest&&e.target.closest('.rfa-body')) return;
+      if(cards[i].classList.contains('on')){ cards[i].classList.remove('on'); return; }
+      render(i);
+      var r=cards[i].getBoundingClientRect();
+      if(r.top<70) window.scrollBy({top:r.top-84,behavior:'smooth'});
+      return;
+    }
+    jumpTo(i);
+  }
   cards.forEach(function(c,i){
-    c.addEventListener('click',function(){ jumpTo(i); });
-    c.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); jumpTo(i); } });
+    c.addEventListener('click',function(e){ tap(i,e); });
+    c.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); tap(i,e); } });
   });
   dots.forEach(function(d,i){ d.addEventListener('click',function(){ jumpTo(i); }); });
   tabs.forEach(function(t,i){ t.addEventListener('click',function(){ jumpTo(i); }); });
