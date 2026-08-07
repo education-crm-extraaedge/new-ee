@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-07-platform-shared2 -->
+<!-- ee-front-tpl v2026-08-07-trio-row -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -469,7 +469,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       #xhero .hp-t b{display:block;font:700 12px/1.3 'Inter',sans-serif;color:#19335D}
       #xhero .hp-t small{display:block;font:600 10.5px/1.3 'Inter',sans-serif;color:#7a889e}
       @media(max-width:1024px){#xhero .hero-pov{max-width:540px;margin:0 auto}}
-      @media(max-width:480px){#xhero .hp-vid{border-radius:14px}#xhero .hp-trio{grid-template-columns:1fr;gap:9px;max-width:250px;margin-left:auto;margin-right:auto}#xhero .hp-t{justify-content:flex-start}}
+      @media(max-width:480px){#xhero .hp-vid{border-radius:14px}/* the trio stays on one line - three tight columns, smaller marks */#xhero .hp-trio{grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px;padding-top:12px}#xhero .hp-t{justify-content:center;gap:5px}#xhero .hp-t svg{width:16px;height:16px}#xhero .hp-t b{font-size:10px;white-space:nowrap}#xhero .hp-t small{font-size:9px;white-space:nowrap}}
       @media(prefers-reduced-motion:reduce){#xhero .hp-play{transition:none}}
     </style>
     <aside class="hero-pov reveal d4" aria-label="Product overview">
