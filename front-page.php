@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-07-hero-fullscreen -->
+<!-- ee-front-tpl v2026-08-07-demo-fabs -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1602,7 +1602,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
       <span class="eep-mlaunch-arrow" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
     </button>
     <div class="eep-window">
-      <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span><button type="button" class="eep-expand" id="eepExpand" aria-label="Open full screen"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-03.svg" alt="" loading="lazy" decoding="async"> Full screen</button><a class="eep-mbook" href="https://www.extraaedge.com/book-a-demo/">Book now</a><button type="button" class="eep-close" id="eepClose" aria-label="Close experience">&#10005;</button></div>
+      <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span><button type="button" class="eep-expand" id="eepExpand" aria-label="Open full screen"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-03.svg" alt="" loading="lazy" decoding="async"> Full screen</button><button type="button" class="eep-close" id="eepClose" aria-label="Close experience">&#10005;</button></div>
       <iframe class="eep-frame" title="ExtraaEdge - Lead Management Platform (interactive demo)" id="eepFrame" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" data-srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
@@ -1722,7 +1722,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 .tour-dock .ddots b{width:6px;height:6px;border-radius:50%;background:var(--t-line);cursor:pointer}
 .tour-dock .ddots b.on{background:var(--o)}
 @media (prefers-reduced-motion:reduce){.tour-spot,.tour-tip,.tour-end .card,.tour-tip .prog i{transition:none}.tour-spot::after{animation:none}}
-.demo-cta{position:fixed;right:18px;bottom:20px;z-index:9001;display:inline-flex;align-items:center;gap:8px;background:var(--o);color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:11px 18px;box-shadow:0 14px 34px -10px rgba(244,123,32,.7);cursor:pointer}.demo-cta:hover{background:var(--o-d)}.demo-cta svg,.demo-cta img.eeimg{width:15px;height:15px}
+.demo-cta{position:fixed;right:16px;bottom:18px;z-index:9001;display:flex;flex-direction:column;align-items:flex-end;gap:10px}.demo-cta .dc-book{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#DE6E30;border:2px solid #DE6E30;font-weight:700;font-size:13px;border-radius:999px;padding:9px 16px 9px 13px;cursor:pointer;box-shadow:0 8px 22px rgba(222,110,48,.18)}.demo-cta .dc-book:hover{background:#FFF3EC;color:#B85920;border-color:#B85920}.demo-cta .dc-book svg{width:15px;height:15px}.demo-cta .dc-pill{display:flex;align-items:center;gap:9px;padding:9px 15px 9px 11px;border-radius:999px;background:#fff;border:1px solid #E5E7EB;text-decoration:none;box-shadow:0 6px 20px rgba(15,32,64,.14);cursor:pointer}.demo-cta .dc-pill:hover{box-shadow:0 10px 26px rgba(15,32,64,.2)}.demo-cta .dc-pill img{width:30px;height:30px;object-fit:contain;display:block}.demo-cta .dc-lbl{display:flex;flex-direction:column;line-height:1.15;text-align:left}.demo-cta .dc-lbl small{font-size:9px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#6B7280}.demo-cta .dc-lbl b{font-size:12px;font-weight:700;color:#19335D}@media(max-width:860px){.demo-cta .dc-lbl{display:none}.demo-cta .dc-pill{padding:7px;border-radius:50%}.demo-cta .dc-pill img{width:26px;height:26px}}
 @media(max-width:860px){.tour-tip{left:14px!important;right:14px!important;top:auto!important;bottom:88px!important;width:auto;max-width:none}.tour-tip .kbd{display:none}.tour-end .wins{grid-template-columns:repeat(2,1fr)}.tour-end .card{padding:26px 20px 22px}.tour-dock{left:14px;right:14px;transform:none;justify-content:center;bottom:14px}.tour-dock .lbl{display:none}.tour-dock .ddots{max-width:46vw;overflow:hidden}.demo-cta{bottom:66px;right:14px;padding:9px 14px;font-size:12px}
 }
 @media(max-width:420px){.tour-dock .ddots{display:none} }
@@ -2248,9 +2248,13 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   tDock.innerHTML='<button class=&quot;dbtn restart&quot; title=&quot;Restart&quot;>'+si('<path d=&quot;M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z&quot;/>')+'</button><button class=&quot;dbtn play&quot; title=&quot;Play / Pause&quot;></button><div class=&quot;ddots&quot;></div><span class=&quot;lbl&quot;>Product tour</span><button class=&quot;dbtn close&quot; title=&quot;Close&quot;>'+si('<path d=&quot;M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z&quot;/>')+'</button>';
   document.body.appendChild(tDock);
   var demoCta=document.createElement('div'); demoCta.className='demo-cta';
-  demoCta.innerHTML=si('<path d=&quot;M7 2v3M17 2v3M3.5 9h17M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z&quot;/>')+' Book a demo';
+  /* the same floating stack the site carries: Book Demo pill over the
+     WhatsApp and Call pills with the brand artwork */
+  demoCta.innerHTML='<button type=&quot;button&quot; class=&quot;dc-book&quot;>'+si('<path d=&quot;M7 2v3M17 2v3M3.5 9h17M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z&quot;/>')+' Book a Demo</button>'
+    +'<a class=&quot;dc-pill&quot; href=&quot;https://api.whatsapp.com/send/?phone=918956982897&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/social-icons/whatsapp-icon.webp&quot; alt=&quot;&quot;><span class=&quot;dc-lbl&quot;><small>Chat on</small><b>WhatsApp</b></span></a>'
+    +'<a class=&quot;dc-pill&quot; href=&quot;tel:+918956982897&quot;><img src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/social-icons/call-now-icon.webp&quot; alt=&quot;&quot;><span class=&quot;dc-lbl&quot;><small>Call us</small><b>+91 89569 82897</b></span></a>';
   document.body.appendChild(demoCta);
-  demoCta.addEventListener('click',function(){ openBookModal(); });
+  demoCta.querySelector('.dc-book').addEventListener('click',function(){ openBookModal(); });
   var BOOK_DEMO_URL='https://www.extraaedge.com/book-a-demo/';
   /* the rich popup lives on the parent page; the demo just asks it to open */
   function openBookModal(){ try{ if(window.parent && window.parent!==window){ window.parent.postMessage('ee-book-open','*'); } else { window.open(BOOK_DEMO_URL,'_blank','noopener'); } }catch(e){ window.open(BOOK_DEMO_URL,'_blank','noopener'); } }
