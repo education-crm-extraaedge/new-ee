@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-07-demo-fabs -->
+<!-- ee-front-tpl v2026-08-07-demo-exit -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1371,7 +1371,7 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
    the real viewport) and these rules key off the window's own class ---- */
 .eep-window.eep-launched{
   position:fixed!important;top:0;right:0;bottom:0;left:0;inset:0;z-index:2147483000;
-  display:block!important;width:100vw;width:100dvw;height:100vh;height:100dvh;
+  display:block!important;width:auto;height:auto;
   max-width:none;margin:0;border:0;border-radius:0;background:#0f203a;box-shadow:none;overflow:hidden;
 }.eep-window.eep-launched .eep-bar{
   display:flex;align-items:center;gap:10px;height:56px;padding:0 clamp(12px,2vw,20px);
@@ -1380,8 +1380,11 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h2.rfa-title{font-size:17px
   display:inline-flex;align-items:center;margin-left:auto;background:linear-gradient(135deg,#E8843F,#DE6E30);
   color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:9px 16px;border-radius:999px;white-space:nowrap;
 }.eep-window.eep-launched .eep-close{
-  display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;
-  background:rgba(255,255,255,.14);color:#fff;border:0;font-size:15px;line-height:1;cursor:pointer;flex:0 0 auto;
+  display:inline-flex;align-items:center;gap:9px;margin-left:auto;padding:10px 18px;border-radius:999px;
+  background:linear-gradient(135deg,#E8843F,#DE6E30);color:#fff;border:0;font-size:13px;font-weight:700;
+  line-height:1;cursor:pointer;flex:0 0 auto;white-space:nowrap;box-shadow:0 8px 20px rgba(222,110,48,.4);
+  transition:transform .2s ease,box-shadow .2s ease;
+}.eep-window.eep-launched .eep-close:hover{transform:translateY(-1px);box-shadow:0 12px 26px rgba(222,110,48,.5);
 }.eep-window.eep-launched .eep-expand{display:none !important;}html.eep-lock,body.eep-lock{overflow:hidden!important;overscroll-behavior:none;touch-action:none;}
 body.eep-lock{position:fixed;left:0;right:0;width:100%;}
 body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,.74);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);z-index:2147482999;}
@@ -1407,7 +1410,7 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
      top-right corner so it is always visible (Book button no longer hides it) */
   .eep-window.eep-launched{
     inset:0!important;top:0!important;right:0!important;bottom:0!important;left:0!important;
-    width:100vw!important;width:100dvw!important;height:100vh!important;height:100dvh!important;
+    width:auto!important;height:auto!important;
     border-radius:0!important;box-shadow:none!important;overflow:hidden!important;
   }
   .eep-window.eep-launched .eep-bar{padding-right:52px!important}
@@ -1415,9 +1418,11 @@ body.eep-lock::before{content:"";position:fixed;inset:0;background:rgba(9,17,30,
   .eep-window.eep-launched .eep-mbook{font-size:12px!important;padding:7px 12px!important}
   .eep-window.eep-launched .eep-close{
     position:absolute!important;top:11px!important;right:11px!important;z-index:20!important;
-    width:34px!important;height:34px!important;font-size:16px!important;
+    width:34px!important;height:34px!important;font-size:16px!important;padding:0!important;
+    justify-content:center!important;border-radius:50%!important;
     background:rgba(15,32,58,.78)!important;box-shadow:0 4px 12px rgba(0,0,0,.35)!important;
   }
+  .eep-window.eep-launched .eep-close .eep-close-lbl{display:none!important}
 }
 
 /* ---- floating module panel (Superleap-style): compact icon tiles overlapping
@@ -1602,7 +1607,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
       <span class="eep-mlaunch-arrow" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
     </button>
     <div class="eep-window">
-      <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span><button type="button" class="eep-expand" id="eepExpand" aria-label="Open full screen"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-03.svg" alt="" loading="lazy" decoding="async"> Full screen</button><button type="button" class="eep-close" id="eepClose" aria-label="Close experience">&#10005;</button></div>
+      <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span><button type="button" class="eep-expand" id="eepExpand" aria-label="Open full screen"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-03.svg" alt="" loading="lazy" decoding="async"> Full screen</button><button type="button" class="eep-close" id="eepClose" aria-label="Close the demo and return to the website"><span class="eep-close-lbl">Exit Demo &middot; Back to Website</span><span aria-hidden="true">&#10005;</span></button></div>
       <iframe class="eep-frame" title="ExtraaEdge - Lead Management Platform (interactive demo)" id="eepFrame" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" data-srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
