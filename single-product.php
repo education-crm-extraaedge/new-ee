@@ -78,6 +78,18 @@ $trust_text        = get_post_meta($pid, '_trust_text', true);
 $compliance        = get_post_meta($pid, '_compliance', true) ?: array();
 $form_embed        = get_post_meta($pid, '_form_embed', true);
 
+/* Hero redesign fields. The right column is a trust panel built from this
+   page's own testimonials unless the editor picked "form" (the old layout)
+   or there are no testimonials to build it from. */
+$hero_video_id      = get_post_meta($pid, '_hero_video_id', true);
+$hero_video_title   = get_post_meta($pid, '_hero_video_title', true) ?: 'See ExtraaEdge in Action';
+$hero_video_sub     = get_post_meta($pid, '_hero_video_sub', true) ?: 'Watch how institutions are converting more leads and automating admissions.';
+$hero_video_len     = get_post_meta($pid, '_hero_video_len', true);
+$hero_right_mode    = get_post_meta($pid, '_hero_right_mode', true);
+$hero_trust_eyebrow = get_post_meta($pid, '_hero_trust_eyebrow', true) ?: 'Trusted by 500+ Educational Institutions';
+$hero_trust_h2      = get_post_meta($pid, '_hero_trust_h2', true) ?: 'See Why Education Leaders Choose ExtraaEdge';
+$hero_trust_len     = get_post_meta($pid, '_hero_trust_len', true);
+
 $logo_badge          = get_post_meta($pid, '_logo_badge', true);
 $logo_title_line1    = get_post_meta($pid, '_logo_title_line1', true);
 $logo_title          = get_post_meta($pid, '_logo_title', true);
@@ -414,6 +426,86 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .compliance-item{display:flex;align-items:center;gap:10px;font-family:var(--font-h);font-size:11px;font-weight:700;color:var(--gray-600)}
 .compliance-item img{height:40px;width:auto;object-fit:contain}
 .hero-form-aside{position:sticky;top:20px;z-index:3}
+
+/* ── Hero redesign ───────────────────────────────────────────────────────
+   The testimonial section's .vid-wrap draws its own centred play disc via
+   ::before/::after; the two hero cards carry their own buttons, so that
+   pair is switched off for them (it doubled up otherwise). The generic
+   16:9 / #000 / zoom-on-hover defaults are also overridden per card. */
+.hero-vid::before,.hero-vid::after,.ht-vid::before,.ht-vid::after{display:none!important}
+/* .vid-wrap's own rules sit later in this stylesheet, so the doubled class
+   is what lets the hero card keep its flatter ratio and skip the zoom */
+.hero-vid.vid-wrap{aspect-ratio:16/7;background:var(--blue)}
+.hero-vid.vid-wrap:hover img{transform:none}
+.hero-vid.vid-wrap.playing{aspect-ratio:16/9;background:#000}
+@media(max-width:640px){.hero-vid.vid-wrap{aspect-ratio:16/10}}
+
+/* ── Hero redesign (cont.) ───────────────────────────────────────────────
+   Left: "See in Action" video card between the proof bar and the CTAs.
+   Right: trust panel — eyebrow, heading, video testimonial, person, quote,
+   stat chips, two mini quotes and the rating line, all from post meta.
+   Videos reuse the .vid-wrap click-to-embed behaviour the testimonial
+   section already ships, so nothing loads until it is asked for. */
+.hero-vid{position:relative;border-radius:var(--radius-lg);overflow:hidden;margin-bottom:24px;cursor:pointer;background:var(--blue);box-shadow:var(--shadow-lg);aspect-ratio:16/7}
+.hero-vid>img{width:100%;height:100%;object-fit:cover;display:block;opacity:.38}
+.hero-vid-shade{position:absolute;inset:0;background:linear-gradient(100deg,rgba(15,32,64,.92) 0%,rgba(15,32,64,.55) 55%,rgba(15,32,64,.25) 100%)}
+.hero-vid-txt{position:absolute;left:24px;top:50%;transform:translateY(-50%);max-width:56%;color:#fff;z-index:2}
+.hero-vid-txt strong{display:block;font-family:var(--font-h);font-size:clamp(17px,1.7vw,22px);font-weight:800;margin-bottom:8px}
+.hero-vid-txt span{display:block;font-size:13px;line-height:1.55;color:#C8D4E6}
+.hero-vid-play{position:absolute;right:20%;top:50%;transform:translate(50%,-50%);width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.45);display:grid;place-items:center;z-index:2;transition:var(--transition)}
+.hero-vid-play svg{width:20px;height:20px;margin-left:3px;color:#fff}
+.hero-vid:hover .hero-vid-play{background:var(--orange);border-color:var(--orange);transform:translate(50%,-50%) scale(1.08)}
+.hero-vid-len{position:absolute;left:24px;bottom:14px;z-index:2;background:rgba(255,255,255,.14);color:#fff;font-family:var(--font-h);font-size:11px;font-weight:700;padding:4px 10px;border-radius:var(--radius-full);display:inline-flex;align-items:center;gap:6px}
+.hero-vid-len svg{width:11px;height:11px}
+.hero-vid.playing{aspect-ratio:16/9;background:#000}
+
+.hero-trust{background:var(--white);border-radius:var(--radius-xl);padding:clamp(20px,2.4vw,30px);box-shadow:var(--shadow-xl);border:1px solid rgba(25,51,93,.06);position:relative}
+.ht-eyebrow{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-h);font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;text-align:center}
+.ht-eyebrow svg{width:16px;height:16px;flex:none}
+.ht-h2{font-family:var(--font-h);font-size:clamp(20px,2vw,26px);font-weight:900;color:var(--blue);text-align:center;line-height:1.25;letter-spacing:-.02em;margin:0 0 16px}
+.ht-h2 em{font-style:normal;color:var(--orange)}
+.ht-vid{position:relative;border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;background:var(--blue);aspect-ratio:16/9;margin-bottom:16px}
+.ht-vid>img{width:100%;height:100%;object-fit:cover;display:block}
+.ht-vid-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;box-shadow:0 12px 30px rgba(15,32,64,.35);transition:var(--transition)}
+.ht-vid-play svg{width:22px;height:22px;margin-left:3px;color:var(--orange)}
+.ht-vid:hover .ht-vid-play{transform:translate(-50%,-50%) scale(1.08)}
+.ht-vid .hero-vid-len{left:14px;bottom:12px;background:rgba(15,32,64,.66)}
+.ht-profile{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.ht-avatar{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--orange-pale)}
+.ht-who{flex:1 1 auto;min-width:0}
+.ht-name{font-family:var(--font-h);font-weight:800;font-size:15px;color:var(--blue);margin:0}
+.ht-role{font-size:12px;color:var(--gray-600);margin:2px 0 0}
+.ht-inst{font-family:var(--font-h);font-size:12px;font-weight:700;color:var(--orange);margin:2px 0 0}
+.ht-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
+.ht-stars{color:var(--orange);font-size:15px;letter-spacing:2px;line-height:1}
+.ht-verified{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);color:var(--blue);font-family:var(--font-h);font-size:10px;font-weight:800;padding:4px 10px;border-radius:var(--radius-full)}
+.ht-verified svg{width:12px;height:12px;color:#1a7f37}
+.ht-quote{margin:0 0 16px;padding:14px 16px;background:var(--off-white);border-radius:var(--radius-md);font-size:13.5px;line-height:1.65;color:var(--gray-600);position:relative}
+.ht-quote::before{content:'\201C';position:absolute;left:10px;top:-4px;font-family:var(--font-h);font-size:34px;color:var(--orange);opacity:.5}
+.ht-quote p{margin:0;padding-left:16px}
+.ht-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.ht-stat{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:12px 8px;text-align:center;display:flex;flex-direction:column;gap:3px}
+.ht-stat b{font-family:var(--font-h);font-size:19px;font-weight:900;color:var(--blue);line-height:1}
+.ht-stat span{font-size:10px;font-weight:600;color:var(--gray-600);line-height:1.35}
+.ht-minis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.ht-mini{background:var(--off-white);border-radius:var(--radius-md);padding:12px 14px;font-size:12px;line-height:1.5;color:var(--gray-600)}
+.ht-mini .ht-stars{display:block;font-size:12px;margin-top:8px}
+.ht-rating{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--gray-200);padding-top:14px;font-family:var(--font-h)}
+.ht-rating .ht-stars{font-size:16px}
+.ht-rating b{font-size:16px;font-weight:900;color:var(--blue)}
+.ht-rating span{font-size:11px;font-weight:600;color:var(--gray-400);line-height:1.4}
+
+/* form band shown under the hero when the trust panel takes the right column */
+.hero-form-band{background:var(--off-white);padding:34px 0 40px}
+.hero-form-band .hero-form-card{max-width:720px;margin:0 auto}
+
+@media(max-width:640px){
+  .hero-vid{aspect-ratio:16/10}
+  .hero-vid-txt{left:16px;max-width:62%}
+  .hero-vid-play{right:16%}
+  .ht-minis{grid-template-columns:1fr}
+  .ht-side{align-items:flex-start}
+}
 .hero-form-card{background:var(--white);border-radius:var(--radius-xl);padding:clamp(24px,3vw,40px);box-shadow:var(--shadow-xl);border:1px solid rgba(25,51,93,.06);position:relative}
 .hero-form-card::before{content:"Convert more students. Automatically.";position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;padding:6px 20px;border-radius:var(--radius-full);font-family:var(--font-h);font-size:10px;font-weight:800;text-transform:uppercase;white-space:nowrap;letter-spacing:1px;box-shadow:0 8px 16px rgba(222,110,48,.25)}
 .secure-label{text-align:center;margin-top:18px;font-family:var(--font-h);font-size:10px;color:var(--gray-400);font-weight:800;text-transform:uppercase;letter-spacing:2px}
@@ -708,7 +800,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .ee-float-nav a span{display:block;white-space:nowrap}
 @media(max-width:820px){.ee-float-nav{display:none!important}}
 @media(max-width:1200px){.toc-zone-wrapper{display:block}.toc-column{display:none}.toc-content-column{width:100%}}
-@media(max-width:1150px){.hero-layout{grid-template-columns:minmax(0,1fr);text-align:center;gap:30px}.hero-desc,.hero-badge{margin-left:auto;margin-right:auto}.proof-bar{border-left:0;border-top:5px solid var(--orange);border-radius:var(--radius-md);text-align:left}.cta-row,.tag-row,.compliance-row{justify-content:center}.hero-form-card{max-width:520px;margin:0 auto}.edu-crm-layout{grid-template-columns:minmax(0,1fr);padding:20px 20px;gap:30px}.edu-crm-layout>*,.hero-layout>*{min-width:0}.flow-panel{position:relative;top:0}}
+@media(max-width:1150px){.hero-layout{grid-template-columns:minmax(0,1fr);text-align:center;gap:30px}.hero-desc,.hero-badge{margin-left:auto;margin-right:auto}.proof-bar{border-left:0;border-top:5px solid var(--orange);border-radius:var(--radius-md);text-align:left}.cta-row,.tag-row,.compliance-row{justify-content:center}.hero-form-card{max-width:520px;margin:0 auto}.hero-trust{max-width:560px;margin:0 auto}.hero-vid-txt{text-align:left}.edu-crm-layout{grid-template-columns:minmax(0,1fr);padding:20px 20px;gap:30px}.edu-crm-layout>*,.hero-layout>*{min-width:0}.flow-panel{position:relative;top:0}}
 @media(max-width:1024px){.alt-layout{flex-direction:column;text-align:center;padding:20px 20px;gap:30px}.alt-content{order:1!important}.alt-visual{order:2!important;margin-top:16px;margin-bottom:0;width:100%}.feature-item{text-align:left}.feat-card{flex:0 1 calc(25% - 12px);max-width:none}.bottom-cta-inner{flex-direction:column;gap:26px;align-items:center;text-align:center}.cta-content{width:100%}.cta-visual-card{flex:none;width:100%;max-width:640px;min-width:0;margin:0 auto}.cta-h3{margin-left:auto;margin-right:auto}.ai-demo-inner{grid-template-columns:minmax(0,1fr);gap:30px}.ai-demo-inner>*,.testi-cards>*,.alt-layout>*{min-width:0;max-width:100%}.ai-cta-content{text-align:center}.ai-cta-sub,.btn-cta-rounded{margin-left:auto;margin-right:auto}.ai-trust{justify-content:center}.testi-cards{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:768px){.hero{padding:30px 0}.hero-layout{padding:20px 18px 30px}.stats-grid{grid-template-columns:repeat(3,1fr);gap:8px}.stat-card{padding:12px 6px}.stat-num{font-size:20px}.stat-label{font-size:7.5px;letter-spacing:.3px}.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px}.feat-card{max-width:none;padding:10px 6px}.feat-title{font-size:10.5px;gap:5px}.feat-img-wrap{height:48px;margin-bottom:6px}.hero-badge{white-space:normal;max-width:calc(100vw - 52px);overflow:visible;font-size:clamp(9.5px,2.8vw,11px);line-height:1.45;letter-spacing:.2px;padding:8px 14px;gap:6px;display:flex;justify-content:center;align-items:center;margin-left:auto;margin-right:auto;text-align:center}.secure-label{white-space:nowrap;font-size:clamp(8px,2.4vw,10px);letter-spacing:1px}.hero-form-card::before{font-size:clamp(7px,2.2vw,8.5px);padding:5px 12px;letter-spacing:.6px;top:-12px;max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis}.hero-form-card label:not(:has(input[type="checkbox"])),#ee-form-7 label:not(:has(input[type="checkbox"])){white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;font-size:clamp(10.5px,3.2vw,13px)!important;letter-spacing:0!important}.hero-form-card{padding:16px 14px 18px}.hero-form-card h3,#ee-form-7 h3{font-size:17px!important;margin-bottom:2px!important}.hero-form-card p,#ee-form-7 p{font-size:11.5px!important;margin-bottom:8px!important}.hero-form-card label,#ee-form-7 label{margin-bottom:3px!important}.hero-form-card input[type="text"],.hero-form-card input[type="email"],.hero-form-card input[type="tel"],.hero-form-card input[type="url"],.hero-form-card input[type="number"],.hero-form-card select,.hero-form-card textarea,#ee-form-7 input[type="text"],#ee-form-7 input[type="email"],#ee-form-7 input[type="tel"],#ee-form-7 input[type="url"],#ee-form-7 input[type="number"],#ee-form-7 select,#ee-form-7 textarea{padding:8px 12px!important;font-size:13px!important;border-radius:8px!important}#ee-form-7 form>div,#ee-form-7 form>div>div{margin-bottom:7px!important}.hero-form-card input[type="submit"],.hero-form-card button[type="submit"],#ee-form-7 input[type="submit"],#ee-form-7 button[type="submit"]{padding:11px 20px!important;font-size:14px!important;border-radius:10px!important}.hero-form-card label:has(input[type="checkbox"]),#ee-form-7 label:has(input[type="checkbox"]),#ee-form-7 div:has(>input[type="checkbox"]),#ee-form-7 p:has(>input[type="checkbox"]){font-size:11px!important;line-height:1.5!important;margin:2px 0 8px!important}.secure-label{margin-top:10px}.edu-crm-p{text-align:left}html,body{overflow-x:hidden}.btn-primary,.btn-secondary{width:100%;text-align:center}.cta-row{flex-direction:column}.float-badge{display:none}.product-grid{grid-template-columns:repeat(2,1fr);gap:10px}.product-item{padding:12px}.product-logo{width:34px;height:34px;margin-bottom:8px}.product-item h3{font-size:13px}.growth-card{flex-direction:column;text-align:center;gap:8px;padding:14px 14px}.growth-val{font-size:1.35rem}.growth-text{font-size:12px;line-height:1.5}.trust-bar{flex-direction:column;align-items:center;gap:12px;text-align:center}.trust-rating{text-align:center}.compliance-row{flex-wrap:nowrap;justify-content:center;gap:16px}.logo-section{padding:24px 12px}.btn-rounded{width:100%}.testi-metrics{grid-template-columns:1fr 1fr}.ai-story-engine{display:none!important}.faq-trigger{padding:16px 18px}.faq-q{font-size:15px}.faq-inner{padding:0 18px 20px}.edu-crm-section,.features-section,.alt-section,.bottom-cta,.testimonials-section,.ai-demo-section,.faq-section{padding:28px 0}}
 @media(max-width:480px){.stats-grid{grid-template-columns:repeat(3,1fr)}.stat-num{font-size:18px}.stat-label{font-size:7px}.hero-h1{font-size:30px}.testi-metrics{grid-template-columns:repeat(2,1fr);gap:10px}.testi-metric{padding:14px 10px}.testi-metric-val{font-size:24px}.testi-metric-lab{font-size:9.5px;letter-spacing:.5px}}
@@ -716,6 +808,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 
 <main id="main-content" role="main">
 
+<!-- ee-product-tpl v2026-08-07-hero-trust -->
 <section class="hero" id="top" aria-labelledby="hero-heading">
   <div class="hero-bg" aria-hidden="true">
     <div class="hero-grid"></div>
@@ -723,12 +816,27 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     <div class="hero-blob hero-blob-2" id="heroBlob2"></div>
   </div>
   <div class="container">
+    <?php
+    /* The trust panel needs a testimonial to be built from; without one, or
+       when the editor picked "form", the old form column renders instead. */
+    $ee_hero_trust = ($hero_right_mode !== 'form') && !empty($testimonials);
+    $ee_t1         = $ee_hero_trust ? $testimonials[0] : null;
+    ?>
     <div class="hero-layout">
       <article>
         <?php if($hero_badge): ?><div class="hero-badge reveal" role="status"><span class="pulse-dot" aria-hidden="true"></span><?php echo esc_html($hero_badge); ?></div><?php endif; ?>
         <h1 id="hero-heading" class="hero-h1 reveal"><?php echo esc_html($hero_h1_before); ?><?php if($hero_h1_highlight): ?> <span><?php echo esc_html($hero_h1_highlight); ?></span> <?php endif; ?><?php echo esc_html($hero_h1_after); ?></h1>
         <?php if($hero_desc): ?><p class="hero-desc reveal"><?php echo ee_inline_links($hero_desc); ?></p><?php endif; ?>
         <?php if(!empty($hero_proofs)): ?><div class="proof-bar reveal" role="complementary" aria-label="Trust indicators"><?php foreach($hero_proofs as $proof): ?><div class="proof-item"><?php echo esc_html($proof); ?></div><?php endforeach; ?></div><?php endif; ?>
+        <?php if($hero_video_id): ?>
+        <div class="hero-vid vid-wrap reveal" data-ytid="<?php echo esc_attr($hero_video_id); ?>" role="button" tabindex="0" aria-label="Play: <?php echo esc_attr($hero_video_title); ?>">
+          <img src="https://i.ytimg.com/vi/<?php echo esc_attr($hero_video_id); ?>/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+          <span class="hero-vid-shade" aria-hidden="true"></span>
+          <span class="hero-vid-txt"><strong><?php echo esc_html($hero_video_title); ?></strong><span><?php echo esc_html($hero_video_sub); ?></span></span>
+          <span class="hero-vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <?php if($hero_video_len): ?><span class="hero-vid-len" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><?php echo esc_html($hero_video_len); ?></span><?php endif; ?>
+        </div>
+        <?php endif; ?>
         <?php if(!empty($stats)): ?><div class="stats-grid reveal" role="region" aria-label="Key statistics"><?php foreach($stats as $stat): ?><div class="stat-card"><span class="stat-num"><?php echo esc_html($stat['number']); ?></span><span class="stat-label"><?php echo esc_html($stat['label']); ?></span></div><?php endforeach; ?></div><?php endif; ?>
         <?php if($result_badge): ?><div class="result-badge reveal"><?php echo esc_html($result_badge); ?></div><?php endif; ?>
         <?php if(!empty($tags)): ?><nav class="tag-row reveal" aria-label="Industry segments"><?php foreach($tags as $tag): ?><span class="tag"><?php echo esc_html($tag); ?></span><?php endforeach; ?></nav><?php endif; ?>
@@ -771,11 +879,68 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <?php endif; ?>
       </article>
 
-      <?php if($form_embed): ?>
+      <?php
+      /* The embed HTML is prepared once; it renders in the hero when the
+         form has the right column, or in the band below when the trust
+         panel does. */
+      $ee_form_html = '';
+      if ($form_embed) {
+          $ee_form_html = wp_kses($form_embed, array('script'=>array('src'=>array(),'async'=>array(),'defer'=>array(),'type'=>array(),'charset'=>array(),'id'=>array()),'div'=>array('id'=>array(),'class'=>array(),'style'=>array()),'form'=>array('action'=>array(),'method'=>array(),'id'=>array(),'class'=>array()),'input'=>array('type'=>array(),'name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'required'=>array(),'value'=>array()),'textarea'=>array('name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'rows'=>array()),'select'=>array('name'=>array(),'id'=>array(),'class'=>array()),'option'=>array('value'=>array(),'selected'=>array()),'button'=>array('type'=>array(),'id'=>array(),'class'=>array()),'label'=>array('for'=>array(),'class'=>array()),'iframe'=>array('src'=>array(),'width'=>array(),'height'=>array(),'frameborder'=>array(),'loading'=>array(),'title'=>array()),'a'=>array('href'=>array(),'target'=>array(),'class'=>array(),'rel'=>array()),'p'=>array('class'=>array()),'span'=>array('class'=>array()),'br'=>array()));
+      }
+      ?>
+      <?php if($ee_hero_trust): ?>
+      <aside class="hero-trust reveal" aria-label="Why education leaders choose ExtraaEdge">
+        <div class="ht-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.5 5.1 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg><?php echo esc_html($hero_trust_eyebrow); ?></div>
+        <h2 class="ht-h2"><?php echo str_replace('ExtraaEdge', '<em>ExtraaEdge</em>', esc_html($hero_trust_h2)); ?></h2>
+        <?php if(!empty($ee_t1['youtube_id'])): ?>
+        <div class="ht-vid vid-wrap" data-ytid="<?php echo esc_attr($ee_t1['youtube_id']); ?>" role="button" tabindex="0" aria-label="Play video testimonial<?php echo !empty($ee_t1['name']) ? ' from ' . esc_attr($ee_t1['name']) : ''; ?>">
+          <img src="https://img.youtube.com/vi/<?php echo esc_attr($ee_t1['youtube_id']); ?>/maxresdefault.jpg" alt="" loading="lazy" decoding="async" width="640" height="360">
+          <span class="ht-vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <?php if($hero_trust_len): ?><span class="hero-vid-len" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><?php echo esc_html($hero_trust_len); ?></span><?php endif; ?>
+        </div>
+        <?php endif; ?>
+        <div class="ht-profile">
+          <?php if(!empty($ee_t1['avatar'])): ?><img class="ht-avatar" src="<?php echo esc_url($ee_t1['avatar']); ?>" alt="<?php echo esc_attr($ee_t1['name'] ?? ''); ?>" loading="lazy" decoding="async" width="52" height="52"><?php endif; ?>
+          <div class="ht-who">
+            <?php if(!empty($ee_t1['name'])): ?><p class="ht-name"><?php echo esc_html($ee_t1['name']); ?></p><?php endif; ?>
+            <?php if(!empty($ee_t1['role'])): ?><p class="ht-role"><?php echo esc_html($ee_t1['role']); ?></p><?php endif; ?>
+            <?php if(!empty($ee_t1['institution'])): ?><p class="ht-inst"><?php echo esc_html($ee_t1['institution']); ?></p><?php endif; ?>
+          </div>
+          <div class="ht-side">
+            <span class="ht-stars" aria-label="5 star review">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="ht-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.3 2.3 4.7-4.8"/></svg>Verified Review</span>
+          </div>
+        </div>
+        <?php if(!empty($ee_t1['quote'])): ?><blockquote class="ht-quote"><p><?php echo esc_html($ee_t1['quote']); ?></p></blockquote><?php endif; ?>
+        <?php if(!empty($stats)): ?>
+        <div class="ht-stats" role="region" aria-label="Customer outcomes">
+          <?php foreach(array_slice($stats, 0, 3) as $stat): ?><div class="ht-stat"><b><?php echo esc_html($stat['number']); ?></b><span><?php echo esc_html($stat['label']); ?></span></div><?php endforeach; ?>
+        </div>
+        <?php endif; ?>
+        <?php
+        $ee_minis = array();
+        foreach (array_slice($testimonials, 1, 2) as $ee_tm) {
+            $ee_q = trim((string)($ee_tm['quote'] ?? ''));
+            if ($ee_q !== '') $ee_minis[] = mb_strlen($ee_q) > 90 ? mb_substr($ee_q, 0, 88) . '…' : $ee_q;
+        }
+        if ($ee_minis): ?>
+        <div class="ht-minis">
+          <?php foreach($ee_minis as $ee_q): ?><div class="ht-mini">&ldquo;<?php echo esc_html($ee_q); ?>&rdquo;<span class="ht-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><?php endforeach; ?>
+        </div>
+        <?php endif; ?>
+        <?php if($trust_rating): $ee_tr_sub = trim((string)$trust_text, "() \t"); ?>
+        <div class="ht-rating">
+          <span class="ht-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <b><?php echo esc_html($trust_rating); ?>/5</b>
+          <?php if($ee_tr_sub): ?><span><?php echo esc_html($ee_tr_sub); ?></span><?php endif; ?>
+        </div>
+        <?php endif; ?>
+      </aside>
+      <?php elseif($ee_form_html): ?>
       <aside class="hero-form-aside reveal" id="admission-form" aria-labelledby="form-heading">
         <div class="hero-form-card">
           <h2 id="form-heading" class="visually-hidden">Book Demo Now</h2>
-          <?php echo wp_kses($form_embed, array('script'=>array('src'=>array(),'async'=>array(),'defer'=>array(),'type'=>array(),'charset'=>array(),'id'=>array()),'div'=>array('id'=>array(),'class'=>array(),'style'=>array()),'form'=>array('action'=>array(),'method'=>array(),'id'=>array(),'class'=>array()),'input'=>array('type'=>array(),'name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'required'=>array(),'value'=>array()),'textarea'=>array('name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'rows'=>array()),'select'=>array('name'=>array(),'id'=>array(),'class'=>array()),'option'=>array('value'=>array(),'selected'=>array()),'button'=>array('type'=>array(),'id'=>array(),'class'=>array()),'label'=>array('for'=>array(),'class'=>array()),'iframe'=>array('src'=>array(),'width'=>array(),'height'=>array(),'frameborder'=>array(),'loading'=>array(),'title'=>array()),'a'=>array('href'=>array(),'target'=>array(),'class'=>array(),'rel'=>array()),'p'=>array('class'=>array()),'span'=>array('class'=>array()),'br'=>array())); ?>
+          <?php echo $ee_form_html; ?>
           <p class="secure-label" aria-label="Secure data transmission"><span aria-hidden="true">&#128274;</span> Secure Data Transmission Active</p>
         </div>
       </aside>
@@ -783,6 +948,18 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     </div>
   </div>
 </section>
+
+<?php if($ee_hero_trust && $ee_form_html): ?>
+<section class="hero-form-band" id="admission-form" aria-labelledby="form-heading">
+  <div class="container">
+    <div class="hero-form-card">
+      <h2 id="form-heading" class="visually-hidden">Book Demo Now</h2>
+      <?php echo $ee_form_html; ?>
+      <p class="secure-label" aria-label="Secure data transmission"><span aria-hidden="true">&#128274;</span> Secure Data Transmission Active</p>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
 
 <?php /* Logo marquee removed — now rendered globally (home-page style) via the
    ee_before_footer hook in functions.php so every page looks identical.

@@ -2109,6 +2109,23 @@ function product_hero_fields($post) {
 <div class="field-group"><label>H1 - Part 2 (optional)</label><input type="text" name="hero_h1_after" value="<?php echo esc_attr($f('hero_h1_after')); ?>"></div>
 <div class="field-group"><label>Description</label><textarea name="hero_description" rows="4"><?php echo esc_textarea($f('hero_description')); ?></textarea></div>
 
+<h4>Hero video — "See ExtraaEdge in Action" card (left column)</h4>
+<div class="field-group"><label>YouTube video ID</label><input type="text" name="hero_video_id" value="<?php echo esc_attr($f('hero_video_id')); ?>" placeholder="aji5VQuoHCI"><p class="field-help">Leave empty to hide the card. Just the 11-character ID from the video's URL.</p></div>
+<div class="field-group"><label>Card title</label><input type="text" name="hero_video_title" value="<?php echo esc_attr($f('hero_video_title')); ?>" placeholder="See ExtraaEdge in Action"></div>
+<div class="field-group"><label>Card sub-line</label><input type="text" name="hero_video_sub" value="<?php echo esc_attr($f('hero_video_sub')); ?>" placeholder="Watch how institutions are converting more leads and automating admissions."></div>
+<div class="field-group"><label>Duration label</label><input type="text" name="hero_video_len" value="<?php echo esc_attr($f('hero_video_len')); ?>" placeholder="2:24"></div>
+
+<h4>Hero right column</h4>
+<div class="field-group"><label>What shows on the right</label>
+<select name="hero_right_mode">
+<option value="" <?php selected($f('hero_right_mode'), ''); ?>>Trust panel (video testimonial — default when testimonials exist)</option>
+<option value="form" <?php selected($f('hero_right_mode'), 'form'); ?>>Lead form (the old layout)</option>
+</select>
+<p class="field-help">The trust panel is built from this page's own <strong>Testimonial Cards</strong> below: card #1 supplies the video, quote and person; cards #2–#3 supply the two mini quotes. The stats trio and the trust rating come from the fields above. When the trust panel is shown, the lead form moves to a full-width band directly under the hero, so every "Book Demo" button still lands on it.</p></div>
+<div class="field-group"><label>Trust panel eyebrow</label><input type="text" name="hero_trust_eyebrow" value="<?php echo esc_attr($f('hero_trust_eyebrow')); ?>" placeholder="Trusted by 500+ Educational Institutions"></div>
+<div class="field-group"><label>Trust panel heading</label><input type="text" name="hero_trust_h2" value="<?php echo esc_attr($f('hero_trust_h2')); ?>" placeholder="See Why Education Leaders Choose ExtraaEdge"><p class="field-help">The word "ExtraaEdge" is highlighted in orange automatically.</p></div>
+<div class="field-group"><label>Trust video duration label</label><input type="text" name="hero_trust_len" value="<?php echo esc_attr($f('hero_trust_len')); ?>" placeholder="1:24"></div>
+
 <h4>Proof Points</h4>
 <div id="proofs-container">
 <?php if (!empty($hero_proofs)) : foreach ($hero_proofs as $proof) : ?>
@@ -6031,7 +6048,8 @@ function product_save_meta_box_data($post_id) {
     }
 
     // ─── Hero text fields ───
-    $hero_text_fields = array('hero_badge','hero_h1_before','hero_h1_highlight','hero_h1_after','hero_description','result_badge','hero_cta_text','hero_cta_url','hero_cta2_text','hero_cta2_url','trust_rating','trust_text');
+    $hero_text_fields = array('hero_badge','hero_h1_before','hero_h1_highlight','hero_h1_after','hero_description','result_badge','hero_cta_text','hero_cta_url','hero_cta2_text','hero_cta2_url','trust_rating','trust_text',
+        'hero_video_id','hero_video_title','hero_video_sub','hero_video_len','hero_right_mode','hero_trust_eyebrow','hero_trust_h2','hero_trust_len');
     foreach ($hero_text_fields as $field) {
         if (isset($_POST[$field])) {
             update_post_meta($post_id, '_' . $field, sanitize_textarea_field(wp_unslash($_POST[$field])));
