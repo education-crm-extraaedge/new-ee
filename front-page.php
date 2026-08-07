@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-hero-typewrite -->
+<!-- ee-front-tpl v2026-08-08-hero-typewrite2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -408,7 +408,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   <div class="hero__grid" aria-hidden="true"></div>
   <div class="container hero__in">
     <div>
-      <style>#xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);min-height:max(clamp(118px,16vh,200px),4.6em);transition:opacity .55s cubic-bezier(.25,.6,.25,1),transform .55s cubic-bezier(.25,.6,.25,1);will-change:opacity,transform}#xhero .hero__rot.is-out{opacity:0!important;transform:translateY(10px)!important}#xhero .hero-caret{display:none;width:3px;height:.92em;margin-left:4px;border-radius:2px;background:var(--orange);vertical-align:-1px;animation:heroCaretBlink 1s steps(1) infinite}#xhero .hero__rot .hr-w{display:inline-block}#xhero .hero__rot .hr-c{opacity:0;display:inline-block;filter:blur(3px);transition:opacity .16s ease-out,filter .22s ease-out}#xhero .hero__rot .hr-c.on{opacity:1;filter:none}@media(prefers-reduced-motion:reduce){#xhero .hero__rot .hr-c{transition:none}}
+      <style>#xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);min-height:max(clamp(118px,16vh,200px),4.6em);transition:opacity .55s cubic-bezier(.25,.6,.25,1),transform .55s cubic-bezier(.25,.6,.25,1);will-change:opacity,transform}#xhero .hero__rot.is-out{opacity:0!important;transform:translateY(10px)!important}#xhero .hero-caret{display:none;width:3px;height:.92em;margin-left:4px;border-radius:2px;background:var(--orange);vertical-align:-1px;animation:heroCaretBlink 1s steps(1) infinite}
         /* reserve space for the tallest rotating headline per width - text swaps must never push the layout (CLS) */
         @media(max-width:390px){#xhero .hero__rot{min-height:4.7em!important}}
         @keyframes heroCaretBlink{50%{opacity:0}}
@@ -589,31 +589,37 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   function buildWords(target,text){
     /* each word is an atomic inline-block (so it wraps as a unit and can
        never hop lines mid-reveal); the characters inside it fade in one by
-       one, which is what reads as the text being written */
+       one, which is what reads as the text being written. Every style rides
+       the element INLINE - CSS optimizers (LiteSpeed UCSS/minify) strip
+       stylesheet rules for classes that only appear at runtime, which left
+       the characters visible before their turn. Inline styles can't be
+       stripped. */
     text.split(/\s+/).forEach(function(w){
       if(!w) return;
-      var sp=document.createElement('span'); sp.className='hr-w';
+      var sp=document.createElement('span'); sp.className='hr-w'; sp.style.display='inline-block';
       for(var c=0;c<w.length;c++){
         var ch=document.createElement('span'); ch.className='hr-c'; ch.textContent=w.charAt(c);
+        ch.style.cssText='display:inline-block;opacity:0;filter:blur(3px);transition:opacity .16s ease-out,filter .22s ease-out';
         sp.appendChild(ch);
       }
       target.appendChild(sp);
       target.appendChild(document.createTextNode(' '));
     });
   }
+  function showCh(ch){ ch.style.opacity='1'; ch.style.filter='none'; }
   function setPhrase(k,showAll){
     pre.textContent=''; acc.textContent='';
     buildWords(pre,DATA[k].pre);
     buildWords(acc,DATA[k].acc);
-    if(showAll){ [].forEach.call(el.querySelectorAll('.hr-c'),function(ch){ ch.classList.add('on'); }); }
+    if(showAll){ [].forEach.call(el.querySelectorAll('.hr-c'),showCh); }
   }
   function reveal(){
     var cs=[].slice.call(el.querySelectorAll('.hr-c')), idx=0;
-    if(reduce){ cs.forEach(function(ch){ ch.classList.add('on'); }); t=setTimeout(swap,HOLD); return; }
+    if(reduce){ cs.forEach(showCh); t=setTimeout(swap,HOLD); return; }
     (function step(){
       if(paused){ t=setTimeout(step,200); return; }
       if(idx>=cs.length){ t=setTimeout(swap,HOLD); return; }
-      cs[idx++].classList.add('on');
+      showCh(cs[idx++]);
       t=setTimeout(step,STAG);
     })();
   }
