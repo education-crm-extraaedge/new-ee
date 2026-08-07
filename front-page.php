@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-integ-mobile -->
+<!-- ee-front-tpl v2026-08-08-integ-logo-fill -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -4089,7 +4089,9 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   transition:transform .26s cubic-bezier(.2,.9,.3,1),box-shadow .26s ease,border-color .26s ease}
 #integrations .ih-t:hover{transform:translateY(-5px);border-color:rgba(222,110,48,.35);
   box-shadow:0 22px 40px -20px rgba(25,52,93,.45)}
-#integrations .ih-t img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+/* width/height 100% (not auto) so small-intrinsic SVG logos scale UP to fill
+   the tile - auto left them at natural size, floating in white space */
+#integrations .ih-t img{width:100%;height:100%;object-fit:contain}
 
 /* the hub itself */
 #integrations .ih-core{position:relative;width:min(210px,100%);aspect-ratio:1;display:grid;place-items:center}
@@ -4156,7 +4158,7 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   #integrations .ih-mq-row{display:flex;width:max-content;animation:ihMq 36s linear infinite;padding:5px 0}
   #integrations .ih-mq-row.r2{animation-duration:44s;animation-direction:reverse}
   #integrations .ih-mq-set{display:flex;gap:9px;padding-right:9px}
-  #integrations .ih-mq .ih-t{display:grid;flex:0 0 auto;width:78px;border-radius:13px;padding:10px;
+  #integrations .ih-mq .ih-t{display:grid;flex:0 0 auto;width:78px;border-radius:13px;padding:7px;
     box-shadow:0 6px 16px -12px rgba(25,52,93,.45),0 1px 3px rgba(25,52,93,.05)}
   #integrations .ih-core{width:120px}
   #integrations .ih-bar{grid-template-columns:repeat(2,minmax(0,1fr));border-radius:15px;margin-top:22px}
