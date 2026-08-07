@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-07-hero-pov2 -->
+<!-- ee-front-tpl v2026-08-07-hero-pov3 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -454,27 +454,29 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       @media(max-width:480px){#xhero .hero-form-card{padding:24px 20px}}
     </style>
     <style>/* ── Product Overview panel — sits where the demo form used to ── */
-      #xhero .hero-pov{width:100%;position:relative;background:#fff;border:1px solid #EDF0F5;border-radius:26px;padding:clamp(14px,1.6vw,20px);box-shadow:0 30px 70px -20px rgba(25,52,93,.26);text-align:center}
-      #xhero .hero-pov::after{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;background:linear-gradient(140deg,rgba(222,110,48,.5),transparent 40%,transparent 60%,rgba(25,52,93,.4));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55}
+      #xhero .hero-pov{width:100%;position:relative;text-align:center}
+      /* soft ambient glow so the frame sits IN the page, not on a card */
+      #xhero .hero-pov::before{content:'';position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);width:118%;height:82%;pointer-events:none;z-index:0;background:radial-gradient(48% 42% at 32% 38%,rgba(222,110,48,.16),transparent 70%),radial-gradient(52% 46% at 72% 62%,rgba(25,52,93,.14),transparent 72%);filter:blur(34px)}
+      #xhero .hero-pov>*{position:relative;z-index:1}
       #xhero .hp-chip{display:inline-flex;background:linear-gradient(135deg,#E8843F 0%,#DE6E30 55%,#C2541C 100%);color:#fff;font:800 11px/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:999px;box-shadow:0 18px 44px -14px rgba(222,110,48,.55);margin-bottom:10px}
       /* same id/class/type counts as the site heading-scale rule; prints later, wins the tie */
       html body #main-content #xhero h2.h2.hp-h2{margin:0 0 8px !important;color:#19335D !important;font-weight:800 !important;font-size:clamp(21px,2.2vw,28px) !important;line-height:1.2 !important;letter-spacing:-.02em !important;text-align:center !important}
       #xhero .hp-sub{max-width:48ch;margin:0 auto 12px;color:#5a6b85;font-size:13.5px;line-height:1.6}
-      #xhero .hp-vid{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;background:#0F2040;aspect-ratio:16/9;border:1px solid rgba(25,52,93,.12);box-shadow:0 24px 54px -22px rgba(25,52,93,.5)}
+      #xhero .hp-vid{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;background:#0F2040;aspect-ratio:16/9;border:1px solid rgba(255,255,255,.65);outline:1px solid rgba(25,52,93,.12);box-shadow:0 60px 120px -36px rgba(15,32,64,.55),0 24px 48px -24px rgba(15,32,64,.35),0 2px 8px rgba(15,32,64,.12)}
       #xhero .hp-vid img{width:100%;height:100%;object-fit:cover;display:block}
-      #xhero .hp-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 18px 44px rgba(15,32,64,.4);transition:transform .2s ease}
+      #xhero .hp-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.94);backdrop-filter:blur(4px);display:grid;place-items:center;box-shadow:0 18px 44px rgba(15,32,64,.45),0 0 0 10px rgba(255,255,255,.18);transition:transform .2s ease,box-shadow .2s ease}
       #xhero .hp-play svg{width:22px;height:22px;margin-left:3px;color:#DE6E30}
-      #xhero .hp-vid:hover .hp-play{transform:translate(-50%,-50%) scale(1.08)}
+      #xhero .hp-vid:hover .hp-play{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 22px 52px rgba(15,32,64,.5),0 0 0 14px rgba(255,255,255,.22)}
       #xhero .hp-vid:focus-visible{outline:3px solid #19335D;outline-offset:3px}
       #xhero .hp-vid.playing{cursor:default}
       #xhero .hp-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-      #xhero .hp-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid #E5EAF2}
+      #xhero .hp-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
       #xhero .hp-t{display:flex;align-items:center;justify-content:center;gap:8px;text-align:left}
       #xhero .hp-t svg{width:22px;height:22px;flex:none;color:var(--orange-700,#B5551D)}
       #xhero .hp-t b{display:block;font:700 12px/1.3 'Inter',sans-serif;color:#19335D}
       #xhero .hp-t small{display:block;font:600 10.5px/1.3 'Inter',sans-serif;color:#7a889e}
       @media(max-width:1024px){#xhero .hero-pov{max-width:540px;margin:0 auto}}
-      @media(max-width:480px){#xhero .hero-pov{padding:20px 16px}#xhero .hp-trio{grid-template-columns:1fr;gap:9px}#xhero .hp-t{justify-content:flex-start}}
+      @media(max-width:480px){#xhero .hp-vid{border-radius:14px}#xhero .hp-trio{grid-template-columns:1fr;gap:9px;max-width:250px;margin-left:auto;margin-right:auto}#xhero .hp-t{justify-content:flex-start}}
       @media(prefers-reduced-motion:reduce){#xhero .hp-play{transition:none}}
     </style>
     <aside class="hero-pov reveal d4" aria-label="Product overview">
