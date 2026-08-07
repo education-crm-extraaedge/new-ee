@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-hero-typewrite2 -->
+<!-- ee-front-tpl v2026-08-08-hero-typewrite3 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -582,6 +582,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
      and the next phrase reveals the same way. */
   var pre=document.createElement('span');
   var acc=document.createElement('span'); acc.className='accent';
+  /* The stylesheet paints the accent as a gradient clipped to its text
+     (background-clip:text). That background belongs to the PARENT span, so
+     it kept showing through the glyph shapes even while the characters
+     themselves sat at opacity 0 - the keywords looked pre-highlighted.
+     Inline: drop the clipped background and colour the keywords solid brand
+     orange (same as every other heading accent), so they reveal char by
+     char exactly like the rest of the line. */
+  acc.style.cssText='background:none;-webkit-background-clip:initial;background-clip:initial;-webkit-text-fill-color:currentColor;color:#DE6E30';
   el.textContent=''; el.appendChild(pre); el.appendChild(acc);
 
   var i=0,t=null,paused=false;
