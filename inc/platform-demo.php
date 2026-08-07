@@ -24,7 +24,7 @@ function ee_platform_section() {
     if ($ee_done) return;
     $ee_done = true;
 ?>
-<!-- ee-platform-section v2026-08-07-no-eyebrow (shared: home / product-tour / [ee_platform]) -->
+<!-- ee-platform-section v2026-08-08-tour-placement (shared: home / product-tour / [ee_platform]) -->
 <style>
 /* The site renders at 90% zoom (header.php ee-site-zoom); the relocated
    full-screen demo overlay is counter-zoomed back to 1:1. */
@@ -1094,11 +1094,19 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
         [].forEach.call(tipDots.children,function(d,j){d.classList.toggle('on',j===i);});
         [].forEach.call(ddots.children,function(d,j){d.classList.toggle('on',j===i);});
         if(!tMobile()){
-          var vw=window.innerWidth,vh=window.innerHeight,tw=300,th=tTip.offsetHeight||190,gap=14,tx,ty;
+          /* Fit the card on whichever side of the highlight has room, using
+             the card's real size. When the highlight is so large that no side
+             fits (full-width tables, the whole KPI grid), the old code
+             clamped the card ONTO the data it was explaining - now it docks
+             to the bottom-left corner instead, mostly over the sidebar, so
+             the highlighted screen stays readable. */
+          var vw=window.innerWidth,vh=window.innerHeight,gap=14,
+              tw=tTip.offsetWidth||330,th=tTip.offsetHeight||190,tx,ty;
           if(r.bottom+gap+th<vh){ ty=r.bottom+gap; tx=clamp(r.left,14,vw-tw-14); }
-          else if(r.top-gap-th>0){ ty=r.top-gap-th; tx=clamp(r.left,14,vw-tw-14); }
+          else if(r.top-gap-th>14){ ty=r.top-gap-th; tx=clamp(r.left,14,vw-tw-14); }
           else if(r.right+gap+tw<vw){ tx=r.right+gap; ty=clamp(r.top,14,vh-th-14); }
-          else { tx=clamp(r.left-gap-tw,14,vw-tw-14); ty=clamp(r.top,14,vh-th-14); }
+          else if(r.left-gap-tw>14){ tx=r.left-gap-tw; ty=clamp(r.top,14,vh-th-14); }
+          else { tx=14; ty=vh-th-14; }
           tTip.style.left=tx+'px'; tTip.style.top=ty+'px';
         } else { tTip.style.left=''; tTip.style.top=''; }
       }, tReduce?60:380);
