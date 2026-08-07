@@ -24,7 +24,7 @@ function ee_platform_section() {
     if ($ee_done) return;
     $ee_done = true;
 ?>
-<!-- ee-platform-section (shared: home / product-tour / [ee_platform]) -->
+<!-- ee-platform-section v2026-08-07-mob-grid9 (shared: home / product-tour / [ee_platform]) -->
 <style>
 /* The site renders at 90% zoom (header.php ee-site-zoom); the relocated
    full-screen demo overlay is counter-zoomed back to 1:1. */
@@ -135,19 +135,24 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 .eep-ovnav button.on{background:#DE6E30;border-color:#DE6E30;color:#fff;font-weight:700}
 @media(max-width:1240px){#ee-platform .eep-mods{}}
 @media(max-width:860px){
-  #ee-platform .eep-mods{position:static;width:auto;box-shadow:none;border:0;background:transparent;border-radius:0;padding:0;margin:0 0 14px}
-  html body #main-content #ee-platform .eep-mods-title{text-align:left;margin-bottom:10px}
-  /* flex-direction was never reset from the desktop rail's column, so the
-     nine pills stacked instead of scrolling sideways - about 250px of dead
-     height on a phone, and not what the rules below describe. */
-  #ee-platform .eep-mods-grid{display:flex;flex-direction:row;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  #ee-platform .eep-mods-grid::-webkit-scrollbar{display:none}
-  #ee-platform .eep-mod{flex:none;flex-direction:row;gap:8px;padding:9px 14px;border-radius:999px;background:#fff;border:1px solid rgba(25,52,93,.16)}
+  /* phones: the floating rail is gone - the same 9 module buttons become a
+     3-column grid of dashboard cards; tapping one opens the full-screen demo
+     already switched to that screen (the click handler does both). */
+  #ee-platform .eep-mods{position:static;width:auto;box-shadow:none;border:0;background:transparent;border-radius:0;padding:0;margin:0 0 12px}
+  #ee-platform .eep-mods-head{display:none}
+  #ee-platform .eep-mods-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;max-height:none;overflow:visible;padding-bottom:0}
+  #ee-platform .eep-mods-grid .eep-mod:nth-child(n+10){display:none}
+  #ee-platform .eep-mod{flex-direction:column;gap:7px;padding:13px 6px 11px;border-radius:14px;background:#fff;border:1px solid rgba(25,52,93,.14);box-shadow:0 10px 24px -18px rgba(25,52,93,.5)}
   #ee-platform .eep-mod:hover{transform:none}
-  #ee-platform .eep-mod .eep-mod-ic,#ee-platform .eep-mod .eep-mod-ic svg{width:14px;height:14px}
-  #ee-platform .eep-mod b{white-space:nowrap;font-size:12px}
+  #ee-platform .eep-mod:active{transform:scale(.97)}
+  #ee-platform .eep-mod .eep-mod-ic{width:38px;height:38px;border:0;border-radius:12px;background:rgba(25,52,93,.06);box-shadow:none;color:#19345d}
+  #ee-platform .eep-mod .eep-mod-ic svg{width:18px;height:18px}
+  #ee-platform .eep-mod-ic--art{background:#fff!important;border:1px solid rgba(25,52,93,.12)!important}
+  #ee-platform .eep-mod b{white-space:nowrap;font-size:10.5px;color:#334a68}
+  #ee-platform .eep-mod.on{border-color:rgba(222,110,48,.5)}
+  #ee-platform .eep-mod.on .eep-mod-ic{background:rgba(222,110,48,.12);color:var(--orange-700,#B5551D)}
   #ee-platform .eep-tour{display:none}
-  #ee-platform .eep-mod-info{margin-top:9px}
+  #ee-platform .eep-mod-info{display:none}
 }
 </style>
 <style id="ee-platform-frame">
@@ -269,9 +274,9 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
         <i class="eep-mod-prog" id="eepModProg" aria-hidden="true"></i>
       </div>
     </aside>
-    <button type="button" class="eep-mlaunch" id="eepLaunch" aria-label="Open the interactive product experience">
+    <button type="button" class="eep-mlaunch" id="eepLaunch" aria-label="Open the complete CRM full screen">
       <span class="eep-mlaunch-play" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-01.svg" alt="" loading="lazy" decoding="async"></span>
-      <span class="eep-mlaunch-tx"><b>Launch the live product experience</b><i>Tap to explore the AI Admission CRM - full screen</i></span>
+      <span class="eep-mlaunch-tx"><b>Click here to see the full CRM</b><i>Every dashboard, live on sample data - opens full screen</i></span>
       <span class="eep-mlaunch-arrow" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
     </button>
     <div class="eep-window">
