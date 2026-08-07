@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-h2-lockups -->
+<!-- ee-front-tpl v2026-08-08-hero-word-reveal -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -408,7 +408,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   <div class="hero__grid" aria-hidden="true"></div>
   <div class="container hero__in">
     <div>
-      <style>#xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);min-height:max(clamp(118px,16vh,200px),4.6em);transition:opacity .55s cubic-bezier(.25,.6,.25,1),transform .55s cubic-bezier(.25,.6,.25,1);will-change:opacity,transform}#xhero .hero__rot.is-out{opacity:0!important;transform:translateY(10px)!important}#xhero .hero-caret{display:none;width:3px;height:.92em;margin-left:4px;border-radius:2px;background:var(--orange);vertical-align:-1px;animation:heroCaretBlink 1s steps(1) infinite}
+      <style>#xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);min-height:max(clamp(118px,16vh,200px),4.6em);transition:opacity .55s cubic-bezier(.25,.6,.25,1),transform .55s cubic-bezier(.25,.6,.25,1);will-change:opacity,transform}#xhero .hero__rot.is-out{opacity:0!important;transform:translateY(10px)!important}#xhero .hero-caret{display:none;width:3px;height:.92em;margin-left:4px;border-radius:2px;background:var(--orange);vertical-align:-1px;animation:heroCaretBlink 1s steps(1) infinite}#xhero .hero__rot .hr-w{opacity:0;display:inline-block;transform:translateY(7px);filter:blur(4px);transition:opacity .42s ease,transform .42s cubic-bezier(.2,.7,.2,1),filter .42s ease}#xhero .hero__rot .hr-w.on{opacity:1;transform:none;filter:none}@media(prefers-reduced-motion:reduce){#xhero .hero__rot .hr-w{transition:none}}
         /* reserve space for the tallest rotating headline per width - text swaps must never push the layout (CLS) */
         @media(max-width:390px){#xhero .hero__rot{min-height:4.7em!important}}
         @keyframes heroCaretBlink{50%{opacity:0}}
@@ -575,47 +575,56 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   /* typing runs everywhere - many phones ship with OS-level animation
      reduction that used to freeze this headline on the first phrase */
 
-  /* Build stable child nodes ONCE. Typing then only mutates their text content -
-     no per-keystroke innerHTML reparse/reflow (that was the stutter), and the
-     caret keeps its own steady blink instead of being recreated every frame. */
+  /* Every word is laid out in its FINAL position from the first frame and
+     only fades in - a half-typed word can never wrap to the next line and
+     jump back up the way character-by-character typing reflowed the text.
+     The finished line holds, fades out as a whole (the .is-out crossfade),
+     and the next phrase reveals the same way. */
   var pre=document.createElement('span');
   var acc=document.createElement('span'); acc.className='accent';
-  var caret=document.createElement('span'); caret.className='hero-caret'; caret.setAttribute('aria-hidden','true');
-  el.textContent=''; el.appendChild(pre); el.appendChild(acc); el.appendChild(caret);
+  el.textContent=''; el.appendChild(pre); el.appendChild(acc);
 
-  var i=0,n=0,paused=false,t=null;
-  /* Unhurried, even cadence. No character-by-character backspacing - the
-     finished line holds, fades out as a whole (the .is-out transition),
-     and the next phrase types in. Deleting backwards read as jittery;
-     the crossfade is what makes it feel composed. */
-  var TYPE=40, HOLD=3000, GAP=300, FADE=580, START_HOLD=3200;
-  function render(k){
-    var d=DATA[i], pl=d.pre.length;
-    if(k<=pl){ pre.textContent=d.pre.slice(0,k); acc.textContent=''; }
-    else { pre.textContent=d.pre; acc.textContent=d.acc.slice(0,k-pl); }
+  var i=0,t=null,paused=false;
+  var STAG=110, HOLD=3200, FADE=580, GAP=260, START_HOLD=3400;
+  function buildWords(target,text){
+    text.split(/\s+/).forEach(function(w){
+      if(!w) return;
+      var sp=document.createElement('span'); sp.className='hr-w'; sp.textContent=w;
+      target.appendChild(sp);
+      target.appendChild(document.createTextNode(' '));
+    });
   }
-  function typeLoop(){
-    if(paused){ t=setTimeout(typeLoop,200); return; }
-    var full=DATA[i].pre.length+DATA[i].acc.length;
-    n++; render(n);
-    if(n>=full){ t=setTimeout(swapLoop,HOLD); return; }
-    t=setTimeout(typeLoop,TYPE);
+  function setPhrase(k,showAll){
+    pre.textContent=''; acc.textContent='';
+    buildWords(pre,DATA[k].pre);
+    buildWords(acc,DATA[k].acc);
+    if(showAll){ [].forEach.call(el.querySelectorAll('.hr-w'),function(sp){ sp.classList.add('on'); }); }
   }
-  function swapLoop(){
-    if(paused){ t=setTimeout(swapLoop,200); return; }
+  function reveal(){
+    var ws=[].slice.call(el.querySelectorAll('.hr-w')), idx=0;
+    if(reduce){ ws.forEach(function(sp){ sp.classList.add('on'); }); t=setTimeout(swap,HOLD); return; }
+    (function step(){
+      if(paused){ t=setTimeout(step,200); return; }
+      if(idx>=ws.length){ t=setTimeout(swap,HOLD); return; }
+      ws[idx++].classList.add('on');
+      t=setTimeout(step,STAG);
+    })();
+  }
+  function swap(){
+    if(paused){ t=setTimeout(swap,200); return; }
     el.classList.add('is-out');
     t=setTimeout(function(){
-      i=(i+1)%DATA.length; n=0; render(0);
+      i=(i+1)%DATA.length;
+      setPhrase(i,false);
       el.classList.remove('is-out');
-      t=setTimeout(typeLoop,GAP);
+      t=setTimeout(reveal,GAP);
     },FADE);
   }
   /* start fully showing headline 1 (SEO-friendly, no flash), then cycle */
-  n=DATA[0].pre.length+DATA[0].acc.length; render(n);
-  t=setTimeout(swapLoop,START_HOLD);
-  /* pause only when the tab is hidden - no hover pause (hovering the full-viewport
-     hero was freezing the animation mid-word) */
-  document.addEventListener('visibilitychange',function(){ paused=document.hidden; if(!paused){ /* resume promptly */ } });
+  setPhrase(0,true);
+  t=setTimeout(swap,START_HOLD);
+  /* pause only when the tab is hidden */
+  document.addEventListener('visibilitychange',function(){ paused=document.hidden; });
 })();
 </script>
 <script>
