@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-07-hero-explore -->
+<!-- ee-front-tpl v2026-08-07-hero-fullscreen -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -431,7 +431,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       </div>
       <div class="hero__cta reveal d5">
         <a href="#admission-form" class="btn btn-primary" id="magnet">Book a Demo <span class="arr">&rarr;</span><span class="shine"></span></a>
-        <a href="#ee-platform" class="btn btn-watch"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:15px;height:15px;flex:none"><path d="M8 5v14l11-7z"/></svg> Explore the Platform Yourself</a>
+        <a href="#ee-platform" class="btn btn-watch" data-eep-full><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:15px;height:15px;flex:none"><path d="M8 5v14l11-7z"/></svg> Explore the Platform Yourself</a>
         <span class="cta-note">No credit card &middot; Personalised to your institution &middot; <a href="#ee-cro" class="cta-roi-link">Calculate your admission ROI &rarr;</a></span>
       </div>
       <div class="stats reveal d6">
@@ -2727,6 +2727,12 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   window.addEventListener('orientationchange',function(){ setTimeout(fitFrame,120); });
   if(launch) launch.addEventListener('click',openExp);
   if(expand) expand.addEventListener('click',openExp);
+  /* hero "Explore the Platform Yourself" opens the experience full screen
+     directly - no scrolling to the section first. The href stays as a
+     no-JS fallback that still lands on the section. */
+  [].slice.call(document.querySelectorAll('a[data-eep-full]')).forEach(function(a){
+    a.addEventListener('click',function(e){ e.preventDefault(); openExp(); });
+  });
   /* module tiles (Superleap-style): clicking a tile switches the live demo to
      that module's screen - the demo replica is same-origin (srcdoc), so we
      drive its own sidebar buttons ([data-go]) directly. Retries cover the
