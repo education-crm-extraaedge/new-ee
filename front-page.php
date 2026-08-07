@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-07-type-unified -->
+<!-- ee-front-tpl v2026-08-08-integ-mobile -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -4133,22 +4133,44 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   html body #integrations a.ih-cta,
   html body #main-content #integrations a.ih-cta{padding:.62rem .7rem !important;font-size:.72rem !important}
 }
+/* phones rebuild the logo wall as a marquee (built by the script after the
+   section); hidden everywhere until that build actually runs, so desktop
+   and no-JS keep the grid exactly as it is */
+#integrations .ih-mq{display:none}
 @media(max-width:640px){
-  /* phones: let the headline wrap naturally (no forced break), 4-up logo
-     tiles so the wall stays short, and the benefits bar as a 2-col grid */
+  /* phones: the hub stays as the centrepiece, the 30-tile wall becomes two
+     auto-scrolling logo rows (same marquee language as the trusted-logos
+     strip), and the benefits bar turns into tidy 2-col chips */
   #integrations .ih-h2 br{display:none}
   #integrations .ih-lead{font-size:13.5px}
   #integrations .ih-grid,#integrations .ih-row1{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
   #integrations .ih-t{border-radius:12px;padding:6px}
   #integrations .ih-t:hover{transform:none}
-  #integrations .ih-bar{grid-template-columns:repeat(2,minmax(0,1fr))}
-  #integrations .ih-bar div{border-left:0;border-top:1px solid rgba(25,52,93,.07);padding:12px 12px;gap:9px}
+  #integrations.ih-has-mq .ih-row1{display:none}
+  #integrations.ih-has-mq #ihGrid .ih-t{display:none}
+  #integrations.ih-has-mq .ih-grid{display:block}
+  #integrations.ih-has-mq .ih-board{margin-top:18px}
+  #integrations.ih-has-mq .ih-mq{display:block;position:relative;margin:16px -18px 0;overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+  #integrations .ih-mq-row{display:flex;width:max-content;animation:ihMq 36s linear infinite;padding:5px 0}
+  #integrations .ih-mq-row.r2{animation-duration:44s;animation-direction:reverse}
+  #integrations .ih-mq-set{display:flex;gap:9px;padding-right:9px}
+  #integrations .ih-mq .ih-t{display:grid;flex:0 0 auto;width:78px;border-radius:13px;padding:10px;
+    box-shadow:0 6px 16px -12px rgba(25,52,93,.45),0 1px 3px rgba(25,52,93,.05)}
+  #integrations .ih-core{width:120px}
+  #integrations .ih-bar{grid-template-columns:repeat(2,minmax(0,1fr));border-radius:15px;margin-top:22px}
+  #integrations .ih-bar div{border-left:0;border-top:1px solid rgba(25,52,93,.07);padding:11px 12px;gap:9px}
   #integrations .ih-bar div:nth-child(-n+2){border-top:0}
-  #integrations .ih-bar div:last-child{grid-column:1 / -1}
-  #integrations .ih-bar svg{width:20px;height:20px}
-  #integrations .ih-bar b{font-size:12px}
-  #integrations .ih-core{width:140px}
+  #integrations .ih-bar div:last-child{grid-column:1 / -1;justify-content:center}
+  #integrations .ih-bar svg{width:18px;height:18px}
+  #integrations .ih-bar b{font-size:11.5px;line-height:1.35}
   #integrations .ih-note{font-size:12px;text-align:center}
+}
+@keyframes ihMq{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){
+  #integrations .ih-mq-row{animation:none}
+  #integrations .ih-mq{overflow-x:auto}
 }
 @media(prefers-reduced-motion:reduce){
   #integrations .ih-t{transition:none}
@@ -4265,6 +4287,39 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',later); else later();
   window.addEventListener('resize',later);
   window.addEventListener('load',later);
+})();
+/* ── phone marquee ──
+   On phones the 30-tile wall reads as a shapeless brick grid, so the tiles
+   are cloned into two counter-scrolling rows under the hub (each row's set
+   doubled for the seamless -50% loop). Built once, the first time the
+   viewport is actually a phone; the .ih-has-mq class swaps grid -> marquee
+   purely in CSS, so no-JS and desktop never change. */
+(function(){
+  var sec=document.getElementById('integrations'); if(!sec) return;
+  var built=false, mq=window.matchMedia('(max-width:640px)');
+  function build(){
+    if(built||!mq.matches) return;
+    var tiles=[].slice.call(sec.querySelectorAll('#ihGrid .ih-t'));
+    if(tiles.length<6) return;
+    built=true;
+    var wrap=document.createElement('div');
+    wrap.className='ih-mq'; wrap.setAttribute('aria-hidden','true');
+    var half=Math.ceil(tiles.length/2);
+    [tiles.slice(0,half),tiles.slice(half)].forEach(function(set,ri){
+      var row=document.createElement('div');
+      row.className='ih-mq-row'+(ri?' r2':'');
+      for(var k=0;k<2;k++){
+        var g=document.createElement('div'); g.className='ih-mq-set';
+        set.forEach(function(tile){ g.appendChild(tile.cloneNode(true)); });
+        row.appendChild(g);
+      }
+      wrap.appendChild(row);
+    });
+    document.getElementById('ihBoard').appendChild(wrap);
+    sec.classList.add('ih-has-mq');
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',build); else build();
+  (mq.addEventListener?mq.addEventListener.bind(mq,'change'):mq.addListener.bind(mq))(build);
 })();
 </script>
 
