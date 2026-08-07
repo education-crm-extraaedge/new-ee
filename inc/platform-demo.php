@@ -24,7 +24,7 @@ function ee_platform_section() {
     if ($ee_done) return;
     $ee_done = true;
 ?>
-<!-- ee-platform-section v2026-08-08-tour-placement (shared: home / product-tour / [ee_platform]) -->
+<!-- ee-platform-section v2026-08-08-no-inside-strip (shared: home / product-tour / [ee_platform]) -->
 <style>
 /* The site renders at 90% zoom (header.php ee-site-zoom); the relocated
    full-screen demo overlay is counter-zoomed back to 1:1. */
@@ -175,62 +175,18 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 #ee-platform .eep-assure li{display:inline-flex;align-items:center;gap:7px;padding:7px 14px 7px 11px;border-radius:999px;background:rgba(255,255,255,.8);border:1px solid rgba(25,52,93,.1);box-shadow:0 4px 14px rgba(25,52,93,.05);font:600 12.5px/1 'Inter',system-ui,sans-serif;color:#19345d;white-space:nowrap}
 #ee-platform .eep-assure li::before{content:"";width:15px;height:15px;flex:0 0 auto;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%23DE6E30'/%3E%3Cpath d='M7 12.3l3.3 3.3L17 8.9' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
 
-/* What is in the demo. Each card is a button that opens that screen above,
-   and carries the three things actually on it - so the majority who never
-   click still leave knowing what the product does. */
-#ee-platform .eep-inside-t{margin:clamp(30px,4vw,44px) 0 14px;text-align:center;font:800 11.5px/1 'Inter',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-700,#B5551D)}
-#ee-platform .eep-inside-t span{color:#8a95a6;letter-spacing:.06em;font-weight:700;text-transform:none}
-#ee-platform .eep-inside{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-#ee-platform .eep-inside li{display:flex}
-#ee-platform .eep-ins{display:flex;flex-direction:column;align-items:stretch;text-align:left;width:100%;font-family:'Inter',system-ui,sans-serif;cursor:pointer;background:rgba(255,255,255,.72);border:1px solid rgba(25,52,93,.1);border-radius:16px;padding:16px 17px 15px;box-shadow:0 18px 40px -34px rgba(25,52,93,.55);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
-#ee-platform .eep-ins:hover,#ee-platform .eep-ins:focus-visible{transform:translateY(-3px);border-color:rgba(222,110,48,.32);box-shadow:0 26px 50px -30px rgba(25,52,93,.6)}
-#ee-platform .eep-ins:focus-visible{outline:3px solid rgba(222,110,48,.45);outline-offset:2px}
-#ee-platform .eep-ins-top{display:flex;align-items:center;gap:10px;margin-bottom:11px}
-#ee-platform .eep-inside-ic{display:grid;place-items:center;width:34px;height:34px;flex:0 0 auto;border-radius:11px;background:rgba(222,110,48,.1);color:var(--orange-700,#B5551D)}
-#ee-platform .eep-inside-ic svg{width:17px;height:17px}
-/* the Vidya AI marks bring their own colour, so the orange tile is cleared */
-#ee-platform .eep-inside-ic--art{background:#fff;border:1px solid rgba(25,52,93,.1);padding:5px}
-#ee-platform .eep-inside-ic--art img{width:100%;height:100%;object-fit:contain;display:block}
-/* which screen the card opens - reads as a label, not a heading */
-#ee-platform .eep-ins-mod{font:800 10.5px/1 'Inter',system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8a95a6}
-#ee-platform .eep-ins-name{display:block;font:700 15.5px/1.3 'Inter',system-ui,sans-serif;letter-spacing:-.015em;color:#19345d;margin-bottom:6px}
-#ee-platform .eep-ins-sum{display:block;font:400 13px/1.55 'Inter',system-ui,sans-serif;color:#5a6b85;margin-bottom:11px}
-#ee-platform .eep-ins-pts{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
-#ee-platform .eep-ins-pts span{display:flex;align-items:flex-start;gap:8px;font:500 12.5px/1.45 'Inter',system-ui,sans-serif;color:#19345d}
-#ee-platform .eep-ins-pts span::before{content:"";margin-top:1px;width:14px;height:14px;flex:0 0 auto;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%23DE6E30'/%3E%3Cpath d='M7 12.3l3.3 3.3L17 8.9' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
-/* pushed to the bottom so the footers line up across a row of uneven cards */
-#ee-platform .eep-ins-foot{margin-top:auto;padding-top:11px;border-top:1px solid rgba(25,52,93,.08);display:flex;align-items:center;justify-content:space-between;gap:10px}
-#ee-platform .eep-ins-gain{font:700 11.5px/1.3 'Inter',system-ui,sans-serif;color:#19345d}
-#ee-platform .eep-ins-go{display:inline-flex;align-items:center;gap:5px;font:700 12px/1 'Inter',system-ui,sans-serif;color:var(--orange-700,#B5551D);white-space:nowrap}
-#ee-platform .eep-ins-go svg{width:14px;height:14px;transition:transform .22s ease}
-#ee-platform .eep-ins:hover .eep-ins-go svg{transform:translateX(4px)}
-/* the card the demo is currently showing */
-#ee-platform .eep-ins.on{border-color:rgba(222,110,48,.55);background:#fff;box-shadow:0 22px 46px -30px rgba(222,110,48,.5)}
 
 /* The section used to just stop at the demo window - these CTA styles were
    already here with nothing rendering them. The button is picked up by the
    site-wide standard in footer.php, so it matches every other CTA. */
 #ee-platform .eep-cta{display:flex}
 
-@media(max-width:1100px){
-  #ee-platform .eep-inside{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media(max-width:700px){
-  #ee-platform .eep-inside-t span{display:block;margin-top:5px}
-}
 @media(max-width:860px){
   /* the window is hidden this far down and the launch button takes over,
      but the strip and the closing CTA still earn their place */
   #ee-platform .eep-cta{display:flex}
   #ee-platform .eep-assure{gap:6px}
   #ee-platform .eep-assure li{font-size:11.5px;padding:6px 11px 6px 9px}
-}
-@media(max-width:560px){
-  #ee-platform .eep-inside{grid-template-columns:1fr;gap:10px}
-  #ee-platform .eep-ins{padding:14px 15px}
-}
-@media(prefers-reduced-motion:reduce){
-  #ee-platform .eep-ins,#ee-platform .eep-ins-go svg{transition:none}
 }
 </style>
 
@@ -1193,102 +1149,6 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
     </div>
     </div>
 
-    <p class="eep-inside-t">Inside the demo <span>&mdash; click any card to open that screen</span></p>
-    <ul class="eep-inside">
-      <?php
-      /* Each card opens a real screen in the demo above. data-open matches the
-         data-go key on the module buttons in the rail, so clicking a card just
-         clicks that button - the whole switching path is the one that already
-         works, nothing new to keep in step.
-
-         The three points per card are what is actually on that screen, so a
-         visitor who never clicks still learns what the product does. */
-      if (!defined('EE_VIDYA_ICONS')) {
-        define('EE_VIDYA_ICONS', 'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/');
-      }
-      $eep_cards = array(
-        array(
-          'go'   => 'outcomes',
-          'mod'  => 'Dashboards',
-          'name' => 'The funnel, live',
-          'sum'  => 'The numbers a head of admissions actually asks for, on one screen.',
-          'pts'  => array('Enquiry → application → enrolment', 'Cost and ROI per source', 'Counsellor-wise conversion'),
-          'gain' => 'Decisions in minutes',
-          'ic'   => '<path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/>',
-        ),
-        array(
-          'go'   => 'ai',
-          'mod'  => 'Vidya AI',
-          'name' => 'Vidya AI at work',
-          'sum'  => 'Watch it handle an enquiry end to end - not a slide about AI.',
-          'pts'  => array('Answers a student instantly', 'Scores buying intent', 'Drafts the next follow-up'),
-          'gain' => 'No enquiry waits',
-          'img'  => 'vidya-ai.svg',
-        ),
-        array(
-          'go'   => 'leads',
-          'mod'  => 'Leads',
-          'name' => 'One student, one timeline',
-          'sum'  => 'Every enquiry auto-captured and deduped, whatever it came in on.',
-          'pts'  => array('Forms, portals, Meta and Google', 'Duplicates merged on their own', 'Full history on one card'),
-          'gain' => 'Zero leads lost',
-          'ic'   => '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0M16 4.5a3.2 3.2 0 0 1 0 7M17.5 14.6a5.5 5.5 0 0 1 3 5.4"/>',
-        ),
-        array(
-          'go'   => 'wa',
-          'mod'  => 'WhatsApp',
-          'name' => 'WhatsApp, properly',
-          'sum'  => 'The official API - 1:1 and bulk, with every message on the lead.',
-          'pts'  => array('Real two-way threads', 'Templates and broadcasts', 'Logged against the student'),
-          'gain' => '98% open rates',
-          'ic'   => '<path d="M4 6h16v10H9l-5 4V6z"/>',
-        ),
-        array(
-          'go'   => 'followups',
-          'mod'  => 'Follow-ups',
-          'name' => 'A counsellor\'s day',
-          'sum'  => 'The task list builds itself, and the SLA clock says what is late.',
-          'pts'  => array('Today\'s calls, ranked', 'Overdue surfaced first', 'Reminders that chase for you'),
-          'gain' => 'Nothing slips',
-          'ic'   => '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15.5l2 2 4-4"/>',
-        ),
-        array(
-          'go'   => 'workflow',
-          'mod'  => 'Workflows',
-          'name' => 'Automation you can read',
-          'sum'  => 'Open a rule and see exactly why a lead moved - no black box.',
-          'pts'  => array('No-code if-this-then-that', 'Auto-assign by course or city', 'Escalate when a stage stalls'),
-          'gain' => 'Runs itself',
-          'ic'   => '<path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/>',
-        ),
-      );
-      foreach ($eep_cards as $c) : ?>
-      <li>
-        <button type="button" class="eep-ins" data-open="<?php echo esc_attr($c['go']); ?>"
-                aria-label="Open <?php echo esc_attr($c['mod']); ?> in the live demo">
-          <span class="eep-ins-top">
-            <span class="eep-inside-ic<?php echo empty($c['img']) ? '' : ' eep-inside-ic--art'; ?>" aria-hidden="true"><?php
-            if (!empty($c['img'])) :
-              /* brand artwork keeps its own colour, so the tinted tile is cleared for it */
-              echo '<img src="' . esc_url(EE_VIDYA_ICONS . $c['img']) . '" alt="" loading="lazy" decoding="async"'
-                 . ' onerror="this.parentNode.classList.remove(\'eep-inside-ic--art\');this.remove()">';
-            else : ?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><?php echo $c['ic']; ?></svg><?php
-            endif; ?></span>
-            <span class="eep-ins-mod"><?php echo esc_html($c['mod']); ?></span>
-          </span>
-          <span class="eep-ins-name"><?php echo esc_html($c['name']); ?></span>
-          <span class="eep-ins-sum"><?php echo esc_html($c['sum']); ?></span>
-          <span class="eep-ins-pts">
-            <?php foreach ($c['pts'] as $p) : ?><span><?php echo esc_html($p); ?></span><?php endforeach; ?>
-          </span>
-          <span class="eep-ins-foot">
-            <span class="eep-ins-gain"><?php echo esc_html($c['gain']); ?></span>
-            <span class="eep-ins-go">Open in demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-          </span>
-        </button>
-      </li>
-      <?php endforeach; ?>
-    </ul>
 
     <div class="eep-cta">
       <p class="eep-cta-t">Seen enough? Run it on <strong>your own funnel</strong>.</p>
@@ -1540,37 +1400,6 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
     new IntersectionObserver(function(es){ es.forEach(function(e){
       if(!e.isIntersecting) stopTour();
     }); },{threshold:[0,0.45]}).observe(sec);
-  }
-  /* ---- "Inside the demo" cards drive the demo ----
-     A card just clicks the matching rail button, so it goes through exactly
-     the same path as the rail itself - module switch, URL sync, info strip,
-     window flash, and openExp() on mobile. Nothing here duplicates that
-     logic, so the two can't drift apart. */
-  var insCards=[].slice.call(sec.querySelectorAll('.eep-ins[data-open]'));
-  function markInside(){
-    var live=sec.querySelector('.eep-mod.on');
-    var key=live?live.getAttribute('data-go'):'';
-    insCards.forEach(function(c){ c.classList.toggle('on',c.getAttribute('data-open')===key); });
-  }
-  insCards.forEach(function(card){
-    card.addEventListener('click',function(){
-      var mod=sec.querySelector('.eep-mod[data-go="'+card.getAttribute('data-open')+'"]');
-      if(!mod) return;
-      mod.click();
-      markInside();
-      /* bring the screen they just asked for into view - on mobile the window
-         is hidden and mod.click() has already opened the full-screen view */
-      if(winEl && getComputedStyle(winEl).display!=='none'){
-        var smooth=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        winEl.scrollIntoView({behavior:smooth?'smooth':'auto',block:'center'});
-      }
-    });
-  });
-  /* keep the highlight in step while the auto-tour cycles */
-  if(insCards.length){
-    mods.forEach(function(b){ b.addEventListener('click',markInside); });
-    setInterval(markInside,900);
-    markInside();
   }
   if(closeBtn) closeBtn.addEventListener('click',closeExp);
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && isOpen()) closeExp(); });
