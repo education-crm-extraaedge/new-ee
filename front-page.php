@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-07-hero-pov4 -->
+<!-- ee-front-tpl v2026-08-07-hero-type2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -415,7 +415,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   <div class="hero__grid" aria-hidden="true"></div>
   <div class="container hero__in">
     <div>
-      <style>#xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);min-height:max(clamp(118px,16vh,200px),4.6em);transition:opacity .4s cubic-bezier(.2,.7,.2,1),transform .4s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}#xhero .hero__rot.is-out{opacity:0!important;transform:translateY(14px)!important}#xhero .hero-caret{display:none;width:3px;height:.92em;margin-left:4px;border-radius:2px;background:var(--orange);vertical-align:-1px;animation:heroCaretBlink 1s steps(1) infinite}
+      <style>#xhero .hero__rot{font-size:clamp(25px,3.4vw,46px)!important;line-height:1.12;letter-spacing:-.03em;min-height:clamp(118px,16vh,200px);min-height:max(clamp(118px,16vh,200px),4.6em);transition:opacity .55s cubic-bezier(.25,.6,.25,1),transform .55s cubic-bezier(.25,.6,.25,1);will-change:opacity,transform}#xhero .hero__rot.is-out{opacity:0!important;transform:translateY(10px)!important}#xhero .hero-caret{display:none;width:3px;height:.92em;margin-left:4px;border-radius:2px;background:var(--orange);vertical-align:-1px;animation:heroCaretBlink 1s steps(1) infinite}
         /* reserve space for the tallest rotating headline per width - text swaps must never push the layout (CLS) */
         @media(max-width:390px){#xhero .hero__rot{min-height:4.7em!important}}
         @keyframes heroCaretBlink{50%{opacity:0}}
@@ -592,7 +592,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   el.textContent=''; el.appendChild(pre); el.appendChild(acc); el.appendChild(caret);
 
   var i=0,n=0,paused=false,t=null;
-  var TYPE=26, DEL=12, HOLD=1600, GAP=260, START_HOLD=2000;   /* even cadence, no random jitter */
+  /* Unhurried, even cadence. No character-by-character backspacing - the
+     finished line holds, fades out as a whole (the .is-out transition),
+     and the next phrase types in. Deleting backwards read as jittery;
+     the crossfade is what makes it feel composed. */
+  var TYPE=40, HOLD=3000, GAP=300, FADE=580, START_HOLD=3200;
   function render(k){
     var d=DATA[i], pl=d.pre.length;
     if(k<=pl){ pre.textContent=d.pre.slice(0,k); acc.textContent=''; }
@@ -602,18 +606,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     if(paused){ t=setTimeout(typeLoop,200); return; }
     var full=DATA[i].pre.length+DATA[i].acc.length;
     n++; render(n);
-    if(n>=full){ t=setTimeout(delLoop,HOLD); return; }
+    if(n>=full){ t=setTimeout(swapLoop,HOLD); return; }
     t=setTimeout(typeLoop,TYPE);
   }
-  function delLoop(){
-    if(paused){ t=setTimeout(delLoop,200); return; }
-    n--; render(n<0?0:n);
-    if(n<=0){ n=0; i=(i+1)%DATA.length; t=setTimeout(typeLoop,GAP); return; }
-    t=setTimeout(delLoop,DEL);
+  function swapLoop(){
+    if(paused){ t=setTimeout(swapLoop,200); return; }
+    el.classList.add('is-out');
+    t=setTimeout(function(){
+      i=(i+1)%DATA.length; n=0; render(0);
+      el.classList.remove('is-out');
+      t=setTimeout(typeLoop,GAP);
+    },FADE);
   }
   /* start fully showing headline 1 (SEO-friendly, no flash), then cycle */
   n=DATA[0].pre.length+DATA[0].acc.length; render(n);
-  t=setTimeout(delLoop,START_HOLD);
+  t=setTimeout(swapLoop,START_HOLD);
   /* pause only when the tab is hidden - no hover pause (hovering the full-viewport
      hero was freezing the animation mid-word) */
   document.addEventListener('visibilitychange',function(){ paused=document.hidden; if(!paused){ /* resume promptly */ } });
