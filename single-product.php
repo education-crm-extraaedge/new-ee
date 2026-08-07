@@ -487,23 +487,28 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .ht-stat{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:12px 8px;text-align:center;display:flex;flex-direction:column;gap:3px}
 .ht-stat b{font-family:var(--font-h);font-size:19px;font-weight:900;color:var(--blue);line-height:1}
 .ht-stat span{font-size:10px;font-weight:600;color:var(--gray-600);line-height:1.35}
-.ht-minis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.ht-mini{background:var(--off-white);border-radius:var(--radius-md);padding:12px 14px;font-size:12px;line-height:1.5;color:var(--gray-600)}
-.ht-mini .ht-stars{display:block;font-size:12px;margin-top:8px}
+/* the panel is a slider over the first three testimonials */
+.ht-slider{position:relative;overflow:hidden;margin-bottom:4px}
+.ht-track{display:flex;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.ht-slide{flex:0 0 100%;min-width:0}
+.ht-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin:2px 0 14px}
+.ht-arrow{width:36px;height:36px;border-radius:50%;border:1px solid var(--gray-200);background:var(--white);color:var(--blue);display:grid;place-items:center;cursor:pointer;transition:var(--transition);padding:0}
+.ht-arrow:hover{border-color:var(--orange);color:var(--orange)}
+.ht-arrow:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.ht-arrow svg{width:16px;height:16px}
+.ht-dots{display:flex;gap:7px}
+.ht-dot{width:8px;height:8px;border-radius:99px;background:var(--gray-200);border:0;padding:0;cursor:pointer;transition:var(--transition)}
+.ht-dot.on{background:var(--orange);width:22px}
+@media(prefers-reduced-motion:reduce){.ht-track{transition:none}}
 .ht-rating{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--gray-200);padding-top:14px;font-family:var(--font-h)}
 .ht-rating .ht-stars{font-size:16px}
 .ht-rating b{font-size:16px;font-weight:900;color:var(--blue)}
 .ht-rating span{font-size:11px;font-weight:600;color:var(--gray-400);line-height:1.4}
 
-/* form band shown under the hero when the trust panel takes the right column */
-.hero-form-band{background:var(--off-white);padding:34px 0 40px}
-.hero-form-band .hero-form-card{max-width:720px;margin:0 auto}
-
 @media(max-width:640px){
   .hero-vid{aspect-ratio:16/10}
   .hero-vid-txt{left:16px;max-width:62%}
   .hero-vid-play{right:16%}
-  .ht-minis{grid-template-columns:1fr}
   .ht-side{align-items:flex-start}
 }
 .hero-form-card{background:var(--white);border-radius:var(--radius-xl);padding:clamp(24px,3vw,40px);box-shadow:var(--shadow-xl);border:1px solid rgba(25,51,93,.06);position:relative}
@@ -808,7 +813,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 
 <main id="main-content" role="main">
 
-<!-- ee-product-tpl v2026-08-07-hero-trust -->
+<!-- ee-product-tpl v2026-08-07-hero-slider -->
 <section class="hero" id="top" aria-labelledby="hero-heading">
   <div class="hero-bg" aria-hidden="true">
     <div class="hero-grid"></div>
@@ -841,7 +846,13 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <?php if($result_badge): ?><div class="result-badge reveal"><?php echo esc_html($result_badge); ?></div><?php endif; ?>
         <?php if(!empty($tags)): ?><nav class="tag-row reveal" aria-label="Industry segments"><?php foreach($tags as $tag): ?><span class="tag"><?php echo esc_html($tag); ?></span><?php endforeach; ?></nav><?php endif; ?>
         <div class="cta-row reveal">
-          <?php if($hero_cta_text): ?><a href="<?php echo esc_url($hero_cta_url ?: '#admission-form'); ?>" class="btn-primary" aria-label="<?php echo esc_attr($hero_cta_text); ?>"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg><?php echo esc_html($hero_cta_text); ?></a><?php endif; ?>
+          <?php /* with the trust panel there is no form on the page, so both
+                   the default and an explicitly saved #admission-form target
+                   are pointed at the demo page instead of a missing anchor */
+          $ee_cta1 = $hero_cta_url ?: '#admission-form';
+          if ($ee_hero_trust && $ee_cta1 === '#admission-form') $ee_cta1 = '/book-demo/';
+          ?>
+          <?php if($hero_cta_text): ?><a href="<?php echo esc_url($ee_cta1); ?>" class="btn-primary" aria-label="<?php echo esc_attr($hero_cta_text); ?>"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg><?php echo esc_html($hero_cta_text); ?></a><?php endif; ?>
           <?php if($hero_cta2_text): ?><a href="<?php echo esc_url($hero_cta2_url ?: '#demo'); ?>" class="btn-secondary" aria-label="<?php echo esc_attr($hero_cta2_text); ?>"><?php echo esc_html($hero_cta2_text); ?></a><?php endif; ?>
         </div>
         <?php if($trust_rating || !empty($compliance)): ?>
@@ -879,53 +890,53 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <?php endif; ?>
       </article>
 
-      <?php
-      /* The embed HTML is prepared once; it renders in the hero when the
-         form has the right column, or in the band below when the trust
-         panel does. */
-      $ee_form_html = '';
-      if ($form_embed) {
-          $ee_form_html = wp_kses($form_embed, array('script'=>array('src'=>array(),'async'=>array(),'defer'=>array(),'type'=>array(),'charset'=>array(),'id'=>array()),'div'=>array('id'=>array(),'class'=>array(),'style'=>array()),'form'=>array('action'=>array(),'method'=>array(),'id'=>array(),'class'=>array()),'input'=>array('type'=>array(),'name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'required'=>array(),'value'=>array()),'textarea'=>array('name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'rows'=>array()),'select'=>array('name'=>array(),'id'=>array(),'class'=>array()),'option'=>array('value'=>array(),'selected'=>array()),'button'=>array('type'=>array(),'id'=>array(),'class'=>array()),'label'=>array('for'=>array(),'class'=>array()),'iframe'=>array('src'=>array(),'width'=>array(),'height'=>array(),'frameborder'=>array(),'loading'=>array(),'title'=>array()),'a'=>array('href'=>array(),'target'=>array(),'class'=>array(),'rel'=>array()),'p'=>array('class'=>array()),'span'=>array('class'=>array()),'br'=>array()));
-      }
-      ?>
       <?php if($ee_hero_trust): ?>
       <aside class="hero-trust reveal" aria-label="Why education leaders choose ExtraaEdge">
         <div class="ht-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.5 5.1 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg><?php echo esc_html($hero_trust_eyebrow); ?></div>
         <h2 class="ht-h2"><?php echo str_replace('ExtraaEdge', '<em>ExtraaEdge</em>', esc_html($hero_trust_h2)); ?></h2>
-        <?php if(!empty($ee_t1['youtube_id'])): ?>
-        <div class="ht-vid vid-wrap" data-ytid="<?php echo esc_attr($ee_t1['youtube_id']); ?>" role="button" tabindex="0" aria-label="Play video testimonial<?php echo !empty($ee_t1['name']) ? ' from ' . esc_attr($ee_t1['name']) : ''; ?>">
-          <img src="https://img.youtube.com/vi/<?php echo esc_attr($ee_t1['youtube_id']); ?>/maxresdefault.jpg" alt="" loading="lazy" decoding="async" width="640" height="360">
-          <span class="ht-vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-          <?php if($hero_trust_len): ?><span class="hero-vid-len" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><?php echo esc_html($hero_trust_len); ?></span><?php endif; ?>
+
+        <?php $ee_slides = array_slice($testimonials, 0, 3); ?>
+        <div class="ht-slider" id="htSlider">
+          <div class="ht-track">
+            <?php foreach($ee_slides as $ee_si => $ee_t): ?>
+            <div class="ht-slide"<?php echo $ee_si > 0 ? ' aria-hidden="true"' : ''; ?>>
+              <?php if(!empty($ee_t['youtube_id'])): ?>
+              <div class="ht-vid vid-wrap" data-ytid="<?php echo esc_attr($ee_t['youtube_id']); ?>" role="button" tabindex="0" aria-label="Play video testimonial<?php echo !empty($ee_t['name']) ? ' from ' . esc_attr($ee_t['name']) : ''; ?>">
+                <img src="https://img.youtube.com/vi/<?php echo esc_attr($ee_t['youtube_id']); ?>/maxresdefault.jpg" alt="" loading="lazy" decoding="async" width="640" height="360">
+                <span class="ht-vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                <?php if($ee_si === 0 && $hero_trust_len): ?><span class="hero-vid-len" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><?php echo esc_html($hero_trust_len); ?></span><?php endif; ?>
+              </div>
+              <?php endif; ?>
+              <div class="ht-profile">
+                <?php if(!empty($ee_t['avatar'])): ?><img class="ht-avatar" src="<?php echo esc_url($ee_t['avatar']); ?>" alt="<?php echo esc_attr($ee_t['name'] ?? ''); ?>" loading="lazy" decoding="async" width="52" height="52"><?php endif; ?>
+                <div class="ht-who">
+                  <?php if(!empty($ee_t['name'])): ?><p class="ht-name"><?php echo esc_html($ee_t['name']); ?></p><?php endif; ?>
+                  <?php if(!empty($ee_t['role'])): ?><p class="ht-role"><?php echo esc_html($ee_t['role']); ?></p><?php endif; ?>
+                  <?php if(!empty($ee_t['institution'])): ?><p class="ht-inst"><?php echo esc_html($ee_t['institution']); ?></p><?php endif; ?>
+                </div>
+                <div class="ht-side">
+                  <span class="ht-stars" aria-label="5 star review">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                  <span class="ht-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.3 2.3 4.7-4.8"/></svg>Verified Review</span>
+                </div>
+              </div>
+              <?php if(!empty($ee_t['quote'])): ?><blockquote class="ht-quote"><p><?php echo esc_html($ee_t['quote']); ?></p></blockquote><?php endif; ?>
+            </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+        <?php if(count($ee_slides) > 1): ?>
+        <div class="ht-nav">
+          <button type="button" class="ht-arrow ht-prev" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <div class="ht-dots" role="tablist" aria-label="Choose testimonial">
+            <?php foreach($ee_slides as $ee_si => $ee_t): ?><button type="button" class="ht-dot<?php echo $ee_si === 0 ? ' on' : ''; ?>" role="tab" aria-selected="<?php echo $ee_si === 0 ? 'true' : 'false'; ?>" aria-label="Testimonial <?php echo $ee_si + 1; ?>"></button><?php endforeach; ?>
+          </div>
+          <button type="button" class="ht-arrow ht-next" aria-label="Next testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
         </div>
         <?php endif; ?>
-        <div class="ht-profile">
-          <?php if(!empty($ee_t1['avatar'])): ?><img class="ht-avatar" src="<?php echo esc_url($ee_t1['avatar']); ?>" alt="<?php echo esc_attr($ee_t1['name'] ?? ''); ?>" loading="lazy" decoding="async" width="52" height="52"><?php endif; ?>
-          <div class="ht-who">
-            <?php if(!empty($ee_t1['name'])): ?><p class="ht-name"><?php echo esc_html($ee_t1['name']); ?></p><?php endif; ?>
-            <?php if(!empty($ee_t1['role'])): ?><p class="ht-role"><?php echo esc_html($ee_t1['role']); ?></p><?php endif; ?>
-            <?php if(!empty($ee_t1['institution'])): ?><p class="ht-inst"><?php echo esc_html($ee_t1['institution']); ?></p><?php endif; ?>
-          </div>
-          <div class="ht-side">
-            <span class="ht-stars" aria-label="5 star review">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-            <span class="ht-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.3 2.3 4.7-4.8"/></svg>Verified Review</span>
-          </div>
-        </div>
-        <?php if(!empty($ee_t1['quote'])): ?><blockquote class="ht-quote"><p><?php echo esc_html($ee_t1['quote']); ?></p></blockquote><?php endif; ?>
+
         <?php if(!empty($stats)): ?>
         <div class="ht-stats" role="region" aria-label="Customer outcomes">
           <?php foreach(array_slice($stats, 0, 3) as $stat): ?><div class="ht-stat"><b><?php echo esc_html($stat['number']); ?></b><span><?php echo esc_html($stat['label']); ?></span></div><?php endforeach; ?>
-        </div>
-        <?php endif; ?>
-        <?php
-        $ee_minis = array();
-        foreach (array_slice($testimonials, 1, 2) as $ee_tm) {
-            $ee_q = trim((string)($ee_tm['quote'] ?? ''));
-            if ($ee_q !== '') $ee_minis[] = mb_strlen($ee_q) > 90 ? mb_substr($ee_q, 0, 88) . '…' : $ee_q;
-        }
-        if ($ee_minis): ?>
-        <div class="ht-minis">
-          <?php foreach($ee_minis as $ee_q): ?><div class="ht-mini">&ldquo;<?php echo esc_html($ee_q); ?>&rdquo;<span class="ht-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><?php endforeach; ?>
         </div>
         <?php endif; ?>
         <?php if($trust_rating): $ee_tr_sub = trim((string)$trust_text, "() \t"); ?>
@@ -936,11 +947,11 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         </div>
         <?php endif; ?>
       </aside>
-      <?php elseif($ee_form_html): ?>
+      <?php elseif($form_embed): ?>
       <aside class="hero-form-aside reveal" id="admission-form" aria-labelledby="form-heading">
         <div class="hero-form-card">
           <h2 id="form-heading" class="visually-hidden">Book Demo Now</h2>
-          <?php echo $ee_form_html; ?>
+          <?php echo wp_kses($form_embed, array('script'=>array('src'=>array(),'async'=>array(),'defer'=>array(),'type'=>array(),'charset'=>array(),'id'=>array()),'div'=>array('id'=>array(),'class'=>array(),'style'=>array()),'form'=>array('action'=>array(),'method'=>array(),'id'=>array(),'class'=>array()),'input'=>array('type'=>array(),'name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'required'=>array(),'value'=>array()),'textarea'=>array('name'=>array(),'id'=>array(),'class'=>array(),'placeholder'=>array(),'rows'=>array()),'select'=>array('name'=>array(),'id'=>array(),'class'=>array()),'option'=>array('value'=>array(),'selected'=>array()),'button'=>array('type'=>array(),'id'=>array(),'class'=>array()),'label'=>array('for'=>array(),'class'=>array()),'iframe'=>array('src'=>array(),'width'=>array(),'height'=>array(),'frameborder'=>array(),'loading'=>array(),'title'=>array()),'a'=>array('href'=>array(),'target'=>array(),'class'=>array(),'rel'=>array()),'p'=>array('class'=>array()),'span'=>array('class'=>array()),'br'=>array())); ?>
           <p class="secure-label" aria-label="Secure data transmission"><span aria-hidden="true">&#128274;</span> Secure Data Transmission Active</p>
         </div>
       </aside>
@@ -948,18 +959,6 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
     </div>
   </div>
 </section>
-
-<?php if($ee_hero_trust && $ee_form_html): ?>
-<section class="hero-form-band" id="admission-form" aria-labelledby="form-heading">
-  <div class="container">
-    <div class="hero-form-card">
-      <h2 id="form-heading" class="visually-hidden">Book Demo Now</h2>
-      <?php echo $ee_form_html; ?>
-      <p class="secure-label" aria-label="Secure data transmission"><span aria-hidden="true">&#128274;</span> Secure Data Transmission Active</p>
-    </div>
-  </div>
-</section>
-<?php endif; ?>
 
 <?php /* Logo marquee removed — now rendered globally (home-page style) via the
    ee_before_footer hook in functions.php so every page looks identical.
@@ -1339,6 +1338,50 @@ window.addEventListener('scroll', function(){
     var obs = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting) activate(); }); }, {threshold: 0.15});
     obs.observe(section);
   } else { activate(); }
+})();
+
+(function(){
+  /* Hero trust panel slider. Runs before the vid-wrap binder below so the
+     original thumbnails are captured before any of them can start playing;
+     changing slide restores the thumbnail, which also stops the audio. */
+  var sl = document.getElementById('htSlider'); if (!sl) return;
+  var track  = sl.querySelector('.ht-track'),
+      slides = [].slice.call(track.children);
+  if (slides.length < 2) return;
+  var nav   = sl.parentElement.querySelector('.ht-nav'),
+      dots  = nav ? [].slice.call(nav.querySelectorAll('.ht-dot')) : [],
+      i     = 0;
+  sl.querySelectorAll('.vid-wrap').forEach(function(v){ v.dataset.orig = v.innerHTML; });
+  function stopVids(){
+    sl.querySelectorAll('.vid-wrap.playing').forEach(function(v){
+      v.innerHTML = v.dataset.orig;
+      v.classList.remove('playing');
+    });
+  }
+  function go(n){
+    i = (n + slides.length) % slides.length;
+    stopVids();
+    track.style.transform = 'translateX(-' + (i * 100) + '%)';
+    slides.forEach(function(s, k){ s.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
+    dots.forEach(function(d, k){
+      d.classList.toggle('on', k === i);
+      d.setAttribute('aria-selected', k === i ? 'true' : 'false');
+    });
+  }
+  if (nav) {
+    nav.querySelector('.ht-prev').addEventListener('click', function(){ go(i - 1); });
+    nav.querySelector('.ht-next').addEventListener('click', function(){ go(i + 1); });
+    dots.forEach(function(d, k){ d.addEventListener('click', function(){ go(k); }); });
+  }
+  /* swipe — a drag of 48px or more changes slide; anything shorter stays a
+     click, so tapping the video still plays it */
+  var x0 = null;
+  track.addEventListener('pointerdown', function(e){ x0 = e.clientX; }, {passive:true});
+  track.addEventListener('pointerup', function(e){
+    if (x0 === null) return;
+    var dx = e.clientX - x0; x0 = null;
+    if (Math.abs(dx) > 48) go(i + (dx < 0 ? 1 : -1));
+  }, {passive:true});
 })();
 
 (function(){
