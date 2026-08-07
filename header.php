@@ -1681,6 +1681,9 @@ html body #main-content h1:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embe
     letter-spacing:-.02em !important;
     text-wrap:balance;
 }
+/* deliberate two-line heading lockups: the span breaks the line at the
+   phrase seam instead of wherever wrapping lands (e.g. inside "2-Minute") */
+#main-content .ee-h2b{display:block}
 html body #main-content h2:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed *){
     font-size:var(--ee-h2) !important;
     line-height:1.28 !important;

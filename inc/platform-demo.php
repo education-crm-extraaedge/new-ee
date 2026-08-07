@@ -24,7 +24,7 @@ function ee_platform_section() {
     if ($ee_done) return;
     $ee_done = true;
 ?>
-<!-- ee-platform-section v2026-08-08-fullscreen-cta (shared: home / product-tour / [ee_platform]) -->
+<!-- ee-platform-section v2026-08-08-h2-lockup (shared: home / product-tour / [ee_platform]) -->
 <style>
 /* The site renders at 90% zoom (header.php ee-site-zoom); the relocated
    full-screen demo overlay is counter-zoomed back to 1:1. */
@@ -195,7 +195,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
     <header class="eep-head">
 <?php /* nbsp binds the dash to the word before it, so the line never breaks
          with a hyphen stranded at the start of the second line */ ?>
-      <h2>Explore the Live Platform Yourself&nbsp;- No Sales Call Needed</h2>
+      <h2>Explore the Live Platform Yourself<span class="ee-h2b">No Sales Call Needed</span></h2>
       <p>Click through the real Admission CRM on sample data - dashboards, Vidya AI, lead manager, WhatsApp and automation. A guided tour starts you off; click anywhere to take over.</p>
       <ul class="eep-assure">
         <li>No signup</li>

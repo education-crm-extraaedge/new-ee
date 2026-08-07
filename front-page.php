@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-hero-thumb -->
+<!-- ee-front-tpl v2026-08-08-h2-lockups -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -473,7 +473,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       @media(prefers-reduced-motion:reduce){#xhero .hp-play{transition:none}}
     </style>
     <aside class="hero-pov reveal d4" aria-label="Product overview">
-      <h2 class="h2 hp-h2">See ExtraaEdge in Action - 2-Minute Product Overview</h2>
+      <h2 class="h2 hp-h2">See ExtraaEdge in Action<span class="ee-h2b">2-Minute Product Overview</span></h2>
       <p class="hp-sub">How our AI-powered Admission CRM helps you attract, engage and enroll more students.</p>
       <div class="hp-vid" id="hpVid" data-yt="cCa7ZOJi694" role="button" tabindex="0" aria-label="Play the ExtraaEdge product overview video">
         <img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/hero-thubnail.png" alt="ExtraaEdge product overview" loading="lazy" decoding="async" width="1280" height="720"
@@ -1214,7 +1214,7 @@ html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19
   <span class="rfa-orb o1" aria-hidden="true"></span>
   <span class="rfa-orb o2" aria-hidden="true"></span>
   <header class="rfa-head">
-    <h2 class="h2 rfa-h2">How Institutes Win - From First Enquiry to <em>Final Enrollment</em></h2>
+    <h2 class="h2 rfa-h2">How Institutes Win<span class="ee-h2b">From First Enquiry to <em>Final Enrollment</em></span></h2>
     <p class="rfa-sub">The four moves that decide admissions - respond first, engage right, prioritise the best-fit students and measure everything, on one AI Admission CRM.</p>
   </header>
   <div class="rfa-track" id="rfaTrack">
@@ -2476,7 +2476,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
   <div class="epx-wrap">
 
     <header class="epx-head">
-      <h2>Our Products - the <span class="eep-accent">All-in-One Admissions Platform</span></h2>
+      <h2>Our Products<span class="ee-h2b">The <span class="eep-accent">All-in-One Admissions Platform</span></span></h2>
       <p>Everything you need to attract, engage, enroll, and retain students &mdash; powered by AI and built for education.</p>
     </header>
 
@@ -3593,7 +3593,7 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
 <section id="stories" aria-labelledby="stories-title">
   <div class="cis-wrap">
     <div class="cis-head">
-      <h2 class="cis-title" id="stories-title">Customer Stories - Powering Growth for <em>500+ Happy Customers</em></h2>
+      <h2 class="cis-title" id="stories-title">Customer Stories<span class="ee-h2b">Powering Growth for <em>500+ Happy Customers</em></span></h2>
       <p class="cis-lead">See how leading education institutions are transforming admissions, improving counsellor productivity, and creating better student experiences with ExtraaEdge.</p>
     </div>
 
