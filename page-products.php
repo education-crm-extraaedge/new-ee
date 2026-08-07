@@ -151,7 +151,7 @@ get_header();
   }
   @media(prefers-reduced-motion:reduce){#ee-products *{ animation-duration:.001s !important; animation-iteration-count:1 !important; transition-duration:.001s !important; }
   }
-html body #main-content #ee-products .eep-head-l h1{font-size:clamp(30px,4.4vw,46px)!important;line-height:1.06!important;letter-spacing:-.022em!important}
+
 
   /* ── Mobile: no spotlight (Core platform panel), compact 2-up card grid ── */
   @media(max-width:767px){

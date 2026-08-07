@@ -52,8 +52,7 @@ get_header();
 #ee-videos .v-eyebrow{ display:block; font:800 11.5px/1 'Inter',sans-serif; letter-spacing:.13em;
   text-transform:uppercase; color:var(--v-orange-700); margin-bottom:10px; }
 html body #main-content #ee-videos h1.v-h1{
-  margin:0 0 12px !important; color:var(--v-navy) !important; font-weight:800 !important;
-  font-size:clamp(28px,3.4vw,44px) !important; line-height:1.08 !important; letter-spacing:-.03em !important; }
+  margin:0 0 12px !important; color:var(--v-navy) !important; font-weight:800 !important; }
 #ee-videos .v-h1 em{ font-style:normal; color:var(--v-orange); }
 #ee-videos .v-lead{ margin:0; max-width:62ch; color:var(--v-muted); font-size:15.5px; line-height:1.65; }
 
@@ -82,11 +81,9 @@ html body #main-content #ee-videos h1.v-h1{
 #ee-videos .v-sec-head{ display:flex; align-items:baseline; justify-content:space-between;
   gap:16px; flex-wrap:wrap; margin:0 0 16px; padding-bottom:12px; border-bottom:1px solid var(--v-line); }
 html body #main-content #ee-videos h2.v-h2{
-  margin:0 !important; color:var(--v-navy) !important; font-weight:800 !important;
-  font-size:clamp(19px,2.1vw,25px) !important; line-height:1.2 !important; letter-spacing:-.02em !important; }
+  margin:0 !important; color:var(--v-navy) !important; font-weight:800 !important; }
 html body #main-content #ee-videos h3.v-h3{
-  margin:26px 0 13px !important; color:var(--v-navy) !important; font-weight:700 !important;
-  font-size:15.5px !important; line-height:1.3 !important; letter-spacing:0 !important; }
+  margin:26px 0 13px !important; color:var(--v-navy) !important; font-weight:700 !important; }
 #ee-videos .v-more{ display:inline-flex; align-items:center; gap:6px; color:var(--v-orange-700);
   text-decoration:none; font-size:13.5px; font-weight:700; white-space:nowrap; }
 #ee-videos .v-more svg{ width:15px; height:15px; transition:transform .2s ease; }

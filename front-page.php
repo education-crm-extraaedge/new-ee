@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-07-no-eyebrow -->
+<!-- ee-front-tpl v2026-08-07-type-unified -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -453,7 +453,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       #xhero .hero-pov>*{position:relative;z-index:1}
       #xhero .hp-chip{display:inline-flex;background:linear-gradient(135deg,#E8843F 0%,#DE6E30 55%,#C2541C 100%);color:#fff;font:800 11px/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:999px;box-shadow:0 18px 44px -14px rgba(222,110,48,.55);margin-bottom:10px}
       /* same id/class/type counts as the site heading-scale rule; prints later, wins the tie */
-      html body #main-content #xhero h2.h2.hp-h2{margin:0 0 8px !important;color:#19335D !important;font-weight:800 !important;font-size:clamp(21px,2.2vw,28px) !important;line-height:1.2 !important;letter-spacing:-.02em !important;text-align:center !important}
+      html body #main-content #xhero h2.h2.hp-h2{margin:0 0 8px !important;color:#19335D !important;font-weight:800 !important;text-align:center !important}
       #xhero .hp-sub{max-width:48ch;margin:0 auto 12px;color:#5a6b85;font-size:13.5px;line-height:1.6}
       #xhero .hp-vid{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;background:#0F2040;aspect-ratio:16/9;border:1px solid rgba(255,255,255,.65);outline:1px solid rgba(25,52,93,.12);box-shadow:0 60px 120px -36px rgba(15,32,64,.55),0 24px 48px -24px rgba(15,32,64,.35),0 2px 8px rgba(15,32,64,.12)}
       #xhero .hp-vid img{width:100%;height:100%;object-fit:cover;display:block}
@@ -1117,7 +1117,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
    sections; the long selector matches the site heading-scale rule's
    specificity and prints later, so it wins the tie */
 #ee-rfa .rfa-head{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:clamp(44px,6vw,68px) 22px 0;text-align:center}
-html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19345d!important;font-weight:800!important;font-size:clamp(28px,4.2vw,46px)!important;line-height:1.08!important;letter-spacing:-.03em!important}
+html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19345d!important;font-weight:800!important;}
 #ee-rfa .rfa-h2 em{font-style:normal;color:#DE6E30}
 #ee-rfa .rfa-sub{font-size:clamp(15px,1.7vw,18px);line-height:1.6;color:#5a6b85;margin:0}
 /* blurred brand orbs behind the glass cards */
@@ -1128,7 +1128,7 @@ html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19
 #ee-rfa .rfa-pin{position:sticky;top:86px;height:min(calc(100vh - 86px),820px);overflow:hidden;display:flex;align-items:center;align-items:safe center}
 #ee-rfa .rfa-in{max-width:1270px;margin:0 auto;width:100%;padding:12px 24px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) 18px;gap:clamp(18px,2.6vw,40px);align-items:center}#ee-rfa .rfa-in>.rfa-rail{order:3}#ee-rfa .rfa-in>.rfa-cards{order:2}#ee-rfa .rfa-in>.rfa-stagewrap,#ee-rfa .rfa-in>*:nth-child(3){order:1}
 #ee-rfa .rfa-cards{max-height:calc(min(100vh - 86px,820px) - 24px);overflow-y:hidden}/* overflow-y:hidden (not auto): the column must never swallow the mouse wheel - page scroll drives the pinned story - while reveal() can still move scrollTop */
-@media (max-height:860px){#ee-rfa .rfa-card{padding:11px 14px;margin-bottom:7px}#ee-rfa .rfa-kick{margin-bottom:7px}html body #main-content #ee-rfa .rfa-cards .rfa-card h3.rfa-title{font-size:16px!important}#ee-rfa .rfa-body p{line-height:1.6;margin:8px 0 10px}#ee-rfa .rfa-chiplbl{margin:10px 0 7px}}
+@media (max-height:860px){#ee-rfa .rfa-card{padding:11px 14px;margin-bottom:7px}#ee-rfa .rfa-kick{margin-bottom:7px}#ee-rfa .rfa-body p{line-height:1.6;margin:8px 0 10px}#ee-rfa .rfa-chiplbl{margin:10px 0 7px}}
 /* progress rail: fill tracks scroll, dots jump to a story */
 #ee-rfa .rfa-rail{position:relative;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:26px 0;width:18px}
 #ee-rfa .rfa-rail::before{content:"";position:absolute;top:26px;bottom:26px;left:50%;width:2px;transform:translateX(-50%);background:rgba(25,52,93,.12);border-radius:2px}
@@ -1172,7 +1172,7 @@ html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19
   box-shadow:inset 0 1px 0 #fff,0 20px 46px -22px rgba(222,110,48,.35),0 0 0 4px rgba(222,110,48,.08)}
 #ee-rfa .rfa-kick{display:inline-block;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);border:1px solid rgba(222,110,48,.22);padding:5px 10px;border-radius:999px;margin-bottom:12px}
 #ee-rfa .rfa-title{color:#19345d;margin:0 0 10px}
-html body #main-content #ee-rfa .rfa-cards .rfa-card h3.rfa-title{font-size:17px!important;line-height:1.35!important;font-weight:600!important;letter-spacing:-.005em!important}@media(max-width:820px){html body #main-content #ee-rfa .rfa-cards .rfa-card h3.rfa-title{font-size:14.5px!important}}
+
 #ee-rfa .rfa-body{max-height:0;opacity:0;overflow:hidden;transition:max-height .55s cubic-bezier(.2,.7,.2,1),opacity .4s ease .1s}
 #ee-rfa .rfa-card.on .rfa-body{max-height:560px;opacity:1}
 #ee-rfa .rfa-body p{color:#5a6b85;line-height:1.72;margin:12px 0 18px}
@@ -2372,8 +2372,7 @@ ee_platform_section(); ?>
   border:1px solid rgba(222,110,48,.22); }
 html body #main-content #ee-products .epx-wrap .epx-card h3{
   margin:0; color:#0F2143; font-family:'Inter',sans-serif;
-  font-weight:700 !important; font-size:clamp(16px,1.35vw,19px) !important;
-  line-height:1.25 !important; letter-spacing:-.02em !important; }
+  font-weight:700 !important; }
 #ee-products .epx-ai{ position:absolute; top:-26px; right:-12px;
   width:40px; height:40px; border-radius:50%;
   display:grid; place-items:center;
@@ -2419,7 +2418,7 @@ html body #main-content #ee-products .epx-wrap .epx-card h3{
   text-decoration:none; }
 #ee-products .epx-integ-lead a:hover{ color:var(--orange-700,#B5551D); }
 html body #main-content #ee-products .epx-wrap .epx-integ-tx p{
-  margin:0; color:#6B7C96; font-size:13.5px !important; line-height:1.55 !important; }
+  margin:0; color:#6B7C96; }
 
 /* one CTA closes the section - same button as the header's Book Demo
    (see the .ih-cta block in the integrations section for the source rule) */
@@ -2906,9 +2905,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
 /* the site-wide heading scale pins every #main-content h3 to 20px with
    !important, so the agent name has to out-specify it to stay display-sized */
 html body #main-content #ee-vidya-suite .vsx-card.vsx-job h3{ margin:0; color:var(--jink);
-  font-family:'Inter',sans-serif; font-weight:800 !important;
-  font-size:clamp(26px,2.3vw,34px) !important; line-height:1.05 !important;
-  letter-spacing:-.035em !important; }
+  font-family:'Inter',sans-serif; font-weight:800 !important; }
 
 /* "Upcoming" tag - Vidya Work is not shipped yet, so the card says so
    next to the name rather than reading like a live module */
@@ -2936,8 +2933,7 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job h3{ margin:0; color:va
   background:rgba(240,244,250,.85); border:1px solid rgba(228,233,241,.9);
   border-radius:18px; }
 #ee-vidya-suite .vsx-qm{ flex:0 0 auto; color:#DE6E30; font:800 34px/.72 Georgia,'Times New Roman',serif; }
-html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; color:#33415C;
-  font-size:13.5px !important; line-height:1.62 !important; }
+html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; color:#33415C; }
 #ee-vidya-suite .vsx-net{ position:absolute; right:-16px; bottom:6px; width:130px; height:112px;
   color:rgba(222,110,48,.22); fill:none; pointer-events:none; }
 /* fill belongs to the nodes only - on the connecting path it renders as a solid blob */
@@ -3006,13 +3002,11 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
   #ee-vidya-suite .vsx-job .vsx-ic svg,#ee-vidya-suite .vsx-job .vsx-ic img.eeimg{ width:26px; height:26px; }
   #ee-vidya-suite .vsx-brand{ font-size:14.5px; }
   #ee-vidya-suite .vsx-tag{ font-size:8.5px; padding:7px 10px; }
-  html body #main-content #ee-vidya-suite .vsx-card.vsx-job h3{ font-size:23px !important; }
   #ee-vidya-suite .vsx-meta>div{ padding:0 9px; }
   #ee-vidya-suite .vsx-meta dt{ font-size:10px; margin-bottom:3px; }
   #ee-vidya-suite .vsx-meta dd{ font-size:12.5px; }
   #ee-vidya-suite .vsx-quote{ padding:12px 13px; border-radius:14px; gap:8px; }
   #ee-vidya-suite .vsx-qm{ font-size:27px; }
-  html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ font-size:12px !important; line-height:1.5 !important; }
   #ee-vidya-suite .vsx-net{ width:96px; height:82px; right:-14px; }
   #ee-vidya-suite .vsx-apply{ padding:6px 6px 6px 16px; font-size:13px; gap:9px; }
   #ee-vidya-suite .vsx-arw2{ width:28px; height:28px; }
@@ -3417,8 +3411,7 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
 #ee-ind .spx-tt{ min-width:0; }
 html body #main-content #ee-ind .spx-wrap .spx-card h3{
   margin:0; color:#19335D; font-family:'Inter',sans-serif;
-  font-weight:800 !important; font-size:clamp(17px,1.5vw,21px) !important;
-  line-height:1.22 !important; letter-spacing:-.025em !important; }
+  font-weight:800 !important; }
 /* the dash-and-dot under the name */
 #ee-ind .spx-rule{ display:flex; align-items:center; gap:6px; margin-top:9px; }
 #ee-ind .spx-rule::before{ content:""; width:26px; height:2px; border-radius:2px;
@@ -3427,8 +3420,7 @@ html body #main-content #ee-ind .spx-wrap .spx-card h3{
   background:var(--orange-700,#B5551D); opacity:.6; }
 
 html body #main-content #ee-ind .spx-wrap .spx-card p{
-  margin:0 0 clamp(16px,1.8vw,22px); color:#6B7C96;
-  font-size:14px !important; line-height:1.7 !important; }
+  margin:0 0 clamp(16px,1.8vw,22px); color:#6B7C96; }
 
 #ee-ind .spx-go{ margin-top:auto; display:inline-flex; align-items:center; gap:7px;
   color:var(--orange-700,#B5551D); font-weight:700; font-size:14px; letter-spacing:-.01em; }
@@ -3448,9 +3440,8 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
   #ee-ind .spx-card{ flex:0 1 calc(50% - 5px); min-width:0; padding:13px 12px!important; border-radius:16px; }
   #ee-ind .spx-hd{ flex-direction:column; align-items:flex-start; gap:9px; margin-bottom:9px; }
   #ee-ind .spx-ic{ width:42px!important; height:42px!important; border-radius:13px; }
-  html body #main-content #ee-ind .spx-wrap .spx-card h3{ font-size:13.5px !important; line-height:1.25 !important; }
   #ee-ind .spx-rule{ margin-top:6px; }
-  html body #main-content #ee-ind .spx-wrap .spx-card p{ font-size:11.5px !important; line-height:1.55 !important; margin-bottom:10px !important; }
+  html body #main-content #ee-ind .spx-wrap .spx-card p{ margin-bottom:10px !important; }
   #ee-ind .spx-go{ font-size:11.5px; }
   #ee-ind .spx-go svg{ width:13px; height:13px; }
   #ee-ind .spx-spark{ display:none; }
@@ -3996,8 +3987,7 @@ section#stories::after{ right:-12%; bottom:-18%; width:50%; height:62%;
 #stories .cis-aname{ color:#19335D; font-weight:700; }
 #stories .cis-arole{ color:#6B7C96; }
 html body #main-content #stories .cis-wrap .cis-blurb{
-  margin:clamp(11px,1.2vw,15px) 2px clamp(14px,1.5vw,18px); color:#33415C;
-  font-size:14px !important; line-height:1.62 !important; }
+  margin:clamp(11px,1.2vw,15px) 2px clamp(14px,1.5vw,18px); color:#33415C; }
 
 #stories .cis-watch{ margin:auto 2px 4px; align-self:flex-start;
   display:inline-flex; align-items:center; gap:8px;
@@ -4012,8 +4002,7 @@ html body #main-content #stories .cis-wrap .cis-blurb{
   #stories .cis-eyebrow{ font-size:9.5px; padding:7px 13px; }
   #stories .cis-play{ width:48px; height:48px; }
   #stories .cis-dur{ font-size:10.5px; padding:5px 10px; }
-  html body #main-content #stories .cis-wrap .cis-blurb{
-    font-size:12.5px !important; line-height:1.55 !important; }
+
   #stories .cis-watch{ font-size:12.5px; }
 }
 @media(prefers-reduced-motion:reduce){
@@ -4045,8 +4034,8 @@ html body #main-content #stories .cis-wrap .cis-blurb{
 #integrations .ih-head{text-align:center;max-width:900px;margin:0 auto clamp(26px,4vw,42px)}
 html body #main-content #integrations h2.h2.ih-h2{
   text-align:center !important;font-weight:800 !important;
-  font-size:clamp(26px,4.4vw,50px) !important;line-height:1.1 !important;
-  letter-spacing:-.03em !important;color:#19345d !important;margin:0 0 14px !important}
+  
+  color:#19345d !important;margin:0 0 14px !important}
 #integrations .ih-h2 em{font-style:normal;color:#DE6E30}
 #integrations .ih-lead{margin:0 auto;max-width:62ch;font-size:clamp(14.5px,1.6vw,17px);line-height:1.65;color:#6B7C96}
 #integrations .ih-lead b{font-weight:600;color:var(--orange-700,#B5551D)}
@@ -4148,7 +4137,6 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   /* phones: let the headline wrap naturally (no forced break), 4-up logo
      tiles so the wall stays short, and the benefits bar as a 2-col grid */
   #integrations .ih-h2 br{display:none}
-  html body #main-content #integrations h2.h2.ih-h2{font-size:24px !important;line-height:1.16 !important}
   #integrations .ih-lead{font-size:13.5px}
   #integrations .ih-grid,#integrations .ih-row1{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
   #integrations .ih-t{border-radius:12px;padding:6px}
@@ -5320,8 +5308,6 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 #vidyaai-embed-root .feature-nav-item:hover{background:rgba(255,255,255,.1)!important;
   border-color:rgba(255,255,255,.18)!important;transform:translateX(4px)}
 #vidyaai-embed-root .feature-nav-item .nav-title{color:#fff!important}
-html body #main-content #vidyaai-embed-root .feature-nav-item h3.nav-title{font-size:var(--ee-h3,17px)!important;line-height:1.3!important;font-weight:600!important}
-@media(max-width:820px){html body #main-content #vidyaai-embed-root .feature-nav-item h3.nav-title{font-size:14px!important}}
 #vidyaai-embed-root .feature-nav-item p{color:rgba(198,212,234,.78)!important}
 #vidyaai-embed-root .feature-nav-item .w-10{background:rgba(255,255,255,.09)!important;
   border:1px solid rgba(255,255,255,.14);box-shadow:none!important;transition:background .3s,transform .3s}

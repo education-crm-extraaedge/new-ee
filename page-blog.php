@@ -159,19 +159,17 @@ get_header();
    the last thing in the card, so it carries a fourth line and no bottom
    margin - the body's own padding closes the card. */
 html body #main-content #ee-blog .ee-bl-card h2.ee-bl-title{
-  margin:0 !important; font-size:16px !important; line-height:1.32 !important;
-  letter-spacing:-.015em !important; font-weight:700 !important;
+  margin:0 !important; font-weight:700 !important;
   display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
 html body #main-content #ee-blog .ee-bl-card--hero h2.ee-bl-title{
   margin:0 0 10px !important; -webkit-line-clamp:3; }
-html body #main-content #ee-blog .ee-bl-card--hero h2.ee-bl-title{
-  font-size:clamp(19px,1.9vw,25px) !important; line-height:1.25 !important; }
+
 /* the excerpt loses to the same scale, so it is matched the same way */
 html body #main-content #ee-blog .ee-bl-card p.ee-bl-x{
-  margin:0 0 12px !important; font-size:13px !important; line-height:1.55 !important;
+  margin:0 0 12px !important;
   display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ -webkit-line-clamp:4; }
-html body #main-content #ee-blog .ee-bl-card--hero p.ee-bl-x{ font-size:14.5px !important; }
+
 .ee-bl-title{ margin:0 0 8px; font-size:16px; line-height:1.35; letter-spacing:-.015em; }
 .ee-bl-title a{ color:#19335D; font-weight:700; text-decoration:none; }
 .ee-bl-title a:hover{ color:var(--orange-700,#B5551D); }

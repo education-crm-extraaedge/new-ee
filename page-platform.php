@@ -22,8 +22,7 @@ get_header();
 .ee-ptour-head .wrap{max-width:820px;margin:0 auto;padding:0 22px}
 /* same id/class/type counts as the site heading-scale rule; prints later, wins the tie */
 html body #main-content .ee-ptour-head h1.h1.ptour-h1{
-  margin:0 0 10px !important;color:#19335D !important;font-weight:800 !important;
-  font-size:clamp(28px,3.6vw,44px) !important;line-height:1.1 !important;letter-spacing:-.03em !important}
+  margin:0 0 10px !important;color:#19335D !important;font-weight:800 !important}
 .ee-ptour-head .ptour-h1 em{font-style:normal;color:#DE6E30}
 .ee-ptour-head p{margin:0;color:#6B7C96;font-size:clamp(14.5px,1.7vw,17px);line-height:1.65}
 </style>
