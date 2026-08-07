@@ -198,6 +198,12 @@ if (!function_exists('ee_social_icon_url')) {
     #extraaedge-footer-engine .ee-social-icon--art,
     #extraaedge-footer-engine .ee-social-icon--art:hover { background: none; }
     #extraaedge-footer-engine .ee-social-icon--art img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    /* YouTube has no artwork file yet, so its glyph is drawn at chip size in
+       the platform's own red - it reads at the same weight as the artwork
+       tiles beside it instead of a small mark lost in a grey chip. */
+    #extraaedge-footer-engine .ee-social-icon .fa-youtube { font-size: 40px; color: #FF0000; }
+    #extraaedge-footer-engine .ee-social-icon:has(.fa-youtube),
+    #extraaedge-footer-engine .ee-social-icon:has(.fa-youtube):hover { background: none; }
     #extraaedge-footer-engine .ee-store-cluster { display: flex; gap: 12px; }
     #extraaedge-footer-engine .ee-store-cluster img { height: 40px; }
 

@@ -24,7 +24,7 @@ function ee_platform_section() {
     if ($ee_done) return;
     $ee_done = true;
 ?>
-<!-- ee-platform-section v2026-08-08-no-inside-strip (shared: home / product-tour / [ee_platform]) -->
+<!-- ee-platform-section v2026-08-08-fullscreen-cta (shared: home / product-tour / [ee_platform]) -->
 <style>
 /* The site renders at 90% zoom (header.php ee-site-zoom); the relocated
    full-screen demo overlay is counter-zoomed back to 1:1. */
@@ -355,6 +355,9 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 .tour-dock .ddots b.on{background:var(--o)}
 @media (prefers-reduced-motion:reduce){.tour-spot,.tour-tip,.tour-end .card,.tour-tip .prog i{transition:none}.tour-spot::after{animation:none}}
 .demo-cta{position:fixed;right:16px;bottom:18px;z-index:9001;display:flex;flex-direction:column;align-items:flex-end;gap:10px}.demo-cta .dc-book{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#DE6E30;border:2px solid #DE6E30;font-weight:700;font-size:13px;border-radius:999px;padding:9px 16px 9px 13px;cursor:pointer;box-shadow:0 8px 22px rgba(222,110,48,.18)}.demo-cta .dc-book:hover{background:#FFF3EC;color:#B85920;border-color:#B85920}.demo-cta .dc-book svg{width:15px;height:15px}.demo-cta .dc-pill{display:flex;align-items:center;gap:9px;padding:9px 15px 9px 11px;border-radius:999px;background:#fff;border:1px solid #E5E7EB;text-decoration:none;box-shadow:0 6px 20px rgba(15,32,64,.14);cursor:pointer}.demo-cta .dc-pill:hover{box-shadow:0 10px 26px rgba(15,32,64,.2)}.demo-cta .dc-pill img{width:30px;height:30px;object-fit:contain;display:block}.demo-cta .dc-lbl{display:flex;flex-direction:column;line-height:1.15;text-align:left}.demo-cta .dc-lbl small{font-size:9px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#6B7280}.demo-cta .dc-lbl b{font-size:12px;font-weight:700;color:#19335D}@media(max-width:860px){.demo-cta .dc-lbl{display:none}.demo-cta .dc-pill{padding:7px;border-radius:50%}.demo-cta .dc-pill img{width:26px;height:26px}}
+/* the floating stack rides only the full-screen experience - inline on the
+   home page it duplicated the site's own floating buttons */
+.demo-cta{display:none}body.ee-full .demo-cta{display:flex}
 @media(max-width:860px){.tour-tip{left:14px!important;right:14px!important;top:auto!important;bottom:88px!important;width:auto;max-width:none}.tour-tip .kbd{display:none}.tour-end .wins{grid-template-columns:repeat(2,1fr)}.tour-end .card{padding:26px 20px 22px}.tour-dock{left:14px;right:14px;transform:none;justify-content:center;bottom:14px}.tour-dock .lbl{display:none}.tour-dock .ddots{max-width:46vw;overflow:hidden}.demo-cta{bottom:66px;right:14px;padding:9px 14px;font-size:12px}
 }
 @media(max-width:420px){.tour-dock .ddots{display:none} }
@@ -1139,6 +1142,8 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
     window.addEventListener('message',function(e){ var d=e.data;
       if(d==='ee-tour-start'){ if(!tRun) tStart(); }
       else if(d==='ee-tour-stop'){ if(tRun) tStop(); }
+      else if(d==='ee-full-on'){ document.body.classList.add('ee-full'); }
+      else if(d==='ee-full-off'){ document.body.classList.remove('ee-full'); }
     });
   }
 })();
@@ -1254,6 +1259,12 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
        unambiguous "show me the product", so ask for the tour directly.
        Skipped when the visitor arrived by picking a module: they asked for
        that screen, and the tour would move them off it. */
+    /* the frame shows its floating Book-Demo/WhatsApp/Call stack only while
+       full screen - retried on load like the tour, since the frame may still
+       be hydrating on the first open */
+    tellFrame('ee-full-on');
+    if(fr){ fr.addEventListener('load',function fON(){ fr.removeEventListener('load',fON); if(isOpen()) tellFrame('ee-full-on'); }); }
+    setTimeout(function(){ if(isOpen()) tellFrame('ee-full-on'); },1500);
     if(!userPicked){
       tellFrame('ee-tour-start');
       if(fr){ fr.addEventListener('load',function once(){ fr.removeEventListener('load',once); if(!userPicked) tellFrame('ee-tour-start'); }); }
@@ -1262,6 +1273,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   }
   function closeExp(){
     tellFrame('ee-tour-stop');
+    tellFrame('ee-full-off');
     if(winEl) winEl.classList.remove('eep-launched');
     document.documentElement.classList.remove('eep-lock');
     document.body.classList.remove('eep-lock');
