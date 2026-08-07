@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-07-rfa-h2-mobile -->
+<!-- ee-front-tpl v2026-08-07-no-eyebrow -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -473,9 +473,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       @media(prefers-reduced-motion:reduce){#xhero .hp-play{transition:none}}
     </style>
     <aside class="hero-pov reveal d4" aria-label="Product overview">
-      <span class="hp-chip">Product Overview</span>
-      <h2 class="h2 hp-h2">See ExtraaEdge in Action</h2>
-      <p class="hp-sub">A quick 2-minute overview of how our AI-powered Admission CRM helps you attract, engage and enroll more students.</p>
+      <h2 class="h2 hp-h2">See ExtraaEdge in Action - 2-Minute Product Overview</h2>
+      <p class="hp-sub">How our AI-powered Admission CRM helps you attract, engage and enroll more students.</p>
       <div class="hp-vid" id="hpVid" data-yt="cCa7ZOJi694" role="button" tabindex="0" aria-label="Play the ExtraaEdge product overview video">
         <img src="https://i.ytimg.com/vi/cCa7ZOJi694/maxresdefault.jpg" alt="ExtraaEdge product overview" loading="lazy" decoding="async" width="1280" height="720"
              onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/cCa7ZOJi694/hqdefault.jpg';">
@@ -1118,9 +1117,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
    sections; the long selector matches the site heading-scale rule's
    specificity and prints later, so it wins the tie */
 #ee-rfa .rfa-head{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:clamp(44px,6vw,68px) 22px 0;text-align:center}
-#ee-rfa .rfa-eyebrow{display:inline-flex;align-items:center;gap:8px;font:700 12px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#19345d;background:rgba(255,255,255,.75);border:1px solid rgba(25,52,93,.1);border-radius:999px;padding:8px 15px;box-shadow:0 4px 14px rgba(25,52,93,.06)}
-#ee-rfa .rfa-eyebrow i{width:7px;height:7px;border-radius:50%;background:#DE6E30;box-shadow:0 0 0 4px rgba(222,110,48,.18)}
-html body #main-content #ee-rfa h2.h2.rfa-h2{margin:18px 0 12px!important;color:#19345d!important;font-weight:800!important;font-size:clamp(28px,4.2vw,46px)!important;line-height:1.08!important;letter-spacing:-.03em!important}
+html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19345d!important;font-weight:800!important;font-size:clamp(28px,4.2vw,46px)!important;line-height:1.08!important;letter-spacing:-.03em!important}
 #ee-rfa .rfa-h2 em{font-style:normal;color:#DE6E30}
 #ee-rfa .rfa-sub{font-size:clamp(15px,1.7vw,18px);line-height:1.6;color:#5a6b85;margin:0}
 /* blurred brand orbs behind the glass cards */
@@ -1217,8 +1214,7 @@ html body #main-content #ee-rfa .rfa-cards .rfa-card h3.rfa-title{font-size:17px
   <span class="rfa-orb o1" aria-hidden="true"></span>
   <span class="rfa-orb o2" aria-hidden="true"></span>
   <header class="rfa-head">
-    <span class="rfa-eyebrow"><i aria-hidden="true"></i>How institutes win</span>
-    <h2 class="h2 rfa-h2">From First Enquiry to <em>Final Enrollment</em></h2>
+    <h2 class="h2 rfa-h2">How Institutes Win - From First Enquiry to <em>Final Enrollment</em></h2>
     <p class="rfa-sub">The four moves that decide admissions - respond first, engage right, prioritise the best-fit students and measure everything, on one AI Admission CRM.</p>
   </header>
   <div class="rfa-track" id="rfaTrack">
@@ -2481,8 +2477,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
   <div class="epx-wrap">
 
     <header class="epx-head">
-      <span class="epx-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg> ALL-IN-ONE ADMISSIONS PLATFORM</span>
-      <h2>Our Products</h2>
+      <h2>Our Products - the <span class="eep-accent">All-in-One Admissions Platform</span></h2>
       <p>Everything you need to attract, engage, enroll, and retain students &mdash; powered by AI and built for education.</p>
     </header>
 
@@ -3448,14 +3443,17 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
 
 @media(max-width:980px){ #ee-ind .spx-card{ flex-basis:calc(50% - 12px); } }
 @media(max-width:640px){
-  #ee-ind .spx-grid{ gap:10px; }
-  #ee-ind .spx-card{ flex-basis:100%; min-width:0; padding:16px 15px!important; border-radius:18px; }
-  #ee-ind .spx-hd{ gap:12px; margin-bottom:12px; }
-  #ee-ind .spx-ic{ width:48px!important; height:48px!important; border-radius:15px; }
-  html body #main-content #ee-ind .spx-wrap .spx-card h3{ font-size:16px !important; }
-  html body #main-content #ee-ind .spx-wrap .spx-card p{ font-size:12.5px !important; line-height:1.6 !important; }
-  #ee-ind .spx-go{ font-size:12.5px; }
-  #ee-ind .spx-spark{ width:20px; height:20px; right:13px; bottom:12px; }
+  /* phones: two cards per row - icon above the name, tighter copy */
+  #ee-ind .spx-grid{ gap:9px; }
+  #ee-ind .spx-card{ flex:0 1 calc(50% - 5px); min-width:0; padding:13px 12px!important; border-radius:16px; }
+  #ee-ind .spx-hd{ flex-direction:column; align-items:flex-start; gap:9px; margin-bottom:9px; }
+  #ee-ind .spx-ic{ width:42px!important; height:42px!important; border-radius:13px; }
+  html body #main-content #ee-ind .spx-wrap .spx-card h3{ font-size:13.5px !important; line-height:1.25 !important; }
+  #ee-ind .spx-rule{ margin-top:6px; }
+  html body #main-content #ee-ind .spx-wrap .spx-card p{ font-size:11.5px !important; line-height:1.55 !important; margin-bottom:10px !important; }
+  #ee-ind .spx-go{ font-size:11.5px; }
+  #ee-ind .spx-go svg{ width:13px; height:13px; }
+  #ee-ind .spx-spark{ display:none; }
 }
 @media(prefers-reduced-motion:reduce){
   #ee-ind .spx-card,#ee-ind .spx-go svg{ transition:none; } }
@@ -3604,8 +3602,7 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
 <section id="stories" aria-labelledby="stories-title">
   <div class="cis-wrap">
     <div class="cis-head">
-      <span class="cis-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L12 16.9 6.4 20.1l1.4-6.3L3 9.5l6.4-.6L12 3z"/></svg> Customer Stories</span>
-      <h2 class="cis-title" id="stories-title">Powering growth for <em>500+ happy customers</em></h2>
+      <h2 class="cis-title" id="stories-title">Customer Stories - Powering Growth for <em>500+ Happy Customers</em></h2>
       <p class="cis-lead">See how leading education institutions are transforming admissions, improving counsellor productivity, and creating better student experiences with ExtraaEdge.</p>
     </div>
 
@@ -4148,12 +4145,21 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   html body #main-content #integrations a.ih-cta{padding:.62rem .7rem !important;font-size:.72rem !important}
 }
 @media(max-width:640px){
-  #integrations .ih-grid,#integrations .ih-row1{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-  #integrations .ih-t{border-radius:13px;padding:7px}
-  #integrations .ih-bar{grid-template-columns:1fr}
-  #integrations .ih-bar div{border-left:0}
-  #integrations .ih-bar div:first-child{border-top:0}
-  #integrations .ih-core{width:150px}
+  /* phones: let the headline wrap naturally (no forced break), 4-up logo
+     tiles so the wall stays short, and the benefits bar as a 2-col grid */
+  #integrations .ih-h2 br{display:none}
+  html body #main-content #integrations h2.h2.ih-h2{font-size:24px !important;line-height:1.16 !important}
+  #integrations .ih-lead{font-size:13.5px}
+  #integrations .ih-grid,#integrations .ih-row1{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  #integrations .ih-t{border-radius:12px;padding:6px}
+  #integrations .ih-t:hover{transform:none}
+  #integrations .ih-bar{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #integrations .ih-bar div{border-left:0;border-top:1px solid rgba(25,52,93,.07);padding:12px 12px;gap:9px}
+  #integrations .ih-bar div:nth-child(-n+2){border-top:0}
+  #integrations .ih-bar div:last-child{grid-column:1 / -1}
+  #integrations .ih-bar svg{width:20px;height:20px}
+  #integrations .ih-bar b{font-size:12px}
+  #integrations .ih-core{width:140px}
   #integrations .ih-note{font-size:12px;text-align:center}
 }
 @media(prefers-reduced-motion:reduce){
@@ -4167,7 +4173,7 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
 <section class="sec" id="integrations">
   <div class="container">
     <div class="ih-head rv">
-      <h2 class="h2 ih-h2">Connect Your <em>Admissions Stack</em><br>With <em>ExtraaEdge</em></h2>
+      <h2 class="h2 ih-h2">Connect Your <em>Admissions Stack</em><br> With <em>ExtraaEdge</em></h2>
       <p class="ih-lead">Seamlessly integrate the tools your team already uses and manage every student interaction from <b>one connected CRM</b>.</p>
     </div>
 
@@ -4313,6 +4319,23 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   @media(max-width:820px){#ee-pricing .pg{grid-template-columns:1fr;max-width:420px;margin:0 auto}}/* SWITCH */
   #ee-switch .sw{display:grid;grid-template-columns:1.1fr .9fr;gap:0;background:linear-gradient(150deg,var(--nv2),var(--nv));border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -34px rgba(25,52,93,.55)}#ee-switch .swl{padding:clamp(28px,3.4vw,44px);color:#fff}#ee-switch .swl .eb{display:inline-flex;align-items:center;gap:8px;font:800 11px/1 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#E8843F;margin-bottom:12px}#ee-switch .swl h2{font-size:clamp(24px,3.2vw,36px);font-weight:800;line-height:1.12;letter-spacing:-.02em;margin:0 0 12px}#ee-switch .swl p{font-size:14.5px;color:#c6d4ea;line-height:1.6;margin:0 0 20px;max-width:46ch}#ee-switch .swl ul{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:11px}#ee-switch .swl li{font-size:14px;display:flex;gap:10px;align-items:flex-start;color:#eaf0f8}#ee-switch .swl li svg,#ee-switch .swl li img.eeimg{width:18px;height:18px;color:#9fb9e0;flex:none;margin-top:1px}#ee-switch .swl .cta{display:inline-flex;align-items:center;gap:9px;background:var(--or);color:#fff;font-weight:700;font-size:15px;padding:14px 26px;border-radius:12px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.6);transition:transform .2s}#ee-switch .swl .cta:hover{transform:translateY(-2px)}#ee-switch .swr{background:rgba(255,255,255,.06);border-left:1px solid rgba(255,255,255,.12);padding:clamp(28px,3.4vw,44px);display:flex;flex-direction:column;justify-content:center;gap:14px}#ee-switch .swr .gain{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9fb4d4;margin-bottom:2px}#ee-switch .swr .g{display:flex;gap:11px;align-items:center;color:#fff;font-size:14px;font-weight:600}#ee-switch .swr .g b{width:34px;height:34px;border-radius:9px;background:#ffffff;color:#E8843F;display:grid;place-items:center;flex:none;box-shadow:0 2px 8px rgba(0,0,0,.18)}#ee-switch .swr .g b svg,#ee-switch .swr .g b img.eeimg{width:18px;height:18px}
   @media(max-width:760px){#ee-switch .sw{grid-template-columns:1fr}#ee-switch .swr{border-left:0;border-top:1px solid rgba(255,255,255,.12)}}
+  /* SWITCH - compact: the section reads as a closing nudge, not a hero.
+     Later in the same sheet than the grouped rules above, so ties resolve here. */
+  #ee-switch{padding:clamp(34px,4.5vw,56px) 0}
+  #ee-switch .rvw{max-width:960px}
+  #ee-switch .swl,#ee-switch .swr{padding:clamp(20px,2.6vw,32px)}
+  #ee-switch .swl h2{font-size:clamp(20px,2.6vw,28px);margin:0 0 10px}
+  #ee-switch .swl h2 em{font-style:normal;color:#E8843F}
+  #ee-switch .swl p{font-size:13.5px;margin:0 0 16px}
+  #ee-switch .swl ul{gap:9px;margin:0 0 18px}
+  #ee-switch .swl li{font-size:13px}
+  #ee-switch .swl li svg,#ee-switch .swl li img.eeimg{width:16px;height:16px}
+  #ee-switch .swl .cta{font-size:14px;padding:12px 22px;border-radius:10px}
+  #ee-switch .swr{gap:11px}
+  #ee-switch .swr .g{font-size:13px;gap:10px}
+  #ee-switch .swr .g b{width:30px;height:30px}
+  /* phones: the section is dropped entirely */
+  @media(max-width:820px){#ee-switch{display:none!important}}
 </style>
 
 <section id="ee-golive" aria-label="Go live in 7 days">
@@ -4336,8 +4359,7 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   <div class="rvw">
     <div class="sw">
       <div class="swl">
-        <span class="eb">🔁 Switching is easy</span>
-        <h2>On a legacy CRM? Switch in 14 days.</h2>
+                <h2>Switching is easy - leave your legacy CRM in <em>14 days</em>.</h2>
         <p>Outgrown a generic CRM or a basic enrollment tool? Move to the AI-native platform built only for admissions - we do the heavy lifting.</p>
         <ul>
           <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> <b>Free data migration</b> - leads, history &amp; templates</li>
@@ -4966,20 +4988,8 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   #xhero .cta-note{display:none!important}
   #xhero .secure-label{white-space:nowrap!important;letter-spacing:.03em!important;font-size:9.5px!important}
 
-  /* Remove the small eyebrow/label above each section heading - on phones the
-     label + the main H2 read as a duplicate "double heading". Sections stay. */
-  #trusted-institutions .logo-badge,
-  #ee-platform .eep-eyebrow,
-  #ee-products .eep-eyebrow,
-  #ee-vidya-suite .vsx-eyebrow,
-  #ee-solutions .ee-eyebrow,
-  #ee-ind .eei-eyebrow,
-  #stories .cis-eyebrow,
-  #ee-cro .eyebrow,
-  #integrations .eyebrow,
-  #security .eyebrow,
-  #ee-golive .eb,
-  #ee-resources .ee-r-eyebrow{ display:none!important; }
+  /* (eyebrow labels were removed from the markup site-wide - their meaning
+     now lives inside each section's H2, so there is nothing left to hide) */
 }
 </style>
 
