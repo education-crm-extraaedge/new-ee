@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-integ-logo-fill -->
+<!-- ee-front-tpl v2026-08-08-hero-thumb -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -476,8 +476,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <h2 class="h2 hp-h2">See ExtraaEdge in Action - 2-Minute Product Overview</h2>
       <p class="hp-sub">How our AI-powered Admission CRM helps you attract, engage and enroll more students.</p>
       <div class="hp-vid" id="hpVid" data-yt="cCa7ZOJi694" role="button" tabindex="0" aria-label="Play the ExtraaEdge product overview video">
-        <img src="https://i.ytimg.com/vi/cCa7ZOJi694/maxresdefault.jpg" alt="ExtraaEdge product overview" loading="lazy" decoding="async" width="1280" height="720"
-             onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/cCa7ZOJi694/hqdefault.jpg';">
+        <img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/hero-thubnail.png" alt="ExtraaEdge product overview" loading="lazy" decoding="async" width="1280" height="720"
+             onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/cCa7ZOJi694/maxresdefault.jpg';">
         <span class="hp-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       </div>
       <div class="hp-trio">
