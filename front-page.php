@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-hero-typewrite3 -->
+<!-- ee-front-tpl v2026-08-08-hero-typewrite4 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -580,16 +580,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
      jump back up the way character-by-character typing reflowed the text.
      The finished line holds, fades out as a whole (the .is-out crossfade),
      and the next phrase reveals the same way. */
+  /* The stylesheet's .accent paints a gradient via background-clip:text.
+     That background belongs to the PARENT span, so it showed through the
+     glyph shapes even while the characters sat at opacity 0 - the keywords
+     looked pre-highlighted. The rebuilt headline therefore carries NO
+     stylesheet class at all: both halves are bare spans and every keyword
+     character is coloured brand orange inline, so no cached, minified or
+     optimizer-mangled CSS can ever paint anything before its turn. */
   var pre=document.createElement('span');
-  var acc=document.createElement('span'); acc.className='accent';
-  /* The stylesheet paints the accent as a gradient clipped to its text
-     (background-clip:text). That background belongs to the PARENT span, so
-     it kept showing through the glyph shapes even while the characters
-     themselves sat at opacity 0 - the keywords looked pre-highlighted.
-     Inline: drop the clipped background and colour the keywords solid brand
-     orange (same as every other heading accent), so they reveal char by
-     char exactly like the rest of the line. */
-  acc.style.cssText='background:none;-webkit-background-clip:initial;background-clip:initial;-webkit-text-fill-color:currentColor;color:#DE6E30';
+  var acc=document.createElement('span');
   el.textContent=''; el.appendChild(pre); el.appendChild(acc);
 
   var i=0,t=null,paused=false;
@@ -607,7 +606,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       var sp=document.createElement('span'); sp.className='hr-w'; sp.style.display='inline-block';
       for(var c=0;c<w.length;c++){
         var ch=document.createElement('span'); ch.className='hr-c'; ch.textContent=w.charAt(c);
-        ch.style.cssText='display:inline-block;opacity:0;filter:blur(3px);transition:opacity .16s ease-out,filter .22s ease-out';
+        ch.style.cssText='display:inline-block;opacity:0;filter:blur(3px);transition:opacity .16s ease-out,filter .22s ease-out'
+          +(target===acc?';color:#DE6E30;-webkit-text-fill-color:#DE6E30':'');
         sp.appendChild(ch);
       }
       target.appendChild(sp);
