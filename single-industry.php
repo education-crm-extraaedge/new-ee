@@ -836,7 +836,11 @@ if (function_exists('ee_render_category_institute_logos')) {
     <?php if($educrm_h2 || $educrm_p1): ?>
     <section class="edu-crm-section" id="what-is-education-crm" aria-labelledby="edu-crm-heading">
       <div class="container">
-        <div class="edu-crm-layout<?php echo get_post_meta($pid, '_educrm_visual_side', true) === 'left' ? ' ee-flip' : ''; ?>">
+        <?php /* Only flip when there is actually a flow panel to put on the left -
+                 with no panel the text would be pushed into the right column and
+                 the left one left empty. */
+              $ee_flip = (get_post_meta($pid, '_educrm_visual_side', true) === 'left' && !empty($flow_steps)); ?>
+        <div class="edu-crm-layout<?php echo $ee_flip ? ' ee-flip' : ''; ?>">
           <article>
             <?php if($educrm_h2): ?><h2 id="edu-crm-heading" class="edu-crm-h2 reveal"><?php echo esc_html($educrm_h2); ?></h2><?php endif; ?>
             <?php if($educrm_p1): ?><p class="edu-crm-p reveal"><?php echo ee_inline_links($educrm_p1); ?></p><?php endif; ?>
@@ -1235,7 +1239,16 @@ if (!empty($eqn_items)) : ?>
 #site-header{transition:transform .3s cubic-bezier(.4,0,.2,1)!important;will-change:transform}
 #site-header.ee-hdr-away{transform:translateY(-110%)!important;box-shadow:none!important}
 /* per-section visual side flips (Page Settings tabs) */
-@media(min-width:1151px){.edu-crm-layout.ee-flip>article{order:2}.edu-crm-layout.ee-flip>:not(article){order:1}}
+/* Left mode is a true mirror: the columns swap too, and each block is
+   placed explicitly. Relying on order alone left the flow panel sitting in
+   the 1.2fr column and pulled the growth card up beside it, which is what
+   broke the section. The growth card keeps its own grid-column:1/-1, so it
+   still spans the full width on row 2 either way. */
+@media(min-width:1151px){
+  .edu-crm-layout.ee-flip{grid-template-columns:.8fr 1.2fr}
+  .edu-crm-layout.ee-flip>.flow-panel{grid-column:1;grid-row:1}
+  .edu-crm-layout.ee-flip>article{grid-column:2;grid-row:1}
+}
 @media(min-width:1025px){.ai-demo-inner.ee-flip>.ai-cta-content{order:2}.ai-demo-inner.ee-flip>:not(.ai-cta-content){order:1}.bottom-cta-inner.ee-flip>.cta-content{order:2}.bottom-cta-inner.ee-flip>.cta-visual-card{order:1}}
 /* icon rail shows ONLY while the menu bar is hidden */
 .ee-float-nav{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:opacity .3s ease,visibility .3s ease}
