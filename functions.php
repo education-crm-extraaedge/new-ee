@@ -7723,6 +7723,7 @@ add_action('template_redirect', function () {
         'customer-success-stories' => array('file' => 'page-customers.php', 'title' => 'Customer Success Stories'),
         'vidyaai'    => array('file' => 'page-vidyaai.php',     'title' => 'VidyaAI — The 24/7 AI Admission Agent'),
         'videos'     => array('file' => 'page-videos.php',      'title' => 'Videos'),
+        'product-tour' => array('file' => 'page-platform.php',  'title' => 'Product Tour'),
     );
 
     /* Add a body class on any custom-routed landing page so the global
@@ -8616,6 +8617,13 @@ require_once get_template_directory() . '/inc/institute-logos.php';
  * ========================================================================= */
 require_once get_template_directory() . '/inc/videos-data.php';
 require_once get_template_directory() . '/inc/videos-admin.php';
+
+/* =========================================================================
+ * 🖥 PLATFORM DEMO — "Explore the platform yourself", as a reusable section.
+ * Edit the dummy CRM in inc/platform-demo.php; it shows on the home page,
+ * on /product-tour/, and anywhere the [ee_platform] shortcode is placed.
+ * ========================================================================= */
+require_once get_template_directory() . '/inc/platform-demo.php';
 
 /* =========================================================================
  * 🙂 NATIVE EMOJI — WordPress swaps every emoji for an image loaded from
