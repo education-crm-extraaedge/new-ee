@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-03-cta-unify -->
+<!-- ee-front-tpl v2026-08-07-product-overview -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -703,6 +703,77 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   @media(max-width:560px){#ee-platform{padding:46px 0 54px}#ee-platform .eep-wrap{padding:0 14px}#ee-platform .eep-window{border-radius:12px}#ee-platform .eep-cta-btn{width:100%;justify-content:center}}
 </style>
 
+
+<!-- ===================== PRODUCT OVERVIEW · click-to-play video ===================== -->
+<style id="ee-product-overview-css">
+#product-overview{position:relative;padding:clamp(48px,6vw,84px) 0;background:linear-gradient(180deg,#fff 0%,#F8FAFC 100%);font-family:'Inter',system-ui,sans-serif;overflow:hidden}
+#product-overview .pov-wrap{max-width:980px;margin:0 auto;padding:0 24px}
+#product-overview .pov-chip{display:inline-flex;align-items:center;background:#DE6E30;color:#fff;font:800 11px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:9px 18px;border-radius:999px;box-shadow:0 8px 20px -8px rgba(222,110,48,.6)}
+/* same id/class/type counts as the site heading-scale override, and this
+   block prints later, so the tie breaks this way */
+html body #main-content #product-overview h2.h2.pov-h2{
+  margin:16px 0 10px !important;color:#19335D !important;font-weight:800 !important;
+  font-size:clamp(26px,3.6vw,40px) !important;line-height:1.12 !important;letter-spacing:-.03em !important;text-align:center !important}
+#product-overview .pov-head{text-align:center;margin-bottom:clamp(22px,3vw,34px)}
+#product-overview .pov-sub{max-width:56ch;margin:0 auto;color:#5a6b85;font-size:clamp(14.5px,1.7vw,17px);line-height:1.65}
+#product-overview .pov-vid{position:relative;border-radius:18px;overflow:hidden;cursor:pointer;background:#0F2040;aspect-ratio:16/9;
+  border:1px solid rgba(25,52,93,.12);box-shadow:0 44px 96px -34px rgba(25,52,93,.45),0 0 0 1px rgba(25,52,93,.04)}
+#product-overview .pov-vid img{width:100%;height:100%;object-fit:cover;display:block}
+#product-overview .pov-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:clamp(64px,7vw,92px);height:clamp(64px,7vw,92px);border-radius:50%;
+  background:#fff;display:grid;place-items:center;box-shadow:0 18px 44px rgba(15,32,64,.4);transition:transform .2s ease}
+#product-overview .pov-play svg{width:34%;height:34%;margin-left:4px;color:#DE6E30}
+#product-overview .pov-vid:hover .pov-play{transform:translate(-50%,-50%) scale(1.07)}
+#product-overview .pov-vid:focus-visible{outline:3px solid #19335D;outline-offset:3px}
+#product-overview .pov-vid.playing{cursor:default}
+#product-overview .pov-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+#product-overview .pov-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:860px;
+  margin:clamp(22px,3vw,32px) auto 0;padding-top:clamp(18px,2.4vw,26px);border-top:1px solid #E5EAF2}
+#product-overview .pov-t{display:flex;align-items:center;justify-content:center;gap:11px;text-align:left}
+#product-overview .pov-t svg{width:26px;height:26px;flex:none;color:var(--orange-700,#B5551D)}
+#product-overview .pov-t b{display:block;font:700 13.5px/1.35 'Inter',sans-serif;color:#19335D}
+#product-overview .pov-t small{display:block;font:600 11px/1.3 'Inter',sans-serif;color:#7a889e;text-transform:none}
+@media(max-width:640px){
+  #product-overview .pov-wrap{padding:0 16px}
+  #product-overview .pov-vid{border-radius:13px}
+  #product-overview .pov-trio{grid-template-columns:1fr;gap:10px;max-width:320px}
+  #product-overview .pov-t{justify-content:flex-start}
+}
+@media(prefers-reduced-motion:reduce){#product-overview .pov-play{transition:none}}
+</style>
+<section class="sec" id="product-overview" aria-label="Product overview video">
+  <div class="pov-wrap">
+    <div class="pov-head rv">
+      <span class="pov-chip">Product Overview</span>
+      <h2 class="h2 pov-h2">See ExtraaEdge in Action</h2>
+      <p class="pov-sub">A quick 2-minute overview of how our AI-powered Admission CRM helps you attract, engage and enroll more students.</p>
+    </div>
+    <div class="pov-vid rv" id="povVid" data-yt="cCa7ZOJi694" role="button" tabindex="0" aria-label="Play the ExtraaEdge product overview video">
+      <img src="https://i.ytimg.com/vi/cCa7ZOJi694/maxresdefault.jpg" alt="ExtraaEdge product overview" loading="lazy" decoding="async" width="1280" height="720"
+           onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/cCa7ZOJi694/hqdefault.jpg';">
+      <span class="pov-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+    </div>
+    <div class="pov-trio rv">
+      <div class="pov-t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9l-10-4-10 4 10 4 10-4v6"/><path d="M6 10.6V16a6 3 0 0 0 12 0v-5.4"/></svg><span><b>Built for</b><small>Education</small></span></div>
+      <div class="pov-t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg><span><b>AI-Powered</b><small>Automation</small></span></div>
+      <div class="pov-t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/></svg><span><b>Trusted by</b><small>500+ Institutions</small></span></div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  /* nothing loads from YouTube until the visitor asks for the video */
+  var v = document.getElementById('povVid'); if (!v) return;
+  function play(){
+    if (v.classList.contains('playing')) return;
+    var id = v.getAttribute('data-yt'); if (!id) return;
+    v.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1" title="ExtraaEdge product overview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    v.classList.add('playing');
+    v.removeAttribute('role'); v.removeAttribute('tabindex');
+  }
+  v.addEventListener('click', play);
+  v.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); } });
+})();
+</script>
 
 <section class="logo-section" id="trusted-institutions" aria-label="Trusted Institutions">
   <div class="logo-header reveal">

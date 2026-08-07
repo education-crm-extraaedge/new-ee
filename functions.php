@@ -8211,6 +8211,7 @@ if (file_exists($ee_home_editor)) {
 function ee_home_sections_registry() {
     return array(
         'xhero'                => array('Hero',                        'Main banner, headline, demo form'),
+        'product-overview'     => array('Product Overview',            'See ExtraaEdge in Action — video'),
         'trusted-institutions' => array('Trusted Institutions',        '500+ institution logos strip'),
         'why-admissions-leak'  => array('The Admission Funnel Leak',   'Problem story (typewriter + cards)'),
         'feature-pillars'      => array('Built For Admission Teams',   'Admission Intelligence pipeline (scroll cards)'),
