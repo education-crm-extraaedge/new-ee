@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-hero-typewrite4 -->
+<!-- ee-front-tpl v2026-08-08-sitepages -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -2529,12 +2529,12 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
             <h3>Automation</h3>
           </div>
           <ul class="epx-list">
-            <li><span>Workflow Automation</span></li>
-            <li><span>Journey Builder</span></li>
-            <li><span>Lead Assignment</span></li>
-            <li><span>Lead Routing</span></li>
-            <li><span>Task Automation</span></li>
-            <li><span>Follow-up Automation</span></li>
+            <li><a href="/products/workflow-automation/">Workflow Automation</a></li>
+            <li><a href="/products/journey-builder/">Journey Builder</a></li>
+            <li><a href="/products/lead-assignment/">Lead Assignment</a></li>
+            <li><a href="/products/lead-routing/">Lead Routing</a></li>
+            <li><a href="/products/task-automation/">Task Automation</a></li>
+            <li><a href="/products/follow-up-automation/">Follow-up Automation</a></li>
           </ul>
         </article>
         <article class="epx-card epx-card--hero">
@@ -2556,11 +2556,11 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
             <h3>Security</h3>
           </div>
           <ul class="epx-list">
-            <li><span>Role Management</span></li>
-            <li><span>Permissions</span></li>
-            <li><span>Audit Logs</span></li>
-            <li><span>Data Security</span></li>
-            <li><span>Compliance</span></li>
+            <li><a href="/security/role-management/">Role Management</a></li>
+            <li><a href="/security/permissions/">Permissions</a></li>
+            <li><a href="/security/audit-logs/">Audit Logs</a></li>
+            <li><a href="/security/data-security/">Data Security</a></li>
+            <li><a href="/security/compliance/">Compliance</a></li>
           </ul>
         </article>
     </div>
@@ -2589,7 +2589,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
           </div>
           <div class="epx-integ-tx">
             <h3>Integrations</h3>
-            <p class="epx-integ-lead"><a href="/products/">All integrations</a></p>
+            <p class="epx-integ-lead"><a href="/products/integrations/">All integrations</a></p>
             <p>Seamlessly connect with your favourite tools and platforms.</p>
           </div>
         </article>
@@ -2599,12 +2599,12 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
             <h3>Analytics</h3>
           </div>
           <ul class="epx-list">
-            <li><span>Executive Dashboard</span></li>
-            <li><span>Admission Analytics</span></li>
-            <li><span>Marketing Analytics</span></li>
-            <li><span>Lead Analytics</span></li>
-            <li><span>Funnel Analytics</span></li>
-            <li><span>Custom Reports</span></li>
+            <li><a href="/analytics/executive-dashboard/">Executive Dashboard</a></li>
+            <li><a href="/analytics/admission-analytics/">Admission Analytics</a></li>
+            <li><a href="/analytics/marketing-analytics/">Marketing Analytics</a></li>
+            <li><a href="/analytics/lead-analytics/">Lead Analytics</a></li>
+            <li><a href="/analytics/funnel-analytics/">Funnel Analytics</a></li>
+            <li><a href="/analytics/custom-reports/">Custom Reports</a></li>
           </ul>
         </article>
     </div>

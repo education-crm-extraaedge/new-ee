@@ -4263,6 +4263,9 @@ function ee_get_resources_menu_items() {
         array('title' => 'Ebooks',       'url' => home_url('/ebooks/'),                        'desc' => 'Get the industry-relevant guides that will help you scale your admissions.',              'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/book-open.svg',        'color_a' => '#19335D', 'color_b' => '#3E6BB0'),
         array('title' => 'Webinars',     'url' => home_url('/webinars/'),                      'desc' => 'Join our live sessions and learn the latest admissions trends from leading experts.',     'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/video.svg',            'color_a' => '#7C3AED', 'color_b' => '#C084FC'),
         array('title' => 'News & Media', 'url' => home_url('/news/'),                          'desc' => 'Get up to speed with the latest news about ExtraaEdge.',                                  'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/bullhorn.svg',         'color_a' => '#DC2626', 'color_b' => '#FB7185'),
+        array('title' => 'ROI Calculator',  'url' => home_url('/roi-calculator/'),             'desc' => 'See what ExtraaEdge would be worth on your own admission numbers.',                       'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/dollar-sign.svg',      'color_a' => '#059669', 'color_b' => '#6EE7B7'),
+        array('title' => 'CRM Comparison',  'url' => home_url('/crm-comparison/'),             'desc' => 'ExtraaEdge vs generic CRMs, capability by capability.',                                   'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg',        'color_a' => '#DE6E30', 'color_b' => '#F7B267'),
+        array('title' => 'FAQs',            'url' => home_url('/faqs/'),                       'desc' => 'Straight answers on the platform, pricing, implementation and security.',                 'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/question-circle.svg',  'color_a' => '#7C3AED', 'color_b' => '#C084FC'),
         array('title' => 'Help Center',  'url' => home_url('/help/'),                          'desc' => 'Documentation, step-by-step guides, and FAQs to get the most out of the platform.',       'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/question-circle.svg',  'color_a' => '#0891B2', 'color_b' => '#67E8F9'),
     );
 }
@@ -5102,6 +5105,7 @@ function ee_get_company_menu_items() {
         array('title' => 'Customers',             'url' => home_url('/customer-success-stories/'),              'desc' => 'Learn more about our happy customers from your segment',           'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg'),
         array('title' => 'Become a Partner',      'url' => home_url('/become-a-partner/'),       'desc' => 'Interested in partnering with us? Fill your details',              'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg'),
         array('title' => 'Contact Us',            'url' => home_url('/get-in-touch/'),           'desc' => 'Get in touch',                                                     'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/envelope.svg'),
+        array('title' => 'Events',                'url' => home_url('/events/'),                 'desc' => 'Webinars, conferences and meetups - come find us',                 'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/calendar.svg'),
         array('title' => 'Privacy & Legal',       'url' => home_url('/privacy-policy/'),         'desc' => 'Policies & terms',                                                 'icon' => 'https://www.extraaedge.com/wp-content/uploads/icons/lock.svg'),
     );
 }
@@ -7840,6 +7844,24 @@ add_action('template_redirect', function () {
                this, so both stay on /{slug}/ instead of jumping to /blog/. */
             $GLOBALS['ee_blog_base_url'] = trailingslashit(home_url('/' . $root));
             $ee_custom_routes[$path] = array('file' => 'page-blog.php', 'title' => $title);
+        }
+    }
+
+    /* Registry landing pages (inc/site-pages.php) — /products/workflow-automation/,
+       /security/*, /analytics/*, /solutions/*, /about-us/, /faqs/ … one shared
+       template, content from the registry. Claimed ONLY when WordPress found
+       nothing at the path (is_404), so a real Page or CPT post published on
+       the same URL later always wins without touching code. */
+    if (!isset($ee_custom_routes[$path]) && is_404()) {
+        $spfile = get_stylesheet_directory() . '/inc/site-pages.php';
+        if (!file_exists($spfile)) $spfile = get_template_directory() . '/inc/site-pages.php';
+        if (file_exists($spfile)) {
+            require_once $spfile;
+            $ee_sp_all = function_exists('ee_site_pages_with_aliases') ? ee_site_pages_with_aliases() : ee_site_pages();
+            if (isset($ee_sp_all[$path])) {
+                $GLOBALS['ee_sitepage'] = array('key' => $path) + $ee_sp_all[$path];
+                $ee_custom_routes[$path] = array('file' => 'page-sitepage.php', 'title' => $ee_sp_all[$path]['t']);
+            }
         }
     }
 
