@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 get_header();
 ?>
-<!-- ee-bookdemo-tpl v2026-08-10-split -->
+<!-- ee-bookdemo-tpl v2026-08-10-badges-marquee -->
 <style>
   #ee-ty{--nv:#19335D;--nv2:#2A4E85;--or:#DE6E30;--or7:#B5551D;--mut:#5a6b85;--line:rgba(25,52,93,.12);
     font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#fff}
@@ -37,6 +37,21 @@ get_header();
   #ee-ty .ty-badge svg{width:20px;height:20px;color:#E8843F;flex:none}
   #ee-ty .ty-badge b{display:block;font-size:11.5px;font-weight:800;color:#fff;line-height:1.2}
   #ee-ty .ty-badge span{display:block;font-size:9.5px;color:#b9c8e2;font-weight:600}
+  /* badge svgs on white tiles; .noimg swaps a tile for its text chip */
+  #ee-ty .ty-badge2{display:inline-flex}
+  #ee-ty .ty-badge2 img{height:74px;width:auto;max-width:120px;object-fit:contain;background:#fff;border-radius:12px;padding:8px 12px;box-shadow:0 12px 26px -14px rgba(0,0,0,.5)}
+  #ee-ty .ty-badge2 .ty-bchip{display:none;align-items:center;gap:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:9px 14px;backdrop-filter:blur(4px)}
+  #ee-ty .ty-badge2 .ty-bchip svg{width:20px;height:20px;color:#E8843F;flex:none}
+  #ee-ty .ty-badge2 .ty-bchip b{display:block;font-size:11.5px;font-weight:800;color:#fff;line-height:1.2}
+  #ee-ty .ty-badge2 .ty-bchip span span{display:block;font-size:9.5px;color:#b9c8e2;font-weight:600}
+  #ee-ty .ty-badge2.noimg img{display:none}
+  #ee-ty .ty-badge2.noimg .ty-bchip{display:inline-flex}
+  /* brand marquee - same seamless -50% loop as the home strip */
+  #ee-ty .ty-mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  #ee-ty .ty-mq-track{display:flex;gap:12px;width:max-content;align-items:center;animation:eeTyMq 45s linear infinite}
+  @keyframes eeTyMq{to{transform:translateX(-50%)}}
+  #ee-ty .ty-mq:hover .ty-mq-track{animation-play-state:paused}
+  @media(prefers-reduced-motion:reduce){#ee-ty .ty-mq-track{animation:none}}
   #ee-ty .ty-brands{display:flex;flex-wrap:wrap;gap:12px}
   #ee-ty .ty-brand{width:104px;height:56px;background:#fff;border-radius:12px;display:grid;place-items:center;padding:9px;box-shadow:0 12px 26px -14px rgba(0,0,0,.5)}
   #ee-ty .ty-brand img{max-width:100%;max-height:100%;object-fit:contain}
@@ -85,18 +100,41 @@ get_header();
 
       <p class="ty-sub">Badges</p>
       <div class="ty-badges">
-        <span class="ty-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-2.6L17 22l-1.5-8"/></svg><span><b>Best Value Software</b><span>SoftwareSuggest &middot; 2022</span></span></span>
-        <span class="ty-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.2l-5.8 3.6 1.6-6.6L2.6 8.8l6.8-.5L12 2z"/></svg><span><b>Quality Choice</b><span>Crozdesk &middot; Top Ranked</span></span></span>
-        <span class="ty-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 11v9M3 11h4l3.2-7.2A2 2 0 0 1 12 2.6l.4.2c.6.4 1 1.1 1 1.8V9h6a2 2 0 0 1 2 2.4l-1.4 7A2 2 0 0 1 18 20H7"/></svg><span><b>Great User Experience</b><span>Certificate</span></span></span>
+        <?php /* badge artwork loads from uploads; until an svg exists at its
+                 path the onerror flips the tile to a styled text chip, so the
+                 row never shows a broken image */
+        $ee_bd_badges = array(
+            array('badge-01.svg', 'Best Value Software',   'SoftwareSuggest &middot; 2022'),
+            array('badge-02.svg', 'Quality Choice',        'Crozdesk &middot; Top Ranked'),
+            array('badge-03.svg', 'Great User Experience', 'Certificate'),
+        );
+        foreach ($ee_bd_badges as $ee_b) : ?>
+        <span class="ty-badge2">
+          <img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/badges/<?php echo esc_attr($ee_b[0]); ?>" alt="<?php echo esc_attr($ee_b[1]); ?>" loading="lazy" decoding="async"
+               onerror="this.closest('.ty-badge2').classList.add('noimg')">
+          <span class="ty-bchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-2.6L17 22l-1.5-8"/></svg><span><b><?php echo $ee_b[1]; ?></b><span><?php echo $ee_b[2]; ?></span></span></span>
+        </span>
+        <?php endforeach; ?>
       </div>
 
       <p class="ty-sub">Brands</p>
+      <?php $ee_bd_logos = function_exists('ee_institute_logos_for') ? ee_institute_logos_for('home') : array(); ?>
+      <?php if ($ee_bd_logos) : ?>
+      <div class="ty-mq" aria-label="Institutions using ExtraaEdge">
+        <div class="ty-mq-track">
+          <?php for ($ee_p = 0; $ee_p < 2; $ee_p++) : foreach ($ee_bd_logos as $ee_l) : ?>
+          <span class="ty-brand"><img src="<?php echo esc_url($ee_l['u']); ?>" alt="<?php echo esc_attr($ee_l['a'] ?? ''); ?>" loading="lazy" decoding="async"></span>
+          <?php endforeach; endfor; ?>
+        </div>
+      </div>
+      <?php else : ?>
       <div class="ty-brands">
         <span class="ty-brand"><img src="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/ashoka-university-haryana-logo.svg" alt="Ashoka University" loading="lazy" decoding="async"></span>
         <span class="ty-brand"><img src="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/school/narayana-hrudayalaya-foundations-logo.svg" alt="Narayana" loading="lazy" decoding="async"></span>
         <span class="ty-brand"><img src="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/reliance-foundation-inst-of-edu-and-research-jio-logo.svg" alt="Jio Institute" loading="lazy" decoding="async"></span>
         <span class="ty-brand"><img src="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/xiss-ranchi-logo.svg" alt="XISS Ranchi" loading="lazy" decoding="async"></span>
       </div>
+      <?php endif; ?>
     </div>
 
     <div class="ty-r">
