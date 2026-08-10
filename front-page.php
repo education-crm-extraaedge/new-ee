@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-10-autoscroll -->
+<!-- ee-front-tpl v2026-08-10-heroplay -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1472,14 +1472,16 @@ ee_platform_section(); ?>
     #stories .cs3-zone{position:relative}
     #stories .cs3-rail{--wc:min(880px,64vw);display:flex;gap:clamp(14px,2vw,24px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:6px calc((100vw - var(--wc))/2) 6px}
     #stories .cs3-rail::-webkit-scrollbar{display:none}
-    #stories .cs3-card{position:relative;flex:0 0 var(--wc);min-width:0;scroll-snap-align:center;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#E8EDF5;box-shadow:0 24px 55px -30px rgba(25,51,93,.4);cursor:pointer;opacity:.55;transition:opacity .45s ease,box-shadow .45s ease}
-    #stories .cs3-card.on{opacity:1;box-shadow:0 34px 70px -30px rgba(25,51,93,.5)}
+    #stories .cs3-card{position:relative;flex:0 0 var(--wc);min-width:0;scroll-snap-align:center;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#0F2040;border:1px solid rgba(255,255,255,.65);outline:1px solid rgba(25,52,93,.12);box-shadow:0 24px 55px -30px rgba(25,51,93,.4);cursor:pointer;opacity:.55;transition:opacity .45s ease,box-shadow .45s ease}
+    #stories .cs3-card.on{opacity:1;box-shadow:0 60px 120px -36px rgba(15,32,64,.55),0 24px 48px -24px rgba(15,32,64,.35),0 2px 8px rgba(15,32,64,.12)}
     #stories .cs3-card:focus-visible{outline:2px solid #DE6E30;outline-offset:3px}
     #stories .cs3-card img{width:100%;height:100%;object-fit:cover;display:block}
     #stories .cs3-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-    #stories .cs3-pb{position:absolute;left:16px;bottom:16px;width:44px;height:44px;border-radius:50%;background:#DE6E30;display:grid;place-items:center;box-shadow:0 10px 26px -8px rgba(222,110,48,.75);transition:transform .25s}
-    #stories .cs3-pb svg{width:17px;height:17px;color:#fff;margin-left:2px}
-    #stories .cs3-card.on:hover .cs3-pb{transform:scale(1.1)}
+    #stories .cs3-pb{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.94);backdrop-filter:blur(4px);display:grid;place-items:center;box-shadow:0 18px 44px rgba(15,32,64,.45),0 0 0 10px rgba(255,255,255,.18);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease,box-shadow .25s ease}
+    #stories .cs3-pb svg{width:26px;height:26px;color:#19335D;margin-left:3px}
+    #stories .cs3-card.on:hover .cs3-pb{opacity:1;transform:translate(-50%,-50%) scale(1)}
+    #stories .cs3-card.on:hover:active .cs3-pb{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 22px 52px rgba(15,32,64,.5),0 0 0 14px rgba(255,255,255,.22)}
+    @media(hover:none){#stories .cs3-card.on .cs3-pb{opacity:1;transform:translate(-50%,-50%) scale(1)}}/* touch screens have no cursor - the active card keeps its badge */
     #stories .cs3-card.playing .cs3-pb{display:none}
     /* arrows - quiet, light */
     #stories .cs3-arw{position:absolute;top:calc(50% - 22px);z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid rgba(25,51,93,.14);cursor:pointer;display:grid;place-items:center;background:#fff;color:#19335D;box-shadow:0 12px 28px -12px rgba(25,51,93,.35);transition:transform .2s,background .2s,color .2s}
