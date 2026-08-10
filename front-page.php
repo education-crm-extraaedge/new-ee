@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-10-trim3 -->
+<!-- ee-front-tpl v2026-08-10-stories10 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1469,6 +1469,9 @@ ee_platform_section(); ?>
       <p class="cis-lead">See how leading education institutions are transforming admissions, improving counsellor productivity, and creating better student experiences with ExtraaEdge.</p>
     </div>
 
+    <div class="cis-railwrap">
+    <button type="button" class="cis-arw cis-arw--l" aria-label="Previous stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button type="button" class="cis-arw cis-arw--r" aria-label="More stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
     <div class="cis-rail" role="list">
 
       <div class="cis-card" role="listitem">
@@ -1513,6 +1516,105 @@ ee_platform_section(); ?>
         <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
       </div>
 
+      <div class="cis-card" role="listitem">
+        <div class="cis-video" data-yt="tLExH5jpQbw" role="button" tabindex="0" aria-label="Play video testimonial: Uttaranchal University">
+          <img src="https://img.youtube.com/vi/tLExH5jpQbw/hqdefault.jpg" alt="Uttaranchal University - ExtraaEdge CRM customer story" loading="lazy" decoding="async">
+          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>Story</span>
+        </div>
+        <div class="cis-foot">
+          <span class="cis-av noimg"><span class="fb" aria-hidden="true">UU</span></span>
+          <div class="cis-meta"><div class="cis-aname">Uttaranchal University</div><div class="cis-arole">University &middot; Dehradun</div></div>
+        </div>
+        <p class="cis-blurb">How ExtraaEdge CRM benefited Uttaranchal University - streamlined enquiry handling, faster follow-ups and clearer visibility across the admission funnel.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </div>
+
+      <div class="cis-card" role="listitem">
+        <div class="cis-video" data-yt="9l99MjTfEbw" role="button" tabindex="0" aria-label="Play video testimonial: Amrapali Group of Institutes">
+          <img src="https://img.youtube.com/vi/9l99MjTfEbw/hqdefault.jpg" alt="Amrapali Group of Institutes - ExtraaEdge CRM customer story" loading="lazy" decoding="async">
+          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>Story</span>
+        </div>
+        <div class="cis-foot">
+          <span class="cis-av noimg"><span class="fb" aria-hidden="true">AG</span></span>
+          <div class="cis-meta"><div class="cis-aname">Amrapali Group of Institutes</div><div class="cis-arole">Group of Institutes &middot; Haldwani</div></div>
+        </div>
+        <p class="cis-blurb">Why Amrapali chose ExtraaEdge - one platform for leads, counsellors and communication across the group&rsquo;s campuses.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </div>
+
+      <div class="cis-card" role="listitem">
+        <div class="cis-video" data-yt="7sPbL3uvha0" role="button" tabindex="0" aria-label="Play video testimonial: DPU Global Business School (DPUGBSRC)">
+          <img src="https://img.youtube.com/vi/7sPbL3uvha0/hqdefault.jpg" alt="DPU Global Business School (DPUGBSRC) - ExtraaEdge CRM customer story" loading="lazy" decoding="async">
+          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>Story</span>
+        </div>
+        <div class="cis-foot">
+          <span class="cis-av noimg"><span class="fb" aria-hidden="true">DP</span></span>
+          <div class="cis-meta"><div class="cis-aname">DPU Global Business School (DPUGBSRC)</div><div class="cis-arole">B-School &middot; Pune</div></div>
+        </div>
+        <p class="cis-blurb">Why DPUGBSRC implemented ExtraaEdge CRM - and how the team was able to achieve its admissions target for the cycle.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </div>
+
+      <div class="cis-card" role="listitem">
+        <div class="cis-video" data-yt="KisEkYkGYs8" role="button" tabindex="0" aria-label="Play video testimonial: Admit Abroad">
+          <img src="https://img.youtube.com/vi/KisEkYkGYs8/hqdefault.jpg" alt="Admit Abroad - ExtraaEdge CRM customer story" loading="lazy" decoding="async">
+          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>Story</span>
+        </div>
+        <div class="cis-foot">
+          <span class="cis-av noimg"><span class="fb" aria-hidden="true">AA</span></span>
+          <div class="cis-meta"><div class="cis-aname">Admit Abroad</div><div class="cis-arole">Study Abroad Consultants</div></div>
+        </div>
+        <p class="cis-blurb">How the Admit Abroad team adopted ExtraaEdge CRM in just 10 days and brought its counselling pipeline into one organised view.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </div>
+
+      <div class="cis-card" role="listitem">
+        <div class="cis-video" data-yt="q53VDQFTq04" role="button" tabindex="0" aria-label="Play video testimonial: FOSTIIMA Business School">
+          <img src="https://img.youtube.com/vi/q53VDQFTq04/hqdefault.jpg" alt="FOSTIIMA Business School - ExtraaEdge CRM customer story" loading="lazy" decoding="async">
+          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>Story</span>
+        </div>
+        <div class="cis-foot">
+          <span class="cis-av noimg"><span class="fb" aria-hidden="true">FB</span></span>
+          <div class="cis-meta"><div class="cis-aname">FOSTIIMA Business School</div><div class="cis-arole">B-School &middot; New Delhi</div></div>
+        </div>
+        <p class="cis-blurb">How ExtraaEdge helped FOSTIIMA Business School with its admission journey - from first enquiry to final PGDM enrolment.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </div>
+
+      <div class="cis-card" role="listitem">
+        <div class="cis-video" data-yt="ApP0hhJ45NQ" role="button" tabindex="0" aria-label="Play video testimonial: IBSC">
+          <img src="https://img.youtube.com/vi/ApP0hhJ45NQ/hqdefault.jpg" alt="IBSC - ExtraaEdge CRM customer story" loading="lazy" decoding="async">
+          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>Story</span>
+        </div>
+        <div class="cis-foot">
+          <span class="cis-av noimg"><span class="fb" aria-hidden="true">IB</span></span>
+          <div class="cis-meta"><div class="cis-aname">IBSC</div><div class="cis-arole">Institute of Management</div></div>
+        </div>
+        <p class="cis-blurb">How ExtraaEdge helped IBSC bring structure and speed to its admission journey with organised leads and timely follow-ups.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </div>
+
+      <div class="cis-card" role="listitem">
+        <div class="cis-video" data-yt="K3kqAHKJAgo" role="button" tabindex="0" aria-label="Play video testimonial: IIFT">
+          <img src="https://img.youtube.com/vi/K3kqAHKJAgo/hqdefault.jpg" alt="IIFT - ExtraaEdge CRM customer story" loading="lazy" decoding="async">
+          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>Story</span>
+        </div>
+        <div class="cis-foot">
+          <span class="cis-av noimg"><span class="fb" aria-hidden="true">II</span></span>
+          <div class="cis-meta"><div class="cis-aname">IIFT</div><div class="cis-arole">Institute of Management</div></div>
+        </div>
+        <p class="cis-blurb">Why IIFT chose ExtraaEdge CRM to manage enquiries, follow-ups and admissions in one place.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </div>
+
+    </div>
     </div>
 
     <div class="cis-cta">
@@ -1550,6 +1652,21 @@ ee_platform_section(); ?>
     });
   });
   root.querySelectorAll('.cis-av img').forEach(function(a){a.addEventListener('error',function(){a.closest('.cis-av').classList.add('noimg');},{once:true});});
+  /* rail arrows - one card per click, hidden at either end */
+  var rail=root.querySelector('.cis-rail');
+  if(rail){
+    var step=function(){var c=rail.querySelector('.cis-card');return c?c.getBoundingClientRect().width+22:340;};
+    var aL=root.querySelector('.cis-arw--l'), aR=root.querySelector('.cis-arw--r');
+    function arws(){
+      if(!aL)return;
+      aL.style.visibility=rail.scrollLeft>10?'visible':'hidden';
+      aR.style.visibility=rail.scrollLeft<rail.scrollWidth-rail.clientWidth-10?'visible':'hidden';
+    }
+    if(aL) aL.addEventListener('click',function(){rail.scrollBy({left:-step(),behavior:'smooth'});});
+    if(aR) aR.addEventListener('click',function(){rail.scrollBy({left:step(),behavior:'smooth'});});
+    rail.addEventListener('scroll',arws,{passive:true});
+    arws();
+  }
   /* cards rise in only when the section is reached; the hidden state exists
      only once JS confirms it can also remove it (cis-anim), so no-JS/embed
      renders always show the cards */
@@ -3685,7 +3802,16 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
 /* (removed) highlight bar behind .cis-title em - the orange text carries the emphasis on its own */
 #stories .cis-lead{font-size:clamp(15px,1.6vw,17.5px);line-height:1.6;color:rgba(255,255,255,.74);max-width:620px;margin:0 auto}
 /* ---- the card rail: 3-up on desktop, swipe rail on phones ---- */
-#stories .cis-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;max-width:1200px;margin:0 auto}
+#stories .cis-railwrap{position:relative;max-width:1200px;margin:0 auto}
+#stories .cis-rail{display:flex;overflow-x:auto;gap:22px;padding:4px;margin:0;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
+#stories .cis-rail::-webkit-scrollbar{display:none}
+#stories .cis-rail .cis-card{flex:0 0 calc((100% - 52px)/3);min-width:0;scroll-snap-align:start}
+#stories .cis-arw{position:absolute;top:32%;z-index:5;width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;background:#fff;color:#19335D;box-shadow:0 12px 30px -10px rgba(4,12,26,.55);transition:transform .2s,background .2s,color .2s}
+#stories .cis-arw svg{width:20px;height:20px}
+#stories .cis-arw:hover{background:#DE6E30;color:#fff;transform:scale(1.06)}
+#stories .cis-arw--l{left:-14px}
+#stories .cis-arw--r{right:-14px}
+@media(max-width:820px){#stories .cis-arw{display:none}}
 #stories .cis-card{background:#fff;border-radius:22px;padding:10px 10px 0;box-shadow:0 20px 46px -14px rgba(4,12,26,.55);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
 #stories .cis-card:hover{transform:translateY(-6px);box-shadow:0 30px 62px -14px rgba(4,12,26,.65)}
 #stories .cis-video{position:relative;aspect-ratio:16/10;border-radius:15px;overflow:hidden;background:#0d1c33;cursor:pointer}
