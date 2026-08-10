@@ -918,13 +918,13 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
       )),
       'solutions' => array('label'=>'Solutions','type'=>'mega','cols'=>array(
         array(array('h'=>'By Use Case','ic'=>'target','items'=>array(
-          array('t'=>'Admission Management','u'=>'/solutions/admission-management/'),
-          array('t'=>'Enrollment Management','u'=>'/solutions/enrollment-management/'),
-          array('t'=>'Student Recruitment','u'=>'/solutions/student-recruitment/'),
-          array('t'=>'Lead Nurturing','u'=>'/solutions/lead-nurturing/'),
-          array('t'=>'Student Engagement','u'=>'/solutions/student-engagement/'),
-          array('t'=>'Event Management','u'=>'/solutions/event-management/'),
-          array('t'=>'Application Processing','u'=>'/solutions/application-processing/'),
+          array('t'=>'Admission Management','u'=>'/use-case/admission-management/'),
+          array('t'=>'Enrollment Management','u'=>'/use-case/enrollment-management/'),
+          array('t'=>'Student Recruitment','u'=>'/use-case/student-recruitment/'),
+          array('t'=>'Lead Nurturing','u'=>'/use-case/lead-nurturing/'),
+          array('t'=>'Student Engagement','u'=>'/use-case/student-engagement/'),
+          array('t'=>'Event Management','u'=>'/use-case/event-management/'),
+          array('t'=>'Application Processing','u'=>'/use-case/application-processing/'),
         ))),
         array(array('h'=>'By Institution','ic'=>'bank','items'=>array(
           array('t'=>'Universities & Colleges','u'=>'/industries/higher-education-crm/'),

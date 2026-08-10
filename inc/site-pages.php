@@ -526,7 +526,7 @@ function ee_site_pages() {
         )),
 
     /* ── SOLUTIONS: USE CASES (solutions/*) ──────────────────────────── */
-    'solutions/student-recruitment' => array('g' => 'usecase', 't' => 'Student Recruitment',
+    'use-case/student-recruitment' => array('g' => 'usecase', 't' => 'Student Recruitment',
         'h1' => 'Recruit Students at Full Speed',
         'sub' => 'Capture every channel, respond first, and nurture until enrolment - the complete recruitment engine on one platform.',
         'f' => array(
@@ -581,7 +581,7 @@ function ee_site_pages() {
             'Two-way threads|Real conversations, routed to counsellors when needed.',
             'CRM-logged|Every message on the student\'s timeline.',
         )),
-    'solutions/student-engagement' => array('g' => 'usecase', 't' => 'Student Engagement',
+    'use-case/student-engagement' => array('g' => 'usecase', 't' => 'Student Engagement',
         'h1' => 'Keep Every Student Warm to Day One',
         'sub' => 'Personalised, well-timed touches across channels - so admitted students stay excited and melt (summer or otherwise) stays low.',
         'f' => array(
@@ -592,7 +592,7 @@ function ee_site_pages() {
             'Community moments|Milestones celebrated automatically.',
             'Melt prevention|Offer-to-join drop-off actively defended.',
         )),
-    'solutions/event-management' => array('g' => 'usecase', 't' => 'Event Management',
+    'use-case/event-management' => array('g' => 'usecase', 't' => 'Event Management',
         'h1' => 'Admission Events That Fill Themselves',
         'sub' => 'Webinars, fairs, open days and counselling camps - invitations, registrations, reminders and follow-ups all run from the CRM.',
         'f' => array(
@@ -603,7 +603,7 @@ function ee_site_pages() {
             'Post-event follow-up|Every attendee enters the right journey after.',
             'Event ROI|Enrolments per event, not just footfall.',
         )),
-    'solutions/application-processing' => array('g' => 'usecase', 't' => 'Application Processing',
+    'use-case/application-processing' => array('g' => 'usecase', 't' => 'Application Processing',
         'h1' => 'Applications Without the Paper Chase',
         'sub' => 'Online forms, document collection, verification and fee payment on one rail - with students updated at every step.',
         'f' => array(
@@ -626,7 +626,7 @@ function ee_site_pages() {
             'Prioritised queues|Worklists ordered by score automatically.',
         )),
 
-    'solutions/admission-management' => array('g' => 'usecase', 't' => 'Admission Management',
+    'use-case/admission-management' => array('g' => 'usecase', 't' => 'Admission Management',
         'h1' => 'Every Applicant, One Live Pipeline',
         'sub' => 'Track every applicant from enquiry to admission on one board - stages, owners, documents and deadlines always current.',
         'f' => array(
@@ -637,7 +637,7 @@ function ee_site_pages() {
             'Multi-course handling|Parallel applications managed without confusion.',
             'Stage analytics|Where applicants stall, quantified weekly.',
         )),
-    'solutions/enrollment-management' => array('g' => 'usecase', 't' => 'Enrollment Management',
+    'use-case/enrollment-management' => array('g' => 'usecase', 't' => 'Enrollment Management',
         'h1' => 'From Offer Letter to Fee Paid, Faster',
         'sub' => 'The last mile of admissions managed actively - offers, acceptances, fee collection and onboarding on one rail.',
         'f' => array(
@@ -692,7 +692,7 @@ function ee_site_pages() {
             'Service billing|Consulting fees invoiced and tracked in-flow.',
             'Season repeatability|This year\'s process becomes next year\'s playbook.',
         )),
-    'solutions/lead-nurturing' => array('g' => 'usecase', 't' => 'Lead Nurturing',
+    'use-case/lead-nurturing' => array('g' => 'usecase', 't' => 'Lead Nurturing',
         'h1' => 'Keep Every Lead Warm Until Decision Day',
         'sub' => 'Automated drips across WhatsApp, email and SMS that mature not-yet-ready students instead of letting them go cold.',
         'f' => array(
@@ -703,7 +703,7 @@ function ee_site_pages() {
             'Warmth scoring|Know exactly when a nurtured lead turns hot.',
             'Counsellor alerts|Humans step in at the moment of intent.',
         )),
-    'solutions/enrollment-crm' => array('g' => 'usecase', 't' => 'Enrollment CRM', 'canon' => '/solutions/enrollment-management/',
+    'solutions/enrollment-crm' => array('g' => 'usecase', 't' => 'Enrollment CRM', 'canon' => '/use-case/enrollment-management/',
         'h1' => 'One CRM From First Touch to Enrolled',
         'sub' => 'Capture, engage, apply, pay, enrol - the complete student lifecycle on a single platform built only for education.',
         'f' => array(
@@ -1054,6 +1054,20 @@ function ee_site_pages_with_aliases() {
     $p['become-a-partner'] = $p['partners'];
     $p['get-in-touch']     = $p['contact'];
     $p['integrations']     = $p['products/integrations'];
+    $p['solutions/admission-management'] = $p['use-case/admission-management'];
+    $p['solutions/admission-management']['canon'] = '/use-case/admission-management/';
+    $p['solutions/enrollment-management'] = $p['use-case/enrollment-management'];
+    $p['solutions/enrollment-management']['canon'] = '/use-case/enrollment-management/';
+    $p['solutions/student-recruitment'] = $p['use-case/student-recruitment'];
+    $p['solutions/student-recruitment']['canon'] = '/use-case/student-recruitment/';
+    $p['solutions/lead-nurturing'] = $p['use-case/lead-nurturing'];
+    $p['solutions/lead-nurturing']['canon'] = '/use-case/lead-nurturing/';
+    $p['solutions/student-engagement'] = $p['use-case/student-engagement'];
+    $p['solutions/student-engagement']['canon'] = '/use-case/student-engagement/';
+    $p['solutions/event-management'] = $p['use-case/event-management'];
+    $p['solutions/event-management']['canon'] = '/use-case/event-management/';
+    $p['solutions/application-processing'] = $p['use-case/application-processing'];
+    $p['solutions/application-processing']['canon'] = '/use-case/application-processing/';
     $p['solutions/universities']        = $p['industries/higher-education-crm'];
     $p['solutions/colleges']            = $p['industries/higher-education-crm'];
     $p['solutions/schools']             = $p['industries/school-crm'];

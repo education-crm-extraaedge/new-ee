@@ -7872,6 +7872,7 @@ add_action('template_redirect', function () {
                     'analytics' => array('label' => 'Analytics', 'url' => '/products/analytics/'),
                     'solutions' => array('label' => 'Solutions', 'url' => '/solutions/'),
                     'industries' => array('label' => 'Industries', 'url' => '/industries/'),
+                    'use-case'   => array('label' => 'Use Cases',  'url' => '/use-cases/'),
                 );
                 $ee_by_grp = array(
                     'proof'      => array('label' => 'Customers', 'url' => '/customer-success-stories/'),
