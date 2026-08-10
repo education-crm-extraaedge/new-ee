@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-09-products-gallery -->
+<!-- ee-front-tpl v2026-08-09-gallery-2col -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -2542,8 +2542,17 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
       #ee-products .epn-tabs{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
         -webkit-overflow-scrolling:touch;margin-left:-18px;margin-right:-18px;padding:2px 18px 6px}
       #ee-products .epn-tabs::-webkit-scrollbar{display:none}
-      #ee-products .epn-grid{grid-template-columns:1fr;gap:10px}
-      #ee-products .epn-card{padding:15px 15px 12px}
+      /* phones: two cards per row - compact tile, tighter type */
+      #ee-products .epn-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+      #ee-products .epn-card{padding:13px 12px 10px;border-radius:14px}
+      #ee-products .epn-top{gap:9px;margin-bottom:9px}
+      #ee-products .epn-ic{width:34px;height:34px;border-radius:11px}
+      #ee-products .epn-ic svg{width:16px;height:16px}
+      #ee-products .epn-tt b{font-size:12.5px}
+      #ee-products .epn-tt small{font-size:9.5px;margin-top:2px}
+      #ee-products .epn-card p{font-size:11.5px;line-height:1.5;margin-bottom:9px}
+      #ee-products .epn-foot{padding-top:8px;font-size:10.5px}
+      #ee-products .epn-foot svg{opacity:1;transform:none;width:12px;height:12px}
     }
     @media(prefers-reduced-motion:reduce){#ee-products .epn-tab,#ee-products .epn-card,#ee-products .epn-foot svg{transition:none}}
     </style>
