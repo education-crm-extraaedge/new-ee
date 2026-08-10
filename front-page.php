@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-09-explorer-3ax -->
+<!-- ee-front-tpl v2026-08-09-resources-mirror -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -4728,99 +4728,109 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   <div class="ee-r-container">
     <div class="ee-r-head">
       <h2>Everything you need to win admissions</h2>
-      <p class="ee-r-sub">Practical guides, data-backed reports, and ready-to-use tools that help your team enroll more students, faster.</p>
+      <p class="ee-r-sub">Learn the playbooks, get help fast, and run the numbers - the full resource library in one place.</p>
     </div>
     <div class="ee-r-grid">
 
-      <a class="ee-r-card" href="#admission-form">
+      <a class="ee-r-card" href="/blog/">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-01.svg" alt="" loading="lazy" decoding="async">
         </span>
-        <h3 class="ee-r-title">Guides</h3>
-        <p class="ee-r-desc">Step-by-step playbooks to set up and scale a high-converting admissions funnel.</p>
+        <h3 class="ee-r-title">Blog</h3>
+        <p class="ee-r-desc">Admission playbooks, trends and product thinking - fresh every week.</p>
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#admission-form">
+      <a class="ee-r-card" href="/videos/">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-03.svg" alt="" loading="lazy" decoding="async">
         </span>
-        <h3 class="ee-r-title">Reports</h3>
-        <p class="ee-r-desc">Benchmark studies on enrollment performance across institutions like yours.</p>
+        <h3 class="ee-r-title">Videos</h3>
+        <p class="ee-r-desc">Product walkthroughs and how-tos, two minutes at a time.</p>
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#admission-form">
+      <a class="ee-r-card" href="/webinars/">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-04.svg" alt="" loading="lazy" decoding="async">
         </span>
-        <h3 class="ee-r-title">Admission Trends</h3>
-        <p class="ee-r-desc">What's shifting in applicant behavior, channels, and timelines this cycle.</p>
+        <h3 class="ee-r-title">Webinars</h3>
+        <p class="ee-r-desc">Live sessions with admission leaders and our experts.</p>
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#admission-form">
+      <a class="ee-r-card" href="/ebooks/">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-05.svg" alt="" loading="lazy" decoding="async">
         </span>
-        <h3 class="ee-r-title">Templates</h3>
-        <p class="ee-r-desc">Proven email, SMS, and counselor scripts you can deploy in minutes.</p>
+        <h3 class="ee-r-title">eBooks</h3>
+        <p class="ee-r-desc">Deep-dive guides you can hand your whole team.</p>
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#admission-form">
+      <a class="ee-r-card" href="/help/">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-06.svg" alt="" loading="lazy" decoding="async">
         </span>
-        <h3 class="ee-r-title">Playbooks</h3>
-        <p class="ee-r-desc">End-to-end strategies for lead nurturing, follow-ups, and yield management.</p>
+        <h3 class="ee-r-title">Help Centre</h3>
+        <p class="ee-r-desc">Step-by-step help for every module of the platform.</p>
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#admission-form">
+      <a class="ee-r-card" href="/documentation/">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-07.svg" alt="" loading="lazy" decoding="async">
         </span>
-        <h3 class="ee-r-title">ROI Calculator</h3>
-        <p class="ee-r-desc">Estimate the revenue lift ExtraaEdge can unlock for your admissions team.</p>
+        <h3 class="ee-r-title">Documentation</h3>
+        <p class="ee-r-desc">Admin, counsellor and automation handbooks.</p>
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#admission-form">
+      <a class="ee-r-card" href="/api-documentation/">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-08.svg" alt="" loading="lazy" decoding="async">
         </span>
-        <h3 class="ee-r-title">Webinars</h3>
-        <p class="ee-r-desc">Expert-led sessions on AI, counseling, and modern admissions operations.</p>
+        <h3 class="ee-r-title">API Documentation</h3>
+        <p class="ee-r-desc">REST APIs and webhooks for your engineering team.</p>
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#admission-form">
+      <a class="ee-r-card" href="/faqs/">
         <span class="ee-r-ico" aria-hidden="true">
           <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-09.svg" alt="" loading="lazy" decoding="async">
         </span>
-        <h3 class="ee-r-title">Customer Stories</h3>
-        <p class="ee-r-desc">See how institutions grew enrollments and slashed response times with us.</p>
+        <h3 class="ee-r-title">FAQs</h3>
+        <p class="ee-r-desc">Straight answers on pricing, setup, security and AI.</p>
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#admission-form">
+      <a class="ee-r-card" href="/roi-calculator/">
         <span class="ee-r-ico" aria-hidden="true">
-          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-10.svg" alt="" loading="lazy" decoding="async">
+          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-03.svg" alt="" loading="lazy" decoding="async">
         </span>
-        <h3 class="ee-r-title">Videos</h3>
-        <p class="ee-r-desc">Short, practical walkthroughs of features, workflows, and best practices.</p>
+        <h3 class="ee-r-title">ROI Calculator</h3>
+        <p class="ee-r-desc">See what ExtraaEdge is worth on your own numbers.</p>
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
 
-      <a class="ee-r-card" href="#admission-form">
+      <a class="ee-r-card" href="/crm-comparison/">
         <span class="ee-r-ico" aria-hidden="true">
-          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-11.svg" alt="" loading="lazy" decoding="async">
+          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-04.svg" alt="" loading="lazy" decoding="async">
         </span>
-        <h3 class="ee-r-title">Events</h3>
-        <p class="ee-r-desc">Workshops and meetups where admissions leaders share what's working now.</p>
+        <h3 class="ee-r-title">CRM Comparison</h3>
+        <p class="ee-r-desc">ExtraaEdge vs generic CRMs, honestly compared.</p>
         <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
       </a>
+
+      <a class="ee-r-card" href="/release-notes/">
+        <span class="ee-r-ico" aria-hidden="true">
+          <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-05.svg" alt="" loading="lazy" decoding="async">
+        </span>
+        <h3 class="ee-r-title">Release Notes</h3>
+        <p class="ee-r-desc">What shipped and improved, month by month.</p>
+        <span class="ee-r-link">Explore <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
+      </a>
+
 
     </div>
   </div>
