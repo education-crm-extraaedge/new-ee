@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) exit;
 
 get_header();
 ?>
-<!-- ee-bookdemo-tpl v2026-08-10-fullcol-card -->
+<!-- ee-bookdemo-tpl v2026-08-10-real-badges -->
 <style>
   #ee-bd{--nv:#19335D;--nv2:#2A4E85;--or:#DE6E30;--or7:#B5551D;--mut:#5a6b85;--line:rgba(25,52,93,.12);
     position:relative;overflow:hidden;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;
@@ -68,8 +68,8 @@ get_header();
   /* trust badges - icon slot upgrades to the real artwork when a file exists */
   #ee-bd .bd-badges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
   #ee-bd .bd-badge{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:0 12px 30px -24px rgba(25,52,93,.4)}
-  #ee-bd .bd-badge .bic{flex:none;width:42px;height:42px;display:grid;place-items:center}
-  #ee-bd .bd-badge .bic img{max-width:42px;max-height:42px;object-fit:contain}
+  #ee-bd .bd-badge .bic{flex:none;width:52px;height:48px;display:grid;place-items:center}
+  #ee-bd .bd-badge .bic img{max-width:52px;max-height:48px;object-fit:contain}
   #ee-bd .bd-badge .bic svg{width:26px;height:26px;color:var(--or)}
   #ee-bd .bd-badge.noimg .bic img{display:none}
   #ee-bd .bd-badge:not(.noimg) .bic svg{display:none}
@@ -95,8 +95,8 @@ get_header();
   #ee-bd .bd-trust{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:7px 14px;margin-top:auto;padding-top:15px}
   #ee-bd .bd-trust span{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:var(--mut)}
   #ee-bd .bd-trust svg{width:12px;height:12px;color:var(--nv);flex:none}
-  #ee-bd .bd-iso{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:12px;font-size:11.5px;font-weight:800;color:var(--nv)}
-  #ee-bd .bd-iso svg{width:15px;height:15px;color:var(--or);flex:none}
+  #ee-bd .bd-iso{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:12px}
+  #ee-bd .bd-iso img{height:46px;width:auto;object-fit:contain}
 
   /* form widget: brand inputs; the tuner below owns layout */
   #ee-bd #ee-form-7,#ee-bd #ee-form-7 *{box-sizing:border-box!important}
@@ -171,17 +171,17 @@ get_header();
       <span class="bd-sub">Trust &amp; Recognition</span>
       <div class="bd-badges">
         <?php $ee_bd_badges = array(
-            array('badge-01.svg', 'Best Value Software',   'SoftwareSuggest &middot; 2022',
+            array('https://www.extraaedge.com/wp-content/uploads/2022/06/Best-Value-Software-header.png', 'Best Value Software',   'SoftwareSuggest &middot; 2022',
                   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a2 2 0 0 0 0 4h3M17 6h3a2 2 0 0 1 0 4h-3"/></svg>'),
-            array('badge-02.svg', 'Quality Choice',        'Crozdesk &middot; Top Rated',
+            array('https://www.extraaedge.com/wp-content/uploads/2022/06/Quality-Choice-header.png', 'Quality Choice',        'Crozdesk &middot; Top Rated',
                   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-2.6L17 22l-1.5-8"/></svg>'),
-            array('badge-03.svg', 'Great User Experience', 'Crozdesk Certificate',
+            array('https://www.extraaedge.com/wp-content/uploads/2022/06/Great-User-Experience-Award-header.png', 'Great User Experience', 'Crozdesk Certificate',
                   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.2l-5.8 3.6 1.6-6.6L2.6 8.8l6.8-.5L12 2z"/></svg>'),
         );
         foreach ($ee_bd_badges as $ee_b) : ?>
         <div class="bd-badge">
           <span class="bic">
-            <img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/badges/<?php echo esc_attr($ee_b[0]); ?>" alt="" decoding="async"
+            <img src="<?php echo esc_url($ee_b[0]); ?>" alt="<?php echo esc_attr($ee_b[1]); ?>" decoding="async"
                  onerror="this.closest('.bd-badge').classList.add('noimg')">
             <?php echo $ee_b[3]; ?>
           </span>
@@ -215,7 +215,10 @@ get_header();
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg> No Commitment</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4 4-6 8-6s7.2 2 8 6"/></svg> Personalized Walkthrough</span>
         </div>
-        <p class="bd-iso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg> ISO 27001 &nbsp;&middot;&nbsp; GDPR Ready</p>
+        <div class="bd-iso">
+          <img src="https://www.extraaedge.com/wp-content/uploads/2025/09/iso-0001.png" alt="ISO 27001 Certified" decoding="async" onerror="this.style.display='none'">
+          <img src="https://www.extraaedge.com/wp-content/uploads/2025/09/GDPR-NEW.png" alt="GDPR Ready" decoding="async" onerror="this.style.display='none'">
+        </div>
       </div>
     </div>
 
