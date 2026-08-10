@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-sitepages -->
+<!-- ee-front-tpl v2026-08-08-clients-cta -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -870,7 +870,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     <?php endforeach; ?>
   </div>
   <div style="text-align:center;margin-top:26px">
-    <a href="#admission-form" style="display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;color:#19345d;border:1.5px solid rgba(25,52,93,.18);background:#fff;border-radius:999px;padding:11px 24px;text-decoration:none;transition:all .2s ease" onmouseover="this.style.borderColor='#DE6E30';this.style.color='#DE6E30'" onmouseout="this.style.borderColor='rgba(25,52,93,.18)';this.style.color='#19345d'">View More Clients <span aria-hidden="true">&rarr;</span></a>
+    <a href="/customer-success-stories/" style="display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;color:#19345d;border:1.5px solid rgba(25,52,93,.18);background:#fff;border-radius:999px;padding:11px 24px;text-decoration:none;transition:all .2s ease" onmouseover="this.style.borderColor='#DE6E30';this.style.color='#DE6E30'" onmouseout="this.style.borderColor='rgba(25,52,93,.18)';this.style.color='#19345d'">See Their Success Stories <span aria-hidden="true">&rarr;</span></a>
   </div>
 </section>
 
