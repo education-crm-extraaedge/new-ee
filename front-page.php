@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-10-cro-pass -->
+<!-- ee-front-tpl v2026-08-10-trim2 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -308,7 +308,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 
 <!-- ===================== EE · QUICK TABLE OF CONTENTS (scoped #ee-toc) ===================== -->
 <style>/* keep anchored jumps clear of any sticky chrome */
-  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-rfa,#ee-products,#ee-vidya-suite,#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,#ee-app,#ee-golive,#ee-pricing,#ee-switch,#ee-resources,#ee-blog,#faq,#ee-close,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
+  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-rfa,#ee-products,#ee-vidya-suite,#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,#ee-golive,#ee-pricing,#ee-switch,#ee-resources,#ee-blog,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
   #ee-toc .eetoc-fab{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:99990;
     display:flex;align-items:center;justify-content:center;width:50px;height:50px;padding:0;border:2.5px solid #fff;cursor:pointer;
     background:#19335D;color:#fff;border-radius:50%;
@@ -4150,58 +4150,6 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   </div>
 </section>
 
-<!-- ===================== MOBILE APP ===================== -->
-<style>
-  #ee-app{--nv:#19345d;--nv2:#22467c;--or:#DE6E30;position:relative;padding:clamp(40px,5vw,64px) 0;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  #ee-app *{box-sizing:border-box}
-  #ee-app .apw{max-width:1140px;margin:0 auto;padding:0 22px}
-  #ee-app .ap{display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:24px;background:linear-gradient(150deg,var(--nv2),var(--nv));border-radius:20px;padding:clamp(26px,3.4vw,44px);overflow:hidden;position:relative;box-shadow:0 30px 70px -34px rgba(25,52,93,.55)}
-  #ee-app .ap::before{content:"";position:absolute;top:-90px;right:-70px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(222,110,48,.35),transparent 70%)}
-  #ee-app .apl{position:relative;z-index:1}
-  #ee-app .apl .kck{display:inline-flex;align-items:center;gap:8px;font:800 11px/1 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#E8843F;margin-bottom:10px}
-  #ee-app .apl .kck svg{width:14px;height:14px}
-  #ee-app .apl h2{font-weight:800;font-size:clamp(21px,2.8vw,30px);line-height:1.15;letter-spacing:-.02em;color:#fff;margin:0 0 10px}
-  #ee-app .apl h2 em{font-style:normal;color:#E8843F}
-  #ee-app .apl p{font-size:14px;color:#c6d4ea;line-height:1.6;margin:0 0 18px;max-width:52ch}
-  #ee-app .apl .fts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 0}
-  #ee-app .apl .fts span{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#eaf0f8;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 12px}
-  #ee-app .apl .fts svg{width:12px;height:12px;color:#E8843F;flex:none}
-  #ee-app .apr{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;align-items:flex-end}
-  #ee-app .badge{display:inline-flex;align-items:center;gap:11px;background:#fff;border-radius:13px;padding:10px 18px 10px 14px;text-decoration:none;min-width:196px;box-shadow:0 14px 30px -12px rgba(0,0,0,.4);transition:transform .2s}
-  #ee-app .badge:hover{transform:translateY(-3px)}
-  #ee-app .badge svg{width:26px;height:26px;flex:none}
-  #ee-app .badge .bt{display:flex;flex-direction:column;line-height:1.15}
-  #ee-app .badge .bt small{font-size:10px;font-weight:600;color:#5a6b85;letter-spacing:.02em}
-  #ee-app .badge .bt b{font-size:15px;font-weight:800;color:#19335D}
-  @media(max-width:860px){#ee-app .ap{grid-template-columns:1fr}#ee-app .apr{flex-direction:row;align-items:stretch;justify-content:flex-start;flex-wrap:wrap}#ee-app .badge{min-width:0;flex:1 1 170px;justify-content:center}}
-</style>
-<section id="ee-app" aria-label="ExtraaEdge counsellor mobile app">
-  <div class="apw">
-    <div class="ap rv">
-      <div class="apl">
-        <span class="kck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18.5h2"/></svg> Counsellor Mobile App</span>
-        <h2>Your admissions desk, <em>in your pocket.</em></h2>
-        <p>Counsellors work leads from anywhere - smart caller ID shows the student's profile the moment the phone rings, and every call, comment and follow-up syncs back to the CRM in real time.</p>
-        <div class="fts">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12.5l5 5L20 6.5"/></svg> Smart caller ID</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12.5l5 5L20 6.5"/></svg> One-tap follow-ups</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12.5l5 5L20 6.5"/></svg> Live lead updates</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12.5l5 5L20 6.5"/></svg> Works on the move</span>
-        </div>
-      </div>
-      <div class="apr">
-        <a class="badge" href="https://play.google.com/store/apps/details?id=com.extraaedge.extraaedge_v5&amp;hl=en_IN" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#DE6E30" d="M3.6 1.8L13.7 12 3.6 22.2c-.4-.3-.6-.8-.6-1.4V3.2c0-.6.2-1.1.6-1.4z"/><path fill="#19335D" d="M17.2 8.5L5.4 1.9c-.2-.1-.4-.2-.6-.2L14.9 12l2.3-3.5z"/><path fill="#19335D" d="M4.8 22.3c.2 0 .4-.1.6-.2l11.8-6.6-2.3-3.5L4.8 22.3z"/><path fill="#DE6E30" d="M21 10.6l-3.8-2.1-2.3 3.5 2.3 3.5 3.8-2.1c1.3-.8 1.3-2 0-2.8z"/></svg>
-          <span class="bt"><small>GET IT ON</small><b>Google Play</b></span>
-        </a>
-        <a class="badge" href="https://apps.apple.com/in/app/extraaedge-new/id6449466185" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#19335D" d="M17.05 12.54c-.03-2.89 2.36-4.28 2.47-4.35-1.35-1.97-3.44-2.24-4.18-2.27-1.78-.18-3.47 1.05-4.37 1.05-.9 0-2.29-1.02-3.77-1-1.94.03-3.72 1.13-4.72 2.86-2.01 3.49-.51 8.66 1.45 11.49.96 1.39 2.1 2.94 3.6 2.89 1.45-.06 1.99-.93 3.74-.93s2.24.93 3.77.9c1.56-.03 2.54-1.41 3.49-2.8 1.1-1.61 1.55-3.17 1.58-3.25-.04-.02-3.03-1.16-3.06-4.59z"/><path fill="#19335D" d="M14.16 4.05c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.74-.74.86-1.39 2.23-1.22 3.55 1.29.1 2.6-.65 3.41-1.63z"/></svg>
-          <span class="bt"><small>Download on the</small><b>App Store</b></span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ===================== FAQ ===================== -->
 <!-- ===================== CRO · COMPARISON + ROI CALCULATOR + STICKY CTA ===================== -->
@@ -4370,28 +4318,6 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   </div>
 </section>
 
-<!-- ===================== CLOSING CTA (post-FAQ ask) ===================== -->
-<style>
-  #ee-close{--nv:#19345d;--nv2:#22467c;--or:#DE6E30;position:relative;padding:clamp(44px,6vw,72px) 22px;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  #ee-close .clw{max-width:980px;margin:0 auto;background:linear-gradient(150deg,var(--nv2),var(--nv));border-radius:22px;padding:clamp(34px,4.5vw,56px) clamp(22px,4vw,56px);text-align:center;position:relative;overflow:hidden;box-shadow:0 30px 70px -34px rgba(25,52,93,.55)}
-  #ee-close .clw::before{content:"";position:absolute;top:-90px;right:-70px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(222,110,48,.4),transparent 70%)}
-  #ee-close .clw::after{content:"";position:absolute;bottom:-100px;left:-70px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(111,163,242,.22),transparent 70%)}
-  #ee-close .clw>*{position:relative;z-index:1}
-  #ee-close h2{font-weight:800;font-size:clamp(23px,3.4vw,36px);line-height:1.15;letter-spacing:-.02em;color:#fff;margin:0 0 10px}
-  #ee-close h2 em{font-style:normal;color:#E8843F}
-  #ee-close p{font-size:clamp(14px,1.7vw,16.5px);color:#c6d4ea;line-height:1.6;margin:0 auto 24px;max-width:56ch}
-  #ee-close .cta{display:inline-flex;align-items:center;gap:10px;background:var(--or);color:#fff;font-weight:700;font-size:16px;padding:16px 34px;border-radius:13px;text-decoration:none;box-shadow:0 16px 34px -10px rgba(222,110,48,.65);transition:transform .2s}
-  #ee-close .cta:hover{transform:translateY(-2px)}
-  #ee-close .fine{display:block;margin-top:14px;font-size:12px;color:#c6d4ea}
-</style>
-<section id="ee-close" aria-label="Book a demo">
-  <div class="clw rv">
-    <h2>Still deciding? See ExtraaEdge <em>on your own data.</em></h2>
-    <p>A 45-minute personalised demo with your funnel, your sources and your team's questions - so the decision makes itself.</p>
-    <a class="cta" href="#admission-form">Book a Free Demo &rarr;</a>
-    <span class="fine">No credit card &middot; Personalised to your institution &middot; Be live before your next intake opens</span>
-  </div>
-</section>
 
 <section id="ee-products" aria-label="Our products">
   <div class="epx-wrap">
