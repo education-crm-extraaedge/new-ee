@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-clients-cta -->
+<!-- ee-front-tpl v2026-08-08-vidya-once -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -2722,7 +2722,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
       <div class="vsx-inner">
         <header class="vsx-head">
           <h2>Meet Vidya AI, the Agentic AI Suite <span class="vsx-h2b">Built for Smarter Admissions</span></h2>
-          <p class="vsx-lead">Vidya AI is your always-on AI workforce that engages every prospective student, qualifies leads instantly, automates follow-ups, supports counselors, and accelerates enrollments - so your teams can focus on building meaningful student relationships instead of repetitive tasks.</p>
+          <p class="vsx-lead">Your always-on AI workforce - it engages every prospective student, qualifies leads instantly, automates follow-ups, supports counselors, and accelerates enrollments - so your teams can focus on building meaningful student relationships instead of repetitive tasks.</p>
         </header>
 
         <div class="vsx-stage">
@@ -2735,7 +2735,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
+                  <span class="vsx-brand">ExtraaEdge <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
                 </div>
                 <span class="vsx-tag">AI COUNSELLOR</span>
               </div>
@@ -2760,7 +2760,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
+                  <span class="vsx-brand">ExtraaEdge <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
                 </div>
                 <span class="vsx-tag">LEAD SCORING</span>
               </div>
@@ -2785,7 +2785,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
+                  <span class="vsx-brand">ExtraaEdge <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
                 </div>
                 <span class="vsx-tag">VOICE AI</span>
               </div>
@@ -2810,7 +2810,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
+                  <span class="vsx-brand">ExtraaEdge <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
                 </div>
                 <span class="vsx-tag">WHATSAPP</span>
               </div>
@@ -2835,7 +2835,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-work.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
+                  <span class="vsx-brand">ExtraaEdge <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
                 </div>
                 <span class="vsx-tag">AUTOMATION</span>
               </div>
@@ -2860,11 +2860,11 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-                  <span class="vsx-brand">Vidya AI <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
+                  <span class="vsx-brand">ExtraaEdge <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
                 </div>
                 <span class="vsx-tag">LIVE DEMO</span>
               </div>
-              <h3>Try Vidya AI Live</h3>
+              <h3>Try It Live</h3>
               <dl class="vsx-meta">
                   <div><dt>Access</dt><dd>Instant</dd></div>
                   <div><dt>Signup</dt><dd>Not needed</dd></div>
