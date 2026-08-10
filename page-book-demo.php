@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 get_header();
 ?>
-<!-- ee-bookdemo-tpl v2026-08-10-compact-form -->
+<!-- ee-bookdemo-tpl v2026-08-10-form-tuner2 -->
 <style>
   #ee-ty{--nv:#19335D;--nv2:#2A4E85;--or:#DE6E30;--or7:#B5551D;--mut:#5a6b85;--line:rgba(25,52,93,.12);
     font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#fff}
@@ -72,12 +72,10 @@ get_header();
      heading block is hidden to stop the form running twice as tall. */
   #ee-ty #ee-form-7,#ee-ty #ee-form-7 *{box-sizing:border-box!important}
   #ee-ty #ee-form-7 h1,#ee-ty #ee-form-7 h2,#ee-ty #ee-form-7 h3,#ee-ty #ee-form-7 h4{display:none!important}
-  #ee-ty #ee-form-7 form{display:grid!important;grid-template-columns:1fr 1fr;gap:0 14px;width:100%!important;align-items:start}
-  #ee-ty #ee-form-7 form>*{grid-column:1/-1;min-width:0}
-  #ee-ty #ee-form-7 form>div{display:block!important;width:100%!important;max-width:100%!important;float:none!important;margin-bottom:10px!important}
-  #ee-ty #ee-form-7 form>div:has(input[type="text"]),#ee-ty #ee-form-7 form>div:has(input[type="email"]),#ee-ty #ee-form-7 form>div:has(input[type="tel"]),#ee-ty #ee-form-7 form>div:has(input[type="url"]),#ee-ty #ee-form-7 form>div:has(select){grid-column:auto}
-  #ee-ty #ee-form-7 form>div:has(input[type="submit"]),#ee-ty #ee-form-7 form>div:has(button[type="submit"]),#ee-ty #ee-form-7 form>div:has(input[type="checkbox"]),#ee-ty #ee-form-7 form>div:has(textarea){grid-column:1/-1}
-  #ee-ty #ee-form-7 form>p{grid-column:1/-1}
+  /* layout belongs to the tuner script below - CSS only neutralises the
+     widget's floats/widths so the grid it applies can breathe */
+  #ee-ty #ee-form-7 form{width:100%!important}
+  #ee-ty #ee-form-7 form div{float:none!important;max-width:100%!important}
   #ee-ty #ee-form-7 p{text-align:center!important;font-size:12px!important;color:#5a6b85!important;margin:0 0 12px!important}
   #ee-ty #ee-form-7 label{display:block!important;float:none!important;width:auto!important;max-width:100%!important;text-align:left!important;color:#19345d!important;font-weight:600!important;font-size:12.5px!important;margin:0 0 5px!important}
   #ee-ty #ee-form-7 input[type="text"],#ee-ty #ee-form-7 input[type="email"],#ee-ty #ee-form-7 input[type="tel"],#ee-ty #ee-form-7 input[type="url"],#ee-ty #ee-form-7 input[type="number"],#ee-ty #ee-form-7 select,#ee-ty #ee-form-7 textarea{display:block!important;float:none!important;background:#fff!important;color:#19345d!important;border:1px solid #e2e8f0!important;border-radius:10px!important;padding:11px 13px!important;font-size:13.5px!important;font-family:'Inter',sans-serif!important;width:100%!important;max-width:100%!important;box-shadow:none!important;transition:border-color .2s,box-shadow .2s!important}
@@ -162,5 +160,62 @@ get_header();
 
   </div>
 </section>
+
+<script>
+(function(){
+  /* The enquiry widget builds its own DOM after load, so pure CSS cannot be
+     trusted to reshape it. This tuner waits for the fields, hides the
+     widget's duplicate heading block, and grids the real field wrappers
+     two-up (submit / consent / plain text rows stay full width). It runs
+     again if the widget re-renders. */
+  var box = document.getElementById('ee-form-7'); if (!box) return;
+
+  function isNoise(el){
+    var t = (el.textContent || '').replace(/\s+/g, ' ').trim();
+    return t === 'Book Your Demo Now' || /^Get a personalized walkthrough/i.test(t);
+  }
+  function tune(){
+    var inputs = [].slice.call(box.querySelectorAll('input[type="text"],input[type="email"],input[type="tel"],input[type="url"],input[type="number"],select'));
+    if (inputs.length < 2) return false;
+
+    [].slice.call(box.querySelectorAll('h1,h2,h3,h4,h5,p,div,span,strong,b')).forEach(function(el){
+      if (el.children.length <= 1 && isNoise(el) && !el.querySelector('input,select,button')) el.style.display = 'none';
+    });
+
+    /* a field's wrapper = the closest ancestor that also carries its label */
+    var wraps = [];
+    inputs.forEach(function(i){
+      var w = i.parentElement;
+      while (w && w !== box && !w.querySelector('label')) w = w.parentElement;
+      if (w && w !== box && wraps.indexOf(w) === -1) wraps.push(w);
+    });
+    if (wraps.length < 2) return false;
+    var host = wraps[0].parentElement;
+    if (!wraps.every(function(w){ return w.parentElement === host; })) return false;
+
+    if (window.matchMedia('(min-width:561px)').matches){
+      host.style.display = 'grid';
+      host.style.gridTemplateColumns = '1fr 1fr';
+      host.style.columnGap = '14px';
+      host.style.alignItems = 'start';
+    }
+    [].slice.call(host.children).forEach(function(ch){
+      if (ch.style.display === 'none') return;
+      var full = ch.querySelector('input[type="submit"],button,input[type="checkbox"],textarea') || !ch.querySelector('input,select');
+      ch.style.gridColumn = full ? '1 / -1' : 'auto';
+      ch.style.minWidth = '0';
+      ch.style.marginBottom = '10px';
+    });
+    return true;
+  }
+
+  window.eeFormTune = tune; /* console hook: run the reshape by hand */
+  var tries = 0;
+  var t = setInterval(function(){ if (tune() || ++tries > 60) clearInterval(t); }, 250);
+  try {
+    new MutationObserver(function(){ tune(); }).observe(box, { childList: true, subtree: false });
+  } catch(e){}
+})();
+</script>
 
 <?php get_footer(); ?>
