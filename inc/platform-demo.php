@@ -1569,6 +1569,14 @@ html.eebk-lock,body.eebk-lock{overflow:hidden}
 (function(){
   var ov=document.getElementById('eebkOv'); if(!ov) return;
   if(ov.parentNode!==document.body){ document.body.appendChild(ov); }
+  /* on pages that carry the booking drawer (the home page), every absolute
+     book-a-demo link converts to the on-page drawer - no site exit, no lost
+     lead; standalone pages like /product-tour/ keep the absolute URL */
+  if(document.getElementById('admission-form')){
+    [].slice.call(document.querySelectorAll('a[href="https://www.extraaedge.com/book-a-demo/"]')).forEach(function(a){
+      a.setAttribute('href','#admission-form'); a.removeAttribute('target'); a.removeAttribute('rel');
+    });
+  }
   function openM(){ ov.classList.add('on'); document.documentElement.classList.add('eebk-lock'); }
   function closeM(){ ov.classList.remove('on'); document.documentElement.classList.remove('eebk-lock'); }
   var x=ov.querySelector('.eebk-x'); if(x) x.addEventListener('click',closeM);

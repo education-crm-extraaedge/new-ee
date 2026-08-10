@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-10-4new-sections -->
+<!-- ee-front-tpl v2026-08-10-cro-pass -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -308,7 +308,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 
 <!-- ===================== EE · QUICK TABLE OF CONTENTS (scoped #ee-toc) ===================== -->
 <style>/* keep anchored jumps clear of any sticky chrome */
-  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-rfa,#ee-products,#ee-vidya-suite,#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,#ee-app,#ee-golive,#ee-pricing,#ee-switch,#ee-resources,#ee-blog,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
+  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-rfa,#ee-products,#ee-vidya-suite,#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,#ee-app,#ee-golive,#ee-pricing,#ee-switch,#ee-resources,#ee-blog,#faq,#ee-close,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
   #ee-toc .eetoc-fab{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:99990;
     display:flex;align-items:center;justify-content:center;width:50px;height:50px;padding:0;border:2.5px solid #fff;cursor:pointer;
     background:#19335D;color:#fff;border-radius:50%;
@@ -345,17 +345,18 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <li><a href="#xhero" data-t="xhero"><i>01</i><span>Top</span></a></li>
       <li><a href="#trusted-institutions" data-t="trusted-institutions"><i>02</i><span>Broad Client Base</span></a></li>
       <li><a href="#ee-platform" data-t="ee-platform"><i>03</i><span>AI Product-Led Experience</span></a></li>
-      <li><a href="#ee-products" data-t="ee-products"><i>04</i><span>The admissions platform</span></a></li>
+      <li><a href="#stories" data-t="stories"><i>04</i><span>CRM Impact Stories</span></a></li>
       <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>05</i><span>Agentic AI Suite</span></a></li>
-      <li><a href="#ee-solutions" data-t="ee-solutions"><i>06</i><span>Solutions</span></a></li>
-      <li><a href="#ee-ind" data-t="ee-ind"><i>07</i><span>Industries</span></a></li>
-      <li><a href="#stories" data-t="stories"><i>08</i><span>CRM Impact Stories</span></a></li>
-      <li><a href="#ee-cro" data-t="ee-cro"><i>09</i><span>Why teams switch to us</span></a></li>
-      <li><a href="#integrations" data-t="integrations"><i>10</i><span>Extensions &amp; Integrations</span></a></li>
-      <li><a href="#security" data-t="security"><i>11</i><span>Enterprise-grade trust</span></a></li>
-      <li><a href="#ee-golive" data-t="ee-golive"><i>12</i><span>Fast implementation</span></a></li>
-      <li><a href="#ee-resources" data-t="ee-resources"><i>13</i><span>Resources</span></a></li>
-      <li><a href="#faq" data-t="faq"><i>14</i><span>Frequently Asked</span></a></li>
+      <li><a href="#ee-ind" data-t="ee-ind"><i>06</i><span>Industries</span></a></li>
+      <li><a href="#ee-cro" data-t="ee-cro"><i>07</i><span>Why teams switch to us</span></a></li>
+      <li><a href="#integrations" data-t="integrations"><i>08</i><span>Extensions &amp; Integrations</span></a></li>
+      <li><a href="#security" data-t="security"><i>09</i><span>Enterprise-grade trust</span></a></li>
+      <li><a href="#ee-golive" data-t="ee-golive"><i>10</i><span>Fast implementation</span></a></li>
+      <li><a href="#faq" data-t="faq"><i>11</i><span>Frequently Asked</span></a></li>
+      <li><a href="#ee-products" data-t="ee-products"><i>12</i><span>The admissions platform</span></a></li>
+      <li><a href="#ee-solutions" data-t="ee-solutions"><i>13</i><span>Solutions</span></a></li>
+      <li><a href="#ee-resources" data-t="ee-resources"><i>14</i><span>Resources</span></a></li>
+      <li><a href="#admission-form" data-t="admission-form"><i>15</i><span>Book a Free Demo</span></a></li>
     </ul>
   </nav>
 </div>
@@ -414,16 +415,18 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
         @keyframes heroCaretBlink{50%{opacity:0}}
         @media(prefers-reduced-motion:reduce){#xhero .hero-caret{display:none}}#xhero .hero__rot .accent{background:linear-gradient(100deg,var(--orange),#22467c);-webkit-background-clip:text;background-clip:text;color:transparent}
         @media(prefers-reduced-motion:reduce){#xhero .hero__rot{transition:none}}
+        /* phones: the conversion-lift stat is the money number - paint it first */
+        @media(max-width:640px){#xhero .stats .stat:nth-child(3){order:-1}}
       </style>
       <h1 class="reveal d2 hero__rot" id="heroRot" aria-live="polite">Convert More Student Enquiries Into Admissions With <span class="accent">AI-Powered Education CRM</span></h1>
-      <p class="sub reveal d3">The AI-powered Admission CRM where co-pilots and agents <b>qualify leads, brief counsellors and follow up 24/7</b> - so your team spends time enrolling students, not chasing them.</p>
+      <p class="sub reveal d3">The AI-powered Admission CRM that <b>calls, qualifies and follows up with every enquiry in 60 seconds</b> - so your counsellors only talk to students who are ready to enrol.</p>
       <div class="chips reveal d4">
         <span class="chip"><i>&#9889;</i> Go live in 7 days</span>
         <span class="chip"><i>&#128279;</i> Works with your existing forms &amp; portals</span>
         <span class="chip"><i>&#128737;</i> ISO 27001 &middot; GDPR-ready</span>
       </div>
       <div class="hero__cta reveal d5">
-        <a href="#admission-form" class="btn btn-primary" id="magnet">Book a Demo <span class="arr">&rarr;</span><span class="shine"></span></a>
+        <a href="#admission-form" class="btn btn-primary" id="magnet">Book a Free Demo <span class="arr">&rarr;</span><span class="shine"></span></a>
         <a href="#ee-platform" class="btn btn-watch" data-eep-full><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:15px;height:15px;flex:none"><path d="M8 5v14l11-7z"/></svg> Explore the Platform Yourself</a>
         <span class="cta-note">No credit card &middot; Personalised to your institution &middot; <a href="#ee-cro" class="cta-roi-link">Calculate your admission ROI &rarr;</a></span>
       </div>
@@ -515,8 +518,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   </div>
   <div class="eedd-body">
     <script async src="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js"></script>
+    <p class="eedd-ctx" id="eeddCtx" hidden></p>
     <div id="ee-form-7"></div>
-    <p class="secure-label">&#128274; Secure Data Transmission Active</p>
+    <p class="secure-label">&#128274; Secure Data Transmission Active &middot; ISO 27001 Certified &middot; GDPR Compliant</p>
+    <style>.ee-demo-drawer .eedd-ctx{margin:0 0 10px;font:600 12.5px/1.5 'Inter',system-ui,sans-serif;color:#19335D;background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.22);border-radius:10px;padding:10px 14px}</style>
   </div>
 </aside>
 <script>
@@ -544,17 +549,32 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     last=from||null;
     dr.classList.add('open'); back.classList.add('open');
     document.body.style.overflow='hidden';
+    document.body.classList.add('eedd-on');
     x.focus();
   }
   function closeD(){
     dr.classList.remove('open'); back.classList.remove('open');
     document.body.style.overflow='';
+    document.body.classList.remove('eedd-on');
     if(last&&last.focus) last.focus();
   }
   document.addEventListener('click',function(e){
     var a=e.target.closest('a[href$="#admission-form"]');
     if(!a) return;
-    e.preventDefault(); openD(a);
+    e.preventDefault();
+    /* ROI-qualified open: carry the calculator inputs into the drawer and the
+       page URL, so the demo request arrives with funnel context attached */
+    var ctx=document.getElementById('eeddCtx');
+    if(ctx){
+      var inRoi=!!a.closest('#ee-cro'), i1=document.getElementById('ri1'), i2=document.getElementById('ri2'), i3=document.getElementById('ri3');
+      if(inRoi&&i1&&i2&&i3){
+        var fee=+i3.value, feeTxt=fee>=100000?('\u20B9'+(fee/100000).toFixed(1)+'L'):('\u20B9'+Math.round(fee/1000)+'K');
+        ctx.textContent='Your ROI inputs: '+(+i1.value).toLocaleString('en-IN')+' enquiries/mo \u00B7 '+i2.value+'% conversion \u00B7 '+feeTxt+' avg fee \u2014 we\u2019ll bring your projection to the demo.';
+        ctx.hidden=false;
+        try{ history.replaceState(null,'',location.pathname+'?roi_enq='+i1.value+'&roi_conv='+i2.value+'&roi_fee='+i3.value+'#admission-form'); }catch(_){ }
+      } else { ctx.hidden=true; }
+    }
+    openD(a);
   });
   x.addEventListener('click',closeD);
   back.addEventListener('click',closeD);
@@ -840,7 +860,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <section class="logo-section" id="trusted-institutions" aria-label="Trusted Institutions">
   <div class="logo-header reveal">
     <h2 class="logo-title" style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.5rem,3.2vw,2.2rem);color:var(--blue);line-height:1.18;letter-spacing:-.02em;margin:6px 0 12px">Trusted by 500+ educational institutions across India</h2>
-    <p class="logo-sub" style="max-width:760px;margin:0 auto 18px;color:#5a6b85;font-size:clamp(.95rem,1.6vw,1.05rem);line-height:1.6">ExtraaEdge powers <strong>5M+ student leads</strong> and <strong>100M+ student interactions</strong>, enabling universities, colleges, and EdTech organizations to accelerate admissions with AI-powered CRM and intelligent automation.</p>
+    <p class="logo-sub" style="max-width:760px;margin:0 auto 18px;color:#5a6b85;font-size:clamp(.95rem,1.6vw,1.05rem);line-height:1.6">ExtraaEdge manages <strong>10M+ student enquiries</strong> and <strong>100M+ student interactions</strong>, enabling universities, colleges, and EdTech organizations to accelerate admissions with AI-powered CRM and intelligent automation.</p>
     <?php /* the visible twin of the AggregateRating already in the JSON-LD
              schema (4.7 / 320) - the two must always quote the same numbers */ ?>
     <div class="ee-rate" role="img" aria-label="Rated 4.7 out of 5 by over 320 admission teams">
@@ -997,7 +1017,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   <div class="eew2-track" id="eew2Track">
   <div class="eew2-pin">
   <div class="eew2-wrap">
-    <h2 id="eew-h">Why Institutes Choose ExtraaEdge as the Architect of Their Admission Process?</h2>
+    <h2 id="eew-h">Every Enquiry Answered. Every Follow-Up on Time. <em>Every Seat Accounted For.</em></h2>
     <p class="eew2-lead">Most Admission CRMs help you <strong>manage</strong> admissions. ExtraaEdge helps you <strong>design how admissions should work</strong> - end to end, at scale.</p>
     <div class="eew2-grid">
       <div class="eew2-visual">
@@ -1442,6 +1462,109 @@ html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19
    serves /product-tour/ and the [ee_platform] shortcode. */
 ee_platform_section(); ?>
 
+<section id="stories" aria-labelledby="stories-title">
+  <div class="cis-wrap">
+    <div class="cis-head">
+      <h2 class="cis-title" id="stories-title">Customer Stories<span class="ee-h2b">Powering Growth for <em>500+ Happy Customers</em></span></h2>
+      <p class="cis-lead">See how leading education institutions are transforming admissions, improving counsellor productivity, and creating better student experiences with ExtraaEdge.</p>
+    </div>
+
+    <div class="cis-rail" role="list">
+
+      <div class="cis-card" role="listitem">
+        <div class="cis-video" data-yt="3SHgLf1GFgk" role="button" tabindex="0" aria-label="Play video testimonial: Silky Jain Marwah, Tula's Institute">
+          <img src="https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg" alt="Silky Jain Marwah, Executive Director, Tula's Institute - ExtraaEdge CRM review" loading="lazy" decoding="async">
+          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>2 min</span>
+        </div>
+        <div class="cis-foot">
+          <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Silky-Jain-Marwah.webp" alt="Silky Jain Marwah" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">SJ</span></span>
+          <div class="cis-meta"><div class="cis-aname">Silky Jain Marwah</div><div class="cis-arole">Executive Director &middot; Tula's Institute</div></div>
+        </div>
+        <p class="cis-blurb">See how Tula&rsquo;s Institute streamlined its admissions process, strengthened student engagement, and empowered its team with a more organised admissions workflow.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </div>
+
+      <div class="cis-card" role="listitem">
+        <div class="cis-video" data-yt="dWLdQ8E3FOU" role="button" tabindex="0" aria-label="Play video testimonial: Pranay Rupani, Annapurna College of Film &amp; Media">
+          <img src="https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg" alt="Pranay Rupani, Head of Admissions &amp; Marketing, Annapurna College of Film &amp; Media - ExtraaEdge CRM review" loading="lazy" decoding="async">
+          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>2 min</span>
+        </div>
+        <div class="cis-foot">
+          <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/Pranay-sir-02.webp" alt="Pranay Rupani" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">PR</span></span>
+          <div class="cis-meta"><div class="cis-aname">Pranay Rupani</div><div class="cis-arole">Head of Admissions &amp; Marketing &middot; Annapurna College of Film &amp; Media</div></div>
+        </div>
+        <p class="cis-blurb">Discover how a unified admissions platform helped the team manage enquiries, improve follow-ups, and build a more efficient applicant journey.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </div>
+
+      <div class="cis-card" role="listitem">
+        <div class="cis-video" data-yt="yfK83D2SKps" role="button" tabindex="0" aria-label="Play video testimonial: K. Nirmala Devi, Indian Academy Group">
+          <img src="https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg" alt="K. Nirmala Devi, Assistant Manager, Indian Academy Group - ExtraaEdge CRM review" loading="lazy" decoding="async">
+          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
+          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>2 min</span>
+        </div>
+        <div class="cis-foot">
+          <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Nirmala-Devi.webp" alt="K. Nirmala Devi" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">KN</span></span>
+          <div class="cis-meta"><div class="cis-aname">K. Nirmala Devi</div><div class="cis-arole">Assistant Manager &middot; Indian Academy Group</div></div>
+        </div>
+        <p class="cis-blurb">Learn how the institution simplified lead management and communication while giving counsellors better visibility across the student admissions journey.</p>
+        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </div>
+
+    </div>
+
+    <div class="cis-cta">
+      <a class="cis-btn primary" href="#admission-form">Get results like these - Book a Free Demo</a>
+      <a class="cis-btn ghost" href="/customer-success-stories/">View All Customer Stories <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-03.svg" alt="" loading="lazy" decoding="async"></a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var root=document.getElementById('stories');
+  if(!root)return;
+  root.querySelectorAll('.cis-video').forEach(function(v){
+    var img=v.querySelector('img'), yt=v.getAttribute('data-yt');
+    if(img){img.addEventListener('error',function(){img.src='https://img.youtube.com/vi/'+yt+'/0.jpg';},{once:true});}
+    function play(){
+      if(v.classList.contains('playing'))return;
+      root.querySelectorAll('.cis-video.playing').forEach(function(o){var f=o.querySelector('iframe');if(f)f.remove();o.classList.remove('playing');});
+      var fr=document.createElement('iframe');
+      fr.src='https://www.youtube-nocookie.com/embed/'+yt+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      fr.title='Video testimonial';
+      fr.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');
+      fr.setAttribute('allowfullscreen','');
+      v.appendChild(fr);v.classList.add('playing');
+    }
+    v.addEventListener('click',play);
+    v.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}});
+  });
+  /* "Watch Story" is the same action as the thumbnail, so it just forwards */
+  root.querySelectorAll('.cis-watch').forEach(function(w){
+    w.addEventListener('click',function(){
+      var v=w.closest('.cis-card').querySelector('.cis-video');
+      if(v) v.click();
+      if(v) v.scrollIntoView({block:'center',behavior:'smooth'});
+    });
+  });
+  root.querySelectorAll('.cis-av img').forEach(function(a){a.addEventListener('error',function(){a.closest('.cis-av').classList.add('noimg');},{once:true});});
+  /* cards rise in only when the section is reached; the hidden state exists
+     only once JS confirms it can also remove it (cis-anim), so no-JS/embed
+     renders always show the cards */
+  try{
+    root.classList.add('cis-anim');
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(x){ if(x.isIntersecting){ root.classList.add('in'); io.disconnect(); } });
+    },{threshold:.12});
+    io.observe(root);
+  }catch(e){ root.classList.add('in'); }
+})();
+</script>
+
+
 
 <!-- ===================== PRODUCTS / VIDYA AI / TEAMS / SOLUTIONS / INDUSTRIES (added) ===================== -->
 <style>#ee-products{
@@ -1763,7 +1886,7 @@ ee_platform_section(); ?>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-brand-navy text-center mb-10 lg:mb-14 tracking-tight">
-                Powerful Admission CRM with Simplicity
+                Seven Modules. One Admissions Command Centre.
             </h2>
 
             <!-- Sticky Scrolling Storytelling Layout -->
@@ -2527,245 +2650,6 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
   #ee-products .epx-card,#ee-products .epx-btn{ transition:none; } }
 </style>
 
-<section id="ee-products" aria-label="Our products">
-  <div class="epx-wrap">
-
-    <style>
-    /* ── Products as a template gallery: filter pills + minimal cards ── */
-    #ee-products .epx-hlink{color:inherit;text-decoration:none;transition:color .2s ease}
-    #ee-products .epn-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:clamp(20px,2.6vw,30px) 0 clamp(22px,2.8vw,34px)}
-    #ee-products .epn-tab{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;color:var(--navy);
-      font:600 13px/1 'Inter',sans-serif;padding:9px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;
-      transition:background .2s,color .2s,border-color .2s,transform .18s}
-    #ee-products .epn-tab:hover{transform:translateY(-1px);border-color:rgba(222,110,48,.35)}
-    #ee-products .epn-tab i{font-style:normal;font-size:10.5px;font-weight:700;min-width:18px;height:18px;display:inline-flex;
-      align-items:center;justify-content:center;padding:0 5px;border-radius:999px;background:rgba(25,52,93,.07);color:var(--navy)}
-    #ee-products .epn-tab.on{background:var(--navy);border-color:var(--navy);color:#fff}
-    #ee-products .epn-tab.on i{background:var(--orange);color:#fff}
-    #ee-products .epn-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-    #ee-products .epn-card{display:flex;flex-direction:column;background:#FBFCFE;border:1px solid var(--line);border-radius:16px;
-      padding:18px 18px 14px;text-decoration:none;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background .22s}
-    #ee-products .epn-card:hover{transform:translateY(-3px);background:#fff;border-color:rgba(222,110,48,.32);
-      box-shadow:0 24px 48px -30px rgba(25,52,93,.45)}
-    #ee-products .epn-top{display:flex;align-items:center;gap:11px;margin-bottom:12px}
-    #ee-products .epn-ic{display:grid;place-items:center;width:42px;height:42px;flex:0 0 auto;border-radius:13px}
-    #ee-products .epn-ic svg{width:20px;height:20px}
-    #ee-products .epn-ic--a{background:rgba(222,110,48,.1);color:var(--orange)}
-    #ee-products .epn-ic--b{background:rgba(25,52,93,.08);color:var(--navy)}
-    #ee-products .epn-tt b{display:block;font:700 15px/1.25 'Inter',sans-serif;color:var(--navy);letter-spacing:-.01em}
-    #ee-products .epn-tt small{display:block;margin-top:3px;font:600 11px/1 'Inter',sans-serif;color:#8a95a6}
-    #ee-products .epn-card p{margin:0 0 12px;color:var(--muted);flex:1}
-    #ee-products .epn-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(25,52,93,.07);
-      padding-top:11px;font:700 12px/1 'Inter',sans-serif;color:#8a95a6;transition:color .2s}
-    #ee-products .epn-foot svg{width:14px;height:14px;opacity:0;transform:translateX(-4px);transition:opacity .22s,transform .22s}
-    #ee-products .epn-card:hover .epn-foot{color:var(--orange-700,#B5551D)}
-    #ee-products .epn-card:hover .epn-foot svg{opacity:1;transform:none}
-    #ee-products .epn-card[hidden]{display:none}
-    @media(max-width:1100px){#ee-products .epn-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    @media(max-width:860px){#ee-products .epn-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media(max-width:640px){
-      #ee-products .epn-tabs{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
-        -webkit-overflow-scrolling:touch;margin-left:-18px;margin-right:-18px;padding:2px 18px 6px}
-      #ee-products .epn-tabs::-webkit-scrollbar{display:none}
-      /* phones: two cards per row - compact tile, tighter type */
-      #ee-products .epn-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-      #ee-products .epn-card{padding:13px 12px 10px;border-radius:14px}
-      #ee-products .epn-top{gap:9px;margin-bottom:9px}
-      #ee-products .epn-ic{width:34px;height:34px;border-radius:11px}
-      #ee-products .epn-ic svg{width:16px;height:16px}
-      #ee-products .epn-tt b{font-size:12.5px}
-      #ee-products .epn-tt small{font-size:9.5px;margin-top:2px}
-      #ee-products .epn-card p{font-size:11.5px;line-height:1.5;margin-bottom:9px}
-      #ee-products .epn-foot{padding-top:8px;font-size:10.5px}
-      #ee-products .epn-foot svg{opacity:1;transform:none;width:12px;height:12px}
-    }
-    @media(prefers-reduced-motion:reduce){#ee-products .epn-tab,#ee-products .epn-card,#ee-products .epn-foot svg{transition:none}}
-    </style>
-    <header class="epx-head">
-      <h2><a href="/products/" class="epx-hlink">Our Products<span class="ee-h2b">The <span class="eep-accent">All-in-One Admissions Platform</span></span></a></h2>
-      <p>Browse by stage of the admission funnel &mdash; or see everything at once.</p>
-    </header>
-
-    <div class="epn-tabs" role="tablist" aria-label="Product categories">
-      <button type="button" class="epn-tab on" data-g="capture" aria-pressed="true">Capture & Nurture <i>5</i></button>
-      <button type="button" class="epn-tab" data-g="engage" aria-pressed="false">Engage & Communicate <i>5</i></button>
-      <button type="button" class="epn-tab" data-g="convert" aria-pressed="false">Convert & Enroll <i>3</i></button>
-      <button type="button" class="epn-tab" data-g="automate" aria-pressed="false">Automate <i>4</i></button>
-      <button type="button" class="epn-tab" data-g="measure" aria-pressed="false">Measure <i>5</i></button>
-      <button type="button" class="epn-tab" data-g="vidya" aria-pressed="false">Vidya AI <i>5</i></button>
-      <button type="button" class="epn-tab" data-g="essentials" aria-pressed="false">Essentials <i>2</i></button>
-      <button type="button" class="epn-tab" data-g="all" aria-pressed="false">All</button>
-    </div>
-
-    <div class="epn-grid" id="epnGrid">
-      <a class="epn-card" data-g="capture" href="/products/education-crm/">
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Education CRM</b><small>Capture & Nurture</small></span></span>
-        <p>Every enquiry captured into one clean pipeline.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="capture" href="/products/marketing-automation/">
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Marketing Automation</b><small>Capture & Nurture</small></span></span>
-        <p>Campaigns measured to enrolment, not clicks.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="capture" href="/solutions/lead-management/">
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Lead Management</b><small>Capture & Nurture</small></span></span>
-        <p>One student, one timeline - nothing forgotten.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="capture" href="/solutions/lead-scoring/">
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Lead Scoring</b><small>Capture & Nurture</small></span></span>
-        <p>Call the right student first, every time.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="capture" href="/products/journey-builder/">
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Journey Builder</b><small>Capture & Nurture</small></span></span>
-        <p>Design the whole student journey visually.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="engage" href="/products/whatsapp-business-api/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>WhatsApp Business API</b><small>Engage & Communicate</small></span></span>
-        <p>Official API with 98% open rates.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="engage" href="/products/cloud-telephony/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Cloud Telephony &amp; IVR</b><small>Engage & Communicate</small></span></span>
-        <p>Every call recorded on the lead.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="engage" href="/products/email-marketing/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Email &amp; SMS Campaigns</b><small>Engage & Communicate</small></span></span>
-        <p>Sends that fire exactly on stage moves.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="engage" href="/products/education-chatbot/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Education Chatbot</b><small>Engage & Communicate</small></span></span>
-        <p>24&times;7 AI answers in 95+ languages.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="engage" href="/products/mobile-crm/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Mobile CRM</b><small>Engage & Communicate</small></span></span>
-        <p>The whole funnel in your pocket.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="convert" href="/products/application-management-system/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5H3l9-5z"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></svg></span><span class="epn-tt"><b>Application Management (AMS)</b><small>Convert & Enroll</small></span></span>
-        <p>Forms, documents &amp; review on one rail.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="convert" href="/products/payment-enrollment/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5H3l9-5z"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></svg></span><span class="epn-tt"><b>Payment &amp; Enrollment</b><small>Convert & Enroll</small></span></span>
-        <p>Offer letter to fee paid, frictionless.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="convert" href="/solutions/walk-in-management/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5H3l9-5z"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></svg></span><span class="epn-tt"><b>Walk-in Management</b><small>Convert & Enroll</small></span></span>
-        <p>No campus visit ever goes unrecorded.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="automate" href="/products/workflow-automation/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Workflow Automation</b><small>Automate</small></span></span>
-        <p>No-code rules that run admissions.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="automate" href="/products/lead-assignment/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Lead Assignment &amp; Routing</b><small>Automate</small></span></span>
-        <p>The right counsellor, instantly.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="automate" href="/products/task-automation/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Task Automation</b><small>Automate</small></span></span>
-        <p>Worklists that build themselves.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="automate" href="/products/follow-up-automation/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Follow-up Automation</b><small>Automate</small></span></span>
-        <p>No follow-up ever slips again.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="measure" href="/analytics/executive-dashboard/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Executive Dashboard</b><small>Measure</small></span></span>
-        <p>Your whole season on one screen.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="measure" href="/analytics/admission-analytics/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Admission Analytics</b><small>Measure</small></span></span>
-        <p>Every funnel stage, measured live.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="measure" href="/analytics/marketing-analytics/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Marketing Analytics</b><small>Measure</small></span></span>
-        <p>Every rupee tracked to enrolment.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="measure" href="/analytics/funnel-analytics/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Funnel Analytics</b><small>Measure</small></span></span>
-        <p>Find the leak costing you admissions.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="measure" href="/analytics/custom-reports/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Custom Reports</b><small>Measure</small></span></span>
-        <p>Any question, answered in a report.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-ai" target="_blank" rel="noopener" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>Why Vidya AI</b><small>Vidya AI</small></span></span>
-        <p>Meet the agentic AI admission suite.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-gpt" target="_blank" rel="noopener" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaGPT</b><small>Vidya AI</small></span></span>
-        <p>Your 24&times;7 AI chat counsellor.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaAI Voice Agent</b><small>Vidya AI</small></span></span>
-        <p>Calls every new lead in 30 seconds.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-pulse" target="_blank" rel="noopener" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaPulse</b><small>Vidya AI</small></span></span>
-        <p>Live buying-intent scores on every lead.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-waba-gpt" target="_blank" rel="noopener" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaWABA GPT</b><small>Vidya AI</small></span></span>
-        <p>The AI assistant living on WhatsApp.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="essentials" href="/integrations/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7.5 3v6c0 4.2-3.1 8-7.5 9.4C7.6 19.8 4.5 16 4.5 11.8v-6l7.5-3z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="epn-tt"><b>Integrations</b><small>Essentials</small></span></span>
-        <p>50+ tools flowing into one CRM.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="essentials" href="/security/" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7.5 3v6c0 4.2-3.1 8-7.5 9.4C7.6 19.8 4.5 16 4.5 11.8v-6l7.5-3z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="epn-tt"><b>Security &amp; Compliance</b><small>Essentials</small></span></span>
-        <p>ISO 27001, GDPR-ready, audit-logged.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-    </div>
-
-    <script>
-    (function(){
-      var tabs=[].slice.call(document.querySelectorAll('#ee-products .epn-tab'));
-      var cards=[].slice.call(document.querySelectorAll('#ee-products .epn-card'));
-      tabs.forEach(function(t){
-        t.addEventListener('click',function(){
-          var g=t.getAttribute('data-g');
-          tabs.forEach(function(x){ var on=x===t; x.classList.toggle('on',on); x.setAttribute('aria-pressed',on?'true':'false'); });
-          cards.forEach(function(c){ c.hidden=(g!=='all' && c.getAttribute('data-g')!==g); });
-        });
-      });
-    })();
-    </script>
-    <div class="epx-cta">
-      <a href="/products/" class="epx-btn">Explore All Features
-        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-      </a>
-    </div>
-
-  </div>
-</section>
 
 <style>#ee-vidya-suite{
     --vn:#19345d; --vn2:#122848; --or:#DE6E30; --or2:#E8843F;
@@ -2803,6 +2687,8 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
   #ee-vidya-suite .vsx-card-cta svg{ width:11px; height:11px; stroke:currentColor; }
   #ee-vidya-suite .vsx-card-cta:hover{ transform:translateY(-2px); box-shadow:0 14px 28px -8px rgba(222,110,48,.8); }
   @media(max-width:640px){ #ee-vidya-suite .vsx-card-cta{ top:12px; right:12px; padding:6px 11px; font-size:9.5px; } }
+  #ee-vidya-suite .vsx-deep{ font:600 11px/1 'Inter',sans-serif; color:#9db4d8; text-decoration:none; white-space:nowrap; margin-left:2px; }
+  #ee-vidya-suite .vsx-deep:hover{ color:#cfe0f6; }
   @media(min-width:0){
     #ee-vidya-suite .vsx-arw:active{ transform:translateY(-50%) scale(.93); }
   }
@@ -2899,7 +2785,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="https://getvidya.ai/vidya-gpt" target="_blank" rel="noopener" aria-label="Explore Vidya GPT on getvidya.ai">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-gpt" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg></i>95+ languages</span>
               </div>
             </article>
@@ -2923,7 +2809,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="https://getvidya.ai/vidya-pulse" target="_blank" rel="noopener" aria-label="Explore Vidya Pulse on getvidya.ai">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-pulse" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14a2 2 0 100-4 2 2 0 000 4z"/><path d="M13.4 10.6L18 6"/><path d="M3.5 18a9 9 0 1117 0"/></svg></i>0&ndash;100 score</span>
               </div>
             </article>
@@ -2947,7 +2833,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener" aria-label="Explore Vidyaai Voice Agent on getvidya.ai">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg></i>10+ languages</span>
               </div>
             </article>
@@ -2971,7 +2857,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="https://getvidya.ai/vidya-waba-gpt" target="_blank" rel="noopener" aria-label="Explore VidyaWABA GPT on getvidya.ai">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-waba-gpt" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-8 8H4l2.1-3.1A8 8 0 1121 12z"/></svg></i>Official WABA</span>
               </div>
             </article>
@@ -2995,7 +2881,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="https://getvidya.ai/vidya-work" target="_blank" rel="noopener" aria-label="Explore Vidya Work on getvidya.ai">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-work" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg></i>Zero busywork</span>
               </div>
             </article>
@@ -3020,7 +2906,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="https://getvidya.ai/vidya-ai" target="_blank" rel="noopener" aria-label="Explore Vidya AI on getvidya.ai">Open demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-ai" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5v-7z"/></svg></i>Live demo</span>
               </div>
             </article>
@@ -3314,246 +3200,6 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
   </script>
 </section>
 
-<style>#ee-solutions{
-  --navy:#19345d; --navy2:#22467c; --orange:#DE6E30; --orange2:#E8843F;
-  --ink:#0f203a; --muted:#5a6b85; --hair:rgba(25,52,93,.09); --bg:#f6f8fc;
-  position:relative; padding:clamp(64px,8vw,104px) 0; background:transparent;
-  font-family:'Inter',system-ui,-apple-system,sans-serif; color:var(--ink);
-  -webkit-font-smoothing:antialiased;
-}#ee-solutions *{box-sizing:border-box;}#ee-solutions .ee-container{max-width:1240px;margin:0 auto;padding:0 24px;}#ee-solutions .ee-head{max-width:740px;margin:0 0 clamp(28px,3.6vw,44px);}#ee-solutions .ee-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--orange);margin:0 0 16px;
-}#ee-solutions .ee-eyebrow::before{
-  content:"";width:22px;height:2px;border-radius:2px;
-  background:linear-gradient(90deg,var(--orange),var(--orange2));
-}#ee-solutions h2{
-  font-family:'Inter',sans-serif;font-weight:600;
-  font-size:clamp(28px,4vw,40px);line-height:1.12;letter-spacing:-.02em;
-  margin:0 0 14px;color:var(--navy);
-}#ee-solutions .ee-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:var(--muted);margin:0;}
-/* ---- category-wise bento grid ---- */
-#ee-solutions .solb-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,1.6vw,18px);}
-#ee-solutions .solb-card{position:relative;display:flex;flex-direction:column;border-radius:22px;padding:clamp(20px,2.6vw,30px);overflow:hidden;
-  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;}
-#ee-solutions .solb-card:hover{transform:translateY(-4px);}
-#ee-solutions .solb-a{grid-column:span 7;background:linear-gradient(165deg,#0f2547,#19345d 55%,#22467c);color:#fff;
-  box-shadow:0 30px 70px -30px rgba(25,52,93,.6);}
-#ee-solutions .solb-a::after{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:50%;
-  background:radial-gradient(circle,rgba(222,110,48,.5),transparent 65%);filter:blur(10px);pointer-events:none;}
-#ee-solutions .solb-b{grid-column:span 5;background:#fff;border:1px solid var(--hair);
-  box-shadow:0 1px 2px rgba(15,32,58,.04),0 14px 34px -22px rgba(15,32,58,.28);}
-#ee-solutions .solb-b:hover{border-color:rgba(222,110,48,.35);box-shadow:0 24px 48px -24px rgba(25,52,93,.35);}
-#ee-solutions .solb-c{grid-column:span 8;background:var(--bg);border:1px solid var(--hair);
-  box-shadow:0 1px 2px rgba(15,32,58,.04),0 14px 34px -22px rgba(15,32,58,.22);}
-#ee-solutions .solb-c:hover{border-color:rgba(222,110,48,.35);}
-#ee-solutions .solb-d{grid-column:span 4;background:linear-gradient(150deg,var(--orange2),var(--orange) 70%,#C2541C);color:#fff;
-  box-shadow:0 24px 50px -22px rgba(222,110,48,.65);justify-content:center;align-items:flex-start;}
-#ee-solutions .solb-d::after{content:"";position:absolute;left:-60px;bottom:-70px;width:220px;height:220px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.3),transparent 65%);pointer-events:none;}
-#ee-solutions .solb-ghost{position:absolute;right:14px;bottom:-24px;font-family:'Inter',sans-serif;
-  font-weight:800;font-size:clamp(96px,12vw,150px);line-height:.8;pointer-events:none;user-select:none;color:rgba(25,52,93,.05);}
-#ee-solutions .solb-a .solb-ghost{color:rgba(255,255,255,.05);}
-#ee-solutions .solb-tag{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;font-size:11.5px;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:6px 14px 6px 10px;margin:0 0 14px;position:relative;z-index:1;
-  color:var(--navy);background:rgba(25,52,93,.06);border:1px solid rgba(25,52,93,.12);}
-#ee-solutions .solb-a .solb-tag{color:#ffd9c2;background:rgba(222,110,48,.18);border-color:rgba(222,110,48,.35);}
-#ee-solutions .solb-tag img.eeimg,#ee-solutions .solb-tag svg{width:16px;height:16px;}
-#ee-solutions .solb-card h3{font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(19px,2.2vw,24px);
-  line-height:1.22;letter-spacing:-.01em;margin:0 0 8px;position:relative;z-index:1;color:var(--navy);}
-#ee-solutions .solb-a h3,#ee-solutions .solb-d h3{color:#fff;}
-#ee-solutions .solb-desc{font-size:14px;line-height:1.55;color:var(--muted);margin:0 0 18px;max-width:52ch;position:relative;z-index:1;}
-#ee-solutions .solb-a .solb-desc{color:rgba(255,255,255,.78);}
-#ee-solutions .solb-d .solb-desc{color:rgba(255,255,255,.9);}
-#ee-solutions .solb-links{display:flex;flex-direction:column;gap:9px;margin-top:auto;position:relative;z-index:1;}
-#ee-solutions .solb-c .solb-links{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
-#ee-solutions .solb-link{display:flex;align-items:center;gap:12px;text-decoration:none;border-radius:13px;padding:11px 14px;
-  background:#fff;border:1px solid var(--hair);color:var(--ink);
-  transition:background .25s,border-color .25s,transform .25s,box-shadow .25s;}
-#ee-solutions .solb-link:hover{border-color:rgba(222,110,48,.5);transform:translateX(4px);box-shadow:0 10px 22px -14px rgba(25,52,93,.4);}
-#ee-solutions .solb-link:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}
-#ee-solutions .solb-a .solb-link{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:#fff;}
-#ee-solutions .solb-a .solb-link:hover{background:rgba(255,255,255,.12);border-color:rgba(222,110,48,.5);}
-/* White tick on the orange tile. It used to be an external <img> whose own
-   artwork was dark, so the color:#fff here never reached it - inline SVG
-   takes currentColor. */
-#ee-solutions .solb-chk{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:28px;height:28px;border-radius:9px;
-  background:linear-gradient(160deg,var(--orange),var(--orange2));color:#fff;}
-#ee-solutions .solb-chk svg{color:#fff;}
-#ee-solutions .solb-chk svg path{stroke:#fff;}
-#ee-solutions .solb-chk img.eeimg,#ee-solutions .solb-chk svg{width:15px;height:15px;}
-#ee-solutions .solb-lt{display:flex;flex-direction:column;gap:2px;min-width:0;}
-#ee-solutions .solb-lt b{font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;line-height:1.2;}
-#ee-solutions .solb-lt span{font-size:12.5px;line-height:1.35;color:var(--muted);}
-#ee-solutions .solb-a .solb-lt span{color:rgba(255,255,255,.62);}
-/* Blue row arrows. They used to be an external <img>, which no CSS colour
-   can reach - they are inline SVG now so currentColor drives them. The
-   .solb-a override is gone with them: that card is white since the
-   all-white pass, and a white arrow on it was invisible. */
-#ee-solutions .solb-arr{margin-left:auto;flex-shrink:0;color:#1A5FB4;transition:color .25s,transform .25s;}
-#ee-solutions .solb-a .solb-arr{color:#1A5FB4;}
-#ee-solutions .solb-arr img.eeimg,#ee-solutions .solb-arr svg{width:16px;height:16px;}
-#ee-solutions .solb-link:hover .solb-arr{color:#123F73;transform:translateX(3px);}
-#ee-solutions .solb-a .solb-link:hover .solb-arr{color:#123F73;}
-#ee-solutions .solb-cta{display:inline-flex;align-items:center;gap:9px;position:relative;z-index:1;margin-top:18px;
-  background:#fff;color:var(--orange);font-weight:700;font-size:14.5px;padding:12px 22px;border-radius:999px;text-decoration:none;
-  box-shadow:0 14px 28px -12px rgba(15,32,58,.4);transition:transform .25s,box-shadow .25s;}
-#ee-solutions .solb-cta svg,#ee-solutions .solb-cta img.eeimg{width:16px;height:16px;transition:transform .25s;}
-#ee-solutions .solb-cta:hover{transform:translateY(-2px);}
-#ee-solutions .solb-cta:hover svg{transform:translateX(3px);}
-#ee-solutions .solb-o{grid-column:span 12;background:#fff;border:1px solid var(--hair);}
-#ee-solutions .solb-o:hover{border-color:rgba(222,110,48,.35);box-shadow:0 24px 48px -24px rgba(25,52,93,.35);}
-#ee-solutions .solb-a .solb-links{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
-#ee-solutions .solb-o .solb-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;}
-@media (max-width:900px){
-  #ee-solutions .solb-a,#ee-solutions .solb-b,#ee-solutions .solb-c,#ee-solutions .solb-d,#ee-solutions .solb-o{grid-column:span 12;}
-  #ee-solutions .solb-c .solb-links,#ee-solutions .solb-a .solb-links,#ee-solutions .solb-o .solb-links{grid-template-columns:1fr;}
-}
-@media (max-width:560px){
-  #ee-solutions .ee-container{padding:0 18px;}
-  #ee-solutions .solb-card{padding:18px 16px;border-radius:18px;}
-  #ee-solutions .solb-card h3{font-size:18px;}
-  #ee-solutions .solb-desc{font-size:13px;margin-bottom:14px;}
-  #ee-solutions .solb-link{padding:10px 12px;}
-  #ee-solutions .solb-lt b{font-size:13.5px;}
-  #ee-solutions .solb-lt span{font-size:12px;}
-}
-@media (prefers-reduced-motion:reduce){
-  #ee-solutions .solb-card,#ee-solutions .solb-link,#ee-solutions .solb-cta{transition:none;}
-}
-</style>
-<section id="ee-solutions" aria-label="Solutions">
-  <div class="ee-container">
-    <div class="ee-head">
-      <h2>Solutions for every admissions motion</h2>
-      <p class="ee-sub">From first enquiry to confirmed enrolment, ExtraaEdge brings the right workflow to every stage of your admissions journey - explore each category below.</p>
-    </div>
-
-    <style>
-    /* ── Axis explorer: pick how you think about yourself, see your solutions ── */
-    #ee-solutions .sol2{display:grid;grid-template-columns:300px minmax(0,1fr);gap:clamp(14px,1.8vw,22px);align-items:start}
-    #ee-solutions .sol2-nav{display:flex;flex-direction:column;gap:10px;position:sticky;top:96px}
-    #ee-solutions .sol2-ax{display:flex;align-items:flex-start;gap:12px;text-align:left;width:100%;cursor:pointer;
-      background:#fff;border:1px solid var(--hair);border-radius:16px;padding:14px 15px;
-      transition:transform .2s ease,border-color .2s ease,background .25s ease,box-shadow .25s ease}
-    #ee-solutions .sol2-ax:hover{transform:translateX(3px);border-color:rgba(222,110,48,.35)}
-    #ee-solutions .sol2-ax i{display:grid;place-items:center;width:38px;height:38px;flex:0 0 auto;border-radius:12px;
-      background:rgba(25,52,93,.07);color:#19345d;font-style:normal;transition:background .25s,color .25s}
-    #ee-solutions .sol2-ax i svg{width:18px;height:18px}
-    #ee-solutions .sol2-ax b{display:flex;align-items:center;gap:8px;font:700 15px/1.2 'Inter',sans-serif;color:#19345d;transition:color .25s}
-    #ee-solutions .sol2-ax b em{font-style:normal;font-size:10.5px;font-weight:700;min-width:18px;height:18px;display:inline-flex;
-      align-items:center;justify-content:center;padding:0 5px;border-radius:999px;background:rgba(25,52,93,.08);color:#19345d;transition:background .25s,color .25s}
-    #ee-solutions .sol2-ax small{display:block;margin-top:3px;font:500 12px/1.45 'Inter',sans-serif;color:#5a6b85;transition:color .25s}
-    #ee-solutions .sol2-ax.on{background:linear-gradient(160deg,#1b355c,#19345d 60%,#22467c);border-color:#19345d;
-      box-shadow:0 18px 38px -20px rgba(25,52,93,.55)}
-    #ee-solutions .sol2-ax.on:hover{transform:none}
-    #ee-solutions .sol2-ax.on i{background:rgba(222,110,48,.9);color:#fff}
-    #ee-solutions .sol2-ax.on b{color:#fff}
-    #ee-solutions .sol2-ax.on b em{background:rgba(255,255,255,.18);color:#fff}
-    #ee-solutions .sol2-ax.on small{color:#c6d4ea}
-    #ee-solutions .sol2-panel{background:#fff;border:1px solid var(--hair);border-radius:20px;padding:clamp(18px,2.2vw,26px);
-      box-shadow:0 24px 60px -44px rgba(25,52,93,.5)}
-    #ee-solutions .sol2-pane[hidden]{display:none}
-    #ee-solutions .sol2-ph{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 4px}
-    #ee-solutions .sol2-ph h3{margin:0;color:#19345d}
-    #ee-solutions .sol2-plead{margin:6px 0 16px;color:#5a6b85}
-    #ee-solutions .sol2-rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-    #ee-solutions .sol2-row{display:flex;align-items:flex-start;gap:11px;background:#FBFCFE;border:1px solid var(--hair);
-      border-radius:13px;padding:12px 13px;text-decoration:none;transition:transform .2s,border-color .2s,background .2s,box-shadow .2s}
-    #ee-solutions .sol2-row:hover{transform:translateY(-2px);background:#fff;border-color:rgba(222,110,48,.35);
-      box-shadow:0 16px 34px -24px rgba(25,52,93,.45)}
-    #ee-solutions .sol2-chk{display:grid;place-items:center;width:20px;height:20px;flex:0 0 auto;margin-top:1px;border-radius:50%;
-      background:rgba(222,110,48,.12);color:var(--orange-700,#B5551D)}
-    #ee-solutions .sol2-chk svg{width:11px;height:11px}
-    #ee-solutions .sol2-rt{min-width:0;flex:1}
-    #ee-solutions .sol2-rt b{display:block;font:700 13.5px/1.3 'Inter',sans-serif;color:#19345d}
-    #ee-solutions .sol2-rt span{display:block;margin-top:2px;font:500 12px/1.45 'Inter',sans-serif;color:#5a6b85}
-    #ee-solutions .sol2-arr{flex:0 0 auto;align-self:center;color:var(--orange-700,#B5551D);opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s}
-    #ee-solutions .sol2-arr svg{width:15px;height:15px}
-    #ee-solutions .sol2-row:hover .sol2-arr{opacity:1;transform:none}
-    #ee-solutions .sol2-foot{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;padding-top:14px;
-      border-top:1px solid rgba(25,52,93,.07);font:600 13px/1 'Inter',sans-serif;color:#5a6b85;flex-wrap:wrap;text-align:center}
-    #ee-solutions .sol2-foot a{color:var(--orange-700,#B5551D);font-weight:700;text-decoration:none}
-    #ee-solutions .sol2-foot a:hover{text-decoration:underline}
-    @media(max-width:960px){
-      #ee-solutions .sol2{grid-template-columns:1fr}
-      #ee-solutions .sol2-nav{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
-        margin:0 -18px;padding:2px 18px 8px}
-      #ee-solutions .sol2-nav::-webkit-scrollbar{display:none}
-      #ee-solutions .sol2-ax{flex:0 0 auto;width:auto;align-items:center;padding:10px 14px;border-radius:999px;gap:9px}
-      #ee-solutions .sol2-ax:hover{transform:none}
-      #ee-solutions .sol2-ax i{width:28px;height:28px;border-radius:9px}
-      #ee-solutions .sol2-ax i svg{width:14px;height:14px}
-      #ee-solutions .sol2-ax b{font-size:13px;white-space:nowrap}
-      #ee-solutions .sol2-ax small{display:none}
-      #ee-solutions .sol2-rows{grid-template-columns:1fr}
-      #ee-solutions .sol2-panel{padding:14px;border-radius:16px}
-      #ee-solutions .sol2-arr{opacity:1;transform:none}
-    }
-    @media(prefers-reduced-motion:reduce){#ee-solutions .sol2-ax,#ee-solutions .sol2-row,#ee-solutions .sol2-arr{transition:none}}
-    </style>
-    <div class="sol2">
-      <div class="sol2-nav" role="tablist" aria-label="Solution categories">
-        <button type="button" class="sol2-ax on" data-ax="usecase" aria-pressed="true"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 109 9"/><path d="M12 8a4 4 0 104 4"/><path d="M12 12l5-5"/><path d="M15 4l3 3"/></svg></i><span><b>By Use Case <em>7</em></b><small>Pick the job to be done</small></span></button>
-        <button type="button" class="sol2-ax" data-ax="team" aria-pressed="false"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0111 0M16 4.5a3.2 3.2 0 010 7M17.5 14.6a5.5 5.5 0 013 5.4"/></svg></i><span><b>By Team <em>6</em></b><small>Views for every role</small></span></button>
-        <button type="button" class="sol2-ax" data-ax="outcome" aria-pressed="false"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></i><span><b>By Outcome <em>6</em></b><small>Results that compound</small></span></button>
-      </div>
-      <div class="sol2-panel">
-        <div class="sol2-pane" data-ax="usecase">
-          <div class="sol2-ph"><h3>Pick the job to be done</h3></div>
-          <p class="sol2-plead">Seven admission motions, each with its own playbook - from first enquiry to fee paid.</p>
-          <div class="sol2-rows">
-            <a class="sol2-row" href="/use-case/admission-management/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Admission Management</b><span>Track every applicant in one live pipeline</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/use-case/enrollment-management/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Enrollment Management</b><span>Move offers to enrolled &amp; fee-paid, faster</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/use-case/student-recruitment/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Student Recruitment</b><span>Source verified enquiries from every channel</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/use-case/lead-nurturing/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Lead Nurturing</b><span>Automated drips across WhatsApp, email &amp; SMS</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/use-case/student-engagement/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Student Engagement</b><span>Keep every admit warm to day one</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/use-case/event-management/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Event Management</b><span>Webinars &amp; fairs that fill themselves</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/use-case/application-processing/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Application Processing</b><span>Forms, docs &amp; fees on one rail</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-          </div>
-        </div>
-        <div class="sol2-pane" data-ax="team" hidden>
-          <div class="sol2-ph"><h3>Every team&rsquo;s own workspace</h3></div>
-          <p class="sol2-plead">Purpose-built views and workflows for everyone who touches admissions.</p>
-          <div class="sol2-rows">
-            <a class="sol2-row" href="/solutions/admissions/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Admission Teams</b><span>The team&rsquo;s whole day on one queue</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/counselors/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Counselors</b><span>A calmer, sharper daily list</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/marketing/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Marketing Teams</b><span>Campaigns measured to enrolment</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/sales/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Sales Teams</b><span>Close more with less chasing</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/call-center/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Call Centre</b><span>AI-first calling that never sleeps</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/management/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Leadership</b><span>Live numbers across campuses</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-          </div>
-        </div>
-        <div class="sol2-pane" data-ax="outcome" hidden>
-          <div class="sol2-ph"><h3>The results institutions switch for</h3></div>
-          <p class="sol2-plead">Every capability on this platform exists for these six numbers.</p>
-          <div class="sol2-rows">
-            <a class="sol2-row" href="/solutions/increase-admissions/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Increase Admissions</b><span>More seats, same team &amp; budget</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/improve-conversion/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Improve Conversion Rate</b><span>+37% measured across institutions</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/faster-follow-ups/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Faster Follow-ups</b><span>Hours of delay down to 30 sec</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/reduce-manual-work/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Reduce Manual Work</b><span>Hours back every single week</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/increase-roi/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Increase Marketing ROI</b><span>More enrolments per rupee spent</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/better-student-experience/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Better Student Experience</b><span>Admissions students actually enjoy</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-          </div>
-        </div>
-        <div class="sol2-foot">Not sure which solution fits? <a href="#admission-form">Book a 45-minute demo</a> &mdash; we&rsquo;ll map the right workflow on your own funnel.</div>
-      </div>
-    </div>
-      <script>
-      (function(){
-        var axes=[].slice.call(document.querySelectorAll('#ee-solutions .sol2-ax'));
-        var panes=[].slice.call(document.querySelectorAll('#ee-solutions .sol2-pane'));
-        axes.forEach(function(a){
-          a.addEventListener('click',function(){
-            var k=a.getAttribute('data-ax');
-            axes.forEach(function(x){ var on=x===a; x.classList.toggle('on',on); x.setAttribute('aria-pressed',on?'true':'false'); });
-            panes.forEach(function(p){ p.hidden=(p.getAttribute('data-ax')!==k); });
-          });
-        });
-      })();
-      </script>
-  </div>
-</section>
 <!-- ===================== EE INDUSTRIES - Apple spatial / glass UI ===================== -->
 <style id="ee-ind-spatial">
 #ee-ind{ position:relative; overflow:hidden; --or:#DE6E30; --nv:#19335D;
@@ -3848,106 +3494,6 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
 
 <!-- ===================== /EE INDUSTRIES SECTION ===================== -->
 
-<section id="stories" aria-labelledby="stories-title">
-  <div class="cis-wrap">
-    <div class="cis-head">
-      <h2 class="cis-title" id="stories-title">Customer Stories<span class="ee-h2b">Powering Growth for <em>500+ Happy Customers</em></span></h2>
-      <p class="cis-lead">See how leading education institutions are transforming admissions, improving counsellor productivity, and creating better student experiences with ExtraaEdge.</p>
-    </div>
-
-    <div class="cis-rail" role="list">
-
-      <div class="cis-card" role="listitem">
-        <div class="cis-video" data-yt="3SHgLf1GFgk" role="button" tabindex="0" aria-label="Play video testimonial: Silky Jain Marwah, Tula's Institute">
-          <img src="https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg" alt="Silky Jain Marwah, Executive Director, Tula's Institute - ExtraaEdge CRM review" loading="lazy" decoding="async">
-          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>2 min</span>
-        </div>
-        <div class="cis-foot">
-          <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Silky-Jain-Marwah.webp" alt="Silky Jain Marwah" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">SJ</span></span>
-          <div class="cis-meta"><div class="cis-aname">Silky Jain Marwah</div><div class="cis-arole">Executive Director &middot; Tula's Institute</div></div>
-        </div>
-        <p class="cis-blurb">See how Tula&rsquo;s Institute streamlined its admissions process, strengthened student engagement, and empowered its team with a more organised admissions workflow.</p>
-        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
-      </div>
-
-      <div class="cis-card" role="listitem">
-        <div class="cis-video" data-yt="dWLdQ8E3FOU" role="button" tabindex="0" aria-label="Play video testimonial: Pranay Rupani, Annapurna College of Film &amp; Media">
-          <img src="https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg" alt="Pranay Rupani, Head of Admissions &amp; Marketing, Annapurna College of Film &amp; Media - ExtraaEdge CRM review" loading="lazy" decoding="async">
-          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>2 min</span>
-        </div>
-        <div class="cis-foot">
-          <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/10/Pranay-sir-02.webp" alt="Pranay Rupani" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">PR</span></span>
-          <div class="cis-meta"><div class="cis-aname">Pranay Rupani</div><div class="cis-arole">Head of Admissions &amp; Marketing &middot; Annapurna College of Film &amp; Media</div></div>
-        </div>
-        <p class="cis-blurb">Discover how a unified admissions platform helped the team manage enquiries, improve follow-ups, and build a more efficient applicant journey.</p>
-        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
-      </div>
-
-      <div class="cis-card" role="listitem">
-        <div class="cis-video" data-yt="yfK83D2SKps" role="button" tabindex="0" aria-label="Play video testimonial: K. Nirmala Devi, Indian Academy Group">
-          <img src="https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg" alt="K. Nirmala Devi, Assistant Manager, Indian Academy Group - ExtraaEdge CRM review" loading="lazy" decoding="async">
-          <span class="cis-play"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
-          <span class="cis-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>2 min</span>
-        </div>
-        <div class="cis-foot">
-          <span class="cis-av"><img src="https://www.extraaedge.com/wp-content/uploads/2025/01/Nirmala-Devi.webp" alt="K. Nirmala Devi" loading="lazy" decoding="async"><span class="fb" aria-hidden="true">KN</span></span>
-          <div class="cis-meta"><div class="cis-aname">K. Nirmala Devi</div><div class="cis-arole">Assistant Manager &middot; Indian Academy Group</div></div>
-        </div>
-        <p class="cis-blurb">Learn how the institution simplified lead management and communication while giving counsellors better visibility across the student admissions journey.</p>
-        <button type="button" class="cis-watch">Watch Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
-      </div>
-
-    </div>
-
-    <div class="cis-cta">
-      <a class="cis-btn primary" href="/customer-success-stories/">View All Customer Stories <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-03.svg" alt="" loading="lazy" decoding="async"></a>
-    </div>
-  </div>
-</section>
-
-<script>
-(function(){
-  var root=document.getElementById('stories');
-  if(!root)return;
-  root.querySelectorAll('.cis-video').forEach(function(v){
-    var img=v.querySelector('img'), yt=v.getAttribute('data-yt');
-    if(img){img.addEventListener('error',function(){img.src='https://img.youtube.com/vi/'+yt+'/0.jpg';},{once:true});}
-    function play(){
-      if(v.classList.contains('playing'))return;
-      root.querySelectorAll('.cis-video.playing').forEach(function(o){var f=o.querySelector('iframe');if(f)f.remove();o.classList.remove('playing');});
-      var fr=document.createElement('iframe');
-      fr.src='https://www.youtube-nocookie.com/embed/'+yt+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-      fr.title='Video testimonial';
-      fr.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');
-      fr.setAttribute('allowfullscreen','');
-      v.appendChild(fr);v.classList.add('playing');
-    }
-    v.addEventListener('click',play);
-    v.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}});
-  });
-  /* "Watch Story" is the same action as the thumbnail, so it just forwards */
-  root.querySelectorAll('.cis-watch').forEach(function(w){
-    w.addEventListener('click',function(){
-      var v=w.closest('.cis-card').querySelector('.cis-video');
-      if(v) v.click();
-      if(v) v.scrollIntoView({block:'center',behavior:'smooth'});
-    });
-  });
-  root.querySelectorAll('.cis-av img').forEach(function(a){a.addEventListener('error',function(){a.closest('.cis-av').classList.add('noimg');},{once:true});});
-  /* cards rise in only when the section is reached; the hidden state exists
-     only once JS confirms it can also remove it (cis-anim), so no-JS/embed
-     renders always show the cards */
-  try{
-    root.classList.add('cis-anim');
-    var io=new IntersectionObserver(function(en){
-      en.forEach(function(x){ if(x.isIntersecting){ root.classList.add('in'); io.disconnect(); } });
-    },{threshold:.12});
-    io.observe(root);
-  }catch(e){ root.classList.add('in'); }
-})();
-</script>
 
 <section id="ee-cro" aria-label="Why teams choose ExtraaEdge + ROI calculator">
   <div class="cw">
@@ -4169,6 +3715,8 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
 #stories .cis-btn svg,#stories .cis-btn img.eeimg{width:18px;height:18px;fill:currentColor}
 #stories .cis-btn.primary{background:#DE6E30;color:#fff;box-shadow:0 10px 26px rgba(222,110,48,.4)}
 #stories .cis-btn.primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(222,110,48,.5)}
+#stories .cis-btn.ghost{border:1.5px solid rgba(25,52,93,.25);color:#19335D}
+#stories .cis-btn.ghost:hover{border-color:#DE6E30;color:#DE6E30;transform:translateY(-2px)}
 /* ---- reveal: cards rise in when the section is reached (JS-gated) ---- */
 #stories.cis-anim .cis-card{opacity:0;transform:translateY(26px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
 #stories.cis-anim .cis-card:nth-child(2){transition-delay:.1s}
@@ -4505,7 +4053,7 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
     </div>
 
     <div class="ih-act rv">
-      <a class="ih-cta" href="/products/">See All Integrations
+      <a class="ih-cta" href="/integrations/">See All Integrations
         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </a>
       <span class="ih-note">Setup handled by our team &middot; Don&rsquo;t see your tool? We&rsquo;ll integrate it.</span>
@@ -4691,7 +4239,16 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   #ee-switch .swr .g{font-size:13px;gap:10px}
   #ee-switch .swr .g b{width:30px;height:30px}
   /* phones: the section is dropped entirely */
-  @media(max-width:820px){#ee-switch{display:none!important}}
+  @media(max-width:820px){
+    #ee-switch{padding:26px 0}
+    #ee-switch .swr{display:none}/* phones keep the offer + CTA, drop the gains panel */
+    #ee-switch .swl{padding:22px 20px}
+    #ee-switch .swl h2{font-size:19px}
+    #ee-switch .swl p{font-size:12.5px;margin:0 0 12px}
+    #ee-switch .swl ul{gap:7px;margin:0 0 14px}
+    #ee-switch .swl li{font-size:12px}
+    #ee-switch .swl .cta{font-size:13px;padding:11px 18px}
+  }
 </style>
 
 <section id="ee-golive" aria-label="Go live in 7 days">
@@ -4706,10 +4263,35 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
       <div class="st"><div class="n">3</div><div class="day">Day 5&ndash;6</div><h3>AI &amp; WhatsApp config</h3><p>VidyaAI calling, VidyaGPT &amp; WhatsApp API live and tested.</p></div>
       <div class="st"><div class="n">4</div><div class="day">Day 7</div><h3>Go live + training</h3><p>Counsellors trained, you start converting from day one.</p></div>
     </div>
-    <p class="note">Most CRMs take <b>weeks of onboarding</b>. With ExtraaEdge you&rsquo;re live in <b>7 days</b>.</p>
+    <p class="note">Start this week and be live <b>before your next intake opens</b> - teams that onboard mid-cycle lose a season of leads.</p>
+    <p style="text-align:center;margin:18px 0 0"><a href="#admission-form" style="display:inline-flex;align-items:center;gap:9px;background:#DE6E30;color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:12px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.6)">Get my onboarding plan &rarr;</a></p>
   </div>
 </section>
 
+
+<section id="ee-switch" aria-label="Switch from your current CRM">
+  <div class="rvw">
+    <div class="sw">
+      <div class="swl">
+                <h2>Switching is easy - leave your legacy CRM in <em>14 days</em>.</h2>
+        <p>Outgrown a generic CRM or a basic enrollment tool? Move to the AI-native platform built only for admissions - we do the heavy lifting.</p>
+        <ul>
+          <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> <b>Free data migration</b> - leads, history &amp; templates</li>
+          <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> Run both in parallel - <b>zero downtime</b></li>
+          <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> 1:1 onboarding &amp; counsellor training included</li>
+        </ul>
+        <a href="#admission-form" class="cta">Get a free migration plan</a>
+      </div>
+      <div class="swr">
+        <div class="gain">What you gain on day one</div>
+        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-02.svg" alt="" loading="lazy" decoding="async"></b> AI Voice Agent that calls leads in 30 sec</div>
+        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-03.svg" alt="" loading="lazy" decoding="async"></b> VidyaGPT - 24&times;7 AI counsellor</div>
+        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-04.svg" alt="" loading="lazy" decoding="async"></b> Real-time AI lead intent scoring</div>
+        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-05.svg" alt="" loading="lazy" decoding="async"></b> 95+ languages on chat &amp; voice</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ===================== PRICING TEASER ===================== -->
 <style>
@@ -4763,31 +4345,556 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
 </section>
 
 
-<section id="ee-switch" aria-label="Switch from your current CRM">
-  <div class="rvw">
-    <div class="sw">
-      <div class="swl">
-                <h2>Switching is easy - leave your legacy CRM in <em>14 days</em>.</h2>
-        <p>Outgrown a generic CRM or a basic enrollment tool? Move to the AI-native platform built only for admissions - we do the heavy lifting.</p>
-        <ul>
-          <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> <b>Free data migration</b> - leads, history &amp; templates</li>
-          <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> Run both in parallel - <b>zero downtime</b></li>
-          <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> 1:1 onboarding &amp; counsellor training included</li>
-        </ul>
-        <a href="#admission-form" class="cta">Get a free migration plan</a>
-      </div>
-      <div class="swr">
-        <div class="gain">What you gain on day one</div>
-        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-02.svg" alt="" loading="lazy" decoding="async"></b> AI Voice Agent that calls leads in 30 sec</div>
-        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-03.svg" alt="" loading="lazy" decoding="async"></b> VidyaGPT - 24&times;7 AI counsellor</div>
-        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-04.svg" alt="" loading="lazy" decoding="async"></b> Real-time AI lead intent scoring</div>
-        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-05.svg" alt="" loading="lazy" decoding="async"></b> 95+ languages on chat &amp; voice</div>
-      </div>
+
+
+
+<section class="sec sec--soft" id="faq">
+  <div class="container">
+    <div class="head rv">
+      <h2 class="h2">Everything you need to know about <span class="grad-o">ExtraaEdge.</span></h2>
+    </div>
+    <div class="faq rv">
+      <div class="qa"><button aria-expanded="false"><span>What is ExtraaEdge?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge is an AI-powered Admission CRM purpose-built for educational institutions - schools, colleges, universities and edtech companies. It automates lead capture, scores intent, triggers smart follow-ups and gives counsellors real-time performance intelligence.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>How does ExtraaEdge help convert more students?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge prioritises high-intent leads with AI scoring, responds to every enquiry in minutes with AI calling and WhatsApp automation, and tells counsellors exactly who to follow up with next - reducing response time by up to 90% and boosting conversions by up to 48%.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>Does ExtraaEdge offer a free demo?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. You can book a free personalised 45-minute demo. A product expert will walk you through the platform live with data relevant to your sector.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>Is ExtraaEdge suitable for small colleges?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge serves institutions from single-campus colleges to large university groups processing 100,000+ applications per cycle. Pricing and features scale to your needs.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>What AI features does ExtraaEdge offer?</span><span class="ic">+</span></button><div class="qa__a"><p>AI Lead Intent Scoring, AI Calling at scale via VidyaAI, Smart Follow-up Automation, WhatsApp Business API engagement and Counsellor Performance Intelligence - all powered by ExtraaEdge's proprietary Admission Intelligence engine.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>Will ExtraaEdge work with my existing ads and website?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge captures leads automatically from Meta &amp; Google Ads, your website and landing pages, education portals (Shiksha, Collegedunia), WhatsApp, IVR and more - so every enquiry lands in one place with full source tracking. It also connects to your ERP/SIS, payment gateway and telephony.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>How long does it take to go live?</span><span class="ic">+</span></button><div class="qa__a"><p>Most institutions go live in around 14 days. That includes data migration, integrations (ads, website, WhatsApp, telephony), workflow set-up and counsellor training - with a dedicated onboarding specialist and Customer Success Manager.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>Does VidyaGPT support regional languages?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. VidyaGPT understands and responds in 95+ languages including Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, Gujarati and more - over chat and on AI voice calls - so you can engage every student in their preferred language.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>Is my data secure with ExtraaEdge?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge is ISO 27001 certified and GDPR compliant, with India-based data residency, role-based access controls, encryption and full audit trails - enterprise-grade protection for your institution and applicants.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>How does pricing work?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge uses simple, transparent product-based pricing - not module-based pricing that adds cost every time you scale. Your demo includes a tailored quote based on your enquiry volume and the modules you need, with no hidden third-party charges.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>Can I migrate from my existing CRM or spreadsheets?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. Our team handles full data migration from your existing CRM or spreadsheets - leads, history, sources and stages - as part of onboarding, so you go live without losing any data.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>Will my counsellors actually adopt it?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge is a single-window CRM designed around the admissions team, so it's quick to learn even for non-technical counsellors. Every account gets hands-on training, on-ground support and a dedicated Customer Success Manager to drive adoption.</p></div></div>
     </div>
   </div>
 </section>
 
+<!-- ===================== CLOSING CTA (post-FAQ ask) ===================== -->
+<style>
+  #ee-close{--nv:#19345d;--nv2:#22467c;--or:#DE6E30;position:relative;padding:clamp(44px,6vw,72px) 22px;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  #ee-close .clw{max-width:980px;margin:0 auto;background:linear-gradient(150deg,var(--nv2),var(--nv));border-radius:22px;padding:clamp(34px,4.5vw,56px) clamp(22px,4vw,56px);text-align:center;position:relative;overflow:hidden;box-shadow:0 30px 70px -34px rgba(25,52,93,.55)}
+  #ee-close .clw::before{content:"";position:absolute;top:-90px;right:-70px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(222,110,48,.4),transparent 70%)}
+  #ee-close .clw::after{content:"";position:absolute;bottom:-100px;left:-70px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(111,163,242,.22),transparent 70%)}
+  #ee-close .clw>*{position:relative;z-index:1}
+  #ee-close h2{font-weight:800;font-size:clamp(23px,3.4vw,36px);line-height:1.15;letter-spacing:-.02em;color:#fff;margin:0 0 10px}
+  #ee-close h2 em{font-style:normal;color:#E8843F}
+  #ee-close p{font-size:clamp(14px,1.7vw,16.5px);color:#c6d4ea;line-height:1.6;margin:0 auto 24px;max-width:56ch}
+  #ee-close .cta{display:inline-flex;align-items:center;gap:10px;background:var(--or);color:#fff;font-weight:700;font-size:16px;padding:16px 34px;border-radius:13px;text-decoration:none;box-shadow:0 16px 34px -10px rgba(222,110,48,.65);transition:transform .2s}
+  #ee-close .cta:hover{transform:translateY(-2px)}
+  #ee-close .fine{display:block;margin-top:14px;font-size:12px;color:#c6d4ea}
+</style>
+<section id="ee-close" aria-label="Book a demo">
+  <div class="clw rv">
+    <h2>Still deciding? See ExtraaEdge <em>on your own data.</em></h2>
+    <p>A 45-minute personalised demo with your funnel, your sources and your team's questions - so the decision makes itself.</p>
+    <a class="cta" href="#admission-form">Book a Free Demo &rarr;</a>
+    <span class="fine">No credit card &middot; Personalised to your institution &middot; Be live before your next intake opens</span>
+  </div>
+</section>
 
+<section id="ee-products" aria-label="Our products">
+  <div class="epx-wrap">
+
+    <style>
+    /* ── Products as a template gallery: filter pills + minimal cards ── */
+    #ee-products .epx-hlink{color:inherit;text-decoration:none;transition:color .2s ease}
+    #ee-products .epn-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:clamp(20px,2.6vw,30px) 0 clamp(22px,2.8vw,34px)}
+    #ee-products .epn-tab{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;color:var(--navy);
+      font:600 13px/1 'Inter',sans-serif;padding:9px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;
+      transition:background .2s,color .2s,border-color .2s,transform .18s}
+    #ee-products .epn-tab:hover{transform:translateY(-1px);border-color:rgba(222,110,48,.35)}
+    #ee-products .epn-tab i{font-style:normal;font-size:10.5px;font-weight:700;min-width:18px;height:18px;display:inline-flex;
+      align-items:center;justify-content:center;padding:0 5px;border-radius:999px;background:rgba(25,52,93,.07);color:var(--navy)}
+    #ee-products .epn-tab.on{background:var(--navy);border-color:var(--navy);color:#fff}
+    #ee-products .epn-tab.on i{background:var(--orange);color:#fff}
+    #ee-products .epn-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+    #ee-products .epn-card{display:flex;flex-direction:column;background:#FBFCFE;border:1px solid var(--line);border-radius:16px;
+      padding:18px 18px 14px;text-decoration:none;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background .22s}
+    #ee-products .epn-card:hover{transform:translateY(-3px);background:#fff;border-color:rgba(222,110,48,.32);
+      box-shadow:0 24px 48px -30px rgba(25,52,93,.45)}
+    #ee-products .epn-top{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+    #ee-products .epn-ic{display:grid;place-items:center;width:42px;height:42px;flex:0 0 auto;border-radius:13px}
+    #ee-products .epn-ic svg{width:20px;height:20px}
+    #ee-products .epn-ic--a{background:rgba(222,110,48,.1);color:var(--orange)}
+    #ee-products .epn-ic--b{background:rgba(25,52,93,.08);color:var(--navy)}
+    #ee-products .epn-tt b{display:block;font:700 15px/1.25 'Inter',sans-serif;color:var(--navy);letter-spacing:-.01em}
+    #ee-products .epn-tt small{display:block;margin-top:3px;font:600 11px/1 'Inter',sans-serif;color:#8a95a6}
+    #ee-products .epn-card p{margin:0 0 12px;color:var(--muted);flex:1}
+    #ee-products .epn-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(25,52,93,.07);
+      padding-top:11px;font:700 12px/1 'Inter',sans-serif;color:#8a95a6;transition:color .2s}
+    #ee-products .epn-foot svg{width:14px;height:14px;opacity:0;transform:translateX(-4px);transition:opacity .22s,transform .22s}
+    #ee-products .epn-card:hover .epn-foot{color:var(--orange-700,#B5551D)}
+    #ee-products .epn-card:hover .epn-foot svg{opacity:1;transform:none}
+    #ee-products .epn-card[hidden]{display:none}
+    @media(max-width:1100px){#ee-products .epn-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:860px){#ee-products .epn-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){
+      #ee-products .epn-tabs{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+        -webkit-overflow-scrolling:touch;margin-left:-18px;margin-right:-18px;padding:2px 18px 6px}
+      #ee-products .epn-tabs::-webkit-scrollbar{display:none}
+      /* phones: two cards per row - compact tile, tighter type */
+      #ee-products .epn-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+      #ee-products .epn-card{padding:13px 12px 10px;border-radius:14px}
+      #ee-products .epn-top{gap:9px;margin-bottom:9px}
+      #ee-products .epn-ic{width:34px;height:34px;border-radius:11px}
+      #ee-products .epn-ic svg{width:16px;height:16px}
+      #ee-products .epn-tt b{font-size:12.5px}
+      #ee-products .epn-tt small{font-size:9.5px;margin-top:2px}
+      #ee-products .epn-card p{font-size:11.5px;line-height:1.5;margin-bottom:9px}
+      #ee-products .epn-foot{padding-top:8px;font-size:10.5px}
+      #ee-products .epn-foot svg{opacity:1;transform:none;width:12px;height:12px}
+    }
+    @media(prefers-reduced-motion:reduce){#ee-products .epn-tab,#ee-products .epn-card,#ee-products .epn-foot svg{transition:none}}
+    </style>
+    <header class="epx-head">
+      <h2><a href="/products/" class="epx-hlink">Our Products<span class="ee-h2b">The <span class="eep-accent">All-in-One Admissions Platform</span></span></a></h2>
+      <p>Browse by stage of the admission funnel &mdash; or see everything at once.</p>
+    </header>
+
+    <div class="epn-tabs" role="tablist" aria-label="Product categories">
+      <button type="button" class="epn-tab on" data-g="capture" aria-pressed="true">Capture & Nurture <i>5</i></button>
+      <button type="button" class="epn-tab" data-g="engage" aria-pressed="false">Engage & Communicate <i>5</i></button>
+      <button type="button" class="epn-tab" data-g="convert" aria-pressed="false">Convert & Enroll <i>3</i></button>
+      <button type="button" class="epn-tab" data-g="automate" aria-pressed="false">Automate <i>4</i></button>
+      <button type="button" class="epn-tab" data-g="measure" aria-pressed="false">Measure <i>5</i></button>
+      <button type="button" class="epn-tab" data-g="vidya" aria-pressed="false">Vidya AI <i>5</i></button>
+      <button type="button" class="epn-tab" data-g="essentials" aria-pressed="false">Essentials <i>2</i></button>
+      <button type="button" class="epn-tab" data-g="all" aria-pressed="false">All</button>
+    </div>
+
+    <div class="epn-grid" id="epnGrid">
+      <a class="epn-card" data-g="capture" href="/products/education-crm/">
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Education CRM</b><small>Capture & Nurture</small></span></span>
+        <p>Every enquiry captured into one clean pipeline.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="capture" href="/products/marketing-automation/">
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Marketing Automation</b><small>Capture & Nurture</small></span></span>
+        <p>Campaigns measured to enrolment, not clicks.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="capture" href="/solutions/lead-management/">
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Lead Management</b><small>Capture & Nurture</small></span></span>
+        <p>One student, one timeline - nothing forgotten.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="capture" href="/solutions/lead-scoring/">
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Lead Scoring</b><small>Capture & Nurture</small></span></span>
+        <p>Call the right student first, every time.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="capture" href="/products/journey-builder/">
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Journey Builder</b><small>Capture & Nurture</small></span></span>
+        <p>Design the whole student journey visually.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="engage" href="/products/whatsapp-business-api/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>WhatsApp Business API</b><small>Engage & Communicate</small></span></span>
+        <p>Official API with 98% open rates.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="engage" href="/products/cloud-telephony/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Cloud Telephony &amp; IVR</b><small>Engage & Communicate</small></span></span>
+        <p>Every call recorded on the lead.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="engage" href="/products/email-marketing/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Email &amp; SMS Campaigns</b><small>Engage & Communicate</small></span></span>
+        <p>Sends that fire exactly on stage moves.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="engage" href="/products/education-chatbot/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Education Chatbot</b><small>Engage & Communicate</small></span></span>
+        <p>24&times;7 AI answers in 95+ languages.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="engage" href="/products/mobile-crm/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Mobile CRM</b><small>Engage & Communicate</small></span></span>
+        <p>The whole funnel in your pocket.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="convert" href="/products/application-management-system/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5H3l9-5z"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></svg></span><span class="epn-tt"><b>Application Management (AMS)</b><small>Convert & Enroll</small></span></span>
+        <p>Forms, documents &amp; review on one rail.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="convert" href="/products/payment-enrollment/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5H3l9-5z"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></svg></span><span class="epn-tt"><b>Payment &amp; Enrollment</b><small>Convert & Enroll</small></span></span>
+        <p>Offer letter to fee paid, frictionless.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="convert" href="/solutions/walk-in-management/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5H3l9-5z"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></svg></span><span class="epn-tt"><b>Walk-in Management</b><small>Convert & Enroll</small></span></span>
+        <p>No campus visit ever goes unrecorded.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="automate" href="/products/workflow-automation/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Workflow Automation</b><small>Automate</small></span></span>
+        <p>No-code rules that run admissions.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="automate" href="/products/lead-assignment/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Lead Assignment &amp; Routing</b><small>Automate</small></span></span>
+        <p>The right counsellor, instantly.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="automate" href="/products/task-automation/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Task Automation</b><small>Automate</small></span></span>
+        <p>Worklists that build themselves.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="automate" href="/products/follow-up-automation/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Follow-up Automation</b><small>Automate</small></span></span>
+        <p>No follow-up ever slips again.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="measure" href="/analytics/executive-dashboard/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Executive Dashboard</b><small>Measure</small></span></span>
+        <p>Your whole season on one screen.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="measure" href="/analytics/admission-analytics/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Admission Analytics</b><small>Measure</small></span></span>
+        <p>Every funnel stage, measured live.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="measure" href="/analytics/marketing-analytics/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Marketing Analytics</b><small>Measure</small></span></span>
+        <p>Every rupee tracked to enrolment.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="measure" href="/analytics/funnel-analytics/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Funnel Analytics</b><small>Measure</small></span></span>
+        <p>Find the leak costing you admissions.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="measure" href="/analytics/custom-reports/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Custom Reports</b><small>Measure</small></span></span>
+        <p>Any question, answered in a report.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-ai" target="_blank" rel="noopener" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>Why Vidya AI</b><small>Vidya AI</small></span></span>
+        <p>Meet the agentic AI admission suite.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-gpt" target="_blank" rel="noopener" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaGPT</b><small>Vidya AI</small></span></span>
+        <p>Your 24&times;7 AI chat counsellor.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaAI Voice Agent</b><small>Vidya AI</small></span></span>
+        <p>Calls every new lead in 30 seconds.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-pulse" target="_blank" rel="noopener" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaPulse</b><small>Vidya AI</small></span></span>
+        <p>Live buying-intent scores on every lead.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-waba-gpt" target="_blank" rel="noopener" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaWABA GPT</b><small>Vidya AI</small></span></span>
+        <p>The AI assistant living on WhatsApp.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="essentials" href="/integrations/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7.5 3v6c0 4.2-3.1 8-7.5 9.4C7.6 19.8 4.5 16 4.5 11.8v-6l7.5-3z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="epn-tt"><b>Integrations</b><small>Essentials</small></span></span>
+        <p>50+ tools flowing into one CRM.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="essentials" href="/security/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7.5 3v6c0 4.2-3.1 8-7.5 9.4C7.6 19.8 4.5 16 4.5 11.8v-6l7.5-3z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="epn-tt"><b>Security &amp; Compliance</b><small>Essentials</small></span></span>
+        <p>ISO 27001, GDPR-ready, audit-logged.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+
+    <p class="epn-morewrap"><button type="button" class="epn-more" id="epnMore" hidden>Show all products</button></p>
+    <style>#ee-products .epn-morewrap{text-align:center;margin:18px 0 0}#ee-products .epn-more{font:700 13.5px/1 'Inter',system-ui,sans-serif;color:#19335D;background:#fff;border:1.5px solid rgba(25,52,93,.22);border-radius:999px;padding:12px 26px;cursor:pointer;transition:.2s}#ee-products .epn-more:hover{border-color:#DE6E30;color:#DE6E30;transform:translateY(-1px)}</style>
+    <script>
+    (function(){
+      var tabs=[].slice.call(document.querySelectorAll('#ee-products .epn-tab'));
+      var cards=[].slice.call(document.querySelectorAll('#ee-products .epn-card'));
+      var more=document.getElementById('epnMore');
+      var CAP=8, expanded=false, curG='all';
+      /* the cap keeps the gallery a short directory; every link stays in the
+         DOM (hidden, not removed) so crawlers still see all product pages */
+      function apply(){
+        var shown=0, hiddenCount=0;
+        cards.forEach(function(c){
+          var match=(curG==='all' || c.getAttribute('data-g')===curG);
+          var vis=match && (expanded || shown<CAP);
+          if(match && vis) shown++;
+          if(match && !vis) hiddenCount++;
+          c.hidden=!vis;
+        });
+        if(more){
+          more.hidden = expanded ? true : hiddenCount===0;
+          more.textContent='Show all '+(shown+hiddenCount)+' products';
+        }
+      }
+      tabs.forEach(function(t){
+        t.addEventListener('click',function(){
+          curG=t.getAttribute('data-g'); expanded=false;
+          tabs.forEach(function(x){ var on=x===t; x.classList.toggle('on',on); x.setAttribute('aria-pressed',on?'true':'false'); });
+          apply();
+        });
+      });
+      if(more) more.addEventListener('click',function(){ expanded=true; apply(); });
+      apply();
+    })();
+    </script>
+    <div class="epx-cta">
+      <a href="/products/" class="epx-btn">Explore All Features
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>#ee-solutions{
+  --navy:#19345d; --navy2:#22467c; --orange:#DE6E30; --orange2:#E8843F;
+  --ink:#0f203a; --muted:#5a6b85; --hair:rgba(25,52,93,.09); --bg:#f6f8fc;
+  position:relative; padding:clamp(64px,8vw,104px) 0; background:transparent;
+  font-family:'Inter',system-ui,-apple-system,sans-serif; color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}#ee-solutions *{box-sizing:border-box;}#ee-solutions .ee-container{max-width:1240px;margin:0 auto;padding:0 24px;}#ee-solutions .ee-head{max-width:740px;margin:0 0 clamp(28px,3.6vw,44px);}#ee-solutions .ee-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--orange);margin:0 0 16px;
+}#ee-solutions .ee-eyebrow::before{
+  content:"";width:22px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--orange),var(--orange2));
+}#ee-solutions h2{
+  font-family:'Inter',sans-serif;font-weight:600;
+  font-size:clamp(28px,4vw,40px);line-height:1.12;letter-spacing:-.02em;
+  margin:0 0 14px;color:var(--navy);
+}#ee-solutions .ee-sub{font-size:clamp(15px,1.6vw,17px);line-height:1.6;color:var(--muted);margin:0;}
+/* ---- category-wise bento grid ---- */
+#ee-solutions .solb-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,1.6vw,18px);}
+#ee-solutions .solb-card{position:relative;display:flex;flex-direction:column;border-radius:22px;padding:clamp(20px,2.6vw,30px);overflow:hidden;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;}
+#ee-solutions .solb-card:hover{transform:translateY(-4px);}
+#ee-solutions .solb-a{grid-column:span 7;background:linear-gradient(165deg,#0f2547,#19345d 55%,#22467c);color:#fff;
+  box-shadow:0 30px 70px -30px rgba(25,52,93,.6);}
+#ee-solutions .solb-a::after{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(222,110,48,.5),transparent 65%);filter:blur(10px);pointer-events:none;}
+#ee-solutions .solb-b{grid-column:span 5;background:#fff;border:1px solid var(--hair);
+  box-shadow:0 1px 2px rgba(15,32,58,.04),0 14px 34px -22px rgba(15,32,58,.28);}
+#ee-solutions .solb-b:hover{border-color:rgba(222,110,48,.35);box-shadow:0 24px 48px -24px rgba(25,52,93,.35);}
+#ee-solutions .solb-c{grid-column:span 8;background:var(--bg);border:1px solid var(--hair);
+  box-shadow:0 1px 2px rgba(15,32,58,.04),0 14px 34px -22px rgba(15,32,58,.22);}
+#ee-solutions .solb-c:hover{border-color:rgba(222,110,48,.35);}
+#ee-solutions .solb-d{grid-column:span 4;background:linear-gradient(150deg,var(--orange2),var(--orange) 70%,#C2541C);color:#fff;
+  box-shadow:0 24px 50px -22px rgba(222,110,48,.65);justify-content:center;align-items:flex-start;}
+#ee-solutions .solb-d::after{content:"";position:absolute;left:-60px;bottom:-70px;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.3),transparent 65%);pointer-events:none;}
+#ee-solutions .solb-ghost{position:absolute;right:14px;bottom:-24px;font-family:'Inter',sans-serif;
+  font-weight:800;font-size:clamp(96px,12vw,150px);line-height:.8;pointer-events:none;user-select:none;color:rgba(25,52,93,.05);}
+#ee-solutions .solb-a .solb-ghost{color:rgba(255,255,255,.05);}
+#ee-solutions .solb-tag{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;font-size:11.5px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:6px 14px 6px 10px;margin:0 0 14px;position:relative;z-index:1;
+  color:var(--navy);background:rgba(25,52,93,.06);border:1px solid rgba(25,52,93,.12);}
+#ee-solutions .solb-a .solb-tag{color:#ffd9c2;background:rgba(222,110,48,.18);border-color:rgba(222,110,48,.35);}
+#ee-solutions .solb-tag img.eeimg,#ee-solutions .solb-tag svg{width:16px;height:16px;}
+#ee-solutions .solb-card h3{font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(19px,2.2vw,24px);
+  line-height:1.22;letter-spacing:-.01em;margin:0 0 8px;position:relative;z-index:1;color:var(--navy);}
+#ee-solutions .solb-a h3,#ee-solutions .solb-d h3{color:#fff;}
+#ee-solutions .solb-desc{font-size:14px;line-height:1.55;color:var(--muted);margin:0 0 18px;max-width:52ch;position:relative;z-index:1;}
+#ee-solutions .solb-a .solb-desc{color:rgba(255,255,255,.78);}
+#ee-solutions .solb-d .solb-desc{color:rgba(255,255,255,.9);}
+#ee-solutions .solb-links{display:flex;flex-direction:column;gap:9px;margin-top:auto;position:relative;z-index:1;}
+#ee-solutions .solb-c .solb-links{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+#ee-solutions .solb-link{display:flex;align-items:center;gap:12px;text-decoration:none;border-radius:13px;padding:11px 14px;
+  background:#fff;border:1px solid var(--hair);color:var(--ink);
+  transition:background .25s,border-color .25s,transform .25s,box-shadow .25s;}
+#ee-solutions .solb-link:hover{border-color:rgba(222,110,48,.5);transform:translateX(4px);box-shadow:0 10px 22px -14px rgba(25,52,93,.4);}
+#ee-solutions .solb-link:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}
+#ee-solutions .solb-a .solb-link{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:#fff;}
+#ee-solutions .solb-a .solb-link:hover{background:rgba(255,255,255,.12);border-color:rgba(222,110,48,.5);}
+/* White tick on the orange tile. It used to be an external <img> whose own
+   artwork was dark, so the color:#fff here never reached it - inline SVG
+   takes currentColor. */
+#ee-solutions .solb-chk{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:28px;height:28px;border-radius:9px;
+  background:linear-gradient(160deg,var(--orange),var(--orange2));color:#fff;}
+#ee-solutions .solb-chk svg{color:#fff;}
+#ee-solutions .solb-chk svg path{stroke:#fff;}
+#ee-solutions .solb-chk img.eeimg,#ee-solutions .solb-chk svg{width:15px;height:15px;}
+#ee-solutions .solb-lt{display:flex;flex-direction:column;gap:2px;min-width:0;}
+#ee-solutions .solb-lt b{font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;line-height:1.2;}
+#ee-solutions .solb-lt span{font-size:12.5px;line-height:1.35;color:var(--muted);}
+#ee-solutions .solb-a .solb-lt span{color:rgba(255,255,255,.62);}
+/* Blue row arrows. They used to be an external <img>, which no CSS colour
+   can reach - they are inline SVG now so currentColor drives them. The
+   .solb-a override is gone with them: that card is white since the
+   all-white pass, and a white arrow on it was invisible. */
+#ee-solutions .solb-arr{margin-left:auto;flex-shrink:0;color:#1A5FB4;transition:color .25s,transform .25s;}
+#ee-solutions .solb-a .solb-arr{color:#1A5FB4;}
+#ee-solutions .solb-arr img.eeimg,#ee-solutions .solb-arr svg{width:16px;height:16px;}
+#ee-solutions .solb-link:hover .solb-arr{color:#123F73;transform:translateX(3px);}
+#ee-solutions .solb-a .solb-link:hover .solb-arr{color:#123F73;}
+#ee-solutions .solb-cta{display:inline-flex;align-items:center;gap:9px;position:relative;z-index:1;margin-top:18px;
+  background:#fff;color:var(--orange);font-weight:700;font-size:14.5px;padding:12px 22px;border-radius:999px;text-decoration:none;
+  box-shadow:0 14px 28px -12px rgba(15,32,58,.4);transition:transform .25s,box-shadow .25s;}
+#ee-solutions .solb-cta svg,#ee-solutions .solb-cta img.eeimg{width:16px;height:16px;transition:transform .25s;}
+#ee-solutions .solb-cta:hover{transform:translateY(-2px);}
+#ee-solutions .solb-cta:hover svg{transform:translateX(3px);}
+#ee-solutions .solb-o{grid-column:span 12;background:#fff;border:1px solid var(--hair);}
+#ee-solutions .solb-o:hover{border-color:rgba(222,110,48,.35);box-shadow:0 24px 48px -24px rgba(25,52,93,.35);}
+#ee-solutions .solb-a .solb-links{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+#ee-solutions .solb-o .solb-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;}
+@media (max-width:900px){
+  #ee-solutions .solb-a,#ee-solutions .solb-b,#ee-solutions .solb-c,#ee-solutions .solb-d,#ee-solutions .solb-o{grid-column:span 12;}
+  #ee-solutions .solb-c .solb-links,#ee-solutions .solb-a .solb-links,#ee-solutions .solb-o .solb-links{grid-template-columns:1fr;}
+}
+@media (max-width:560px){
+  #ee-solutions .ee-container{padding:0 18px;}
+  #ee-solutions .solb-card{padding:18px 16px;border-radius:18px;}
+  #ee-solutions .solb-card h3{font-size:18px;}
+  #ee-solutions .solb-desc{font-size:13px;margin-bottom:14px;}
+  #ee-solutions .solb-link{padding:10px 12px;}
+  #ee-solutions .solb-lt b{font-size:13.5px;}
+  #ee-solutions .solb-lt span{font-size:12px;}
+}
+@media (prefers-reduced-motion:reduce){
+  #ee-solutions .solb-card,#ee-solutions .solb-link,#ee-solutions .solb-cta{transition:none;}
+}
+</style>
+<section id="ee-solutions" aria-label="Solutions">
+  <div class="ee-container">
+    <div class="ee-head">
+      <h2>Solutions for every admissions motion</h2>
+      <p class="ee-sub">From first enquiry to confirmed enrolment, ExtraaEdge brings the right workflow to every stage of your admissions journey - explore each category below.</p>
+    </div>
+
+    <style>
+    /* ── Axis explorer: pick how you think about yourself, see your solutions ── */
+    #ee-solutions .sol2{display:grid;grid-template-columns:300px minmax(0,1fr);gap:clamp(14px,1.8vw,22px);align-items:start}
+    #ee-solutions .sol2-nav{display:flex;flex-direction:column;gap:10px;position:sticky;top:96px}
+    #ee-solutions .sol2-ax{display:flex;align-items:flex-start;gap:12px;text-align:left;width:100%;cursor:pointer;
+      background:#fff;border:1px solid var(--hair);border-radius:16px;padding:14px 15px;
+      transition:transform .2s ease,border-color .2s ease,background .25s ease,box-shadow .25s ease}
+    #ee-solutions .sol2-ax:hover{transform:translateX(3px);border-color:rgba(222,110,48,.35)}
+    #ee-solutions .sol2-ax i{display:grid;place-items:center;width:38px;height:38px;flex:0 0 auto;border-radius:12px;
+      background:rgba(25,52,93,.07);color:#19345d;font-style:normal;transition:background .25s,color .25s}
+    #ee-solutions .sol2-ax i svg{width:18px;height:18px}
+    #ee-solutions .sol2-ax b{display:flex;align-items:center;gap:8px;font:700 15px/1.2 'Inter',sans-serif;color:#19345d;transition:color .25s}
+    #ee-solutions .sol2-ax b em{font-style:normal;font-size:10.5px;font-weight:700;min-width:18px;height:18px;display:inline-flex;
+      align-items:center;justify-content:center;padding:0 5px;border-radius:999px;background:rgba(25,52,93,.08);color:#19345d;transition:background .25s,color .25s}
+    #ee-solutions .sol2-ax small{display:block;margin-top:3px;font:500 12px/1.45 'Inter',sans-serif;color:#5a6b85;transition:color .25s}
+    #ee-solutions .sol2-ax.on{background:linear-gradient(160deg,#1b355c,#19345d 60%,#22467c);border-color:#19345d;
+      box-shadow:0 18px 38px -20px rgba(25,52,93,.55)}
+    #ee-solutions .sol2-ax.on:hover{transform:none}
+    #ee-solutions .sol2-ax.on i{background:rgba(222,110,48,.9);color:#fff}
+    #ee-solutions .sol2-ax.on b{color:#fff}
+    #ee-solutions .sol2-ax.on b em{background:rgba(255,255,255,.18);color:#fff}
+    #ee-solutions .sol2-ax.on small{color:#c6d4ea}
+    #ee-solutions .sol2-panel{background:#fff;border:1px solid var(--hair);border-radius:20px;padding:clamp(18px,2.2vw,26px);
+      box-shadow:0 24px 60px -44px rgba(25,52,93,.5)}
+    #ee-solutions .sol2-pane[hidden]{display:none}
+    #ee-solutions .sol2-ph{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 4px}
+    #ee-solutions .sol2-ph h3{margin:0;color:#19345d}
+    #ee-solutions .sol2-plead{margin:6px 0 16px;color:#5a6b85}
+    #ee-solutions .sol2-rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+    #ee-solutions .sol2-row{display:flex;align-items:flex-start;gap:11px;background:#FBFCFE;border:1px solid var(--hair);
+      border-radius:13px;padding:12px 13px;text-decoration:none;transition:transform .2s,border-color .2s,background .2s,box-shadow .2s}
+    #ee-solutions .sol2-row:hover{transform:translateY(-2px);background:#fff;border-color:rgba(222,110,48,.35);
+      box-shadow:0 16px 34px -24px rgba(25,52,93,.45)}
+    #ee-solutions .sol2-chk{display:grid;place-items:center;width:20px;height:20px;flex:0 0 auto;margin-top:1px;border-radius:50%;
+      background:rgba(222,110,48,.12);color:var(--orange-700,#B5551D)}
+    #ee-solutions .sol2-chk svg{width:11px;height:11px}
+    #ee-solutions .sol2-rt{min-width:0;flex:1}
+    #ee-solutions .sol2-rt b{display:block;font:700 13.5px/1.3 'Inter',sans-serif;color:#19345d}
+    #ee-solutions .sol2-rt span{display:block;margin-top:2px;font:500 12px/1.45 'Inter',sans-serif;color:#5a6b85}
+    #ee-solutions .sol2-arr{flex:0 0 auto;align-self:center;color:var(--orange-700,#B5551D);opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s}
+    #ee-solutions .sol2-arr svg{width:15px;height:15px}
+    #ee-solutions .sol2-row:hover .sol2-arr{opacity:1;transform:none}
+    #ee-solutions .sol2-foot{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;padding-top:14px;
+      border-top:1px solid rgba(25,52,93,.07);font:600 13px/1 'Inter',sans-serif;color:#5a6b85;flex-wrap:wrap;text-align:center}
+    #ee-solutions .sol2-foot a{color:var(--orange-700,#B5551D);font-weight:700;text-decoration:none}
+    #ee-solutions .sol2-foot a:hover{text-decoration:underline}
+    @media(max-width:960px){
+      #ee-solutions .sol2{grid-template-columns:1fr}
+      #ee-solutions .sol2-nav{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+        margin:0 -18px;padding:2px 18px 8px}
+      #ee-solutions .sol2-nav::-webkit-scrollbar{display:none}
+      #ee-solutions .sol2-ax{flex:0 0 auto;width:auto;align-items:center;padding:10px 14px;border-radius:999px;gap:9px}
+      #ee-solutions .sol2-ax:hover{transform:none}
+      #ee-solutions .sol2-ax i{width:28px;height:28px;border-radius:9px}
+      #ee-solutions .sol2-ax i svg{width:14px;height:14px}
+      #ee-solutions .sol2-ax b{font-size:13px;white-space:nowrap}
+      #ee-solutions .sol2-ax small{display:none}
+      #ee-solutions .sol2-rows{grid-template-columns:1fr}
+      #ee-solutions .sol2-panel{padding:14px;border-radius:16px}
+      #ee-solutions .sol2-arr{opacity:1;transform:none}
+    }
+    @media(prefers-reduced-motion:reduce){#ee-solutions .sol2-ax,#ee-solutions .sol2-row,#ee-solutions .sol2-arr{transition:none}}
+    </style>
+    <div class="sol2">
+      <div class="sol2-nav" role="tablist" aria-label="Solution categories">
+        <button type="button" class="sol2-ax on" data-ax="usecase" aria-pressed="true"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 109 9"/><path d="M12 8a4 4 0 104 4"/><path d="M12 12l5-5"/><path d="M15 4l3 3"/></svg></i><span><b>By Use Case <em>7</em></b><small>Pick the job to be done</small></span></button>
+        <button type="button" class="sol2-ax" data-ax="team" aria-pressed="false"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0111 0M16 4.5a3.2 3.2 0 010 7M17.5 14.6a5.5 5.5 0 013 5.4"/></svg></i><span><b>By Team <em>6</em></b><small>Views for every role</small></span></button>
+        <button type="button" class="sol2-ax" data-ax="outcome" aria-pressed="false"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></i><span><b>By Outcome <em>6</em></b><small>Results that compound</small></span></button>
+      </div>
+      <div class="sol2-panel">
+        <div class="sol2-pane" data-ax="usecase">
+          <div class="sol2-ph"><h3>Pick the job to be done</h3></div>
+          <p class="sol2-plead">Seven admission motions, each with its own playbook - from first enquiry to fee paid.</p>
+          <div class="sol2-rows">
+            <a class="sol2-row" href="/use-case/admission-management/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Admission Management</b><span>Track every applicant in one live pipeline</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/use-case/enrollment-management/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Enrollment Management</b><span>Move offers to enrolled &amp; fee-paid, faster</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/use-case/student-recruitment/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Student Recruitment</b><span>Source verified enquiries from every channel</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/use-case/lead-nurturing/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Lead Nurturing</b><span>Automated drips across WhatsApp, email &amp; SMS</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/use-case/student-engagement/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Student Engagement</b><span>Keep every admit warm to day one</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/use-case/event-management/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Event Management</b><span>Webinars &amp; fairs that fill themselves</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/use-case/application-processing/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Application Processing</b><span>Forms, docs &amp; fees on one rail</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          </div>
+        </div>
+        <div class="sol2-pane" data-ax="team" hidden>
+          <div class="sol2-ph"><h3>Every team&rsquo;s own workspace</h3></div>
+          <p class="sol2-plead">Purpose-built views and workflows for everyone who touches admissions.</p>
+          <div class="sol2-rows">
+            <a class="sol2-row" href="/solutions/admissions/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Admission Teams</b><span>The team&rsquo;s whole day on one queue</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/counselors/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Counselors</b><span>A calmer, sharper daily list</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/marketing/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Marketing Teams</b><span>Campaigns measured to enrolment</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/sales/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Sales Teams</b><span>Close more with less chasing</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/call-center/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Call Centre</b><span>AI-first calling that never sleeps</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/management/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Leadership</b><span>Live numbers across campuses</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          </div>
+        </div>
+        <div class="sol2-pane" data-ax="outcome" hidden>
+          <div class="sol2-ph"><h3>The results institutions switch for</h3></div>
+          <p class="sol2-plead">Every capability on this platform exists for these six numbers.</p>
+          <div class="sol2-rows">
+            <a class="sol2-row" href="/solutions/increase-admissions/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Increase Admissions</b><span>More seats, same team &amp; budget</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/improve-conversion/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Improve Conversion Rate</b><span>+37% measured across institutions</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/faster-follow-ups/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Faster Follow-ups</b><span>Hours of delay down to 30 sec</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/reduce-manual-work/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Reduce Manual Work</b><span>Hours back every single week</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/increase-roi/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Increase Marketing ROI</b><span>More enrolments per rupee spent</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/better-student-experience/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Better Student Experience</b><span>Admissions students actually enjoy</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          </div>
+        </div>
+        <div class="sol2-foot">Not sure which solution fits? <a href="#admission-form">Book a 45-minute demo</a> &mdash; we&rsquo;ll map the right workflow on your own funnel.</div>
+      </div>
+    </div>
+      <script>
+      (function(){
+        var axes=[].slice.call(document.querySelectorAll('#ee-solutions .sol2-ax'));
+        var panes=[].slice.call(document.querySelectorAll('#ee-solutions .sol2-pane'));
+        axes.forEach(function(a){
+          a.addEventListener('click',function(){
+            var k=a.getAttribute('data-ax');
+            axes.forEach(function(x){ var on=x===a; x.classList.toggle('on',on); x.setAttribute('aria-pressed',on?'true':'false'); });
+            panes.forEach(function(p){ p.hidden=(p.getAttribute('data-ax')!==k); });
+          });
+        });
+      })();
+      </script>
+  </div>
+</section>
 
 <!-- ===================== RESOURCES / EVENTS (added) ===================== -->
 <style>#ee-resources{
@@ -5038,27 +5145,6 @@ if ($ee_blog_posts) : ?>
 </section>
 <?php endif; ?>
 
-<section class="sec sec--soft" id="faq">
-  <div class="container">
-    <div class="head rv">
-      <h2 class="h2">Everything you need to know about <span class="grad-o">ExtraaEdge.</span></h2>
-    </div>
-    <div class="faq rv">
-      <div class="qa"><button aria-expanded="false"><span>What is ExtraaEdge?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge is an AI-powered Admission CRM purpose-built for educational institutions - schools, colleges, universities and edtech companies. It automates lead capture, scores intent, triggers smart follow-ups and gives counsellors real-time performance intelligence.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>How does ExtraaEdge help convert more students?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge prioritises high-intent leads with AI scoring, responds to every enquiry in minutes with AI calling and WhatsApp automation, and tells counsellors exactly who to follow up with next - reducing response time by up to 90% and boosting conversions by up to 48%.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>Does ExtraaEdge offer a free demo?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. You can book a free personalised 45-minute demo. A product expert will walk you through the platform live with data relevant to your sector.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>Is ExtraaEdge suitable for small colleges?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge serves institutions from single-campus colleges to large university groups processing 100,000+ applications per cycle. Pricing and features scale to your needs.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>What AI features does ExtraaEdge offer?</span><span class="ic">+</span></button><div class="qa__a"><p>AI Lead Intent Scoring, AI Calling at scale via VidyaAI, Smart Follow-up Automation, WhatsApp Business API engagement and Counsellor Performance Intelligence - all powered by ExtraaEdge's proprietary Admission Intelligence engine.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>Will ExtraaEdge work with my existing ads and website?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge captures leads automatically from Meta &amp; Google Ads, your website and landing pages, education portals (Shiksha, Collegedunia), WhatsApp, IVR and more - so every enquiry lands in one place with full source tracking. It also connects to your ERP/SIS, payment gateway and telephony.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>How long does it take to go live?</span><span class="ic">+</span></button><div class="qa__a"><p>Most institutions go live in around 14 days. That includes data migration, integrations (ads, website, WhatsApp, telephony), workflow set-up and counsellor training - with a dedicated onboarding specialist and Customer Success Manager.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>Does VidyaGPT support regional languages?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. VidyaGPT understands and responds in 95+ languages including Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, Gujarati and more - over chat and on AI voice calls - so you can engage every student in their preferred language.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>Is my data secure with ExtraaEdge?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge is ISO 27001 certified and GDPR compliant, with India-based data residency, role-based access controls, encryption and full audit trails - enterprise-grade protection for your institution and applicants.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>How does pricing work?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge uses simple, transparent product-based pricing - not module-based pricing that adds cost every time you scale. Your demo includes a tailored quote based on your enquiry volume and the modules you need, with no hidden third-party charges.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>Can I migrate from my existing CRM or spreadsheets?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. Our team handles full data migration from your existing CRM or spreadsheets - leads, history, sources and stages - as part of onboarding, so you go live without losing any data.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>Will my counsellors actually adopt it?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge is a single-window CRM designed around the admissions team, so it's quick to learn even for non-technical counsellors. Every account gets hands-on training, on-ground support and a dedicated Customer Success Manager to drive adoption.</p></div></div>
-    </div>
-  </div>
-</section>
 
 <!-- ===================== LEAD MAGNET ===================== -->
 <!-- (final CTA section removed - every Book-a-Demo link goes to the hero form #admission-form) -->
@@ -5256,6 +5342,46 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}/* Anchor jumps land be
   }
 </style>
 <div id="ee-progress" aria-hidden="true"></div>
+<!-- ===================== MOBILE STICKY DEMO PILL (slim, dismissible) ===================== -->
+<style>
+  #ee-stickcta{position:fixed;left:50%;transform:translateX(-50%) translateY(80px);bottom:12px;z-index:9040;
+    display:none;align-items:center;gap:6px;opacity:0;transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .35s}
+  #ee-stickcta.show{transform:translateX(-50%) translateY(0);opacity:1}
+  #ee-stickcta .go{display:inline-flex;align-items:center;gap:8px;background:#DE6E30;color:#fff;text-decoration:none;
+    font:700 13.5px/1 'Inter',system-ui,sans-serif;padding:12px 22px;border-radius:999px;
+    box-shadow:0 12px 30px -8px rgba(222,110,48,.7),0 2px 0 rgba(0,0,0,.06);white-space:nowrap}
+  #ee-stickcta .zap{display:inline-flex;width:14px;height:14px}
+  #ee-stickcta .off{width:26px;height:26px;border:0;border-radius:50%;background:rgba(25,52,93,.85);color:#fff;
+    font-size:12px;line-height:1;cursor:pointer;display:grid;place-items:center;box-shadow:0 6px 16px -6px rgba(25,52,93,.6)}
+  @media(min-width:821px){#ee-stickcta{display:none!important}}
+  body.eedd-on #ee-stickcta{opacity:0;pointer-events:none}
+</style>
+<div id="ee-stickcta" role="complementary" aria-label="Book a demo">
+  <a class="go" href="#admission-form"><span class="zap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4.1 12.6h6L9.9 22 19 11.4h-6L13 2z"/></svg></span>Book a Free Demo</a>
+  <button type="button" class="off" aria-label="Hide this bar">&#10005;</button>
+</div>
+<script>
+(function(){
+  var p=document.getElementById('ee-stickcta'); if(!p) return;
+  var mob=window.matchMedia('(max-width:820px)');
+  try{ if(sessionStorage.getItem('eeStickOff')==='1') return; }catch(e){}
+  p.style.display='flex';
+  var shown=false;
+  function onScroll(){
+    if(!mob.matches){ p.classList.remove('show'); return; }
+    /* scrollY is immune to the body zoom that skews element rects */
+    var past=window.scrollY > Math.min(window.innerHeight*1.2, 900);
+    if(past!==shown){ shown=past; p.classList.toggle('show',past); }
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+  p.querySelector('.off').addEventListener('click',function(){
+    p.classList.remove('show');
+    setTimeout(function(){ p.style.display='none'; },350);
+    try{ sessionStorage.setItem('eeStickOff','1'); }catch(e){}
+  });
+})();
+</script>
 <script>
 (function(){
   /* ---- scroll progress bar ---- */
@@ -5529,26 +5655,10 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
    like mine" -> decision tools (comparison + ROI) -> objection handling
    (integrations, security, fast go-live, easy switch) -> nurture ->
    final objections (FAQ) -> footer CTA. */
-.ee-home{display:flex;flex-direction:column}
-.ee-home>#ee-toc{order:-1}
-.ee-home>#xhero{order:10}                 /* Attention: value prop + lead form */
-.ee-home>#trusted-institutions{order:20}  /* Instant social proof */
-.ee-home>#ee-why{order:30}                /* Positioning: why ExtraaEdge */
-.ee-home>#ee-platform{order:40}           /* Show, don't tell: live demo */
-.ee-home>#ee-rfa{order:50}                /* Speed-to-lead differentiator */
-.ee-home>#vidyaai-embed-root{order:55}    /* Powerful CRM with simplicity */
-.ee-home>#ee-products{order:70}           /* Full platform / modules */
-.ee-home>#ee-vidya-suite{order:80}        /* AI differentiator */
-.ee-home>#ee-solutions{order:100}         /* Relevance: solutions */
-.ee-home>#ee-ind{order:110}               /* Relevance: industries */
-.ee-home>#stories{order:120}              /* Proof: impact stories */
-.ee-home>#ee-cro{order:130}               /* Decision: comparison + ROI */
-.ee-home>#integrations{order:140}         /* Objection: fits your stack */
-.ee-home>#security{order:150}             /* Objection: enterprise trust */
-.ee-home>#ee-golive{order:160}            /* Objection: fast go-live */
-.ee-home>#ee-switch{order:170}            /* Objection: easy switch */
-.ee-home>#ee-resources{order:180}         /* Nurture the not-ready */
-.ee-home>#faq{order:190}                  /* Final objections */
+/* The flex-order remap is retired: since the 2026-08-10 CRO pass the DOM
+   itself carries the funnel order (hero -> proof -> narrative -> product ->
+   stories -> differentiation -> decision -> objections -> ask -> directory),
+   so source order, reading order, tab order and SEO order all agree. */
 </style>
 
 <script>
