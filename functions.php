@@ -7379,6 +7379,7 @@ add_action('template_redirect', function () {
         'vidyaai'    => array('file' => 'page-vidyaai.php',     'title' => 'VidyaAI — The 24/7 AI Admission Agent'),
         'videos'     => array('file' => 'page-videos.php',      'title' => 'Videos'),
         'product-tour' => array('file' => 'page-platform.php',  'title' => 'Product Tour'),
+        'thank-you'  => array('file' => 'page-thank-you.php',  'title' => 'Thank You'),
     );
 
     /* Add a body class on any custom-routed landing page so the global
