@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-10-trim2 -->
+<!-- ee-front-tpl v2026-08-10-trim3 -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1516,8 +1516,7 @@ ee_platform_section(); ?>
     </div>
 
     <div class="cis-cta">
-      <a class="cis-btn primary" href="#admission-form">Get results like these - Book a Free Demo</a>
-      <a class="cis-btn ghost" href="/videos/customer-stories/">View All Customer Stories <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-03.svg" alt="" loading="lazy" decoding="async"></a>
+      <a class="cis-btn primary" href="/videos/customer-stories/">View All Customer Stories <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/stories-icon-03.svg" alt="" loading="lazy" decoding="async"></a>
     </div>
   </div>
 </section>
@@ -3715,8 +3714,6 @@ section#stories{background:linear-gradient(180deg,#1c3966 0%,#19335D 46%,#132845
 #stories .cis-btn svg,#stories .cis-btn img.eeimg{width:18px;height:18px;fill:currentColor}
 #stories .cis-btn.primary{background:#DE6E30;color:#fff;box-shadow:0 10px 26px rgba(222,110,48,.4)}
 #stories .cis-btn.primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(222,110,48,.5)}
-#stories .cis-btn.ghost{border:1.5px solid rgba(25,52,93,.25);color:#19335D}
-#stories .cis-btn.ghost:hover{border-color:#DE6E30;color:#DE6E30;transform:translateY(-2px)}
 /* ---- reveal: cards rise in when the section is reached (JS-gated) ---- */
 #stories.cis-anim .cis-card{opacity:0;transform:translateY(26px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
 #stories.cis-anim .cis-card:nth-child(2){transition-delay:.1s}
