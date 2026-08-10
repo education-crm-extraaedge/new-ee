@@ -7852,7 +7852,8 @@ add_action('template_redirect', function () {
        template, content from the registry. Claimed ONLY when WordPress found
        nothing at the path (is_404), so a real Page or CPT post published on
        the same URL later always wins without touching code. */
-    if (!isset($ee_custom_routes[$path]) && is_404()) {
+    $ee_sp_owned = (strpos($path, 'use-case/') === 0); /* namespace with no CPT behind it */
+    if (!isset($ee_custom_routes[$path]) && (is_404() || $ee_sp_owned)) {
         $spfile = get_stylesheet_directory() . '/inc/site-pages.php';
         if (!file_exists($spfile)) $spfile = get_template_directory() . '/inc/site-pages.php';
         if (file_exists($spfile)) {
