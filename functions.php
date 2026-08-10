@@ -7379,7 +7379,7 @@ add_action('template_redirect', function () {
         'vidyaai'    => array('file' => 'page-vidyaai.php',     'title' => 'VidyaAI — The 24/7 AI Admission Agent'),
         'videos'     => array('file' => 'page-videos.php',      'title' => 'Videos'),
         'product-tour' => array('file' => 'page-platform.php',  'title' => 'Product Tour'),
-        'thank-you'  => array('file' => 'page-thank-you.php',  'title' => 'Thank You'),
+        'book-a-demo' => array('file' => 'page-book-demo.php', 'title' => 'Book a Demo'),
     );
 
     /* Add a body class on any custom-routed landing page so the global
@@ -7401,6 +7401,7 @@ add_action('template_redirect', function () {
         'customer'  => '/videos/customer-stories/',
         'customers' => '/videos/customer-stories/',
         'customer-success-stories' => '/videos/customer-stories/',
+        'book-demo' => '/book-a-demo/',
     );
     if (isset($ee_singular_redirects[$path])) {
         wp_safe_redirect(home_url($ee_singular_redirects[$path]), 301);

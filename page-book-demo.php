@@ -1,10 +1,9 @@
 <?php
 /**
- * page-thank-you.php — /thank-you/ split landing.
+ * page-book-demo.php — /book-a-demo/ split landing.
  *
  * Left: navy proof panel (Dr Umesh Patwardhan story, badges, brands).
- * Right: thank-you confirmation + the Quick Enquiry form widget, so a
- * visitor who lands here directly can still book a demo.
+ * Right: Book-a-demo headline + the Quick Enquiry form widget.
  *
  * Routed via $ee_custom_routes in functions.php.
  *
@@ -12,14 +11,9 @@
  */
 if (!defined('ABSPATH')) exit;
 
-/* conversion endpoint - keep it out of search results */
-add_action('wp_head', function () {
-    echo '<meta name="robots" content="noindex, follow">' . "\n";
-}, 4);
-
 get_header();
 ?>
-<!-- ee-thankyou-tpl v2026-08-10-split -->
+<!-- ee-bookdemo-tpl v2026-08-10-split -->
 <style>
   #ee-ty{--nv:#19335D;--nv2:#2A4E85;--or:#DE6E30;--or7:#B5551D;--mut:#5a6b85;--line:rgba(25,52,93,.12);
     font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#fff}
@@ -77,7 +71,7 @@ get_header();
   }
 </style>
 
-<section id="ee-ty" aria-label="Thank you">
+<section id="ee-ty" aria-label="Book a demo">
   <div class="ty-grid">
 
     <div class="ty-l">
@@ -106,9 +100,8 @@ get_header();
     </div>
 
     <div class="ty-r">
-      <span class="ty-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg> Details received &mdash; our team will reach out within one working day</span>
-      <h1 class="ty-h1"><em>Thank you</em> for reaching out!</h1>
-      <p class="ty-lead">Empower your admissions and marketing teams with ExtraaEdge CRM software. Want to add anything or book for a colleague? Use the quick enquiry below.</p>
+      <h1 class="ty-h1"><em>Book</em> a demo</h1>
+      <p class="ty-lead">Empower your admissions and marketing teams with ExtraaEdge CRM software.</p>
 
       <div class="ty-card">
         <h3>Quick Enquiry</h3>
