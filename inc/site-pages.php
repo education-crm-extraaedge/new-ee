@@ -78,6 +78,16 @@ function ee_site_page_groups() {
             'stats' => array('37%|Higher conversions', '12x|Faster response', '46%|Lower cost/enrol', '4.2 Cr|Revenue influenced'),
             'cta'   => 'Get this outcome for your institution',
         ),
+        'communication' => array(
+            'label' => 'Communication',
+            'steps' => array(
+                'Connect your channels|Chatbot, WhatsApp, calling, email and SMS - live in days.',
+                'Let AI answer first|Every enquiry gets an instant, accurate reply 24x7.',
+                'Converse from the CRM|Every message logged on the student, whoever sent it.',
+            ),
+            'stats' => array('98%|WhatsApp open rate', '30 sec|First response', '95+|Languages', '24x7|Always on'),
+            'cta'   => 'See every channel working together',
+        ),
         'proof' => array(
             'label' => 'Customer Proof',
             'steps' => null,
@@ -181,6 +191,116 @@ function ee_site_pages() {
             'Open API|Anything we don\'t ship, your team can connect through the API.',
         )),
 
+    'products/automation' => array('g' => 'automation', 't' => 'Automation',
+        'h1' => 'The Automation Suite for Admissions',
+        'sub' => 'Workflows, journeys, assignment, routing, tasks and follow-ups - six engines that keep every lead moving without manual effort.',
+        'f' => array(
+            'Workflow Automation|No-code rules that assign, nurture, escalate and notify.',
+            'Journey Builder|The whole student journey on one visual canvas.',
+            'Lead Assignment|Every enquiry owned by the right counsellor instantly.',
+            'Lead Routing|Every source flowing into the right queue, deduped.',
+            'Task Automation|Worklists that build, rank and close themselves.',
+            'Follow-up Automation|No promised call or silent student ever slips.',
+        )),
+    'products/marketing-automation' => array('g' => 'communication', 't' => 'Marketing Automation',
+        'h1' => 'Campaigns That Convert to Enrolments',
+        'sub' => 'Segmented email, SMS and WhatsApp campaigns wired to your funnel - personalised at scale and measured to admission, not clicks.',
+        'f' => array(
+            'Smart segments|Target by course, stage, source, geography or behaviour.',
+            'Multi-channel sends|Email, SMS and WhatsApp from one composer.',
+            'Trigger campaigns|Messages that fire on stage moves and signals.',
+            'Personalisation|Name, course and deadline merge in automatically.',
+            'A/B testing|Let the better message win, automatically.',
+            'Enrolment attribution|Every campaign measured to seats filled.',
+        )),
+    'products/payment-enrollment' => array('g' => 'automation', 't' => 'Payment & Enrollment',
+        'h1' => 'From Offer to Fee Paid, Frictionless',
+        'sub' => 'Application and admission fees collected inside the funnel - payment links, gateways, reminders and receipts, reconciled per student.',
+        'f' => array(
+            'Payment links in-flow|Send collect links on WhatsApp, email or SMS.',
+            'Gateway choice|Razorpay, Easebuzz, PayU and more, prewired.',
+            'Auto reminders|Polite fee nudges until the payment lands.',
+            'Instant reconciliation|Every payment tied to the right student.',
+            'Receipts & records|Automatic acknowledgements, full history.',
+            'Enrolment trigger|A paid fee moves the student forward on its own.',
+        )),
+    'security' => array('g' => 'security', 't' => 'Security',
+        'h1' => 'Enterprise-Grade Trust, Built In',
+        'sub' => 'Roles, permissions, audit trails, hardened infrastructure and certifications - the complete security posture your institution\'s data deserves.',
+        'f' => array(
+            'Role Management|The right access for every role, in minutes.',
+            'Permissions|Granular control down to a single field.',
+            'Audit Logs|Every view, edit and export on the record.',
+            'Data Security|Encryption everywhere, India data residency.',
+            'Compliance|ISO 27001 certified and GDPR-ready.',
+            'Reliability|99.9% uptime with 24x7 monitoring.',
+        )),
+    'products/communication' => array('g' => 'communication', 't' => 'Communication',
+        'h1' => 'Every Channel. One Conversation.',
+        'sub' => 'Chatbot, WhatsApp, telephony, IVR, email and SMS - every student conversation from one place, logged on one timeline.',
+        'f' => array(
+            'Education Chatbot|24x7 AI answers on your website and WhatsApp.',
+            'WhatsApp Business API|Official, verified, journey-connected.',
+            'Cloud Telephony|Click-to-call with recordings on the lead.',
+            'IVR|Inbound callers routed right, every time.',
+            'Email & SMS|Campaigns and triggers from the same composer.',
+            'Mobile CRM|The whole conversation in your pocket.',
+        )),
+    'products/education-chatbot' => array('g' => 'communication', 't' => 'Education Chatbot',
+        'h1' => 'The Counsellor That Never Logs Off',
+        'sub' => 'An AI chatbot trained on your courses, fees and deadlines - answering on your website and WhatsApp in 95+ languages, 24x7.',
+        'f' => array(
+            'Answers instantly|Fees, courses, scholarships, deadlines - solved in seconds.',
+            'Your knowledge|Trained on your programmes, not generic replies.',
+            '95+ languages|Students ask in their language, it answers in kind.',
+            'Lead capture|Every chat becomes a qualified lead in the CRM.',
+            'Human handoff|Hot conversations route to counsellors with context.',
+            'Always learning|Every season makes it sharper.',
+        )),
+    'products/whatsapp-business-api' => array('g' => 'communication', 't' => 'WhatsApp Business API',
+        'h1' => 'Official WhatsApp for Admissions',
+        'sub' => 'Verified sender, 98% open rates, rich templates and real two-way threads - every message logged on the student\'s timeline.',
+        'f' => array(
+            'Official API|Green-tick verified, zero ban risk.',
+            'Rich broadcasts|Brochures, forms and payment links in-thread.',
+            'Auto-replies|Course and fee questions answered instantly, 24x7.',
+            'Two-way threads|Real conversations, routed to counsellors when needed.',
+            'Journey-connected|WhatsApp steps inside your nurture flows.',
+            'CRM-logged|Every message on the lead, forever.',
+        )),
+    'products/cloud-telephony' => array('g' => 'communication', 't' => 'Cloud Telephony',
+        'h1' => 'Every Call, Connected to the Lead',
+        'sub' => 'Click-to-call from the CRM, automatic recording and logging, and smart routing - telephony that behaves like part of the funnel.',
+        'f' => array(
+            'Click-to-call|Dial from the lead card - no number juggling.',
+            'Auto-logging|Duration, outcome and recording saved on the student.',
+            'Call recording|Review and coach on real conversations.',
+            'Smart routing|Inbound calls reach the right counsellor.',
+            'Missed-call capture|Every missed call becomes a follow-up task.',
+            'Provider choice|Exotel, Knowlarity and more, prewired.',
+        )),
+    'products/email-marketing' => array('g' => 'communication', 't' => 'Email Marketing',
+        'h1' => 'Email That Students Actually Open',
+        'sub' => 'Beautiful templates, smart segments and trigger-based sends - admission email measured to enrolment, not opens.',
+        'f' => array(
+            'Drag-drop templates|On-brand emails without a designer.',
+            'Smart segments|Course, stage and behaviour targeting.',
+            'Trigger sends|Emails that fire exactly when a lead acts.',
+            'Deliverability|SendGrid, MSG91, Netcore - prewired and warmed.',
+            'A/B testing|Subject lines that earn their opens.',
+            'Enrolment tracking|Every campaign measured to admissions.',
+        )),
+    'products/sms-marketing' => array('g' => 'communication', 't' => 'SMS Marketing',
+        'h1' => 'The Channel That Always Gets Read',
+        'sub' => 'Transactional and campaign SMS with sender IDs, DLT compliance and CRM logging - the reliable nudge in every journey.',
+        'f' => array(
+            'Campaign SMS|Segmented sends from the CRM composer.',
+            'Transactional SMS|OTPs, confirmations and fee alerts, instant.',
+            'DLT compliant|Templates and sender IDs handled properly.',
+            'Journey steps|SMS nudges inside automated flows.',
+            'Link tracking|Know who clicked, feed it to scoring.',
+            'CRM-logged|Every SMS on the student timeline.',
+        )),
     /* ── SECURITY (security/*) ───────────────────────────────────────── */
     'security/role-management' => array('g' => 'security', 't' => 'Role Management',
         'h1' => 'The Right Access for Every Role',
@@ -239,6 +359,17 @@ function ee_site_pages() {
         )),
 
     /* ── ANALYTICS (analytics/*) ─────────────────────────────────────── */
+    'products/analytics' => array('g' => 'analytics', 't' => 'Analytics',
+        'h1' => 'Decide on Numbers, Not Anecdotes',
+        'sub' => 'Six analytics products over one live data model - from the executive dashboard to custom reports, every admission answer is a click away.',
+        'f' => array(
+            'Executive Dashboard|The whole season on one live screen.',
+            'Admission Analytics|Every funnel stage measured and moving.',
+            'Marketing Analytics|Every rupee tracked to enrolment.',
+            'Lead Analytics|Quality, intent and outcome per lead.',
+            'Funnel Analytics|Find the leak costing you admissions.',
+            'Custom Reports|Any question, answered and scheduled.',
+        )),
     'analytics/executive-dashboard' => array('g' => 'analytics', 't' => 'Executive Dashboard',
         'h1' => 'Your Whole Admission Season, One Screen',
         'sub' => 'The numbers a director actually asks for - enquiries, conversions, cost, revenue and team output - live, not in next week\'s deck.',
@@ -744,6 +875,11 @@ function ee_site_pages_with_aliases() {
     $p = ee_site_pages();
     $p['become-a-partner'] = $p['partners'];
     $p['get-in-touch']     = $p['contact'];
+    $p['integrations']     = $p['products/integrations'];
+    foreach (array('executive-dashboard','admission-analytics','marketing-analytics',
+                   'lead-analytics','funnel-analytics','custom-reports') as $ee_an) {
+        $p['products/' . $ee_an] = $p['analytics/' . $ee_an];
+    }
     return $p;
 }
 

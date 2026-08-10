@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-vidya-links -->
+<!-- ee-front-tpl v2026-08-08-products-links -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -2505,8 +2505,11 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
 <section id="ee-products" aria-label="Our products">
   <div class="epx-wrap">
 
+    <style>#ee-products .epx-hlink,#ee-products .epx-card h3 a{color:inherit;text-decoration:none;transition:color .2s ease}
+    #ee-products .epx-card h3 a:hover,#ee-products .epx-hlink:hover .eep-accent{color:#C45A20}
+    #ee-products .epx-card h3 a:focus-visible,#ee-products .epx-hlink:focus-visible{outline:2px solid #DE6E30;outline-offset:3px}</style>
     <header class="epx-head">
-      <h2>Our Products<span class="ee-h2b">The <span class="eep-accent">All-in-One Admissions Platform</span></span></h2>
+      <h2><a href="/products/" class="epx-hlink">Our Products<span class="ee-h2b">The <span class="eep-accent">All-in-One Admissions Platform</span></span></a></h2>
       <p>Everything you need to attract, engage, enroll, and retain students &mdash; powered by AI and built for education.</p>
     </header>
 
@@ -2518,15 +2521,15 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
           </div>
           <ul class="epx-list">
             <li><a href="/products/education-crm/">Education CRM</a></li>
-            <li><a href="/products/">Marketing Automation</a></li>
+            <li><a href="/products/marketing-automation/">Marketing Automation</a></li>
             <li><a href="/products/application-management-system/">Application Management System (AMS)</a></li>
-            <li><span>Payment &amp; Enrollment</span></li>
+            <li><a href="/products/payment-enrollment/">Payment &amp; Enrollment</a></li>
           </ul>
         </article>
         <article class="epx-card">
           <div class="epx-top">
             <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span>
-            <h3>Automation</h3>
+            <h3><a href="/products/automation/">Automation</a></h3>
           </div>
           <ul class="epx-list">
             <li><a href="/products/workflow-automation/">Workflow Automation</a></li>
@@ -2540,20 +2543,20 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
         <article class="epx-card epx-card--hero">
           <div class="epx-top">
             <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span>
-            <h3>Vidya AI Suite</h3><span class="epx-ai" aria-hidden="true">AI</span>
+            <h3><a href="https://getvidya.ai/vidya-ai" target="_blank" rel="noopener">Vidya AI Suite</a></h3><span class="epx-ai" aria-hidden="true">AI</span>
           </div>
           <ul class="epx-list">
-            <li><span>VidyaGPT</span></li>
-            <li><span>VidyaAI Voice Agent</span></li>
-            <li><span>VidyaPulse</span></li>
-            <li><span>VidyaWABA GPT</span></li>
-            <li><span>Vidya Work <span class="epx-soon">Upcoming</span></span></li>
+            <li><a href="https://getvidya.ai/vidya-gpt" target="_blank" rel="noopener">VidyaGPT</a></li>
+            <li><a href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener">VidyaAI Voice Agent</a></li>
+            <li><a href="https://getvidya.ai/vidya-pulse" target="_blank" rel="noopener">VidyaPulse</a></li>
+            <li><a href="https://getvidya.ai/vidya-waba-gpt" target="_blank" rel="noopener">VidyaWABA GPT</a></li>
+            <li><a href="https://getvidya.ai/vidya-work" target="_blank" rel="noopener">Vidya Work <span class="epx-soon">Upcoming</span></a></li>
           </ul>
         </article>
         <article class="epx-card">
           <div class="epx-top">
             <span class="epx-ic epx-ic--nv" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l7.5 3v6c0 4.2-3.1 8-7.5 9.4C7.6 19.8 4.5 16 4.5 11.8v-6l7.5-3z"/></svg></span>
-            <h3>Security</h3>
+            <h3><a href="/security/">Security</a></h3>
           </div>
           <ul class="epx-list">
             <li><a href="/security/role-management/">Role Management</a></li>
@@ -2569,15 +2572,15 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
         <article class="epx-card">
           <div class="epx-top">
             <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span>
-            <h3>Communication</h3>
+            <h3><a href="/products/communication/">Communication</a></h3>
           </div>
           <ul class="epx-list">
-            <li><a href="/products/chatbot-for-education/">Education Chatbot</a></li>
-            <li><a href="/products/whatsapp-api/">WhatsApp Business API</a></li>
-            <li><span>Cloud Telephony</span></li>
+            <li><a href="/products/education-chatbot/">Education Chatbot</a></li>
+            <li><a href="/products/whatsapp-business-api/">WhatsApp Business API</a></li>
+            <li><a href="/products/cloud-telephony/">Cloud Telephony</a></li>
             <li><a href="/products/ivr/">IVR</a></li>
-            <li><span>Email</span></li>
-            <li><span>SMS</span></li>
+            <li><a href="/products/email-marketing/">Email</a></li>
+            <li><a href="/products/sms-marketing/">SMS</a></li>
             <li><a href="/products/mobile-crm/">Mobile CRM</a></li>
           </ul>
         </article>
@@ -2588,23 +2591,23 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
             <i class="n n4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 4.3v9L12 20.6 4.5 16.3v-9L12 3z"/></svg></i><i class="n n5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6.5" rx="7" ry="3"/><path d="M5 6.5v11c0 1.7 3.1 3 7 3s7-1.3 7-3v-11"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></i><i class="n n6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3.6 7l8.4 6 8.4-6"/></svg></i>
           </div>
           <div class="epx-integ-tx">
-            <h3>Integrations</h3>
-            <p class="epx-integ-lead"><a href="/products/integrations/">All integrations</a></p>
+            <h3><a href="/integrations/">Integrations</a></h3>
+            <p class="epx-integ-lead"><a href="/integrations/">All integrations</a></p>
             <p>Seamlessly connect with your favourite tools and platforms.</p>
           </div>
         </article>
         <article class="epx-card">
           <div class="epx-top">
             <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
-            <h3>Analytics</h3>
+            <h3><a href="/products/analytics/">Analytics</a></h3>
           </div>
           <ul class="epx-list">
-            <li><a href="/analytics/executive-dashboard/">Executive Dashboard</a></li>
-            <li><a href="/analytics/admission-analytics/">Admission Analytics</a></li>
-            <li><a href="/analytics/marketing-analytics/">Marketing Analytics</a></li>
-            <li><a href="/analytics/lead-analytics/">Lead Analytics</a></li>
-            <li><a href="/analytics/funnel-analytics/">Funnel Analytics</a></li>
-            <li><a href="/analytics/custom-reports/">Custom Reports</a></li>
+            <li><a href="/products/executive-dashboard/">Executive Dashboard</a></li>
+            <li><a href="/products/admission-analytics/">Admission Analytics</a></li>
+            <li><a href="/products/marketing-analytics/">Marketing Analytics</a></li>
+            <li><a href="/products/lead-analytics/">Lead Analytics</a></li>
+            <li><a href="/products/funnel-analytics/">Funnel Analytics</a></li>
+            <li><a href="/products/custom-reports/">Custom Reports</a></li>
           </ul>
         </article>
     </div>
