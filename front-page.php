@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-vidya-products -->
+<!-- ee-front-tpl v2026-08-08-vidya-links -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -2750,7 +2750,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#admission-form" aria-label="Try Vidya GPT - book a demo">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="https://getvidya.ai/vidya-gpt" target="_blank" rel="noopener" aria-label="Explore Vidya GPT on getvidya.ai">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg></i>95+ languages</span>
               </div>
             </article>
@@ -2774,7 +2774,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#admission-form" aria-label="Try Vidya Pulse - book a demo">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="https://getvidya.ai/vidya-pulse" target="_blank" rel="noopener" aria-label="Explore Vidya Pulse on getvidya.ai">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14a2 2 0 100-4 2 2 0 000 4z"/><path d="M13.4 10.6L18 6"/><path d="M3.5 18a9 9 0 1117 0"/></svg></i>0&ndash;100 score</span>
               </div>
             </article>
@@ -2798,7 +2798,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#admission-form" aria-label="Try Vidyaai Voice Agent - book a demo">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener" aria-label="Explore Vidyaai Voice Agent on getvidya.ai">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg></i>10+ languages</span>
               </div>
             </article>
@@ -2822,7 +2822,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#admission-form" aria-label="Try VidyaWABA GPT - book a demo">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="https://getvidya.ai/vidya-waba-gpt" target="_blank" rel="noopener" aria-label="Explore VidyaWABA GPT on getvidya.ai">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-8 8H4l2.1-3.1A8 8 0 1121 12z"/></svg></i>Official WABA</span>
               </div>
             </article>
@@ -2846,7 +2846,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#admission-form" aria-label="Try Vidya Work - book a demo">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="https://getvidya.ai/vidya-work" target="_blank" rel="noopener" aria-label="Explore Vidya Work on getvidya.ai">Try it now <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg></i>Zero busywork</span>
               </div>
             </article>
@@ -2871,7 +2871,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#ee-platform" aria-label="Open the live Vidya AI demo">Open demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
+                <a class="vsx-apply" href="https://getvidya.ai/vidya-ai" target="_blank" rel="noopener" aria-label="Explore Vidya AI on getvidya.ai">Open demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5v-7z"/></svg></i>Live demo</span>
               </div>
             </article>
