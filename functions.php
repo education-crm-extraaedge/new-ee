@@ -7861,6 +7861,30 @@ add_action('template_redirect', function () {
             if (isset($ee_sp_all[$path])) {
                 $GLOBALS['ee_sitepage'] = array('key' => $path) + $ee_sp_all[$path];
                 $ee_custom_routes[$path] = array('file' => 'page-sitepage.php', 'title' => $ee_sp_all[$path]['t']);
+                /* breadcrumb category hop -> Home / Category / Page.
+                   Two-segment paths take it from the first segment; standalone
+                   pages take it from their content group. Hub pages that ARE
+                   the category (/security/) stay two-level. */
+                $ee_seg = explode('/', $path);
+                $ee_by_seg = array(
+                    'products'  => array('label' => 'Products',  'url' => '/products/'),
+                    'security'  => array('label' => 'Security',  'url' => '/security/'),
+                    'analytics' => array('label' => 'Analytics', 'url' => '/products/analytics/'),
+                    'solutions' => array('label' => 'Solutions', 'url' => '/solutions/'),
+                );
+                $ee_by_grp = array(
+                    'proof'      => array('label' => 'Customers', 'url' => '/customer-success-stories/'),
+                    'resources'  => array('label' => 'Resources', 'url' => '/resources/'),
+                    'company'    => array('label' => 'Company',   'url' => '/company/'),
+                    'automation' => array('label' => 'Products',  'url' => '/products/'),
+                    'communication' => array('label' => 'Products', 'url' => '/products/'),
+                    'analytics'  => array('label' => 'Products',  'url' => '/products/'),
+                );
+                if (count($ee_seg) > 1 && isset($ee_by_seg[$ee_seg[0]])) {
+                    $GLOBALS['ee_custom_route_parent'] = $ee_by_seg[$ee_seg[0]];
+                } elseif (isset($ee_by_grp[$ee_sp_all[$path]['g']])) {
+                    $GLOBALS['ee_custom_route_parent'] = $ee_by_grp[$ee_sp_all[$path]['g']];
+                }
             }
         }
     }

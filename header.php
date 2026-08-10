@@ -1216,6 +1216,18 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
                     <meta itemprop="position" content="<?php echo (int) $bc_pos++; ?>">
                 </li>
                 <?php endif; ?>
+                <?php
+                /* Registry landing pages (inc/site-pages.php): the router
+                   hands over the category hop, so every page reads
+                   Home / Category / Page. */
+                $ee_bc_parent = isset($GLOBALS['ee_custom_route_parent']) ? $GLOBALS['ee_custom_route_parent'] : null;
+                if ($ee_custom_route_title && is_array($ee_bc_parent) && !empty($ee_bc_parent['label'])) :
+                ?>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a itemprop="item" href="<?php echo esc_url(home_url($ee_bc_parent['url'])); ?>"><span itemprop="name"><?php echo esc_html($ee_bc_parent['label']); ?></span></a>
+                    <meta itemprop="position" content="<?php echo (int) $bc_pos++; ?>">
+                </li>
+                <?php endif; ?>
                 <?php if ($bc_pt && $bc_pt->has_archive) : ?>
                 <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <a itemprop="item" href="<?php echo esc_url(get_post_type_archive_link($bc_pt->name)); ?>"><span itemprop="name"><?php echo esc_html($bc_pt->labels->name); ?></span></a>
