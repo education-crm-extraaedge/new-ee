@@ -4642,7 +4642,7 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
         </div>
       </div>
       <div class="apr">
-        <a class="badge" href="https://play.google.com/store/apps/details?id=com.extraaedge.android" target="_blank" rel="noopener">
+        <a class="badge" href="https://play.google.com/store/apps/details?id=com.extraaedge.extraaedge_v5&amp;hl=en_IN" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#DE6E30" d="M3.6 1.8L13.7 12 3.6 22.2c-.4-.3-.6-.8-.6-1.4V3.2c0-.6.2-1.1.6-1.4z"/><path fill="#19335D" d="M17.2 8.5L5.4 1.9c-.2-.1-.4-.2-.6-.2L14.9 12l2.3-3.5z"/><path fill="#19335D" d="M4.8 22.3c.2 0 .4-.1.6-.2l11.8-6.6-2.3-3.5L4.8 22.3z"/><path fill="#DE6E30" d="M21 10.6l-3.8-2.1-2.3 3.5 2.3 3.5 3.8-2.1c1.3-.8 1.3-2 0-2.8z"/></svg>
           <span class="bt"><small>GET IT ON</small><b>Google Play</b></span>
         </a>
