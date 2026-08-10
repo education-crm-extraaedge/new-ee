@@ -99,7 +99,7 @@ function ee_site_page_groups() {
             'cta'   => 'Book a demo for your study-abroad business',
         ),
         'institution' => array(
-            'label' => 'By Institution',
+            'label' => 'Industries',
             'steps' => array(
                 'Tuned to your motion|Stages, sources and journeys set up for how your segment recruits.',
                 'AI on every enquiry|Instant answers, calling and follow-ups from day one.',
@@ -783,30 +783,20 @@ function ee_site_pages() {
             '2x conversions|What institutions report after switching.',
         )),
 
-    /* ── SOLUTIONS: BY INSTITUTION (solutions/*) ─────────────────────── */
-    'solutions/universities' => array('g' => 'institution', 't' => 'Universities',
-        'h1' => 'Admissions at University Scale',
-        'sub' => 'Multi-campus, multi-programme funnels unified on one platform - shared visibility for the university, autonomy for every department.',
+    /* ── INDUSTRIES (industries/*-crm - extraaedge.com's canonical slugs,
+       so existing search traffic lands on the same URLs) ─────────────── */
+    'industries/higher-education-crm' => array('g' => 'institution', 't' => 'Higher Education CRM',
+        'h1' => 'Admissions for Universities & Colleges',
+        'sub' => 'Multi-campus, multi-programme funnels unified on one platform - shared visibility for leadership, autonomy for every department, and every seat filled.',
         'f' => array(
             'Multi-campus control|Every campus and school on one dashboard, honestly compared.',
             'Programme pipelines|UG, PG and doctoral funnels tracked separately, reported together.',
-            'Department autonomy|Each faculty runs its own queue inside shared governance.',
-            'High-volume ready|Lakhs of enquiries a season without breaking stride.',
-            'Central analytics|Vice-chancellor view: seats, sources and spend, live.',
+            'Speed to lead|First response in seconds - before the institute next door.',
+            'Cut-off & merit flows|Shortlists, offers and admissions managed cleanly.',
+            'Central analytics|Leadership view: seats, sources and spend, live.',
             'Enterprise trust|ISO 27001, roles, audit logs and data residency.',
         )),
-    'solutions/colleges' => array('g' => 'institution', 't' => 'Colleges',
-        'h1' => 'Fill Every Seat, Every Season',
-        'sub' => 'The complete admission engine for colleges - capture every enquiry, respond first and convert more of the students you already attract.',
-        'f' => array(
-            'Every source captured|Portals, ads, walk-ins and referrals in one pipeline.',
-            'Speed to lead|First response in seconds, before the college next door.',
-            'Counsellor productivity|Ranked lists and auto-logging - 40% more output.',
-            'Cut-off & merit flows|Shortlists, offers and admissions managed cleanly.',
-            'Fee collection|Offer to payment on one rail, chased automatically.',
-            'Affordable scale|Plans sized for single colleges and groups alike.',
-        )),
-    'solutions/schools' => array('g' => 'institution', 't' => 'Schools',
+    'industries/school-crm' => array('g' => 'institution', 't' => 'School CRM',
         'h1' => 'Parent-First School Admissions',
         'sub' => 'Trust-building journeys for K-12 - every parent enquiry answered instantly, every campus visit followed up, every admission decision made easy.',
         'f' => array(
@@ -817,18 +807,7 @@ function ee_site_pages() {
             'Season calendars|Admission windows and document deadlines managed.',
             'Front-desk simple|Reception staff productive on day one.',
         )),
-    'solutions/coaching-institutes' => array('g' => 'institution', 't' => 'Coaching Institutes',
-        'h1' => 'Batch-Deadline Admissions, Leak-Proof',
-        'sub' => 'When batches fill on dates, speed is everything - capture, counsel and enrol students before the batch starts, at walk-in volume.',
-        'f' => array(
-            'Batch-driven funnels|Enquiries mapped to batches and start dates.',
-            'Same-hour response|AI answers while the student is still deciding.',
-            'Walk-in heavy|Front-desk capture built for daily footfall.',
-            'Scholarship & test flows|Entrance tests and discounts managed in-funnel.',
-            'Multi-centre view|Every branch compared on one screen.',
-            'Re-enrolment|Next-course nurture for every passing-out batch.',
-        )),
-    'solutions/edtech' => array('g' => 'institution', 't' => 'EdTech',
+    'industries/edtech-crm' => array('g' => 'institution', 't' => 'EdTech CRM',
         'h1' => 'CRM for High-Velocity EdTech Funnels',
         'sub' => 'Thousands of digital leads a day, qualified by AI and routed to closers - without hiring a floor of SDRs.',
         'f' => array(
@@ -839,7 +818,29 @@ function ee_site_pages() {
             'CAC discipline|Cost per paid enrolment by channel, live.',
             'API-first|Your product events flow straight into the funnel.',
         )),
-    'solutions/study-abroad' => array('g' => 'institution', 't' => 'Study Abroad',
+    'industries/vocational-crm' => array('g' => 'institution', 't' => 'Vocational CRM',
+        'h1' => 'Enrolments for Skill & Vocational Training',
+        'sub' => 'Short courses, rolling batches and career-driven students - an admission engine tuned for the pace of vocational education.',
+        'f' => array(
+            'Rolling-batch funnels|Continuous intakes managed without confusion.',
+            'Career-outcome selling|Placement stories and outcomes in every journey.',
+            'Fast decision cycles|Enquiry to enrolment in days, supported by AI.',
+            'Multi-course cross-sell|Alumni nurtured into the next certification.',
+            'Centre operations|Every training centre on one dashboard.',
+            'Affordable plans|Sized for single centres and national chains.',
+        )),
+    'industries/coaching-institute-crm' => array('g' => 'institution', 't' => 'Coaching Institute CRM',
+        'h1' => 'Batch-Deadline Admissions, Leak-Proof',
+        'sub' => 'When batches fill on dates, speed is everything - capture, counsel and enrol students before the batch starts, at walk-in volume.',
+        'f' => array(
+            'Batch-driven funnels|Enquiries mapped to batches and start dates.',
+            'Same-hour response|AI answers while the student is still deciding.',
+            'Walk-in heavy|Front-desk capture built for daily footfall.',
+            'Scholarship & test flows|Entrance tests and discounts managed in-funnel.',
+            'Multi-centre view|Every branch compared on one screen.',
+            'Re-enrolment|Next-course nurture for every passing-out batch.',
+        )),
+    'industries/overseas-crm' => array('g' => 'institution', 't' => 'Overseas Education CRM',
         'h1' => 'The Platform for Study-Abroad Businesses',
         'sub' => 'Country pipelines, agent networks and document workflows - everything an overseas-education business runs on, in one place.',
         'f' => array(
@@ -851,7 +852,7 @@ function ee_site_pages() {
             'Commission clarity|Conversions and payouts computed cleanly.',
         )),
 
-    /* ── PROOF ───────────────────────────────────────────────────────── */
+        /* ── PROOF ───────────────────────────────────────────────────────── */
     'case-studies' => array('g' => 'proof', 't' => 'Case Studies',
         'h1' => 'How Institutions Win With ExtraaEdge',
         'sub' => 'Deep dives into real admission transformations - the problem, the rollout and the measured results, in the institution\'s own numbers.',
@@ -1053,6 +1054,12 @@ function ee_site_pages_with_aliases() {
     $p['become-a-partner'] = $p['partners'];
     $p['get-in-touch']     = $p['contact'];
     $p['integrations']     = $p['products/integrations'];
+    $p['solutions/universities']        = $p['industries/higher-education-crm'];
+    $p['solutions/colleges']            = $p['industries/higher-education-crm'];
+    $p['solutions/schools']             = $p['industries/school-crm'];
+    $p['solutions/coaching-institutes'] = $p['industries/coaching-institute-crm'];
+    $p['solutions/edtech']              = $p['industries/edtech-crm'];
+    $p['solutions/study-abroad']        = $p['industries/overseas-crm'];
     foreach (array('executive-dashboard','admission-analytics','marketing-analytics',
                    'lead-analytics','funnel-analytics','custom-reports') as $ee_an) {
         $p['products/' . $ee_an] = $p['analytics/' . $ee_an];
