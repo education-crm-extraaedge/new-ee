@@ -21,6 +21,13 @@ $ctaTxt = isset($sp['cta']) ? $sp['cta'] : $grp['cta'];
 $rel    = ee_site_page_related($sp['key']);
 $split  = function ($s) { $p = explode('|', $s, 2); return array($p[0], isset($p[1]) ? $p[1] : ''); };
 
+/* near-duplicate pages stay live for their traffic but point search
+   engines at the canonical variant; everyone else canonicalises to self */
+add_action('wp_head', function () use ($sp) {
+    $canon = !empty($sp['canon']) ? $sp['canon'] : '/' . $sp['key'] . '/';
+    echo '<link rel="canonical" href="' . esc_url(home_url($canon)) . '">' . "\n";
+}, 5);
+
 add_filter('pre_get_document_title', function () use ($sp) {
     return $sp['t'] . ' — ExtraaEdge AI Admission CRM';
 }, 99);

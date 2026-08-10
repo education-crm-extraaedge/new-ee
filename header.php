@@ -862,125 +862,93 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
        HTML in the page source.
        ══════════════════════════════════════════════════════════════ */
     $EE_MENU = array(
-      'products' => array('label'=>'Products','type'=>'mega','cols'=>array(
+      'products' => array('label'=>'Platform','type'=>'mega','cols'=>array(
         array(
-          array('h'=>'Core Platform','ic'=>'layers','items'=>array(
+          array('h'=>'Capture & Nurture','ic'=>'target','items'=>array(
             array('t'=>'Education CRM','u'=>'/products/education-crm/'),
             array('t'=>'Marketing Automation','u'=>'/products/marketing-automation/'),
-            array('t'=>'Application Management System (AMS)','u'=>'/products/application-management-system/'),
-            array('t'=>'Payment & Enrollment','u'=>'/products/payment-enrollment/'),
-          )),
-          array('h'=>'Automation','ic'=>'gear','items'=>array(
-            array('t'=>'Workflow Automation','u'=>'/products/workflow-automation/'),
+            array('t'=>'Lead Management','u'=>'/solutions/lead-management/'),
+            array('t'=>'Lead Scoring','u'=>'/solutions/lead-scoring/'),
             array('t'=>'Journey Builder','u'=>'/products/journey-builder/'),
-            array('t'=>'Lead Assignment','u'=>'/products/lead-assignment/'),
-            array('t'=>'Lead Routing','u'=>'/products/lead-routing/'),
+          )),
+        ),
+        array(
+          array('h'=>'Engage & Communicate','ic'=>'chat','items'=>array(
+            array('t'=>'WhatsApp Business API','u'=>'/products/whatsapp-business-api/'),
+            array('t'=>'Cloud Telephony & IVR','u'=>'/products/cloud-telephony/'),
+            array('t'=>'Email & SMS Campaigns','u'=>'/products/email-marketing/'),
+            array('t'=>'Education Chatbot','u'=>'/products/education-chatbot/'),
+            array('t'=>'Mobile CRM','u'=>'/products/mobile-crm/'),
+          )),
+        ),
+        array(
+          array('h'=>'Convert & Enroll','ic'=>'bank','items'=>array(
+            array('t'=>'Application Management (AMS)','u'=>'/products/application-management-system/'),
+            array('t'=>'Payment & Enrollment','u'=>'/products/payment-enrollment/'),
+            array('t'=>'Walk-in Management','u'=>'/solutions/walk-in-management/'),
+          )),
+          array('h'=>'Automate','ic'=>'gear','items'=>array(
+            array('t'=>'Workflow Automation','u'=>'/products/workflow-automation/'),
+            array('t'=>'Lead Assignment & Routing','u'=>'/products/lead-assignment/'),
             array('t'=>'Task Automation','u'=>'/products/task-automation/'),
             array('t'=>'Follow-up Automation','u'=>'/products/follow-up-automation/'),
           )),
         ),
         array(
-          array('h'=>'Vidya AI Suite','ic'=>'spark','items'=>array(
-            array('t'=>'VidyaGPT','u'=>'/products/vidyagpt/'),
-            array('t'=>'VidyaAI Voice Agent','u'=>'/products/vidyaai-voice-agent/'),
-            array('t'=>'VidyaPulse','u'=>'/products/vidyapulse/'),
-            array('t'=>'VidyaWABA GPT','u'=>'/products/vidyawaba-gpt/'),
-            array('t'=>'Vidya Work','u'=>'/products/vidya-work/','badge'=>'Upcoming'),
-          )),
-          array('h'=>'Security','ic'=>'shield','items'=>array(
-            array('t'=>'Role Management','u'=>'/security/role-management/'),
-            array('t'=>'Permissions','u'=>'/security/permissions/'),
-            array('t'=>'Audit Logs','u'=>'/security/audit-logs/'),
-            array('t'=>'Data Security','u'=>'/security/data-security/'),
-            array('t'=>'Compliance','u'=>'/security/compliance/'),
-          )),
-        ),
-        array(
-          array('h'=>'Communication','ic'=>'chat','items'=>array(
-            array('t'=>'Education Chatbot','u'=>'/products/education-chatbot/'),
-            array('t'=>'WhatsApp Business API','u'=>'/products/whatsapp-api/'),
-            array('t'=>'Cloud Telephony','u'=>'/products/cloud-telephony/'),
-            array('t'=>'IVR','u'=>'/products/ivr/'),
-            array('t'=>'Email','u'=>'/products/email/'),
-            array('t'=>'SMS','u'=>'/products/sms/'),
-            array('t'=>'Mobile CRM','u'=>'/products/mobile-crm/'),
-          )),
-          array('h'=>'Integrations','ic'=>'plug','items'=>array(
-            array('t'=>'All integrations','u'=>'/products/integrations/'),
-          )),
-        ),
-        array(
-          array('h'=>'Analytics','ic'=>'bars','items'=>array(
+          array('h'=>'Measure','ic'=>'bars','items'=>array(
             array('t'=>'Executive Dashboard','u'=>'/analytics/executive-dashboard/'),
             array('t'=>'Admission Analytics','u'=>'/analytics/admission-analytics/'),
             array('t'=>'Marketing Analytics','u'=>'/analytics/marketing-analytics/'),
-            array('t'=>'Lead Analytics','u'=>'/analytics/lead-analytics/'),
             array('t'=>'Funnel Analytics','u'=>'/analytics/funnel-analytics/'),
             array('t'=>'Custom Reports','u'=>'/analytics/custom-reports/'),
           )),
+          array('h'=>'Essentials','ic'=>'shield','items'=>array(
+            array('t'=>'Integrations','u'=>'/integrations/'),
+            array('t'=>'Security & Compliance','u'=>'/security/'),
+            array('t'=>'Book a Demo','u'=>'https://www.extraaedge.com/book-a-demo/'),
+          )),
         ),
+      )),
+      'vidyaai' => array('label'=>'Vidya AI','type'=>'drop','items'=>array(
+        array('t'=>'Why Vidya AI','u'=>'https://getvidya.ai/vidya-ai'),
+        array('t'=>'VidyaGPT','u'=>'https://getvidya.ai/vidya-gpt'),
+        array('t'=>'VidyaAI Voice Agent','u'=>'https://getvidya.ai/vidya-ai-voice-agent'),
+        array('t'=>'VidyaPulse','u'=>'https://getvidya.ai/vidya-pulse'),
+        array('t'=>'VidyaWABA GPT','u'=>'https://getvidya.ai/vidya-waba-gpt'),
       )),
       'solutions' => array('label'=>'Solutions','type'=>'mega','cols'=>array(
-        array(
-          array('h'=>'Admission Solutions','ic'=>'bank','items'=>array(
-            array('t'=>'Admission Management','u'=>'/solutions/admission-management/'),
-            array('t'=>'Enrollment Management','u'=>'/solutions/enrollment-management/'),
-            array('t'=>'Walk-in Management','u'=>'/solutions/walk-in-management/'),
-          )),
-          array('h'=>'Study Abroad','ic'=>'flag','items'=>array(
-            array('t'=>'Study Abroad CRM','u'=>'/solutions/study-abroad-crm/'),
-            array('t'=>'Education Agents','u'=>'/solutions/education-agents/'),
-            array('t'=>'Education Consultants','u'=>'/solutions/education-consultants/'),
-          )),
-        ),
-        array(
-          array('h'=>'Recruitment & Lead Management','ic'=>'target','items'=>array(
-            array('t'=>'Student Recruitment','u'=>'/solutions/student-recruitment/'),
-            array('t'=>'Lead Management','u'=>'/solutions/lead-management/'),
-            array('t'=>'Lead Nurturing','u'=>'/solutions/lead-nurturing/'),
-            array('t'=>'Enrollment CRM','u'=>'/solutions/enrollment-crm/'),
-          )),
-          array('h'=>'Engagement & Applications','ic'=>'chat','items'=>array(
-            array('t'=>'Student Engagement','u'=>'/solutions/student-engagement/'),
-            array('t'=>'Event Management','u'=>'/solutions/event-management/'),
-            array('t'=>'Application Processing','u'=>'/solutions/application-processing/'),
-          )),
-        ),
-        array(
-          array('h'=>'For Every Team','ic'=>'users','items'=>array(
-            array('t'=>'Admission Teams','u'=>'/solutions/admissions/'),
-            array('t'=>'Marketing','u'=>'/solutions/marketing/'),
-            array('t'=>'Sales','u'=>'/solutions/sales/'),
-            array('t'=>'Counselors','u'=>'/solutions/counselors/'),
-            array('t'=>'Management','u'=>'/solutions/management/'),
-            array('t'=>'Call Center','u'=>'/solutions/call-center/'),
-          )),
-          array('h'=>'AI & Automation','ic'=>'spark','items'=>array(
-            array('t'=>'Admission Automation','u'=>'/solutions/admission-automation/'),
-            array('t'=>'AI Calling','u'=>'/solutions/ai-calling/'),
-            array('t'=>'WhatsApp Automation','u'=>'/solutions/whatsapp-automation/'),
-            array('t'=>'Lead Scoring','u'=>'/solutions/lead-scoring/'),
-          )),
-        ),
-        array(
-          array('h'=>'Measurable Outcomes','ic'=>'flag','items'=>array(
-            array('t'=>'Increase Admissions','u'=>'/solutions/increase-admissions/'),
-            array('t'=>'Improve Conversion','u'=>'/solutions/improve-conversion/'),
-            array('t'=>'Faster Follow-ups','u'=>'/solutions/faster-follow-ups/'),
-            array('t'=>'Increase ROI','u'=>'/solutions/increase-roi/'),
-            array('t'=>'Reduce Manual Work','u'=>'/solutions/reduce-manual-work/'),
-            array('t'=>'Better Student Experience','u'=>'/solutions/better-student-experience/'),
-          )),
-        ),
-      )),
-      'industries' => array('label'=>'Industries','type'=>'drop','items'=>array(
-        array('t'=>'Higher Education CRM','u'=>'/industries/higher-education-crm/'),
-        array('t'=>'School CRM','u'=>'/industries/school-crm/'),
-        array('t'=>'Coaching Institute CRM','u'=>'/industries/coaching-institute-crm/'),
-        array('t'=>'EdTech CRM','u'=>'/industries/edtech-crm/'),
-        array('t'=>'Vocational CRM','u'=>'/industries/vocational-crm/'),
-        array('t'=>'Overseas Education CRM','u'=>'/industries/overseas-crm/'),
-        array('t'=>'All Industries','u'=>'/industries/'),
+        array(array('h'=>'By Use Case','ic'=>'target','items'=>array(
+          array('t'=>'Admission Management','u'=>'/solutions/admission-management/'),
+          array('t'=>'Enrollment Management','u'=>'/solutions/enrollment-management/'),
+          array('t'=>'Student Recruitment','u'=>'/solutions/student-recruitment/'),
+          array('t'=>'Lead Nurturing','u'=>'/solutions/lead-nurturing/'),
+          array('t'=>'Student Engagement','u'=>'/solutions/student-engagement/'),
+          array('t'=>'Event Management','u'=>'/solutions/event-management/'),
+          array('t'=>'Application Processing','u'=>'/solutions/application-processing/'),
+        ))),
+        array(array('h'=>'By Institution','ic'=>'bank','items'=>array(
+          array('t'=>'Universities & Colleges','u'=>'/industries/higher-education-crm/'),
+          array('t'=>'K-12 Schools','u'=>'/industries/school-crm/'),
+          array('t'=>'Coaching & Test Prep','u'=>'/industries/coaching-institute-crm/'),
+          array('t'=>'Study Abroad Consultants','u'=>'/industries/overseas-crm/'),
+          array('t'=>'Education Agents','u'=>'/solutions/education-agents/'),
+        ))),
+        array(array('h'=>'By Team','ic'=>'users','items'=>array(
+          array('t'=>'Admission Teams','u'=>'/solutions/admissions/'),
+          array('t'=>'Counselors','u'=>'/solutions/counselors/'),
+          array('t'=>'Marketing Teams','u'=>'/solutions/marketing/'),
+          array('t'=>'Sales Teams','u'=>'/solutions/sales/'),
+          array('t'=>'Call Centre','u'=>'/solutions/call-center/'),
+          array('t'=>'Leadership','u'=>'/solutions/management/'),
+        ))),
+        array(array('h'=>'By Outcome','ic'=>'flag','items'=>array(
+          array('t'=>'Increase Admissions','u'=>'/solutions/increase-admissions/'),
+          array('t'=>'Improve Conversion Rate','u'=>'/solutions/improve-conversion/'),
+          array('t'=>'Faster Follow-ups','u'=>'/solutions/faster-follow-ups/'),
+          array('t'=>'Reduce Manual Work','u'=>'/solutions/reduce-manual-work/'),
+          array('t'=>'Increase Marketing ROI','u'=>'/solutions/increase-roi/'),
+          array('t'=>'Better Student Experience','u'=>'/solutions/better-student-experience/'),
+        ))),
       )),
       'customers' => array('label'=>'Customers','type'=>'drop','items'=>array(
         array('t'=>'Success Customer Stories','u'=>'/customer-success-stories/'),
@@ -992,17 +960,17 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
       'resources' => array('label'=>'Resources','type'=>'mega','cols'=>array(
         array(array('h'=>'Learn','ic'=>'book','items'=>array(
           array('t'=>'Blog','u'=>'/blog/'),
-          array('t'=>'Webinars','u'=>'/webinars/'),
           array('t'=>'Videos','u'=>'/videos/'),
+          array('t'=>'Webinars','u'=>'/webinars/'),
           array('t'=>'eBooks','u'=>'/ebooks/'),
         ))),
         array(array('h'=>'Docs & Support','ic'=>'life','items'=>array(
+          array('t'=>'Help Centre','u'=>'/help/'),
           array('t'=>'Documentation','u'=>'/documentation/'),
           array('t'=>'API Documentation','u'=>'/api-documentation/'),
-          array('t'=>'Help Center','u'=>'/help/'),
           array('t'=>'FAQs','u'=>'/faqs/'),
         ))),
-        array(array('h'=>'Tools & Updates','ic'=>'wrench','items'=>array(
+        array(array('h'=>'Tools','ic'=>'wrench','items'=>array(
           array('t'=>'ROI Calculator','u'=>'/roi-calculator/'),
           array('t'=>'CRM Comparison','u'=>'/crm-comparison/'),
           array('t'=>'Release Notes','u'=>'/release-notes/'),

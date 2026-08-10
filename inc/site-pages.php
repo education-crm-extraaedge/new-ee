@@ -166,7 +166,7 @@ function ee_site_pages() {
             'Fallback chains|Unaccepted leads re-route before they go cold.',
             'Absence-aware|Leaves and shifts respected without manual re-shuffling.',
         )),
-    'products/lead-routing' => array('g' => 'automation', 't' => 'Lead Routing',
+    'products/lead-routing' => array('g' => 'automation', 't' => 'Lead Routing', 'canon' => '/products/lead-assignment/',
         'h1' => 'From Any Source to the Right Queue',
         'sub' => 'Ads, portals, walk-ins, calls and referrals - every channel flows into one router that knows exactly where each enquiry belongs.',
         'f' => array(
@@ -548,7 +548,7 @@ function ee_site_pages() {
             'Aging alerts|Untouched leads surface before they go cold.',
             'Clean data|Bulk import, verify and enrich inside the platform.',
         )),
-    'solutions/admission-automation' => array('g' => 'usecase', 't' => 'Admission Automation',
+    'solutions/admission-automation' => array('g' => 'usecase', 't' => 'Admission Automation', 'canon' => '/products/workflow-automation/',
         'h1' => 'Automate the Admission Grind',
         'sub' => 'From first reply to fee reminder - the repetitive 80% of admissions runs itself, and your team owns the conversations that matter.',
         'f' => array(
@@ -570,7 +570,7 @@ function ee_site_pages() {
             'Recordings & transcripts|Every AI call on the record, reviewable.',
             'Endless capacity|Admission-season spikes without hiring spikes.',
         )),
-    'solutions/whatsapp-automation' => array('g' => 'usecase', 't' => 'WhatsApp Automation',
+    'solutions/whatsapp-automation' => array('g' => 'usecase', 't' => 'WhatsApp Automation', 'canon' => '/products/whatsapp-business-api/',
         'h1' => 'Admissions on the Channel Students Read',
         'sub' => 'Official WhatsApp Business API - instant replies, rich campaigns and two-way conversations, every message logged on the lead.',
         'f' => array(
@@ -703,7 +703,7 @@ function ee_site_pages() {
             'Warmth scoring|Know exactly when a nurtured lead turns hot.',
             'Counsellor alerts|Humans step in at the moment of intent.',
         )),
-    'solutions/enrollment-crm' => array('g' => 'usecase', 't' => 'Enrollment CRM',
+    'solutions/enrollment-crm' => array('g' => 'usecase', 't' => 'Enrollment CRM', 'canon' => '/solutions/enrollment-management/',
         'h1' => 'One CRM From First Touch to Enrolled',
         'sub' => 'Capture, engage, apply, pay, enrol - the complete student lifecycle on a single platform built only for education.',
         'f' => array(
