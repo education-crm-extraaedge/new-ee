@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-10-clients -->
+<!-- ee-front-tpl v2026-08-10-autoscroll -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1647,8 +1647,35 @@ ee_platform_section(); ?>
 
   var aL=root.querySelector('.cs3-arw--l'), aR=root.querySelector('.cs3-arw--r');
   function go(dir){ var n=Math.min(Math.max(active+dir,0),cards.length-1); center(cards[n]); }
-  if(aL) aL.addEventListener('click',function(){go(-1);});
-  if(aR) aR.addEventListener('click',function(){go(1);});
+  if(aL) aL.addEventListener('click',function(){go(-1); restart();});
+  if(aR) aR.addEventListener('click',function(){go(1); restart();});
+
+  /* ── auto-advance: one story every 3 seconds ──
+     Pauses while the visitor hovers or touches the rail, while a video is
+     playing, when the tab or section is off-screen, and for reduced-motion
+     visitors; loops back to the first story after the last. */
+  var auto=null, inView=false;
+  var noMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function tick(){
+    if(document.hidden || !inView) return;
+    if(root.querySelector('.cs3-card.playing')) return;
+    center(cards[(active+1)%cards.length]);
+  }
+  function startAuto(){ if(!auto && !noMotion) auto=setInterval(tick,3000); }
+  function stopAuto(){ if(auto){ clearInterval(auto); auto=null; } }
+  function restart(){ stopAuto(); startAuto(); }
+  try{
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(x){ inView=x.isIntersecting; });
+    },{threshold:.35});
+    io.observe(root);
+  }catch(e){ inView=true; }
+  rail.addEventListener('mouseenter',stopAuto);
+  rail.addEventListener('mouseleave',startAuto);
+  rail.addEventListener('touchstart',stopAuto,{passive:true});
+  rail.addEventListener('touchend',function(){ restart(); },{passive:true});
+  cards.forEach(function(c){ c.addEventListener('click',restart); });
+  startAuto();
 })();
 </script>
 
