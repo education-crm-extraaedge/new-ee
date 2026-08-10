@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-09-resources-mirror -->
+<!-- ee-front-tpl v2026-08-10-4new-sections -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -308,7 +308,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 
 <!-- ===================== EE · QUICK TABLE OF CONTENTS (scoped #ee-toc) ===================== -->
 <style>/* keep anchored jumps clear of any sticky chrome */
-  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-rfa,#ee-products,#ee-vidya-suite,#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,#ee-golive,#ee-resources,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
+  #xhero,#trusted-institutions,#ee-platform,#ee-why,#ee-rfa,#ee-products,#ee-vidya-suite,#ee-solutions,#ee-ind,#stories,#ee-cro,#integrations,#security,#ee-app,#ee-golive,#ee-pricing,#ee-switch,#ee-resources,#ee-blog,#faq,#admission-form{scroll-margin-top:86px}#ee-toc{font-family:'Inter',system-ui,-apple-system,sans-serif}#ee-toc button,#ee-toc a{font-family:inherit}/* launcher */
   #ee-toc .eetoc-fab{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:99990;
     display:flex;align-items:center;justify-content:center;width:50px;height:50px;padding:0;border:2.5px solid #fff;cursor:pointer;
     background:#19335D;color:#fff;border-radius:50%;
@@ -841,6 +841,26 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   <div class="logo-header reveal">
     <h2 class="logo-title" style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.5rem,3.2vw,2.2rem);color:var(--blue);line-height:1.18;letter-spacing:-.02em;margin:6px 0 12px">Trusted by 500+ educational institutions across India</h2>
     <p class="logo-sub" style="max-width:760px;margin:0 auto 18px;color:#5a6b85;font-size:clamp(.95rem,1.6vw,1.05rem);line-height:1.6">ExtraaEdge powers <strong>5M+ student leads</strong> and <strong>100M+ student interactions</strong>, enabling universities, colleges, and EdTech organizations to accelerate admissions with AI-powered CRM and intelligent automation.</p>
+    <?php /* the visible twin of the AggregateRating already in the JSON-LD
+             schema (4.7 / 320) - the two must always quote the same numbers */ ?>
+    <div class="ee-rate" role="img" aria-label="Rated 4.7 out of 5 by over 320 admission teams">
+      <span class="ee-rate-stars" aria-hidden="true">
+        <?php for ($ee_s = 0; $ee_s < 5; $ee_s++) : ?>
+        <svg viewBox="0 0 24 24"<?php echo $ee_s === 4 ? ' class="ee-star-part"' : ''; ?>><defs><linearGradient id="eeStarG<?php echo $ee_s; ?>" x1="0" x2="1" y1="0" y2="0"><stop offset="70%" stop-color="#DE6E30"/><stop offset="70%" stop-color="#e8d5c7"/></linearGradient></defs><path fill="<?php echo $ee_s === 4 ? 'url(#eeStarG4)' : '#DE6E30'; ?>" d="M12 2l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.2l-5.8 3.6 1.6-6.6L2.6 8.8l6.8-.5L12 2z"/></svg>
+        <?php endfor; ?>
+      </span>
+      <b>4.7 / 5</b>
+      <i></i>
+      <span>Rated by <b>320+</b> admission teams</span>
+    </div>
+    <style>
+      #trusted-institutions .ee-rate{display:inline-flex;align-items:center;gap:10px;margin:0 auto 6px;padding:9px 18px;background:#fff;border:1px solid rgba(25,52,93,.12);border-radius:999px;box-shadow:0 10px 24px -14px rgba(25,52,93,.28);font-family:'Inter',system-ui,sans-serif;font-size:13.5px;color:#5a6b85}
+      #trusted-institutions .ee-rate-stars{display:inline-flex;gap:2px}
+      #trusted-institutions .ee-rate-stars svg{width:16px;height:16px;display:block}
+      #trusted-institutions .ee-rate b{color:#19335D;font-weight:800}
+      #trusted-institutions .ee-rate i{width:1px;height:16px;background:rgba(25,52,93,.15)}
+      @media(max-width:480px){#trusted-institutions .ee-rate{font-size:12px;padding:8px 13px;gap:8px}#trusted-institutions .ee-rate-stars svg{width:13px;height:13px}}
+    </style>
   </div>
   <?php
   /* The home logo set lives in inc/institute-logos.php alongside every other
@@ -1570,6 +1590,11 @@ ee_platform_section(); ?>
         .feature-nav-item.active { border-color: #DE6E30; background-color: #FFF4EE; }
         .feature-nav-item.active .nav-icon { color: #DE6E30; transform: scale(1.1); }
         .feature-nav-item.active .nav-title { color: #19335D; font-weight: 700; }
+        /* tab labels are spans (the panels own the real h2s), so they carry
+           the h3 scale explicitly to keep the exact same rendered look;
+           the id prefix outweighs the scoped .text-sm utility */
+        #vidyaai-embed-root .feature-nav-item .nav-title { display: block; font-size: 20px; font-weight: 600; line-height: 1.3; }
+        @media(max-width:820px){ #vidyaai-embed-root .feature-nav-item .nav-title { font-size: 14.5px; } }
         .feature-nav-item.active .nav-indicator { height: 100%; background-color: #DE6E30; }
 
         /* Pulse glow animation */
@@ -1758,7 +1783,7 @@ ee_platform_section(); ?>
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/01-VidyaAI-Intelligence.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem" loading="lazy" decoding="async">
                                 </div>
                                 <div>
-                                    <h3 class="text-sm font-semibold text-brand-navy nav-title transition-colors">VidyaAI Intelligence</h3>
+                                    <span class="text-sm font-semibold text-brand-navy nav-title transition-colors">VidyaAI Intelligence</span>
                                     <p class="text-xs text-slate-500 line-clamp-1">24x7 Assistant, Intent Scoring & Calling</p>
                                 </div>
                             </div>
@@ -1773,7 +1798,7 @@ ee_platform_section(); ?>
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/02-Admission-CRM.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem" loading="lazy" decoding="async">
                                 </div>
                                 <div>
-                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Admission CRM</h3>
+                                    <span class="text-sm font-semibold text-slate-700 nav-title transition-colors">Admission CRM</span>
                                     <p class="text-xs text-slate-500 line-clamp-1">Centralized Prospect Tracking</p>
                                 </div>
                             </div>
@@ -1788,7 +1813,7 @@ ee_platform_section(); ?>
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/03-Marketing-Automation.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem" loading="lazy" decoding="async">
                                 </div>
                                 <div>
-                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Marketing Automation</h3>
+                                    <span class="text-sm font-semibold text-slate-700 nav-title transition-colors">Marketing Automation</span>
                                     <p class="text-xs text-slate-500 line-clamp-1">Targeted Multichannel Campaigns</p>
                                 </div>
                             </div>
@@ -1803,7 +1828,7 @@ ee_platform_section(); ?>
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/04-Chatbot-and-Live-Chat.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem" loading="lazy" decoding="async">
                                 </div>
                                 <div>
-                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Chatbot & Live Chat</h3>
+                                    <span class="text-sm font-semibold text-slate-700 nav-title transition-colors">Chatbot & Live Chat</span>
                                     <p class="text-xs text-slate-500 line-clamp-1">24/7 Automated Engagement</p>
                                 </div>
                             </div>
@@ -1818,7 +1843,7 @@ ee_platform_section(); ?>
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/05-Application-System.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem" loading="lazy" decoding="async">
                                 </div>
                                 <div>
-                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Application System</h3>
+                                    <span class="text-sm font-semibold text-slate-700 nav-title transition-colors">Application System</span>
                                     <p class="text-xs text-slate-500 line-clamp-1">Forms, Verification & GD-PI</p>
                                 </div>
                             </div>
@@ -1833,7 +1858,7 @@ ee_platform_section(); ?>
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/06-WhatsApp-API.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem" loading="lazy" decoding="async">
                                 </div>
                                 <div>
-                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">WhatsApp API</h3>
+                                    <span class="text-sm font-semibold text-slate-700 nav-title transition-colors">WhatsApp API</span>
                                     <p class="text-xs text-slate-500 line-clamp-1">Two-Way Direct Messaging</p>
                                 </div>
                             </div>
@@ -1848,7 +1873,7 @@ ee_platform_section(); ?>
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/07-Mobile-CRM.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem" loading="lazy" decoding="async">
                                 </div>
                                 <div>
-                                    <h3 class="text-sm font-semibold text-slate-700 nav-title transition-colors">Mobile CRM</h3>
+                                    <span class="text-sm font-semibold text-slate-700 nav-title transition-colors">Mobile CRM</span>
                                     <p class="text-xs text-slate-500 line-clamp-1">Field Tracking & Click-To-Call</p>
                                 </div>
                             </div>
@@ -4577,6 +4602,59 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   </div>
 </section>
 
+<!-- ===================== MOBILE APP ===================== -->
+<style>
+  #ee-app{--nv:#19345d;--nv2:#22467c;--or:#DE6E30;position:relative;padding:clamp(40px,5vw,64px) 0;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  #ee-app *{box-sizing:border-box}
+  #ee-app .apw{max-width:1140px;margin:0 auto;padding:0 22px}
+  #ee-app .ap{display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:24px;background:linear-gradient(150deg,var(--nv2),var(--nv));border-radius:20px;padding:clamp(26px,3.4vw,44px);overflow:hidden;position:relative;box-shadow:0 30px 70px -34px rgba(25,52,93,.55)}
+  #ee-app .ap::before{content:"";position:absolute;top:-90px;right:-70px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(222,110,48,.35),transparent 70%)}
+  #ee-app .apl{position:relative;z-index:1}
+  #ee-app .apl .kck{display:inline-flex;align-items:center;gap:8px;font:800 11px/1 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#E8843F;margin-bottom:10px}
+  #ee-app .apl .kck svg{width:14px;height:14px}
+  #ee-app .apl h2{font-weight:800;font-size:clamp(21px,2.8vw,30px);line-height:1.15;letter-spacing:-.02em;color:#fff;margin:0 0 10px}
+  #ee-app .apl h2 em{font-style:normal;color:#E8843F}
+  #ee-app .apl p{font-size:14px;color:#c6d4ea;line-height:1.6;margin:0 0 18px;max-width:52ch}
+  #ee-app .apl .fts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 0}
+  #ee-app .apl .fts span{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#eaf0f8;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 12px}
+  #ee-app .apl .fts svg{width:12px;height:12px;color:#E8843F;flex:none}
+  #ee-app .apr{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;align-items:flex-end}
+  #ee-app .badge{display:inline-flex;align-items:center;gap:11px;background:#fff;border-radius:13px;padding:10px 18px 10px 14px;text-decoration:none;min-width:196px;box-shadow:0 14px 30px -12px rgba(0,0,0,.4);transition:transform .2s}
+  #ee-app .badge:hover{transform:translateY(-3px)}
+  #ee-app .badge svg{width:26px;height:26px;flex:none}
+  #ee-app .badge .bt{display:flex;flex-direction:column;line-height:1.15}
+  #ee-app .badge .bt small{font-size:10px;font-weight:600;color:#5a6b85;letter-spacing:.02em}
+  #ee-app .badge .bt b{font-size:15px;font-weight:800;color:#19335D}
+  @media(max-width:860px){#ee-app .ap{grid-template-columns:1fr}#ee-app .apr{flex-direction:row;align-items:stretch;justify-content:flex-start;flex-wrap:wrap}#ee-app .badge{min-width:0;flex:1 1 170px;justify-content:center}}
+</style>
+<section id="ee-app" aria-label="ExtraaEdge counsellor mobile app">
+  <div class="apw">
+    <div class="ap rv">
+      <div class="apl">
+        <span class="kck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18.5h2"/></svg> Counsellor Mobile App</span>
+        <h2>Your admissions desk, <em>in your pocket.</em></h2>
+        <p>Counsellors work leads from anywhere - smart caller ID shows the student's profile the moment the phone rings, and every call, comment and follow-up syncs back to the CRM in real time.</p>
+        <div class="fts">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12.5l5 5L20 6.5"/></svg> Smart caller ID</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12.5l5 5L20 6.5"/></svg> One-tap follow-ups</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12.5l5 5L20 6.5"/></svg> Live lead updates</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12.5l5 5L20 6.5"/></svg> Works on the move</span>
+        </div>
+      </div>
+      <div class="apr">
+        <a class="badge" href="https://play.google.com/store/apps/details?id=com.extraaedge.android" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#DE6E30" d="M3.6 1.8L13.7 12 3.6 22.2c-.4-.3-.6-.8-.6-1.4V3.2c0-.6.2-1.1.6-1.4z"/><path fill="#19335D" d="M17.2 8.5L5.4 1.9c-.2-.1-.4-.2-.6-.2L14.9 12l2.3-3.5z"/><path fill="#19335D" d="M4.8 22.3c.2 0 .4-.1.6-.2l11.8-6.6-2.3-3.5L4.8 22.3z"/><path fill="#DE6E30" d="M21 10.6l-3.8-2.1-2.3 3.5 2.3 3.5 3.8-2.1c1.3-.8 1.3-2 0-2.8z"/></svg>
+          <span class="bt"><small>GET IT ON</small><b>Google Play</b></span>
+        </a>
+        <a class="badge" href="https://apps.apple.com/in/app/extraaedge-new/id6449466185" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#19335D" d="M17.05 12.54c-.03-2.89 2.36-4.28 2.47-4.35-1.35-1.97-3.44-2.24-4.18-2.27-1.78-.18-3.47 1.05-4.37 1.05-.9 0-2.29-1.02-3.77-1-1.94.03-3.72 1.13-4.72 2.86-2.01 3.49-.51 8.66 1.45 11.49.96 1.39 2.1 2.94 3.6 2.89 1.45-.06 1.99-.93 3.74-.93s2.24.93 3.77.9c1.56-.03 2.54-1.41 3.49-2.8 1.1-1.61 1.55-3.17 1.58-3.25-.04-.02-3.03-1.16-3.06-4.59z"/><path fill="#19335D" d="M14.16 4.05c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.74-.74.86-1.39 2.23-1.22 3.55 1.29.1 2.6-.65 3.41-1.63z"/></svg>
+          <span class="bt"><small>Download on the</small><b>App Store</b></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== FAQ ===================== -->
 <!-- ===================== CRO · COMPARISON + ROI CALCULATOR + STICKY CTA ===================== -->
 <style>/* whitespace tighten across the home (safe higher-specificity override) */
@@ -4629,6 +4707,58 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
       <div class="st"><div class="n">4</div><div class="day">Day 7</div><h3>Go live + training</h3><p>Counsellors trained, you start converting from day one.</p></div>
     </div>
     <p class="note">Most CRMs take <b>weeks of onboarding</b>. With ExtraaEdge you&rsquo;re live in <b>7 days</b>.</p>
+  </div>
+</section>
+
+
+<!-- ===================== PRICING TEASER ===================== -->
+<style>
+  #ee-pricing .pz{display:grid;grid-template-columns:1.15fr .85fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -34px rgba(25,52,93,.35)}
+  #ee-pricing .pzl{padding:clamp(24px,3vw,38px)}
+  #ee-pricing .pzl ul{list-style:none;margin:0;padding:0;display:grid;gap:13px}
+  #ee-pricing .pzl li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--nv);line-height:1.45}
+  #ee-pricing .pzl li b{display:block}
+  #ee-pricing .pzl li small{display:block;font-size:12.5px;font-weight:500;color:var(--mut);margin-top:1px}
+  #ee-pricing .pzl .pzi{flex:none;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(222,110,48,.13),rgba(25,52,93,.07));display:inline-flex;align-items:center;justify-content:center;color:var(--or)}
+  #ee-pricing .pzl .pzi svg{width:17px;height:17px}
+  #ee-pricing .pzr{background:linear-gradient(150deg,var(--nv2),var(--nv));color:#fff;padding:clamp(24px,3vw,38px);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+  #ee-pricing .pzr::before{content:"";position:absolute;top:-70px;right:-70px;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(222,110,48,.35),transparent 70%)}
+  #ee-pricing .pzr>*{position:relative;z-index:1}
+  #ee-pricing .pzr .lab{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#c6d4ea;margin-bottom:8px}
+  #ee-pricing .pzr h3{font-size:clamp(18px,2.2vw,23px);font-weight:800;line-height:1.2;letter-spacing:-.02em;margin:0 0 8px;color:#fff}
+  #ee-pricing .pzr p{font-size:13.5px;color:#c6d4ea;line-height:1.6;margin:0 0 20px}
+  #ee-pricing .pzr .btns{display:flex;flex-wrap:wrap;gap:10px}
+  #ee-pricing .pzr .pb1{display:inline-flex;align-items:center;gap:8px;background:var(--or);color:#fff;font-weight:700;font-size:14px;padding:13px 22px;border-radius:11px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.6);transition:transform .2s}
+  #ee-pricing .pzr .pb2{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.35);color:#fff;font-weight:700;font-size:14px;padding:13px 22px;border-radius:11px;text-decoration:none;transition:transform .2s,background .2s}
+  #ee-pricing .pzr .pb1:hover,#ee-pricing .pzr .pb2:hover{transform:translateY(-2px)}
+  #ee-pricing .pzr .pb2:hover{background:rgba(255,255,255,.08)}
+  @media(max-width:760px){#ee-pricing .pz{grid-template-columns:1fr}}
+</style>
+<section id="ee-pricing" aria-label="Simple product-based pricing">
+  <div class="rvw">
+    <div class="rvh">
+      <h2>Simple, <em>product-based</em> pricing.</h2>
+      <p>No per-module surprises that stack up as you grow - pay for the products you use, sized to your enquiry volume.</p>
+    </div>
+    <div class="pz rv">
+      <div class="pzl">
+        <ul>
+          <li><span class="pzi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></span><span><b>Product-based, not module-based</b><small>One clear price per product - CRM, Vidya AI agents, WhatsApp API - instead of a fee for every feature.</small></span></li>
+          <li><span class="pzi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span><b>Scales with your enquiry volume</b><small>From single-campus colleges to university groups processing 100,000+ applications a cycle.</small></span></li>
+          <li><span class="pzi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg></span><span><b>No hidden third-party charges</b><small>Telephony, WhatsApp and integrations quoted upfront - what you see is what you pay.</small></span></li>
+          <li><span class="pzi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9"/><path d="M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5"/></svg></span><span><b>Migration &amp; onboarding included</b><small>Free data migration, 1:1 counsellor training and a dedicated Customer Success Manager.</small></span></li>
+        </ul>
+      </div>
+      <div class="pzr">
+        <span class="lab">Your quote, your funnel</span>
+        <h3>Get a price built on your real numbers.</h3>
+        <p>Tell us your enquiry volume and the products you need - we&rsquo;ll send a transparent, tailored quote the same day.</p>
+        <div class="btns">
+          <a class="pb1" href="/pricing/">View Pricing &rarr;</a>
+          <a class="pb2" href="#admission-form">Get a custom quote</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -4835,6 +4965,78 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
     </div>
   </div>
 </section>
+
+<?php
+/* Latest blog posts - rendered only when WordPress actually has published
+   posts, so a fresh install (or the render harness) simply skips the section
+   instead of showing empty cards. */
+$ee_blog_posts = function_exists('get_posts')
+  ? get_posts(array('numberposts' => 3, 'post_status' => 'publish', 'suppress_filters' => false))
+  : array();
+if ($ee_blog_posts) : ?>
+<!-- ===================== LATEST FROM THE BLOG ===================== -->
+<style>
+  #ee-blog{--nv:#19345d;--or:#DE6E30;--mut:#5a6b85;--line:rgba(25,52,93,.1);position:relative;padding:clamp(54px,7vw,88px) 0;background:linear-gradient(180deg,#f5f8fc,#fff);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  #ee-blog *{box-sizing:border-box}
+  #ee-blog .bw{max-width:1140px;margin:0 auto;padding:0 22px}
+  #ee-blog .bh{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:30px}
+  #ee-blog .bh h2{font-weight:800;font-size:clamp(26px,3.8vw,42px);line-height:1.1;letter-spacing:-.03em;color:var(--nv);margin:0}
+  #ee-blog .bh h2 em{font-style:normal;color:var(--or)}
+  #ee-blog .bh .all{flex:none;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--nv);text-decoration:none;border:1.5px solid var(--line);border-radius:11px;padding:11px 20px;transition:.2s;white-space:nowrap}
+  #ee-blog .bh .all:hover{border-color:var(--or);color:var(--or);transform:translateY(-2px)}
+  #ee-blog .bg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  #ee-blog .bc{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;box-shadow:0 14px 36px -24px rgba(25,52,93,.3);transition:transform .25s,box-shadow .25s}
+  #ee-blog .bc:hover{transform:translateY(-5px);box-shadow:0 26px 54px -24px rgba(25,52,93,.4)}
+  #ee-blog .bimg{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#22467c,#19335D);overflow:hidden}
+  #ee-blog .bimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+  #ee-blog .bc:hover .bimg img{transform:scale(1.05)}
+  #ee-blog .bimg .bph{position:absolute;inset:0;display:grid;place-items:center;font-size:44px;font-weight:800;color:rgba(255,255,255,.25);letter-spacing:-.02em}
+  #ee-blog .bb{display:flex;flex-direction:column;flex:1;padding:18px 20px 20px}
+  #ee-blog .bm{display:flex;align-items:center;gap:9px;margin-bottom:10px;font-size:11.5px;color:var(--mut);font-weight:600}
+  #ee-blog .bm .cat{color:var(--orange-700,#B5551D);background:rgba(222,110,48,.1);border:1px solid rgba(222,110,48,.18);border-radius:999px;padding:3px 11px;font-weight:800;letter-spacing:.02em}
+  #ee-blog .bb h3{font-size:16.5px;font-weight:800;color:var(--nv);line-height:1.3;letter-spacing:-.01em;margin:0 0 8px}
+  #ee-blog .bb p{font-size:13px;color:var(--mut);line-height:1.6;margin:0 0 14px}
+  #ee-blog .brd{margin-top:auto;display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--or)}
+  #ee-blog .brd svg{width:14px;height:14px;transition:transform .2s}
+  #ee-blog .bc:hover .brd svg{transform:translateX(4px)}
+  @media(max-width:900px){#ee-blog .bg{grid-template-columns:1fr 1fr}#ee-blog .bg .bc:nth-child(3){display:none}}
+  @media(max-width:640px){#ee-blog .bh{flex-direction:column;align-items:flex-start;gap:12px}#ee-blog .bg{grid-template-columns:1fr}#ee-blog .bg .bc:nth-child(3){display:flex}}
+</style>
+<section id="ee-blog" aria-label="Latest from the blog">
+  <div class="bw">
+    <div class="bh rv">
+      <h2>Latest from the blog<span class="ee-h2b">Admission playbooks that <em>fill more seats</em></span></h2>
+      <a class="all" href="/blog/">View All Articles &rarr;</a>
+    </div>
+    <div class="bg rv">
+      <?php foreach ($ee_blog_posts as $ee_bp) :
+        $ee_bp_url   = get_permalink($ee_bp);
+        $ee_bp_img   = function_exists('get_the_post_thumbnail_url') ? get_the_post_thumbnail_url($ee_bp, 'medium_large') : '';
+        $ee_bp_cats  = function_exists('get_the_category') ? get_the_category($ee_bp->ID) : array();
+        $ee_bp_cat   = ($ee_bp_cats && strtolower($ee_bp_cats[0]->name) !== 'uncategorized') ? $ee_bp_cats[0]->name : 'Admissions';
+        $ee_bp_title = get_the_title($ee_bp);
+        $ee_bp_exc   = wp_trim_words(get_the_excerpt($ee_bp), 18, '&hellip;');
+      ?>
+      <a class="bc" href="<?php echo esc_url($ee_bp_url); ?>">
+        <span class="bimg">
+          <?php if ($ee_bp_img) : ?>
+          <img src="<?php echo esc_url($ee_bp_img); ?>" alt="<?php echo esc_attr($ee_bp_title); ?>" loading="lazy" decoding="async">
+          <?php else : ?>
+          <span class="bph" aria-hidden="true"><?php echo esc_html(mb_strtoupper(mb_substr(wp_strip_all_tags($ee_bp_title), 0, 1))); ?></span>
+          <?php endif; ?>
+        </span>
+        <span class="bb">
+          <span class="bm"><span class="cat"><?php echo esc_html($ee_bp_cat); ?></span><span><?php echo esc_html(get_the_date('', $ee_bp)); ?></span></span>
+          <h3><?php echo esc_html($ee_bp_title); ?></h3>
+          <p><?php echo esc_html($ee_bp_exc); ?></p>
+          <span class="brd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
 
 <section class="sec sec--soft" id="faq">
   <div class="container">
