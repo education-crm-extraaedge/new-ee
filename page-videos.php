@@ -36,7 +36,7 @@ $EE_VID_PREVIEW = 8;
 get_header();
 ?>
 
-<!-- ee-videos-tpl v2026-08-04-videos-admin -->
+<!-- ee-videos-tpl v2026-08-10-cat-chips -->
 <style id="ee-videos-css">
 /* ── /videos/ ────────────────────────────────────────────────────────────
    Brand palette only: #19335D navy, #DE6E30 orange, Inter. Cards are a
@@ -75,6 +75,24 @@ html body #main-content #ee-videos h1.v-h1{
 #ee-videos .v-search input:focus{ outline:none; border-color:rgba(222,110,48,.55);
   box-shadow:0 0 0 4px rgba(222,110,48,.13); }
 #ee-videos .v-empty{ display:none; margin:26px 0 0; color:var(--v-muted); font-size:15px; }
+
+/* section chips - user-selectable categories inside one library page */
+#ee-videos .v-secnav{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0; }
+#ee-videos .v-chip{ display:inline-flex; align-items:center; gap:7px; padding:8px 14px; border-radius:999px;
+  border:1px solid var(--v-line); background:#fff; color:var(--v-navy); cursor:pointer;
+  font:600 13px/1 'Inter',sans-serif; transition:border-color .2s ease,color .2s ease,background .2s ease; }
+#ee-videos .v-chip i{ font-style:normal; font:700 10.5px/1 'Inter',sans-serif; min-width:18px; height:18px;
+  display:inline-flex; align-items:center; justify-content:center; padding:0 5px; border-radius:999px;
+  background:rgba(25,51,93,.08); color:var(--v-navy); }
+#ee-videos .v-chip:hover{ border-color:rgba(222,110,48,.5); color:var(--v-orange-700); }
+#ee-videos .v-chip.on{ background:var(--v-navy); border-color:var(--v-navy); color:#fff; }
+#ee-videos .v-chip.on i{ background:var(--v-orange); color:#fff; }
+@media(max-width:640px){
+  #ee-videos .v-secnav{ flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+    margin-left:-16px; margin-right:-16px; padding:0 16px 4px; }
+  #ee-videos .v-secnav::-webkit-scrollbar{ display:none; }
+  #ee-videos .v-chip{ flex:none; }
+}
 
 /* sections */
 #ee-videos .v-sec{ margin:clamp(30px,4vw,46px) 0 0; }
@@ -155,7 +173,7 @@ html body #main-content #ee-videos h3.v-h3{
           ? esc_html($ee_vid_active['name'])
           : 'See ExtraaEdge <em>in action</em>'; ?></h1>
       <p class="v-lead"><?php echo $ee_vid_active
-          ? 'Every ' . esc_html(strtolower($ee_vid_active['name'])) . ' video in one place. Pick one to play it right here.'
+          ? 'Every video in ' . esc_html($ee_vid_active['name']) . ', in one place. Pick a category below or search &mdash; and play any video right here.'
           : 'Customer stories, product walkthroughs, webinars and step-by-step tutorials &mdash; everything we have on video, in one place.'; ?></p>
 
       <nav class="v-nav" aria-label="Video categories">
@@ -171,6 +189,17 @@ html body #main-content #ee-videos h3.v-h3{
         <input type="search" id="eeVidSearch" placeholder="Search videos&hellip;" aria-label="Search videos" autocomplete="off">
       </div>
       <p class="v-empty" id="eeVidEmpty">Nothing matched that search. Try a different word.</p>
+
+      <?php if ($ee_vid_active && count($ee_vid_active['sections']) > 1) :
+          $ee_vid_total = 0;
+          foreach ($ee_vid_active['sections'] as $ee_vs) $ee_vid_total += count($ee_vs['videos']); ?>
+      <nav class="v-secnav" id="eeVidSecnav" aria-label="Filter by category">
+        <button type="button" class="v-chip on" data-sec="" aria-pressed="true">All <i><?php echo (int) $ee_vid_total; ?></i></button>
+        <?php foreach ($ee_vid_active['sections'] as $ee_vs) : ?>
+        <button type="button" class="v-chip" data-sec="<?php echo esc_attr($ee_vs['name']); ?>" aria-pressed="false"><?php echo esc_html($ee_vs['name']); ?> <i><?php echo count($ee_vs['videos']); ?></i></button>
+        <?php endforeach; ?>
+      </nav>
+      <?php endif; ?>
     </header>
 
     <?php
@@ -198,7 +227,7 @@ html body #main-content #ee-videos h3.v-h3{
     <?php if ($ee_vid_active) : ?>
 
       <?php foreach ($ee_vid_active['sections'] as $sec) : ?>
-        <div class="v-sec" data-group>
+        <div class="v-sec" data-group data-sec="<?php echo esc_attr($sec['name']); ?>">
           <div class="v-sec-head"><h2 class="v-h2"><?php echo esc_html($sec['name']); ?></h2></div>
           <div class="v-grid">
             <?php foreach ($sec['videos'] as $v) $ee_vid_card($v[0], $v[1], $sec['name']); ?>
@@ -290,10 +319,15 @@ html body #main-content #ee-videos h3.v-h3{
       groups = [].slice.call(root.querySelectorAll('[data-group]')),
       timer;
 
+  var curSec = '';                          /* '' = all categories */
+
   function filter(){
-    var q = box.value.trim().toLowerCase();
+    var q = box ? box.value.trim().toLowerCase() : '';
     cards.forEach(function(c){
-      c.style.display = (!q || c.dataset.s.indexOf(q) !== -1) ? '' : 'none';
+      var okQ = !q || c.dataset.s.indexOf(q) !== -1;
+      var g = c.closest('[data-sec]');
+      var okS = !curSec || (g && g.getAttribute('data-sec') === curSec);
+      c.style.display = (okQ && okS) ? '' : 'none';
     });
     var shown = 0;
     groups.forEach(function(g){
@@ -301,10 +335,24 @@ html body #main-content #ee-videos h3.v-h3{
       g.style.display = any ? '' : 'none';
       if (any) shown++;
     });
-    empty.style.display = (q && !shown) ? 'block' : 'none';
+    empty.style.display = ((q || curSec) && !shown) ? 'block' : 'none';
   }
   if (box) box.addEventListener('input', function(){
     clearTimeout(timer); timer = setTimeout(filter, 120);
+  });
+
+  /* category chips - one selected at a time, combining with the search box */
+  var secnav = document.getElementById('eeVidSecnav');
+  if (secnav) secnav.addEventListener('click', function(e){
+    var chip = e.target.closest('.v-chip');
+    if (!chip) return;
+    curSec = chip.getAttribute('data-sec') || '';
+    [].slice.call(secnav.querySelectorAll('.v-chip')).forEach(function(x){
+      var on = x === chip;
+      x.classList.toggle('on', on);
+      x.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    filter();
   });
 })();
 </script>

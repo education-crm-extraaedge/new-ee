@@ -951,7 +951,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         ))),
       )),
       'customers' => array('label'=>'Customers','type'=>'drop','items'=>array(
-        array('t'=>'Success Customer Stories','u'=>'/customer-success-stories/'),
+        array('t'=>'Success Customer Stories','u'=>'/videos/customer-stories/'),
         array('t'=>'Case Studies','u'=>'/case-studies/'),
         array('t'=>'Testimonials','u'=>'/testimonials/'),
         array('t'=>'Reviews','u'=>'/reviews/'),

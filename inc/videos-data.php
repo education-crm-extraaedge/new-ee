@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) exit;
 function ee_video_library_builtin() {
     return array(
         array(
-            'name' => 'Customer Stories',
+            'name' => 'Customer Success Stories',
             'slug' => 'customer-stories',
             'sections' => array(
                 array('name' => 'University & Colleges', 'videos' => array(
