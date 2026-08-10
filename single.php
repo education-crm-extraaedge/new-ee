@@ -1554,10 +1554,6 @@ html.ee-thin-scroll body::-webkit-scrollbar-thumb:hover { background:rgba(25,51,
     </div>
 
     <!-- T. Persistent floating "Book Demo" bubble (bottom-right, above WhatsApp) -->
-    <a href="/book-demo/" class="ee-book-bubble" aria-label="Book a demo" id="ee-book-bubble">
-        <?php echo ee_icon('ti-rocket'); ?>
-        <span>Book Demo</span>
-    </a>
 
     <div class="ee-copy-toast" id="ee-copy-toast"><?php echo ee_icon('ti-circle-check'); ?> <span id="ee-toast-msg">Copied!</span></div>
 </div>

@@ -587,11 +587,8 @@ if (!function_exists('ee_social_icon_url')) {
 </div>
 
 <!-- Book Demo bubble + WhatsApp / Call stack — identical markup to single.php -->
-<a href="/book-demo/" class="ee-book-bubble" aria-label="Book a demo" id="ee-book-bubble">
-  <?php echo ee_icon('ti-rocket'); ?>
-  <span>Book Demo</span>
-</a>
-
+<?php /* Book-Demo floating bubble removed 2026-08-10 - the WhatsApp / Call
+         stack below stays; header CTA + in-page CTAs cover demo booking. */ ?>
 <div class="ee-floating-contact" role="region" aria-label="Quick contact">
   <a class="ee-float-btn ee-float-whatsapp" href="https://api.whatsapp.com/send/?phone=918956982897" target="_blank" rel="noopener" aria-label="WhatsApp">
     <span class="ee-float-icon-wrap ee-float-icon-art"><img src="<?php echo esc_url(ee_social_icon_url('whatsapp')); ?>" alt="" loading="lazy" decoding="async"></span>
