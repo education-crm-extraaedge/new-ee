@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-solutions-links -->
+<!-- ee-front-tpl v2026-08-08-solutions-all -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -3255,9 +3255,19 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
 #ee-solutions .solb-cta svg,#ee-solutions .solb-cta img.eeimg{width:16px;height:16px;transition:transform .25s;}
 #ee-solutions .solb-cta:hover{transform:translateY(-2px);}
 #ee-solutions .solb-cta:hover svg{transform:translateX(3px);}
+#ee-solutions .solb-e{grid-column:span 7;background:#fff;border:1px solid var(--hair);}
+#ee-solutions .solb-e:hover{border-color:rgba(222,110,48,.35);box-shadow:0 24px 48px -24px rgba(25,52,93,.35);}
+#ee-solutions .solb-f{grid-column:span 5;background:var(--bg);border:1px solid var(--hair);}
+#ee-solutions .solb-f:hover{border-color:rgba(222,110,48,.35);}
+#ee-solutions .solb-g{grid-column:span 4;background:#fff;border:1px solid var(--hair);}
+#ee-solutions .solb-g:hover{border-color:rgba(222,110,48,.35);box-shadow:0 24px 48px -24px rgba(25,52,93,.35);}
+#ee-solutions .solb-h{grid-column:span 8;background:var(--bg);border:1px solid var(--hair);}
+#ee-solutions .solb-h:hover{border-color:rgba(222,110,48,.35);}
+#ee-solutions .solb-e .solb-links,#ee-solutions .solb-h .solb-links{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
 @media (max-width:900px){
-  #ee-solutions .solb-a,#ee-solutions .solb-b,#ee-solutions .solb-c,#ee-solutions .solb-d{grid-column:span 12;}
-  #ee-solutions .solb-c .solb-links{grid-template-columns:1fr;}
+  #ee-solutions .solb-a,#ee-solutions .solb-b,#ee-solutions .solb-c,#ee-solutions .solb-d,
+  #ee-solutions .solb-e,#ee-solutions .solb-f,#ee-solutions .solb-g,#ee-solutions .solb-h{grid-column:span 12;}
+  #ee-solutions .solb-c .solb-links,#ee-solutions .solb-e .solb-links,#ee-solutions .solb-h .solb-links{grid-template-columns:1fr;}
 }
 @media (max-width:560px){
   #ee-solutions .ee-container{padding:0 18px;}
@@ -3312,6 +3322,57 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
           <a class="solb-link" href="/solutions/lead-management/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Lead Management</b><span>Score, route &amp; prioritise leads automatically</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
           <a class="solb-link" href="/solutions/lead-nurturing/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Lead Nurturing</b><span>Automated drips across WhatsApp, email &amp; SMS</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
           <a class="solb-link" href="/solutions/enrollment-crm/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Enrollment CRM</b><span>One CRM from first touch to enrolled</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+        </div>
+      </article>
+
+      <article class="solb-card solb-g">
+        <span class="solb-tag"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-01.svg" alt="" loading="lazy" decoding="async">Engagement &amp; Applications</span>
+        <h3>Keep students engaged to day one</h3>
+        <p class="solb-desc">From events to applications - every touchpoint after the enquiry, managed.</p>
+        <div class="solb-links">
+          <a class="solb-link" href="/solutions/student-engagement/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Student Engagement</b><span>Keep every admit warm to day one</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/event-management/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Event Management</b><span>Webinars &amp; fairs that fill themselves</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/application-processing/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Application Processing</b><span>Forms, docs &amp; fees on one rail</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+        </div>
+      </article>
+
+      <article class="solb-card solb-e">
+        <span class="solb-tag"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-04.svg" alt="" loading="lazy" decoding="async">For Every Team</span>
+        <h3>One platform, every team&rsquo;s workspace</h3>
+        <p class="solb-desc">Purpose-built views and workflows for everyone who touches admissions.</p>
+        <div class="solb-links">
+          <a class="solb-link" href="/solutions/admissions/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>For Admission Teams</b><span>The team&rsquo;s whole day on one queue</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/marketing/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>For Marketing Teams</b><span>Campaigns measured to enrolment</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/sales/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>For Sales Teams</b><span>Close more with less chasing</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/counselors/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>For Counsellors</b><span>A calmer, sharper daily list</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/management/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>For Management</b><span>Live numbers across campuses</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/call-center/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>For Call Centers</b><span>AI-first calling that never sleeps</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+        </div>
+      </article>
+
+      <article class="solb-card solb-f">
+        <span class="solb-tag"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-03.svg" alt="" loading="lazy" decoding="async">AI &amp; Automation</span>
+        <h3>Let AI do the heavy lifting</h3>
+        <p class="solb-desc">Agents that answer, call, score and follow up - around the clock.</p>
+        <div class="solb-links">
+          <a class="solb-link" href="/solutions/admission-automation/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Admission Automation</b><span>The repetitive 80% runs itself</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/ai-calling/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>AI Calling</b><span>Every lead called in 30 seconds</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/whatsapp-automation/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>WhatsApp Automation</b><span>Official API, 98% open rates</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/lead-scoring/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Lead Scoring</b><span>Call the right student first</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+        </div>
+      </article>
+
+      <article class="solb-card solb-h">
+        <span class="solb-tag"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/solutions-icon-01.svg" alt="" loading="lazy" decoding="async">Measurable Outcomes</span>
+        <h3>The results institutions switch for</h3>
+        <p class="solb-desc">Every capability above exists for these six numbers.</p>
+        <div class="solb-links">
+          <a class="solb-link" href="/solutions/increase-admissions/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Increase Admissions</b><span>More seats, same team &amp; budget</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/improve-conversion/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Improve Conversion</b><span>+37% measured across institutions</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/faster-follow-ups/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Faster Follow-ups</b><span>Hours of delay down to 30 sec</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/increase-roi/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Increase ROI</b><span>More enrolments per rupee spent</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/reduce-manual-work/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Reduce Manual Work</b><span>Hours back every single week</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+          <a class="solb-link" href="/solutions/better-student-experience/"><span class="solb-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="solb-lt"><b>Better Student Experience</b><span>Admissions students actually enjoy</span></span><span class="solb-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
         </div>
       </article>
 
