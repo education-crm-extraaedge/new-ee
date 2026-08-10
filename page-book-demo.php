@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 get_header();
 ?>
-<!-- ee-bookdemo-tpl v2026-08-10-badges-marquee -->
+<!-- ee-bookdemo-tpl v2026-08-10-compact-form -->
 <style>
   #ee-ty{--nv:#19335D;--nv2:#2A4E85;--or:#DE6E30;--or7:#B5551D;--mut:#5a6b85;--line:rgba(25,52,93,.12);
     font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#fff}
@@ -53,36 +53,46 @@ get_header();
   #ee-ty .ty-mq:hover .ty-mq-track{animation-play-state:paused}
   @media(prefers-reduced-motion:reduce){#ee-ty .ty-mq-track{animation:none}}
   #ee-ty .ty-brands{display:flex;flex-wrap:wrap;gap:12px}
-  #ee-ty .ty-brand{width:104px;height:56px;background:#fff;border-radius:12px;display:grid;place-items:center;padding:9px;box-shadow:0 12px 26px -14px rgba(0,0,0,.5)}
-  #ee-ty .ty-brand img{max-width:100%;max-height:100%;object-fit:contain}
+  #ee-ty .ty-brand{flex:none;width:150px;height:74px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:12px;box-shadow:0 12px 26px -14px rgba(0,0,0,.45)}
+  #ee-ty .ty-brand img{max-height:46px;max-width:122px;width:auto;object-fit:contain;display:block}
   /* ── right · thank you + form ── */
-  #ee-ty .ty-r{padding:clamp(36px,5vw,72px) clamp(22px,4.5vw,72px);display:flex;flex-direction:column;justify-content:center}
+  #ee-ty .ty-r{padding:clamp(28px,3.6vw,52px) clamp(22px,4.5vw,72px);display:flex;flex-direction:column;justify-content:flex-start}
   #ee-ty .ty-ok{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;background:rgba(46,125,91,.1);border:1px solid rgba(46,125,91,.28);color:#22684B;font:700 12.5px/1 'Inter',sans-serif;border-radius:999px;padding:8px 16px;margin:0 0 18px}
   #ee-ty .ty-ok svg{width:14px;height:14px;flex:none}
   html body #main-content #ee-ty h1.ty-h1{margin:0 0 10px !important;font-weight:800 !important;letter-spacing:-.02em;color:var(--nv) !important}
   #ee-ty .ty-h1 em{font-style:normal;color:var(--or)}
   #ee-ty .ty-lead{margin:0 0 26px;color:var(--mut);font-size:clamp(14px,1.5vw,16px);line-height:1.65;max-width:56ch}
-  #ee-ty .ty-card{background:#fff;border:1px solid #EDF0F5;border-radius:22px;padding:clamp(22px,2.8vw,38px);box-shadow:0 30px 70px -24px rgba(25,52,93,.28);position:relative;max-width:640px}
+  #ee-ty .ty-card{background:#fff;border:1px solid #EDF0F5;border-radius:22px;padding:clamp(20px,2.4vw,30px);box-shadow:0 30px 70px -24px rgba(25,52,93,.28);position:relative;max-width:600px}
   #ee-ty .ty-card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;background:linear-gradient(140deg,rgba(222,110,48,.5),transparent 40%,transparent 60%,rgba(25,52,93,.4));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.5}
   #ee-ty .ty-card h3{margin:0 0 4px;text-align:center;font-size:clamp(19px,2.2vw,24px);font-weight:800;color:var(--nv);letter-spacing:-.01em}
   #ee-ty .ty-card .ty-cs{text-align:center;font-size:12.5px;color:var(--mut);margin:0 0 18px}
   #ee-ty .secure-label{text-align:center;margin-top:16px;font-size:10.5px;color:rgba(25,52,93,.5);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-  /* form widget: clean single-column inputs on brand tokens */
+  /* form widget: compact two-column field grid on brand tokens.
+     The card already carries the "Quick Enquiry" title, so the widget's own
+     heading block is hidden to stop the form running twice as tall. */
   #ee-ty #ee-form-7,#ee-ty #ee-form-7 *{box-sizing:border-box!important}
-  #ee-ty #ee-form-7 form{display:block!important;width:100%!important}
-  #ee-ty #ee-form-7 form>div,#ee-ty #ee-form-7 form>div>div{display:block!important;width:100%!important;max-width:100%!important;float:none!important;grid-template-columns:1fr!important;margin-bottom:12px!important}
-  #ee-ty #ee-form-7 h1,#ee-ty #ee-form-7 h2,#ee-ty #ee-form-7 h3,#ee-ty #ee-form-7 h4{line-height:1.2!important;margin:0 0 4px!important;text-align:center!important}
-  #ee-ty #ee-form-7 label{display:block!important;float:none!important;width:auto!important;max-width:100%!important;text-align:left!important;color:#19345d!important;font-weight:600!important;font-size:13px!important;margin:0 0 6px!important}
-  #ee-ty #ee-form-7 input[type="text"],#ee-ty #ee-form-7 input[type="email"],#ee-ty #ee-form-7 input[type="tel"],#ee-ty #ee-form-7 input[type="url"],#ee-ty #ee-form-7 input[type="number"],#ee-ty #ee-form-7 select,#ee-ty #ee-form-7 textarea{display:block!important;float:none!important;background:#fff!important;color:#19345d!important;border:1px solid #e2e8f0!important;border-radius:10px!important;padding:12px 14px!important;font-size:14px!important;font-family:'Inter',sans-serif!important;width:100%!important;max-width:100%!important;box-shadow:none!important;transition:border-color .2s,box-shadow .2s!important}
+  #ee-ty #ee-form-7 h1,#ee-ty #ee-form-7 h2,#ee-ty #ee-form-7 h3,#ee-ty #ee-form-7 h4{display:none!important}
+  #ee-ty #ee-form-7 form{display:grid!important;grid-template-columns:1fr 1fr;gap:0 14px;width:100%!important;align-items:start}
+  #ee-ty #ee-form-7 form>*{grid-column:1/-1;min-width:0}
+  #ee-ty #ee-form-7 form>div{display:block!important;width:100%!important;max-width:100%!important;float:none!important;margin-bottom:10px!important}
+  #ee-ty #ee-form-7 form>div:has(input[type="text"]),#ee-ty #ee-form-7 form>div:has(input[type="email"]),#ee-ty #ee-form-7 form>div:has(input[type="tel"]),#ee-ty #ee-form-7 form>div:has(input[type="url"]),#ee-ty #ee-form-7 form>div:has(select){grid-column:auto}
+  #ee-ty #ee-form-7 form>div:has(input[type="submit"]),#ee-ty #ee-form-7 form>div:has(button[type="submit"]),#ee-ty #ee-form-7 form>div:has(input[type="checkbox"]),#ee-ty #ee-form-7 form>div:has(textarea){grid-column:1/-1}
+  #ee-ty #ee-form-7 form>p{grid-column:1/-1}
+  #ee-ty #ee-form-7 p{text-align:center!important;font-size:12px!important;color:#5a6b85!important;margin:0 0 12px!important}
+  #ee-ty #ee-form-7 label{display:block!important;float:none!important;width:auto!important;max-width:100%!important;text-align:left!important;color:#19345d!important;font-weight:600!important;font-size:12.5px!important;margin:0 0 5px!important}
+  #ee-ty #ee-form-7 input[type="text"],#ee-ty #ee-form-7 input[type="email"],#ee-ty #ee-form-7 input[type="tel"],#ee-ty #ee-form-7 input[type="url"],#ee-ty #ee-form-7 input[type="number"],#ee-ty #ee-form-7 select,#ee-ty #ee-form-7 textarea{display:block!important;float:none!important;background:#fff!important;color:#19345d!important;border:1px solid #e2e8f0!important;border-radius:10px!important;padding:11px 13px!important;font-size:13.5px!important;font-family:'Inter',sans-serif!important;width:100%!important;max-width:100%!important;box-shadow:none!important;transition:border-color .2s,box-shadow .2s!important}
   #ee-ty #ee-form-7 input:focus,#ee-ty #ee-form-7 select:focus,#ee-ty #ee-form-7 textarea:focus{outline:none!important;border-color:#DE6E30!important;box-shadow:0 0 0 3px rgba(222,110,48,.12)!important}
-  #ee-ty #ee-form-7 input[type="submit"],#ee-ty #ee-form-7 button[type="submit"]{display:block!important;background:var(--or7)!important;color:#fff!important;border:none!important;border-radius:12px!important;padding:14px 28px!important;font-size:15px!important;font-weight:700!important;font-family:'Inter',sans-serif!important;width:100%!important;cursor:pointer!important;transition:all .3s!important;box-shadow:0 8px 20px rgba(222,110,48,.25)!important}
+  #ee-ty #ee-form-7 input[type="submit"],#ee-ty #ee-form-7 button[type="submit"]{display:block!important;background:var(--or7)!important;color:#fff!important;border:none!important;border-radius:12px!important;padding:13px 26px!important;font-size:14.5px!important;font-weight:700!important;font-family:'Inter',sans-serif!important;width:100%!important;cursor:pointer!important;transition:all .3s!important;box-shadow:0 8px 20px rgba(222,110,48,.25)!important}
   #ee-ty #ee-form-7 input[type="submit"]:hover,#ee-ty #ee-form-7 button[type="submit"]:hover{background:#A8501C!important;transform:translateY(-2px)!important;box-shadow:0 12px 28px rgba(222,110,48,.35)!important}
   /* stack on phones - confirmation + form first, proof after */
   @media(max-width:900px){
     #ee-ty .ty-grid{grid-template-columns:1fr}
     #ee-ty .ty-l{order:2}
-    #ee-ty .ty-r{order:1;padding-top:34px}
+    #ee-ty .ty-r{order:1;padding-top:30px}
     #ee-ty .ty-card{max-width:none}
+  }
+  @media(max-width:560px){
+    #ee-ty #ee-form-7 form{grid-template-columns:1fr}
   }
 </style>
 
@@ -123,7 +133,7 @@ get_header();
       <div class="ty-mq" aria-label="Institutions using ExtraaEdge">
         <div class="ty-mq-track">
           <?php for ($ee_p = 0; $ee_p < 2; $ee_p++) : foreach ($ee_bd_logos as $ee_l) : ?>
-          <span class="ty-brand"><img src="<?php echo esc_url($ee_l['u']); ?>" alt="<?php echo esc_attr($ee_l['a'] ?? ''); ?>" loading="lazy" decoding="async"></span>
+          <span class="ty-brand"><img src="<?php echo esc_url($ee_l['u']); ?>" alt="<?php echo esc_attr($ee_l['a'] ?? ''); ?>" decoding="async" onerror="this.closest('.ty-brand').style.display='none'"></span>
           <?php endforeach; endfor; ?>
         </div>
       </div>
