@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-08-home-nav-mirror -->
+<!-- ee-front-tpl v2026-08-09-products-gallery -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -2505,108 +2505,225 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
 <section id="ee-products" aria-label="Our products">
   <div class="epx-wrap">
 
-    <style>#ee-products .epx-hlink,#ee-products .epx-card h3 a{color:inherit;text-decoration:none;transition:color .2s ease}
-    #ee-products .epx-card h3 a:hover,#ee-products .epx-hlink:hover .eep-accent{color:#C45A20}
-    #ee-products .epx-card h3 a:focus-visible,#ee-products .epx-hlink:focus-visible{outline:2px solid #DE6E30;outline-offset:3px}</style>
+    <style>
+    /* ── Products as a template gallery: filter pills + minimal cards ── */
+    #ee-products .epx-hlink{color:inherit;text-decoration:none;transition:color .2s ease}
+    #ee-products .epn-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:clamp(20px,2.6vw,30px) 0 clamp(22px,2.8vw,34px)}
+    #ee-products .epn-tab{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;color:var(--navy);
+      font:600 13px/1 'Inter',sans-serif;padding:9px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;
+      transition:background .2s,color .2s,border-color .2s,transform .18s}
+    #ee-products .epn-tab:hover{transform:translateY(-1px);border-color:rgba(222,110,48,.35)}
+    #ee-products .epn-tab i{font-style:normal;font-size:10.5px;font-weight:700;min-width:18px;height:18px;display:inline-flex;
+      align-items:center;justify-content:center;padding:0 5px;border-radius:999px;background:rgba(25,52,93,.07);color:var(--navy)}
+    #ee-products .epn-tab.on{background:var(--navy);border-color:var(--navy);color:#fff}
+    #ee-products .epn-tab.on i{background:var(--orange);color:#fff}
+    #ee-products .epn-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+    #ee-products .epn-card{display:flex;flex-direction:column;background:#FBFCFE;border:1px solid var(--line);border-radius:16px;
+      padding:18px 18px 14px;text-decoration:none;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background .22s}
+    #ee-products .epn-card:hover{transform:translateY(-3px);background:#fff;border-color:rgba(222,110,48,.32);
+      box-shadow:0 24px 48px -30px rgba(25,52,93,.45)}
+    #ee-products .epn-top{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+    #ee-products .epn-ic{display:grid;place-items:center;width:42px;height:42px;flex:0 0 auto;border-radius:13px}
+    #ee-products .epn-ic svg{width:20px;height:20px}
+    #ee-products .epn-ic--a{background:rgba(222,110,48,.1);color:var(--orange)}
+    #ee-products .epn-ic--b{background:rgba(25,52,93,.08);color:var(--navy)}
+    #ee-products .epn-tt b{display:block;font:700 15px/1.25 'Inter',sans-serif;color:var(--navy);letter-spacing:-.01em}
+    #ee-products .epn-tt small{display:block;margin-top:3px;font:600 11px/1 'Inter',sans-serif;color:#8a95a6}
+    #ee-products .epn-card p{margin:0 0 12px;color:var(--muted);flex:1}
+    #ee-products .epn-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(25,52,93,.07);
+      padding-top:11px;font:700 12px/1 'Inter',sans-serif;color:#8a95a6;transition:color .2s}
+    #ee-products .epn-foot svg{width:14px;height:14px;opacity:0;transform:translateX(-4px);transition:opacity .22s,transform .22s}
+    #ee-products .epn-card:hover .epn-foot{color:var(--orange-700,#B5551D)}
+    #ee-products .epn-card:hover .epn-foot svg{opacity:1;transform:none}
+    #ee-products .epn-card[hidden]{display:none}
+    @media(max-width:1100px){#ee-products .epn-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:860px){#ee-products .epn-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){
+      #ee-products .epn-tabs{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+        -webkit-overflow-scrolling:touch;margin-left:-18px;margin-right:-18px;padding:2px 18px 6px}
+      #ee-products .epn-tabs::-webkit-scrollbar{display:none}
+      #ee-products .epn-grid{grid-template-columns:1fr;gap:10px}
+      #ee-products .epn-card{padding:15px 15px 12px}
+    }
+    @media(prefers-reduced-motion:reduce){#ee-products .epn-tab,#ee-products .epn-card,#ee-products .epn-foot svg{transition:none}}
+    </style>
     <header class="epx-head">
       <h2><a href="/products/" class="epx-hlink">Our Products<span class="ee-h2b">The <span class="eep-accent">All-in-One Admissions Platform</span></span></a></h2>
-      <p>Everything you need to attract, engage, enroll, and retain students &mdash; powered by AI and built for education.</p>
+      <p>Browse by stage of the admission funnel &mdash; or see everything at once.</p>
     </header>
 
-    <div class="epx-grid">
-        <article class="epx-card">
-          <div class="epx-top">
-            <span class="epx-ic epx-ic--nv" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span>
-            <h3>Capture &amp; Nurture</h3>
-          </div>
-          <ul class="epx-list">
-            <li><a href="/products/education-crm/">Education CRM</a></li>
-            <li><a href="/products/marketing-automation/">Marketing Automation</a></li>
-            <li><a href="/solutions/lead-management/">Lead Management</a></li>
-            <li><a href="/solutions/lead-scoring/">Lead Scoring</a></li>
-            <li><a href="/products/journey-builder/">Journey Builder</a></li>
-          </ul>
-        </article>
-        <article class="epx-card">
-          <div class="epx-top">
-            <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span>
-            <h3><a href="/products/communication/">Engage &amp; Communicate</a></h3>
-          </div>
-          <ul class="epx-list">
-            <li><a href="/products/whatsapp-business-api/">WhatsApp Business API</a></li>
-            <li><a href="/products/cloud-telephony/">Cloud Telephony &amp; IVR</a></li>
-            <li><a href="/products/email-marketing/">Email &amp; SMS Campaigns</a></li>
-            <li><a href="/products/education-chatbot/">Education Chatbot</a></li>
-            <li><a href="/products/mobile-crm/">Mobile CRM</a></li>
-          </ul>
-        </article>
-        <article class="epx-card">
-          <div class="epx-top">
-            <span class="epx-ic epx-ic--nv" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5H3l9-5z"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></svg></span>
-            <h3>Convert &amp; Enroll</h3>
-          </div>
-          <ul class="epx-list">
-            <li><a href="/products/application-management-system/">Application Management (AMS)</a></li>
-            <li><a href="/products/payment-enrollment/">Payment &amp; Enrollment</a></li>
-            <li><a href="/solutions/walk-in-management/">Walk-in Management</a></li>
-          </ul>
-        </article>
-        <article class="epx-card">
-          <div class="epx-top">
-            <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span>
-            <h3><a href="/products/automation/">Automate</a></h3>
-          </div>
-          <ul class="epx-list">
-            <li><a href="/products/workflow-automation/">Workflow Automation</a></li>
-            <li><a href="/products/lead-assignment/">Lead Assignment &amp; Routing</a></li>
-            <li><a href="/products/task-automation/">Task Automation</a></li>
-            <li><a href="/products/follow-up-automation/">Follow-up Automation</a></li>
-          </ul>
-        </article>
+    <div class="epn-tabs" role="tablist" aria-label="Product categories">
+      <button type="button" class="epn-tab on" data-g="capture" aria-pressed="true">Capture & Nurture <i>5</i></button>
+      <button type="button" class="epn-tab" data-g="engage" aria-pressed="false">Engage & Communicate <i>5</i></button>
+      <button type="button" class="epn-tab" data-g="convert" aria-pressed="false">Convert & Enroll <i>3</i></button>
+      <button type="button" class="epn-tab" data-g="automate" aria-pressed="false">Automate <i>4</i></button>
+      <button type="button" class="epn-tab" data-g="measure" aria-pressed="false">Measure <i>5</i></button>
+      <button type="button" class="epn-tab" data-g="vidya" aria-pressed="false">Vidya AI <i>5</i></button>
+      <button type="button" class="epn-tab" data-g="essentials" aria-pressed="false">Essentials <i>2</i></button>
+      <button type="button" class="epn-tab" data-g="all" aria-pressed="false">All</button>
     </div>
 
-    <div class="epx-grid epx-grid--b">
-        <article class="epx-card">
-          <div class="epx-top">
-            <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
-            <h3><a href="/products/analytics/">Measure</a></h3>
-          </div>
-          <ul class="epx-list">
-            <li><a href="/analytics/executive-dashboard/">Executive Dashboard</a></li>
-            <li><a href="/analytics/admission-analytics/">Admission Analytics</a></li>
-            <li><a href="/analytics/marketing-analytics/">Marketing Analytics</a></li>
-            <li><a href="/analytics/funnel-analytics/">Funnel Analytics</a></li>
-            <li><a href="/analytics/custom-reports/">Custom Reports</a></li>
-          </ul>
-        </article>
-        <article class="epx-card epx-card--hero">
-          <div class="epx-top">
-            <span class="epx-ic epx-ic--or" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span>
-            <h3><a href="https://getvidya.ai/vidya-ai" target="_blank" rel="noopener">Vidya AI Suite</a></h3><span class="epx-ai" aria-hidden="true">AI</span>
-          </div>
-          <ul class="epx-list">
-            <li><a href="https://getvidya.ai/vidya-ai" target="_blank" rel="noopener">Why Vidya AI</a></li>
-            <li><a href="https://getvidya.ai/vidya-gpt" target="_blank" rel="noopener">VidyaGPT</a></li>
-            <li><a href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener">VidyaAI Voice Agent</a></li>
-            <li><a href="https://getvidya.ai/vidya-pulse" target="_blank" rel="noopener">VidyaPulse</a></li>
-            <li><a href="https://getvidya.ai/vidya-waba-gpt" target="_blank" rel="noopener">VidyaWABA GPT</a></li>
-          </ul>
-        </article>
-        <article class="epx-card epx-card--integ">
-          <div class="epx-hub" aria-hidden="true">
-            <span class="epx-hub-core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 18.5H7a4.5 4.5 0 01-.6-9A6.5 6.5 0 0119 10.4a4.1 4.1 0 01-1.5 8.1z"/></svg></span>
-            <i class="n n1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19a6.5 6.5 0 0113 0"/></svg></i><i class="n n2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg></i><i class="n n3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 4.5V7M12 17v2.5M4.5 12H7M17 12h2.5"/></svg></i>
-            <i class="n n4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 4.3v9L12 20.6 4.5 16.3v-9L12 3z"/></svg></i><i class="n n5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6.5" rx="7" ry="3"/><path d="M5 6.5v11c0 1.7 3.1 3 7 3s7-1.3 7-3v-11"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></i><i class="n n6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3.6 7l8.4 6 8.4-6"/></svg></i>
-          </div>
-          <div class="epx-integ-tx">
-            <h3><a href="/integrations/">Integrations &amp; Security</a></h3>
-            <p class="epx-integ-lead"><a href="/integrations/">All integrations</a></p>
-            <p>Seamlessly connect with your favourite tools and platforms.</p>
-            <p class="epx-integ-lead"><a href="/security/">Security &amp; Compliance</a></p>
-          </div>
-        </article>
+    <div class="epn-grid" id="epnGrid">
+      <a class="epn-card" data-g="capture" href="/products/education-crm/">
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Education CRM</b><small>Capture & Nurture</small></span></span>
+        <p>Every enquiry captured into one clean pipeline.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="capture" href="/products/marketing-automation/">
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Marketing Automation</b><small>Capture & Nurture</small></span></span>
+        <p>Campaigns measured to enrolment, not clicks.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="capture" href="/solutions/lead-management/">
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Lead Management</b><small>Capture & Nurture</small></span></span>
+        <p>One student, one timeline - nothing forgotten.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="capture" href="/solutions/lead-scoring/">
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Lead Scoring</b><small>Capture & Nurture</small></span></span>
+        <p>Call the right student first, every time.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="capture" href="/products/journey-builder/">
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="epn-tt"><b>Journey Builder</b><small>Capture & Nurture</small></span></span>
+        <p>Design the whole student journey visually.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="engage" href="/products/whatsapp-business-api/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>WhatsApp Business API</b><small>Engage & Communicate</small></span></span>
+        <p>Official API with 98% open rates.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="engage" href="/products/cloud-telephony/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Cloud Telephony &amp; IVR</b><small>Engage & Communicate</small></span></span>
+        <p>Every call recorded on the lead.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="engage" href="/products/email-marketing/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Email &amp; SMS Campaigns</b><small>Engage & Communicate</small></span></span>
+        <p>Sends that fire exactly on stage moves.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="engage" href="/products/education-chatbot/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Education Chatbot</b><small>Engage & Communicate</small></span></span>
+        <p>24&times;7 AI answers in 95+ languages.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="engage" href="/products/mobile-crm/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a7.5 7.5 0 01-7.5 7.5H4.5l1.9-2.9A7.5 7.5 0 1120.5 12z"/><path d="M9 11h6M9 14h4"/></svg></span><span class="epn-tt"><b>Mobile CRM</b><small>Engage & Communicate</small></span></span>
+        <p>The whole funnel in your pocket.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="convert" href="/products/application-management-system/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5H3l9-5z"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></svg></span><span class="epn-tt"><b>Application Management (AMS)</b><small>Convert & Enroll</small></span></span>
+        <p>Forms, documents &amp; review on one rail.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="convert" href="/products/payment-enrollment/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5H3l9-5z"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></svg></span><span class="epn-tt"><b>Payment &amp; Enrollment</b><small>Convert & Enroll</small></span></span>
+        <p>Offer letter to fee paid, frictionless.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="convert" href="/solutions/walk-in-management/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5H3l9-5z"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></svg></span><span class="epn-tt"><b>Walk-in Management</b><small>Convert & Enroll</small></span></span>
+        <p>No campus visit ever goes unrecorded.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="automate" href="/products/workflow-automation/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Workflow Automation</b><small>Automate</small></span></span>
+        <p>No-code rules that run admissions.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="automate" href="/products/lead-assignment/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Lead Assignment &amp; Routing</b><small>Automate</small></span></span>
+        <p>The right counsellor, instantly.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="automate" href="/products/task-automation/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Task Automation</b><small>Automate</small></span></span>
+        <p>Worklists that build themselves.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="automate" href="/products/follow-up-automation/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg></span><span class="epn-tt"><b>Follow-up Automation</b><small>Automate</small></span></span>
+        <p>No follow-up ever slips again.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="measure" href="/analytics/executive-dashboard/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Executive Dashboard</b><small>Measure</small></span></span>
+        <p>Your whole season on one screen.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="measure" href="/analytics/admission-analytics/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Admission Analytics</b><small>Measure</small></span></span>
+        <p>Every funnel stage, measured live.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="measure" href="/analytics/marketing-analytics/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Marketing Analytics</b><small>Measure</small></span></span>
+        <p>Every rupee tracked to enrolment.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="measure" href="/analytics/funnel-analytics/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Funnel Analytics</b><small>Measure</small></span></span>
+        <p>Find the leak costing you admissions.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="measure" href="/analytics/custom-reports/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="epn-tt"><b>Custom Reports</b><small>Measure</small></span></span>
+        <p>Any question, answered in a report.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-ai" target="_blank" rel="noopener" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>Why Vidya AI</b><small>Vidya AI</small></span></span>
+        <p>Meet the agentic AI admission suite.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-gpt" target="_blank" rel="noopener" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaGPT</b><small>Vidya AI</small></span></span>
+        <p>Your 24&times;7 AI chat counsellor.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaAI Voice Agent</b><small>Vidya AI</small></span></span>
+        <p>Calls every new lead in 30 seconds.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-pulse" target="_blank" rel="noopener" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaPulse</b><small>Vidya AI</small></span></span>
+        <p>Live buying-intent scores on every lead.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-waba-gpt" target="_blank" rel="noopener" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaWABA GPT</b><small>Vidya AI</small></span></span>
+        <p>The AI assistant living on WhatsApp.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="essentials" href="/integrations/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7.5 3v6c0 4.2-3.1 8-7.5 9.4C7.6 19.8 4.5 16 4.5 11.8v-6l7.5-3z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="epn-tt"><b>Integrations</b><small>Essentials</small></span></span>
+        <p>50+ tools flowing into one CRM.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="epn-card" data-g="essentials" href="/security/" hidden>
+        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7.5 3v6c0 4.2-3.1 8-7.5 9.4C7.6 19.8 4.5 16 4.5 11.8v-6l7.5-3z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="epn-tt"><b>Security &amp; Compliance</b><small>Essentials</small></span></span>
+        <p>ISO 27001, GDPR-ready, audit-logged.</p>
+        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
     </div>
 
+    <script>
+    (function(){
+      var tabs=[].slice.call(document.querySelectorAll('#ee-products .epn-tab'));
+      var cards=[].slice.call(document.querySelectorAll('#ee-products .epn-card'));
+      tabs.forEach(function(t){
+        t.addEventListener('click',function(){
+          var g=t.getAttribute('data-g');
+          tabs.forEach(function(x){ var on=x===t; x.classList.toggle('on',on); x.setAttribute('aria-pressed',on?'true':'false'); });
+          cards.forEach(function(c){ c.hidden=(g!=='all' && c.getAttribute('data-g')!==g); });
+        });
+      });
+    })();
+    </script>
     <div class="epx-cta">
       <a href="/products/" class="epx-btn">Explore All Features
         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
