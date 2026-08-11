@@ -81,10 +81,6 @@ $form_embed        = get_post_meta($pid, '_form_embed', true);
 /* Hero redesign fields. The right column is a trust panel built from this
    page's own testimonials unless the editor picked "form" (the old layout)
    or there are no testimonials to build it from. */
-$hero_video_id      = get_post_meta($pid, '_hero_video_id', true);
-$hero_video_title   = get_post_meta($pid, '_hero_video_title', true) ?: 'See ExtraaEdge in Action';
-$hero_video_sub     = get_post_meta($pid, '_hero_video_sub', true) ?: 'Watch how institutions are converting more leads and automating admissions.';
-$hero_video_len     = get_post_meta($pid, '_hero_video_len', true);
 $hero_right_mode    = get_post_meta($pid, '_hero_right_mode', true);
 $hero_trust_eyebrow = get_post_meta($pid, '_hero_trust_eyebrow', true) ?: 'Trusted by 500+ Educational Institutions';
 $hero_trust_h2      = get_post_meta($pid, '_hero_trust_h2', true) ?: 'See Why Education Leaders Choose ExtraaEdge';
@@ -837,24 +833,18 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
         <h1 id="hero-heading" class="hero-h1 reveal"><?php echo esc_html($hero_h1_before); ?><?php if($hero_h1_highlight): ?> <span><?php echo esc_html($hero_h1_highlight); ?></span> <?php endif; ?><?php echo esc_html($hero_h1_after); ?></h1>
         <?php if($hero_desc): ?><p class="hero-desc reveal"><?php echo ee_inline_links($hero_desc); ?></p><?php endif; ?>
         <?php if(!empty($hero_proofs)): ?><div class="proof-bar reveal" role="complementary" aria-label="Trust indicators"><?php foreach($hero_proofs as $proof): ?><div class="proof-item"><?php echo esc_html($proof); ?></div><?php endforeach; ?></div><?php endif; ?>
-        <?php if($hero_video_id): ?>
-        <div class="hero-vid vid-wrap reveal" data-ytid="<?php echo esc_attr($hero_video_id); ?>" role="button" tabindex="0" aria-label="Play: <?php echo esc_attr($hero_video_title); ?>">
-          <img src="https://i.ytimg.com/vi/<?php echo esc_attr($hero_video_id); ?>/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
-          <span class="hero-vid-shade" aria-hidden="true"></span>
-          <span class="hero-vid-txt"><strong><?php echo esc_html($hero_video_title); ?></strong><span><?php echo esc_html($hero_video_sub); ?></span></span>
-          <span class="hero-vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-          <?php if($hero_video_len): ?><span class="hero-vid-len" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><?php echo esc_html($hero_video_len); ?></span><?php endif; ?>
-        </div>
-        <?php endif; ?>
+        <?php /* The hero video card used to sit here. The right column's
+                 testimonial slider now carries the video proof, so the left
+                 column stays a single clean read: headline, promise, numbers,
+                 call to action. */ ?>
         <?php if(!empty($stats)): ?><div class="stats-grid reveal" role="region" aria-label="Key statistics"><?php foreach($stats as $stat): ?><div class="stat-card"><span class="stat-num"><?php echo esc_html($stat['number']); ?></span><span class="stat-label"><?php echo esc_html($stat['label']); ?></span></div><?php endforeach; ?></div><?php endif; ?>
         <?php if($result_badge): ?><div class="result-badge reveal"><?php echo esc_html($result_badge); ?></div><?php endif; ?>
         <?php if(!empty($tags)): ?><nav class="tag-row reveal" aria-label="Industry segments"><?php foreach($tags as $tag): ?><span class="tag"><?php echo esc_html($tag); ?></span><?php endforeach; ?></nav><?php endif; ?>
         <div class="cta-row reveal">
-          <?php /* with the trust panel there is no form on the page, so both
-                   the default and an explicitly saved #admission-form target
-                   are pointed at the demo page instead of a missing anchor */
+          <?php /* #admission-form resolves to the slide-in drawer rendered at
+                   the end of this template, so Book Demo opens the form on
+                   the right instead of sending the visitor to another page */
           $ee_cta1 = $hero_cta_url ?: '#admission-form';
-          if ($ee_hero_trust && $ee_cta1 === '#admission-form') $ee_cta1 = '/book-demo/';
           ?>
           <?php if($hero_cta_text): ?><a href="<?php echo esc_url($ee_cta1); ?>" class="btn-primary" aria-label="<?php echo esc_attr($hero_cta_text); ?>"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg><?php echo esc_html($hero_cta_text); ?></a><?php endif; ?>
           <?php if($hero_cta2_text): ?><a href="<?php echo esc_url($hero_cta2_url ?: '#demo'); ?>" class="btn-secondary" aria-label="<?php echo esc_attr($hero_cta2_text); ?>"><?php echo esc_html($hero_cta2_text); ?></a><?php endif; ?>
@@ -918,9 +908,20 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
                   <?php if(!empty($ee_t['role'])): ?><p class="ht-role"><?php echo esc_html($ee_t['role']); ?></p><?php endif; ?>
                   <?php if(!empty($ee_t['institution'])): ?><p class="ht-inst"><?php echo esc_html($ee_t['institution']); ?></p><?php endif; ?>
                 </div>
+                <?php /* rating and badge come from the card itself, so an editor
+                         can dial them per person instead of every slide claiming
+                         a perfect score */
+                $ee_rt = isset($ee_t['rating']) && $ee_t['rating'] !== '' ? (float) $ee_t['rating'] : 5;
+                $ee_rt = max(0, min(5, $ee_rt));
+                $ee_full = (int) round($ee_rt);
+                ?>
                 <div class="ht-side">
-                  <span class="ht-stars" aria-label="5 star review">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                  <span class="ht-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.3 2.3 4.7-4.8"/></svg>Verified Review</span>
+                  <span class="ht-stars" aria-label="<?php echo esc_attr($ee_rt); ?> star review"><?php
+                    echo str_repeat('&#9733;', $ee_full) . str_repeat('&#9734;', 5 - $ee_full); ?></span>
+                  <?php if (!isset($ee_t['verified']) || $ee_t['verified'] !== '0'): ?>
+                  <span class="ht-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-4.8"/></svg><?php
+                    echo esc_html(!empty($ee_t['verified_label']) ? $ee_t['verified_label'] : 'Verified Review'); ?></span>
+                  <?php endif; ?>
                 </div>
               </div>
               <?php if(!empty($ee_t['quote'])): ?><blockquote class="ht-quote"><p><?php echo esc_html($ee_t['quote']); ?></p></blockquote><?php endif; ?>
@@ -1510,5 +1511,16 @@ body.ee-hdr-hidden .ee-float-nav{opacity:1!important;visibility:visible!importan
   eeSyncRail();
 })();
 </script>
+
+<?php
+/* Book Demo slides the form in from the right, the way the home page does.
+   The hero renders the form inline only in the old "form" layout; there the
+   drawer is skipped, since two elements with id="admission-form" would leave
+   every link pointing at the wrong one. */
+$ee_hero_form_inline = empty($ee_hero_trust) && !empty($form_embed);
+if (!$ee_hero_form_inline && function_exists('ee_demo_drawer')) {
+    ee_demo_drawer($form_embed);
+}
+?>
 
 <?php get_footer(); ?>

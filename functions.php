@@ -2109,19 +2109,13 @@ function product_hero_fields($post) {
 <div class="field-group"><label>H1 - Part 2 (optional)</label><input type="text" name="hero_h1_after" value="<?php echo esc_attr($f('hero_h1_after')); ?>"></div>
 <div class="field-group"><label>Description</label><textarea name="hero_description" rows="4"><?php echo esc_textarea($f('hero_description')); ?></textarea></div>
 
-<h4>Hero video — "See ExtraaEdge in Action" card (left column)</h4>
-<div class="field-group"><label>YouTube video ID</label><input type="text" name="hero_video_id" value="<?php echo esc_attr($f('hero_video_id')); ?>" placeholder="aji5VQuoHCI"><p class="field-help">Leave empty to hide the card. Just the 11-character ID from the video's URL.</p></div>
-<div class="field-group"><label>Card title</label><input type="text" name="hero_video_title" value="<?php echo esc_attr($f('hero_video_title')); ?>" placeholder="See ExtraaEdge in Action"></div>
-<div class="field-group"><label>Card sub-line</label><input type="text" name="hero_video_sub" value="<?php echo esc_attr($f('hero_video_sub')); ?>" placeholder="Watch how institutions are converting more leads and automating admissions."></div>
-<div class="field-group"><label>Duration label</label><input type="text" name="hero_video_len" value="<?php echo esc_attr($f('hero_video_len')); ?>" placeholder="2:24"></div>
-
 <h4>Hero right column</h4>
 <div class="field-group"><label>What shows on the right</label>
 <select name="hero_right_mode">
 <option value="" <?php selected($f('hero_right_mode'), ''); ?>>Trust panel (video testimonial — default when testimonials exist)</option>
 <option value="form" <?php selected($f('hero_right_mode'), 'form'); ?>>Lead form (the old layout)</option>
 </select>
-<p class="field-help">The trust panel is a slider over this page's own <strong>Testimonial Cards</strong> below — cards #1–#3, each with its video, person and quote; arrows, dots and swipe move between them. The stats trio and the trust rating come from the fields above. With the trust panel the lead form is <strong>not rendered</strong> — Book Demo buttons that pointed at the form go to /book-demo/ instead. Pick "Lead form" to bring the old form-in-hero layout back.</p></div>
+<p class="field-help">The panel is a slider built from the <strong>Testimonial Cards</strong> in the <strong>&#128172; Testimonials</strong> tab of this box - cards #1 to #3, each with its own video, photo, person and quote. Arrows, dots and swipe move between them. <a href="#" class="ee-goto-testi">Edit those cards now &rarr;</a></p><script>jQuery(function($){$(document).on("click",".ee-goto-testi",function(e){e.preventDefault();$('.product-tab[data-tab="testimonials"], .product-tab').filter(function(){return /testimonial/i.test($(this).text());}).first().trigger("click");$("html,body").animate({scrollTop:$("#testimonials-container").offset().top-80},300);});});</script></div>
 <div class="field-group"><label>Trust panel eyebrow</label><input type="text" name="hero_trust_eyebrow" value="<?php echo esc_attr($f('hero_trust_eyebrow')); ?>" placeholder="Trusted by 500+ Educational Institutions"></div>
 <div class="field-group"><label>Trust panel heading</label><input type="text" name="hero_trust_h2" value="<?php echo esc_attr($f('hero_trust_h2')); ?>" placeholder="See Why Education Leaders Choose ExtraaEdge"><p class="field-help">The word "ExtraaEdge" is highlighted in orange automatically.</p></div>
 <div class="field-group"><label>Trust video duration label</label><input type="text" name="hero_trust_len" value="<?php echo esc_attr($f('hero_trust_len')); ?>" placeholder="1:24"></div>
@@ -2355,7 +2349,12 @@ function product_testimonials_fields($post) {
 </div>
 <button type="button" class="add-item-btn" onclick="var idx=jQuery('#metrics-container .repeater-item').length;jQuery('#metrics-container').append('<div class=\'repeater-item\'><h4>Metric '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>Value (animated target)</label><input type=\'text\' name=\'metrics['+idx+'][target]\' placeholder=\'500\' /></div><div class=\'field-group\'><label>Suffix</label><input type=\'text\' name=\'metrics['+idx+'][suffix]\' placeholder=\'+\' /></div><div class=\'field-group\'><label>Label</label><input type=\'text\' name=\'metrics['+idx+'][label]\' /></div><div class=\'field-group\'><label><input type=\'checkbox\' name=\'metrics['+idx+'][locale]\' value=\'true\'> Use locale formatting</label></div></div>')">+ Add More Metrics</button>
 
-<h4>Testimonial Cards</h4>
+<h4>Testimonial Cards &mdash; these also fill the hero slider</h4>
+<p style="margin:6px 0 12px;padding:10px 12px;background:#fff8f1;border-left:3px solid #de6e30;border-radius:4px;font-size:12px;color:#555;line-height:1.6;">
+<strong>Where these show:</strong> cards <strong>#1 to #3</strong> become the &ldquo;See Why Education Leaders Choose ExtraaEdge&rdquo; slider in the page hero (top right), and all of them fill the testimonials section further down.
+Fill in what you have &mdash; a card needs a name or a quote, everything else is optional. Leave <em>YouTube Video ID</em> empty for a text-only card.
+Card order here is the order on the page.
+</p>
 <div id="testimonials-container">
 <?php if (!empty($testimonials)) : foreach ($testimonials as $i => $test) : ?>
 <div class="repeater-item"><h4>Testimonial <?php echo ($i + 1); ?> <span class="remove-item" onclick="jQuery(this).parent().parent().remove();">✕</span></h4>
@@ -2364,11 +2363,18 @@ function product_testimonials_fields($post) {
 <div class="field-group"><label>Name</label>           <input type="text" name="testimonials[<?php echo $i; ?>][name]"        value="<?php echo esc_attr($test['name']); ?>"></div>
 <div class="field-group"><label>Role</label>           <input type="text" name="testimonials[<?php echo $i; ?>][role]"        value="<?php echo esc_attr($test['role']); ?>"></div>
 <div class="field-group"><label>Institution</label>    <input type="text" name="testimonials[<?php echo $i; ?>][institution]" value="<?php echo esc_attr($test['institution']); ?>"></div>
-<div class="field-group"><label>Avatar URL</label>     <input type="url"  name="testimonials[<?php echo $i; ?>][avatar]"      value="<?php echo esc_attr($test['avatar']); ?>"></div>
+<div class="field-group"><label>Photo URL</label>      <input type="url"  name="testimonials[<?php echo $i; ?>][avatar]"      value="<?php echo esc_attr($test['avatar']); ?>"><p class="field-help">The round photo beside the name. Leave empty to show just the name.</p></div>
+<div class="field-group"><label>Star rating</label><select name="testimonials[<?php echo $i; ?>][rating]">
+<?php $ee_rv = (isset($test['rating']) && $test['rating'] !== '') ? $test['rating'] : '5'; foreach (array('5','4','3','2','1') as $ee_ro) : ?>
+<option value="<?php echo esc_attr($ee_ro); ?>" <?php selected($ee_rv, $ee_ro); ?>><?php echo str_repeat('&#9733;', (int) $ee_ro); ?> (<?php echo esc_html($ee_ro); ?>)</option>
+<?php endforeach; ?>
+</select></div>
+<div class="field-group"><label><input type="checkbox" name="testimonials[<?php echo $i; ?>][verified]" value="1" <?php checked(!isset($test['verified']) || $test['verified'] !== '0'); ?>> Show the &ldquo;Verified Review&rdquo; badge</label>
+<input type="text" name="testimonials[<?php echo $i; ?>][verified_label]" value="<?php echo esc_attr($test['verified_label'] ?? ''); ?>" placeholder="Verified Review" style="margin-top:6px;"><p class="field-help">Leave the wording empty to use &ldquo;Verified Review&rdquo;.</p></div>
 </div>
 <?php endforeach; endif; ?>
 </div>
-<button type="button" class="add-item-btn" onclick="var idx=jQuery('#testimonials-container .repeater-item').length;jQuery('#testimonials-container').append('<div class=\'repeater-item\'><h4>Testimonial '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>YouTube Video ID</label><input type=\'text\' name=\'testimonials['+idx+'][youtube_id]\' placeholder=\'3SHgLf1GFgk\' /></div><div class=\'field-group\'><label>Quote</label><textarea name=\'testimonials['+idx+'][quote]\' rows=\'3\'></textarea></div><div class=\'field-group\'><label>Name</label><input type=\'text\' name=\'testimonials['+idx+'][name]\' /></div><div class=\'field-group\'><label>Role</label><input type=\'text\' name=\'testimonials['+idx+'][role]\' /></div><div class=\'field-group\'><label>Institution</label><input type=\'text\' name=\'testimonials['+idx+'][institution]\' /></div><div class=\'field-group\'><label>Avatar URL</label><input type=\'url\' name=\'testimonials['+idx+'][avatar]\' /></div></div>')">+ Add Testimonial</button>
+<button type="button" class="add-item-btn" onclick="var idx=jQuery('#testimonials-container .repeater-item').length;jQuery('#testimonials-container').append('<div class=\'repeater-item\'><h4>Testimonial '+(idx+1)+' <span class=\'remove-item\' onclick=\'jQuery(this).parent().parent().remove();\'>✕</span></h4><div class=\'field-group\'><label>YouTube Video ID</label><input type=\'text\' name=\'testimonials['+idx+'][youtube_id]\' placeholder=\'3SHgLf1GFgk\' /></div><div class=\'field-group\'><label>Quote</label><textarea name=\'testimonials['+idx+'][quote]\' rows=\'3\'></textarea></div><div class=\'field-group\'><label>Name</label><input type=\'text\' name=\'testimonials['+idx+'][name]\' /></div><div class=\'field-group\'><label>Role</label><input type=\'text\' name=\'testimonials['+idx+'][role]\' /></div><div class=\'field-group\'><label>Institution</label><input type=\'text\' name=\'testimonials['+idx+'][institution]\' /></div><div class=\'field-group\'><label>Photo URL</label><input type=\'url\' name=\'testimonials['+idx+'][avatar]\' /></div><div class=\'field-group\'><label>Star rating</label><select name=\'testimonials['+idx+'][rating]\'><option value=\'5\'>5</option><option value=\'4\'>4</option><option value=\'3\'>3</option><option value=\'2\'>2</option><option value=\'1\'>1</option></select></div><div class=\'field-group\'><label><input type=\'checkbox\' name=\'testimonials['+idx+'][verified]\' value=\'1\' checked> Show the Verified Review badge</label><input type=\'text\' name=\'testimonials['+idx+'][verified_label]\' placeholder=\'Verified Review\' style=\'margin-top:6px;\' /></div></div>')">+ Add Testimonial</button>
     <?php
 }
 
@@ -5705,7 +5711,7 @@ function product_save_meta_box_data($post_id) {
 
     // ─── Hero text fields ───
     $hero_text_fields = array('hero_badge','hero_h1_before','hero_h1_highlight','hero_h1_after','hero_description','result_badge','hero_cta_text','hero_cta_url','hero_cta2_text','hero_cta2_url','trust_rating','trust_text',
-        'hero_video_id','hero_video_title','hero_video_sub','hero_video_len','hero_right_mode','hero_trust_eyebrow','hero_trust_h2','hero_trust_len');
+        'hero_right_mode','hero_trust_eyebrow','hero_trust_h2','hero_trust_len');
     foreach ($hero_text_fields as $field) {
         if (isset($_POST[$field])) {
             update_post_meta($post_id, '_' . $field, sanitize_textarea_field(wp_unslash($_POST[$field])));
@@ -5904,14 +5910,23 @@ function product_save_meta_box_data($post_id) {
     if (isset($_POST['testimonials']) && is_array($_POST['testimonials'])) {
         $testimonials = array();
         foreach ($_POST['testimonials'] as $test) {
-            if (!empty($test['youtube_id'])) {
+            /* A card used to be thrown away unless it had a video id, which
+               silently lost every text-only testimonial an editor typed in.
+               Keep anything that carries a name, a quote or a video. */
+            $ee_has = !empty($test['youtube_id']) || !empty($test['name']) || !empty($test['quote']);
+            if ($ee_has) {
+                $ee_rt = isset($test['rating']) ? (string) intval($test['rating']) : '5';
+                if (!in_array($ee_rt, array('1','2','3','4','5'), true)) $ee_rt = '5';
                 $testimonials[] = array(
-                    'youtube_id'  => sanitize_text_field(wp_unslash($test['youtube_id'])),
-                    'quote'       => sanitize_textarea_field(wp_unslash($test['quote'] ?? '')),
-                    'name'        => sanitize_text_field(wp_unslash($test['name']        ?? '')),
-                    'role'        => sanitize_text_field(wp_unslash($test['role']        ?? '')),
-                    'institution' => sanitize_text_field(wp_unslash($test['institution'] ?? '')),
-                    'avatar'      => esc_url_raw(wp_unslash($test['avatar'] ?? '')),
+                    'youtube_id'     => sanitize_text_field(wp_unslash($test['youtube_id'] ?? '')),
+                    'quote'          => sanitize_textarea_field(wp_unslash($test['quote'] ?? '')),
+                    'name'           => sanitize_text_field(wp_unslash($test['name']        ?? '')),
+                    'role'           => sanitize_text_field(wp_unslash($test['role']        ?? '')),
+                    'institution'    => sanitize_text_field(wp_unslash($test['institution'] ?? '')),
+                    'avatar'         => esc_url_raw(wp_unslash($test['avatar'] ?? '')),
+                    'rating'         => $ee_rt,
+                    'verified'       => empty($test['verified']) ? '0' : '1',
+                    'verified_label' => sanitize_text_field(wp_unslash($test['verified_label'] ?? '')),
                 );
             }
         }
@@ -8327,6 +8342,13 @@ require_once get_template_directory() . '/inc/videos-admin.php';
  * on /product-tour/, and anywhere the [ee_platform] shortcode is placed.
  * ========================================================================= */
 require_once get_template_directory() . '/inc/platform-demo.php';
+
+/* =========================================================================
+ * 📥 BOOK-A-DEMO DRAWER — the slide-in form the home page hero uses, as a
+ * reusable panel. Templates call ee_demo_drawer() and every link to
+ * #admission-form on that page opens it from the right.
+ * ========================================================================= */
+require_once get_template_directory() . '/inc/demo-drawer.php';
 
 /* =========================================================================
  * 🙂 NATIVE EMOJI — WordPress swaps every emoji for an image loaded from
