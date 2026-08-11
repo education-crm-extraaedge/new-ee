@@ -746,6 +746,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         }
         .m-icon-card .m-ico svg { width: 16px; height: 16px; }
         .m-icon-card .m-ico img { width: 18px; height: 18px; object-fit: contain; display: block; }
+        .m-icon-card .m-ico img ~ svg { display: none; }
         .m-icon-card .m-text { flex: 1; min-width: 0; }
         .m-icon-card .menu-title {
             font-family: 'Inter', sans-serif;
@@ -881,9 +882,9 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
           array('h'=>'Capture & Nurture','ic'=>'target','items'=>array(
             array('t'=>'Education CRM','u'=>'/products/education-crm/','im'=>$EE_ICG.'education-crm-icon.png'),
             array('t'=>'Marketing Automation','u'=>'/products/marketing-automation/','im'=>$EE_ICP.'03-Marketing-Automation.svg'),
-            array('t'=>'Lead Management','u'=>'/solutions/lead-management/','i'=>'funnel'),
+            array('t'=>'Lead Management','u'=>'/solutions/lead-management/','i'=>'funnel','im'=>$EE_ICP.'14-Core-System.svg'),
             array('t'=>'Lead Scoring','u'=>'/solutions/lead-scoring/','im'=>$EE_ICP.'10-AI-Lead-Intent-Scoring.svg'),
-            array('t'=>'Journey Builder','u'=>'/products/journey-builder/','i'=>'route'),
+            array('t'=>'Journey Builder','u'=>'/products/journey-builder/','i'=>'route','im'=>$EE_ICP.'18-Engagement-Engine.svg'),
           )),
         ),
         array(
@@ -898,40 +899,40 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         array(
           array('h'=>'Convert & Enroll','ic'=>'bank','items'=>array(
             array('t'=>'Application Management (AMS)','u'=>'/products/application-management-system/','im'=>$EE_ICG.'Application_Management_System_Icon.png'),
-            array('t'=>'Payment & Enrollment','u'=>'/products/payment-enrollment/','i'=>'card'),
-            array('t'=>'Walk-in Management','u'=>'/solutions/walk-in-management/','i'=>'walk'),
+            array('t'=>'Payment & Enrollment','u'=>'/products/payment-enrollment/','i'=>'card','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/dollar-sign.svg'),
+            array('t'=>'Walk-in Management','u'=>'/solutions/walk-in-management/','i'=>'walk','im'=>$EE_ICP.'25-Meeting-Scheduler.svg'),
           )),
           array('h'=>'Automate','ic'=>'gear','items'=>array(
-            array('t'=>'Workflow Automation','u'=>'/products/workflow-automation/','i'=>'gear'),
-            array('t'=>'Lead Assignment & Routing','u'=>'/products/lead-assignment/','i'=>'route'),
-            array('t'=>'Task Automation','u'=>'/products/task-automation/','i'=>'check'),
+            array('t'=>'Workflow Automation','u'=>'/products/workflow-automation/','i'=>'gear','im'=>$EE_ICP.'23-Automated-Chat-Workflow.svg'),
+            array('t'=>'Lead Assignment & Routing','u'=>'/products/lead-assignment/','i'=>'route','im'=>$EE_ICP.'28-Direct-Channel.svg'),
+            array('t'=>'Task Automation','u'=>'/products/task-automation/','i'=>'check','im'=>$EE_ICP.'11-Smart-Follow-up-Intelligence.svg'),
             array('t'=>'Follow-up Automation','u'=>'/products/follow-up-automation/','im'=>$EE_ICP.'16-Follow-Up-Manager.svg'),
           )),
         ),
         array(
           array('h'=>'Measure','ic'=>'bars','items'=>array(
             array('t'=>'Executive Dashboard','u'=>'/analytics/executive-dashboard/','im'=>$EE_ICP.'17-Reporting-Dashboard.svg'),
-            array('t'=>'Admission Analytics','u'=>'/analytics/admission-analytics/','i'=>'grad'),
+            array('t'=>'Admission Analytics','u'=>'/analytics/admission-analytics/','i'=>'grad','im'=>$EE_ICP.'08-VidyaAI-Admission-Intelligence.svg'),
             array('t'=>'Marketing Analytics','u'=>'/analytics/marketing-analytics/','im'=>$EE_ICP.'21-Campaign-Analytics.svg'),
             array('t'=>'Funnel Analytics','u'=>'/analytics/funnel-analytics/','im'=>$EE_ICP.'15-Funnel-Management.svg'),
-            array('t'=>'Custom Reports','u'=>'/analytics/custom-reports/','i'=>'doc'),
+            array('t'=>'Custom Reports','u'=>'/analytics/custom-reports/','i'=>'doc','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg'),
           )),
           array('h'=>'Essentials','ic'=>'shield','items'=>array(
-            array('t'=>'Integrations','u'=>'/integrations/','i'=>'plug'),
-            array('t'=>'Security & Compliance','u'=>'/security/','i'=>'shield'),
-            array('t'=>'Book a Demo','u'=>'https://www.extraaedge.com/book-a-demo/','i'=>'calendar'),
+            array('t'=>'Integrations','u'=>'/integrations/','i'=>'plug','im'=>$EE_ICP.'20-Integrated-Communication-Channels.svg'),
+            array('t'=>'Security & Compliance','u'=>'/security/','i'=>'shield','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/lock.svg'),
+            array('t'=>'Book a Demo','u'=>'https://www.extraaedge.com/book-a-demo/','i'=>'calendar','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/calendar.svg'),
           )),
         ),
       )),
       'solutions' => array('label'=>'Solutions','type'=>'mega','cols'=>array(
         array(array('h'=>'By Use Case','ic'=>'target','items'=>array(
-          array('t'=>'Admission Management','u'=>'/use-case/admission-management/','i'=>'grad'),
-          array('t'=>'Enrollment Management','u'=>'/use-case/enrollment-management/','i'=>'check'),
-          array('t'=>'Student Recruitment','u'=>'/use-case/student-recruitment/','i'=>'users'),
-          array('t'=>'Lead Nurturing','u'=>'/use-case/lead-nurturing/','i'=>'heart'),
-          array('t'=>'Student Engagement','u'=>'/use-case/student-engagement/','i'=>'chat'),
-          array('t'=>'Event Management','u'=>'/use-case/event-management/','i'=>'calendar'),
-          array('t'=>'Application Processing','u'=>'/use-case/application-processing/','i'=>'doc'),
+          array('t'=>'Admission Management','u'=>'/use-case/admission-management/','i'=>'grad','im'=>$EE_ICP.'02-Admission-CRM.svg'),
+          array('t'=>'Enrollment Management','u'=>'/use-case/enrollment-management/','i'=>'check','im'=>$EE_ICP.'05-Application-System.svg'),
+          array('t'=>'Student Recruitment','u'=>'/use-case/student-recruitment/','i'=>'users','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/users.svg'),
+          array('t'=>'Lead Nurturing','u'=>'/use-case/lead-nurturing/','i'=>'heart','im'=>$EE_ICP.'22-24-7-Connectivity.svg'),
+          array('t'=>'Student Engagement','u'=>'/use-case/student-engagement/','i'=>'chat','im'=>$EE_ICP.'24-Live-Chat-Enablement.svg'),
+          array('t'=>'Event Management','u'=>'/use-case/event-management/','i'=>'calendar','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/calendar.svg'),
+          array('t'=>'Application Processing','u'=>'/use-case/application-processing/','i'=>'doc','im'=>$EE_ICP.'26-Application-Form-Builder-and-Widgets.svg'),
         ))),
         array(array('h'=>'By Institution','ic'=>'bank','items'=>array(
           array('t'=>'Universities & Colleges','u'=>'/industries/higher-education-crm/','im'=>$EE_ICG.'Higher_Education_CRM_crm_icon.png'),
@@ -941,61 +942,61 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
           array('t'=>'Education Agents','u'=>'/solutions/education-agents/','im'=>$EE_ICG.'on_filed_agent_crm.png'),
         ))),
         array(array('h'=>'By Team','ic'=>'users','items'=>array(
-          array('t'=>'Admission Teams','u'=>'/solutions/admissions/','i'=>'users'),
+          array('t'=>'Admission Teams','u'=>'/solutions/admissions/','i'=>'users','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/users.svg'),
           array('t'=>'Counselors','u'=>'/solutions/counselors/','im'=>$EE_ICG.'For_consolers_crm_icon.png'),
-          array('t'=>'Marketing Teams','u'=>'/solutions/marketing/','i'=>'mega'),
-          array('t'=>'Sales Teams','u'=>'/solutions/sales/','i'=>'trend'),
-          array('t'=>'Call Centre','u'=>'/solutions/call-center/','i'=>'phone'),
+          array('t'=>'Marketing Teams','u'=>'/solutions/marketing/','i'=>'mega','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/bullhorn.svg'),
+          array('t'=>'Sales Teams','u'=>'/solutions/sales/','i'=>'trend','im'=>$EE_ICP.'13-Counselor-Performance-Intelligence.svg'),
+          array('t'=>'Call Centre','u'=>'/solutions/call-center/','i'=>'phone','im'=>$EE_ICP.'33-Click-To-Call.svg'),
           array('t'=>'Leadership','u'=>'/solutions/management/','im'=>$EE_ICG.'for_management_crm_icon.png'),
         ))),
         array(array('h'=>'By Outcome','ic'=>'flag','items'=>array(
-          array('t'=>'Increase Admissions','u'=>'/solutions/increase-admissions/','i'=>'trend'),
-          array('t'=>'Improve Conversion Rate','u'=>'/solutions/improve-conversion/','i'=>'target'),
-          array('t'=>'Faster Follow-ups','u'=>'/solutions/faster-follow-ups/','i'=>'clock'),
-          array('t'=>'Reduce Manual Work','u'=>'/solutions/reduce-manual-work/','i'=>'bolt'),
-          array('t'=>'Increase Marketing ROI','u'=>'/solutions/increase-roi/','i'=>'money'),
-          array('t'=>'Better Student Experience','u'=>'/solutions/better-student-experience/','i'=>'heart'),
+          array('t'=>'Increase Admissions','u'=>'/solutions/increase-admissions/','i'=>'trend','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg'),
+          array('t'=>'Improve Conversion Rate','u'=>'/solutions/improve-conversion/','i'=>'target','im'=>$EE_ICP.'10-AI-Lead-Intent-Scoring.svg'),
+          array('t'=>'Faster Follow-ups','u'=>'/solutions/faster-follow-ups/','i'=>'clock','im'=>$EE_ICP.'16-Follow-Up-Manager.svg'),
+          array('t'=>'Reduce Manual Work','u'=>'/solutions/reduce-manual-work/','i'=>'bolt','im'=>$EE_ICP.'32-On-the-go-Productivity.svg'),
+          array('t'=>'Increase Marketing ROI','u'=>'/solutions/increase-roi/','i'=>'money','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/dollar-sign.svg'),
+          array('t'=>'Better Student Experience','u'=>'/solutions/better-student-experience/','i'=>'heart','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/star.svg'),
         ))),
       )),
       'customers' => array('label'=>'Customers','type'=>'drop','items'=>array(
-        array('t'=>'Success Customer Stories','u'=>'/videos/customer-stories/','i'=>'video'),
-        array('t'=>'Case Studies','u'=>'/case-studies/','i'=>'doc'),
-        array('t'=>'Testimonials','u'=>'/testimonials/','i'=>'chat'),
-        array('t'=>'Reviews','u'=>'/reviews/','i'=>'star'),
+        array('t'=>'Success Customer Stories','u'=>'/videos/customer-stories/','i'=>'video','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/video.svg'),
+        array('t'=>'Case Studies','u'=>'/case-studies/','i'=>'doc','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/book-open.svg'),
+        array('t'=>'Testimonials','u'=>'/testimonials/','i'=>'chat','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg'),
+        array('t'=>'Reviews','u'=>'/reviews/','i'=>'star','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/star.svg'),
         array('t'=>'Awards','u'=>'/awards/','i'=>'award'),
       )),
       'resources' => array('label'=>'Resources','type'=>'mega','cols'=>array(
         array(array('h'=>'Learn','ic'=>'book','items'=>array(
-          array('t'=>'Blog','u'=>'/blog/','i'=>'news'),
-          array('t'=>'Videos','u'=>'/videos/','i'=>'video'),
-          array('t'=>'Webinars','u'=>'/webinars/','i'=>'mic'),
-          array('t'=>'eBooks','u'=>'/ebooks/','i'=>'book'),
+          array('t'=>'Blog','u'=>'/blog/','i'=>'news','im'=>'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-01.svg'),
+          array('t'=>'Videos','u'=>'/videos/','i'=>'video','im'=>'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-03.svg'),
+          array('t'=>'Webinars','u'=>'/webinars/','i'=>'mic','im'=>'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-04.svg'),
+          array('t'=>'eBooks','u'=>'/ebooks/','i'=>'book','im'=>'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-05.svg'),
         ))),
         array(array('h'=>'Docs & Support','ic'=>'life','items'=>array(
-          array('t'=>'Help Centre','u'=>'/help/','i'=>'life'),
-          array('t'=>'Documentation','u'=>'/documentation/','i'=>'doc'),
-          array('t'=>'API Documentation','u'=>'/api-documentation/','i'=>'code'),
-          array('t'=>'FAQs','u'=>'/faqs/','i'=>'help'),
+          array('t'=>'Help Centre','u'=>'/help/','i'=>'life','im'=>'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-06.svg'),
+          array('t'=>'Documentation','u'=>'/documentation/','i'=>'doc','im'=>'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-07.svg'),
+          array('t'=>'API Documentation','u'=>'/api-documentation/','i'=>'code','im'=>'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-08.svg'),
+          array('t'=>'FAQs','u'=>'/faqs/','i'=>'help','im'=>'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-09.svg'),
         ))),
         array(array('h'=>'Tools','ic'=>'wrench','items'=>array(
-          array('t'=>'ROI Calculator','u'=>'/roi-calculator/','i'=>'calc'),
-          array('t'=>'CRM Comparison','u'=>'/crm-comparison/','i'=>'compare'),
-          array('t'=>'Release Notes','u'=>'/release-notes/','i'=>'flag'),
+          array('t'=>'ROI Calculator','u'=>'/roi-calculator/','i'=>'calc','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/chart-bar.svg'),
+          array('t'=>'CRM Comparison','u'=>'/crm-comparison/','i'=>'compare','im'=>'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-04.svg'),
+          array('t'=>'Release Notes','u'=>'/release-notes/','i'=>'flag','im'=>'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/resources-icon-05.svg'),
         ))),
       )),
       'pricing' => array('label'=>'Pricing','type'=>'drop','items'=>array(
-        array('t'=>'CRM Pricing','u'=>'/pricing/crm/','i'=>'money'),
+        array('t'=>'CRM Pricing','u'=>'/pricing/crm/','i'=>'money','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/dollar-sign.svg'),
         array('t'=>'Vidya AI Pricing','u'=>'/pricing/vidya-ai/','im'=>$EE_ICV.'vidya-ai.svg'),
       )),
       'company' => array('label'=>'Company','type'=>'drop','items'=>array(
-        array('t'=>'About Us','u'=>'/about-us/','i'=>'info'),
-        array('t'=>'Team','u'=>'/team/','i'=>'users'),
-        array('t'=>'Careers','u'=>'/careers/','i'=>'brief'),
-        array('t'=>'Partners','u'=>'/partners/','i'=>'link'),
-        array('t'=>'Events','u'=>'/events/','i'=>'calendar'),
-        array('t'=>'News','u'=>'/news/','i'=>'news'),
-        array('t'=>'Contact','u'=>'/contact/','i'=>'mail'),
-        array('t'=>'Support','u'=>'/support/','i'=>'life'),
+        array('t'=>'About Us','u'=>'/about-us/','i'=>'info','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/info-circle.svg'),
+        array('t'=>'Team','u'=>'/team/','i'=>'users','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/users.svg'),
+        array('t'=>'Careers','u'=>'/careers/','i'=>'brief','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/briefcase.svg'),
+        array('t'=>'Partners','u'=>'/partners/','i'=>'link','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/handshake.svg'),
+        array('t'=>'Events','u'=>'/events/','i'=>'calendar','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/calendar.svg'),
+        array('t'=>'News','u'=>'/news/','i'=>'news','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/newspaper.svg'),
+        array('t'=>'Contact','u'=>'/contact/','i'=>'mail','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/envelope.svg'),
+        array('t'=>'Support','u'=>'/support/','i'=>'life','im'=>'https://www.extraaedge.com/wp-content/uploads/icons/question-circle.svg'),
       )),
     );
     if (!function_exists('ee_m_url')) { function ee_m_url($u){ return (strpos($u,'http')===0) ? $u : home_url($u); } }
@@ -1052,14 +1053,16 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         }
     }
     /* Icon for one menu row: its own artwork ('im') wins, then its own
-       line icon ('i'), then the group's icon — so every row shows the
-       most specific mark the site has for it. */
+       line icon ('i'), then the group's icon. The line icon is always
+       emitted after the artwork as a hidden fallback — if the image
+       fails to load it removes itself and the line icon takes over. */
     if (!function_exists('ee_m_item_icon')) {
         function ee_m_item_icon($it, $fallback = ''){
+            $svg = ee_m_icon(!empty($it['i']) ? $it['i'] : $fallback);
             if (!empty($it['im'])) {
-                return '<img src="'.esc_url($it['im']).'" alt="" width="20" height="20" loading="lazy" decoding="async" onerror="this.remove()">';
+                return '<img src="'.esc_url($it['im']).'" alt="" width="20" height="20" loading="lazy" decoding="async" onerror="this.remove()">'.$svg;
             }
-            return ee_m_icon(!empty($it['i']) ? $it['i'] : $fallback);
+            return $svg;
         }
     }
     ?>
@@ -1832,6 +1835,7 @@ html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed
       color:#7C8CA5; transition:color .18s ease; }
     #site-header .eh-dl-ic svg{ width:19px; height:19px; }
     #site-header .eh-dl-ic img{ width:20px; height:20px; object-fit:contain; display:block; }
+    #site-header .eh-dl-ic img ~ svg{ display:none; }
     #site-header .eh-dl:hover .eh-dl-ic{ color:var(--orange-700,#B5551D); }
     /* the feature side gets the tinted tile the reference uses */
     #site-header>.eh-mega .eh-mega-col--feat .eh-dl-ic{
