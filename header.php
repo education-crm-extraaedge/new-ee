@@ -864,6 +864,12 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
     $EE_MENU = array(
       'products' => array('label'=>'Platform','type'=>'mega','cols'=>array(
         array(
+          array('h'=>'Vidya AI · The AI Layer','ic'=>'spark','items'=>array(
+            array('t'=>'VidyaGPT · 24x7 AI Chat','u'=>'https://getvidya.ai/vidya-gpt'),
+            array('t'=>'VidyaPulse · Intent Scoring','u'=>'https://getvidya.ai/vidya-pulse'),
+            array('t'=>'VidyaAgents · AI Calling','u'=>'https://getvidya.ai/vidya-ai-voice-agent'),
+            array('t'=>'Why Vidya AI','u'=>'https://getvidya.ai/vidya-ai'),
+          )),
           array('h'=>'Capture & Nurture','ic'=>'target','items'=>array(
             array('t'=>'Education CRM','u'=>'/products/education-crm/'),
             array('t'=>'Marketing Automation','u'=>'/products/marketing-automation/'),
@@ -908,13 +914,6 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
             array('t'=>'Book a Demo','u'=>'https://www.extraaedge.com/book-a-demo/'),
           )),
         ),
-      )),
-      'vidyaai' => array('label'=>'Vidya AI','type'=>'drop','items'=>array(
-        array('t'=>'Why Vidya AI','u'=>'https://getvidya.ai/vidya-ai'),
-        array('t'=>'VidyaGPT','u'=>'https://getvidya.ai/vidya-gpt'),
-        array('t'=>'VidyaAI Voice Agent','u'=>'https://getvidya.ai/vidya-ai-voice-agent'),
-        array('t'=>'VidyaPulse','u'=>'https://getvidya.ai/vidya-pulse'),
-        array('t'=>'VidyaWABA GPT','u'=>'https://getvidya.ai/vidya-waba-gpt'),
       )),
       'solutions' => array('label'=>'Solutions','type'=>'mega','cols'=>array(
         array(array('h'=>'By Use Case','ic'=>'target','items'=>array(
