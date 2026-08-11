@@ -745,6 +745,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
             border-color: rgba(222, 110, 48, 0.35);
         }
         .m-icon-card .m-ico svg { width: 16px; height: 16px; }
+        .m-icon-card .m-ico img { width: 18px; height: 18px; object-fit: contain; display: block; }
         .m-icon-card .m-text { flex: 1; min-width: 0; }
         .m-icon-card .menu-title {
             font-family: 'Inter', sans-serif;
@@ -861,133 +862,140 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
        and its links. Rendered server-side, so every link is real
        HTML in the page source.
        ══════════════════════════════════════════════════════════════ */
+    /* Per-item icons. 'im' = the item's real icon artwork already used
+       elsewhere on the site (Vidya favicons, product/industry icon sets);
+       'i' = a key from the ee_m_icon line-icon set for items that have no
+       artwork of their own. Rows without either inherit the group icon. */
+    $EE_ICV = 'https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/'; // Vidya AI product marks
+    $EE_ICP = 'https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/';  // platform feature icons
+    $EE_ICG = 'https://www.extraaedge.com/wp-content/uploads/2026/icon-png/';                       // product & industry icons
     $EE_MENU = array(
       'products' => array('label'=>'Platform','type'=>'mega','cols'=>array(
         array(
           array('h'=>'Vidya AI · The AI Layer','ic'=>'spark','items'=>array(
-            array('t'=>'VidyaGPT · 24x7 AI Chat','u'=>'https://getvidya.ai/vidya-gpt'),
-            array('t'=>'VidyaPulse · Intent Scoring','u'=>'https://getvidya.ai/vidya-pulse'),
-            array('t'=>'VidyaAgents · AI Calling','u'=>'https://getvidya.ai/vidya-ai-voice-agent'),
-            array('t'=>'Why Vidya AI','u'=>'https://getvidya.ai/vidya-ai'),
+            array('t'=>'VidyaGPT · 24x7 AI Chat','u'=>'https://getvidya.ai/vidya-gpt','im'=>$EE_ICV.'vidya-gpt.svg'),
+            array('t'=>'VidyaPulse · Intent Scoring','u'=>'https://getvidya.ai/vidya-pulse','im'=>$EE_ICV.'vidya-pulse.svg'),
+            array('t'=>'VidyaAgents · AI Calling','u'=>'https://getvidya.ai/vidya-ai-voice-agent','im'=>$EE_ICV.'vidya-ai-voice-agent.svg'),
+            array('t'=>'Why Vidya AI','u'=>'https://getvidya.ai/vidya-ai','im'=>$EE_ICV.'vidya-ai.svg'),
           )),
           array('h'=>'Capture & Nurture','ic'=>'target','items'=>array(
-            array('t'=>'Education CRM','u'=>'/products/education-crm/'),
-            array('t'=>'Marketing Automation','u'=>'/products/marketing-automation/'),
-            array('t'=>'Lead Management','u'=>'/solutions/lead-management/'),
-            array('t'=>'Lead Scoring','u'=>'/solutions/lead-scoring/'),
-            array('t'=>'Journey Builder','u'=>'/products/journey-builder/'),
+            array('t'=>'Education CRM','u'=>'/products/education-crm/','im'=>$EE_ICG.'education-crm-icon.png'),
+            array('t'=>'Marketing Automation','u'=>'/products/marketing-automation/','im'=>$EE_ICP.'03-Marketing-Automation.svg'),
+            array('t'=>'Lead Management','u'=>'/solutions/lead-management/','i'=>'funnel'),
+            array('t'=>'Lead Scoring','u'=>'/solutions/lead-scoring/','im'=>$EE_ICP.'10-AI-Lead-Intent-Scoring.svg'),
+            array('t'=>'Journey Builder','u'=>'/products/journey-builder/','i'=>'route'),
           )),
         ),
         array(
           array('h'=>'Engage & Communicate','ic'=>'chat','items'=>array(
-            array('t'=>'WhatsApp Business API','u'=>'/products/whatsapp-business-api/'),
-            array('t'=>'Cloud Telephony & IVR','u'=>'/products/cloud-telephony/'),
-            array('t'=>'Email & SMS Campaigns','u'=>'/products/email-marketing/'),
-            array('t'=>'Education Chatbot','u'=>'/products/education-chatbot/'),
-            array('t'=>'Mobile CRM','u'=>'/products/mobile-crm/'),
+            array('t'=>'WhatsApp Business API','u'=>'/products/whatsapp-business-api/','im'=>$EE_ICG.'WhatsApp_API_icon.png'),
+            array('t'=>'Cloud Telephony & IVR','u'=>'/products/cloud-telephony/','im'=>$EE_ICG.'IVR_SYSTEM_icon.png'),
+            array('t'=>'Email & SMS Campaigns','u'=>'/products/email-marketing/','im'=>$EE_ICP.'19-Email-Marketing.svg'),
+            array('t'=>'Education Chatbot','u'=>'/products/education-chatbot/','im'=>$EE_ICG.'education-chatbot-icon.png'),
+            array('t'=>'Mobile CRM','u'=>'/products/mobile-crm/','im'=>$EE_ICG.'Mobile_CRM_Icon.png'),
           )),
         ),
         array(
           array('h'=>'Convert & Enroll','ic'=>'bank','items'=>array(
-            array('t'=>'Application Management (AMS)','u'=>'/products/application-management-system/'),
-            array('t'=>'Payment & Enrollment','u'=>'/products/payment-enrollment/'),
-            array('t'=>'Walk-in Management','u'=>'/solutions/walk-in-management/'),
+            array('t'=>'Application Management (AMS)','u'=>'/products/application-management-system/','im'=>$EE_ICG.'Application_Management_System_Icon.png'),
+            array('t'=>'Payment & Enrollment','u'=>'/products/payment-enrollment/','i'=>'card'),
+            array('t'=>'Walk-in Management','u'=>'/solutions/walk-in-management/','i'=>'walk'),
           )),
           array('h'=>'Automate','ic'=>'gear','items'=>array(
-            array('t'=>'Workflow Automation','u'=>'/products/workflow-automation/'),
-            array('t'=>'Lead Assignment & Routing','u'=>'/products/lead-assignment/'),
-            array('t'=>'Task Automation','u'=>'/products/task-automation/'),
-            array('t'=>'Follow-up Automation','u'=>'/products/follow-up-automation/'),
+            array('t'=>'Workflow Automation','u'=>'/products/workflow-automation/','i'=>'gear'),
+            array('t'=>'Lead Assignment & Routing','u'=>'/products/lead-assignment/','i'=>'route'),
+            array('t'=>'Task Automation','u'=>'/products/task-automation/','i'=>'check'),
+            array('t'=>'Follow-up Automation','u'=>'/products/follow-up-automation/','im'=>$EE_ICP.'16-Follow-Up-Manager.svg'),
           )),
         ),
         array(
           array('h'=>'Measure','ic'=>'bars','items'=>array(
-            array('t'=>'Executive Dashboard','u'=>'/analytics/executive-dashboard/'),
-            array('t'=>'Admission Analytics','u'=>'/analytics/admission-analytics/'),
-            array('t'=>'Marketing Analytics','u'=>'/analytics/marketing-analytics/'),
-            array('t'=>'Funnel Analytics','u'=>'/analytics/funnel-analytics/'),
-            array('t'=>'Custom Reports','u'=>'/analytics/custom-reports/'),
+            array('t'=>'Executive Dashboard','u'=>'/analytics/executive-dashboard/','im'=>$EE_ICP.'17-Reporting-Dashboard.svg'),
+            array('t'=>'Admission Analytics','u'=>'/analytics/admission-analytics/','i'=>'grad'),
+            array('t'=>'Marketing Analytics','u'=>'/analytics/marketing-analytics/','im'=>$EE_ICP.'21-Campaign-Analytics.svg'),
+            array('t'=>'Funnel Analytics','u'=>'/analytics/funnel-analytics/','im'=>$EE_ICP.'15-Funnel-Management.svg'),
+            array('t'=>'Custom Reports','u'=>'/analytics/custom-reports/','i'=>'doc'),
           )),
           array('h'=>'Essentials','ic'=>'shield','items'=>array(
-            array('t'=>'Integrations','u'=>'/integrations/'),
-            array('t'=>'Security & Compliance','u'=>'/security/'),
-            array('t'=>'Book a Demo','u'=>'https://www.extraaedge.com/book-a-demo/'),
+            array('t'=>'Integrations','u'=>'/integrations/','i'=>'plug'),
+            array('t'=>'Security & Compliance','u'=>'/security/','i'=>'shield'),
+            array('t'=>'Book a Demo','u'=>'https://www.extraaedge.com/book-a-demo/','i'=>'calendar'),
           )),
         ),
       )),
       'solutions' => array('label'=>'Solutions','type'=>'mega','cols'=>array(
         array(array('h'=>'By Use Case','ic'=>'target','items'=>array(
-          array('t'=>'Admission Management','u'=>'/use-case/admission-management/'),
-          array('t'=>'Enrollment Management','u'=>'/use-case/enrollment-management/'),
-          array('t'=>'Student Recruitment','u'=>'/use-case/student-recruitment/'),
-          array('t'=>'Lead Nurturing','u'=>'/use-case/lead-nurturing/'),
-          array('t'=>'Student Engagement','u'=>'/use-case/student-engagement/'),
-          array('t'=>'Event Management','u'=>'/use-case/event-management/'),
-          array('t'=>'Application Processing','u'=>'/use-case/application-processing/'),
+          array('t'=>'Admission Management','u'=>'/use-case/admission-management/','i'=>'grad'),
+          array('t'=>'Enrollment Management','u'=>'/use-case/enrollment-management/','i'=>'check'),
+          array('t'=>'Student Recruitment','u'=>'/use-case/student-recruitment/','i'=>'users'),
+          array('t'=>'Lead Nurturing','u'=>'/use-case/lead-nurturing/','i'=>'heart'),
+          array('t'=>'Student Engagement','u'=>'/use-case/student-engagement/','i'=>'chat'),
+          array('t'=>'Event Management','u'=>'/use-case/event-management/','i'=>'calendar'),
+          array('t'=>'Application Processing','u'=>'/use-case/application-processing/','i'=>'doc'),
         ))),
         array(array('h'=>'By Institution','ic'=>'bank','items'=>array(
-          array('t'=>'Universities & Colleges','u'=>'/industries/higher-education-crm/'),
-          array('t'=>'K-12 Schools','u'=>'/industries/school-crm/'),
-          array('t'=>'Coaching & Test Prep','u'=>'/industries/coaching-institute-crm/'),
-          array('t'=>'Study Abroad Consultants','u'=>'/industries/overseas-crm/'),
-          array('t'=>'Education Agents','u'=>'/solutions/education-agents/'),
+          array('t'=>'Universities & Colleges','u'=>'/industries/higher-education-crm/','im'=>$EE_ICG.'Higher_Education_CRM_crm_icon.png'),
+          array('t'=>'K-12 Schools','u'=>'/industries/school-crm/','im'=>$EE_ICG.'School-focused_CRM_Icons.png'),
+          array('t'=>'Coaching & Test Prep','u'=>'/industries/coaching-institute-crm/','im'=>$EE_ICG.'Coaching_Admissions_Management_CRM.png'),
+          array('t'=>'Study Abroad Consultants','u'=>'/industries/overseas-crm/','im'=>$EE_ICG.'Overseas_Education_CRM_icon.png'),
+          array('t'=>'Education Agents','u'=>'/solutions/education-agents/','im'=>$EE_ICG.'on_filed_agent_crm.png'),
         ))),
         array(array('h'=>'By Team','ic'=>'users','items'=>array(
-          array('t'=>'Admission Teams','u'=>'/solutions/admissions/'),
-          array('t'=>'Counselors','u'=>'/solutions/counselors/'),
-          array('t'=>'Marketing Teams','u'=>'/solutions/marketing/'),
-          array('t'=>'Sales Teams','u'=>'/solutions/sales/'),
-          array('t'=>'Call Centre','u'=>'/solutions/call-center/'),
-          array('t'=>'Leadership','u'=>'/solutions/management/'),
+          array('t'=>'Admission Teams','u'=>'/solutions/admissions/','i'=>'users'),
+          array('t'=>'Counselors','u'=>'/solutions/counselors/','im'=>$EE_ICG.'For_consolers_crm_icon.png'),
+          array('t'=>'Marketing Teams','u'=>'/solutions/marketing/','i'=>'mega'),
+          array('t'=>'Sales Teams','u'=>'/solutions/sales/','i'=>'trend'),
+          array('t'=>'Call Centre','u'=>'/solutions/call-center/','i'=>'phone'),
+          array('t'=>'Leadership','u'=>'/solutions/management/','im'=>$EE_ICG.'for_management_crm_icon.png'),
         ))),
         array(array('h'=>'By Outcome','ic'=>'flag','items'=>array(
-          array('t'=>'Increase Admissions','u'=>'/solutions/increase-admissions/'),
-          array('t'=>'Improve Conversion Rate','u'=>'/solutions/improve-conversion/'),
-          array('t'=>'Faster Follow-ups','u'=>'/solutions/faster-follow-ups/'),
-          array('t'=>'Reduce Manual Work','u'=>'/solutions/reduce-manual-work/'),
-          array('t'=>'Increase Marketing ROI','u'=>'/solutions/increase-roi/'),
-          array('t'=>'Better Student Experience','u'=>'/solutions/better-student-experience/'),
+          array('t'=>'Increase Admissions','u'=>'/solutions/increase-admissions/','i'=>'trend'),
+          array('t'=>'Improve Conversion Rate','u'=>'/solutions/improve-conversion/','i'=>'target'),
+          array('t'=>'Faster Follow-ups','u'=>'/solutions/faster-follow-ups/','i'=>'clock'),
+          array('t'=>'Reduce Manual Work','u'=>'/solutions/reduce-manual-work/','i'=>'bolt'),
+          array('t'=>'Increase Marketing ROI','u'=>'/solutions/increase-roi/','i'=>'money'),
+          array('t'=>'Better Student Experience','u'=>'/solutions/better-student-experience/','i'=>'heart'),
         ))),
       )),
       'customers' => array('label'=>'Customers','type'=>'drop','items'=>array(
-        array('t'=>'Success Customer Stories','u'=>'/videos/customer-stories/'),
-        array('t'=>'Case Studies','u'=>'/case-studies/'),
-        array('t'=>'Testimonials','u'=>'/testimonials/'),
-        array('t'=>'Reviews','u'=>'/reviews/'),
-        array('t'=>'Awards','u'=>'/awards/'),
+        array('t'=>'Success Customer Stories','u'=>'/videos/customer-stories/','i'=>'video'),
+        array('t'=>'Case Studies','u'=>'/case-studies/','i'=>'doc'),
+        array('t'=>'Testimonials','u'=>'/testimonials/','i'=>'chat'),
+        array('t'=>'Reviews','u'=>'/reviews/','i'=>'star'),
+        array('t'=>'Awards','u'=>'/awards/','i'=>'award'),
       )),
       'resources' => array('label'=>'Resources','type'=>'mega','cols'=>array(
         array(array('h'=>'Learn','ic'=>'book','items'=>array(
-          array('t'=>'Blog','u'=>'/blog/'),
-          array('t'=>'Videos','u'=>'/videos/'),
-          array('t'=>'Webinars','u'=>'/webinars/'),
-          array('t'=>'eBooks','u'=>'/ebooks/'),
+          array('t'=>'Blog','u'=>'/blog/','i'=>'news'),
+          array('t'=>'Videos','u'=>'/videos/','i'=>'video'),
+          array('t'=>'Webinars','u'=>'/webinars/','i'=>'mic'),
+          array('t'=>'eBooks','u'=>'/ebooks/','i'=>'book'),
         ))),
         array(array('h'=>'Docs & Support','ic'=>'life','items'=>array(
-          array('t'=>'Help Centre','u'=>'/help/'),
-          array('t'=>'Documentation','u'=>'/documentation/'),
-          array('t'=>'API Documentation','u'=>'/api-documentation/'),
-          array('t'=>'FAQs','u'=>'/faqs/'),
+          array('t'=>'Help Centre','u'=>'/help/','i'=>'life'),
+          array('t'=>'Documentation','u'=>'/documentation/','i'=>'doc'),
+          array('t'=>'API Documentation','u'=>'/api-documentation/','i'=>'code'),
+          array('t'=>'FAQs','u'=>'/faqs/','i'=>'help'),
         ))),
         array(array('h'=>'Tools','ic'=>'wrench','items'=>array(
-          array('t'=>'ROI Calculator','u'=>'/roi-calculator/'),
-          array('t'=>'CRM Comparison','u'=>'/crm-comparison/'),
-          array('t'=>'Release Notes','u'=>'/release-notes/'),
+          array('t'=>'ROI Calculator','u'=>'/roi-calculator/','i'=>'calc'),
+          array('t'=>'CRM Comparison','u'=>'/crm-comparison/','i'=>'compare'),
+          array('t'=>'Release Notes','u'=>'/release-notes/','i'=>'flag'),
         ))),
       )),
       'pricing' => array('label'=>'Pricing','type'=>'drop','items'=>array(
-        array('t'=>'CRM Pricing','u'=>'/pricing/crm/'),
-        array('t'=>'Vidya AI Pricing','u'=>'/pricing/vidya-ai/'),
+        array('t'=>'CRM Pricing','u'=>'/pricing/crm/','i'=>'money'),
+        array('t'=>'Vidya AI Pricing','u'=>'/pricing/vidya-ai/','im'=>$EE_ICV.'vidya-ai.svg'),
       )),
       'company' => array('label'=>'Company','type'=>'drop','items'=>array(
-        array('t'=>'About Us','u'=>'/about-us/'),
-        array('t'=>'Team','u'=>'/team/'),
-        array('t'=>'Careers','u'=>'/careers/'),
-        array('t'=>'Partners','u'=>'/partners/'),
-        array('t'=>'Events','u'=>'/events/'),
-        array('t'=>'News','u'=>'/news/'),
-        array('t'=>'Contact','u'=>'/contact/'),
-        array('t'=>'Support','u'=>'/support/'),
+        array('t'=>'About Us','u'=>'/about-us/','i'=>'info'),
+        array('t'=>'Team','u'=>'/team/','i'=>'users'),
+        array('t'=>'Careers','u'=>'/careers/','i'=>'brief'),
+        array('t'=>'Partners','u'=>'/partners/','i'=>'link'),
+        array('t'=>'Events','u'=>'/events/','i'=>'calendar'),
+        array('t'=>'News','u'=>'/news/','i'=>'news'),
+        array('t'=>'Contact','u'=>'/contact/','i'=>'mail'),
+        array('t'=>'Support','u'=>'/support/','i'=>'life'),
       )),
     );
     if (!function_exists('ee_m_url')) { function ee_m_url($u){ return (strpos($u,'http')===0) ? $u : home_url($u); } }
@@ -1010,9 +1018,48 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
               'book'  =>'<path d="M4 5.5A2.5 2.5 0 016.5 3H20v14H6.5A2.5 2.5 0 004 19.5z"/><path d="M4 19.5A2.5 2.5 0 016.5 17H20v4H6.5A2.5 2.5 0 014 18.5z"/>',
               'life'  =>'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.4"/><path d="M6 6l3.6 3.6M18 6l-3.6 3.6M18 18l-3.6-3.6M6 18l3.6-3.6"/>',
               'wrench'=>'<path d="M14.5 6.5a4.2 4.2 0 015.3 5.3l-9 9-2.6-2.6 9-9z"/><path d="M6.5 14.5l-3 3 2.6 2.6 3-3"/>',
+              'funnel'=>'<path d="M21.5 3.5h-19L10 12.6V19l4 2.5v-8.9l7.5-9.1z"/>',
+              'route' =>'<circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H15a3.5 3.5 0 000-7H9a3.5 3.5 0 010-7h6.5"/>',
+              'card'  =>'<rect x="1.5" y="4.5" width="21" height="15" rx="2"/><path d="M1.5 10h21"/>',
+              'walk'  =>'<path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/>',
+              'check' =>'<path d="M9 11.5l3 3L21.5 5"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>',
+              'calendar'=>'<rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 10.5h18"/>',
+              'doc'   =>'<path d="M14 2.5H6a2 2 0 00-2 2v15a2 2 0 002 2h12a2 2 0 002-2v-11z"/><path d="M14 2.5v6h6M16 13.5H8M16 17H8"/>',
+              'grad'  =>'<path d="M22 9.5L12 4.5 2 9.5l10 5 10-5z"/><path d="M6 12.2v4.3c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.3"/><path d="M22 9.5V15"/>',
+              'phone' =>'<path d="M21.5 16.9v3a1.9 1.9 0 01-2.1 1.9 19 19 0 01-8.3-3 18.7 18.7 0 01-5.8-5.8 19 19 0 01-3-8.3A1.9 1.9 0 014.2 2.5h3a1.9 1.9 0 011.9 1.7c.1.9.3 1.7.6 2.5a1.9 1.9 0 01-.4 2L8 10a15.2 15.2 0 006 6l1.3-1.3a1.9 1.9 0 012-.4c.8.3 1.6.5 2.5.6a1.9 1.9 0 011.7 2z"/>',
+              'trend' =>'<path d="M22 6.5l-8.5 8.5-5-5L2 16.5"/><path d="M16 6.5h6v6"/>',
+              'clock' =>'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>',
+              'bolt'  =>'<path d="M13 2.5L3.5 14H12l-1 7.5L20.5 10H12l1-7.5z"/>',
+              'money' =>'<path d="M12 1.5v21"/><path d="M17 5.5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>',
+              'heart' =>'<path d="M20.5 5a5.3 5.3 0 00-7.5 0l-1 1-1-1A5.3 5.3 0 003.5 12.5l1 1L12 21l7.5-7.5 1-1a5.3 5.3 0 000-7.5z"/>',
+              'video' =>'<rect x="1.5" y="5.5" width="14" height="13" rx="2"/><path d="M22.5 7.5l-7 4.5 7 4.5v-9z"/>',
+              'star'  =>'<path d="M12 2.8l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3-5.8 3 1.1-6.5L2.6 9.6l6.5-.9L12 2.8z"/>',
+              'award' =>'<circle cx="12" cy="8.5" r="5.8"/><path d="M15.2 13.4l1.3 8.1-4.5-2.7-4.5 2.7 1.3-8.1"/>',
+              'news'  =>'<path d="M3 4.5h14v15H5a2 2 0 01-2-2v-13z"/><path d="M17 8h2a2 2 0 012 2v7.5a2 2 0 01-2 2h-2"/><path d="M6.5 8.5H13M6.5 12H13M6.5 15.5H10"/>',
+              'mic'   =>'<rect x="9" y="2.5" width="6" height="11.5" rx="3"/><path d="M5 11.5a7 7 0 0014 0M12 18.5v3"/>',
+              'code'  =>'<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>',
+              'help'  =>'<circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 2.8-3 2.8"/><path d="M12 16.8h.01"/>',
+              'calc'  =>'<rect x="4.5" y="2.5" width="15" height="19" rx="2"/><path d="M8 7h8M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01M8.5 15h.01M12 15h.01M15.5 15h.01M8.5 18.5h.01M12 18.5h.01M15.5 18.5h.01"/>',
+              'compare'=>'<rect x="3.5" y="9" width="7" height="11.5" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="17" rx="1.5"/>',
+              'info'  =>'<circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/>',
+              'brief' =>'<rect x="2.5" y="7" width="19" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>',
+              'link'  =>'<path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.7-1.7"/>',
+              'mail'  =>'<rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 7.5l9.5 6 9.5-6"/>',
+              'mega'  =>'<path d="M20.5 4L4 9v6l16.5 5V4z"/><path d="M7.5 15.6V19a2 2 0 004 0v-2.3"/>',
             );
             $path = isset($d[$k]) ? $d[$k] : $d['spark'];
             return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'.$path.'</svg>';
+        }
+    }
+    /* Icon for one menu row: its own artwork ('im') wins, then its own
+       line icon ('i'), then the group's icon — so every row shows the
+       most specific mark the site has for it. */
+    if (!function_exists('ee_m_item_icon')) {
+        function ee_m_item_icon($it, $fallback = ''){
+            if (!empty($it['im'])) {
+                return '<img src="'.esc_url($it['im']).'" alt="" width="20" height="20" loading="lazy" decoding="async" onerror="this.remove()">';
+            }
+            return ee_m_icon(!empty($it['i']) ? $it['i'] : $fallback);
         }
     }
     ?>
@@ -1035,7 +1082,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
                                 <div class="eh-col-title"><?php echo esc_html($grp['h']); ?></div>
                                 <?php foreach ($grp['items'] as $it): ?>
                                 <a href="<?php echo esc_url(ee_m_url($it['u'])); ?>" class="eh-dl">
-                                    <span class="eh-dl-ic" aria-hidden="true"><?php echo ee_m_icon(isset($grp['ic']) ? $grp['ic'] : ''); ?></span>
+                                    <span class="eh-dl-ic" aria-hidden="true"><?php echo ee_m_item_icon($it, isset($grp['ic']) ? $grp['ic'] : ''); ?></span>
                                     <div class="eh-dl-content">
                                         <div class="eh-dl-title"><?php echo esc_html($it['t']); ?><?php
                                             if (!empty($it['badge'])) echo ' <span class="eh-badge-soon">'.esc_html($it['badge']).'</span>'; ?></div>
@@ -1052,7 +1099,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
                     <div class="eh-dropdown">
                         <?php foreach ($ms['items'] as $it): ?>
                         <a href="<?php echo esc_url(ee_m_url($it['u'])); ?>" class="eh-dl">
-                            <span class="eh-dl-ic" aria-hidden="true"><?php echo ee_m_icon($mk === 'pricing' ? 'target' : ($mk === 'company' ? 'users' : 'bank')); ?></span>
+                            <span class="eh-dl-ic" aria-hidden="true"><?php echo ee_m_item_icon($it, $mk === 'pricing' ? 'target' : ($mk === 'company' ? 'users' : 'bank')); ?></span>
                             <div class="eh-dl-content"><div class="eh-dl-title"><?php echo esc_html($it['t']); ?></div></div>
                         </a>
                         <?php endforeach; ?>
@@ -1097,12 +1144,12 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
                             <?php foreach ($ms['cols'] as $col): foreach ($col as $grp): ?>
                             <p class="ee-m-group"><?php echo esc_html($grp['h']); ?></p>
                             <?php foreach ($grp['items'] as $it): ?>
-                            <a href="<?php echo esc_url(ee_m_url($it['u'])); ?>" class="m-icon-card"><span><?php echo esc_html($it['t']); ?><?php
+                            <a href="<?php echo esc_url(ee_m_url($it['u'])); ?>" class="m-icon-card"><span class="m-ico" aria-hidden="true"><?php echo ee_m_item_icon($it, isset($grp['ic']) ? $grp['ic'] : ''); ?></span><span><?php echo esc_html($it['t']); ?><?php
                                 if (!empty($it['badge'])) echo ' <span class="eh-badge-soon">'.esc_html($it['badge']).'</span>'; ?></span></a>
                             <?php endforeach; endforeach; endforeach; ?>
                         <?php else: ?>
                             <?php foreach ($ms['items'] as $it): ?>
-                            <a href="<?php echo esc_url(ee_m_url($it['u'])); ?>" class="m-icon-card"><span><?php echo esc_html($it['t']); ?></span></a>
+                            <a href="<?php echo esc_url(ee_m_url($it['u'])); ?>" class="m-icon-card"><span class="m-ico" aria-hidden="true"><?php echo ee_m_item_icon($it, $mk === 'pricing' ? 'target' : ($mk === 'company' ? 'users' : 'bank')); ?></span><span><?php echo esc_html($it['t']); ?></span></a>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
@@ -1784,12 +1831,14 @@ html body #main-content p:not(.eepb *):not(.ee-blog-embed *):not(#ee-night-embed
       flex:0 0 auto; width:22px; height:22px; display:grid; place-items:center;
       color:#7C8CA5; transition:color .18s ease; }
     #site-header .eh-dl-ic svg{ width:19px; height:19px; }
+    #site-header .eh-dl-ic img{ width:20px; height:20px; object-fit:contain; display:block; }
     #site-header .eh-dl:hover .eh-dl-ic{ color:var(--orange-700,#B5551D); }
     /* the feature side gets the tinted tile the reference uses */
     #site-header>.eh-mega .eh-mega-col--feat .eh-dl-ic{
       width:34px; height:34px; border-radius:10px; background:#F1F5FB; color:#19335D; }
     #site-header>.eh-mega .eh-mega-col--feat .eh-dl:hover .eh-dl-ic{
       background:#FDF2EB; color:var(--orange-700,#B5551D); }
+    #site-header>.eh-mega .eh-mega-col--feat .eh-dl-ic img{ width:22px; height:22px; }
     #site-header .eh-dl-title{ font-weight:500 !important; font-size:14px !important;
       color:inherit !important; }
     #site-header>.eh-mega .eh-mega-col--feat .eh-dl-title{ font-weight:600 !important; }
