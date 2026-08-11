@@ -196,7 +196,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 <?php /* nbsp binds the dash to the word before it, so the line never breaks
          with a hyphen stranded at the start of the second line */ ?>
       <h2>Explore the Live Platform Yourself<span class="ee-h2b">No Sales Call Needed</span></h2>
-      <p>Click through the real Admission CRM on sample data - dashboards, Vidya AI, lead manager, WhatsApp and automation. A guided tour starts you off; click anywhere to take over.</p>
+      <p>Start with what makes us different: Vidya AI. Then see the admission workflows it runs on - dashboards, lead manager, WhatsApp and automation - all on sample data. A guided tour starts you off; click anywhere to take over.</p>
       <ul class="eep-assure">
         <li>No signup</li>
         <li>Sample data only</li>
@@ -211,8 +211,8 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
         <button type="button" class="eep-tour" id="eepTour" aria-pressed="false" title="Auto-play a tour of all modules"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8V4z"/></svg><span id="eepTourN">Tour</span></button>
       </div>
       <div class="eep-mods-grid">
-        <button type="button" class="eep-mod on" data-go="outcomes" data-url="/dashboards" data-info="Live funnel, source ROI and counsellor performance." data-gain="Decisions in minutes"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span><b>Dashboards</b></button>
-        <button type="button" class="eep-mod" data-go="ai" data-url="/vidya-ai" data-info="24x7 AI copilot - answers, scores intent, drafts follow-ups." data-gain="No enquiry waits"><span class="eep-mod-ic eep-mod-ic--art" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('eep-mod-ic--art');this.remove()"></span><b>Vidya AI</b></button>
+        <button type="button" class="eep-mod on" data-go="ai" data-url="/vidya-ai" data-info="24x7 AI copilot - answers, scores intent, drafts follow-ups." data-gain="No enquiry waits"><span class="eep-mod-ic eep-mod-ic--art" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('eep-mod-ic--art');this.remove()"></span><b>Vidya AI</b></button>
+        <button type="button" class="eep-mod" data-go="outcomes" data-url="/dashboards" data-info="Live funnel, source ROI and counsellor performance." data-gain="Decisions in minutes"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span><b>Dashboards</b></button>
         <button type="button" class="eep-mod" data-go="leads" data-url="/leads" data-info="Every enquiry auto-captured and deduped on one timeline." data-gain="Zero leads lost"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0M16 4.5a3.2 3.2 0 0 1 0 7M17.5 14.6a5.5 5.5 0 0 1 3 5.4"/></svg></span><b>Leads</b></button>
         <button type="button" class="eep-mod" data-go="wa" data-url="/whatsapp" data-info="Official WhatsApp - 1:1 and bulk, every message logged." data-gain="98% open rates"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v10H9l-5 4V6z"/></svg></span><b>WhatsApp</b></button>
         <button type="button" class="eep-mod" data-go="followups" data-url="/follow-ups" data-info="Auto-built task list and SLA reminders per counsellor." data-gain="Nothing slips"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15.5l2 2 4-4"/></svg></span><b>Follow-ups</b></button>
@@ -222,9 +222,9 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
         <button type="button" class="eep-mod" data-go="integration" data-url="/integrations" data-info="Meta, Google, portals, telephony and 50+ tools." data-gain="No manual imports"><span class="eep-mod-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><path d="M10 7h7M7 10v7"/></svg></span><b>Integrations</b></button>
       </div>
       <div class="eep-mod-info" id="eepModInfo" aria-live="polite">
-        <b id="eepModInfoName">Dashboards</b>
-        <span id="eepModInfoTx">Live funnel, source ROI and counsellor performance.</span>
-        <em id="eepModInfoGain">Decisions in minutes</em>
+        <b id="eepModInfoName">Vidya AI</b>
+        <span id="eepModInfoTx">24x7 AI copilot - answers, scores intent, drafts follow-ups.</span>
+        <em id="eepModInfoGain">No enquiry waits</em>
         <i class="eep-mod-prog" id="eepModProg" aria-hidden="true"></i>
       </div>
     </aside>
@@ -234,7 +234,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
       <span class="eep-mlaunch-arrow" aria-hidden="true"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-02.svg" alt="" loading="lazy" decoding="async"></span>
     </button>
     <div class="eep-window">
-      <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com</span><button type="button" class="eep-expand" id="eepExpand" aria-label="Open full screen"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-03.svg" alt="" loading="lazy" decoding="async"> Full screen</button><button type="button" class="eep-close" id="eepClose" aria-label="Close the demo and return to the website"><span class="eep-close-lbl">Exit Demo &middot; Back to Website</span><span aria-hidden="true">&#10005;</span></button></div>
+      <div class="eep-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="eep-url">app.extraaedge.com/vidya-ai</span><button type="button" class="eep-expand" id="eepExpand" aria-label="Open full screen"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/ai-experience-icon-03.svg" alt="" loading="lazy" decoding="async"> Full screen</button><button type="button" class="eep-close" id="eepClose" aria-label="Close the demo and return to the website"><span class="eep-close-lbl">Exit Demo &middot; Back to Website</span><span aria-hidden="true">&#10005;</span></button></div>
       <iframe class="eep-frame" title="ExtraaEdge - Lead Management Platform (interactive demo)" id="eepFrame" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" data-srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
@@ -385,8 +385,8 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
     </div>
   </header>
   <aside class=&quot;side&quot; id=&quot;side&quot;>
-    <button class=&quot;nav on&quot; data-go=&quot;outcomes&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z&quot;/><path d=&quot;M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3&quot;/></svg> Business Outcomes</button>
-    <button class=&quot;nav&quot; data-go=&quot;ai&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg&quot; alt=&quot;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;> Vidya AI <span class=&quot;cnt ai&quot;>AI</span></button>
+    <button class=&quot;nav on&quot; data-go=&quot;ai&quot;><img class=&quot;eeimg&quot; src=&quot;https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg&quot; alt=&quot;&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;> Vidya AI <span class=&quot;cnt ai&quot;>AI</span></button>
+    <button class=&quot;nav&quot; data-go=&quot;outcomes&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z&quot;/><path d=&quot;M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3&quot;/></svg> Business Outcomes</button>
     <button class=&quot;nav&quot; data-toggle=&quot;analytics&quot;>
       <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;><path d=&quot;M3 3v18h18&quot;/><rect x=&quot;7&quot; y=&quot;10&quot; width=&quot;3&quot; height=&quot;7&quot;/><rect x=&quot;12&quot; y=&quot;6&quot; width=&quot;3&quot; height=&quot;11&quot;/><rect x=&quot;17&quot; y=&quot;13&quot; width=&quot;3&quot; height=&quot;4&quot;/></svg>
       Analytics Dashboard
@@ -415,7 +415,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   </aside>
   <div class=&quot;scrim&quot; id=&quot;scrim&quot;></div>
   <main class=&quot;main&quot; id=&quot;main&quot;>
-    <section class=&quot;view on&quot; data-v=&quot;outcomes&quot;>
+    <section class=&quot;view&quot; data-v=&quot;outcomes&quot;>
       <div class=&quot;vhead&quot;><h2>Business Outcomes</h2><div class=&quot;right&quot;><span class=&quot;sample-badge&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>Illustrative sample data</span></span></div></div>
       <div class=&quot;privacy-bar&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span><b>Privacy-first demo.</b> All names, numbers and emails shown are fictional samples - real student data is masked. No internal rules, keys or confidential reports are exposed.</span></div>
       <div class=&quot;oc-hero&quot;>
@@ -429,7 +429,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
       </div>
       <div class=&quot;oc-grid&quot; id=&quot;ocGrid&quot;></div>
     </section>
-    <section class=&quot;view&quot; data-v=&quot;ai&quot;>
+    <section class=&quot;view on&quot; data-v=&quot;ai&quot;>
       <div class=&quot;vhead&quot;><div><span class=&quot;ai-eyebrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><path d=&quot;M13 2 3 14h7l-1 8 10-12h-7z&quot;/></svg> Powered by Vidya AI</span><h2 style=&quot;margin-top:8px&quot;>AI that does the work - not just assists</h2></div><div class=&quot;right&quot;><span class=&quot;sample-badge&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;10&quot; rx=&quot;2&quot;/><path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/></svg><span>Sample data</span></span></div></div>
       <div class=&quot;ai-grid&quot; id=&quot;aiGrid&quot;></div>
     </section>
@@ -911,7 +911,12 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
      Every dashboard in the product is covered - 21 steps at 6s is about two
      minutes - and the chapters keep that from feeling like a long list. */
   var TSTEPS=[
-    /* ── 1. Start here ── */
+    /* ── 1. Start here - the AI story first, the CRM workflows as its context ── */
+    {v:'ai',sel:'#aiGrid',ai:'AI Powered',ch:'Start here',
+     t:'Vidya AI, your 24x7 admissions team',
+     b:'<b>VidyaAgents</b> call, <b>VidyaGPT</b> chats, <b>VidyaGPT</b> runs WhatsApp, <b>VidyaPulse</b> scores intent.',
+     ben:'Every enquiry answered the minute it arrives, day or night',
+     out:'24x7 AI Assistance'},
     {v:'outcomes',sel:'#side',side:1,ch:'Start here',
      t:'Your whole admission office, one window',
      b:'Every dashboard, lead, call, chat and automation in the left menu - on <b>sample data</b>, nothing real is exposed.',
@@ -922,11 +927,6 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
      b:'The board every principal asks for: response time, conversion, productivity and <b>ROI</b>.',
      ben:'Know what the admission spend actually returned',
      out:'Better ROI, in one screen'},
-    {v:'ai',sel:'#aiGrid',ai:'AI Powered',ch:'Start here',
-     t:'Vidya AI, your 24x7 admissions team',
-     b:'<b>VidyaAgents</b> call, <b>VidyaGPT</b> chats, <b>VidyaGPT</b> runs WhatsApp, <b>VidyaPulse</b> scores intent.',
-     ben:'Every enquiry answered the minute it arrives, day or night',
-     out:'24x7 AI Assistance'},
     {v:'outcomes',sel:'#search',ai:'Natural Language Search',ch:'Start here',
      t:'Ask in plain language',
      b:'Type what you want - <b>hot leads from Pune this week</b> - instead of building a filter.',
