@@ -35,38 +35,6 @@ add_action('admin_menu', function () {
     add_submenu_page('ee-site', 'Videos', '🎬 Videos', 'manage_options', 'ee-videos', 'ee_videos_render_admin');
 });
 
-/** Ordered YouTube IDs the admin picked for the home-page carousel.
- *  Empty = the home page falls back to its built-in curated set. */
-function ee_home_videos() {
-    $v = get_option('ee_home_videos', array());
-    return is_array($v) ? array_values(array_filter(array_map('strval', $v))) : array();
-}
-
-/* ── home-page toggle ────────────────────────────────────────────────── */
-add_action('admin_post_ee_videos_home', function () {
-    if (!current_user_can('manage_options')) wp_die('Forbidden');
-    check_admin_referer('ee_videos_home');
-
-    $id  = ee_video_parse_id(wp_unslash($_GET['v'] ?? ''));
-    $cat = sanitize_title(wp_unslash($_GET['cat'] ?? ''));
-    $msg = '';
-    if ($id !== '') {
-        $sel = ee_home_videos();
-        if (in_array($id, $sel, true)) {
-            update_option('ee_home_videos', array_values(array_diff($sel, array($id))));
-            $msg = 'home_off';
-        } elseif (count($sel) >= 12) {
-            $msg = 'home_full'; /* the carousel stays sane at a dozen */
-        } else {
-            $sel[] = $id;
-            update_option('ee_home_videos', $sel);
-            $msg = 'home_on';
-        }
-    }
-    wp_safe_redirect(add_query_arg(array('page' => 'ee-videos', 'cat' => $cat, 'msg' => $msg), admin_url('admin.php')));
-    exit;
-});
-
 /* ── add ─────────────────────────────────────────────────────────────── */
 add_action('admin_post_ee_videos_add', function () {
     if (!current_user_can('manage_options')) wp_die('Forbidden');
@@ -189,20 +157,14 @@ function ee_videos_render_admin() {
         }
     }
     $extraIds = wp_list_pluck(ee_video_extras(), 'id');
-    $homeSel  = ee_home_videos();
     ?>
     <div class="wrap ee-vadm">
         <h1>🎬 Videos</h1>
-        <p class="ee-vadm-lead">Everything on <a href="<?php echo esc_url(home_url('/videos/')); ?>" target="_blank">/videos/</a>. Pick a category, then add a video by pasting its YouTube link, or remove one with the <strong>×</strong> on its thumbnail. Nothing is ever deleted for good &mdash; removed videos sit at the bottom of this page and can be put back with one click.
-        <br>&#11088; The <strong>Home</strong> button on a thumbnail puts that video in the home page&rsquo;s &ldquo;What Our Clients Are Saying&rdquo; carousel, in the order you pick them
-        (<strong><?php echo count($homeSel); ?></strong> selected<?php echo $homeSel ? '' : ' &mdash; the home page is showing its default set'; ?>, max 12).</p>
+        <p class="ee-vadm-lead">Everything on <a href="<?php echo esc_url(home_url('/videos/')); ?>" target="_blank">/videos/</a>. Pick a category, then add a video by pasting its YouTube link, or remove one with the <strong>×</strong> on its thumbnail. Nothing is ever deleted for good &mdash; removed videos sit at the bottom of this page and can be put back with one click.</p>
 
         <?php if ($msg === 'added') : ?><div class="notice notice-success"><p>Video added. <a href="<?php echo esc_url(home_url('/videos/' . $slug . '/')); ?>" target="_blank">See it on the site &rarr;</a></p></div><?php endif; ?>
         <?php if ($msg === 'removed') : ?><div class="notice notice-success"><p>Video removed from the site. You can put it back from <strong>Removed videos</strong> at the bottom of this page.</p></div><?php endif; ?>
         <?php if ($msg === 'restored') : ?><div class="notice notice-success"><p>Video is back on the site.</p></div><?php endif; ?>
-        <?php if ($msg === 'home_on') : ?><div class="notice notice-success"><p>Added to the home page carousel. <a href="<?php echo esc_url(home_url('/#stories')); ?>" target="_blank">See the home page &rarr;</a></p></div><?php endif; ?>
-        <?php if ($msg === 'home_off') : ?><div class="notice notice-success"><p>Removed from the home page carousel<?php echo ee_home_videos() ? '' : ' &mdash; none selected now, so the home page shows its default set'; ?>.</p></div><?php endif; ?>
-        <?php if ($msg === 'home_full') : ?><div class="notice notice-error"><p>The home carousel holds at most <strong>12</strong> videos. Remove one first (click its &#11088; Home button again).</p></div><?php endif; ?>
         <?php if ($err) : ?>
             <div class="notice notice-error"><p><?php
                 if ($err === 'link')       echo 'That does not look like a YouTube link. Paste the full link (e.g. https://www.youtube.com/watch?v=XXXXXXXXXXX) or just the 11-character ID.';
@@ -276,10 +238,6 @@ function ee_videos_render_admin() {
                             <div class="ee-vadm-m">
                                 <a href="https://www.youtube.com/watch?v=<?php echo esc_attr($v[1]); ?>" target="_blank" rel="noopener">Preview</a>
                                 <?php if ($mine) : ?><span class="ee-vadm-badge">Added here</span><?php endif; ?>
-                                <?php $hmPos = array_search($v[1], $homeSel, true);
-                                      $hm = wp_nonce_url(admin_url('admin-post.php?action=ee_videos_home&v=' . rawurlencode($v[1]) . '&cat=' . rawurlencode($slug)), 'ee_videos_home'); ?>
-                                <a class="ee-vadm-hm<?php echo $hmPos !== false ? ' is-on' : ''; ?>" href="<?php echo esc_url($hm); ?>"
-                                   title="<?php echo $hmPos !== false ? 'Remove from the home page carousel' : 'Show on the home page carousel'; ?>">&#11088; Home<?php echo $hmPos !== false ? ' #' . ($hmPos + 1) : ''; ?></a>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -332,9 +290,6 @@ function ee_videos_render_admin() {
       display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
     .ee-vadm-m{ display:flex; align-items:center; justify-content:space-between; gap:6px; padding:0 10px 10px; font-size:11.5px; }
     .ee-vadm-badge{ background:#FFF3EC; color:#B5551D; border-radius:4px; padding:2px 6px; font-weight:700; font-size:10px; }
-    .ee-vadm-hm{ margin-left:auto; background:#F4F6FA; color:#5a6b85; border:1px solid #e2e8f0; border-radius:5px; padding:2px 8px; font-weight:700; font-size:10.5px; text-decoration:none; white-space:nowrap; }
-    .ee-vadm-hm:hover{ border-color:#DE6E30; color:#B5551D; }
-    .ee-vadm-hm.is-on{ background:#FFF3EC; border-color:#DE6E30; color:#B5551D; }
     .ee-vadm-x{ position:absolute; top:6px; right:6px; z-index:2; width:24px; height:24px; border-radius:50%;
       background:rgba(179,45,46,.94); color:#fff !important; text-decoration:none; font-size:15px; line-height:24px;
       text-align:center; font-weight:700; box-shadow:0 2px 6px rgba(0,0,0,.3); }
