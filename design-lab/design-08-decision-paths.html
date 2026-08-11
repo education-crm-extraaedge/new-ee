@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExtraaEdge | One Platform, Four Decision Makers</title>
+<meta name="description" content="Admission software is chosen by a committee. Pick your seat: director, head of admissions, counsellor or IT, and read the version of ExtraaEdge written for your decision.">
+<link rel="canonical" href="https://www.extraaedge.com/">
+<meta property="og:title" content="ExtraaEdge | One Platform, Four Decision Makers">
+<meta property="og:description" content="Director, admissions head, counsellor, IT: each gets the answer their seat requires.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.extraaedge.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"ExtraaEdge","url":"https://www.extraaedge.com/","description":"India's Intelligent Admissions Growth Platform for educational institutions."}
+</script>
+<style>
+:root{--navy:#19335D;--orange:#DE6E30;--orange-d:#B5551D;--ink:#0F172A;--mut:#5A6B85;--line:rgba(25,51,93,.12);--paper:#F6F8FB}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:999}
+.skip:focus{left:0}
+:focus-visible{outline:2.5px solid var(--orange);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;height:62px}
+.hd img{height:29px;width:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;border-radius:12px;padding:12px 22px;transition:.2s}
+.btn-o{background:var(--orange);color:#fff;box-shadow:0 10px 24px -10px rgba(222,110,48,.55)}
+.btn-o:hover{background:var(--orange-d)}
+.btn-ghost{border:1.5px solid var(--line);color:var(--navy)}
+.btn-ghost:hover{border-color:var(--navy)}
+/* hero */
+.hero{padding:clamp(46px,6.5vw,86px) 0 clamp(20px,3vw,36px);text-align:center}
+h1{font-size:clamp(30px,4.4vw,54px);font-weight:900;letter-spacing:-.03em;line-height:1.08;color:var(--navy);max-width:23ch;margin:0 auto}
+h1 em{font-style:normal;color:var(--orange)}
+.hero p{margin:16px auto 0;color:var(--mut);font-size:clamp(14.5px,1.5vw,17px);max-width:62ch}
+.hero .common{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:20px;font-size:12.5px;font-weight:600;color:var(--mut)}
+/* seats */
+.seats{position:sticky;top:62px;z-index:55;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 0}
+.seat-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.seat{display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:10px 18px;cursor:pointer;font-family:inherit;text-align:left;transition:.18s;min-width:150px}
+.seat b{font-size:13.5px;font-weight:800;color:var(--navy)}
+.seat span{font-size:11px;color:var(--mut)}
+.seat:hover{border-color:var(--orange)}
+.seat[aria-selected="true"]{border-color:var(--orange);background:rgba(222,110,48,.07);box-shadow:0 10px 24px -14px rgba(222,110,48,.5)}
+.seat[aria-selected="true"] b{color:var(--orange-d)}
+/* panels */
+.panel{display:none;padding:clamp(36px,5vw,64px) 0}
+.panel.on{display:block}
+.p-head{max-width:760px}
+.p-k{font-size:11.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--orange-d)}
+h2{margin-top:8px;font-size:clamp(23px,3vw,36px);font-weight:800;letter-spacing:-.025em;line-height:1.15;color:var(--navy)}
+.p-head p{margin-top:12px;color:var(--mut);font-size:15px}
+.p-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:30px}
+.pcard{border:1px solid var(--line);border-radius:16px;padding:22px 20px;background:#fff}
+.pcard h3{font-size:15.5px;font-weight:800;color:var(--navy);line-height:1.3}
+.pcard .num{display:block;font-size:26px;font-weight:900;color:var(--navy);letter-spacing:-.015em;margin-bottom:6px}
+.pcard .num i{font-style:normal;color:var(--orange)}
+.pcard p{margin-top:8px;font-size:13px;color:var(--mut)}
+.pcard p b{color:var(--navy)}
+@media(max-width:860px){.p-grid{grid-template-columns:minmax(0,1fr)}}
+.p-proof{margin-top:26px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:14px;padding:18px 20px;background:var(--paper)}
+.p-proof img{width:76px;height:52px;object-fit:cover;border-radius:9px}
+.p-proof blockquote{font-size:13.8px;font-weight:600;color:var(--navy);line-height:1.55}
+.p-proof footer{margin-top:6px;font-size:12px;color:var(--mut);font-weight:600}
+.p-proof.noimg{grid-template-columns:minmax(0,1fr)}
+.p-cta{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.p-cta .why{font-size:12.5px;color:var(--mut)}
+@media(max-width:640px){.p-proof{grid-template-columns:minmax(0,1fr)}}
+/* alignment band */
+.align{background:var(--navy);color:#fff;padding:clamp(48px,6.5vw,84px) 0;text-align:center}
+.align h2{color:#fff;max-width:28ch;margin:0 auto}
+.align p{margin:14px auto 0;color:#C4D2E8;max-width:60ch;font-size:15px}
+.align .row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:26px}
+.align .btn-ghost{border-color:rgba(255,255,255,.35);color:#fff}
+.align .tiny{margin-top:14px;font-size:12px;color:#9FB2CF}
+footer.site{padding:24px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--mut)}
+footer.site .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap hd">
+    <a href="https://www.extraaedge.com/" aria-label="ExtraaEdge home"><img src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg" alt="ExtraaEdge" width="120" height="29"></a>
+    <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+  </div>
+</header>
+
+<main id="main">
+<!-- HERO: name the committee out loud; that IS the empathy. -->
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <h1 id="h1">Admission software is never <em>one person's</em> decision.</h1>
+    <p>A director signs, an admissions head owns the number, counsellors live in it daily and IT answers for the data. ExtraaEdge, India's Intelligent Admissions Growth Platform, has to convince all four. Pick your seat; read your version.</p>
+    <p class="common">500+ institutions &middot; 10M+ enquiries managed &middot; 4.7/5 from 320+ teams &middot; live in 7 days</p>
+  </div>
+</section>
+
+<!-- SEAT PICKER: sticky, so switching perspective is always one tap away. -->
+<div class="seats" role="tablist" aria-label="Choose your role">
+  <div class="wrap seat-row">
+    <button class="seat" role="tab" id="t-dir" aria-controls="p-dir" aria-selected="true"><b>Director / Principal</b><span>I sign, so show me outcomes</span></button>
+    <button class="seat" role="tab" id="t-head" aria-controls="p-head" aria-selected="false"><b>Head of Admissions</b><span>I own the number</span></button>
+    <button class="seat" role="tab" id="t-coun" aria-controls="p-coun" aria-selected="false"><b>Counsellor</b><span>I will use it every day</span></button>
+    <button class="seat" role="tab" id="t-it" aria-controls="p-it" aria-selected="false"><b>IT / Operations</b><span>I answer for the data</span></button>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- DIRECTOR -->
+  <section class="panel on" id="p-dir" role="tabpanel" aria-labelledby="t-dir">
+    <div class="p-head">
+      <p class="p-k">For the person who signs</p>
+      <h2>You are not buying software. You are buying a different funnel.</h2>
+      <p>The board question is never &ldquo;which CRM&rdquo;; it is &ldquo;why did we miss target, and what changes next season&rdquo;. This is the answer in three numbers, with how each is produced.</p>
+    </div>
+    <div class="p-grid">
+      <div class="pcard"><span class="num">Up to <i>40%</i></span><h3>More admissions from the same spend</h3><p>The lift comes from converting enquiries you already paid for: answered in 60 seconds, called in the right order, never dropped between follow-ups.</p></div>
+      <div class="pcard"><span class="num">Traced</span><h3>Cost per admission, by source</h3><p>Every admission traces to its source and cost. Budget reallocation becomes a <b>reading exercise</b>, not a debate.</p></div>
+      <div class="pcard"><span class="num">7 <i>days</i></span><h3>Risk contained by design</h3><p>Go-live in 7 days, 14 with migration. If the platform cannot earn adoption fast, you find out in weeks, not after a year-long rollout.</p></div>
+    </div>
+    <div class="p-proof">
+      <img src="https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg" alt="Silky Jain Marwah, Executive Director, Tula's Institute" loading="lazy" width="76" height="52">
+      <div>
+        <blockquote>&ldquo;An incredibly dynamic and trustworthy platform that truly understands our needs.&rdquo;</blockquote>
+        <footer><b style="color:var(--navy)">Silky Jain Marwah</b> &middot; Executive Director, Tula's Institute &middot; <a href="https://www.extraaedge.com/videos/customer-stories/" style="color:var(--orange-d);font-weight:700">watch &rarr;</a></footer>
+      </div>
+    </div>
+    <div class="p-cta">
+      <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book the leadership demo</a>
+      <span class="why">30 minutes &middot; your funnel's projection, in writing</span>
+    </div>
+  </section>
+
+  <!-- HEAD OF ADMISSIONS -->
+  <section class="panel" id="p-head" role="tabpanel" aria-labelledby="t-head">
+    <div class="p-head">
+      <p class="p-k">For the owner of the number</p>
+      <h2>Your season, with the three leaks closed</h2>
+      <p>You know exactly where it hurts: the overnight queue, the follow-ups that lapse mid-season, and the report you assemble by hand every Friday. One platform closes all three.</p>
+    </div>
+    <div class="p-grid">
+      <div class="pcard"><span class="num">60 <i>sec</i></span><h3>The overnight queue disappears</h3><p>VidyaGPT answers every enquiry 24x7 in 95+ languages; VidyaPulse scores it; VidyaAgents books the callback. Mornings start with a <b>prioritised queue</b>, not a backlog.</p></div>
+      <div class="pcard"><span class="num">0</span><h3>Follow-ups left to memory</h3><p>Sequences by course and stage; every promise becomes a task with an SLA and an escalation path. Peak weeks stop being your leakiest weeks.</p></div>
+      <div class="pcard"><span class="num">Live</span><h3>The Friday report writes itself</h3><p>Funnel, source ROI and counsellor performance, live. You walk into review meetings with the answer instead of a spreadsheet request.</p></div>
+    </div>
+    <div class="p-proof noimg">
+      <div>
+        <blockquote>&ldquo;A unified admissions platform helped the team manage enquiries, improve follow-ups, and build a more efficient applicant journey.&rdquo;</blockquote>
+        <footer><b style="color:var(--navy)">Pranay Rupani</b> &middot; Head of Admissions &amp; Marketing, Annapurna College of Film &amp; Media &middot; <a href="https://www.extraaedge.com/videos/customer-stories/" style="color:var(--orange-d);font-weight:700">watch &rarr;</a></footer>
+      </div>
+    </div>
+    <div class="p-cta">
+      <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book a demo on your funnel</a>
+      <span class="why">Bring your stages; we rebuild them live in the session</span>
+    </div>
+  </section>
+
+  <!-- COUNSELLOR -->
+  <section class="panel" id="p-coun" role="tabpanel" aria-labelledby="t-coun">
+    <div class="p-head">
+      <p class="p-k">For the person who lives in it</p>
+      <h2>Less admin, warmer calls, and no 9pm guilt</h2>
+      <p>Most CRMs add data entry to your day and call it productivity. This one takes work away: the AI does the waiting, the typing and the night shift; you do the counselling.</p>
+    </div>
+    <div class="p-grid">
+      <div class="pcard"><span class="num">Briefed</span><h3>Every call starts warm</h3><p>One screen holds the story: messages, AI call summary, concerns, next step. You <b>never ask a student to repeat</b> what they already told the chatbot.</p></div>
+      <div class="pcard"><span class="num">Hot <i>first</i></span><h3>Your effort lands where it counts</h3><p>The queue opens intent-first, with reasons shown. You can overrule any score in a click; the AI learns your judgement.</p></div>
+      <div class="pcard"><span class="num">24x7</span><h3>The night shift is covered</h3><p>Enquiries at 2am are answered, scored and queued before you sit down. You go home at six; <b>the funnel does not notice</b>.</p></div>
+    </div>
+    <div class="p-proof">
+      <img src="https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg" alt="K. Nirmala Devi, Indian Academy Group" loading="lazy" width="76" height="52">
+      <div>
+        <blockquote>&ldquo;Simplified lead management and communication, with better counsellor visibility across the student admissions journey.&rdquo;</blockquote>
+        <footer><b style="color:var(--navy)">K. Nirmala Devi</b> &middot; Assistant Manager, Indian Academy Group &middot; 95% of counsellors stay active after go-live</footer>
+      </div>
+    </div>
+    <div class="p-cta">
+      <a class="btn btn-ghost" href="https://www.extraaedge.com/product-tour/">Click through the counsellor screens</a>
+      <span class="why">No signup; sample data; see your future workday first</span>
+    </div>
+  </section>
+
+  <!-- IT -->
+  <section class="panel" id="p-it" role="tabpanel" aria-labelledby="t-it">
+    <div class="p-head">
+      <p class="p-k">For the person who answers for the data</p>
+      <h2>Boring where it should be boring</h2>
+      <p>Admissions data is minors' data, family data and payment data. The exciting part of this platform is the AI; the part you own is deliberately unexciting: certified, permissioned, integrated, reversible.</p>
+    </div>
+    <div class="p-grid">
+      <div class="pcard"><span class="num">ISO <i>27001</i></span><h3>Certified, GDPR compliant</h3><p>Certified information security management and GDPR-aligned processing, with security documentation shared under NDA during evaluation.</p></div>
+      <div class="pcard"><span class="num">Role-based</span><h3>Access that matches your org</h3><p>Counsellors, agencies, campuses and management each see exactly their slice. Every action is logged against a user.</p></div>
+      <div class="pcard"><span class="num">50+</span><h3>Integrations, not imports</h3><p>Meta, Google, portals, telephony, payment gateways: native connections. <b>No CSV rituals</b>, no shadow spreadsheets, no unowned scripts.</p></div>
+    </div>
+    <div class="p-proof noimg">
+      <div>
+        <blockquote>&ldquo;The AI answers only from institution-approved content and escalates to humans when unsure; it never improvises on fees or eligibility.&rdquo;</blockquote>
+        <footer>Platform behaviour, verifiable in the sandbox before any data moves</footer>
+      </div>
+    </div>
+    <div class="p-cta">
+      <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book the technical walkthrough</a>
+      <span class="why">Architecture, permissions and migration plan, in one session</span>
+    </div>
+  </section>
+</div>
+
+<!-- ALIGNMENT: the committee's shared close. -->
+<section class="align" aria-labelledby="h-align">
+  <div class="wrap">
+    <h2 id="h-align">Four seats, one meeting, one platform to judge</h2>
+    <p>Bring all four seats to the same 30-minute demo. Everyone sees their own screens, on your funnel, and the decision stops being a relay race of forwarded PDFs.</p>
+    <div class="row">
+      <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book the committee demo</a>
+      <a class="btn btn-ghost" href="https://www.extraaedge.com/product-tour/">Or explore alone first</a>
+    </div>
+    <p class="tiny">Configuration, not customization: we build around your funnel, not the other way around.</p>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>ExtraaEdge - India's Intelligent Admissions Growth Platform</span>
+    <span>Design study 08: Decision Paths</span>
+  </div>
+</footer>
+
+<script>
+/* accessible tabs: one panel per seat, arrow keys move between seats */
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.seat'));
+  function pick(t){
+    tabs.forEach(function(x){
+      var on=x===t;
+      x.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(x.getAttribute('aria-controls')).classList.toggle('on',on);
+    });
+    t.focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){pick(t);});
+    t.addEventListener('keydown',function(e){
+      if(e.key==='ArrowRight'){e.preventDefault();pick(tabs[(i+1)%tabs.length]);}
+      if(e.key==='ArrowLeft'){e.preventDefault();pick(tabs[(i-1+tabs.length)%tabs.length]);}
+    });
+  });
+})();
+</script>
+</body>
+</html>

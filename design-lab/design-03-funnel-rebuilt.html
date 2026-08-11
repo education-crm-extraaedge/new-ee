@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExtraaEdge | Walk Your Admission Funnel, Stage by Stage</title>
+<meta name="description" content="Scroll through the six stages of an admission funnel and see what ExtraaEdge and Vidya AI do at each one: capture, first response, nurture, qualification, counselling and enrolment.">
+<link rel="canonical" href="https://www.extraaedge.com/">
+<meta property="og:title" content="ExtraaEdge | Walk Your Admission Funnel, Stage by Stage">
+<meta property="og:description" content="The homepage is the funnel: six stages, what leaks at each, and what the platform does about it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.extraaedge.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"ExtraaEdge","url":"https://www.extraaedge.com/","description":"India's Intelligent Admissions Growth Platform for educational institutions."}
+</script>
+<style>
+:root{--navy:#19335D;--orange:#DE6E30;--orange-d:#B5551D;--ink:#0F172A;--mut:#5A6B85;--line:rgba(25,51,93,.12);--paper:#F6F8FB}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:999}
+.skip:focus{left:0}
+:focus-visible{outline:2.5px solid var(--orange);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1220px;margin:0 auto;padding:0 22px}
+header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;height:62px}
+.hd img{height:29px;width:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;border-radius:12px;padding:12px 22px;transition:.2s}
+.btn-o{background:var(--orange);color:#fff;box-shadow:0 10px 24px -10px rgba(222,110,48,.55)}
+.btn-o:hover{background:#B5551D}
+.btn-ghost{border:1.5px solid var(--line);color:var(--navy)}
+.btn-ghost:hover{border-color:var(--navy)}
+/* hero: the funnel promise */
+.hero{padding:clamp(46px,6.5vw,88px) 0 clamp(24px,3vw,40px);text-align:center}
+h1{font-size:clamp(31px,4.4vw,54px);font-weight:900;letter-spacing:-.03em;line-height:1.08;color:var(--navy);max-width:21ch;margin:0 auto}
+h1 em{font-style:normal;color:var(--orange)}
+.hero p{margin:16px auto 0;color:var(--mut);font-size:clamp(14.5px,1.5vw,17px);max-width:62ch}
+.hero .cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:26px}
+.hero .facts{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:18px;font-size:12.5px;font-weight:600;color:var(--mut)}
+/* funnel intro figure */
+.fun{max-width:760px;margin:clamp(28px,4vw,44px) auto 0;position:relative}
+.fun .bar{height:52px;border-radius:12px;background:linear-gradient(90deg,var(--navy),#2A4A7C);display:flex;align-items:center;justify-content:space-between;padding:0 20px;color:#fff;font-size:13px;font-weight:700;margin:0 auto}
+.fun .bar+.bar{margin-top:8px}
+.fun .bar span:last-child{font-variant-numeric:tabular-nums;color:#FFC9A6}
+.fun .bar:nth-child(2){width:84%}.fun .bar:nth-child(3){width:68%}.fun .bar:nth-child(4){width:52%}
+.fun .leak{position:absolute;right:0;font-size:11.5px;font-weight:700;color:#C43D3D;text-align:left;width:110px}
+.fun .cap{margin-top:14px;font-size:12.5px;color:var(--mut)}
+/* layout: sticky stage rail + stages */
+.walk{display:grid;grid-template-columns:230px minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start;padding:clamp(30px,4vw,56px) 0}
+.rail{position:sticky;top:86px;display:grid;gap:2px}
+.rail p{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+.rail a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;font-size:13px;font-weight:600;color:var(--mut);border-left:3px solid transparent}
+.rail a i{font-style:normal;font-variant-numeric:tabular-nums;font-size:11px;font-weight:800;width:22px;height:22px;border-radius:50%;background:var(--paper);display:grid;place-items:center;color:var(--mut)}
+.rail a.on{color:var(--navy);background:rgba(222,110,48,.07);border-left-color:var(--orange)}
+.rail a.on i{background:var(--orange);color:#fff}
+.rail .railcta{margin-top:14px}
+@media(max-width:920px){.walk{grid-template-columns:minmax(0,1fr)}.rail{position:static;grid-template-columns:repeat(3,minmax(0,1fr));display:none}}
+/* stage sections */
+.stage{padding:clamp(30px,4vw,52px) 0;border-top:1px solid var(--line)}
+.stage:first-of-type{border-top:0;padding-top:0}
+.st-k{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--orange-d);margin-bottom:10px}
+.st-k b{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:11px}
+h2{font-size:clamp(22px,2.7vw,32px);font-weight:800;letter-spacing:-.025em;line-height:1.18;color:var(--navy)}
+.leakline{margin-top:10px;font-size:13.5px;color:#C43D3D;font-weight:600}
+.leakline::before{content:'\26A0\FE0E  ';font-weight:400}
+.fixline{margin-top:6px;font-size:14.5px;color:var(--ink);max-width:62ch}
+.fixline b{color:var(--navy)}
+.st-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(20px,3.4vw,48px);align-items:center;margin-top:22px}
+.shot{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 22px 46px -26px rgba(25,51,93,.3);background:#fff}
+.shot .h{padding:10px 14px;background:var(--paper);border-bottom:1px solid var(--line);font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--mut)}
+.shot .b{padding:14px;display:grid;gap:8px}
+.li{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:12.5px}
+.li b{color:var(--navy);font-size:12.8px}
+.li span{color:var(--mut);font-size:11.5px}
+.pill{flex:none;font-size:10.5px;font-weight:800;padding:4px 10px;border-radius:999px}
+.p-o{background:rgba(222,110,48,.12);color:var(--orange-d)}
+.p-g{background:rgba(31,175,102,.12);color:#1FAF66}
+.p-n{background:var(--paper);color:var(--mut)}
+.msgs{display:grid;gap:8px}
+.msgs .m{font-size:12.5px;line-height:1.5;padding:9px 12px;border-radius:12px;max-width:90%}
+.msgs .in{background:var(--paper);border:1px solid var(--line);border-radius:12px 12px 12px 4px}
+.msgs .out{background:#E7F6EC;border:1px solid rgba(31,175,102,.25);margin-left:auto;border-radius:12px 12px 4px 12px}
+.stat-in{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px}
+.stat-in .s{border:1px solid var(--line);border-radius:12px;padding:10px 16px;font-size:12px;color:var(--mut)}
+.stat-in .s b{display:block;font-size:19px;font-weight:900;color:var(--navy);letter-spacing:-.01em}
+.stat-in .s b i{font-style:normal;color:var(--orange)}
+.st-quote{margin-top:16px;border-left:3px solid var(--orange);padding:4px 0 4px 14px;font-size:13px;color:var(--mut)}
+.st-quote b{color:var(--navy)}
+@media(max-width:880px){.st-grid{grid-template-columns:minmax(0,1fr)}}
+/* end state */
+.endstate{background:var(--navy);color:#fff;text-align:center;padding:clamp(52px,7vw,92px) 0}
+.endstate h2{color:#fff;max-width:26ch;margin:0 auto}
+.endstate p{margin:14px auto 0;color:#C4D2E8;max-width:58ch;font-size:15px}
+.endstate .cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+.endstate .btn-ghost{border-color:rgba(255,255,255,.35);color:#fff}
+.endstate .tiny{margin-top:14px;font-size:12px;color:#9FB2CF}
+footer.site{padding:24px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--mut)}
+footer.site .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap hd">
+    <a href="https://www.extraaedge.com/" aria-label="ExtraaEdge home"><img src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg" alt="ExtraaEdge" width="120" height="29"></a>
+    <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+  </div>
+</header>
+
+<main id="main">
+<!-- HERO: name the structure of the page itself. The funnel figure shows the leak the walk will fix. -->
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <h1 id="h1">Your funnel leaks at <em>six exact points</em>. Walk them with us.</h1>
+    <p>This page is built like your admission funnel. Scroll it top to bottom and see what leaks at each stage, and what ExtraaEdge, India's Intelligent Admissions Growth Platform, does there instead.</p>
+    <div class="cta">
+      <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+      <a class="btn btn-ghost" href="#s1">Start the walk &darr;</a>
+    </div>
+    <p class="facts">500+ institutions &middot; 10M+ enquiries managed &middot; rated 4.7/5 by 320+ admission teams</p>
+    <figure class="fun" aria-label="A typical admission funnel narrowing from enquiries to admissions">
+      <div class="bar"><span>Enquiries in</span><span>100%</span></div>
+      <div class="bar"><span>Ever answered</span><span>&darr;</span></div>
+      <div class="bar"><span>Counselled</span><span>&darr;</span></div>
+      <div class="bar"><span>Enrolled</span><span>?</span></div>
+      <figcaption class="cap">The narrowing is not demand. It is process. Each stage below shows where it happens.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="wrap walk">
+  <!-- sticky rail: the funnel as navigation; scrollspy highlights the stage you are reading -->
+  <nav class="rail" aria-label="Funnel stages">
+    <p>The six stages</p>
+    <a href="#s1" class="on"><i>1</i> Capture</a>
+    <a href="#s2"><i>2</i> First response</a>
+    <a href="#s3"><i>3</i> Nurture</a>
+    <a href="#s4"><i>4</i> Qualify</a>
+    <a href="#s5"><i>5</i> Counsel</a>
+    <a href="#s6"><i>6</i> Enrol</a>
+    <a class="btn btn-o railcta" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+  </nav>
+
+  <div>
+    <!-- STAGE 1 -->
+    <section class="stage" id="s1" aria-labelledby="h-s1">
+      <p class="st-k"><b>1</b> Capture</p>
+      <h2 id="h-s1">Every source, one funnel, zero copy-paste</h2>
+      <p class="leakline">The leak: enquiries scattered across Meta forms, portals, walk-ins and five inboxes; duplicates counselled twice, others never.</p>
+      <p class="fixline"><b>What runs here:</b> 50+ native integrations pull every enquiry into one deduplicated timeline the moment it exists. Nobody imports a spreadsheet again.</p>
+      <div class="st-grid">
+        <div class="shot" role="img" aria-label="Lead inbox showing enquiries arriving from multiple sources automatically">
+          <div class="h">Live capture &middot; all sources</div>
+          <div class="b">
+            <div class="li"><div><b>Ananya S.</b> <span>&middot; Instagram Lead Ad</span></div><span class="pill p-g">Captured &middot; 0:02</span></div>
+            <div class="li"><div><b>Rahul M.</b> <span>&middot; Shiksha portal</span></div><span class="pill p-g">Captured &middot; 0:04</span></div>
+            <div class="li"><div><b>Ishita K.</b> <span>&middot; Website form</span></div><span class="pill p-n">Deduped &middot; merged</span></div>
+            <div class="li"><div><b>Campus walk-in</b> <span>&middot; front desk app</span></div><span class="pill p-g">Captured &middot; live</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-in">
+            <div class="s"><b>50+</b>sources integrated</div>
+            <div class="s"><b>0</b>manual imports</div>
+            <div class="s"><b>1</b>timeline per student</div>
+          </div>
+          <p class="st-quote">&ldquo;Every enquiry auto-captured and deduped on one timeline&rdquo; is stage one of the platform, and the precondition for everything below.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 2 -->
+    <section class="stage" id="s2" aria-labelledby="h-s2">
+      <p class="st-k"><b>2</b> First response</p>
+      <h2 id="h-s2">Sixty seconds, any hour, any language</h2>
+      <p class="leakline">The leak: the average office replies in about 6 hours. Students shortlist in the first one.</p>
+      <p class="fixline"><b>What runs here:</b> VidyaGPT answers on WhatsApp and chat from your own brochure, fees and rules, in 95+ languages, about 60 seconds after the enquiry lands. Nights and Sundays included.</p>
+      <div class="st-grid">
+        <div>
+          <div class="stat-in">
+            <div class="s"><b>60 <i>sec</i></b>first response, 24x7</div>
+            <div class="s"><b>Up to <i>90%</i></b>response-time reduction</div>
+            <div class="s"><b>95+</b>languages</div>
+          </div>
+          <p class="st-quote"><b>Objection, answered:</b> the AI only answers from your approved content. It says &ldquo;let me connect you to a counsellor&rdquo; rather than guessing.</p>
+        </div>
+        <div class="shot" role="img" aria-label="WhatsApp conversation answered by Vidya AI at night">
+          <div class="h">Sunday 9:41 pm &middot; WhatsApp</div>
+          <div class="b msgs">
+            <div class="m in">Fee structure for B.Sc Data Science? And is hostel available for girls?</div>
+            <div class="m out">Both, yes! Sharing the fee page and hostel details. You qualify with PCM 60%+. Should I book a counsellor call for tomorrow 11am?</div>
+            <div class="m in">Yes please</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 3 -->
+    <section class="stage" id="s3" aria-labelledby="h-s3">
+      <p class="st-k"><b>3</b> Nurture</p>
+      <h2 id="h-s3">Follow-ups that never depend on memory</h2>
+      <p class="leakline">The leak: the third follow-up never happens; the counsellor's diary is the single point of failure.</p>
+      <p class="fixline"><b>What runs here:</b> workflow automation sequences email, SMS and WhatsApp by course and stage; every promise to call back becomes a task with an SLA, not a sticky note.</p>
+      <div class="st-grid">
+        <div class="shot" role="img" aria-label="Automated follow-up sequence for a course">
+          <div class="h">Sequence &middot; B.Tech drop-off nurture</div>
+          <div class="b">
+            <div class="li"><div><b>Day 0</b> <span>&middot; brochure + fee page, WhatsApp</span></div><span class="pill p-g">Sent</span></div>
+            <div class="li"><div><b>Day 2</b> <span>&middot; scholarship nudge, SMS</span></div><span class="pill p-g">Sent</span></div>
+            <div class="li"><div><b>Day 5</b> <span>&middot; counsellor call task, auto-created</span></div><span class="pill p-o">Due today</span></div>
+            <div class="li"><div><b>No reply x3</b> <span>&middot; escalate to team lead</span></div><span class="pill p-n">Rule armed</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-in">
+            <div class="s"><b>0</b>follow-ups left to memory</div>
+            <div class="s"><b>24x7</b>sequences keep running</div>
+          </div>
+          <p class="st-quote">Counsellors stop being reminder machines and spend the recovered hours counselling. That shift is why <b>95% of counsellors adopt the platform</b>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 4 -->
+    <section class="stage" id="s4" aria-labelledby="h-s4">
+      <p class="st-k"><b>4</b> Qualify</p>
+      <h2 id="h-s4">Intent decides the call order, not arrival time</h2>
+      <p class="leakline">The leak: counsellors dial newest-first; the ready-to-enrol student from Tuesday waits behind forty fresh maybes.</p>
+      <p class="fixline"><b>What runs here:</b> VidyaPulse reads every conversation and scores intent, urgency and course fit. VidyaAgents calls the hot ones to confirm and books the counsellor. Mornings start with the queue in the right order.</p>
+      <div class="st-grid">
+        <div>
+          <div class="stat-in">
+            <div class="s"><b>Hot first</b>queue ordered by intent</div>
+            <div class="s"><b>AI-called</b>interest confirmed before handoff</div>
+          </div>
+          <p class="st-quote"><b>Objection, answered:</b> scoring is explainable. Every score shows the signals behind it, so a counsellor can overrule it in one click.</p>
+        </div>
+        <div class="shot" role="img" aria-label="Lead queue ordered by intent score">
+          <div class="h">VidyaPulse &middot; today's priority queue</div>
+          <div class="b">
+            <div class="li"><div><b>Ananya S. &middot; B.Tech</b> <span>&middot; scholarship asked twice, parent on call</span></div><span class="pill p-o">Hot &middot; call 1st</span></div>
+            <div class="li"><div><b>Rahul M. &middot; MBA</b> <span>&middot; fee page opened, quiet 2 days</span></div><span class="pill p-n">Warm &middot; nurture</span></div>
+            <div class="li"><div><b>Ishita K. &middot; B.Com</b> <span>&middot; new, answered by VidyaGPT</span></div><span class="pill p-g">Scored &middot; watching</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 5 -->
+    <section class="stage" id="s5" aria-labelledby="h-s5">
+      <p class="st-k"><b>5</b> Counsel</p>
+      <h2 id="h-s5">The human conversation, fully briefed</h2>
+      <p class="leakline">The leak: counsellors start every call blind, asking the student to repeat what they already told the chatbot, the form and the last counsellor.</p>
+      <p class="fixline"><b>What runs here:</b> one screen holds the whole story: every message, call, score and document. The counsellor spends the call convincing, not collecting.</p>
+      <div class="st-grid">
+        <div class="shot" role="img" aria-label="Counsellor view of one student's full timeline">
+          <div class="h">Counsellor view &middot; Ananya S.</div>
+          <div class="b">
+            <div class="li"><div><b>Context</b> <span>&middot; 12 messages, 1 AI call, intent: high</span></div><span class="pill p-g">Briefed</span></div>
+            <div class="li"><div><b>Concern</b> <span>&middot; scholarship eligibility, hostel</span></div><span class="pill p-o">Address first</span></div>
+            <div class="li"><div><b>Next step</b> <span>&middot; application link ready to send</span></div><span class="pill p-n">One click</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-in">
+            <div class="s"><b>95%</b>counsellor adoption</div>
+            <div class="s"><b>1</b>screen per student</div>
+          </div>
+          <p class="st-quote">&ldquo;Whether it's from a counsellor's or an admin's perspective, most of the changes we require are implemented in a very short span of time.&rdquo; <b>Silky Jain Marwah, Tula's Institute</b></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 6 -->
+    <section class="stage" id="s6" aria-labelledby="h-s6">
+      <p class="st-k"><b>6</b> Enrol</p>
+      <h2 id="h-s6">Application, fee and the report your board asks for</h2>
+      <p class="leakline">The leak: the funnel goes dark between &ldquo;will apply&rdquo; and &ldquo;paid&rdquo;; nobody can say which source produced actual admissions.</p>
+      <p class="fixline"><b>What runs here:</b> application forms, document verification and fee collection on the same platform, and analytics that trace every admission back to its source, counsellor and cost.</p>
+      <div class="st-grid">
+        <div>
+          <div class="stat-in">
+            <div class="s"><b>Up to <i>40%</i></b>conversion lift across the funnel</div>
+            <div class="s"><b>Live</b>source-ROI and counsellor analytics</div>
+          </div>
+          <p class="st-quote">This is the meeting slide that ends the &ldquo;where did our budget go&rdquo; debate: enquiry to enrolment, by source, with cost per admission.</p>
+        </div>
+        <div class="shot" role="img" aria-label="Funnel analytics from enquiry to enrolment">
+          <div class="h">Funnel report &middot; this cycle</div>
+          <div class="b">
+            <div class="li"><div><b>Enquiries</b> <span>&middot; all sources</span></div><span class="pill p-n">100%</span></div>
+            <div class="li"><div><b>Answered in 60s</b> <span>&middot; Vidya AI</span></div><span class="pill p-g">All of them</span></div>
+            <div class="li"><div><b>Counselled</b> <span>&middot; intent-first order</span></div><span class="pill p-g">Prioritised</span></div>
+            <div class="li"><div><b>Enrolled</b> <span>&middot; source + cost traced</span></div><span class="pill p-o">Reported</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- END STATE: after walking six stages, the CTA is the seventh step, not a sales pitch. -->
+<section class="endstate" aria-labelledby="h-end">
+  <div class="wrap">
+    <h2 id="h-end">Now walk it with your numbers instead of ours</h2>
+    <p>In a 30-minute demo we rebuild this walk on your funnel: your sources, your courses, your counsellor count. Configuration, not customization; live in 7 days, 14 with migration.</p>
+    <div class="cta">
+      <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+      <a class="btn btn-ghost" href="https://www.extraaedge.com/product-tour/">Explore the live platform</a>
+    </div>
+    <p class="tiny">ISO 27001 certified &middot; GDPR compliant &middot; role-based access for every stage above</p>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>ExtraaEdge - India's Intelligent Admissions Growth Platform</span>
+    <span>Design study 03: The Funnel, Rebuilt</span>
+  </div>
+</footer>
+
+<script>
+/* scrollspy: the rail mirrors where you are in the funnel */
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.rail a[href^="#s"]'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  if(!('IntersectionObserver' in window)) return;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var i=secs.indexOf(e.target);
+      links.forEach(function(a,j){a.classList.toggle('on',j===i);});
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  secs.forEach(function(s){io.observe(s);});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExtraaEdge | One Number: Enrolments</title>
+<meta name="description" content="Set three numbers from your own funnel and this page keeps a running projection of what ExtraaEdge could add in enrolments. Honest ranges, canonical data from 500+ institutions.">
+<link rel="canonical" href="https://www.extraaedge.com/">
+<meta property="og:title" content="ExtraaEdge | One Number: Enrolments">
+<meta property="og:description" content="Every section of this page moves one number. Yours.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.extraaedge.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"ExtraaEdge","url":"https://www.extraaedge.com/","description":"India's Intelligent Admissions Growth Platform for educational institutions."}
+</script>
+<style>
+:root{--navy:#19335D;--orange:#DE6E30;--orange-d:#B5551D;--ink:#0F172A;--mut:#5A6B85;--line:rgba(25,51,93,.12);--paper:#F6F8FB;--good:#1FAF66}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:76px}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:999}
+.skip:focus{left:0}
+:focus-visible{outline:2.5px solid var(--orange);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1020px;margin:0 auto;padding:0 22px}
+header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;height:62px}
+.hd img{height:29px;width:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;border-radius:12px;padding:12px 22px;transition:.2s;border:0;cursor:pointer;font-family:inherit}
+.btn-o{background:var(--orange);color:#fff;box-shadow:0 10px 24px -10px rgba(222,110,48,.55)}
+.btn-o:hover{background:var(--orange-d)}
+.btn-ghost{border:1.5px solid var(--line);background:#fff;color:var(--navy)}
+.btn-ghost:hover{border-color:var(--navy)}
+/* hero + calculator */
+.hero{padding:clamp(46px,6.5vw,84px) 0 clamp(30px,4vw,52px)}
+.hero .grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(26px,4.5vw,64px);align-items:center}
+.kick{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-d)}
+h1{margin-top:12px;font-size:clamp(32px,4.6vw,56px);font-weight:900;letter-spacing:-.032em;line-height:1.06;color:var(--navy)}
+h1 em{font-style:normal;color:var(--orange)}
+.hero p.lead{margin-top:16px;color:var(--mut);font-size:clamp(14.5px,1.5vw,17px);max-width:50ch}
+.hero p.lead b{color:var(--navy)}
+.hero .facts{margin-top:20px;font-size:12.5px;color:var(--mut);font-weight:600}
+.calc{border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 34px 70px -34px rgba(25,51,93,.35);overflow:hidden}
+.calc .ch{padding:14px 20px;background:var(--navy);color:#fff;font-size:13px;font-weight:800}
+.calc .ch small{display:block;font-size:11px;font-weight:600;color:#C4D2E8;margin-top:2px}
+.calc .cb{padding:20px}
+.f{margin-bottom:16px}
+.f label{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:7px}
+.f label output{color:var(--orange-d);font-variant-numeric:tabular-nums}
+.f input[type=range]{width:100%;accent-color:var(--orange);height:26px}
+.calc .res{border-top:1px dashed var(--line);padding-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.calc .res .r b{display:block;font-size:24px;font-weight:900;color:var(--navy);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.calc .res .r b i{font-style:normal;color:var(--good)}
+.calc .res .r span{font-size:11px;color:var(--mut);line-height:1.4;display:block}
+.calc .hon{margin-top:14px;font-size:11px;color:var(--mut);line-height:1.55;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+@media(max-width:900px){.hero .grid{grid-template-columns:minmax(0,1fr)}}
+/* movers */
+section.mv{padding:clamp(40px,5.5vw,72px) 0;border-top:1px solid var(--line)}
+.mv-k{font-size:11.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--orange-d);margin-bottom:8px}
+h2{font-size:clamp(22px,2.9vw,34px);font-weight:800;letter-spacing:-.025em;line-height:1.16;color:var(--navy);max-width:26ch}
+.mv .grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(22px,3.6vw,52px);align-items:center;margin-top:22px}
+.mv p.body{color:var(--mut);font-size:14.5px;max-width:52ch}
+.mv p.body b{color:var(--navy)}
+.moves{margin-top:16px;display:inline-flex;align-items:center;gap:9px;background:rgba(31,175,102,.09);border:1px solid rgba(31,175,102,.25);color:#157A49;font-size:12.5px;font-weight:800;padding:9px 15px;border-radius:999px}
+.mini{border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:14px;display:grid;gap:8px;font-size:12.5px}
+.mini .r{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+.mini .r b{color:var(--navy);font-size:12.6px}
+.mini .r span{color:var(--mut);font-size:11px}
+.tagp{flex:none;font-size:10px;font-weight:800;padding:4px 10px;border-radius:999px}
+.tp-o{background:rgba(222,110,48,.12);color:var(--orange-d)}
+.tp-g{background:rgba(31,175,102,.12);color:var(--good)}
+@media(max-width:840px){.mv .grid{grid-template-columns:minmax(0,1fr)}}
+/* honesty + proof */
+.honest{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(38px,5vw,60px) 0}
+.honest .in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(22px,4vw,56px);align-items:center}
+.honest h2{max-width:none}
+.honest p{margin-top:10px;color:var(--mut);font-size:14px}
+.honest blockquote{border-left:3px solid var(--orange);padding-left:16px;font-size:14.5px;font-weight:600;color:var(--navy);line-height:1.6}
+.honest blockquote footer{margin-top:8px;font-size:12px;color:var(--mut);font-weight:600}
+@media(max-width:760px){.honest .in{grid-template-columns:minmax(0,1fr)}}
+/* sticky projection bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--navy);color:#fff;box-shadow:0 -18px 44px rgba(15,32,64,.35)}
+.bar .in{max-width:1020px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.bar .lbl{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#AFC1DD}
+.bar .val{font-size:19px;font-weight:900;font-variant-numeric:tabular-nums;color:#7BE6A8}
+.bar .val small{font-size:11px;font-weight:700;color:#C4D2E8;margin-left:6px}
+.bar .btn{margin-left:auto;padding:11px 20px}
+@media(max-width:640px){.bar .val{font-size:16px}.bar .btn{padding:10px 16px;font-size:13px}}
+footer.site{padding:24px 0;font-size:12.5px;color:var(--mut)}
+footer.site .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap hd">
+    <a href="https://www.extraaedge.com/" aria-label="ExtraaEdge home"><img src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg" alt="ExtraaEdge" width="120" height="29"></a>
+    <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+  </div>
+</header>
+
+<main id="main">
+<!-- HERO: one metric to rule the page; the calculator makes the visitor's own number the protagonist. -->
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap grid">
+    <div>
+      <p class="kick">One page &middot; one number</p>
+      <h1 id="h1">Everything here moves one number: <em>enrolments</em>.</h1>
+      <p class="lead">Not clicks, not leads, not &ldquo;engagement&rdquo;. ExtraaEdge, <b>India's Intelligent Admissions Growth Platform</b>, exists to convert more of the enquiries you already pay for. Set your three numbers; the bar below carries your projection through the page.</p>
+      <p class="facts">Ranges from 500+ institutions and 10M+ managed enquiries. A projection, not a promise; the demo makes it precise.</p>
+    </div>
+    <div class="calc" id="calc">
+      <div class="ch">Your funnel, roughly<small>Three sliders. No email required to see the answer.</small></div>
+      <div class="cb">
+        <div class="f">
+          <label for="i1">Enquiries per month <output id="o1">800</output></label>
+          <input type="range" id="i1" min="100" max="5000" step="50" value="800">
+        </div>
+        <div class="f">
+          <label for="i2">Current enquiry-to-admission rate <output id="o2">10%</output></label>
+          <input type="range" id="i2" min="2" max="30" step="1" value="10">
+        </div>
+        <div class="f">
+          <label for="i3">Months in your admission season <output id="o3">6</output></label>
+          <input type="range" id="i3" min="2" max="12" step="1" value="6">
+        </div>
+        <div class="res">
+          <div class="r"><b id="rNow">480</b><span>admissions per season, at your current rate</span></div>
+          <div class="r"><b id="rLift">+48 to +192</b><span>additional admissions, at a 10 to 40% conversion lift</span></div>
+        </div>
+        <p class="hon">The 10 to 40% band is the measured lift range across institutions after switching; where you land depends on your baseline response time and follow-up discipline. We will not pretend to know your number before the demo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOVERS: each capability is framed only by how it moves the number. -->
+<section class="mv" aria-labelledby="h-m1">
+  <div class="wrap">
+    <p class="mv-k">Mover 01 &middot; the biggest one</p>
+    <h2 id="h-m1">Answer in 60 seconds, and fewer enquiries die waiting</h2>
+    <div class="grid">
+      <div>
+        <p class="body">The largest single leak in most funnels is the gap between enquiry and first reply. <b>VidyaGPT answers in about 60 seconds, 24x7, in 95+ languages</b>, from your own brochure and rules. The conversation starts while the student still cares.</p>
+        <p class="moves">Moves the number: up to 90% faster first response</p>
+      </div>
+      <div class="mini" role="img" aria-label="Night enquiry answered instantly">
+        <div class="r"><div><b>Sun 9:41 pm &middot; enquiry in</b><span> &middot; B.Sc, via Instagram</span></div><span class="tagp tp-g">Answered 9:42</span></div>
+        <div class="r"><div><b>Callback booked</b><span> &middot; tomorrow 11:00</span></div><span class="tagp tp-o">On the queue</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mv" aria-labelledby="h-m2">
+  <div class="wrap">
+    <p class="mv-k">Mover 02</p>
+    <h2 id="h-m2">Call hot students first, and the same effort converts more</h2>
+    <div class="grid">
+      <div class="mini" role="img" aria-label="Queue ordered by intent">
+        <div class="r"><div><b>Ananya &middot; intent 92</b><span> &middot; scholarship asked twice</span></div><span class="tagp tp-o">Call first</span></div>
+        <div class="r"><div><b>Rahul &middot; intent 61</b><span> &middot; fee page, gone quiet</span></div><span class="tagp tp-g">Nurture</span></div>
+      </div>
+      <div>
+        <p class="body"><b>VidyaPulse scores every conversation</b> for intent and course fit; <b>VidyaAgents calls to confirm</b> before a human dials. Counsellor hours stop being spent newest-first and start being spent readiest-first.</p>
+        <p class="moves">Moves the number: 95% counsellor adoption keeps it moving</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mv" aria-labelledby="h-m3">
+  <div class="wrap">
+    <p class="mv-k">Mover 03</p>
+    <h2 id="h-m3">Never lapse a follow-up, and mid-funnel stops leaking</h2>
+    <div class="grid">
+      <div>
+        <p class="body">Sequences by course and stage keep every thread alive on WhatsApp, SMS and email; every promised callback becomes a task with an SLA and an escalation. <b>The third follow-up happens</b>, which is precisely the one that usually does not.</p>
+        <p class="moves">Moves the number: peak weeks convert like normal weeks</p>
+      </div>
+      <div class="mini" role="img" aria-label="Follow-up sequence running">
+        <div class="r"><div><b>Day 2 nudge</b><span> &middot; sent to 240 students</span></div><span class="tagp tp-g">Automated</span></div>
+        <div class="r"><div><b>Missed callback</b><span> &middot; escalated to team lead</span></div><span class="tagp tp-o">Caught</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mv" aria-labelledby="h-m4">
+  <div class="wrap">
+    <p class="mv-k">Mover 04</p>
+    <h2 id="h-m4">See cost per admission, and next season's budget buys more</h2>
+    <div class="grid">
+      <div class="mini" role="img" aria-label="Source ROI report">
+        <div class="r"><div><b>Source A</b><span> &middot; low cost per admission</span></div><span class="tagp tp-g">Scale it</span></div>
+        <div class="r"><div><b>Source B</b><span> &middot; leads, but no enrolments</span></div><span class="tagp tp-o">Cut it</span></div>
+      </div>
+      <div>
+        <p class="body">Every admission traces back to its source, counsellor and cost. The analytics do not just report the season; they <b>re-aim the next one</b>, which compounds the number year over year.</p>
+        <p class="moves">Moves the number: budget flows to what actually enrols</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HONESTY + PROOF: the projection's fine print is a feature, not a footnote. -->
+<section class="honest" aria-labelledby="h-hon">
+  <div class="wrap in">
+    <div>
+      <h2 id="h-hon">Why we show a range, not a promise</h2>
+      <p>Up to 40% lift is the top of a measured band, not a guarantee. Institutions starting with six-hour response times gain more than those already answering in minutes. The demo replaces this page's arithmetic with your funnel's actual baseline, in writing. That is the honest version of ROI marketing, and the only one worth your meeting.</p>
+    </div>
+    <blockquote>
+      &ldquo;ExtraaEdge CRM helped the team hit its admissions target for the cycle.&rdquo;
+      <footer><b style="color:var(--navy)">DPU Global Business School</b>, Pune &middot; <a href="https://www.extraaedge.com/videos/customer-stories/" style="color:var(--orange-d);font-weight:700">watch the story &rarr;</a></footer>
+    </blockquote>
+  </div>
+</section>
+</main>
+
+<!-- STICKY BAR: the visitor's own projection follows them to the CTA. -->
+<div class="bar" role="region" aria-label="Your projection">
+  <div class="in">
+    <div>
+      <div class="lbl">Your projected additional admissions</div>
+      <div class="val" id="barVal">+48 to +192 <small>per season &middot; from your sliders above</small></div>
+    </div>
+    <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/" id="barCta">Make it precise: Book a Demo</a>
+  </div>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <span>ExtraaEdge - India's Intelligent Admissions Growth Platform</span>
+    <span>Design study 09: The Number</span>
+  </div>
+</footer>
+
+<script>
+/* the calculator: three inputs, one honest band, mirrored in the sticky bar */
+(function(){
+  var i1=document.getElementById('i1'),i2=document.getElementById('i2'),i3=document.getElementById('i3');
+  var o1=document.getElementById('o1'),o2=document.getElementById('o2'),o3=document.getElementById('o3');
+  var rNow=document.getElementById('rNow'),rLift=document.getElementById('rLift'),barVal=document.getElementById('barVal');
+  function fmt(n){return n.toLocaleString('en-IN');}
+  function calc(){
+    var e=+i1.value,c=+i2.value/100,m=+i3.value;
+    o1.textContent=fmt(e); o2.textContent=i2.value+'%'; o3.textContent=m;
+    var now=Math.round(e*c*m);
+    var lo=Math.round(now*0.10), hi=Math.round(now*0.40);
+    rNow.textContent=fmt(now);
+    rLift.innerHTML='+'+fmt(lo)+' to <i>+'+fmt(hi)+'</i>';
+    barVal.innerHTML='+'+fmt(lo)+' to +'+fmt(hi)+' <small>per season &middot; from your sliders above</small>';
+  }
+  [i1,i2,i3].forEach(function(x){x.addEventListener('input',calc);});
+  calc();
+})();
+</script>
+</body>
+</html>

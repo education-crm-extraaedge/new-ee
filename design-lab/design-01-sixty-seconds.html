@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExtraaEdge | The First 60 Seconds Decide the Admission</title>
+<meta name="description" content="ExtraaEdge is India's Intelligent Admissions Growth Platform. Vidya AI answers every enquiry in 60 seconds, scores intent and books counsellor callbacks, so 500+ institutions convert more of the enquiries they already have.">
+<link rel="canonical" href="https://www.extraaedge.com/">
+<meta property="og:title" content="ExtraaEdge | The First 60 Seconds Decide the Admission">
+<meta property="og:description" content="Vidya AI answers every enquiry in 60 seconds. See what changes in your admission funnel when no enquiry ever waits.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.extraaedge.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"ExtraaEdge","url":"https://www.extraaedge.com/","description":"India's Intelligent Admissions Growth Platform for educational institutions.","sameAs":["https://getvidya.ai"]}
+</script>
+<style>
+:root{--navy:#19335D;--orange:#DE6E30;--orange-d:#B5551D;--ink:#0F172A;--mut:#5A6B85;--line:rgba(25,51,93,.12);--paper:#F6F8FB}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;border-radius:0 0 10px 0;z-index:999}
+.skip:focus{left:0}
+:focus-visible{outline:2.5px solid var(--orange);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+/* header */
+header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.hd img{height:30px;width:auto}
+.hd nav{display:flex;gap:26px;font-size:14px;font-weight:600;color:var(--navy)}
+.hd nav a:hover{color:var(--orange)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;border-radius:12px;padding:13px 24px;transition:transform .15s ease,background .2s ease,box-shadow .2s ease}
+.btn-o{background:var(--orange);color:#fff;box-shadow:0 10px 24px -10px rgba(222,110,48,.55)}
+.btn-o:hover{background:var(--orange-d);transform:translateY(-1px)}
+.btn-ghost{border:1.5px solid var(--line);color:var(--navy)}
+.btn-ghost:hover{border-color:var(--navy)}
+@media(max-width:860px){.hd nav{display:none}}
+/* hero */
+.hero{padding:clamp(48px,7vw,96px) 0 clamp(40px,5vw,72px);background:
+ radial-gradient(circle at 88% 8%,rgba(222,110,48,.07),transparent 40%),
+ radial-gradient(circle at 4% 90%,rgba(25,51,93,.06),transparent 45%),#fff}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(28px,5vw,72px);align-items:center}
+.kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-d);background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.22);padding:7px 14px;border-radius:999px;margin-bottom:18px}
+.kick i{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+h1{font-size:clamp(32px,4.6vw,56px);font-weight:900;line-height:1.08;letter-spacing:-.03em;color:var(--navy)}
+h1 em{font-style:normal;color:var(--orange)}
+.hero p.lead{margin:18px 0 26px;font-size:clamp(15px,1.5vw,17.5px);color:var(--mut);max-width:52ch}
+.hero p.lead b{color:var(--navy);font-weight:700}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.cta-note{font-size:12.5px;color:var(--mut);margin-top:12px}
+/* the race panel */
+.race{background:var(--navy);border-radius:22px;padding:22px;color:#fff;box-shadow:0 40px 80px -32px rgba(15,32,64,.5);position:relative;overflow:hidden}
+.race::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 90% -10%,rgba(222,110,48,.28),transparent 55%);pointer-events:none}
+.race-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;position:relative}
+.race-head b{font-size:13.5px;font-weight:800}
+.race-clock{font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;color:#FFD9C2;background:rgba(222,110,48,.25);border:1px solid rgba(222,110,48,.45);padding:4px 12px;border-radius:999px}
+.lane{position:relative;border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:14px 14px 10px;margin-top:12px;background:rgba(255,255,255,.045)}
+.lane h3{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#AFC1DD;margin-bottom:10px}
+.lane.win h3{color:#FFC9A6}
+.ev{display:flex;gap:10px;align-items:flex-start;padding:7px 0;opacity:0;transform:translateY(6px);animation:evin .5s ease forwards}
+.ev .t{flex:none;font-variant-numeric:tabular-nums;font-size:11px;font-weight:800;color:#8FA5C6;width:52px;padding-top:2px}
+.lane.win .ev .t{color:#FFB98A}
+.ev .x{font-size:12.8px;line-height:1.5;color:#E7EEF8}
+.ev .x b{color:#fff}
+.ev.bad .x{color:#B9C7DC}
+@keyframes evin{to{opacity:1;transform:none}}
+.ev:nth-child(2){animation-delay:.3s}.ev:nth-child(3){animation-delay:1.1s}.ev:nth-child(4){animation-delay:1.9s}.ev:nth-child(5){animation-delay:2.7s}
+.lane .out{margin:8px -14px -10px;padding:9px 14px;border-top:1px solid rgba(255,255,255,.12);font-size:12px;font-weight:700;border-radius:0 0 14px 14px;opacity:0;animation:evin .5s ease 3.4s forwards}
+.lane.win .out{color:#7BE6A8;background:rgba(31,175,102,.12)}
+.lane.lose .out{color:#F3A0A0;background:rgba(226,59,59,.10)}
+@media(prefers-reduced-motion:reduce){.ev,.lane .out{animation:none;opacity:1;transform:none}.kick i{animation:none}}
+@media(max-width:960px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+/* section scaffolding */
+section{padding:clamp(48px,6.5vw,88px) 0}
+.sec-k{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-d);margin-bottom:12px}
+h2{font-size:clamp(24px,3.1vw,38px);font-weight:800;letter-spacing:-.025em;line-height:1.16;color:var(--navy);max-width:24ch}
+.sub{margin-top:12px;color:var(--mut);font-size:15.5px;max-width:62ch}
+/* cost of delay */
+.delay{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.delay-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:34px}
+.dcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 22px}
+.dcard b{display:block;font-size:clamp(26px,2.6vw,34px);font-weight:900;color:var(--navy);letter-spacing:-.02em}
+.dcard b i{font-style:normal;color:var(--orange)}
+.dcard span{display:block;margin-top:6px;font-size:13px;color:var(--mut);line-height:1.55}
+@media(max-width:760px){.delay-grid{grid-template-columns:minmax(0,1fr)}}
+/* how 60s works */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:38px;counter-reset:st}
+.step{position:relative;border:1px solid var(--line);border-radius:18px;padding:26px 22px 22px;background:#fff;transition:box-shadow .2s ease,transform .2s ease}
+.step:hover{box-shadow:0 24px 48px -24px rgba(25,51,93,.25);transform:translateY(-3px)}
+.step::before{counter-increment:st;content:"0" counter(st);position:absolute;top:-13px;left:20px;background:var(--navy);color:#fff;font-size:12px;font-weight:800;padding:4px 11px;border-radius:999px}
+.step .pic{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.step .pic img{width:34px;height:34px}
+.step h3{font-size:16.5px;font-weight:800;color:var(--navy)}
+.step .tm{font-size:11px;font-weight:800;color:var(--orange-d);letter-spacing:.06em}
+.step p{font-size:13.5px;color:var(--mut);margin-top:8px}
+.step .pf{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:12px;font-weight:700;color:var(--navy)}
+.step .pf i{font-style:normal;color:#1FAF66}
+@media(max-width:900px){.steps{grid-template-columns:minmax(0,1fr)}}
+/* platform strip */
+.plat{background:var(--navy);color:#fff}
+.plat h2{color:#fff}
+.plat .sub{color:#B9C7DC}
+.prow{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:9px 17px;font-size:13px;font-weight:600;color:#DCE6F4;background:rgba(255,255,255,.05)}
+.chip b{color:#fff}
+/* proof */
+.proof-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center;margin-top:36px}
+.vidbox{position:relative;border-radius:18px;overflow:hidden;background:var(--navy);box-shadow:0 30px 60px -28px rgba(15,32,64,.45);aspect-ratio:16/9;cursor:pointer;border:0;padding:0;width:100%}
+.vidbox img{width:100%;height:100%;object-fit:cover;opacity:.92}
+.vidbox .pb{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;box-shadow:0 16px 40px rgba(15,32,64,.45)}
+.vidbox .pb svg{width:22px;height:22px;color:var(--navy);margin-left:3px}
+.vidbox:hover .pb{background:var(--orange)}
+.vidbox:hover .pb svg{color:#fff}
+.vidbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+blockquote.q{font-size:clamp(17px,1.9vw,21px);font-weight:600;line-height:1.5;color:var(--navy)}
+blockquote.q footer{margin-top:14px;font-size:13px;color:var(--mut);font-weight:600}
+blockquote.q footer b{color:var(--navy)}
+.logo-row{display:flex;flex-wrap:wrap;align-items:center;gap:26px 38px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+.logo-row img{height:34px;width:auto;opacity:.85;filter:grayscale(18%)}
+.logo-row span{font-size:12px;color:var(--mut);font-weight:700}
+@media(max-width:900px){.proof-grid{grid-template-columns:minmax(0,1fr)}}
+/* objections */
+.obj{border-top:1px solid var(--line)}
+.obj-list{margin-top:30px;display:grid;gap:0}
+.orow{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:18px 40px;padding:22px 0;border-bottom:1px solid var(--line)}
+.orow h3{font-size:16px;font-weight:800;color:var(--navy)}
+.orow p{font-size:14px;color:var(--mut)}
+.orow p b{color:var(--navy)}
+@media(max-width:760px){.orow{grid-template-columns:minmax(0,1fr);gap:8px}}
+/* final cta */
+.fin{background:linear-gradient(135deg,var(--navy),#22467C);color:#fff;text-align:center}
+.fin h2{color:#fff;margin:0 auto}
+.fin .sub{color:#C4D2E8;margin-left:auto;margin-right:auto}
+.fin .cta-row{justify-content:center;margin-top:28px}
+.fin .btn-ghost{border-color:rgba(255,255,255,.35);color:#fff}
+.fin .tiny{margin-top:16px;font-size:12px;color:#9FB2CF}
+footer.site{padding:26px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--mut)}
+footer.site .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap hd">
+    <a href="https://www.extraaedge.com/" aria-label="ExtraaEdge home"><img src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg" alt="ExtraaEdge" width="120" height="30"></a>
+    <nav aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#platform">Platform</a>
+      <a href="#proof">Results</a>
+      <a href="#objections">Questions</a>
+    </nav>
+    <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+  </div>
+</header>
+
+<main id="main">
+<!-- HERO: the race. Problem-aware visitors see their nightmare replayed; the product answers it inside the same frame. -->
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kick"><i aria-hidden="true"></i> An enquiry just arrived</span>
+      <h1 id="h1">The first <em>60 seconds</em> decide where a student enrols.</h1>
+      <p class="lead">Most institutions reply in hours. By then the student has spoken to two others. ExtraaEdge is <b>India's Intelligent Admissions Growth Platform</b>: Vidya AI answers in 60 seconds, scores intent and puts your counsellor on the right call, every time, including 2am.</p>
+      <div class="cta-row">
+        <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+        <a class="btn btn-ghost" href="https://www.extraaedge.com/product-tour/">Watch the platform respond live</a>
+      </div>
+      <p class="cta-note">500+ institutions &middot; 10M+ enquiries managed &middot; go-live in 7 days</p>
+    </div>
+    <div class="race" role="img" aria-label="Timeline comparing a typical admission office with ExtraaEdge in the first 60 seconds after an enquiry arrives">
+      <div class="race-head"><b>New enquiry: B.Tech, via Instagram ad</b><span class="race-clock">00:00</span></div>
+      <div class="lane win">
+        <h3>With ExtraaEdge</h3>
+        <div class="ev"><span class="t">00:04</span><span class="x"><b>VidyaGPT replies</b> on WhatsApp: fees, eligibility, next steps, in the student's language.</span></div>
+        <div class="ev"><span class="t">00:31</span><span class="x"><b>VidyaPulse scores intent</b>: high. Course fit: strong. Priority queue.</span></div>
+        <div class="ev"><span class="t">00:58</span><span class="x"><b>VidyaAgents books the callback</b>; your counsellor sees the full context.</span></div>
+        <div class="out">Student is talking to you first &#10003;</div>
+      </div>
+      <div class="lane lose">
+        <h3>A typical office</h3>
+        <div class="ev bad"><span class="t">00:60</span><span class="x">Enquiry sits in an inbox. Nobody has seen it yet.</span></div>
+        <div class="ev bad"><span class="t">6h+</span><span class="x">First reply goes out, average across teams that measure it.</span></div>
+        <div class="out">Student has already shortlisted elsewhere</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COST OF DELAY: the claim, then the canonical numbers as its receipt (contextual trust). -->
+<section class="delay" aria-labelledby="h-delay">
+  <div class="wrap">
+    <p class="sec-k">Why speed is the whole game</p>
+    <h2 id="h-delay">You are not losing enquiries. You are losing the wait.</h2>
+    <p class="sub">Admission teams rarely have a lead-volume problem. They have a response-time problem: enquiries arrive nights, weekends and mid-counselling, and the queue decides who enrols. This is what changes when the queue disappears.</p>
+    <div class="delay-grid">
+      <div class="dcard"><b>60 <i>sec</i></b><span>First response to every enquiry, every hour of the day, in 95+ languages.</span></div>
+      <div class="dcard"><b>Up to <i>90%</i></b><span>Reduction in response time measured after institutions switch to Vidya AI.</span></div>
+      <div class="dcard"><b>Up to <i>40%</i></b><span>Lift in enquiry-to-admission conversion when no enquiry waits in a queue.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW: exactly what happens in the 60 seconds; AI shown as workflow, each step carrying its own proof line. -->
+<section id="how" aria-labelledby="h-how">
+  <div class="wrap">
+    <p class="sec-k">How the 60 seconds work</p>
+    <h2 id="h-how">Three AI teammates, one handoff to your counsellor</h2>
+    <p class="sub">Vidya AI is not a chatbot bolted onto a CRM. It is the AI layer of the platform: it answers, qualifies and routes, then hands a fully-briefed conversation to a human. Your counsellors keep the relationship. The AI keeps the clock.</p>
+    <div class="steps">
+      <article class="step">
+        <div class="pic"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="" width="34" height="34"><div><h3>VidyaGPT answers</h3><span class="tm">SECOND 0 TO 10</span></div></div>
+        <p>Replies on WhatsApp, chat and email with course, fee and eligibility answers drawn from your own brochure and rules, not generic AI guesses.</p>
+        <p class="pf"><i>&#10003;</i> Every enquiry answered 24x7</p>
+      </article>
+      <article class="step">
+        <div class="pic"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="" width="34" height="34"><div><h3>VidyaPulse qualifies</h3><span class="tm">SECOND 10 TO 40</span></div></div>
+        <p>Scores intent from the conversation itself: urgency, course fit, budget signals. Hot leads jump the queue instead of waiting in it.</p>
+        <p class="pf"><i>&#10003;</i> Counsellors talk to ready students first</p>
+      </article>
+      <article class="step">
+        <div class="pic"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="" width="34" height="34"><div><h3>VidyaAgents connects</h3><span class="tm">SECOND 40 TO 60</span></div></div>
+        <p>Calls, confirms interest and books the counsellor callback. The counsellor opens one screen with the whole story already on it.</p>
+        <p class="pf"><i>&#10003;</i> 95% counsellor adoption after go-live</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM CONTEXT: one strip, no feature wall; the CRM is the stage the 60 seconds run on. -->
+<section id="platform" class="plat" aria-labelledby="h-plat">
+  <div class="wrap">
+    <p class="sec-k" style="color:#FFB98A">After the 60 seconds</p>
+    <h2 id="h-plat">A full Admissions Growth Platform carries the rest of the journey</h2>
+    <p class="sub">The same platform runs everything from the second minute to the enrolment: follow-ups that never slip, applications, fees and the analytics your review meetings actually need.</p>
+    <div class="prow" role="list">
+      <span class="chip" role="listitem"><b>Education CRM</b> - one timeline per student</span>
+      <span class="chip" role="listitem"><b>WhatsApp API</b> - official, logged, at scale</span>
+      <span class="chip" role="listitem"><b>Application &amp; fees</b> - enquiry to enrolment</span>
+      <span class="chip" role="listitem"><b>Workflow automation</b> - follow-ups run themselves</span>
+      <span class="chip" role="listitem"><b>Admission analytics</b> - funnel, source ROI, counsellor view</span>
+      <span class="chip" role="listitem"><b>50+ integrations</b> - Meta, Google, telephony, portals</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF: one voice, in full, next to the claim it supports; logos as quiet confirmation. -->
+<section id="proof" aria-labelledby="h-proof">
+  <div class="wrap">
+    <p class="sec-k">What institutions say</p>
+    <h2 id="h-proof">The teams who stopped making students wait</h2>
+    <div class="proof-grid">
+      <button class="vidbox" data-yt="3SHgLf1GFgk" aria-label="Play customer story: Silky Jain Marwah, Tula's Institute">
+        <img src="https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg" alt="Silky Jain Marwah of Tula's Institute speaking about ExtraaEdge" loading="lazy" width="480" height="360">
+        <span class="pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </button>
+      <blockquote class="q">
+        <p>&ldquo;ExtraaEdge is an incredibly dynamic and trustworthy platform that truly understands our needs. Most of the changes we require are implemented in a very short span of time.&rdquo;</p>
+        <footer><b>Silky Jain Marwah</b>, Executive Director, Tula's Institute, Dehradun</footer>
+      </blockquote>
+    </div>
+    <div class="logo-row" aria-label="Institutions using ExtraaEdge">
+      <span>500+ institutions, including</span>
+      <img src="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/tula-s-institute-dehradun-logo.svg" alt="Tula's Institute" loading="lazy">
+      <img src="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/uttaranchal-university-logo.svg" alt="Uttaranchal University" loading="lazy">
+      <img src="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/imt-ghaziabad-logo.svg" alt="IMT Ghaziabad" loading="lazy">
+      <img src="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/fore-school-of-management-logo.svg" alt="FORE School of Management" loading="lazy">
+      <img src="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/edtech/fostiima-business-school-logo.svg" alt="FOSTIIMA Business School" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIONS: answered in the page flow, in the order a director actually raises them. -->
+<section id="objections" class="obj" aria-labelledby="h-obj">
+  <div class="wrap">
+    <p class="sec-k">Asked in every first meeting</p>
+    <h2 id="h-obj">The questions that decide this, answered straight</h2>
+    <div class="obj-list">
+      <div class="orow">
+        <h3>Will AI replace my counsellors?</h3>
+        <p>No. Vidya AI does the waiting, the repetition and the night shift; counsellors do the convincing. That is why <b>95% of counsellors are actively using it</b> after go-live, it removes their worst work, not their jobs.</p>
+      </div>
+      <div class="orow">
+        <h3>How long does implementation take?</h3>
+        <p><b>7 days to go live</b> as standard, 14 with data migration. Your funnel stages, courses and sources are configured around how your admissions already run, not the other way around.</p>
+      </div>
+      <div class="orow">
+        <h3>Will it work with what we already use?</h3>
+        <p>Meta and Google lead forms, education portals, telephony, payment gateways: <b>50+ integrations</b>, so enquiries flow in automatically instead of being imported by hand.</p>
+      </div>
+      <div class="orow">
+        <h3>Is student data safe?</h3>
+        <p>ISO 27001 certified and GDPR compliant, with role-based access, so counsellors, agencies and management each see exactly what they should.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA: same promise the page opened with, now earned. -->
+<section class="fin" aria-labelledby="h-fin">
+  <div class="wrap">
+    <h2 id="h-fin">See your own enquiry answered in 60 seconds</h2>
+    <p class="sub">Bring one real enquiry to the demo. We will run it through Vidya AI in front of you, on your courses and your funnel.</p>
+    <div class="cta-row">
+      <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+      <a class="btn btn-ghost" href="https://www.extraaedge.com/product-tour/">Explore the live platform first</a>
+    </div>
+    <p class="tiny">30 minutes &middot; your data stays yours &middot; rated 4.7/5 by 320+ admission teams</p>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>ExtraaEdge - India's Intelligent Admissions Growth Platform</span>
+    <span>Design study 01: The First 60 Seconds</span>
+  </div>
+</footer>
+
+<script>
+/* one job: click-to-play video, nothing loads until asked */
+document.querySelectorAll('.vidbox').forEach(function(b){
+  b.addEventListener('click',function(){
+    if(b.dataset.on) return; b.dataset.on='1';
+    b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+b.dataset.yt+'?autoplay=1&rel=0" title="Customer story video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  });
+});
+</script>
+</body>
+</html>

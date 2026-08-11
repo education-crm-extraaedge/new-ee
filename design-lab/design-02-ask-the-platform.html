@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExtraaEdge | Ask Anything About Your Admissions</title>
+<meta name="description" content="Tell ExtraaEdge your admission problem and the page answers like the product does: Vidya AI for 24x7 response, intent scoring, AI calling and a full Education CRM used by 500+ institutions.">
+<link rel="canonical" href="https://www.extraaedge.com/">
+<meta property="og:title" content="ExtraaEdge | Ask Anything About Your Admissions">
+<meta property="og:description" content="A homepage that answers the way Vidya AI answers your students: instantly, specifically, in your language.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.extraaedge.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"ExtraaEdge","url":"https://www.extraaedge.com/","description":"India's Intelligent Admissions Growth Platform for educational institutions."}
+</script>
+<style>
+:root{--navy:#19335D;--orange:#DE6E30;--orange-d:#B5551D;--ink:#0F172A;--mut:#5A6B85;--line:rgba(25,51,93,.12);--paper:#F6F8FB}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:999}
+.skip:focus{left:0}
+:focus-visible{outline:2.5px solid var(--orange);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;height:64px}
+.hd img{height:30px;width:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;border-radius:12px;padding:12px 22px;transition:.2s}
+.btn-o{background:var(--orange);color:#fff;box-shadow:0 10px 24px -10px rgba(222,110,48,.55)}
+.btn-o:hover{background:var(--orange-d)}
+.btn-ghost{border:1.5px solid var(--line);color:var(--navy)}
+.btn-ghost:hover{border-color:var(--navy)}
+/* hero = the conversation */
+.hero{padding:clamp(44px,6vw,84px) 0;background:radial-gradient(circle at 10% 0%,rgba(222,110,48,.06),transparent 42%),radial-gradient(circle at 95% 100%,rgba(25,51,93,.06),transparent 45%)}
+.hero .top{text-align:center;max-width:760px;margin:0 auto}
+h1{font-size:clamp(30px,4.2vw,50px);font-weight:900;letter-spacing:-.03em;line-height:1.1;color:var(--navy)}
+h1 em{font-style:normal;color:var(--orange)}
+.hero .top p{margin-top:14px;color:var(--mut);font-size:clamp(14.5px,1.4vw,16.5px)}
+.chat{max-width:820px;margin:34px auto 0;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 34px 70px -34px rgba(25,51,93,.35);overflow:hidden}
+.chat-bar{display:flex;align-items:center;gap:10px;padding:13px 18px;background:var(--navy);color:#fff}
+.chat-bar img{width:22px;height:22px}
+.chat-bar b{font-size:13.5px}
+.chat-bar span{margin-left:auto;font-size:11px;font-weight:700;color:#7BE6A8;display:inline-flex;align-items:center;gap:6px}
+.chat-bar span i{width:7px;height:7px;border-radius:50%;background:#1FAF66}
+.chat-log{padding:20px 18px 6px;min-height:132px}
+.msg{max-width:82%;padding:11px 15px;border-radius:15px;font-size:13.8px;line-height:1.55;margin-bottom:11px;animation:in .35s ease}
+.msg.ai{background:var(--paper);border:1px solid var(--line);border-radius:15px 15px 15px 5px;color:var(--ink)}
+.msg.me{background:var(--navy);color:#fff;margin-left:auto;border-radius:15px 15px 5px 15px}
+.msg.ai b{color:var(--navy)}
+.msg.ai a{color:var(--orange-d);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.chips{display:flex;flex-wrap:wrap;gap:9px;padding:8px 18px 20px}
+.chips p{width:100%;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.chip{border:1.5px solid var(--line);background:#fff;color:var(--navy);font:600 13px/1 'Inter',sans-serif;padding:11px 16px;border-radius:999px;cursor:pointer;transition:.18s}
+.chip:hover{border-color:var(--orange);color:var(--orange-d);transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.hero .under{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:22px;font-size:12.5px;color:var(--mut);font-weight:600}
+@media(prefers-reduced-motion:reduce){.msg{animation:none}}
+/* answer sections */
+section.ans{padding:clamp(46px,6vw,80px) 0;border-top:1px solid var(--line)}
+section.ans:target{background:linear-gradient(180deg,rgba(222,110,48,.05),transparent 220px)}
+.qline{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-d);margin-bottom:12px}
+.qline::before{content:'';width:26px;height:2.5px;background:var(--orange);border-radius:2px}
+h2{font-size:clamp(23px,2.9vw,34px);font-weight:800;letter-spacing:-.025em;line-height:1.18;color:var(--navy);max-width:26ch}
+.ans .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,60px);align-items:center;margin-top:26px}
+.ans p.body{color:var(--mut);font-size:15px;max-width:56ch}
+.ans p.body b{color:var(--navy)}
+.ans ul{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.ans ul li{display:flex;gap:10px;font-size:14px;color:var(--ink)}
+.ans ul li::before{content:'\2713';flex:none;width:20px;height:20px;border-radius:50%;background:rgba(31,175,102,.12);color:#1FAF66;font-size:11px;font-weight:800;display:grid;place-items:center;margin-top:2px}
+.ans .next{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.ans .next .hint{font-size:12.5px;color:var(--mut)}
+.panel{border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 24px 50px -28px rgba(25,51,93,.3);overflow:hidden}
+.panel .ph{padding:11px 16px;background:var(--paper);border-bottom:1px solid var(--line);font-size:11.5px;font-weight:800;color:var(--mut);letter-spacing:.05em;text-transform:uppercase}
+.panel .pb{padding:18px}
+.wa{display:grid;gap:9px}
+.wa .m{max-width:88%;font-size:12.8px;line-height:1.5;padding:9px 13px;border-radius:13px}
+.wa .in{background:var(--paper);border:1px solid var(--line);border-radius:13px 13px 13px 4px}
+.wa .out{background:#E7F6EC;border:1px solid rgba(31,175,102,.25);margin-left:auto;border-radius:13px 13px 4px 13px}
+.wa .meta{font-size:10px;color:var(--mut);font-weight:700;margin-top:2px}
+.score{display:grid;gap:10px}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:11px 14px}
+.srow b{font-size:13px;color:var(--navy)}
+.srow span{display:block;font-size:11px;color:var(--mut)}
+.badge{font-size:11px;font-weight:800;padding:5px 11px;border-radius:999px}
+.b-hot{background:rgba(222,110,48,.12);color:var(--orange-d)}
+.b-warm{background:rgba(25,51,93,.08);color:var(--navy)}
+.b-new{background:var(--paper);color:var(--mut)}
+.cmp{width:100%;border-collapse:collapse;font-size:13px}
+.cmp th,.cmp td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cmp th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.cmp td:first-child{font-weight:700;color:var(--navy)}
+.cmp .y{color:#1FAF66;font-weight:800}
+.cmp .n{color:#C43D3D}
+.tstack{display:grid;gap:14px}
+.tcard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;border:1px solid var(--line);border-radius:14px;padding:16px}
+.tcard img{width:74px;height:52px;object-fit:cover;border-radius:9px}
+.tcard blockquote{font-size:13px;color:var(--ink);line-height:1.55}
+.tcard footer{margin-top:6px;font-size:11.5px;color:var(--mut);font-weight:600}
+.tcard footer b{color:var(--navy)}
+@media(max-width:880px){.ans .grid{grid-template-columns:minmax(0,1fr)}}
+/* closing */
+.fin{background:var(--navy);color:#fff;text-align:center;padding:clamp(52px,7vw,88px) 0}
+.fin h2{color:#fff;margin:0 auto}
+.fin p{color:#C4D2E8;margin:12px auto 26px;max-width:56ch;font-size:15px}
+.fin .btn-ghost{border-color:rgba(255,255,255,.35);color:#fff}
+footer.site{padding:24px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--mut)}
+footer.site .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap hd">
+    <a href="https://www.extraaedge.com/" aria-label="ExtraaEdge home"><img src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg" alt="ExtraaEdge" width="120" height="30"></a>
+    <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+  </div>
+</header>
+
+<main id="main">
+<!-- HERO: the page behaves like VidyaGPT. Six intent chips = six buying stages; each answer routes to its section. -->
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="top">
+      <h1 id="h1">Ask us what you would ask <em>any admission platform</em>.</h1>
+      <p>This is how Vidya AI treats your students: a straight answer in seconds, then the right next step. Try it on your own questions.</p>
+    </div>
+    <div class="chat" role="group" aria-label="Interactive question and answer about ExtraaEdge">
+      <div class="chat-bar">
+        <img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai.svg" alt="" width="22" height="22">
+        <b>Vidya AI &middot; ExtraaEdge</b>
+        <span><i aria-hidden="true"></i> Answers in seconds</span>
+      </div>
+      <div class="chat-log" id="log" aria-live="polite">
+        <div class="msg ai">Hello! I answer student enquiries for 500+ institutions, 24x7, in 95+ languages. What is on your mind about admissions?</div>
+      </div>
+      <div class="chips" id="chips">
+        <p>Pick your question, or the one closest to it</p>
+        <button class="chip" data-a="That is the most common starting point. Short version: enquiries wait, and waiting loses admissions. Here is what changes when the wait disappears." data-to="#problem" aria-pressed="false">We lose enquiries at night and on weekends</button>
+        <button class="chip" data-a="Concretely: I answer in about 60 seconds, VidyaPulse scores intent, VidyaAgents calls and books your counsellor. See the flow below." data-to="#ai" aria-pressed="false">What would AI actually do in my process?</button>
+        <button class="chip" data-a="Vidya AI is the layer on top of a full Education CRM: capture, follow-ups, applications, fees, analytics. One platform, one timeline per student." data-to="#platform" aria-pressed="false">Is this a chatbot or a full CRM?</button>
+        <button class="chip" data-a="Fair question. The honest comparison: legacy CRMs organise your queue, ExtraaEdge removes it. The table below says it plainly." data-to="#compare" aria-pressed="false">How is it different from other CRMs?</button>
+        <button class="chip" data-a="Teams like yours say it better than I can. Two of them are below, on video, with names attached." data-to="#proof" aria-pressed="false">Show me proof from institutions like mine</button>
+        <button class="chip" data-a="Then skip the reading: a 30-minute demo on your courses and your funnel. The button below books it." data-to="#demo" aria-pressed="false">I am ready to see a demo</button>
+      </div>
+    </div>
+    <div class="under" aria-label="Key facts">
+      <span>500+ institutions</span><span>10M+ enquiries managed</span><span>4.7/5 from 320+ teams</span><span>Go-live in 7 days</span>
+    </div>
+  </div>
+</section>
+
+<!-- Each section = one asked question, answered answer-first (GEO), with its own proof and its own next step. -->
+<section class="ans" id="problem" aria-labelledby="h-problem">
+  <div class="wrap">
+    <p class="qline">You asked: we lose enquiries at night</p>
+    <h2 id="h-problem">Enquiries do not leak from your funnel. They leak from your clock.</h2>
+    <div class="grid">
+      <div>
+        <p class="body">Students enquire when it suits them: 9pm after coaching, Sunday morning with parents. A typical office replies in about <b>6 hours</b>. Vidya AI replies in about <b>60 seconds</b>, so the conversation starts while the intent is still hot.</p>
+        <ul>
+          <li>Up to 90% reduction in first-response time</li>
+          <li>Up to 40% lift in enquiry-to-admission conversion</li>
+          <li>Every conversation logged on the student's CRM timeline</li>
+        </ul>
+        <div class="next"><a class="btn btn-ghost" href="#ai">So what does the AI actually do? &darr;</a></div>
+      </div>
+      <div class="panel">
+        <div class="ph">Sunday, 9:41 pm &middot; WhatsApp</div>
+        <div class="pb wa">
+          <div class="m in">Is the B.Sc data science seat still open? What is the fee?<span class="meta">Student &middot; 9:41 pm</span></div>
+          <div class="m out">Yes! Applications close 30 June. Fee is on this brochure page, and you qualify with PCM 60%+. Want me to book a counsellor call for tomorrow 11am?<span class="meta">Vidya AI &middot; 9:41 pm</span></div>
+          <div class="m in">11am works &#128077;<span class="meta">Student &middot; 9:43 pm</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ans" id="ai" aria-labelledby="h-ai">
+  <div class="wrap">
+    <p class="qline">You asked: what would AI do in my process</p>
+    <h2 id="h-ai">Answer, qualify, connect. Then hand over to your counsellor.</h2>
+    <div class="grid">
+      <div class="panel">
+        <div class="ph">VidyaPulse &middot; today's queue, already prioritised</div>
+        <div class="pb score">
+          <div class="srow"><div><b>Ananya S. &middot; B.Tech CSE</b><span>Asked about scholarship + hostel, twice today</span></div><span class="badge b-hot">Hot &middot; call first</span></div>
+          <div class="srow"><div><b>Rahul M. &middot; MBA</b><span>Opened fee page, no reply yet to follow-up</span></div><span class="badge b-warm">Warm &middot; nurture</span></div>
+          <div class="srow"><div><b>Ishita K. &middot; B.Com</b><span>New enquiry, answered by VidyaGPT 4 min ago</span></div><span class="badge b-new">New &middot; scored</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="body">Three AI teammates work every enquiry: <b>VidyaGPT</b> answers on WhatsApp and chat from your own brochure and rules, <b>VidyaPulse</b> scores intent from the conversation, and <b>VidyaAgents</b> calls to confirm and books the counsellor. Your team starts every morning with a queue that is already in the right order.</p>
+        <ul>
+          <li>Counsellors talk to ready students first, not the newest ones</li>
+          <li>95% counsellor adoption after go-live</li>
+          <li>AI drafts the follow-up; a human approves the relationship</li>
+        </ul>
+        <div class="next"><a class="btn btn-ghost" href="#platform">And around the AI? &darr;</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ans" id="platform" aria-labelledby="h-plat">
+  <div class="wrap">
+    <p class="qline">You asked: chatbot or full CRM</p>
+    <h2 id="h-plat">A full Admissions Growth Platform. The AI is its front door.</h2>
+    <div class="grid">
+      <div>
+        <p class="body">Everything after the first answer runs on the same platform: <b>lead capture from 50+ sources</b>, automated follow-ups, application forms, fee collection and the funnel, source-ROI and counsellor analytics your review meeting runs on. One login, one timeline per student, no tab-switching.</p>
+        <ul>
+          <li>Education CRM, application management and payments in one flow</li>
+          <li>Official WhatsApp Business API, bulk and 1:1, fully logged</li>
+          <li>Workflow automation: assign, remind, escalate without spreadsheets</li>
+        </ul>
+        <div class="next"><a class="btn btn-ghost" href="#compare">How is that different from any CRM? &darr;</a></div>
+      </div>
+      <div class="panel">
+        <div class="ph">One student, one timeline</div>
+        <div class="pb score">
+          <div class="srow"><div><b>Enquiry captured</b><span>Instagram ad &rarr; auto-created, deduped</span></div><span class="badge b-new">Auto</span></div>
+          <div class="srow"><div><b>Answered + scored</b><span>VidyaGPT replied &middot; VidyaPulse: high intent</span></div><span class="badge b-hot">AI</span></div>
+          <div class="srow"><div><b>Counselled</b><span>Call notes + next follow-up, auto-scheduled</span></div><span class="badge b-warm">Human</span></div>
+          <div class="srow"><div><b>Applied &amp; paid</b><span>Form + fee on the same platform</span></div><span class="badge b-new">Done</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ans" id="compare" aria-labelledby="h-cmp">
+  <div class="wrap">
+    <p class="qline">You asked: how is it different</p>
+    <h2 id="h-cmp">Legacy CRMs organise the queue. ExtraaEdge removes it.</h2>
+    <div class="grid">
+      <div class="panel">
+        <div class="ph">The honest comparison</div>
+        <div class="pb" style="overflow-x:auto">
+          <table class="cmp">
+            <thead><tr><th scope="col">Question</th><th scope="col">Generic CRMs</th><th scope="col">ExtraaEdge</th></tr></thead>
+            <tbody>
+              <tr><td>Built for admissions?</td><td class="n">Adapted from sales</td><td class="y">Education-only, day one</td></tr>
+              <tr><td>Who answers at 2am?</td><td class="n">Nobody</td><td class="y">Vidya AI, in 60 sec</td></tr>
+              <tr><td>Who decides call order?</td><td class="n">Newest first</td><td class="y">Intent score first</td></tr>
+              <tr><td>Time to go live</td><td class="n">Months of setup</td><td class="y">7 days, 14 with migration</td></tr>
+              <tr><td>Configured around</td><td class="n">Their pipeline</td><td class="y">Your funnel</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <p class="body">Most CRMs were built for sales pipelines and adapted for education later. ExtraaEdge was built inside admission offices: enquiry seasons, counsellor workloads, parent conversations, agent networks. <b>We configure around your funnel, not the other way around.</b></p>
+        <div class="next"><a class="btn btn-ghost" href="#proof">Prove it &darr;</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ans" id="proof" aria-labelledby="h-proof">
+  <div class="wrap">
+    <p class="qline">You asked: show me proof</p>
+    <h2 id="h-proof">Named teams, on camera, not stock quotes</h2>
+    <div class="grid">
+      <div class="tstack">
+        <article class="tcard">
+          <img src="https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg" alt="Video still: Silky Jain Marwah, Tula's Institute" loading="lazy" width="74" height="52">
+          <div>
+            <blockquote>&ldquo;An incredibly dynamic and trustworthy platform that truly understands our needs.&rdquo;</blockquote>
+            <footer><b>Silky Jain Marwah</b> &middot; Executive Director, Tula's Institute &middot; <a href="https://www.extraaedge.com/videos/customer-stories/" style="color:var(--orange-d);font-weight:700">watch &rarr;</a></footer>
+          </div>
+        </article>
+        <article class="tcard">
+          <img src="https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg" alt="Video still: K. Nirmala Devi, Indian Academy Group" loading="lazy" width="74" height="52">
+          <div>
+            <blockquote>&ldquo;Simplified lead management and communication, with better counsellor visibility across the journey.&rdquo;</blockquote>
+            <footer><b>K. Nirmala Devi</b> &middot; Assistant Manager, Indian Academy Group &middot; <a href="https://www.extraaedge.com/videos/customer-stories/" style="color:var(--orange-d);font-weight:700">watch &rarr;</a></footer>
+          </div>
+        </article>
+      </div>
+      <div>
+        <p class="body">Across <b>500+ institutions</b>, from universities to study-abroad consultancies, the platform has managed <b>10M+ enquiries</b> and holds a <b>4.7/5 rating from 320+ admission teams</b>. Every claim on this page is the averaged shape of those funnels, not a projection.</p>
+        <div class="next"><a class="btn btn-ghost" href="#demo">Last question: what happens in a demo? &darr;</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING: the decision-ready chip lands here; CTA framed as the natural next message in the conversation. -->
+<section class="fin ans" id="demo" aria-labelledby="h-demo" style="border-top:0">
+  <div class="wrap">
+    <h2 id="h-demo">The next message is a conversation with us</h2>
+    <p>30 minutes, on your courses, your sources and your funnel. Bring one real enquiry and watch Vidya AI answer it live. No pressure sequence afterwards; the demo either earns the next meeting or it does not.</p>
+    <a class="btn btn-o" href="https://www.extraaedge.com/book-a-demo/">Book a Demo</a>
+    <a class="btn btn-ghost" href="https://www.extraaedge.com/product-tour/" style="margin-left:10px">Explore the platform yourself</a>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>ExtraaEdge - India's Intelligent Admissions Growth Platform</span>
+    <span>Design study 02: Ask the Platform</span>
+  </div>
+</footer>
+
+<script>
+/* The chips run the conversation: question in, answer bubble, then scroll to
+   the section that answers properly. All content is in the DOM regardless -
+   the chat is navigation, not the only path to the information. */
+(function(){
+  var log=document.getElementById('log');
+  document.getElementById('chips').addEventListener('click',function(e){
+    var c=e.target.closest('.chip'); if(!c) return;
+    document.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false');});
+    var q=document.createElement('div'); q.className='msg me'; q.textContent=c.textContent; log.appendChild(q);
+    var a=document.createElement('div'); a.className='msg ai';
+    a.innerHTML=c.dataset.a+' <a href="'+c.dataset.to+'">Jump to the full answer &darr;</a>';
+    setTimeout(function(){ log.appendChild(a); a.querySelector('a').focus(); },420);
+    setTimeout(function(){ document.querySelector(c.dataset.to).scrollIntoView({behavior:'smooth'}); },1050);
+  });
+})();
+</script>
+</body>
+</html>
