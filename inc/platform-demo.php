@@ -665,7 +665,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   var AI=[
     {k:'voice',name:'VidyaAI Voice Agent',tag:'AI voice calls in 10+ languages',live:1,desc:'An AI voice agent that calls new enquiries the moment they arrive, qualifies them and books counselling slots - in Hindi, Marathi and 10+ Indian languages.',pts:['Human-like voice, 24×7','Calls &amp; qualifies in under 60 seconds','Books slots and updates the CRM on its own']},
     {k:'gpt',name:'VidyaGPT',tag:'Your 24×7 AI admissions counsellor',live:1,desc:'A conversational AI that answers student questions instantly, guides them through admissions and never lets a query go cold.',pts:['Answers course &amp; fee queries instantly','Understands context like a real counsellor','Hands warm leads off to your team']},
-    {k:'waba',name:'VidyaWABA',tag:'WhatsApp Business API, automated',live:1,desc:'Official verified WhatsApp automation - segmented broadcasts, fee reminders and document nudges that run on their own, with every reply synced to the lead.',pts:['Verified WhatsApp Business API','Automated journeys &amp; broadcasts','Two-way chats synced to every lead']},
+    {k:'waba',name:'VidyaGPT WhatsApp',tag:'WhatsApp Business API, automated',live:1,desc:'Official verified WhatsApp automation - segmented broadcasts, fee reminders and document nudges that run on their own, with every reply synced to the lead.',pts:['Verified WhatsApp Business API','Automated journeys &amp; broadcasts','Two-way chats synced to every lead']},
     {k:'pulse',name:'VidyaPulse',tag:'Real-time lead intent &amp; buying signals',live:1,desc:'Continuously scores every lead on intent and surfaces buying signals, so counsellors always act on the hottest leads first.',pts:['Live AI intent score per lead','Buying-signal alerts in real time','Auto-prioritised work queue']}
   ];
   (function(){
@@ -710,7 +710,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   var _ir=$('#intRefresh'); if(_ir) _ir.addEventListener('click',function(){toast('🔄','Refreshed','All integrations up to date');});
   var ocIcon={bolt:'<path d=&quot;M13 2 3 14h7l-1 8 10-12h-7l1-8z&quot;/>',up:'<path d=&quot;M3 17l6-6 4 4 7-7&quot;/><path d=&quot;M17 8h4v4&quot;/>',wa:'<path d=&quot;M21 11.5a8.4 8.4 0 0 1-11.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z&quot;/>',people:'<path d=&quot;M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2&quot;/><circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/>',roi:'<circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/><path d=&quot;M12 6v12M15 9.5A3.5 3 0 0 0 11.5 8H10a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4h-1.5A3.5 3 0 0 1 9 14.5&quot;/>'};
   var OUTCOMES=[
-    {ac:'--o',acs:'var(--o-soft)',ic:'bolt',lab:'Lead Response Time',big:'30 sec',sub:'Average first response to a new enquiry - VidyaAI calls and messages the instant a lead arrives.',tr:'12× faster than manual',ba:[['Manual','old',100,'6h 12m'],['ExtraaEdge','',6,'30 sec']]},
+    {ac:'--o',acs:'var(--o-soft)',ic:'bolt',lab:'Lead Response Time',big:'60 sec',sub:'Average first response to a new enquiry - VidyaAI calls and messages the instant a lead arrives.',tr:'12× faster than manual',ba:[['Manual','old',100,'6h 12m'],['ExtraaEdge','',6,'30 sec']]},
     {ac:'--grn',acs:'var(--grn-soft)',ic:'up',lab:'Admission Conversion Rate',big:'42%',sub:'Enquiry → enrolled this cycle, with AI prioritising the hottest, highest-intent leads first.',tr:'+40% vs last cycle',ba:[['This cycle','',100,'42%'],['Last cycle','old',71,'30%']]},
     {ac:'--blue',acs:'#e6f0fb',ic:'wa',lab:'WhatsApp Automation',big:'94%',sub:'Conversations handled automatically - reminders, nudges and FAQs, synced to every lead.',tr:'24,000+ messages automated',ba:[['Automated','',94,'94%'],['Manual','old',6,'6%']]},
     {ac:'--nav',acs:'#e8edf5',ic:'people',lab:'Counselor Productivity',big:'3.5×',sub:'More leads converted per counsellor - they only talk to warm, ready-to-enrol students.',tr:'70 quality calls / day',ba:[['With AI','',100,'70/day'],['Before','old',27,'19/day']]},
@@ -924,7 +924,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
      out:'Better ROI, in one screen'},
     {v:'ai',sel:'#aiGrid',ai:'AI Powered',ch:'Start here',
      t:'Vidya AI, your 24x7 admissions team',
-     b:'<b>Voice Agent</b> calls, <b>VidyaGPT</b> chats, <b>VidyaWABA</b> runs WhatsApp, <b>VidyaPulse</b> scores intent.',
+     b:'<b>VidyaAgents</b> call, <b>VidyaGPT</b> chats, <b>VidyaGPT</b> runs WhatsApp, <b>VidyaPulse</b> scores intent.',
      ben:'Every enquiry answered the minute it arrives, day or night',
      out:'24x7 AI Assistance'},
     {v:'outcomes',sel:'#search',ai:'Natural Language Search',ch:'Start here',
@@ -1080,7 +1080,7 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
   tEnd.innerHTML='<div class=card>'
     +'<div class=tick><svg viewBox=\'0 0 24 24\' fill=none stroke=currentColor stroke-width=2.6 stroke-linecap=round stroke-linejoin=round><path d=\'M4 12.5l5 5L20 6.5\'/></svg></div>'
     +'<h3>You have seen the whole platform</h3>'
-    +'<p>You are now ready to experience the complete AI-powered Admission CRM. Book a live demo and see how institutions increase admissions with ExtraaEdge.</p>'
+    +'<p>You are now ready to experience India&rsquo;s Intelligent Admissions Growth Platform. Book a live demo and see how institutions increase admissions with ExtraaEdge.</p>'
     +'<div class=wins>'
       +'<div><b>3x</b><span>Faster follow-up</span></div>'
       +'<div><b>40%</b><span>More counsellor output</span></div>'
@@ -1544,7 +1544,7 @@ html.eebk-lock,body.eebk-lock{overflow:hidden}
           <img class="wm" src="https://www.extraaedge.com/wp-content/themes/custom_theme/assets/images/inner-logo.svg" alt="ExtraaEdge" loading="lazy" decoding="async">
           <span class="lbl">Education CRM</span>
         </div>
-        <h2>Want to see<br>the <span class="o">real</span> CRM?</h2>
+        <h2>Want to see<br>the <span class="o">real</span> platform?</h2>
         <div class="bar"></div>
         <p class="lead">This is a guided demo on sample data. Explore the complete, live CRM - every feature, with your own data - just message our team and we will get in touch to give you a full walkthrough.</p>
         <div class="eebk-feat f1"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg></div><div><b>100% Secure</b><span>Your data is safe</span></div></div>

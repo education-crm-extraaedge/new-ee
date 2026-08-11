@@ -251,6 +251,12 @@ if (!function_exists('ee_social_icon_url')) {
 <?php if (!function_exists('ee_should_hide_part') || !ee_should_hide_part('footer')): ?>
 <div id="extraaedge-footer-engine">
 
+    <!-- Closing positioning statement (brand audit #40) -->
+    <section class="ee-container" style="text-align:center;padding:34px 22px 0">
+        <p style="margin:0;font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:800;color:#19335D;line-height:1.55">ExtraaEdge - India&rsquo;s Intelligent Admissions Growth Platform.
+            <span style="display:block;font-size:13px;font-weight:600;color:#5a6b85;margin-top:4px">Built for education. Driven by AI simplicity.</span></p>
+    </section>
+
 
     <!-- Contact Grid -->
     <section class="ee-container ee-section-block">

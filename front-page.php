@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-10-heroplay -->
+<!-- ee-front-tpl v2026-08-11-brand-audit -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -31,7 +31,7 @@ add_action('wp_head', function () {
     {
       "@type": "SoftwareApplication",
       "@id": "https://www.extraaedge.com/#software",
-      "name": "ExtraaEdge Admission CRM",
+      "name": "ExtraaEdge Intelligent Admissions Growth Platform",
       "url": "https://www.extraaedge.com/",
       "applicationCategory": "BusinessApplication",
       "applicationSubCategory": "CRM Software",
@@ -54,13 +54,13 @@ add_action('wp_head', function () {
       "@type": "FAQPage",
       "@id": "https://www.extraaedge.com/#faq",
       "mainEntity": [
-        { "@type": "Question", "name": "What is ExtraaEdge?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge is an AI-powered Admission CRM purpose-built for educational institutions - schools, colleges, universities and edtech companies. It automates lead capture, scores intent, triggers smart follow-ups and gives counselors real-time performance intelligence." } },
-        { "@type": "Question", "name": "How does ExtraaEdge help convert more students?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge prioritises high-intent leads with AI scoring, responds to every enquiry in minutes with AI calling and WhatsApp automation, and tells counselors exactly who to follow up with next - reducing response time by up to 90% and boosting conversions by up to 48%." } },
+        { "@type": "Question", "name": "What is ExtraaEdge?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge is India's Intelligent Admissions Growth Platform, purpose-built for educational institutions - schools, colleges, universities and edtech companies. Its Vidya AI suite (VidyaGPT, VidyaPulse and VidyaAgents) handles enquiry response, lead prioritisation and follow-up automatically, so counsellors focus on conversion." } },
+        { "@type": "Question", "name": "How does ExtraaEdge help convert more students?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge prioritises high-intent leads with VidyaPulse scoring, responds to every enquiry in 60 seconds with VidyaAgents calling and WhatsApp automation, and tells counselors exactly who to follow up with next - reducing response time by up to 90% and lifting conversions by up to 40%." } },
         { "@type": "Question", "name": "Does ExtraaEdge offer a free demo?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can book a free personalised 45-minute demo on the ExtraaEdge website. A product expert will walk you through the platform live with data from your sector." } },
         { "@type": "Question", "name": "Is ExtraaEdge suitable for small colleges?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. ExtraaEdge serves institutions from single-campus colleges to large university groups processing 100,000+ applications per cycle. Pricing and features scale to your needs." } },
-        { "@type": "Question", "name": "What AI features does ExtraaEdge offer?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge offers AI Lead Intent Scoring, AI Calling at scale via VidyaAI, Smart Follow-up Automation, WhatsApp Business API engagement and Counselor Performance Intelligence - all powered by its proprietary Admission Intelligence engine." } },
+        { "@type": "Question", "name": "What AI features does ExtraaEdge offer?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge offers VidyaGPT: 24x7 AI chat on your website and WhatsApp. VidyaPulse: lead intent scoring (HOT / WARM / COLD). VidyaAgents: AI calling, smart follow-ups and counsellor performance intelligence. All part of the Vidya AI suite, engineered for the admission workflow." } },
         { "@type": "Question", "name": "Will ExtraaEdge work with my existing ads and website?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. ExtraaEdge captures leads automatically from Meta and Google Ads, your website and landing pages, education portals, WhatsApp, IVR and more, with full source tracking. It also integrates with your ERP/SIS, payment gateway and cloud telephony." } },
-        { "@type": "Question", "name": "How long does it take to implement ExtraaEdge?", "acceptedAnswer": { "@type": "Answer", "text": "Most institutions go live in around 14 days, including data migration, integrations, workflow setup and counselor training, supported by a dedicated onboarding specialist and Customer Success Manager." } },
+        { "@type": "Question", "name": "How long does it take to implement ExtraaEdge?", "acceptedAnswer": { "@type": "Answer", "text": "Starting fresh: 7 days to go live. Switching from an existing system: 14 days, including full data migration, integrations (ads, website, WhatsApp, telephony), workflow set-up and counsellor training, with a dedicated onboarding specialist and Customer Success Manager." } },
         { "@type": "Question", "name": "Does VidyaGPT support regional languages?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. VidyaGPT understands and responds in 95+ languages including Hindi, Marathi, Tamil, Telugu, Kannada, Bengali and Gujarati, over chat and on AI voice calls." } },
         { "@type": "Question", "name": "Is my data secure with ExtraaEdge?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. ExtraaEdge is ISO 27001 certified and GDPR compliant, with India-based data residency, role-based access controls, encryption and full audit trails." } },
         { "@type": "Question", "name": "How does ExtraaEdge pricing work?", "acceptedAnswer": { "@type": "Answer", "text": "ExtraaEdge uses simple, transparent product-based pricing rather than module-based pricing that adds cost as you scale. Book a demo for a tailored quote based on your enquiry volume and required modules, with no hidden third-party charges." } },
@@ -418,8 +418,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
         /* phones: the conversion-lift stat is the money number - paint it first */
         @media(max-width:640px){#xhero .stats .stat:nth-child(3){order:-1}}
       </style>
-      <h1 class="reveal d2 hero__rot" id="heroRot" aria-live="polite">Convert More Student Enquiries Into Admissions With <span class="accent">AI-Powered Education CRM</span></h1>
-      <p class="sub reveal d3">The AI-powered Admission CRM that <b>calls, qualifies and follows up with every enquiry in 60 seconds</b> - so your counsellors only talk to students who are ready to enrol.</p>
+      <h1 class="reveal d2 hero__rot" id="heroRot" aria-live="polite">Convert More Enquiries Into Admissions With <span class="accent">India&rsquo;s Intelligent Admissions Growth Platform</span></h1>
+      <p class="sub reveal d3">Built for education, driven by AI simplicity: <b>VidyaGPT, VidyaPulse and VidyaAgents call, qualify and follow up with every enquiry in 60 seconds</b>, so your counsellors only talk to students who are ready to enrol.</p>
       <div class="chips reveal d4">
         <span class="chip"><i>&#9889;</i> Go live in 7 days</span>
         <span class="chip"><i>&#128279;</i> Works with your existing forms &amp; portals</span>
@@ -428,12 +428,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <div class="hero__cta reveal d5">
         <a href="#admission-form" class="btn btn-primary" id="magnet">Book a Free Demo <span class="arr">&rarr;</span><span class="shine"></span></a>
         <a href="#ee-platform" class="btn btn-watch" data-eep-full><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:15px;height:15px;flex:none"><path d="M8 5v14l11-7z"/></svg> Explore the Platform Yourself</a>
-        <span class="cta-note">No credit card &middot; Personalised to your institution &middot; <a href="#ee-cro" class="cta-roi-link">Calculate your admission ROI &rarr;</a></span>
+        <span class="cta-note">No credit card &middot; Personalised to your institution</span>
       </div>
       <div class="stats reveal d6">
         <div class="stat"><div class="stat__n"><span data-xhcount="500">0</span><em>+</em></div><div class="stat__l">Institutions onboard</div></div>
         <div class="stat"><div class="stat__n"><span data-xhcount="10">0</span><em>M+</em></div><div class="stat__l">Enquiries managed</div></div>
-        <div class="stat"><div class="stat__n"><span data-xhcount="37">0</span><em>%</em></div><div class="stat__l">Higher conversions</div></div>
+        <div class="stat"><div class="stat__n"><span data-xhcount="40">0</span><em>%</em></div><div class="stat__l">Conversion lift (up to)</div></div>
         <div class="stat"><div class="stat__n"><span data-xhcount="60">0</span><em>s</em></div><div class="stat__l">Avg. first response</div></div>
       </div>
     </div>
@@ -477,7 +477,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     </style>
     <aside class="hero-pov reveal d4" aria-label="Product overview">
       <h2 class="h2 hp-h2">See ExtraaEdge in Action<span class="ee-h2b">2-Minute Product Overview</span></h2>
-      <p class="hp-sub">How our AI-powered Admission CRM helps you attract, engage and enroll more students.</p>
+      <p class="hp-sub">How our Intelligent Admissions Growth Platform helps you attract, engage and enrol more students.</p>
       <div class="hp-vid" id="hpVid" data-yt="cCa7ZOJi694" role="button" tabindex="0" aria-label="Play the ExtraaEdge product overview video">
         <img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/hero-thubnail.png" alt="ExtraaEdge product overview" loading="lazy" decoding="async" width="1280" height="720"
              onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/cCa7ZOJi694/maxresdefault.jpg';">
@@ -585,7 +585,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 /* hero rotating headlines - typewriter (text-telling) */
 (function(){
   var DATA=[
-    {pre:'Convert More Student Enquiries Into Admissions With ', acc:'AI-Powered Education CRM'},
+    {pre:'Convert More Enquiries Into Admissions With ', acc:'India\u2019s Intelligent Admissions Growth Platform'},
     {pre:'Capture And Convert Student Leads 24/7 With ',          acc:'AI-Powered Education Chatbot'},
     {pre:'Engage Every Prospect Instantly With ',                 acc:'AI-Powered WhatsApp Admissions'},
     {pre:'Automate Student Recruitment Campaigns With ',          acc:'AI-Powered Marketing Automation'}
@@ -860,7 +860,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 <section class="logo-section" id="trusted-institutions" aria-label="Trusted Institutions">
   <div class="logo-header reveal">
     <h2 class="logo-title" style="font-family:var(--font-h);font-weight:800;font-size:clamp(1.5rem,3.2vw,2.2rem);color:var(--blue);line-height:1.18;letter-spacing:-.02em;margin:6px 0 12px">Trusted by 500+ educational institutions across India</h2>
-    <p class="logo-sub" style="max-width:760px;margin:0 auto 18px;color:#5a6b85;font-size:clamp(.95rem,1.6vw,1.05rem);line-height:1.6">ExtraaEdge manages <strong>10M+ student enquiries</strong> and <strong>100M+ student interactions</strong>, enabling universities, colleges, and EdTech organizations to accelerate admissions with AI-powered CRM and intelligent automation.</p>
+    <p class="logo-sub" style="max-width:760px;margin:0 auto 18px;color:#5a6b85;font-size:clamp(.95rem,1.6vw,1.05rem);line-height:1.6">ExtraaEdge manages <strong>10M+ student enquiries</strong>, enabling universities, colleges and EdTech organizations to accelerate admissions with the Vidya AI suite and intelligent automation.</p>
     <?php /* the visible twin of the AggregateRating already in the JSON-LD
              schema (4.7 / 320) - the two must always quote the same numbers */ ?>
     <div class="ee-rate" role="img" aria-label="Rated 4.7 out of 5 by over 320 admission teams">
@@ -1017,7 +1017,7 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   <div class="eew2-track" id="eew2Track">
   <div class="eew2-pin">
   <div class="eew2-wrap">
-    <h2 id="eew-h">Every Enquiry Answered. Every Follow-Up on Time. <em>Every Seat Accounted For.</em></h2>
+    <h2 id="eew-h">More Enquiries Converted. Counsellors Focused on What Moves the Needle. <em>Admissions You Can Predict.</em></h2>
     <p class="eew2-lead">Most Admission CRMs help you <strong>manage</strong> admissions. ExtraaEdge helps you <strong>design how admissions should work</strong> - end to end, at scale.</p>
     <div class="eew2-grid">
       <div class="eew2-visual">
@@ -1299,9 +1299,9 @@ html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19
       </div>
       <div class="rfa-cards" id="rfaCards">
       <article class="rfa-card on" data-i="0" tabindex="0">
-        <h3 class="rfa-title">Respond First Using AI Agents. Win Admissions.</h3>
+        <h3 class="rfa-title">Respond First with VidyaAgents. Win Admissions.</h3>
         <div class="rfa-body">
-          <p>Respond to every admission inquiry in minutes, not hours. Because the institute that responds first controls the conversation and conversion. ExtraaEdge brings all admission inquiries into one Admission CRM. AI-powered calling and intelligent routing ensure every prospect is contacted at the right moment - so counselors engage the right students faster and close more enrollments.</p>
+          <p>Respond to every admission enquiry in 60 seconds, not hours. Because the institute that responds first controls the conversation and conversion. ExtraaEdge brings all admission inquiries into one Admission CRM. AI-powered calling and intelligent routing ensure every prospect is contacted at the right moment - so counselors engage the right students faster and close more enrollments.</p>
           <b class="rfa-chiplbl">Unified Lead Ingestion Across</b>
           <div class="rfa-chips"><span>Ads Integration</span><span>Forms Integration</span><span>Third-Party Publisher Integration</span><span>AI Calling &amp; IVR Integration</span></div>
           <figure class="rfa-cardimg"><img width="1600" height="1000" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Integration%20Hub%20Flowchart.png" alt="Integration hub - every admission inquiry flows into one CRM" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"></figure>
@@ -1461,6 +1461,23 @@ html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19
    "real CRM" popup - lives in inc/platform-demo.php so the same block also
    serves /product-tour/ and the [ee_platform] shortcode. */
 ee_platform_section(); ?>
+
+<!-- ===================== ARCHITECT MINDSET (brand philosophy band) ===================== -->
+<section id="ee-architect" aria-label="The Architect Mindset">
+  <style>
+    #ee-architect{background:#fff;padding:clamp(34px,4.5vw,54px) 22px;font-family:'Inter',system-ui,sans-serif}
+    #ee-architect .am{max-width:880px;margin:0 auto;text-align:center}
+    #ee-architect .am-kick{display:inline-flex;align-items:center;gap:8px;font:800 11px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B5551D;background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.2);border-radius:999px;padding:7px 16px;margin-bottom:16px}
+    #ee-architect blockquote{margin:0;font-size:clamp(19px,2.6vw,28px);font-weight:800;line-height:1.35;letter-spacing:-.02em;color:#19335D}
+    #ee-architect blockquote em{font-style:normal;color:#DE6E30}
+    #ee-architect .am-sub{margin:12px auto 0;font-size:13.5px;color:#5a6b85;max-width:56ch}
+  </style>
+  <div class="am rv">
+    <span class="am-kick">The Architect Mindset</span>
+    <blockquote>&ldquo;Every admission team is different. We configure around <em>your funnel</em>, not the other way around.&rdquo;</blockquote>
+    <p class="am-sub">Configuration, not customization: we listen, study how your admissions actually run, then build the platform around it.</p>
+  </div>
+</section>
 
 <section id="stories" aria-labelledby="stories-title">
   <style>
@@ -2003,7 +2020,7 @@ ee_platform_section(); ?>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-brand-navy text-center mb-10 lg:mb-14 tracking-tight">
-                Seven Modules. One Admissions Command Centre.
+                Seven Products. One Admissions Growth Platform.
             </h2>
 
             <!-- Sticky Scrolling Storytelling Layout -->
@@ -2023,7 +2040,7 @@ ee_platform_section(); ?>
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/01-VidyaAI-Intelligence.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem" loading="lazy" decoding="async">
                                 </div>
                                 <div>
-                                    <span class="text-sm font-semibold text-brand-navy nav-title transition-colors">VidyaAI Intelligence</span>
+                                    <span class="text-sm font-semibold text-brand-navy nav-title transition-colors">Vidya AI Suite</span>
                                     <p class="text-xs text-slate-500 line-clamp-1">24x7 Assistant, Intent Scoring & Calling</p>
                                 </div>
                             </div>
@@ -2038,7 +2055,7 @@ ee_platform_section(); ?>
                                     <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/02-Admission-CRM.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em;font-size:1.125rem" loading="lazy" decoding="async">
                                 </div>
                                 <div>
-                                    <span class="text-sm font-semibold text-slate-700 nav-title transition-colors">Admission CRM</span>
+                                    <span class="text-sm font-semibold text-slate-700 nav-title transition-colors">Admissions Core</span>
                                     <p class="text-xs text-slate-500 line-clamp-1">Centralized Prospect Tracking</p>
                                 </div>
                             </div>
@@ -2133,9 +2150,9 @@ ee_platform_section(); ?>
                             <span class="p-2.5 bg-brand-orange/10 text-brand-orange rounded-xl text-lg"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/08-VidyaAI-Admission-Intelligence.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em" loading="lazy" decoding="async"></span>
                             <span class="text-xs font-bold tracking-wider text-brand-orange uppercase">AI Engine</span>
                         </div>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-brand-navy mb-4">VidyaAI Admission Intelligence</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-brand-navy mb-4">Vidya AI: VidyaGPT, VidyaPulse &amp; VidyaAgents</h2>
                         <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
-                            Next-gen artificial intelligence engineered to elevate counselor efficiency, accelerate response velocity, and qualify student intent in real-time.
+                            AI built for one job: more admissions with less manual work. VidyaGPT engages every enquiry, VidyaPulse scores intent, VidyaAgents call and follow up.
                         </p>
 
                         <div class="story-img-container mb-8 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner group-hover:border-brand-orange/30 img-skeleton">
@@ -2150,7 +2167,7 @@ ee_platform_section(); ?>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-orange/30 transition-all">
                                 <div class="flex items-center gap-2 mb-1 text-brand-navy font-semibold text-sm">
-                                    <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/09-AI-Admission-Assist.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em" loading="lazy" decoding="async"> AI Admission Assist
+                                    <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/09-AI-Admission-Assist.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em" loading="lazy" decoding="async"> VidyaGPT AI Admission Assist
                                 </div>
                                 <p class="text-xs text-slate-600">24×7 AI that answers student queries, guides applications, and supports counselors with live context without delays.</p>
                             </div>
@@ -2162,13 +2179,13 @@ ee_platform_section(); ?>
                             </div>
                             <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-orange/30 transition-all">
                                 <div class="flex items-center gap-2 mb-1 text-brand-navy font-semibold text-sm">
-                                    <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/11-Smart-Follow-up-Intelligence.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em" loading="lazy" decoding="async"> Smart Follow-up Intelligence
+                                    <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/11-Smart-Follow-up-Intelligence.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em" loading="lazy" decoding="async"> VidyaAgents Smart Follow-up Intelligence
                                 </div>
                                 <p class="text-xs text-slate-600">AI tells your team who to follow up with, when to act, and what to do next, reducing missed opportunities.</p>
                             </div>
                             <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-orange/30 transition-all">
                                 <div class="flex items-center gap-2 mb-1 text-brand-navy font-semibold text-sm">
-                                    <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/12-AI-Calling-for-Qualification.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em" loading="lazy" decoding="async"> AI Calling for Qualification
+                                    <img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/12-AI-Calling-for-Qualification.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em" loading="lazy" decoding="async"> VidyaAgents AI Calling for Qualification
                                 </div>
                                 <p class="text-xs text-slate-600">Qualifies large volumes of inquiries, captures intent, and passes only serious prospects to counselors.</p>
                             </div>
@@ -2188,7 +2205,7 @@ ee_platform_section(); ?>
                             <span class="p-2.5 bg-brand-navy/10 text-brand-navy rounded-xl text-lg"><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/powerfull-crm/icons/14-Core-System.svg" alt="" style="width:1em;height:1em;object-fit:contain;display:inline-block;vertical-align:-0.125em" loading="lazy" decoding="async"></span>
                             <span class="text-xs font-bold tracking-wider text-brand-navy uppercase">Core System</span>
                         </div>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-brand-navy mb-4">Admission CRM</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-brand-navy mb-4">Admissions Core</h2>
                         <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
                             Admission CRM software centralizes your entire admissions process, giving you real-time visibility into every prospect's journey from enquiry to enrolment. Track inquiries, manage applications, and automate follow-ups seamlessly, all from one platform. With intelligent lead prioritization, your team focuses on high-potential candidates while data-driven insights guide every decision.
                         </p>
@@ -2874,7 +2891,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
       <div class="vsx-inner">
         <header class="vsx-head">
           <h2>Meet Vidya AI, the Agentic AI Suite <span class="vsx-h2b">Built for Smarter Admissions</span></h2>
-          <p class="vsx-lead">Your always-on AI workforce - it engages every prospective student, qualifies leads instantly, automates follow-ups, supports counselors, and accelerates enrollments - so your teams can focus on building meaningful student relationships instead of repetitive tasks.</p>
+          <p class="vsx-lead">Your AI admissions co-pilot, on 24&times;7: it engages every prospective student, qualifies leads instantly, automates follow-ups, supports counselors, and accelerates enrollments - so your teams can focus on building meaningful student relationships instead of repetitive tasks.</p>
         </header>
 
         <div class="vsx-stage">
@@ -2887,7 +2904,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-                  <span class="vsx-brand">Vidya GPT <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
+                  <span class="vsx-brand">VidyaGPT <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
                 </div>
               </div>
               <h3>24&times;7 AI Chat Counsellor</h3>
@@ -2911,7 +2928,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-pulse.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-                  <span class="vsx-brand">Vidya Pulse <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
+                  <span class="vsx-brand">VidyaPulse <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
                 </div>
               </div>
               <h3>AI Lead Scoring &amp; Intent</h3>
@@ -2935,7 +2952,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               <div class="vsx-jrow">
                 <div class="vsx-jhead">
                   <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-ai-voice-agent.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-                  <span class="vsx-brand">Vidyaai Voice Agent <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
+                  <span class="vsx-brand">VidyaAgents <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
                 </div>
               </div>
               <h3>AI Voice Calling Agent</h3>
@@ -2952,54 +2969,6 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               <div class="vsx-jfoot">
                 <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
                 <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg></i>10+ languages</span>
-              </div>
-            </article>
-
-            <article class="vsx-card vsx-job" style="--ca:#3474d3;transform:scale(.87);opacity:.72;filter:blur(3px)">
-              <div class="vsx-jrow">
-                <div class="vsx-jhead">
-                  <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidyawaba-gpt.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-                  <span class="vsx-brand">VidyaWABA GPT <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
-                </div>
-              </div>
-              <h3>WhatsApp AI Assistant</h3>
-              <dl class="vsx-meta">
-                  <div><dt>Channel</dt><dd>WhatsApp API</dd></div>
-                  <div><dt>Account</dt><dd>Verified</dd></div>
-                  <div><dt>Journeys</dt><dd>Automated</dd></div>
-              </dl>
-              <div class="vsx-quote">
-                <span class="vsx-qm" aria-hidden="true">&ldquo;</span>
-                <p class="vsx-desc">Runs admissions on the official, verified WhatsApp Business API &mdash; automated replies, smart broadcasts and personalised nurture journeys at scale, with every reply logged back to the lead.</p>
-                <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
-              </div>
-              <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-waba-gpt" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
-                <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-8 8H4l2.1-3.1A8 8 0 1121 12z"/></svg></i>Official WABA</span>
-              </div>
-            </article>
-
-            <article class="vsx-card vsx-job" style="--ca:#fb8124;transform:scale(.87);opacity:.72;filter:blur(3px)">
-              <div class="vsx-jrow">
-                <div class="vsx-jhead">
-                  <span class="vsx-ic vsx-ic--img" aria-hidden="true"><img src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/vidya-ai-fevicons/vidya-work.svg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('vsx-ic--img');this.remove()"></span>
-                  <span class="vsx-brand">Vidya Work <svg class="vsx-verified" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.8l2.4 1.9 3-.3 1 2.9 2.6 1.6-1 2.9 1 2.9-2.6 1.6-1 2.9-3-.3L12 22.2 9.6 20.3l-3 .3-1-2.9L3 16.1l1-2.9-1-2.9 2.6-1.6 1-2.9 3 .3z"/><path d="M10.6 15.3l-2.9-2.9 1.3-1.3 1.6 1.6 4-4 1.3 1.3z" fill="#fff"/></svg></span>
-                </div>
-              </div>
-              <h3>Admission Task Automation <span class="vsx-soon">Upcoming</span></h3>
-              <dl class="vsx-meta">
-                  <div><dt>Runs</dt><dd>Follow-ups</dd></div>
-                  <div><dt>Routing</dt><dd>Automatic</dd></div>
-                  <div><dt>Available</dt><dd>24&times;7</dd></div>
-              </dl>
-              <div class="vsx-quote">
-                <span class="vsx-qm" aria-hidden="true">&ldquo;</span>
-                <p class="vsx-desc">Auto-triggers follow-ups and reminders, routes and assigns tasks on its own, and runs the repetitive busywork in the background so every lead keeps moving forward.</p>
-                <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
-              </div>
-              <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-work" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
-                <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg></i>Zero busywork</span>
               </div>
             </article>
 
@@ -3084,7 +3053,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
 html body #main-content #ee-vidya-suite .vsx-card.vsx-job h3{ margin:0; color:var(--jink);
   font-family:'Inter',sans-serif; font-weight:800 !important; }
 
-/* "Upcoming" tag - Vidya Work is not shipped yet, so the card says so
+/* "Upcoming" tag styles kept for future pre-launch cards
    next to the name rather than reading like a live module */
 #ee-vidya-suite .vsx-soon{ display:inline-block; vertical-align:middle;
   margin-left:8px; padding:5px 10px; border-radius:999px;
@@ -3615,15 +3584,15 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
 <section id="ee-cro" aria-label="Why teams choose ExtraaEdge + ROI calculator">
   <div class="cw">
     <div class="ch">
-      <h2>The only <em>AI-native</em> Admission CRM</h2>
-      <p>Others automate. ExtraaEdge actually <b>calls, qualifies and follows up</b> with every student using AI - so your team only talks to ready-to-enrol leads.</p>
+      <h2>The only <em>AI-native</em> Admissions Growth Platform</h2>
+      <p>Built for admissions growth, not process compliance. Others automate tasks. ExtraaEdge <b>calls, qualifies and follows up</b> with every lead, every time - so your team only talks to ready-to-enrol students.</p>
     </div>
     <div class="cmp" role="table" aria-label="Feature comparison">
       <div class="cmp-row head" role="row">
         <div role="columnheader">Capability</div>
         <div class="us" role="columnheader"><span class="usbadge"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.2l-5.8 3.6 1.6-6.6L2.6 8.8l6.8-.5L12 2z"/></svg></span>ExtraaEdge</div>
-        <div role="columnheader">Other CRMs</div>
-        <div role="columnheader">Generic tools</div>
+        <div role="columnheader">Meritto / LeadSquared</div>
+        <div role="columnheader">Generic CRMs (Zoho, Salesforce)</div>
       </div>
       <div class="cmp-row" role="row"><div class="feat" role="rowheader"><span class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg></span><span>AI Voice Agent<small>calls leads in 10+ languages</small></span></div><div class="cell us" role="cell"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><div class="cell" role="cell"><span class="no">&mdash;</span></div><div class="cell" role="cell"><span class="no">&mdash;</span></div></div>
       <div class="cmp-row" role="row"><div class="feat" role="rowheader"><span class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 8.6 8.6 0 0 1-3.9-.9L3 21l2-5.5a8.4 8.4 0 1 1 16-4z"/><path d="M9 11h.01M12.5 11h.01M16 11h.01"/></svg></span><span>24&times;7 AI chat counsellor<small>VidyaGPT</small></span></div><div class="cell us" role="cell"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><div class="cell" role="cell"><span class="mid">Basic bot</span></div><div class="cell" role="cell"><span class="mid">Basic bot</span></div></div>
@@ -3652,7 +3621,7 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
           <div><b>+40%</b><span>Conversion lift</span></div>
         </div>
         <a href="#admission-form" class="cta">Get my detailed ROI report</a>
-        <div class="fine">Projection based on a typical +40% conversion lift. Book a demo for numbers on your real funnel.</div>
+        <div class="fine">Based on an up to 40% conversion lift seen across 500+ institutions. Your detailed ROI report arrives within 24 hours, specific to your enquiry volume and institution type.</div>
       </div>
     </div>
   </div>
@@ -3967,7 +3936,7 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   <div class="container">
     <div class="ih-head rv">
       <h2 class="h2 ih-h2">Connect Your <em>Admissions Stack</em><br> With <em>ExtraaEdge</em></h2>
-      <p class="ih-lead">Seamlessly integrate the tools your team already uses and manage every student interaction from <b>one connected CRM</b>.</p>
+      <p class="ih-lead">Connect your ads, portals, telephony and ERP in days - our team handles the setup. Manage every student interaction from <b>one connected platform</b>.</p>
     </div>
 
     <div class="ih-board rv" id="ihBoard">
@@ -4114,7 +4083,7 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   <div class="container">
     <div class="head rv">
       <h2 class="h2">Your students' data, <span class="grad-o">protected by design.</span></h2>
-      <p class="lead">Bank-grade security and compliance, so your institution and applicants are always safe.</p>
+      <p class="lead">ISO 27001 certified. GDPR compliant. India data residency. DPDP-ready: student data handled with full consent and audit trails.</p>
     </div>
     <div class="sec-grid rv">
       <div class="sec-item"><div class="ic"><img decoding="async" src="https://www.extraaedge.com/wp-content/uploads/integration-icons/iso%20certified%20logo.png" alt="ISO 27001" loading="lazy"></div><b>ISO 27001 Certified</b><span>Audited information-security management.</span></div>
@@ -4186,7 +4155,7 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
       <div class="st"><div class="n">3</div><div class="day">Day 5&ndash;6</div><h3>AI &amp; WhatsApp config</h3><p>VidyaAI calling, VidyaGPT &amp; WhatsApp API live and tested.</p></div>
       <div class="st"><div class="n">4</div><div class="day">Day 7</div><h3>Go live + training</h3><p>Counsellors trained, you start converting from day one.</p></div>
     </div>
-    <p class="note">Start this week and be live <b>before your next intake opens</b> - teams that onboard mid-cycle lose a season of leads.</p>
+    <p class="note">Standard go-live: <b>7 days</b>. Switching with full data migration: <b>14 days</b>. Start this week and be live before your next intake opens.</p>
     <p style="text-align:center;margin:18px 0 0"><a href="#admission-form" style="display:inline-flex;align-items:center;gap:9px;background:#DE6E30;color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:12px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.6)">Get my onboarding plan &rarr;</a></p>
   </div>
 </section>
@@ -4196,8 +4165,8 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   <div class="rvw">
     <div class="sw">
       <div class="swl">
-                <h2>Switching is easy - leave your legacy CRM in <em>14 days</em>.</h2>
-        <p>Outgrown a generic CRM or a basic enrollment tool? Move to the AI-native platform built only for admissions - we do the heavy lifting.</p>
+                <h2>Move to ExtraaEdge in <em>14 days</em>: data migration included, zero downtime.</h2>
+        <p>Outgrown a generic CRM or a basic enrolment tool? You are not switching CRMs - you are moving to India&rsquo;s Intelligent Admissions Growth Platform. We do the heavy lifting.</p>
         <ul>
           <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> <b>Free data migration</b> - leads, history &amp; templates</li>
           <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> Run both in parallel - <b>zero downtime</b></li>
@@ -4207,8 +4176,8 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
       </div>
       <div class="swr">
         <div class="gain">What you gain on day one</div>
-        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-02.svg" alt="" loading="lazy" decoding="async"></b> AI Voice Agent that calls leads in 30 sec</div>
-        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-03.svg" alt="" loading="lazy" decoding="async"></b> VidyaGPT - 24&times;7 AI counsellor</div>
+        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-02.svg" alt="" loading="lazy" decoding="async"></b> VidyaAgents call every new lead in 60 seconds</div>
+        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-03.svg" alt="" loading="lazy" decoding="async"></b> VidyaGPT: 24&times;7 AI counsellor</div>
         <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-04.svg" alt="" loading="lazy" decoding="async"></b> Real-time AI lead intent scoring</div>
         <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-05.svg" alt="" loading="lazy" decoding="async"></b> 95+ languages on chat &amp; voice</div>
       </div>
@@ -4243,7 +4212,7 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   <div class="rvw">
     <div class="rvh">
       <h2>Simple, <em>product-based</em> pricing.</h2>
-      <p>No per-module surprises that stack up as you grow - pay for the products you use, sized to your enquiry volume.</p>
+      <p>Meritto and LeadSquared charge per module. We price per product: one platform, one Vidya AI suite, one WhatsApp API - sized to your enquiry volume, no hidden add-ons.</p>
     </div>
     <div class="pz rv">
       <div class="pzl">
@@ -4277,13 +4246,13 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
       <h2 class="h2">Everything you need to know about <span class="grad-o">ExtraaEdge.</span></h2>
     </div>
     <div class="faq rv">
-      <div class="qa"><button aria-expanded="false"><span>What is ExtraaEdge?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge is an AI-powered Admission CRM purpose-built for educational institutions - schools, colleges, universities and edtech companies. It automates lead capture, scores intent, triggers smart follow-ups and gives counsellors real-time performance intelligence.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>How does ExtraaEdge help convert more students?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge prioritises high-intent leads with AI scoring, responds to every enquiry in minutes with AI calling and WhatsApp automation, and tells counsellors exactly who to follow up with next - reducing response time by up to 90% and boosting conversions by up to 48%.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>What is ExtraaEdge?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge is India's Intelligent Admissions Growth Platform, purpose-built for educational institutions - schools, colleges, universities and edtech companies. Its Vidya AI suite (VidyaGPT, VidyaPulse and VidyaAgents) handles enquiry response, lead prioritisation and follow-up automatically, so counsellors focus on conversion.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>How does ExtraaEdge help convert more students?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge prioritises high-intent leads with VidyaPulse scoring, responds to every enquiry in 60 seconds with VidyaAgents calling and WhatsApp automation, and tells counsellors exactly who to follow up with next - reducing response time by up to 90% and lifting conversions by up to 40%.</p></div></div>
       <div class="qa"><button aria-expanded="false"><span>Does ExtraaEdge offer a free demo?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. You can book a free personalised 45-minute demo. A product expert will walk you through the platform live with data relevant to your sector.</p></div></div>
       <div class="qa"><button aria-expanded="false"><span>Is ExtraaEdge suitable for small colleges?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge serves institutions from single-campus colleges to large university groups processing 100,000+ applications per cycle. Pricing and features scale to your needs.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>What AI features does ExtraaEdge offer?</span><span class="ic">+</span></button><div class="qa__a"><p>AI Lead Intent Scoring, AI Calling at scale via VidyaAI, Smart Follow-up Automation, WhatsApp Business API engagement and Counsellor Performance Intelligence - all powered by ExtraaEdge's proprietary Admission Intelligence engine.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>What AI features does ExtraaEdge offer?</span><span class="ic">+</span></button><div class="qa__a"><p>VidyaGPT: 24x7 AI chat on your website and WhatsApp. VidyaPulse: lead intent scoring (HOT / WARM / COLD). VidyaAgents: AI calling, smart follow-ups and counsellor performance intelligence. All part of the Vidya AI suite, engineered for the admission workflow.</p></div></div>
       <div class="qa"><button aria-expanded="false"><span>Will ExtraaEdge work with my existing ads and website?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge captures leads automatically from Meta &amp; Google Ads, your website and landing pages, education portals (Shiksha, Collegedunia), WhatsApp, IVR and more - so every enquiry lands in one place with full source tracking. It also connects to your ERP/SIS, payment gateway and telephony.</p></div></div>
-      <div class="qa"><button aria-expanded="false"><span>How long does it take to go live?</span><span class="ic">+</span></button><div class="qa__a"><p>Most institutions go live in around 14 days. That includes data migration, integrations (ads, website, WhatsApp, telephony), workflow set-up and counsellor training - with a dedicated onboarding specialist and Customer Success Manager.</p></div></div>
+      <div class="qa"><button aria-expanded="false"><span>How long does it take to go live?</span><span class="ic">+</span></button><div class="qa__a"><p>Starting fresh: 7 days to go live. Switching from an existing system: 14 days, including full data migration, integrations (ads, website, WhatsApp, telephony), workflow set-up and counsellor training, with a dedicated onboarding specialist and Customer Success Manager.</p></div></div>
       <div class="qa"><button aria-expanded="false"><span>Does VidyaGPT support regional languages?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. VidyaGPT understands and responds in 95+ languages including Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, Gujarati and more - over chat and on AI voice calls - so you can engage every student in their preferred language.</p></div></div>
       <div class="qa"><button aria-expanded="false"><span>Is my data secure with ExtraaEdge?</span><span class="ic">+</span></button><div class="qa__a"><p>Yes. ExtraaEdge is ISO 27001 certified and GDPR compliant, with India-based data residency, role-based access controls, encryption and full audit trails - enterprise-grade protection for your institution and applicants.</p></div></div>
       <div class="qa"><button aria-expanded="false"><span>How does pricing work?</span><span class="ic">+</span></button><div class="qa__a"><p>ExtraaEdge uses simple, transparent product-based pricing - not module-based pricing that adds cost every time you scale. Your demo includes a tailored quote based on your enquiry volume and the modules you need, with no hidden third-party charges.</p></div></div>
@@ -4359,7 +4328,7 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
       <button type="button" class="epn-tab" data-g="convert" aria-pressed="false">Convert & Enroll <i>3</i></button>
       <button type="button" class="epn-tab" data-g="automate" aria-pressed="false">Automate <i>4</i></button>
       <button type="button" class="epn-tab" data-g="measure" aria-pressed="false">Measure <i>5</i></button>
-      <button type="button" class="epn-tab" data-g="vidya" aria-pressed="false">Vidya AI <i>5</i></button>
+      <button type="button" class="epn-tab" data-g="vidya" aria-pressed="false">Vidya AI <i>4</i></button>
       <button type="button" class="epn-tab" data-g="essentials" aria-pressed="false">Essentials <i>2</i></button>
       <button type="button" class="epn-tab" data-g="all" aria-pressed="false">All</button>
     </div>
@@ -4487,17 +4456,12 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
       </a>
       <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener" hidden>
         <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaAI Voice Agent</b><small>Vidya AI</small></span></span>
-        <p>Calls every new lead in 30 seconds.</p>
+        <p>Calls every new lead in 60 seconds.</p>
         <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
       <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-pulse" target="_blank" rel="noopener" hidden>
         <span class="epn-top"><span class="epn-ic epn-ic--b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaPulse</b><small>Vidya AI</small></span></span>
         <p>Live buying-intent scores on every lead.</p>
-        <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="epn-card" data-g="vidya" href="https://getvidya.ai/vidya-waba-gpt" target="_blank" rel="noopener" hidden>
-        <span class="epn-top"><span class="epn-ic epn-ic--a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg></span><span class="epn-tt"><b>VidyaWABA GPT</b><small>Vidya AI</small></span></span>
-        <p>The AI assistant living on WhatsApp.</p>
         <span class="epn-foot">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
       </a>
       <a class="epn-card" data-g="essentials" href="/integrations/" hidden>
@@ -4771,8 +4735,8 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
           <p class="sol2-plead">Every capability on this platform exists for these six numbers.</p>
           <div class="sol2-rows">
             <a class="sol2-row" href="/solutions/increase-admissions/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Increase Admissions</b><span>More seats, same team &amp; budget</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/improve-conversion/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Improve Conversion Rate</b><span>+37% measured across institutions</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
-            <a class="sol2-row" href="/solutions/faster-follow-ups/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Faster Follow-ups</b><span>Hours of delay down to 30 sec</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/improve-conversion/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Improve Conversion Rate</b><span>+up to 40% across 500+ institutions</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+            <a class="sol2-row" href="/solutions/faster-follow-ups/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Faster Follow-ups</b><span>Hours of delay down to 60 seconds</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
             <a class="sol2-row" href="/solutions/reduce-manual-work/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Reduce Manual Work</b><span>Hours back every single week</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
             <a class="sol2-row" href="/solutions/increase-roi/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Increase Marketing ROI</b><span>More enrolments per rupee spent</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
             <a class="sol2-row" href="/solutions/better-student-experience/"><span class="sol2-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sol2-rt"><b>Better Student Experience</b><span>Admissions students actually enjoy</span></span><span class="sol2-arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
@@ -5089,7 +5053,7 @@ document.querySelectorAll('[data-count]').forEach(function(el){cObs.observe(el);
       if(!RM)requestAnimationFrame(draw);})();
   }
   /* morphing KPI views */
-  var views=[{t:'· TODAY',conv:'+12%',rt:'58s',clo:'9.2x'},{t:'· THIS WEEK',conv:'+19%',rt:'1.1m',clo:'7.8x'},{t:'· THIS CYCLE',conv:'+48%',rt:'1.4m',clo:'9.2x'}];
+  var views=[{t:'· TODAY',conv:'+12%',rt:'58s',clo:'9.2x'},{t:'· THIS WEEK',conv:'+19%',rt:'1.1m',clo:'7.8x'},{t:'· THIS CYCLE',conv:'+40%',rt:'1.4m',clo:'9.2x'}];
   var v=0,tag=document.getElementById('viewTag'),kc=document.getElementById('kConv'),kr=document.getElementById('kRt'),kl=document.getElementById('kClo');
   if(tag&&kc&&kr&&kl){ setInterval(function(){v=(v+1)%views.length;var d=views[v];tag.textContent=d.t;kc.textContent=d.conv;kr.textContent=d.rt;kl.textContent=d.clo;},2600); }
 })();
