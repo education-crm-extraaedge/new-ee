@@ -1512,6 +1512,10 @@ ee_platform_section(); ?>
     #stories .cs3-q{margin:0 0 10px;color:#5A6B85;font-size:13px;line-height:1.7;max-width:62ch}
     #stories .cs3-n{margin:0;color:#19335D;font-size:12.5px}
     #stories .cs3-n b{font-weight:700}
+    /* speaker's logo - optional per card, see data-logo on the cards below */
+    #stories .cs3-who{display:flex;align-items:center;gap:12px}
+    #stories .cs3-logo{flex:none;width:46px;height:46px;object-fit:contain;background:#fff;border:1px solid rgba(25,51,93,.12);border-radius:12px;padding:5px;box-shadow:0 8px 18px -12px rgba(25,51,93,.45)}
+    #stories .cs3-logo[hidden]{display:none}/* beats the global img{display:block} */
     #stories .cs3-playbtn{flex:none;display:inline-flex;align-items:center;gap:9px;border:0;cursor:pointer;background:#19335D;color:#fff;font:700 13px/1 'Inter',system-ui,sans-serif;padding:13px 22px;border-radius:999px;box-shadow:0 14px 30px -12px rgba(25,51,93,.55);transition:background .2s,transform .2s}
     #stories .cs3-playbtn:hover{background:#DE6E30;transform:translateY(-2px)}
     #stories .cs3-playbtn svg{width:13px;height:13px}
@@ -1534,61 +1538,61 @@ ee_platform_section(); ?>
     <button type="button" class="cs3-arw cs3-arw--r" aria-label="Next story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
     <div class="cs3-rail" role="list" aria-label="Customer stories">
 
-      <article class="cs3-card" role="listitem" data-yt="3SHgLf1GFgk" data-q="&ldquo;Tula's Institute streamlined its admissions process, strengthened student engagement, and empowered its team with a more organised admissions workflow.&rdquo;" data-n="Silky Jain Marwah" data-r="Executive Director at Tula's Institute, Dehradun" tabindex="0" aria-label="Customer story: Silky Jain Marwah">
+      <article class="cs3-card" role="listitem" data-yt="3SHgLf1GFgk" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/tula-s-institute-dehradun-logo.svg" data-q="&ldquo;Tula's Institute streamlined its admissions process, strengthened student engagement, and empowered its team with a more organised admissions workflow.&rdquo;" data-n="Silky Jain Marwah" data-r="Executive Director at Tula's Institute, Dehradun" tabindex="0" aria-label="Customer story: Silky Jain Marwah">
         <img src="https://img.youtube.com/vi/3SHgLf1GFgk/maxresdefault.jpg" alt="Silky Jain Marwah - ExtraaEdge customer story" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg'">
         <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       </article>
 
-      <article class="cs3-card" role="listitem" data-yt="dWLdQ8E3FOU" data-q="&ldquo;A unified admissions platform helped the team manage enquiries, improve follow-ups, and build a more efficient applicant journey.&rdquo;" data-n="Pranay Rupani" data-r="Head of Admissions &amp; Marketing at Annapurna College of Film &amp; Media" tabindex="0" aria-label="Customer story: Pranay Rupani">
+      <article class="cs3-card" role="listitem" data-yt="dWLdQ8E3FOU" data-logo="" data-q="&ldquo;A unified admissions platform helped the team manage enquiries, improve follow-ups, and build a more efficient applicant journey.&rdquo;" data-n="Pranay Rupani" data-r="Head of Admissions &amp; Marketing at Annapurna College of Film &amp; Media" tabindex="0" aria-label="Customer story: Pranay Rupani">
         <img src="https://img.youtube.com/vi/dWLdQ8E3FOU/maxresdefault.jpg" alt="Pranay Rupani - ExtraaEdge customer story" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg'">
         <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       </article>
 
-      <article class="cs3-card" role="listitem" data-yt="yfK83D2SKps" data-q="&ldquo;Simplified lead management and communication, with better counsellor visibility across the student admissions journey.&rdquo;" data-n="K. Nirmala Devi" data-r="Assistant Manager at Indian Academy Group, Bengaluru" tabindex="0" aria-label="Customer story: K. Nirmala Devi">
+      <article class="cs3-card" role="listitem" data-yt="yfK83D2SKps" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/indian-academy-degree-college-logo.svg" data-q="&ldquo;Simplified lead management and communication, with better counsellor visibility across the student admissions journey.&rdquo;" data-n="K. Nirmala Devi" data-r="Assistant Manager at Indian Academy Group, Bengaluru" tabindex="0" aria-label="Customer story: K. Nirmala Devi">
         <img src="https://img.youtube.com/vi/yfK83D2SKps/maxresdefault.jpg" alt="K. Nirmala Devi - ExtraaEdge customer story" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg'">
         <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       </article>
 
-      <article class="cs3-card" role="listitem" data-yt="tLExH5jpQbw" data-q="&ldquo;Streamlined enquiry handling, faster follow-ups and clearer visibility across the entire admission funnel.&rdquo;" data-n="Uttaranchal University" data-r="University &middot; Dehradun" tabindex="0" aria-label="Customer story: Uttaranchal University">
+      <article class="cs3-card" role="listitem" data-yt="tLExH5jpQbw" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/uttaranchal-university-logo.svg" data-q="&ldquo;Streamlined enquiry handling, faster follow-ups and clearer visibility across the entire admission funnel.&rdquo;" data-n="Uttaranchal University" data-r="University &middot; Dehradun" tabindex="0" aria-label="Customer story: Uttaranchal University">
         <img src="https://img.youtube.com/vi/tLExH5jpQbw/maxresdefault.jpg" alt="Uttaranchal University - ExtraaEdge customer story" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='https://img.youtube.com/vi/tLExH5jpQbw/hqdefault.jpg'">
         <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       </article>
 
-      <article class="cs3-card" role="listitem" data-yt="9l99MjTfEbw" data-q="&ldquo;One platform for leads, counsellors and communication across the group&rsquo;s campuses.&rdquo;" data-n="Amrapali Group of Institutes" data-r="Group of Institutes &middot; Haldwani" tabindex="0" aria-label="Customer story: Amrapali Group of Institutes">
+      <article class="cs3-card" role="listitem" data-yt="9l99MjTfEbw" data-logo="" data-q="&ldquo;One platform for leads, counsellors and communication across the group&rsquo;s campuses.&rdquo;" data-n="Amrapali Group of Institutes" data-r="Group of Institutes &middot; Haldwani" tabindex="0" aria-label="Customer story: Amrapali Group of Institutes">
         <img src="https://img.youtube.com/vi/9l99MjTfEbw/maxresdefault.jpg" alt="Amrapali Group of Institutes - ExtraaEdge customer story" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='https://img.youtube.com/vi/9l99MjTfEbw/hqdefault.jpg'">
         <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       </article>
 
-      <article class="cs3-card" role="listitem" data-yt="7sPbL3uvha0" data-q="&ldquo;ExtraaEdge CRM helped the team hit its admissions target for the cycle.&rdquo;" data-n="DPU Global Business School" data-r="B-School &middot; Pune" tabindex="0" aria-label="Customer story: DPU Global Business School">
+      <article class="cs3-card" role="listitem" data-yt="7sPbL3uvha0" data-logo="" data-q="&ldquo;ExtraaEdge CRM helped the team hit its admissions target for the cycle.&rdquo;" data-n="DPU Global Business School" data-r="B-School &middot; Pune" tabindex="0" aria-label="Customer story: DPU Global Business School">
         <img src="https://img.youtube.com/vi/7sPbL3uvha0/maxresdefault.jpg" alt="DPU Global Business School - ExtraaEdge customer story" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='https://img.youtube.com/vi/7sPbL3uvha0/hqdefault.jpg'">
         <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       </article>
 
-      <article class="cs3-card" role="listitem" data-yt="KisEkYkGYs8" data-q="&ldquo;The team adopted ExtraaEdge CRM in just 10 days and brought its counselling pipeline into one organised view.&rdquo;" data-n="Admit Abroad" data-r="Study Abroad Consultants" tabindex="0" aria-label="Customer story: Admit Abroad">
+      <article class="cs3-card" role="listitem" data-yt="KisEkYkGYs8" data-logo="" data-q="&ldquo;The team adopted ExtraaEdge CRM in just 10 days and brought its counselling pipeline into one organised view.&rdquo;" data-n="Admit Abroad" data-r="Study Abroad Consultants" tabindex="0" aria-label="Customer story: Admit Abroad">
         <img src="https://img.youtube.com/vi/KisEkYkGYs8/maxresdefault.jpg" alt="Admit Abroad - ExtraaEdge customer story" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='https://img.youtube.com/vi/KisEkYkGYs8/hqdefault.jpg'">
         <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       </article>
 
-      <article class="cs3-card" role="listitem" data-yt="q53VDQFTq04" data-q="&ldquo;From first enquiry to final PGDM enrolment - the full admission journey on one platform.&rdquo;" data-n="FOSTIIMA Business School" data-r="B-School &middot; New Delhi" tabindex="0" aria-label="Customer story: FOSTIIMA Business School">
+      <article class="cs3-card" role="listitem" data-yt="q53VDQFTq04" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/edtech/fostiima-business-school-logo.svg" data-q="&ldquo;From first enquiry to final PGDM enrolment - the full admission journey on one platform.&rdquo;" data-n="FOSTIIMA Business School" data-r="B-School &middot; New Delhi" tabindex="0" aria-label="Customer story: FOSTIIMA Business School">
         <img src="https://img.youtube.com/vi/q53VDQFTq04/maxresdefault.jpg" alt="FOSTIIMA Business School - ExtraaEdge customer story" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='https://img.youtube.com/vi/q53VDQFTq04/hqdefault.jpg'">
         <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       </article>
 
-      <article class="cs3-card" role="listitem" data-yt="ApP0hhJ45NQ" data-q="&ldquo;Structure and speed for the admission journey, with organised leads and timely follow-ups.&rdquo;" data-n="IBSC" data-r="Institute of Management" tabindex="0" aria-label="Customer story: IBSC">
+      <article class="cs3-card" role="listitem" data-yt="ApP0hhJ45NQ" data-logo="" data-q="&ldquo;Structure and speed for the admission journey, with organised leads and timely follow-ups.&rdquo;" data-n="IBSC" data-r="Institute of Management" tabindex="0" aria-label="Customer story: IBSC">
         <img src="https://img.youtube.com/vi/ApP0hhJ45NQ/maxresdefault.jpg" alt="IBSC - ExtraaEdge customer story" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='https://img.youtube.com/vi/ApP0hhJ45NQ/hqdefault.jpg'">
         <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       </article>
 
-      <article class="cs3-card" role="listitem" data-yt="K3kqAHKJAgo" data-q="&ldquo;One place to manage enquiries, follow-ups and admissions for the whole team.&rdquo;" data-n="IIFT" data-r="Institute of Management" tabindex="0" aria-label="Customer story: IIFT">
+      <article class="cs3-card" role="listitem" data-yt="K3kqAHKJAgo" data-logo="" data-q="&ldquo;One place to manage enquiries, follow-ups and admissions for the whole team.&rdquo;" data-n="IIFT" data-r="Institute of Management" tabindex="0" aria-label="Customer story: IIFT">
         <img src="https://img.youtube.com/vi/K3kqAHKJAgo/maxresdefault.jpg" alt="IIFT - ExtraaEdge customer story" loading="lazy" decoding="async"
              onerror="this.onerror=null;this.src='https://img.youtube.com/vi/K3kqAHKJAgo/hqdefault.jpg'">
         <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
@@ -1600,7 +1604,10 @@ ee_platform_section(); ?>
   <div class="cs3-cap" id="cs3Cap" aria-live="polite">
     <div>
       <p class="cs3-q" id="cs3Q"></p>
-      <p class="cs3-n" id="cs3N"></p>
+      <div class="cs3-who">
+        <img class="cs3-logo" id="cs3Logo" src="" alt="" width="46" height="46" decoding="async" hidden>
+        <p class="cs3-n" id="cs3N"></p>
+      </div>
     </div>
     <button type="button" class="cs3-playbtn" id="cs3Play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Play customer story</button>
   </div>
@@ -1615,7 +1622,7 @@ ee_platform_section(); ?>
   var root=document.getElementById('stories'); if(!root) return;
   var rail=root.querySelector('.cs3-rail');
   var cards=[].slice.call(root.querySelectorAll('.cs3-card'));
-  var cap=document.getElementById('cs3Cap'), capQ=document.getElementById('cs3Q'), capN=document.getElementById('cs3N');
+  var cap=document.getElementById('cs3Cap'), capQ=document.getElementById('cs3Q'), capN=document.getElementById('cs3N'), capL=document.getElementById('cs3Logo');
   var active=-1, raf=0, capT=0;
 
   cards.forEach(function(c){ c.__media=c.innerHTML; });
@@ -1624,6 +1631,17 @@ ee_platform_section(); ?>
     c.classList.remove('playing');
     c.innerHTML=c.__media;
   }
+  /* The speaker's logo is optional: a card with no data-logo - or one whose
+     image fails to load - just shows the name on its own, no empty box. */
+  function setLogo(c){
+    if(!capL) return;
+    var src=c.getAttribute('data-logo')||'';
+    if(!src){ capL.hidden=true; capL.removeAttribute('src'); return; }
+    capL.onerror=function(){ capL.hidden=true; };
+    capL.src=src;
+    capL.alt=(c.dataset.n||'')+' logo';
+    capL.hidden=false;
+  }
   /* the caption always narrates whichever card is centred on the stage */
   function caption(c){
     clearTimeout(capT);
@@ -1631,6 +1649,7 @@ ee_platform_section(); ?>
     capT=setTimeout(function(){
       capQ.innerHTML=c.dataset.q;
       capN.innerHTML='<b>'+c.dataset.n+'</b>, '+c.dataset.r;
+      setLogo(c);
       cap.classList.remove('fade');
     },160);
   }
