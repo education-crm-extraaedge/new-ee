@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-11-brand-audit -->
+<!-- ee-front-tpl v2026-08-11-bigcenter -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -1489,8 +1489,8 @@ ee_platform_section(); ?>
     #stories .cs3-zone{position:relative}
     #stories .cs3-rail{--wc:min(880px,64vw);display:flex;gap:clamp(14px,2vw,24px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:6px calc((100vw - var(--wc))/2) 6px}
     #stories .cs3-rail::-webkit-scrollbar{display:none}
-    #stories .cs3-card{position:relative;flex:0 0 var(--wc);min-width:0;scroll-snap-align:center;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#0F2040;border:1px solid rgba(255,255,255,.65);outline:1px solid rgba(25,52,93,.12);box-shadow:0 24px 55px -30px rgba(25,51,93,.4);cursor:pointer;opacity:.55;transition:opacity .45s ease,box-shadow .45s ease}
-    #stories .cs3-card.on{opacity:1;box-shadow:0 60px 120px -36px rgba(15,32,64,.55),0 24px 48px -24px rgba(15,32,64,.35),0 2px 8px rgba(15,32,64,.12)}
+    #stories .cs3-card{position:relative;flex:0 0 var(--wc);min-width:0;scroll-snap-align:center;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#0F2040;border:1px solid rgba(255,255,255,.65);outline:1px solid rgba(25,52,93,.12);box-shadow:0 24px 55px -30px rgba(25,51,93,.4);cursor:pointer;opacity:.55;transform:scale(.8);transition:opacity .45s ease,transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .45s ease}
+    #stories .cs3-card.on{opacity:1;transform:scale(1);box-shadow:0 60px 120px -36px rgba(15,32,64,.55),0 24px 48px -24px rgba(15,32,64,.35),0 2px 8px rgba(15,32,64,.12)}
     #stories .cs3-card:focus-visible{outline:2px solid #DE6E30;outline-offset:3px}
     #stories .cs3-card img{width:100%;height:100%;object-fit:cover;display:block}
     #stories .cs3-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
