@@ -329,7 +329,7 @@ body.single-product { max-width: none !important; width: 100%; margin: 0; paddin
   --radius-sm:8px;--radius-md:16px;--radius-lg:24px;--radius-xl:32px;--radius-full:9999px;
   --shadow-sm:0 2px 8px rgba(25,51,93,.06);--shadow-md:0 8px 24px rgba(25,51,93,.10);--shadow-lg:0 24px 60px rgba(25,51,93,.14);--shadow-xl:0 40px 90px rgba(25,51,93,.18);
   --ease:cubic-bezier(.22,1,.36,1);--transition:all .4s var(--ease);
-  --toc-width:220px;
+  --toc-width:220px;--content-max:1280px;
 }
 html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{font-family:var(--font-b);background:var(--white);color:var(--text-dark);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
@@ -338,7 +338,7 @@ a{text-decoration:none;color:inherit;transition:var(--transition)}
 button{font-family:inherit;border:none;cursor:pointer;background:none}
 .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 
-.toc-zone-wrapper{display:grid;grid-template-columns:1fr var(--toc-width);align-items:start;width:100%;position:relative}.toc-zone-wrapper>.toc-column{order:2}.toc-zone-wrapper>.toc-content-column{order:1;min-width:0}
+.toc-zone-wrapper{display:grid;grid-template-columns:1fr var(--toc-width);align-items:start;width:100%;position:relative;padding-inline-start:clamp(0px, 100% - var(--content-max) - var(--toc-width), var(--toc-width))}.toc-zone-wrapper>.toc-column{order:2}.toc-zone-wrapper>.toc-content-column{order:1;min-width:0}
 .toc-column{position:sticky;top:100px;align-self:start;padding:20px 12px 20px 16px;max-height:calc(100vh - 120px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--orange) transparent}
 .toc-column::-webkit-scrollbar{width:3px}
 .toc-column::-webkit-scrollbar-thumb{background:var(--orange);border-radius:10px}
@@ -362,7 +362,11 @@ button{font-family:inherit;border:none;cursor:pointer;background:none}
 .toc-link.active::before{height:70%}
 .toc-link.active .toc-num{background:var(--orange);color:#fff;box-shadow:0 2px 6px rgba(222,110,48,.35)}
 
-.container{max-width:1280px;margin:0 auto;padding:0 24px}
+.container{max-width:var(--content-max);margin:0 auto;padding:0 24px}
+/* The TOC sits in its own grid track on the right, which pulls the article
+   column off the page's centre line. Mirroring that width as a leading
+   gutter - only as far as the spare space allows - puts the text back in
+   the middle on wide screens and changes nothing once the room runs out. */
 .pulse-dot{width:8px;height:8px;background:var(--orange);border-radius:50%;position:relative;flex-shrink:0}
 .pulse-dot::after{content:'';position:absolute;inset:0;background:var(--orange);border-radius:50%;animation:pulse-ring 2s ease-out infinite}
 @keyframes pulse-ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(3);opacity:0}}

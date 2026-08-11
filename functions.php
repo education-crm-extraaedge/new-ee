@@ -8899,7 +8899,9 @@ function ee_layout_sides_css() {
         $css .= '@media(min-width:1151px){.hero-layout{grid-template-columns:.9fr 1.1fr !important}.hero-layout>.hero-form-aside{order:-1 !important}}';
     }
     if (get_post_meta($id, '_ee_toc_side', true) === 'left') {
-        $css .= '@media(min-width:1201px){.toc-zone-wrapper{grid-template-columns:var(--toc-width) 1fr !important}.toc-zone-wrapper>.toc-column{order:0 !important}.toc-zone-wrapper>.toc-content-column{order:1 !important}}';
+        /* The centring gutter the templates add has to swap sides too, or it
+           would stack on top of the TOC instead of balancing it. */
+        $css .= '@media(min-width:1201px){.toc-zone-wrapper{grid-template-columns:var(--toc-width) 1fr !important;padding-inline-start:0 !important;padding-inline-end:clamp(0px, 100% - var(--content-max) - var(--toc-width), var(--toc-width)) !important}.toc-zone-wrapper>.toc-column{order:0 !important}.toc-zone-wrapper>.toc-content-column{order:1 !important}}';
     }
     if (get_post_meta($id, '_ee_rail_side', true) === 'right') {
         $css .= '@media(min-width:821px){.ee-float-nav{left:auto !important;right:18px !important}}';
