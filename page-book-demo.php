@@ -126,7 +126,7 @@ get_header();
 </style>
 
 <section id="ee-bd" aria-label="Book a demo">
-  <h1 class="sr">Book a Demo &mdash; ExtraaEdge Admission CRM</h1>
+  <h1 class="sr">Book a Demo &mdash; ExtraaEdge Intelligent Admissions Growth Platform</h1>
   <div class="bd-wrap">
 
     <div class="bd-l">
@@ -207,7 +207,7 @@ get_header();
       <div class="bd-card">
         <span class="bd-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg> Get a Personalized Demo</span>
         <h3>See ExtraaEdge in Action</h3>
-        <p class="bd-cs">Get a personalized walkthrough of the AI-powered Admissions CRM built for your institution.</p>
+        <p class="bd-cs">Get a personalized walkthrough of the Intelligent Admissions Growth Platform built for your institution.</p>
         <script async src="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js"></script>
         <div id="ee-form-7"></div>
         <div class="bd-trust">
