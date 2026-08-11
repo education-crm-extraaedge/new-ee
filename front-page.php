@@ -1463,19 +1463,43 @@ html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19
 ee_platform_section(); ?>
 
 <!-- ===================== ARCHITECT MINDSET (brand philosophy band) ===================== -->
-<section id="ee-architect" aria-label="The Architect Mindset">
+<section id="ee-architect" aria-label="How we configure the platform around your funnel">
   <style>
-    #ee-architect{background:#fff;padding:clamp(34px,4.5vw,54px) 22px;font-family:'Inter',system-ui,sans-serif}
-    #ee-architect .am{max-width:880px;margin:0 auto;text-align:center}
-    #ee-architect .am-kick{display:inline-flex;align-items:center;gap:8px;font:800 11px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B5551D;background:rgba(222,110,48,.08);border:1px solid rgba(222,110,48,.2);border-radius:999px;padding:7px 16px;margin-bottom:16px}
-    #ee-architect blockquote{margin:0;font-size:clamp(19px,2.6vw,28px);font-weight:800;line-height:1.35;letter-spacing:-.02em;color:#19335D}
+    /* ── The quote band: the one claim that separates us from legacy CRMs ──
+       A navy stage between two light sections, so the page pauses here. The
+       blueprint grid and the drawn quote mark carry the "architect" idea
+       without an eyebrow label announcing it. */
+    #ee-architect{position:relative;isolation:isolate;overflow:hidden;background:#19335D;padding:clamp(56px,7vw,92px) 22px;font-family:'Inter',system-ui,sans-serif}
+    #ee-architect::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+      background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+      background-size:58px 58px;
+      -webkit-mask-image:radial-gradient(ellipse 70% 74% at 50% 46%,#000 24%,transparent 76%);
+              mask-image:radial-gradient(ellipse 70% 74% at 50% 46%,#000 24%,transparent 76%)}
+    #ee-architect::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+      background:radial-gradient(circle at 5% 6%,rgba(222,110,48,.30),transparent 42%),radial-gradient(circle at 97% 97%,rgba(222,110,48,.15),transparent 46%)}
+    /* the quote mark sits in its own column, so the quote, the rule and the
+       supporting line all start on one edge instead of drifting apart */
+    #ee-architect .am{position:relative;z-index:1;max-width:1000px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(16px,3vw,34px);align-items:start;text-align:left}
+    #ee-architect .am-mark{width:clamp(38px,4.6vw,60px);height:auto;color:#DE6E30;margin-top:clamp(2px,.6vw,8px)}
+    #ee-architect blockquote{margin:0;font-size:clamp(21px,3vw,36px);font-weight:800;line-height:1.3;letter-spacing:-.025em;color:#fff}
     #ee-architect blockquote em{font-style:normal;color:#DE6E30}
-    #ee-architect .am-sub{margin:12px auto 0;font-size:13.5px;color:#5a6b85;max-width:56ch}
+    #ee-architect .am-rule{display:block;width:64px;height:4px;border-radius:4px;background:#DE6E30;margin:clamp(18px,2.4vw,26px) 0 clamp(13px,1.7vw,17px)}
+    #ee-architect .am-sub{margin:0;font-size:clamp(13.5px,1.3vw,15.5px);line-height:1.65;color:rgba(255,255,255,.74);max-width:62ch}
+    @media(max-width:640px){
+      #ee-architect .am{grid-template-columns:minmax(0,1fr);gap:12px}
+      #ee-architect .am-rule{margin-top:16px}
+    }
   </style>
   <div class="am rv">
-    <span class="am-kick">The Architect Mindset</span>
-    <blockquote>&ldquo;Every admission team is different. We configure around <em>your funnel</em>, not the other way around.&rdquo;</blockquote>
-    <p class="am-sub">Configuration, not customization: we listen, study how your admissions actually run, then build the platform around it.</p>
+    <svg class="am-mark" viewBox="0 0 64 48" fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M0 48V29.4C0 13.2 8.6 3 24.6 0l2.8 8.6C18 11.4 13 17 12.8 25.2H24V48H0z"/>
+      <path d="M36.6 48V29.4C36.6 13.2 45.2 3 61.2 0L64 8.6C54.6 11.4 49.6 17 49.4 25.2H60.6V48H36.6z"/>
+    </svg>
+    <div>
+      <blockquote>Every admission team is different. We configure around <em>your funnel</em>, not the other way around.</blockquote>
+      <span class="am-rule" aria-hidden="true"></span>
+      <p class="am-sub">Configuration, not customization: we listen, study how your admissions actually run, then build the platform around it.</p>
+    </div>
   </div>
 </section>
 
