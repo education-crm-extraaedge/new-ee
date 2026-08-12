@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-12-restored-skin -->
+<!-- ee-front-tpl v2026-08-12-storytelling -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -345,8 +345,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <li><a href="#xhero" data-t="xhero"><i>01</i><span>Top</span></a></li>
       <li><a href="#trusted-institutions" data-t="trusted-institutions"><i>02</i><span>Broad Client Base</span></a></li>
       <li><a href="#ee-platform" data-t="ee-platform"><i>03</i><span>AI Product-Led Experience</span></a></li>
-      <li><a href="#stories" data-t="stories"><i>04</i><span>CRM Impact Stories</span></a></li>
-      <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>05</i><span>Agentic AI Suite</span></a></li>
+      <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>04</i><span>Agentic AI Suite</span></a></li>
+      <li><a href="#stories" data-t="stories"><i>05</i><span>Customer Stories</span></a></li>
       <li><a href="#ee-ind" data-t="ee-ind"><i>06</i><span>Industries</span></a></li>
       <li><a href="#ee-cro" data-t="ee-cro"><i>07</i><span>Why teams switch to us</span></a></li>
       <li><a href="#integrations" data-t="integrations"><i>08</i><span>Extensions &amp; Integrations</span></a></li>
@@ -1013,6 +1013,8 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     border:1px solid rgba(25,52,93,.08)}
 }
 </style>
+
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">01</span><span class="k-lb">The problem</span><span class="k-sub">Where education CRM funnels actually lose students</span></div>
 <section id="ee-why" aria-labelledby="eew-h">
   <div class="eew2-track" id="eew2Track">
   <div class="eew2-pin">
@@ -1280,6 +1282,8 @@ html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19
 }
 @media(prefers-reduced-motion:reduce){#ee-rfa .rfa-card,#ee-rfa .rfa-shot,#ee-rfa .rfa-body{transition:none!important}}
 </style>
+
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">02</span><span class="k-lb">The better way</span><span class="k-sub">Admission management that responds first, not fastest-to-excuse</span></div>
 <section id="ee-rfa" aria-label="Respond first with AI agents - how ExtraaEdge wins admissions">
   <span class="rfa-orb o1" aria-hidden="true"></span>
   <span class="rfa-orb o2" aria-hidden="true"></span>
@@ -1457,189 +1461,17 @@ html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19
 
 <!-- (removed) STORY 1 · THE REAL PROBLEM - empty shell cleaned up; content was superseded and removed earlier -->
 
+
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">03</span><span class="k-lb">The platform, live</span><span class="k-sub">Explore the admission CRM software yourself, on sample data</span></div>
 <?php /* The whole platform section - styles, dummy CRM, overlay, tour and the
    "real CRM" popup - lives in inc/platform-demo.php so the same block also
    serves /product-tour/ and the [ee_platform] shortcode. */
 ee_platform_section(); ?>
 
 <!-- ===================== ARCHITECT MINDSET (brand philosophy band) ===================== -->
-<section id="ee-architect" aria-label="How we configure the platform around your funnel">
-  <style>
-    /* ── The quote band: the one claim that separates us from legacy CRMs ──
-       A navy stage between two light sections, so the page pauses here. The
-       blueprint grid and the drawn quote mark carry the "architect" idea
-       without an eyebrow label announcing it. */
-    #ee-architect{position:relative;isolation:isolate;overflow:hidden;background:#19335D;padding:clamp(56px,7vw,92px) 22px;font-family:'Inter',system-ui,sans-serif}
-    #ee-architect::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
-      background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
-      background-size:58px 58px;
-      -webkit-mask-image:radial-gradient(ellipse 70% 74% at 50% 46%,#000 24%,transparent 76%);
-              mask-image:radial-gradient(ellipse 70% 74% at 50% 46%,#000 24%,transparent 76%)}
-    #ee-architect::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
-      background:radial-gradient(circle at 5% 6%,rgba(222,110,48,.30),transparent 42%),radial-gradient(circle at 97% 97%,rgba(222,110,48,.15),transparent 46%)}
-    /* the quote mark sits in its own column, so the quote, the rule and the
-       supporting line all start on one edge instead of drifting apart */
-    #ee-architect .am{position:relative;z-index:1;max-width:1000px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(16px,3vw,34px);align-items:start;text-align:left}
-    #ee-architect .am-mark{width:clamp(38px,4.6vw,60px);height:auto;color:#DE6E30;margin-top:clamp(2px,.6vw,8px)}
-    #ee-architect blockquote{margin:0;font-size:clamp(21px,3vw,36px);font-weight:800;line-height:1.3;letter-spacing:-.025em;color:#fff}
-    #ee-architect blockquote em{font-style:normal;color:#DE6E30}
-    #ee-architect .am-rule{display:block;width:64px;height:4px;border-radius:4px;background:#DE6E30;margin:clamp(18px,2.4vw,26px) 0 clamp(13px,1.7vw,17px)}
-    #ee-architect .am-sub{margin:0;font-size:clamp(13.5px,1.3vw,15.5px);line-height:1.65;color:rgba(255,255,255,.74);max-width:62ch}
-    @media(max-width:640px){
-      #ee-architect .am{grid-template-columns:minmax(0,1fr);gap:12px}
-      #ee-architect .am-rule{margin-top:16px}
-    }
-  </style>
-  <div class="am rv">
-    <svg class="am-mark" viewBox="0 0 64 48" fill="currentColor" aria-hidden="true" focusable="false">
-      <path d="M0 48V29.4C0 13.2 8.6 3 24.6 0l2.8 8.6C18 11.4 13 17 12.8 25.2H24V48H0z"/>
-      <path d="M36.6 48V29.4C36.6 13.2 45.2 3 61.2 0L64 8.6C54.6 11.4 49.6 17 49.4 25.2H60.6V48H36.6z"/>
-    </svg>
-    <div>
-      <blockquote>Every admission team is different. We configure around <em>your funnel</em>, not the other way around.</blockquote>
-      <span class="am-rule" aria-hidden="true"></span>
-      <p class="am-sub">Configuration, not customization: we listen, study how your admissions actually run, then build the platform around it.</p>
-    </div>
-  </div>
-</section>
 
-<section id="stories" aria-labelledby="stories-title">
-  <style>
-    /* ── What Our Clients Are Saying · minimal light carousel (scoped #stories) ── */
-    #stories{position:relative;overflow:hidden;background:linear-gradient(180deg,#FBFCFE,#F5F8FC);padding:clamp(48px,6vw,84px) 0 clamp(44px,5.5vw,72px);font-family:'Inter',system-ui,sans-serif}
-    #stories .cs3-head{text-align:center;max-width:760px;margin:0 auto clamp(24px,3vw,38px);padding:0 24px}
-    html body #main-content #stories h2{color:#19335D !important;margin:0 !important}
-    /* rail: centred stage, neighbours crop at the viewport edges like the reference */
-    #stories .cs3-zone{position:relative}
-    #stories .cs3-rail{--wc:min(880px,64vw);display:flex;gap:clamp(14px,2vw,24px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:6px calc((100vw - var(--wc))/2) 6px}
-    #stories .cs3-rail::-webkit-scrollbar{display:none}
-    #stories .cs3-card{position:relative;flex:0 0 var(--wc);min-width:0;scroll-snap-align:center;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#0F2040;border:1px solid rgba(255,255,255,.65);outline:1px solid rgba(25,52,93,.12);box-shadow:0 24px 55px -30px rgba(25,51,93,.4);cursor:pointer;opacity:.55;transform:scale(.8);transition:opacity .45s ease,transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .45s ease}
-    #stories .cs3-card.on{opacity:1;transform:scale(1);box-shadow:0 60px 120px -36px rgba(15,32,64,.55),0 24px 48px -24px rgba(15,32,64,.35),0 2px 8px rgba(15,32,64,.12)}
-    #stories .cs3-card:focus-visible{outline:2px solid #DE6E30;outline-offset:3px}
-    #stories .cs3-card img{width:100%;height:100%;object-fit:cover;display:block}
-    #stories .cs3-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-    #stories .cs3-pb{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.94);backdrop-filter:blur(4px);display:grid;place-items:center;box-shadow:0 18px 44px rgba(15,32,64,.45),0 0 0 10px rgba(255,255,255,.18);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease,box-shadow .25s ease}
-    #stories .cs3-pb svg{width:26px;height:26px;color:#19335D;margin-left:3px}
-    #stories .cs3-card.on:hover .cs3-pb{opacity:1;transform:translate(-50%,-50%) scale(1)}
-    #stories .cs3-card.on:hover:active .cs3-pb{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 22px 52px rgba(15,32,64,.5),0 0 0 14px rgba(255,255,255,.22)}
-    @media(hover:none){#stories .cs3-card.on .cs3-pb{opacity:1;transform:translate(-50%,-50%) scale(1)}}/* touch screens have no cursor - the active card keeps its badge */
-    #stories .cs3-card.playing .cs3-pb{display:none}
-    /* arrows - quiet, light */
-    #stories .cs3-arw{position:absolute;top:calc(50% - 22px);z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid rgba(25,51,93,.14);cursor:pointer;display:grid;place-items:center;background:#fff;color:#19335D;box-shadow:0 12px 28px -12px rgba(25,51,93,.35);transition:transform .2s,background .2s,color .2s}
-    #stories .cs3-arw svg{width:18px;height:18px}
-    #stories .cs3-arw:hover{background:#DE6E30;color:#fff;transform:scale(1.07)}
-    #stories .cs3-arw--l{left:clamp(70px,6vw,96px)}/* clears the fixed contents launcher */
-    #stories .cs3-arw--r{right:clamp(70px,6vw,96px)}
-    /* caption under the stage: quote + name left, play pill right */
-    #stories .cs3-cap{max-width:min(880px,64vw);margin:clamp(18px,2.4vw,26px) auto 0;padding:0 6px;display:flex;align-items:flex-start;justify-content:space-between;gap:clamp(18px,3vw,46px);transition:opacity .3s ease}
-    #stories .cs3-cap.fade{opacity:0}
-    #stories .cs3-q{margin:0 0 10px;color:#5A6B85;font-size:13px;line-height:1.7;max-width:62ch}
-    #stories .cs3-n{margin:0;color:#19335D;font-size:12.5px}
-    #stories .cs3-n b{font-weight:700}
-    /* speaker's logo - optional per card, see data-logo on the cards below */
-    #stories .cs3-who{display:flex;align-items:center;gap:12px}
-    #stories .cs3-logo{flex:none;width:46px;height:46px;object-fit:contain;background:#fff;border:1px solid rgba(25,51,93,.12);border-radius:12px;padding:5px;box-shadow:0 8px 18px -12px rgba(25,51,93,.45)}
-    #stories .cs3-logo[hidden]{display:none}/* beats the global img{display:block} */
-    #stories .cs3-playbtn{flex:none;display:inline-flex;align-items:center;gap:9px;border:0;cursor:pointer;background:#19335D;color:#fff;font:700 13px/1 'Inter',system-ui,sans-serif;padding:13px 22px;border-radius:999px;box-shadow:0 14px 30px -12px rgba(25,51,93,.55);transition:background .2s,transform .2s}
-    #stories .cs3-playbtn:hover{background:#DE6E30;transform:translateY(-2px)}
-    #stories .cs3-playbtn svg{width:13px;height:13px}
-    #stories .cs3-more{text-align:center;margin-top:clamp(22px,3vw,32px)}
-    #stories .cs3-more a{display:inline-flex;align-items:center;gap:8px;color:#19335D;font-weight:700;font-size:14px;text-decoration:none;border-bottom:2px solid rgba(222,110,48,.4);padding-bottom:3px;transition:color .2s,border-color .2s}
-    #stories .cs3-more a:hover{color:#DE6E30;border-color:#DE6E30}
-    @media(max-width:820px){
-      #stories .cs3-rail{--wc:86vw}
-      #stories .cs3-arw{display:none}
-      #stories .cs3-cap{max-width:86vw;flex-direction:column;gap:14px}
-      #stories .cs3-playbtn{align-self:flex-start}
-    }
-  </style>
-  <div class="cs3-head">
-    <h2 class="cs3-title" id="stories-title">What Our Clients Are Saying</h2>
-  </div>
 
-  <div class="cs3-zone">
-    <button type="button" class="cs3-arw cs3-arw--l" aria-label="Previous story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
-    <button type="button" class="cs3-arw cs3-arw--r" aria-label="Next story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-    <div class="cs3-rail" role="list" aria-label="Customer stories">
 
-      <article class="cs3-card" role="listitem" data-yt="3SHgLf1GFgk" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/tula-s-institute-dehradun-logo.svg" data-q="&ldquo;Tula's Institute streamlined its admissions process, strengthened student engagement, and empowered its team with a more organised admissions workflow.&rdquo;" data-n="Silky Jain Marwah" data-r="Executive Director at Tula's Institute, Dehradun" tabindex="0" aria-label="Customer story: Silky Jain Marwah">
-        <img src="https://img.youtube.com/vi/3SHgLf1GFgk/maxresdefault.jpg" alt="Silky Jain Marwah - ExtraaEdge customer story" loading="lazy" decoding="async"
-             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg'">
-        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </article>
-
-      <article class="cs3-card" role="listitem" data-yt="dWLdQ8E3FOU" data-logo="" data-q="&ldquo;A unified admissions platform helped the team manage enquiries, improve follow-ups, and build a more efficient applicant journey.&rdquo;" data-n="Pranay Rupani" data-r="Head of Admissions &amp; Marketing at Annapurna College of Film &amp; Media" tabindex="0" aria-label="Customer story: Pranay Rupani">
-        <img src="https://img.youtube.com/vi/dWLdQ8E3FOU/maxresdefault.jpg" alt="Pranay Rupani - ExtraaEdge customer story" loading="lazy" decoding="async"
-             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg'">
-        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </article>
-
-      <article class="cs3-card" role="listitem" data-yt="yfK83D2SKps" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/indian-academy-degree-college-logo.svg" data-q="&ldquo;Simplified lead management and communication, with better counsellor visibility across the student admissions journey.&rdquo;" data-n="K. Nirmala Devi" data-r="Assistant Manager at Indian Academy Group, Bengaluru" tabindex="0" aria-label="Customer story: K. Nirmala Devi">
-        <img src="https://img.youtube.com/vi/yfK83D2SKps/maxresdefault.jpg" alt="K. Nirmala Devi - ExtraaEdge customer story" loading="lazy" decoding="async"
-             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg'">
-        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </article>
-
-      <article class="cs3-card" role="listitem" data-yt="tLExH5jpQbw" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/uttaranchal-university-logo.svg" data-q="&ldquo;Streamlined enquiry handling, faster follow-ups and clearer visibility across the entire admission funnel.&rdquo;" data-n="Uttaranchal University" data-r="University &middot; Dehradun" tabindex="0" aria-label="Customer story: Uttaranchal University">
-        <img src="https://img.youtube.com/vi/tLExH5jpQbw/maxresdefault.jpg" alt="Uttaranchal University - ExtraaEdge customer story" loading="lazy" decoding="async"
-             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/tLExH5jpQbw/hqdefault.jpg'">
-        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </article>
-
-      <article class="cs3-card" role="listitem" data-yt="9l99MjTfEbw" data-logo="" data-q="&ldquo;One platform for leads, counsellors and communication across the group&rsquo;s campuses.&rdquo;" data-n="Amrapali Group of Institutes" data-r="Group of Institutes &middot; Haldwani" tabindex="0" aria-label="Customer story: Amrapali Group of Institutes">
-        <img src="https://img.youtube.com/vi/9l99MjTfEbw/maxresdefault.jpg" alt="Amrapali Group of Institutes - ExtraaEdge customer story" loading="lazy" decoding="async"
-             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/9l99MjTfEbw/hqdefault.jpg'">
-        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </article>
-
-      <article class="cs3-card" role="listitem" data-yt="7sPbL3uvha0" data-logo="" data-q="&ldquo;ExtraaEdge CRM helped the team hit its admissions target for the cycle.&rdquo;" data-n="DPU Global Business School" data-r="B-School &middot; Pune" tabindex="0" aria-label="Customer story: DPU Global Business School">
-        <img src="https://img.youtube.com/vi/7sPbL3uvha0/maxresdefault.jpg" alt="DPU Global Business School - ExtraaEdge customer story" loading="lazy" decoding="async"
-             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/7sPbL3uvha0/hqdefault.jpg'">
-        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </article>
-
-      <article class="cs3-card" role="listitem" data-yt="KisEkYkGYs8" data-logo="" data-q="&ldquo;The team adopted ExtraaEdge CRM in just 10 days and brought its counselling pipeline into one organised view.&rdquo;" data-n="Admit Abroad" data-r="Study Abroad Consultants" tabindex="0" aria-label="Customer story: Admit Abroad">
-        <img src="https://img.youtube.com/vi/KisEkYkGYs8/maxresdefault.jpg" alt="Admit Abroad - ExtraaEdge customer story" loading="lazy" decoding="async"
-             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/KisEkYkGYs8/hqdefault.jpg'">
-        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </article>
-
-      <article class="cs3-card" role="listitem" data-yt="q53VDQFTq04" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/edtech/fostiima-business-school-logo.svg" data-q="&ldquo;From first enquiry to final PGDM enrolment - the full admission journey on one platform.&rdquo;" data-n="FOSTIIMA Business School" data-r="B-School &middot; New Delhi" tabindex="0" aria-label="Customer story: FOSTIIMA Business School">
-        <img src="https://img.youtube.com/vi/q53VDQFTq04/maxresdefault.jpg" alt="FOSTIIMA Business School - ExtraaEdge customer story" loading="lazy" decoding="async"
-             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/q53VDQFTq04/hqdefault.jpg'">
-        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </article>
-
-      <article class="cs3-card" role="listitem" data-yt="ApP0hhJ45NQ" data-logo="" data-q="&ldquo;Structure and speed for the admission journey, with organised leads and timely follow-ups.&rdquo;" data-n="IBSC" data-r="Institute of Management" tabindex="0" aria-label="Customer story: IBSC">
-        <img src="https://img.youtube.com/vi/ApP0hhJ45NQ/maxresdefault.jpg" alt="IBSC - ExtraaEdge customer story" loading="lazy" decoding="async"
-             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/ApP0hhJ45NQ/hqdefault.jpg'">
-        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </article>
-
-      <article class="cs3-card" role="listitem" data-yt="K3kqAHKJAgo" data-logo="" data-q="&ldquo;One place to manage enquiries, follow-ups and admissions for the whole team.&rdquo;" data-n="IIFT" data-r="Institute of Management" tabindex="0" aria-label="Customer story: IIFT">
-        <img src="https://img.youtube.com/vi/K3kqAHKJAgo/maxresdefault.jpg" alt="IIFT - ExtraaEdge customer story" loading="lazy" decoding="async"
-             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/K3kqAHKJAgo/hqdefault.jpg'">
-        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </article>
-
-    </div>
-  </div>
-
-  <div class="cs3-cap" id="cs3Cap" aria-live="polite">
-    <div>
-      <p class="cs3-q" id="cs3Q"></p>
-      <div class="cs3-who">
-        <img class="cs3-logo" id="cs3Logo" src="" alt="" width="46" height="46" decoding="async" hidden>
-        <p class="cs3-n" id="cs3N"></p>
-      </div>
-    </div>
-    <button type="button" class="cs3-playbtn" id="cs3Play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Play customer story</button>
-  </div>
-
-  <div class="cs3-more">
-    <a href="/videos/customer-stories/">View All Customer Stories &rarr;</a>
-  </div>
-</section>
 
 <script>
 (function(){
@@ -2048,6 +1880,8 @@ ee_platform_section(); ?>
         }
     </style>
 
+
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">04</span><span class="k-lb">The AI advantage</span><span class="k-sub">Admission chatbot, WhatsApp automation, AI calling and lead scoring, one layer</span></div>
 <div id="vidyaai-embed-root">
   <div class="bg-white text-brand-navy antialiased">
 
@@ -3329,6 +3163,209 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
   </script>
 </section>
 
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">05</span><span class="k-lb">The proof</span><span class="k-sub">Customer stories and results from 500+ educational institutions</span></div>
+<section id="ee-architect" aria-label="How we configure the platform around your funnel">
+  <style>
+    /* ── The quote band: the one claim that separates us from legacy CRMs ──
+       A navy stage between two light sections, so the page pauses here. The
+       blueprint grid and the drawn quote mark carry the "architect" idea
+       without an eyebrow label announcing it. */
+    #ee-architect{position:relative;isolation:isolate;overflow:hidden;background:#19335D;padding:clamp(56px,7vw,92px) 22px;font-family:'Inter',system-ui,sans-serif}
+    #ee-architect::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+      background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+      background-size:58px 58px;
+      -webkit-mask-image:radial-gradient(ellipse 70% 74% at 50% 46%,#000 24%,transparent 76%);
+              mask-image:radial-gradient(ellipse 70% 74% at 50% 46%,#000 24%,transparent 76%)}
+    #ee-architect::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+      background:radial-gradient(circle at 5% 6%,rgba(222,110,48,.30),transparent 42%),radial-gradient(circle at 97% 97%,rgba(222,110,48,.15),transparent 46%)}
+    /* the quote mark sits in its own column, so the quote, the rule and the
+       supporting line all start on one edge instead of drifting apart */
+    #ee-architect .am{position:relative;z-index:1;max-width:1000px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(16px,3vw,34px);align-items:start;text-align:left}
+    #ee-architect .am-mark{width:clamp(38px,4.6vw,60px);height:auto;color:#DE6E30;margin-top:clamp(2px,.6vw,8px)}
+    #ee-architect blockquote{margin:0;font-size:clamp(21px,3vw,36px);font-weight:800;line-height:1.3;letter-spacing:-.025em;color:#fff}
+    #ee-architect blockquote em{font-style:normal;color:#DE6E30}
+    #ee-architect .am-rule{display:block;width:64px;height:4px;border-radius:4px;background:#DE6E30;margin:clamp(18px,2.4vw,26px) 0 clamp(13px,1.7vw,17px)}
+    #ee-architect .am-sub{margin:0;font-size:clamp(13.5px,1.3vw,15.5px);line-height:1.65;color:rgba(255,255,255,.74);max-width:62ch}
+    @media(max-width:640px){
+      #ee-architect .am{grid-template-columns:minmax(0,1fr);gap:12px}
+      #ee-architect .am-rule{margin-top:16px}
+    }
+  </style>
+  <div class="am rv">
+    <svg class="am-mark" viewBox="0 0 64 48" fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M0 48V29.4C0 13.2 8.6 3 24.6 0l2.8 8.6C18 11.4 13 17 12.8 25.2H24V48H0z"/>
+      <path d="M36.6 48V29.4C36.6 13.2 45.2 3 61.2 0L64 8.6C54.6 11.4 49.6 17 49.4 25.2H60.6V48H36.6z"/>
+    </svg>
+    <div>
+      <blockquote>Every admission team is different. We configure around <em>your funnel</em>, not the other way around.</blockquote>
+      <span class="am-rule" aria-hidden="true"></span>
+      <p class="am-sub">Configuration, not customization: we listen, study how your admissions actually run, then build the platform around it.</p>
+    </div>
+  </div>
+</section>
+<section id="stories" aria-labelledby="stories-title">
+  <style>
+    /* ── What Our Clients Are Saying · minimal light carousel (scoped #stories) ── */
+    #stories{position:relative;overflow:hidden;background:linear-gradient(180deg,#FBFCFE,#F5F8FC);padding:clamp(48px,6vw,84px) 0 clamp(44px,5.5vw,72px);font-family:'Inter',system-ui,sans-serif}
+    #stories .cs3-head{text-align:center;max-width:760px;margin:0 auto clamp(24px,3vw,38px);padding:0 24px}
+    html body #main-content #stories h2{color:#19335D !important;margin:0 !important}
+    /* rail: centred stage, neighbours crop at the viewport edges like the reference */
+    #stories .cs3-zone{position:relative}
+    #stories .cs3-rail{--wc:min(880px,64vw);display:flex;gap:clamp(14px,2vw,24px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:6px calc((100vw - var(--wc))/2) 6px}
+    #stories .cs3-rail::-webkit-scrollbar{display:none}
+    #stories .cs3-card{position:relative;flex:0 0 var(--wc);min-width:0;scroll-snap-align:center;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#0F2040;border:1px solid rgba(255,255,255,.65);outline:1px solid rgba(25,52,93,.12);box-shadow:0 24px 55px -30px rgba(25,51,93,.4);cursor:pointer;opacity:.55;transform:scale(.8);transition:opacity .45s ease,transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .45s ease}
+    #stories .cs3-card.on{opacity:1;transform:scale(1);box-shadow:0 60px 120px -36px rgba(15,32,64,.55),0 24px 48px -24px rgba(15,32,64,.35),0 2px 8px rgba(15,32,64,.12)}
+    #stories .cs3-card:focus-visible{outline:2px solid #DE6E30;outline-offset:3px}
+    #stories .cs3-card img{width:100%;height:100%;object-fit:cover;display:block}
+    #stories .cs3-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    #stories .cs3-pb{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.94);backdrop-filter:blur(4px);display:grid;place-items:center;box-shadow:0 18px 44px rgba(15,32,64,.45),0 0 0 10px rgba(255,255,255,.18);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease,box-shadow .25s ease}
+    #stories .cs3-pb svg{width:26px;height:26px;color:#19335D;margin-left:3px}
+    #stories .cs3-card.on:hover .cs3-pb{opacity:1;transform:translate(-50%,-50%) scale(1)}
+    #stories .cs3-card.on:hover:active .cs3-pb{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 22px 52px rgba(15,32,64,.5),0 0 0 14px rgba(255,255,255,.22)}
+    @media(hover:none){#stories .cs3-card.on .cs3-pb{opacity:1;transform:translate(-50%,-50%) scale(1)}}/* touch screens have no cursor - the active card keeps its badge */
+    #stories .cs3-card.playing .cs3-pb{display:none}
+    /* arrows - quiet, light */
+    #stories .cs3-arw{position:absolute;top:calc(50% - 22px);z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid rgba(25,51,93,.14);cursor:pointer;display:grid;place-items:center;background:#fff;color:#19335D;box-shadow:0 12px 28px -12px rgba(25,51,93,.35);transition:transform .2s,background .2s,color .2s}
+    #stories .cs3-arw svg{width:18px;height:18px}
+    #stories .cs3-arw:hover{background:#DE6E30;color:#fff;transform:scale(1.07)}
+    #stories .cs3-arw--l{left:clamp(70px,6vw,96px)}/* clears the fixed contents launcher */
+    #stories .cs3-arw--r{right:clamp(70px,6vw,96px)}
+    /* caption under the stage: quote + name left, play pill right */
+    #stories .cs3-cap{max-width:min(880px,64vw);margin:clamp(18px,2.4vw,26px) auto 0;padding:0 6px;display:flex;align-items:flex-start;justify-content:space-between;gap:clamp(18px,3vw,46px);transition:opacity .3s ease}
+    #stories .cs3-cap.fade{opacity:0}
+    #stories .cs3-q{margin:0 0 10px;color:#5A6B85;font-size:13px;line-height:1.7;max-width:62ch}
+    #stories .cs3-n{margin:0;color:#19335D;font-size:12.5px}
+    #stories .cs3-n b{font-weight:700}
+    /* speaker's logo - optional per card, see data-logo on the cards below */
+    #stories .cs3-who{display:flex;align-items:center;gap:12px}
+    #stories .cs3-logo{flex:none;width:46px;height:46px;object-fit:contain;background:#fff;border:1px solid rgba(25,51,93,.12);border-radius:12px;padding:5px;box-shadow:0 8px 18px -12px rgba(25,51,93,.45)}
+    #stories .cs3-logo[hidden]{display:none}/* beats the global img{display:block} */
+    #stories .cs3-playbtn{flex:none;display:inline-flex;align-items:center;gap:9px;border:0;cursor:pointer;background:#19335D;color:#fff;font:700 13px/1 'Inter',system-ui,sans-serif;padding:13px 22px;border-radius:999px;box-shadow:0 14px 30px -12px rgba(25,51,93,.55);transition:background .2s,transform .2s}
+    #stories .cs3-playbtn:hover{background:#DE6E30;transform:translateY(-2px)}
+    #stories .cs3-playbtn svg{width:13px;height:13px}
+    #stories .cs3-more{text-align:center;margin-top:clamp(22px,3vw,32px)}
+    #stories .cs3-more a{display:inline-flex;align-items:center;gap:8px;color:#19335D;font-weight:700;font-size:14px;text-decoration:none;border-bottom:2px solid rgba(222,110,48,.4);padding-bottom:3px;transition:color .2s,border-color .2s}
+    #stories .cs3-more a:hover{color:#DE6E30;border-color:#DE6E30}
+    @media(max-width:820px){
+      #stories .cs3-rail{--wc:86vw}
+      #stories .cs3-arw{display:none}
+      #stories .cs3-cap{max-width:86vw;flex-direction:column;gap:14px}
+      #stories .cs3-playbtn{align-self:flex-start}
+    }
+  </style>
+  <div class="cs3-head">
+    <h2 class="cs3-title" id="stories-title">What Our Clients Are Saying</h2>
+  </div>
+
+  <div class="cs3-zone">
+    <button type="button" class="cs3-arw cs3-arw--l" aria-label="Previous story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button type="button" class="cs3-arw cs3-arw--r" aria-label="Next story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    <div class="cs3-rail" role="list" aria-label="Customer stories">
+
+      <article class="cs3-card" role="listitem" data-yt="3SHgLf1GFgk" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/tula-s-institute-dehradun-logo.svg" data-q="&ldquo;Tula's Institute streamlined its admissions process, strengthened student engagement, and empowered its team with a more organised admissions workflow.&rdquo;" data-n="Silky Jain Marwah" data-r="Executive Director at Tula's Institute, Dehradun" tabindex="0" aria-label="Customer story: Silky Jain Marwah">
+        <img src="https://img.youtube.com/vi/3SHgLf1GFgk/maxresdefault.jpg" alt="Silky Jain Marwah - ExtraaEdge customer story" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg'">
+        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </article>
+
+      <article class="cs3-card" role="listitem" data-yt="dWLdQ8E3FOU" data-logo="" data-q="&ldquo;A unified admissions platform helped the team manage enquiries, improve follow-ups, and build a more efficient applicant journey.&rdquo;" data-n="Pranay Rupani" data-r="Head of Admissions &amp; Marketing at Annapurna College of Film &amp; Media" tabindex="0" aria-label="Customer story: Pranay Rupani">
+        <img src="https://img.youtube.com/vi/dWLdQ8E3FOU/maxresdefault.jpg" alt="Pranay Rupani - ExtraaEdge customer story" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg'">
+        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </article>
+
+      <article class="cs3-card" role="listitem" data-yt="yfK83D2SKps" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/indian-academy-degree-college-logo.svg" data-q="&ldquo;Simplified lead management and communication, with better counsellor visibility across the student admissions journey.&rdquo;" data-n="K. Nirmala Devi" data-r="Assistant Manager at Indian Academy Group, Bengaluru" tabindex="0" aria-label="Customer story: K. Nirmala Devi">
+        <img src="https://img.youtube.com/vi/yfK83D2SKps/maxresdefault.jpg" alt="K. Nirmala Devi - ExtraaEdge customer story" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg'">
+        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </article>
+
+      <article class="cs3-card" role="listitem" data-yt="tLExH5jpQbw" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/higher%20education/uttaranchal-university-logo.svg" data-q="&ldquo;Streamlined enquiry handling, faster follow-ups and clearer visibility across the entire admission funnel.&rdquo;" data-n="Uttaranchal University" data-r="University &middot; Dehradun" tabindex="0" aria-label="Customer story: Uttaranchal University">
+        <img src="https://img.youtube.com/vi/tLExH5jpQbw/maxresdefault.jpg" alt="Uttaranchal University - ExtraaEdge customer story" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/tLExH5jpQbw/hqdefault.jpg'">
+        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </article>
+
+      <article class="cs3-card" role="listitem" data-yt="9l99MjTfEbw" data-logo="" data-q="&ldquo;One platform for leads, counsellors and communication across the group&rsquo;s campuses.&rdquo;" data-n="Amrapali Group of Institutes" data-r="Group of Institutes &middot; Haldwani" tabindex="0" aria-label="Customer story: Amrapali Group of Institutes">
+        <img src="https://img.youtube.com/vi/9l99MjTfEbw/maxresdefault.jpg" alt="Amrapali Group of Institutes - ExtraaEdge customer story" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/9l99MjTfEbw/hqdefault.jpg'">
+        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </article>
+
+      <article class="cs3-card" role="listitem" data-yt="7sPbL3uvha0" data-logo="" data-q="&ldquo;ExtraaEdge CRM helped the team hit its admissions target for the cycle.&rdquo;" data-n="DPU Global Business School" data-r="B-School &middot; Pune" tabindex="0" aria-label="Customer story: DPU Global Business School">
+        <img src="https://img.youtube.com/vi/7sPbL3uvha0/maxresdefault.jpg" alt="DPU Global Business School - ExtraaEdge customer story" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/7sPbL3uvha0/hqdefault.jpg'">
+        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </article>
+
+      <article class="cs3-card" role="listitem" data-yt="KisEkYkGYs8" data-logo="" data-q="&ldquo;The team adopted ExtraaEdge CRM in just 10 days and brought its counselling pipeline into one organised view.&rdquo;" data-n="Admit Abroad" data-r="Study Abroad Consultants" tabindex="0" aria-label="Customer story: Admit Abroad">
+        <img src="https://img.youtube.com/vi/KisEkYkGYs8/maxresdefault.jpg" alt="Admit Abroad - ExtraaEdge customer story" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/KisEkYkGYs8/hqdefault.jpg'">
+        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </article>
+
+      <article class="cs3-card" role="listitem" data-yt="q53VDQFTq04" data-logo="https://www.extraaedge.com/wp-content/uploads/2026/all-institues-logo/edtech/fostiima-business-school-logo.svg" data-q="&ldquo;From first enquiry to final PGDM enrolment - the full admission journey on one platform.&rdquo;" data-n="FOSTIIMA Business School" data-r="B-School &middot; New Delhi" tabindex="0" aria-label="Customer story: FOSTIIMA Business School">
+        <img src="https://img.youtube.com/vi/q53VDQFTq04/maxresdefault.jpg" alt="FOSTIIMA Business School - ExtraaEdge customer story" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/q53VDQFTq04/hqdefault.jpg'">
+        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </article>
+
+      <article class="cs3-card" role="listitem" data-yt="ApP0hhJ45NQ" data-logo="" data-q="&ldquo;Structure and speed for the admission journey, with organised leads and timely follow-ups.&rdquo;" data-n="IBSC" data-r="Institute of Management" tabindex="0" aria-label="Customer story: IBSC">
+        <img src="https://img.youtube.com/vi/ApP0hhJ45NQ/maxresdefault.jpg" alt="IBSC - ExtraaEdge customer story" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/ApP0hhJ45NQ/hqdefault.jpg'">
+        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </article>
+
+      <article class="cs3-card" role="listitem" data-yt="K3kqAHKJAgo" data-logo="" data-q="&ldquo;One place to manage enquiries, follow-ups and admissions for the whole team.&rdquo;" data-n="IIFT" data-r="Institute of Management" tabindex="0" aria-label="Customer story: IIFT">
+        <img src="https://img.youtube.com/vi/K3kqAHKJAgo/maxresdefault.jpg" alt="IIFT - ExtraaEdge customer story" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/K3kqAHKJAgo/hqdefault.jpg'">
+        <span class="cs3-pb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="cs3-cap" id="cs3Cap" aria-live="polite">
+    <div>
+      <p class="cs3-q" id="cs3Q"></p>
+      <div class="cs3-who">
+        <img class="cs3-logo" id="cs3Logo" src="" alt="" width="46" height="46" decoding="async" hidden>
+        <p class="cs3-n" id="cs3N"></p>
+      </div>
+    </div>
+    <button type="button" class="cs3-playbtn" id="cs3Play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Play customer story</button>
+  </div>
+
+  <div class="cs3-more">
+    <a href="/videos/customer-stories/">View All Customer Stories &rarr;</a>
+  </div>
+</section>
+
+<section id="ee-midcta" aria-label="Book a demo">
+  <style>
+    #ee-midcta{background:linear-gradient(135deg,#19335D,#22467C);padding:clamp(34px,4.5vw,54px) 22px;text-align:center;font-family:'Inter',system-ui,sans-serif}
+    #ee-midcta h2{margin:0;font-size:clamp(22px,2.8vw,32px);font-weight:800;letter-spacing:-.024em;line-height:1.18;color:#fff}
+    #ee-midcta h2 em{font-style:normal;color:#FFB98A}
+    #ee-midcta p{margin:10px auto 0;font-size:14px;color:#C4D2E8;max-width:52ch}
+    #ee-midcta .row{display:flex;justify-content:center;gap:13px;flex-wrap:wrap;margin-top:22px}
+    #ee-midcta .go{display:inline-flex;align-items:center;gap:8px;background:#DE6E30;color:#fff;font-weight:800;font-size:14.5px;border-radius:999px;padding:14px 28px;text-decoration:none;box-shadow:0 16px 34px -14px rgba(222,110,48,.7);transition:transform .18s ease,background .18s ease}
+    #ee-midcta .go:hover{background:#B5551D;transform:translateY(-1px)}
+    #ee-midcta .alt{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.35);color:#fff;font-weight:700;font-size:14px;border-radius:999px;padding:13px 24px;text-decoration:none}
+    #ee-midcta .alt:hover{border-color:#fff}
+    #ee-midcta .fine{margin-top:13px;font-size:11.5px;color:#AFC1DD;font-weight:600}
+  </style>
+  <div class="rv">
+    <h2>The story so far, on <em>your data</em></h2>
+    <p>A 30-minute demo of the admission CRM on your courses and sources. Bring one real enquiry; watch Vidya AI answer it in 60 seconds.</p>
+    <div class="row">
+      <a class="go" href="#admission-form">Book a Demo</a>
+      <a class="alt" href="/product-tour/">Keep exploring the platform</a>
+    </div>
+    <p class="fine">No credit card &middot; go-live in 7 days &middot; rated 4.7/5 by 320+ admission teams</p>
+  </div>
+</section>
+
+
 <!-- ===================== EE INDUSTRIES - Apple spatial / glass UI ===================== -->
 <style id="ee-ind-spatial">
 #ee-ind{ position:relative; overflow:hidden; --or:#DE6E30; --nv:#19335D;
@@ -3483,6 +3520,8 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
   #ee-ind .spx-card,#ee-ind .spx-go svg{ transition:none; } }
 </style>
 
+
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">06</span><span class="k-lb">Built for your institution</span><span class="k-sub">Higher education, K-12 schools, coaching, study abroad, EdTech</span></div>
 <section id="ee-ind" aria-label="Industries we serve">
   <div class="spx-bg" aria-hidden="true">
     <span class="spx-blob b1"></span><span class="spx-blob b2"></span><span class="spx-blob b3"></span>
@@ -3624,6 +3663,8 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
 <!-- ===================== /EE INDUSTRIES SECTION ===================== -->
 
 
+
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">07</span><span class="k-lb">The honest comparison</span><span class="k-sub">ExtraaEdge vs Meritto, LeadSquared and generic CRMs</span></div>
 <section id="ee-cro" aria-label="Why teams choose ExtraaEdge + ROI calculator">
   <div class="cw">
     <div class="ch">
@@ -4186,6 +4227,8 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   }
 </style>
 
+
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">08</span><span class="k-lb">Go live and grow</span><span class="k-sub">Enrollment management outcomes from day 7, not month 6</span></div>
 <section id="ee-golive" aria-label="Go live in 7 days">
   <div class="rvw">
     <div class="rvh">
@@ -5927,6 +5970,16 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
   .rfa-card,.spx-card,.ee-r-card,#ee-pricing .pg>*{transition:none!important}
   .rfa-card:hover,.spx-card:hover,.ee-r-card:hover,#ee-pricing .pg>*:hover{transform:none}
 }
+
+/* -- 3 · the story spine: one small ribbon opens each chapter, so the
+      scroll reads as Problem > Better way > Platform > AI > Proof >
+      Fit > Comparison > Outcomes. -- */
+.ee-story-kick{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;
+  padding:clamp(26px,3.4vw,40px) 22px 0;background:#fff;font-family:'Inter',system-ui,sans-serif}
+.ee-story-kick .k-no{font-size:11px;font-weight:900;letter-spacing:.18em;color:#DE6E30}
+.ee-story-kick .k-no::before,.ee-story-kick .k-no::after{content:'\2014';color:rgba(222,110,48,.4);margin:0 8px}
+.ee-story-kick .k-lb{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#19335D}
+.ee-story-kick .k-sub{font-size:12px;font-weight:600;color:#5A6B85}
 </style>
 
 <?php get_footer(); ?>
