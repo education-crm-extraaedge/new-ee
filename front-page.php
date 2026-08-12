@@ -416,7 +416,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
         /* phones: the conversion-lift stat is the money number - paint it first */
         @media(max-width:640px){#xhero .stats .stat:nth-child(3){order:-1}}
         /* hero is single-column now (video card removed): centre the story */
-        #xhero .hero__in{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;max-width:960px;margin:0 auto}
+        #xhero .hero__in{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;max-width:1240px;margin:0 auto}
         #xhero .sub{max-width:640px;margin-left:auto;margin-right:auto}
         #xhero .chips{justify-content:center}
         #xhero .hero__cta{justify-content:center}
@@ -426,10 +426,26 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
         #xhero .stat__n{font-size:22px}
         #xhero .stat__l{font-size:11px;margin-top:4px}
         @media(max-width:640px){#xhero .stats{grid-template-columns:repeat(2,1fr)!important}}
+        /* alignment + size pass: the headline reserves EXACTLY the tallest
+           rotating phrase (set by JS), so no dead gap ever opens under it */
+        #xhero{min-height:0;padding:72px 0 60px}
+        /* two ids beat the site-wide heading/paragraph locks (1 id) - both carry !important */
+        html body #main-content #xhero h1#heroRot{font-size:clamp(30px,3.2vw,46px)!important;line-height:1.12!important}
+        #xhero .hero__rot{min-height:2.3em}
+        html body #main-content #xhero p#heroSub{font-size:18.5px!important;line-height:1.6!important}
+        #xhero .sub{max-width:720px;margin-top:18px}
+        @media(max-width:820px){html body #main-content #xhero h1#heroRot{font-size:29px!important}html body #main-content #xhero p#heroSub{font-size:15.5px!important}}
+        #xhero .chips{margin-top:18px}
+        #xhero .chip{font-size:13.5px;padding:8px 13px}
+        #xhero .hero__cta{margin-top:26px}
+        #xhero .stats{max-width:780px!important;margin:30px auto 0!important}
+        #xhero .stat__n{font-size:27px}
+        #xhero .stat__l{font-size:12px}
+        @media(max-width:640px){#xhero .sub{font-size:16px}}
 
       </style>
       <h1 class="reveal d2 hero__rot" id="heroRot" aria-live="polite">Convert More Enquiries Into Admissions With <span class="accent">India&rsquo;s Intelligent Admissions Growth Platform</span></h1>
-      <p class="sub reveal d3">Built for education, driven by AI simplicity: <b>VidyaGPT, VidyaPulse and VidyaAgents call, qualify and follow up with every enquiry in 60 seconds</b>, so your counsellors only talk to students who are ready to enrol.</p>
+      <p class="sub reveal d3" id="heroSub">Built for education, driven by AI simplicity: <b>VidyaGPT, VidyaPulse and VidyaAgents call, qualify and follow up with every enquiry in 60 seconds</b>, so your counsellors only talk to students who are ready to enrol.</p>
       <div class="chips reveal d4">
         <span class="chip"><i>&#9889;</i> Go live in 7 days</span>
         <span class="chip"><i>&#128279;</i> Works with your existing forms &amp; portals</span>
@@ -548,6 +564,26 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
     {pre:'Automate Student Recruitment Campaigns With ',          acc:'AI-Powered Marketing Automation'}
   ];
   var el=document.getElementById('heroRot'); if(!el) return;
+  /* reserve exactly the tallest phrase's height at the current width - the
+     text swaps never push the layout, and no dead gap sits under the h1 */
+  function fitRot(){
+    var probe=document.createElement('h1');
+    probe.className=el.className;
+    probe.style.cssText='position:absolute;left:-9999px;top:0;visibility:hidden;width:'+el.clientWidth+'px;min-height:0;height:auto;margin:0;transition:none;animation:none;opacity:1;transform:none';
+    var cs=getComputedStyle(el);
+    /* the site heading lock is !important, so the probe's font must be too */
+    ['font-size','line-height','letter-spacing','font-weight','font-family'].forEach(function(k,i){
+      probe.style.setProperty(k,[cs.fontSize,cs.lineHeight,cs.letterSpacing,cs.fontWeight,cs.fontFamily][i],'important');
+    });
+    el.parentNode.appendChild(probe);
+    var h=0;
+    DATA.forEach(function(d){ probe.textContent=d.pre+d.acc; if(probe.offsetHeight>h) h=probe.offsetHeight; });
+    probe.parentNode.removeChild(probe);
+    if(h) el.style.setProperty('min-height',h+'px','important');
+  }
+  fitRot();
+  window.addEventListener('resize',function(){ clearTimeout(fitRot.__t); fitRot.__t=setTimeout(fitRot,150); });
+  try{ if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitRot); }catch(_){}
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   /* typing runs everywhere - many phones ship with OS-level animation
      reduction that used to freeze this headline on the first phrase */
