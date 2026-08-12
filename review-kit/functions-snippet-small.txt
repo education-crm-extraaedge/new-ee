@@ -46,8 +46,54 @@ function ee_skr_public_list($data) {
     return array('ok' => true, 'comments' => $out);
 }
 
+
+/* admins may upload .txt (some security setups block it; Media upload of the
+   page file becomes possible again) */
+add_filter('upload_mimes', function ($m) {
+    if (current_user_can('manage_options')) $m['txt'] = 'text/plain';
+    return $m;
+});
+
+/* where the pasted page HTML is kept */
+function ee_skr_html_file() {
+    return dirname(ee_skr_store_file()) . '/page.html';
+}
+
+/* Admin-only importer: open
+   /wp-admin/admin-ajax.php?action=ee_skeleton_import
+   paste the full content of skeleton-review-page.txt, press Save. No file
+   upload involved, so file-type restrictions cannot block it. */
+function ee_skr_import() {
+    if (!current_user_can('manage_options')) { wp_die('Admins only.'); }
+    nocache_headers();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ee_html'])) {
+        check_admin_referer('ee_skr_import');
+        $html = (string) wp_unslash($_POST['ee_html']);
+        if (strpos($html, '<!DOCTYPE html>') === false || strlen($html) < 5000) {
+            echo '<p style="font-family:sans-serif;color:#b00">That does not look like the full page HTML. Open skeleton-review-page.txt in Notepad, Ctrl+A, Ctrl+C, and paste EVERYTHING.</p>';
+        } else {
+            @file_put_contents(ee_skr_html_file(), $html);
+            $u = home_url('/wp-admin/admin-ajax.php?action=ee_skeleton_review');
+            echo '<p style="font-family:sans-serif;color:#070">Saved (' . number_format(strlen($html)) . ' bytes). The review page is live: <a href="' . esc_url($u) . '">' . esc_html($u) . '</a></p>';
+        }
+    }
+    $has = file_exists(ee_skr_html_file());
+    echo '<div style="font-family:sans-serif;max-width:900px;margin:30px auto">'
+       . '<h2>Skeleton Review - page import</h2>'
+       . '<p>Status: ' . ($has ? '<b style="color:#070">page HTML saved</b>' : '<b style="color:#b00">no page HTML yet</b>') . '</p>'
+       . '<p>Open <b>skeleton-review-page.txt</b> in Notepad, select all (Ctrl+A), copy (Ctrl+C), paste below (Ctrl+V) and press Save.</p>'
+       . '<form method="post">';
+    wp_nonce_field('ee_skr_import');
+    echo '<textarea name="ee_html" style="width:100%;height:340px;font:12px monospace" placeholder="Paste the FULL content of skeleton-review-page.txt here"></textarea>'
+       . '<p><button type="submit" style="padding:10px 26px;font-weight:700;cursor:pointer">Save</button></p>'
+       . '</form></div>';
+    exit;
+}
+add_action('wp_ajax_ee_skeleton_import', 'ee_skr_import');
+
 /* the page HTML = the skeleton-review-page.txt uploaded via Media Library */
 function ee_skr_html() {
+    if (file_exists(ee_skr_html_file())) return (string) file_get_contents(ee_skr_html_file());
     $base = wp_upload_dir();
     $hits = array_merge(
         (array) glob(trailingslashit($base['basedir']) . 'skeleton-review-page*.txt'),
@@ -94,8 +140,9 @@ function ee_skr_serve() {
     $html = ee_skr_html();
     if ($html === '') {
         header('Content-Type: text/plain; charset=utf-8');
-        echo "Snippet OK - but skeleton-review-page.txt is not uploaded yet.\n";
-        echo "WP Admin -> Media -> Add New -> upload skeleton-review-page.txt, then reload this URL.\n";
+        echo "Snippet OK - but the page HTML is not loaded yet.\n";
+        echo "EASIEST: open /wp-admin/admin-ajax.php?action=ee_skeleton_import and paste the content of skeleton-review-page.txt there.\n";
+        echo "(or upload skeleton-review-page.txt via Media -> Add New, .txt is now allowed for admins)\n";
         return;
     }
     echo $html;
