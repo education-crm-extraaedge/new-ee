@@ -348,15 +348,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <li><a href="#ee-vidya-suite" data-t="ee-vidya-suite"><i>04</i><span>Agentic AI Suite</span></a></li>
       <li><a href="#stories" data-t="stories"><i>05</i><span>Customer Stories</span></a></li>
       <li><a href="#ee-ind" data-t="ee-ind"><i>06</i><span>Industries</span></a></li>
-      <li><a href="#ee-cro" data-t="ee-cro"><i>07</i><span>Why teams switch to us</span></a></li>
-      <li><a href="#integrations" data-t="integrations"><i>08</i><span>Extensions &amp; Integrations</span></a></li>
-      <li><a href="#security" data-t="security"><i>09</i><span>Enterprise-grade trust</span></a></li>
-      <li><a href="#ee-golive" data-t="ee-golive"><i>10</i><span>Fast implementation</span></a></li>
-      <li><a href="#faq" data-t="faq"><i>11</i><span>Frequently Asked</span></a></li>
-      <li><a href="#ee-products" data-t="ee-products"><i>12</i><span>The admissions platform</span></a></li>
-      <li><a href="#ee-solutions" data-t="ee-solutions"><i>13</i><span>Solutions</span></a></li>
-      <li><a href="#ee-resources" data-t="ee-resources"><i>14</i><span>Resources</span></a></li>
-      <li><a href="#admission-form" data-t="admission-form"><i>15</i><span>Book a Free Demo</span></a></li>
+      <li><a href="#integrations" data-t="integrations"><i>07</i><span>Extensions &amp; Integrations</span></a></li>
+      <li><a href="#security" data-t="security"><i>08</i><span>Enterprise-grade trust</span></a></li>
+      <li><a href="#faq" data-t="faq"><i>09</i><span>Frequently Asked</span></a></li>
+      <li><a href="#ee-products" data-t="ee-products"><i>10</i><span>The admissions platform</span></a></li>
+      <li><a href="#ee-solutions" data-t="ee-solutions"><i>11</i><span>Solutions</span></a></li>
+      <li><a href="#ee-resources" data-t="ee-resources"><i>12</i><span>Resources</span></a></li>
+      <li><a href="#admission-form" data-t="admission-form"><i>13</i><span>Book a Demo</span></a></li>
     </ul>
   </nav>
 </div>
@@ -417,6 +415,18 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
         @media(prefers-reduced-motion:reduce){#xhero .hero__rot{transition:none}}
         /* phones: the conversion-lift stat is the money number - paint it first */
         @media(max-width:640px){#xhero .stats .stat:nth-child(3){order:-1}}
+        /* hero is single-column now (video card removed): centre the story */
+        #xhero .hero__in{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;max-width:960px;margin:0 auto}
+        #xhero .sub{max-width:640px;margin-left:auto;margin-right:auto}
+        #xhero .chips{justify-content:center}
+        #xhero .hero__cta{justify-content:center}
+        /* compact stat strip: one tight 4-column grid */
+        #xhero .stats{grid-template-columns:repeat(4,1fr)!important;max-width:720px!important;gap:10px;margin-top:28px}
+        #xhero .stat{padding:11px 10px;text-align:center}
+        #xhero .stat__n{font-size:22px}
+        #xhero .stat__l{font-size:11px;margin-top:4px}
+        @media(max-width:640px){#xhero .stats{grid-template-columns:repeat(2,1fr)!important}}
+
       </style>
       <h1 class="reveal d2 hero__rot" id="heroRot" aria-live="polite">Convert More Enquiries Into Admissions With <span class="accent">India&rsquo;s Intelligent Admissions Growth Platform</span></h1>
       <p class="sub reveal d3">Built for education, driven by AI simplicity: <b>VidyaGPT, VidyaPulse and VidyaAgents call, qualify and follow up with every enquiry in 60 seconds</b>, so your counsellors only talk to students who are ready to enrol.</p>
@@ -428,7 +438,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <div class="hero__cta reveal d5">
         <a href="#admission-form" class="btn btn-primary" id="magnet">Book a Free Demo <span class="arr">&rarr;</span><span class="shine"></span></a>
         <a href="#ee-platform" class="btn btn-watch" data-eep-full><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:15px;height:15px;flex:none"><path d="M8 5v14l11-7z"/></svg> Explore the Platform Yourself</a>
-        <span class="cta-note">No credit card &middot; Personalised to your institution</span>
       </div>
       <div class="stats reveal d6">
         <div class="stat"><div class="stat__n"><span data-xhcount="500">0</span><em>+</em></div><div class="stat__l">Institutions onboard</div></div>
@@ -449,46 +458,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       @media(max-width:1024px){#xhero .hero-form-aside{max-width:540px;margin:0 auto}}
       @media(max-width:480px){#xhero .hero-form-card{padding:24px 20px}}
     </style>
-    <style>/* ── Product Overview panel — sits where the demo form used to ── */
-      #xhero .hero-pov{width:100%;position:relative;text-align:center}
-      /* soft ambient glow so the frame sits IN the page, not on a card */
-      #xhero .hero-pov::before{content:'';position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);width:118%;height:82%;pointer-events:none;z-index:0;background:radial-gradient(48% 42% at 32% 38%,rgba(222,110,48,.16),transparent 70%),radial-gradient(52% 46% at 72% 62%,rgba(25,52,93,.14),transparent 72%);filter:blur(34px)}
-      #xhero .hero-pov>*{position:relative;z-index:1}
-      #xhero .hp-chip{display:inline-flex;background:linear-gradient(135deg,#E8843F 0%,#DE6E30 55%,#C2541C 100%);color:#fff;font:800 11px/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:999px;box-shadow:0 18px 44px -14px rgba(222,110,48,.55);margin-bottom:10px}
-      /* same id/class/type counts as the site heading-scale rule; prints later, wins the tie */
-      html body #main-content #xhero h2.h2.hp-h2{margin:0 0 8px !important;color:#19335D !important;font-weight:800 !important;text-align:center !important}
-      #xhero .hp-sub{max-width:48ch;margin:0 auto 12px;color:#5a6b85;font-size:13.5px;line-height:1.6}
-      #xhero .hp-vid{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;background:#0F2040;aspect-ratio:16/9;border:1px solid rgba(255,255,255,.65);outline:1px solid rgba(25,52,93,.12);box-shadow:0 60px 120px -36px rgba(15,32,64,.55),0 24px 48px -24px rgba(15,32,64,.35),0 2px 8px rgba(15,32,64,.12)}
-      #xhero .hp-vid img{width:100%;height:100%;object-fit:cover;display:block}
-      #xhero .hp-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.94);backdrop-filter:blur(4px);display:grid;place-items:center;box-shadow:0 18px 44px rgba(15,32,64,.45),0 0 0 10px rgba(255,255,255,.18);transition:transform .2s ease,box-shadow .2s ease}
-      #xhero .hp-play svg{width:22px;height:22px;margin-left:3px;color:#DE6E30}
-      #xhero .hp-vid:hover .hp-play{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 22px 52px rgba(15,32,64,.5),0 0 0 14px rgba(255,255,255,.22)}
-      #xhero .hp-vid:focus-visible{outline:3px solid #19335D;outline-offset:3px}
-      #xhero .hp-vid.playing{cursor:default}
-      #xhero .hp-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-      #xhero .hp-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
-      #xhero .hp-t{display:flex;align-items:center;justify-content:center;gap:8px;text-align:left}
-      #xhero .hp-t svg{width:22px;height:22px;flex:none;color:var(--orange-700,#B5551D)}
-      #xhero .hp-t b{display:block;font:700 12px/1.3 'Inter',sans-serif;color:#19335D}
-      #xhero .hp-t small{display:block;font:600 10.5px/1.3 'Inter',sans-serif;color:#7a889e}
-      @media(max-width:1024px){#xhero .hero-pov{max-width:540px;margin:0 auto}}
-      @media(max-width:480px){#xhero .hp-vid{border-radius:14px}/* the trio stays on one line - three tight columns, smaller marks */#xhero .hp-trio{grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px;padding-top:12px}#xhero .hp-t{justify-content:center;gap:5px}#xhero .hp-t svg{width:16px;height:16px}#xhero .hp-t b{font-size:10px;white-space:nowrap}#xhero .hp-t small{font-size:9px;white-space:nowrap}}
-      @media(prefers-reduced-motion:reduce){#xhero .hp-play{transition:none}}
-    </style>
-    <aside class="hero-pov reveal d4" aria-label="Product overview">
-      <h2 class="h2 hp-h2">See ExtraaEdge in Action<span class="ee-h2b">2-Minute Product Overview</span></h2>
-      <p class="hp-sub">How our Intelligent Admissions Growth Platform helps you attract, engage and enrol more students.</p>
-      <div class="hp-vid" id="hpVid" data-yt="cCa7ZOJi694" role="button" tabindex="0" aria-label="Play the ExtraaEdge product overview video">
-        <img src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/hero-thubnail.png" alt="ExtraaEdge product overview" loading="lazy" decoding="async" width="1280" height="720"
-             onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/cCa7ZOJi694/maxresdefault.jpg';">
-        <span class="hp-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </div>
-      <div class="hp-trio">
-        <div class="hp-t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9l-10-4-10 4 10 4 10-4v6"/><path d="M6 10.6V16a6 3 0 0 0 12 0v-5.4"/></svg><span><b>Built for</b><small>Education</small></span></div>
-        <div class="hp-t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg><span><b>AI-Powered</b><small>Automation</small></span></div>
-        <div class="hp-t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/></svg><span><b>Trusted by</b><small>500+ Institutions</small></span></div>
-      </div>
-    </aside>
   </div>
 </section>
 
@@ -513,7 +482,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 <div class="eedd-backdrop" id="eeddBack" aria-hidden="true"></div>
 <aside class="ee-demo-drawer" id="admission-form" role="dialog" aria-modal="true" aria-label="Book a demo">
   <div class="eedd-head">
-    <span><b>Book a Demo</b><small>Personalised to your institution &middot; No credit card</small></span>
+    <span><b>Book a Demo</b><small>Personalised to your institution &middot; 45 minutes</small></span>
     <button type="button" class="eedd-x" id="eeddClose" aria-label="Close">&#10005;</button>
   </div>
   <div class="eedd-body">
@@ -526,18 +495,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 </aside>
 <script>
 (function(){
-  /* Product overview video — nothing loads from YouTube until it is asked for */
-  var v=document.getElementById('hpVid');
-  if(v){
-    var play=function(){
-      if(v.classList.contains('playing')) return;
-      v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+v.getAttribute('data-yt')+'?autoplay=1&rel=0&modestbranding=1" title="ExtraaEdge product overview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-      v.classList.add('playing'); v.removeAttribute('role'); v.removeAttribute('tabindex');
-    };
-    v.addEventListener('click',play);
-    v.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); play(); } });
-  }
-
   /* Drawer. Every #admission-form link on the page slides it open, so the
      hero button, the Vidya cards and the Solutions bento all land here. */
   var dr=document.getElementById('admission-form'),
@@ -915,554 +872,15 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 </section>
 
 <!-- ===================== WHY INSTITUTES CHOOSE EXTRAAEDGE (scoped #ee-why) ===================== -->
-<style id="eew2-style">
-/* ── Why ExtraaEdge: pinned scroll story. The visual + step list stay
-   centred mid-viewport while scroll progress drives the five stages. ── */
-#ee-why{position:relative;background:
-  radial-gradient(720px 420px at 8% 4%, rgba(222,110,48,.06), transparent 62%),
-  radial-gradient(720px 460px at 96% 90%, rgba(25,52,93,.06), transparent 62%),#fff;
-  font-family:'Inter',system-ui,sans-serif;padding:0}
-#ee-why *{box-sizing:border-box}
-#ee-why .eew2-track{position:relative;height:calc(min(100vh,880px)*2.6)}
-#ee-why .eew2-pin{position:sticky;top:86px;height:min(calc(100vh - 86px),820px);overflow:hidden;
-  display:flex;flex-direction:column;justify-content:center;justify-content:safe center}
-#ee-why .eew2-wrap{max-width:1240px;margin:0 auto;padding:0 24px;width:100%}
-#ee-why h2{color:#19345d;margin:0 auto 12px;max-width:44ch;text-align:center}
-#ee-why .eew2-lead{color:#5a6b85;line-height:1.6;margin:0 auto 8px;max-width:56ch;text-align:center}
-#ee-why .eew2-lead strong{color:#19345d}
-/* Steps read on the left, screenshots on the right. The markup keeps the
-   visual first (it is the section's primary content for crawlers and for
-   the no-CSS fallback), so the swap is done with order, and the wider
-   1.18fr share travels with the images to the second column. */
-#ee-why .eew2-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(26px,3.4vw,54px);align-items:center;margin-top:clamp(14px,2vw,24px)}
-#ee-why .eew2-grid>.eew2-steps{order:1}
-#ee-why .eew2-grid>.eew2-visual{order:2}
-/* visual */
-#ee-why .eew2-vframe{position:relative;aspect-ratio:16/11;border-radius:20px;background:#fff;
-  border:1px solid rgba(25,52,93,.1);overflow:hidden;cursor:zoom-in;
-  box-shadow:0 2px 6px rgba(15,32,58,.05),0 42px 90px -34px rgba(25,52,93,.42)}
-#ee-why .eew2-vframe.eew2-noimg{cursor:default}
-#ee-why .eew2-vframe::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
-  background:linear-gradient(135deg,rgba(222,110,48,.5),rgba(25,52,93,.18) 45%,transparent 70%);
-  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
-  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:3}
-#ee-why .eew2-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:16px;
-  opacity:0;transform:scale(.955) translateY(14px);z-index:1;
-  transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
-#ee-why .eew2-img.on{opacity:1;transform:none;z-index:2}
-#ee-why .eew2-vframe.eew2-noimg::after{content:"";position:absolute;inset:0;background:
-  radial-gradient(420px 260px at 30% 30%,rgba(222,110,48,.12),transparent 60%),
-  radial-gradient(420px 300px at 75% 75%,rgba(25,52,93,.1),transparent 60%)}
-/* continuous progress under the frame */
-#ee-why .eew2-progress{display:flex;align-items:center;gap:12px;margin-top:14px}
-#ee-why .eew2-pline{position:relative;flex:1;height:3px;border-radius:3px;background:rgba(25,52,93,.1);overflow:hidden}
-#ee-why .eew2-pfill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:3px;
-  background:linear-gradient(90deg,#E8843F,#DE6E30)}
-/* steps */
-#ee-why .eew2-steps{list-style:none;margin:0;padding:0}
-#ee-why .eew2-step{position:relative;padding:15px 16px 15px 20px;cursor:pointer;
-  border-left:3px solid rgba(25,52,93,.1);
-  opacity:.42;transition:opacity .45s ease,border-color .45s ease,background .45s ease,transform .45s ease}
-#ee-why .eew2-step.on{opacity:1;border-left-color:#DE6E30;
-  background:linear-gradient(90deg,rgba(222,110,48,.05),transparent 65%)}
-#ee-why .eew2-step:focus-visible{border-radius:14px}
-#ee-why .eew2-tx h3{margin:0 0 6px;color:#19345d}
-#ee-why .eew2-tx p{margin:0;color:#5a6b85;line-height:1.62;max-width:52ch}
-#ee-why .eew2-mimg{display:none}
-@media(min-width:901px){
-  #ee-why .eew2-step{padding:12px 16px 12px 20px}
-  #ee-why .eew2-tx p{max-height:0;opacity:0;overflow:hidden;margin:0;
-    transition:max-height .5s cubic-bezier(.2,.7,.2,1),opacity .35s ease .08s}
-  #ee-why .eew2-step.on .eew2-tx p{max-height:220px;opacity:1;margin:6px 0 0}
-}
-#ee-why .eew2-steps:not(.in) .eew2-step{opacity:0;transform:translateY(18px)}
-#ee-why .eew2-steps.in .eew2-step{transform:none}
-#ee-why .eew2-steps.in .eew2-step:nth-child(1){transition-delay:.05s}
-#ee-why .eew2-steps.in .eew2-step:nth-child(2){transition-delay:.12s}
-#ee-why .eew2-steps.in .eew2-step:nth-child(3){transition-delay:.19s}
-#ee-why .eew2-steps.in .eew2-step:nth-child(4){transition-delay:.26s}
-#ee-why .eew2-steps.in .eew2-step:nth-child(5){transition-delay:.33s}
-/* lightbox */
-#ee-why .eew2-lb{position:fixed;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;
-  background:rgba(15,33,67,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s}
-#ee-why .eew2-lb.open{opacity:1;visibility:visible}
-#ee-why .eew2-lb img{max-width:min(92vw,1400px);max-height:86vh;border-radius:16px;background:#fff;
-  padding:14px;box-shadow:0 40px 120px -30px rgba(0,0,0,.6);
-  transform:scale(.94);transition:transform .35s cubic-bezier(.22,1,.36,1)}
-#ee-why .eew2-lb.open img{transform:none}
-#ee-why .eew2-lb-x{position:absolute;top:22px;right:26px;width:42px;height:42px;border-radius:50%;border:0;
-  background:rgba(255,255,255,.14);color:#fff;font-size:19px;line-height:1;cursor:pointer;
-  display:grid;place-items:center;transition:background .2s,transform .2s}
-#ee-why .eew2-lb-x:hover{background:rgba(255,255,255,.26);transform:rotate(90deg)}
-#ee-why .eew2-lb-cap{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
-  font:600 13px/1.4 'Inter',sans-serif;color:#c6d4ea;background:rgba(15,33,67,.6);
-  padding:8px 16px;border-radius:999px;white-space:nowrap}
-@media(prefers-reduced-motion:reduce){#ee-why .eew2-img,#ee-why .eew2-step{transition:none}}
-/* phones: no pinning - stacked story cards with inline images */
-@media(max-width:900px){
-  #ee-why{padding:30px 0}
-  #ee-why .eew2-track{height:auto}
-  #ee-why .eew2-pin{position:static;height:auto;overflow:visible;display:block}
-  #ee-why .eew2-grid{grid-template-columns:1fr;gap:14px;align-items:start}
-  #ee-why .eew2-visual{display:none}
-  #ee-why .eew2-step{opacity:1;padding:16px;background:#fff;border:1px solid rgba(25,52,93,.1);
-    border-left:3px solid rgba(222,110,48,.5);border-radius:16px;margin-bottom:12px;
-    box-shadow:0 10px 26px -18px rgba(25,52,93,.3)}
-  #ee-why .eew2-mimg{display:block;width:100%;height:auto;border-radius:12px;margin-top:12px;
-    border:1px solid rgba(25,52,93,.08)}
-}
-</style>
-
-<div class="ee-story-kick" aria-hidden="false"><span class="k-no">01</span><span class="k-lb">The problem</span><span class="k-sub">Where education CRM funnels actually lose students</span></div>
-<section id="ee-why" aria-labelledby="eew-h">
-  <div class="eew2-track" id="eew2Track">
-  <div class="eew2-pin">
-  <div class="eew2-wrap">
-    <h2 id="eew-h">More Enquiries Converted. Counsellors Focused on What Moves the Needle. <em>Admissions You Can Predict.</em></h2>
-    <p class="eew2-lead">Most Admission CRMs help you <strong>manage</strong> admissions. ExtraaEdge helps you <strong>design how admissions should work</strong> - end to end, at scale.</p>
-    <div class="eew2-grid">
-      <div class="eew2-visual">
-        <div class="eew2-vframe" id="eew2Frame" tabindex="0" role="button" aria-label="Enlarge the current screenshot">
-          <img class="eew2-img on" data-i="0" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/unified-admission-ecosystem.webp" alt="Everything in one platform" loading="lazy" decoding="async">
-          <img class="eew2-img" data-i="1" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/ai-guided-student-journey.webp" alt="Complete enrollment flow" loading="lazy" decoding="async">
-          <img class="eew2-img" data-i="2" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/intelligent-counselor-workspace.webp" alt="Counselors work smarter" loading="lazy" decoding="async">
-          <img class="eew2-img" data-i="3" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/automation-connected-operations.webp" alt="Processes run automatically" loading="lazy" decoding="async">
-          <img class="eew2-img" data-i="4" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/executive-decision-intelligence.webp" alt="Leadership gets actionable insights" loading="lazy" decoding="async">
-        </div>
-        <div class="eew2-progress" aria-hidden="true">
-          <span class="eew2-pline"><i class="eew2-pfill" id="eew2Fill"></i></span>
-        </div>
-      </div>
-      <ol class="eew2-steps" id="eew2Steps">
-        <li class="eew2-step on" data-i="0" tabindex="0" aria-current="step">
-          <div class="eew2-tx">
-            <h3>Everything in one platform</h3>
-            <p>One unified Admission Cloud to run the entire enrollment journey from inquiry to enrollment, without fragmented tools or manual follow-ups.</p>
-            <img class="eew2-mimg" width="1200" height="825" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/unified-admission-ecosystem.webp" alt="" loading="lazy" decoding="async">
-          </div>
-        </li>
-        <li class="eew2-step" data-i="1" tabindex="0">
-          <div class="eew2-tx">
-            <h3>Complete enrollment flow</h3>
-            <p>AI-powered admission assistance handles student queries 24&times;7 across web and WhatsApp, while giving counselors full context to respond faster and smarter.</p>
-            <img class="eew2-mimg" width="1200" height="825" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/ai-guided-student-journey.webp" alt="" loading="lazy" decoding="async">
-          </div>
-        </li>
-        <li class="eew2-step" data-i="2" tabindex="0">
-          <div class="eew2-tx">
-            <h3>Counselors work smarter</h3>
-            <p>AI calling and agents qualify, engage, and route high-intent prospects at scale, helping teams grow outcomes without growing headcount.</p>
-            <img class="eew2-mimg" width="1200" height="825" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/intelligent-counselor-workspace.webp" alt="" loading="lazy" decoding="async">
-          </div>
-        </li>
-        <li class="eew2-step" data-i="3" tabindex="0">
-          <div class="eew2-tx">
-            <h3>Processes run automatically</h3>
-            <p>Built to adapt to each institute&rsquo;s process, ExtraaEdge integrates seamlessly with ads, websites, ERP, and communication tools - and scales with your growth.</p>
-            <img class="eew2-mimg" width="1200" height="825" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/automation-connected-operations.webp" alt="" loading="lazy" decoding="async">
-          </div>
-        </li>
-        <li class="eew2-step" data-i="4" tabindex="0">
-          <div class="eew2-tx">
-            <h3>Leadership gets actionable insights</h3>
-            <p>Real-time intelligence surfaces intent, bottlenecks, and counselor performance so teams act early and convert better.</p>
-            <img class="eew2-mimg" width="1200" height="825" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/why-extraaedge/executive-decision-intelligence.webp" alt="" loading="lazy" decoding="async">
-          </div>
-        </li>
-      </ol>
-    </div>
-  </div>
-  </div>
-  </div>
-  <div class="eew2-lb" id="eew2Lb" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
-    <button type="button" class="eew2-lb-x" id="eew2LbX" aria-label="Close">&#10005;</button>
-    <img id="eew2LbImg" width="1600" height="1100" src="" alt="">
-    <span class="eew2-lb-cap" id="eew2LbCap"></span>
-  </div>
-</section>
-<script>
-(function(){
-  var sec=document.getElementById('ee-why'); if(!sec) return;
-  var track=document.getElementById('eew2Track');
-  var steps=[].slice.call(sec.querySelectorAll('.eew2-step'));
-  var imgs=[].slice.call(sec.querySelectorAll('.eew2-img'));
-  var list=document.getElementById('eew2Steps'),
-      frame=document.getElementById('eew2Frame'),
-      fill=document.getElementById('eew2Fill'),
-      lb=document.getElementById('eew2Lb'),
-      lbImg=document.getElementById('eew2LbImg'),
-      lbCap=document.getElementById('eew2LbCap'),
-      lbX=document.getElementById('eew2LbX');
-  var heads=['Everything in one platform','Complete enrollment flow','Counselors work smarter','Processes run automatically','Leadership gets actionable insights'];
-  var mq=window.matchMedia('(min-width:901px)');
-  var cur=0,failed=0,ticking=false;
-
-  imgs.forEach(function(im){
-    var pre=new Image(); pre.src=im.src;
-    im.addEventListener('error',function(){ if(++failed>=imgs.length&&frame) frame.classList.add('eew2-noimg'); });
-  });
-
-  function render(i){
-    i=Math.max(0,Math.min(steps.length-1,i));
-    if(i===cur) return;
-    cur=i;
-    steps.forEach(function(st,j){ st.classList.toggle('on',j===i);
-      if(j===i){ st.setAttribute('aria-current','step'); } else { st.removeAttribute('aria-current'); } });
-    imgs.forEach(function(im,j){ im.classList.toggle('on',j===i); });
-  }
-  function metrics(){
-    var pin=track.querySelector('.eew2-pin');
-    return { total: track.offsetHeight-(pin?pin.offsetHeight:window.innerHeight),
-             top: track.getBoundingClientRect().top };
-  }
-  function upd(){
-    ticking=false;
-    if(!mq.matches) return;
-    var m=metrics(); if(m.total<=0) return;
-    var p=Math.min(1,Math.max(0,-m.top/m.total));
-    if(fill) fill.style.width=(p*100)+'%';
-    render(Math.min(steps.length-1,Math.floor(p*steps.length+0.0001)));
-  }
-  window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(upd); } },{passive:true});
-  window.addEventListener('resize',upd,{passive:true});
-
-  /* click / keyboard jumps scroll to that stage's spot in the track */
-  function jumpTo(i){
-    if(!mq.matches){ render(i); return; }
-    var m=metrics(); if(m.total<=0){ render(i); return; }
-    var trackTop=window.pageYOffset+m.top;
-    window.scrollTo({top:Math.round(trackTop+((i+0.5)/steps.length)*m.total),behavior:'smooth'});
-    render(i);
-  }
-  steps.forEach(function(st){
-    st.addEventListener('click',function(){ jumpTo(+st.dataset.i); });
-    st.addEventListener('keydown',function(e){
-      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); jumpTo(+st.dataset.i); }
-      else if(e.key==='ArrowDown'||e.key==='ArrowRight'){ e.preventDefault(); jumpTo(cur+1); steps[Math.min(cur+1,steps.length-1)].focus(); }
-      else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){ e.preventDefault(); jumpTo(cur-1); steps[Math.max(cur-1,0)].focus(); }
-    });
-  });
-
-  /* entrance stagger */
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){ es.forEach(function(e){
-      if(e.isIntersecting){ if(list) list.classList.add('in'); io.disconnect(); } }); },{threshold:.2});
-    io.observe(sec);
-  } else if(list){ list.classList.add('in'); }
-
-  /* click-to-zoom lightbox */
-  var lastFocus=null;
-  function lbOpen(){
-    if(!lb||frame.classList.contains('eew2-noimg')) return;
-    lbImg.src=imgs[cur].src; lbImg.alt=imgs[cur].alt||'';
-    if(lbCap) lbCap.textContent=heads[cur];
-    lb.classList.add('open');
-    document.documentElement.style.overflow='hidden';
-    lastFocus=document.activeElement; if(lbX) lbX.focus();
-  }
-  function lbClose(){
-    if(!lb) return;
-    lb.classList.remove('open');
-    document.documentElement.style.overflow='';
-    if(lastFocus&&lastFocus.focus) lastFocus.focus();
-  }
-  if(frame){
-    frame.addEventListener('click',lbOpen);
-    frame.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); lbOpen(); } });
-  }
-  if(lbX) lbX.addEventListener('click',lbClose);
-  if(lb) lb.addEventListener('click',function(e){ if(e.target===lb) lbClose(); });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb&&lb.classList.contains('open')) lbClose(); });
-  upd();
-})();
-</script>
 
 
 <!-- ===================== RESPOND FIRST · AI STORYTELLING (scoped #ee-rfa) ===================== -->
-<style>#ee-rfa{position:relative;padding:0;margin-top:clamp(32px,5vw,56px);background:
-  radial-gradient(900px 480px at 92% 0%, rgba(222,110,48,.07), transparent 60%),
-  radial-gradient(820px 460px at 2% 100%, rgba(25,52,93,.06), transparent 60%),#f6f8fc;
-  font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0f203a;-webkit-font-smoothing:antialiased}
-#ee-rfa *{box-sizing:border-box}
-/* section heading: eyebrow + H2 + sub, same head pattern as the other home
-   sections; the long selector matches the site heading-scale rule's
-   specificity and prints later, so it wins the tie */
-#ee-rfa .rfa-head{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:clamp(44px,6vw,68px) 22px 0;text-align:center}
-html body #main-content #ee-rfa h2.h2.rfa-h2{margin:0 0 12px!important;color:#19345d!important;font-weight:800!important;}
-#ee-rfa .rfa-h2 em{font-style:normal;color:#DE6E30}
-#ee-rfa .rfa-sub{font-size:clamp(15px,1.7vw,18px);line-height:1.6;color:#5a6b85;margin:0}
-/* blurred brand orbs behind the glass cards */
-#ee-rfa .rfa-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:.5}
-#ee-rfa .rfa-orb.o1{width:340px;height:340px;left:-80px;top:12%;background:rgba(222,110,48,.18)}
-#ee-rfa .rfa-orb.o2{width:400px;height:400px;right:-100px;bottom:8%;background:rgba(34,99,197,.14)}
-#ee-rfa .rfa-track{position:relative;height:calc(min(100vh,860px)*3.4)}
-#ee-rfa .rfa-pin{position:sticky;top:86px;height:min(calc(100vh - 86px),820px);overflow:hidden;display:flex;align-items:center;align-items:safe center}
-#ee-rfa .rfa-in{max-width:1270px;margin:0 auto;width:100%;padding:12px 24px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) 18px;gap:clamp(18px,2.6vw,40px);align-items:center}#ee-rfa .rfa-in>.rfa-rail{order:3}#ee-rfa .rfa-in>.rfa-cards{order:2}#ee-rfa .rfa-in>.rfa-stagewrap,#ee-rfa .rfa-in>*:nth-child(3){order:1}
-#ee-rfa .rfa-cards{max-height:calc(min(100vh - 86px,820px) - 24px);overflow-y:hidden}/* overflow-y:hidden (not auto): the column must never swallow the mouse wheel - page scroll drives the pinned story - while reveal() can still move scrollTop */
-@media (max-height:860px){#ee-rfa .rfa-card{padding:11px 14px;margin-bottom:7px}#ee-rfa .rfa-kick{margin-bottom:7px}#ee-rfa .rfa-body p{line-height:1.6;margin:8px 0 10px}#ee-rfa .rfa-chiplbl{margin:10px 0 7px}}
-/* progress rail: fill tracks scroll, dots jump to a story */
-#ee-rfa .rfa-rail{position:relative;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:26px 0;width:18px}
-#ee-rfa .rfa-rail::before{content:"";position:absolute;top:26px;bottom:26px;left:50%;width:2px;transform:translateX(-50%);background:rgba(25,52,93,.12);border-radius:2px}
-#ee-rfa .rfa-fill{position:absolute;top:26px;left:50%;width:2px;transform:translateX(-50%);height:0;background:linear-gradient(180deg,#E8843F,#DE6E30);border-radius:2px;transition:height .2s linear}
-#ee-rfa .rfa-dot{position:relative;z-index:1;width:14px;height:14px;border-radius:50%;border:2px solid rgba(25,52,93,.25);background:#fff;padding:0;cursor:pointer;transition:border-color .25s,box-shadow .25s,transform .25s}
-#ee-rfa .rfa-dot:hover{transform:scale(1.25)}
-#ee-rfa .rfa-dot.on{border-color:#DE6E30;box-shadow:0 0 0 5px rgba(222,110,48,.15)}
-/* browser-chrome frame + live caption under the stage */
-#ee-rfa .rfa-frame{border-radius:16px;overflow:hidden;background:#fff;border:1px solid rgba(25,52,93,.12);box-shadow:0 34px 70px -30px rgba(25,52,93,.35)}
-#ee-rfa .rfa-chrome{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#f4f6fa;border-bottom:1px solid rgba(25,52,93,.08)}
-#ee-rfa .rfa-chrome i{width:9px;height:9px;border-radius:50%;background:rgba(25,52,93,.15)}
-#ee-rfa .rfa-chrome i:nth-child(1){background:#ff5f57}
-#ee-rfa .rfa-chrome i:nth-child(2){background:#febc2e}
-#ee-rfa .rfa-chrome i:nth-child(3){background:#28c840}
-#ee-rfa .rfa-chrome span{margin-left:8px;font:600 11px/1 'Inter',sans-serif;color:#7a889e;background:#fff;border:1px solid rgba(25,52,93,.1);border-radius:7px;padding:5px 11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#ee-rfa .rfa-shots{position:relative;aspect-ratio:16/10;background:#fbfcfe}
-#ee-rfa .rfa-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
-#ee-rfa .rfa-tabs{display:flex;justify-content:center;margin-top:14px;min-height:34px}
-#ee-rfa .rfa-tab{display:none;font:700 12px/1 'Inter',sans-serif;letter-spacing:.03em;
-  padding:10px 18px;border-radius:999px;cursor:default;border:1.4px solid rgba(222,110,48,.5);
-  color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);
-  box-shadow:0 6px 16px -8px rgba(222,110,48,.5)}
-#ee-rfa .rfa-tab.on{display:inline-flex;animation:rfaTabIn .45s cubic-bezier(.22,1,.36,1)}
-@keyframes rfaTabIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){#ee-rfa .rfa-tab.on{animation:none}}
-#ee-rfa .rfa-foot b{font-size:12.5px;font-weight:700;color:#19345d;line-height:1.35}
-#ee-rfa .rfa-foot span{flex:none;font:700 11px/1 ui-monospace,Menlo,monospace;color:#C45A20;background:rgba(222,110,48,.09);border:1px solid rgba(222,110,48,.25);padding:6px 10px;border-radius:999px}
-/* glass cards: fade-in + slide-up reveal, hover lift, active highlight */
-#ee-rfa .rfa-card{position:relative;border-radius:16px;padding:16px 18px 20px;cursor:pointer;margin-bottom:10px;
-  background:rgba(255,255,255,.55);border:1px solid rgba(25,52,93,.12);
-  -webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 8px 24px -18px rgba(25,52,93,.25);
-  opacity:0;transform:translateY(24px);
-  transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .45s cubic-bezier(.2,.7,.2,1),background .35s,border-color .35s,box-shadow .35s}
-#ee-rfa.rfa-rev .rfa-card{opacity:1;transform:none}
-#ee-rfa.rfa-rev .rfa-card:nth-child(2){transition-delay:.08s}
-#ee-rfa.rfa-rev .rfa-card:nth-child(3){transition-delay:.16s}
-#ee-rfa.rfa-rev .rfa-card:nth-child(4){transition-delay:.24s}
-#ee-rfa .rfa-card:hover{transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 18px 40px -20px rgba(25,52,93,.4)}
-#ee-rfa .rfa-card.on{background:rgba(255,255,255,.92);border-color:rgba(222,110,48,.55);
-  box-shadow:inset 0 1px 0 #fff,0 20px 46px -22px rgba(222,110,48,.35),0 0 0 4px rgba(222,110,48,.08)}
-#ee-rfa .rfa-kick{display:inline-block;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-700,#B5551D);background:rgba(222,110,48,.09);border:1px solid rgba(222,110,48,.22);padding:5px 10px;border-radius:999px;margin-bottom:12px}
-#ee-rfa .rfa-title{color:#19345d;margin:0 0 10px}
-
-#ee-rfa .rfa-body{max-height:0;opacity:0;overflow:hidden;transition:max-height .55s cubic-bezier(.2,.7,.2,1),opacity .4s ease .1s}
-#ee-rfa .rfa-card.on .rfa-body{max-height:560px;opacity:1}
-#ee-rfa .rfa-body p{color:#5a6b85;line-height:1.72;margin:12px 0 18px}
-#ee-rfa .rfa-chiplbl{display:block;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8593a8;margin:14px 0 9px}
-#ee-rfa .rfa-chips{display:flex;flex-wrap:wrap;gap:8px}
-#ee-rfa .rfa-chips span{font:600 11.5px/1.3 'Inter',sans-serif;color:#19345d;background:rgba(25,52,93,.05);border:1px solid rgba(25,52,93,.13);padding:6px 11px;border-radius:999px;transition:border-color .2s,color .2s}
-#ee-rfa .rfa-chips span:hover{border-color:rgba(222,110,48,.5);color:#C45A20}
-#ee-rfa .rfa-cardimg{display:none;margin:12px 0 0}
-/* sticky image stage: crossfade + scale animation */
-#ee-rfa .rfa-stage{position:relative;min-height:340px}
-#ee-rfa .rfa-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8px;
-  opacity:0;transform:scale(.94);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1);
-}
-#ee-rfa .rfa-shot.on{opacity:1;transform:scale(1)}
-/* phones: no pinning - stacked story, image inside each card */
-@media(max-width:960px){
-  #ee-rfa{padding:34px 0 26px}
-  #ee-rfa .rfa-head{padding-top:0;margin-bottom:22px}
-  #ee-rfa .rfa-track{height:auto}
-  #ee-rfa .rfa-pin{position:static;height:auto;overflow:visible;display:block}
-  #ee-rfa .rfa-in{grid-template-columns:1fr;gap:0;padding:0 18px}
-  #ee-rfa .rfa-stage,#ee-rfa .rfa-rail{display:none}
-  #ee-rfa .rfa-card{margin-bottom:12px;padding:15px 48px 15px 15px;background:rgba(255,255,255,.9)}
-  #ee-rfa .rfa-card.mi{opacity:1;transform:none}
-  #ee-rfa .rfa-card:hover{transform:none}
-  #ee-rfa .rfa-card .rfa-title{margin:0}
-  /* tap-to-open accordion: only the open card shows its body; the default
-     collapsed rules already hide the rest */
-  #ee-rfa .rfa-card.on .rfa-body{max-height:1400px;opacity:1}
-  #ee-rfa .rfa-card::after{content:"";position:absolute;top:13px;right:13px;width:26px;height:26px;border-radius:50%;background:rgba(25,52,93,.06) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2319335D' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/13px 13px no-repeat;transition:transform .35s ease,background-color .3s ease}
-  #ee-rfa .rfa-card.on::after{transform:rotate(180deg);background-color:rgba(222,110,48,.14)}
-  #ee-rfa .rfa-cardimg{display:block}
-  #ee-rfa .rfa-cardimg img{width:100%;height:auto;border-radius:12px;border:1px solid rgba(25,52,93,.1);box-shadow:0 16px 36px -20px rgba(25,52,93,.3)}
-  #ee-rfa .rfa-chips span{font-size:10.5px;padding:5px 9px}
-}
-@media(prefers-reduced-motion:reduce){#ee-rfa .rfa-card,#ee-rfa .rfa-shot,#ee-rfa .rfa-body{transition:none!important}}
-</style>
-
-<div class="ee-story-kick" aria-hidden="false"><span class="k-no">02</span><span class="k-lb">The better way</span><span class="k-sub">Admission management that responds first, not fastest-to-excuse</span></div>
-<section id="ee-rfa" aria-label="Respond first with AI agents - how ExtraaEdge wins admissions">
-  <span class="rfa-orb o1" aria-hidden="true"></span>
-  <span class="rfa-orb o2" aria-hidden="true"></span>
-  <header class="rfa-head">
-    <h2 class="h2 rfa-h2">How Institutes Win<span class="ee-h2b">From First Enquiry to <em>Final Enrollment</em></span></h2>
-    <p class="rfa-sub">The four moves that decide admissions - respond first, engage right, prioritise the best-fit students and measure everything, on one AI Admission CRM.</p>
-  </header>
-  <div class="rfa-track" id="rfaTrack">
-  <div class="rfa-pin">
-    <div class="rfa-in">
-      <div class="rfa-rail" id="rfaRail" aria-hidden="true">
-        <i class="rfa-fill" id="rfaFill"></i>
-        <button type="button" class="rfa-dot on" data-i="0" aria-label="Story 1"></button>
-        <button type="button" class="rfa-dot" data-i="1" aria-label="Story 2"></button>
-        <button type="button" class="rfa-dot" data-i="2" aria-label="Story 3"></button>
-        <button type="button" class="rfa-dot" data-i="3" aria-label="Story 4"></button>
-      </div>
-      <div class="rfa-cards" id="rfaCards">
-      <article class="rfa-card on" data-i="0" tabindex="0">
-        <h3 class="rfa-title">Respond First with VidyaAgents. Win Admissions.</h3>
-        <div class="rfa-body">
-          <p>Respond to every admission enquiry in 60 seconds, not hours. Because the institute that responds first controls the conversation and conversion. ExtraaEdge brings all admission inquiries into one Admission CRM. AI-powered calling and intelligent routing ensure every prospect is contacted at the right moment - so counselors engage the right students faster and close more enrollments.</p>
-          <b class="rfa-chiplbl">Unified Lead Ingestion Across</b>
-          <div class="rfa-chips"><span>Ads Integration</span><span>Forms Integration</span><span>Third-Party Publisher Integration</span><span>AI Calling &amp; IVR Integration</span></div>
-          <figure class="rfa-cardimg"><img width="1600" height="1000" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Integration%20Hub%20Flowchart.png" alt="Integration hub - every admission inquiry flows into one CRM" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"></figure>
-        </div>
-      </article>
-      <article class="rfa-card" data-i="1" tabindex="0">
-        <h3 class="rfa-title">AI Decides the Right Admission Engagements.</h3>
-        <div class="rfa-body">
-          <p>ExtraaEdge uses intelligence across student behaviour, intent, and application stage. It decides who to engage, when to engage, and how to engage across channels. Every interaction is timely, relevant, and context-aware. Admissions teams move away from manual follow-ups and generic messaging - AI-guided engagements adapt in real time and drive higher enrollments.</p>
-          <b class="rfa-chiplbl">Engagement Channels</b>
-          <div class="rfa-chips"><span>Trigger-Based Email &amp; SMS</span><span>AI Calling &amp; Click-to-Call</span><span>VidyaGPT - AI-Based 24&times;7 Admission Agents</span><span>WhatsApp Communication</span></div>
-          <figure class="rfa-cardimg"><img width="1600" height="1000" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Omnichannel%20Conversion%20Dashboard.png" alt="Omnichannel conversion dashboard" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"></figure>
-        </div>
-      </article>
-      <article class="rfa-card" data-i="2" tabindex="0">
-        <h3 class="rfa-title">Turn Enquiries Into Enrollments</h3>
-        <div class="rfa-body">
-          <p>Not every enquiry deserves the same attention. ExtraaEdge helps teams focus on prospects most likely to enroll. Intelligent prioritization uses engagement, intent, and application stage. Teams know exactly who to follow up, nurture, or move forward - the result is higher efficiency and stronger enrollment conversions.</p>
-          <b class="rfa-chiplbl">Powered by Intelligent Prioritization</b>
-          <div class="rfa-chips"><span>Prediction Score</span><span>Next Best Action</span><span>Follow-Up Calendar</span><span>Multi-Funnel Stages</span></div>
-          <figure class="rfa-cardimg"><img width="1600" height="1000" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Admissions%20CRM%20Dashboard%20Overview.png" alt="Admissions CRM dashboard overview" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"></figure>
-        </div>
-      </article>
-      <article class="rfa-card" data-i="3" tabindex="0">
-        <h3 class="rfa-title">Know What&rsquo;s Working. Fix What&rsquo;s Not.</h3>
-        <div class="rfa-body">
-          <p>Measure what matters across admissions and marketing. ExtraaEdge gives teams clear, actionable visibility into performance. Track counselors, campaigns, and lead sources in one place. With Analytics Builder and VidyaGPT Analytics, insights are easier to explore and understand - so teams act faster on what&rsquo;s working and fix what&rsquo;s not.</p>
-          <b class="rfa-chiplbl">Analytics &amp; Visibility Across</b>
-          <div class="rfa-chips"><span>VidyaGPT Analytics + Analytics Builder</span><span>Counselor Dashboard</span><span>Custom Dashboards</span><span>Marketing Dashboard</span><span>Publisher Reports</span></div>
-          <figure class="rfa-cardimg"><img width="1600" height="1000" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Dashboard%20analytics%20overview.png" alt="Dashboard analytics overview" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"></figure>
-        </div>
-      </article>
-      </div>
-      <div class="rfa-stage" id="rfaStage" aria-hidden="true">
-        <div class="rfa-frame">
-                    <div class="rfa-shots">
-      <img class="rfa-shot on" data-i="0" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Integration%20Hub%20Flowchart.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
-      <img class="rfa-shot" data-i="1" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Omnichannel%20Conversion%20Dashboard.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
-      <img class="rfa-shot" data-i="2" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Admissions%20CRM%20Dashboard%20Overview.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
-      <img class="rfa-shot" data-i="3" src="https://www.extraaedge.com/wp-content/uploads/2026/home-page/decrease-time-section/Dashboard%20analytics%20overview.png" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
-          </div>
-        </div>
-        <div class="rfa-tabs" id="rfaTabs" role="tablist" aria-label="Stories">
-          <button type="button" class="rfa-tab on" data-i="0">Decrease response time</button>
-          <button type="button" class="rfa-tab" data-i="1">Boost conversion rates</button>
-          <button type="button" class="rfa-tab" data-i="2">Convert more</button>
-          <button type="button" class="rfa-tab" data-i="3">Measure your efforts</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-</section>
-<script>
-(function(){
-  var sec=document.getElementById('ee-rfa'); if(!sec) return;
-  var track=document.getElementById('rfaTrack');
-  var cards=[].slice.call(sec.querySelectorAll('.rfa-card'));
-  var shots=[].slice.call(sec.querySelectorAll('.rfa-shot'));
-  var dots=[].slice.call(sec.querySelectorAll('.rfa-dot'));
-  var fill=document.getElementById('rfaFill'),
-      cap=document.getElementById('rfaCap'),
-      cnt=document.getElementById('rfaCount'),
-      urlEl=document.getElementById('rfaUrl');
-  var mqd=window.matchMedia('(min-width:961px)');
-  var cur=0;
-  var tabs=[].slice.call(sec.querySelectorAll('.rfa-tab'));
-  function render(i){
-    cur=i;
-    cards.forEach(function(c,j){ c.classList.toggle('on',j===i); });
-    shots.forEach(function(s,j){ s.classList.toggle('on',j===i); });
-    dots.forEach(function(d,j){ d.classList.toggle('on',j===i); });
-    tabs.forEach(function(t,j){ t.classList.toggle('on',j===i); });
-    var t=cards[i].querySelector('.rfa-title'), k=cards[i].querySelector('.rfa-kick');
-    if(cap&&t) cap.textContent=t.textContent;
-    if(cnt) cnt.textContent='0'+(i+1)+' / 0'+cards.length;
-    if(urlEl&&k) urlEl.textContent='app.extraaedge.com \u00b7 '+k.textContent.toLowerCase();
-    reveal(i); setTimeout(function(){ reveal(cur); },620);
-  }
-  /* keep the active card fully visible inside the scrollable card column -
-     without this, the expanded body of the last stories clips at the
-     pinned box's bottom edge on shorter screens */
-  var cardsBox=document.getElementById('rfaCards');
-  function reveal(i){
-    if(!cardsBox||!mqd.matches) return;
-    var cr=cards[i].getBoundingClientRect(), br=cardsBox.getBoundingClientRect();
-    var d=0;
-    if(cr.height>=br.height-4||cr.top<br.top) d=cr.top-br.top-6;
-    else if(cr.bottom>br.bottom) d=cr.bottom-br.bottom+6;
-    if(d) cardsBox.scrollTo({top:cardsBox.scrollTop+d,behavior:'smooth'});
-  }
-  /* one-time fade-in reveal (desktop stagger) + per-card reveal on phones */
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ sec.classList.add('rfa-rev'); io.disconnect(); } }); },{threshold:.15});
-    io.observe(sec);
-    var mio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('mi'); mio.unobserve(e.target); } }); },{threshold:.12});
-    cards.forEach(function(c){ mio.observe(c); });
-  } else { sec.classList.add('rfa-rev'); cards.forEach(function(c){ c.classList.add('mi'); }); }
-  var ticking=false;
-  function metrics(){
-    var pin=track.querySelector('.rfa-pin');
-    return { total: track.offsetHeight-(pin?pin.offsetHeight:window.innerHeight),
-             top: track.getBoundingClientRect().top };
-  }
-  function upd(){
-    ticking=false;
-    if(!mqd.matches) return;
-    var m=metrics();
-    if(m.total<=0) return;
-    var p=Math.min(1,Math.max(0,-m.top/m.total));
-    if(fill) fill.style.height=(p*100)+'%';
-    var i=Math.min(cards.length-1,Math.floor(p*cards.length+0.0001));
-    if(i!==cur) render(i);
-  }
-  window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(upd); } },{passive:true});
-  window.addEventListener('resize',upd,{passive:true});
-  /* click/keyboard on a card or rail dot scrolls the page to that story's
-     position in the pinned track, so state and scroll stay in sync */
-  function jumpTo(i){
-    if(!mqd.matches){ render(i); return; }
-    var m=metrics();
-    if(m.total<=0){ render(i); return; }
-    var trackTop=window.pageYOffset+m.top;
-    var target=Math.round(trackTop+((i+0.5)/cards.length)*m.total);
-    render(i);
-    window.scrollTo({top:target,behavior:'smooth'});
-  }
-  /* phones: the stacked cards behave as an accordion - tapping the open
-     card's header closes it, tapping another opens that one. Taps inside an
-     open body (chips, image) must not collapse the card mid-read. Desktop
-     keeps the scroll-story jump. */
-  function tap(i,e){
-    if(!mqd.matches){
-      if(e&&e.target&&e.target.closest&&e.target.closest('.rfa-body')) return;
-      if(cards[i].classList.contains('on')){ cards[i].classList.remove('on'); return; }
-      render(i);
-      var r=cards[i].getBoundingClientRect();
-      if(r.top<70) window.scrollBy({top:r.top-84,behavior:'smooth'});
-      return;
-    }
-    jumpTo(i);
-  }
-  cards.forEach(function(c,i){
-    c.addEventListener('click',function(e){ tap(i,e); });
-    c.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); tap(i,e); } });
-  });
-  dots.forEach(function(d,i){ d.addEventListener('click',function(){ jumpTo(i); }); });
-  tabs.forEach(function(t,i){ t.addEventListener('click',function(){ jumpTo(i); }); });
-  render(0); upd();
-})();
-</script>
 
 
 <!-- (removed) STORY 1 · THE REAL PROBLEM - empty shell cleaned up; content was superseded and removed earlier -->
 
 
-<div class="ee-story-kick" aria-hidden="false"><span class="k-no">03</span><span class="k-lb">The platform, live</span><span class="k-sub">Explore the admission CRM software yourself, on sample data</span></div>
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">01</span><span class="k-lb">The platform, live</span><span class="k-sub">Explore the admission CRM software yourself, on sample data</span></div>
 <?php /* The whole platform section - styles, dummy CRM, overlay, tour and the
    "real CRM" popup - lives in inc/platform-demo.php so the same block also
    serves /product-tour/ and the [ee_platform] shortcode. */
@@ -1881,7 +1299,7 @@ ee_platform_section(); ?>
     </style>
 
 
-<div class="ee-story-kick" aria-hidden="false"><span class="k-no">04</span><span class="k-lb">The AI advantage</span><span class="k-sub">Admission chatbot, WhatsApp automation, AI calling and lead scoring, one layer</span></div>
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">02</span><span class="k-lb">The AI advantage</span><span class="k-sub">Admission chatbot, WhatsApp automation, AI calling and lead scoring, one layer</span></div>
 <div id="vidyaai-embed-root">
   <div class="bg-white text-brand-navy antialiased">
 
@@ -2768,7 +2186,6 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
       <div class="vsx-inner">
         <header class="vsx-head">
           <h2>Meet Vidya AI, the Agentic AI Suite <span class="vsx-h2b">Built for Smarter Admissions</span></h2>
-          <p class="vsx-lead">Your AI admissions co-pilot, on 24&times;7: it engages every prospective student, qualifies leads instantly, automates follow-ups, supports counselors, and accelerates enrollments - so your teams can focus on building meaningful student relationships instead of repetitive tasks.</p>
         </header>
 
         <div class="vsx-stage">
@@ -2796,8 +2213,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-gpt" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
-                <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg></i>95+ languages</span>
+                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See VidyaGPT in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
               </div>
             </article>
 
@@ -2820,8 +2236,7 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-pulse" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
-                <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14a2 2 0 100-4 2 2 0 000 4z"/><path d="M13.4 10.6L18 6"/><path d="M3.5 18a9 9 0 1117 0"/></svg></i>0&ndash;100 score</span>
+                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See VidyaPulse in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
               </div>
             </article>
 
@@ -2840,12 +2255,11 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               </dl>
               <div class="vsx-quote">
                 <span class="vsx-qm" aria-hidden="true">&ldquo;</span>
-                <p class="vsx-desc">Calls every new lead within seconds and holds natural, human-like conversations that qualify interest and book counselling slots &mdash; in 10+ Indian languages, around the clock.</p>
+                <p class="vsx-desc">Calls every new lead within seconds and holds natural, human-like conversations that qualify interest and book counselling slots in 10+ Indian languages, around the clock.</p>
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
-                <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg></i>10+ languages</span>
+                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See VidyaAgents in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
               </div>
             </article>
 
@@ -2865,12 +2279,11 @@ html body #ee-products a.epx-btn svg{width:16px !important;height:16px !importan
               </dl>
               <div class="vsx-quote">
                 <span class="vsx-qm" aria-hidden="true">&ldquo;</span>
-                <p class="vsx-desc">Explore the live AI inside the product demo and watch every agent work a real admission funnel &mdash; no sales call, no signup.</p>
+                <p class="vsx-desc">Explore the live AI inside the product demo and watch every agent work a real admission funnel. No sales call, no signup.</p>
                 <svg class="vsx-net" viewBox="0 0 150 130" fill="none" aria-hidden="true"><path d="M18 96 58 60 96 78 132 34M58 60 44 18M96 78 104 118" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="96" r="4"/><circle cx="58" cy="60" r="5"/><circle cx="96" cy="78" r="4.5"/><circle cx="132" cy="34" r="4"/><circle cx="44" cy="18" r="3.5"/><circle cx="104" cy="118" r="3.5"/></svg>
               </div>
               <div class="vsx-jfoot">
-                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See it in your demo <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a><a class="vsx-deep" href="https://getvidya.ai/vidya-ai" target="_blank" rel="noopener">getvidya.ai <span aria-hidden="true">&#8599;</span></a>
-                <span class="vsx-stat"><i class="vsx-stat-i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5v-7z"/></svg></i>Live demo</span>
+                <a class="vsx-apply" href="#admission-form" aria-label="See this agent in your personalised demo">See the Vidya AI Suite live <span class="vsx-arw2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12M12 6l6 6-6 6"/></svg></span></a>
               </div>
             </article>
           </div>
@@ -3163,46 +2576,7 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
   </script>
 </section>
 
-<div class="ee-story-kick" aria-hidden="false"><span class="k-no">05</span><span class="k-lb">The proof</span><span class="k-sub">Customer stories and results from 500+ educational institutions</span></div>
-<section id="ee-architect" aria-label="How we configure the platform around your funnel">
-  <style>
-    /* ── The quote band: the one claim that separates us from legacy CRMs ──
-       A navy stage between two light sections, so the page pauses here. The
-       blueprint grid and the drawn quote mark carry the "architect" idea
-       without an eyebrow label announcing it. */
-    #ee-architect{position:relative;isolation:isolate;overflow:hidden;background:#19335D;padding:clamp(56px,7vw,92px) 22px;font-family:'Inter',system-ui,sans-serif}
-    #ee-architect::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
-      background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
-      background-size:58px 58px;
-      -webkit-mask-image:radial-gradient(ellipse 70% 74% at 50% 46%,#000 24%,transparent 76%);
-              mask-image:radial-gradient(ellipse 70% 74% at 50% 46%,#000 24%,transparent 76%)}
-    #ee-architect::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
-      background:radial-gradient(circle at 5% 6%,rgba(222,110,48,.30),transparent 42%),radial-gradient(circle at 97% 97%,rgba(222,110,48,.15),transparent 46%)}
-    /* the quote mark sits in its own column, so the quote, the rule and the
-       supporting line all start on one edge instead of drifting apart */
-    #ee-architect .am{position:relative;z-index:1;max-width:1000px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(16px,3vw,34px);align-items:start;text-align:left}
-    #ee-architect .am-mark{width:clamp(38px,4.6vw,60px);height:auto;color:#DE6E30;margin-top:clamp(2px,.6vw,8px)}
-    #ee-architect blockquote{margin:0;font-size:clamp(21px,3vw,36px);font-weight:800;line-height:1.3;letter-spacing:-.025em;color:#fff}
-    #ee-architect blockquote em{font-style:normal;color:#DE6E30}
-    #ee-architect .am-rule{display:block;width:64px;height:4px;border-radius:4px;background:#DE6E30;margin:clamp(18px,2.4vw,26px) 0 clamp(13px,1.7vw,17px)}
-    #ee-architect .am-sub{margin:0;font-size:clamp(13.5px,1.3vw,15.5px);line-height:1.65;color:rgba(255,255,255,.74);max-width:62ch}
-    @media(max-width:640px){
-      #ee-architect .am{grid-template-columns:minmax(0,1fr);gap:12px}
-      #ee-architect .am-rule{margin-top:16px}
-    }
-  </style>
-  <div class="am rv">
-    <svg class="am-mark" viewBox="0 0 64 48" fill="currentColor" aria-hidden="true" focusable="false">
-      <path d="M0 48V29.4C0 13.2 8.6 3 24.6 0l2.8 8.6C18 11.4 13 17 12.8 25.2H24V48H0z"/>
-      <path d="M36.6 48V29.4C36.6 13.2 45.2 3 61.2 0L64 8.6C54.6 11.4 49.6 17 49.4 25.2H60.6V48H36.6z"/>
-    </svg>
-    <div>
-      <blockquote>Every admission team is different. We configure around <em>your funnel</em>, not the other way around.</blockquote>
-      <span class="am-rule" aria-hidden="true"></span>
-      <p class="am-sub">Configuration, not customization: we listen, study how your admissions actually run, then build the platform around it.</p>
-    </div>
-  </div>
-</section>
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">03</span><span class="k-lb">The proof</span><span class="k-sub">Customer stories and results from 500+ educational institutions</span></div>
 <section id="stories" aria-labelledby="stories-title">
   <style>
     /* ── What Our Clients Are Saying · minimal light carousel (scoped #stories) ── */
@@ -3361,7 +2735,7 @@ html body #main-content #ee-vidya-suite .vsx-card.vsx-job .vsx-desc{ margin:0; c
       <a class="go" href="#admission-form">Book a Demo</a>
       <a class="alt" href="/product-tour/">Keep exploring the platform</a>
     </div>
-    <p class="fine">No credit card &middot; go-live in 7 days &middot; rated 4.7/5 by 320+ admission teams</p>
+    <p class="fine">Go-live in 7 days &middot; rated 4.7/5 by 320+ admission teams</p>
   </div>
 </section>
 
@@ -3521,7 +2895,7 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
 </style>
 
 
-<div class="ee-story-kick" aria-hidden="false"><span class="k-no">06</span><span class="k-lb">Built for your institution</span><span class="k-sub">Higher education, K-12 schools, coaching, study abroad, EdTech</span></div>
+<div class="ee-story-kick" aria-hidden="false"><span class="k-no">04</span><span class="k-lb">Built for your institution</span><span class="k-sub">Higher education, K-12 schools, coaching, study abroad, EdTech</span></div>
 <section id="ee-ind" aria-label="Industries we serve">
   <div class="spx-bg" aria-hidden="true">
     <span class="spx-blob b1"></span><span class="spx-blob b2"></span><span class="spx-blob b3"></span>
@@ -3664,77 +3038,6 @@ html body #main-content #ee-ind .spx-wrap .spx-card p{
 
 
 
-<div class="ee-story-kick" aria-hidden="false"><span class="k-no">07</span><span class="k-lb">The honest comparison</span><span class="k-sub">ExtraaEdge vs Meritto, LeadSquared and generic CRMs</span></div>
-<section id="ee-cro" aria-label="Why teams choose ExtraaEdge + ROI calculator">
-  <div class="cw">
-    <div class="ch">
-      <h2>The only <em>AI-native</em> Admissions Growth Platform</h2>
-      <p>Built for admissions growth, not process compliance. Others automate tasks. ExtraaEdge <b>calls, qualifies and follows up</b> with every lead, every time - so your team only talks to ready-to-enrol students.</p>
-    </div>
-    <div class="cmp" role="table" aria-label="Feature comparison">
-      <div class="cmp-row head" role="row">
-        <div role="columnheader">Capability</div>
-        <div class="us" role="columnheader"><span class="usbadge"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.2l-5.8 3.6 1.6-6.6L2.6 8.8l6.8-.5L12 2z"/></svg></span>ExtraaEdge</div>
-        <div role="columnheader">Meritto / LeadSquared</div>
-        <div role="columnheader">Generic CRMs (Zoho, Salesforce)</div>
-      </div>
-      <div class="cmp-row" role="row"><div class="feat" role="rowheader"><span class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg></span><span>AI Voice Agent<small>calls leads in 10+ languages</small></span></div><div class="cell us" role="cell"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><div class="cell" role="cell"><span class="no">&mdash;</span></div><div class="cell" role="cell"><span class="no">&mdash;</span></div></div>
-      <div class="cmp-row" role="row"><div class="feat" role="rowheader"><span class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 8.6 8.6 0 0 1-3.9-.9L3 21l2-5.5a8.4 8.4 0 1 1 16-4z"/><path d="M9 11h.01M12.5 11h.01M16 11h.01"/></svg></span><span>24&times;7 AI chat counsellor<small>VidyaGPT</small></span></div><div class="cell us" role="cell"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><div class="cell" role="cell"><span class="mid">Basic bot</span></div><div class="cell" role="cell"><span class="mid">Basic bot</span></div></div>
-      <div class="cmp-row" role="row"><div class="feat" role="rowheader"><span class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4.1 12.6h6L9.9 22 19 11.4h-6L13 2z"/></svg></span><span>Real-time AI lead intent scoring</span></div><div class="cell us" role="cell"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><div class="cell" role="cell"><span class="mid">Rule-based</span></div><div class="cell" role="cell"><span class="mid">Rule-based</span></div></div>
-      <div class="cmp-row" role="row"><div class="feat" role="rowheader"><span class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v10H9l-5 4V6z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></span><span>Official WhatsApp Business API automation</span></div><div class="cell us" role="cell"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><div class="cell" role="cell"><span class="ok2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><div class="cell" role="cell"><span class="ok2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div></div>
-      <div class="cmp-row" role="row"><div class="feat" role="rowheader"><span class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 9L12 4 2 9l10 5 10-5z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/></svg></span><span>Built only for admissions</span></div><div class="cell us" role="cell"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><div class="cell" role="cell"><span class="ok2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><div class="cell" role="cell"><span class="mid">Generic CRM</span></div></div>
-      <div class="cmp-row" role="row"><div class="feat" role="rowheader"><span class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2-.1-2.8-.8-.7-2.1-.6-2.9-.2z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.9 7.5-6 11a22.4 22.4 0 0 1-4 2z"/></svg></span><span>Go live in 7 days</span></div><div class="cell us" role="cell"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><div class="cell" role="cell"><span class="mid">Weeks</span></div><div class="cell" role="cell"><span class="mid">Weeks</span></div></div>
-      <div class="cmp-row" role="row"><div class="feat" role="rowheader"><span class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9"/><path d="M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5"/></svg></span><span>Free migration &amp; 1:1 onboarding</span></div><div class="cell us" role="cell"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><div class="cell" role="cell"><span class="no">&mdash;</span></div><div class="cell" role="cell"><span class="no">&mdash;</span></div></div>
-    </div>
-    <p class="cmp-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z"/></svg><span>Comparison based on publicly listed features (Jun 2026) - verify for your exact requirements. <b>Switching from another CRM? We migrate your data free.</b></span></p>
-    <div class="roi" aria-label="ROI calculator">
-      <div class="roi-in">
-        <h3>How many more admissions could you get?</h3>
-        <p class="sub">Move the sliders - see your upside instantly.</p>
-        <div class="fld"><label for="ri1">Monthly enquiries <b id="ro1">2,000</b></label><input id="ri1" type="range" min="200" max="20000" step="100" value="2000"><div class="nums"><span>200</span><span>20,000</span></div></div>
-        <div class="fld"><label for="ri2">Current conversion rate <b id="ro2">20%</b></label><input id="ri2" type="range" min="5" max="45" step="1" value="20"><div class="nums"><span>5%</span><span>45%</span></div></div>
-        <div class="fld"><label for="ri3">Average fee / student <b id="ro3">&#8377;1.0 L</b></label><input id="ri3" type="range" min="20000" max="800000" step="10000" value="100000"><div class="nums"><span>&#8377;20K</span><span>&#8377;8L</span></div></div>
-      </div>
-      <div class="roi-out">
-        <span class="lab">Extra admissions / month with ExtraaEdge</span>
-        <div class="big" id="roExtra">+96</div>
-        <div class="rev">Extra revenue: <span id="roRev">&#8377;96.0 L</span> / mo</div>
-        <div class="meta">
-          <div><b id="roNow">400</b><span>Admissions now</span></div>
-          <div><b id="roNew">496</b><span>With ExtraaEdge</span></div>
-          <div><b>+40%</b><span>Conversion lift</span></div>
-        </div>
-        <a href="#admission-form" class="cta">Get my detailed ROI report</a>
-        <div class="fine">Based on an up to 40% conversion lift seen across 500+ institutions. Your detailed ROI report arrives within 24 hours, specific to your enquiry volume and institution type.</div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- (removed) sticky "Fill more seats" CTA bar -->
-<script>
-(function(){
-  /* ROI calculator */
-  var i1=document.getElementById('ri1'),i2=document.getElementById('ri2'),i3=document.getElementById('ri3');
-  if(i1){
-    var o1=document.getElementById('ro1'),o2=document.getElementById('ro2'),o3=document.getElementById('ro3');
-    var eEx=document.getElementById('roExtra'),eRev=document.getElementById('roRev'),eNow=document.getElementById('roNow'),eNew=document.getElementById('roNew');
-    function inr(n){ if(n>=1e7)return '₹'+(n/1e7).toFixed(1)+' Cr'; if(n>=1e5)return '₹'+(n/1e5).toFixed(1)+' L'; if(n>=1e3)return '₹'+Math.round(n/1e3)+'K'; return '₹'+Math.round(n); }
-    function calc(){
-      var enq=+i1.value, conv=+i2.value, fee=+i3.value;
-      var now=Math.round(enq*conv/100);
-      var newConv=Math.min(conv*1.4,60);
-      var nw=Math.round(enq*newConv/100);
-      var extra=Math.max(nw-now,0);
-      o1.textContent=enq.toLocaleString('en-IN'); o2.textContent=conv+'%'; o3.textContent=inr(fee);
-      eNow.textContent=now.toLocaleString('en-IN'); eNew.textContent=nw.toLocaleString('en-IN');
-      eEx.textContent='+'+extra.toLocaleString('en-IN'); eRev.textContent=inr(extra*fee);
-    }
-    function fill(sl){var p=(sl.value-sl.min)/(sl.max-sl.min)*100;sl.style.setProperty('--p',p+'%');}
-    [i1,i2,i3].forEach(function(s){s.addEventListener('input',function(){fill(s);calc();});fill(s);}); calc();
-  }
-  /* sticky CTA bar removed */
-})();
-</script>
 
 
 <!-- ===================== /EE · WHILE YOUR CAMPUS SLEEPS ===================== -->
@@ -4020,7 +3323,6 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   <div class="container">
     <div class="ih-head rv">
       <h2 class="h2 ih-h2">Connect Your <em>Admissions Stack</em><br> With <em>ExtraaEdge</em></h2>
-      <p class="ih-lead">Connect your ads, portals, telephony and ERP in days - our team handles the setup. Manage every student interaction from <b>one connected platform</b>.</p>
     </div>
 
     <div class="ih-board rv" id="ihBoard">
@@ -4072,19 +3374,11 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
       </div>
     </div>
 
-    <div class="ih-bar rv">
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7L12 19"/></svg><b>Easy<br>Integrations</b></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg><b>Real-time<br>Data Sync</b></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3.5v5c0 4.8-3.3 8.7-8 9.5-4.7-.8-8-4.7-8-9.5v-5z"/><path d="M9 12l2 2 4-4"/></svg><b>Secure &amp;<br>Reliable</b></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 8.9 19a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 8.4a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><b>Automate<br>Workflows</b></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg><b>Smarter Decisions.<br>Better Outcomes.</b></div>
-    </div>
 
     <div class="ih-act rv">
       <a class="ih-cta" href="/integrations/">See All Integrations
         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </a>
-      <span class="ih-note">Setup handled by our team &middot; Don&rsquo;t see your tool? We&rsquo;ll integrate it.</span>
     </div>
   </div>
 </section>
@@ -4167,7 +3461,6 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   <div class="container">
     <div class="head rv">
       <h2 class="h2">Your students' data, <span class="grad-o">protected by design.</span></h2>
-      <p class="lead">ISO 27001 certified. GDPR compliant. India data residency. DPDP-ready: student data handled with full consent and audit trails.</p>
     </div>
     <div class="sec-grid rv">
       <div class="sec-item"><div class="ic"><img decoding="async" src="https://www.extraaedge.com/wp-content/uploads/integration-icons/iso%20certified%20logo.png" alt="ISO 27001" loading="lazy"></div><b>ISO 27001 Certified</b><span>Audited information-security management.</span></div>
@@ -4191,136 +3484,6 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   @media(max-width:760px){#ee-cro .roi{grid-template-columns:1fr}}
 </style>
 <!-- ===================== COMPETITOR-BEATING · GO-LIVE / PRICING / SWITCH ===================== -->
-<style>#ee-golive,#ee-pricing,#ee-switch{--nv:#19345d;--nv2:#22467c;--or:#DE6E30;--mut:#5a6b85;--line:rgba(25,52,93,.1);position:relative;padding:clamp(54px,7vw,88px) 0;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}#ee-golive *,#ee-pricing *,#ee-switch *{box-sizing:border-box}.rvw{max-width:1140px;margin:0 auto;padding:0 22px}.rvh{text-align:center;max-width:680px;margin:0 auto 36px}.rvh .eb{display:inline-flex;align-items:center;gap:8px;font:700 12px/1 'Inter';letter-spacing:.13em;text-transform:uppercase;color:var(--or);margin-bottom:12px}.rvh .eb i{width:7px;height:7px;border-radius:50%;background:var(--or)}.rvh h2{font-weight:800;font-size:clamp(26px,3.8vw,42px);line-height:1.1;letter-spacing:-.03em;color:var(--nv);margin:0 0 10px}.rvh h2 em{font-style:normal;color:var(--or)}.rvh p{font-size:clamp(15px,1.6vw,17px);color:var(--mut);line-height:1.6;margin:0}/* GO-LIVE timeline */
-  #ee-golive .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative}#ee-golive .tl::before{content:"";position:absolute;top:34px;left:8%;right:8%;height:2px;background:linear-gradient(90deg,var(--or),var(--nv2))}#ee-golive .st{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 18px;box-shadow:0 12px 30px -18px rgba(25,52,93,.25);text-align:center}#ee-golive .st .n{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--or),var(--nv2));color:#fff;font-weight:800;display:grid;place-items:center;margin:0 auto 12px;position:relative;z-index:1}#ee-golive .st .day{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--or);margin-bottom:5px}#ee-golive .st h4{font-size:15px;font-weight:700;color:var(--nv);margin:0 0 5px}#ee-golive .st p{font-size:12.5px;color:var(--mut);line-height:1.5;margin:0}#ee-golive .note{text-align:center;margin-top:26px;font-size:14px;color:var(--nv);font-weight:600}#ee-golive .note b{color:var(--or)}
-  @media(max-width:760px){#ee-golive .tl{grid-template-columns:1fr 1fr}#ee-golive .tl::before{display:none}}
-  @media(max-width:430px){#ee-golive .tl{grid-template-columns:1fr}}/* PRICING */
-  #ee-pricing{background:transparent}#ee-pricing .pg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}#ee-pricing .pc{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 22px;box-shadow:0 14px 36px -22px rgba(25,52,93,.28)}#ee-pricing .pc.pop{border:2px solid var(--or);box-shadow:0 26px 60px -26px rgba(222,110,48,.5);position:relative}#ee-pricing .pc.pop::before{content:"Most popular";position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--or);color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em;padding:5px 14px;border-radius:999px;white-space:nowrap}#ee-pricing .pc .pn{font-size:17px;font-weight:800;color:var(--nv)}#ee-pricing .pc .pd{font-size:12.5px;color:var(--mut);margin:4px 0 14px}#ee-pricing .pc .pp{font-size:26px;font-weight:800;color:var(--nv);letter-spacing:-.02em}#ee-pricing .pc .pp span{font-size:13px;font-weight:600;color:var(--mut)}#ee-pricing .pc ul{list-style:none;margin:16px 0 18px;padding:0;display:flex;flex-direction:column;gap:9px}#ee-pricing .pc li{font-size:13px;color:var(--nv);display:flex;gap:8px;align-items:flex-start;line-height:1.4}#ee-pricing .pc li svg,#ee-pricing .pc li img.eeimg{width:15px;height:15px;color:#1f519d;flex:none;margin-top:1px}#ee-pricing .pc .pb{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14px;padding:12px;border-radius:11px;text-decoration:none;transition:transform .2s}#ee-pricing .pc .pb.ghost{border:1.5px solid var(--line);color:var(--nv)}#ee-pricing .pc .pb.solid{background:var(--or);color:#fff;box-shadow:0 12px 26px -10px rgba(222,110,48,.5)}#ee-pricing .pc .pb:hover{transform:translateY(-2px)}#ee-pricing .pnote{text-align:center;margin-top:18px;font-size:12.5px;color:var(--mut)}#ee-pricing .pnote b{color:var(--nv)}
-  @media(max-width:820px){#ee-pricing .pg{grid-template-columns:1fr;max-width:420px;margin:0 auto}}/* SWITCH */
-  #ee-switch .sw{display:grid;grid-template-columns:1.1fr .9fr;gap:0;background:linear-gradient(150deg,var(--nv2),var(--nv));border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -34px rgba(25,52,93,.55)}#ee-switch .swl{padding:clamp(28px,3.4vw,44px);color:#fff}#ee-switch .swl .eb{display:inline-flex;align-items:center;gap:8px;font:800 11px/1 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#E8843F;margin-bottom:12px}#ee-switch .swl h2{font-size:clamp(24px,3.2vw,36px);font-weight:800;line-height:1.12;letter-spacing:-.02em;margin:0 0 12px}#ee-switch .swl p{font-size:14.5px;color:#c6d4ea;line-height:1.6;margin:0 0 20px;max-width:46ch}#ee-switch .swl ul{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:11px}#ee-switch .swl li{font-size:14px;display:flex;gap:10px;align-items:flex-start;color:#eaf0f8}#ee-switch .swl li svg,#ee-switch .swl li img.eeimg{width:18px;height:18px;color:#9fb9e0;flex:none;margin-top:1px}#ee-switch .swl .cta{display:inline-flex;align-items:center;gap:9px;background:var(--or);color:#fff;font-weight:700;font-size:15px;padding:14px 26px;border-radius:12px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.6);transition:transform .2s}#ee-switch .swl .cta:hover{transform:translateY(-2px)}#ee-switch .swr{background:rgba(255,255,255,.06);border-left:1px solid rgba(255,255,255,.12);padding:clamp(28px,3.4vw,44px);display:flex;flex-direction:column;justify-content:center;gap:14px}#ee-switch .swr .gain{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9fb4d4;margin-bottom:2px}#ee-switch .swr .g{display:flex;gap:11px;align-items:center;color:#fff;font-size:14px;font-weight:600}#ee-switch .swr .g b{width:34px;height:34px;border-radius:9px;background:#ffffff;color:#E8843F;display:grid;place-items:center;flex:none;box-shadow:0 2px 8px rgba(0,0,0,.18)}#ee-switch .swr .g b svg,#ee-switch .swr .g b img.eeimg{width:18px;height:18px}
-  @media(max-width:760px){#ee-switch .sw{grid-template-columns:1fr}#ee-switch .swr{border-left:0;border-top:1px solid rgba(255,255,255,.12)}}
-  /* SWITCH - compact: the section reads as a closing nudge, not a hero.
-     Later in the same sheet than the grouped rules above, so ties resolve here. */
-  #ee-switch{padding:clamp(34px,4.5vw,56px) 0}
-  #ee-switch .rvw{max-width:960px}
-  #ee-switch .swl,#ee-switch .swr{padding:clamp(20px,2.6vw,32px)}
-  #ee-switch .swl h2{font-size:clamp(20px,2.6vw,28px);margin:0 0 10px}
-  #ee-switch .swl h2 em{font-style:normal;color:#E8843F}
-  #ee-switch .swl p{font-size:13.5px;margin:0 0 16px}
-  #ee-switch .swl ul{gap:9px;margin:0 0 18px}
-  #ee-switch .swl li{font-size:13px}
-  #ee-switch .swl li svg,#ee-switch .swl li img.eeimg{width:16px;height:16px}
-  #ee-switch .swl .cta{font-size:14px;padding:12px 22px;border-radius:10px}
-  #ee-switch .swr{gap:11px}
-  #ee-switch .swr .g{font-size:13px;gap:10px}
-  #ee-switch .swr .g b{width:30px;height:30px}
-  /* phones: the section is dropped entirely */
-  @media(max-width:820px){
-    #ee-switch{padding:26px 0}
-    #ee-switch .swr{display:none}/* phones keep the offer + CTA, drop the gains panel */
-    #ee-switch .swl{padding:22px 20px}
-    #ee-switch .swl h2{font-size:19px}
-    #ee-switch .swl p{font-size:12.5px;margin:0 0 12px}
-    #ee-switch .swl ul{gap:7px;margin:0 0 14px}
-    #ee-switch .swl li{font-size:12px}
-    #ee-switch .swl .cta{font-size:13px;padding:11px 18px}
-  }
-</style>
-
-
-<div class="ee-story-kick" aria-hidden="false"><span class="k-no">08</span><span class="k-lb">Go live and grow</span><span class="k-sub">Enrollment management outcomes from day 7, not month 6</span></div>
-<section id="ee-golive" aria-label="Go live in 7 days">
-  <div class="rvw">
-    <div class="rvh">
-      <h2>Go live in <em>7 days</em> - not months.</h2>
-      <p>No long IT projects. Our team imports your data, configures your AI &amp; WhatsApp, trains your counsellors and gets you live in a single week.</p>
-    </div>
-    <div class="tl">
-      <div class="st"><div class="n">1</div><div class="day">Day 1&ndash;2</div><h3>Kickoff &amp; data import</h3><p>We migrate your leads &amp; history - zero manual work for you.</p></div>
-      <div class="st"><div class="n">2</div><div class="day">Day 3&ndash;4</div><h3>Setup &amp; branding</h3><p>Stages, forms, templates &amp; dashboards mapped to your funnel.</p></div>
-      <div class="st"><div class="n">3</div><div class="day">Day 5&ndash;6</div><h3>AI &amp; WhatsApp config</h3><p>VidyaAI calling, VidyaGPT &amp; WhatsApp API live and tested.</p></div>
-      <div class="st"><div class="n">4</div><div class="day">Day 7</div><h3>Go live + training</h3><p>Counsellors trained, you start converting from day one.</p></div>
-    </div>
-    <p class="note">Standard go-live: <b>7 days</b>. Switching with full data migration: <b>14 days</b>. Start this week and be live before your next intake opens.</p>
-    <p style="text-align:center;margin:18px 0 0"><a href="#admission-form" style="display:inline-flex;align-items:center;gap:9px;background:#DE6E30;color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:12px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.6)">Get my onboarding plan &rarr;</a></p>
-  </div>
-</section>
-
-
-<section id="ee-switch" aria-label="Switch from your current CRM">
-  <div class="rvw">
-    <div class="sw">
-      <div class="swl">
-                <h2>Move to ExtraaEdge in <em>14 days</em>: data migration included, zero downtime.</h2>
-        <p>Outgrown a generic CRM or a basic enrolment tool? You are not switching CRMs - you are moving to India&rsquo;s Intelligent Admissions Growth Platform. We do the heavy lifting.</p>
-        <ul>
-          <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> <b>Free data migration</b> - leads, history &amp; templates</li>
-          <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> Run both in parallel - <b>zero downtime</b></li>
-          <li><img class="eeimg ee-ico-white" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-01.svg" alt="" loading="lazy" decoding="async"> 1:1 onboarding &amp; counsellor training included</li>
-        </ul>
-        <a href="#admission-form" class="cta">Get a free migration plan</a>
-      </div>
-      <div class="swr">
-        <div class="gain">What you gain on day one</div>
-        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-02.svg" alt="" loading="lazy" decoding="async"></b> VidyaAgents call every new lead in 60 seconds</div>
-        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-03.svg" alt="" loading="lazy" decoding="async"></b> VidyaGPT: 24&times;7 AI counsellor</div>
-        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-04.svg" alt="" loading="lazy" decoding="async"></b> Real-time AI lead intent scoring</div>
-        <div class="g"><b><img class="eeimg" src="https://www.extraaedge.com/wp-content/uploads/2026/webpage-logo/home-page/switch-icon-05.svg" alt="" loading="lazy" decoding="async"></b> 95+ languages on chat &amp; voice</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== PRICING TEASER ===================== -->
-<style>
-  #ee-pricing .pz{display:grid;grid-template-columns:1.15fr .85fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -34px rgba(25,52,93,.35)}
-  #ee-pricing .pzl{padding:clamp(24px,3vw,38px)}
-  #ee-pricing .pzl ul{list-style:none;margin:0;padding:0;display:grid;gap:13px}
-  #ee-pricing .pzl li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--nv);line-height:1.45}
-  #ee-pricing .pzl li b{display:block}
-  #ee-pricing .pzl li small{display:block;font-size:12.5px;font-weight:500;color:var(--mut);margin-top:1px}
-  #ee-pricing .pzl .pzi{flex:none;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(222,110,48,.13),rgba(25,52,93,.07));display:inline-flex;align-items:center;justify-content:center;color:var(--or)}
-  #ee-pricing .pzl .pzi svg{width:17px;height:17px}
-  #ee-pricing .pzr{background:linear-gradient(150deg,var(--nv2),var(--nv));color:#fff;padding:clamp(24px,3vw,38px);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-  #ee-pricing .pzr::before{content:"";position:absolute;top:-70px;right:-70px;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(222,110,48,.35),transparent 70%)}
-  #ee-pricing .pzr>*{position:relative;z-index:1}
-  #ee-pricing .pzr .lab{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#c6d4ea;margin-bottom:8px}
-  #ee-pricing .pzr h3{font-size:clamp(18px,2.2vw,23px);font-weight:800;line-height:1.2;letter-spacing:-.02em;margin:0 0 8px;color:#fff}
-  #ee-pricing .pzr p{font-size:13.5px;color:#c6d4ea;line-height:1.6;margin:0 0 20px}
-  #ee-pricing .pzr .btns{display:flex;flex-wrap:wrap;gap:10px}
-  #ee-pricing .pzr .pb1{display:inline-flex;align-items:center;gap:8px;background:var(--or);color:#fff;font-weight:700;font-size:14px;padding:13px 22px;border-radius:11px;text-decoration:none;box-shadow:0 14px 30px -10px rgba(222,110,48,.6);transition:transform .2s}
-  #ee-pricing .pzr .pb2{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.35);color:#fff;font-weight:700;font-size:14px;padding:13px 22px;border-radius:11px;text-decoration:none;transition:transform .2s,background .2s}
-  #ee-pricing .pzr .pb1:hover,#ee-pricing .pzr .pb2:hover{transform:translateY(-2px)}
-  #ee-pricing .pzr .pb2:hover{background:rgba(255,255,255,.08)}
-  @media(max-width:760px){#ee-pricing .pz{grid-template-columns:1fr}}
-</style>
-<section id="ee-pricing" aria-label="Simple product-based pricing">
-  <div class="rvw">
-    <div class="rvh">
-      <h2>Simple, <em>product-based</em> pricing.</h2>
-      <p>Meritto and LeadSquared charge per module. We price per product: one platform, one Vidya AI suite, one WhatsApp API - sized to your enquiry volume, no hidden add-ons.</p>
-    </div>
-    <div class="pz rv">
-      <div class="pzl">
-        <ul>
-          <li><span class="pzi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></span><span><b>Product-based, not module-based</b><small>One clear price per product - CRM, Vidya AI agents, WhatsApp API - instead of a fee for every feature.</small></span></li>
-          <li><span class="pzi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span><b>Scales with your enquiry volume</b><small>From single-campus colleges to university groups processing 100,000+ applications a cycle.</small></span></li>
-          <li><span class="pzi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3.5v5c0 4.6-3.2 7.8-8 9.5-4.8-1.7-8-4.9-8-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg></span><span><b>No hidden third-party charges</b><small>Telephony, WhatsApp and integrations quoted upfront - what you see is what you pay.</small></span></li>
-          <li><span class="pzi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9"/><path d="M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5"/></svg></span><span><b>Migration &amp; onboarding included</b><small>Free data migration, 1:1 counsellor training and a dedicated Customer Success Manager.</small></span></li>
-        </ul>
-      </div>
-      <div class="pzr">
-        <span class="lab">Your quote, your funnel</span>
-        <h3>Get a price built on your real numbers.</h3>
-        <p>Tell us your enquiry volume and the products you need - we&rsquo;ll send a transparent, tailored quote the same day.</p>
-        <div class="btns">
-          <a class="pb1" href="/pricing/">View Pricing &rarr;</a>
-          <a class="pb2" href="#admission-form">Get a custom quote</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 
@@ -4562,8 +3725,6 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
       </a>
     </div>
 
-    <p class="epn-morewrap"><button type="button" class="epn-more" id="epnMore" hidden>Show all products</button></p>
-    <style>#ee-products .epn-morewrap{text-align:center;margin:18px 0 0}#ee-products .epn-more{font:700 13.5px/1 'Inter',system-ui,sans-serif;color:#19335D;background:#fff;border:1.5px solid rgba(25,52,93,.22);border-radius:999px;padding:12px 26px;cursor:pointer;transition:.2s}#ee-products .epn-more:hover{border-color:#DE6E30;color:#DE6E30;transform:translateY(-1px)}</style>
     <script>
     (function(){
       var tabs=[].slice.call(document.querySelectorAll('#ee-products .epn-tab'));
@@ -4718,7 +3879,6 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   <div class="ee-container">
     <div class="ee-head">
       <h2>Solutions for every admissions motion</h2>
-      <p class="ee-sub">From first enquiry to confirmed enrolment, ExtraaEdge brings the right workflow to every stage of your admissions journey - explore each category below.</p>
     </div>
 
     <style>
@@ -4916,7 +4076,6 @@ html body #integrations a.ih-cta svg{width:16px !important;height:16px !importan
   <div class="ee-r-container">
     <div class="ee-r-head">
       <h2>Everything you need to win admissions</h2>
-      <p class="ee-r-sub">Learn the playbooks, get help fast, and run the numbers - the full resource library in one place.</p>
     </div>
     <div class="ee-r-grid">
 

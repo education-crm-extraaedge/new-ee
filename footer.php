@@ -251,14 +251,6 @@ if (!function_exists('ee_social_icon_url')) {
 <?php if (!function_exists('ee_should_hide_part') || !ee_should_hide_part('footer')): ?>
 <div id="extraaedge-footer-engine">
 
-    <!-- Closing positioning statement (brand audit #40) + the story's last door -->
-    <section class="ee-container" style="text-align:center;padding:34px 22px 0">
-        <a href="/book-a-demo/" style="display:inline-flex;align-items:center;gap:8px;background:#DE6E30;color:#fff;font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:14.5px;border-radius:999px;padding:14px 30px;text-decoration:none;box-shadow:0 14px 30px -12px rgba(222,110,48,.6);margin-bottom:18px">Book a Demo &rarr;</a>
-        <p style="margin:0;font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:800;color:#19335D;line-height:1.55">ExtraaEdge - India&rsquo;s Intelligent Admissions Growth Platform.
-            <span style="display:block;font-size:13px;font-weight:600;color:#5a6b85;margin-top:4px">Built for education. Driven by AI simplicity.</span></p>
-    </section>
-
-
     <!-- Contact Grid -->
     <section class="ee-container ee-section-block">
         <div class="ee-contact-grid">

@@ -325,6 +325,11 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
 .tour-tip .nx:hover{background:var(--o-d)}
 .tour-tip .kbd{margin-top:9px;font-size:10px;color:var(--t-dim);text-align:right}
 .tour-tip .kbd b{font-weight:700;border:1px solid var(--t-line);border-radius:4px;padding:1px 4px;margin:0 1px}
+/* Reduced tooltip: dashboard name + info + Next only (owner request). Elements
+   stay in the DOM because the tour script wires them all up. */
+.tour-tip .head,.tour-tip .meta,.tour-tip .out,.tour-tip .kbd,
+.tour-tip .row .dts,.tour-tip .row .sk,.tour-tip .row .pv{display:none!important}
+.tour-tip .row{justify-content:flex-end}
 /* ── closing screen ── */
 .tour-end{position:fixed;inset:0;z-index:9100;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(9,18,36,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
 .tour-end.show{opacity:1;visibility:visible}
@@ -1155,11 +1160,6 @@ html body #main-content #ee-platform .eep-mods-title{display:none!important}
     </div>
 
 
-    <div class="eep-cta">
-      <p class="eep-cta-t">Seen enough? Run it on <strong>your own funnel</strong>.</p>
-      <a class="eep-cta-btn" href="https://www.extraaedge.com/book-a-demo/">Book a personalised demo</a>
-      <span class="eep-cta-sub">30 minutes &middot; your courses, your sources, your team</span>
-    </div>
   </div>
 </section>
 <script>
