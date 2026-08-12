@@ -8934,3 +8934,22 @@ function ee_layout_sides_css() {
         echo '<style class="ee-layout-side">' . $css . '</style>';
     }, 99);
 }
+
+/* ── Homepage skeleton structure-review page ──────────────────────────────
+   https://<site>/skeleton-review/ serves skeleton-review.php straight from
+   the theme folder, so the review page needs NO file in the WordPress root.
+   The included file handles its own ?api=list/add/del comment endpoints and
+   prints its own no-cache headers. Priority 1 runs before canonical
+   redirects; status_header(200) clears the 404 WordPress already decided
+   for this unknown URL. */
+add_action('template_redirect', function () {
+    $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
+    if ($path === 'skeleton-review' || $path === 'skeleton-review.php') {
+        $f = get_template_directory() . '/skeleton-review.php';
+        if (file_exists($f)) {
+            status_header(200);
+            include $f;
+            exit;
+        }
+    }
+}, 1);
