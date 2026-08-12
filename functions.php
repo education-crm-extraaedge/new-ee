@@ -8938,18 +8938,32 @@ function ee_layout_sides_css() {
 /* ── Homepage skeleton structure-review page ──────────────────────────────
    https://<site>/skeleton-review/ serves skeleton-review.php straight from
    the theme folder, so the review page needs NO file in the WordPress root.
-   The included file handles its own ?api=list/add/del comment endpoints and
-   prints its own no-cache headers. Priority 1 runs before canonical
-   redirects; status_header(200) clears the 404 WordPress already decided
-   for this unknown URL. */
-add_action('template_redirect', function () {
+   Hooked on init priority 0: fires before every rewrite, canonical redirect
+   and template decision, so nothing else can 404 or redirect it first. The
+   included file handles its own ?api=list/add/del comment endpoints. If the
+   file is missing the route says so in plain text instead of silently
+   falling back to the theme 404, so a broken upload diagnoses itself. */
+add_action('init', function () {
+    if (is_admin()) return;
     $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
-    if ($path === 'skeleton-review' || $path === 'skeleton-review.php') {
-        $f = get_template_directory() . '/skeleton-review.php';
-        if (file_exists($f)) {
+    if ($path !== 'skeleton-review' && $path !== 'skeleton-review.php') return;
+
+    nocache_headers();
+    header('X-LiteSpeed-Cache-Control: no-cache');
+
+    /* child theme first, parent theme second - works in either setup */
+    foreach (array_unique(array(get_stylesheet_directory(), get_template_directory())) as $ee_sr_dir) {
+        $ee_sr_f = $ee_sr_dir . '/skeleton-review.php';
+        if (file_exists($ee_sr_f)) {
             status_header(200);
-            include $f;
+            include $ee_sr_f;
             exit;
         }
     }
-}, 1);
+    status_header(200);
+    header('Content-Type: text/plain; charset=utf-8');
+    echo "Route OK - functions.php is updated.\n";
+    echo "But skeleton-review.php was NOT found in the theme folder.\n";
+    echo "Upload skeleton-review.php to: " . get_stylesheet_directory() . "/\n";
+    exit;
+}, 0);
