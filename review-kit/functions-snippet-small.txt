@@ -1,0 +1,124 @@
+
+/* ══ ExtraaEdge homepage skeleton review (compact edition) ══════════════════
+   HOW TO USE:
+   1. Upload "skeleton-review-page.txt" via WP Admin -> Media -> Add New.
+   2. Paste this whole block at the VERY END of the active theme's
+      functions.php and save.
+   3. Open  https://<site>/wp-admin/admin-ajax.php?action=ee_skeleton_review
+      (also served at /skeleton-review/ ).
+   Comments from every reviewer are stored in ONE JSON file under
+   wp-content/uploads/ee-skeleton-review/ - shared, refresh-proof; deletes
+   are soft so no feedback is ever destroyed. The guard below makes this
+   block a no-op if the full embedded version already exists. */
+if (!function_exists('ee_skr_serve')) {
+
+function ee_skr_store_file() {
+    $up  = wp_upload_dir();
+    $dir = trailingslashit($up['basedir']) . 'ee-skeleton-review';
+    if (!is_dir($dir)) wp_mkdir_p($dir);
+    if (is_dir($dir)) {
+        if (!file_exists($dir . '/.htaccess')) @file_put_contents($dir . '/.htaccess', "Require all denied\n");
+        return $dir . '/comments.json';
+    }
+    return trailingslashit(sys_get_temp_dir()) . 'ee-skeleton-comments.json';
+}
+
+function ee_skr_with_store($mutator = null) {
+    $fh = fopen(ee_skr_store_file(), 'c+');
+    if (!$fh) return array('comments' => array());
+    flock($fh, $mutator ? LOCK_EX : LOCK_SH);
+    $raw  = stream_get_contents($fh);
+    $data = json_decode($raw ?: '{"comments":[]}', true);
+    if (!is_array($data) || !isset($data['comments']) || !is_array($data['comments'])) $data = array('comments' => array());
+    if ($mutator) {
+        $data = $mutator($data);
+        rewind($fh); ftruncate($fh, 0);
+        fwrite($fh, json_encode($data, JSON_UNESCAPED_UNICODE));
+        fflush($fh);
+    }
+    flock($fh, LOCK_UN); fclose($fh);
+    return $data;
+}
+
+function ee_skr_public_list($data) {
+    $out = array();
+    foreach ($data['comments'] as $c) { if (empty($c['deleted'])) $out[] = $c; }
+    return array('ok' => true, 'comments' => $out);
+}
+
+/* the page HTML = the skeleton-review-page.txt uploaded via Media Library */
+function ee_skr_html() {
+    $base = wp_upload_dir();
+    $hits = array_merge(
+        (array) glob(trailingslashit($base['basedir']) . 'skeleton-review-page*.txt'),
+        (array) glob(trailingslashit($base['basedir']) . '*/*/skeleton-review-page*.txt'),
+        (array) glob(trailingslashit($base['basedir']) . '*/skeleton-review-page*.txt')
+    );
+    $hits = array_filter($hits);
+    if (!$hits) return '';
+    usort($hits, function ($a, $b) { return filemtime($b) - filemtime($a); });
+    return (string) file_get_contents($hits[0]);   /* newest upload wins */
+}
+
+function ee_skr_serve() {
+    if (isset($_GET['api'])) {
+        header('Content-Type: application/json; charset=utf-8');
+        $api = $_GET['api'];
+        if ($api === 'list') { echo json_encode(ee_skr_public_list(ee_skr_with_store()), JSON_UNESCAPED_UNICODE); return; }
+        if ($api === 'add' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = trim(strip_tags((string) ($_POST['name'] ?? '')));
+            $text = trim(strip_tags((string) ($_POST['text'] ?? '')));
+            $sec  = trim(strip_tags((string) ($_POST['section'] ?? 'General')));
+            if ($text === '') { echo json_encode(array('ok' => false, 'err' => 'empty')); return; }
+            $c = array('id' => uniqid('c', true),
+                       'name' => ($name !== '' ? mb_substr($name, 0, 60) : 'Anonymous'),
+                       'text' => mb_substr($text, 0, 2000),
+                       'section' => ($sec !== '' ? mb_substr($sec, 0, 120) : 'General'),
+                       'xr' => max(0.0, min(1.0, (float) ($_POST['xr'] ?? .5))),
+                       'yr' => max(0.0, min(1.0, (float) ($_POST['yr'] ?? .5))),
+                       'ts' => time());
+            $data = ee_skr_with_store(function ($d) use ($c) { if (count($d['comments']) < 5000) $d['comments'][] = $c; return $d; });
+            echo json_encode(ee_skr_public_list($data), JSON_UNESCAPED_UNICODE); return;
+        }
+        if ($api === 'del' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = (string) ($_POST['id'] ?? '');
+            $data = ee_skr_with_store(function ($d) use ($id) {
+                foreach ($d['comments'] as &$c) { if ($c['id'] === $id) $c['deleted'] = true; }
+                return $d;
+            });
+            echo json_encode(ee_skr_public_list($data), JSON_UNESCAPED_UNICODE); return;
+        }
+        echo json_encode(array('ok' => false, 'err' => 'unknown api')); return;
+    }
+    header('Content-Type: text/html; charset=utf-8');
+    $html = ee_skr_html();
+    if ($html === '') {
+        header('Content-Type: text/plain; charset=utf-8');
+        echo "Snippet OK - but skeleton-review-page.txt is not uploaded yet.\n";
+        echo "WP Admin -> Media -> Add New -> upload skeleton-review-page.txt, then reload this URL.\n";
+        return;
+    }
+    echo $html;
+}
+
+function ee_skr_ajax() {
+    nocache_headers();
+    header('X-LiteSpeed-Cache-Control: no-cache');
+    ee_skr_serve();
+    exit;
+}
+add_action('wp_ajax_ee_skeleton_review', 'ee_skr_ajax');
+add_action('wp_ajax_nopriv_ee_skeleton_review', 'ee_skr_ajax');
+
+add_action('init', function () {
+    if (is_admin()) return;
+    $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
+    if ($path !== 'skeleton-review' && $path !== 'skeleton-review.php') return;
+    nocache_headers();
+    header('X-LiteSpeed-Cache-Control: no-cache');
+    status_header(200);
+    ee_skr_serve();
+    exit;
+}, 0);
+
+}
