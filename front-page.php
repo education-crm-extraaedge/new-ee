@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('wp_head', function () {
 ?>
-<!-- ee-front-tpl v2026-08-11-bigcenter -->
+<!-- ee-front-tpl v2026-08-12-restored-skin -->
 <!--
   NOTE: title / meta description / keywords / robots / canonical / hreflang /
   Open Graph / Twitter cards and the WebSite + Organization JSON-LD are emitted
@@ -5872,5 +5872,61 @@ html, body, #main-content, .ee-home{ background-color:#ffffff !important; }
 </style>
 
 <!-- (removed) EE · VidyaGPT live conversation strip -->
+
+
+<style id="ee-skin-2026">
+/* ============================================================
+   REDESIGN SKIN v2026-08-12 - one visual system over every
+   section, no markup or behaviour touched. The page already
+   carries a uniform compact rhythm (30px) and one headline
+   scale from earlier passes - this skin adds the two things
+   still missing: a chapter pulse and one card language.
+   ============================================================ */
+
+/* -- 1 · washes: light chapters alternate white / cool-paper, each
+      opening on a hairline, so the long page reads as chapters.
+      Deliberate dark stages (products, architect, the switch card)
+      and the carousels keep their own scenery. -- */
+#ee-rfa,#ee-cro,#security,#ee-resources{
+  background:linear-gradient(180deg,#F7F9FC,#FDFEFF)!important;
+  border-top:1px solid rgba(25,51,93,.08)!important;
+}
+#ee-why,#ee-ind,#integrations,#ee-golive,#ee-pricing,#ee-blog{
+  background:#fff!important;
+  border-top:1px solid rgba(25,51,93,.06)!important;
+}
+#faq{
+  background:linear-gradient(180deg,#F7F9FC,#fff)!important;
+  border-top:1px solid rgba(25,51,93,.08)!important;
+}
+
+/* -- 2 · one card language: same radius, same hairline, same soft
+      shadow, same quiet lift, in every light section. (The dark
+      product-gallery cards keep their own dark dress.) -- */
+.rfa-card,.spx-card,.ee-r-card,#ee-golive .st,#ee-pricing .pg>*{
+  border-radius:18px!important;
+  border:1px solid rgba(25,51,93,.10)!important;
+  box-shadow:0 16px 36px -26px rgba(25,51,93,.35)!important;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease!important;
+}
+.rfa-card:hover,.spx-card:hover,.ee-r-card:hover,#ee-pricing .pg>*:hover{
+  transform:translateY(-4px);
+  border-color:rgba(222,110,48,.38)!important;
+  box-shadow:0 26px 52px -28px rgba(25,51,93,.45)!important;
+}
+#faq .qa{
+  border-radius:14px!important;
+  border:1px solid rgba(25,51,93,.10)!important;
+  background:#fff!important;
+  box-shadow:0 10px 26px -22px rgba(25,51,93,.3)!important;
+}
+#integrations .ih-board{border-radius:20px!important;border:1px solid rgba(25,51,93,.10)!important;box-shadow:0 22px 48px -30px rgba(25,51,93,.4)!important}
+#security .st{border-radius:16px!important;border:1px solid rgba(25,51,93,.10)!important;background:#fff!important}
+
+@media(prefers-reduced-motion:reduce){
+  .rfa-card,.spx-card,.ee-r-card,#ee-pricing .pg>*{transition:none!important}
+  .rfa-card:hover,.spx-card:hover,.ee-r-card:hover,#ee-pricing .pg>*:hover{transform:none}
+}
+</style>
 
 <?php get_footer(); ?>
