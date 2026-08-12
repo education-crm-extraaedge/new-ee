@@ -1747,7 +1747,7 @@ if (isset($_GET['api'])) {
 
 <script>
   // ── Shared comment state (server-backed) ──
-  const API = location.pathname + '?api=';
+  const API = location.pathname + location.search + (location.search ? '&' : '?') + 'api=';
   let comments = [];
   let pendingSection = '', pendingXr = 0.5, pendingYr = 0.5;
 

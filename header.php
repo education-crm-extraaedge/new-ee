@@ -995,6 +995,7 @@ remove_action('wp_head', '_wp_render_title_tag', 1);
         array('t'=>'News','u'=>'/news/','i'=>'news','im'=>$EE_ICM.'news.svg'),
         array('t'=>'Contact','u'=>'/contact/','i'=>'mail','im'=>$EE_ICM.'contact.svg'),
         array('t'=>'Support','u'=>'/support/','i'=>'life','im'=>$EE_ICM.'support.svg'),
+        array('t'=>'Skeleton Review','u'=>'/wp-admin/admin-ajax.php?action=ee_skeleton_review','i'=>'flag'),
       )),
     );
     if (!function_exists('ee_m_url')) { function ee_m_url($u){ return (strpos($u,'http')===0) ? $u : home_url($u); } }

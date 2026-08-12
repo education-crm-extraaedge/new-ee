@@ -8955,6 +8955,18 @@ add_action('init', function () {
     exit;
 }, 0);
 
+/* Bulletproof URL: admin-ajax.php is a real WordPress file, so this route
+   can never 404 no matter what rewrites or caches do:
+   /wp-admin/admin-ajax.php?action=ee_skeleton_review */
+add_action('wp_ajax_ee_skeleton_review', 'ee_skr_ajax');
+add_action('wp_ajax_nopriv_ee_skeleton_review', 'ee_skr_ajax');
+function ee_skr_ajax() {
+    nocache_headers();
+    header('X-LiteSpeed-Cache-Control: no-cache');
+    ee_skr_serve();
+    exit;
+}
+
 function ee_skr_store_file() {
     $up  = wp_upload_dir();
     $dir = trailingslashit($up['basedir']) . 'ee-skeleton-review';
@@ -10675,7 +10687,7 @@ function ee_skr_serve() {
 
 <script>
   // ── Shared comment state (server-backed) ──
-  const API = location.pathname + '?api=';
+  const API = location.pathname + location.search + (location.search ? '&' : '?') + 'api=';
   let comments = [];
   let pendingSection = '', pendingXr = 0.5, pendingYr = 0.5;
 
