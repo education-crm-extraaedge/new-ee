@@ -1,15 +1,19 @@
 <?php
 /**
- * Front Page - ExtraaEdge Orange Homepage Concept (exact port).
+ * Front Page - premium 2026 AI SaaS redesign, sarvam.ai-inspired, built
+ * from the full content of the "final" storytelling homepage (commit
+ * cc8ff0a) - every section, product, solution, FAQ, resource, story and
+ * industry from that page is reproduced verbatim, laid out in the same
+ * design language as the orange homepage concept (fluid type, soft
+ * panels, hairline dividers, no boxed/bordered grids).
  *
- * 1:1 port of https://extraaedge-orange-homepage.sushilm47608.chatgpt.site/ -
- * the prototype's own stylesheet (supplied by the owner) and its markup are
- * reproduced verbatim. One fix: the stylesheet carried a stale #afbed0 hero
- * background; the deployed site and the approved screenshots show the hero
- * on brand orange, so .hero uses var(--orange).
+ * Two pieces stay dynamic/shared exactly as before, since they are used
+ * elsewhere on the site: ee_platform_section() (the live product demo,
+ * also on /product-tour/ and the [ee_platform] shortcode) and the
+ * institute-logo marquee (ee_institute_logos_for()).
  *
- * Standalone template (the concept ships its own header/footer);
- * wp_head()/wp_footer() keep WordPress plumbing intact.
+ * Standalone template (own header/footer); wp_head()/wp_footer() keep
+ * WordPress plumbing intact.
  *
  * @package ExtraaEdge
  */
@@ -20,32 +24,27 @@ if (!defined('ABSPATH')) exit;
 <meta charset="<?php bloginfo('charset'); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php wp_head(); ?>
-<style id="ee-orange-exact">
+<style id="ee-premium">
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-/* ── base reset (from the prototype's tailwind layer, essentials) ── */
-*,:after,:before,::backdrop{box-sizing:border-box;border:0 solid;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;tab-size:4;line-height:1.5;-webkit-tap-highlight-color:transparent}
+*,:after,:before{box-sizing:border-box;border:0 solid;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;line-height:1.5;scroll-behavior:smooth}
 h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}
 b,strong{font-weight:bolder}
 small{font-size:80%}
 ol,ul,menu{list-style:none}
-img,svg,video,canvas,audio,iframe,embed,object{vertical-align:middle;display:block}
-img,video{max-width:100%;height:auto}
-button,input,select,optgroup,textarea{font:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}
-::placeholder{opacity:1}
-[hidden]:where(:not([hidden=until-found])){display:none!important}
-.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img,svg{vertical-align:middle;display:block;max-width:100%}
+button,input{font:inherit;color:inherit;background-color:#0000;border-radius:0}
+[hidden]{display:none!important}
 
 :root{--orange:#ff5a1f;--orange-soft:#ffe6d6;--cream:#f4efe6;--paper:#fbf8f3;--ink:#15130f;--navy:#101d33;--line:#15130f14;--line-2:#15130f22;--muted:#78716a}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{background:var(--paper);color:var(--ink);margin:0;font-family:'Inter',Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-button{font:inherit}
 main{overflow:hidden}
+em{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic;color:var(--orange)}
 
-/* ── header ── */
-.site-header{border-bottom:1px solid var(--line);z-index:30;background:#fbf8f3cc;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);align-items:center;gap:34px;height:84px;padding:0 4.6vw;display:flex;position:sticky;top:0}
+/* header */
+.site-header{border-bottom:1px solid var(--line);z-index:60;background:#fbf8f3cc;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);align-items:center;gap:34px;height:84px;padding:0 4.6vw;display:flex;position:sticky;top:0}
 .brand{letter-spacing:-.02em;align-items:center;gap:10px;font-size:20px;font-weight:700;display:flex}
 .brand-mark{grid-template-columns:repeat(3,1fr);align-items:end;gap:2px;width:24px;height:24px;display:grid;opacity:.92}
 .brand-mark i{background:var(--orange);border-radius:5px 5px 1px 1px;display:block}
@@ -61,766 +60,606 @@ main{overflow:hidden}
 .header-cta:hover{color:var(--orange);border-color:var(--orange)}
 .menu-button{display:none}
 
-/* ── hero ── */
-.hero{border-bottom:1px solid var(--line);background:var(--paper);isolation:isolate;grid-template-columns:minmax(430px,.9fr) minmax(500px,1.1fr);align-items:center;gap:clamp(24px,4vw,76px);min-height:calc(100svh - 84px);padding:0 4.6vw;display:grid;position:relative}
-.hero:before{content:"";z-index:-1;border:1px solid var(--line-2);border-radius:50%;width:46vw;max-width:680px;height:46vw;max-height:680px;position:absolute;top:50%;right:-10vw;transform:translateY(-50%)}
-.hero-copy{z-index:6;padding:60px 0;position:relative}
+/* hero */
+.hero{border-bottom:1px solid var(--line);background:var(--paper);isolation:isolate;grid-template-columns:minmax(430px,1fr) minmax(280px,.62fr);align-items:center;gap:clamp(24px,4vw,76px);min-height:calc(100svh - 84px);padding:56px 4.6vw;display:grid;position:relative}
+.hero:before{content:"";z-index:-1;border:1px solid var(--line-2);border-radius:50%;width:46vw;max-width:680px;height:46vw;max-height:680px;position:absolute;top:50%;right:-14vw;transform:translateY(-50%)}
+.hero-copy{z-index:6;position:relative}
 .kicker,.eyebrow{text-transform:uppercase;letter-spacing:.14em;color:var(--muted);align-items:center;gap:9px;font-size:11px;font-weight:700;display:flex}
 .kicker span{color:var(--orange);font-size:16px}
-.hero h1{letter-spacing:-.03em;max-width:760px;margin:26px 0 32px;font-size:clamp(52px,6.4vw,102px);font-weight:800;line-height:.98;color:var(--ink)}
-h1 em,h2 em{color:var(--orange);font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic}
-.hero h1 em{color:var(--orange)}
-.hero-sub{color:var(--muted);max-width:540px;font-size:18px;line-height:1.65;font-weight:400}
-.hero-actions{align-items:center;gap:30px;margin:38px 0;display:flex;flex-wrap:wrap}
-.button{border-radius:99px;justify-content:center;align-items:center;gap:14px;min-width:0;padding:16px 26px;font-size:14px;font-weight:700;display:inline-flex;transition:transform .3s ease,box-shadow .3s ease}
+.hero h1{letter-spacing:-.03em;max-width:900px;margin:26px 0 30px;font-size:clamp(38px,4.6vw,66px);font-weight:800;line-height:1.08;color:var(--ink);min-height:0}
+.hero-sub{color:var(--muted);max-width:640px;font-size:17px;line-height:1.65;font-weight:400}
+.chips{gap:12px;margin-top:26px;display:flex;flex-wrap:wrap}
+.chip{background:#fff;border:1px solid var(--line-2);border-radius:99px;align-items:center;gap:8px;padding:9px 15px;font-size:12px;font-weight:600;color:var(--ink);display:inline-flex}
+.chip i{font-style:normal;font-size:13px}
+.hero-actions{align-items:center;gap:28px;margin:32px 0 30px;display:flex;flex-wrap:wrap}
+.button{border-radius:99px;justify-content:center;align-items:center;gap:12px;padding:16px 26px;font-size:14px;font-weight:700;display:inline-flex;transition:transform .3s ease,background .3s ease}
 .button-dark{background:var(--ink);color:#fff}
 .button-dark:hover{background:var(--orange);transform:translateY(-1px)}
-.text-link{border-bottom:1px solid var(--line-2);padding:8px 0;font-size:14px;font-weight:700;transition:border-color .25s ease,color .25s ease}
+.text-link{border-bottom:1px solid var(--line-2);padding:8px 0;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:border-color .25s ease,color .25s ease}
 .text-link:hover{border-color:var(--orange);color:var(--orange)}
-.text-link span{margin-left:10px}
-.micro-proof{color:var(--muted);margin-top:40px;font-size:13px;letter-spacing:.01em}
-.micro-proof b{color:var(--ink)}
+.rate{align-items:center;gap:10px;margin-top:6px;display:flex;flex-wrap:wrap}
+.rate svg{width:15px;height:15px;fill:var(--orange)}
+.rate b{font-size:13px}
+.rate span{color:var(--muted);font-size:13px}
+.stats{grid-template-columns:repeat(4,auto);gap:clamp(24px,4vw,56px);margin-top:38px;display:grid}
+.stat b{letter-spacing:-.03em;font-size:clamp(26px,2.6vw,38px);font-weight:800;display:block}
+.stat b em{color:var(--orange);font-family:inherit;font-style:normal;font-size:.55em;font-weight:700;margin-left:1px}
+.stat span{color:var(--muted);font-size:11.5px;display:block;margin-top:4px}
 
-.hero-visual{place-items:center;min-height:min(680px,100svh - 84px);display:grid;position:relative;overflow:visible}
-.hero-visual:after{content:"";background-image:radial-gradient(var(--line-2) 1px,transparent 1px);background-size:34px 34px;position:absolute;inset:8% -4% 8% 0;-webkit-mask-image:radial-gradient(circle at 62% 50%,#000 0,#000 46%,transparent 72%);mask-image:radial-gradient(circle at 62% 50%,#000 0,#000 46%,transparent 72%)}
+.hero-visual{place-items:center;min-height:420px;display:grid;position:relative}
 .orbit{z-index:1;border:1px solid var(--line-2);border-radius:50%;position:absolute}
-.orbit-one{width:660px;height:660px}
-.orbit-two{width:460px;height:460px}
-.hero-product{background:#fff;border-radius:22px;z-index:3;width:min(86%,660px);position:relative;box-shadow:0 60px 100px -40px #15130f38,0 2px 0 #15130f0d}
-.hero-product-head{background:var(--ink);color:#fff;justify-content:space-between;align-items:center;height:52px;padding:0 20px;border-radius:22px 22px 0 0;font-size:12px;display:flex}
-.hero-product-head>span{align-items:center;gap:9px;font-weight:700;display:flex}
-.hero-product-head .brand-mark{width:14px;height:14px}
-.hero-product-head .brand-mark i:first-child{height:5px}
-.hero-product-head .brand-mark i:nth-child(2){height:9px}
-.hero-product-head .brand-mark i:nth-child(3){height:13px}
-.hero-product-head small{color:#8fd98a;font-size:9px}
-.hero-product-line{border-bottom:1px solid var(--line);align-items:center;gap:12px;padding:22px 20px;display:flex}
-.hero-product-line>b{background:var(--orange-soft);color:var(--orange);font-weight:800;border-radius:50%;place-items:center;width:40px;height:40px;font-size:11px;display:grid}
-.hero-product-line p{flex:1;margin:0}
-.hero-product-line p strong,.hero-product-line p small{display:block}
-.hero-product-line p small{color:var(--muted);margin-top:5px;font-size:11px}
-.intent{text-transform:uppercase;letter-spacing:.04em;color:#2f7a2c;background:#e6f6e2;border-radius:99px;padding:6px 10px;font-size:9px;font-weight:800}
-.hero-product-summary{border-left:2px solid var(--orange);background:var(--cream);gap:13px;margin:18px 20px;padding:16px;border-radius:0 12px 12px 0;display:flex}
-.hero-product-summary>span{color:var(--orange);font-size:17px}
-.hero-product-summary p{margin:0}
-.hero-product-summary small,.hero-product-summary strong{display:block}
-.hero-product-summary small{text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:7px;font-size:9px;font-weight:700}
-.hero-product-summary strong{font-size:13px;line-height:1.5;font-weight:600}
-.hero-product-actions{gap:9px;padding:4px 20px 22px;display:flex}
-.hero-product-actions button{border:1px solid var(--line-2);background:#fff;border-radius:99px;padding:10px 14px;font-size:11px;font-weight:700;transition:border-color .25s ease}
-.hero-product-actions button:hover{border-color:var(--orange);color:var(--orange)}
-.hero-product-actions .primary-action{background:var(--ink);color:#fff;border-color:var(--ink);margin-left:auto}
-.hero-product-actions .primary-action:hover{background:var(--orange);border-color:var(--orange);color:#fff}
-.signal-card{border-radius:16px;z-index:5;background:#fff;min-width:132px;padding:15px 17px;position:absolute;box-shadow:0 24px 48px -16px #15130f30}
-.signal-card span,.signal-card strong,.signal-card small{display:block}
-.signal-card span{text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-size:8px;font-weight:700}
-.signal-card strong{margin:8px 0 2px;font-size:19px;font-weight:800}
-.signal-card small{color:var(--muted);font-size:9px}
-.signal-one{top:9%;left:-2%}
-.signal-two{bottom:12%;right:-2%}
-.scribble{z-index:4;color:var(--muted);font-family:Georgia,serif;font-size:18px;font-style:italic;line-height:1;position:absolute;top:6%;right:2%;opacity:.75}
-.scribble span{font-size:32px;color:var(--orange)}
-.scribble:after{content:"";border-bottom:2px solid var(--orange);border-radius:50%;width:74px;height:9px;display:block;opacity:.6;transform:rotate(-4deg)}
+.orbit-one{width:380px;height:380px}
+.orbit-two{width:260px;height:260px}
+.hero-glyph{color:var(--orange);font-family:Georgia,serif;font-style:italic;font-size:120px;line-height:1;position:relative;z-index:2}
+@media (prefers-reduced-motion:no-preference){
+.orbit-one{animation:spin 60s linear infinite}
+.orbit-two{animation:spin 44s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+}
 
-/* ── ticker ── */
-.ticker{background:var(--ink);color:#fff;white-space:nowrap;padding:20px 0;overflow:hidden}
-.ticker div{align-items:center;gap:36px;width:max-content;margin:auto;display:flex}
-.ticker span{color:var(--orange);letter-spacing:.16em;font-size:11px;font-weight:600}
-.ticker b{letter-spacing:.1em;font-weight:600;font-size:12px;color:#e8e5df}
-.ticker i{color:var(--orange);font-style:normal;opacity:.7}
-
-/* ── section shell / type ── */
-.section{padding:clamp(90px,10vw,150px) 4.6vw}
-.section-intro{grid-template-columns:1.25fr .75fr;align-items:end;column-gap:8vw;margin-bottom:60px;display:grid}
-.section-intro .eyebrow{grid-column:1/-1;margin-bottom:26px}
+/* section shell / type */
+.section{padding:clamp(80px,9vw,140px) 4.6vw}
+.section-intro{grid-template-columns:1.25fr .75fr;align-items:end;column-gap:8vw;margin-bottom:52px;display:grid}
+.section-intro .eyebrow{grid-column:1/-1;margin-bottom:22px}
 .section-intro h2{margin:0}
-.section-intro>p:last-child{color:var(--muted);margin-bottom:7px;font-size:17px;line-height:1.7;font-weight:400}
-h2{letter-spacing:-.03em;margin:0;font-size:clamp(40px,5.2vw,76px);line-height:1.03;font-weight:700;color:var(--ink)}
+.section-intro>p:last-child{color:var(--muted);margin-bottom:7px;font-size:16px;line-height:1.7;font-weight:400}
+h2{letter-spacing:-.03em;margin:0;font-size:clamp(34px,4.4vw,60px);line-height:1.06;font-weight:700;color:var(--ink)}
+.center-head{text-align:center;max-width:760px;margin:0 auto 50px}
+.center-head h2{margin-top:14px}
 
-/* ── journey (attract/engage/convert/enrol) ── */
-.journey{background:var(--paper)}
-.journey-grid{grid-template-columns:repeat(4,1fr);display:grid}
-.journey-grid article{border-left:1px solid var(--line);flex-direction:column;min-height:300px;padding:0 30px;transition:opacity .3s ease;display:flex}
-.journey-grid article:first-child{border-left:0}
-.journey-grid article>span{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.04em}
-.journey-icon{color:var(--orange);margin:38px 0 26px;font-size:32px}
-.journey-grid h3{letter-spacing:-.02em;margin:0 0 14px;font-size:26px;font-weight:700}
-.journey-grid p{color:var(--muted);font-size:14.5px;line-height:1.65}
-.journey-grid a{border-top:1px solid var(--line);justify-content:space-between;margin-top:auto;padding-top:16px;font-size:12px;font-weight:700;color:var(--ink);transition:color .25s ease;display:flex}
-.journey-grid article:hover a,.journey-grid article:hover .journey-icon{color:var(--orange)}
-.journey-grid article:hover{opacity:.92}
+/* trust / logos */
+.trust{background:var(--cream);text-align:center;padding:clamp(60px,8vw,100px) 4.6vw}
+.trust .eyebrow{justify-content:center}
+.trust h2{margin:16px auto 12px;max-width:820px}
+.trust>p{color:var(--muted);max-width:680px;margin:0 auto 22px;font-size:15.5px;line-height:1.65}
+.rate{justify-content:center}
+.marquee-wrap{margin-top:44px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee-track{align-items:center;gap:52px;width:max-content;display:flex;animation:marquee 42s linear infinite}
+.marquee-track.right{animation-direction:reverse;margin-top:30px}
+.marquee-track img,.marquee-track b{height:30px;opacity:.55;filter:grayscale(1);transition:opacity .25s ease,filter .25s ease}
+.marquee-track b{font-size:14px;font-weight:700;font-style:normal;color:var(--muted);opacity:1;filter:none;white-space:nowrap}
+.marquee-track img:hover{opacity:1;filter:none}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+.trust-more{margin-top:34px}
+.trust-more a{color:var(--ink);border:1px solid var(--line-2);border-radius:99px;padding:11px 22px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:border-color .25s ease,color .25s ease}
+.trust-more a:hover{color:var(--orange);border-color:var(--orange)}
 
-/* ── roles / product tour ── */
-.roles{background:var(--cream)}
-.role-header{justify-content:space-between;align-items:end;gap:60px;margin-bottom:52px;display:flex}
-.role-header>div:first-child{max-width:820px}
-.role-header h2{margin-top:20px;font-size:clamp(38px,4.6vw,64px)}
-.role-intro{max-width:660px;color:var(--muted);margin:22px 0 0;font-size:15px;line-height:1.7}
-.role-tabs{background:#fff;border-radius:99px;padding:5px;display:flex;box-shadow:0 1px 0 var(--line-2) inset}
-.role-tabs button{cursor:pointer;background:0 0;border:0;border-radius:99px;color:var(--muted);padding:11px 18px;font-size:12px;font-weight:700;transition:background .25s ease,color .25s ease}
-.role-tabs button.active{background:var(--ink);color:#fff}
-.product-shell{border-radius:24px;background:#fff;box-shadow:0 60px 120px -40px #15130f2e;min-height:600px;overflow:hidden}
-.product-topbar{border-bottom:1px solid var(--line);background:#fff;align-items:center;gap:40px;height:62px;padding:0 26px;display:flex}
-.mini-brand{align-items:center;gap:7px;font-size:12px;font-weight:600;display:flex}
-.mini-brand .brand-mark{width:16px;height:16px}
-.mini-brand .brand-mark i:first-child{height:7px}
-.mini-brand .brand-mark i:nth-child(2){height:12px}
-.mini-brand .brand-mark i:nth-child(3){height:16px}
-.product-search{color:var(--muted);background:var(--cream);border-radius:99px;flex:1;max-width:420px;padding:11px 16px;font-size:11px}
-.avatar{background:var(--navy);color:#fff;border-radius:50%;place-items:center;width:30px;height:30px;margin-left:auto;font-size:9px;font-weight:700;display:grid}
-.product-body{grid-template-columns:64px 1fr;min-height:540px;display:grid}
-.product-nav{background:var(--navy);color:#fff;flex-direction:column;align-items:center;gap:25px;padding-top:26px;display:flex}
-.product-nav span{opacity:.5}
-.product-nav button{color:#fff;opacity:.5;cursor:pointer;background:0 0;border:0;border-radius:10px;place-items:center;width:34px;height:34px;transition:opacity .25s ease,background .25s ease;display:grid}
-.product-nav button:hover{opacity:1}
-.product-nav button.nav-active{opacity:1;background:#ffffff1a}
-.product-main{min-width:0;padding:36px}
-.canvas-heading{justify-content:space-between;align-items:end;gap:28px;display:flex}
-.canvas-heading small{letter-spacing:.1em;text-transform:uppercase;color:var(--orange);font-size:9px;font-weight:700}
-.canvas-heading h3{letter-spacing:-.02em;max-width:560px;margin:9px 0 0;font-size:26px;font-weight:700}
-.workspace-switcher{background:var(--cream);border-radius:99px;flex-shrink:0;padding:4px;display:flex}
-.canvas-heading .workspace-switcher button{color:var(--muted);cursor:pointer;background:0 0;border:0;border-radius:99px;padding:10px 14px;font-size:9px;font-weight:700;transition:background .25s ease,color .25s ease}
-.canvas-heading .workspace-switcher button.active{background:var(--ink);color:#fff}
-.canvas-grid{grid-template-columns:.75fr .75fr 1.5fr;gap:1px;background:var(--line);margin-top:30px;display:grid}
-.metric-card,.priority-card,.ai-card{background:#fff;padding:24px}
-.metric-card{min-height:170px}
-.metric-card>span,.metric-card>strong,.metric-card>small{display:block}
-.metric-card>span{text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-size:9px;font-weight:700}
-.metric-card>strong{letter-spacing:-.03em;margin:16px 0 2px;font-size:40px;font-weight:700}
-.metric-card>small{color:var(--muted);font-size:9px}
-.orange-card{background:#fff}
-.orange-card>strong{color:var(--orange)}
-.mini-bars,.spark{align-items:end;gap:5px;height:34px;margin-top:14px;display:flex}
-.mini-bars i{background:var(--orange-soft);width:10%}
-.mini-bars i:first-child{height:30%}
-.mini-bars i:nth-child(2){height:52%}
-.mini-bars i:nth-child(3){height:45%}
-.mini-bars i:nth-child(4){height:72%}
-.mini-bars i:nth-child(5){height:60%}
-.mini-bars i:nth-child(6){height:84%}
-.mini-bars i:nth-child(7){background:var(--orange);height:100%}
-.spark i{background:var(--orange);transform-origin:0;width:22%;height:2px}
-.spark i:first-child{transform:rotate(-8deg)}
-.spark i:nth-child(2){transform:rotate(10deg)}
-.spark i:nth-child(3){transform:rotate(-18deg)}
-.spark i:nth-child(4){transform:rotate(6deg)}
-.priority-card{grid-row:span 2}
-.card-title{justify-content:space-between;align-items:center;margin-bottom:16px;display:flex}
-.card-title span{color:var(--orange);text-transform:uppercase;letter-spacing:.05em;font-size:8px;font-weight:700}
-.lead-row{border-top:1px solid var(--line);align-items:center;gap:12px;padding:16px 0;display:flex}
-.lead-row:first-of-type{border-top:0}
-.lead-row>b{background:var(--cream);color:var(--ink);border-radius:50%;place-items:center;width:30px;height:30px;font-size:8px;font-weight:700;display:grid}
-.lead-row p{flex:1;margin:0}
-.lead-row p strong,.lead-row p small{display:block}
-.lead-row p strong{font-size:11px;font-weight:600}
-.lead-row p small{color:var(--muted);margin-top:4px;font-size:9px}
-.lead-row button{border:1px solid var(--line-2);background:0 0;border-radius:99px;padding:7px 10px;font-size:8px;font-weight:700;transition:border-color .25s ease}
-.lead-row button:hover{border-color:var(--orange);color:var(--orange)}
-.ai-card{background:var(--navy);color:#fff;grid-column:1/3;align-items:center;gap:16px;display:flex}
-.ai-dot{background:var(--orange);border-radius:50%;place-items:center;width:34px;height:34px;flex:none;display:grid}
-.ai-card p{flex:1;margin:0}
-.ai-card p small,.ai-card p strong{display:block}
-.ai-card p small{color:#98a6bd;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;font-size:9px;font-weight:700}
-.ai-card p strong{font-size:12px;font-weight:500}
-.ai-card button{color:#fff;background:0 0;border:0;font-size:10px;font-weight:700;white-space:nowrap}
-.canvas-note{text-align:right;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:22px;font-size:9px}
-.explorer-panel{min-height:370px;margin-top:30px}
-.explorer-toolbar{background:0 0;border-bottom:1px solid var(--line);align-items:center;gap:16px;height:56px;padding:0 4px;display:flex}
-.explorer-toolbar strong{font-size:13px;font-weight:700}
-.explorer-toolbar span{color:var(--muted);font-size:9px}
-.explorer-toolbar button{background:var(--ink);color:#fff;border-radius:99px;border:0;margin-left:auto;padding:10px 15px;font-size:9px;font-weight:700}
-.pipeline-row{grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);margin:1px 0 12px;display:grid}
-.pipeline-row article{background:#fff;grid-template-columns:1fr auto;gap:8px;padding:18px 16px;display:grid}
-.pipeline-row article.active{background:var(--cream)}
-.pipeline-row article.active strong{color:var(--orange)}
-.pipeline-row small{text-transform:uppercase;color:var(--muted);letter-spacing:.04em;font-size:8px;font-weight:700}
-.pipeline-row strong{font-size:22px;font-weight:700}
-.pipeline-row span{opacity:.6;grid-column:1/-1;font-size:8px}
-.lead-table{background:#fff}
-.table-head,.table-row{grid-template-columns:1.4fr .7fr .55fr 1fr;align-items:center;padding:0 4px;display:grid}
-.table-head{text-transform:uppercase;height:34px;color:var(--muted);letter-spacing:.05em;font-size:8px;font-weight:700}
-.table-row{border-top:1px solid var(--line);min-height:56px;font-size:9px}
-.table-row>span:first-child{align-items:center;gap:9px;font-weight:700;display:flex}
-.table-row>span>b{background:var(--cream);border-radius:50%;place-items:center;width:26px;height:26px;font-size:7px;font-weight:700;display:grid}
-.table-row>span:nth-child(3){align-items:center;gap:6px;display:flex}
-.table-row i{border-radius:50%;width:6px;height:6px}
-.intent-high{background:#3fa23a}
-.intent-warm{background:#e79a1f}
-.table-row button{border:1px solid var(--line-2);background:0 0;border-radius:99px;justify-self:end;padding:7px 10px;font-size:8px;font-weight:700}
-.application-summary{background:var(--navy);color:#fff;border-radius:18px;grid-template-columns:1fr auto;align-items:center;padding:26px 30px;display:grid}
-.application-summary small,.application-summary strong{display:block}
-.application-summary small{text-transform:uppercase;letter-spacing:.1em;color:#98a6bd;font-size:8px;font-weight:700}
-.application-summary strong{letter-spacing:-.03em;color:var(--orange);margin:8px 0 0;font-size:42px;font-weight:700}
-.application-summary p{margin:2px 0;color:#c9d2e0;font-size:9px}
-.completion-ring{background:conic-gradient(var(--orange) 0 68%,#ffffff26 68%);border-radius:50%;place-items:center;width:74px;height:74px;display:grid;position:relative}
-.completion-ring:after{content:"";background:var(--navy);border-radius:50%;position:absolute;inset:9px}
-.completion-ring span{z-index:1;font-size:12px;font-weight:800}
-.application-board{grid-template-columns:1.1fr .9fr;gap:1px;background:var(--line);margin-top:1px;display:grid}
-.application-board>article{background:#fff;padding:22px}
-.funnel-line{grid-template-columns:110px 1fr 28px;align-items:center;gap:10px;margin:17px 0;color:var(--muted);font-size:8px;display:grid}
-.funnel-line>div{background:var(--cream);border-radius:99px;height:5px}
-.funnel-line>div i{background:var(--orange);border-radius:99px;height:100%;display:block}
-.application-board>article:last-child>button{border:0;border-top:1px solid var(--line);text-align:left;background:0 0;align-items:center;gap:12px;width:100%;padding:13px 0;display:flex}
-.application-board>article:last-child>button:first-of-type{border-top:0}
-.application-board>article:last-child>button>i{background:var(--cream);border-radius:50%;place-items:center;width:22px;height:22px;font-size:8px;font-style:normal;display:grid}
-.application-board>article:last-child>button span{flex:1;font-size:8px;font-weight:700}
-.application-board>article:last-child>button small{color:var(--muted);margin-top:3px;display:block}
-.application-board>article:last-child>button b{color:var(--orange);font-size:8px}
-.insight-cards{grid-template-columns:.7fr .8fr 1.5fr;gap:1px;background:var(--line);display:grid}
-.insight-cards article{background:#fff;min-height:110px;padding:22px}
-.insight-cards small,.insight-cards strong,.insight-cards span{display:block}
-.insight-cards small{text-transform:uppercase;color:var(--muted);letter-spacing:.04em;font-size:8px;font-weight:700}
-.insight-cards strong{letter-spacing:-.02em;margin:14px 0 7px;font-size:22px;font-weight:700}
-.insight-cards span{color:#3d8a37;font-size:8px}
-.insight-cards .dark-insight{background:var(--navy);color:#fff}
-.insight-cards .dark-insight small{color:var(--orange)}
-.insight-cards .dark-insight strong{font-size:14px;font-weight:500;line-height:1.45}
-.chart-card{background:#fff;margin-top:1px;padding:22px}
-.chart-area{border-left:1px solid var(--line);border-bottom:1px solid var(--line);flex-direction:column;justify-content:space-between;height:200px;padding:0 0 7px 7px;display:flex;position:relative}
-.chart-area>span{color:var(--muted);font-size:7px}
-.chart-bars{align-items:end;gap:3%;display:flex;position:absolute;inset:8px 14px 0 44px}
-.chart-bars i{background:var(--orange);border-radius:3px 3px 0 0;flex:1;min-width:8px}
-.chart-bars i:nth-child(2n){background:var(--orange-soft)}
-.canvas-note{opacity:.8}
+/* kicker rail between story chapters */
+.story-kick{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper);align-items:center;gap:18px;padding:16px 4.6vw;font-size:12px;display:flex;flex-wrap:wrap}
+.story-kick .k-no{color:var(--orange);font-weight:800}
+.story-kick .k-lb{font-weight:700}
+.story-kick .k-sub{color:var(--muted)}
 
-/* ── product film ── */
-.product-video{background:var(--paper)}
-.video-heading{grid-template-columns:1.2fr .8fr;align-items:end;gap:8vw;margin-bottom:52px;display:grid}
-.video-heading h2{margin-top:20px;font-size:clamp(38px,4.6vw,68px)}
-.video-heading>p{color:var(--muted);max-width:460px;font-size:17px;line-height:1.75}
-.video-frame{border-radius:24px;width:100%;box-shadow:0 70px 130px -50px #15130f38;background:var(--ink);overflow:hidden}
-.video-browser-bar{background:var(--ink);color:#fff;grid-template-columns:1fr auto 1fr;align-items:center;height:50px;padding:0 20px;display:grid}
-.video-browser-bar>span{gap:6px;display:flex}
-.video-browser-bar>span i{border:1px solid #ffffff40;border-radius:50%;width:8px;height:8px}
-.video-browser-bar>span i:first-child{background:var(--orange);border-color:var(--orange)}
-.video-browser-bar strong{font-size:10px;font-weight:600}
-.video-browser-bar small{color:#9a958d;justify-self:end;font-size:9px}
-.video-screen{aspect-ratio:16/8.45;background:var(--navy);place-items:center;min-height:460px;display:grid;position:relative;overflow:hidden}
-.video-screen:before{content:"";background-image:radial-gradient(#ffffff14 1px,transparent 1px);background-size:44px 44px;position:absolute;inset:0}
-.video-backdrop{text-align:center;z-index:2;transition:opacity .45s,transform .45s;position:relative}
-.video-kicker{letter-spacing:.18em;color:var(--orange);font-size:10px;font-weight:700}
-.video-backdrop h3{letter-spacing:-.03em;color:#fff;margin:22px 0;font-size:clamp(42px,6vw,88px);font-weight:700;line-height:.98}
-.video-backdrop h3 em{color:var(--orange);font-family:Georgia,serif;font-weight:400;font-style:italic}
-.video-backdrop p{letter-spacing:.06em;color:#c9d2e0;font-size:12px;font-weight:600}
-.video-play{z-index:5;border-radius:99px;background:#fff;box-shadow:0 24px 48px -16px #00000060;text-align:left;cursor:pointer;grid-template-columns:auto auto;align-items:center;column-gap:12px;padding:10px 20px 10px 10px;display:grid;position:absolute;bottom:11%;left:50%;transform:translate(-50%)}
-.video-play>span{background:var(--orange);color:#fff;border-radius:50%;grid-row:1/3;place-items:center;width:38px;height:38px;font-size:12px;display:grid}
-.video-play strong{font-size:10px;font-weight:700}
-.video-play small{color:var(--muted);font-size:8px}
-.video-progress{z-index:5;color:#fff;grid-template-columns:1fr auto auto;align-items:center;gap:10px;font-size:8px;display:grid;position:absolute;bottom:20px;left:26px;right:26px}
-.video-progress>i{background:#ffffff33;border-radius:99px;height:3px;position:relative}
-.video-progress>i:after{content:"";background:var(--orange);border-radius:99px;width:0;height:100%;display:block}
-.video-demo-ui{border-radius:18px;z-index:3;opacity:0;background:#fff;grid-template-columns:64px 1fr;transition:opacity .45s,transform .55s;display:grid;position:absolute;inset:9% 8% 12%;transform:translateY(20px);box-shadow:0 40px 90px -30px #00000050;overflow:hidden}
-.video-demo-ui>aside{background:var(--navy);color:#fff;flex-direction:column;align-items:center;gap:28px;padding-top:22px;display:flex}
-.video-demo-ui>aside .brand-mark{width:20px;height:20px}
-.video-demo-ui>aside>i{opacity:.55;font-style:normal}
-.video-demo-ui>div{padding:30px}
-.video-ui-head{justify-content:space-between;align-items:center;font-size:16px;font-weight:700;display:flex}
-.video-ui-head b{color:var(--orange);background:var(--orange-soft);border-radius:99px;padding:9px 12px;font-size:9px}
-.video-ui-grid{grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:25px;display:grid}
-.video-ui-grid article{background:#fff;min-height:118px;padding:20px}
-.video-ui-grid small,.video-ui-grid strong{display:block}
-.video-ui-grid small{text-transform:uppercase;color:var(--muted);font-size:9px;font-weight:700}
-.video-ui-grid strong{margin-top:16px;font-size:34px;font-weight:700}
-.video-ui-grid article>i{background:var(--orange-soft);border-radius:99px;width:70%;height:4px;margin-top:12px;display:block}
-.video-ui-grid .video-ui-wide{grid-column:1/-1}
-.video-ui-wide>div{align-items:end;gap:3%;height:96px;margin-top:10px;display:flex}
-.video-ui-wide>div i{background:var(--orange);border-radius:3px 3px 0 0;flex:1}
-.video-frame.is-playing .video-backdrop{opacity:0;transform:scale(.96)}
-.video-frame.is-playing .video-demo-ui{opacity:1;transform:translateY(0)}
-.video-frame.is-playing .video-play{box-shadow:none;padding:8px;bottom:26px;left:auto;right:24px;transform:none}
-.video-frame.is-playing .video-play>span{width:26px;height:26px}
-.video-frame.is-playing .video-play strong,.video-frame.is-playing .video-play small{display:none}
-.video-frame.is-playing .video-progress{right:88px}
-.video-frame.is-playing .video-progress>i:after{width:28%;animation:12s linear infinite videoProgress}
-.video-note{text-align:right;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:24px 0 0;font-size:9px}
+/* platform demo wrapper */
+.platform-wrap{background:var(--cream)}
+.platform-wrap .section-intro{margin-bottom:38px}
+.platform-shell{border-radius:24px;overflow:hidden;box-shadow:0 60px 120px -40px #15130f2e}
 
-/* ── AI section ── */
-.ai-section{background:var(--ink);color:#fff}
-.ai-heading{grid-template-columns:1.2fr .8fr;align-items:end;gap:8vw;display:grid}
-.ai-heading h2{margin-top:22px;color:#fff}
-.ai-heading h2 em{color:var(--orange)}
-.ai-heading>p{color:#a9a49b;font-size:17px;line-height:1.75}
-.eyebrow.light{color:var(--orange)}
-.agent-grid{grid-template-columns:repeat(4,1fr);margin-top:64px;display:grid}
-.agent-grid article{border-left:1px solid #ffffff1f;flex-direction:column;min-height:340px;padding:0 28px;display:flex}
-.agent-grid article:first-child{border-left:0}
-.agent-grid article.featured-agent .agent-symbol,.agent-grid article.featured-agent h3{color:var(--orange)}
-.agent-number{color:#8b867e;font-size:9px;font-weight:700}
-.featured-agent .agent-number{color:var(--orange)}
-.agent-symbol{color:var(--orange);margin:40px 0;font-size:28px}
-.agent-grid small{text-transform:uppercase;letter-spacing:.14em;color:#8b867e;font-size:8px;font-weight:700}
-.featured-agent small{color:#c9c4bb}
-.agent-grid h3{margin:9px 0 13px;font-size:26px;font-weight:700}
-.agent-grid p{color:#b0aba2;font-size:13px;line-height:1.65}
-.agent-grid a{border-top:1px solid #ffffff1f;justify-content:space-between;color:#fff;margin-top:auto;padding-top:16px;font-size:10px;font-weight:700;display:flex}
+/* seven-product story (flowing list, no boxes) */
+.s7-wrap{background:var(--paper)}
+.s7-list{margin-top:10px}
+.s7-row{border-top:1px solid var(--line);grid-template-columns:70px 1fr;gap:28px;padding:44px 0;display:grid}
+.s7-row:first-child{border-top:0}
+.s7-n{color:var(--muted);font-size:13px;font-weight:700;padding-top:4px}
+.s7-tag{text-transform:uppercase;letter-spacing:.12em;color:var(--orange);font-size:10px;font-weight:800}
+.s7-body h3{margin:10px 0 12px;font-size:clamp(22px,2.4vw,30px);font-weight:700;letter-spacing:-.02em}
+.s7-body>p{color:var(--muted);max-width:760px;font-size:15px;line-height:1.7}
+.s7-pills{grid-template-columns:repeat(3,1fr);gap:22px;margin-top:26px;display:grid}
+.s7-pill{border-left:2px solid var(--line-2);padding-left:14px}
+.s7-pill b{font-size:12.5px;font-weight:700;display:block}
+.s7-pill span{color:var(--muted);font-size:12.5px;line-height:1.55;display:block;margin-top:4px}
 
-/* ── difference ── */
-.difference{background:var(--cream)}
-.difference-title{margin-bottom:60px}
-.difference-title h2{margin-top:22px}
-.difference-grid{grid-template-columns:1fr 1fr;gap:22px;display:grid}
-.difference-grid article{border-radius:20px;min-height:340px;padding:40px 36px}
-.big-number{color:var(--muted);font-size:10px;font-weight:700}
-.difference-grid h3{letter-spacing:-.02em;margin:56px 0 16px;font-size:28px;font-weight:700;line-height:1.1}
-.difference-grid p{color:var(--muted);max-width:520px;font-size:14.5px;line-height:1.7}
-.difference-large{background:var(--navy);color:#fff;grid-column:1/-1;grid-template-columns:.35fr 1.65fr;padding:48px 40px;display:grid}
-.difference-large .big-number{color:#98a6bd}
-.difference-large h3{color:#fff;margin:44px 0 16px;font-size:44px}
-.difference-large p{color:#c9d2e0;font-size:17px}
-.difference-large ul{border-top:1px solid #ffffff26;gap:40px;margin-top:30px;padding:26px 0 0;font-size:12px;font-weight:700;color:#fff;list-style:none;display:flex}
-.difference-large li:before{content:"\2713";color:var(--orange);margin-right:8px}
-.config-card{background:var(--cream)}
-.config-ui{background:#fff;border-radius:14px;flex-wrap:wrap;gap:7px;margin-top:30px;padding:16px;display:flex}
-.config-ui span{text-transform:uppercase;color:var(--muted);width:100%;font-size:9px;font-weight:700}
-.config-ui button{border:1px solid var(--line-2);background:0 0;border-radius:99px;padding:9px 12px;font-size:8px;font-weight:700}
-.config-ui button.selected{background:var(--ink);color:#fff;border-color:var(--ink)}
-.support-card{background:var(--navy);color:#fff}
-.support-card p{color:#c3cfdf}
-.support-people{align-items:center;margin-top:42px;display:flex}
-.support-people i{background:var(--orange);border:2px solid var(--navy);color:#fff;border-radius:50%;place-items:center;width:34px;height:34px;margin-right:-8px;font-size:9px;font-style:normal;font-weight:700;display:grid}
-.support-people span{color:#c3cfdf;margin-left:18px;font-size:9px}
-.value-card{background:var(--cream)}
-.value-card h3{color:var(--ink)}
-.value-card a{border-top:1px solid var(--line-2);justify-content:space-between;margin-top:35px;padding-top:15px;font-size:11px;font-weight:700;display:flex}
+/* Vidya AI suite (dark, agent-style) */
+.vidya-section{background:var(--ink);color:#fff}
+.vidya-section .eyebrow{color:var(--orange)}
+.vidya-section h2{color:#fff}
+.vidya-section .section-intro>p:last-child{color:#a9a49b}
+.vidya-grid{grid-template-columns:repeat(4,1fr);margin-top:56px;display:grid}
+.vidya-grid article{border-left:1px solid #ffffff1f;flex-direction:column;min-height:300px;padding:0 26px;display:flex}
+.vidya-grid article:first-child{border-left:0}
+.vidya-grid .v-n{color:#8b867e;font-size:9px;font-weight:700}
+.vidya-grid .v-sym{color:var(--orange);margin:34px 0;font-size:26px}
+.vidya-grid small{text-transform:uppercase;letter-spacing:.12em;color:#8b867e;font-size:8px;font-weight:700}
+.vidya-grid h3{margin:9px 0 12px;font-size:22px;font-weight:700}
+.vidya-grid dl{gap:4px 16px;grid-template-columns:auto auto auto;margin-bottom:14px;display:grid;font-size:10px}
+.vidya-grid dl dt{color:#8b867e;grid-row:1}
+.vidya-grid dl dd{color:#d8d3ca;grid-row:2;font-weight:600}
+.vidya-grid p{color:#b0aba2;font-size:13px;line-height:1.6;flex:1}
+.vidya-grid a{border-top:1px solid #ffffff1f;justify-content:space-between;color:#fff;margin-top:20px;padding-top:15px;font-size:10px;font-weight:700;display:flex}
+.vidya-grid .featured{background:linear-gradient(180deg,#1c1712,var(--ink))}
 
-/* ── proof ── */
-.proof{background:var(--paper)}
-.proof-stat{border-bottom:1px solid var(--line);grid-template-columns:1fr 1fr;align-items:center;padding:34px 0 64px;display:grid}
-.proof-stat strong{letter-spacing:-.04em;font-weight:700;font-size:clamp(90px,15vw,220px);line-height:.85;color:var(--ink)}
-.proof-stat strong span{color:var(--orange)}
-.proof-stat p{max-width:520px;color:var(--muted);font-family:Georgia,serif;font-style:italic;font-size:25px;line-height:1.4}
-.proof-cards{grid-template-columns:1.3fr .7fr;gap:1px;background:var(--line);margin-top:44px;display:grid}
-.proof-cards article{background:var(--paper);min-height:260px;padding:36px 4px}
-.proof-cards article>span{text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-size:9px;font-weight:700}
-.proof-cards h3{color:var(--ink);font-family:Georgia,serif;font-size:26px;font-weight:400;font-style:italic;line-height:1.35}
-.proof-cards small{color:var(--muted)}
-.proof-cards article.proof-orange{background:var(--navy);color:#fff}
-.proof-orange ul{margin:44px 0 0;padding:0;list-style:none}
-.proof-orange li{border-bottom:1px solid #ffffff26;padding:12px 0;color:#e8ecf3;font-size:18px}
+/* customer stories */
+.stories-sec{background:var(--cream)}
+.stories-rail{gap:14px;margin-top:44px;padding-bottom:6px;overflow-x:auto;display:flex}
+.story-thumb{border:0;border-radius:16px;cursor:pointer;background-size:cover;background-position:center;flex:none;width:190px;height:120px;place-items:center;display:grid;position:relative;opacity:.55;transition:opacity .25s ease,transform .25s ease}
+.story-thumb:hover,.story-thumb.is-active{opacity:1;transform:translateY(-3px)}
+.story-thumb:after{content:"";position:absolute;inset:0;border-radius:16px;background:linear-gradient(180deg,#00000000,#00000066)}
+.story-play{z-index:1;background:#fffffff0;border-radius:50%;width:34px;height:34px;place-items:center;display:grid}
+.story-play svg{width:13px;height:13px;fill:var(--ink)}
+.story-cap{border-radius:20px;background:#fff;margin-top:30px;padding:38px 40px;box-shadow:0 30px 70px -36px #15130f26}
+.story-cap p.q{font-family:Georgia,serif;font-style:italic;font-size:clamp(19px,2vw,25px);line-height:1.5;max-width:820px}
+.story-cap .who{color:var(--muted);margin-top:16px;font-size:13.5px;font-weight:600}
+.story-cap .who b{color:var(--ink)}
+.stories-more{margin-top:30px}
+.stories-more a{color:var(--ink);border-bottom:1px solid var(--line-2);padding:8px 0;font-size:13px;font-weight:700}
 
-/* ── resources ── */
-.resources{background:var(--paper)}
-.resource-head{justify-content:space-between;align-items:end;display:flex}
-.resource-head h2{margin-top:20px;font-size:clamp(38px,4.6vw,64px)}
-.resource-head>a{color:var(--ink);border-bottom:1px solid var(--line-2);gap:12px;padding:10px 0;font-size:12px;font-weight:700;display:flex;transition:border-color .25s ease,color .25s ease}
-.resource-head>a:hover{color:var(--orange);border-color:var(--orange)}
-.resource-grid{grid-template-columns:repeat(3,1fr);gap:44px;margin-top:52px;display:grid}
-.resource-grid article>small{letter-spacing:.12em;color:var(--orange);margin:22px 0 10px;font-size:9px;font-weight:700;display:block}
-.resource-grid h3{letter-spacing:-.02em;min-height:78px;font-size:21px;font-weight:700;line-height:1.3;color:var(--ink)}
-.resource-grid article>a{border-top:1px solid var(--line);color:var(--ink);justify-content:space-between;padding-top:16px;font-size:10px;font-weight:700;display:flex}
-.resource-art{aspect-ratio:1.55;border-radius:18px;padding:24px;position:relative;overflow:hidden}
-.resource-art span{letter-spacing:-.04em;font-weight:800;font-size:60px}
-.resource-art i{font-family:Georgia,serif;font-style:italic;font-size:20px;line-height:1;position:absolute;bottom:22px;right:22px}
-.art-one{background:var(--navy);color:#fff}
-.art-one span{color:var(--orange)}
-.art-two{background:var(--cream);color:var(--ink)}
-.art-two span{color:var(--orange)}
-.art-three{background:var(--ink);color:#fff}
-.art-three span{color:var(--orange);font-size:96px;line-height:1}
+/* mid cta */
+.mid-cta{text-align:center;background:var(--ink);color:#fff;padding:clamp(80px,10vw,130px) 20px}
+.mid-cta h2{color:#fff;margin:0 auto 20px;max-width:760px}
+.mid-cta p{color:#c9c4bb;max-width:600px;margin:0 auto 34px;font-size:16px;line-height:1.6}
+.mid-cta .row{justify-content:center;align-items:center;gap:26px;display:flex;flex-wrap:wrap}
+.mid-cta .go{background:var(--orange);color:#fff;border-radius:99px;padding:16px 28px;font-size:14px;font-weight:700}
+.mid-cta .alt{color:#c9c4bb;border-bottom:1px solid #ffffff33;padding:8px 0;font-size:14px;font-weight:600}
+.mid-cta .fine{color:#807a70;margin-top:26px;font-size:12px}
 
-/* ── final cta ── */
-.final-cta{text-align:center;background:var(--ink);color:#fff;padding:clamp(90px,12vw,150px) 20px;position:relative;overflow:hidden}
-.final-cta .eyebrow{justify-content:center;color:#a9a49b}
-.final-cta h2{margin:26px auto 30px;color:#fff;font-size:clamp(52px,7.2vw,102px);line-height:.92}
-.final-cta h2 em{color:var(--orange)}
-.final-cta>p:not(.eyebrow){max-width:540px;color:#c9c4bb;margin:0 auto 38px;font-size:18px}
-.final-cta .button-dark{background:var(--orange);margin:auto}
-.final-cta .button-dark:hover{background:#fff;color:var(--ink)}
-.cta-sun{color:#ffffff08;font-size:420px;line-height:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+/* industries (flowing rows) */
+.ind-sec{background:var(--paper)}
+.ind-list{margin-top:10px}
+.ind-row{border-top:1px solid var(--line);align-items:baseline;gap:24px;padding:26px 0;display:grid;grid-template-columns:44px 1fr 1fr 24px;transition:opacity .2s ease}
+.ind-row:first-child{border-top:0}
+.ind-row:hover{opacity:.7}
+.ind-n{color:var(--muted);font-size:12px;font-weight:700}
+.ind-t{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.ind-d{color:var(--muted);font-size:14px}
+.ind-go{color:var(--orange);width:18px;height:18px}
+.ind-go svg{width:100%;height:100%}
+@media (width<=760px){.ind-row{grid-template-columns:32px 1fr 20px}.ind-d{grid-column:2/3;margin-top:4px}}
 
-/* ── footer ── */
-footer{background:var(--ink);color:#fff;padding:74px 4.6vw 30px}
-.footer-top{border-bottom:1px solid #ffffff1f;justify-content:space-between;padding-bottom:46px;display:flex}
+/* integrations wall */
+.integrations-sec{background:var(--cream)}
+.integrations-sec .center-head{margin-bottom:44px}
+.ilogo-wall{grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);margin-top:10px;display:grid}
+.ilogo-cell{background:var(--cream);place-items:center;height:96px;padding:20px;display:grid}
+.ilogo-cell img{max-height:32px;max-width:100%;opacity:.7;filter:grayscale(1);transition:opacity .25s ease,filter .25s ease}
+.ilogo-cell:hover img{opacity:1;filter:none}
+.integ-cta{text-align:center;margin-top:40px}
+.integ-cta a{color:var(--ink);border:1px solid var(--line-2);border-radius:99px;padding:12px 24px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:border-color .25s ease,color .25s ease}
+.integ-cta a:hover{color:var(--orange);border-color:var(--orange)}
+@media (width<=760px){.ilogo-wall{grid-template-columns:repeat(3,1fr)}}
+
+/* security */
+.security-sec{background:var(--navy);color:#fff}
+.security-sec .center-head h2{color:#fff}
+.sec-grid{grid-template-columns:repeat(4,1fr);gap:1px;background:#ffffff1a;margin-top:10px;display:grid}
+.sec-item{background:var(--navy);text-align:center;padding:34px 22px;display:flex;flex-direction:column;align-items:center}
+.sec-item img{height:38px;margin-bottom:18px;filter:brightness(0) invert(1);opacity:.85}
+.sec-item b{font-size:14.5px;font-weight:700;margin-bottom:8px}
+.sec-item span{color:#a9b4c6;font-size:12.5px;line-height:1.5}
+@media (width<=760px){.sec-grid{grid-template-columns:1fr 1fr}}
+
+/* FAQ accordion */
+.faq-sec{background:var(--paper)}
+.faq-list{margin-top:10px}
+.faq-row{border-top:1px solid var(--line)}
+.faq-row:first-child{border-top:0}
+.faq-q{width:100%;background:0 0;border:0;cursor:pointer;text-align:left;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;font-size:16px;font-weight:600;display:flex}
+.faq-ic{color:var(--orange);flex:none;font-size:20px;font-weight:400;transition:transform .3s ease}
+.faq-row[data-open="1"] .faq-ic{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{color:var(--muted);max-width:760px;padding-bottom:24px;font-size:14.5px;line-height:1.7}
+
+/* tabbed list (products + solutions share this) */
+.tab-bar{gap:10px;margin-top:6px;flex-wrap:wrap;display:flex}
+.tab-btn{cursor:pointer;background:#fff;border:1px solid var(--line-2);border-radius:99px;color:var(--muted);padding:11px 16px;font-size:12.5px;font-weight:700;transition:background .25s ease,color .25s ease,border-color .25s ease;display:inline-flex;align-items:center;gap:6px}
+.tab-btn i{font-style:normal;opacity:.6;font-size:11px}
+.tab-btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tab-btn.on i{opacity:1}
+.tl-list{margin-top:12px}
+.tl-row{border-top:1px solid var(--line);align-items:center;gap:20px;padding:22px 4px;display:flex;transition:opacity .2s ease}
+.tl-row:hover{opacity:.7}
+.tl-chk{color:var(--orange);flex:none;width:18px;height:18px}
+.tl-chk svg{width:100%;height:100%}
+.tl-t{flex:0 0 300px}
+.tl-t b{font-size:15px;font-weight:700;display:block}
+.tl-t small{color:var(--muted);font-size:12px}
+.tl-d{color:var(--muted);flex:1;font-size:13.5px}
+.tl-go{color:var(--orange);flex:none;width:16px;height:16px;margin-left:auto}
+.tl-go svg{width:100%;height:100%}
+.tab-foot{color:var(--muted);border-top:1px solid var(--line);margin-top:8px;padding-top:26px;font-size:14px}
+.tab-foot a{color:var(--ink);border-bottom:1px solid var(--line-2);font-weight:700}
+@media (width<=760px){.tl-row{flex-wrap:wrap}.tl-t{flex-basis:100%}}
+
+/* resources / blog (shared card look) */
+.res-sec{background:var(--cream)}
+.blog-sec{background:var(--paper)}
+.res-grid,.blog-grid{grid-template-columns:repeat(3,1fr);gap:40px;margin-top:44px;display:grid}
+.res-card,.blog-card{display:flex;flex-direction:column}
+.res-card small{letter-spacing:.12em;color:var(--orange);font-size:9px;font-weight:800}
+.res-card h3{margin:12px 0 8px;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.res-card p{color:var(--muted);font-size:13.5px;line-height:1.6;flex:1}
+.res-link,.res-card .res-link{border-top:1px solid var(--line);color:var(--ink);justify-content:space-between;margin-top:18px;padding-top:14px;font-size:11px;font-weight:700;display:flex;align-items:center}
+.res-link svg{width:14px;height:14px}
+.blog-card{border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 24px 60px -32px #15130f24}
+.blog-img{aspect-ratio:16/10;background:var(--cream);overflow:hidden}
+.blog-img img{width:100%;height:100%;object-fit:cover}
+.blog-ph{width:100%;height:100%;background:var(--navy);color:var(--orange);place-items:center;font-size:44px;font-weight:800;display:grid}
+.blog-body{padding:22px}
+.blog-meta{color:var(--muted);gap:10px;margin-bottom:10px;font-size:11px;display:flex}
+.blog-meta .cat{color:var(--orange);font-weight:700}
+.blog-body h3{font-size:18px;font-weight:700;line-height:1.3;margin-bottom:8px}
+.blog-body p{color:var(--muted);font-size:13px;line-height:1.6}
+.blog-body .rd{color:var(--ink);border-top:1px solid var(--line);margin-top:16px;padding-top:14px;font-size:11px;font-weight:700;display:flex;justify-content:space-between}
+@media (width<=900px){.res-grid,.blog-grid{grid-template-columns:1fr 1fr}}
+@media (width<=600px){.res-grid,.blog-grid{grid-template-columns:1fr}}
+
+/* final cta */
+.final-cta{text-align:center;background:var(--orange);color:#fff;padding:clamp(80px,10vw,130px) 20px;position:relative;overflow:hidden}
+.final-cta .eyebrow{justify-content:center;color:#ffffffb0}
+.final-cta h2{margin:22px auto 24px;color:#fff;max-width:760px}
+.final-cta p{max-width:560px;margin:0 auto 32px;font-size:16px}
+.final-cta .button-dark{background:var(--ink)}
+.final-cta .button-dark:hover{background:#000}
+
+/* footer */
+footer{background:var(--ink);color:#fff;padding:70px 4.6vw 28px}
+.footer-top{border-bottom:1px solid #ffffff2e;justify-content:space-between;padding-bottom:42px;display:flex}
 .footer-brand{font-size:26px;font-weight:700}
-.footer-top p{text-align:right;color:#a9a49b;margin:0;line-height:1.6}
-.footer-links{grid-template-columns:repeat(4,1fr);gap:35px;padding:52px 0;display:grid}
-.footer-links div{flex-direction:column;gap:14px;display:flex}
+.footer-top p{text-align:right;color:#a9a49b;margin:0;line-height:1.5;font-size:13.5px}
+.footer-links{grid-template-columns:repeat(4,1fr);gap:35px;padding:48px 0;display:grid}
+.footer-links div{flex-direction:column;gap:13px;display:flex}
 .footer-links strong{color:var(--orange);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;font-size:9px;font-weight:700}
 .footer-links a{color:#a9a49b;font-size:12.5px;transition:color .25s ease}
 .footer-links a:hover{color:#fff}
-.footer-bottom{color:#736e66;border-top:1px solid #ffffff1f;justify-content:space-between;padding-top:26px;font-size:9px;display:flex}
+.footer-bottom{color:#736e66;border-top:1px solid #ffffff2e;justify-content:space-between;padding-top:24px;font-size:9px;display:flex;flex-wrap:wrap;gap:10px}
+@media (width<=760px){.footer-links{grid-template-columns:1fr 1fr}.footer-top{flex-direction:column;gap:22px}.footer-top p{text-align:left}}
 
-/* ── subtle scroll-reveal (classes added at runtime, markup untouched) ── */
-.ee-reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
-.ee-reveal.ee-in{opacity:1;transform:translateY(0)}
+/* demo drawer */
+.eedd-backdrop{position:fixed;inset:0;background:#0a1428a3;opacity:0;visibility:hidden;transition:opacity .28s ease,visibility .28s ease;z-index:99996}
+.eedd-backdrop.open{opacity:1;visibility:visible}
+.ee-demo-drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);background:var(--paper);z-index:99997;transform:translateX(105%);transition:transform .38s cubic-bezier(.3,.8,.3,1);display:flex;flex-direction:column;box-shadow:-28px 0 70px #0f204030}
+.ee-demo-drawer.open{transform:none}
+.eedd-head{align-items:center;justify-content:space-between;gap:12px;padding:20px 22px;background:var(--ink);color:#fff;display:flex}
+.eedd-head b{font-size:16px;font-weight:800;display:block}
+.eedd-head small{color:#a9a49b;font-size:11px;font-weight:600;display:block;margin-top:3px}
+.eedd-x{flex:none;width:34px;height:34px;border-radius:50%;border:0;background:#ffffff24;color:#fff;font-size:16px;cursor:pointer}
+.eedd-x:hover{background:#ffffff40}
+.eedd-body{flex:1;overflow-y:auto;padding:22px}
+.secure-label{text-align:center;color:var(--muted);margin-top:16px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
 
+/* sticky mobile pill */
+#ee-stickcta{display:none}
+@media (width<=760px){
+#ee-stickcta{position:fixed;left:16px;right:16px;bottom:16px;z-index:9990;background:var(--ink);border-radius:99px;align-items:center;justify-content:space-between;padding:6px 8px 6px 20px;box-shadow:0 20px 50px -18px #00000060;display:flex}
+#ee-stickcta .go{color:#fff;background:var(--orange);border-radius:99px;padding:12px 18px;font-size:13px;font-weight:700;align-items:center;gap:8px;display:flex}
+#ee-stickcta .off{color:#a9a49b;background:0 0;border:0;width:30px;height:30px;font-size:14px}
+}
+
+/* mobile nav / hero responsive */
 @media (width<=900px){
 .site-header{padding:0 20px}
-.site-header nav{background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;padding:24px;display:none;position:absolute;top:84px;left:0;right:0}
+.site-header nav{background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:18px;padding:24px;display:none;position:absolute;top:84px;left:0;right:0}
 .site-header nav.open{display:flex}
 .menu-button{background:0 0;border:0;margin-left:auto;font-weight:700;display:block}
 .header-cta{display:none}
-.hero{grid-template-columns:1fr;gap:0;padding:0 24px}
-.hero-copy{padding:56px 0 20px}
-.hero h1{max-width:800px;font-size:70px}
-.hero-visual{min-height:580px}
-.hero-product{width:78%}
-.hero:before{width:90vw;height:90vw;top:68%;right:-34vw}
-.section{padding:70px 24px}
-.section-intro,.ai-heading{grid-template-columns:1fr;gap:25px}
-.journey-grid,.agent-grid{grid-template-columns:repeat(2,1fr)}
-.journey-grid article:nth-child(2n),.agent-grid article:nth-child(2n){border-left:0}
-.role-header{flex-direction:column;align-items:start;gap:30px}
-.roles{overflow:hidden}
-.product-shell{min-width:0}
-.product-body{grid-template-columns:1fr}
-.product-nav{flex-direction:row;justify-content:center;gap:22px;height:54px;padding:0}
-.product-nav span{display:none}
-.product-main{padding:24px}
-.canvas-heading{flex-direction:column;align-items:flex-start}
-.workspace-switcher{width:100%;overflow:auto}
-.workspace-switcher button{white-space:nowrap;flex:1}
-.canvas-grid{grid-template-columns:1fr 1fr}
-.priority-card{grid-area:auto/1/auto/-1}
-.ai-card{grid-column:1/-1}
-.explorer-panel{min-height:auto}
-.application-board{grid-template-columns:1fr}
-.insight-cards{grid-template-columns:1fr 1fr}
-.insight-cards .dark-insight{grid-column:1/-1}
-.canvas-note{text-align:left}
-.video-heading{grid-template-columns:1fr;gap:25px}
-.video-screen{min-height:400px}
-.video-demo-ui{inset:7% 5% 14%}
-.difference-grid{grid-template-columns:1fr}
-.difference-large{grid-column:auto;grid-template-columns:1fr}
-.difference-large ul{flex-direction:column;gap:13px}
-.proof-stat,.proof-cards{grid-template-columns:1fr}
-.proof-stat{gap:45px}
-.resource-grid{grid-template-columns:1fr}
-.resource-grid h3{min-height:0}
-.resource-art{aspect-ratio:2.2}
-.footer-links{grid-template-columns:repeat(2,1fr)}
+.hero{grid-template-columns:1fr;padding:40px 24px}
+.hero-visual{display:none}
+.section{padding:64px 24px}
+.section-intro{grid-template-columns:1fr;gap:20px}
+.stats{grid-template-columns:1fr 1fr}
+.vidya-grid{grid-template-columns:1fr 1fr}
+.vidya-grid article:nth-child(2n){border-left:0}
+.vidya-grid article:nth-child(-n+2){border-bottom:1px solid #ffffff1f}
+.s7-pills{grid-template-columns:1fr}
+.s7-row{grid-template-columns:40px 1fr;gap:16px}
+.sec-grid{grid-template-columns:1fr 1fr}
 }
 @media (width<=560px){
-.hero h1{font-size:52px}
-.hero-sub{font-size:16px}
-.hero-actions{flex-direction:column;align-items:flex-start}
-.hero-visual{min-height:480px}
-.hero-product{width:88%}
-.signal-card{transform:scale(.82)}
-.signal-one{left:-5%}
-.signal-two{bottom:8%;right:-8%}
-.scribble,.hero-product-head small,.hero-product-actions button:not(.primary-action){display:none}
-h2{font-size:38px}
-.journey-grid,.agent-grid{grid-template-columns:1fr}
-.journey-grid article,.agent-grid article{border-left:0;border-top:1px solid var(--line);padding:30px 0;min-height:0}
-.agent-grid article{border-top:1px solid #ffffff1f}
-.journey-grid article:first-child,.agent-grid article:first-child{border-top:0}
-.journey-icon{margin:0 0 20px}
-.role-tabs{width:100%;overflow:auto}
-.role-tabs button{white-space:nowrap;flex:1}
-.product-topbar{gap:12px;padding:0 14px}
-.product-search{display:none}
-.product-main{padding:18px 14px}
-.canvas-heading h3{font-size:21px}
-.canvas-heading .workspace-switcher button{padding:9px}
-.canvas-grid{grid-template-columns:1fr}
-.priority-card,.ai-card{grid-column:auto}
-.ai-card{flex-wrap:wrap;align-items:flex-start}
-.ai-card button{margin-left:50px}
-.pipeline-row{grid-template-columns:1fr 1fr}
-.table-head{display:none}
-.table-row{grid-template-columns:1fr auto;gap:8px;padding:10px 4px}
-.table-row>span:nth-child(2),.table-row>span:nth-child(3){display:none}
-.application-summary{padding:20px}
-.application-summary strong{font-size:36px}
-.completion-ring{width:60px;height:60px}
-.application-board{grid-template-columns:1fr}
-.funnel-line{grid-template-columns:92px 1fr 25px}
-.insight-cards{grid-template-columns:1fr}
-.insight-cards .dark-insight{grid-column:auto}
-.chart-area{height:165px}
-.product-video{padding-left:16px;padding-right:16px}
-.video-browser-bar{height:42px}
-.video-browser-bar strong{font-size:8px}
-.video-screen{aspect-ratio:4/5;min-height:500px}
-.video-backdrop{padding:20px}
-.video-backdrop h3{font-size:44px}
-.video-backdrop p{font-size:9px;line-height:1.7}
-.video-play{white-space:nowrap;bottom:13%}
-.video-demo-ui{grid-template-columns:42px 1fr;inset:6% 4% 13%}
-.video-demo-ui>aside{gap:23px}
-.video-demo-ui>div{padding:16px}
-.video-ui-head{font-size:12px}
-.video-ui-head b{display:none}
-.video-ui-grid{grid-template-columns:1fr;gap:1px;margin-top:14px}
-.video-ui-grid article{min-height:80px;padding:14px}
-.video-ui-grid strong{margin-top:9px;font-size:24px}
-.video-ui-grid .video-ui-wide{grid-column:auto}
-.video-ui-wide>div{height:64px}
-.video-note{text-align:left;line-height:1.5}
-.difference-grid article{padding:28px 24px}
-.difference-large h3{font-size:34px}
-.proof-stat strong{font-size:100px}
-.proof-stat p{font-size:21px}
-.proof-cards h3{font-size:22px}
-.resource-art{aspect-ratio:1.5}
-.final-cta{padding:80px 20px}
-.final-cta h2{font-size:52px}
-.footer-top{flex-direction:column;gap:25px}
-.footer-top p{text-align:left}
-.footer-links{grid-template-columns:1fr 1fr}
-.footer-bottom{flex-direction:column;gap:10px}
+h2{font-size:32px}
+.vidya-grid{grid-template-columns:1fr}
+.vidya-grid article{border-left:0!important;border-top:1px solid #ffffff1f;padding:26px 0}
+.vidya-grid article:first-child{border-top:0}
+.chips{gap:8px}
+.stats{grid-template-columns:1fr 1fr;gap:22px}
 }
-@media (prefers-reduced-motion:no-preference){
-.signal-one{animation:6s ease-in-out infinite float}
-.signal-two{animation:7s ease-in-out infinite reverse float}
-@keyframes float{0%,to{translate:0}50%{translate:0 -12px}}
-@keyframes videoProgress{0%{width:0}to{width:100%}}
-}
-@media (prefers-reduced-motion:reduce){
-.ee-reveal{opacity:1;transform:none;transition:none}
-}
+
+/* reveal-on-scroll (classes only, via JS) */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
 </style>
 </head>
 <body <?php body_class('antialiased'); ?>>
 <main>
-<header class="site-header"><a href="#top" class="brand" aria-label="ExtraaEdge home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><strong>extraaedge</strong></a><button class="menu-button" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button><nav id="mainNav" class="" aria-label="Main navigation"><a href="#platform">Platform</a><a href="#product-video">Product film</a><a href="#ai">VidyaAI</a><a href="#difference">Why ExtraaEdge</a><a href="#resources">Resources</a></nav><a class="header-cta" href="#demo">Book a demo <span aria-hidden="true">&#8599;</span></a></header>
+<header class="site-header"><a href="#top" class="brand" aria-label="ExtraaEdge home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><strong>extraaedge</strong></a><button class="menu-button" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button><nav id="mainNav" class="" aria-label="Main navigation"><a href="#ee-platform">Platform</a><a href="#story7">Product film</a><a href="#ee-vidya-suite">VidyaAI</a><a href="#ee-ind">Why ExtraaEdge</a><a href="#ee-resources">Resources</a></nav><a class="header-cta" href="#admission-form">Book a demo <span aria-hidden="true">&#8599;</span></a></header>
 
 <section class="hero" id="top">
   <div class="hero-copy">
     <p class="kicker"><span>&#10022;</span> The Admission Growth Platform</p>
-    <h1>Turn every enquiry into <em>momentum.</em></h1>
-    <p class="hero-sub">One simple, configurable platform to attract, engage and enrol more students&mdash;with AI working alongside your admission team.</p>
-    <div class="hero-actions"><a class="button button-dark" href="#demo">See ExtraaEdge in action <span aria-hidden="true">&#8599;</span></a><a class="text-link" href="#platform">Explore the platform <span>&#8595;</span></a></div>
-    <p class="micro-proof"><b>340+</b> education teams already grow with ExtraaEdge</p>
+    <h1 id="heroRot" aria-live="polite">Convert More Enquiries Into Admissions With <em>India&rsquo;s Intelligent Admissions Growth Platform</em></h1>
+    <p class="hero-sub" id="heroSub">Built for education, driven by AI simplicity: <b>VidyaGPT, VidyaPulse and VidyaAgents call, qualify and follow up with every enquiry in 60 seconds</b>, so your counsellors only talk to students who are ready to enrol.</p>
+    <div class="chips">
+      <span class="chip"><i>&#9889;</i> Go live in 7 days</span>
+      <span class="chip"><i>&#128279;</i> Works with your existing forms &amp; portals</span>
+      <span class="chip"><i>&#128737;</i> ISO 27001 &middot; GDPR-ready</span>
+    </div>
+    <div class="hero-actions">
+      <a class="button button-dark" href="#admission-form">Book a Free Demo <span aria-hidden="true">&#8599;</span></a>
+      <a class="text-link" href="#ee-platform"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Explore the Platform Yourself</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b><span data-count="500">0</span><em>+</em></b><span>Institutions onboard</span></div>
+      <div class="stat"><b><span data-count="10">0</span><em>M+</em></b><span>Enquiries managed</span></div>
+      <div class="stat"><b><span data-count="40">0</span><em>%</em></b><span>Conversion lift (up to)</span></div>
+      <div class="stat"><b><span data-count="60">0</span><em>s</em></b><span>Avg. first response</span></div>
+    </div>
   </div>
-  <div class="hero-visual">
+  <div class="hero-visual" aria-hidden="true">
     <div class="orbit orbit-one"></div>
     <div class="orbit orbit-two"></div>
-    <div class="signal-card signal-one"><span>New enquiry</span><strong>+248</strong><small>this week</small></div>
-    <div class="signal-card signal-two"><span>AI priority</span><strong>Hot lead</strong><small>Call within 8 min</small></div>
-    <div class="hero-product">
-      <div class="hero-product-head"><span><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span> Live admission desk</span><small>&#9679; All systems connected</small></div>
-      <div class="hero-product-line"><b>AS</b><p><strong>Aditi Sharma</strong><small>MBA &middot; Website &middot; 2 min ago</small></p><span class="intent">High intent</span></div>
-      <div class="hero-product-summary"><span>&#10022;</span><p><small>AI summary</small><strong>Asked about scholarship, eligibility and the September intake.</strong></p></div>
-      <div class="hero-product-actions"><button type="button">Call</button><button type="button">WhatsApp</button><button type="button" class="primary-action">Next best action <span aria-hidden="true">&#8599;</span></button></div>
-    </div>
-    <div class="scribble">admit<br><span>more</span></div>
+    <div class="hero-glyph">momentum</div>
   </div>
 </section>
 
-<section class="ticker" aria-label="Platform outcomes"><div><span>ONE PLATFORM</span><b>CRM</b><i>&#10022;</i><b>APPLICATIONS</b><i>&#10022;</i><b>COMMUNICATION</b><i>&#10022;</i><b>AI AGENTS</b><i>&#10022;</i><b>ANALYTICS</b></div></section>
 
-<section class="journey section" id="platform">
-  <div class="section-intro">
-    <p class="eyebrow">One connected admission journey</p>
-    <h2>Less software to manage.<br><em>More students moving forward.</em></h2>
-    <p>ExtraaEdge brings every signal, conversation and application into one operating system built specifically for education.</p>
+<section class="trust" id="trusted-institutions" aria-label="Trusted Institutions">
+  <div class="rv">
+    <h2>Trusted by 500+ educational institutions across India</h2>
+    <p>ExtraaEdge manages <strong>10M+ student enquiries</strong>, enabling universities, colleges and EdTech organizations to accelerate admissions with the Vidya AI suite and intelligent automation.</p>
+    <div class="rate" role="img" aria-label="Rated 4.7 out of 5 by over 320 admission teams">
+      <span aria-hidden="true" style="display:flex;gap:2px">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.2l-5.8 3.6 1.6-6.6L2.6 8.8l6.8-.5L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.2l-5.8 3.6 1.6-6.6L2.6 8.8l6.8-.5L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.2l-5.8 3.6 1.6-6.6L2.6 8.8l6.8-.5L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.2l-5.8 3.6 1.6-6.6L2.6 8.8l6.8-.5L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" style="opacity:.35"><path d="M12 2l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 16.2l-5.8 3.6 1.6-6.6L2.6 8.8l6.8-.5L12 2z"/></svg>
+      </span>
+      <b>4.7 / 5</b><span>Rated by 320+ admission teams</span>
+    </div>
   </div>
-  <div class="journey-grid">
-    <article><span>01</span><div class="journey-icon">&#8961;</div><h3>Attract</h3><p>Capture every enquiry with source and intent intact.</p><a href="#demo" aria-label="Explore Attract">Explore <span aria-hidden="true">&#8599;</span></a></article>
-    <article><span>02</span><div class="journey-icon">&#9676;</div><h3>Engage</h3><p>Reach students across voice, WhatsApp, email and web.</p><a href="#demo" aria-label="Explore Engage">Explore <span aria-hidden="true">&#8599;</span></a></article>
-    <article><span>03</span><div class="journey-icon">&#8599;</div><h3>Convert</h3><p>Guide counsellors with priorities, context and next-best actions.</p><a href="#demo" aria-label="Explore Convert">Explore <span aria-hidden="true">&#8599;</span></a></article>
-    <article><span>04</span><div class="journey-icon">&#10003;</div><h3>Enrol</h3><p>Move applications, payments and documents to completion.</p><a href="#demo" aria-label="Explore Enrol">Explore <span aria-hidden="true">&#8599;</span></a></article>
+  <?php
+  $ee_home_logos = function_exists('ee_institute_logos_for') ? ee_institute_logos_for('home') : array();
+  $ee_row_a = array(); $ee_row_b = array();
+  foreach ($ee_home_logos as $ee_i => $ee_l) { if ($ee_i % 2 === 0) $ee_row_a[] = $ee_l; else $ee_row_b[] = $ee_l; }
+  ?>
+  <div class="marquee-wrap rv">
+    <?php if ($ee_row_a) : ?>
+    <div class="marquee-track">
+      <?php for ($p=0;$p<2;$p++): foreach ($ee_row_a as $l): ?>
+      <img src="<?php echo esc_url($l['u']); ?>" alt="<?php echo $p?'':esc_attr($l['a']); ?>" loading="lazy" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:this.alt}))">
+      <?php endforeach; endfor; ?>
+    </div>
+    <?php endif; ?>
+    <?php if ($ee_row_b) : ?>
+    <div class="marquee-track right">
+      <?php for ($p=0;$p<2;$p++): foreach ($ee_row_b as $l): ?>
+      <img src="<?php echo esc_url($l['u']); ?>" alt="<?php echo $p?'':esc_attr($l['a']); ?>" loading="lazy" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:this.alt}))">
+      <?php endforeach; endfor; ?>
+    </div>
+    <?php endif; ?>
+  </div>
+  <div class="trust-more rv"><a href="/videos/customer-stories/">See Their Success Stories <span aria-hidden="true">&rarr;</span></a></div>
+</section>
+
+
+<div class="story-kick"><span class="k-no">01</span><span class="k-lb">The platform, live</span><span class="k-sub">Explore the admission CRM software yourself, on sample data</span></div>
+<section class="section platform-wrap" id="ee-platform">
+  <div class="platform-shell rv">
+    <?php ee_platform_section(); ?>
   </div>
 </section>
 
-<section class="roles section">
-  <div class="role-header">
-    <div>
-      <p class="eyebrow">Built around your team</p>
-      <h2>Don&rsquo;t just read about it.<br><em>Explore the product.</em></h2>
-      <p class="role-intro">Choose a team view, then move between live product mockups to see how each workspace supports their day.</p>
-    </div>
-    <div class="role-tabs" role="tablist" aria-label="Choose a team view">
-      <button type="button" role="tab" aria-selected="true" class="active" data-for="For admission leaders">Leader</button>
-      <button type="button" role="tab" aria-selected="false" class="" data-for="For counsellors">Counsellor</button>
-      <button type="button" role="tab" aria-selected="false" class="" data-for="For marketing teams">Marketing</button>
-    </div>
+
+<div class="story-kick"><span class="k-no">02</span><span class="k-lb">The AI advantage</span><span class="k-sub">Admission chatbot, WhatsApp automation, AI calling and lead scoring, one layer</span></div>
+<section class="section s7-wrap" id="story7">
+  <div class="section-intro rv">
+    <h2>Seven Products. <em>One Admissions Growth Platform.</em></h2>
   </div>
-  <div class="product-shell" aria-live="polite">
-    <div class="product-topbar">
-      <div class="mini-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><strong>ExtraaEdge</strong></div>
-      <div class="product-search">Search a lead, application or task&hellip;</div>
-      <span class="avatar">SM</span>
-    </div>
-    <div class="product-body">
-      <aside class="product-nav" aria-label="Product navigation example">
-        <button type="button" aria-label="Open Today workspace" class="nav-active" data-ws="Today">&#8961;</button>
-        <button type="button" aria-label="Open Leads workspace" class="" data-ws="Leads">&#9678;</button>
-        <button type="button" aria-label="Open Applications workspace" class="" data-ws="Applications">&#9671;</button>
-        <button type="button" aria-label="Open Insights workspace" class="" data-ws="Insights">&#9651;</button>
-        <span>&#9881;</span>
-      </aside>
-      <section class="product-main">
-        <div class="canvas-heading">
-          <div>
-            <small><span id="canvasRole">For admission leaders</span> &middot; <span id="canvasWs">Today</span></small>
-            <h3 id="canvasH3">See where every enrolment stands.</h3>
-          </div>
-          <div class="workspace-switcher" role="tablist" aria-label="Explore product workspaces">
-            <button type="button" role="tab" aria-selected="true" class="active">Today</button>
-            <button type="button" role="tab" aria-selected="false" class="">Leads</button>
-            <button type="button" role="tab" aria-selected="false" class="">Applications</button>
-            <button type="button" role="tab" aria-selected="false" class="">Insights</button>
-          </div>
-        </div>
-
-        <div class="canvas-grid" id="ws-Today">
-          <article class="metric-card orange-card"><span>Momentum</span><strong>82%</strong><small>on-track applications</small><div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
-          <article class="metric-card"><span>Admissions today</span><strong>18</strong><small>+12% from last week</small><div class="spark"><i></i><i></i><i></i><i></i><i></i></div></article>
-          <article class="priority-card">
-            <div class="card-title"><strong>Priority queue</strong><span>AI ranked</span></div>
-            <div class="lead-row"><b>AS</b><p><strong>Aditi Sharma</strong><small>MBA &middot; Form 80% complete</small></p><button type="button">Call now</button></div>
-            <div class="lead-row"><b>RK</b><p><strong>Rohan Kumar</strong><small>B.Tech &middot; Fee question</small></p><button type="button">Reply</button></div>
-            <div class="lead-row"><b>NM</b><p><strong>Neha Mehta</strong><small>BBA &middot; Documents pending</small></p><button type="button">Nudge</button></div>
-          </article>
-          <article class="ai-card"><span class="ai-dot">&#10022;</span><p><small>VidyaPulse recommends</small><strong>Follow up with 7 high-intent applicants before 11:30 AM.</strong></p><button type="button">Build my action list <span aria-hidden="true">&#8599;</span></button></article>
-        </div>
-
-        <div class="explorer-panel" id="ws-Leads" hidden>
-          <div class="explorer-toolbar"><strong>Lead pipeline</strong><span>Live &middot; AI ranked by intent</span><button type="button">+ Add lead</button></div>
-          <div class="pipeline-row">
-            <article><small>New</small><strong>248</strong><span>this week</span></article>
-            <article class="active"><small>Contacted</small><strong>164</strong><span>within 8 minutes</span></article>
-            <article><small>Qualified</small><strong>96</strong><span>AI scored</span></article>
-            <article><small>Converting</small><strong>41</strong><span>counsellor assigned</span></article>
-          </div>
-          <div class="lead-table">
-            <div class="table-head"><span>Student</span><span>Programme</span><span>Intent</span><span></span></div>
-            <div class="table-row"><span><b>AS</b>Aditi Sharma</span><span>MBA</span><span><i class="intent-high"></i>High</span><button type="button">Call now</button></div>
-            <div class="table-row"><span><b>RK</b>Rohan Kumar</span><span>B.Tech</span><span><i class="intent-warm"></i>Warm</span><button type="button">Reply</button></div>
-            <div class="table-row"><span><b>NM</b>Neha Mehta</span><span>BBA</span><span><i class="intent-warm"></i>Warm</span><button type="button">Nudge</button></div>
-            <div class="table-row"><span><b>VJ</b>Vikram Joshi</span><span>MBA</span><span><i class="intent-high"></i>High</span><button type="button">Call now</button></div>
-          </div>
-        </div>
-
-        <div class="explorer-panel" id="ws-Applications" hidden>
-          <div class="application-summary">
-            <div><small>Applications in progress</small><strong>1,284</strong><p>68% completion across programmes</p></div>
-            <div class="completion-ring"><span>68%</span></div>
-          </div>
-          <div class="application-board">
-            <article>
-              <strong>Programme funnel</strong>
-              <div class="funnel-line"><span>Form submitted</span><div><i style="width:84%"></i></div><span>84%</span></div>
-              <div class="funnel-line"><span>Documents</span><div><i style="width:61%"></i></div><span>61%</span></div>
-              <div class="funnel-line"><span>Fee paid</span><div><i style="width:38%"></i></div><span>38%</span></div>
-              <div class="funnel-line"><span>Enrolled</span><div><i style="width:27%"></i></div><span>27%</span></div>
-            </article>
-            <article>
-              <strong>Today&rsquo;s queue</strong>
-              <button type="button"><i>&#9998;</i><span>Verify documents<small>12 pending today</small></span><b>Open &#8599;</b></button>
-              <button type="button"><i>&#8377;</i><span>Fee follow-ups<small>7 payment links sent</small></span><b>Open &#8599;</b></button>
-              <button type="button"><i>&#10003;</i><span>Offers to release<small>4 approved this morning</small></span><b>Open &#8599;</b></button>
-            </article>
-          </div>
-        </div>
-
-        <div class="explorer-panel" id="ws-Insights" hidden>
-          <div class="insight-cards">
-            <article><small>Conversion</small><strong>+38%</strong><span>&#9650; vs last cycle</span></article>
-            <article><small>First response</small><strong>2m 40s</strong><span>&#9650; 90% faster</span></article>
-            <article class="dark-insight"><small>VidyaPulse insight</small><strong>Weekend enquiries convert 2.1&times; better when they are called before Monday noon.</strong></article>
-          </div>
-          <div class="chart-card">
-            <div class="chart-area">
-              <span>240</span><span>120</span><span>0</span>
-              <div class="chart-bars"><i style="height:34%"></i><i style="height:48%"></i><i style="height:42%"></i><i style="height:61%"></i><i style="height:55%"></i><i style="height:72%"></i><i style="height:66%"></i><i style="height:84%"></i><i style="height:78%"></i><i style="height:95%"></i></div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-  <p class="canvas-note">Interactive product concept &middot; choose a role and workspace to explore</p>
-</section>
-
-<section class="product-video section" id="product-video">
-  <div class="video-heading">
-    <div>
-      <p class="eyebrow">See the complete product story</p>
-      <h2>From first enquiry<br>to final <em>enrolment.</em></h2>
-    </div>
-    <p>Watch the platform work as one connected admission system&mdash;in a single, uninterrupted view.</p>
-  </div>
-  <div class="video-frame" id="videoFrame">
-    <div class="video-browser-bar"><span><i></i><i></i><i></i></span><strong>ExtraaEdge product tour</strong><small>02:18</small></div>
-    <div class="video-screen">
-      <div class="video-backdrop">
-        <span class="video-kicker">THE ADMISSION GROWTH PLATFORM</span>
-        <h3>Every student signal.<br><em>One connected journey.</em></h3>
-        <p>CRM &middot; Applications &middot; Communication &middot; VidyaAI &middot; Analytics</p>
-      </div>
-      <div class="video-demo-ui" aria-hidden="true">
-        <aside><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><i>&#8961;</i><i>&#9678;</i><i>&#9671;</i><i>&#9651;</i></aside>
-        <div>
-          <div class="video-ui-head"><span>Good morning, admission team</span><b>&#10022; 12 AI actions ready</b></div>
-          <div class="video-ui-grid">
-            <article><small>New enquiries</small><strong>248</strong><i></i></article>
-            <article><small>Applications moving</small><strong>82%</strong><i></i></article>
-            <article class="video-ui-wide"><small>Today&rsquo;s admission momentum</small><div><i style="height:40%"></i><i style="height:55%"></i><i style="height:48%"></i><i style="height:68%"></i><i style="height:62%"></i><i style="height:80%"></i><i style="height:76%"></i><i style="height:92%"></i></div></article>
-          </div>
-        </div>
-      </div>
-      <button class="video-play" type="button" aria-label="Play product tour concept"><span>&#9654;</span><strong>Play the product film</strong><small>2 min 18 sec</small></button>
-      <div class="video-progress"><i></i><span>00:00</span><span>02:18</span></div>
-    </div>
-  </div>
-  <p class="video-note">Full-frame product-film placement &middot; replace concept animation with the approved product video</p>
-</section>
-
-<section class="ai-section section" id="ai">
-  <div class="ai-heading">
-    <div>
-      <p class="eyebrow light">VidyaAI</p>
-      <h2>AI that joins the<br><em>admission team.</em></h2>
-    </div>
-    <p>Not another chatbot. A coordinated set of education-trained agents that engage students, support counsellors and move work forward.</p>
-  </div>
-  <div class="agent-grid">
-    <article class="featured-agent"><span class="agent-number">01</span><div class="agent-symbol">&#10022;</div><small>Voice agent</small><h3>VidyaCall</h3><p>Qualifies, answers and follows up in natural conversations.</p><a href="#demo">Meet the agent <span aria-hidden="true">&#8599;</span></a></article>
-    <article class=""><span class="agent-number">02</span><div class="agent-symbol">&#10022;</div><small>Web agent</small><h3>VidyaGPT</h3><p>Turns programme questions into confident next steps, 24&times;7.</p><a href="#demo">Meet the agent <span aria-hidden="true">&#8599;</span></a></article>
-    <article class=""><span class="agent-number">03</span><div class="agent-symbol">&#10022;</div><small>WhatsApp agent</small><h3>VidyaWA</h3><p>Keeps every applicant moving in the channel they already use.</p><a href="#demo">Meet the agent <span aria-hidden="true">&#8599;</span></a></article>
-    <article class=""><span class="agent-number">04</span><div class="agent-symbol">&#10022;</div><small>Counsellor copilot</small><h3>VidyaPulse</h3><p>Summarises context and recommends the next best action.</p><a href="#demo">Meet the agent <span aria-hidden="true">&#8599;</span></a></article>
+  <div class="s7-list rv">
+    <article class="s7-row" id="vidyaai"><span class="s7-n">01</span><div class="s7-body"><span class="s7-tag">AI Engine</span><h3>Vidya AI: VidyaGPT, VidyaPulse &amp; VidyaAgents</h3><p>AI built for one job: more admissions with less manual work. VidyaGPT engages every enquiry, VidyaPulse scores intent, VidyaAgents call and follow up.</p></div></article><article class="s7-row" id="admission-crm"><span class="s7-n">02</span><div class="s7-body"><span class="s7-tag">Core System</span><h3>Admissions Core</h3><p>Admission CRM software centralizes your entire admissions process, giving you real-time visibility into every prospect's journey from enquiry to enrolment. Track inquiries, manage applications, and automate follow-ups seamlessly, all from one platform. With intelligent lead prioritization, your team focuses on high-potential candidates while data-driven insights guide every decision.</p><div class="s7-pills"><div class="s7-pill"><b>Funnel Management</b><span>See every prospect's stage from enquiry to enrolment and spot drop-offs instantly.</span></div><div class="s7-pill"><b>Follow-Up Manager</b><span>Auto-schedules reminders so no prospect ever slips through the cracks.</span></div><div class="s7-pill"><b>Reporting Dashboard</b><span>Live conversion and counselor-performance reports, updated in real time.</span></div></div></div></article><article class="s7-row" id="marketing-automation"><span class="s7-n">03</span><div class="s7-body"><span class="s7-tag">Engagement Engine</span><h3>Marketing Automation</h3><p>Marketing automation delivers personalized emails and targeted campaigns to the right prospects at the perfect time. Integrated with your Admission CRM, it streamlines lead nurturing across multiple channels while you focus on strategy. Intelligent audience segmentation ensures every message resonates, improving engagement and conversion rates.</p><div class="s7-pills"><div class="s7-pill"><b>Email Marketing</b><span>Personalized drip campaigns triggered automatically by prospect behavior.</span></div><div class="s7-pill"><b>Integrated Communication Channels</b><span>Email, SMS, and WhatsApp orchestrated from a single workflow.</span></div><div class="s7-pill"><b>Campaign Analytics</b><span>Track opens, clicks, and conversions for every campaign you run.</span></div></div></div></article><article class="s7-row" id="chatbot"><span class="s7-n">04</span><div class="s7-body"><span class="s7-tag">24/7 Connectivity</span><h3>Chatbot &amp; Live Chat</h3><p>Integrated with your Admission CRM, the chatbot ensures you never miss an inquiry with 24/7 instant responses. Handle routine queries automatically while counsellors focus on meaningful conversations. Smart routing directs prospects to the right team members based on their interests and application stage.</p><div class="s7-pills"><div class="s7-pill"><b>Automated Chat Workflow</b><span>Pre-built conversation flows that qualify and route enquiries on their own.</span></div><div class="s7-pill"><b>Live Chat Enablement</b><span>Seamless handoff from bot to human counselor whenever it's needed.</span></div><div class="s7-pill"><b>Meeting Scheduler</b><span>Prospects book a counselor slot directly from the chat window.</span></div></div></div></article><article class="s7-row" id="application-mgmt"><span class="s7-n">05</span><div class="s7-body"><span class="s7-tag">Enrolment Portal</span><h3>Application Management System</h3><p>Application management system streamlines the entire application process for you and your prospective students. Integrated with your Admission CRM and optimized for mobile, it handles form submissions, document verification, and payments effortlessly. Intelligent status tracking keeps applicants informed while giving you actionable insights at every stage.</p><div class="s7-pills"><div class="s7-pill"><b>Application Form Builder &amp; Widgets</b><span>Drag-and-drop forms you can embed anywhere on your site.</span></div><div class="s7-pill"><b>Video GD-PI &amp; Counseling</b><span>Run group discussions and interviews virtually, with recordings saved to the CRM.</span></div><div class="s7-pill"><b>Payment Integration</b><span>Secure fee collection built right into the application flow.</span></div></div></div></article><article class="s7-row" id="whatsapp-api"><span class="s7-n">06</span><div class="s7-body"><span class="s7-tag">Direct Channel</span><h3>WhatsApp Business API</h3><p>WhatsApp Business API connects you with prospects on their preferred platform. Send bulk messages, engage in personalized conversations, and drive conversions, all through your Admission CRM. Data-driven campaign optimization ensures higher open rates and faster response times for improved enrolment outcomes.</p><div class="s7-pills"><div class="s7-pill"><b>Two-way WhatsApp and live chat</b><span>Reply to prospects directly inside WhatsApp threads, synced with the CRM.</span></div><div class="s7-pill"><b>Bulk WhatsApp &amp; automated campaigns</b><span>Send templated updates to thousands of prospects instantly.</span></div><div class="s7-pill"><b>Verified business account</b><span>Green-tick verified number builds instant trust with prospects.</span></div></div></div></article><article class="s7-row" id="mobile-crm"><span class="s7-n">07</span><div class="s7-body"><span class="s7-tag">On-the-go Productivity</span><h3>Mobile CRM</h3><p>Our Mobile CRM empowers work-from-home and field counselors to stay productive on the go. With built-in field tracking, monitor visits, log activities, and complete follow-ups efficiently from anywhere. Real-time sync with your Admission CRM ensures every interaction is captured for intelligent reporting.</p><div class="s7-pills"><div class="s7-pill"><b>Click-To-Call</b><span>Dial prospects straight from the mobile app; every call logs automatically.</span></div><div class="s7-pill"><b>Field Tracker</b><span>GPS check-in and check-out for on-ground counselor visits.</span></div><div class="s7-pill"><b>Missed Call Lead Capture</b><span>Every missed call auto-creates a fresh lead in the CRM.</span></div></div></div></article>
   </div>
 </section>
 
-<section class="difference section" id="difference">
-  <div class="difference-title">
-    <p class="eyebrow">The ExtraaEdge difference</p>
-    <h2>Enterprise capability.<br><em>Without enterprise complexity.</em></h2>
+
+<section class="section vidya-section" id="ee-vidya-suite" aria-label="Meet Vidya AI">
+  <div class="section-intro rv">
+    <h2>Meet Vidya AI, the Agentic AI Suite <em>built for smarter admissions.</em></h2>
   </div>
-  <div class="difference-grid">
-    <article class="difference-large"><span class="big-number">01</span><div><h3>Simple enough to use every day.</h3><p>A focused experience for admission teams&mdash;not a generic CRM that needs a handbook beside it.</p><ul><li>Role-based workspaces</li><li>Fewer clicks to the next action</li><li>Fast counsellor adoption</li></ul></div></article>
-    <article class="config-card"><span class="big-number">02</span><h3>Configure without code.</h3><p>Adapt stages, forms, rules and communication as your admission cycle evolves.</p><div class="config-ui"><span>Application stage</span><button type="button">Form submitted</button><button type="button" class="selected">Eligibility verified</button><button type="button">Offer sent</button></div></article>
-    <article class="support-card"><span class="big-number">03</span><h3>Support that knows admissions.</h3><p>Work with people who understand your season, processes and pressure&mdash;not a ticket queue.</p><div class="support-people"><i>AS</i><i>RM</i><i>PK</i><span>Implementation + success team</span></div></article>
-    <article class="value-card"><span class="big-number">04</span><h3>More value. Less overhead.</h3><p>Get the workflows, automation and intelligence your team needs&mdash;without paying for layers it does not.</p><a href="#demo">Build your plan <span aria-hidden="true">&#8599;</span></a></article>
+  <div class="vidya-grid rv">
+    <article class="featured">
+      <span class="v-n">01</span><div class="v-sym">&#10022;</div>
+      <small>Chat &amp; WhatsApp agent</small><h3>VidyaGPT</h3>
+      <dl><div><dt>Channels</dt><dd>Web &amp; WhatsApp</dd></div><div><dt>Languages</dt><dd>95+</dd></div><div><dt>Available</dt><dd>24&times;7</dd></div></dl>
+      <p>Your 24&times;7 AI chat counsellor answers fees, courses, scholarships and deadline queries across your website and WhatsApp, replies instantly in 95+ languages, and hands hot leads straight to your counsellors.</p>
+      <a href="#admission-form">See VidyaGPT in your demo <span aria-hidden="true">&#8599;</span></a>
+    </article>
+    <article>
+      <span class="v-n">02</span><div class="v-sym">&#10022;</div>
+      <small>Lead scoring agent</small><h3>VidyaPulse</h3>
+      <dl><div><dt>Score</dt><dd>0&ndash;100</dd></div><div><dt>Updates</dt><dd>Real time</dd></div><div><dt>Signal</dt><dd>Buying intent</dd></div></dl>
+      <p>Scores every lead 0&ndash;100 on real buying intent and re-scores in real time as they engage, so the hottest prospects surface first and counsellors know exactly who to call now.</p>
+      <a href="#admission-form">See VidyaPulse in your demo <span aria-hidden="true">&#8599;</span></a>
+    </article>
+    <article>
+      <span class="v-n">03</span><div class="v-sym">&#10022;</div>
+      <small>Voice calling agent</small><h3>VidyaAgents</h3>
+      <dl><div><dt>Channel</dt><dd>Outbound</dd></div><div><dt>Languages</dt><dd>10+ Indian</dd></div><div><dt>Available</dt><dd>24&times;7</dd></div></dl>
+      <p>Calls every new lead within seconds and holds natural, human-like conversations that qualify interest and book counselling slots in 10+ Indian languages, around the clock.</p>
+      <a href="#admission-form">See VidyaAgents in your demo <span aria-hidden="true">&#8599;</span></a>
+    </article>
+    <article>
+      <span class="v-n">04</span><div class="v-sym">&#10022;</div>
+      <small>Live demo</small><h3>Try It Live</h3>
+      <dl><div><dt>Access</dt><dd>Instant</dd></div><div><dt>Signup</dt><dd>Not needed</dd></div><div><dt>Agents</dt><dd>All five</dd></div></dl>
+      <p>Explore the live AI inside the product demo and watch every agent work a real admission funnel. No sales call, no signup.</p>
+      <a href="#ee-platform">See the Vidya AI Suite live <span aria-hidden="true">&#8599;</span></a>
+    </article>
   </div>
 </section>
 
-<section class="proof section">
-  <p class="eyebrow">Designed for education, proven in admissions</p>
-  <div class="proof-stat"><strong>340<span>+</span></strong><p>education teams have chosen ExtraaEdge to make admissions more connected, measurable and human.</p></div>
-  <div class="proof-cards">
-    <article><span>Customer outcome</span><h3>&ldquo;Add an approved customer story here&mdash;focused on adoption, conversion or faster operations.&rdquo;</h3><small>Replace with verified customer quote before launch</small></article>
-    <article class="proof-orange"><span>What to prove</span><ul><li>Faster response time</li><li>Higher application completion</li><li>Quicker team adoption</li><li>Lower operating effort</li></ul></article>
+
+<div class="story-kick"><span class="k-no">03</span><span class="k-lb">The proof</span><span class="k-sub">Customer stories and results from 500+ educational institutions</span></div>
+<section class="section stories-sec" id="stories" aria-labelledby="stories-title">
+  <div class="section-intro rv">
+    <h2 id="stories-title">What Our Clients <em>Are Saying.</em></h2>
   </div>
+  <div class="stories-rail rv" id="storiesRail">
+    <button type="button" class="story-thumb is-active" data-q="“Tula's Institute streamlined its admissions process, strengthened student engagement, and empowered its team with a more organised admissions workflow.”" data-n="Silky Jain Marwah" data-r="Executive Director at Tula's Institute, Dehradun" style="background-image:url('https://img.youtube.com/vi/3SHgLf1GFgk/hqdefault.jpg')" aria-label="Customer story: Silky Jain Marwah"><span class="story-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><button type="button" class="story-thumb" data-q="“A unified admissions platform helped the team manage enquiries, improve follow-ups, and build a more efficient applicant journey.”" data-n="Pranay Rupani" data-r="Head of Admissions &amp; Marketing at Annapurna College of Film &amp; Media" style="background-image:url('https://img.youtube.com/vi/dWLdQ8E3FOU/hqdefault.jpg')" aria-label="Customer story: Pranay Rupani"><span class="story-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><button type="button" class="story-thumb" data-q="“Simplified lead management and communication, with better counsellor visibility across the student admissions journey.”" data-n="K. Nirmala Devi" data-r="Assistant Manager at Indian Academy Group, Bengaluru" style="background-image:url('https://img.youtube.com/vi/yfK83D2SKps/hqdefault.jpg')" aria-label="Customer story: K. Nirmala Devi"><span class="story-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><button type="button" class="story-thumb" data-q="“Streamlined enquiry handling, faster follow-ups and clearer visibility across the entire admission funnel.”" data-n="Uttaranchal University" data-r="University &amp;middot; Dehradun" style="background-image:url('https://img.youtube.com/vi/tLExH5jpQbw/hqdefault.jpg')" aria-label="Customer story: Uttaranchal University"><span class="story-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><button type="button" class="story-thumb" data-q="“One platform for leads, counsellors and communication across the group’s campuses.”" data-n="Amrapali Group of Institutes" data-r="Group of Institutes &amp;middot; Haldwani" style="background-image:url('https://img.youtube.com/vi/9l99MjTfEbw/hqdefault.jpg')" aria-label="Customer story: Amrapali Group of Institutes"><span class="story-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><button type="button" class="story-thumb" data-q="“ExtraaEdge CRM helped the team hit its admissions target for the cycle.”" data-n="DPU Global Business School" data-r="B-School &amp;middot; Pune" style="background-image:url('https://img.youtube.com/vi/7sPbL3uvha0/hqdefault.jpg')" aria-label="Customer story: DPU Global Business School"><span class="story-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><button type="button" class="story-thumb" data-q="“The team adopted ExtraaEdge CRM in just 10 days and brought its counselling pipeline into one organised view.”" data-n="Admit Abroad" data-r="Study Abroad Consultants" style="background-image:url('https://img.youtube.com/vi/KisEkYkGYs8/hqdefault.jpg')" aria-label="Customer story: Admit Abroad"><span class="story-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><button type="button" class="story-thumb" data-q="“From first enquiry to final PGDM enrolment - the full admission journey on one platform.”" data-n="FOSTIIMA Business School" data-r="B-School &amp;middot; New Delhi" style="background-image:url('https://img.youtube.com/vi/q53VDQFTq04/hqdefault.jpg')" aria-label="Customer story: FOSTIIMA Business School"><span class="story-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><button type="button" class="story-thumb" data-q="“Structure and speed for the admission journey, with organised leads and timely follow-ups.”" data-n="IBSC" data-r="Institute of Management" style="background-image:url('https://img.youtube.com/vi/ApP0hhJ45NQ/hqdefault.jpg')" aria-label="Customer story: IBSC"><span class="story-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><button type="button" class="story-thumb" data-q="“One place to manage enquiries, follow-ups and admissions for the whole team.”" data-n="IIFT" data-r="Institute of Management" style="background-image:url('https://img.youtube.com/vi/K3kqAHKJAgo/hqdefault.jpg')" aria-label="Customer story: IIFT"><span class="story-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button>
+  </div>
+  <div class="story-cap rv" id="storyCap">
+    <p class="q" id="storyQ">&ldquo;Tula&rsquo;s Institute streamlined its admissions process, strengthened student engagement, and empowered its team with a more organised admissions workflow.&rdquo;</p>
+    <p class="who" id="storyWho"><b>Silky Jain Marwah</b> &middot; Executive Director at Tula&rsquo;s Institute, Dehradun</p>
+  </div>
+  <div class="stories-more rv"><a href="/videos/customer-stories/">View All Customer Stories &rarr;</a></div>
 </section>
 
-<section class="resources section" id="resources">
-  <div class="resource-head">
-    <div>
-      <p class="eyebrow">Ideas for admission leaders</p>
-      <h2>Practical thinking.<br><em>Ready for Monday.</em></h2>
+
+<section class="mid-cta" id="ee-midcta" aria-label="Book a demo">
+  <div class="rv">
+    <h2>The story so far, on <em>your data.</em></h2>
+    <p>A 30-minute demo of the admission CRM on your courses and sources. Bring one real enquiry; watch Vidya AI answer it in 60 seconds.</p>
+    <div class="row">
+      <a class="go" href="#admission-form">Book a Demo</a>
+      <a class="alt" href="#ee-platform">Keep exploring the platform</a>
     </div>
-    <a href="#demo">Visit resources <span aria-hidden="true">&#8599;</span></a>
-  </div>
-  <div class="resource-grid">
-    <article><div class="resource-art art-one"><span>2027</span><i>Admissions<br>benchmark</i></div><small>REPORT</small><h3>The modern admission team benchmark</h3><a href="#demo">Read report <span aria-hidden="true">&#8599;</span></a></article>
-    <article><div class="resource-art art-two"><span>AI</span><i>Human<br>advantage</i></div><small>PLAYBOOK</small><h3>Where AI should&mdash;and should not&mdash;work in admissions</h3><a href="#demo">Get the playbook <span aria-hidden="true">&#8599;</span></a></article>
-    <article><div class="resource-art art-three"><span>&#8599;</span><i>Growth<br>stories</i></div><small>CUSTOMER STORY</small><h3>How education teams turn process into momentum</h3><a href="#demo">Explore stories <span aria-hidden="true">&#8599;</span></a></article>
+    <p class="fine">Go-live in 7 days &middot; rated 4.7/5 by 320+ admission teams</p>
   </div>
 </section>
 
-<section class="final-cta" id="demo">
-  <div class="cta-sun">&#10022;</div>
-  <p class="eyebrow">Your next admission cycle can work better</p>
-  <h2>Ready to turn<br>enquiries into <em>momentum?</em></h2>
-  <p>See how ExtraaEdge can fit your process, your team and your growth goals.</p>
-  <a class="button button-dark" href="mailto:hello@extraaedge.com">Book a personalised demo <span aria-hidden="true">&#8599;</span></a>
+
+<div class="story-kick"><span class="k-no">04</span><span class="k-lb">Built for your institution</span><span class="k-sub">Higher education, K-12 schools, coaching, study abroad, EdTech</span></div>
+<section class="section ind-sec" id="ee-ind" aria-label="Industries we serve">
+  <div class="section-intro rv">
+    <h2>Built for every kind <em>of institution.</em></h2>
+    <p>One AI-powered admissions platform, tuned to the way your category recruits, nurtures and enrols students.</p>
+  </div>
+  <div class="ind-list rv">
+    <a class="ind-row" href="/industries/edtech-crm/"><span class="ind-n">01</span><span class="ind-t">EdTech</span><span class="ind-d">You buy leads by the thousand - every enquiry has to convert.</span><span class="ind-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="ind-row" href="/industries/coaching-institute-crm/"><span class="ind-n">02</span><span class="ind-t">Coaching &amp; Training</span><span class="ind-d">Batches fill on deadlines - every enquiry counts.</span><span class="ind-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="ind-row" href="/industries/school-crm/"><span class="ind-n">03</span><span class="ind-t">K-12 Schools</span><span class="ind-d">Parents take months to choose - trust wins the seat.</span><span class="ind-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="ind-row" href="/industries/school-crm/"><span class="ind-n">04</span><span class="ind-t">Preschools &amp; Playschools</span><span class="ind-d">It’s their first school - reassurance closes the admission.</span><span class="ind-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="ind-row" href="/industries/higher-education-crm/"><span class="ind-n">05</span><span class="ind-t">Online Degree Programmes</span><span class="ind-d">You compete nationally for every learner.</span><span class="ind-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="ind-row" href="/industries/higher-education-crm/"><span class="ind-n">06</span><span class="ind-t">Higher Education</span><span class="ind-d">Many programmes, many counsellors - one admissions engine.</span><span class="ind-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="ind-row" href="/industries/overseas-crm/"><span class="ind-n">07</span><span class="ind-t">Study Abroad Consultants</span><span class="ind-d">A single student journey can run for a year.</span><span class="ind-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="ind-row" href="/partners/"><span class="ind-n">08</span><span class="ind-t">Channel Partners</span><span class="ind-d">Your partners send leads - you need to see every one.</span><span class="ind-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+  </div>
 </section>
+
+
+<section class="section integrations-sec" id="integrations">
+  <div class="center-head rv">
+    <p class="eyebrow" style="justify-content:center">Extensions &amp; Integrations</p>
+    <h2>Connect your admissions stack <em>with ExtraaEdge.</em></h2>
+  </div>
+  <div class="ilogo-wall rv">
+    <?php
+    $IH_B  = 'https://www.extraaedge.com/wp-content/uploads/2026/intigration-logo/';
+    $IH_WA = 'https://www.extraaedge.com/wp-content/uploads/2026/social-icons/whatsapp-icon.webp';
+    $ih_all = array(
+      array('linkedin-ads.svg','LinkedIn Ads'), array('google-ads.svg','Google Ads'),
+      array('google-remarketing.svg','Google Analytics'), array('facebook-ads.svg','Facebook Ads'),
+      array('instagram.svg','Instagram'), array('__wa','WhatsApp'),
+      array('shiksha.svg','Shiksha'), array('collegedekho.svg','CollegeDekho'),
+      array('collegedunia-learn.svg','Collegedunia'), array('justdial.svg','Justdial'),
+      array('wix.svg','Wix'), array('wordpress.svg','WordPress'), array('asterisk.svg','Asterisk'),
+      array('zoho-forms.svg','Zoho Forms'), array('contact-form-7.svg','Contact Form 7'),
+      array('sendgrid.svg','SendGrid'), array('msg91.svg','MSG91'), array('netcore.svg','Netcore'),
+      array('razorpay.svg','Razorpay'), array('stripe.svg','Stripe'),
+      array('typeform.svg','Typeform'), array('elementor.svg','Elementor'), array('populi.svg','Populi'),
+      array('unlayer.svg','Unlayer'), array('twilio.svg','Twilio'),
+      array('paytm.svg','Paytm'), array('adib.svg','ADIB'), array('hdfc-bank.svg','HDFC Bank'),
+      array('mastercard.svg','Mastercard'), array('easebuzz.svg','Easebuzz'),
+    );
+    foreach ($ih_all as $x) {
+      $src = ($x[0] === '__wa') ? $IH_WA : $IH_B . $x[0];
+      echo '<div class="ilogo-cell"><img src="' . esc_url($src) . '" alt="' . esc_attr($x[1])
+         . '" loading="lazy" decoding="async" onerror="this.closest(\'.ilogo-cell\').remove()"></div>';
+    }
+    ?>
+  </div>
+  <div class="integ-cta rv"><a href="/integrations/">See All Integrations <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a></div>
+</section>
+
+
+<section class="section security-sec" id="security">
+  <div class="center-head rv">
+    <h2>Your students&rsquo; data, <em>protected by design.</em></h2>
+  </div>
+  <div class="sec-grid rv">
+    <div class="sec-item"><img src="https://www.extraaedge.com/wp-content/uploads/integration-icons/iso%20certified%20logo.png" alt="ISO 27001" loading="lazy" decoding="async"><b>ISO 27001 Certified</b><span>Audited information-security management.</span></div>
+    <div class="sec-item"><img src="https://www.extraaedge.com/wp-content/uploads/integration-icons/GDPR%20logo%20.png" alt="GDPR" loading="lazy" decoding="async"><b>GDPR Compliant</b><span>Privacy-first data handling &amp; consent.</span></div>
+    <div class="sec-item"><img src="https://www.extraaedge.com/wp-content/uploads/integration-icons/india-data-residency-logo.png" alt="India Data Residency" loading="lazy" decoding="async"><b>India Data Residency</b><span>Hosted on secure, scalable cloud.</span></div>
+    <div class="sec-item"><img src="https://www.extraaedge.com/wp-content/uploads/integration-icons/role-based-acccess-logo.png" alt="Role-Based Access" loading="lazy" decoding="async"><b>Role-Based Access</b><span>Granular permissions &amp; full audit trails.</span></div>
+  </div>
+</section>
+
+
+<section class="section faq-sec" id="faq">
+  <div class="center-head rv">
+    <h2>Everything you need to know about <em>ExtraaEdge.</em></h2>
+  </div>
+  <div class="faq-list rv" id="faqList">
+    <div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>What is ExtraaEdge?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>ExtraaEdge is India's Intelligent Admissions Growth Platform, purpose-built for educational institutions - schools, colleges, universities and edtech companies. Its Vidya AI suite (VidyaGPT, VidyaPulse and VidyaAgents) handles enquiry response, lead prioritisation and follow-up automatically, so counsellors focus on conversion.</p></div></div><div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>How does ExtraaEdge help convert more students?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>ExtraaEdge prioritises high-intent leads with VidyaPulse scoring, responds to every enquiry in 60 seconds with VidyaAgents calling and WhatsApp automation, and tells counsellors exactly who to follow up with next - reducing response time by up to 90% and lifting conversions by up to 40%.</p></div></div><div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>Does ExtraaEdge offer a free demo?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>Yes. You can book a free personalised 45-minute demo. A product expert will walk you through the platform live with data relevant to your sector.</p></div></div><div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>Is ExtraaEdge suitable for small colleges?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>Yes. ExtraaEdge serves institutions from single-campus colleges to large university groups processing 100,000+ applications per cycle. Pricing and features scale to your needs.</p></div></div><div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>What AI features does ExtraaEdge offer?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>VidyaGPT: 24x7 AI chat on your website and WhatsApp. VidyaPulse: lead intent scoring (HOT / WARM / COLD). VidyaAgents: AI calling, smart follow-ups and counsellor performance intelligence. All part of the Vidya AI suite, engineered for the admission workflow.</p></div></div><div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>Will ExtraaEdge work with my existing ads and website?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>Yes. ExtraaEdge captures leads automatically from Meta &amp; Google Ads, your website and landing pages, education portals (Shiksha, Collegedunia), WhatsApp, IVR and more - so every enquiry lands in one place with full source tracking. It also connects to your ERP/SIS, payment gateway and telephony.</p></div></div><div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>How long does it take to go live?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>Starting fresh: 7 days to go live. Switching from an existing system: 14 days, including full data migration, integrations (ads, website, WhatsApp, telephony), workflow set-up and counsellor training, with a dedicated onboarding specialist and Customer Success Manager.</p></div></div><div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>Does VidyaGPT support regional languages?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>Yes. VidyaGPT understands and responds in 95+ languages including Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, Gujarati and more - over chat and on AI voice calls - so you can engage every student in their preferred language.</p></div></div><div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>Is my data secure with ExtraaEdge?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>Yes. ExtraaEdge is ISO 27001 certified and GDPR compliant, with India-based data residency, role-based access controls, encryption and full audit trails - enterprise-grade protection for your institution and applicants.</p></div></div><div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>How does pricing work?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>ExtraaEdge uses simple, transparent product-based pricing - not module-based pricing that adds cost every time you scale. Your demo includes a tailored quote based on your enquiry volume and the modules you need, with no hidden third-party charges.</p></div></div><div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>Can I migrate from my existing CRM or spreadsheets?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>Yes. Our team handles full data migration from your existing CRM or spreadsheets - leads, history, sources and stages - as part of onboarding, so you go live without losing any data.</p></div></div><div class="faq-row"><button type="button" class="faq-q" aria-expanded="false"><span>Will my counsellors actually adopt it?</span><span class="faq-ic">+</span></button><div class="faq-a"><p>Yes. ExtraaEdge is a single-window CRM designed around the admissions team, so it's quick to learn even for non-technical counsellors. Every account gets hands-on training, on-ground support and a dedicated Customer Success Manager to drive adoption.</p></div></div>
+  </div>
+</section>
+
+
+<section class="section" id="ee-products" aria-label="Our products">
+  <div class="section-intro rv">
+    <p class="eyebrow">The admissions platform</p>
+    <h2>Our Products. <em>The all-in-one admissions platform.</em></h2>
+    <p>Browse by stage of the admission funnel &mdash; or see everything at once.</p>
+  </div>
+  <div class="rv">
+    <div class="tab-bar" role="tablist" aria-label="Product categories" id="prodTabs"><button type="button" class="tab-btn on" data-g="capture">Capture &amp; Nurture <i>5</i></button><button type="button" class="tab-btn" data-g="engage">Engage &amp; Communicate <i>5</i></button><button type="button" class="tab-btn" data-g="convert">Convert &amp; Enroll <i>3</i></button><button type="button" class="tab-btn" data-g="automate">Automate <i>4</i></button><button type="button" class="tab-btn" data-g="measure">Measure <i>5</i></button><button type="button" class="tab-btn" data-g="vidya">Vidya AI <i>4</i></button><button type="button" class="tab-btn" data-g="essentials">Essentials <i>2</i></button><button type="button" class="tab-btn" data-g="all">All</button></div><div class="tl-list" id="prodList"><a class="tl-row" data-g="capture" href="/products/education-crm/"><span class="tl-t"><b>Education CRM</b><small>Capture &amp; Nurture</small></span><span class="tl-d">Every enquiry captured into one clean pipeline.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="capture" href="/products/marketing-automation/"><span class="tl-t"><b>Marketing Automation</b><small>Capture &amp; Nurture</small></span><span class="tl-d">Campaigns measured to enrolment, not clicks.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="capture" href="/solutions/lead-management/"><span class="tl-t"><b>Lead Management</b><small>Capture &amp; Nurture</small></span><span class="tl-d">One student, one timeline - nothing forgotten.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="capture" href="/solutions/lead-scoring/"><span class="tl-t"><b>Lead Scoring</b><small>Capture &amp; Nurture</small></span><span class="tl-d">Call the right student first, every time.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="capture" href="/products/journey-builder/"><span class="tl-t"><b>Journey Builder</b><small>Capture &amp; Nurture</small></span><span class="tl-d">Design the whole student journey visually.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="engage" href="/products/whatsapp-business-api/" hidden><span class="tl-t"><b>WhatsApp Business API</b><small>Engage &amp; Communicate</small></span><span class="tl-d">Official API with 98% open rates.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="engage" href="/products/cloud-telephony/" hidden><span class="tl-t"><b>Cloud Telephony &amp; IVR</b><small>Engage &amp; Communicate</small></span><span class="tl-d">Every call recorded on the lead.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="engage" href="/products/email-marketing/" hidden><span class="tl-t"><b>Email &amp; SMS Campaigns</b><small>Engage &amp; Communicate</small></span><span class="tl-d">Sends that fire exactly on stage moves.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="engage" href="/products/education-chatbot/" hidden><span class="tl-t"><b>Education Chatbot</b><small>Engage &amp; Communicate</small></span><span class="tl-d">24×7 AI answers in 95+ languages.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="engage" href="/products/mobile-crm/" hidden><span class="tl-t"><b>Mobile CRM</b><small>Engage &amp; Communicate</small></span><span class="tl-d">The whole funnel in your pocket.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="convert" href="/products/application-management-system/" hidden><span class="tl-t"><b>Application Management (AMS)</b><small>Convert &amp; Enroll</small></span><span class="tl-d">Forms, documents &amp; review on one rail.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="convert" href="/products/payment-enrollment/" hidden><span class="tl-t"><b>Payment &amp; Enrollment</b><small>Convert &amp; Enroll</small></span><span class="tl-d">Offer letter to fee paid, frictionless.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="convert" href="/solutions/walk-in-management/" hidden><span class="tl-t"><b>Walk-in Management</b><small>Convert &amp; Enroll</small></span><span class="tl-d">No campus visit ever goes unrecorded.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="automate" href="/products/workflow-automation/" hidden><span class="tl-t"><b>Workflow Automation</b><small>Automate</small></span><span class="tl-d">No-code rules that run admissions.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="automate" href="/products/lead-assignment/" hidden><span class="tl-t"><b>Lead Assignment &amp; Routing</b><small>Automate</small></span><span class="tl-d">The right counsellor, instantly.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="automate" href="/products/task-automation/" hidden><span class="tl-t"><b>Task Automation</b><small>Automate</small></span><span class="tl-d">Worklists that build themselves.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="automate" href="/products/follow-up-automation/" hidden><span class="tl-t"><b>Follow-up Automation</b><small>Automate</small></span><span class="tl-d">No follow-up ever slips again.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="measure" href="/analytics/executive-dashboard/" hidden><span class="tl-t"><b>Executive Dashboard</b><small>Measure</small></span><span class="tl-d">Your whole season on one screen.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="measure" href="/analytics/admission-analytics/" hidden><span class="tl-t"><b>Admission Analytics</b><small>Measure</small></span><span class="tl-d">Every funnel stage, measured live.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="measure" href="/analytics/marketing-analytics/" hidden><span class="tl-t"><b>Marketing Analytics</b><small>Measure</small></span><span class="tl-d">Every rupee tracked to enrolment.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="measure" href="/analytics/funnel-analytics/" hidden><span class="tl-t"><b>Funnel Analytics</b><small>Measure</small></span><span class="tl-d">Find the leak costing you admissions.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="measure" href="/analytics/custom-reports/" hidden><span class="tl-t"><b>Custom Reports</b><small>Measure</small></span><span class="tl-d">Any question, answered in a report.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="vidya" href="https://getvidya.ai/vidya-ai" target="_blank" rel="noopener" hidden><span class="tl-t"><b>Why Vidya AI</b><small>Vidya AI</small></span><span class="tl-d">Meet the agentic AI admission suite.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="vidya" href="https://getvidya.ai/vidya-gpt" target="_blank" rel="noopener" hidden><span class="tl-t"><b>VidyaGPT</b><small>Vidya AI</small></span><span class="tl-d">Your 24×7 AI chat counsellor.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="vidya" href="https://getvidya.ai/vidya-ai-voice-agent" target="_blank" rel="noopener" hidden><span class="tl-t"><b>VidyaAI Voice Agent</b><small>Vidya AI</small></span><span class="tl-d">Calls every new lead in 60 seconds.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="vidya" href="https://getvidya.ai/vidya-pulse" target="_blank" rel="noopener" hidden><span class="tl-t"><b>VidyaPulse</b><small>Vidya AI</small></span><span class="tl-d">Live buying-intent scores on every lead.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="essentials" href="/integrations/" hidden><span class="tl-t"><b>Integrations</b><small>Essentials</small></span><span class="tl-d">50+ tools flowing into one CRM.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="essentials" href="/security/" hidden><span class="tl-t"><b>Security &amp; Compliance</b><small>Essentials</small></span><span class="tl-d">ISO 27001, GDPR-ready, audit-logged.</span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a></div>
+  </div>
+  <div class="tab-foot"><a href="/products/">Explore All Features &rarr;</a></div>
+</section>
+
+
+<section class="section" id="ee-solutions" aria-label="Solutions" style="background:var(--cream)">
+  <div class="section-intro rv">
+    <h2>Solutions for every <em>admissions motion.</em></h2>
+  </div>
+  <div class="rv">
+    <div class="tab-bar" role="tablist" aria-label="Solution categories" id="solTabs"><button type="button" class="tab-btn on" data-g="usecase">By Use Case <i>7</i></button><button type="button" class="tab-btn" data-g="team">By Team <i>6</i></button><button type="button" class="tab-btn" data-g="outcome">By Outcome <i>6</i></button></div><div class="tl-list" id="solList"><a class="tl-row" data-g="usecase" href="/use-case/admission-management/"><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Admission Management</b><small>Track every applicant in one live pipeline</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="usecase" href="/use-case/enrollment-management/"><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Enrollment Management</b><small>Move offers to enrolled &amp; fee-paid, faster</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="usecase" href="/use-case/student-recruitment/"><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Student Recruitment</b><small>Source verified enquiries from every channel</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="usecase" href="/use-case/lead-nurturing/"><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Lead Nurturing</b><small>Automated drips across WhatsApp, email &amp; SMS</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="usecase" href="/use-case/student-engagement/"><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Student Engagement</b><small>Keep every admit warm to day one</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="usecase" href="/use-case/event-management/"><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Event Management</b><small>Webinars &amp; fairs that fill themselves</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="usecase" href="/use-case/application-processing/"><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Application Processing</b><small>Forms, docs &amp; fees on one rail</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="team" href="/solutions/admissions/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Admission Teams</b><small>The team’s whole day on one queue</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="team" href="/solutions/counselors/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Counselors</b><small>A calmer, sharper daily list</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="team" href="/solutions/marketing/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Marketing Teams</b><small>Campaigns measured to enrolment</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="team" href="/solutions/sales/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Sales Teams</b><small>Close more with less chasing</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="team" href="/solutions/call-center/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Call Centre</b><small>AI-first calling that never sleeps</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="team" href="/solutions/management/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Leadership</b><small>Live numbers across campuses</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="outcome" href="/solutions/increase-admissions/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Increase Admissions</b><small>More seats, same team &amp; budget</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="outcome" href="/solutions/improve-conversion/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Improve Conversion Rate</b><small>+up to 40% across 500+ institutions</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="outcome" href="/solutions/faster-follow-ups/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Faster Follow-ups</b><small>Hours of delay down to 60 seconds</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="outcome" href="/solutions/reduce-manual-work/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Reduce Manual Work</b><small>Hours back every single week</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="outcome" href="/solutions/increase-roi/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Increase Marketing ROI</b><small>More enrolments per rupee spent</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="tl-row" data-g="outcome" href="/solutions/better-student-experience/" hidden><span class="tl-chk" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="tl-t"><b>Better Student Experience</b><small>Admissions students actually enjoy</small></span><span class="tl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a></div>
+  </div>
+  <div class="tab-foot">Not sure which solution fits? <a href="#admission-form">Book a 45-minute demo</a> &mdash; we&rsquo;ll map the right workflow on your own funnel.</div>
+</section>
+
+
+<section class="section res-sec" id="ee-resources" aria-label="Resources">
+  <div class="section-intro rv">
+    <h2>Everything you need <em>to win admissions.</em></h2>
+  </div>
+  <div class="res-grid rv">
+    <a class="res-card" href="/blog/"><small>RESOURCE</small><h3>Blog</h3><p>Admission playbooks, trends and product thinking - fresh every week.</p><span class="res-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="res-card" href="/videos/"><small>RESOURCE</small><h3>Videos</h3><p>Product walkthroughs and how-tos, two minutes at a time.</p><span class="res-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="res-card" href="/webinars/"><small>RESOURCE</small><h3>Webinars</h3><p>Live sessions with admission leaders and our experts.</p><span class="res-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="res-card" href="/ebooks/"><small>RESOURCE</small><h3>eBooks</h3><p>Deep-dive guides you can hand your whole team.</p><span class="res-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="res-card" href="/help/"><small>RESOURCE</small><h3>Help Centre</h3><p>Step-by-step help for every module of the platform.</p><span class="res-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="res-card" href="/documentation/"><small>RESOURCE</small><h3>Documentation</h3><p>Admin, counsellor and automation handbooks.</p><span class="res-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="res-card" href="/api-documentation/"><small>RESOURCE</small><h3>API Documentation</h3><p>REST APIs and webhooks for your engineering team.</p><span class="res-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="res-card" href="/faqs/"><small>RESOURCE</small><h3>FAQs</h3><p>Straight answers on pricing, setup, security and AI.</p><span class="res-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="res-card" href="/roi-calculator/"><small>RESOURCE</small><h3>ROI Calculator</h3><p>See what ExtraaEdge is worth on your own numbers.</p><span class="res-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="res-card" href="/crm-comparison/"><small>RESOURCE</small><h3>CRM Comparison</h3><p>ExtraaEdge vs generic CRMs, honestly compared.</p><span class="res-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a><a class="res-card" href="/release-notes/"><small>RESOURCE</small><h3>Release Notes</h3><p>What shipped and improved, month by month.</p><span class="res-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
+  </div>
+</section>
+
+
+<?php
+$ee_blog_posts = function_exists('get_posts')
+  ? get_posts(array('numberposts' => 3, 'post_status' => 'publish', 'suppress_filters' => false))
+  : array();
+if ($ee_blog_posts) : ?>
+<section class="section blog-sec" id="ee-blog" aria-label="Latest from the blog">
+  <div class="section-intro rv">
+    <h2>Latest from the blog<span style="display:block"><em>Admission playbooks that fill more seats.</em></span></h2>
+  </div>
+  <div class="blog-grid rv">
+    <?php foreach ($ee_blog_posts as $ee_bp) :
+      $ee_bp_url   = get_permalink($ee_bp);
+      $ee_bp_img   = function_exists('get_the_post_thumbnail_url') ? get_the_post_thumbnail_url($ee_bp, 'medium_large') : '';
+      $ee_bp_cats  = function_exists('get_the_category') ? get_the_category($ee_bp->ID) : array();
+      $ee_bp_cat   = ($ee_bp_cats && strtolower($ee_bp_cats[0]->name) !== 'uncategorized') ? $ee_bp_cats[0]->name : 'Admissions';
+      $ee_bp_title = get_the_title($ee_bp);
+      $ee_bp_exc   = wp_trim_words(get_the_excerpt($ee_bp), 18, '…');
+    ?>
+    <a class="blog-card" href="<?php echo esc_url($ee_bp_url); ?>">
+      <span class="blog-img">
+        <?php if ($ee_bp_img) : ?>
+        <img src="<?php echo esc_url($ee_bp_img); ?>" alt="<?php echo esc_attr($ee_bp_title); ?>" loading="lazy" decoding="async">
+        <?php else : ?>
+        <span class="blog-ph" aria-hidden="true"><?php echo esc_html(mb_strtoupper(mb_substr(wp_strip_all_tags($ee_bp_title), 0, 1))); ?></span>
+        <?php endif; ?>
+      </span>
+      <span class="blog-body">
+        <span class="blog-meta"><span class="cat"><?php echo esc_html($ee_bp_cat); ?></span><span><?php echo esc_html(get_the_date('', $ee_bp)); ?></span></span>
+        <h3><?php echo esc_html($ee_bp_title); ?></h3>
+        <p><?php echo esc_html($ee_bp_exc); ?></p>
+        <span class="rd">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </span>
+    </a>
+    <?php endforeach; ?>
+  </div>
+</section>
+<?php endif; ?>
+
 
 <footer>
   <div class="footer-top">
@@ -828,16 +667,37 @@ h2{font-size:38px}
     <p>The Admission Growth Platform<br>built for education.</p>
   </div>
   <div class="footer-links">
-    <div><strong>Platform</strong><a href="#platform">Admission CRM</a><a href="#platform">Application platform</a><a href="#ai">VidyaAI</a><a href="#platform">Analytics</a></div>
-    <div><strong>Solutions</strong><a href="#difference">Higher education</a><a href="#difference">Schools</a><a href="#difference">Online programmes</a><a href="#difference">Study abroad</a></div>
-    <div><strong>Company</strong><a href="#resources">About</a><a href="#resources">Customers</a><a href="#resources">Resources</a><a href="#demo">Contact</a></div>
-    <div><strong>Compare</strong><a href="#difference">ExtraaEdge vs Meritto</a><a href="#difference">ExtraaEdge vs LeadSquared</a><a href="#difference">Why switch</a></div>
+    <div><strong>Platform</strong><a href="#ee-platform">Admission CRM</a><a href="#ee-products">Products</a><a href="#ee-vidya-suite">VidyaAI</a><a href="#ee-solutions">Solutions</a></div>
+    <div><strong>Solutions</strong><a href="/industries/higher-education-crm/">Higher education</a><a href="/industries/school-crm/">Schools</a><a href="/industries/edtech-crm/">EdTech</a><a href="/industries/overseas-crm/">Study abroad</a></div>
+    <div><strong>Company</strong><a href="#ee-resources">Resources</a><a href="/videos/customer-stories/">Customers</a><a href="/blog/">Blog</a><a href="#admission-form">Contact</a></div>
+    <div><strong>Compare</strong><a href="/crm-comparison/">CRM Comparison</a><a href="#security">Security</a><a href="#faq">FAQ</a></div>
   </div>
-  <div class="footer-bottom"><span>&copy; 2026 ExtraaEdge. Homepage concept for design review.</span><span>Privacy &middot; Terms &middot; Security</span></div>
+  <div class="footer-bottom"><span>&copy; 2026 ExtraaEdge. India&rsquo;s Intelligent Admissions Growth Platform.</span><span>Privacy &middot; Terms &middot; Security</span></div>
 </footer>
-</main>
 
+
+<div class="eedd-backdrop" id="eeddBack" aria-hidden="true"></div>
+<aside class="ee-demo-drawer" id="admission-form" role="dialog" aria-modal="true" aria-label="Book a demo">
+  <div class="eedd-head">
+    <span><b>Book a Demo</b><small>Personalised to your institution &middot; 45 minutes</small></span>
+    <button type="button" class="eedd-x" id="eeddClose" aria-label="Close">&#10005;</button>
+  </div>
+  <div class="eedd-body">
+    <script async src="https://eeconfigstaticfiles.blob.core.windows.net/staticfiles/growth/ee-form-widget/form-7/widget.js"></script>
+    <div id="ee-form-7"></div>
+    <p class="secure-label">&#128274; Secure Data Transmission Active &middot; ISO 27001 Certified &middot; GDPR Compliant</p>
+  </div>
+</aside>
+
+
+<div id="ee-stickcta" role="complementary" aria-label="Book a demo">
+  <a class="go" href="#admission-form"><span aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M13 2L4.1 12.6h6L9.9 22 19 11.4h-6L13 2z"/></svg></span>Book a Free Demo</a>
+  <button type="button" class="off" aria-label="Hide this bar">&#10005;</button>
+</div>
+
+</main>
 <script>
+
 (function(){
   /* mobile menu */
   var mb=document.querySelector('.menu-button'), nav=document.getElementById('mainNav');
@@ -849,58 +709,158 @@ h2{font-size:38px}
     nav.addEventListener('click',function(e){ if(e.target.closest('a')){ nav.classList.remove('open'); mb.setAttribute('aria-expanded','false'); } });
   }
 
-  /* role tabs: swap the workspace label line */
-  var roleBtns=[].slice.call(document.querySelectorAll('.role-tabs button'));
-  var canvasRole=document.getElementById('canvasRole');
-  roleBtns.forEach(function(b){
-    b.addEventListener('click',function(){
-      roleBtns.forEach(function(x){ x.classList.toggle('active',x===b); x.setAttribute('aria-selected',x===b?'true':'false'); });
-      if(canvasRole) canvasRole.textContent=b.getAttribute('data-for');
+  /* hero rotating headline - reserves the tallest phrase's height so nothing jumps */
+  (function(){
+    var DATA=[
+      {pre:'Convert More Enquiries Into Admissions With ', acc:'India’s Intelligent Admissions Growth Platform'},
+      {pre:'Capture And Convert Student Leads 24/7 With ',  acc:'AI-Powered Education Chatbot'},
+      {pre:'Engage Every Prospect Instantly With ',         acc:'AI-Powered WhatsApp Admissions'},
+      {pre:'Automate Student Recruitment Campaigns With ',  acc:'AI-Powered Marketing Automation'}
+    ];
+    var el=document.getElementById('heroRot'); if(!el) return;
+    function fitRot(){
+      var probe=document.createElement('h1');
+      probe.style.cssText='position:absolute;left:-9999px;top:0;visibility:hidden;width:'+el.clientWidth+'px;min-height:0;height:auto;margin:0';
+      var cs=getComputedStyle(el);
+      ['font-size','line-height','letter-spacing','font-weight','font-family'].forEach(function(k,i){
+        probe.style.setProperty(k,[cs.fontSize,cs.lineHeight,cs.letterSpacing,cs.fontWeight,cs.fontFamily][i]);
+      });
+      el.parentNode.appendChild(probe);
+      var h=0;
+      DATA.forEach(function(d){ probe.textContent=d.pre+d.acc; if(probe.offsetHeight>h) h=probe.offsetHeight; });
+      probe.parentNode.removeChild(probe);
+      if(h) el.style.minHeight=h+'px';
+    }
+    fitRot();
+    window.addEventListener('resize',function(){ clearTimeout(fitRot.__t); fitRot.__t=setTimeout(fitRot,150); });
+    try{ if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitRot); }catch(_){}
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if(reduce||DATA.length<2) return;
+    var i=0;
+    setInterval(function(){
+      i=(i+1)%DATA.length;
+      el.style.opacity=0;
+      setTimeout(function(){
+        el.innerHTML=DATA[i].pre+'<em>'+DATA[i].acc+'</em>';
+        el.style.opacity=1;
+      },260);
+    },4200);
+    el.style.transition='opacity .26s ease';
+  })();
+
+  /* hero stat counters */
+  (function(){
+    var els=[].slice.call(document.querySelectorAll('.stat [data-count]'));
+    if(!els.length) return;
+    var done=false;
+    function run(){
+      if(done) return; done=true;
+      els.forEach(function(el){
+        var target=parseInt(el.getAttribute('data-count'),10)||0, cur=0;
+        var step=Math.max(1,Math.round(target/40));
+        var t=setInterval(function(){
+          cur+=step;
+          if(cur>=target){ cur=target; clearInterval(t); }
+          el.textContent=cur;
+        },28);
+      });
+    }
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting) run(); }); },{threshold:.4});
+      var host=document.querySelector('.stats'); if(host) io.observe(host);
+    } else run();
+  })();
+
+  /* scroll reveal */
+  var revealTargets=[].slice.call(document.querySelectorAll('.rv'));
+  if('IntersectionObserver' in window && revealTargets.length){
+    var io2=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){ if(entry.isIntersecting){ entry.target.classList.add('in'); io2.unobserve(entry.target); } });
+    },{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+    revealTargets.forEach(function(el){ io2.observe(el); });
+  } else revealTargets.forEach(function(el){ el.classList.add('in'); });
+
+  /* generic tab groups: products + solutions share .tab-bar/.tab-btn + .tl-row[data-g] */
+  [].slice.call(document.querySelectorAll('.tab-bar')).forEach(function(bar){
+    var list=bar.nextElementSibling;
+    if(!list||!list.classList.contains('tl-list')) return;
+    var btns=[].slice.call(bar.querySelectorAll('.tab-btn'));
+    var rows=[].slice.call(list.querySelectorAll('.tl-row'));
+    btns.forEach(function(b){
+      b.addEventListener('click',function(){
+        btns.forEach(function(x){ x.classList.toggle('on',x===b); });
+        var g=b.getAttribute('data-g');
+        rows.forEach(function(r){ r.hidden = !(g==='all' || r.getAttribute('data-g')===g); });
+      });
     });
   });
 
-  /* workspace switcher + left product nav both drive the same canvases */
-  var H3={ Today:'See where every enrolment stands.',
-           Leads:'Every lead, ranked by real intent.',
-           Applications:'Applications moving to completion.',
-           Insights:'Know what is working, live.' };
-  var wsBtns=[].slice.call(document.querySelectorAll('.workspace-switcher button'));
-  var navBtns=[].slice.call(document.querySelectorAll('.product-nav button'));
-  var canvasWs=document.getElementById('canvasWs'), canvasH3=document.getElementById('canvasH3');
-  function showWs(name){
-    ['Today','Leads','Applications','Insights'].forEach(function(w){
-      var el=document.getElementById('ws-'+w);
-      if(el) el.hidden = (w!==name);
-    });
-    wsBtns.forEach(function(x){ var on=x.textContent.trim()===name; x.classList.toggle('active',on); x.setAttribute('aria-selected',on?'true':'false'); });
-    navBtns.forEach(function(x){ x.classList.toggle('nav-active', x.getAttribute('data-ws')===name); });
-    if(canvasWs) canvasWs.textContent=name;
-    if(canvasH3) canvasH3.textContent=H3[name]||H3.Today;
-  }
-  wsBtns.forEach(function(b){ b.addEventListener('click',function(){ showWs(b.textContent.trim()); }); });
-  navBtns.forEach(function(b){ b.addEventListener('click',function(){ showWs(b.getAttribute('data-ws')); }); });
-
-  /* product film: toggle the concept playing state */
-  var frame=document.getElementById('videoFrame');
-  var play=frame&&frame.querySelector('.video-play');
-  if(play){ play.addEventListener('click',function(){ frame.classList.toggle('is-playing'); }); }
-
-  /* subtle scroll-reveal: classes only, no markup/text changes */
-  var revealTargets=[].slice.call(document.querySelectorAll(
-    '.section-intro, .role-header, .video-heading, .ai-heading, .difference-title, .resource-head, ' +
-    '.journey-grid > article, .agent-grid > article, .difference-grid > article, .resource-grid > article, ' +
-    '.proof-stat, .proof-cards > article, .hero-product, .product-shell, .video-frame'
-  ));
-  if('IntersectionObserver' in window && revealTargets.length){
-    revealTargets.forEach(function(el){ el.classList.add('ee-reveal'); });
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){ entry.target.classList.add('ee-in'); io.unobserve(entry.target); }
+  /* FAQ accordion */
+  [].slice.call(document.querySelectorAll('.faq-row')).forEach(function(row){
+    var btn=row.querySelector('.faq-q'), panel=row.querySelector('.faq-a');
+    if(!btn||!panel) return;
+    btn.addEventListener('click',function(){
+      var open=row.getAttribute('data-open')==='1';
+      [].slice.call(document.querySelectorAll('.faq-row[data-open="1"]')).forEach(function(r){
+        if(r!==row){ r.removeAttribute('data-open'); r.querySelector('.faq-q').setAttribute('aria-expanded','false'); r.querySelector('.faq-a').style.maxHeight=null; }
       });
-    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
-    revealTargets.forEach(function(el){ io.observe(el); });
-  }
+      if(open){ row.removeAttribute('data-open'); btn.setAttribute('aria-expanded','false'); panel.style.maxHeight=null; }
+      else{ row.setAttribute('data-open','1'); btn.setAttribute('aria-expanded','true'); panel.style.maxHeight=panel.scrollHeight+'px'; }
+    });
+  });
+
+  /* customer stories rail */
+  (function(){
+    var rail=document.getElementById('storiesRail'); if(!rail) return;
+    var q=document.getElementById('storyQ'), who=document.getElementById('storyWho');
+    [].slice.call(rail.querySelectorAll('.story-thumb')).forEach(function(btn){
+      btn.addEventListener('click',function(){
+        [].slice.call(rail.querySelectorAll('.story-thumb')).forEach(function(b){ b.classList.toggle('is-active',b===btn); });
+        if(q) q.textContent='“'+btn.getAttribute('data-q').replace(/^[“”]|[“”]$/g,'')+'”';
+        if(who) who.innerHTML='<b>'+btn.getAttribute('data-n')+'</b> · '+btn.getAttribute('data-r');
+      });
+    });
+  })();
+
+  /* sticky mobile demo pill */
+  (function(){
+    var pill=document.getElementById('ee-stickcta'); if(!pill) return;
+    var off=pill.querySelector('.off');
+    if(off) off.addEventListener('click',function(){ pill.style.display='none'; });
+  })();
 })();
+
+</script>
+<script>
+
+(function(){
+  var dr=document.getElementById('admission-form'),
+      back=document.getElementById('eeddBack'),
+      x=document.getElementById('eeddClose'),
+      last=null;
+  if(!dr||!back||!x) return;
+  function openD(from){
+    last=from||null;
+    dr.classList.add('open'); back.classList.add('open');
+    document.body.style.overflow='hidden';
+    x.focus();
+  }
+  function closeD(){
+    dr.classList.remove('open'); back.classList.remove('open');
+    document.body.style.overflow='';
+    if(last&&last.focus) last.focus();
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href$="#admission-form"]');
+    if(!a) return;
+    e.preventDefault();
+    openD(a);
+  });
+  back.addEventListener('click',closeD);
+  x.addEventListener('click',closeD);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&dr.classList.contains('open')) closeD(); });
+})();
+
 </script>
 <?php wp_footer(); ?>
 </body>
